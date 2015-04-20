@@ -31,8 +31,8 @@ public class CyActivator extends AbstractCyActivator {
 		CreateNetworkViewTaskFactory createNetworkViewTaskFactory = new CreateNetworkViewTaskFactory(cyNetworkNamingServiceRef, cyNetworkFactoryServiceRef,cyNetworkManagerServiceRef, cyNetworkViewFactoryServiceRef,cyNetworkViewManagerServiceRef);
 				
 		Properties createNetworkViewTaskFactoryProps = new Properties();
-		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Samples");
-		createNetworkViewTaskFactoryProps.setProperty("title","Create Network View");
+		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Cy3SBML");
+		createNetworkViewTaskFactoryProps.setProperty("title","Read SBML");
 		registerService(bc,createNetworkViewTaskFactory,TaskFactory.class, createNetworkViewTaskFactoryProps);
 	}
 }

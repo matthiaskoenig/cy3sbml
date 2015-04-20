@@ -4,7 +4,7 @@ Build-Jdk: 1.7.0_71
 Bundle-Version: 0.1
 Tool: Bnd-1.15.0
 Bundle-Name: Cy3SBML - SBML Reader
-Bnd-LastModified: 1429544187239
+Bnd-LastModified: 1429544580931
 Bundle-Activator: org.cytoscape.sample.internal.CyActivator
 Created-By: Apache Maven Bundle Plugin
 Bundle-ManifestVersion: 2
