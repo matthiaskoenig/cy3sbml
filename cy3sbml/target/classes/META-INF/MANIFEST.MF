@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Built-By: mkoenig
+Build-Jdk: 1.7.0_71
+Bundle-Version: 0.1
+Tool: Bnd-1.15.0
+Bundle-Name: Cy3SBML - SBML Reader
+Bnd-LastModified: 1429544187239
+Bundle-Activator: org.cytoscape.sample.internal.CyActivator
+Created-By: Apache Maven Bundle Plugin
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.cytoscape.sample-create-network-view
+Import-Package: org.cytoscape.model;version="[3.0,4)",org.cytoscape.se
+ rvice.util;version="[3.0,4)",org.cytoscape.session;version="[3.0,4)",
+ org.cytoscape.view.model;version="[3.0,4)",org.cytoscape.work;version
+ ="[3.0,4)",org.osgi.framework;version="[1.5,2)"
+
