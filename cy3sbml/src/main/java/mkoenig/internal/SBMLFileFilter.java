@@ -12,6 +12,7 @@ import java.util.Set;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.DataCategory;
 import org.cytoscape.io.util.StreamUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

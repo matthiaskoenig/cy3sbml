@@ -41,7 +41,15 @@
 			<name>Cytoscape Releases</name>
 			<url>http://code.cytoscape.org/nexus/content/repositories/releases/</url>
 		</repository>
-	</repositories>
+		<repository>
+    		<id>ebi-repo</id>
+    		<name>The EBI internal repository</name>
+    		<url>http://www.ebi.ac.uk/~maven/m2repo</url>
+    		<releases><enabled>true</enabled></releases>
+    		<snapshots><enabled>false</enabled></snapshots>
+    	</repository>
+
+  	</repositories>
 
 	<build>
 		<plugins>
@@ -74,6 +82,10 @@
 						<Export-Package>!${bundle.namespace}.*</Export-Package>
 						<Private-Package>${bundle.namespace}.*</Private-Package>
 						<Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
+						
+						<Embed-Dependency>*;scope=!provided</Embed-Dependency>
+          				<Embed-Transitive>true</Embed-Transitive>
+          				<Import-Package>*;resolution:=optional</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -85,42 +97,63 @@
 			<groupId>org.cytoscape</groupId>
 			<artifactId>application-api</artifactId>
 			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>io-api</artifactId>
 			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>work-api</artifactId>
 			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>service-api</artifactId>
 			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>session-api</artifactId>
 			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>${osgi.api.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jsbml</groupId>
-			<artifactId>jsbml</artifactId>
-			<version>1.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>
 		</dependency>
+  		<dependency>
+  			<groupId>org.sbml.jsbml</groupId>
+  			<artifactId>core</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.sbml.jsbml.ext</groupId>
+  			<artifactId>spatial</artifactId>
+  			<version>0.8-b1</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.sbml.jsbml.ext</groupId>
+  			<artifactId>layout</artifactId>
+  			<version>LATEST</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.sbml.jsbml.ext</groupId>
+  			<artifactId>qual</artifactId>
+  			<version>LATEST</version>
+  		</dependency>
 	</dependencies>
 
 </project>
