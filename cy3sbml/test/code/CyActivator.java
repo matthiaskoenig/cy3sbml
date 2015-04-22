@@ -28,8 +28,8 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 
-import mkoenig.internal.SBMLFileFilter;
-import mkoenig.internal.SBMLNetworkViewTaskFactory;
+import org.cytoscape.sbml.internal.SBMLFileFilter;
+import org.cytoscape.sbml.internal.SBMLNetworkViewTaskFactory;
 
 import org.cytoscape.io.read.InputStreamTaskFactory;
 
@@ -56,20 +56,11 @@ public class CyActivator extends AbstractCyActivator {
 		SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
 		SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter,cyNetworkFactoryServiceRef,cyNetworkViewFactoryServiceRef);
 		
+		
 		Properties sbmlNetworkViewTaskFactoryProps = new Properties();
-		sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
-		sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
+		sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML file reader");
+		sbmlNetworkViewTaskFactoryProps.setProperty("readerId","sbmlNetworkViewReader");
 		registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
-		
-		/*		
-		CreateNetworkViewTaskFactory createNetworkViewTaskFactory = new CreateNetworkViewTaskFactory(cyNetworkNamingServiceRef, cyNetworkFactoryServiceRef,cyNetworkManagerServiceRef, cyNetworkViewFactoryServiceRef,cyNetworkViewManagerServiceRef);
-				
-		Properties createNetworkViewTaskFactoryProps = new Properties();
-		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Cy3SBML");
-		createNetworkViewTaskFactoryProps.setProperty("title","Read SBML");
-		registerService(bc,createNetworkViewTaskFactory,TaskFactory.class, createNetworkViewTaskFactoryProps);
-		*/
-		
 	}
 }
 
