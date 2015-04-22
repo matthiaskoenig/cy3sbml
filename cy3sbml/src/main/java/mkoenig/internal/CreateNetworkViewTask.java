@@ -1,4 +1,4 @@
-package org.cytoscape.sample.internal;
+package mkoenig.internal;
 
 import java.util.Collection;
 

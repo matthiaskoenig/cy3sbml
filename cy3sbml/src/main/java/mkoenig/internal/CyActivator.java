@@ -1,4 +1,4 @@
-package org.cytoscape.sbml.internal;
+package mkoenig.internal;
 
 /*
  * #%L
@@ -25,21 +25,15 @@ package org.cytoscape.sbml.internal;
  */
 
 import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.view.model.CyNetworkViewFactory;
-
-import mkoenig.internal.SBMLFileFilter;
-import mkoenig.internal.SBMLNetworkViewTaskFactory;
-
+import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
-
-
 import org.osgi.framework.BundleContext;
-
 import org.cytoscape.service.util.AbstractCyActivator;
 
 import java.util.Properties;
-
+import mkoenig.internal.SBMLFileFilter;
+import mkoenig.internal.SBMLNetworkViewTaskFactory;
 
 
 public class CyActivator extends AbstractCyActivator {

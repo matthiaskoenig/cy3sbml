@@ -1,4 +1,4 @@
-package org.cytoscape.sample.internal;
+package mkoenig.internal;
 
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
@@ -24,7 +24,6 @@ public class CreateNetworkViewTaskFactory extends AbstractTaskFactory {
 		this.networkViewManager = networkViewManager;
 		this.networkManager = networkManager;
 		this.cyNetworkNaming = cyNetworkNaming;
-
 	}
 	
 	public TaskIterator createTaskIterator(){

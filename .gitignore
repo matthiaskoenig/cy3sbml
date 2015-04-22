@@ -1,3 +1,6 @@
 .classpath
 .project
 .settings
+*~
+cy3sbml/target/classes/
+cy3sbml/target/maven-status/
