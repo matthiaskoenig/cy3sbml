@@ -79,6 +79,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Reader.run()");
 		System.out.println("********************************");
+		String version = JSBML.getJSBMLVersionString();
+		System.out.println("JSBML version: " + version);
 		
 		String xml = readString(stream);
 		SBMLDocument document = JSBML.readSBMLFromString(xml);
@@ -170,7 +172,6 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Reader.run()");
 		System.out.println("********************************");
-		String version = JSBML.getJSBMLVersionString();
 		System.out.println("JSBML version: " + version);
 	}
 	

@@ -48,7 +48,6 @@
     		<releases><enabled>true</enabled></releases>
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
-
   	</repositories>
 
 	<build>
@@ -138,21 +137,6 @@
   			<groupId>org.sbml.jsbml</groupId>
   			<artifactId>core</artifactId>
   			<version>1.0</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.sbml.jsbml.ext</groupId>
-  			<artifactId>spatial</artifactId>
-  			<version>0.8-b1</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.sbml.jsbml.ext</groupId>
-  			<artifactId>layout</artifactId>
-  			<version>LATEST</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.sbml.jsbml.ext</groupId>
-  			<artifactId>qual</artifactId>
-  			<version>LATEST</version>
   		</dependency>
 	</dependencies>
 
