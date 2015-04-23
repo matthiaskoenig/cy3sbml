@@ -89,7 +89,6 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		//view = viewFactory.getNetworkView(network);
 		Model model = document.getModel();
 		
-		if (false){
 		// Create a node for each Species
 		Map<String, CyNode> speciesById = new HashMap<String, CyNode>();
 		for (Species species : model.getListOfSpecies()) {
@@ -168,7 +167,6 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 				}
 			}
 		}
-		}// false
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Reader.run()");
 		System.out.println("********************************");
