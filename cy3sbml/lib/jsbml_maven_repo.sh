@@ -17,5 +17,7 @@ mvn install:install-file -DgroupId=cysbml-temp -DartifactId=jigsaw-dateParser -D
 #  	<version>1.0</version>
 #  </dependency>
 
-cp 
+
 mvn install:install-file -DgroupId=cysbml-temp -DartifactId=core -Dversion=1.0 -Dfile=core.jar -Dpackaging=jar -DgeneratePom=true
+
+mvn install:install-file -DgroupId=cysbml-temp -DartifactId=jsbml-with-dependencies -Dversion=1.0 -Dfile=jsbml-with-dependencies-1.0.jar -Dpackaging=jar -DgeneratePom=true
