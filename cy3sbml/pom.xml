@@ -143,12 +143,18 @@
 			<version>1.7.12</version>
 		</dependency>
 		
+		<dependency>
+  			<groupId>cysbml-temp</groupId>
+  			<artifactId>jsbml-with-dependencies</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+		
+		<!--
   		<dependency>
   			<groupId>cysbml-temp</groupId>
   			<artifactId>core</artifactId>
   			<version>1.0</version>
   		</dependency>
-  		
   		<dependency>
   			<groupId>org.biojava</groupId>
   			<artifactId>biojava3-ontology</artifactId>
@@ -194,6 +200,8 @@
     		<artifactId>spi-full</artifactId>
     		<version>0.2.4</version>
     	</dependency>
+    	-->
+    	
 	</dependencies>
 
 </project>
