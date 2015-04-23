@@ -99,6 +99,7 @@
 	</build>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>application-api</artifactId>
@@ -129,6 +130,7 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -141,6 +143,7 @@
 			<version>1.7.12</version>
 			<scope>compile</scope>
 		</dependency>
+		
   		<dependency>
   			<groupId>org.sbml.jsbml</groupId>
   			<artifactId>core</artifactId>

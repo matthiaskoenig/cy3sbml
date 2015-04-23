@@ -1,36 +1,17 @@
 package mkoenig.internal;
 
-/*
- * #%L
- * Cytoscape SBML Impl (sbml-impl)
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2006 - 2013 The Cytoscape Consortium
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/lgpl-2.1.html>.
- * #L%
- */
-
 import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
-import org.osgi.framework.BundleContext;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.work.TaskFactory;
+import org.cytoscape.session.CyNetworkNaming;
 
+import org.osgi.framework.BundleContext;
 import java.util.Properties;
 import mkoenig.internal.SBMLFileFilter;
 import mkoenig.internal.SBMLNetworkViewTaskFactory;
@@ -43,6 +24,7 @@ public class CyActivator extends AbstractCyActivator {
 
 	public void start(BundleContext bc) {
 
+		// register the file reader
 		CyNetworkFactory cyNetworkFactoryServiceRef = getService(bc,CyNetworkFactory.class);
 		CyNetworkViewFactory cyNetworkViewFactoryServiceRef = getService(bc,CyNetworkViewFactory.class);
 		StreamUtil streamUtilRef = getService(bc,StreamUtil.class);
@@ -55,15 +37,18 @@ public class CyActivator extends AbstractCyActivator {
 		sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
 		registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
 		
-		/*		
+		
+		// make the menu item
+		CyNetworkNaming cyNetworkNamingServiceRef = getService(bc,CyNetworkNaming.class);
+		CyNetworkManager cyNetworkManagerServiceRef = getService(bc,CyNetworkManager.class);
+		CyNetworkViewManager cyNetworkViewManagerServiceRef = getService(bc,CyNetworkViewManager.class);
+		
 		CreateNetworkViewTaskFactory createNetworkViewTaskFactory = new CreateNetworkViewTaskFactory(cyNetworkNamingServiceRef, cyNetworkFactoryServiceRef,cyNetworkManagerServiceRef, cyNetworkViewFactoryServiceRef,cyNetworkViewManagerServiceRef);
 				
 		Properties createNetworkViewTaskFactoryProps = new Properties();
-		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Cy3SBML");
-		createNetworkViewTaskFactoryProps.setProperty("title","Read SBML");
+		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Samples");
+		createNetworkViewTaskFactoryProps.setProperty("title","Test CySBML3 new");
 		registerService(bc,createNetworkViewTaskFactory,TaskFactory.class, createNetworkViewTaskFactoryProps);
-		*/
-		
 	}
 }
 

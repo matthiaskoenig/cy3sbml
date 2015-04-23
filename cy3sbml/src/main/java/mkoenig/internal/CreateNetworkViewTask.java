@@ -1,6 +1,9 @@
 package mkoenig.internal;
 
+import java.io.IOException;
 import java.util.Collection;
+
+import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
@@ -12,6 +15,10 @@ import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBMLDocument;
+
 
 public class CreateNetworkViewTask extends AbstractTask {
 
@@ -30,7 +37,7 @@ public class CreateNetworkViewTask extends AbstractTask {
 		this.cyNetworkNaming = cyNetworkNaming;
 	}
 
-	public void run(TaskMonitor monitor) {
+	public void run(TaskMonitor monitor) throws IOException, XMLStreamException {
 
 		// Create an empty network
 		CyNetwork myNet = this.cnf.createNetwork();
@@ -67,6 +74,20 @@ public class CreateNetworkViewTask extends AbstractTask {
 		if (destroyView) {
 			networkViewManager.destroyNetworkView(myView);
 		}
+		
+		// testing the reading 
+		String fileName = "/home/mkoenig/workspace/java/Cy3Apps/cy3sbml/cy3sbml/src/test/models/Koenig2014_Hepatic_Glucose_Model_annotated.xml";
+		
+		SBMLDocument document = JSBML.readSBMLFromFile(fileName);
+		// SBMLDocument document = JSBML.readSBMLFromString(xml);
+		
+		//view = viewFactory.getNetworkView(network);
+		Model model = document.getModel();
+		System.out.println(model.getId());
+		
+		String version = JSBML.getJSBMLVersionString();
+		System.out.println("JSBML version: " + version);
+
 	}
 
 }
