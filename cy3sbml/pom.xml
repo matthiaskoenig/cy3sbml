@@ -189,11 +189,9 @@
     	</dependency>
     	<dependency>
     		<groupId>cysbml-temp</groupId>
-    		<artifactId>spi-full-</artifactId>
-    		<version>1.3.1</version>
+    		<artifactId>spi-full</artifactId>
+    		<version>0.2.4</version>
     	</dependency>
-    	
-    	
 	</dependencies>
 
 </project>
