@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="Koenig2014_Hepatic_Glucose_Model_annotated" areaUnits="area" name="Koenig2014_Hepatic_Glucose_Model" timeUnits="second" lengthUnits="length" extentUnits="extent" substanceUnits="substance" volumeUnits="volume">
+
+    <listOfCompartments>
+      <compartment id="cyto" constant="true" spatialDimensions="3" units="litre"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="atp" initialConcentration="2.8" constant="false" hasOnlySubstanceUnits="false" metaid="ed05a74a-110d-449a-ae38-5acbdb16a434" boundaryCondition="true" substanceUnits="substance" compartment="cyto">
+            </species>
+    </listOfSpecies>
+  
+  </model>
+</sbml>

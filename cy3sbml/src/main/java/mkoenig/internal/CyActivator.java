@@ -4,15 +4,15 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
-
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.session.CyNetworkNaming;
-
 import org.osgi.framework.BundleContext;
+
 import java.util.Properties;
+
 import mkoenig.internal.SBMLFileFilter;
 import mkoenig.internal.SBMLNetworkViewTaskFactory;
 
@@ -22,8 +22,14 @@ public class CyActivator extends AbstractCyActivator {
 		super();
 	}
 
+	public void printInfo(){
+		System.out.println("********************************");
+		System.out.println("Cy3SBML - Reader.run()");
+		System.out.println("********************************");	
+	}
+	
 	public void start(BundleContext bc) {
-
+		printInfo();
 		// register the file reader
 		CyNetworkFactory cyNetworkFactoryServiceRef = getService(bc,CyNetworkFactory.class);
 		CyNetworkViewFactory cyNetworkViewFactoryServiceRef = getService(bc,CyNetworkViewFactory.class);

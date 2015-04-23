@@ -1,0 +1,15 @@
+org.sbml.jsbml.xml.parsers.SBMLCoreParser
+org.sbml.jsbml.xml.parsers.XMLNodeReader
+org.sbml.jsbml.xml.parsers.MathMLStaxParser
+org.sbml.jsbml.xml.parsers.ArraysParser
+org.sbml.jsbml.xml.parsers.CompParser
+org.sbml.jsbml.xml.parsers.DynParser
+org.sbml.jsbml.xml.parsers.FBCParser
+org.sbml.jsbml.xml.parsers.GroupsParser
+org.sbml.jsbml.xml.parsers.L3LayoutParser
+org.sbml.jsbml.xml.parsers.LayoutParser
+org.sbml.jsbml.xml.parsers.MultiParser
+org.sbml.jsbml.xml.parsers.QualParser
+org.sbml.jsbml.xml.parsers.RenderParser
+org.sbml.jsbml.xml.parsers.ReqParser
+org.sbml.jsbml.xml.parsers.SpatialParser
