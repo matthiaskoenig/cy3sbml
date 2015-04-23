@@ -31,3 +31,11 @@ https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
   and annotation information
 * succesfully tested with all SBML.org and Biomodels.org test
   cases (sbml-test-cases-2.0.2, BioModels_Database-r21-sbml_files)
+
+**Installation**
+
+Download via the Cytoscape App store.
+
+**Uninstall**
+
+Via the app store.
