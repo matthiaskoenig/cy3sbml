@@ -15,7 +15,11 @@ alpha, untested
 
 https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
 
-**Features**
+**Current features**
+
+Proof of principle Cytoscape 3 App loading SBML files. 
+
+**Features to come**
 
 * Java based SBML parser for Cytoscape based on JSBML 
   ( http://sourceforge.net/projects/jsbml/ )
