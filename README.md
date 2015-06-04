@@ -1,6 +1,6 @@
-# cy3sbml - CySBML for Cytoscape 3
+# cy3sbml - SBML for Cytoscape 3
 
-CySBML is a Cytoscape plugin for the import and work with SBML files in Cytoscape providing the 
+cy3sbml is a Cytoscape plugin for the import and work with SBML files in Cytoscape providing the 
 visualisation of SBML network annotations within the network context. 
 
 SBML models can be imported from BioModels.net or via file or urls. One click access to the annotation
@@ -33,8 +33,11 @@ https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
   cases (sbml-test-cases-2.0.2, BioModels_Database-r21-sbml_files)
 
 **Installation**
+Download and install
 
-Download via the Cytoscape App store.
+https://github.com/matthiaskoenig/cy3sbml/tree/develop
+
+
 
 **Uninstall**
 
