@@ -5,7 +5,7 @@ visualization of SBML network annotations within the network context.
 SBML models can be imported from BioModels.net or via file or urls. One click access to the annotation
 resources is provided. SBML validation information about the imported files is available.
 
-We are currently in the process to of porting all features from the Cytoscape 2 plugin to Cytoscape 3.
+We are currently in the process of porting all features from the Cytoscape 2 plugin to Cytoscape 3.
 
 **Status** : alpha  
 **Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
@@ -31,7 +31,7 @@ We are currently in the process to of porting all features from the Cytoscape 2 
 The latest **development version** is available in `https://github.com/matthiaskoenig/cy3sbml/tree/develop/cy3sbml/target` ([cy3sbml-0.1.1.jar](https://github.com/matthiaskoenig/cy3sbml/blob/develop/cy3sbml/target/cy3sbml-0.1.1.jar?raw=true)).
 * To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Install cy3sbml via the `Install from File` button on the bottom-left using the downloaded cy3sbml jar.
 
-After installation cy3sbml will be listed in the ´Currently Installed´ apps tab.
+After installation cy3sbml will be listed in the `Currently Installed` apps tab.
 
 ## Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
