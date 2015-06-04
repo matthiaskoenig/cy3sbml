@@ -8,15 +8,13 @@ resources is provided. SBML validation information about the imported files is a
 
 This repository provides the App for Cytoscape 3.
 
-**Status**
-alpha, untested
+## Status
+alpha
 
-**Support**
-
+## Support
 https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
 
-**Features**
-
+## Features to come
 * Java based SBML parser for Cytoscape based on JSBML 
   ( http://sourceforge.net/projects/jsbml/ )
 * access to models and annotations via BioModel 
@@ -32,13 +30,12 @@ https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
 * succesfully tested with all SBML.org and Biomodels.org test
   cases (sbml-test-cases-2.0.2, BioModels_Database-r21-sbml_files)
 
-**Installation**
-Download and install
+## Installation
+* Download and install the latest version of Cytoscape 3 from http://www.cytoscape.org/.  
+* Download the latest stable version of the cy3sbml jar from `https://github.com/matthiaskoenig/cy3sbml/tree/master/cy3sbml/target`. For the latest development version use `https://github.com/matthiaskoenig/cy3sbml/tree/develop/cy3sbml/target`.
+* To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager`. At the top of the App Manager window, 
+make sure you have the Install tab selected. You can than install the downloaded app to your computer, you can install it by clicking the `Install from File` button on the bottom-left. Select the jar file and  
+* cy3sbml will now be listed in the ´Currently Installed´ apps tab.
 
-https://github.com/matthiaskoenig/cy3sbml/tree/develop
-
-
-
-**Uninstall**
-
-Via the app store.
+## Uninstall
+* To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
