@@ -8,8 +8,8 @@ resources is provided. SBML validation information about the imported files is a
 We are currently in the process to of porting all features from the Cytoscape 2 plugin to Cytoscape 3.
 
 **Status** : alpha  
-**Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz
-**Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues
+**Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
+**Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ## Features for first beta
 * Java based SBML parser for Cytoscape based on JSBML 
