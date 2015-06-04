@@ -201,7 +201,6 @@
     		<artifactId>spi-full</artifactId>
     		<version>0.2.4</version>
     	</dependency>
-    	
 	</dependencies>
 
 </project>
