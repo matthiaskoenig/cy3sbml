@@ -26,13 +26,17 @@ We are currently in the process of porting all features from the Cytoscape 2 plu
   cases (sbml-test-cases-2.0.2, BioModels_Database-r28)
 
 ## Installation
-* Download and install the latest version of Cytoscape 3 from [cytoscape.org](http://www.cytoscape.org/).  
-* Clone the repository `git clone https://github.com/matthiaskoenig/cy3sbml.git`
-* To use the latest **stable release** checkout the master `git checkout master`. To use the latest **development release** checkout the develop branch `git checkout -b develop origin/develop`.
-* The cy3sbml-*.*.*.jar for installation is located in the `cy3sbml/target/` folder (to build from source follow the instructions in `doc/cy3sbml_build_instructions.pdf`).  
+* Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2.1).  
+* Clone this repository via `git clone https://github.com/matthiaskoenig/cy3sbml.git`.  
+For the **stable release** checkout the master branch `git checkout master`.
+For the **development release** use `git checkout -b develop origin/develop`.
+* The respective cy3sbml-*.*.*.jar for installation is located in the `cy3sbml/target/` folder.
 To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Install cy3sbml via the `Install from File` button on the bottom-left selecting the  downloaded cy3sbml jar.
 
 After installation cy3sbml will be listed in the `Currently Installed` apps tab.
+
+## Building from source
+To build from source follow the instructions in `doc/cy3sbml_build_instructions.pdf`.
 
 ## Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
