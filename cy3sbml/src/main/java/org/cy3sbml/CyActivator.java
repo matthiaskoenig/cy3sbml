@@ -1,4 +1,4 @@
-package mkoenig.internal;
+package org.cy3sbml;
 
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
@@ -13,8 +13,8 @@ import org.osgi.framework.BundleContext;
 
 import java.util.Properties;
 
-import mkoenig.internal.SBMLFileFilter;
-import mkoenig.internal.SBMLNetworkViewTaskFactory;
+import org.cy3sbml.SBMLFileFilter;
+import org.cy3sbml.SBMLNetworkViewTaskFactory;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -24,7 +24,7 @@ public class CyActivator extends AbstractCyActivator {
 
 	public void printInfo(){
 		System.out.println("********************************");
-		System.out.println("Cy3SBML - Reader.run()");
+		System.out.println("cy3sbml");
 		System.out.println("********************************");	
 	}
 	
@@ -43,7 +43,7 @@ public class CyActivator extends AbstractCyActivator {
 		sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
 		registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
 		
-		
+		/*
 		// make the menu item
 		CyNetworkNaming cyNetworkNamingServiceRef = getService(bc,CyNetworkNaming.class);
 		CyNetworkManager cyNetworkManagerServiceRef = getService(bc,CyNetworkManager.class);
@@ -55,6 +55,7 @@ public class CyActivator extends AbstractCyActivator {
 		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Samples");
 		createNetworkViewTaskFactoryProps.setProperty("title","Test CySBML3 new");
 		registerService(bc,createNetworkViewTaskFactory,TaskFactory.class, createNetworkViewTaskFactoryProps);
+		*/
 	}
 }
 

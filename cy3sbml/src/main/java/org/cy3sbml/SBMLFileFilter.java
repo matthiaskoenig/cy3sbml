@@ -1,4 +1,4 @@
-package mkoenig.internal;
+package org.cy3sbml;
 
 import java.io.BufferedReader;
 import java.io.IOException;
