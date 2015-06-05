@@ -30,7 +30,7 @@ We are currently in the process of porting all features from the Cytoscape 2 plu
 * Clone the repository (`git clone https://github.com/matthiaskoenig/cy3sbml.git`).  
 For the **stable release** checkout the master branch (`git checkout master`).  
 For the **development release** checkout the develop branch (`git checkout -b develop origin/develop`).
-* To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Install cy3sbml via the `Install from File` button on the bottom-left select the cy3sbml-*.jar located in the `cy3sbml/target/` folder.
+* To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Select `Install from File` and use the `cy3sbml-*.jar` located in the `cy3sbml/target/` folder.
 
 After installation cy3sbml will be listed in the `Currently Installed` apps tab.
 
