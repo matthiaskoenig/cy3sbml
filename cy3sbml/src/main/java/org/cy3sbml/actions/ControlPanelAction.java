@@ -1,4 +1,4 @@
-package org.cy3sbml;
+package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
 
@@ -8,17 +8,17 @@ import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
 
-import org.cy3sbml.gui.NavControlPanel;
+import org.cy3sbml.gui.SBMLControlPanel;
 
 public class ControlPanelAction extends AbstractCyAction {
 
 	private static final long serialVersionUID = 1L;
 	private CySwingApplication desktopApp;
 	private final CytoPanel cytoPanelEast;
-	private NavControlPanel navControlPanel;
+	private SBMLControlPanel navControlPanel;
 	
 	public ControlPanelAction(CySwingApplication desktopApp,
-			NavControlPanel navControlPanel){
+			SBMLControlPanel navControlPanel){
 	
 		// Add a menu item -- Apps->cy3sbml
 		super("panel");

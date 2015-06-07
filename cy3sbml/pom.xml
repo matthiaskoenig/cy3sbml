@@ -115,6 +115,13 @@
 		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
+			<artifactId>swing-util-api</artifactId>
+			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.cytoscape</groupId>
 			<artifactId>viewmodel-api</artifactId>
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
@@ -170,6 +177,17 @@
   			<artifactId>core</artifactId>
   			<version>1.0</version>
   		</dependency>
+  		<dependency>
+  			<groupId>cysbml-temp</groupId>
+  			<artifactId>qual</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>cysbml-temp</groupId>
+  			<artifactId>layout</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+  		
   		<dependency>
   			<groupId>org.biojava</groupId>
   			<artifactId>biojava3-ontology</artifactId>

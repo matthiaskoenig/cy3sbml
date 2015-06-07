@@ -1,12 +1,13 @@
 package org.cy3sbml;
 
 
+import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
@@ -17,7 +18,9 @@ import java.util.Properties;
 
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.SBMLNetworkViewTaskFactory;
-import org.cy3sbml.gui.NavControlPanel;
+import org.cy3sbml.actions.ControlPanelAction;
+import org.cy3sbml.actions.ImportAction;
+import org.cy3sbml.gui.SBMLControlPanel;
 
 
 // TODO: create unit tests
@@ -37,12 +40,12 @@ public class CyActivator extends AbstractCyActivator {
 		try {
 		printInfo();
 		// register the file reader
-		CyNetworkFactory cyNetworkFactoryServiceRef = getService(bc,CyNetworkFactory.class);
-		CyNetworkViewFactory cyNetworkViewFactoryServiceRef = getService(bc,CyNetworkViewFactory.class);
+		CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
+		CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
 		StreamUtil streamUtilRef = getService(bc,StreamUtil.class);
 		
 		SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
-		SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter,cyNetworkFactoryServiceRef,cyNetworkViewFactoryServiceRef);
+		SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, cyNetworkFactory, cyNetworkViewFactory);
 		
 		Properties sbmlNetworkViewTaskFactoryProps = new Properties();
 		sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
@@ -51,34 +54,41 @@ public class CyActivator extends AbstractCyActivator {
 		
 		
 		// register the Control Panel
-
-		CySwingApplication cytoscapeDesktopService = getService(bc, CySwingApplication.class);
+		CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 		
-		NavControlPanel navControlPanel = NavControlPanel.getInstance();
-		ControlPanelAction controlPanelAction = new ControlPanelAction(cytoscapeDesktopService, navControlPanel);
+		SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance();
+		ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication, navControlPanel);
 		
 		registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
 		registerService(bc, controlPanelAction, CyAction.class, new Properties());
 
+		CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
+		CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
+		
+		
+		// create the SBMLManager
+		SBMLManager.getInstance(cyNetworkManager, cyApplicationManager);
+		
+		// browser support
+		// TODO: send to the NavPanel to listen to the links
+		OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
+		
+		/* cy3sbml actions */
+		// ImportAction
+		ImportAction importAction = new ImportAction(cySwingApplication);
+		registerService(bc, importAction, CyAction.class, new Properties());
+		
+		// TODO: BiomodelAction
+		// TODO: ValidationAction
+		// TODO: ChangeStateAction
+		// TODO: HelpAction
+		// TODO: SaveLayoutAction
+		// TODO: LoadLayoutAction
+		
+		
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
-		/*
-		// make the menu item
-		CyNetworkNaming cyNetworkNamingServiceRef = getService(bc,CyNetworkNaming.class);
-		CyNetworkManager cyNetworkManagerServiceRef = getService(bc,CyNetworkManager.class);
-		CyNetworkViewManager cyNetworkViewManagerServiceRef = getService(bc,CyNetworkViewManager.class);
-		
-		CreateNetworkViewTaskFactory createNetworkViewTaskFactory = new CreateNetworkViewTaskFactory(cyNetworkNamingServiceRef, cyNetworkFactoryServiceRef,cyNetworkManagerServiceRef, cyNetworkViewFactoryServiceRef,cyNetworkViewManagerServiceRef);
-				
-		Properties createNetworkViewTaskFactoryProps = new Properties();
-		createNetworkViewTaskFactoryProps.setProperty("preferredMenu","Apps.Samples");
-		createNetworkViewTaskFactoryProps.setProperty("title","Test CySBML3 new");
-		registerService(bc,createNetworkViewTaskFactory,TaskFactory.class, createNetworkViewTaskFactoryProps);
-		*/
 	}
 }
 

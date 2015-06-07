@@ -23,21 +23,21 @@ import org.cytoscape.application.swing.CytoPanelName;
 
 
 
-public class NavControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
-	private static NavControlPanel uniqueInstance;
+public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
+	private static SBMLControlPanel uniqueInstance;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
 	
-	public static synchronized NavControlPanel getInstance(){
+	public static synchronized SBMLControlPanel getInstance(){
 		if (uniqueInstance == null){
 			System.out.println("cy3sbml: NavControlPanel created");
-			uniqueInstance = new NavControlPanel();
+			uniqueInstance = new SBMLControlPanel();
 		}
 		return uniqueInstance;
 	}
 	
 
-	private NavControlPanel(){
+	private SBMLControlPanel(){
 		/** Construct the Navigation panel for cy3sbml. */
 		setLayout(new BorderLayout(0, 0));
 		
@@ -118,7 +118,7 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 		
 		try {
 			// TODO: better management of resources 
-			URL url = new URL(NavControlPanel.class.getResource("info.html").toString());
+			URL url = new URL(SBMLControlPanel.class.getResource("/info.html").toString());
 			textPane.setPage(url);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -133,6 +133,7 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 		System.out.println(url);
 		
 		//TODO: implement the browser support
+		
 		/*
 		import cytoscape.util.OpenBrowser;
 		import cysbml.cytoscape.CytoscapeWrapper;
