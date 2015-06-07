@@ -1,17 +1,16 @@
 package org.cy3sbml;
 
+
+import org.cytoscape.application.swing.CyAction;
+import org.cytoscape.application.swing.CySwingApplication;
+import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
-import org.cytoscape.application.swing.CyAction;
-import org.cytoscape.application.swing.CySwingApplication;
-import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.service.util.AbstractCyActivator;
-import org.cytoscape.work.TaskFactory;
-import org.cytoscape.session.CyNetworkNaming;
 import org.osgi.framework.BundleContext;
 
 import java.util.Properties;
@@ -27,10 +26,11 @@ public class CyActivator extends AbstractCyActivator {
 	}
 
 	public void printInfo(){
-		System.out.println("Starting *** cy3sbml ***");	
+		System.out.println("Start *** cy3sbml ***");	
 	}
 	
 	public void start(BundleContext bc) {
+		try {
 		printInfo();
 		// register the file reader
 		CyNetworkFactory cyNetworkFactoryServiceRef = getService(bc,CyNetworkFactory.class);
@@ -47,13 +47,19 @@ public class CyActivator extends AbstractCyActivator {
 		
 		
 		// register the Control Panel
-		// CySwingApplication cytoscapeDesktopService = getService(bc, CySwingApplication.class);
+
+		CySwingApplication cytoscapeDesktopService = getService(bc, CySwingApplication.class);
 		
-		// NavControlPanel navControlPanel = NavControlPanel.getInstance();
-		// ControlPanelAction controlPanelAction = new ControlPanelAction(cytoscapeDesktopService, navControlPanel);
+		NavControlPanel navControlPanel = NavControlPanel.getInstance();
+		ControlPanelAction controlPanelAction = new ControlPanelAction(cytoscapeDesktopService, navControlPanel);
 		
-		// registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
-		// registerService(bc, controlPanelAction, CyAction.class, new Properties());
+		registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
+		registerService(bc, controlPanelAction, CyAction.class, new Properties());
+
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
 		
 		
 		/*

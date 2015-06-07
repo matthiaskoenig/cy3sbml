@@ -30,6 +30,7 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 	
 	public static synchronized NavControlPanel getInstance(){
 		if (uniqueInstance == null){
+			System.out.println("cy3sbml: NavControlPanel generated");
 			uniqueInstance = new NavControlPanel();
 		}
 		return uniqueInstance;
