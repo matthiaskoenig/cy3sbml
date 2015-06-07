@@ -16,7 +16,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
-public class NavPanel extends JPanel implements HyperlinkListener{
+public class NavPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
 	private static NavPanel uniqueInstance;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
@@ -72,6 +72,12 @@ public class NavPanel extends JPanel implements HyperlinkListener{
 		treeScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		treeScrollPane.setViewportView(sbmlTree);		
 	}
+	
+	@Override
+	public CytoPanelName getCytoPanelName() {
+		return CytoPanelName.WEST;
+	}
+	
 	
 	/////////////////// SET PANEL CONTENT ///////////////////////////////////
 	
