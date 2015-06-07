@@ -79,7 +79,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	public void run(TaskMonitor taskMonitor) throws Exception {
 		
 		System.out.println("********************************");
-		System.out.println("Cy3SBML - Reader.run()");
+		System.out.println("Cy3SBML - Start Reader.run()");
 		System.out.println("********************************");
 		String version = JSBML.getJSBMLVersionString();
 		System.out.println("JSBML version: " + version);
@@ -92,6 +92,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		Model model = document.getModel();
 		
 		// Create a node for each Species
+		System.out.println("Species nodes");
 		Map<String, CyNode> speciesById = new HashMap<String, CyNode>();
 		for (Species species : model.getListOfSpecies()) {
 			CyNode node = network.addNode();
@@ -113,6 +114,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		}
 		
 		// Create a node for each Reaction
+		System.out.println("Reaction nodes");
 		Map<String, CyNode> reactionsById = new HashMap<String, CyNode>();
 		for (Reaction reaction : model.getListOfReactions()) {
 			CyNode node = network.addNode();
@@ -170,9 +172,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 			}
 		}
 		System.out.println("********************************");
-		System.out.println("Cy3SBML - Reader.run()");
+		System.out.println("Cy3SBML - End Reader.run()");
 		System.out.println("********************************");
-		System.out.println("JSBML version: " + version);
 	}
 	
 	private void checkEdgeSchema(CyRow attributes) {
