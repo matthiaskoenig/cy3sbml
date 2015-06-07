@@ -14,19 +14,18 @@ public class ControlPanelAction extends AbstractCyAction {
 
 	private static final long serialVersionUID = 1L;
 	private CySwingApplication desktopApp;
-	private final CytoPanel cytoPanelWest;
+	private final CytoPanel cytoPanelEast;
 	private NavControlPanel navControlPanel;
 	
 	public ControlPanelAction(CySwingApplication desktopApp,
 			NavControlPanel navControlPanel){
 	
 		// Add a menu item -- Apps->cy3sbml
-		super("Control Panel");
+		super("panel");
 		setPreferredMenu("Apps.cy3sbml");
 		this.desktopApp = desktopApp;
 		
-		//Note: myControlPanel is bean we defined and registered as a service
-		this.cytoPanelWest = this.desktopApp.getCytoPanel(CytoPanelName.WEST);
+		this.cytoPanelEast = this.desktopApp.getCytoPanel(CytoPanelName.EAST);
 		this.navControlPanel = navControlPanel;
 	}
 	
@@ -37,16 +36,16 @@ public class ControlPanelAction extends AbstractCyAction {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		// If the state of the cytoPanelWest is HIDE, show it
-		if (cytoPanelWest.getState() == CytoPanelState.HIDE) {
-			cytoPanelWest.setState(CytoPanelState.DOCK);
+		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
+			cytoPanelEast.setState(CytoPanelState.DOCK);
 		}	
 
 		// Select my panel
-		int index = cytoPanelWest.indexOfComponent(navControlPanel);
+		int index = cytoPanelEast.indexOfComponent(navControlPanel);
 		if (index == -1) {
 			return;
 		}
-		cytoPanelWest.setSelectedIndex(index);
+		cytoPanelEast.setSelectedIndex(index);
 	}
 
 }

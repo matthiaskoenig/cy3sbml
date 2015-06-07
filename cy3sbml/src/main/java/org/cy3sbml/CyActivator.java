@@ -20,6 +20,10 @@ import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.gui.NavControlPanel;
 
 
+// TODO: create unit tests
+// TODO: create logging for cy3sbml
+
+
 public class CyActivator extends AbstractCyActivator {
 	public CyActivator() {
 		super();

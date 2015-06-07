@@ -30,7 +30,7 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 	
 	public static synchronized NavControlPanel getInstance(){
 		if (uniqueInstance == null){
-			System.out.println("cy3sbml: NavControlPanel generated");
+			System.out.println("cy3sbml: NavControlPanel created");
 			uniqueInstance = new NavControlPanel();
 		}
 		return uniqueInstance;
@@ -41,28 +41,21 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 		/** Construct the Navigation panel for cy3sbml. */
 		setLayout(new BorderLayout(0, 0));
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.2);
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		add(splitPane);
-		
-		// Annotation Area
+		// --- Annotation Area ------------------
 		textPane = new JEditorPane();
 		textPane.setEditable(false);
 		textPane.addHyperlinkListener(this);
 		textPane.setFont(new Font("Dialog", Font.PLAIN, 11));
 		textPane.setContentType("text/html");
-		setHelpInNavigationPanel();
-
+		this.setHelp();
+		
 		JScrollPane annotationScrollPane = new JScrollPane();
 		annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		annotationScrollPane.setViewportView(textPane);
-		splitPane.setRightComponent(annotationScrollPane);
-		
-		JTabbedPane navTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		splitPane.setLeftComponent(navTabbedPane);
-		
-		// Navigation Tree
+
+		this.add(textPane);
+		/*
+		// --- Navigation Tree  ------------------
 		sbmlTree = new JTree();
 		sbmlTree.setVisibleRowCount(12);
 		sbmlTree.setEditable(false);
@@ -76,16 +69,31 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 		// setNavigationTreeInJTree();
 		
 		JScrollPane treeScrollPane = new JScrollPane();
-		navTabbedPane.addTab("SBMLTree", null, treeScrollPane, null);
 		treeScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		treeScrollPane.setViewportView(sbmlTree);		
+		treeScrollPane.setViewportView(sbmlTree);	
+		
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.2);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		
+		// set coponents
+		splitPane.setRightComponent(annotationScrollPane);
+		splitPane.setLeftComponent(treeScrollPane);
+		
+		this.add(splitPane);
+		*/
+		
+		// set the size
+		Dimension size = this.getSize();
+		this.setSize(400, size.height);
 	}
 	
 	/////////////////// CYTO PANEL COMPONENT ///////////////////////////////////
 	
 	@Override
 	public CytoPanelName getCytoPanelName() {
-		return CytoPanelName.WEST;
+		return CytoPanelName.EAST;
 	}
 	
 	@Override
@@ -101,14 +109,16 @@ public class NavControlPanel extends JPanel implements CytoPanelComponent, Hyper
 
 	@Override
 	public String getTitle() {
-		return "cy3sbml Panel";
+		return "cy3sbml";
 	}
 		
 	/////////////////// SET PANEL CONTENT ///////////////////////////////////
 	
-	private void setHelpInNavigationPanel(){
+	private void setHelp(){
+		
 		try {
-			URL url = new URL(NavControlPanel.class.getResource("help/info.html").toString());
+			// TODO: better management of resources 
+			URL url = new URL(NavControlPanel.class.getResource("info.html").toString());
 			textPane.setPage(url);
 		} catch (IOException e) {
 			e.printStackTrace();
