@@ -7,6 +7,7 @@ import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.io.util.StreamUtil;
@@ -19,6 +20,7 @@ import java.util.Properties;
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.actions.ControlPanelAction;
+import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.gui.SBMLControlPanel;
 
@@ -78,12 +80,20 @@ public class CyActivator extends AbstractCyActivator {
 		ImportAction importAction = new ImportAction(cySwingApplication);
 		registerService(bc, importAction, CyAction.class, new Properties());
 		
+		HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
+		registerService(bc, helpAction, CyAction.class, new Properties());
+		
 		// TODO: BiomodelAction
 		// TODO: ValidationAction
 		// TODO: ChangeStateAction
 		// TODO: HelpAction
 		// TODO: SaveLayoutAction
 		// TODO: LoadLayoutAction
+		
+		
+		// Row selection listener
+		System.out.println("RowsSetListener");
+		registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
 		
 		
 		} catch (Exception e){

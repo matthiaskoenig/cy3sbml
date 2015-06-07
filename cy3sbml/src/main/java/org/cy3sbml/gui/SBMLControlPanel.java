@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 
 import javax.swing.Icon;
 import javax.swing.JEditorPane;
@@ -18,12 +19,21 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
+import org.cy3sbml.SBMLManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.model.CyIdentifiable;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyRow;
+import org.cytoscape.model.events.NetworkAddedListener;
+import org.cytoscape.model.events.RowSetRecord;
+import org.cytoscape.model.events.RowsSetEvent;
+import org.cytoscape.model.events.RowsSetListener;
 
 
 
-public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
+public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
 	private static SBMLControlPanel uniqueInstance;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
@@ -114,12 +124,13 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 		
 	/////////////////// SET PANEL CONTENT ///////////////////////////////////
 	
-	private void setHelp(){
-		
+	public void setHelp(){
 		try {
-			// TODO: better management of resources 
 			URL url = new URL(SBMLControlPanel.class.getResource("/info.html").toString());
 			textPane.setPage(url);
+			// TODO: is this correct ?
+			// this.repaint();
+			// ?? not updated
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -128,6 +139,23 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 	
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 	
+	// http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
+	public void handleEvent(RowsSetEvent e) {
+		Collection<RowSetRecord> rowsSet = e.getColumnRecords(CyNetwork.SELECTED);
+		for (RowSetRecord record: rowsSet) {
+			CyRow row = record.getRow(); // Get the row that was set
+			boolean selected = ((Boolean)record.getValue()).booleanValue();  // What it was set to
+			// Take appropriate action.  For example, might want to get
+			// the node or edge that was selected (or unselected)
+			CyNetwork network = SBMLManager.getInstance(null, null).getCyApplicationManager().getCurrentNetwork();
+			CyNode node = network.getNode(row.get(CyIdentifiable.SUID, Long.class));
+			
+			textPane.setText("Node selected" + node.getSUID().toString());
+			// TODO: get the information for the mapped SBML node			
+		}
+	}
+	
+
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		URL url = evt.getURL();
 		System.out.println(url);
@@ -148,8 +176,5 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 		}
 		*/	
 	}
-
-
-
 
 }

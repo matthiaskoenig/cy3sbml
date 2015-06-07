@@ -13,12 +13,17 @@ public class ImportAction extends AbstractCyAction{
 	public ImportAction(CySwingApplication cySwingApplication){
 		super("ImportAction");
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/import.png"));
-		this.putValue(LARGE_ICON_KEY, icon);
-		// TODO: position in menu bar
-		//this.setMenuGravity(100);
+		putValue(LARGE_ICON_KEY, icon);
+		
 		this.putValue(SHORT_DESCRIPTION, "Import SBML");
+		// TODO: position in menu bar
+		setToolbarGravity((float) 0.5);
 	}
 		
+	public boolean isInToolBar() {
+		return true;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("ImportAction");
