@@ -99,6 +99,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.cytoscape</groupId>
+			<artifactId>swing-application-api</artifactId>
+			<version>${cytoscape.api.version}</version>
+		</dependency>
 	
 		<dependency>
 			<groupId>org.cytoscape</groupId>
@@ -106,6 +111,7 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>io-api</artifactId>

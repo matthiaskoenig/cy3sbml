@@ -1,11 +1,13 @@
 package org.cy3sbml.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.swing.Icon;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,20 +18,25 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
-public class NavPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
-	private static NavPanel uniqueInstance;
+import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.application.swing.CytoPanelName;
+
+
+
+public class NavControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener{
+	private static NavControlPanel uniqueInstance;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
 	
-	public static synchronized NavPanel getInstance(){
+	public static synchronized NavControlPanel getInstance(){
 		if (uniqueInstance == null){
-			uniqueInstance = new NavPanel();
+			uniqueInstance = new NavControlPanel();
 		}
 		return uniqueInstance;
 	}
 	
 
-	private NavPanel(){
+	private NavControlPanel(){
 		/** Construct the Navigation panel for cy3sbml. */
 		setLayout(new BorderLayout(0, 0));
 		
@@ -73,17 +80,34 @@ public class NavPanel extends JPanel implements CytoPanelComponent, HyperlinkLis
 		treeScrollPane.setViewportView(sbmlTree);		
 	}
 	
+	/////////////////// CYTO PANEL COMPONENT ///////////////////////////////////
+	
 	@Override
 	public CytoPanelName getCytoPanelName() {
 		return CytoPanelName.WEST;
 	}
 	
-	
+	@Override
+	public Component getComponent() {
+		return this;
+	}
+
+	@Override
+	public Icon getIcon() {
+		// TODO add the icon
+		return null;
+	}
+
+	@Override
+	public String getTitle() {
+		return "cy3sbml Panel";
+	}
+		
 	/////////////////// SET PANEL CONTENT ///////////////////////////////////
 	
 	private void setHelpInNavigationPanel(){
 		try {
-			URL url = new URL(NavPanel.class.getResource("help/info.html").toString());
+			URL url = new URL(NavControlPanel.class.getResource("help/info.html").toString());
 			textPane.setPage(url);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,5 +136,8 @@ public class NavPanel extends JPanel implements CytoPanelComponent, HyperlinkLis
 		}
 		*/	
 	}
+
+
+
 
 }

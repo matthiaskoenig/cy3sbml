@@ -77,6 +77,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 
 	@SuppressWarnings("deprecation")
 	public void run(TaskMonitor taskMonitor) throws Exception {
+		
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Reader.run()");
 		System.out.println("********************************");
