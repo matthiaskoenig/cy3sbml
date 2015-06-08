@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,12 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
+import org.cytoscape.task.visualize.ApplyPreferredLayoutTaskFactory;
+import org.cytoscape.task.visualize.ApplyVisualStyleTaskFactory;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
-
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -28,6 +30,7 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+
 
 public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkReader {
 	private static final int BUFFER_SIZE = 16384;
@@ -65,14 +68,19 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
+	private final ApplyPreferredLayoutTaskFactory applyPreferredLayout;
+	private final ApplyVisualStyleTaskFactory applyVisualStyle;
 
-	//private CyNetworkView view;
+	private SBMLDocument document;
 	private CyNetwork network;
 
-	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory) {
+	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
+								 ApplyPreferredLayoutTaskFactory applyPreferredLayout, ApplyVisualStyleTaskFactory applyVisualStyle) {
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
+		this.applyPreferredLayout = applyPreferredLayout;
+		this.applyVisualStyle = applyVisualStyle;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -85,7 +93,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("JSBML version: " + version);
 		
 		String xml = readString(stream);
-		SBMLDocument document = JSBML.readSBMLFromString(xml);
+		document = JSBML.readSBMLFromString(xml);
 		
 		network = networkFactory.createNetwork();
 		//view = viewFactory.getNetworkView(network);
@@ -220,6 +228,78 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 
 	@Override
 	public CyNetworkView buildCyNetworkView(CyNetwork network) {
-		return viewFactory.createNetworkView(network);
+		// create view
+		CyNetworkView view = viewFactory.createNetworkView(network); 
+		doPostProcessing(network, view);
+		
+		
+		return view;
 	}
+	
+	/**
+	 *  PostProcessing of the network after the file is read.
+	 *  - applies CySBML visual style
+	 *  - applies standard layout to the network
+	 *  - selects the important SBML attributes in the data browser
+	 */  
+	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
+		System.out.println("cy3sbml: postProcessing");
+		/*
+		// Apply Layout
+		applyLayout(network);
+		
+		// Set Visual Style
+		
+		VisualStyleManager.setVisualStyleForNetwork(network, CustomStyle.DEFAULT_STYLE);
+		// Select SBML Attributes in Data Panel
+		selectSBMLTableAttributes();
+		
+		// Update cy3sbml Navigator
+		// TODO: updateNavigationPanel(network);
+		
+		
+		// Preload SBML WebService information
+		// TODO: NamedSBaseInfoThread.preloadAnnotationInformationForModel(document.getModel());
+		
+		// Arrange Windows and fit views
+		// TODO: ?
+		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
+		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
+		// 	view.fitContent();
+		//}
+		 * 
+		 */
+	}
+	
+	/** Applies force-directed layout to the network. */
+	/*
+	protected void applyLayout(CyNetwork network) {
+		if (nodeIds.size() > LAYOUT_NODE_NUMBER){
+			CySBML.LOGGER.info(String.format("More than %d nodes, no layout applied.", LAYOUT_NODE_NUMBER));
+		} else { 
+			CyLayoutAlgorithm layout = CyLayouts.getLayout("force-directed");
+			CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
+			view.applyLayout(layout);
+		}
+	}
+	
+	protected void updateNavigationPanel(CyNetwork network){
+		NavigationPanel panel = NavigationPanel.getInstance();
+		panel.putSBMLDocument(network.getIdentifier(), document, network);
+	}
+	
+	private void selectSBMLTableAttributes(){
+		String[] nAtts = {CySBMLConstants.ATT_TYPE,
+						  CySBMLConstants.ATT_NAME,
+						  CySBMLConstants.ATT_COMPARTMENT,
+						  CySBMLConstants.ATT_METAID,
+						  CySBMLConstants.ATT_SBOTERM};
+		
+		String[] eAtts = {Semantics.INTERACTION,
+						  CySBMLConstants.ATT_STOICHIOMETRY,
+						  CySBMLConstants.ATT_METAID,
+						  CySBMLConstants.ATT_SBOTERM};
+		AttributeUtils.selectTableAttributes(Arrays.asList(nAtts), Arrays.asList(eAtts));
+	}
+	*/
 }

@@ -1,5 +1,16 @@
+# cy3sbml
+## open issues
+* TODO: create unit tests
+* TODO: create proper logging
+* TODO: release - create jar for git release (see cyREST)
+* TODO: VisualStyle : definition, loading, applying after network read
+* TODO: Layout : apply force layout after read
+* TODO/INFO: API - how to provide API functions in a plugin ?
+* TODO: JWS online webservice ? how, is it possible?
+* TODO: display annotation information
 
 
+## cy2sbml bugs
 <BUG>
 if node is not in SBML, "NamedSBase for node not found" information should be displayed;
 
