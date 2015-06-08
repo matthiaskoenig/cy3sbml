@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
@@ -14,11 +15,17 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
+import org.cytoscape.work.SynchronousTaskManager;
+import org.cytoscape.work.TaskIterator;
+import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.TaskMonitor;
-
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -28,6 +35,7 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+
 
 public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkReader {
 	private static final int BUFFER_SIZE = 16384;
@@ -65,14 +73,22 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
+	private final VisualMappingManager visualMappingManager;
+	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
+	private final TaskManager taskManager;
 
-	//private CyNetworkView view;
+	private SBMLDocument document;
 	private CyNetwork network;
 
-	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory) {
+	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
+								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, SynchronousTaskManager taskManager) {
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
+		
+		this.visualMappingManager = visualMappingManager;
+		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
+		this.taskManager = taskManager;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -81,11 +97,13 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Start Reader.run()");
 		System.out.println("********************************");
+		try {
+		
 		String version = JSBML.getJSBMLVersionString();
 		System.out.println("JSBML version: " + version);
 		
 		String xml = readString(stream);
-		SBMLDocument document = JSBML.readSBMLFromString(xml);
+		document = JSBML.readSBMLFromString(xml);
 		
 		network = networkFactory.createNetwork();
 		//view = viewFactory.getNetworkView(network);
@@ -174,6 +192,9 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - End Reader.run()");
 		System.out.println("********************************");
+		} catch (Throwable t){
+			t.printStackTrace();
+		}
 	}
 	
 	private void checkEdgeSchema(CyRow attributes) {
@@ -220,6 +241,107 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 
 	@Override
 	public CyNetworkView buildCyNetworkView(CyNetwork network) {
-		return viewFactory.createNetworkView(network);
+		// create view
+		CyNetworkView view = viewFactory.createNetworkView(network); 
+		doPostProcessing(network, view);
+		
+		
+		return view;
 	}
+	
+	/**
+	 *  PostProcessing of the network after the file is read.
+	 *  - applies CySBML visual style
+	 *  - applies standard layout to the network
+	 *  - selects the important SBML attributes in the data browser
+	 */  
+	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
+		System.out.println("cy3sbml: postProcessing");
+		
+		/*
+		System.out.println("*** Layouts ***");
+		Collection<CyLayoutAlgorithm> layouts = cyLayoutAlgorithmManager.getAllLayouts();
+		for (CyLayoutAlgorithm layout: layouts){
+			System.out.println(layout.getName());
+		}
+		*/
+		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
+		layout.createLayoutContext();
+		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
+																	layout.ALL_NODE_VIEWS, layout.getName());
+		
+		// We use the synchronous task manager otherwise the visual style and updateView()
+		// may occur before the view is relayed out:
+		taskManager.execute(layoutTaskIterator);
+		
+		
+		// Apply cy3sbml style
+		// TODO: use cy3sbml properties to read the style to apply
+		String styleName = "cy3sbml";
+		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		for (VisualStyle style: styles){
+			if (style.getTitle().equals(styleName)){
+				visualMappingManager.setVisualStyle(style, view);
+				style.apply(view);
+				break;
+			}
+		}
+		// view.fitContent();
+		view.updateView();
+		
+		// Select SBML Attributes in Data Panel
+		// TODO: ? how do new tables work
+		// selectSBMLTableAttributes();
+		
+		// Update cy3sbml Navigator
+		// TODO: updateNavigationPanel(network);
+		
+		
+		// Preload SBML WebService information
+		// TODO: NamedSBaseInfoThread.preloadAnnotationInformationForModel(document.getModel());
+		
+		// Arrange Windows and fit views (for all networks)
+		// 
+		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
+		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
+		// 	view.fitContent();
+		// }
+		
+		
+	}
+	
+	/** Applies force-directed layout to the network. */
+
+	/*
+	protected void applyLayout(CyNetwork network) {
+		if (nodeIds.size() > LAYOUT_NODE_NUMBER){
+			CySBML.LOGGER.info(String.format("More than %d nodes, no layout applied.", LAYOUT_NODE_NUMBER));
+		} else { 
+			CyLayoutAlgorithm layout = CyLayouts.getLayout("force-directed");
+			CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
+			view.applyLayout(layout);
+		}
+	}
+	*/
+	
+	/*
+	protected void updateNavigationPanel(CyNetwork network){
+		NavigationPanel panel = NavigationPanel.getInstance();
+		panel.putSBMLDocument(network.getIdentifier(), document, network);
+	}
+	
+	private void selectSBMLTableAttributes(){
+		String[] nAtts = {CySBMLConstants.ATT_TYPE,
+						  CySBMLConstants.ATT_NAME,
+						  CySBMLConstants.ATT_COMPARTMENT,
+						  CySBMLConstants.ATT_METAID,
+						  CySBMLConstants.ATT_SBOTERM};
+		
+		String[] eAtts = {Semantics.INTERACTION,
+						  CySBMLConstants.ATT_STOICHIOMETRY,
+						  CySBMLConstants.ATT_METAID,
+						  CySBMLConstants.ATT_SBOTERM};
+		AttributeUtils.selectTableAttributes(Arrays.asList(nAtts), Arrays.asList(eAtts));
+	}
+	*/
 }
