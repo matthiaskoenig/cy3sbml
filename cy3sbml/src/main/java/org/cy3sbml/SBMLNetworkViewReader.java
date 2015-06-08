@@ -5,21 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Layout;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.cytoscape.task.visualize.ApplyPreferredLayoutTaskFactory;
-import org.cytoscape.task.visualize.ApplyVisualStyleTaskFactory;
 import org.cytoscape.view.layout.CyLayoutAlgorithm;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
@@ -27,7 +22,7 @@ import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
-import org.cytoscape.work.Task;
+import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.TaskMonitor;
@@ -86,7 +81,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private CyNetwork network;
 
 	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, TaskManager taskManager) {
+								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, SynchronousTaskManager taskManager) {
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
@@ -258,37 +253,47 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
 		System.out.println("cy3sbml: postProcessing");
 		
-		// Apply cy3sbml style
-		// TODO: better way to find the style
-		// TODO: use cy3sbml properties to read the style to apply
-		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
-		for (VisualStyle style: styles){
-			if (style.getTitle().equals("cy3sbml")){
-				visualMappingManager.setVisualStyle(style, view);
-				break;
-			}
-		}
+		/*
 		System.out.println("*** Layouts ***");
 		Collection<CyLayoutAlgorithm> layouts = cyLayoutAlgorithmManager.getAllLayouts();
 		for (CyLayoutAlgorithm layout: layouts){
 			System.out.println(layout.getName());
 		}
+		*/
 		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
 		layout.createLayoutContext();
 		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
 																	layout.ALL_NODE_VIEWS, layout.getName());
+		
+		// We use the synchronous task manager otherwise the visual style and updateView()
+		// may occur before the view is relayed out:
 		taskManager.execute(layoutTaskIterator);
 		
-		// view.applyLayout(layout);
 		
 		
-		/*
-		// Apply Layout
-		applyLayout(network);
+		// Apply cy3sbml style
+		// TODO: better way to find the style
+		// TODO: use cy3sbml properties to read the style to apply
+		String styleName = "cy3sbml";
+		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		for (VisualStyle style: styles){
+			System.out.println(style.getTitle());
+			if (style.getTitle().equals(styleName)){
+				//visualMappingManager.setVisualStyle(style, view);
+				System.out.println("apply style");
+				style.apply(view);
+				break;
+			}
+		}
+		view.updateView();
 		
+		
+
+
 		
 		// Select SBML Attributes in Data Panel
-		selectSBMLTableAttributes();
+		// TODO: ? how do new tables work
+		// selectSBMLTableAttributes();
 		
 		// Update cy3sbml Navigator
 		// TODO: updateNavigationPanel(network);
@@ -303,8 +308,6 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
 		// 	view.fitContent();
 		//}
-		 * 
-		 */
 	}
 	
 	/** Applies force-directed layout to the network. */

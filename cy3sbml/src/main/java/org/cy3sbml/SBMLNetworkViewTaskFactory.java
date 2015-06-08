@@ -8,6 +8,7 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskManager;
 
@@ -17,10 +18,10 @@ public class SBMLNetworkViewTaskFactory extends AbstractInputStreamTaskFactory {
 	private final CyNetworkViewFactory viewFactory;
 	private final VisualMappingManager visualMappingManager;
 	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-	private final TaskManager taskManager;
+	private final SynchronousTaskManager taskManager;
 	
 	public SBMLNetworkViewTaskFactory(CyFileFilter filter, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-									  VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, TaskManager taskManager) {
+									  VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, SynchronousTaskManager taskManager) {
 		super(filter);
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;

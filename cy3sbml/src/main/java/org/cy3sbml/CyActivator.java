@@ -15,6 +15,7 @@ import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
+import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
@@ -50,10 +51,12 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// register SBML file reader
 			ApplyVisualStyleTaskFactory applyVisualStyle = getService(bc, ApplyVisualStyleTaskFactory.class);
+			
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
 			StreamUtil streamUtilRef = getService(bc, StreamUtil.class);
-			TaskManager taskManager = getService(bc, TaskManager.class);
+			SynchronousTaskManager taskManager = getService(bc, SynchronousTaskManager.class);
+			// TaskManager taskManager = getService(bc, TaskManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 			

@@ -159,7 +159,7 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 			CyNode node = network.getNode(row.get(CyIdentifiable.SUID, Long.class));
 			
 			if (selected){
-				textPane.setText("Node selection event: <" + node.getSUID().toString() + ">");
+				textPane.setText("Node selection event: (" + node.getSUID().toString() + ")");
 			} else {
 				textPane.setText("Unselected event");
 			}
