@@ -7,7 +7,6 @@ import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
-
 import org.cy3sbml.gui.SBMLControlPanel;
 
 public class ControlPanelAction extends AbstractCyAction {
@@ -15,10 +14,10 @@ public class ControlPanelAction extends AbstractCyAction {
 	private static final long serialVersionUID = 1L;
 	private CySwingApplication desktopApp;
 	private final CytoPanel cytoPanelEast;
+	
 	private SBMLControlPanel navControlPanel;
 	
-	public ControlPanelAction(CySwingApplication desktopApp,
-			SBMLControlPanel navControlPanel){
+	public ControlPanelAction(CySwingApplication desktopApp){
 	
 		// Add a menu item -- Apps->cy3sbml
 		super("panel");
@@ -26,7 +25,7 @@ public class ControlPanelAction extends AbstractCyAction {
 		this.desktopApp = desktopApp;
 		
 		this.cytoPanelEast = this.desktopApp.getCytoPanel(CytoPanelName.EAST);
-		this.navControlPanel = navControlPanel;
+		this.navControlPanel = SBMLControlPanel.getInstance(null);
 	}
 	
 	/**

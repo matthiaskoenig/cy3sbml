@@ -37,11 +37,11 @@ public class HelpAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		final String HELP_URL = "http://www.google.com";
+		final String HELP_URL = "https://github.com/matthiaskoenig/cy3sbml";
 		System.out.println("HelpAction");
 		
 		// reset help information
-		SBMLControlPanel.getInstance().setHelp();
+		SBMLControlPanel.getInstance(null).setHelp();
 		
 		// open browser help
 		URL url;

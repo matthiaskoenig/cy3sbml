@@ -33,72 +33,80 @@ public class CyActivator extends AbstractCyActivator {
 	public CyActivator() {
 		super();
 	}
-
-	public void printInfo(){
-		System.out.println("Start *** cy3sbml ***");	
-	}
 	
 	public void start(BundleContext bc) {
 		try {
-		printInfo();
-		// register the file reader
-		CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
-		CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
-		StreamUtil streamUtilRef = getService(bc,StreamUtil.class);
-		
-		SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
-		SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, cyNetworkFactory, cyNetworkViewFactory);
-		
-		Properties sbmlNetworkViewTaskFactoryProps = new Properties();
-		sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
-		sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
-		registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
-		
-		
-		// register the Control Panel
-		CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
-		
-		SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance();
-		ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication, navControlPanel);
-		
-		registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
-		registerService(bc, controlPanelAction, CyAction.class, new Properties());
+			System.out.println("cy3sbml: start init");
+			
+			// register SBML file reader
+			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
+			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
+			StreamUtil streamUtilRef = getService(bc,StreamUtil.class);
+			
+			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
+			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, cyNetworkFactory, cyNetworkViewFactory);
+			
+			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
+			sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
+			sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
+			registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
+			
+			// browser support
+			// TODO: send to the NavPanel to listen to the links
+			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
+			
+			// register cy3sbml Control Panel
+			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
+			
+			
+			// TODO: handle the creation of the navigation panel
+			// Send browser reference
+			SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance(openBrowser);
+			
+			
+			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
+			
+			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
+			registerService(bc, controlPanelAction, CyAction.class, new Properties());
+	
+			CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
+			CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
+			
+			// set visible
+			// ? 
+			
+			// init the cy3sbml SBMLManager
+			// handling the mapping between networks and sbml files
+			SBMLManager.getInstance(cyNetworkManager, cyApplicationManager);
+			
 
-		CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
-		CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
 		
-		
-		// create the SBMLManager
-		SBMLManager.getInstance(cyNetworkManager, cyApplicationManager);
-		
-		// browser support
-		// TODO: send to the NavPanel to listen to the links
-		OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
-		
-		/* cy3sbml actions */
-		// ImportAction
-		ImportAction importAction = new ImportAction(cySwingApplication);
-		registerService(bc, importAction, CyAction.class, new Properties());
-		
-		HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
-		registerService(bc, helpAction, CyAction.class, new Properties());
-		
-		// TODO: BiomodelAction
-		// TODO: ValidationAction
-		// TODO: ChangeStateAction
-		// TODO: HelpAction
-		// TODO: SaveLayoutAction
-		// TODO: LoadLayoutAction
-		
-		
-		// Row selection listener
-		System.out.println("RowsSetListener");
-		registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
-		
+			/* cy3sbml actions */
+			// Register all the necessary actions
+			// ImportAction
+			ImportAction importAction = new ImportAction(cySwingApplication);
+			registerService(bc, importAction, CyAction.class, new Properties());
+			
+			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
+			registerService(bc, helpAction, CyAction.class, new Properties());
+			
+			// TODO: BiomodelAction
+			// TODO: ValidationAction
+			// TODO: ChangeStateAction
+			// TODO: HelpAction
+			// TODO: SaveLayoutAction
+			// TODO: LoadLayoutAction
+			
+			
+			// Row selection listener
+			// Handling the node selections
+			registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
+			
 		
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		System.out.println("cy3sbml: end init");
 	}
 }
 

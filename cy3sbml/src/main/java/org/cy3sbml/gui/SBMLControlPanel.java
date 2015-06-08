@@ -30,25 +30,33 @@ import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
+import org.cytoscape.util.swing.OpenBrowser;
 
-
-
+/**
+ * Control Panel for cy3sbml.
+ */
 public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
 	private static SBMLControlPanel uniqueInstance;
+	
+	private OpenBrowser openBrowser;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
 	
-	public static synchronized SBMLControlPanel getInstance(){
+	public static synchronized SBMLControlPanel getInstance(OpenBrowser openBrowser){
 		if (uniqueInstance == null){
 			System.out.println("cy3sbml: NavControlPanel created");
-			uniqueInstance = new SBMLControlPanel();
+			uniqueInstance = new SBMLControlPanel(openBrowser);
 		}
 		return uniqueInstance;
 	}
 	
 
-	private SBMLControlPanel(){
+	private SBMLControlPanel(OpenBrowser openBrowser){
 		/** Construct the Navigation panel for cy3sbml. */
+		this.openBrowser = openBrowser;
+		
+		
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		// --- Annotation Area ------------------
@@ -157,24 +165,19 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 	
 
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
+		/* Open link in browser. */
 		URL url = evt.getURL();
 		System.out.println(url);
 		
-		//TODO: implement the browser support
-		
-		/*
-		import cytoscape.util.OpenBrowser;
-		import cysbml.cytoscape.CytoscapeWrapper;
 		if (url != null) {
 			if (evt.getEventType() == HyperlinkEvent.EventType.ENTERED) {
-				CytoscapeWrapper.setStatusBarMsg(url.toString());
+				
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
-				CytoscapeWrapper.clearStatusBar();
+				
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				OpenBrowser.openURL(url.toString());
+				openBrowser.openURL(url.toString());
 			}
-		}
-		*/	
+		}	
 	}
 
 }
