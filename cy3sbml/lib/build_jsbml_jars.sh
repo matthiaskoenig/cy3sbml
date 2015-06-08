@@ -1,4 +1,5 @@
 # script for building the latest jsbml core jar.
+# ! register in local maven repository after build for using !
 
 # JSBML should be checked out and environment variable $JSBMLCODE be set
 # to the location of latest source code, i.e. 
@@ -25,7 +26,3 @@ cd $JSBMLCODE/extensions/layout
 ant jar 
 cp $JSBMLCODE/extensions/layout/build/*.jar $CY3SBML/cy3sbml/lib/layout.jar
 
-cd $CY3SBML/cy3sbml/lib
-mvn install:install-file -DgroupId=cysbml-temp -DartifactId=core -Dversion=1.0 -Dfile=core.jar -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -DgroupId=cysbml-temp -DartifactId=qual -Dversion=1.0 -Dfile=qual.jar -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -DgroupId=cysbml-temp -DartifactId=layout -Dversion=1.0 -Dfile=layout.jar -Dpackaging=jar -DgeneratePom=true

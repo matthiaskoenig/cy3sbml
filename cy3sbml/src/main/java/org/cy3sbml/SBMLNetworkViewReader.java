@@ -281,6 +281,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
 		for (VisualStyle style: styles){
 			if (style.getTitle().equals(styleName)){
+				visualMappingManager.setVisualStyle(style, view);
 				style.apply(view);
 				break;
 			}
