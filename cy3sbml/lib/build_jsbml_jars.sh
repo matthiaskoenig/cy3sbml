@@ -10,12 +10,10 @@
 cd $JSBMLCODE
 svn update
 
-# build the JSBML core.jar, copy to cy3lib folder and register in local repository
 # CORE
-# cd $JSBMLCODE/core   
-# ant jar 
-# cp $JSBMLCODE/core/build/*.jar $CY3SBML/cy3sbml/lib/core.jar
-# cd $CY3SBML/cy3sbml/lib
+cd $JSBMLCODE/core   
+ant jar 
+cp $JSBMLCODE/core/build/*.jar $CY3SBML/cy3sbml/lib/core.jar
 
 # QUAL
 cd $JSBMLCODE/extensions/qual
@@ -28,6 +26,6 @@ ant jar
 cp $JSBMLCODE/extensions/layout/build/*.jar $CY3SBML/cy3sbml/lib/layout.jar
 
 cd $CY3SBML/cy3sbml/lib
-# mvn install:install-file -DgroupId=cysbml-temp -DartifactId=core -Dversion=1.0 -Dfile=core.jar -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DgroupId=cysbml-temp -DartifactId=core -Dversion=1.0 -Dfile=core.jar -Dpackaging=jar -DgeneratePom=true
 mvn install:install-file -DgroupId=cysbml-temp -DartifactId=qual -Dversion=1.0 -Dfile=qual.jar -Dpackaging=jar -DgeneratePom=true
 mvn install:install-file -DgroupId=cysbml-temp -DartifactId=layout -Dversion=1.0 -Dfile=layout.jar -Dpackaging=jar -DgeneratePom=true

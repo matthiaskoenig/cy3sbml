@@ -97,6 +97,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - Start Reader.run()");
 		System.out.println("********************************");
+		try {
+		
 		String version = JSBML.getJSBMLVersionString();
 		System.out.println("JSBML version: " + version);
 		
@@ -190,6 +192,9 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		System.out.println("********************************");
 		System.out.println("Cy3SBML - End Reader.run()");
 		System.out.println("********************************");
+		} catch (Throwable t){
+			t.printStackTrace();
+		}
 	}
 	
 	private void checkEdgeSchema(CyRow attributes) {
@@ -280,7 +285,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 				break;
 			}
 		}
-		view.fitContent();
+		// view.fitContent();
 		view.updateView();
 		
 		// Select SBML Attributes in Data Panel
