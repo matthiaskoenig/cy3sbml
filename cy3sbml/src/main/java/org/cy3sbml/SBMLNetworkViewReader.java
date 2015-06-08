@@ -270,26 +270,18 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		taskManager.execute(layoutTaskIterator);
 		
 		
-		
 		// Apply cy3sbml style
-		// TODO: better way to find the style
 		// TODO: use cy3sbml properties to read the style to apply
 		String styleName = "cy3sbml";
 		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
 		for (VisualStyle style: styles){
-			System.out.println(style.getTitle());
 			if (style.getTitle().equals(styleName)){
-				//visualMappingManager.setVisualStyle(style, view);
-				System.out.println("apply style");
 				style.apply(view);
 				break;
 			}
 		}
+		view.fitContent();
 		view.updateView();
-		
-		
-
-
 		
 		// Select SBML Attributes in Data Panel
 		// TODO: ? how do new tables work
@@ -302,12 +294,14 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// Preload SBML WebService information
 		// TODO: NamedSBaseInfoThread.preloadAnnotationInformationForModel(document.getModel());
 		
-		// Arrange Windows and fit views
-		// TODO: ?
+		// Arrange Windows and fit views (for all networks)
+		// 
 		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
 		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
 		// 	view.fitContent();
-		//}
+		// }
+		
+		
 	}
 	
 	/** Applies force-directed layout to the network. */
