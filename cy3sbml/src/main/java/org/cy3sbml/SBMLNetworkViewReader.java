@@ -6,9 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.log4j.Layout;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -17,9 +20,16 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.task.visualize.ApplyPreferredLayoutTaskFactory;
 import org.cytoscape.task.visualize.ApplyVisualStyleTaskFactory;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
+import org.cytoscape.work.Task;
+import org.cytoscape.work.TaskIterator;
+import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
@@ -68,19 +78,22 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
-	private final ApplyPreferredLayoutTaskFactory applyPreferredLayout;
-	private final ApplyVisualStyleTaskFactory applyVisualStyle;
+	private final VisualMappingManager visualMappingManager;
+	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
+	private final TaskManager taskManager;
 
 	private SBMLDocument document;
 	private CyNetwork network;
 
 	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-								 ApplyPreferredLayoutTaskFactory applyPreferredLayout, ApplyVisualStyleTaskFactory applyVisualStyle) {
+								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, TaskManager taskManager) {
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
-		this.applyPreferredLayout = applyPreferredLayout;
-		this.applyVisualStyle = applyVisualStyle;
+		
+		this.visualMappingManager = visualMappingManager;
+		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
+		this.taskManager = taskManager;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -244,13 +257,36 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	 */  
 	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
 		System.out.println("cy3sbml: postProcessing");
+		
+		// Apply cy3sbml style
+		// TODO: better way to find the style
+		// TODO: use cy3sbml properties to read the style to apply
+		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		for (VisualStyle style: styles){
+			if (style.getTitle().equals("cy3sbml")){
+				visualMappingManager.setVisualStyle(style, view);
+				break;
+			}
+		}
+		System.out.println("*** Layouts ***");
+		Collection<CyLayoutAlgorithm> layouts = cyLayoutAlgorithmManager.getAllLayouts();
+		for (CyLayoutAlgorithm layout: layouts){
+			System.out.println(layout.getName());
+		}
+		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
+		layout.createLayoutContext();
+		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
+																	layout.ALL_NODE_VIEWS, layout.getName());
+		taskManager.execute(layoutTaskIterator);
+		
+		// view.applyLayout(layout);
+		
+		
 		/*
 		// Apply Layout
 		applyLayout(network);
 		
-		// Set Visual Style
 		
-		VisualStyleManager.setVisualStyleForNetwork(network, CustomStyle.DEFAULT_STYLE);
 		// Select SBML Attributes in Data Panel
 		selectSBMLTableAttributes();
 		
@@ -272,6 +308,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	}
 	
 	/** Applies force-directed layout to the network. */
+
 	/*
 	protected void applyLayout(CyNetwork network) {
 		if (nodeIds.size() > LAYOUT_NODE_NUMBER){
@@ -282,7 +319,9 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 			view.applyLayout(layout);
 		}
 	}
+	*/
 	
+	/*
 	protected void updateNavigationPanel(CyNetwork network){
 		NavigationPanel panel = NavigationPanel.getInstance();
 		panel.putSBMLDocument(network.getIdentifier(), document, network);

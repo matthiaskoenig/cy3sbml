@@ -11,9 +11,11 @@ import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.RowsSetListener;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
+import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -43,16 +45,23 @@ public class CyActivator extends AbstractCyActivator {
 		try {
 			System.out.println("cy3sbml: start init");
 			
+			// taskmanager for executing tasks
+			
+			
 			// register SBML file reader
+			ApplyVisualStyleTaskFactory applyVisualStyle = getService(bc, ApplyVisualStyleTaskFactory.class);
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
-			StreamUtil streamUtilRef = getService(bc,StreamUtil.class);
+			StreamUtil streamUtilRef = getService(bc, StreamUtil.class);
+			TaskManager taskManager = getService(bc, TaskManager.class);
+			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
+			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
 			ApplyPreferredLayoutTaskFactory applyPreferredLayout = getService(bc, ApplyPreferredLayoutTaskFactory.class);
-			ApplyVisualStyleTaskFactory applyVisualStyle = getService(bc, ApplyVisualStyleTaskFactory.class);
+			
 			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, cyNetworkFactory, cyNetworkViewFactory,
-																								   applyPreferredLayout, applyVisualStyle);
+																						visualMappingManager, cyLayoutAlgorithmManager, taskManager);
 			
 			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
 			sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
@@ -65,12 +74,12 @@ public class CyActivator extends AbstractCyActivator {
 			// register cy3sbml Control Panel
 			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 			
+
+			
 			
 			// TODO: handle the creation of the navigation panel
 			// Send browser reference
 			SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance(openBrowser);
-			
-			
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			
 			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
@@ -107,13 +116,14 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
 			
 			// Load the visual styles
+			// TODO: Set name for task
+			// TOOD: handle multiple loading of same style (probably better in separate task)
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
-			// Use the service to load visual style, 'f' is the File object to hold the visual properties 
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
-			
-			//File f = new File(stream);
 			loadVizmapFileTaskFactory.loadStyles(stream);
-
+			
+			// Show the cy3sbml panel
+			controlPanelAction.actionPerformed(null);
 		
 		} catch (Exception e){
 			e.printStackTrace();
