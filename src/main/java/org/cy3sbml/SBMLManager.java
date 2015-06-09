@@ -2,6 +2,8 @@ package org.cy3sbml;
 
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetworkManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Main class for managing the SBML files.
@@ -12,6 +14,7 @@ import org.cytoscape.model.CyNetworkManager;
  *
  */
 public class SBMLManager {
+	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private SBMLDocuments sbmlDocuments;
 	private CyNetworkManager cyNetworkManager;
@@ -20,7 +23,7 @@ public class SBMLManager {
 
 	public static synchronized SBMLManager getInstance(CyNetworkManager cyNetworkManager, CyApplicationManager cyApplicationManager){
 		if (uniqueInstance == null){
-			System.out.println("cy3sbml: SBMLManager created");
+			logger.info("SBMLManager created");
 			uniqueInstance = new SBMLManager(cyNetworkManager, cyApplicationManager);
 		}
 		return uniqueInstance;
