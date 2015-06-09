@@ -12,8 +12,6 @@ import javax.swing.Icon;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
@@ -26,7 +24,6 @@ import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
@@ -36,6 +33,11 @@ import org.cytoscape.util.swing.OpenBrowser;
  * Control Panel for cy3sbml.
  */
 public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static SBMLControlPanel uniqueInstance;
 	
 	private OpenBrowser openBrowser;
@@ -171,8 +173,6 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
 		URL url = evt.getURL();
-		System.out.println(url);
-		
 		if (url != null) {
 			if (evt.getEventType() == HyperlinkEvent.EventType.ENTERED) {
 				
