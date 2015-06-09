@@ -23,7 +23,8 @@ We are currently porting all features from the Cytoscape 2 plugin to Cytoscape 3
 * Navigation menu based on the SBML structure linked to layout 
   and annotation information
 * succesfully tested with all SBML.org and Biomodels.org test
-  cases (sbml-test-cases-2.0.2, BioModels_Database-r28)
+  cases (sbml-test-cases-2.0.2, BioModels_Database-r28)  
+Information about changes is available in the [INFO.md](./INFO.md).
 
 ## License
 * Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
