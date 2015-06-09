@@ -2,7 +2,7 @@
 # This script installs the libraries in the local maven repository 
 
 # change in the lib directory
-cd $CY3SBML/cy3sbml/lib
+cd $CY3SBML/lib
 
 # spi-full-0.2.4
 # wget http://sourceforge.net/p/jsbml/code/HEAD/tree/trunk/core/lib/spi-full-0.2.4.jar?format=raw -O spi-full-0.2.4.jar

@@ -14,15 +14,15 @@ svn update
 # CORE
 cd $JSBMLCODE/core   
 ant jar 
-cp $JSBMLCODE/core/build/*.jar $CY3SBML/cy3sbml/lib/core.jar
+cp $JSBMLCODE/core/build/*.jar $CY3SBML/lib/core.jar
 
 # QUAL
 cd $JSBMLCODE/extensions/qual
 ant jar 
-cp $JSBMLCODE/extensions/qual/build/*.jar $CY3SBML/cy3sbml/lib/qual.jar
+cp $JSBMLCODE/extensions/qual/build/*.jar $CY3SBML/lib/qual.jar
 
 # LAYOUT
 cd $JSBMLCODE/extensions/layout
 ant jar 
-cp $JSBMLCODE/extensions/layout/build/*.jar $CY3SBML/cy3sbml/lib/layout.jar
+cp $JSBMLCODE/extensions/layout/build/*.jar $CY3SBML/lib/layout.jar
 
