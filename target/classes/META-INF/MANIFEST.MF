@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-SymbolicName: cy3sbml
 Built-By: mkoenig
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1433861409114
+Bnd-LastModified: 1433863032246
 Embed-Dependency: *;scope=!provided
 Import-Package: com.ibm.uvm.tools;resolution:=optional,com.sun.jdmk.co
  mm;resolution:=optional,com.sun.msv.grammar;resolution:=optional,com.
