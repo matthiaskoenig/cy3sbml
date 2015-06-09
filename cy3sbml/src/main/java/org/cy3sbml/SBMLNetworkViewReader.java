@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.cytoscape.io.read.CyNetworkReader;
@@ -15,6 +16,7 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
+import org.cytoscape.property.CyProperty;
 import org.cytoscape.view.layout.CyLayoutAlgorithm;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
@@ -73,6 +75,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
+	private final CyProperty<Properties> cy3sbmlProperties;
 	private final VisualMappingManager visualMappingManager;
 	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
 	private final TaskManager taskManager;
@@ -81,11 +84,13 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private CyNetwork network;
 
 	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, SynchronousTaskManager taskManager) {
+								 CyProperty<Properties> cy3sbmlProperties,
+								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, 
+								 SynchronousTaskManager taskManager) {
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
-		
+		this.cy3sbmlProperties = cy3sbmlProperties;
 		this.visualMappingManager = visualMappingManager;
 		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
 		this.taskManager = taskManager;
@@ -275,18 +280,13 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		taskManager.execute(layoutTaskIterator);
 		
 		
-		// Apply cy3sbml style
-		// TODO: use cy3sbml properties to read the style to apply
-		String styleName = "cy3sbml";
-		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
-		for (VisualStyle style: styles){
-			if (style.getTitle().equals(styleName)){
-				visualMappingManager.setVisualStyle(style, view);
-				style.apply(view);
-				break;
-			}
-		}
+		// Apply cy3sbml style		
+		// String styleName = ((Properties) cy3sbmlProperties).getProperty("cy3sbml.visualStyle");
+		String styleName = (String) cy3sbmlProperties.getProperties().get("cy3sbml.visualStyle");
 		// view.fitContent();
+		VisualStyle style = getVisualStyleByName(styleName);
+		visualMappingManager.setVisualStyle(style, view);
+		style.apply(view);
 		view.updateView();
 		
 		// Select SBML Attributes in Data Panel
@@ -309,6 +309,19 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		
 		
 	}
+	
+	private VisualStyle getVisualStyleByName(String styleName){
+		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		for (VisualStyle style: styles){
+			if (style.getTitle().equals(styleName)){
+				System.out.println("cy3sbml: Style " + styleName);
+				return style;
+			}
+		}
+		System.out.println("cy3sbml: Style default");
+		return visualMappingManager.getDefaultVisualStyle();
+	}
+	
 	
 	/** Applies force-directed layout to the network. */
 

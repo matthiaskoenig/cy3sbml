@@ -2,6 +2,7 @@
 .project
 .settings
 .metadata
+.recommenders
 *~
 cy3sbml/target/classes/
 cy3sbml/target/maven-status/

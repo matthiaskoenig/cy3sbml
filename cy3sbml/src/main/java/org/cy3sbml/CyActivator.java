@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cytoscape.property.CyProperty;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.task.visualize.ApplyPreferredLayoutTaskFactory;
@@ -46,7 +47,16 @@ public class CyActivator extends AbstractCyActivator {
 		try {
 			System.out.println("cy3sbml: start init");
 			
-			// taskmanager for executing tasks
+			/* cy3sbml properties are used to store general settings. */
+			// CyProperty support
+			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
+			Properties propsReaderServiceProps = new Properties();
+			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
+			registerAllServices(bc, propsReader, propsReaderServiceProps);
+			
+			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
+			// not working : String propertyValue = cy3sbmlProperties.getProperty("cy3sbml.visualStyle");
+			// use : String propertyValue = (String) cy3sbmlProperties.getProperties().get("cy3sbml.visualStyle");
 			
 			
 			// register SBML file reader
@@ -61,9 +71,8 @@ public class CyActivator extends AbstractCyActivator {
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)",streamUtilRef);
-			ApplyPreferredLayoutTaskFactory applyPreferredLayout = getService(bc, ApplyPreferredLayoutTaskFactory.class);
-			
 			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, cyNetworkFactory, cyNetworkViewFactory,
+																						cy3sbmlProperties,
 																						visualMappingManager, cyLayoutAlgorithmManager, taskManager);
 			
 			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
@@ -77,7 +86,7 @@ public class CyActivator extends AbstractCyActivator {
 			// register cy3sbml Control Panel
 			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 			
-
+	
 			
 			
 			// TODO: handle the creation of the navigation panel

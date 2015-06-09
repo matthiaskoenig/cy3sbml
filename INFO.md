@@ -2,6 +2,7 @@
 ## Changelog
 
 **v0.1.3** [?]
+* support of cy3sbml properties for general settings like preferred VisualStyle
 * node EventListener for updating annotation information
 * application of layout after generating views
 
