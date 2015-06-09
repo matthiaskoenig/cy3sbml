@@ -4,25 +4,22 @@
 # JSBML should be checked out and environment variable $JSBMLCODE be set
 # to the location of latest source code, i.e. 
 
-# export $JSBMLCODE=$HOME/svn/jsbml-code 
+# export JSBMLCODE=$HOME/svn/jsbml-code 
 # svn checkout svn://svn.code.sf.net/p/jsbml/code/trunk $JSBMLCODE
+
+export JSBMLCODE=$HOME/svn/jsbml-code
 
 # now update to latest revision
 cd $JSBMLCODE
-svn update
+svn update 
+rm -r build
+
+# build core and extensions
+ant jar 
 
 # CORE
-cd $JSBMLCODE/core   
-ant jar 
-cp $JSBMLCODE/core/build/*.jar $CY3SBML/lib/core.jar
+cp $JSBMLCODE/core/build/*.jar $CY3SBML/lib/
 
-# QUAL
-cd $JSBMLCODE/extensions/qual
-ant jar 
-cp $JSBMLCODE/extensions/qual/build/*.jar $CY3SBML/lib/qual.jar
-
-# LAYOUT
-cd $JSBMLCODE/extensions/layout
-ant jar 
-cp $JSBMLCODE/extensions/layout/build/*.jar $CY3SBML/lib/layout.jar
+# EXTENSIONS
+cp $JSBMLCODE/build/*.jar $CY3SBML/lib/
 

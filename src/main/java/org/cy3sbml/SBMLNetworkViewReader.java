@@ -37,9 +37,13 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkReader {
+	private static final Logger logger = LoggerFactory.getLogger(SBMLNetworkViewReader.class);
+	
 	private static final int BUFFER_SIZE = 16384;
 	
 	static final String NODE_NAME_ATTR_LABEL = "name"; //$NON-NLS-1$
@@ -99,23 +103,18 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	@SuppressWarnings("deprecation")
 	public void run(TaskMonitor taskMonitor) throws Exception {
 		
-		System.out.println("********************************");
-		System.out.println("Cy3SBML - Start Reader.run()");
-		System.out.println("********************************");
+		logger.info("Start Reader.run()");
 		try {
 		
 		String version = JSBML.getJSBMLVersionString();
-		System.out.println("JSBML version: " + version);
+		logger.info("JSBML version: " + version);
 		
 		String xml = readString(stream);
 		document = JSBML.readSBMLFromString(xml);
-		
 		network = networkFactory.createNetwork();
-		//view = viewFactory.getNetworkView(network);
 		Model model = document.getModel();
 		
 		// Create a node for each Species
-		System.out.println("Species nodes");
 		Map<String, CyNode> speciesById = new HashMap<String, CyNode>();
 		for (Species species : model.getListOfSpecies()) {
 			CyNode node = network.addNode();
@@ -137,7 +136,6 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		}
 		
 		// Create a node for each Reaction
-		System.out.println("Reaction nodes");
 		Map<String, CyNode> reactionsById = new HashMap<String, CyNode>();
 		for (Reaction reaction : model.getListOfReactions()) {
 			CyNode node = network.addNode();
@@ -194,10 +192,10 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 				}
 			}
 		}
-		System.out.println("********************************");
-		System.out.println("Cy3SBML - End Reader.run()");
-		System.out.println("********************************");
+		logger.info("End Reader.run()");
+		
 		} catch (Throwable t){
+			logger.error("Could not read SBML into Cytoscape!", t);
 			t.printStackTrace();
 		}
 	}
@@ -261,15 +259,9 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	 *  - selects the important SBML attributes in the data browser
 	 */  
 	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
-		System.out.println("cy3sbml: postProcessing");
+		logger.info("doPostProcessing of network and view");
 		
-		/*
-		System.out.println("*** Layouts ***");
-		Collection<CyLayoutAlgorithm> layouts = cyLayoutAlgorithmManager.getAllLayouts();
-		for (CyLayoutAlgorithm layout: layouts){
-			System.out.println(layout.getName());
-		}
-		*/
+		// apply layout
 		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
 		layout.createLayoutContext();
 		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
@@ -279,9 +271,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// may occur before the view is relayed out:
 		taskManager.execute(layoutTaskIterator);
 		
-		
 		// Apply cy3sbml style		
-		// String styleName = ((Properties) cy3sbmlProperties).getProperty("cy3sbml.visualStyle");
 		String styleName = (String) cy3sbmlProperties.getProperties().get("cy3sbml.visualStyle");
 		// view.fitContent();
 		VisualStyle style = getVisualStyleByName(styleName);
@@ -314,17 +304,14 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
 		for (VisualStyle style: styles){
 			if (style.getTitle().equals(styleName)){
-				System.out.println("cy3sbml: Style " + styleName);
 				return style;
 			}
 		}
-		System.out.println("cy3sbml: Style default");
+		logger.warn("cy3sbml style not found in VisualStyles, default style used.");
 		return visualMappingManager.getDefaultVisualStyle();
 	}
 	
 	
-	/** Applies force-directed layout to the network. */
-
 	/*
 	protected void applyLayout(CyNetwork network) {
 		if (nodeIds.size() > LAYOUT_NODE_NUMBER){

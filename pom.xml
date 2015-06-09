@@ -5,10 +5,11 @@
 	<properties>
 		<bundle.symbolicName>cy3sbml</bundle.symbolicName>
 		<bundle.namespace>org.cy3sbml</bundle.namespace>
-		<cytoscape.api.version>3.0.0</cytoscape.api.version>
-
+		
 		<maven-bundle-plugin.version>2.3.4</maven-bundle-plugin.version>
 		<osgi.api.version>4.2.0</osgi.api.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cytoscape.api.version>3.2.1</cytoscape.api.version>
 	</properties>
 
 	<groupId>org.cysbml</groupId>
@@ -193,30 +194,39 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+		</dependency>
 		
-		<!-- JSBML dependency -->
+		<!-- JSBML CORE dependency -->
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>core</artifactId>
-  			<version>1.0</version>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml</artifactId>
+  			<version>1.1-dev</version>
+  		</dependency>
+ 
+  		<!-- JSBML EXTENSION dependency -->
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-qual</artifactId>
+  			<version>2.1-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>qual</artifactId>
-  			<version>1.0</version>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-layout</artifactId>
+  			<version>1.0-b1</version>
   		</dependency>
+  		
+  		 <!-- JSBML dependencies -->
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>layout</artifactId>
-  			<version>1.0</version>
-  		</dependency>
-  		<dependency>
-    		<groupId>cysbml-temp</groupId>
+    		<groupId>cy3sbml-temp</groupId>
     		<artifactId>jigsaw-dateParser</artifactId>
     		<version>0.1</version>
     	</dependency>
     	<dependency>
-    		<groupId>cysbml-temp</groupId>
+    		<groupId>cy3sbml-temp</groupId>
     		<artifactId>spi-full</artifactId>
     		<version>0.2.4</version>
     	</dependency>

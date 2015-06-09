@@ -3,7 +3,6 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
-import org.cytoscape.task.visualize.ApplyPreferredLayoutTaskFactory;
 import org.cytoscape.task.visualize.ApplyVisualStyleTaskFactory;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CyAction;
@@ -15,22 +14,17 @@ import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
-import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.SynchronousTaskManager;
-import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Properties;
-
-import javax.swing.ImageIcon;
 
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.SBMLNetworkViewTaskFactory;
@@ -49,7 +43,7 @@ public class CyActivator extends AbstractCyActivator {
 	
 	public void start(BundleContext bc) {
 		try {
-			logger.info("cy3sbml start server ...");
+			logger.info("starting server ...");
 			
 			// cy3sbml logger support
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
@@ -139,7 +133,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// Show the cy3sbml panel
 			controlPanelAction.actionPerformed(null);
-			logger.info("cy3sbml server started");
+			logger.info("server started");
 		
 		} catch (Exception e){
 			logger.error("Could not start server!", e);
