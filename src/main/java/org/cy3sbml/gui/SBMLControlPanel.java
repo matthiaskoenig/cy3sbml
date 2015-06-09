@@ -134,11 +134,10 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 	
 	public void setHelp(){
 		try {
+			logger.info("set help in control panel");
 			URL url = new URL(SBMLControlPanel.class.getResource("/info.html").toString());
+			logger.info(url.toString());
 			textPane.setPage(url);
-			// TODO: is this correct ?
-			// this.repaint();
-			// ?? not updated
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

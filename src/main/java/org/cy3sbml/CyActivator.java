@@ -107,16 +107,19 @@ public class CyActivator extends AbstractCyActivator {
 			/* cy3sbml actions */
 			// Register all the necessary actions
 			// ImportAction
-			ImportAction importAction = new ImportAction(cySwingApplication);
-			registerService(bc, importAction, CyAction.class, new Properties());
+			
 			
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			
+			// TODO: ChangeStateAction
+			
+			// TODO: ImportAction
+			// ImportAction importAction = new ImportAction(cySwingApplication);
+			// registerService(bc, importAction, CyAction.class, new Properties());
+			
 			// TODO: BiomodelAction
 			// TODO: ValidationAction
-			// TODO: ChangeStateAction
-			// TODO: HelpAction
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
 			
