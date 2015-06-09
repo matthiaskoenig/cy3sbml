@@ -99,34 +99,31 @@
 	</build>
 
 	<dependencies>
+		<!-- Cytoscape 3 dependency -->
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>swing-application-api</artifactId>
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.cytoscape</groupId>
-			<artifactId>model-api</artifactId>
-			<version>${cytoscape.api.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>swing-util-api</artifactId>
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.cytoscape</groupId>
+			<artifactId>model-api</artifactId>
+			<version>${cytoscape.api.version}</version>
+			<scope>provided</scope>
+		</dependency>	
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>viewmodel-api</artifactId>
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>io-api</artifactId>
@@ -145,7 +142,6 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>service-api</artifactId>
@@ -183,6 +179,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- OSGi core dependency -->
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -190,12 +187,14 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- 3rd party dependency -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>
 		</dependency>
 		
+		<!-- JSBML dependency -->
   		<dependency>
   			<groupId>cysbml-temp</groupId>
   			<artifactId>core</artifactId>
@@ -211,7 +210,16 @@
   			<artifactId>layout</artifactId>
   			<version>1.0</version>
   		</dependency>
-  		
+  		<dependency>
+    		<groupId>cysbml-temp</groupId>
+    		<artifactId>jigsaw-dateParser</artifactId>
+    		<version>0.1</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>cysbml-temp</groupId>
+    		<artifactId>spi-full</artifactId>
+    		<version>0.2.4</version>
+    	</dependency>
   		<dependency>
   			<groupId>org.biojava</groupId>
   			<artifactId>biojava3-ontology</artifactId>
@@ -246,17 +254,7 @@
     		<groupId>org.codehaus.woodstox</groupId>
     		<artifactId>woodstox-core-lgpl</artifactId>
     		<version>4.0.9</version>
-		</dependency>
-		<dependency>
-    		<groupId>cysbml-temp</groupId>
-    		<artifactId>jigsaw-dateParser</artifactId>
-    		<version>0.1</version>
-    	</dependency>
-    	<dependency>
-    		<groupId>cysbml-temp</groupId>
-    		<artifactId>spi-full</artifactId>
-    		<version>0.2.4</version>
-    	</dependency>
+		</dependency>    	
 	</dependencies>
 
 </project>

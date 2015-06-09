@@ -22,6 +22,8 @@ import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.InputStream;
@@ -39,16 +41,17 @@ import org.cy3sbml.gui.SBMLControlPanel;
 
 
 public class CyActivator extends AbstractCyActivator {
+	private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
+	
 	public CyActivator() {
 		super();
 	}
 	
 	public void start(BundleContext bc) {
 		try {
-			System.out.println("cy3sbml: start init");
+			logger.info("cy3sbml start server ...");
 			
-			/* cy3sbml properties are used to store general settings. */
-			// CyProperty support
+			// cy3sbml logger support
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
 			Properties propsReaderServiceProps = new Properties();
 			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
@@ -136,11 +139,12 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// Show the cy3sbml panel
 			controlPanelAction.actionPerformed(null);
+			logger.info("cy3sbml server started");
 		
 		} catch (Exception e){
+			logger.error("Could not start server!", e);
 			e.printStackTrace();
 		}
-		System.out.println("cy3sbml: end init");
 	}
 }
 
