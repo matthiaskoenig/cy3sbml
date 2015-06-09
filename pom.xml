@@ -200,29 +200,33 @@
 			<version>1.7.12</version>
 		</dependency>
 		
-		<!-- JSBML dependency -->
+		<!-- JSBML CORE dependency -->
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>core</artifactId>
-  			<version>1.0</version>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml</artifactId>
+  			<version>1.1-dev</version>
+  		</dependency>
+ 
+  		<!-- JSBML EXTENSION dependency -->
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-qual</artifactId>
+  			<version>2.1-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>qual</artifactId>
-  			<version>1.0</version>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-layout</artifactId>
+  			<version>1.0-b1</version>
   		</dependency>
+  		
+  		 <!-- JSBML dependencies -->
   		<dependency>
-  			<groupId>cysbml-temp</groupId>
-  			<artifactId>layout</artifactId>
-  			<version>1.0</version>
-  		</dependency>
-  		<dependency>
-    		<groupId>cysbml-temp</groupId>
+    		<groupId>cy3sbml-temp</groupId>
     		<artifactId>jigsaw-dateParser</artifactId>
     		<version>0.1</version>
     	</dependency>
     	<dependency>
-    		<groupId>cysbml-temp</groupId>
+    		<groupId>cy3sbml-temp</groupId>
     		<artifactId>spi-full</artifactId>
     		<version>0.2.4</version>
     	</dependency>
