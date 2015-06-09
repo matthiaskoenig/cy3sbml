@@ -1,6 +1,7 @@
 # cy3sbml - SBML for Cytoscape
-**cy3sbml** is a [Cytoscape](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
-![alt tag](./docs/images/logo200.png) 
+**cy3sbml** is a [Cytoscape](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).
+
+![alt tag](./docs/images/logo100.png) 
 
 **cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
 visualization of SBML network annotations within the network context, direct import of models from repositories like [biomodels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information. SBML validation information about the imported files is available.
