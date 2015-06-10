@@ -31,7 +31,7 @@ import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.gui.SBMLControlPanel;
+import org.cy3sbml.gui.ControlPanel;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -88,7 +88,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// TODO: handle the creation of the navigation panel
 			// Send browser reference
-			SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance(openBrowser);
+			ControlPanel navControlPanel = ControlPanel.getInstance(openBrowser);
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			
 			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
@@ -107,16 +107,19 @@ public class CyActivator extends AbstractCyActivator {
 			/* cy3sbml actions */
 			// Register all the necessary actions
 			// ImportAction
-			ImportAction importAction = new ImportAction(cySwingApplication);
-			registerService(bc, importAction, CyAction.class, new Properties());
+			
 			
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			
+			// TODO: ChangeStateAction
+			
+			// TODO: ImportAction
+			// ImportAction importAction = new ImportAction(cySwingApplication);
+			// registerService(bc, importAction, CyAction.class, new Properties());
+			
 			// TODO: BiomodelAction
 			// TODO: ValidationAction
-			// TODO: ChangeStateAction
-			// TODO: HelpAction
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
 			
@@ -135,7 +138,7 @@ public class CyActivator extends AbstractCyActivator {
 			controlPanelAction.actionPerformed(null);
 			logger.info("server started");
 		
-		} catch (Exception e){
+		} catch (Throwable e){
 			logger.error("Could not start server!", e);
 			e.printStackTrace();
 		}

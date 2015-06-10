@@ -2,6 +2,7 @@
 ## Changelog
 
 **v0.1.3** [?]
+* first unit tests created and integrated with maven
 * logging with log4j and slf4j implemented (cy3sbml.log)
 * support of cy3sbml properties for general settings like preferred VisualStyle
 * node EventListener for updating annotation information
@@ -14,11 +15,14 @@
 * first app release (OSGI build with JSBML integration)
 
 ## Open issues for v0.1.3
-* *TODO* create unit tests & run unit tests within Maven
-* *TODO* VisualStyle applying after network read
+* *TODO* update help window with help icon
 * *TODO* display annotation information (MIRIAM)
+* *TODO* apply VisualStyle after network generation
+* *TODO* use proxy settings from Cytoscape
 
 ## Open issues
+* *TODO* fix cy3sbml icons & icon order in menubar
+* *TODO* File Reader Action associated with icon
 * *TODO* BioModels webservice
 * *TODO* JWS online webservice? how can this be integrated?
 * *TODO* additional reaction information (kinetics and if available the parameters)
