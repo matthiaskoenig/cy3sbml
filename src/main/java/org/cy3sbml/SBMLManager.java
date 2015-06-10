@@ -80,34 +80,16 @@ public class SBMLManager {
 		}
 	}
 	
-	/*
-	 * Here all the changes to the SBML2Network mapping are managed.
-	 * TODO: implement Events or similar things to which the ControlPanel is listening.
-	 * By this the synchronisation will be much easier.
-	 */
+
 	
-	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network){
-		NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(network);
-		addSBML2NetworkEntry(doc, network, mapping);
-	}
-	/*
-	public void putSBMLDocumentForLayout(String networkName, SBMLDocument document, CyNetwork network, Layout layout){
-		NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(layout);
-		putSBMLDocument(networkName, document, mapping);
-	}
-	public void putSBMLDocumentForGRN(String networkName, SBMLDocument document, CyNetwork network){
-		NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(network);
-		putSBMLDocument(networkName, document, mapping);
-	}
-	*/
-	
-	private void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBaseToNodeMapping mapping){
+	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBaseToNodeMapping mapping){
 		// add the entry
 		Long suid = network.getSUID();
 		sbmlDocuments.putDocument(suid, doc, mapping);
 		sbmlDocuments.setCurrent(suid);
 		
 		// TODO: update the visualization in control Panel
+		// Create some event -> programming pattern
 		// this.activate();
 		// updateNavigationTree();
 	}

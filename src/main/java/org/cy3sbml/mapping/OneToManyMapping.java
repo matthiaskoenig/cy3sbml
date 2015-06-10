@@ -5,24 +5,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class OneToManyMapping {
-	private HashMap<String, List<String>> map;
+
+public class OneToManyMapping<T1, T2> {	
+	private HashMap<T1, List<T2>> map;
 	
 	public OneToManyMapping(){
-		map = new HashMap<String, List<String>> ();
+		map = new HashMap<T1, List<T2>> ();
 	}
 	
-	public boolean containsKey(String key){
+	public boolean containsKey(T1 key){
 		return map.containsKey(key);
 	}
 	
-	public Set<String> keySet(){
+	public Set<T1> keySet(){
 		return map.keySet();
 	}
 	
-	public boolean put(String key, String newValue){
-		boolean valueAdded = true;
-		List<String> values = getOrCreateValues(key);
+	public boolean put(T1 key, T2 newValue){
+		boolean valueAdded = false;
+		List<T2> values = getOrCreateValues(key);
 		if (! values.contains(newValue)){
 			values.add(newValue);
 			valueAdded = true;
@@ -31,50 +32,50 @@ public class OneToManyMapping {
 		return valueAdded;
 	}
 	
-	public List<String> getValues(String key){
-		List<String> values; 
+	public List<T2> getValues(T1 key){
+		List<T2> values; 
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new LinkedList<String>();
+			values = new LinkedList<T2>();
 		}
 		return values;
 	}
 	
-	public List<String> getValues(List<String> keys){
-		List<String> values = new LinkedList<String>();
-		for (String key: keys){
+	public List<T2> getValues(List<T1> keys){
+		List<T2> values = new LinkedList<T2>();
+		for (T1 key: keys){
 			if (containsKey(key)){
 				values.addAll(map.get(key));
-			}	
+			}
 		}
 		return values;
 	}
 	
-	private List<String> getOrCreateValues(String key){
-		List<String> values;
+	private List<T2> getOrCreateValues(T1 key){
+		List<T2> values;
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new LinkedList<String>();
+			values = new LinkedList<T2>();
 		}
 		return values;
 	}
 
-	public static OneToManyMapping createReverseMapping(OneToManyMapping mapping) {
-		OneToManyMapping reverseMapping = new OneToManyMapping();
-		for (String key: mapping.keySet()){
-			for (String value : mapping.getValues(key)){
+	public OneToManyMapping<T2, T1> createReverseMapping(){
+		OneToManyMapping<T2, T1> reverseMapping = new OneToManyMapping<T2,T1>();
+		for (T1 key: this.keySet()){
+			for (T2 value : this.getValues(key)){
 				reverseMapping.put(value, key);
 			}
 		}
 		return reverseMapping;
 	}
-	
+
 	public String toString(){
 		String info = "*** OneToManyMapping ***\n";
-		for (String key: keySet()){
-			info += String.format("%s -> %s\n", key, map.get(key));
+		for (T1 key: keySet()){
+			info += String.format("%s -> %s\n", key.toString(), map.get(key).toString());
 		}
 		info += "************************";
 		return info;

@@ -1,5 +1,23 @@
 package org.cy3sbml;
-public class SBMLConstants {
+
+public class SBML {
+	// TODO: fix the attributes
+	public static final String NODE_NAME_ATTR_LABEL = "name"; 
+	public static final String INTERACTION_TYPE_ATTR = "interaction type";
+	public static final String SBML_TYPE_ATTR = "sbml type";
+	public static final String SBML_ID_ATTR = "sbml id";
+	public static final String SBML_INITIAL_CONCENTRATION_ATTR = "sbml initial concentration";
+	public static final String SBML_INITIAL_AMOUNT_ATTR = "sbml initial amount";
+	public static final String SBML_CHARGE_ATTR = "sbml charge";
+	public static final String SBML_COMPARTMENT_ATTR = "sbml compartment";
+	public static final String SBML_TYPE_SPECIES = "species";
+	public static final String SBML_TYPE_REACTION = "reaction";
+	public static final String INTERACTION_TYPE_REACTION_PRODUCT = "reaction-product";
+	public static final String INTERACTION_TYPE_REACTION_REACTANT = "reaction-reactant";
+	public static final String INTERACTION_TYPE_REACTION_MODIFIER = "reaction-modifier";
+	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
+	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
+	
 	public static final String ATT_ID = "sbml id";
 	public static final String ATT_TYPE = "sbml type";
 	public static final String ATT_METAID = "sbml metaId";

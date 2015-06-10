@@ -1,4 +1,4 @@
-package org.cy3sbml.mapping;
+package org.cy3sbml.gui;
 
 import java.util.HashMap;
 import java.util.Map;
