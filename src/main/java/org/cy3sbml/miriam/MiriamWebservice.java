@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
-/** Set up the Miriam Link to get data via the webservice. */
+/** Set up the Miriam Link to get data via the webservice. 
+ *
+ * It can be necessary to set the proxy information for the webservice.
+ */
 public class MiriamWebservice {
 	private static final Logger logger = LoggerFactory.getLogger(MiriamWebservice.class);
 	public static final String MIRIAM_URL = "http://www.ebi.ac.uk/miriamws/main/MiriamWebServices";

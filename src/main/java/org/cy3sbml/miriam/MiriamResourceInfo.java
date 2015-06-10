@@ -1,89 +1,82 @@
 package org.cy3sbml.miriam;
 
+
+import java.util.Arrays;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-import org.apache.commons.lang.StringUtils;
-
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
 
 /** Handling the MiriamResource Information for given entries.
- * Data is cached to reduce the webservice overhead.
+ * Data is cached in memory cache based on ehcache to reduce 
+ * the webservice overhead and minimize the calls to MIRIAM.
  */
 public class MiriamResourceInfo {
+	private static final Logger logger = LoggerFactory.getLogger(MiriamResourceInfo.class);
+	
 	private static CacheManager cacheManager;
 	private static Cache miriamCache; 
 	
 	// Cache Configuration
 	static {
-		// Create a singleton CacheManager using defaults, then list caches.
-		
-		// String[] cacheNames = CacheManager.getInstance().getCacheNames();
-		//URL url = getClass().getResource("/anotherconfigurationname.xml");
-		//CacheManager manager = CacheManager.newInstance(url);
-		cacheManager = CacheManager.create();
-		
-		//Create a Cache and add it to the CacheManager, then use it. Note that Caches are not usable until they have been added to a CacheManager.
+		// Create a singleton CacheManager using defaults
+		cacheManager = CacheManager.create();		
 		// Memory only Cache
 		miriamCache = new Cache("miriamCache", 5000, false, true, 6000, 6000);
 		cacheManager.addCache(miriamCache);
-		
-		
-		// Shutdown after use 
-		//CacheManager.getInstance().shutdown();
-		
 	}
 
-	public static String getInfoFromMiriamResource(MiriamLink link, String resourceURI) {
+	public static String getInfoFromURI(MiriamLink link, String resourceURI) {
 		String text = "";
-		
-		// Get the locations from 
-		String[] locations = getLocationsFromMiriamResource(link, resourceURI); 
+		String[] locations = getLocationsFromURI(link, resourceURI); 
+		String[] items = new String[locations.length];
 		if (locations != null){
-			for (String location : locations) {
-				text += String.format("<a href=\"%s\">%s</a><br>", 
-										location, parseServerFromLocation(location));
+			for (int k=0; k<locations.length; k++) {
+				String location = locations[k];
+				items[k] = String.format("<a href=\"%s\">%s</a><br>", location, serverFromLocation(location));
 			}
+			text = StringUtils.join(items, "");
+		} else {
+			logger.warn("No locations for URI: " + resourceURI);
 		}
 		return text;
 	}
 
-	/** Parses the server information from the location String. */
-	private static String parseServerFromLocation(String location) {
+	private static String serverFromLocation(String location) {
+		// get everything instead of the last item 
 		String[] items = location.split("/");
-		String[] serveritems = new String[items.length - 1];
-		for (int i = 0; i < serveritems.length; ++i) {
-			serveritems[i] = items[i];
-		}
-		String server = StringUtils.join(serveritems, "/");
-		return server;
+		String[] serverItems = Arrays.copyOfRange(items, 0, items.length-1);
+		return StringUtils.join(serverItems, "/"); 
 	}
 	
-	
-	/** Here the Miriam calls are made which are cashed. */
-	public static String[] getLocationsFromMiriamResource(MiriamLink link, String resourceURI){
+	/** Get MIRIAM information from cache or via webservice lookup. */
+	public static String[] getLocationsFromURI(MiriamLink link, String resourceURI){
 		String[] locations = null;
 		
 		// check in cache
 		Element element = miriamCache.get(resourceURI);
 		if (element != null){
+			logger.info("In cache: " + resourceURI);
 			locations = (String[]) element.getObjectValue();
-			CySBML.LOGGER.info("cached: " + resourceURI);
 		} else {
+			logger.info("Webservice lookup: " + resourceURI);
 			locations = link.getLocations(resourceURI);
 			if (locations != null){
 				// update the cache
 				element = new Element(resourceURI, locations);
 				miriamCache.put(element);
-				CySBML.LOGGER.info("miriamCache added: " + resourceURI);
+				logger.info("Added to cache: " + resourceURI);
 			} else {
-				CySBML.LOGGER.warning("Miriam locations could not be retrieved: " + resourceURI);
+				logger.warn("Miriam locations could not be retrieved: " + resourceURI);
 			}
 		}
 		return locations; 
-	}
-	
+	}	
 }

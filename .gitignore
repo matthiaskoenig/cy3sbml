@@ -3,6 +3,7 @@
 .settings
 .metadata
 .recommenders
+cy3sbml.log
 *~
 /target/classes/
 /target/generated-sources

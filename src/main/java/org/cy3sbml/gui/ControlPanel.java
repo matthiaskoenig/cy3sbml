@@ -193,6 +193,9 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 	}
 	
+	public long getLastInfoThreadId(){
+		return lastInformationThreadId;
+	}
 	
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 	

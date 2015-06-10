@@ -3,8 +3,7 @@ package org.cy3sbml.miriam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -65,7 +64,7 @@ public class NamedSBaseInfoFactory {
 	public void cacheMiriamInformation(){
 		for (CVTerm term : sbmlObject.getCVTerms()){
 			for (String rURI : term.getResources()){
-				MiriamResourceInfo.getLocationsFromMiriamResource(link, rURI);
+				MiriamResourceInfo.getLocationsFromURI(link, rURI);
 			}
 		}
 	}
@@ -129,7 +128,7 @@ public class NamedSBaseInfoFactory {
 		CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTerm);
 		text += String.format("<b><span color=\"green\">%s</span></b><br>", sboTerm);
 		for (String rURI : term.getResources()){
-			text += MiriamResourceInfo.getInfoFromMiriamResource(link, rURI);
+			text += MiriamResourceInfo.getInfoFromURI(link, rURI);
 		}
 		text += "</p>";
 		return text;
@@ -146,7 +145,7 @@ public class NamedSBaseInfoFactory {
 				for (String rURI : term.getResources()){
 					map = getKeyAndId(rURI);
 					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("key"));
-					text += MiriamResourceInfo.getInfoFromMiriamResource(link, rURI);
+					text += MiriamResourceInfo.getInfoFromURI(link, rURI);
 				}
 				text += "</p>";
 			}
