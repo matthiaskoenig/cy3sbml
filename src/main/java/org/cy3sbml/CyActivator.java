@@ -138,7 +138,7 @@ public class CyActivator extends AbstractCyActivator {
 			controlPanelAction.actionPerformed(null);
 			logger.info("server started");
 		
-		} catch (Exception e){
+		} catch (Throwable e){
 			logger.error("Could not start server!", e);
 			e.printStackTrace();
 		}

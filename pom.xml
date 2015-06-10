@@ -290,13 +290,13 @@
 		</dependency>    	
 		
 		<!-- Testing -->
+		<!--
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-		
 		
 		<dependency>
 			<groupId>org.cytoscape</groupId>
@@ -311,6 +311,7 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>test</scope>
 		</dependency>
+	
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>ding-presentation-impl</artifactId>
@@ -350,7 +351,7 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+		-->
 	</dependencies>
 
 </project>
