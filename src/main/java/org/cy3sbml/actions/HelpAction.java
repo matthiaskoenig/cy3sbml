@@ -6,7 +6,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import org.cy3sbml.gui.SBMLControlPanel;
+import org.cy3sbml.gui.ControlPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -41,7 +41,7 @@ public class HelpAction extends AbstractCyAction{
 		System.out.println("HelpAction");
 		
 		// reset help information
-		SBMLControlPanel.getInstance(null).setHelp();
+		ControlPanel.getInstance(null).setHelp();
 		
 		// open browser help
 		URL url;

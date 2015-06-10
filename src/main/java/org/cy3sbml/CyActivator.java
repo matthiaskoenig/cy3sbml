@@ -31,7 +31,7 @@ import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.gui.SBMLControlPanel;
+import org.cy3sbml.gui.ControlPanel;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -88,7 +88,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// TODO: handle the creation of the navigation panel
 			// Send browser reference
-			SBMLControlPanel navControlPanel = SBMLControlPanel.getInstance(openBrowser);
+			ControlPanel navControlPanel = ControlPanel.getInstance(openBrowser);
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			
 			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());

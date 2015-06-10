@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
@@ -34,26 +35,32 @@ import org.slf4j.LoggerFactory;
 /**
  * Control Panel for cy3sbml.
  */
-public class SBMLControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
-	private static final Logger logger = LoggerFactory.getLogger(SBMLControlPanel.class);
+public class ControlPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
+	private static final Logger logger = LoggerFactory.getLogger(ControlPanel.class);
 	private static final long serialVersionUID = 1L;
 
-	private static SBMLControlPanel uniqueInstance;
+	private static ControlPanel uniqueInstance;
 	
 	private OpenBrowser openBrowser;
 	private JTree sbmlTree;
 	private JEditorPane textPane;
+
+	private boolean active = false;	
+
+	// TODO: better to refactor the information panel things -> put in separate class
+	private long lastInformationThreadId = -1;
 	
-	public static synchronized SBMLControlPanel getInstance(OpenBrowser openBrowser){
+	
+	public static synchronized ControlPanel getInstance(OpenBrowser openBrowser){
 		if (uniqueInstance == null){
 			logger.info("ControlPanel created");
-			uniqueInstance = new SBMLControlPanel(openBrowser);
+			uniqueInstance = new ControlPanel(openBrowser);
 		}
 		return uniqueInstance;
 	}
 	
 
-	private SBMLControlPanel(OpenBrowser openBrowser){
+	private ControlPanel(OpenBrowser openBrowser){
 		/** Construct the Navigation panel for cy3sbml. */
 		this.openBrowser = openBrowser;
 		
@@ -129,13 +136,56 @@ public class SBMLControlPanel extends JPanel implements CytoPanelComponent, Hype
 	public String getTitle() {
 		return "cy3sbml";
 	}
-		
-	/////////////////// SET PANEL CONTENT ///////////////////////////////////
 	
+	// TODO: refactor
+	/*
+    public void activate(){
+		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
+		int index = cytoPanel.indexOfComponent(CySBML.NAME);
+		if (index == -1){
+			cytoPanel.add(CySBML.NAME, this);
+			cytoPanel.setState(CytoPanelState.DOCK);
+		}
+		selectNavigationPanel();
+		active = true;
+	}
+	
+	public void deactivate(){
+		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
+		int index = cytoPanel.indexOfComponent(CySBML.NAME);
+		if (index != -1){
+			cytoPanel.remove(index);
+		}
+		// Test if still other Components, otherwise hide
+		if (cytoPanel.getCytoPanelComponentCount() == 0){
+			cytoPanel.setState(CytoPanelState.HIDE);
+		}
+		active = false;
+	}
+
+	public boolean isActive(){
+		return active;
+	}
+	
+	public static void selectNavigationPanel(){
+		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
+		cytoPanel.setSelectedIndex(cytoPanel.indexOfComponent(CySBML.NAME));
+	}
+	*/
+		
+	/////////////////// TEXT CONTENT ///////////////////////////////////
+	public JEditorPane getTextPane(){
+		return textPane;
+	}
+		
+	public void setText(String text){
+		textPane.setText(text);
+	}
+		
 	public void setHelp(){
 		try {
 			logger.info("set help in control panel");
-			URL url = new URL(SBMLControlPanel.class.getResource("/info.html").toString());
+			URL url = new URL(ControlPanel.class.getResource("/info.html").toString());
 			logger.info(url.toString());
 			textPane.setPage(url);
 		} catch (IOException e) {
