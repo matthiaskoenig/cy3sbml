@@ -4,5 +4,10 @@
 .metadata
 .recommenders
 *~
-cy3sbml/target/classes/
-cy3sbml/target/maven-status/
+/target/classes/
+/target/generated-sources
+/target/generated-test-sources
+/target/surefire-reports
+/target/maven-status/
+/target/test-classes
+
