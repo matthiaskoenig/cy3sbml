@@ -26,8 +26,8 @@ public class SBML2NetworkMapper {
 	
 	/* Store of all SBMLdocuments and mapping information. */
 	private Map<Long, SBMLDocument> documentMap;
-	private Map<Long, OneToManyMapping> NSBToNodeMappingMap;
-	private Map<Long, OneToManyMapping> nodeToNSBMappingMap;
+	private Map<Long, One2ManyMapping<String, Long>> NSBToNodeMappingMap;
+	private Map<Long, One2ManyMapping<Long, String>> nodeToNSBMappingMap;
 	
 	public SBML2NetworkMapper(){
 		logger.info("SBML2NetworkMapper created");
@@ -41,8 +41,8 @@ public class SBML2NetworkMapper {
 	
 	private void initMaps(){
 		documentMap = new HashMap<Long, SBMLDocument>();
-		NSBToNodeMappingMap = new HashMap<Long, OneToManyMapping>();
-		nodeToNSBMappingMap = new HashMap<Long, OneToManyMapping>();
+		NSBToNodeMappingMap = new HashMap<Long, One2ManyMapping<String, Long>>();
+		nodeToNSBMappingMap = new HashMap<Long, One2ManyMapping<Long, String>>();
 	}
 	
 	/** Updates the current SBMLDocument and mappings.
@@ -61,10 +61,10 @@ public class SBML2NetworkMapper {
 		return documentMap.keySet();
 	}
 	
-	public void putDocument(Long suid, SBMLDocument doc, NamedSBaseToNodeMapping mapping){
+	public void putDocument(Long suid, SBMLDocument doc, NamedSBase2CyNodeMapping mapping){
 		documentMap.put(suid,  doc);
 		NSBToNodeMappingMap.put(suid, mapping);
-		nodeToNSBMappingMap.put(suid, OneToManyMapping.createReverseMapping(mapping));
+		nodeToNSBMappingMap.put(suid, mapping.createReverseMapping());
 	}
 	
 	public void removeDocument(Long deletedNetworkSUID){
@@ -85,7 +85,7 @@ public class SBML2NetworkMapper {
 		}
 	}
 	
-	public OneToManyMapping getCurrentNodeToNSBMapping(){
+	public One2ManyMapping getCurrentNodeToNSBMapping(){
 		if (currentSUID != null){
 			logger.warn("No current SUID set. Mapping can not be retrieved !");
 			return null;
@@ -94,7 +94,7 @@ public class SBML2NetworkMapper {
 		}
 	}
 	
-	public OneToManyMapping getCurrentNSBToNodeMapping(){
+	public One2ManyMapping getCurrentNSBToNodeMapping(){
 		if (currentSUID != null){
 			logger.warn("No current SUID set. Mapping can not be retrieved !");
 			return null;

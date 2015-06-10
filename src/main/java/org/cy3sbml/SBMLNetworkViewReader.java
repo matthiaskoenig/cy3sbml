@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.cy3sbml.mapping.NamedSBaseToNodeMapping;
+import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -257,7 +257,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		
 		// TODO: register the SBML in the Manager 
 		SBMLManager sbmlManager = SBMLManager.getInstance(null, null);
-		NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(document, network);
+		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
 		
 		/*

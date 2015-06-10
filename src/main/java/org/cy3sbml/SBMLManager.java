@@ -2,7 +2,7 @@ package org.cy3sbml;
 
 import java.util.HashSet;
 
-import org.cy3sbml.mapping.NamedSBaseToNodeMapping;
+import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
@@ -82,7 +82,7 @@ public class SBMLManager {
 	
 
 	
-	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBaseToNodeMapping mapping){
+	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBase2CyNodeMapping mapping){
 		// add the entry
 		Long suid = network.getSUID();
 		sbmlDocuments.putDocument(suid, doc, mapping);
