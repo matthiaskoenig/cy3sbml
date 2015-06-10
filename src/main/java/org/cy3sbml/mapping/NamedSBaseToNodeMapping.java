@@ -9,7 +9,14 @@ import org.sbml.jsbml.ext.layout.ReactionGlyph;
 import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 
 
+/** The mapping changed completely. 
+ * Things are now managed via suids.
+ * @author mkoenig
+ *
+ */
 public class NamedSBaseToNodeMapping extends OneToManyMapping{	
+	
+	
 	
 	/* One to one Mapping between network and tree, so
 	 * network can be used to create the mapping. 
