@@ -4,6 +4,7 @@ import java.awt.print.Printable;
 import java.util.HashSet;
 
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
+import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.model.CyNetwork;
@@ -55,9 +56,7 @@ public class SBMLManager {
 		if (network != null){
 			suid = network.getSUID();
 		}
-		sbml2networks.setCurrent(suid);
-		
-		
+		sbml2networks.setCurrentSUID(suid);
 		
 		// TODO: update the visualization in control Panel
 		// Create some event -> programming pattern

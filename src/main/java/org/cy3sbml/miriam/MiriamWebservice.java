@@ -14,7 +14,7 @@ public class MiriamWebservice {
 	public static final String MIRIAM_URL = "http://www.ebi.ac.uk/miriamws/main/MiriamWebServices";
 	
 	public static MiriamLink getMiriamLink(){
-		logger.info("MiriamLink created");
+		logger.debug("MiriamLink created");
 		MiriamLink link = new MiriamLink();
         link.setAddress(MIRIAM_URL);
         return link;

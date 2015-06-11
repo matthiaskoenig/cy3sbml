@@ -1,6 +1,5 @@
 package org.cy3sbml.miriam;
 
-
 import java.util.Arrays;
 
 import net.sf.ehcache.Cache;
@@ -36,8 +35,8 @@ public class MiriamResourceInfo {
 	public static String getInfoFromURI(MiriamLink link, String resourceURI) {
 		String text = "";
 		String[] locations = getLocationsFromURI(link, resourceURI); 
-		String[] items = new String[locations.length];
 		if (locations != null){
+			String[] items = new String[locations.length];
 			for (int k=0; k<locations.length; k++) {
 				String location = locations[k];
 				items[k] = String.format("<a href=\"%s\">%s</a><br>", location, serverFromLocation(location));
