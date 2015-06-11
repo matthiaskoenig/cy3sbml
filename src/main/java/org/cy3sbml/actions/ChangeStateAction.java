@@ -3,7 +3,7 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-import org.cy3sbml.gui.ControlPanel;
+import org.cy3sbml.gui.ResultsPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class ChangeStateAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed");
-		ControlPanel panel = ControlPanel.getInstance();
+		ResultsPanel panel = ResultsPanel.getInstance();
 		if (panel.isActive()){
 			panel.deactivate();
 		} else {

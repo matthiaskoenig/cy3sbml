@@ -30,7 +30,7 @@ import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
-import org.cy3sbml.gui.ControlPanel;
+import org.cy3sbml.gui.ResultsPanel;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -102,7 +102,7 @@ public class CyActivator extends AbstractCyActivator {
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init cy3sbml ControlPanel
-			ControlPanel navControlPanel = ControlPanel.getInstance(adapter);
+			ResultsPanel navControlPanel = ResultsPanel.getInstance(adapter);
 			// init actions
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
@@ -141,7 +141,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// Show the cy3sbml panel
 			// controlPanelAction.actionPerformed(null);
-			ControlPanel.getInstance().activate();
+			ResultsPanel.getInstance().activate();
 			logger.info("server started");
 		
 		} catch (Throwable e){

@@ -4,33 +4,34 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JEditorPane;
 import javax.xml.stream.XMLStreamException;
 
-import org.cy3sbml.gui.ControlPanel;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
+
+import org.cy3sbml.gui.JEditorPaneSBML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Generates information for from web resources in separate Thread. */
+/** Generates information for web resources in separate Thread. 
+ */
 public class NamedSBaseInfoThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoThread.class);
 	
 	Collection<Object> objSet;
-	ControlPanel panel;
-	String infoText;
+	JEditorPaneSBML textPane;
+	public String info;
 	   
-    public NamedSBaseInfoThread(Collection<Object> objSet, ControlPanel panel) {
+    public NamedSBaseInfoThread(Collection<Object> objSet, JEditorPaneSBML textPane) {
         this.objSet = objSet;
-        this.panel = panel;
-        infoText = "";
+        this.textPane = textPane;
+        info = "";
     }
 
     public void run() {
-    	if (panel != null){
-    		// Info creation mode
+    	if (textPane != null){
+    		// Info creating mode
     		for (Object obj : objSet){	
     			NamedSBaseInfoFactory infoFac = new NamedSBaseInfoFactory(obj);
     			try {
@@ -39,8 +40,8 @@ public class NamedSBaseInfoThread extends Thread{
 					logger.error("Creating info for object failed");
 					e.printStackTrace();
 				}
-    			infoText += infoFac.getInfo();
-    			updateText();
+    			info += infoFac.getInfo();
+    			textPane.updateText(this);
     		}
     	} else {
     		// Cache filling mode
@@ -50,18 +51,7 @@ public class NamedSBaseInfoThread extends Thread{
     		}
     	}
     }
-    
-	/** Update Text in the navigation panel.
-	 * Only updates information if the current thread is the last requested thread 
-	 * for updating text. */
-    private void updateText(){
-    	if (this.getId() == panel.getLastInfoThreadId()){
-    		JEditorPane textPane = panel.getTextPane();
-    		textPane.setText(infoText);
-    	}
-    }
-    
-    
+        
 	/** Reads the annotation information in the Miriam Cash */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();

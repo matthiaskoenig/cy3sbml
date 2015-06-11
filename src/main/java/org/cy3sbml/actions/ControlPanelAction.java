@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
-import org.cy3sbml.gui.ControlPanel;
+import org.cy3sbml.gui.ResultsPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ public class ControlPanelAction extends AbstractCyAction {
 	
 	public void actionPerformed(ActionEvent e) {
 		logger.info("actionPerformed");
-		ControlPanel panel = ControlPanel.getInstance();
+		ResultsPanel panel = ResultsPanel.getInstance();
 		if (panel.isActive()){
 			panel.deactivate();
 		} else {
