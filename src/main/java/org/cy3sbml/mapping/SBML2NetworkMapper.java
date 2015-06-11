@@ -49,8 +49,9 @@ public class SBML2NetworkMapper {
 	 * This function has to be triggered to update the underlying mappings
 	 * and SBMLDocuments used for display.
 	 */
-	public void setCurrent(Long suid){
+	public void setCurrentSUID(Long suid){
 		if (suid != null && documentMap.containsKey(suid)){
+			//? Problem with documentMap
 			currentSUID = suid;
 		} else {
 			initCurrent();
@@ -79,6 +80,10 @@ public class SBML2NetworkMapper {
 		nodeToNSBMappingMap.remove(deletedNetworkSUID);
 	}
 	
+	public Long getCurrentSUID(){
+		return currentSUID;
+	}
+	
 	public SBMLDocument getCurrentDocument(){
 		if (currentSUID == null){
 			logger.warn("No current SUID set. SBMLDocument can not be retrieved !");
@@ -89,7 +94,7 @@ public class SBML2NetworkMapper {
 	}
 	
 	public One2ManyMapping<Long, String> getCurrentCyNode2NSBMapping(){
-		if (currentSUID != null){
+		if (currentSUID == null){
 			logger.warn("No current SUID set. Mapping can not be retrieved !");
 			return null;
 		} else {
@@ -98,7 +103,7 @@ public class SBML2NetworkMapper {
 	}
 	
 	public One2ManyMapping<String, Long> getCurrentNSBToCyNodeMapping(){
-		if (currentSUID != null){
+		if (currentSUID == null){
 			logger.warn("No current SUID set. Mapping can not be retrieved !");
 			return null;
 		} else {

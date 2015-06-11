@@ -40,6 +40,8 @@ import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -216,36 +218,37 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			return;
 		}
 		
-		Collection<RowSetRecord> rowsSet = e.getColumnRecords(CyNetwork.SELECTED);
-		for (RowSetRecord record: rowsSet) {
-			// Get the row that was set
-			CyRow row = record.getRow(); 
-			// What it was set to
-			boolean selected = ((Boolean)record.getValue()).booleanValue();  
-			CyNode node = network.getNode(row.get(CyIdentifiable.SUID, Long.class));
-			
-			// Do the test action
-			if (selected){
-				textPane.setText("Node selection event: (" + node.getSUID().toString() + ")");
-			} else {
-				textPane.setText("Unselected event");
-			}
-			
-			// If not active or no associated SBMLDocument do nothing
-			// TODO: check active state and manage active state
-			
-			
-			// TODO: get the information for the mapped SBML node
-			// TODO: work with notify and notifyAll
-		}
-		logger.info("Get selected SUIDs and NSBs");
-
-		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-		if (document != null){
-			navigationTree = new NavigationTree(document);
+		// TODO: get the information for the mapped SBML node
+		// TODO: work with notify and notifyAll
 		
+		// TODO: this is performed multiple times due to 
+		
+		List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+		logger.info("--- SELECTION ---");
+		for (CyNode n: selectedNodes){
+			logger.info(n.getSUID().toString());
+		}
+		logger.info("-----------------");
+		
+		// TODO: Listen to network changed events and update the SBML
+		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
+		
+		if (document != null){
+			/*
+			// Test the display of information
+			Model model = document.getModel();
+			HashSet<Object> nsbSet = new HashSet<Object>();
+			for (Compartment c: model.getListOfCompartments()){
+				nsbSet.add(c);
+			}
+			logger.info("Show information for compartment");		
+			textPane.showNSBInfo(nsbSet);
+			*/
+			logger.info("Get selected SUIDs and NSBs");
 			// TODO: !!! This has to be done when networks are changed/views selected
 			// TODO: !!! Only here for testing. DO NOT CREATE TREE FOR EVERY LOOKUP.
+			navigationTree = new NavigationTree(document);
+			
 			List<Long> selectedSUIDs = getSUIDsForSelectedNodes(network);
 			List<String> selectedNSBIds = getNSBIds(selectedSUIDs);
 		
@@ -260,6 +263,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				textPane.showNSBInfo(nsb);
 			}
 		}
+		
 		} catch (Throwable t){
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();

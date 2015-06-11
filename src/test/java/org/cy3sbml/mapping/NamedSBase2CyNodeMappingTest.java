@@ -47,10 +47,7 @@ public class NamedSBase2CyNodeMappingTest {
 		// ... test more things
 	}
 	
-	
-	
-	
-	
+
 	@Test
 	public void testFromNetwork() {
 		final CyNetwork network = testSupport.getNetwork();
