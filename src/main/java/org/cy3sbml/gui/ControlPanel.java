@@ -26,8 +26,10 @@ import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
+import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.application.swing.CytoPanelState;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -49,6 +51,7 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private static final Logger logger = LoggerFactory.getLogger(ControlPanel.class);
 	private static final long serialVersionUID = 1L;
 
+	CytoPanel cytoPanelEast;
 	private static ControlPanel uniqueInstance;
 	
 	private ServiceAdapter adapter;
@@ -57,8 +60,6 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	
 	private JTree sbmlTree;
 	private JEditorPane textPane;
-
-	private boolean active = false;	
 
 	// TODO: better to refactor the information panel things -> put in separate class
 	private long lastInformationThreadId = -1;
@@ -71,11 +72,14 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 		return uniqueInstance;
 	}
+	public static synchronized ControlPanel getInstance(){
+		return uniqueInstance;
+	}
 	
-
 	private ControlPanel(ServiceAdapter adapter){
 		/** Construct the Navigation panel for cy3sbml. */
 		this.adapter = adapter;
+		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 		this.sbmlManager = SBMLManager.getInstance();
 		this.navigationTree = new NavigationTree();
 		
@@ -152,41 +156,37 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		return "cy3sbml";
 	}
 	
-	// TODO: refactor
-	/*
-    public void activate(){
-		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
-		int index = cytoPanel.indexOfComponent(CySBML.NAME);
-		if (index == -1){
-			cytoPanel.add(CySBML.NAME, this);
-			cytoPanel.setState(CytoPanelState.DOCK);
-		}
-		selectNavigationPanel();
-		active = true;
-	}
-	
-	public void deactivate(){
-		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
-		int index = cytoPanel.indexOfComponent(CySBML.NAME);
-		if (index != -1){
-			cytoPanel.remove(index);
-		}
-		// Test if still other Components, otherwise hide
-		if (cytoPanel.getCytoPanelComponentCount() == 0){
-			cytoPanel.setState(CytoPanelState.HIDE);
-		}
-		active = false;
+	public boolean isActive(){
+		return (cytoPanelEast.getState() != CytoPanelState.HIDE);
 	}
 
-	public boolean isActive(){
-		return active;
+    public void activate(){
+    	logger.info("Activate cy3sbml ControlPanel");
+		// If the state of the cytoPanelWest is HIDE, show it
+		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
+			cytoPanelEast.setState(CytoPanelState.DOCK);
+		}	
+
+		// Select my panel
+		select();
+    }
+		
+	public void deactivate(){
+		logger.info("Deactivate cy3sbml ControlPanel");
+		// Test if still other Components in Control Panel, otherwise hide
+		// the complete panel
+		if (cytoPanelEast.getCytoPanelComponentCount() == 1){
+			cytoPanelEast.setState(CytoPanelState.HIDE);
+		}
 	}
-	
-	public static void selectNavigationPanel(){
-		CytoPanel cytoPanel = Cytoscape.getDesktop().getCytoPanel(SwingConstants.EAST);
-		cytoPanel.setSelectedIndex(cytoPanel.indexOfComponent(CySBML.NAME));
+
+	public void select(){
+		int index = cytoPanelEast.indexOfComponent(this);
+		if (index == -1) {
+			return;
+		}
+		cytoPanelEast.setSelectedIndex(index);
 	}
-	*/
 		
 	/////////////////// TEXT CONTENT ///////////////////////////////////
 	public JEditorPane getTextPane(){
@@ -214,13 +214,32 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 	
-	// http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
-	/** Handle node selection events in the table/network. */ 
+	/** Handle node selection events in the table/network. 
+	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
+	 * make sure to minimize the unnecessary action here.
+	 * I.e. only act on the Event if everything in the right state.
+	 * 
+	 * RowSetEvent:
+	 * An Event object generated when an event occurs to a RowSet object. A RowSetEvent object is 
+	 * generated when a single row in a rowset is changed, the whole rowset is changed, or the 
+	 * rowset cursor moves.
+	 * When an event occurs on a RowSet object, one of the RowSetListener methods will be sent 
+	 * to all registered listeners to notify them of the event. An Event object is supplied to the 
+	 * RowSetListener method so that the listener can use it to find out which RowSet object is 
+	 * the source of the event.
+	 * 
+	 * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
+	 */ 
 	public void handleEvent(RowsSetEvent e) {
 		try {
-			
+		if (!isActive()){
+			return;
+		}
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		if (network == null || view == null){
+			return;
+		}
 		
 		Collection<RowSetRecord> rowsSet = e.getColumnRecords(CyNetwork.SELECTED);
 		for (RowSetRecord record: rowsSet) {
@@ -239,9 +258,7 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			
 			// If not active or no associated SBMLDocument do nothing
 			// TODO: check active state and manage active state
-			// if (!active){
-			// return;
-			//
+			
 			
 			// TODO: get the information for the mapped SBML node
 			// TODO: work with notify and notifyAll
@@ -265,7 +282,6 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();
 		}
-	
 	}
 	
 	private LinkedList<Long> getSUIDsForSelectedNodes(CyNetwork network){

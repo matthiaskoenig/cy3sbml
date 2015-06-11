@@ -10,8 +10,11 @@ import org.cy3sbml.gui.ControlPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HelpAction extends AbstractCyAction{
+	private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
 	private static final long serialVersionUID = 1L;
 	private OpenBrowser openBrowser;
 	
@@ -37,6 +40,7 @@ public class HelpAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		logger.info("actionPerformed()");
 		final String HELP_URL = "https://github.com/matthiaskoenig/cy3sbml";
 		System.out.println("HelpAction");
 		
