@@ -93,16 +93,16 @@ public class CyActivator extends AbstractCyActivator {
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
 			
-			// Load visual styles
-			// TOOD: handle multiple loading of same style (probably better in separate task)
+			// load cy3sbml styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
 			loadVizmapFileTaskFactory.loadStyles(stream);
 			
-			SBMLManager.getInstance(cyNetworkManager, cyApplicationManager);
-			ControlPanel navControlPanel = ControlPanel.getInstance(openBrowser);
-			
-			// actions
+			// init SBML manager
+			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
+			// init cy3sbml ControlPanel
+			ControlPanel navControlPanel = ControlPanel.getInstance(adapter);
+			// init actions
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			
@@ -113,7 +113,7 @@ public class CyActivator extends AbstractCyActivator {
 			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
 			sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
 			sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
-			registerService(bc,sbmlNetworkViewTaskFactory,InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
+			registerService(bc, sbmlNetworkViewTaskFactory, InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
 			
 			
 			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
@@ -123,6 +123,12 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// listeners
 			registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
+			
+			// Network added
+			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());
+			// registerService(bc, navControlPanel, NetworkViewAddedEvent.class, new Properties());
+			
+			
 			
 			// set visible
 			// ? 

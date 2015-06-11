@@ -1,4 +1,4 @@
-package org.cy3sbml.gui;
+package org.cy3sbml.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +14,17 @@ import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
-// import org.sbml.jsbml.ext.qual.QualConstant;
-// import org.sbml.jsbml.ext.qual.QualitativeModel;
-import org.sbml.jsbml.ext.qual.QualitativeSpecies;
-import org.sbml.jsbml.ext.qual.Transition;
+//import org.sbml.jsbml.ext.qual.QualConstant;
+//import org.sbml.jsbml.ext.qual.QualitativeModel;
+//import org.sbml.jsbml.ext.qual.QualitativeSpecies;
+//import org.sbml.jsbml.ext.qual.Transition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class NavigationTree {
+	private static final Logger logger = LoggerFactory.getLogger(NavigationTree.class);
+	
 	public static final String COMPARTMENTS = "Compartments";
 	public static final String SPECIES = "Species";
 	public static final String REACTIONS = "Reactions";
@@ -57,9 +61,11 @@ public class NavigationTree {
 		treeModel = new DefaultTreeModel(new DefaultMutableTreeNode("sbml"));
 	}
 	
-	public NavigationTree(SBMLDocument document){		
+	public NavigationTree(SBMLDocument document){
 		this();
+		logger.info("Create NavigationTree for SBMLDocument");
 		
+		try{
 		Model model = document.getModel();
 		String modelName = getModelNameFromModel(model);
 		SBMLNetwork = true;
@@ -69,7 +75,7 @@ public class NavigationTree {
 		addListOfCompartmentsToTreeModel(top, model.getListOfCompartments());
 		addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
 		addListOfReactionsToTreeModel(top, model.getListOfReactions());
-		// TODO: add the qualitative model support
+
 		/*
         QualitativeModel qModel = (QualitativeModel) model.getExtension(QualConstant.namespaceURI);
 		if (qModel != null){
@@ -77,6 +83,10 @@ public class NavigationTree {
 			addListOfTransitionsToTreeModel(top, qModel.getListOfTransitions());
 		}
 		*/
+		} catch (Throwable t) {
+			logger.error("Navigation tree creation");
+		}
+
 	}
 	
 	public NamedSBase getNamedSBaseById(String id){
@@ -96,8 +106,8 @@ public class NavigationTree {
 	private void addListOfReactionsToTreeModel(DefaultMutableTreeNode top, ListOf<Reaction> reactionList){		
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), reactionList);
 	}
+
 	/*
-	 TODO: qual
 	private void addListOfQualitativeSpeciesToTreeModel(DefaultMutableTreeNode top, ListOf<QualitativeSpecies> qualitativeSpeciesList){		
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUALITATIVE_SPECIES), qualitativeSpeciesList);
 	}

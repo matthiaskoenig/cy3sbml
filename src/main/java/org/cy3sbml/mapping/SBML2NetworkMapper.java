@@ -50,12 +50,12 @@ public class SBML2NetworkMapper {
 	 * and SBMLDocuments used for display.
 	 */
 	public void setCurrent(Long suid){
-		logger.info("Current network set to:" + suid.toString());
 		if (suid != null && documentMap.containsKey(suid)){
 			currentSUID = suid;
 		} else {
 			initCurrent();
 		}
+		logger.info("Current network set to: " + currentSUID);
 	}
 	
 	public Set<Long> keySet(){
@@ -63,10 +63,10 @@ public class SBML2NetworkMapper {
 	}
 	
 	public void putDocument(Long suid, SBMLDocument doc, NamedSBase2CyNodeMapping mapping){
-		logger.info("Network put:" + suid.toString());
 		documentMap.put(suid,  doc);
 		NSBToNodeMappingMap.put(suid, mapping);
 		nodeToNSBMappingMap.put(suid, mapping.createReverseMapping());
+		logger.info("Network put: " + suid.toString());
 	}
 	
 	public void removeDocument(Long deletedNetworkSUID){
@@ -80,7 +80,7 @@ public class SBML2NetworkMapper {
 	}
 	
 	public SBMLDocument getCurrentDocument(){
-		if (currentSUID != null){
+		if (currentSUID == null){
 			logger.warn("No current SUID set. SBMLDocument can not be retrieved !");
 			return null;
 		} else {
@@ -116,5 +116,14 @@ public class SBML2NetworkMapper {
 	
 	public Map<Long, SBMLDocument> getDocumentMap(){
 		return documentMap;
-	}	
+	}
+	
+	public String toString(){
+		String info = "\n--- SBML2NetworkMapping ---\n";
+		for (Long key: documentMap.keySet()){
+			info += String.format("%s -> %s\n", key.toString(), documentMap.get(key).toString());
+		}
+		info += "-------------------------------";
+		return info;
+	}
 }

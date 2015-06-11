@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.Icon;
@@ -19,23 +18,26 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.tree.TreePath;
 
 import org.cy3sbml.SBMLManager;
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.mapping.NavigationTree;
+import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
+import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
-import org.cytoscape.util.swing.OpenBrowser;
-import org.sbml.jsbml.NamedSBase;
+import org.cytoscape.view.model.CyNetworkView;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +51,10 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 
 	private static ControlPanel uniqueInstance;
 	
-	private OpenBrowser openBrowser;
+	private ServiceAdapter adapter;
+	private NavigationTree navigationTree;
+	private SBMLManager sbmlManager;
+	
 	private JTree sbmlTree;
 	private JEditorPane textPane;
 
@@ -59,18 +64,20 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private long lastInformationThreadId = -1;
 	
 	
-	public static synchronized ControlPanel getInstance(OpenBrowser openBrowser){
+	public static synchronized ControlPanel getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
 			logger.info("ControlPanel created");
-			uniqueInstance = new ControlPanel(openBrowser);
+			uniqueInstance = new ControlPanel(adapter);
 		}
 		return uniqueInstance;
 	}
 	
 
-	private ControlPanel(OpenBrowser openBrowser){
+	private ControlPanel(ServiceAdapter adapter){
 		/** Construct the Navigation panel for cy3sbml. */
-		this.openBrowser = openBrowser;
+		this.adapter = adapter;
+		this.sbmlManager = SBMLManager.getInstance();
+		this.navigationTree = new NavigationTree();
 		
 		setLayout(new BorderLayout(0, 0));
 		
@@ -210,120 +217,100 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	// http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
 	/** Handle node selection events in the table/network. */ 
 	public void handleEvent(RowsSetEvent e) {
+		try {
+			
+		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		
 		Collection<RowSetRecord> rowsSet = e.getColumnRecords(CyNetwork.SELECTED);
 		for (RowSetRecord record: rowsSet) {
-			CyRow row = record.getRow(); // Get the row that was set
-			boolean selected = ((Boolean)record.getValue()).booleanValue();  // What it was set to
-			// Take appropriate action.  For example, might want to get
-			// the node or edge that was selected (or unselected)
-			CyNetwork network = SBMLManager.getInstance(null, null).getCyApplicationManager().getCurrentNetwork();
+			// Get the row that was set
+			CyRow row = record.getRow(); 
+			// What it was set to
+			boolean selected = ((Boolean)record.getValue()).booleanValue();  
 			CyNode node = network.getNode(row.get(CyIdentifiable.SUID, Long.class));
 			
+			// Do the test action
 			if (selected){
 				textPane.setText("Node selection event: (" + node.getSUID().toString() + ")");
 			} else {
 				textPane.setText("Unselected event");
 			}
-			// TODO: get the information for the mapped SBML node
-			// only if active and SBMLdocument
 			
-			/*
-			SBMLManager.getInstance();
-			if (isActive()==false || sbmlDocuments.getCurrentDocument() == null){
-				return;
-			}
-			*/
+			// If not active or no associated SBMLDocument do nothing
+			// TODO: check active state and manage active state
+			// if (!active){
+			// return;
+			//
+			
+			// TODO: get the information for the mapped SBML node
+			// TODO: work with notify and notifyAll
 		}
+		logger.info("Get selected SUIDs and NSBs");
+
+		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
+		if (document != null){
+			navigationTree = new NavigationTree(document);
+		
+			// TODO: !!! This has to be done when networks are changed/views selected
+			// TODO: !!! Only here for testing. DO NOT CREATE TREE FOR EVERY LOOKUP.
+			List<Long> selectedSUIDs = getSUIDsForSelectedNodes(network);
+			List<String> selectedNSBIds = getNSBIds(selectedSUIDs);
+		
+			// much more complicated with tree which has to be synchronized
+			// makeNetworkAndTreeChanges(selectedNodeIds, selectedNamedSBaseIds);
+			updateAnnotationInformation(selectedNSBIds);
+		}
+		} catch (Throwable t){
+			logger.error("Error in handling node selection in CyNetwork");
+			t.printStackTrace();
+		}
+	
 	}
 	
-	
-/*	@Override
-	public void onSelectEvent(SelectEvent event) {
-		
-		
-		
-		tmpDimension = this.getSize();
-		if (makeNetworkSelectionChanges){
-			if ( (event.getTargetType() == SelectEvent.SINGLE_NODE) 
-					|| (event.getTargetType() == SelectEvent.NODE_SET)) {
-				makeNetworkSelectionChanges = false;
-				makeTreeSelectionChanges = false;
-				
-				List<String> selectedNodeIds = getSelectedNodeIds();
-				List<String> selectedNamedSBaseIds = getNamedSBaseIdsFromNodeIds(selectedNodeIds);
-				// Reverse for synchronization
-				// selectedNodeIds = getNodeIdsFromNamedSBaseIds(selectedNamedSBaseIds);
-				makeNetworkAndTreeChanges(selectedNodeIds, selectedNamedSBaseIds);
-			}
+	private LinkedList<Long> getSUIDsForSelectedNodes(CyNetwork network){
+		List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+		LinkedList<Long> suids = new LinkedList<Long>();	
+		for (CyNode node : selectedNodes){
+			suids.add(node.getSUID());
 		}
+		return suids;
 	}
+	
+	private List<Long> getSUIDs(List<String> NSBIds){ 
+		One2ManyMapping<String, Long> mapping = sbmlManager.getCurrentNSB2CyNodeMapping();
+		return mapping.getValues(NSBIds);
+	}
+	private List<String> getNSBIds(List<Long> suids){ 
+		One2ManyMapping<Long, String> mapping = sbmlManager.getCurrentCyNode2NSBMapping();
+		return mapping.getValues(suids);
+	}
+	
 	
 
-	 Synchronize node and tree selection 
-	private void makeNetworkAndTreeChanges(List<String> nodeIds, List<String> namedSBaseIds){		
-		updateTreeSelection(namedSBaseIds);
-		updateNetworkSelection(nodeIds);
-		updateAnnotationInformation(namedSBaseIds);
-	
-		makeNetworkSelectionChanges = true;
-		makeTreeSelectionChanges = true;
-		setPanelSize();
-	}
-	
-	private void updateTreeSelection(List<String> selectedIds){
-		sbmlTree.clearSelection();
-
-		// only update tree if less than 50 nodes (can take long time otherwise)
-		TreePath path = null;
-		Map<String, NamedSBase> objectMap = navigationTree.getObjectMap();
-		Map<String, TreePath> objectPathMap = navigationTree.getObjectPathMap();
-		if (selectedIds.size() <50){
-			for (String id : selectedIds){
-				if (objectMap.containsKey(id)){
-					path = objectPathMap.get(id);
-					sbmlTree.addSelectionPath(path);
-				}
-			}
-		}
-		if (path != null){
-			sbmlTree.scrollPathToVisible(path);
-		}
-	}
-	
-	private void updateNetworkSelection(List<String> selectedIds){
-		CyNetwork network = Cytoscape.getCurrentNetwork();
-		network.unselectAllNodes();
-		Set<CyNode> cyNodes = new HashSet<CyNode>();
-		for (String id : selectedIds){
-			cyNodes.add(Cytoscape.getCyNode(id, false));	
-		}
-		network.setSelectedNodeState(cyNodes, true);	
-		Cytoscape.getCurrentNetworkView().updateView();
-	}
-	
+	/////////////////// MIRIAM INFORMATION /////////////////////////////
 	@Deprecated
-	public void updateAnnotationInformation(List<String> selectedIds){
-		 TODO: handle multiple ids properly
-		int size = selectedIds.size();
-		if ( size > 0 && size <= MAX_SELECTION_DISPLAY){
-			Set<NamedSBase> nsbSet = new HashSet<NamedSBase>();
-			for (String namedSBaseId: selectedIds){
-				nsbSet.add(navigationTree.getNamedSBaseById(namedSBaseId));
-			}
-			showNodeObjectInfo(nsbSet);
-		} else {
-			textPane.setText(String.format("> %d nodes selected, no information displayed", MAX_SELECTION_DISPLAY ));	
-		}
-		
-		
-		if (selectedIds.size() > 0){
-			String nsbId = selectedIds.get(0);
+	public void updateAnnotationInformation(List<String> ids){
+		if (ids.size() > 0){
+			String nsbId = ids.get(0);
 			showNodeObjectInfo(navigationTree.getNamedSBaseById(nsbId));
 		}
-	}*/
+	}
 	
-	
-	
+   /** Create the information string for the SBML Node and display in the textPane. */ 
+	private void showNodeObjectInfo(Object obj) {
+	   Set<Object> objSet = new HashSet<Object>();
+	   objSet.add(obj);
+	   showNodesObjectInfo(objSet);
+   }
+   
+   private void showNodesObjectInfo(Set<Object> objSet) {
+	   NamedSBaseInfoThread thread = new NamedSBaseInfoThread(objSet, this);
+	   lastInformationThreadId = thread.getId();
+	   thread.start();
+   }
+   
+
 	// TODO: handle the focusing of CyNetworks
 	/*
 	public void propertyChange(PropertyChangeEvent e) {		
@@ -353,8 +340,7 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	}
 	*/
 	
-	
-	
+
 	/** Handle hyperlink events in the info TextPane. */
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
@@ -365,7 +351,7 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
 				
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				openBrowser.openURL(url.toString());
+				adapter.openBrowser.openURL(url.toString());
 			}
 		}	
 	}
