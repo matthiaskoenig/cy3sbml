@@ -6,8 +6,11 @@ import javax.swing.ImageIcon;
 
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ImportAction extends AbstractCyAction{
+	private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
 	private static final long serialVersionUID = 1L;
 
 	public ImportAction(CySwingApplication cySwingApplication){
@@ -16,7 +19,6 @@ public class ImportAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Import SBML");
-		// TODO: position in menu bar
 		setToolbarGravity((float) 0.5);
 	}
 		
@@ -26,10 +28,8 @@ public class ImportAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("ImportAction");
-		// TODO: open the file menu 
-		
-
+		logger.info("actionPerformed()");
+		// TODO: implement 
 	}
 }
 

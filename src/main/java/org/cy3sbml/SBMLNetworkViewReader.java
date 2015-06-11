@@ -7,25 +7,21 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
+import org.cy3sbml.mapping.NavigationTree;
+import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.cytoscape.property.CyProperty;
 import org.cytoscape.view.layout.CyLayoutAlgorithm;
-import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
-import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.JSBML;
@@ -47,27 +43,14 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private static final int BUFFER_SIZE = 16384;
 		
 	private final InputStream stream;
-	private final CyNetworkFactory networkFactory;
-	private final CyNetworkViewFactory viewFactory;
-	private final CyProperty<Properties> cy3sbmlProperties;
-	private final VisualMappingManager visualMappingManager;
-	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-	private final SynchronousTaskManager taskManager;
+	private final ServiceAdapter adapter;
 
 	private SBMLDocument document;
 	private CyNetwork network;
 
-	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-								 CyProperty<Properties> cy3sbmlProperties,
-								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, 
-								 SynchronousTaskManager taskManager) {
+	public SBMLNetworkViewReader(InputStream stream, ServiceAdapter adapter) {
 		this.stream = stream;
-		this.networkFactory = networkFactory;
-		this.viewFactory = viewFactory;
-		this.cy3sbmlProperties = cy3sbmlProperties;
-		this.visualMappingManager = visualMappingManager;
-		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
-		this.taskManager = taskManager;
+		this.adapter = adapter;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -81,7 +64,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		
 		String xml = readString(stream);
 		document = JSBML.readSBMLFromString(xml);
-		network = networkFactory.createNetwork();
+		network = adapter.cyNetworkFactory.createNetwork();
 		Model model = document.getModel();
 		
 		// Create a node for each Species
@@ -215,9 +198,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	@Override
 	public CyNetworkView buildCyNetworkView(CyNetwork network) {
 		// create view
-		CyNetworkView view = viewFactory.createNetworkView(network); 
+		CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network); 
 		doPostProcessing(network, view);
-		
 		
 		return view;
 	}
@@ -232,20 +214,20 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		logger.info("doPostProcessing of network and view");
 		
 		// apply layout
-		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
+		CyLayoutAlgorithm layout = adapter.cyLayoutAlgorithmManager.getLayout("force-directed");
 		layout.createLayoutContext();
 		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
 																	layout.ALL_NODE_VIEWS, layout.getName());
 		
 		// We use the synchronous task manager otherwise the visual style and updateView()
 		// may occur before the view is relayed out:
-		taskManager.execute(layoutTaskIterator);
+		adapter.taskManager.execute(layoutTaskIterator);
 		
 		// Apply cy3sbml style		
-		String styleName = (String) cy3sbmlProperties.getProperties().get("cy3sbml.visualStyle");
+		String styleName = (String) adapter.cy3sbmlProperty("cy3sbml.visualStyle");
 		// view.fitContent();
 		VisualStyle style = getVisualStyleByName(styleName);
-		visualMappingManager.setVisualStyle(style, view);
+		adapter.visualMappingManager.setVisualStyle(style, view);
 		style.apply(view);
 		view.updateView();
 		
@@ -256,9 +238,12 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// Update cy3sbml Navigator
 		
 		// TODO: register the SBML in the Manager 
-		SBMLManager sbmlManager = SBMLManager.getInstance(null, null);
+		SBMLManager sbmlManager = SBMLManager.getInstance();
 		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
+		
+		logger.info(sbmlManager.info());
+		sbmlManager.updateCurrent(network);
 		
 		/*
 		public void putSBMLDocumentForLayout(String networkName, SBMLDocument document, CyNetwork network, Layout layout){
@@ -272,9 +257,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		*/
 		
 		
-		
 		// Preload SBML WebService information
-		// TODO: NamedSBaseInfoThread.preloadAnnotationInformationForModel(document.getModel());
+		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 		// Arrange Windows and fit views (for all networks)
 		// 
@@ -285,14 +269,15 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	}
 	
 	private VisualStyle getVisualStyleByName(String styleName){
-		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		VisualMappingManager vmm = adapter.visualMappingManager;
+		Set<VisualStyle> styles = vmm.getAllVisualStyles();
 		for (VisualStyle style: styles){
 			if (style.getTitle().equals(styleName)){
 				return style;
 			}
 		}
 		logger.warn("cy3sbml style not found in VisualStyles, default style used.");
-		return visualMappingManager.getDefaultVisualStyle();
+		return vmm.getDefaultVisualStyle();
 	}
 	
 	

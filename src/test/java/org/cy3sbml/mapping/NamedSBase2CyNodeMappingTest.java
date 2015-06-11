@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.cy3sbml.SBML;
 //import org.cytoscape.ding.NetworkViewTestSupport;
+
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -21,6 +22,7 @@ public class NamedSBase2CyNodeMappingTest {
 		final CyNetwork network = testSupport.getNetwork();
 		final CyNode node1 = network.addNode();
 		CyRow attributes = network.getRow(node1);
+		checkSchema(attributes, SBML.SBML_ID_ATTR, String.class);
 		attributes.set(SBML.SBML_ID_ATTR, "sbml_id1");
 		
 		final CyNode node2 = network.addNode();
@@ -37,6 +39,17 @@ public class NamedSBase2CyNodeMappingTest {
 		if (attributes.getTable().getColumn(attributeName) == null)
 			attributes.getTable().createColumn(attributeName, type, false);
 	}
+
+	@Test
+	public void testNetworkFunctionality() {
+		network = buildNetwork();
+		assertNotNull(network);
+		// ... test more things
+	}
+	
+	
+	
+	
 	
 	@Test
 	public void testFromNetwork() {
@@ -61,5 +74,4 @@ public class NamedSBase2CyNodeMappingTest {
 		assertTrue(values.contains(node1.getSUID()));
 	}
 	*/
-
 }
