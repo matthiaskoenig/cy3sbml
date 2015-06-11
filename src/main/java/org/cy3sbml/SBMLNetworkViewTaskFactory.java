@@ -16,29 +16,17 @@ import org.cytoscape.work.TaskManager;
 
 public class SBMLNetworkViewTaskFactory extends AbstractInputStreamTaskFactory {
 
-	private final CyNetworkFactory networkFactory;
-	private final CyNetworkViewFactory viewFactory;
-	private final CyProperty<Properties> cy3sbmlProperties;
-	private final VisualMappingManager visualMappingManager;
-	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-	private final SynchronousTaskManager taskManager;
+	private final ServiceAdapter adapter;
 	
-	public SBMLNetworkViewTaskFactory(CyFileFilter filter, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory, 
-									  CyProperty<Properties> cy3sbmlProperties,
-									  VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, SynchronousTaskManager taskManager) {
+	public SBMLNetworkViewTaskFactory(CyFileFilter filter, ServiceAdapter adapter) {
 		super(filter);
-		this.networkFactory = networkFactory;
-		this.viewFactory = viewFactory;
-		this.cy3sbmlProperties = cy3sbmlProperties;
-		this.visualMappingManager = visualMappingManager;
-		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
-		this.taskManager = taskManager;
+		this.adapter = adapter;
 	}
 	
 	public TaskIterator createTaskIterator(InputStream stream, String inputName) {
 		
 		// gets the SBMLNetworkViewReader Task
-		return new TaskIterator(new SBMLNetworkViewReader(stream, networkFactory, viewFactory, cy3sbmlProperties, visualMappingManager, cyLayoutAlgorithmManager, taskManager));
+		return new TaskIterator(new SBMLNetworkViewReader(stream, adapter));
 	}
 
 }

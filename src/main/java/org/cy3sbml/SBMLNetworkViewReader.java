@@ -7,26 +7,22 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
+import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
+import org.cy3sbml.mapping.NavigationTree;
+import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.cytoscape.property.CyProperty;
 import org.cytoscape.view.layout.CyLayoutAlgorithm;
-import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
-import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
-import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
@@ -45,59 +41,16 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	private static final Logger logger = LoggerFactory.getLogger(SBMLNetworkViewReader.class);
 	
 	private static final int BUFFER_SIZE = 16384;
-	
-	static final String NODE_NAME_ATTR_LABEL = "name"; //$NON-NLS-1$
-
-	static final String INTERACTION_TYPE_ATTR = "interaction type"; //$NON-NLS-1$
-	
-	static final String SBML_TYPE_ATTR = "sbml type"; //$NON-NLS-1$
-
-	static final String SBML_ID_ATTR = "sbml id"; //$NON-NLS-1$
-
-	static final String SBML_INITIAL_CONCENTRATION_ATTR = "sbml initial concentration"; //$NON-NLS-1$
-
-	static final String SBML_INITIAL_AMOUNT_ATTR = "sbml initial amount"; //$NON-NLS-1$
-
-	static final String SBML_CHARGE_ATTR = "sbml charge"; //$NON-NLS-1$
-
-	static final String SBML_COMPARTMENT_ATTR = "sbml compartment"; //$NON-NLS-1$
-
-	static final String SBML_TYPE_SPECIES = "species"; //$NON-NLS-1$
-
-	static final String SBML_TYPE_REACTION = "reaction"; //$NON-NLS-1$
-
-	static final String INTERACTION_TYPE_REACTION_PRODUCT = "reaction-product"; //$NON-NLS-1$
-
-	static final String INTERACTION_TYPE_REACTION_REACTANT = "reaction-reactant"; //$NON-NLS-1$
-
-	static final String INTERACTION_TYPE_REACTION_MODIFIER = "reaction-modifier"; //$NON-NLS-1$
-
-	static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s"; //$NON-NLS-1$
-
-	static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units"; //$NON-NLS-1$
-	
+		
 	private final InputStream stream;
-	private final CyNetworkFactory networkFactory;
-	private final CyNetworkViewFactory viewFactory;
-	private final CyProperty<Properties> cy3sbmlProperties;
-	private final VisualMappingManager visualMappingManager;
-	private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-	private final TaskManager taskManager;
+	private final ServiceAdapter adapter;
 
 	private SBMLDocument document;
 	private CyNetwork network;
 
-	public SBMLNetworkViewReader(InputStream stream, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory,
-								 CyProperty<Properties> cy3sbmlProperties,
-								 VisualMappingManager visualMappingManager, CyLayoutAlgorithmManager cyLayoutAlgorithmManager, 
-								 SynchronousTaskManager taskManager) {
+	public SBMLNetworkViewReader(InputStream stream, ServiceAdapter adapter) {
 		this.stream = stream;
-		this.networkFactory = networkFactory;
-		this.viewFactory = viewFactory;
-		this.cy3sbmlProperties = cy3sbmlProperties;
-		this.visualMappingManager = visualMappingManager;
-		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
-		this.taskManager = taskManager;
+		this.adapter = adapter;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -111,7 +64,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		
 		String xml = readString(stream);
 		document = JSBML.readSBMLFromString(xml);
-		network = networkFactory.createNetwork();
+		network = adapter.cyNetworkFactory.createNetwork();
 		Model model = document.getModel();
 		
 		// Create a node for each Species
@@ -121,17 +74,17 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 			speciesById.put(species.getId(), node);
 			CyRow attributes = network.getRow(node);
 			checkNodeSchema(attributes);
-			attributes.set(NODE_NAME_ATTR_LABEL, species.getName());
-			attributes.set(SBML_TYPE_ATTR, SBML_TYPE_SPECIES);
-			attributes.set(SBML_ID_ATTR, species.getId());
+			attributes.set(SBML.NODE_NAME_ATTR_LABEL, species.getName());
+			attributes.set(SBML.SBML_TYPE_ATTR, SBML.SBML_TYPE_SPECIES);
+			attributes.set(SBML.SBML_ID_ATTR, species.getId());
 
-			attributes.set(SBML_INITIAL_CONCENTRATION_ATTR, species.getInitialConcentration());
-			attributes.set(SBML_INITIAL_AMOUNT_ATTR, species.getInitialAmount());
-			attributes.set(SBML_CHARGE_ATTR, species.getCharge());
+			attributes.set(SBML.SBML_INITIAL_CONCENTRATION_ATTR, species.getInitialConcentration());
+			attributes.set(SBML.SBML_INITIAL_AMOUNT_ATTR, species.getInitialAmount());
+			attributes.set(SBML.SBML_CHARGE_ATTR, species.getCharge());
 			
 			String compartment = species.getCompartment();
 			if (compartment != null) {
-				attributes.set(SBML_COMPARTMENT_ATTR, compartment);
+				attributes.set(SBML.SBML_COMPARTMENT_ATTR, compartment);
 			}
 		}
 		
@@ -144,19 +97,19 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 			checkNodeSchema(attributes);
 			String name = reaction.getName();
 			if (name == null) {
-				attributes.set(NODE_NAME_ATTR_LABEL, reaction.getId());
+				attributes.set(SBML.NODE_NAME_ATTR_LABEL, reaction.getId());
 			} else {
-				attributes.set(NODE_NAME_ATTR_LABEL, name);
+				attributes.set(SBML.NODE_NAME_ATTR_LABEL, name);
 			}
-			attributes.set(SBML_TYPE_ATTR, SBML_TYPE_REACTION);
-			attributes.set(SBML_ID_ATTR, reaction.getId());
+			attributes.set(SBML.SBML_TYPE_ATTR, SBML.SBML_TYPE_REACTION);
+			attributes.set(SBML.SBML_ID_ATTR, reaction.getId());
 			
 			for (SpeciesReference product : reaction.getListOfProducts()) {
 				CyNode sourceNode = speciesById.get(product.getSpecies());
 				CyEdge edge = network.addEdge(sourceNode, node, true);
 				CyRow edgeAttributes = network.getRow(edge);
 				checkEdgeSchema(edgeAttributes);
-				edgeAttributes.set(INTERACTION_TYPE_ATTR, INTERACTION_TYPE_REACTION_PRODUCT);
+				edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_PRODUCT);
 			}
 			
 			for (SpeciesReference reactant : reaction.getListOfReactants()) {
@@ -164,7 +117,7 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 				CyEdge edge = network.addEdge(sourceNode, node, true);
 				CyRow edgeAttributes = network.getRow(edge);
 				checkEdgeSchema(edgeAttributes);
-				edgeAttributes.set(INTERACTION_TYPE_ATTR, INTERACTION_TYPE_REACTION_REACTANT);
+				edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_REACTANT);
 			}
 			
 			for (ModifierSpeciesReference modifier : reaction.getListOfModifiers()) {
@@ -172,20 +125,20 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 				CyEdge edge = network.addEdge(sourceNode, node, true);
 				CyRow edgeAttributes = network.getRow(edge);
 				checkEdgeSchema(edgeAttributes);
-				edgeAttributes.set(INTERACTION_TYPE_ATTR, INTERACTION_TYPE_REACTION_MODIFIER);
+				edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_MODIFIER);
 			}
 			
 			KineticLaw law = reaction.getKineticLaw();
 			if (law != null) {
 				for (LocalParameter parameter : law.getListOfParameters()) {
 					String parameterName = parameter.getName();
-					String key = String.format(KINETIC_LAW_ATTR_TEMPLATE, parameterName);
+					String key = String.format(SBML.KINETIC_LAW_ATTR_TEMPLATE, parameterName);
 					checkSchema(attributes, key, Double.class);
 					attributes.set(key, parameter.getValue());
 					
 					String units = parameter.getUnits();
 					if (units != null) {
-						String unitsKey = String.format(KINETIC_LAW_UNITS_ATTR_TEMPLATE, parameterName);
+						String unitsKey = String.format(SBML.KINETIC_LAW_UNITS_ATTR_TEMPLATE, parameterName);
 						checkSchema(attributes, unitsKey, String.class);
 						attributes.set(unitsKey, units);
 					}
@@ -201,16 +154,16 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	}
 	
 	private void checkEdgeSchema(CyRow attributes) {
-		checkSchema(attributes, INTERACTION_TYPE_ATTR, String.class);
+		checkSchema(attributes, SBML.INTERACTION_TYPE_ATTR, String.class);
 	}
 
 	private void checkNodeSchema(CyRow attributes) {
-		checkSchema(attributes, SBML_TYPE_ATTR, String.class);
-		checkSchema(attributes, SBML_ID_ATTR, String.class);
-		checkSchema(attributes, SBML_INITIAL_CONCENTRATION_ATTR, Double.class);
-		checkSchema(attributes, SBML_INITIAL_AMOUNT_ATTR, Double.class);
-		checkSchema(attributes, SBML_CHARGE_ATTR, Integer.class);
-		checkSchema(attributes, SBML_COMPARTMENT_ATTR, String.class);
+		checkSchema(attributes, SBML.SBML_TYPE_ATTR, String.class);
+		checkSchema(attributes, SBML.SBML_ID_ATTR, String.class);
+		checkSchema(attributes, SBML.SBML_INITIAL_CONCENTRATION_ATTR, Double.class);
+		checkSchema(attributes, SBML.SBML_INITIAL_AMOUNT_ATTR, Double.class);
+		checkSchema(attributes, SBML.SBML_CHARGE_ATTR, Integer.class);
+		checkSchema(attributes, SBML.SBML_COMPARTMENT_ATTR, String.class);
 	}
 
 	private <T> void checkSchema(CyRow attributes, String attributeName, Class<T> type) {
@@ -245,9 +198,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 	@Override
 	public CyNetworkView buildCyNetworkView(CyNetwork network) {
 		// create view
-		CyNetworkView view = viewFactory.createNetworkView(network); 
+		CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network); 
 		doPostProcessing(network, view);
-		
 		
 		return view;
 	}
@@ -262,20 +214,20 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		logger.info("doPostProcessing of network and view");
 		
 		// apply layout
-		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout("force-directed");
+		CyLayoutAlgorithm layout = adapter.cyLayoutAlgorithmManager.getLayout("force-directed");
 		layout.createLayoutContext();
 		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
 																	layout.ALL_NODE_VIEWS, layout.getName());
 		
 		// We use the synchronous task manager otherwise the visual style and updateView()
 		// may occur before the view is relayed out:
-		taskManager.execute(layoutTaskIterator);
+		adapter.taskManager.execute(layoutTaskIterator);
 		
 		// Apply cy3sbml style		
-		String styleName = (String) cy3sbmlProperties.getProperties().get("cy3sbml.visualStyle");
+		String styleName = (String) adapter.cy3sbmlProperty("cy3sbml.visualStyle");
 		// view.fitContent();
 		VisualStyle style = getVisualStyleByName(styleName);
-		visualMappingManager.setVisualStyle(style, view);
+		adapter.visualMappingManager.setVisualStyle(style, view);
 		style.apply(view);
 		view.updateView();
 		
@@ -284,11 +236,29 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// selectSBMLTableAttributes();
 		
 		// Update cy3sbml Navigator
-		// TODO: updateNavigationPanel(network);
+		
+		// TODO: register the SBML in the Manager 
+		SBMLManager sbmlManager = SBMLManager.getInstance();
+		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
+		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
+		
+		logger.info(sbmlManager.info());
+		sbmlManager.updateCurrent(network);
+		
+		/*
+		public void putSBMLDocumentForLayout(String networkName, SBMLDocument document, CyNetwork network, Layout layout){
+			NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(layout);
+			putSBMLDocument(networkName, document, mapping);
+		}
+		public void putSBMLDocumentForGRN(String networkName, SBMLDocument document, CyNetwork network){
+			NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(network);
+			putSBMLDocument(networkName, document, mapping);
+		}
+		*/
 		
 		
 		// Preload SBML WebService information
-		// TODO: NamedSBaseInfoThread.preloadAnnotationInformationForModel(document.getModel());
+		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 		// Arrange Windows and fit views (for all networks)
 		// 
@@ -296,19 +266,18 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
 		// 	view.fitContent();
 		// }
-		
-		
 	}
 	
 	private VisualStyle getVisualStyleByName(String styleName){
-		Set<VisualStyle> styles = visualMappingManager.getAllVisualStyles();
+		VisualMappingManager vmm = adapter.visualMappingManager;
+		Set<VisualStyle> styles = vmm.getAllVisualStyles();
 		for (VisualStyle style: styles){
 			if (style.getTitle().equals(styleName)){
 				return style;
 			}
 		}
 		logger.warn("cy3sbml style not found in VisualStyles, default style used.");
-		return visualMappingManager.getDefaultVisualStyle();
+		return vmm.getDefaultVisualStyle();
 	}
 	
 	
@@ -323,13 +292,8 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		}
 	}
 	*/
-	
+
 	/*
-	protected void updateNavigationPanel(CyNetwork network){
-		NavigationPanel panel = NavigationPanel.getInstance();
-		panel.putSBMLDocument(network.getIdentifier(), document, network);
-	}
-	
 	private void selectSBMLTableAttributes(){
 		String[] nAtts = {CySBMLConstants.ATT_TYPE,
 						  CySBMLConstants.ATT_NAME,

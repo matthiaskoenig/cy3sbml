@@ -18,6 +18,7 @@
 * *TODO* update help window with help icon
 * *TODO* display annotation information (MIRIAM)
 * *TODO* apply VisualStyle after network generation
+* *TODO* use proxy settings from Cytoscape
 
 ## Open issues
 * *TODO* fix cy3sbml icons & icon order in menubar
