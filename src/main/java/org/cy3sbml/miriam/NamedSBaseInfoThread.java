@@ -10,6 +10,7 @@ import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.gui.ControlPanel;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class NamedSBaseInfoThread extends Thread{
     			try {
 					infoFac.createInfo();
 				} catch (XMLStreamException e) {
-					// TODO Auto-generated catch block
+					logger.error("Creating info for object failed");
 					e.printStackTrace();
 				}
     			infoText += infoFac.getInfo();
@@ -62,7 +63,8 @@ public class NamedSBaseInfoThread extends Thread{
     
     
 	/** Reads the annotation information in the Miriam Cash */
-	public static void preloadAnnotationInformationForModel(Model model){
+	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
+		Model model = document.getModel();
 		logger.info("Preload Miriam for compartments");
 		preloadAnnotationForListOf(model.getListOfCompartments());
 		logger.info("Preload Miriam for species");

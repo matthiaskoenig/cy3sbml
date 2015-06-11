@@ -12,12 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Main class for managing the SBML files.
- * Replaces the parts in the NavPanel.
+ * The SBMLManager manages the loaded/available SBML files.
  * 
- * Master class for managing the SBML documents
- * @author mkoenig
- *
+ * TODO: create a service adaptor class (one stop shop to get all the necessary services)
  */
 public class SBMLManager {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
@@ -29,6 +26,13 @@ public class SBMLManager {
 	public static synchronized SBMLManager getInstance(CyNetworkManager cyNetworkManager, CyApplicationManager cyApplicationManager){
 		if (uniqueInstance == null){
 			uniqueInstance = new SBMLManager(cyNetworkManager, cyApplicationManager);
+		}
+		return uniqueInstance;
+	}
+	
+	public static synchronized SBMLManager getInstance(){
+		if (uniqueInstance == null){
+			logger.error("Access to SBMLManager before creation");
 		}
 		return uniqueInstance;
 	}
@@ -47,7 +51,7 @@ public class SBMLManager {
 		return cyApplicationManager;
 	}
 	
-	//---------- Manage the SBML documents ----------------------
+	//---------- Manage SBML documents ----------------------
 	
 	public SBMLDocument getCurrentSBMLDocument(){
 		return sbmlDocuments.getCurrentDocument();

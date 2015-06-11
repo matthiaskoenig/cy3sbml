@@ -4,9 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.JEditorPane;
@@ -17,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.tree.TreePath;
 
 import org.cy3sbml.SBMLManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
@@ -29,8 +35,10 @@ import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.sbml.jsbml.NamedSBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * Control Panel for cy3sbml.
@@ -200,6 +208,7 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 	
 	// http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
+	/** Handle node selection events in the table/network. */ 
 	public void handleEvent(RowsSetEvent e) {
 		Collection<RowSetRecord> rowsSet = e.getColumnRecords(CyNetwork.SELECTED);
 		for (RowSetRecord record: rowsSet) {
@@ -215,11 +224,138 @@ public class ControlPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			} else {
 				textPane.setText("Unselected event");
 			}
-			// TODO: get the information for the mapped SBML node			
+			// TODO: get the information for the mapped SBML node
+			// only if active and SBMLdocument
+			
+			/*
+			SBMLManager.getInstance();
+			if (isActive()==false || sbmlDocuments.getCurrentDocument() == null){
+				return;
+			}
+			*/
+		}
+	}
+	
+	
+/*	@Override
+	public void onSelectEvent(SelectEvent event) {
+		
+		
+		
+		tmpDimension = this.getSize();
+		if (makeNetworkSelectionChanges){
+			if ( (event.getTargetType() == SelectEvent.SINGLE_NODE) 
+					|| (event.getTargetType() == SelectEvent.NODE_SET)) {
+				makeNetworkSelectionChanges = false;
+				makeTreeSelectionChanges = false;
+				
+				List<String> selectedNodeIds = getSelectedNodeIds();
+				List<String> selectedNamedSBaseIds = getNamedSBaseIdsFromNodeIds(selectedNodeIds);
+				// Reverse for synchronization
+				// selectedNodeIds = getNodeIdsFromNamedSBaseIds(selectedNamedSBaseIds);
+				makeNetworkAndTreeChanges(selectedNodeIds, selectedNamedSBaseIds);
+			}
 		}
 	}
 	
 
+	 Synchronize node and tree selection 
+	private void makeNetworkAndTreeChanges(List<String> nodeIds, List<String> namedSBaseIds){		
+		updateTreeSelection(namedSBaseIds);
+		updateNetworkSelection(nodeIds);
+		updateAnnotationInformation(namedSBaseIds);
+	
+		makeNetworkSelectionChanges = true;
+		makeTreeSelectionChanges = true;
+		setPanelSize();
+	}
+	
+	private void updateTreeSelection(List<String> selectedIds){
+		sbmlTree.clearSelection();
+
+		// only update tree if less than 50 nodes (can take long time otherwise)
+		TreePath path = null;
+		Map<String, NamedSBase> objectMap = navigationTree.getObjectMap();
+		Map<String, TreePath> objectPathMap = navigationTree.getObjectPathMap();
+		if (selectedIds.size() <50){
+			for (String id : selectedIds){
+				if (objectMap.containsKey(id)){
+					path = objectPathMap.get(id);
+					sbmlTree.addSelectionPath(path);
+				}
+			}
+		}
+		if (path != null){
+			sbmlTree.scrollPathToVisible(path);
+		}
+	}
+	
+	private void updateNetworkSelection(List<String> selectedIds){
+		CyNetwork network = Cytoscape.getCurrentNetwork();
+		network.unselectAllNodes();
+		Set<CyNode> cyNodes = new HashSet<CyNode>();
+		for (String id : selectedIds){
+			cyNodes.add(Cytoscape.getCyNode(id, false));	
+		}
+		network.setSelectedNodeState(cyNodes, true);	
+		Cytoscape.getCurrentNetworkView().updateView();
+	}
+	
+	@Deprecated
+	public void updateAnnotationInformation(List<String> selectedIds){
+		 TODO: handle multiple ids properly
+		int size = selectedIds.size();
+		if ( size > 0 && size <= MAX_SELECTION_DISPLAY){
+			Set<NamedSBase> nsbSet = new HashSet<NamedSBase>();
+			for (String namedSBaseId: selectedIds){
+				nsbSet.add(navigationTree.getNamedSBaseById(namedSBaseId));
+			}
+			showNodeObjectInfo(nsbSet);
+		} else {
+			textPane.setText(String.format("> %d nodes selected, no information displayed", MAX_SELECTION_DISPLAY ));	
+		}
+		
+		
+		if (selectedIds.size() > 0){
+			String nsbId = selectedIds.get(0);
+			showNodeObjectInfo(navigationTree.getNamedSBaseById(nsbId));
+		}
+	}*/
+	
+	
+	
+	// TODO: handle the focusing of CyNetworks
+	/*
+	public void propertyChange(PropertyChangeEvent e) {		
+		if (e.getPropertyName().equalsIgnoreCase(CytoscapeDesktop.NETWORK_VIEW_FOCUSED))
+		{	
+			updateNavigationTree();
+			
+			//Change the target for the network Event Listener
+			CyNetwork network = Cytoscape.getCurrentNetwork();
+			if (network != null)
+				network.removeSelectEventListener(this);
+			network = Cytoscape.getCurrentNetwork();
+			if (network != null) {
+				network.addSelectEventListener(this);
+			}
+		}
+		
+		if (e.getPropertyName().equalsIgnoreCase(Cytoscape.NETWORK_DESTROYED)){
+			String deletedNetworkKey = Cytoscape.getCurrentNetwork().getIdentifier();
+			sbmlDocuments.removeDocument(deletedNetworkKey);
+			updateNavigationTree();
+		}
+		if (e.getPropertyName().equalsIgnoreCase(Cytoscape.SESSION_LOADED)){
+			sbmlDocuments.updateDocuments();
+			updateNavigationTree();
+		}
+	}
+	*/
+	
+	
+	
+	/** Handle hyperlink events in the info TextPane. */
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
 		URL url = evt.getURL();
