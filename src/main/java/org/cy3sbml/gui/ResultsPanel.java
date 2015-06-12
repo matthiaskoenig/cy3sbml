@@ -3,45 +3,31 @@ package org.cy3sbml.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
-import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyRow;
 import org.cytoscape.model.CyTableUtil;
-import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
-import org.sbml.jsbml.Compartment;
-import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -59,10 +45,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private static ResultsPanel uniqueInstance;
 	
 	private ServiceAdapter adapter;
-	private NavigationTree navigationTree;
 	private SBMLManager sbmlManager;
 	
-	private JTree sbmlTree;
 	private JEditorPaneSBML textPane;
 
 	
@@ -77,54 +61,21 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		return uniqueInstance;
 	}
 	
-	/** Constructor */
+	/** Constructor of cy3sbml Results Panel. */
 	private ResultsPanel(ServiceAdapter adapter){
-		/** Construct the Navigation panel for cy3sbml. */
 		this.adapter = adapter;
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 		this.sbmlManager = SBMLManager.getInstance();
-		this.navigationTree = new NavigationTree();
 		
+		// SBML information area
 		setLayout(new BorderLayout(0, 0));
 		
-		// --- Annotation Area ------------------
 		textPane = new JEditorPaneSBML();
 		textPane.addHyperlinkListener(this);
-		
 		JScrollPane annotationScrollPane = new JScrollPane();
 		annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		annotationScrollPane.setViewportView(textPane);
-
 		this.add(textPane);
-		/*
-		// --- Navigation Tree  ------------------
-		sbmlTree = new JTree();
-		sbmlTree.setVisibleRowCount(12);
-		sbmlTree.setEditable(false);
-		
-		// TODO: listen to tree events
-		// sbmlTree.addTreeSelectionListener(this);
-		
-		sbmlTree.setFont(new Font("Dialog", Font.PLAIN, 10));
-		
-		// TODO: handle the navigation tree
-		// setNavigationTreeInJTree();
-		
-		JScrollPane treeScrollPane = new JScrollPane();
-		treeScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		treeScrollPane.setViewportView(sbmlTree);	
-		
-		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.2);
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		
-		// set coponents
-		splitPane.setRightComponent(annotationScrollPane);
-		splitPane.setLeftComponent(treeScrollPane);
-		
-		this.add(splitPane);
-		*/
 		
 		// set the size
 		Dimension size = this.getSize();
@@ -162,8 +113,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
 			cytoPanelEast.setState(CytoPanelState.DOCK);
 		}	
-
-		// Select my panel
+		// Select panel
 		select();
     }
 		
@@ -184,17 +134,35 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		cytoPanelEast.setSelectedIndex(index);
 	}
 		
-	/////////////////// TEXT CONTENT ///////////////////////////////////
 	public JEditorPaneSBML getTextPane(){
 		return textPane;
 	}
 	
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
+
+	/** Handle hyperlink events in the info TextPane. */
+	public void hyperlinkUpdate(HyperlinkEvent evt) {
+		/* Open link in browser. */
+		URL url = evt.getURL();
+		if (url != null) {
+			if (evt.getEventType() == HyperlinkEvent.EventType.ENTERED) {
+				
+			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
+				
+			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+				adapter.openBrowser.openURL(url.toString());
+			}
+		}	
+	}
 	
 	/** Handle node selection events in the table/network. 
 	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
 	 * make sure to minimize the unnecessary action here.
 	 * I.e. only act on the Event if everything in the right state.
+	 * 
+	 * The Event is fired many times (N+1) for selected nodes. 
+	 * TODO: necessary to get event which is only fired once upon selection !
+	 * FIXME: this is major performance problem in large networks.
 	 * 
 	 * RowSetEvent:
 	 * An Event object generated when an event occurs to a RowSet object. A RowSetEvent object is 
@@ -209,60 +177,41 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 */ 
 	public void handleEvent(RowsSetEvent e) {
 		try {
-		if (!isActive()){
-			return;
-		}
-		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-		if (network == null || view == null){
-			return;
-		}
-		
-		// TODO: get the information for the mapped SBML node
-		// TODO: work with notify and notifyAll
-		
-		// TODO: this is performed multiple times due to 
-		
-		List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-		logger.info("--- SELECTION ---");
-		for (CyNode n: selectedNodes){
-			logger.info(n.getSUID().toString());
-		}
-		logger.info("-----------------");
-		
-		// TODO: Listen to network changed events and update the SBML
-		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-		
-		if (document != null){
-			/*
-			// Test the display of information
-			Model model = document.getModel();
-			HashSet<Object> nsbSet = new HashSet<Object>();
-			for (Compartment c: model.getListOfCompartments()){
-				nsbSet.add(c);
+			// catch simple cases without doing work
+			if (!isActive()){
+				return;
 			}
-			logger.info("Show information for compartment");		
-			textPane.showNSBInfo(nsbSet);
-			*/
-			logger.info("Get selected SUIDs and NSBs");
-			// TODO: !!! This has to be done when networks are changed/views selected
-			// TODO: !!! Only here for testing. DO NOT CREATE TREE FOR EVERY LOOKUP.
-			navigationTree = new NavigationTree(document);
+			CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+			CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+			if (network == null || view == null){
+				return;
+			}
 			
-			List<Long> selectedSUIDs = getSUIDsForSelectedNodes(network);
-			List<String> selectedNSBIds = getNSBIds(selectedSUIDs);
-		
-			// much more complicated with tree which has to be synchronized
-			// makeNetworkAndTreeChanges(selectedNodeIds, selectedNamedSBaseIds);
-			if (selectedNSBIds.size() > 0){
-				// Get the actual NamedSBase objects
-				// only use the first in the row
-				// TODO: better handling of multiple selections
-				String nsbId = selectedNSBIds.get(0);
-				NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
-				textPane.showNSBInfo(nsb);
+			// get selected nodes
+			List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+			logger.info("--- SELECTION ---");
+			for (CyNode n: selectedNodes){
+				logger.info(n.getSUID().toString());
 			}
-		}
+			logger.info("-----------------");
+			
+			// display information for selected nodes
+			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
+			if (document != null){
+				logger.info("Get selected SUIDs and NSBs");
+				
+				List<Long> selectedSUIDs = getSUIDsForSelectedNodes(network);
+				List<String> selectedNSBIds = getNSBIds(selectedSUIDs);
+			
+				// display information
+				if (selectedNSBIds.size() > 0){
+					// TODO: better handling of multiple selections, how ?
+					// only use the first in the row
+					String nsbId = selectedNSBIds.get(0);
+					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
+					textPane.showNSBInfo(nsb);
+				}
+			}
 		
 		} catch (Throwable t){
 			logger.error("Error in handling node selection in CyNetwork");
@@ -288,50 +237,4 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		return mapping.getValues(suids);
 	}
 	
-
-	// TODO: handle the focusing of CyNetworks
-	/*
-	public void propertyChange(PropertyChangeEvent e) {		
-		if (e.getPropertyName().equalsIgnoreCase(CytoscapeDesktop.NETWORK_VIEW_FOCUSED))
-		{	
-			updateNavigationTree();
-			
-			//Change the target for the network Event Listener
-			CyNetwork network = Cytoscape.getCurrentNetwork();
-			if (network != null)
-				network.removeSelectEventListener(this);
-			network = Cytoscape.getCurrentNetwork();
-			if (network != null) {
-				network.addSelectEventListener(this);
-			}
-		}
-		
-		if (e.getPropertyName().equalsIgnoreCase(Cytoscape.NETWORK_DESTROYED)){
-			String deletedNetworkKey = Cytoscape.getCurrentNetwork().getIdentifier();
-			sbmlDocuments.removeDocument(deletedNetworkKey);
-			updateNavigationTree();
-		}
-		if (e.getPropertyName().equalsIgnoreCase(Cytoscape.SESSION_LOADED)){
-			sbmlDocuments.updateDocuments();
-			updateNavigationTree();
-		}
-	}
-	*/
-	
-
-	/** Handle hyperlink events in the info TextPane. */
-	public void hyperlinkUpdate(HyperlinkEvent evt) {
-		/* Open link in browser. */
-		URL url = evt.getURL();
-		if (url != null) {
-			if (evt.getEventType() == HyperlinkEvent.EventType.ENTERED) {
-				
-			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
-				
-			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				adapter.openBrowser.openURL(url.toString());
-			}
-		}	
-	}
-
 }

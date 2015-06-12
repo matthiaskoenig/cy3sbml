@@ -5,6 +5,7 @@ import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
@@ -133,6 +134,7 @@ public class CyActivator extends AbstractCyActivator {
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
+			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());

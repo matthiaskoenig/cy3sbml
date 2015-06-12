@@ -1,13 +1,15 @@
 package org.cy3sbml;
 
-import java.awt.print.Printable;
 import java.util.HashSet;
 
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
+import org.cytoscape.application.events.SetCurrentNetworkEvent;
+import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.model.CyNetwork;
+import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,14 @@ import org.slf4j.LoggerFactory;
  * 
  * TODO: create a service adaptor class (one stop shop to get all the necessary services)
  */
-public class SBMLManager {
+public class SBMLManager implements SetCurrentNetworkListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private ServiceAdapter adapter;
 	
 	private SBML2NetworkMapper sbml2networks;
+	private NavigationTree navigationTree;
+	
 	
 	public static synchronized SBMLManager getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
@@ -41,6 +45,7 @@ public class SBMLManager {
 	private SBMLManager(ServiceAdapter adapter){
 		logger.info("SBMLManager created");
 		sbml2networks = new SBML2NetworkMapper();
+		navigationTree = new NavigationTree();
 		this.adapter = adapter;
 	}
 	
@@ -50,6 +55,7 @@ public class SBMLManager {
 		sbml2networks.putDocument(suid, doc, mapping);
 	}
 	
+	// TODO: !!! This has to be done when current network changes
 	public void updateCurrent(CyNetwork network) {	
 		logger.info("Update current ...");
 		Long suid = null;
@@ -58,12 +64,23 @@ public class SBMLManager {
 		}
 		sbml2networks.setCurrentSUID(suid);
 		
-		// TODO: update the visualization in control Panel
-		// Create some event -> programming pattern
-		// this.activate();
-		// TODO:
-		// updateNavigationTree();
+		// update tree
+		updateNavigationTree();
 	}
+	
+	// TODO: only create the trees once for the SBMLDocuments -> lookup afterwards
+	private void updateNavigationTree(){
+		SBMLDocument doc = sbml2networks.getCurrentDocument();
+		navigationTree = new NavigationTree(doc);
+	}
+	
+	
+	// TODO: handle navigation tree better
+	public NamedSBase getNamedSBaseById(String nsbId){
+		NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
+		return nsb;
+	}
+	
 	
 	public SBMLDocument getCurrentSBMLDocument(){
 		return sbml2networks.getCurrentDocument();
@@ -95,6 +112,28 @@ public class SBMLManager {
 	
 	public String info(){
 		return sbml2networks.toString();
+	}
+	
+	
+	/**
+	 * Listening to changes in Networks and NetworkViews.
+	 * When must the SBMLDocument store be updated.
+	 * - NetworkViewAddedEvent
+	 * - NetworkViewDestroyedEvent
+	 * 
+	 * An event indicating that a network view has been set to current.
+	 *  SetCurrentNetworkViewEvent
+	 * 
+	 * An event signaling that the a network has been set to current.
+	 *  SetCurrentNetworkEvent
+	 * 
+	 * @param e
+	 */
+	@Override
+	public void handleEvent(SetCurrentNetworkEvent event) {
+		logger.info("SetCurrentNetworkEvent");
+		CyNetwork network = event.getNetwork();
+		updateCurrent(network);
 	}
 
 }

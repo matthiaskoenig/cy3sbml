@@ -64,7 +64,11 @@ public class NavigationTree {
 	public NavigationTree(SBMLDocument document){
 		this();
 		logger.info("Create NavigationTree for SBMLDocument");
-		
+		if (document == null){
+			logger.info("No SBMLDocument");
+			return;
+		}
+	
 		try{
 		Model model = document.getModel();
 		String modelName = getModelNameFromModel(model);
