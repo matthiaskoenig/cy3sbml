@@ -231,19 +231,16 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		style.apply(view);
 		view.updateView();
 		
-		// Select SBML Attributes in Data Panel
-		// TODO: ? how do new tables work
-		// selectSBMLTableAttributes();
-		
-		// Update cy3sbml Navigator
-		
-		// TODO: register the SBML in the Manager 
+		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
 		
 		logger.info(sbmlManager.info());
 		sbmlManager.updateCurrent(network);
+		
+		// Preload SBML WebService information
+		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 		/*
 		public void putSBMLDocumentForLayout(String networkName, SBMLDocument document, CyNetwork network, Layout layout){
@@ -256,11 +253,12 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		}
 		*/
 		
-		
-		// Preload SBML WebService information
-		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+		// Select SBML Attributes in Data Panel
+		// TODO: ? how do new tables work
+		// selectSBMLTableAttributes();
 		
 		// Arrange Windows and fit views (for all networks)
+		// TODO
 		// 
 		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
 		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){

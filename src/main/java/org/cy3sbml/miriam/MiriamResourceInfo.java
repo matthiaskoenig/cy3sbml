@@ -62,7 +62,7 @@ public class MiriamResourceInfo {
 		// check in cache
 		Element element = miriamCache.get(resourceURI);
 		if (element != null){
-			logger.info("In cache: " + resourceURI);
+			logger.debug("cached: " + resourceURI);
 			locations = (String[]) element.getObjectValue();
 		} else {
 			logger.info("Webservice lookup: " + resourceURI);
@@ -71,7 +71,7 @@ public class MiriamResourceInfo {
 				// update the cache
 				element = new Element(resourceURI, locations);
 				miriamCache.put(element);
-				logger.info("Added to cache: " + resourceURI);
+				logger.debug("Added to cache: " + resourceURI);
 			} else {
 				logger.warn("Miriam locations could not be retrieved: " + resourceURI);
 			}
