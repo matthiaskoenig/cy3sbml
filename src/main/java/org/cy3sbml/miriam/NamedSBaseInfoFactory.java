@@ -26,16 +26,12 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
  * to reduce the webservice overhead. I.e. every resource should be
  * retrieved maximally one time. 
  * 
- * TODO: check the following problems if still existing.
- * TODO: hash the resources already read so future node information
- * speeds up extremely. No additional lookup of resources needed.
- * FIXME: handle the cases when the resources are not found, for instance
- * due to wrong encoding in the SBML.
  * FIXME: offline mode & better overview over the information in the SBML
- *  Holds the available link information for already read resources 
- * TODO: Cache information
+ *  Holds the available link information for already read resources (Store & Read Cache)
+ *   
  * TODO: bug if nodes are selected with no correspondence in the SBML.
  * TODO: get the additional information from KEGG, ...
+ * TODO: use ontology lookup service to retrieve additional information
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);

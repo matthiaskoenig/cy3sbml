@@ -20,10 +20,12 @@ public class ConnectionProxy {
 	}
 	
 	public static String getHTTPHost(){
-		return "proxy.charite.de";
+		//return "proxy.charite.de";
+		return "";
 	}
 	public static String getHTTPPort(){
-		return "8080";
+		//return "8080";
+		return "";
 	}
 	
 	public static void setCytoscapeProxy(){
