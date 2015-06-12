@@ -2,12 +2,13 @@ package org.cy3sbml.gui;
 
 import java.awt.Font;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JEditorPane;
+import javax.swing.text.Document;
 
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.slf4j.Logger;
@@ -28,19 +29,27 @@ public class JEditorPaneSBML extends JEditorPane{
 		setHelp();
 	}
 	
-	
 	public void setHelp(){
+		URL url;
 		try {
-			logger.info("set help in control panel");
-			URL url = new URL(ResultsPanel.class.getResource("/info.html").toString());
-			logger.info(url.toString());
+			url = new URL(ResultsPanel.class.getResource("/info.html").toString());
 			this.setPage(url);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
+	/** To force a document reload it is necessary to clear the
+    * stream description property of the document.
+    */
+	public void setPage(URL page) throws IOException {
+		Document doc = this.getDocument();
+	    doc.putProperty(Document.StreamDescriptionProperty, null);
+		super.setPage(page);
+	}
+		
 	/** Update Text in the navigation panel.
 	 * Only updates information if the current thread is the last requested thread 
 	 * for updating text. */
