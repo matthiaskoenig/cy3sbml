@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
@@ -201,6 +202,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			}
 		        			
 			LinkedList<Long> suids = new LinkedList<Long>();
+			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+			for (CyNode n : nodes){
+				suids.add(n.getSUID());
+			}
+			
+			/*
 	        for (RowSetRecord record: rse.getColumnRecords(CyNetwork.SELECTED)) {
 	            if ((Boolean)record.getValue() == true) {
 	                // Add the suids
@@ -212,6 +219,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	            	}
 	            }
 	        }
+	        */
 					
 			// get selected nodes
 			logger.info("--- SELECTION ---");
