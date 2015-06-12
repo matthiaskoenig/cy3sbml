@@ -15,8 +15,8 @@ public class MiriamWebserviceTest {
 	@Before
 	public void setUp() {
 		// If the tests fail, uncomment the following line
-		// quick hack to get the tests run behind university proxy
-		ConnectionProxy.setProxy();
+		// Necessary to pass through university proxy
+		ConnectionProxy.setSystemProxy("proxy.charite.de", "8080");
 		link = MiriamWebservice.getMiriamLink();
 	}
 	 

@@ -64,6 +64,7 @@ public class CyActivator extends AbstractCyActivator {
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
 			
+			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
 			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
@@ -107,6 +108,11 @@ public class CyActivator extends AbstractCyActivator {
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
+			
+			// Use the Cytoscape properties to set proxy for webservices
+			ConnectionProxy.setCyProperties(cyProperties);
+			ConnectionProxy.setSystemProxy();
+			
 			
 			/**
 			 * Register services 
