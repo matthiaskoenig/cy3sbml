@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -15,6 +16,7 @@ import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
@@ -59,6 +61,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
 			CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
+			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 			SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
@@ -72,6 +75,7 @@ public class CyActivator extends AbstractCyActivator {
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 
+			
 			/**  
 			 * Create ServiceAdapter
 			 */
@@ -79,6 +83,7 @@ public class CyActivator extends AbstractCyActivator {
 					cySwingApplication,
 					cyApplicationManager,
 					cyNetworkManager,
+					cyNetworkViewManager,
 					visualMappingManager,
 					cyLayoutAlgorithmManager,
 					synchronousTaskManager,

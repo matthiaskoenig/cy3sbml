@@ -11,6 +11,7 @@ import org.cytoscape.property.CyProperty;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
@@ -30,6 +31,7 @@ public class ServiceAdapter {
 	public CySwingApplication cySwingApplication;
 	public CyApplicationManager cyApplicationManager;
 	public CyNetworkManager cyNetworkManager;
+	public CyNetworkViewManager cyNetworkViewManager;
 	public VisualMappingManager visualMappingManager;
 	public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
 	public SynchronousTaskManager synchronousTaskManager;
@@ -44,6 +46,7 @@ public class ServiceAdapter {
 			CySwingApplication cySwingApplication,
 			CyApplicationManager cyApplicationManager,
 			CyNetworkManager cyNetworkManager,
+			CyNetworkViewManager cyNetworkViewManager,
 			VisualMappingManager visualMappingManager,
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
 			SynchronousTaskManager synchronousTaskManager,
@@ -59,6 +62,7 @@ public class ServiceAdapter {
 					cySwingApplication,
 					cyApplicationManager,
 					cyNetworkManager,
+					cyNetworkViewManager,
 					visualMappingManager,
 					cyLayoutAlgorithmManager,
 					synchronousTaskManager,
@@ -80,6 +84,7 @@ public class ServiceAdapter {
 			CySwingApplication cySwingApplication,
 			CyApplicationManager cyApplicationManager,
 			CyNetworkManager cyNetworkManager,
+			CyNetworkViewManager cyNetworkViewManager,
 			VisualMappingManager visualMappingManager,
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
 			SynchronousTaskManager synchronousTaskManager,

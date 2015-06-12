@@ -253,17 +253,12 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		}
 		*/
 		
-		// Select SBML Attributes in Data Panel
-		// TODO: ? how do new tables work
+		// TODO: Select SBML Attributes in Data Panel
 		// selectSBMLTableAttributes();
 		
-		// Arrange Windows and fit views (for all networks)
-		// TODO
-		// 
+		// TODO: Arrange Windows and fit views (for all networks)
 		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
-		// for(CyNetworkView view: Cytoscape.getNetworkViewMap().values()){
-		// 	view.fitContent();
-		// }
+		view.fitContent();
 	}
 	
 	private VisualStyle getVisualStyleByName(String styleName){

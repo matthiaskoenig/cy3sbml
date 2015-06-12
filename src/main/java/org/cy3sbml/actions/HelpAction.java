@@ -37,7 +37,6 @@ public class HelpAction extends AbstractCyAction{
 		return false;
 	}
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed()");
