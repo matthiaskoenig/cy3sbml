@@ -179,6 +179,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		try {
 			// catch simple cases without doing work
 			if (!isActive()){
+				textPane.setText("");
 				return;
 			}
 			CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
@@ -211,6 +212,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
 					textPane.showNSBInfo(nsb);
 				}
+			} else {
+				textPane.setText("no SBML information");
 			}
 		
 		} catch (Throwable t){

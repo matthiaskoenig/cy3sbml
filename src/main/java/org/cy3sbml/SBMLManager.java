@@ -114,7 +114,6 @@ public class SBMLManager implements SetCurrentNetworkListener {
 		return sbml2networks.toString();
 	}
 	
-	
 	/**
 	 * Listening to changes in Networks and NetworkViews.
 	 * When must the SBMLDocument store be updated.
@@ -135,5 +134,12 @@ public class SBMLManager implements SetCurrentNetworkListener {
 		CyNetwork network = event.getNetwork();
 		updateCurrent(network);
 	}
+	
+	/** If networks are added check if they are subnetworks
+	 * of SBML networks and add the respective SBMLDocument 
+	 * to them in the mapping.
+	 */
+	
+	
 
 }
