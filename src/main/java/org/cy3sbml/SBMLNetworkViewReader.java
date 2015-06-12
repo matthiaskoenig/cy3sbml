@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.SwingUtilities;
+
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
-import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
@@ -197,108 +198,18 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 
 	@Override
 	public CyNetworkView buildCyNetworkView(CyNetwork network) {
-		// create view
-		CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network); 
-		doPostProcessing(network, view);
-		
-		return view;
-	}
-	
-	/**
-	 *  PostProcessing of the network after the file is read.
-	 *  - applies CySBML visual style
-	 *  - applies standard layout to the network
-	 *  - selects the important SBML attributes in the data browser
-	 */  
-	public void doPostProcessing(CyNetwork network, CyNetworkView view) {
-		logger.info("doPostProcessing of network and view");
-		
-		// apply layout
-		CyLayoutAlgorithm layout = adapter.cyLayoutAlgorithmManager.getLayout("force-directed");
-		layout.createLayoutContext();
-		TaskIterator layoutTaskIterator = layout.createTaskIterator(view, layout.createLayoutContext(),
-																	layout.ALL_NODE_VIEWS, layout.getName());
-		
-		// We use the synchronous task manager otherwise the visual style and updateView()
-		// may occur before the view is relayed out:
-		adapter.taskManager.execute(layoutTaskIterator);
-		
-		// Apply cy3sbml style		
-		String styleName = (String) adapter.cy3sbmlProperty("cy3sbml.visualStyle");
-		// view.fitContent();
-		VisualStyle style = getVisualStyleByName(styleName);
-		adapter.visualMappingManager.setVisualStyle(style, view);
-		style.apply(view);
-		view.updateView();
-		
+			
 		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
-		
-		logger.info(sbmlManager.info());
 		sbmlManager.updateCurrent(network);
 		
 		// Preload SBML WebService information
 		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
-		/*
-		public void putSBMLDocumentForLayout(String networkName, SBMLDocument document, CyNetwork network, Layout layout){
-			NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(layout);
-			putSBMLDocument(networkName, document, mapping);
-		}
-		public void putSBMLDocumentForGRN(String networkName, SBMLDocument document, CyNetwork network){
-			NamedSBaseToNodeMapping mapping = new NamedSBaseToNodeMapping(network);
-			putSBMLDocument(networkName, document, mapping);
-		}
-		*/
-		
-		// TODO: Select SBML Attributes in Data Panel
-		// selectSBMLTableAttributes();
-		
-		// TODO: Arrange Windows and fit views (for all networks)
-		//CyDesktopManager.arrangeFrames(CyDesktopManager.Arrange.GRID);
-		view.fitContent();
+		// create view
+		final CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network); 
+		return view;
 	}
-	
-	private VisualStyle getVisualStyleByName(String styleName){
-		VisualMappingManager vmm = adapter.visualMappingManager;
-		Set<VisualStyle> styles = vmm.getAllVisualStyles();
-		for (VisualStyle style: styles){
-			if (style.getTitle().equals(styleName)){
-				return style;
-			}
-		}
-		logger.warn("cy3sbml style not found in VisualStyles, default style used.");
-		return vmm.getDefaultVisualStyle();
-	}
-	
-	
-	/*
-	protected void applyLayout(CyNetwork network) {
-		if (nodeIds.size() > LAYOUT_NODE_NUMBER){
-			CySBML.LOGGER.info(String.format("More than %d nodes, no layout applied.", LAYOUT_NODE_NUMBER));
-		} else { 
-			CyLayoutAlgorithm layout = CyLayouts.getLayout("force-directed");
-			CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
-			view.applyLayout(layout);
-		}
-	}
-	*/
-
-	/*
-	private void selectSBMLTableAttributes(){
-		String[] nAtts = {CySBMLConstants.ATT_TYPE,
-						  CySBMLConstants.ATT_NAME,
-						  CySBMLConstants.ATT_COMPARTMENT,
-						  CySBMLConstants.ATT_METAID,
-						  CySBMLConstants.ATT_SBOTERM};
-		
-		String[] eAtts = {Semantics.INTERACTION,
-						  CySBMLConstants.ATT_STOICHIOMETRY,
-						  CySBMLConstants.ATT_METAID,
-						  CySBMLConstants.ATT_SBOTERM};
-		AttributeUtils.selectTableAttributes(Arrays.asList(nAtts), Arrays.asList(eAtts));
-	}
-	*/
 }

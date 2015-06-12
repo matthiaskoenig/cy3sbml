@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.net.URL;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,12 +23,18 @@ import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
+import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyRow;
+import org.cytoscape.model.CyTable;
 import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.events.NetworkViewAddedEvent;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -175,9 +182,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * 
 	 * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
 	 */ 
-	public void handleEvent(RowsSetEvent e) {
+	
+	public void handleEvent(RowsSetEvent rse) {
 		try {
-			// catch simple cases without doing work
 			if (!isActive()){
 				textPane.setText("");
 				return;
@@ -187,22 +194,36 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			if (network == null || view == null){
 				return;
 			}
-			
+		
+			if (!rse.getSource().equals(network.getDefaultNodeTable()) ||
+		            !rse.containsColumn(CyNetwork.SELECTED)){
+			    return;
+			}
+		        			
+			LinkedList<Long> suids = new LinkedList<Long>();
+	        for (RowSetRecord record: rse.getColumnRecords(CyNetwork.SELECTED)) {
+	            if ((Boolean)record.getValue() == true) {
+	                // Add the suids
+	            	Long suid = record.getRow().get(CyIdentifiable.SUID, Long.class);
+	            	// Only the nodes, not edges
+	            	CyNode node = network.getNode(suid);
+	            	if (node != null){
+	            		suids.add(suid);	
+	            	}
+	            }
+	        }
+					
 			// get selected nodes
-			List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 			logger.info("--- SELECTION ---");
-			for (CyNode n: selectedNodes){
-				logger.info(n.getSUID().toString());
+			for (Long suid: suids){
+				logger.info(suid.toString());
 			}
 			logger.info("-----------------");
 			
 			// display information for selected nodes
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-			if (document != null){
-				logger.info("Get selected SUIDs and NSBs");
-				
-				List<Long> selectedSUIDs = getSUIDsForSelectedNodes(network);
-				List<String> selectedNSBIds = getNSBIds(selectedSUIDs);
+			if (document != null){				
+				List<String> selectedNSBIds = getNSBIds(suids);
 			
 				// display information
 				if (selectedNSBIds.size() > 0){
@@ -239,5 +260,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		One2ManyMapping<Long, String> mapping = sbmlManager.getCurrentCyNode2NSBMapping();
 		return mapping.getValues(suids);
 	}
+
 	
 }

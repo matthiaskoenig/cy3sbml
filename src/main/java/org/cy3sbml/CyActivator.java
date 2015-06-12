@@ -17,6 +17,7 @@ import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
@@ -102,6 +103,7 @@ public class CyActivator extends AbstractCyActivator {
 			 */ 
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
+			SBMLNetworkViewProcessing sbmlNetworkViewProcessing = new SBMLNetworkViewProcessing(adapter);
 			
 			// load cy3sbml styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
@@ -142,6 +144,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
+			registerService(bc, sbmlNetworkViewProcessing, NetworkViewAddedListener.class, new Properties());
 			
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());

@@ -59,6 +59,10 @@ public class SBML2NetworkMapper {
 		logger.info("Current network set to: " + currentSUID);
 	}
 	
+	public boolean containsSUID(Long suid){
+		return (documentMap.containsKey(suid));
+	}
+	
 	public Set<Long> keySet(){
 		return documentMap.keySet();
 	}

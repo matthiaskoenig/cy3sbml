@@ -63,7 +63,12 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		sbml2networks.putDocument(suid, doc, mapping);
 	}
 	
-
+	public boolean networkIsSBML(CyNetwork network){
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+		Long suid = rootNetwork.getSUID();
+		return sbml2networks.containsSUID(suid);
+	}
+	
 	public void updateCurrent(CyNetwork network) {	
 		logger.info("Update current ...");
 		Long suid = null;
