@@ -9,6 +9,10 @@ import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.events.NetworkAddedEvent;
+import org.cytoscape.model.events.NetworkAddedListener;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -16,10 +20,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The SBMLManager manages the loaded/available SBML files.
- * 
- * TODO: create a service adaptor class (one stop shop to get all the necessary services)
+ * The sbml2networks manages the mapping between SBMLDocuments and
+ * CyNetworks.
+ * Interaction with the SBMLDocuments and information should go through the 
+ * SBMLManager.
  */
-public class SBMLManager implements SetCurrentNetworkListener {
+public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private ServiceAdapter adapter;
@@ -50,17 +56,20 @@ public class SBMLManager implements SetCurrentNetworkListener {
 	}
 	
 	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBase2CyNodeMapping mapping){
-		// add the entry
-		Long suid = network.getSUID();
+		// stores the root network with the SBMLDocument
+		// all subnetworks can be looked up via the root network
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+		Long suid = rootNetwork.getSUID();
 		sbml2networks.putDocument(suid, doc, mapping);
 	}
 	
-	// TODO: !!! This has to be done when current network changes
+
 	public void updateCurrent(CyNetwork network) {	
 		logger.info("Update current ...");
 		Long suid = null;
 		if (network != null){
-			suid = network.getSUID();
+			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+			suid = rootNetwork.getSUID();
 		}
 		sbml2networks.setCurrentSUID(suid);
 		
@@ -70,10 +79,9 @@ public class SBMLManager implements SetCurrentNetworkListener {
 	
 	// TODO: only create the trees once for the SBMLDocuments -> lookup afterwards
 	private void updateNavigationTree(){
-		SBMLDocument doc = sbml2networks.getCurrentDocument();
-		navigationTree = new NavigationTree(doc);
+		SBMLDocument document = sbml2networks.getCurrentDocument();
+		navigationTree = new NavigationTree(document);
 	}
-	
 	
 	// TODO: handle navigation tree better
 	public NamedSBase getNamedSBaseById(String nsbId){
@@ -93,15 +101,16 @@ public class SBMLManager implements SetCurrentNetworkListener {
 	}
 	
 	public SBMLDocument getSBMLDocumentForCyNetwork(CyNetwork network){
-		return sbml2networks.getDocumentForSUID(network.getSUID());
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+		return sbml2networks.getDocumentForSUID(rootNetwork.getSUID());
 	}
-	
 	
 	/** Remove all mapping entries were the networks are no longer available. */
 	public void synchronizeDocuments(){
 		HashSet<Long> suids = new HashSet<Long>();
 		for (CyNetwork network : adapter.cyNetworkManager.getNetworkSet()){
-			suids.add(network.getSUID());
+			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+			suids.add(rootNetwork.getSUID());
 		}
 		for (Long key : sbml2networks.keySet()){
 			if (!suids.contains(key)){
@@ -132,14 +141,32 @@ public class SBMLManager implements SetCurrentNetworkListener {
 	public void handleEvent(SetCurrentNetworkEvent event) {
 		logger.info("SetCurrentNetworkEvent");
 		CyNetwork network = event.getNetwork();
+		logger.info("network SUID: " + network.getSUID());
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+		logger.info("root SUID: " + rootNetwork.getSUID());
+		
 		updateCurrent(network);
 	}
-	
+
 	/** If networks are added check if they are subnetworks
 	 * of SBML networks and add the respective SBMLDocument 
 	 * to them in the mapping.
 	 */
+	@Override
+	public void handleEvent(NetworkAddedEvent event) {
+		
+		logger.info("NetworkAddedEvent");
+		CyNetwork network = event.getNetwork();
+		logger.info("network SUID: " + network.getSUID());
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+		logger.info("root SUID: " + rootNetwork.getSUID());
+		// TODO: manage
+		
+		// if the root network is an SBMLNetwork than add
+		// the network to root network mapping
+		// not necessary because root network is already in there
+		
+		
+	}
 	
-	
-
 }

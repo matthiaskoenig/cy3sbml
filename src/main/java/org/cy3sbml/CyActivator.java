@@ -11,6 +11,7 @@ import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -135,6 +136,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
+			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
 			
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());
