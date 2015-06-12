@@ -14,9 +14,10 @@ public class MiriamWebserviceTest {
 	
 	@Before
 	public void setUp() {
-		// If the tests fail, uncomment the following line
-		// Necessary to pass through university proxy
-		ConnectionProxy.setSystemProxy("proxy.charite.de", "8080");
+		// If the connection test fails comment the proxy lines, which
+		// are necessary to pass through university proxy
+		ConnectionProxy connectionProxy = new ConnectionProxy(null);
+		connectionProxy.setSystemProxy("http", "proxy.charite.de", "8080");
 		link = MiriamWebservice.getMiriamLink();
 	}
 	 

@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
 import org.cytoscape.property.CyProperty;
+import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.application.CyApplicationManager;
@@ -103,16 +104,15 @@ public class CyActivator extends AbstractCyActivator {
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init cy3sbml ControlPanel
-			ResultsPanel navControlPanel = ResultsPanel.getInstance(adapter);
+			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
 			// init actions
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			
 			// Use the Cytoscape properties to set proxy for webservices
-			ConnectionProxy.setCyProperties(cyProperties);
-			ConnectionProxy.setSystemProxy();
-			
+			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
+			connectionProxy.setSystemProxyFromCyProperties();
 			
 			/**
 			 * Register services 
@@ -124,14 +124,15 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, sbmlNetworkViewTaskFactory, InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
 			
 			
-			registerService(bc, navControlPanel, CytoPanelComponent.class, new Properties());
+			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
 			registerService(bc, controlPanelAction, CyAction.class, new Properties());
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
 			
 			// listeners
-			registerService(bc, navControlPanel, RowsSetListener.class, new Properties());
+			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
+			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());
