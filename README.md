@@ -49,8 +49,11 @@ To build from source follow the instructions [here](./docs/cy3sbml_build_instruc
 We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html). 
 
 ## Changelog
-**v0.1.3** [?]
-* RDF annotations (MIRIAM) displayed
+**v0.1.3** [2015/06/14]
+* cy3sbml VisualStyles
+* Support of multiple networks and views (subnetworks)
+* Model information is now displayed 
+* RDF annotations displayed (MIRIAM) 
 * proxy support
 * first unit tests created and integrated with maven
 * logging with log4j and slf4j implemented (cy3sbml.log)
@@ -58,10 +61,10 @@ We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biol
 * node EventListener for updating annotation information
 * application of layout after generating views
 
-**v0.1.2** [06/2015]
+**v0.1.2** [2015/06/01]
 * documentation update (build instructions, installation instructions)
 
-**v0.1** [05/2015]
+**v0.1** [2015/05]
 * first app release (OSGI build with JSBML integration)
 
 

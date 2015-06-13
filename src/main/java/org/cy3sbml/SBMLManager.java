@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.util.HashSet;
 
+import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
@@ -151,6 +152,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		logger.info("root SUID: " + rootNetwork.getSUID());
 		
 		updateCurrent(network);
+		// selection should be updated
+		ResultsPanel.getInstance().updateInformation();
 	}
 
 	/** If networks are added check if they are subnetworks

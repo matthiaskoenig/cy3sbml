@@ -20,7 +20,7 @@ public class ChangeStateAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "show/hide cy3sbml");
-		setToolbarGravity((float) 0.0);
+		setToolbarGravity((float) 101.0);
 	}
 		
 	public boolean isInToolBar() {
