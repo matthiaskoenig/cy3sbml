@@ -181,6 +181,15 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 */ 
 	
 	public void handleEvent(RowsSetEvent event) {
+		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+		if (!event.getSource().equals(network.getDefaultNodeTable()) ||
+	            !event.containsColumn(CyNetwork.SELECTED)){
+		    return;
+		}
+		updateInformation();
+	}
+	
+	public void updateInformation(){
 		try {
 			if (!isActive()){
 				textPane.setText("");
@@ -191,12 +200,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			if (network == null || view == null){
 				return;
 			}
-		
-			if (!event.getSource().equals(network.getDefaultNodeTable()) ||
-		            !event.containsColumn(CyNetwork.SELECTED)){
-			    return;
-			}
-		        			
+			
 			LinkedList<Long> suids = new LinkedList<Long>();
 			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 			for (CyNode n : nodes){
