@@ -99,6 +99,7 @@ public class ServiceAdapter {
 		this.cySwingApplication = cySwingApplication;
 		this.cyApplicationManager = cyApplicationManager;
 		this.cyNetworkManager = cyNetworkManager;
+		this.cyNetworkViewManager = cyNetworkViewManager;
 		this.visualMappingManager = visualMappingManager;
 		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
 		this.synchronousTaskManager = synchronousTaskManager;

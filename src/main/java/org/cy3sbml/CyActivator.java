@@ -10,7 +10,6 @@ import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
-import org.cytoscape.biopax.internal.BioPaxReader;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAddedListener;
@@ -18,12 +17,10 @@ import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
-import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
-import org.cytoscape.io.read.InputStreamTaskFactory;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -33,7 +30,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.cy3sbml.SBMLFileFilter;
-import org.cy3sbml.SBMLNetworkViewTaskFactory;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
@@ -102,10 +98,6 @@ public class CyActivator extends AbstractCyActivator {
 			/**
 			 * Create things depending on services (with adapter)
 			 */ 
-			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
-			SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
-			SBMLNetworkViewProcessing sbmlNetworkViewProcessing = new SBMLNetworkViewProcessing(adapter);
-			
 			// load cy3sbml styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
@@ -124,20 +116,19 @@ public class CyActivator extends AbstractCyActivator {
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();
 			
+			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
+			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
+
+			
 			/**
 			 * Register services 
-			 */
-			// implement the reader analog to the BioPaxReader to be able to apply the style
-			// BioPaxReader biopaxReader = new BioPaxReader(bioPaxFilter, cyServices, visualStyleUtil);		
-			// registerAllServices(bc, biopaxReader, props);	
-			
-			
-			
+			 */			
 			// SBML file reader
-			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
-			sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");
-			sbmlNetworkViewTaskFactoryProps.setProperty("readerId","cy3sbmlNetworkViewReader");
-			registerService(bc, sbmlNetworkViewTaskFactory, InputStreamTaskFactory.class, sbmlNetworkViewTaskFactoryProps);
+			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
+			Properties sbmlReaderProps = new Properties();
+			sbmlReaderProps.setProperty("readerDescription","SBML file reader (cy3sbml)");
+			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
+			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
@@ -151,7 +142,8 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
-			registerService(bc, sbmlNetworkViewProcessing, NetworkViewAddedListener.class, new Properties());
+			
+			// registerService(bc, sbmlNetworkViewProcessing, NetworkViewAddedListener.class, new Properties());
 			
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());

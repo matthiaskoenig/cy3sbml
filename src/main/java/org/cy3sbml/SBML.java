@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 public class SBML {
 	// TODO: fix the attributes
+	public static final String SBML_NETWORK = "SBML_NETWORK";
 	public static final String NODE_NAME_ATTR_LABEL = "name"; 
 	public static final String INTERACTION_TYPE_ATTR = "interaction type";
 	public static final String SBML_TYPE_ATTR = "sbml type";
