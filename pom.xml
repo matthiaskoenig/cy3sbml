@@ -15,7 +15,7 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.3</version>
+	<version>0.1.4</version>
 	
 	<name>cy3sbml - Advanced SBML for Cytoscape</name>
 
