@@ -10,6 +10,7 @@ import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.biopax.internal.BioPaxReader;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAddedListener;
@@ -126,6 +127,12 @@ public class CyActivator extends AbstractCyActivator {
 			/**
 			 * Register services 
 			 */
+			// implement the reader analog to the BioPaxReader to be able to apply the style
+			// BioPaxReader biopaxReader = new BioPaxReader(bioPaxFilter, cyServices, visualStyleUtil);		
+			// registerAllServices(bc, biopaxReader, props);	
+			
+			
+			
 			// SBML file reader
 			Properties sbmlNetworkViewTaskFactoryProps = new Properties();
 			sbmlNetworkViewTaskFactoryProps.setProperty("readerDescription","SBML (Cy3SBML) file reader");

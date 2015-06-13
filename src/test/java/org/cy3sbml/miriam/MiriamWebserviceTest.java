@@ -16,8 +16,8 @@ public class MiriamWebserviceTest {
 	public void setUp() {
 		// If the connection test fails comment the proxy lines, which
 		// are necessary to pass through university proxy
-		ConnectionProxy connectionProxy = new ConnectionProxy(null);
-		connectionProxy.setSystemProxy("http", "proxy.charite.de", "8080");
+		// ConnectionProxy connectionProxy = new ConnectionProxy(null);
+		// connectionProxy.setSystemProxy("http", "proxy.charite.de", "8080");
 		link = MiriamWebservice.getMiriamLink();
 	}
 	 

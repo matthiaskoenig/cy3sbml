@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.net.URL;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
@@ -28,14 +26,11 @@ import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.cytoscape.model.CyTable;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.model.events.NetworkViewAddedEvent;
-import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -184,7 +179,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
 	 */ 
 	
-	public void handleEvent(RowsSetEvent rse) {
+	public void handleEvent(RowsSetEvent event) {
 		try {
 			if (!isActive()){
 				textPane.setText("");
@@ -196,8 +191,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				return;
 			}
 		
-			if (!rse.getSource().equals(network.getDefaultNodeTable()) ||
-		            !rse.containsColumn(CyNetwork.SELECTED)){
+			if (!event.getSource().equals(network.getDefaultNodeTable()) ||
+		            !event.containsColumn(CyNetwork.SELECTED)){
 			    return;
 			}
 		        			
@@ -207,20 +202,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				suids.add(n.getSUID());
 			}
 			
-			/*
-	        for (RowSetRecord record: rse.getColumnRecords(CyNetwork.SELECTED)) {
-	            if ((Boolean)record.getValue() == true) {
-	                // Add the suids
-	            	Long suid = record.getRow().get(CyIdentifiable.SUID, Long.class);
-	            	// Only the nodes, not edges
-	            	CyNode node = network.getNode(suid);
-	            	if (node != null){
-	            		suids.add(suid);	
-	            	}
-	            }
-	        }
-	        */
-					
 			// get selected nodes
 			logger.info("--- SELECTION ---");
 			for (Long suid: suids){
@@ -235,7 +216,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			
 				// display information
 				if (selectedNSBIds.size() > 0){
-					// TODO: better handling of multiple selections, how ?
+					// TODO: better handling of multiple selections
 					// only use the first in the row
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
@@ -250,6 +231,65 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			t.printStackTrace();
 		}
 	}
+	
+	/*
+	public void handleEvent2(RowsSetEvent event) {
+		
+		// Filter out many RowsSetEvents I do not care about
+		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		if (network == null || view == null){
+			return;
+		}
+		if (!event.getSource().equals(network.getDefaultNodeTable()) ||
+	            !event.containsColumn(CyNetwork.SELECTED)){
+		    return;
+		}
+		
+		logger.info("--- ROWS_SET_EVENT ---");
+		
+		// I want the suids of the selected nodes
+		LinkedList<Long> suids = new LinkedList<Long>();
+		
+		// Solution I am using now
+		// handles the problem with multiple fired events, by just getting all 
+		// selected nodes
+		// This especially deals with the problem of a second empty event.
+		// --> everything is performed twice per selection which can be wrong !
+		// --> do not use counters or other stuff relying on being called only once
+		
+		// List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+		// for (CyNode n : nodes){
+		//	suids.add(n.getSUID());
+		// }
+		
+		
+		// Just getting the changes.
+        for (RowSetRecord record: event.getColumnRecords(CyNetwork.SELECTED)) {
+            if ((Boolean)record.getValue() == true) {
+                // Add the suids
+            	CyRow row = record.getRow();
+            	logger.info(row.toString());
+            	Long suid = row.get(CyIdentifiable.SUID, Long.class);
+            	
+            	// There are nodes and edges in the selection !
+            	// To only get the nodes do the following
+            	CyNode node = network.getNode(suid);
+            	if (node != null){
+            		suids.add(suid);	
+            	}
+            }
+        }
+				
+		// get selected nodes
+		logger.info("--- SELECTION ---");
+		for (Long suid: suids){
+			logger.info(suid.toString());
+		}
+		logger.info("-----------------");
+	}
+	*/
+	
 	
 	private LinkedList<Long> getSUIDsForSelectedNodes(CyNetwork network){
 		List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);

@@ -209,7 +209,33 @@ public class SBMLNetworkViewReader extends AbstractTask implements CyNetworkRead
 		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 		// create view
-		final CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network); 
+		final CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network);
+		// set visual style
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				logger.info("invokeLater run()");
+				String styleName = (String) adapter.cy3sbmlProperty("cy3sbml.visualStyle");
+				final VisualStyle style = getVisualStyleByName(styleName);
+				
+				adapter.visualMappingManager.setVisualStyle(style, view);
+		    	style.apply(view);
+		    	
+		    	view.updateView();
+			}
+		});
 		return view;
+	}
+	
+	private VisualStyle getVisualStyleByName(String styleName){
+		VisualMappingManager vmm = adapter.visualMappingManager;
+		Set<VisualStyle> styles = vmm.getAllVisualStyles();
+		// another ugly fix because styles can not be get by name
+		for (VisualStyle style: styles){
+			if (style.getTitle().equals(styleName)){
+				return style;
+			}
+		}
+		logger.warn("cy3sbml style not found in VisualStyles, default style used.");
+		return vmm.getDefaultVisualStyle();
 	}
 }
