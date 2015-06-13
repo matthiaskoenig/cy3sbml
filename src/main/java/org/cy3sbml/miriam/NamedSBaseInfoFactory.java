@@ -3,16 +3,17 @@ package org.cy3sbml.miriam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.stream.XMLStreamException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -42,7 +43,8 @@ public class NamedSBaseInfoFactory {
 	
 	public NamedSBaseInfoFactory(Object obj){
 		
-		if (    obj.getClass().equals(Compartment.class)  || 
+		if (    obj.getClass().equals(Model.class)  ||
+				obj.getClass().equals(Compartment.class)  || 
 	  			obj.getClass().equals(Reaction.class) || 
 	  			obj.getClass().equals(Species.class) ||
 	  			obj.getClass().equals(QualitativeSpecies.class) ||
@@ -154,7 +156,6 @@ public class NamedSBaseInfoFactory {
 	 * TODO: This has to be done offline and in the background (images have to be cashed) !
 	 * TODO: Create background database of information.  
 	 */
-	@SuppressWarnings("unused")
 	@Deprecated
 	private String getAdditionalInformation(String r){
 		Map<String, String> map = getKeyAndId(r);

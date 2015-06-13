@@ -22,15 +22,13 @@ import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
-import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyRow;
 import org.cytoscape.model.CyTableUtil;
-import org.cytoscape.model.events.RowSetRecord;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -76,9 +74,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		textPane = new JEditorPaneSBML();
 		textPane.addHyperlinkListener(this);
 		JScrollPane annotationScrollPane = new JScrollPane();
-		annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		// annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		// annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		annotationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		annotationScrollPane.setViewportView(textPane);
-		this.add(textPane);
+		//annotationScrollPane.add(textPane);
+		this.add(annotationScrollPane);
 		
 		// set the size
 		Dimension size = this.getSize();
@@ -211,7 +212,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			
 			// display information for selected nodes
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-			if (document != null){				
+			if (document != null){
 				List<String> selectedNSBIds = getNSBIds(suids);
 			
 				// display information
@@ -220,7 +221,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					// only use the first in the row
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
-					textPane.showNSBInfo(nsb);
+					textPane.showNSBInfo(nsb);		
+				} else {
+					textPane.showNSBInfo(document.getModel());
 				}
 			} else {
 				textPane.setText("no SBML information");
@@ -290,16 +293,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	}
 	*/
 	
-	
-	private LinkedList<Long> getSUIDsForSelectedNodes(CyNetwork network){
-		List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-		LinkedList<Long> suids = new LinkedList<Long>();	
-		for (CyNode node : selectedNodes){
-			suids.add(node.getSUID());
-		}
-		return suids;
-	}
-	
+		
 	private List<Long> getSUIDs(List<String> NSBIds){ 
 		One2ManyMapping<String, Long> mapping = sbmlManager.getCurrentNSB2CyNodeMapping();
 		return mapping.getValues(NSBIds);

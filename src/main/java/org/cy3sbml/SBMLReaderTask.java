@@ -49,6 +49,7 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.AttributeUtil;
@@ -321,6 +322,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
 		sbmlManager.updateCurrent(network);
+		
+		// Display the model information in the results pane
+		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());
 		
 		// Preload SBML WebService information
 		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
