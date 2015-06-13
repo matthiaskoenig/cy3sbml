@@ -26,10 +26,14 @@ public class HelpAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");
-		// TODO: position in menu bar
-		setToolbarGravity((float) 0.0);
+		// TODO: not working 
+		setToolbarGravity((float) 100.0);
 	}
-		
+	
+	public boolean insertSeparatorBefore(){
+		return true;
+	}
+	
 	public boolean isInToolBar() {
 		return true;
 	}
@@ -41,10 +45,8 @@ public class HelpAction extends AbstractCyAction{
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed()");
 		final String HELP_URL = "https://github.com/matthiaskoenig/cy3sbml";
-		System.out.println("HelpAction");
 		
 		// reset help information
-		// TODO: fix
 		ResultsPanel.getInstance().getTextPane().setHelp();
 		
 		// open browser help
