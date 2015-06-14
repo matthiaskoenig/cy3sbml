@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.cy3sbml.ConnectionProxy;
+import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.swing.DialogTaskManager;
 
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 public class SearchBioModel {
 	DialogTaskManager dialogTaskManager;
+	SearchBioModelTaskFactory searchBioModelTaskFactory;
 	
 	private SearchContent searchContent;
 	private List<String> modelIds;
@@ -20,8 +22,10 @@ public class SearchBioModel {
 	
 	private BioModelWSInterface bmInterface;
 	
-	public SearchBioModel(ConnectionProxy connectionProxy, DialogTaskManager dialogTaskManager){
+	public SearchBioModel(ConnectionProxy connectionProxy, DialogTaskManager dialogTaskManager, 
+						  SearchBioModelTaskFactory searchBioModelTaskFactory){
 		this.dialogTaskManager = dialogTaskManager;
+		this.searchBioModelTaskFactory = searchBioModelTaskFactory;
 		if ("direct".equals(connectionProxy.getProxyType())){
 			bmInterface = new BioModelWSInterface();	
 		} else {
@@ -82,20 +86,16 @@ public class SearchBioModel {
 	private List<String> searchModelIdsForSearchContent(SearchContent content){
 		// Run the biomodel task with a taskManger
 		
-		SearchBioModelTask task = new SearchBioModelTask(content, bmInterface);
-		/*
-		JTaskConfig jTaskConfig = new JTaskConfig();
-		jTaskConfig.setOwner(Cytoscape.getDesktop());
-		jTaskConfig.displayCloseButton(false);
-		jTaskConfig.displayCancelButton(true);
-		jTaskConfig.displayStatus(true);
-		jTaskConfig.setAutoDispose(true);
-		*/
 		
-		// TODO: have a task iterator
-		dialogTaskManager.execute(arg0);
-		TaskManager.executeTask(task, jTaskConfig);
+		// Necessary to init the tasks with different contents
+		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator(content, bmInterface);
+		// The TaskIterator manages the creation of tasks of the form:
+		// SearchBioModelTask task = new SearchBioModelTask(content, bmInterface);
+	
+		// execute the iterator with dialog
+		dialogTaskManager.execute(iterator);
 		
+		//TODO: necessary to get information back from the tasks, namely the ids
 		return task.getIds();
 	}
 	

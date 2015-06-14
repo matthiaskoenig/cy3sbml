@@ -16,18 +16,6 @@ public class SearchBioModelTask implements Task{
 		this.searchContent = searchContent;
 		this.bmInterface = bmInterface;
 	}
-
-
-	public void halt() {
-	}
-
-	public String getTitle() {
-		return "Search Biomodels";
-	}
-
-	public List<String> getIds(){
-		return searchResultIds;
-	}
 	
 	public void run(final TaskMonitor taskMonitor) throws Exception {
 		String mode = searchContent.getSearchMode();
@@ -84,7 +72,11 @@ public class SearchBioModelTask implements Task{
 		searchResultIds = resultIds;
 	}
 
+	public List<String> getIds(){
+		return searchResultIds;
+	}
 
+		
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
