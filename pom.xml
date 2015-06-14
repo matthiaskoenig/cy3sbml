@@ -17,7 +17,7 @@
 	<packaging>bundle</packaging>
 	<version>0.1.4</version>
 	
-	<name>cy3sbml - Advanced SBML for Cytoscape</name>
+	<name>cy3sbml</name>
 
 	<repositories>
 		<repository>
