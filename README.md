@@ -13,6 +13,7 @@ We are currently porting all features from the Cytoscape 2 plugin to Cytoscape 3
 **Bug Tracker** : https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ## Features (first beta release)
+Not all features have yet been ported to cy3sbml.
 * Java based SBML parser for Cytoscape based on JSBML (http://sourceforge.net/projects/jsbml/)
 * access to models and annotations via BioModel 
   (http://www.biomodels.org/) and MIRIAM WebServices (http://www.ebi.ac.uk/miriam/main/)
@@ -33,11 +34,8 @@ Release information and changelogs are provided [here](./INFO.md).
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Installation
-* Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2.1).  
-* Clone the repository (`git clone https://github.com/matthiaskoenig/cy3sbml.git`).  
-For the **stable release** checkout the master branch (`git checkout master`).  
-For the **development release** checkout the develop branch (`git checkout -b develop origin/develop`).
-* To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Select `Install from File` and use the `cy3sbml-*.jar` located in the `cy3sbml/target/` folder.
+* Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2.1). cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbmladvancedsbmlforcytoscape). Within Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. After selecting `cy3sbml` select install.
+* For working with the latest **stable development release** clone the repository (`git clone https://github.com/matthiaskoenig/cy3sbml.git`) and checkout the master branch (`git checkout master`). This includes new features not yet released. To install cy3sbml as app within Cytoscape, go to the menu bar and choose `Apps → App Manager → Install Apps`. Select `Install from File` and use the `cy3sbml-*.jar` located in the `cy3sbml/target/` folder of the git repository.
 
 After installation cy3sbml will be listed in the `Currently Installed` apps tab.  
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
