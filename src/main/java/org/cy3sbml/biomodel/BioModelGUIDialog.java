@@ -1,4 +1,4 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -30,10 +30,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import cysbml.cytoscape.CytoscapeWrapper;
-import cysbml.tools.ProxyTools;
-import cytoscape.util.OpenBrowser;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -42,9 +38,15 @@ import java.awt.event.KeyAdapter;
 
 import javax.swing.JTextArea;
 
+import org.cy3sbml.ConnectionProxy;
+import org.cytoscape.util.swing.OpenBrowser;
+
 @SuppressWarnings("serial")
 public class BioModelGUIDialog extends JDialog {
 	private static BioModelGUIDialog uniqueInstance; 
+	
+	private final OpenBrowser openBrowser;
+	private final ConnectionProxy connectionProxy;
 	
 	private final JTextArea idTextArea;
 	private final JTextField nameField;
@@ -65,16 +67,20 @@ public class BioModelGUIDialog extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private JList biomodelsList;
 
-	public static synchronized BioModelGUIDialog getInstance(JFrame parentFrame){
+	public static synchronized BioModelGUIDialog getInstance(JFrame parentFrame, OpenBrowser openBrowser,
+															 ConnectionProxy connectionProxy){
 		if (uniqueInstance == null){
-			uniqueInstance = new BioModelGUIDialog(parentFrame);
+			uniqueInstance = new BioModelGUIDialog(parentFrame, openBrowser, connectionProxy);
 		}
 		return uniqueInstance;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private BioModelGUIDialog(final JFrame parentFrame) {
+	private BioModelGUIDialog(final JFrame parentFrame, final OpenBrowser openBrowser, ConnectionProxy connectionProxy) {
 		super(parentFrame, true);
+		this.openBrowser = openBrowser;
+		this.connectionProxy = connectionProxy;
+		
 		this.setSize(1000, 886);
 		this.setResizable(false);
 		this.setTitle("CySBML BioModel Import");
@@ -237,12 +243,8 @@ public class BioModelGUIDialog extends JDialog {
 			public void hyperlinkUpdate(HyperlinkEvent evt) {
 				  URL url = evt.getURL();
 					if (url != null) {
-						if (evt.getEventType() == HyperlinkEvent.EventType.ENTERED) {
-							CytoscapeWrapper.setStatusBarMsg(url.toString());
-						} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
-							CytoscapeWrapper.clearStatusBar();
-						} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-							OpenBrowser.openURL(url.toString());
+						if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+							openBrowser.openURL(url.toString());
 						}
 					}
 			}
@@ -321,11 +323,7 @@ public class BioModelGUIDialog extends JDialog {
 		infoPane.setText(BioModelGUIText.performBioModelSearch());
 		
 		SearchContent searchContent = getSearchContent();
-		searchBioModel = new SearchBioModel(
-					ProxyTools.getCytoscapeProxyHost(),
-					ProxyTools.getCytoscapeProxyPort()
-				);
-		
+		searchBioModel = new SearchBioModel(connectionProxy);
 		searchBioModel.searchBioModels(searchContent);
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}

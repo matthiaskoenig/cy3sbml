@@ -1,15 +1,9 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import javax.swing.JOptionPane;
 
-import cytoscape.Cytoscape;
-import cytoscape.task.Task;
-import cytoscape.task.TaskMonitor;
-
-import cysbml.SBMLGraphReader;
-import cysbml.tools.ProxyTools;
 
 public class LoadBioModelTask implements Task{
 	private TaskMonitor taskMonitor;

@@ -1,4 +1,4 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -10,33 +10,9 @@ import uk.ac.ebi.biomodels.ws.BioModelsWSException;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 
-/** Main class for interaction with the biomodels via webservices.
- * Currently included via the standalone library build -> TODO: change to the
- * corresponding Maven repository
-  <dependencies>
-    <dependency>
-      <groupId>uk.ac.ebi.biomodels</groupId>
-      <artifactId>biomodels-wslib</artifactId>
-      <version>1.21</version>
-    </dependency>
-  </dependencies>
-  
-  <repositories>
-  <repository>
-    <id>ebi-repo</id>
-    <name>The EBI internal repository</name>
-    <url>http://www.ebi.ac.uk/~maven/m2repo</url>
-    <releases>
-      <enabled>true</enabled>
-    </releases>
-    <snapshots>
-      <enabled>false</enabled>
-    </snapshots>
-  </repository>
-  </repositories>
- */
-
+/** Main class for interaction with the biomodels via webservices. */
 public class BioModelWSInterface {
+	
 	private String proxyHost;
 	private String proxyPort;
 	

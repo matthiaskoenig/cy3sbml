@@ -1,14 +1,10 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/** Parsing of the form fields into usable SearchContent instance.
- * @author Matthias Koenig
- * @date 120530
- *
- */
+/** Parsing of the form fields into usable SearchContent instance. */
 public class SearchContent {
 	
 	public static final String CONTENT_NAME = "NAME";
@@ -220,27 +216,5 @@ public class SearchContent {
 			info += token + separator;
 		}
 		return info;
-	}
-	
-	///// TESTING ////////////////////
-	public static void test(){
-		String name = "ABC asdf  test, ";
-		String person = "König, Bölling;; ,";
-		String publication = "PMID:12345";
-		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put(SearchContent.CONTENT_NAME, name);
-		map.put(SearchContent.CONTENT_PERSON, person);
-		map.put(SearchContent.CONTENT_PUBLICATION, publication);
-		map.put(SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND);
-		
-		SearchContent content = new SearchContent(map);
-		String info = content.toString();
-		System.out.println(info);
-		
-	}
-	
-	public static void main(String[] args){
-		test();
 	}
 }

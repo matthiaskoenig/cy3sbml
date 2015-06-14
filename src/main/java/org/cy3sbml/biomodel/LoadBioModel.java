@@ -1,8 +1,5 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
-import cytoscape.Cytoscape;
-import cytoscape.task.ui.JTaskConfig;
-import cytoscape.task.util.TaskManager;
 
 public class LoadBioModel {
 	public static void loadBioModelById(String id){

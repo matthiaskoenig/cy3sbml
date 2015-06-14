@@ -1,4 +1,4 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.util.List;
 import uk.ac.ebi.biomodels.ws.BioModelsWSClient;

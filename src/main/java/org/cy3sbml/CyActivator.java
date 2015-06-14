@@ -1,19 +1,5 @@
 package org.cy3sbml;
 
-
-import static org.cytoscape.work.ServiceProperties.ACCELERATOR;
-import static org.cytoscape.work.ServiceProperties.COMMAND;
-import static org.cytoscape.work.ServiceProperties.COMMAND_DESCRIPTION;
-import static org.cytoscape.work.ServiceProperties.COMMAND_NAMESPACE;
-import static org.cytoscape.work.ServiceProperties.ID;
-import static org.cytoscape.work.ServiceProperties.IN_TOOL_BAR;
-import static org.cytoscape.work.ServiceProperties.LARGE_ICON_URL;
-import static org.cytoscape.work.ServiceProperties.MENU_GRAVITY;
-import static org.cytoscape.work.ServiceProperties.PREFERRED_MENU;
-import static org.cytoscape.work.ServiceProperties.TITLE;
-import static org.cytoscape.work.ServiceProperties.TOOLTIP;
-import static org.cytoscape.work.ServiceProperties.TOOL_BAR_GRAVITY;
-
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -42,9 +28,8 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.util.Properties;
 
-import javax.swing.ImageIcon;
-
 import org.cy3sbml.SBMLFileFilter;
+import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
@@ -118,6 +103,10 @@ public class CyActivator extends AbstractCyActivator {
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
 			loadVizmapFileTaskFactory.loadStyles(stream);
 			
+			// Use the Cytoscape properties to set proxy for webservices
+			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
+			connectionProxy.setSystemProxyFromCyProperties();
+			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init cy3sbml ControlPanel
@@ -126,10 +115,9 @@ public class CyActivator extends AbstractCyActivator {
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
+			BioModelAction bioModelAction = new BioModelAction(cySwingApplication, openBrowser, connectionProxy);
 			
-			// Use the Cytoscape properties to set proxy for webservices
-			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
-			connectionProxy.setSystemProxyFromCyProperties();
+			
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
@@ -151,6 +139,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, controlPanelAction, CyAction.class, new Properties());
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
+			registerService(bc, bioModelAction, CyAction.class, new Properties());
 			
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());

@@ -1,4 +1,4 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 public class BioModelGUIText {
 	public static String getHeaderString(){

@@ -1,9 +1,10 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.cy3sbml.biomodel.BioModelWSInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package biomodel;
+package org.cy3sbml.biomodel;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -6,21 +6,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import cytoscape.Cytoscape;
-import cytoscape.task.ui.JTaskConfig;
-import cytoscape.task.util.TaskManager;
+import org.cy3sbml.ConnectionProxy;
+import org.cytoscape.work.swing.DialogTaskManager;
 
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 public class SearchBioModel {
+	DialogTaskManager dialogTaskManager;
+	
 	private SearchContent searchContent;
 	private List<String> modelIds;
 	private LinkedHashMap<String, SimpleModel> simpleModels;
 	
 	private BioModelWSInterface bmInterface;
 	
-	public SearchBioModel(String proxyHost, String proxyPort){
-		bmInterface = new BioModelWSInterface(proxyHost, proxyPort);
+	public SearchBioModel(ConnectionProxy connectionProxy, DialogTaskManager dialogTaskManager){
+		this.dialogTaskManager = dialogTaskManager;
+		if ("direct".equals(connectionProxy.getProxyType())){
+			bmInterface = new BioModelWSInterface();	
+		} else {
+			String host = connectionProxy.getProxyHost();
+			String port = connectionProxy.getProxyPort();
+			bmInterface = new BioModelWSInterface(host, port);
+		}
+		
 		resetSearch();
 	}
 	
@@ -71,15 +80,22 @@ public class SearchBioModel {
 	}
 	
 	private List<String> searchModelIdsForSearchContent(SearchContent content){
-				
+		// Run the biomodel task with a taskManger
+		
 		SearchBioModelTask task = new SearchBioModelTask(content, bmInterface);
+		/*
 		JTaskConfig jTaskConfig = new JTaskConfig();
 		jTaskConfig.setOwner(Cytoscape.getDesktop());
 		jTaskConfig.displayCloseButton(false);
 		jTaskConfig.displayCancelButton(true);
 		jTaskConfig.displayStatus(true);
 		jTaskConfig.setAutoDispose(true);
+		*/
+		
+		// TODO: have a task iterator
+		dialogTaskManager.execute(arg0);
 		TaskManager.executeTask(task, jTaskConfig);
+		
 		return task.getIds();
 	}
 	
