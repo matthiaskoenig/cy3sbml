@@ -2,9 +2,8 @@ package org.cy3sbml.biomodel;
 
 public class BioModelDialogText {
 	public static String getHeaderString(){
-		String imgsrc = 
-				BioModelDialogText.class.getClassLoader().getResource("http://www.biomodels.org/images/biomodels_new_logo.png").toString();
-		String info = "<a href=\"http://www.biomodels.org/\"><img src=\""+imgsrc+"\"alt=\"BioModel.net Logo\" height=75 width=508 border=0></img></a>";
+		String imgsrc = BioModelDialogText.class.getResource("/images/biomodels_logo_80.png").toString();
+		String info = "<a href=\"http://www.biomodels.org/\"><img src=\""+imgsrc+"\"alt=\"BioModel.net Logo\" height=80 width=80 border=0></img></a>";
 		return info;
 	}
 	
@@ -12,8 +11,8 @@ public class BioModelDialogText {
 		String info = getHeaderString();
 		info += "<h2>Import of BioModels</h2>" +
 				"<p>Load SBML models from <a href=\"http://www.biomodels.org/\">BioModels.net</a> by " +
-				"(1) searching the database or (2) via given BioModel Ids.</p>" +
-				"<p>(1) The BioModel database can be searched by " +
+				"(1) searching the repository or (2) via providing a set of BioModel identifiers.</p>" +
+				"<p>(1) BioModels can be searched by " +
 				"<ul>" +
 				"<li>Name</li>" +
 				"<li>Person</li>" +

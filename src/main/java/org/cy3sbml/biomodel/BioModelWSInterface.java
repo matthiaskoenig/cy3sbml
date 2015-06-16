@@ -19,6 +19,7 @@ import uk.ac.ebi.biomodels.ws.SimpleModel;
  * */
 public class BioModelWSInterface {
 	private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterface.class);
+	// TODO: set address private static final String URL;
 	
 	private String proxyHost;
 	private String proxyPort;
@@ -43,6 +44,7 @@ public class BioModelWSInterface {
 		
 	private BioModelsWSClient createBioModelsWSClient(){
 		BioModelsWSClient client = new BioModelsWSClient();
+		// TODO: client.setEndPoint(address);
 		setProxyForClient(client);
 		return client;
 	}

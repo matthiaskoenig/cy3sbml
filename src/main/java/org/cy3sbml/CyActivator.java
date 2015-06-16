@@ -124,7 +124,6 @@ public class CyActivator extends AbstractCyActivator {
 			BioModelAction bioModelAction = new BioModelAction(adapter);
 			
 			
-			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
 
