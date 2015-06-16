@@ -14,10 +14,10 @@ import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
-//import org.sbml.jsbml.ext.qual.QualConstant;
-//import org.sbml.jsbml.ext.qual.QualitativeModel;
-//import org.sbml.jsbml.ext.qual.QualitativeSpecies;
-//import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.qual.QualitativeSpecies;
+import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,27 +70,24 @@ public class NavigationTree {
 		}
 	
 		try{
-		Model model = document.getModel();
-		String modelName = getModelNameFromModel(model);
-		SBMLNetwork = true;
-		
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode(modelName);
-		treeModel = new DefaultTreeModel(top);
-		addListOfCompartmentsToTreeModel(top, model.getListOfCompartments());
-		addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
-		addListOfReactionsToTreeModel(top, model.getListOfReactions());
-
-		/*
-        QualitativeModel qModel = (QualitativeModel) model.getExtension(QualConstant.namespaceURI);
-		if (qModel != null){
-			addListOfQualitativeSpeciesToTreeModel(top, qModel.getListOfQualitativeSpecies());
-			addListOfTransitionsToTreeModel(top, qModel.getListOfTransitions());
-		}
-		*/
+			Model model = document.getModel();
+			String modelName = getModelNameFromModel(model);
+			SBMLNetwork = true;
+			
+			DefaultMutableTreeNode top = new DefaultMutableTreeNode(modelName);
+			treeModel = new DefaultTreeModel(top);
+			addListOfCompartmentsToTreeModel(top, model.getListOfCompartments());
+			addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
+			addListOfReactionsToTreeModel(top, model.getListOfReactions());
+	
+	        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+			if (qModel != null){
+				addListOfQualitativeSpeciesToTreeModel(top, qModel.getListOfQualitativeSpecies());
+				addListOfTransitionsToTreeModel(top, qModel.getListOfTransitions());
+			}
 		} catch (Throwable t) {
 			logger.error("Navigation tree creation");
 		}
-
 	}
 	
 	public NamedSBase getNamedSBaseById(String id){
@@ -111,14 +108,13 @@ public class NavigationTree {
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), reactionList);
 	}
 
-	/*
 	private void addListOfQualitativeSpeciesToTreeModel(DefaultMutableTreeNode top, ListOf<QualitativeSpecies> qualitativeSpeciesList){		
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUALITATIVE_SPECIES), qualitativeSpeciesList);
 	}
 	private void addListOfTransitionsToTreeModel(DefaultMutableTreeNode top, ListOf<Transition> transitionList){		
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(TRANSITIONS), transitionList);
 	}
-	*/
+
 	
 	private void addListOfNamedSBaseToTreeModel(DefaultMutableTreeNode top, DefaultMutableTreeNode category, ListOf<? extends NamedSBase> namedSBaseList){
 		if (namedSBaseList.size() > 0){

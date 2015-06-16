@@ -1,28 +1,5 @@
 package org.cy3sbml;
 
-/*
- * #%L
- * Cytoscape BioPAX Impl (biopax-impl)
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2006 - 2013 The Cytoscape Consortium
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/lgpl-2.1.html>.
- * #L%
- */
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +13,6 @@ import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyRow;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
@@ -50,16 +26,18 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
-import org.sbml.jsbml.ext.SBasePlugin;
+import org.sbml.jsbml.ext.qual.Input;
+import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.qual.QualitativeSpecies;
+import org.sbml.jsbml.ext.qual.Transition;
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * SBMLReaderTask
@@ -263,26 +241,26 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				} else {
 					AttributeUtil.set(network, node, SBML.LABEL, id, String.class);
 				}
+				if (species.isSetSBOTerm()){
+					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, species.getSBOTermID(), String.class);
+				}
+				if (species.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, species.getMetaId(), String.class);
+				}
+				if (species.isSetCompartment()){
+					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
+				}
 				if (species.isSetInitialConcentration()){
 					AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 				}
 				if (species.isSetInitialAmount()){
 					AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, species.getInitialAmount(), Double.class);
 				}
-				if (species.isSetSBOTerm()){
-					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, species.getSBOTermID(), String.class);
-				}
-				if (species.isSetCompartment()){
-					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
-				}
 				if (species.isSetBoundaryCondition()){
 					AttributeUtil.set(network, node, SBML.ATTR_BOUNDARY_CONDITION, species.getBoundaryCondition(), Boolean.class);
 				}
 				if (species.isSetConstant()){
 					AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, species.getConstant(), Boolean.class);
-				}
-				if (species.isSetMetaId()){
-					AttributeUtil.set(network, node, SBML.ATTR_METAID, species.getMetaId(), String.class);
 				}
 				if (species.isSetHasOnlySubstanceUnits()){
 					AttributeUtil.set(network, node, SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, species.getHasOnlySubstanceUnits(), Boolean.class);
@@ -319,9 +297,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				} else {
 					AttributeUtil.set(network, node, SBML.LABEL, id, String.class);
 				}
-				
 				if (reaction.isSetSBOTerm()){
 					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, reaction.getSBOTermID(), String.class);	
+				}
+				if (reaction.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, reaction.getMetaId(), String.class);
 				}
 				if (reaction.isSetCompartment()){
 					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
@@ -331,10 +311,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
 				} else {
 					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, true, Boolean.class);
-				}
-				
-				if (reaction.isSetMetaId()){
-					AttributeUtil.set(network, node, SBML.ATTR_METAID, reaction.getMetaId(), String.class);
 				}
 				if (reaction.isSetFast()){
 					AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
@@ -418,58 +394,97 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						AttributeUtil.set(network, edge, SBML.ATTR_METAID, msRef.getMetaId(), String.class);
 					}
 				}
-				
-				////////////// QUALITATIVE SBML MODEL ////////////////////////////////////////////
-				//Must the network be generated again for the qual model ??
-				 // QualitativeModel qModel = (QualitativeModel) model.getExtension(QualConstants.namespaceURI);
-				 QualModelPlugin qModel = new QualModelPlugin(model);
-				 if (qModel != null){
-					 logger.info("*** Qualitative model found ***");
-					 //QualSpecies 
-					 String qsid;
-					 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
-						 qsid = qSpecies.getId(); 
-					     CyNode node = Cytoscape.getCyNode(qsid, true);
-						 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_ID, qsid);
-						 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_TYPE, CySBMLConstants.NODETYPE_QUAL_SPECIES);
-						 
-						 if (qSpecies.isSetName()){
-							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_NAME, qSpecies.getName());
-						 } else {
-							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_NAME, qsid);
-						 }
-						
-						 if (qSpecies.isSetInitialLevel()){
-							 nodeAttributes.setAttribute(qsid, 
-									 CySBMLConstants.ATT_INITIAL_LEVEL, new Integer(qSpecies.getInitialLevel()));	
-						 }
-						 if (qSpecies.isSetMaxLevel()){
-							 nodeAttributes.setAttribute(qsid, 
-									 CySBMLConstants.ATT_MAX_LEVEL, new Double(qSpecies.getMaxLevel()));	
-						 }
-						 if (qSpecies.isSetSBOTerm()){
-							 nodeAttributes.setAttribute(qsid, 
-									 CySBMLConstants.ATT_SBOTERM, qSpecies.getSBOTermID());
-						 }
-						 if (qSpecies.isSetCompartment()){
-							 nodeAttributes.setAttribute(qsid, 
-									 CySBMLConstants.ATT_COMPARTMENT, qSpecies.getCompartment());
-						 }
-						 if (qSpecies.isSetConstant()){
-							 nodeAttributes.setAttribute(qsid,
-									 CySBMLConstants.ATT_CONSTANT, new Boolean(qSpecies.getConstant()));
-						 }
-						 if (qSpecies.isSetMetaId()){
-							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_METAID, qSpecies.getMetaId());
-						 }
-						 nodeIds.add(node.getRootGraphIndex());
-					}
-					 
-				 }
-				
-				 
-				
 			}
+				
+			////////////// QUALITATIVE SBML MODEL ////////////////////////////////////////////
+			 QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+			 
+			 if (qModel != null){
+				 logger.info("Reading qualitative model");
+				 //QualSpecies 
+				 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
+					String qsid = qSpecies.getId(); 
+				 	CyNode node = network.addNode();
+				 	nodeById.put(qsid, node);
+					AttributeUtil.set(network, node, SBML.ATTR_ID, qSpecies.getId(), String.class);
+					AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_QUAL_SPECIES, String.class);
+					if (qSpecies.isSetName()){
+						AttributeUtil.set(network, node, SBML.ATTR_NAME, qSpecies.getName(), String.class);
+						AttributeUtil.set(network, node, SBML.LABEL, qSpecies.getName(), String.class);
+					} else {
+						AttributeUtil.set(network, node, SBML.LABEL, qsid, String.class);
+					}
+					if (qSpecies.isSetSBOTerm()){
+						AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, qSpecies.getSBOTermID(), String.class);
+					}
+					if (qSpecies.isSetMetaId()){
+						AttributeUtil.set(network, node, SBML.ATTR_METAID, qSpecies.getMetaId(), String.class);
+					}
+					if (qSpecies.isSetCompartment()){
+						AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
+					}
+					if (qSpecies.isSetInitialLevel()){
+						AttributeUtil.set(network, node, SBML.ATTR_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);	
+					}
+					if (qSpecies.isSetMaxLevel()){
+						AttributeUtil.set(network, node, SBML.ATTR_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
+					}				 
+					if (qSpecies.isSetConstant()){
+						AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
+					}
+				}
+			 }
+			
+			// QualTransitions
+			for (Transition transition : qModel.getListOfTransitions()){
+				String qtid = transition.getId();
+				CyNode node = network.addNode();
+			 	nodeById.put(qtid, node);
+				AttributeUtil.set(network, node, SBML.ATTR_ID, qtid, String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_QUAL_TRANSITION, String.class);
+				if (transition.isSetName()){
+					AttributeUtil.set(network, node, SBML.ATTR_NAME, transition.getName(), String.class);
+					AttributeUtil.set(network, node, SBML.LABEL, transition.getName(), String.class);
+				} else {
+					AttributeUtil.set(network, node, SBML.LABEL, qtid, String.class);
+				}
+				if (transition.isSetSBOTerm()){
+					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, transition.getSBOTermID(), String.class);
+				}
+				if (transition.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, transition.getMetaId(), String.class);
+				}
+				
+				//inputs
+				for (Input input : transition.getListOfInputs()) {
+					CyNode inNode = nodeById.get(input.getQualitativeSpecies());
+					CyEdge edge = network.addEdge(node, inNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_TRANSITION_INPUT, String.class);
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+					if (input.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, input.getSBOTermID(), String.class);
+					}
+					if (input.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, input.getMetaId(), String.class);
+					}
+				}
+					
+				//outputs
+				for (Output output : transition.getListOfOutputs()) {
+					CyNode outNode = nodeById.get(output.getQualitativeSpecies());
+					CyEdge edge = network.addEdge(node, outNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_TRANSITION_OUTPUT, String.class);
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+					if (output.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, output.getSBOTermID(), String.class);
+					}
+					if (output.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, output.getMetaId(), String.class);
+					}	
+				}
+			}
+			 
+
 			taskMonitor.setProgress(1.0);
 			logger.info("End Reader.run()");
 		
@@ -481,7 +496,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
-
 
 	@Override
 	public CyNetwork[] getNetworks() {
