@@ -39,6 +39,7 @@ import java.awt.event.KeyAdapter;
 import javax.swing.JTextArea;
 
 import org.cy3sbml.ServiceAdapter;
+import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +65,7 @@ public class BioModelDialog extends JDialog {
 	private final JScrollPane infoScrollPane;
 	private final JEditorPane infoPane;
 	
-	private SearchBioModel searchBioModel;
+	
 	@SuppressWarnings("rawtypes")
 	private JList biomodelsList;
 
@@ -160,9 +161,11 @@ public class BioModelDialog extends JDialog {
 		loadIdsButton.setToolTipText("Parse BioModel Ids and load the models.");
 		loadIdsButton.setBounds(170, 821, 102, 25);
 		panel.add(loadIdsButton);
+		
 		loadIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				loadBioModelByIdsAndDisposeDialog();
+				//loadBioModelByIdsAndDisposeDialog();
+				logger.info("loadIds action not implemented");
 			}
 		});
 		
@@ -172,7 +175,8 @@ public class BioModelDialog extends JDialog {
 		panel.add(parseIdsButton);
 		parseIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				parseBioModelByIds();
+				//parseBioModelByIds();
+				logger.info("parseIds action not implemented");
 			}
 		});
 				
@@ -183,7 +187,8 @@ public class BioModelDialog extends JDialog {
 		panel.add(searchButton);
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				searchBioModels();
+				//searchBioModels();
+				logger.info("searchBioModels action not implemented");
 			}
 		});
 		// Reset Button
@@ -205,7 +210,8 @@ public class BioModelDialog extends JDialog {
 		panel.add(loadSelectedButton);
 		loadSelectedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				loadSelectedBioModelsAndDisposeDialog();
+				//loadSelectedBioModelsAndDisposeDialog();
+				logger.info("loadSelected action not implemented");
 		}});
 		
 		// ScrollBars
@@ -226,7 +232,8 @@ public class BioModelDialog extends JDialog {
 				else{
 					loadSelectedButton.setEnabled(true);
 				}
-				handleModelSelectionInModelList();
+				// handleModelSelectionInModelList();
+				logger.info("handle selection action not implemented");
 			}});
 	
 		listScrollPane.setViewportView(biomodelsList);	
@@ -300,7 +307,8 @@ public class BioModelDialog extends JDialog {
 		public void keyPressed(KeyEvent keyE) {
 			int key = keyE.getKeyCode();
 		     if (key == KeyEvent.VK_ENTER) {
-		    	 searchBioModels();
+		    	 //searchBioModels();
+		    	 logger.info("search action not implemented");
 		     }
 		}
 	}
@@ -319,6 +327,15 @@ public class BioModelDialog extends JDialog {
         frame.setVisible(true);
     }
 	
+	
+	public void loadBioModelById(String id){
+		logger.info("Load BioModel: " + id);		
+		LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
+		TaskIterator iterator = loadFactory.createTaskIterator();
+		adapter.taskManager.execute(iterator);
+	}
+	
+	/*
 	///////// SEARCH MODELS ////////////
 	public void searchBioModels(){
 		logger.info("search BioModels");
@@ -397,6 +414,7 @@ public class BioModelDialog extends JDialog {
 		});
 	}
 	
+	
 	///////// SELECT MODELS ////////////
 	private void handleModelSelectionInModelList(){
 		List<String> selectedModelIds = getListOfSelectedModelIds();
@@ -453,6 +471,7 @@ public class BioModelDialog extends JDialog {
 		}
 		return ids;
 	}
+	*/
 	
 	// Clear fields
 	public void resetFields(){
@@ -465,16 +484,4 @@ public class BioModelDialog extends JDialog {
 		uniprotField.setText(reset);
 	}
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			BioModelDialog dialog = new BioModelDialog(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

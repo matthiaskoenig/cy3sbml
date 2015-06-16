@@ -78,6 +78,9 @@ public class CyActivator extends AbstractCyActivator {
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();
 			
+			//
+			
+			
 			/**  
 			 * Create ServiceAdapter
 			 */

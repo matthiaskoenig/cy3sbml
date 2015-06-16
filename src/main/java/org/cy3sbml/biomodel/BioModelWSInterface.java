@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.cy3sbml.ConnectionProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,15 @@ public class BioModelWSInterface {
 	public BioModelWSInterface(){
 		this(null, null);
 	}
+	
+	public BioModelWSInterface(ConnectionProxy connectionProxy){
+		this(null, null);
+		// TODO: implement
+		logger.warn("from connectionProxy NOT IMPLEMENTED");
+	}
+	
+	
+	
 		
 	private BioModelsWSClient createBioModelsWSClient(){
 		BioModelsWSClient client = new BioModelsWSClient();

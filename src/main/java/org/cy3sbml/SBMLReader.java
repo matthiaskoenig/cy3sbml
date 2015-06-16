@@ -32,8 +32,6 @@ import java.util.Set;
 
 import javax.swing.SwingUtilities;
 
-import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
-import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
 import org.cytoscape.model.CyNetwork;
