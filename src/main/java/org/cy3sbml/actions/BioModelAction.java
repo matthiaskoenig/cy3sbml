@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 import org.cy3sbml.ConnectionProxy;
+import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.biomodel.BioModelGUIDialog;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
@@ -15,15 +16,11 @@ import org.slf4j.LoggerFactory;
 public class BioModelAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(BioModelAction.class);
 	private static final long serialVersionUID = 1L;
-	CySwingApplication cySwingApplication;
-	OpenBrowser openBrowser;
-	ConnectionProxy connectionProxy;
+	ServiceAdapter adapter;
 	
-	public BioModelAction(CySwingApplication cySwingApplication, OpenBrowser openBrowser, ConnectionProxy connectionProxy){
+	public BioModelAction(CySwingApplication cySwingApplication, ServiceAdapter adapter){
 		super("BioModelAction");
-		this.cySwingApplication = cySwingApplication;
-		this.openBrowser = openBrowser;
-		this.connectionProxy = connectionProxy;
+		this.adapter = adapter;
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/biomodel.png"));
 		putValue(LARGE_ICON_KEY, icon);
@@ -47,8 +44,7 @@ public class BioModelAction extends AbstractCyAction{
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed()");
 		// Open the BioModels Dialog
-	    BioModelGUIDialog bioModelsDialog = BioModelGUIDialog.getInstance(cySwingApplication.getJFrame(),
-	    																  openBrowser, connectionProxy);
+	    BioModelGUIDialog bioModelsDialog = BioModelGUIDialog.getInstance(ServiceAdapter adapter);
 	    bioModelsDialog.setVisible(true);   
 	}
 }

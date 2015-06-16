@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.cy3sbml.ConnectionProxy;
+import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.swing.DialogTaskManager;
 
@@ -22,10 +23,8 @@ public class SearchBioModel {
 	
 	private BioModelWSInterface bmInterface;
 	
-	public SearchBioModel(ConnectionProxy connectionProxy, DialogTaskManager dialogTaskManager, 
-						  SearchBioModelTaskFactory searchBioModelTaskFactory){
-		this.dialogTaskManager = dialogTaskManager;
-		this.searchBioModelTaskFactory = searchBioModelTaskFactory;
+	public SearchBioModel(ServiceAdapter adapter){
+		ConnectionProxy connectionProxy = adapter.connectionProxy;
 		if ("direct".equals(connectionProxy.getProxyType())){
 			bmInterface = new BioModelWSInterface();	
 		} else {
@@ -33,7 +32,6 @@ public class SearchBioModel {
 			String port = connectionProxy.getProxyPort();
 			bmInterface = new BioModelWSInterface(host, port);
 		}
-		
 		resetSearch();
 	}
 	
@@ -88,9 +86,9 @@ public class SearchBioModel {
 		
 		
 		// Necessary to init the tasks with different contents
+		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory();
 		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator(content, bmInterface);
 		// The TaskIterator manages the creation of tasks of the form:
-		// SearchBioModelTask task = new SearchBioModelTask(content, bmInterface);
 	
 		// execute the iterator with dialog
 		dialogTaskManager.execute(iterator);

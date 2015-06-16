@@ -41,6 +41,7 @@ public class ServiceAdapter {
 	public CyProperty<Properties> cy3sbmlProperties;
 	public StreamUtil streamUtil;
 	public OpenBrowser openBrowser;
+	public ConnectionProxy connectionProxy;
 	
 	public static synchronized ServiceAdapter getInstance(
 			CySwingApplication cySwingApplication,
@@ -55,7 +56,8 @@ public class ServiceAdapter {
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
 			StreamUtil streamUtil,
-			OpenBrowser openBrowser
+			OpenBrowser openBrowser,
+			ConnectionProxy connectionProxy
 			){
 		if (uniqueInstance == null){
 			uniqueInstance = new ServiceAdapter(
@@ -71,7 +73,8 @@ public class ServiceAdapter {
 					cyNetworkViewFactory,
 					cy3sbmlProperties,
 					streamUtil,
-					openBrowser);
+					openBrowser,
+					connectionProxy);
 		}
 		return uniqueInstance;
 	}
@@ -93,7 +96,8 @@ public class ServiceAdapter {
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
 			StreamUtil streamUtil,
-			OpenBrowser openBrowser
+			OpenBrowser openBrowser,
+			ConnectionProxy connectionProxy
 			){
 		logger.info("ServiceAdapter created");
 		this.cySwingApplication = cySwingApplication;
@@ -109,6 +113,7 @@ public class ServiceAdapter {
 		this.cy3sbmlProperties = cy3sbmlProperties;
 		this.streamUtil = streamUtil;
 		this.openBrowser = openBrowser;
+		this.connectionProxy = connectionProxy;
 	}
 
 	public Object cy3sbmlProperty(String s){

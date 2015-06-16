@@ -74,6 +74,10 @@ public class CyActivator extends AbstractCyActivator {
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 
 			
+			// Use the Cytoscape properties to set proxy for webservices
+			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
+			connectionProxy.setSystemProxyFromCyProperties();
+			
 			/**  
 			 * Create ServiceAdapter
 			 */
@@ -92,7 +96,8 @@ public class CyActivator extends AbstractCyActivator {
 					
 					cy3sbmlProperties,
 					streamUtil,
-					openBrowser
+					openBrowser,
+					connectionProxy
 			);
 			
 			/**
@@ -103,9 +108,7 @@ public class CyActivator extends AbstractCyActivator {
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
 			loadVizmapFileTaskFactory.loadStyles(stream);
 			
-			// Use the Cytoscape properties to set proxy for webservices
-			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
-			connectionProxy.setSystemProxyFromCyProperties();
+
 			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);

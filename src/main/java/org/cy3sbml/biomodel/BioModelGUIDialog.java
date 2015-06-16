@@ -39,14 +39,13 @@ import java.awt.event.KeyAdapter;
 import javax.swing.JTextArea;
 
 import org.cy3sbml.ConnectionProxy;
+import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.util.swing.OpenBrowser;
 
 @SuppressWarnings("serial")
 public class BioModelGUIDialog extends JDialog {
 	private static BioModelGUIDialog uniqueInstance; 
-	
-	private final OpenBrowser openBrowser;
-	private final ConnectionProxy connectionProxy;
+	private final ServiceAdapter adapter;
 	
 	private final JTextArea idTextArea;
 	private final JTextField nameField;
@@ -67,23 +66,23 @@ public class BioModelGUIDialog extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private JList biomodelsList;
 
-	public static synchronized BioModelGUIDialog getInstance(JFrame parentFrame, OpenBrowser openBrowser,
-															 ConnectionProxy connectionProxy){
+	public static synchronized BioModelGUIDialog getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
-			uniqueInstance = new BioModelGUIDialog(parentFrame, openBrowser, connectionProxy);
+			uniqueInstance = new BioModelGUIDialog(adapter);
 		}
 		return uniqueInstance;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private BioModelGUIDialog(final JFrame parentFrame, final OpenBrowser openBrowser, ConnectionProxy connectionProxy) {
-		super(parentFrame, true);
-		this.openBrowser = openBrowser;
-		this.connectionProxy = connectionProxy;
+	private BioModelGUIDialog(final ServiceAdapter adapter) {
+		// call with parentFrame 
+		super(adapter.cySwingApplication.getJFrame(), true);
+		this.adapter = adapter;
 		
 		this.setSize(1000, 886);
 		this.setResizable(false);
 		this.setTitle("CySBML BioModel Import");
+		JFrame parentFrame = adapter.cySwingApplication.getJFrame();
 		this.setLocationRelativeTo(parentFrame);
 		panel = new JPanel();
 		getContentPane().setLayout(null);
@@ -244,7 +243,7 @@ public class BioModelGUIDialog extends JDialog {
 				  URL url = evt.getURL();
 					if (url != null) {
 						if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-							openBrowser.openURL(url.toString());
+							adapter.openBrowser.openURL(url.toString());
 						}
 					}
 			}
@@ -323,7 +322,7 @@ public class BioModelGUIDialog extends JDialog {
 		infoPane.setText(BioModelGUIText.performBioModelSearch());
 		
 		SearchContent searchContent = getSearchContent();
-		searchBioModel = new SearchBioModel(connectionProxy);
+		searchBioModel = new SearchBioModel(adapter);
 		searchBioModel.searchBioModels(searchContent);
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}
@@ -433,10 +432,7 @@ public class BioModelGUIDialog extends JDialog {
 			newText += id + " ";
 		}
 		idTextArea.setText(newText);
-		searchBioModel = new SearchBioModel(
-				ProxyTools.getCytoscapeProxyHost(),
-				ProxyTools.getCytoscapeProxyPort()
-			);
+		searchBioModel = new SearchBioModel(adapter);
 		searchBioModel.getBioModelsByParsedIds(ids);
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}
