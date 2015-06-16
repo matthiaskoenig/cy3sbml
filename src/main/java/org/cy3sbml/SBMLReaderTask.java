@@ -324,15 +324,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// Reactions are reversible by default
 				if (reaction.isSetReversible()){
 					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
+				} else {
+					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, true, Boolean.class);
 				}
+				
 				if (reaction.isSetMetaId()){
 					AttributeUtil.set(network, node, SBML.ATTR_METAID, reaction.getMetaId(), String.class);
 				}
 				if (reaction.isSetFast()){
-					AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), String.class);
+					AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
 				}
 				if (reaction.isSetKineticLaw()){
-					AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().toString(), String.class);	
+					AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getFormula(), String.class);	
 				}
 				
 			
@@ -417,7 +420,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		} catch (Throwable t){
 			logger.error("Could not read SBML into Cytoscape!", t);
 			t.printStackTrace();
-			throw new SBMLReaderError("BioPAX reader failed to build a BioPAX model " +
+			throw new SBMLReaderError("cy3sbml reader failed to build a SBML model " +
 					"(check the data for syntax errors) - " + t);
 		}
 	}
