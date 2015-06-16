@@ -1,13 +1,11 @@
 package org.cy3sbml;
 
 public class SBML {
-	public static final String NETWORK_TYPE_ATTR = "SBML_NETWORK";
-	public static final String NODE_TYPE_ATTR = "SBML_NODE";
+	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
+	public static final String NODETYPE_ATTR = "type";
+	public static final String INTERACTION_ATTR = "interaction";
 	
 	public static final String LABEL = "name"; 
-	
-	// public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
-	//public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
 	
 	public static final String ATTR_ID = "sbml id";
 	public static final String ATTR_TYPE = "sbml type";
@@ -28,6 +26,8 @@ public class SBML {
 	public static final String ATTR_CONVERSION_FACTOR = "sbml conversionFactor";
 	public static final String ATTR_UNITS = "sbml units";
 	public static final String ATTR_VALUE = "sbml value";
+	public static final String ATTR_FAST = "sbml fast";
+	public static final String ATTR_KINETIC_LAW = "sbml kineticLaw";
 	
 	public static final String ATTR_AREA_UNITS = "sbml areaUnits";
 	public static final String ATTR_EXTENT_UNITS = "sbml extentUnits";
@@ -35,6 +35,9 @@ public class SBML {
 	public static final String ATTR_SUBSTANCE_UNITS = "sbml substanceUnits";
 	public static final String ATTR_TIME_UNITS = "sbml timeUnits";
 	public static final String ATTR_VOLUME_UNITS = "sbml volumeUnits";
+	
+	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
+	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
 	
 	// node types
 	public static final String NODETYPE_REACTION = "reaction";
