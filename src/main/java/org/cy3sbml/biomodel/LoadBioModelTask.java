@@ -2,37 +2,31 @@ package org.cy3sbml.biomodel;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
 import javax.swing.JOptionPane;
+
+import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.work.Task;
+import org.cytoscape.work.TaskMonitor;
 
 
 public class LoadBioModelTask implements Task{
-	private TaskMonitor taskMonitor;
 	private String id;
+	private BioModelWSInterface bmInterface;
 
-	public LoadBioModelTask(String id) {
+	public LoadBioModelTask(String id, ServiceAdaptor adapter) {
 		this.id = id;		
 	}
 
-	public void setTaskMonitor(TaskMonitor monitor)
-			throws IllegalThreadStateException {
-		taskMonitor = monitor;
-	}
-
-	public void halt() {}
-
-	public String getTitle() {
-		return "Load BioModel " + id;
-	}
-
-	public void run() {
-		taskMonitor.setStatus("Loading BioModel SBML via WebInterface ...");
-		taskMonitor.setPercentCompleted(-1);
+	@Override
+	public void run(TaskMonitor taskMonitor) throws Exception {
+		taskMonitor.setTitle("Load BioModel " + id);
+		taskMonitor.setStatusMessage("Loading BioModel SBML via WebInterface ...");
+		taskMonitor.setProgress(0.0);
 		
 		try {
-			String proxyHost = ProxyTools.getCytoscapeProxyHost();
-			String proxyPort = ProxyTools.getCytoscapeProxyPort();
 			
-			BioModelWSInterface bmInterface = new BioModelWSInterface(proxyHost, proxyPort);
+			
 			String sbml = bmInterface.getBioModelSBMLById(id);
 			
 			if (sbml == null || sbml.equals("") || sbml.startsWith(id)){
@@ -49,5 +43,11 @@ public class LoadBioModelTask implements Task{
 			e.printStackTrace();
 		}	
 		taskMonitor.setPercentCompleted(100);
+	}
+
+	@Override
+	public void cancel() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,9 +1,9 @@
 package org.cy3sbml.biomodel;
 
-public class BioModelGUIText {
+public class BioModelDialogText {
 	public static String getHeaderString(){
 		String imgsrc = 
-				BioModelGUIText.class.getClassLoader().getResource("http://www.biomodels.org/images/biomodels_new_logo.png").toString();
+				BioModelDialogText.class.getClassLoader().getResource("http://www.biomodels.org/images/biomodels_new_logo.png").toString();
 		String info = "<a href=\"http://www.biomodels.org/\"><img src=\""+imgsrc+"\"alt=\"BioModel.net Logo\" height=75 width=508 border=0></img></a>";
 		return info;
 	}

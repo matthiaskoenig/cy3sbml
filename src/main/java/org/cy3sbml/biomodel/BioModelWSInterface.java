@@ -5,13 +5,19 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.ebi.biomodels.ws.BioModelsWSClient;
 import uk.ac.ebi.biomodels.ws.BioModelsWSException;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 
-/** Main class for interaction with the biomodels via webservices. */
+/** Main class for interaction with the biomodels via webservices. 
+ * TODO: better management of the proxy settings (directly use the connectionProxy settings)
+ * */
 public class BioModelWSInterface {
+	private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterface.class);
 	
 	private String proxyHost;
 	private String proxyPort;
@@ -20,9 +26,9 @@ public class BioModelWSInterface {
 		proxyHost = pHost;
 		proxyPort = pPort;
 	}
+	
 	public BioModelWSInterface(){
-		proxyHost = null;
-		proxyPort = null;
+		this(null, null);
 	}
 		
 	private BioModelsWSClient createBioModelsWSClient(){

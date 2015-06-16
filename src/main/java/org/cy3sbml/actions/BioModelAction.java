@@ -4,21 +4,21 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 
-import org.cy3sbml.ConnectionProxy;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodel.BioModelGUIDialog;
+import org.cy3sbml.biomodel.BioModelDialog;
 import org.cytoscape.application.swing.AbstractCyAction;
-import org.cytoscape.application.swing.CySwingApplication;
-import org.cytoscape.util.swing.OpenBrowser;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Open the BioModel GUI for importing BioModels via search terms. */
 public class BioModelAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(BioModelAction.class);
 	private static final long serialVersionUID = 1L;
-	ServiceAdapter adapter;
 	
-	public BioModelAction(CySwingApplication cySwingApplication, ServiceAdapter adapter){
+	private ServiceAdapter adapter;
+	
+	public BioModelAction(ServiceAdapter adapter){
 		super("BioModelAction");
 		this.adapter = adapter;
 		
@@ -36,6 +36,7 @@ public class BioModelAction extends AbstractCyAction{
 	public boolean isInToolBar() {
 		return true;
 	}
+	
 	public boolean isInMenuBar() {
 		return false;
 	}
@@ -44,7 +45,7 @@ public class BioModelAction extends AbstractCyAction{
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed()");
 		// Open the BioModels Dialog
-	    BioModelGUIDialog bioModelsDialog = BioModelGUIDialog.getInstance(ServiceAdapter adapter);
+	    BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
 	    bioModelsDialog.setVisible(true);   
 	}
 }

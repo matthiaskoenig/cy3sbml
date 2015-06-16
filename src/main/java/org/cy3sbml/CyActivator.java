@@ -118,7 +118,7 @@ public class CyActivator extends AbstractCyActivator {
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
-			BioModelAction bioModelAction = new BioModelAction(cySwingApplication, openBrowser, connectionProxy);
+			BioModelAction bioModelAction = new BioModelAction(adapter);
 			
 			
 			

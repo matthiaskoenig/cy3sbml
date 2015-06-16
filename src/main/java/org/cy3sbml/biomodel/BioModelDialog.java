@@ -38,13 +38,15 @@ import java.awt.event.KeyAdapter;
 
 import javax.swing.JTextArea;
 
-import org.cy3sbml.ConnectionProxy;
 import org.cy3sbml.ServiceAdapter;
-import org.cytoscape.util.swing.OpenBrowser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("serial")
-public class BioModelGUIDialog extends JDialog {
-	private static BioModelGUIDialog uniqueInstance; 
+public class BioModelDialog extends JDialog {
+	private static final Logger logger = LoggerFactory.getLogger(BioModelDialog.class);
+	
+	private static BioModelDialog uniqueInstance; 
 	private final ServiceAdapter adapter;
 	
 	private final JTextArea idTextArea;
@@ -66,18 +68,19 @@ public class BioModelGUIDialog extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private JList biomodelsList;
 
-	public static synchronized BioModelGUIDialog getInstance(ServiceAdapter adapter){
+	public static synchronized BioModelDialog getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
-			uniqueInstance = new BioModelGUIDialog(adapter);
+			uniqueInstance = new BioModelDialog(adapter);
 		}
 		return uniqueInstance;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private BioModelGUIDialog(final ServiceAdapter adapter) {
+	private BioModelDialog(final ServiceAdapter adapter) {
 		// call with parentFrame 
 		super(adapter.cySwingApplication.getJFrame(), true);
 		this.adapter = adapter;
+		logger.info("BioModelGUIDialog created");
 		
 		this.setSize(1000, 886);
 		this.setResizable(false);
@@ -237,7 +240,7 @@ public class BioModelGUIDialog extends JDialog {
 		infoPane.setToolTipText("Information Area");
 		infoPane.setContentType("text/html");
 		infoPane.setEditable(false);
-		infoPane.setText(BioModelGUIText.getInfo());
+		infoPane.setText(BioModelDialogText.getInfo());
 		infoPane.addHyperlinkListener(new HyperlinkListener() {
 			public void hyperlinkUpdate(HyperlinkEvent evt) {
 				  URL url = evt.getURL();
@@ -318,12 +321,14 @@ public class BioModelGUIDialog extends JDialog {
 	
 	///////// SEARCH MODELS ////////////
 	public void searchBioModels(){
-		System.out.println("CySBML[INFO] -> Search BioModels");
-		infoPane.setText(BioModelGUIText.performBioModelSearch());
+		logger.info("search BioModels");
+		infoPane.setText(BioModelDialogText.performBioModelSearch());
 		
 		SearchContent searchContent = getSearchContent();
 		searchBioModel = new SearchBioModel(adapter);
 		searchBioModel.searchBioModels(searchContent);
+		
+		// Has to be done in task
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}
 	
@@ -465,7 +470,7 @@ public class BioModelGUIDialog extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			BioModelGUIDialog dialog = new BioModelGUIDialog(null);
+			BioModelDialog dialog = new BioModelDialog(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {

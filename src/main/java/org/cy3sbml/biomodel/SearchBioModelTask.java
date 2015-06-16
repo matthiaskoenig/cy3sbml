@@ -3,11 +3,11 @@ package org.cy3sbml.biomodel;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cytoscape.work.Task;
+import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
 
 
-public class SearchBioModelTask implements Task{
+public class SearchBioModelTask implements ObservableTask{
 	private SearchContent searchContent;
 	private BioModelWSInterface bmInterface;
 	private List<String> searchResultIds;
@@ -72,6 +72,7 @@ public class SearchBioModelTask implements Task{
 		searchResultIds = resultIds;
 	}
 
+	/** Here the results are available when task has finished. */
 	public List<String> getIds(){
 		return searchResultIds;
 	}
@@ -81,5 +82,10 @@ public class SearchBioModelTask implements Task{
 	public void cancel() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public <R> R getResults(Class<? extends R> type) {
+		return searchResultIds;
 	}
 }

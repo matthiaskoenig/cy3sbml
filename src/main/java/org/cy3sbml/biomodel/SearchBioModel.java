@@ -8,20 +8,23 @@ import java.util.Set;
 
 import org.cy3sbml.ConnectionProxy;
 import org.cy3sbml.ServiceAdapter;
+import org.cytoscape.work.FinishStatus;
+import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskIterator;
+import org.cytoscape.work.TaskObserver;
 import org.cytoscape.work.swing.DialogTaskManager;
 
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
-public class SearchBioModel {
+public class SearchBioModel implements TaskObserver {
 	DialogTaskManager dialogTaskManager;
 	SearchBioModelTaskFactory searchBioModelTaskFactory;
 	
+	private BioModelWSInterface bmInterface;
 	private SearchContent searchContent;
 	private List<String> modelIds;
 	private LinkedHashMap<String, SimpleModel> simpleModels;
 	
-	private BioModelWSInterface bmInterface;
 	
 	public SearchBioModel(ServiceAdapter adapter){
 		ConnectionProxy connectionProxy = adapter.connectionProxy;
@@ -86,16 +89,32 @@ public class SearchBioModel {
 		
 		
 		// Necessary to init the tasks with different contents
-		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory();
-		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator(content, bmInterface);
+		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content, bmInterface);
+		
+		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator();
 		// The TaskIterator manages the creation of tasks of the form:
 	
 		// execute the iterator with dialog
-		dialogTaskManager.execute(iterator);
+		dialogTaskManager.execute(iterator, this);
 		
 		//TODO: necessary to get information back from the tasks, namely the ids
-		return task.getIds();
+		
 	}
+	
+	@Override
+	public void taskFinished(ObservableTask task) {
+		// TODO Auto-generated method stub	
+		task.getResults(List.class);
+		
+		return task.getIds();
+	
+	}
+
+	@Override
+	public void allFinished(FinishStatus finishStatus) {
+		// TODO Auto-generated method stub
+	}
+	
 	
 	public static void addIdsToResultIds(final List<String> ids, List<String> resultIds, final String mode){
 		// OR -> combine all results
@@ -115,7 +134,7 @@ public class SearchBioModel {
 	public String getHTMLInformation(final List<String> selectedModelIds){
 		String info = getHTMLHeaderForModelSearch();
 		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(simpleModels, selectedModelIds);
-		return BioModelGUIText.getString(info);
+		return BioModelDialogText.getString(info);
 	}
 	
 	private String getHTMLHeaderForModelSearch(){
@@ -131,4 +150,6 @@ public class SearchBioModel {
 		SimpleModel simpleModel = getSimpleModel(modelIndex);
 		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
 	}
+
+
 }
