@@ -81,11 +81,10 @@ public class SearchBioModelTask implements ObservableTask{
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public <R> R getResults(Class<? extends R> type) {
-		return searchResultIds;
+		return (R) searchResultIds;
 	}
 }

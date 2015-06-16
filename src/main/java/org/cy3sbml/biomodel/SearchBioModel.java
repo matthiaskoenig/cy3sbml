@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.cy3sbml.ConnectionProxy;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
@@ -59,8 +58,9 @@ public class SearchBioModel implements TaskObserver {
 	public void searchBioModels(SearchContent sContent){
 		resetSearch();
 		searchContent = sContent;
-		modelIds = searchModelIdsForSearchContent(searchContent);
-		simpleModels = getSimpleModelsForSearchResult(modelIds);
+		// The task searches the biomodel ids and sets modelIds and simpleModels
+		// when finished
+		searchModelIdsForSearchContent(searchContent);
 	}
 	
 	public void getBioModelsByParsedIds(Set<String> parsedIds){
@@ -77,9 +77,8 @@ public class SearchBioModel implements TaskObserver {
 		return bmInterface.getSimpleModelsByIds(ids);
 	}
 	
-	private List<String> searchModelIdsForSearchContent(SearchContent content){
+	private void searchModelIdsForSearchContent(SearchContent content){
 		// Run the biomodel task with a taskManger
-		
 		
 		// Necessary to init the tasks with different contents
 		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content, bmInterface);
@@ -89,18 +88,16 @@ public class SearchBioModel implements TaskObserver {
 	
 		// execute the iterator with dialog
 		dialogTaskManager.execute(iterator, this);
-		
-		//TODO: necessary to get information back from the tasks, namely the ids
-		return modelIds;
 	}
 	
 	@Override
 	public void taskFinished(ObservableTask task) {
-		// TODO Auto-generated method stub	
-		task.getResults(List.class);
-		
-		return task.getIds();
-	
+		// when finished assign the modelIds
+		@SuppressWarnings("unchecked")
+		List<String> ids = (List<String>) task.getResults(List.class);
+		modelIds = ids;
+		simpleModels = getSimpleModelsForSearchResult(modelIds);
+		// TODO: somehow notify that this is finished & update the conent
 	}
 
 	@Override
