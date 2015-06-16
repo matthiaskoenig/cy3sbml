@@ -50,12 +50,16 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.sbml.jsbml.ext.SBasePlugin;
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * SBMLReaderTask
@@ -414,6 +418,57 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						AttributeUtil.set(network, edge, SBML.ATTR_METAID, msRef.getMetaId(), String.class);
 					}
 				}
+				
+				////////////// QUALITATIVE SBML MODEL ////////////////////////////////////////////
+				//Must the network be generated again for the qual model ??
+				 // QualitativeModel qModel = (QualitativeModel) model.getExtension(QualConstants.namespaceURI);
+				 QualModelPlugin qModel = new QualModelPlugin(model);
+				 if (qModel != null){
+					 logger.info("*** Qualitative model found ***");
+					 //QualSpecies 
+					 String qsid;
+					 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
+						 qsid = qSpecies.getId(); 
+					     CyNode node = Cytoscape.getCyNode(qsid, true);
+						 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_ID, qsid);
+						 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_TYPE, CySBMLConstants.NODETYPE_QUAL_SPECIES);
+						 
+						 if (qSpecies.isSetName()){
+							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_NAME, qSpecies.getName());
+						 } else {
+							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_NAME, qsid);
+						 }
+						
+						 if (qSpecies.isSetInitialLevel()){
+							 nodeAttributes.setAttribute(qsid, 
+									 CySBMLConstants.ATT_INITIAL_LEVEL, new Integer(qSpecies.getInitialLevel()));	
+						 }
+						 if (qSpecies.isSetMaxLevel()){
+							 nodeAttributes.setAttribute(qsid, 
+									 CySBMLConstants.ATT_MAX_LEVEL, new Double(qSpecies.getMaxLevel()));	
+						 }
+						 if (qSpecies.isSetSBOTerm()){
+							 nodeAttributes.setAttribute(qsid, 
+									 CySBMLConstants.ATT_SBOTERM, qSpecies.getSBOTermID());
+						 }
+						 if (qSpecies.isSetCompartment()){
+							 nodeAttributes.setAttribute(qsid, 
+									 CySBMLConstants.ATT_COMPARTMENT, qSpecies.getCompartment());
+						 }
+						 if (qSpecies.isSetConstant()){
+							 nodeAttributes.setAttribute(qsid,
+									 CySBMLConstants.ATT_CONSTANT, new Boolean(qSpecies.getConstant()));
+						 }
+						 if (qSpecies.isSetMetaId()){
+							 nodeAttributes.setAttribute(qsid, CySBMLConstants.ATT_METAID, qSpecies.getMetaId());
+						 }
+						 nodeIds.add(node.getRootGraphIndex());
+					}
+					 
+				 }
+				
+				 
+				
 			}
 			taskMonitor.setProgress(1.0);
 			logger.info("End Reader.run()");
