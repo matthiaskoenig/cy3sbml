@@ -49,6 +49,7 @@ public class BioModelDialog extends JDialog {
 	
 	private static BioModelDialog uniqueInstance; 
 	private final ServiceAdapter adapter;
+	private final SearchBioModel searchBioModel;
 	
 	private final JTextArea idTextArea;
 	private final JTextField nameField;
@@ -81,6 +82,7 @@ public class BioModelDialog extends JDialog {
 		// call with parentFrame 
 		super(adapter.cySwingApplication.getJFrame(), true);
 		this.adapter = adapter;
+		
 		logger.info("BioModelGUIDialog created");
 		
 		this.setSize(1000, 886);
@@ -175,8 +177,7 @@ public class BioModelDialog extends JDialog {
 		panel.add(parseIdsButton);
 		parseIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//parseBioModelByIds();
-				logger.info("parseIds action not implemented");
+				parseBioModelByIds();
 			}
 		});
 				
@@ -300,6 +301,8 @@ public class BioModelDialog extends JDialog {
 		idTextArea.setRows(4);
 		idTextArea.setTabSize(4);
 		idTextArea.setText("BIOMD0000000070, BIOMD0000000071");
+		
+		searchBioModel = new SearchBioModel(adapter);
 	}
     
 	class EnterKeyAdapter extends KeyAdapter{
@@ -335,14 +338,12 @@ public class BioModelDialog extends JDialog {
 		adapter.taskManager.execute(iterator);
 	}
 	
-	/*
 	///////// SEARCH MODELS ////////////
 	public void searchBioModels(){
 		logger.info("search BioModels");
 		infoPane.setText(BioModelDialogText.performBioModelSearch());
 		
 		SearchContent searchContent = getSearchContent();
-		searchBioModel = new SearchBioModel(adapter);
 		searchBioModel.searchBioModels(searchContent);
 		
 		// Has to be done in task
@@ -433,7 +434,7 @@ public class BioModelDialog extends JDialog {
 			this.dispose();
 			List<String> ids = getListOfSelectedModelIds();
 			for (String id: ids){
-				LoadBioModel.loadBioModelById(id);
+				loadBioModelById(id);
 			}
 		}
 	}
@@ -442,10 +443,10 @@ public class BioModelDialog extends JDialog {
 		Set<String> ids = parseBioModelIdsFromString(idTextArea.getText());
 		this.dispose();
 		for (String id : ids){
-			LoadBioModel.loadBioModelById(id);
+			loadBioModelById(id);
 		}
 	}
-	
+
 	public void parseBioModelByIds(){
 		String text = idTextArea.getText();
 		Set<String> ids = parseBioModelIdsFromString(text);
@@ -455,11 +456,12 @@ public class BioModelDialog extends JDialog {
 			newText += id + " ";
 		}
 		idTextArea.setText(newText);
-		searchBioModel = new SearchBioModel(adapter);
 		searchBioModel.getBioModelsByParsedIds(ids);
+		
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}
 	
+	/** Returns set of BioModel identifiers from given text. */
 	public static Set<String> parseBioModelIdsFromString(String text){
 		Set<String> ids = new HashSet<String>();
 		String bioModelPattern = "((BIOMD|MODEL)\\d{10})|(BMID\\d{12})";
@@ -471,7 +473,6 @@ public class BioModelDialog extends JDialog {
 		}
 		return ids;
 	}
-	*/
 	
 	// Clear fields
 	public void resetFields(){

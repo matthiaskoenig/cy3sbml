@@ -35,8 +35,10 @@ public class BioModelWSInterface {
 	
 	public BioModelWSInterface(ConnectionProxy connectionProxy){
 		this(null, null);
-		// TODO: implement
-		logger.warn("from connectionProxy NOT IMPLEMENTED");
+		if (!"direct".equals(connectionProxy.getProxyType())){
+			proxyHost = connectionProxy.getProxyHost();
+			proxyPort = connectionProxy.getProxyPort();
+		}
 	}
 	
 	
