@@ -25,6 +25,7 @@ public class SBML {
 	public static final String ATTR_INITIAL_LEVEL = "initialLevel";
 	public static final String ATTR_CONVERSION_FACTOR = "conversionFactor";
 	public static final String ATTR_UNITS = "units";
+	public static final String ATTR_DERIVED_UNITS = "derivedUnits";
 	public static final String ATTR_VALUE = "value";
 	public static final String ATTR_FAST = "fast";
 	public static final String ATTR_KINETIC_LAW = "kineticLaw";

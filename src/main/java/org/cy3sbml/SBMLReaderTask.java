@@ -298,6 +298,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (species.isSetValue()){
 					AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 				}
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnits(), String.class);
 			}
 			taskMonitor.setProgress(0.5);
 			
@@ -337,7 +338,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (reaction.isSetKineticLaw()){
 					AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getFormula(), String.class);	
 				}
-				
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
 			
 				// Backwards compatability of reader (anybody using this?)
 				if (reaction.isSetKineticLaw()){
