@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 
+import org.cy3sbml.BundleInformation;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,8 @@ public class JEditorPaneSBML extends JEditorPane{
 	public void setHelp(){
 		URL url;
 		try {
+			// TODO: here the rendered template information has to be set, i.e. not static
+			// HTML, but rendering HTML template with the given information
 			url = new URL(ResultsPanel.class.getResource("/info.html").toString());
 			this.setPage(url);
 		} catch (MalformedURLException e) {
@@ -49,7 +52,7 @@ public class JEditorPaneSBML extends JEditorPane{
 	    doc.putProperty(Document.StreamDescriptionProperty, null);
 		super.setPage(page);
 	}
-		
+			
 	/** Update Text in the navigation panel.
 	 * Only updates information if the current thread is the last requested thread 
 	 * for updating text. */

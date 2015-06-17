@@ -21,6 +21,7 @@ import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,10 @@ public class CyActivator extends AbstractCyActivator {
 	public void start(BundleContext bc) {
 		try {
 			logger.info("starting server ...");
+			// store bundle information
+			Bundle bundle = bc.getBundle();
+			BundleInformation.getInstance(bc);
+			
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
 			Properties propsReaderServiceProps = new Properties();
@@ -76,15 +81,11 @@ public class CyActivator extends AbstractCyActivator {
 			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
-
 			
 			// Use the Cytoscape properties to set proxy for webservices
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();
-			
-			//
-			
-			
+						
 			/**  
 			 * Create ServiceAdapter
 			 */
@@ -115,18 +116,15 @@ public class CyActivator extends AbstractCyActivator {
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
 			loadVizmapFileTaskFactory.loadStyles(stream);
 			
-
-			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init cy3sbml ControlPanel
-			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
+			ResultsPanel resultsPanel = ResultsPanel.getInstance(bundle, adapter);
 			// init actions
 			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
-			
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);

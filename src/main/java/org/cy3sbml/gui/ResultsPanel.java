@@ -28,6 +28,7 @@ import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.osgi.framework.Bundle;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
@@ -45,16 +46,17 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	CytoPanel cytoPanelEast;
 	private static ResultsPanel uniqueInstance;
 	
+	private Bundle bundle;
 	private ServiceAdapter adapter;
 	private SBMLManager sbmlManager;
 	
 	private JEditorPaneSBML textPane;
 
 	
-	public static synchronized ResultsPanel getInstance(ServiceAdapter adapter){
+	public static synchronized ResultsPanel getInstance(Bundle bundle, ServiceAdapter adapter){
 		if (uniqueInstance == null){
 			logger.info("ControlPanel created");
-			uniqueInstance = new ResultsPanel(adapter);
+			uniqueInstance = new ResultsPanel(bundle, adapter);
 		}
 		return uniqueInstance;
 	}
@@ -63,8 +65,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	}
 	
 	/** Constructor of cy3sbml Results Panel. */
-	private ResultsPanel(ServiceAdapter adapter){
+	private ResultsPanel(Bundle bundle, ServiceAdapter adapter){
 		this.adapter = adapter;
+		this.bundle = bundle;
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 		this.sbmlManager = SBMLManager.getInstance();
 		
@@ -99,14 +102,13 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	@Override
 	public Icon getIcon() {
 		return new ImageIcon(getClass().getResource("/images/cy3sbml_icon.png"));
-		// return null;
 	}
 
 	@Override
 	public String getTitle() {
-		return "cy3sbml ";
+		return "cy3sbml";
 	}
-	
+
 	public boolean isActive(){
 		return (cytoPanelEast.getState() != CytoPanelState.HIDE);
 	}
