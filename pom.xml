@@ -15,9 +15,9 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.3</version>
+	<version>0.1.4</version>
 	
-	<name>cy3sbml - Advanced SBML for Cytoscape</name>
+	<name>cy3sbml</name>
 
 	<repositories>
 		<repository>
@@ -66,8 +66,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<optimize>true</optimize>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
@@ -209,20 +209,24 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>	
 		
 		<!-- MIRIAM, BioModel webservices -->
 		<dependency>
-      		<groupId>uk.ac.ebi.miriam</groupId>
-      		<artifactId>miriam-lib</artifactId>
-      		<version>1.1.5</version>
-    	</dependency>
+      			<groupId>uk.ac.ebi.miriam</groupId>
+      			<artifactId>miriam-lib</artifactId>
+      			<version>1.1.5</version>
+    		</dependency>
 		<dependency>
-      		<groupId>uk.ac.ebi.biomodels</groupId>
-      		<artifactId>biomodels-wslib</artifactId>
-      		<version>1.21</version>
-    	</dependency>
+      			<groupId>uk.ac.ebi.biomodels</groupId>
+      			<artifactId>biomodels-wslib</artifactId>
+      			<version>1.21</version>
+    		</dependency>
     	
-		
 		<!-- JSBML CORE dependency -->
   		<dependency>
   			<groupId>cy3sbml-temp</groupId>
@@ -288,9 +292,15 @@
     		<artifactId>woodstox-core-lgpl</artifactId>
     		<version>4.0.9</version>
 		</dependency>    	
+               <dependency>
+                        <groupId>com.thoughtworks.xstream</groupId>
+                        <artifactId>xstream</artifactId>
+                        <version>1.3.1</version>
+                        <type>jar</type>
+                        <scope>compile</scope>
+                </dependency>
 		
 		<!-- Testing -->
-		
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
@@ -320,8 +330,5 @@
 			<scope>test</scope>
 		</dependency>
 		-->
-
-
 	</dependencies>
-
 </project>

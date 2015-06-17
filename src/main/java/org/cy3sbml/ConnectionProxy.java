@@ -64,13 +64,13 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 		setSystemProxy(type, host, port);
 	}
 	
-	private String getProxyType() {
+	public String getProxyType() {
 		return cyProperties.getProperties().getProperty("proxy.server.type");
 	}
-	private String getProxyHost() {
+	public String getProxyHost() {
 		return cyProperties.getProperties().getProperty("proxy.server");
 	}
-	private String getProxyPort() {
+	public String getProxyPort() {
 		return cyProperties.getProperties().getProperty("proxy.server.port");
 	}
 	

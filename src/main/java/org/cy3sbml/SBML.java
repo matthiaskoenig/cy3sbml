@@ -1,58 +1,60 @@
 package org.cy3sbml;
 
 public class SBML {
-	// TODO: fix the attributes
-	public static final String SBML_NETWORK = "SBML_NETWORK";
-	public static final String NODE_NAME_ATTR_LABEL = "name"; 
-	public static final String INTERACTION_TYPE_ATTR = "interaction type";
-	public static final String SBML_TYPE_ATTR = "sbml type";
-	public static final String SBML_ID_ATTR = "sbml id";
-	public static final String SBML_INITIAL_CONCENTRATION_ATTR = "sbml initial concentration";
-	public static final String SBML_INITIAL_AMOUNT_ATTR = "sbml initial amount";
-	public static final String SBML_CHARGE_ATTR = "sbml charge";
-	public static final String SBML_COMPARTMENT_ATTR = "sbml compartment";
-	public static final String SBML_TYPE_SPECIES = "species";
-	public static final String SBML_TYPE_REACTION = "reaction";
-	public static final String INTERACTION_TYPE_REACTION_PRODUCT = "reaction-product";
-	public static final String INTERACTION_TYPE_REACTION_REACTANT = "reaction-reactant";
-	public static final String INTERACTION_TYPE_REACTION_MODIFIER = "reaction-modifier";
+	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
+	public static final String NODETYPE_ATTR = "type";
+	public static final String INTERACTION_ATTR = "interaction";
+	
+	public static final String LABEL = "label"; 
+	
+	public static final String ATTR_ID = "id";
+	public static final String ATTR_TYPE = "type";
+	public static final String ATTR_METAID = "metaId";
+	public static final String ATTR_NAME = "name";
+	public static final String ATTR_COMPARTMENT = "compartment";
+	public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
+	public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
+	public static final String ATTR_CHARGE = "charge";
+	public static final String ATTR_SBOTERM = "sbo";
+	public static final String ATTR_CONSTANT = "constant";
+	public static final String ATTR_BOUNDARY_CONDITION = "boundaryCondition";
+	public static final String ATTR_HAS_ONLY_SUBSTANCE_UNITS = "hasOnlySubstanceUnits";
+	public static final String ATTR_REVERSIBLE = "reversible";
+	public static final String ATTR_STOICHIOMETRY = "stoichiometry";
+	public static final String ATTR_MAX_LEVEL = "maxLevel";
+	public static final String ATTR_INITIAL_LEVEL = "initialLevel";
+	public static final String ATTR_CONVERSION_FACTOR = "conversionFactor";
+	public static final String ATTR_UNITS = "units";
+	public static final String ATTR_DERIVED_UNITS = "derivedUnits";
+	public static final String ATTR_VALUE = "value";
+	public static final String ATTR_FAST = "fast";
+	public static final String ATTR_KINETIC_LAW = "kineticLaw";
+	
+	public static final String ATTR_AREA_UNITS = "areaUnits";
+	public static final String ATTR_EXTENT_UNITS = "extentUnits";
+	public static final String ATTR_LENGTH_UNITS = "lengthUnits";
+	public static final String ATTR_SUBSTANCE_UNITS = "substanceUnits";
+	public static final String ATTR_TIME_UNITS = "timeUnits";
+	public static final String ATTR_VOLUME_UNITS = "volumeUnits";
+	
 	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
 	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
 	
-	public static final String ATT_ID = "sbml id";
-	public static final String ATT_TYPE = "sbml type";
-	public static final String ATT_METAID = "sbml metaId";
-	public static final String ATT_NAME = "sbml name";
-	public static final String ATT_COMPARTMENT = "sbml compartment";
-	public static final String ATT_INITIAL_CONCENTRATION = "sbml initialConcentration";
-	public static final String ATT_INITIAL_AMOUNT = "sbml initialAmount";
-	public static final String ATT_CHARGE = "sbml charge";
-	public static final String ATT_SBOTERM = "sbml sbo";
-	public static final String ATT_CONSTANT = "sbml constant";
-	public static final String ATT_BOUNDARY_CONDITION = "sbml boundaryCondition";
-	public static final String ATT_HAS_ONLY_SUBSTANCE_UNITS = "sbml hasOnlySubstanceUnits";
-	public static final String ATT_REVERSIBLE = "sbml reversible";
-	public static final String ATT_STOICHIOMETRY = "sbml stoichiometry";
-	public static final String ATT_MAX_LEVEL = "sbml max level";
-	public static final String ATT_INITIAL_LEVEL = "sbml initialLevel";
-	
+	// node types
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_SPECIES = "species";
 	public static final String NODETYPE_QUAL_SPECIES = "qSpecies";
 	public static final String NODETYPE_QUAL_TRANSITION = "qTransition";
 	
-	public static final String EDGETYPE_REACTION_ACTIVATOR = "activator-reaction";
-	public static final String EDGETYPE_REACTION_INHIBITOR = "inhibitor-reaction";
-	public static final String EDGETYPE_REACTION_MODIFIER = "modifier-reaction";
-	
-	public static final String EDGETYPE_REACTION_PRODUCT = "reaction-product";
-	public static final String EDGETYPE_REACTION_SIDEPRODUCT = "reaction-sideproduct";
-	
-	public static final String EDGETYPE_REACTION_REACTANT = "reactant-reaction";
-	public static final String EDGETYPE_REACTION_SIDEREACTANT = "sidereactant-reaction";
-	
-	public static final String EDGETYPE_TRANSITION_INPUT = "input-transition";
-	public static final String EDGETYPE_TRANSITION_OUTPUT = "transition-output";
-	public static final String EDGETYPE_UNDEFINED = "undefined";
-
+	// edge types (interactions)
+	public static final String INTERACTION_REACTION_ACTIVATOR = "activator-reaction";
+	public static final String INTERACTION_REACTION_INHIBITOR = "inhibitor-reaction";
+	public static final String INTERACTION_REACTION_MODIFIER = "modifier-reaction";
+	public static final String INTERACTION_REACTION_PRODUCT = "reaction-product";
+	public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction-sideproduct";
+	public static final String INTERACTION_REACTION_REACTANT = "reactant-reaction";
+	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
+	public static final String INTERACTION_TRANSITION_INPUT = "input-transition";
+	public static final String INTERACTION_TRANSITION_OUTPUT = "transition-output";
+	public static final String INTERACTION_UNDEFINED = "undefined";
 }

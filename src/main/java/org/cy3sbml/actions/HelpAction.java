@@ -27,7 +27,7 @@ public class HelpAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");
 		// TODO: not working 
-		setToolbarGravity((float) 100.0);
+		setToolbarGravity((float) 120.0);
 	}
 	
 	public boolean insertSeparatorBefore(){

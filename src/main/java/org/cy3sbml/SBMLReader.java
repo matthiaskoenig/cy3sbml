@@ -32,8 +32,6 @@ import java.util.Set;
 
 import javax.swing.SwingUtilities;
 
-import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
-import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
 import org.cytoscape.model.CyNetwork;
@@ -132,7 +130,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 	private boolean isSBMLNetwork(CyNetwork cyNetwork) {
 		//true if the attribute column exists
 		CyTable cyTable = cyNetwork.getDefaultNetworkTable();
-		return cyTable.getColumn(SBML.SBML_NETWORK) != null;
+		return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
 	}
 	
 	private VisualStyle getVisualStyleByName(String styleName){
