@@ -54,4 +54,26 @@ public class AttributeUtil {
 		}
 	}
 	
+	/*
+	@Deprecated
+	public void checkEdgeSchema(CyRow attributes) {
+		checkSchema(attributes, SBML.INTERACTION_TYPE_ATTR, String.class);
+	}
+	
+	@Deprecated
+	public void checkNodeSchema(CyRow attributes) {
+		checkSchema(attributes, SBML.SBML_TYPE_ATTR, String.class);
+		checkSchema(attributes, SBML.SBML_ID_ATTR, String.class);
+		checkSchema(attributes, SBML.SBML_INITIAL_CONCENTRATION_ATTR, Double.class);
+		checkSchema(attributes, SBML.SBML_INITIAL_AMOUNT_ATTR, Double.class);
+		checkSchema(attributes, SBML.SBML_CHARGE_ATTR, Integer.class);
+		checkSchema(attributes, SBML.SBML_COMPARTMENT_ATTR, String.class);
+	}
+	*/
+	
+	public <T> void checkSchema(CyRow attributes, String attributeName, Class<T> type) {
+		if (attributes.getTable().getColumn(attributeName) == null)
+			attributes.getTable().createColumn(attributeName, type, false);
+	}
+	
 }
