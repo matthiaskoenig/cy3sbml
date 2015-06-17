@@ -9,10 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/** Here the mapping between SBML documents and Cytoscape networks is stored.
- * When an SBML is read and networks are created, than the respective 
- * SBMLDocument is added to the Mapping for all created networks.
- * Networks are identified via their network suids.
+/**
+ * Mapping between SBMLDocuments and CyNetworks. 
+ * When an SBML is read and one or multiple networks are created, the links
+ * between the SBMLDocument and these network(s) are stored in the 
+ * SBML2NetworkMapper for lookup. Networks are identified uniquely via their network SUIDs..
  * 
  * This implements only the mapping store. 
  * The update of the current status has to be managed by the SBMLManager via listening
@@ -21,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class SBML2NetworkMapper {
 	private static final Logger logger = LoggerFactory.getLogger(SBML2NetworkMapper.class);
 	
-	/* Currently used SBMLdocument and mapping information. */
+	// current networkSUID if in mapping
 	private Long currentSUID;
 	
 	/* Store of all SBMLdocuments and mapping information. */
@@ -51,7 +52,6 @@ public class SBML2NetworkMapper {
 	 */
 	public void setCurrentSUID(Long suid){
 		if (suid != null && documentMap.containsKey(suid)){
-			//? Problem with documentMap
 			currentSUID = suid;
 		} else {
 			initCurrent();

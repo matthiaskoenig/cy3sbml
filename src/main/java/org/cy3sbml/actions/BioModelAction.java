@@ -20,7 +20,7 @@ public class BioModelAction extends AbstractCyAction{
 	
 	public BioModelAction(ServiceAdapter adapter){
 		super("BioModelAction");
-		logger.info("BioModelAction created");
+		logger.debug("BioModelAction created");
 		this.adapter = adapter;
 		
 		//ImageIcon icon = new ImageIcon(getClass().getResource("/images/biomodel.png"));
@@ -45,7 +45,7 @@ public class BioModelAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.info("actionPerformed()");
+		logger.debug("actionPerformed()");
 		// Open the BioModels Dialog
 	    BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
 	    bioModelsDialog.setVisible(true);   

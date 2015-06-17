@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-
+/** 
+ * Simple one 2 many mapping class.
+ */
 public class One2ManyMapping<T1, T2> {	
 	private HashMap<T1, List<T2>> map;
 	

@@ -44,7 +44,7 @@ public class HelpAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.info("actionPerformed()");
+		logger.debug("actionPerformed()");
 		
 		// set information
 		ResultsPanel panel = ResultsPanel.getInstance();

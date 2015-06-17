@@ -2,7 +2,6 @@ package org.cy3sbml.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,7 +77,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		annotationScrollPane.setViewportView(textPane);
 		this.add(annotationScrollPane);
 		
-		// set the size
+		// TODO: how to managet the size consistently. 
+		// This was already a challenge in cy2
 		// Dimension size = this.getSize();
 		// this.setSize(250, size.height);
 	}
@@ -147,7 +147,11 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
-	/** Handle hyperlink events in textPane. */
+	/** 
+	 * Handles the hyperlink events in the textPane.
+	 * Consists of opening browser or triggering certain cytoscape actions
+	 * via parsing link urls. 
+	 */
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
 		URL url = evt.getURL();
@@ -187,8 +191,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * the source of the event.
 	 * 
 	 * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
-	 */ 
-	
+	 */
 	public void handleEvent(RowsSetEvent event) {
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
 		if (!event.getSource().equals(network.getDefaultNodeTable()) ||
@@ -198,6 +201,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		updateInformation();
 	}
 	
+	/**
+	 * Here the node information update is performed.
+	 */
 	public void updateInformation(){
 		try {
 			if (!isActive()){
@@ -209,27 +215,23 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			if (network == null || view == null){
 				return;
 			}
-			
-			// get selected nodes
+			// selected node SUIDs
 			LinkedList<Long> suids = new LinkedList<Long>();
 			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 			for (CyNode n : nodes){
 				suids.add(n.getSUID());
 			}
-			
-			// display information for selected nodes
+			// information for selected node(s)
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 			if (document != null){
 				List<String> selectedNSBIds = sbmlManager.getNSBIds(suids);
 			
-				// display information
 				if (selectedNSBIds.size() > 0){
-					// get selected nodes
-					logger.info("--- SELECTION ---");
+					// log selected nodes
+					logger.debug("--- SELECTION ---");
 					for (Long suid: suids){
-						logger.info(suid.toString());
+						logger.debug(suid.toString());
 					}
-					
 					// TODO: How to handle multiple selections? Currently only first node in selection used
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);

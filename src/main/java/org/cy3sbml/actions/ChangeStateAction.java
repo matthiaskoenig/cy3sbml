@@ -32,7 +32,7 @@ public class ChangeStateAction extends AbstractCyAction{
 		
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.info("actionPerformed");
+		logger.debug("actionPerformed");
 		ResultsPanel panel = ResultsPanel.getInstance();
 		panel.changeState();
 	}
