@@ -72,6 +72,8 @@ public class JEditorPaneSBML extends JEditorPane{
    }
    
    public void showNSBInfo(Set<Object> objSet) {
+	   this.setText("Retrieving information via WebServices ...");
+	   // Webservice Trheads are started
 	   NamedSBaseInfoThread thread = new NamedSBaseInfoThread(objSet, this);
 	   lastInformationThreadId = thread.getId();
 	   thread.start();

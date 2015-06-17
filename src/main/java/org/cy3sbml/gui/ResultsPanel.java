@@ -218,10 +218,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					for (Long suid: suids){
 						logger.info(suid.toString());
 					}
-					logger.info("-----------------");
 					
-					// TODO: better handling of multiple selections
-					// only use the first in the row
+					// TODO: How to handle multiple selections? Currently only first node in selection used
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
 					textPane.showNSBInfo(nsb);		
