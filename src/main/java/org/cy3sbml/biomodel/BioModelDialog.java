@@ -188,8 +188,7 @@ public class BioModelDialog extends JDialog {
 		panel.add(searchButton);
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//searchBioModels();
-				logger.info("searchBioModels action not implemented");
+				searchBioModels();
 			}
 		});
 		// Reset Button
