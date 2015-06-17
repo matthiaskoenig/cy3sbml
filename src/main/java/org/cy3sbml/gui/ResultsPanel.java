@@ -79,8 +79,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		this.add(annotationScrollPane);
 		
 		// set the size
-		Dimension size = this.getSize();
-		this.setSize(250, size.height);
+		// Dimension size = this.getSize();
+		// this.setSize(250, size.height);
 	}
 	
 	@Override
