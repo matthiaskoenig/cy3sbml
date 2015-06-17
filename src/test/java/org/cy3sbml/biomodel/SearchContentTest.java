@@ -4,16 +4,15 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
-//import org.cy3sbml.biomodel.SearchContent;
 import org.junit.Test;
 
 public class SearchContentTest {
-
-	/*
 	
 	@Test
 	public void test() {
-		String name = "ABC asdf  test, ";
+		
+		// TODO: some real world test searches and test the content
+		String name = "Test";
 		String person = "König, Bölling;; ,";
 		String publication = "PMID:12345";
 		
@@ -26,8 +25,7 @@ public class SearchContentTest {
 		SearchContent content = new SearchContent(map);
 		String info = content.toString();
 		System.out.println(info);
-		// TODO: asserts
+		
 	}
 	
-	*/
 }

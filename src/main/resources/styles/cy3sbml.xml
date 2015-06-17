@@ -36,35 +36,13 @@
             <visualProperty name="NODE_BORDER_TRANSPARENCY" default="100"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_8" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_STROKE" default="SOLID"/>
-            <visualProperty name="NODE_WIDTH" default="20.0">
-                <discreteMapping attributeType="string" attributeName="BIOPAX_TYPE">
-                    <discreteMappingEntry value="13.4" attributeValue="GeneticInteraction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="BiochemicalReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Interaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TransportWithBiochemicalReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="ComplexAssembly"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Conversion"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Complex"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Degradation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TemplateReactionRegulation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Control"/>
-                    <discreteMappingEntry value="13.4" attributeValue="MolecularInteraction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Modulation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TemplateReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Catalysis"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Transport"/>
-                </discreteMapping>
-            </visualProperty>
+            <visualProperty name="NODE_WIDTH" default="20.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_4" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_LABEL_FONT_SIZE" default="20"/>
             <visualProperty name="NODE_SELECTED" default="false"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_BORDER_PAINT" default="#006666">
-                <discreteMapping attributeType="string" attributeName="BIOPAX_TYPE">
-                    <discreteMappingEntry value="#006666" attributeValue="Complex"/>
-                </discreteMapping>
-            </visualProperty>
+            <visualProperty name="NODE_BORDER_PAINT" default="#006666"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_6" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_2" default="0.0"/>
             <visualProperty name="NODE_LABEL_COLOR" default="#000000"/>
@@ -75,29 +53,12 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_9" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_LABEL_WIDTH" default="200.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_7" default="0.0"/>
-            <visualProperty name="NODE_HEIGHT" default="20.0">
-                <discreteMapping attributeType="string" attributeName="BIOPAX_TYPE">
-                    <discreteMappingEntry value="13.4" attributeValue="GeneticInteraction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="BiochemicalReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Interaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TransportWithBiochemicalReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="ComplexAssembly"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Conversion"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Complex"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Degradation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TemplateReactionRegulation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Control"/>
-                    <discreteMappingEntry value="13.4" attributeValue="MolecularInteraction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Modulation"/>
-                    <discreteMappingEntry value="13.4" attributeValue="TemplateReaction"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Catalysis"/>
-                    <discreteMappingEntry value="13.4" attributeValue="Transport"/>
-                </discreteMapping>
-            </visualProperty>
+            <visualProperty name="NODE_HEIGHT" default="20.0"/>
             <visualProperty name="NODE_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="NODE_FILL_COLOR" default="#FFFFFF">
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="#CCCCCC" attributeValue="reaction"/>
+                    <discreteMappingEntry value="#CCCCCC" attributeValue="qTransition"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_4" default="C,C,c,0.00,0.00"/>
@@ -108,6 +69,9 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="3.0" attributeValue="reaction"/>
                     <discreteMappingEntry value="10.0" attributeValue="species"/>
+                    <discreteMappingEntry value="3.0" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="10.0" attributeValue="qSpecies"/>
+                    
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_4" default="0.0"/>
@@ -115,6 +79,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="30.0" attributeValue="reaction"/>
                     <discreteMappingEntry value="60.0" attributeValue="species"/>
+                    <discreteMappingEntry value="30.0" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="60.0" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_6" default="C,C,c,0.00,0.00"/>
@@ -127,6 +93,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="RECTANGLE" attributeValue="reaction"/>
                     <discreteMappingEntry value="ELLIPSE" attributeValue="species"/>
+                    <discreteMappingEntry value="RECTANGLE" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="ELLIPSE" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_DEPTH" default="0.0"/>
@@ -144,6 +112,8 @@
                 <discreteMapping attributeType="string" attributeName="interaction">
                     <discreteMappingEntry value="DELTA" attributeValue="reaction-product"/>
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
+                    <discreteMappingEntry value="DELTA" attributeValue="transition-output"/>
+                    <discreteMappingEntry value="NONE" attributeValue="input-transition"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="EDGE_STROKE_SELECTED_PAINT" default="#FF0000"/>
@@ -161,6 +131,8 @@
                 <discreteMapping attributeType="string" attributeName="interaction">
                     <discreteMappingEntry value="NONE" attributeValue="reaction-product"/>
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
+                    <discreteMappingEntry value="NONE" attributeValue="transition-output"/>
+                    <discreteMappingEntry value="NONE" attributeValue="input-transition"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="EDGE_LABEL_FONT_SIZE" default="10"/>
@@ -193,6 +165,8 @@
                 <discreteMapping attributeType="string" attributeName="sbml type">
                     <discreteMappingEntry value="DIAMOND" attributeValue="reaction"/>
                     <discreteMappingEntry value="ELLIPSE" attributeValue="species"/>
+                    <discreteMappingEntry value="DIAMOND" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="ELLIPSE" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_3" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
@@ -201,6 +175,8 @@
                 <discreteMapping attributeType="string" attributeName="sbml type">
                     <discreteMappingEntry value="20.0" attributeValue="reaction"/>
                     <discreteMappingEntry value="60.0" attributeValue="species"/>
+                    <discreteMappingEntry value="20.0" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="60.0" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_LABEL_FONT_FACE" default="SansSerif.plain,plain,12"/>
