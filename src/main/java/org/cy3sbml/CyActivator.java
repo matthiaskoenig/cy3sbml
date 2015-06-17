@@ -62,13 +62,17 @@ public class CyActivator extends AbstractCyActivator {
 			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
+			@SuppressWarnings("rawtypes")
 			SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
+			@SuppressWarnings("rawtypes")
 			TaskManager taskManager = getService(bc, TaskManager.class);
 			
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
 			
+			@SuppressWarnings("unchecked")
 			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
+			@SuppressWarnings("unchecked")
 			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);

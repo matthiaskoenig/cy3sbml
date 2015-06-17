@@ -56,18 +56,18 @@ public class NamedSBaseInfoThread extends Thread{
 	/** Reads the annotation information in the Miriam Cash */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();
-		logger.info("Preload Miriam for <compartments>");
+		logger.debug("Preload Miriam for <compartments>");
 		preloadAnnotationForListOf(model.getListOfCompartments());
-		logger.info("Preload Miriam for <species>");
+		logger.debug("Preload Miriam for <species>");
 		preloadAnnotationForListOf(model.getListOfSpecies());
-		logger.info("Preload Miriam for <reactions>");
+		logger.debug("Preload Miriam for <reactions>");
 		preloadAnnotationForListOf(model.getListOfReactions());
 		
 		QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 		if (qModel != null){
-			logger.info("Preload Miriam for <qualitativeSpecies>");
+			logger.debug("Preload Miriam for <qualitativeSpecies>");
 			preloadAnnotationForListOf(qModel.getListOfQualitativeSpecies());
-			logger.info("Preload Miriam for <transitions>");
+			logger.debug("Preload Miriam for <transitions>");
 			preloadAnnotationForListOf(qModel.getListOfTransitions());
 		}
 	}
