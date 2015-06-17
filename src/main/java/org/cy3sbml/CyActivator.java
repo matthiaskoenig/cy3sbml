@@ -16,11 +16,11 @@ import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
-import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
+import org.cytoscape.work.swing.DialogTaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
@@ -66,10 +66,13 @@ public class CyActivator extends AbstractCyActivator {
 			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
+			
+			DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
 			@SuppressWarnings("rawtypes")
 			SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
 			@SuppressWarnings("rawtypes")
 			TaskManager taskManager = getService(bc, TaskManager.class);
+			
 			
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
@@ -95,6 +98,7 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkViewManager,
 					visualMappingManager,
 					cyLayoutAlgorithmManager,
+					dialogTaskManager,
 					synchronousTaskManager,
 					taskManager,
 					

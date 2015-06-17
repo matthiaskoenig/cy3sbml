@@ -6,18 +6,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.cy3sbml.CyActivator;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
+import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskObserver;
 import org.cytoscape.work.swing.DialogTaskManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 public class SearchBioModel implements TaskObserver {
+	private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
+	
 	DialogTaskManager dialogTaskManager;
-	SearchBioModelTaskFactory searchBioModelTaskFactory;
+	SynchronousTaskManager synchronousTaskManager;
 	
 	private BioModelWSInterface bmInterface;
 	private SearchContent searchContent;
@@ -26,7 +32,10 @@ public class SearchBioModel implements TaskObserver {
 	
 	
 	public SearchBioModel(ServiceAdapter adapter){
+		dialogTaskManager = adapter.dialogTaskManager;
+		synchronousTaskManager = adapter.synchronousTaskManager;
 		bmInterface = new BioModelWSInterface(adapter.connectionProxy);
+		
 		resetSearch();
 	}
 	
@@ -67,13 +76,24 @@ public class SearchBioModel implements TaskObserver {
 		resetSearch();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
+		// set search content
 		searchContent = new SearchContent(map);
+		
 		modelIds = new LinkedList<String>(parsedIds);
+		logger.info("modelIds:" + modelIds.toString());
+		for (String id: modelIds){
+			logger.info(id);
+		}
+		// webservice request to get the simpleModels
 		simpleModels = getSimpleModelsForSearchResult(modelIds);
 	}
 	
 	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
-		String[] ids = (String[]) idsList.toArray();
+		// convert to array
+		String[] ids = new String[idsList.size()];
+		for (int k=0; k<idsList.size(); k++){
+			ids[k] = idsList.get(k);
+		}
 		return bmInterface.getSimpleModelsByIds(ids);
 	}
 	
@@ -82,22 +102,27 @@ public class SearchBioModel implements TaskObserver {
 		
 		// Necessary to init the tasks with different contents
 		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content, bmInterface);
-		
 		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator();
-		// The TaskIterator manages the creation of tasks of the form:
 	
 		// execute the iterator with dialog
-		dialogTaskManager.execute(iterator, this);
+		synchronousTaskManager.execute(iterator, this);
 	}
 	
 	@Override
 	public void taskFinished(ObservableTask task) {
+		logger.info("Task finished");
 		// when finished assign the modelIds
 		@SuppressWarnings("unchecked")
 		List<String> ids = (List<String>) task.getResults(List.class);
 		modelIds = ids;
+		logger.info("modelIds:");
+		for (String id: ids){
+			logger.info(id);
+		}
+		
 		simpleModels = getSimpleModelsForSearchResult(modelIds);
 		// TODO: somehow notify that this is finished & update the conent
+		// do synchronous
 	}
 
 	@Override

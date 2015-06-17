@@ -15,6 +15,7 @@ import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
+import org.cytoscape.work.swing.DialogTaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ public class ServiceAdapter {
 	public CyNetworkViewManager cyNetworkViewManager;
 	public VisualMappingManager visualMappingManager;
 	public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
+	public DialogTaskManager dialogTaskManager;
 	@SuppressWarnings("rawtypes")
 	public SynchronousTaskManager synchronousTaskManager;
 	@SuppressWarnings("rawtypes")
@@ -53,6 +55,7 @@ public class ServiceAdapter {
 			CyNetworkViewManager cyNetworkViewManager,
 			VisualMappingManager visualMappingManager,
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
+			DialogTaskManager dialogTaskManager,
 			SynchronousTaskManager synchronousTaskManager,
 			TaskManager taskManager,
 			CyNetworkFactory cyNetworkFactory,
@@ -70,6 +73,7 @@ public class ServiceAdapter {
 					cyNetworkViewManager,
 					visualMappingManager,
 					cyLayoutAlgorithmManager,
+					dialogTaskManager,
 					synchronousTaskManager,
 					taskManager,
 					cyNetworkFactory,
@@ -94,6 +98,7 @@ public class ServiceAdapter {
 			CyNetworkViewManager cyNetworkViewManager,
 			VisualMappingManager visualMappingManager,
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
+			DialogTaskManager dialogTaskManager,
 			SynchronousTaskManager synchronousTaskManager,
 			TaskManager taskManager,
 			CyNetworkFactory cyNetworkFactory,
@@ -110,6 +115,7 @@ public class ServiceAdapter {
 		this.cyNetworkViewManager = cyNetworkViewManager;
 		this.visualMappingManager = visualMappingManager;
 		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
+		this.dialogTaskManager = dialogTaskManager;
 		this.synchronousTaskManager = synchronousTaskManager;
 		this.taskManager = taskManager;
 		this.cyNetworkFactory = cyNetworkFactory;
