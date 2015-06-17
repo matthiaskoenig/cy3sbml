@@ -17,6 +17,10 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
 /** Handling the MiriamResource Information for given entries.
  * Data is cached in memory cache based on ehcache to reduce 
  * the webservice overhead and minimize the calls to MIRIAM.
+ * 
+ * Repeated queries are fetched from cache. 
+ * Provides fast access to webservice information in combination with preloading of resources
+ * during loading of files.
  */
 public class MiriamResourceInfo {
 	private static final Logger logger = LoggerFactory.getLogger(MiriamResourceInfo.class);
