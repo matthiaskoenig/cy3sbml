@@ -9,7 +9,8 @@ import javax.xml.stream.XMLStreamException;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.cy3sbml.gui.JEditorPaneSBML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,12 +56,20 @@ public class NamedSBaseInfoThread extends Thread{
 	/** Reads the annotation information in the Miriam Cash */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();
-		logger.info("Preload Miriam for compartments");
+		logger.debug("Preload Miriam for <compartments>");
 		preloadAnnotationForListOf(model.getListOfCompartments());
-		logger.info("Preload Miriam for species");
+		logger.debug("Preload Miriam for <species>");
 		preloadAnnotationForListOf(model.getListOfSpecies());
-		logger.info("Preload Miriam for reactions");
+		logger.debug("Preload Miriam for <reactions>");
 		preloadAnnotationForListOf(model.getListOfReactions());
+		
+		QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+		if (qModel != null){
+			logger.debug("Preload Miriam for <qualitativeSpecies>");
+			preloadAnnotationForListOf(qModel.getListOfQualitativeSpecies());
+			logger.debug("Preload Miriam for <transitions>");
+			preloadAnnotationForListOf(qModel.getListOfTransitions());
+		}
 	}
 	
 	private static void preloadAnnotationForListOf(@SuppressWarnings("rawtypes") ListOf list){

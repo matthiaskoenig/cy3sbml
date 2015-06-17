@@ -1,28 +1,5 @@
 package org.cy3sbml;
 
-/*
- * #%L
- * Cytoscape BioPAX Impl (biopax-impl)
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2006 - 2013 The Cytoscape Consortium
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/lgpl-2.1.html>.
- * #L%
- */
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +13,6 @@ import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyRow;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
@@ -50,6 +26,12 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.sbml.jsbml.ext.qual.Input;
+import org.sbml.jsbml.ext.qual.Output;
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.qual.QualitativeSpecies;
+import org.sbml.jsbml.ext.qual.Transition;
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
@@ -207,7 +189,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// TODO: Create the subgraph for the reaction species network
 						
 			// mark network as SBML network
-			AttributeUtil.set(network, network, SBML.NETWORK_TYPE_ATTR, "DEFAULT", String.class);
+			AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, "DEFAULT", String.class);
 			
 			// Network attributes
 			AttributeUtil.set(network, network, SBML.ATTR_ID, model.getId(), String.class);
@@ -244,13 +226,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 
 			// keep node lookup table by sbml id
-			Map<String, CyNode> nodesById = new HashMap<String, CyNode>();
+			Map<String, CyNode> nodeById = new HashMap<String, CyNode>();
 			
 			// Create nodes for species
 			for (Species species : model.getListOfSpecies()) {
 				String id = species.getId();
 				CyNode node = network.addNode();
-				nodesById.put(species.getId(), node);
+				nodeById.put(species.getId(), node);
 				AttributeUtil.set(network, node, SBML.ATTR_ID, species.getId(), String.class);
 				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_SPECIES, String.class);
 				if (species.isSetName()){
@@ -259,26 +241,26 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				} else {
 					AttributeUtil.set(network, node, SBML.LABEL, id, String.class);
 				}
+				if (species.isSetSBOTerm()){
+					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, species.getSBOTermID(), String.class);
+				}
+				if (species.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, species.getMetaId(), String.class);
+				}
+				if (species.isSetCompartment()){
+					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
+				}
 				if (species.isSetInitialConcentration()){
 					AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 				}
 				if (species.isSetInitialAmount()){
 					AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, species.getInitialAmount(), Double.class);
 				}
-				if (species.isSetSBOTerm()){
-					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, species.getSBOTermID(), String.class);
-				}
-				if (species.isSetCompartment()){
-					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
-				}
 				if (species.isSetBoundaryCondition()){
 					AttributeUtil.set(network, node, SBML.ATTR_BOUNDARY_CONDITION, species.getBoundaryCondition(), Boolean.class);
 				}
 				if (species.isSetConstant()){
 					AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, species.getConstant(), Boolean.class);
-				}
-				if (species.isSetMetaId()){
-					AttributeUtil.set(network, node, SBML.ATTR_METAID, species.getMetaId(), String.class);
 				}
 				if (species.isSetHasOnlySubstanceUnits()){
 					AttributeUtil.set(network, node, SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, species.getHasOnlySubstanceUnits(), Boolean.class);
@@ -298,79 +280,222 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (species.isSetValue()){
 					AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 				}
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnits(), String.class);
 			}
 			taskMonitor.setProgress(0.5);
 			
-			// Create a node for each Reaction
-			Map<String, CyNode> reactionsById = new HashMap<String, CyNode>();
+			// Create reaction nodes
 			for (Reaction reaction : model.getListOfReactions()) {
+				String id = reaction.getId();
 				CyNode node = network.addNode();
-				reactionsById.put(reaction.getId(), node);
-				CyRow attributes = network.getRow(node);
-				/* TODO: implement analog to species => full set via AttributeUtil
-				String name = reaction.getName();
-				if (name == null) {
-					attributes.set(SBML.NODE_NAME_ATTR_LABEL, reaction.getId());
+				nodeById.put(id, node);
+				AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_REACTION, String.class);
+				if (reaction.isSetName()){
+					AttributeUtil.set(network, node, SBML.ATTR_NAME, reaction.getName(), String.class);
+					AttributeUtil.set(network, node, SBML.LABEL, reaction.getName(), String.class);
 				} else {
-					attributes.set(SBML.NODE_NAME_ATTR_LABEL, name);
+					AttributeUtil.set(network, node, SBML.LABEL, id, String.class);
 				}
-				attributes.set(SBML.SBML_TYPE_ATTR, SBML.SBML_TYPE_REACTION);
-				attributes.set(SBML.SBML_ID_ATTR, reaction.getId());
-				
-				for (SpeciesReference product : reaction.getListOfProducts()) {
-					CyNode sourceNode = nodesById.get(product.getSpecies());
-					CyEdge edge = network.addEdge(sourceNode, node, true);
-					CyRow edgeAttributes = network.getRow(edge);
-					checkEdgeSchema(edgeAttributes);
-					edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_PRODUCT);
+				if (reaction.isSetSBOTerm()){
+					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, reaction.getSBOTermID(), String.class);	
 				}
-				
-				for (SpeciesReference reactant : reaction.getListOfReactants()) {
-					CyNode sourceNode = nodesById.get(reactant.getSpecies());
-					CyEdge edge = network.addEdge(sourceNode, node, true);
-					CyRow edgeAttributes = network.getRow(edge);
-					checkEdgeSchema(edgeAttributes);
-					edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_REACTANT);
+				if (reaction.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, reaction.getMetaId(), String.class);
 				}
-				
-				for (ModifierSpeciesReference modifier : reaction.getListOfModifiers()) {
-					CyNode sourceNode = nodesById.get(modifier.getSpecies());
-					CyEdge edge = network.addEdge(sourceNode, node, true);
-					CyRow edgeAttributes = network.getRow(edge);
-					checkEdgeSchema(edgeAttributes);
-					edgeAttributes.set(SBML.INTERACTION_TYPE_ATTR, SBML.INTERACTION_TYPE_REACTION_MODIFIER);
+				if (reaction.isSetCompartment()){
+					AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
 				}
-				
-				KineticLaw law = reaction.getKineticLaw();
-				if (law != null) {
-					for (LocalParameter parameter : law.getListOfParameters()) {
-						String parameterName = parameter.getName();
-						String key = String.format(SBML.KINETIC_LAW_ATTR_TEMPLATE, parameterName);
-						checkSchema(attributes, key, Double.class);
-						attributes.set(key, parameter.getValue());
-						
-						String units = parameter.getUnits();
-						if (units != null) {
-							String unitsKey = String.format(SBML.KINETIC_LAW_UNITS_ATTR_TEMPLATE, parameterName);
-							checkSchema(attributes, unitsKey, String.class);
-							attributes.set(unitsKey, units);
+				// Reactions are reversible by default
+				if (reaction.isSetReversible()){
+					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
+				} else {
+					AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, true, Boolean.class);
+				}
+				if (reaction.isSetFast()){
+					AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
+				}
+				if (reaction.isSetKineticLaw()){
+					AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getFormula(), String.class);	
+				}
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
+			
+				// Backwards compatability of reader (anybody using this?)
+				if (reaction.isSetKineticLaw()){
+					KineticLaw law = reaction.getKineticLaw();
+					if (law.isSetListOfLocalParameters()){
+						for (LocalParameter parameter: law.getListOfLocalParameters()){
+							if (parameter.isSetValue()){
+								String key = String.format(SBML.KINETIC_LAW_ATTR_TEMPLATE, parameter.getId());
+								AttributeUtil.set(network, node, key, parameter.getValue(), Double.class);
+							}
+							
+							if (parameter.isSetUnits()){
+								String unitsKey = String.format(SBML.KINETIC_LAW_UNITS_ATTR_TEMPLATE, parameter.getId());
+								AttributeUtil.set(network, node, unitsKey, parameter.getUnits(), String.class);
+							}
 						}
 					}
 				}
-				*/
+				
+				//reactants
+				Double stoichiometry;
+				for (SpeciesReference speciesRef : reaction.getListOfReactants()) {
+					CyNode reactant = nodeById.get(speciesRef.getSpecies());
+					CyEdge edge = network.addEdge(node, reactant, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
+					
+					if (speciesRef.isSetStoichiometry()){
+						stoichiometry = speciesRef.getStoichiometry();
+					} else {
+						stoichiometry = 1.0;
+					}
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
+					if (speciesRef.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, speciesRef.getSBOTermID(), String.class);
+					}
+					if (speciesRef.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, speciesRef.getMetaId(), String.class);
+					}
+				}
+				
+				//products
+				for (SpeciesReference speciesRef : reaction.getListOfProducts()) {
+					CyNode product = nodeById.get(speciesRef.getSpecies());
+					CyEdge edge = network.addEdge(node, product, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_PRODUCT, String.class);
+					
+					if (speciesRef.isSetStoichiometry()){
+						stoichiometry = speciesRef.getStoichiometry();
+					} else {
+						stoichiometry = 1.0;
+					}
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
+					if (speciesRef.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, speciesRef.getSBOTermID(), String.class);
+					}
+					if (speciesRef.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, speciesRef.getMetaId(), String.class);
+					}
+				}
+				
+				//modifier
+				for (ModifierSpeciesReference msRef : reaction.getListOfModifiers()) {
+					CyNode modifier = nodeById.get(msRef.getSpecies());
+					CyEdge edge = network.addEdge(node, modifier, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_MODIFIER, String.class);
+					
+					stoichiometry = 1.0;
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
+					if (msRef.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, msRef.getSBOTermID(), String.class);
+					}
+					if (msRef.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, msRef.getMetaId(), String.class);
+					}
+				}
 			}
+				
+			////////////// QUALITATIVE SBML MODEL ////////////////////////////////////////////
+			 QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+			 
+			 if (qModel != null){
+				 logger.info("Reading qualitative model");
+				 //QualSpecies 
+				 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
+					String qsid = qSpecies.getId(); 
+				 	CyNode node = network.addNode();
+				 	nodeById.put(qsid, node);
+					AttributeUtil.set(network, node, SBML.ATTR_ID, qSpecies.getId(), String.class);
+					AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_QUAL_SPECIES, String.class);
+					if (qSpecies.isSetName()){
+						AttributeUtil.set(network, node, SBML.ATTR_NAME, qSpecies.getName(), String.class);
+						AttributeUtil.set(network, node, SBML.LABEL, qSpecies.getName(), String.class);
+					} else {
+						AttributeUtil.set(network, node, SBML.LABEL, qsid, String.class);
+					}
+					if (qSpecies.isSetSBOTerm()){
+						AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, qSpecies.getSBOTermID(), String.class);
+					}
+					if (qSpecies.isSetMetaId()){
+						AttributeUtil.set(network, node, SBML.ATTR_METAID, qSpecies.getMetaId(), String.class);
+					}
+					if (qSpecies.isSetCompartment()){
+						AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
+					}
+					if (qSpecies.isSetInitialLevel()){
+						AttributeUtil.set(network, node, SBML.ATTR_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);	
+					}
+					if (qSpecies.isSetMaxLevel()){
+						AttributeUtil.set(network, node, SBML.ATTR_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
+					}				 
+					if (qSpecies.isSetConstant()){
+						AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
+					}
+				}
+			 }
+			
+			// QualTransitions
+			for (Transition transition : qModel.getListOfTransitions()){
+				String qtid = transition.getId();
+				CyNode node = network.addNode();
+			 	nodeById.put(qtid, node);
+				AttributeUtil.set(network, node, SBML.ATTR_ID, qtid, String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_QUAL_TRANSITION, String.class);
+				if (transition.isSetName()){
+					AttributeUtil.set(network, node, SBML.ATTR_NAME, transition.getName(), String.class);
+					AttributeUtil.set(network, node, SBML.LABEL, transition.getName(), String.class);
+				} else {
+					AttributeUtil.set(network, node, SBML.LABEL, qtid, String.class);
+				}
+				if (transition.isSetSBOTerm()){
+					AttributeUtil.set(network, node, SBML.ATTR_SBOTERM, transition.getSBOTermID(), String.class);
+				}
+				if (transition.isSetMetaId()){
+					AttributeUtil.set(network, node, SBML.ATTR_METAID, transition.getMetaId(), String.class);
+				}
+				
+				//inputs
+				for (Input input : transition.getListOfInputs()) {
+					CyNode inNode = nodeById.get(input.getQualitativeSpecies());
+					CyEdge edge = network.addEdge(node, inNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_TRANSITION_INPUT, String.class);
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+					if (input.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, input.getSBOTermID(), String.class);
+					}
+					if (input.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, input.getMetaId(), String.class);
+					}
+				}
+					
+				//outputs
+				for (Output output : transition.getListOfOutputs()) {
+					CyNode outNode = nodeById.get(output.getQualitativeSpecies());
+					CyEdge edge = network.addEdge(node, outNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_TRANSITION_OUTPUT, String.class);
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+					if (output.isSetSBOTerm()){
+						AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, output.getSBOTermID(), String.class);
+					}
+					if (output.isSetMetaId()){
+						AttributeUtil.set(network, edge, SBML.ATTR_METAID, output.getMetaId(), String.class);
+					}	
+				}
+			}
+			 
+
 			taskMonitor.setProgress(1.0);
 			logger.info("End Reader.run()");
 		
 		} catch (Throwable t){
 			logger.error("Could not read SBML into Cytoscape!", t);
 			t.printStackTrace();
-			throw new SBMLReaderError("BioPAX reader failed to build a BioPAX model " +
+			throw new SBMLReaderError("cy3sbml reader failed to build a SBML model " +
 					"(check the data for syntax errors) - " + t);
 		}
 	}
 	
-
 
 	@Override
 	public CyNetwork[] getNetworks() {

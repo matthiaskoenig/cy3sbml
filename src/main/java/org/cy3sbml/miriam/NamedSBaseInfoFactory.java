@@ -30,9 +30,6 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
  * FIXME: offline mode & better overview over the information in the SBML
  *  Holds the available link information for already read resources (Store & Read Cache)
  *   
- * TODO: bug if nodes are selected with no correspondence in the SBML.
- * TODO: get the additional information from KEGG, ...
- * TODO: use ontology lookup service to retrieve additional information
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -138,7 +135,12 @@ public class NamedSBaseInfoFactory {
 		String text = "<hr>";
 		if (cvterms.size() > 0){
 			for (CVTerm term : cvterms){
-				text += String.format("<p><b>%s : %s</b><br>", term.getQualifierType(), term.getBiologicalQualifierType());
+				if (term.isModelQualifier()){
+					text += String.format("<p><b>%s : %s</b><br>", term.getQualifierType(), term.getModelQualifierType());	
+				} else if (term.isBiologicalQualifier()){
+					text += String.format("<p><b>%s : %s</b><br>", term.getQualifierType(), term.getBiologicalQualifierType());
+				}
+				
 				Map<String, String> map = null;
 				for (String rURI : term.getResources()){
 					map = getKeyAndId(rURI);

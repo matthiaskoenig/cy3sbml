@@ -130,7 +130,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 	private boolean isSBMLNetwork(CyNetwork cyNetwork) {
 		//true if the attribute column exists
 		CyTable cyTable = cyNetwork.getDefaultNetworkTable();
-		return cyTable.getColumn(SBML.NETWORK_TYPE_ATTR) != null;
+		return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
 	}
 	
 	private VisualStyle getVisualStyleByName(String styleName){

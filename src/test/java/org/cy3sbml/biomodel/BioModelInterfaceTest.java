@@ -27,7 +27,6 @@ public class BioModelInterfaceTest {
 	
 	BioModelWSInterface bmInterface;
 	
-	/*
 	
     @Before
     public void setUp() {
@@ -38,7 +37,6 @@ public class BioModelInterfaceTest {
         bmInterface = null;
     }
 	
-    
 	@Test
 	public void testGetBioModelIdsByName() throws BioModelsWSException {
 		List<String> modelIds = bmInterface.getBioModelIdsByName(VALID_BIOMODEL_NAME);
@@ -130,5 +128,4 @@ public class BioModelInterfaceTest {
 		assertNotNull("If invalid id, null is returned.", sbml);
 	}
 	
-	*/
 }

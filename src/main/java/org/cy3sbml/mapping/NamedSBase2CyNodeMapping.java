@@ -29,7 +29,7 @@ public class NamedSBase2CyNodeMapping extends One2ManyMapping<String,Long>{
 			
 			// get attribute from node
 			CyRow attributes = network.getRow(node);
-			String sbml_id = attributes.get(SBML.SBML_ID_ATTR, String.class);
+			String sbml_id = attributes.get(SBML.ATTR_ID, String.class);
 			
 			// normally one should check if the NamedSbases are really in the SBML,
 			// but the network was created from the SBML, so we skip this part here
