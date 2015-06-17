@@ -16,6 +16,8 @@ import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
@@ -150,6 +152,8 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
+			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
+			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 			
 
 			// Network added / handle selection of networks and network views

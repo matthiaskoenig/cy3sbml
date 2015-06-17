@@ -14,6 +14,9 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -26,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * Interaction with the SBMLDocuments and information should go through the 
  * SBMLManager.
  */
-public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener {
+public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private ServiceAdapter adapter;
@@ -145,36 +148,30 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 */
 	@Override
 	public void handleEvent(SetCurrentNetworkEvent event) {
-		logger.info("SetCurrentNetworkEvent");
 		CyNetwork network = event.getNetwork();
-		logger.info("network SUID: " + network.getSUID());
 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-		logger.info("root SUID: " + rootNetwork.getSUID());
+		logger.info("SetCurrentNetworkEvent to network/root SUID: "+ network.getSUID() + "/" + rootNetwork.getSUID());
 		
 		updateCurrent(network);
-		// selection should be updated
+		// update selection
 		ResultsPanel.getInstance().updateInformation();
 	}
 
 	/** If networks are added check if they are subnetworks
 	 * of SBML networks and add the respective SBMLDocument 
 	 * to them in the mapping.
+	 * Due to the mapping based on the RootNetworks sub-networks
+	 * automatically can use the mappings of the parent networks.
 	 */
 	@Override
 	public void handleEvent(NetworkAddedEvent event) {
 		
-		logger.info("NetworkAddedEvent");
-		CyNetwork network = event.getNetwork();
-		logger.info("network SUID: " + network.getSUID());
-		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-		logger.info("root SUID: " + rootNetwork.getSUID());
-		// TODO: manage
-		
-		// if the root network is an SBMLNetwork than add
-		// the network to root network mapping
-		// not necessary because root network is already in there
-		
-		
+	}
+
+	@Override
+	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
+		logger.info("NetworkViewAboutToBeDestroyedEvent");
+		ResultsPanel.getInstance().getTextPane().setHelp();
 	}
 	
 }
