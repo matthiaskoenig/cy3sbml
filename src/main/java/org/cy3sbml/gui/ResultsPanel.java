@@ -199,18 +199,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				return;
 			}
 			
+			// get selected nodes
 			LinkedList<Long> suids = new LinkedList<Long>();
 			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 			for (CyNode n : nodes){
 				suids.add(n.getSUID());
 			}
-			
-			// get selected nodes
-			logger.info("--- SELECTION ---");
-			for (Long suid: suids){
-				logger.info(suid.toString());
-			}
-			logger.info("-----------------");
 			
 			// display information for selected nodes
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
@@ -219,6 +213,13 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			
 				// display information
 				if (selectedNSBIds.size() > 0){
+					// get selected nodes
+					logger.info("--- SELECTION ---");
+					for (Long suid: suids){
+						logger.info(suid.toString());
+					}
+					logger.info("-----------------");
+					
 					// TODO: better handling of multiple selections
 					// only use the first in the row
 					String nsbId = selectedNSBIds.get(0);
@@ -228,7 +229,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					textPane.showNSBInfo(document.getModel());
 				}
 			} else {
-				textPane.setText("no SBML information");
+				textPane.setText("No SBML associated with current network.");
 			}
 		
 		} catch (Throwable t){

@@ -90,7 +90,7 @@ public class SBML2NetworkMapper {
 	
 	public SBMLDocument getCurrentDocument(){
 		if (currentSUID == null){
-			logger.warn("No current SUID set. SBMLDocument can not be retrieved !");
+			logger.debug("No current SUID set. No SBMLDocument can be retrieved !");
 			return null;
 		} else {
 			return documentMap.get(currentSUID);	
