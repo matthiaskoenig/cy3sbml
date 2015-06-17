@@ -21,7 +21,6 @@ import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.OpenBrowser;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +28,11 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
-import org.cy3sbml.actions.ControlPanelAction;
 import org.cy3sbml.actions.HelpAction;
-import org.cy3sbml.gui.ResultsPanel;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -48,7 +46,6 @@ public class CyActivator extends AbstractCyActivator {
 		try {
 			logger.info("starting server ...");
 			// store bundle information
-			Bundle bundle = bc.getBundle();
 			BundleInformation.getInstance(bc);
 			
 			// cy3sbml properties
@@ -119,9 +116,9 @@ public class CyActivator extends AbstractCyActivator {
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init cy3sbml ControlPanel
-			ResultsPanel resultsPanel = ResultsPanel.getInstance(bundle, adapter);
+			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
 			// init actions
-			ControlPanelAction controlPanelAction = new ControlPanelAction(cySwingApplication);
+			// ResultsPanelAction resultsPanelAction = new ResultsPanelAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
@@ -143,7 +140,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
-			registerService(bc, controlPanelAction, CyAction.class, new Properties());
+			// registerService(bc, resultsPanelAction, CyAction.class, new Properties());
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
 			registerService(bc, bioModelAction, CyAction.class, new Properties());
@@ -154,8 +151,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
 			
-			// registerService(bc, sbmlNetworkViewProcessing, NetworkViewAddedListener.class, new Properties());
-			
+
 			// Network added / handle selection of networks and network views
 			// registerService(bc, navControlPanel, NetworkDestroyedEvent.class, new Properties());
 			// registerService(bc, navControlPanel, NetworkViewAddedEvent.class, new Properties());
@@ -163,16 +159,13 @@ public class CyActivator extends AbstractCyActivator {
 			// TODO: ImportAction
 			// ImportAction importAction = new ImportAction(cySwingApplication);
 			// registerService(bc, importAction, CyAction.class, new Properties());
-			// TODO: BiomodelAction
 			// TODO: ValidationAction
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
 			
 			// Show the cy3sbml panel
-			// controlPanelAction.actionPerformed(null);
 			ResultsPanel.getInstance().activate();
 			logger.info("server started");
-		
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);
 			e.printStackTrace();

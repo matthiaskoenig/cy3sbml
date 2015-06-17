@@ -8,18 +8,18 @@ import org.cy3sbml.gui.ResultsPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ControlPanelAction extends AbstractCyAction {
-	private static final Logger logger = LoggerFactory.getLogger(ControlPanelAction.class);
+public class ResultsPanelAction extends AbstractCyAction {
+	private static final Logger logger = LoggerFactory.getLogger(ResultsPanelAction.class);
 	private static final long serialVersionUID = 1L;
 	
-	public ControlPanelAction(CySwingApplication desktopApp){
+	public ResultsPanelAction(CySwingApplication desktopApp){
 		// Add menu item -- Apps->cy3sbml
 		super("cy3sbml");
 		setPreferredMenu("Apps");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		logger.info("actionPerformed");
+		logger.debug("actionPerformed");
 		ResultsPanel panel = ResultsPanel.getInstance();
 		if (panel.isActive()){
 			panel.deactivate();
