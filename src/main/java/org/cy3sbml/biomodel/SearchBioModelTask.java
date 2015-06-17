@@ -83,6 +83,7 @@ public class SearchBioModelTask implements ObservableTask{
 		// TODO Auto-generated method stub
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <R> R getResults(Class<? extends R> type) {
 		return (R) searchResultIds;
