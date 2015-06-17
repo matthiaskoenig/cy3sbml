@@ -5,6 +5,7 @@ import java.util.Arrays;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,14 +22,24 @@ public class MiriamResourceInfo {
 	private static final Logger logger = LoggerFactory.getLogger(MiriamResourceInfo.class);
 	
 	private static CacheManager cacheManager;
-	private static Cache miriamCache; 
+	private static Cache miriamCache;
 	
-	// Cache Configuration
 	static {
 		// Create a singleton CacheManager using defaults
-		cacheManager = CacheManager.create();		
-		// Memory only Cache
-		miriamCache = new Cache("miriamCache", 5000, false, true, 6000, 6000);
+		cacheManager = CacheManager.create();
+		
+		// Cache configuration
+		// memory cache with overflow to disk (java.io.tmpdir)
+		CacheConfiguration config = new CacheConfiguration();
+		config.setName("miriamCache");
+		config.setMaxEntriesLocalHeap(5000);
+		// which lives eternal (lifetime of Cytoscape session)
+		// Note that the eternal attribute, when set to "true", overrides timeToLive 
+		// and timeToIdle so that no expiration can take place.
+		config.setEternal(true);
+		
+		// Create and add the cache
+		miriamCache = new Cache(config);
 		cacheManager.addCache(miriamCache);
 	}
 
