@@ -34,7 +34,9 @@ public class ServiceAdapter {
 	public CyNetworkViewManager cyNetworkViewManager;
 	public VisualMappingManager visualMappingManager;
 	public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
+	@SuppressWarnings("rawtypes")
 	public SynchronousTaskManager synchronousTaskManager;
+	@SuppressWarnings("rawtypes")
 	public TaskManager taskManager;
 	public CyNetworkFactory cyNetworkFactory;
 	public CyNetworkViewFactory cyNetworkViewFactory;
@@ -43,6 +45,7 @@ public class ServiceAdapter {
 	public OpenBrowser openBrowser;
 	public ConnectionProxy connectionProxy;
 	
+	@SuppressWarnings("rawtypes")
 	public static synchronized ServiceAdapter getInstance(
 			CySwingApplication cySwingApplication,
 			CyApplicationManager cyApplicationManager,
@@ -83,6 +86,7 @@ public class ServiceAdapter {
 		return uniqueInstance;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private ServiceAdapter(
 			CySwingApplication cySwingApplication,
 			CyApplicationManager cyApplicationManager,

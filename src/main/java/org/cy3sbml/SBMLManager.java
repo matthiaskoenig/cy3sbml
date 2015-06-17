@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
@@ -14,7 +15,6 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.sbml.jsbml.NamedSBase;
@@ -128,6 +128,17 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		}
 	}
 	
+	/*
+	private List<Long> getSUIDs(List<String> NSBIds){ 
+		One2ManyMapping<String, Long> mapping = sbmlManager.getCurrentNSB2CyNodeMapping();
+		return mapping.getValues(NSBIds);
+	}
+	*/
+	public List<String> getNSBIds(List<Long> suids){ 
+		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
+		return mapping.getValues(suids);
+	}
+	
 	public String info(){
 		return sbml2networks.toString();
 	}
@@ -173,5 +184,4 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		logger.info("NetworkViewAboutToBeDestroyedEvent");
 		ResultsPanel.getInstance().getTextPane().setHelp();
 	}
-	
 }

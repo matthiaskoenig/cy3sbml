@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 public class HelpAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
 	private static final long serialVersionUID = 1L;
+	public static final String HELP_URL = "https://github.com/matthiaskoenig/cy3sbml";
+	
 	private OpenBrowser openBrowser;
 	
 	public HelpAction(CySwingApplication cySwingApplication, OpenBrowser openBrowser){
@@ -26,7 +28,6 @@ public class HelpAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");
-		// TODO: not working 
 		setToolbarGravity((float) 120.0);
 	}
 	
@@ -44,10 +45,11 @@ public class HelpAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed()");
-		final String HELP_URL = "https://github.com/matthiaskoenig/cy3sbml";
 		
-		// reset help information
-		ResultsPanel.getInstance().getTextPane().setHelp();
+		// set information
+		ResultsPanel panel = ResultsPanel.getInstance();
+		panel.activate();
+		panel.getTextPane().setHelp();
 		
 		// open browser help
 		URL url;

@@ -34,10 +34,6 @@ public class ChangeStateAction extends AbstractCyAction{
 	public void actionPerformed(ActionEvent event) {
 		logger.info("actionPerformed");
 		ResultsPanel panel = ResultsPanel.getInstance();
-		if (panel.isActive()){
-			panel.deactivate();
-		} else {
-			panel.activate();
-		}
+		panel.changeState();
 	}
 }

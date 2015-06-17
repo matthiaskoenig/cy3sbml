@@ -17,7 +17,7 @@ import javax.swing.event.HyperlinkListener;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.biomodel.BioModelDialog;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
@@ -73,16 +73,14 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		textPane = new JEditorPaneSBML();
 		textPane.addHyperlinkListener(this);
 		JScrollPane annotationScrollPane = new JScrollPane();
-		// annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		// annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		annotationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		annotationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		annotationScrollPane.setViewportView(textPane);
-		//annotationScrollPane.add(textPane);
 		this.add(annotationScrollPane);
 		
 		// set the size
 		Dimension size = this.getSize();
-		this.setSize(400, size.height);
+		this.setSize(250, size.height);
 	}
 	
 	@Override
@@ -127,6 +125,14 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 	}
 
+	public void changeState(){
+		if (isActive()){
+			deactivate();
+		} else {
+			activate();
+		}
+	}
+	
 	public void select(){
 		int index = cytoPanelEast.indexOfComponent(this);
 		if (index == -1) {
@@ -151,8 +157,17 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
 				
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				// TODO: handle the clicks on the icons
-				adapter.openBrowser.openURL(url.toString());
+				if ("http://cy3sbml-biomodels".equals(url.toString())){
+					 BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
+					 bioModelsDialog.setVisible(true);   
+				} else if ("http://cy3sbml-changestate".equals(url.toString())){
+					ResultsPanel panel = ResultsPanel.getInstance();
+					panel.changeState();
+				}
+				else {
+					// handle the HTML links
+					adapter.openBrowser.openURL(url.toString());	
+				}
 			}
 		}	
 	}
@@ -161,10 +176,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
 	 * make sure to minimize the unnecessary action here.
 	 * I.e. only act on the Event if everything in the right state.
-	 * 
-	 * The Event is fired many times (N+1) for selected nodes. 
-	 * TODO: necessary to get event which is only fired once upon selection !
-	 * FIXME: this is major performance problem in large networks.
 	 * 
 	 * RowSetEvent:
 	 * An Event object generated when an event occurs to a RowSet object. A RowSetEvent object is 
@@ -209,7 +220,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			// display information for selected nodes
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 			if (document != null){
-				List<String> selectedNSBIds = getNSBIds(suids);
+				List<String> selectedNSBIds = sbmlManager.getNSBIds(suids);
 			
 				// display information
 				if (selectedNSBIds.size() > 0){
@@ -234,75 +245,5 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();
 		}
-	}
-	
-	/*
-	public void handleEvent2(RowsSetEvent event) {
-		
-		// Filter out many RowsSetEvents I do not care about
-		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-		if (network == null || view == null){
-			return;
-		}
-		if (!event.getSource().equals(network.getDefaultNodeTable()) ||
-	            !event.containsColumn(CyNetwork.SELECTED)){
-		    return;
-		}
-		
-		logger.info("--- ROWS_SET_EVENT ---");
-		
-		// I want the suids of the selected nodes
-		LinkedList<Long> suids = new LinkedList<Long>();
-		
-		// Solution I am using now
-		// handles the problem with multiple fired events, by just getting all 
-		// selected nodes
-		// This especially deals with the problem of a second empty event.
-		// --> everything is performed twice per selection which can be wrong !
-		// --> do not use counters or other stuff relying on being called only once
-		
-		// List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-		// for (CyNode n : nodes){
-		//	suids.add(n.getSUID());
-		// }
-		
-		
-		// Just getting the changes.
-        for (RowSetRecord record: event.getColumnRecords(CyNetwork.SELECTED)) {
-            if ((Boolean)record.getValue() == true) {
-                // Add the suids
-            	CyRow row = record.getRow();
-            	logger.info(row.toString());
-            	Long suid = row.get(CyIdentifiable.SUID, Long.class);
-            	
-            	// There are nodes and edges in the selection !
-            	// To only get the nodes do the following
-            	CyNode node = network.getNode(suid);
-            	if (node != null){
-            		suids.add(suid);	
-            	}
-            }
-        }
-				
-		// get selected nodes
-		logger.info("--- SELECTION ---");
-		for (Long suid: suids){
-			logger.info(suid.toString());
-		}
-		logger.info("-----------------");
-	}
-	*/
-	
-		
-	private List<Long> getSUIDs(List<String> NSBIds){ 
-		One2ManyMapping<String, Long> mapping = sbmlManager.getCurrentNSB2CyNodeMapping();
-		return mapping.getValues(NSBIds);
-	}
-	private List<String> getNSBIds(List<Long> suids){ 
-		One2ManyMapping<Long, String> mapping = sbmlManager.getCurrentCyNode2NSBMapping();
-		return mapping.getValues(suids);
-	}
-
-	
+	}	
 }
