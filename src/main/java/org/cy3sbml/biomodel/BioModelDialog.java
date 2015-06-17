@@ -166,8 +166,7 @@ public class BioModelDialog extends JDialog {
 		
 		loadIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//loadBioModelByIdsAndDisposeDialog();
-				logger.info("loadIds action not implemented");
+				loadBioModelByIdsAndDisposeDialog();
 			}
 		});
 		
@@ -210,8 +209,7 @@ public class BioModelDialog extends JDialog {
 		panel.add(loadSelectedButton);
 		loadSelectedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//loadSelectedBioModelsAndDisposeDialog();
-				logger.info("loadSelected action not implemented");
+				loadSelectedBioModelsAndDisposeDialog();
 		}});
 		
 		// ScrollBars
@@ -232,8 +230,7 @@ public class BioModelDialog extends JDialog {
 				else{
 					loadSelectedButton.setEnabled(true);
 				}
-				// handleModelSelectionInModelList();
-				logger.info("handle selection action not implemented");
+				handleModelSelectionInModelList();
 			}});
 	
 		listScrollPane.setViewportView(biomodelsList);	

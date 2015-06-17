@@ -18,6 +18,8 @@ public class LoadBioModelTask implements Task{
 	private BioModelWSInterface bmInterface;
 	private ServiceAdapter adapter;
 
+	
+	// TODO: the SBMLReader is the correct factory
 	public LoadBioModelTask(String id, BioModelWSInterface bmInterface, ServiceAdapter adapter) {
 		this.id = id;
 		this.bmInterface = bmInterface;

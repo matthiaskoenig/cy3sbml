@@ -21,6 +21,8 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
+import org.cytoscape.io.read.CyNetworkReader;
+import org.cytoscape.io.read.CyNetworkReaderManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
@@ -83,6 +85,10 @@ public class CyActivator extends AbstractCyActivator {
 			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
+			
+			// CyNetworkReaderManager cyNetworkReaderManager = getService(bc, CyNetworkReaderManager.class);
+			// CyNetworkReader reader = cyNetworkReaderManager.getReader(stream, inputName);
+			// reader.buildCyNetworkView(network);
 			
 			// Use the Cytoscape properties to set proxy for webservices
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
