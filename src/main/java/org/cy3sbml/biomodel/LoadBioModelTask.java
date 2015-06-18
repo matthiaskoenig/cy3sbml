@@ -42,6 +42,8 @@ public class LoadBioModelTask implements Task{
 			}
 			else{
 				InputStream instream = new ByteArrayInputStream(sbml.getBytes("UTF-8"));
+				// TODO: convert to tmp file and use the core-task read Network from file task
+				
 				taskMonitor.setProgress(0.4);
 				taskMonitor.setStatusMessage("Creating Cytoscape network from SBML ...");
 				
