@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.cytoscape.application.CyApplicationManager;
@@ -44,6 +45,7 @@ public class ServiceAdapter {
 	public CyNetworkFactory cyNetworkFactory;
 	public CyNetworkViewFactory cyNetworkViewFactory;
 	public CyProperty<Properties> cy3sbmlProperties;
+	public File cy3sbmlDirectory;
 	public StreamUtil streamUtil;
 	public OpenBrowser openBrowser;
 	public ConnectionProxy connectionProxy;
@@ -63,6 +65,7 @@ public class ServiceAdapter {
 			CyNetworkFactory cyNetworkFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
+			File cy3sbmlDirectory,
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
@@ -82,6 +85,7 @@ public class ServiceAdapter {
 					cyNetworkFactory,
 					cyNetworkViewFactory,
 					cy3sbmlProperties,
+					cy3sbmlDirectory,
 					streamUtil,
 					openBrowser,
 					connectionProxy,
@@ -108,6 +112,7 @@ public class ServiceAdapter {
 			CyNetworkFactory cyNetworkFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
+			File cy3sbmlDirectory,
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
@@ -126,6 +131,7 @@ public class ServiceAdapter {
 		this.cyNetworkFactory = cyNetworkFactory;
 		this.cyNetworkViewFactory = cyNetworkViewFactory;
 		this.cy3sbmlProperties = cy3sbmlProperties;
+		this.cy3sbmlDirectory = cy3sbmlDirectory;
 		this.streamUtil = streamUtil;
 		this.openBrowser = openBrowser;
 		this.connectionProxy = connectionProxy;

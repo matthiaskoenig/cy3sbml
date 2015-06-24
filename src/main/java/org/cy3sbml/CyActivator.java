@@ -5,6 +5,7 @@ import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
+import org.cytoscape.application.CyApplicationConfiguration;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
@@ -22,14 +23,13 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
-import org.cytoscape.io.read.CyNetworkReader;
-import org.cytoscape.io.read.CyNetworkReaderManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -50,8 +50,21 @@ public class CyActivator extends AbstractCyActivator {
 	public void start(BundleContext bc) {
 		try {
 			logger.info("starting server ...");
-			// store bundle information
+			// store bundle information (for display of dependencies, versions, ...)
 			BundleInformation.getInstance(bc);
+			
+			// Default configuration directory used for all cy3sbml files 
+			// Used for retrieving
+			CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
+			File cyDirectory = configuration.getConfigurationDirectoryLocation();
+			File cy3sbmlDirectory = new File(cyDirectory, "cy3sbml");
+			
+			if(cy3sbmlDirectory.exists() == false) {
+				cy3sbmlDirectory.mkdir();
+				logger.warn("cy3sbml directory was not available. New directory created.");
+			}
+			logger.info("cy3sbml directory = " + cy3sbmlDirectory.getAbsolutePath());
+			
 			
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
@@ -115,6 +128,7 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkViewFactory,
 					
 					cy3sbmlProperties,
+					cy3sbmlDirectory,
 					streamUtil,
 					openBrowser,
 					connectionProxy,
@@ -180,6 +194,10 @@ public class CyActivator extends AbstractCyActivator {
 			// TODO: ValidationAction
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
+			
+			
+	
+			
 			
 			// Show the cy3sbml panel
 			ResultsPanel.getInstance().activate();
