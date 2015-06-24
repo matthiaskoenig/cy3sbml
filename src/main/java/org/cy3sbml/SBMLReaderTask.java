@@ -307,7 +307,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetValue()){
 				AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 			}
-			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition(), String.class);
+			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
 		}
 		
 		
