@@ -331,7 +331,7 @@ public class BioModelDialog extends JDialog {
 		logger.info("Load BioModel: " + id);		
 		LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
 		TaskIterator iterator = loadFactory.createTaskIterator();
-		adapter.taskManager.execute(iterator);
+		adapter.synchronousTaskManager.execute(iterator);
 	}
 	
 	///////// SEARCH MODELS ////////////
