@@ -33,7 +33,7 @@
             <visualProperty name="NODE_Z_LOCATION" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_3" default="0.0"/>
             <visualProperty name="NODE_LABEL_TRANSPARENCY" default="255"/>
-            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="100"/>
+            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="255"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_8" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_STROKE" default="SOLID"/>
             <visualProperty name="NODE_WIDTH" default="20.0"/>
@@ -59,8 +59,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="#999999" attributeValue="reaction"/>
                     <discreteMappingEntry value="#999999" attributeValue="qTransition"/>
-                    <discreteMappingEntry value="#CCCCCC" attributeValue="species"/>
-                    <discreteMappingEntry value="#CCCCCC" attributeValue="qSpecies"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="species"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_4" default="C,C,c,0.00,0.00"/>

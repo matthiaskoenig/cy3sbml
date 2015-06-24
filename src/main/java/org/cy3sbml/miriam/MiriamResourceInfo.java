@@ -48,15 +48,20 @@ public class MiriamResourceInfo {
 	}
 
 	public static String getInfoFromURI(MiriamLink link, String resourceURI) {
+		// logger.info(resourceURI);
 		String text = "";
 		String[] locations = getLocationsFromURI(link, resourceURI); 
 		if (locations != null){
+			if (locations.length == 0){
+				logger.warn("No locations for URI:" + resourceURI);
+			}
 			String[] items = new String[locations.length];
 			for (int k=0; k<locations.length; k++) {
 				String location = locations[k];
 				items[k] = String.format("<a href=\"%s\">%s</a><br>", location, serverFromLocation(location));
 			}
 			text = StringUtils.join(items, "");
+			
 		} else {
 			logger.warn("No locations for URI: " + resourceURI);
 		}
@@ -70,7 +75,7 @@ public class MiriamResourceInfo {
 		return StringUtils.join(serverItems, "/"); 
 	}
 	
-	/** Get MIRIAM information from cache or via webservice lookup. */
+	/** Get MIRIAM information from cache or via web service lookup. */
 	public static String[] getLocationsFromURI(MiriamLink link, String resourceURI){
 		String[] locations = null;
 		
@@ -82,6 +87,7 @@ public class MiriamResourceInfo {
 		} else {
 			logger.debug("Webservice lookup: " + resourceURI);
 			locations = link.getLocations(resourceURI);
+			
 			if (locations != null){
 				// update the cache
 				element = new Element(resourceURI, locations);

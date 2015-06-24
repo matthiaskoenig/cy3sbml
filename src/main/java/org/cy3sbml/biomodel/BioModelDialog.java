@@ -328,7 +328,8 @@ public class BioModelDialog extends JDialog {
 	
 	
 	public void loadBioModelById(String id){
-		logger.info("Load BioModel: " + id);		
+		logger.info("Load BioModel: " + id);
+		infoPane.setText(BioModelDialogText.getWebserviceSBMLRequest());
 		LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
 		TaskIterator iterator = loadFactory.createTaskIterator();
 		adapter.synchronousTaskManager.execute(iterator);
