@@ -33,7 +33,7 @@
             <visualProperty name="NODE_Z_LOCATION" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_3" default="0.0"/>
             <visualProperty name="NODE_LABEL_TRANSPARENCY" default="255"/>
-            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="100"/>
+            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="255"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_8" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_STROKE" default="SOLID"/>
             <visualProperty name="NODE_WIDTH" default="20.0"/>
@@ -42,7 +42,7 @@
             <visualProperty name="NODE_SELECTED" default="false"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_BORDER_PAINT" default="#006666"/>
+            <visualProperty name="NODE_BORDER_PAINT" default="#000000"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_6" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_2" default="0.0"/>
             <visualProperty name="NODE_LABEL_COLOR" default="#000000"/>
@@ -57,29 +57,23 @@
             <visualProperty name="NODE_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="NODE_FILL_COLOR" default="#FFFFFF">
                 <discreteMapping attributeType="string" attributeName="type">
-                    <discreteMappingEntry value="#CCCCCC" attributeValue="reaction"/>
-                    <discreteMappingEntry value="#CCCCCC" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="#999999" attributeValue="reaction"/>
+                    <discreteMappingEntry value="#999999" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="species"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_4" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_3" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_LABEL_FONT_FACE" default="SansSerif.plain,plain,12"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_8" default="0.0"/>
-            <visualProperty name="NODE_BORDER_WIDTH" default="10.0">
-                <discreteMapping attributeType="string" attributeName="type">
-                    <discreteMappingEntry value="3.0" attributeValue="reaction"/>
-                    <discreteMappingEntry value="10.0" attributeValue="species"/>
-                    <discreteMappingEntry value="3.0" attributeValue="qTransition"/>
-                    <discreteMappingEntry value="10.0" attributeValue="qSpecies"/>
-                    
-                </discreteMapping>
-            </visualProperty>
+            <visualProperty name="NODE_BORDER_WIDTH" default="3.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_4" default="0.0"/>
             <visualProperty name="NODE_SIZE">
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="30.0" attributeValue="reaction"/>
-                    <discreteMappingEntry value="60.0" attributeValue="species"/>
                     <discreteMappingEntry value="30.0" attributeValue="qTransition"/>
+                    <discreteMappingEntry value="60.0" attributeValue="species"/>
                     <discreteMappingEntry value="60.0" attributeValue="qSpecies"/>
                 </discreteMapping>
             </visualProperty>
@@ -100,13 +94,14 @@
             <visualProperty name="NODE_DEPTH" default="0.0"/>
             <visualProperty name="NODE_NESTED_NETWORK_IMAGE_VISIBLE" default="true"/>
         </node>
+        
         <edge>
             <dependency name="arrowColorMatchesEdge" value="false"/>
             <visualProperty name="EDGE_TOOLTIP" default=""/>
             <visualProperty name="EDGE_SOURCE_ARROW_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="EDGE_CURVED" default="true"/>
             <visualProperty name="EDGE_TRANSPARENCY" default="255"/>
-            <visualProperty name="EDGE_WIDTH" default="10.0"/>
+            <visualProperty name="EDGE_WIDTH" default="2.0"/>
             <visualProperty name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT" default="#000000"/>
             <visualProperty name="EDGE_TARGET_ARROW_SHAPE" default="NONE">
                 <discreteMapping attributeType="string" attributeName="interaction">
@@ -114,6 +109,7 @@
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
                     <discreteMappingEntry value="DELTA" attributeValue="transition-output"/>
                     <discreteMappingEntry value="NONE" attributeValue="input-transition"/>
+                    <discreteMappingEntry value="NONE" attributeValue="modifier-reaction"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="EDGE_STROKE_SELECTED_PAINT" default="#FF0000"/>
@@ -133,10 +129,20 @@
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
                     <discreteMappingEntry value="NONE" attributeValue="transition-output"/>
                     <discreteMappingEntry value="NONE" attributeValue="input-transition"/>
+                    <discreteMappingEntry value="CIRCLE" attributeValue="modifier-reaction"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="EDGE_LABEL_FONT_SIZE" default="10"/>
-            <visualProperty name="EDGE_STROKE_UNSELECTED_PAINT" default="#CCCCCC"/>
+            <visualProperty name="EDGE_STROKE_UNSELECTED_PAINT" default="#CCCCCC">
+               <discreteMapping attributeType="string" attributeName="interaction">
+                    <discreteMappingEntry value="#000000" attributeValue="reaction-product"/>
+                    <discreteMappingEntry value="#000000" attributeValue="reactant-reaction"/>
+                    <discreteMappingEntry value="#000000" attributeValue="transition-output"/>
+                    <discreteMappingEntry value="#000000" attributeValue="input-transition"/>
+                    <discreteMappingEntry value="#3333FF" attributeValue="modifier-reaction"/>
+                </discreteMapping>
+            </visualProperty>
+            
         </edge>
     </visualStyle>
 

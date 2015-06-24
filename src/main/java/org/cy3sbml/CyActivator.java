@@ -3,6 +3,7 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
@@ -86,6 +87,8 @@ public class CyActivator extends AbstractCyActivator {
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 			
+			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
+			
 			// CyNetworkReaderManager cyNetworkReaderManager = getService(bc, CyNetworkReaderManager.class);
 			// CyNetworkReader reader = cyNetworkReaderManager.getReader(stream, inputName);
 			// reader.buildCyNetworkView(network);
@@ -114,7 +117,8 @@ public class CyActivator extends AbstractCyActivator {
 					cy3sbmlProperties,
 					streamUtil,
 					openBrowser,
-					connectionProxy
+					connectionProxy,
+					loadNetworkFileTaskFactory
 			);
 			
 			/**

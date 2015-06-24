@@ -1,5 +1,7 @@
 package org.cy3sbml;
 
+// spi-full post
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -289,6 +291,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetHasOnlySubstanceUnits()){
 				AttributeUtil.set(network, node, SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, species.getHasOnlySubstanceUnits(), Boolean.class);
 			}
+			// TODO: check the version of the model (1,2 direct), 3
 			if (species.isSetCharge()){
 				AttributeUtil.set(network, node, SBML.ATTR_CHARGE, species.getCharge(), Integer.class);
 			}
@@ -304,7 +307,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetValue()){
 				AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 			}
-			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnits(), String.class);
+			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
 		}
 		
 		
@@ -340,7 +343,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
 			}
 			if (reaction.isSetKineticLaw()){
-				AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getFormula(), String.class);	
+				AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getMath().toFormula(), String.class);	
 			}
 			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
 		

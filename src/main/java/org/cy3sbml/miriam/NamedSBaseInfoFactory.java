@@ -1,9 +1,11 @@
 package org.cy3sbml.miriam;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.stream.XMLStreamException;
@@ -78,7 +80,8 @@ public class NamedSBaseInfoFactory {
   		// TODO: read the const, boundary condition, ... kinetic law, assignment, ...
   		
   		// CVterm annotations (MIRIAM action)
-  		info += getCVTermsString(sbmlObject.getCVTerms());
+		List<CVTerm> terms = sbmlObject.getCVTerms();
+  		info += getCVTermsString(terms);
   		
   		// notes and annotations if available
   		// !!! have to be set at the end due to the html content which
@@ -143,7 +146,7 @@ public class NamedSBaseInfoFactory {
 				
 				Map<String, String> map = null;
 				for (String rURI : term.getResources()){
-					map = getKeyAndId(rURI);
+					map = getMapForURI(rURI);
 					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("key"));
 					text += MiriamResourceInfo.getInfoFromURI(link, rURI);
 				}
@@ -154,13 +157,31 @@ public class NamedSBaseInfoFactory {
   		return text;
 	}
 	
+	
+	/**
+	 * Split the information in url, resource, id.
+	 * Necessary ?
+	 *
+	 * <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
+	 * <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
+	 */
+	private Map<String, String> getMapForURI(final String rURI) {
+		Map<String, String> map = new HashMap<String, String>();
+		String[] items = rURI.split("/");
+		map.put("id", items[items.length - 1]);
+		map.put("key", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), "/"));
+		return map;
+	}
+	
+	
+	
 	/** Get additional image information for the database and identifier.
 	 * TODO: This has to be done offline and in the background (images have to be cashed) !
 	 * TODO: Create background database of information.  
 	 */
 	@Deprecated
 	private String getAdditionalInformation(String r){
-		Map<String, String> map = getKeyAndId(r);
+		Map<String, String> map = getMapForURI(r);
 		String text = "";
 		String id = map.get("id");
 		String key = map.get("key");
@@ -207,18 +228,5 @@ public class NamedSBaseInfoFactory {
 		return text;
 	}
 	
-	@Deprecated
-	private Map<String, String> getKeyAndId(final String rURI) {
-		Map<String, String> map = new HashMap<String, String>();
-		// split into key and identifier
-		String[] items = rURI.split(":");
-		String[] keyitems = new String[items.length - 1];
-		for (int i = 0; i < keyitems.length; ++i) {
-			keyitems[i] = items[i];
-		}
-		map.put("id", items[items.length - 1]);
-		map.put("key", StringUtils.join(keyitems, ":"));
-		return map;
-	}
-	
+
 }
