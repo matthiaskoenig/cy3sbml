@@ -1,23 +1,31 @@
 package org.cy3sbml;
 
-// spi-full post
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.cytoscape.application.NetworkViewRenderer;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+import org.cytoscape.work.util.ListMultipleSelection;
 import org.cytoscape.work.util.ListSingleSelection;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
@@ -43,34 +51,31 @@ import org.slf4j.LoggerFactory;
 
 /**
  * SBMLReaderTask
- * based on Cytoscape constructs of SBMLNetworkReader and BioPax reader.
+ * parts based on SBMLNetworkReader core-impl and BioPax reader.
+ * 
+ * The reader creates the master SBML network graph with various subnetworks created from 
+ * the full graph.
  */
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {	
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 	
+	private static final String CREATE_NEW_COLLECTION = "A new network collection";
 	private static final int BUFFER_SIZE = 16384;
 	
 	private String inputName;
 	private final InputStream stream;
 	private final ServiceAdapter adapter;
 	private SBMLDocument document;
-	private CyNetwork network;
 	
-	Map<String, CyNode> nodeById; // node dictionary
+	private CyNetwork network;      // global network of all SBML information
+	private CyNetwork coreNetwork;  // core reaction, species, (qualSpecies, qualTransitions) network
 	
-	
-	/*
-	private static final String CREATE_NEW_COLLECTION = "A new network collection";
-	private final HashMap<String, CyRootNetwork> nameToRootNetworkMap;
-	
+	private CyRootNetwork rootNetwork;
+	private Map<String, CyNode> nodeById; // node dictionary
 	private final Collection<CyNetwork> networks;
-	private CyRootNetwork rootNetwork;	
-	private CyNetworkReader anotherReader;
-	*/
+	
 
-	/**
-	 * SBML parsing/converting options.
-	 */
+	/** SBML parsing/converting options. */
 	private static enum ReaderMode {
 		/**
 		 * Default SBML to Cytoscape network/view mapping: 
@@ -105,57 +110,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			return names;
 		}
 	}
-
-	
-	public ListSingleSelection<ReaderMode> readerMode; 
-	
-	/*
-	@ProvidesTitle()
-	public String tunableDialogTitle() {
-		return "SBML Reader Task";
-	}
-	
-	@Tunable(description = "Model Mapping:", groups = {"Options"}, 
-			tooltip="<html>Choose how to read BioPAX:" +
-					"<ul>" +
-					"<li><strong>Default</strong>: map states, interactions to nodes; properties - to edges, attributes;</li>"+
-					"<li><strong>SIF</strong>: convert BioPAX to SIF, use a SIF reader, add attributes;</li>" +
-					"<li><strong>SBGN</strong>: convert BioPAX to SBGN, find a SBGN reader, etc.</li>" +
-					"</ul></html>"
-			, gravity=500, xorChildren=true)
-	public ListSingleSelection<ReaderMode> readerMode;
-	
-	@Tunable(description = "Network Collection:" , groups = {"Options","Default"}, tooltip="Choose a Network Collection", 
-			dependsOn="readerMode=Default", 
-			gravity=701, xorKey="Default")
-	public ListSingleSelection<String> rootNetworkSelection;
-	
-	@Tunable(description = "Network View Renderer:", groups = {"Options","Default"}, gravity=702, xorKey="Default", dependsOn="readerMode=Default")
-	public ListSingleSelection<NetworkViewRenderer> rendererList;
-
-	//TODO select inference rules (multi-selection) for the SIF converter
-	//TODO migrate from sif-converter to new biopax pattern module
-	@Tunable(description = "Binary interactions to infer:" , groups = {"Options","SIF"}, tooltip="Select inference rules", 
-			gravity=703, xorKey="SIF")
-	public ListMultipleSelection<String> sifSelection;
-	
-	//TODO init SBGN options if required
-	@Tunable(description = "SBGN Options:" , groups = {"Options","SBGN"}, tooltip="Currently not available", 
-			gravity=704, xorKey="SBGN")
-	public ListSingleSelection<String> sbgnSelection;
-	*/
+	//public ListSingleSelection<ReaderMode> readerMode; 
 	
 
-	/**
-	 * Constructor
-	 */ 
+	/** Constructor */ 
 	public SBMLReaderTask(InputStream stream, String inputName, ServiceAdapter adapter) {
+		
 		this.stream = stream;
 		this.adapter = adapter;
 		this.inputName = inputName;
-		readerMode = new ListSingleSelection<SBMLReaderTask.ReaderMode>(ReaderMode.values());
-		readerMode.setSelectedValue(ReaderMode.DEFAULT);
+		
 		nodeById = new HashMap<String, CyNode>();
+		networks = new HashSet<CyNetwork>();		
 	}
 	
 	
@@ -171,28 +137,31 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
+			// TODO: get and display all the reader warnings (important for validation &
+			// finding problems with files -> see also validator feature
 			document = JSBML.readSBMLFromString(xml);
 			Model model = document.getModel();
-			
-			// Create empty network
+		
+			// create the empty root network
 			network = adapter.cyNetworkFactory.createNetwork();
+			
+			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
+			// CySubNetwork and call the CySubNetwork.getRootNetwork() method:
+			// 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork(); 
+			// CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()). 
+			rootNetwork = ((CySubNetwork) network).getRootNetwork();
+			
+			
+			// TODO: get the respective nodes, than the connecting edges of the supported subtypes for
+			// 		 the network kind 
+			//rootNetwork.addSubNetwork(nodes, edges);
+			
 			
 			// TODO: Create the full graph with all information
 			// TODO: Create the subgraph for the reaction species network
 			// TODO: switch between different types of networks
 			
-			// Switch depending on the reader mode
-			// Create multiple networks and handle analog to the biopax reader
-			ReaderMode selectedMode = readerMode.getSelectedValue();
-			switch (selectedMode) {
-			case DEFAULT:
-				logger.info("DEFAULT");
-			case LAYOUT:
-				logger.info("DEFAULT");
-			case GRN:
-				logger.info("DEFAULT");
-			}
-						
+			
 			// Core model
 			readCore(model);
 			taskMonitor.setProgress(0.5);
@@ -202,6 +171,28 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (qModel != null){
 				readQual(qModel);
 			}
+			
+			// FBC model
+			
+			// Layout model
+			
+			// comp model
+			
+			
+			// Create the subNetworks
+			HashSet<CyNode> nodes = new HashSet<CyNode>();
+			HashSet<CyEdge> edges = new HashSet<CyEdge>();
+			for (CyNode n : network.getNodeList()){
+				// Check the types
+				// TODO:
+				nodes.add(n);
+			}
+			
+			// create subnetork from nodes
+			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
+			// add single nodes to the subnetwork
+			// ((CySubNetwork) coreNetwork).addNode(arg0)
+			
 			taskMonitor.setProgress(1.0);
 			logger.info("End Reader.run()");
 		
@@ -292,6 +283,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, species.getHasOnlySubstanceUnits(), Boolean.class);
 			}
 			// TODO: check the version of the model (1,2 direct), 3
+			// must be handled a bit more complicated
 			if (species.isSetCharge()){
 				AttributeUtil.set(network, node, SBML.ATTR_CHARGE, species.getCharge(), Integer.class);
 			}
@@ -309,7 +301,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
 		}
-		
 		
 		// Create reaction nodes
 		for (Reaction reaction : model.getListOfReactions()) {
@@ -515,14 +506,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	@Override
 	public CyNetwork[] getNetworks() {
-		return new CyNetwork[] { network };
+		return new CyNetwork[] { network, coreNetwork };
 	}
 
 	@Override
 	public CyNetworkView buildCyNetworkView(final CyNetwork network) {
 		logger.info("buildCyNetworkView");
-		CyNetworkView view;		
-		
+		// Preload SBML WebService information
+		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+				
 		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
@@ -532,30 +524,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// Display the model information in the results pane
 		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());
 		
-		// Preload SBML WebService information
-		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
-		
 		// create view depending on mode
-		view = adapter.cyNetworkViewFactory.createNetworkView(network);
+		CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network);
 		
-		/* TODO: handle different views (also post processing?)
-		ReaderMode currentMode = readerMode.getSelectedValue();
-		switch (currentMode) {
-			case DEFAULT:
-				view = adapter.cyNetworkViewFactory.createNetworkView(network);
-				break;
-			default:
-				view = adapter.cyNetworkViewFactory.createNetworkView(network);
-				break;
-		}
-		*/
-	
 		logger.debug("network: " + network.toString());
 		logger.debug("view: " + view.toString());
-		
-		if(!adapter.cyNetworkViewManager.getNetworkViews(network).contains(view)){
-			adapter.cyNetworkViewManager.addNetworkView(view);
-		}
 		return view;
 	}
 
