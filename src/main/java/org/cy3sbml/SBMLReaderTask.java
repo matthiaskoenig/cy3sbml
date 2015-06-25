@@ -36,6 +36,8 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualConstants;
@@ -173,6 +175,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 			
 			// FBC model
+			FBCModelPlugin 
 			
 			
 			// Layout model
@@ -193,6 +196,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
 			// add single nodes to the subnetwork
 			// ((CySubNetwork) coreNetwork).addNode(arg0)
+			
 			
 			taskMonitor.setProgress(1.0);
 			logger.info("End Reader.run()");
@@ -300,7 +304,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetValue()){
 				AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 			}
-			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
+			UnitDefinition udef = species.getDerivedUnitDefinition();
+			// Returns:  a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
+			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
+			// then the unit of that species' quantity is undefined.
+			if (udef != null){
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
+			}
 		}
 		
 		// Create reaction nodes
@@ -337,7 +347,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (reaction.isSetKineticLaw()){
 				AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getMath().toFormula(), String.class);	
 			}
-			AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
+			UnitDefinition udef = reaction.getDerivedUnitDefinition();
+			// Returns:  a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
+			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
+			// then the unit of that species' quantity is undefined.
+			if (udef != null){
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
+			}
 		
 			// Backwards compatibility of reader (anybody using this?)
 			if (reaction.isSetKineticLaw()){
@@ -507,7 +523,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	@Override
 	public CyNetwork[] getNetworks() {
-		return new CyNetwork[] { network, coreNetwork };
+		// return new CyNetwork[] { network, coreNetwork };
+		return new CyNetwork[] { network };
 	}
 
 	@Override
