@@ -250,6 +250,17 @@
   			<artifactId>jsbml-layout</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-comp</artifactId>
+  			<version>1.0-b1</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-fbc</artifactId>
+  			<version>1.0-b1</version>
+  		</dependency>
+  		
   		
   		 <!-- JSBML dependencies -->
   		<dependency>

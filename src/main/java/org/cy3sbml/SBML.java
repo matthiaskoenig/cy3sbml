@@ -29,6 +29,7 @@ public class SBML {
 	public static final String ATTR_VALUE = "value";
 	public static final String ATTR_FAST = "fast";
 	public static final String ATTR_KINETIC_LAW = "kineticLaw";
+	public static final String ATTR_CHEMICAL_FORMULA = "chemicalFormula";
 	
 	public static final String ATTR_AREA_UNITS = "areaUnits";
 	public static final String ATTR_EXTENT_UNITS = "extentUnits";

@@ -37,7 +37,13 @@ import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
 import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompModelPlugin;
+import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
+import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
+import org.sbml.jsbml.ext.layout.LayoutConstants;
+import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualConstants;
@@ -168,19 +174,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			readCore(model);
 			taskMonitor.setProgress(0.5);
 				
-			// Qual model
-			QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
-			if (qModel != null){
-				readQual(qModel);
+			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
+			if (qualModel != null){
+				readQual(model, qualModel);
 			}
 			
-			// FBC model
-			FBCModelPlugin 
+			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+			if (fbcModel != null){
+				readFBC(model, fbcModel);
+			}
 			
+			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+			if (compModel != null){
+				logger.info("comp model found, but not yet supported");
+			}
 			
-			// Layout model
-			
-			// comp model
+			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
+			if (layoutModel != null){
+				logger.info("layout model found, but not yet supported");
+			}
 			
 			
 			// Create the subNetworks
@@ -192,7 +204,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				nodes.add(n);
 			}
 			
-			// create subnetork from nodes
+			// create subnetwork from nodes
 			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
 			// add single nodes to the subnetwork
 			// ((CySubNetwork) coreNetwork).addNode(arg0)
@@ -436,7 +448,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * Create nodes, edges and attributes from Qualitative Model.
 	 * @param qModel
 	 */
-	private void readQual(QualModelPlugin qModel){
+	private void readQual(Model model, QualModelPlugin qModel){
 		logger.info("Reading qualitative model");
 		 // QualSpecies 
 		 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
@@ -519,6 +531,34 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}	
 			}
 		}
+	}
+	
+	
+	/**
+	 * Create nodes, edges and attributes from Qualitative Model.
+	 * @param qModel
+	 */
+	private void readFBC(Model model, FBCModelPlugin fbcModel){
+		logger.info("Reading fbc model");
+
+		for (Species species: model.getListOfSpecies()){
+			FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) species.getExtension(FBCConstants.namespaceURI);
+		
+			CyNode node = nodeById.get(species.getId());
+			if (fbcSpecies.isSetCharge()){
+				AttributeUtil.set(network, node, SBML.ATTR_CHARGE, fbcSpecies.getCharge(), Integer.class);
+			}
+			if (fbcSpecies.isSetChemicalFormula()){
+				AttributeUtil.set(network, node, SBML.ATTR_CHEMICAL_FORMULA, fbcSpecies.getChemicalFormula(), String.class);
+			}			
+		}
+		
+		// handle the rest of the FBC information
+		fbcModel.getListOfFluxBounds();
+		fbcModel.getListOfObjectives();
+		fbcModel.getListOfGeneProducts();
+		
+		
 	}
 
 	@Override
