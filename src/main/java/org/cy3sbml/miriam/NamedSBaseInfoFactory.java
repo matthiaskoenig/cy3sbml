@@ -41,7 +41,8 @@ public class NamedSBaseInfoFactory {
 	private String info = ""; 
 	
 	public NamedSBaseInfoFactory(Object obj){
-		
+		// TODO: handle the information for geneProducts
+		// here NullPointerException
 		if (    obj.getClass().equals(Model.class)  ||
 				obj.getClass().equals(Compartment.class)  || 
 	  			obj.getClass().equals(Reaction.class) || 

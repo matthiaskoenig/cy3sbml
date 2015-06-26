@@ -66,6 +66,6 @@ public class SBML {
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
 	public static final String INTERACTION_TRANSITION_INPUT = "input-transition";
 	public static final String INTERACTION_TRANSITION_OUTPUT = "transition-output";
-	public static final String INTERACTION_GENEPRODUCT_SPECIES = "geneProduct-species";
+	public static final String INTERACTION_GENEPRODUCT_SPECIES = "species-geneProduct";
 	public static final String INTERACTION_UNDEFINED = "undefined";
 }
