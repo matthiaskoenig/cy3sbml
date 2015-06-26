@@ -53,6 +53,8 @@ public class SBML {
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
 	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
 	public static final String NODETYPE_FBC_GENEPRODUCT = "fbc:geneProduct";
+	public static final String NODETYPE_FBC_AND = "fbc:and";
+	public static final String NODETYPE_FBC_OR = "fbc:or";
 	public static final String NODETYPE_FBC_GENEPROTEINASSOCIATION = "fbc:geneProteinAssociation";
 	
 	
@@ -64,8 +66,12 @@ public class SBML {
 	public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction-sideproduct";
 	public static final String INTERACTION_REACTION_REACTANT = "reactant-reaction";
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
-	public static final String INTERACTION_TRANSITION_INPUT = "input-transition";
-	public static final String INTERACTION_TRANSITION_OUTPUT = "transition-output";
-	public static final String INTERACTION_GENEPRODUCT_SPECIES = "species-geneProduct";
+	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
+	public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition-output";
+	
+	public static final String INTERACTION_FBC_GENEPRODUCT_SPECIES = "species-geneProduct";
+	public static final String INTERACTION_FBC_REACTION_GPA = "geneProduct-gpa";
+	public static final String INTERACTION_FBC_ASSOCIATION_GPA = "association-gpa";
+	public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association-association";
 	public static final String INTERACTION_UNDEFINED = "undefined";
 }
