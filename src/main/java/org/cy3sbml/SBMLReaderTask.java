@@ -41,7 +41,14 @@ import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
+import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
 import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
+import org.sbml.jsbml.ext.fbc.FluxBound;
+import org.sbml.jsbml.ext.fbc.FluxBound.Operation;
+import org.sbml.jsbml.ext.fbc.FluxObjective;
+import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.fbc.ListOfObjectives;
+import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
 import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
 import org.sbml.jsbml.ext.qual.Input;
@@ -541,29 +548,100 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private void readFBC(Model model, FBCModelPlugin fbcModel){
 		logger.info("Reading fbc model");
 
+		// Model attributes
+		if (fbcModel.isSetStrict()){
+			AttributeUtil.set(network, network, SBML.ATTR_FBC_STRICT, fbcModel.getStrict(), Boolean.class);
+		}
+		
+		// Species attributes
 		for (Species species: model.getListOfSpecies()){
 			FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) species.getExtension(FBCConstants.namespaceURI);
-			if (fbcSpecies==null){
-				// Check if the species has overwritten fbc information
-				logger.info("No information for fbcSpecies: " + species.getId());
+			if (fbcSpecies == null){
+				// Check if species has overwritten fbc information
+				logger.debug("No information for fbcSpecies: " + species.getId());
 				continue;
 			}
-
 			CyNode node = nodeById.get(species.getId());
 			if (fbcSpecies.isSetCharge()){
-				AttributeUtil.set(network, node, SBML.ATTR_CHARGE, fbcSpecies.getCharge(), Integer.class);
+				AttributeUtil.set(network, node, SBML.ATTR_FBC_CHARGE, fbcSpecies.getCharge(), Integer.class);
 			}
 			if (fbcSpecies.isSetChemicalFormula()){
-				AttributeUtil.set(network, node, SBML.ATTR_CHEMICAL_FORMULA, fbcSpecies.getChemicalFormula(), String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_FBC_CHEMICAL_FORMULA, fbcSpecies.getChemicalFormula(), String.class);
 			}			
 		}
 		
-		// handle the rest of the FBC information
-		fbcModel.getListOfFluxBounds();
-		fbcModel.getListOfObjectives();
-		fbcModel.getListOfGeneProducts();
+		// List of flux objectives (handled via reaction attributes)
+		for (Objective objective : fbcModel.getListOfObjectives()){
+			// one reaction attribute column per objective
+			String key = String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, objective.getId());
+			for (FluxObjective fluxObjective : objective.getListOfFluxObjectives()){
+				String reactionId = fluxObjective.getReaction();
+				CyNode node = nodeById.get(reactionId);
+				AttributeUtil.set(network, node, key, fluxObjective.getCoefficient(), Double.class);
+			}
+		}
 		
+		// GeneProducts as nodes
+		for (GeneProduct geneProduct : fbcModel.getListOfGeneProducts()){
+			String gpId = geneProduct.getId();
+			CyNode node = network.addNode();
+		 	nodeById.put(gpId, node);
+			AttributeUtil.set(network, node, SBML.ATTR_ID, gpId, String.class);
+			AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_FBC_GENEPRODUCT, String.class);
+			if (geneProduct.isSetName()){
+				AttributeUtil.set(network, node, SBML.ATTR_NAME, geneProduct.getName(), String.class);
+			}
+			AttributeUtil.set(network, node, SBML.LABEL, geneProduct.getLabel(), String.class);
+			
+			// edge to associated species
+			// TODO: check how handeled in fbc:v1
+			if (geneProduct.isSetAssociatedSpecies()){
+				CyNode speciesNode = nodeById.get(geneProduct.getAssociatedSpecies());
+				CyEdge edge = network.addEdge(node, speciesNode, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_GENEPRODUCT_SPECIES, String.class);
+				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);	
+			}
+		}
 		
+		// Reaction attributes
+		for (Reaction reaction: model.getListOfReactions()){
+			FBCReactionPlugin fbcReaction = (FBCReactionPlugin) reaction.getExtension(FBCConstants.namespaceURI);
+			if (fbcReaction == null){
+				// Check if reaction has overwritten fbc information
+				logger.debug("No information for fbcReaction: " + reaction.getId());
+				continue;
+			}
+			CyNode node = nodeById.get(reaction.getId());
+			if (fbcReaction.isSetLowerFluxBound()){
+				AttributeUtil.set(network, node, SBML.ATTR_FBC_LOWER_FLUX_BOUND, fbcReaction.getLowerFluxBound(), String.class);
+			}
+			if (fbcReaction.isSetUpperFluxBound()){
+				AttributeUtil.set(network, node, SBML.ATTR_FBC_UPPER_FLUX_BOUND, fbcReaction.getUpperFluxBound(), String.class);
+			}
+			
+			// Create the GeneProteinAssociation subnetwork
+			if (fbcReaction.isSetGeneProteinAssociation()){
+				//TODO
+			}
+		}
+		
+		// if the old fbc v1 flux bounds exist use them
+		if (fbcModel.getVersion() == 1){
+			for (FluxBound fluxBound : fbcModel.getListOfFluxBounds()){
+				String reactionId = fluxBound.getReaction();
+				CyNode n = nodeById.get(reactionId);
+				String operation = fluxBound.getOperation().toString();
+				Double value = fluxBound.getValue();
+				if (operation.equals(Operation.EQUAL)){
+					AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value.toString(), String.class);
+					AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value.toString(), String.class);
+				} else if (operation.equals(Operation.GREATER_EQUAL)){
+					AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value.toString(), String.class);
+				} else if (operation.equals(Operation.LESS_EQUAL)){
+					AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value.toString(), String.class);
+				}
+			}	
+		}
 	}
 
 	@Override

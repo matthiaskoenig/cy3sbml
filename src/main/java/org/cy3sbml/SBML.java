@@ -29,7 +29,6 @@ public class SBML {
 	public static final String ATTR_VALUE = "value";
 	public static final String ATTR_FAST = "fast";
 	public static final String ATTR_KINETIC_LAW = "kineticLaw";
-	public static final String ATTR_CHEMICAL_FORMULA = "chemicalFormula";
 	
 	public static final String ATTR_AREA_UNITS = "areaUnits";
 	public static final String ATTR_EXTENT_UNITS = "extentUnits";
@@ -38,14 +37,24 @@ public class SBML {
 	public static final String ATTR_TIME_UNITS = "timeUnits";
 	public static final String ATTR_VOLUME_UNITS = "volumeUnits";
 	
+	public static final String ATTR_FBC_STRICT = "fbc:strict";
+	public static final String ATTR_FBC_CHARGE = "fbc:charge";
+	public static final String ATTR_FBC_CHEMICAL_FORMULA = "fbc:chemicalFormula";
+	public static final String ATTR_FBC_LOWER_FLUX_BOUND = "fbc:lowerFluxBound";
+	public static final String ATTR_FBC_UPPER_FLUX_BOUND = "fbc:upperFluxBound";
+	public static final String ATTR_FBC_OBJECTIVE_TEMPLATE = "fbc:objective-%1$s";
+	
 	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
 	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
 	
 	// node types
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_SPECIES = "species";
-	public static final String NODETYPE_QUAL_SPECIES = "qSpecies";
-	public static final String NODETYPE_QUAL_TRANSITION = "qTransition";
+	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
+	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
+	public static final String NODETYPE_FBC_GENEPRODUCT = "fbc:geneProduct";
+	public static final String NODETYPE_FBC_GENEPROTEINASSOCIATION = "fbc:geneProteinAssociation";
+	
 	
 	// edge types (interactions)
 	public static final String INTERACTION_REACTION_ACTIVATOR = "activator-reaction";
@@ -57,5 +66,6 @@ public class SBML {
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
 	public static final String INTERACTION_TRANSITION_INPUT = "input-transition";
 	public static final String INTERACTION_TRANSITION_OUTPUT = "transition-output";
+	public static final String INTERACTION_GENEPRODUCT_SPECIES = "geneProduct-species";
 	public static final String INTERACTION_UNDEFINED = "undefined";
 }
