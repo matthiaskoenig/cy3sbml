@@ -543,7 +543,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 		for (Species species: model.getListOfSpecies()){
 			FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) species.getExtension(FBCConstants.namespaceURI);
-		
+			if (fbcSpecies==null){
+				// Check if the species has overwritten fbc information
+				logger.info("No information for fbcSpecies: " + species.getId());
+				continue;
+			}
+
 			CyNode node = nodeById.get(species.getId());
 			if (fbcSpecies.isSetCharge()){
 				AttributeUtil.set(network, node, SBML.ATTR_CHARGE, fbcSpecies.getCharge(), Integer.class);

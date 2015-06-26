@@ -879,7 +879,7 @@
                   <vCard:Family>Costa</vCard:Family>
                   <vCard:Given>Rafael</vCard:Given>
                 </vCard:N>
-                <vCard:EMAIL>‎rcosta@kdbio.inesc-id.pt</vCard:EMAIL>
+                <vCard:EMAIL>rcosta@kdbio.inesc-id.pt</vCard:EMAIL>
                 <vCard:ORG rdf:parseType="Resource">
                   <vCard:Orgname>University of Lisbon</vCard:Orgname>
                 </vCard:ORG>
