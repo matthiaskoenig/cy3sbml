@@ -5,17 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import org.cytoscape.application.NetworkViewRenderer;
+import java.util.Map;
+
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -25,8 +21,6 @@ import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
-import org.cytoscape.work.util.ListMultipleSelection;
-import org.cytoscape.work.util.ListSingleSelection;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
@@ -53,7 +47,6 @@ import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.fbc.GeneProductRef;
 import org.sbml.jsbml.ext.fbc.GeneProteinAssociation;
-import org.sbml.jsbml.ext.fbc.ListOfObjectives;
 import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.fbc.Or;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
@@ -64,6 +57,7 @@ import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.xml.XMLNode;
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
@@ -149,7 +143,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	
 	public void run(TaskMonitor taskMonitor) throws Exception {
+		logger.info("---------------------------------");
 		logger.info("Start Reader.run()");
+		logger.info("---------------------------------");
 		try {
 			taskMonitor.setTitle("cy3sbml reader");
 			taskMonitor.setProgress(0.0);
@@ -226,7 +222,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			
 			taskMonitor.setProgress(1.0);
+			logger.info("---------------------------------");
 			logger.info("End Reader.run()");
+			logger.info("---------------------------------");
 		
 		} catch (Throwable t){
 			logger.error("Could not read SBML into Cytoscape!", t);
@@ -265,6 +263,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param model
 	 */
 	private void readCore(Model model){
+		logger.info("** core **");
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, "DEFAULT", String.class);
 		
@@ -453,7 +452,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param qModel
 	 */
 	private void readQual(Model model, QualModelPlugin qModel){
-		logger.info("Reading qualitative model");
+		logger.info("** qual **");
 		 // QualSpecies 
 		 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
 			CyNode node = createNamedSBaseNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
@@ -503,12 +502,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	/**
-	 * Create nodes, edges and attributes from Qualitative Model.
-	 * @param qModel
-	 */
+	/** Creates network information from fbc model. */
 	private void readFBC(Model model, FBCModelPlugin fbcModel){
-		logger.info("Reading fbc model");
+		logger.info("** fbc **");
 
 		// Model attributes
 		if (fbcModel.isSetStrict()){
@@ -560,11 +556,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// Reaction attributes
 		for (Reaction reaction: model.getListOfReactions()){
 			FBCReactionPlugin fbcReaction = (FBCReactionPlugin) reaction.getExtension(FBCConstants.namespaceURI);
+			
 			if (fbcReaction == null){
-				// Check if reaction has overwritten fbc information
-				logger.debug("No information for fbcReaction: " + reaction.getId());
 				continue;
 			}
+			
+			// reaction has overwritten fbc information
 			CyNode node = nodeById.get(reaction.getId());
 			if (fbcReaction.isSetLowerFluxBound()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_LOWER_FLUX_BOUND, fbcReaction.getLowerFluxBound(), String.class);
@@ -573,42 +570,56 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_UPPER_FLUX_BOUND, fbcReaction.getUpperFluxBound(), String.class);
 			}
 			
-			// Create the GeneProteinAssociation subnetwork
+			// Create GeneProteinAssociation (GPA) network
 			if (fbcReaction.isSetGeneProteinAssociation()){
 				GeneProteinAssociation gpa = fbcReaction.getGeneProteinAssociation();
 				
+				// create id
 				String gpaId;
 				if (gpa.isSetId()){
 					gpaId = gpa.getId();
 				} else {
 					gpaId = "gpa-" + reaction.getId();
 				}
-				// create node and add to network
+				// create node
 			 	CyNode gpaNode = network.addNode();
 			 	nodeById.put(gpaId, gpaNode);
-			 	// set the attributes
+			 	
+			 	// set attributes
 				AttributeUtil.set(network, gpaNode, SBML.ATTR_ID, gpaId, String.class);
 				AttributeUtil.set(network, gpaNode, SBML.LABEL, gpaId, String.class);
 				AttributeUtil.set(network, gpaNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION, String.class);
 				
-				// create edge to reaction
+				// create edge (reaction--gpa)
 				CyEdge edge = network.addEdge(node, gpaNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_REACTION_GPA, String.class);
 				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
 				
-				// handle the and, or, GeneProductRef recursively
+				// handle And, Or, GeneProductRef recursively
 				Association association = gpa.getAssociation();
 				processAssociation(gpaNode, SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION, association);
-				
 			}
 		}
 		
-		// There could be geneAssociations in the model annotations (v1)
-		// Annotation annotation = fbcModel.getAnnotation();
-		
-		
-		// if the old fbc v1 flux bounds exist use them
+		// parse the fbc v1 fluxBounds and geneAssociations
 		if (fbcModel.getVersion() == 1){
+			if (model.isSetAnnotation()){
+				// fbc v1 geneAssociations not in specification or supported by
+				// JSBML, so not parsed
+				Annotation annotation = model.getAnnotation();
+				XMLNode xmlNode = annotation.getXMLNode();
+				
+				for (int k=0; k<xmlNode.getChildCount(); k++){
+					XMLNode child = xmlNode.getChild(k);
+					String name = child.getName();
+					if (name.equals("listOfGeneAssociations") | name.equals("geneAssociation")){
+						logger.warn("GeneAssociations of fbc v1 not supported in JSBML.");
+						break;
+					}
+				}
+			}
+			
+			// fluxBounds
 			for (FluxBound fluxBound : fbcModel.getListOfFluxBounds()){
 				String reactionId = fluxBound.getReaction();
 				CyNode n = nodeById.get(reactionId);
@@ -626,6 +637,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
+	/** Recursive function for processing the Associations. */
 	private void processAssociation(CyNode parentNode, String parentType, Association association){
 		
 		if (association.getClass().equals(GeneProductRef.class)){

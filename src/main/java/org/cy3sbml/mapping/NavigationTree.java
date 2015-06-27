@@ -14,6 +14,8 @@ import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.ext.fbc.FBCConstants;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -76,6 +78,8 @@ public class NavigationTree {
 			
 			DefaultMutableTreeNode top = new DefaultMutableTreeNode(modelName);
 			treeModel = new DefaultTreeModel(top);
+			
+			// Here the supported things have to be added to the object map
 			addListOfCompartmentsToTreeModel(top, model.getListOfCompartments());
 			addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
 			addListOfReactionsToTreeModel(top, model.getListOfReactions());
@@ -85,6 +89,11 @@ public class NavigationTree {
 				addListOfQualitativeSpeciesToTreeModel(top, qModel.getListOfQualitativeSpecies());
 				addListOfTransitionsToTreeModel(top, qModel.getListOfTransitions());
 			}
+			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+			if (fbcModel != null){
+				//TODO: register the FBC nodes
+			}
+			
 		} catch (Throwable t) {
 			logger.error("Navigation tree creation");
 		}
@@ -92,6 +101,7 @@ public class NavigationTree {
 	
 	public NamedSBase getNamedSBaseById(String id){
 		NamedSBase nsb = null;
+		// NamedSBases have to be supported in the objectMap
 		if (objectMap.containsKey(id)){
 			return objectMap.get(id);
 		}

@@ -235,7 +235,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					// TODO: How to handle multiple selections? Currently only first node in selection used
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
-					textPane.showNSBInfo(nsb);		
+					if (nsb != null){
+						textPane.showNSBInfo(nsb);	
+					} else {
+						textPane.setText("No SBML object registered for node.");
+					}
+							
 				} else {
 					textPane.showNSBInfo(document.getModel());
 				}
