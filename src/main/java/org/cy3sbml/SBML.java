@@ -72,6 +72,7 @@ public class SBML {
 	public static final String INTERACTION_FBC_GENEPRODUCT_SPECIES = "species-geneProduct";
 	public static final String INTERACTION_FBC_REACTION_GPA = "geneProduct-gpa";
 	public static final String INTERACTION_FBC_ASSOCIATION_GPA = "association-gpa";
+	public static final String INTERACTION_FBC_ASSOCIATION_REACTION = "association-reaction";
 	public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association-association";
 	public static final String INTERACTION_UNDEFINED = "undefined";
 }

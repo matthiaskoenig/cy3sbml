@@ -574,6 +574,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (fbcReaction.isSetGeneProteinAssociation()){
 				GeneProteinAssociation gpa = fbcReaction.getGeneProteinAssociation();
 				
+				// handle And, Or, GeneProductRef recursively
+				Association association = gpa.getAssociation();
+				processAssociation(node, SBML.NODETYPE_REACTION, association);
+				
+				/* Do not create the GPA node
 				// create id
 				String gpaId;
 				if (gpa.isSetId()){
@@ -598,6 +603,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// handle And, Or, GeneProductRef recursively
 				Association association = gpa.getAssociation();
 				processAssociation(gpaNode, SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION, association);
+				*/
 			}
 		}
 		
@@ -637,7 +643,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
-	/** Recursive function for processing the Associations. */
+	/** Recursive function for processing the Associations. 
+	 * TODO: remove code redundancy 
+	 */
 	private void processAssociation(CyNode parentNode, String parentType, Association association){
 		
 		if (association.getClass().equals(GeneProductRef.class)){
@@ -648,6 +656,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
 			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
+			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
 			}
@@ -662,6 +672,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyEdge edge = network.addEdge(andNode, parentNode, true);
 			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
+			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
 			}
@@ -681,6 +693,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyEdge edge = network.addEdge(orNode, parentNode, true);
 			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
+			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
 			}

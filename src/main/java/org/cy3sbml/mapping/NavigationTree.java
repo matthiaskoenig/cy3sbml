@@ -16,6 +16,7 @@ import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
+import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -32,6 +33,7 @@ public class NavigationTree {
 	public static final String REACTIONS = "Reactions";
 	public static final String QUALITATIVE_SPECIES = "QualitativeSpecies";
 	public static final String TRANSITIONS = "Transitions";
+	public static final String GENE_PRODUCTS = "GeneProducts";
 	
 	private boolean SBMLNetwork;
 	private Map<String, NamedSBase> objectMap;
@@ -84,14 +86,14 @@ public class NavigationTree {
 			addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
 			addListOfReactionsToTreeModel(top, model.getListOfReactions());
 	
-	        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-			if (qModel != null){
-				addListOfQualitativeSpeciesToTreeModel(top, qModel.getListOfQualitativeSpecies());
-				addListOfTransitionsToTreeModel(top, qModel.getListOfTransitions());
+	        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+			if (qualModel != null){
+				addListOfQualitativeSpeciesToTreeModel(top, qualModel.getListOfQualitativeSpecies());
+				addListOfTransitionsToTreeModel(top, qualModel.getListOfTransitions());
 			}
 			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
 			if (fbcModel != null){
-				//TODO: register the FBC nodes
+				addListOfGeneProductsToTreeModel(top, fbcModel.getListOfGeneProducts());
 			}
 			
 		} catch (Throwable t) {
@@ -123,6 +125,9 @@ public class NavigationTree {
 	}
 	private void addListOfTransitionsToTreeModel(DefaultMutableTreeNode top, ListOf<Transition> transitionList){		
 		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(TRANSITIONS), transitionList);
+	}
+	private void addListOfGeneProductsToTreeModel(DefaultMutableTreeNode top, ListOf<GeneProduct> geneProductList){		
+		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(GENE_PRODUCTS), geneProductList);
 	}
 
 	

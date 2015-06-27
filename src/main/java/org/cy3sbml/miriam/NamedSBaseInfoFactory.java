@@ -1,6 +1,5 @@
 package org.cy3sbml.miriam;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 
@@ -25,13 +25,12 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
 
 /** Gets information from the MIRIAM web resource for given 
  * NamedSBase object.
+ * 
  * The created information objects should be cached in the background
  * to reduce the webservice overhead. I.e. every resource should be
- * retrieved maximally one time. 
- * 
- * FIXME: offline mode & better overview over the information in the SBML
- *  Holds the available link information for already read resources (Store & Read Cache)
- *   
+ * retrieved maximally one time.
+ * Everything which can be managed via local files should: 
+ * Currently, the MIRIAM servers are pushed a bit. 
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -43,12 +42,14 @@ public class NamedSBaseInfoFactory {
 	public NamedSBaseInfoFactory(Object obj){
 		// TODO: handle the information for geneProducts
 		// here NullPointerException
-		if (    obj.getClass().equals(Model.class)  ||
-				obj.getClass().equals(Compartment.class)  || 
-	  			obj.getClass().equals(Reaction.class) || 
-	  			obj.getClass().equals(Species.class) ||
-	  			obj.getClass().equals(QualitativeSpecies.class) ||
-	  			obj.getClass().equals(Transition.class) ){
+		Class<? extends Object> objClass = obj.getClass();
+		if (    objClass.equals(Model.class)  ||
+				objClass.equals(Compartment.class)  || 
+				objClass.equals(Reaction.class) || 
+				objClass.equals(Species.class) ||
+				objClass.equals(QualitativeSpecies.class) ||
+				objClass.equals(Transition.class) ||
+				objClass.equals(GeneProduct.class)){
 			sbmlObject = (AbstractNamedSBase) obj;
 		}
 		// WebService Link
