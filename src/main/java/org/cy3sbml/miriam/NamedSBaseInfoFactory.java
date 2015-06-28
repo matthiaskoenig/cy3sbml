@@ -97,8 +97,14 @@ public class NamedSBaseInfoFactory {
 	
 	
 	private String createHeader(AbstractNamedSBase item){
-		return String.format("<h2><span color=\"gray\">%s</span> : %s (%s)</h2>",
-								getUnqualifiedClassName(item), item.getId(), item.getName());
+		if (item.isSetName()){
+			return String.format("<h2><span color=\"gray\">%s</span> : %s (%s)</h2>",
+					getUnqualifiedClassName(item), item.getId(), item.getName());	
+		} else {
+			return String.format("<h2><span color=\"gray\">%s</span> : %s</h2>",
+					getUnqualifiedClassName(item), item.getId());
+		}
+		
 	}
 	
 	/** Returns the unqualified class name of a given object. */

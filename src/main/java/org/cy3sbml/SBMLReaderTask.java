@@ -87,52 +87,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private SBMLDocument document;
 	
 	private CyNetwork network;       // global network of all SBML information
-	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions) network
-	private CyNetwork layoutNetwork; // layout network
+	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 	
 	private CyRootNetwork rootNetwork;
 	private Map<String, CyNode> nodeById; // node dictionary
 	private final Collection<CyNetwork> networks;
 	
-
-	/** SBML parsing/converting options. */
-	private static enum ReaderMode {
-		/**
-		 * Default SBML to Cytoscape network/view mapping: 
-		 * species and reaction objects will be CyNodes interconnected by edges that 
-		 * correspond to the listOf type of the species in the reactions. 
-		 */
-		DEFAULT("Default"),
-		
-		/** Layout SBML network */
-		LAYOUT("Layout"),
-		
-		/** GRN SBML network */
-		GRN("GRN");
-		
-		private final String name;
-
-		private ReaderMode(String name) {
-			this.name = name;
-		}
-		
-		@Override
-		public String toString() {
-			return name;
-		}
-		
-		// TODO: manage multiple networks
-		static String[] names() {
-			ReaderMode vals[] = ReaderMode.values();
-			String names[] = new String[vals.length];
-			for(int i= 0; i < vals.length; i++)
-				names[i] = vals[i].toString();
-			return names;
-		}
-	}
-	//public ListSingleSelection<ReaderMode> readerMode; 
-	
-
 	/** Constructor */ 
 	public SBMLReaderTask(InputStream stream, String inputName, ServiceAdapter adapter) {
 		
@@ -145,7 +105,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
+	// TODO: Create the full graph with all information
+	// TODO: Create the subgraph for the reaction species network
+	/**
+	 * Parse the SBML networks.
+	 */
 	public void run(TaskMonitor taskMonitor) throws Exception {
+	
 		logger.info("---------------------------------");
 		logger.info("Start Reader.run()");
 		logger.info("---------------------------------");
@@ -159,12 +125,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
-			// TODO: get and display all the reader warnings (important for validation &
-			// finding problems with files -> see also validator feature
+			
+			// TODO: get and display all the reader warnings
 			document = JSBML.readSBMLFromString(xml);
 			Model model = document.getModel();
 		
-			// create the empty root network
+			// create an empty root network
 			network = adapter.cyNetworkFactory.createNetwork();
 			
 			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
@@ -172,18 +138,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork(); 
 			// CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()). 
 			rootNetwork = ((CySubNetwork) network).getRootNetwork();
-			
-			
-			// TODO: get the respective nodes, than the connecting edges of the supported subtypes for
-			// 		 the network kind 
-			//rootNetwork.addSubNetwork(nodes, edges);
-			
-			
-			// TODO: Create the full graph with all information
-			// TODO: Create the subgraph for the reaction species network
-			// TODO: switch between different types of networks
-			
-			
+						
 			// Core model
 			readCore(model);
 			taskMonitor.setProgress(0.5);
@@ -208,21 +163,21 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				readLayouts(model, qualModel, layoutModel);	
 			}
 
-			// Create the subNetworks
-			/*
+			// Create subNetworks
+			// [1] core
 			HashSet<CyNode> nodes = new HashSet<CyNode>();
 			HashSet<CyEdge> edges = new HashSet<CyEdge>();
 			for (CyNode n : network.getNodeList()){
-				// Check the types
+				// Check the types of the nodes and edges
 				// TODO:
 				nodes.add(n);
 			}
-			*/
-			
-			// create subnetwork from nodes
-			// coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
+			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
 			// add single nodes to the subnetwork
 			// ((CySubNetwork) coreNetwork).addNode(arg0)
+			
+			// [2] layout subnetworks
+			// TODO:
 			
 			
 			taskMonitor.setProgress(1.0);
@@ -289,59 +244,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_SBOTERM, info);
 		}
 		*/
-	}
-	
-	
-
-	// --- LAYOUT -----------------------------------------------------------------------------------
-	
-	/** Creates the layouts stored in the layout extension. */
-	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
-		logger.info("** layout **");
-		for (Layout layout : layoutModel.getListOfLayouts()){
-			// TODO: manage the multiple layout networks
-			// layoutNetwork = rootNetwork.addSubNetwork();
-			readLayout(model, qualModel, layout);
-		}
-	}
-	
-	/** Read a single layout. */
-	private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
-
-		// Process the layouts (Generate full id set and all edges for elements)
-		LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
-		layout = preprocessor.getProcessedLayout();
-		
-		// now generate nodes and edges
-		// TODO: AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
-		
-		// addSpeciesGlyphNodes
-		for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
-			// create the node
-			String id = glyph.getId();
-			// creates node in network
-			CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
-			
-			// get species node and copy information
-			if (glyph.isSetSpecies()){
-				String speciesId = glyph.getSpecies();
-				if (nodeById.containsKey(speciesId)){
-					CyNode sNode = nodeById.get(speciesId);
-					
-					// copy node attributes from species node to speciesGlyph node
-					copyNodeAttributes(sNode, node);	
-				}
-				
-			} else {
-				AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
-				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
-			}
-		}
-		
-		// addReactionGlyphNodes();
-		
-		// addModelEdges();
-		// addQualitativeModelEdges();
 	}
 	
 	
@@ -567,11 +469,26 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyEdge edge = network.addEdge(node, inNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_QUAL_TRANSITION_INPUT, String.class);
 				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+				if (input.isSetId()){
+					AttributeUtil.set(network, edge, SBML.ATTR_ID, input.getId(), String.class);
+				}
+				if (input.isSetName()){
+					AttributeUtil.set(network, edge, SBML.ATTR_NAME, input.getName(), String.class);
+				}
 				if (input.isSetSBOTerm()){
 					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, input.getSBOTermID(), String.class);
 				}
 				if (input.isSetMetaId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_METAID, input.getMetaId(), String.class);
+				}
+				if (input.isSetSign()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_SIGN, input.getSign().toString(), String.class);
+				}
+				if (input.isSetThresholdLevel()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_THRESHOLD_LEVEL, input.getThresholdLevel(), Integer.class);
+				}
+				if (input.isSetTransitionEffect()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, input.getTransitionEffect().toString(), String.class);
 				}
 			}
 			// Outputs
@@ -580,12 +497,21 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyEdge edge = network.addEdge(node, outNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, String.class);
 				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+				if (output.isSetId()){
+					AttributeUtil.set(network, edge, SBML.ATTR_ID, output.getId(), String.class);
+				}
+				if (output.isSetName()){
+					AttributeUtil.set(network, edge, SBML.ATTR_NAME, output.getName(), String.class);
+				}
 				if (output.isSetSBOTerm()){
 					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, output.getSBOTermID(), String.class);
 				}
 				if (output.isSetMetaId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_METAID, output.getMetaId(), String.class);
 				}	
+				if (output.isSetTransitionEffect()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, output.getTransitionEffect().toString(), String.class);
+				}
 			}
 		}
 	}
@@ -795,11 +721,62 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
+	// --- LAYOUT -----------------------------------------------------------------------------------
+	
+		/** Creates the layouts stored in the layout extension. */
+		private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
+			logger.info("** layout **");
+			for (Layout layout : layoutModel.getListOfLayouts()){
+				// TODO: manage the multiple layout networks
+				// layoutNetwork = rootNetwork.addSubNetwork();
+				readLayout(model, qualModel, layout);
+			}
+		}
+		
+		/** Read a single layout. */
+		private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
+
+			// Process the layouts (Generate full id set and all edges for elements)
+			LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
+			layout = preprocessor.getProcessedLayout();
+			
+			// now generate nodes and edges
+			// TODO: AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
+			
+			// addSpeciesGlyphNodes
+			for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
+				// create the node
+				String id = glyph.getId();
+				// creates node in network
+				CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
+				
+				// get species node and copy information
+				if (glyph.isSetSpecies()){
+					String speciesId = glyph.getSpecies();
+					if (nodeById.containsKey(speciesId)){
+						CyNode sNode = nodeById.get(speciesId);
+						
+						// copy node attributes from species node to speciesGlyph node
+						copyNodeAttributes(sNode, node);	
+					}
+					
+				} else {
+					AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
+					AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
+				}
+			}
+			
+			// addReactionGlyphNodes();
+			
+			// addModelEdges();
+			// addQualitativeModelEdges();
+		}
+	
 	
 	@Override
 	public CyNetwork[] getNetworks() {
 		// return new CyNetwork[] { network, coreNetwork };
-		return new CyNetwork[] { network };
+		return new CyNetwork[] { network, coreNetwork };
 	}
 
 	@Override

@@ -40,6 +40,10 @@ public class SBML {
 	public static final String ATTR_TIME_UNITS = "timeUnits";
 	public static final String ATTR_VOLUME_UNITS = "volumeUnits";
 	
+	public static final String ATTR_QUAL_SIGN = "qual:sign";
+	public static final String ATTR_QUAL_THRESHOLD_LEVEL = "qual:tresholdLevel";
+	public static final String ATTR_QUAL_TRANSITION_EFFECT = "qual:transitionEffect";
+	
 	public static final String ATTR_FBC_STRICT = "fbc:strict";
 	public static final String ATTR_FBC_CHARGE = "fbc:charge";
 	public static final String ATTR_FBC_CHEMICAL_FORMULA = "fbc:chemicalFormula";
