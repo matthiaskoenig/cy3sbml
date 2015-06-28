@@ -50,9 +50,11 @@ public class CyActivator extends AbstractCyActivator {
 	
 	public void start(BundleContext bc) {
 		try {
-			logger.info("starting server ...");
 			// store bundle information (for display of dependencies, versions, ...)
-			BundleInformation.getInstance(bc);
+			BundleInformation bundleInfo = BundleInformation.getInstance(bc);
+			logger.info("---------------------------------");
+			logger.info("Start " + bundleInfo.getInfo());
+			logger.info("---------------------------------");
 			
 			// Default configuration directory used for all cy3sbml files 
 			// Used for retrieving
@@ -198,13 +200,12 @@ public class CyActivator extends AbstractCyActivator {
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
 			
-			
-	
-			
-			
 			// Show the cy3sbml panel
 			ResultsPanel.getInstance().activate();
-			logger.info("server started");
+			logger.info("---------------------------------");
+			logger.info("Started " + bundleInfo.getInfo());
+			logger.info("---------------------------------");
+			
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);
 			e.printStackTrace();

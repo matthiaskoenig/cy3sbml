@@ -16,10 +16,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.validator.Validator;
-import org.cy3sbml.validator.ValidatorTask;
 import org.cy3sbml.validator.ValidatorTaskFactory;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
@@ -27,13 +25,16 @@ import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskObserver;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLError;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
-public class ValidationDialog extends JDialog implements ListSelectionListener {
+public class ValidationDialog extends JDialog implements ListSelectionListener, TaskObserver {
+	private static final Logger logger = LoggerFactory.getLogger(ValidationDialog.class);
 
+	private ServiceAdapter adapter;
 	private JEditorPane errorPane;
 	private JTable errorTable;
 	private Validator validator;
@@ -83,28 +84,47 @@ public class ValidationDialog extends JDialog implements ListSelectionListener {
 		errorTable.getSelectionModel().addListSelectionListener(this);
 	}
 
-	public ValidationDialog(ServiceAdapter adapter, SBMLDocument document) {
+	public ValidationDialog(ServiceAdapter adapter) {
 		this(adapter.cySwingApplication.getJFrame());
-
-		String title = "cy3sbml Validator : " + document.getModel().getId();
-		setTitle(title);
- 
-		// validation task
-		SBMLDocument doc = SBMLManager.getInstance().getCurrentSBMLDocument();
-		ValidatorTaskFactory validationTaskFactory = new ValidatorTaskFactory(doc);
-		TaskIterator iterator = validationTaskFactory.createTaskIterator();
-		adapter.synchronousTaskManager.execute(iterator);
+		this.adapter = adapter;
 
 		
-		// TODO: Get back the Validator (listen to it) -> do in observer (i.e. get notified)
-		validator = ValidatorTask.getValidator(document);
-		setErrorTableFromValidator(validator);
+		logger.info("ValidationDialog created");
 	}
 	
-	private void setErrorTableFromValidator(final Validator sbmlValidator){
-		if (sbmlValidator.getErrorMap() != null) {
+	public void runValidation(SBMLDocument document){
+		
+		String title = "cy3sbml validator: " + document.getModel().getId();
+		setTitle(title);
+		// run validation task
+		ValidatorTaskFactory validationTaskFactory = new ValidatorTaskFactory(document);
+		TaskIterator iterator = validationTaskFactory.createTaskIterator();
+		// adapter.synchronousTaskManager.execute(iterator);
+		logger.info("run validation");
+		adapter.taskManager.execute(iterator, this);
+	}
+	
+	@Override
+	public void taskFinished(ObservableTask task) {
+		logger.info("taskFinished in ValidationDialog");
+		
+		// execute task with task observer to be able to get results back
+		@SuppressWarnings("unchecked")
+		Validator validator = (Validator) task.getResults(Validator.class);
+		this.validator = validator;
+		setErrorTable();
+	}
+
+	@Override
+	public void allFinished(FinishStatus finishStatus) {
+		// TODO Auto-generated method stub
+	}
+	
+	
+	private void setErrorTable(){
+		if (validator.getErrorMap() != null) {
 			errorTable.setModel(new DefaultTableModel(
-					sbmlValidator.getErrorTable(),
+					validator.getErrorTable(),
 					new String[] { "Severity", "Error count" }));
 			errorTable.setRowSelectionInterval(2, 3);
 			updateErrorTable();

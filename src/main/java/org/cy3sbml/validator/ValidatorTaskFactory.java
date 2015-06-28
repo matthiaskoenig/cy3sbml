@@ -31,7 +31,7 @@ public class ValidatorTaskFactory implements TaskFactory{
 
 	@Override
 	public boolean isReady() {
-		return false;
+		return true;
 	}
 
 }

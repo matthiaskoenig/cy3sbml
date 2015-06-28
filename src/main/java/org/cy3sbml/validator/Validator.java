@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.cy3sbml.gui.ResultsPanel;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLError;
 import org.sbml.jsbml.SBMLErrorLog;
@@ -19,7 +18,7 @@ import org.sbml.jsbml.validator.SBMLValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/** Class for handling the SBML validation warnings and errors. */
 public class Validator {
 	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
 	
@@ -37,7 +36,7 @@ public class Validator {
 			errorLog = validateSBML(doc);
 			errorMap = createErrorMapFromErrorLog(errorLog);
 		} catch (Exception e) {
-			System.out.println("CySBML[INFO] -> SBMLDocument could not be validated.");
+			logger.warn("SBMLDocument could not be validated.");
 			e.printStackTrace();
 			reset();
 		}

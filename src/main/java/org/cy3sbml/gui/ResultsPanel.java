@@ -16,6 +16,7 @@ import javax.swing.event.HyperlinkListener;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.actions.ValidationAction;
 import org.cy3sbml.biomodel.BioModelDialog;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
@@ -167,8 +168,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				} else if ("http://cy3sbml-changestate".equals(url.toString())){
 					ResultsPanel panel = ResultsPanel.getInstance();
 					panel.changeState();
-				}
-				else {
+				} else if ("http://cy3sbml-validation".equals(url.toString())){
+					ValidationAction.openValidationPanel(adapter);
+				} else {
 					// handle the HTML links
 					adapter.openBrowser.openURL(url.toString());	
 				}

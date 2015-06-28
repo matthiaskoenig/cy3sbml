@@ -23,8 +23,8 @@ public class ValidationAction extends AbstractCyAction{
 	private ServiceAdapter adapter;
 	
 	public ValidationAction(ServiceAdapter adapter){
-		super("BioModelAction");
-		logger.debug("BioModelAction created");
+		super("ValidationAction");
+		logger.debug("ValidationAction created");
 		this.adapter = adapter;
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/validation.png"));
@@ -46,16 +46,17 @@ public class ValidationAction extends AbstractCyAction{
 		return false;
 	}
 	
-    public void openValidationPanel(){
-    	SBMLDocument doc = SBMLManager.getInstance().getCurrentSBMLDocument();
+    public static void openValidationPanel(ServiceAdapter adapter){
+    	SBMLDocument document = SBMLManager.getInstance().getCurrentSBMLDocument();
     	JFrame parentFrame = adapter.cySwingApplication.getJFrame();
-    	if (doc == null){
+    	if (document == null){
     		JOptionPane.showMessageDialog(parentFrame,
 					"<html>SBML network has to be loaded before validation.<br>" +
 					"Import network from BioModel or load network from file or URL first.");
     	}
     	else{
-    		ValidationDialog validationDialog = new ValidationDialog(parentFrame, doc);
+    		ValidationDialog validationDialog = new ValidationDialog(adapter);
+    		validationDialog.runValidation(document);
     		validationDialog.setVisible(true);
     	}
     }
@@ -63,6 +64,6 @@ public class ValidationAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-		openValidationPanel();  
+		openValidationPanel(adapter);  
 	}
 }
