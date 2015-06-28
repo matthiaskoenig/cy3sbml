@@ -38,6 +38,7 @@ import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.HelpAction;
+import org.cy3sbml.actions.ValidationAction;
 
 
 public class CyActivator extends AbstractCyActivator {
@@ -152,6 +153,7 @@ public class CyActivator extends AbstractCyActivator {
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
+			ValidationAction validationAction = new ValidationAction(adapter);
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
@@ -174,6 +176,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
 			registerService(bc, bioModelAction, CyAction.class, new Properties());
+			registerService(bc, validationAction, CyAction.class, new Properties());
 			
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
