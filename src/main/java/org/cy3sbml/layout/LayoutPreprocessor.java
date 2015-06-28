@@ -112,9 +112,7 @@ public class LayoutPreprocessor{
 		}
 	}
 	
-	
-	
-	/// GENERATE EDGES ///	
+
 	public static boolean hasEdgeInformation(Layout layout){
 		boolean hasInfo = false;
 		if (layout.isSetListOfReactionGlyphs()){
@@ -127,15 +125,13 @@ public class LayoutPreprocessor{
 		}
 		return hasInfo;
 	}
+	
 	public static boolean hasEdgeInformation(ReactionGlyph glyph){
-		boolean result = true;
 		ListOf<SpeciesReferenceGlyph> speciesReferenceGlyphs = glyph.getListOfSpeciesReferenceGlyphs();
-		if (speciesReferenceGlyphs == null){
-			result = false;
-		} else if (speciesReferenceGlyphs.size() == 0){
-			result = false;
+		if (speciesReferenceGlyphs == null | speciesReferenceGlyphs.size() == 0){
+			return false;
 		}
-		return result;
+		return true;
 	}
 	
 	private void generateAllEdges(){

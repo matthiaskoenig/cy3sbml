@@ -10,7 +10,6 @@ public class CyBoundingBox {
 	private double height;
 	private double width;
 	
-	
 	public CyBoundingBox(String id, double x, double y){
 		nodeId = id;
 		xpos = x;

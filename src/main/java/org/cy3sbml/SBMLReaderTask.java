@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.HashMap;
@@ -262,6 +261,37 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		return n;
 	}
+	
+	/** Probably not all information parsed.
+	 * TODO: implement general function for copying node attributes */
+	private void copyNodeAttributes(CyNode sourceNode, CyNode targetNode){
+		logger.warn("copyNodeAttributes NOT IMPLEMENTED");
+		/*	
+		String sId = sourceNode.getIdentifier();
+		String tId = targetNode.getIdentifier();
+		String info = null;
+		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_ID);
+		nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_ID, info);
+		
+		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_TYPE);
+		nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_TYPE, info);
+		
+		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_NAME);
+		if (info != null){
+			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_NAME, info);
+		}
+		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_COMPARTMENT);
+		if (info != null){
+			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_COMPARTMENT, info);
+		}
+		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_SBOTERM);
+		if (info != null){
+			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_SBOTERM, info);
+		}
+		*/
+	}
+	
+	
 
 	// --- LAYOUT -----------------------------------------------------------------------------------
 	
@@ -270,42 +300,42 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.info("** layout **");
 		for (Layout layout : layoutModel.getListOfLayouts()){
 			// TODO: manage the multiple layout networks
-			layoutNetwork = rootNetwork.addSubNetwork();
+			// layoutNetwork = rootNetwork.addSubNetwork();
 			readLayout(model, qualModel, layout);
 		}
 	}
 	
 	/** Read a single layout. */
 	private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
-		
+
 		// Process the layouts (Generate full id set and all edges for elements)
 		LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
 		layout = preprocessor.getProcessedLayout();
 		
-		// now generate the actual cytoscape network
-		
-		logger.info("** core **");
-		// Mark network as SBML
-		AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
+		// now generate nodes and edges
+		// TODO: AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
 		
 		// addSpeciesGlyphNodes
 		for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
 			// create the node
 			String id = glyph.getId();
+			// creates node in network
 			CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
 			
 			// get species node and copy information
 			if (glyph.isSetSpecies()){
-				CyNode sNode = Cytoscape.getCyNode(glyph.getSpecies(), false);
-				copyNodeInformation(sNode, node);
+				String speciesId = glyph.getSpecies();
+				if (nodeById.containsKey(speciesId)){
+					CyNode sNode = nodeById.get(speciesId);
+					
+					// copy node attributes from species node to speciesGlyph node
+					copyNodeAttributes(sNode, node);	
+				}
+				
 			} else {
-				AttributeUtil.set(layoutNetwork, node, SBML.ATTR_ID, id, String.class);
-				AttributeUtil.set(layoutNetwork, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
 			}
-			
-			
-			readNodeAttributesFromSpeciesGlyph(node, glyph);
-			nodeIds.add(node.getRootGraphIndex());
 		}
 		
 		// addReactionGlyphNodes();
@@ -769,7 +799,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	@Override
 	public CyNetwork[] getNetworks() {
 		// return new CyNetwork[] { network, coreNetwork };
-		return new CyNetwork[] { network, layoutNetwork };
+		return new CyNetwork[] { network };
 	}
 
 	@Override

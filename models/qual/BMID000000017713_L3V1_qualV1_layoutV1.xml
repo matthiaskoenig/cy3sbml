@@ -2,7 +2,7 @@
 
 <!-- This model was downloaded from: http://biomodels.caltech.edu/    -->
 <!-- a mirror of BioModels Database (http://www.ebi.ac.uk/biomodels/) -->
-<!-- Tue Jun 16 10:15:48 PDT 2015                                     -->
+<!-- Tue Jun 16 10:16:16 PDT 2015                                     -->
 
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" qual:required="true" level="3" xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1" version="1" layout:required="false">
   <model id="BMID000000017713" name="DNA replication" metaid="meta_path_hsa03030" timeUnits="time" substanceUnits="substance" volumeUnits="volume">

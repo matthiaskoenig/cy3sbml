@@ -1,6 +1,6 @@
 package org.cy3sbml.layout;
 
-import giny.model.Node;
+//import giny.model.Node;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -90,6 +90,54 @@ public class NetworkLayout {
 		setXYRange(reactionBoundingBoxes.values());
 		setXYRange(speciesGlyphBoundingBoxes.values());
 		setXYRange(reactionGlyphBoundingBoxes.values());
+	}
+	
+	/** Calculate the maximum and minium X and Y values for the given layout.
+	 * Is needed to set the unset nodes in the layout.
+	 */
+	private void setXYRange(Collection<BoundingBox> boxes){
+		Point point;
+		double x;
+		double y;
+		boolean setX = false;
+		boolean setY = false;
+		if (min_x != 0.0 || max_x != 0.0){ setX = true; }
+		if (min_y != 0.0 || max_y != 0.0){ setX = true; }
+		
+		for (BoundingBox box : boxes){
+			point = box.getPosition();
+			x = point.getX();
+			y = point.getY();
+			if (x != 0.0){
+				if (!setX){
+					min_x = x;
+					max_x = x;
+					setX = true;
+				}else{
+					if (x<min_x){
+						min_x = x;
+					}
+					if (x>max_x){
+						max_x = x;
+					}
+				}
+			}
+			
+			if (y != 0.0){
+				if (!setY){
+					min_y = y;
+					max_y = y;
+					setY = true;
+				}else{
+					if (y<min_y){
+						min_y = y;
+					}
+					if (y>max_y){
+						max_y = y;
+					}
+				}
+			}	
+		}
 	}
 	
 	
@@ -261,199 +309,153 @@ public class NetworkLayout {
 		}
 	}
 	
-	/** Sets the bounding box attributes to the network */
-	public void setNetworkAttributesFromBoundingBoxes(CyNetwork network){
-		
-		CyAttributes nodeAttributes = Cytoscape.getNodeAttributes();
-		setCyNodeAttributesForMap(nodeAttributes, speciesBoundingBoxes);
-		setCyNodeAttributesForMap(nodeAttributes, reactionBoundingBoxes);
-		setCyNodeAttributesForMap(nodeAttributes, speciesGlyphBoundingBoxes);
-		setCyNodeAttributesForMap(nodeAttributes, reactionGlyphBoundingBoxes);		
-	}
-	
-	private void setCyNodeAttributesForMap(CyAttributes attrs, Map<String, BoundingBox> map){
-		for (String id : map.keySet()) {
-			CyNode node = Cytoscape.getCyNode(id, false);
-			if (node != null){
-				BoundingBox box = map.get(id);
-				attrs.setAttribute(id, ATT_LAYOUT_HEIGHT,
-						new Double(box.getDimensions().getHeight()));
-				attrs.setAttribute(id, ATT_LAYOUT_WIDTH,
-						new Double(box.getDimensions().getWidth()));
-			}
-		}
-	}
-	
-	
-	/** Uses the stored bounding box information to set the positions of the
-	 *  reaction and species.
-	 *  Nodes with unknown positions are layouted above the complete layout.
-	 * @param network
-	 */
-	public void applyLayoutPositionsToNetwork(CyNetwork network){
-		
-		CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
-	    String key;
-	    BoundingBox box; 
-	    Point point;
-	    
-	    double offset = 80.0;
-	    double current_x = min_x;
-	    double current_y = min_y - 2.0*offset;
-	    
-	    double x;
-	    double y;
-	    
-		@SuppressWarnings("unchecked")
-		List<Node> nodes = network.nodesList();
-	    for (Node node : nodes){
-	    	key = node.getIdentifier();
-	    	if (speciesBoundingBoxes.containsKey(key)){
-	    		box = speciesBoundingBoxes.get(key);
-	    	} else {
-	    		box = reactionBoundingBoxes.get(key);
-	    	}
-	    	
-	    	// set the position of the node
-	    	giny.view.NodeView nodeView = view.getNodeView(node);
-	    	
-	    	point = box.getPosition();
-	    	x = point.getX();
-	    	y = point.getY();
-	    	
-	    	// layout generic nodes in grid
-	    	if (x == GENERIC_X && y == GENERIC_Y){
-	    		x = current_x;
-	    		y = current_y;
-	    		if ((current_x + offset) < max_x){
-	    			current_x = current_x + offset;
-	    		}else{
-	    			current_x = min_x;
-	    			current_y = current_y - offset;
-	    		}
-	    	}
-	    	//System.out.println(
-	    	//		String.format("Set position : %s -> [%f , %f]", key, x, y) );
-	    	nodeView.setXPosition(x);
-	    	nodeView.setYPosition(y);
-	    }
-	}
-	
-	public void applyLayoutPositionsToLayoutNetwork(CyNetwork network){
-		CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
-	    String key;
-	    BoundingBox box; 
-	    Point point;
-	    
-	    double offset = 80.0;
-	    double current_x = min_x;
-	    double current_y = min_y - 2.0*offset;
-	    
-	    double x;
-	    double y;
-	    
-		@SuppressWarnings("unchecked")
-		List<Node> nodes = network.nodesList();
-	    for (Node node : nodes){
-	    	key = node.getIdentifier();
-	    	if (speciesGlyphBoundingBoxes.containsKey(key)){
-	    		box = speciesGlyphBoundingBoxes.get(key);
-	    	} else {
-	    		box = reactionGlyphBoundingBoxes.get(key);
-	    	}
-	    	
-	    	// set the position of the node
-	    	giny.view.NodeView nodeView = view.getNodeView(node);
-	    	
-	    	point = box.getPosition();
-	    	x = point.getX();
-	    	y = point.getY();
-	    	
-	    	// layout generic nodes in grid
-	    	if (x == GENERIC_X && y == GENERIC_Y){
-	    		x = current_x;
-	    		y = current_y;
-	    		if ((current_x + offset) < max_x){
-	    			current_x = current_x + offset;
-	    		}else{
-	    			current_x = min_x;
-	    			current_y = current_y - offset;
-	    		}
-	    	}
-	    	nodeView.setXPosition(x);
-	    	nodeView.setYPosition(y);
-	    }
-	}
-	
-	/** Handles the Z-index information from the layout.
-	 * Which nodes are in front of which other nodes.
-	 *  <layout:boundingBox>
-        	<layout:position layout:x="60" layout:y="0" layout:z="-1"/>
-            <layout:dimensions layout:width="40" layout:height="40" layout:depth="-1"/>
-        </layout:boundingBox>
-       No control over z-index possible in Cytoscape.
-	 */
-	@Deprecated
-	public void applyZIndexToLayoutNetwork(CyNetwork network){
-	    CySBML.LOGGER.warning("Z-index in Layout not supported by Cytoscape");
-	}
-	
-	
-	/** Calculate the maximum and minium X and Y values for the given layout.
-	 * Is needed to set the unset nodes in the layout.
-	 */
-	private void setXYRange(Collection<BoundingBox> boxes){
-		Point point;
-		double x;
-		double y;
-		boolean setX = false;
-		boolean setY = false;
-		if (min_x != 0.0 || max_x != 0.0){ setX = true; }
-		if (min_y != 0.0 || max_y != 0.0){ setX = true; }
-		
-		for (BoundingBox box : boxes){
-			point = box.getPosition();
-			x = point.getX();
-			y = point.getY();
-			if (x != 0.0){
-				if (!setX){
-					min_x = x;
-					max_x = x;
-					setX = true;
-				}else{
-					if (x<min_x){
-						min_x = x;
-					}
-					if (x>max_x){
-						max_x = x;
-					}
-				}
-			}
-			
-			if (y != 0.0){
-				if (!setY){
-					min_y = y;
-					max_y = y;
-					setY = true;
-				}else{
-					if (y<min_y){
-						min_y = y;
-					}
-					if (y>max_y){
-						max_y = y;
-					}
-				}
-			}	
-		}
-	}
-	
-	///////////   HELPER STUFF //////////////////////
-	/** Print the position Map **/
-	public static void printPositions(Map<String, Position> map){
-		for (String key : map.keySet()){
-			System.out.println(String.format("\t%s : %s", key, map.get(key).toString()));
-		}
-	}
+//	/** Sets the bounding box attributes to the network */
+//	public void setNetworkAttributesFromBoundingBoxes(CyNetwork network){
+//
+//		CyAttributes nodeAttributes = Cytoscape.getNodeAttributes();
+//		setCyNodeAttributesForMap(nodeAttributes, speciesBoundingBoxes);
+//		setCyNodeAttributesForMap(nodeAttributes, reactionBoundingBoxes);
+//		setCyNodeAttributesForMap(nodeAttributes, speciesGlyphBoundingBoxes);
+//		setCyNodeAttributesForMap(nodeAttributes, reactionGlyphBoundingBoxes);		
+//	}
+//	
+//	private void setCyNodeAttributesForMap(CyAttributes attrs, Map<String, BoundingBox> map){
+//		for (String id : map.keySet()) {
+//			CyNode node = Cytoscape.getCyNode(id, false);
+//			if (node != null){
+//				BoundingBox box = map.get(id);
+//				attrs.setAttribute(id, ATT_LAYOUT_HEIGHT,
+//						new Double(box.getDimensions().getHeight()));
+//				attrs.setAttribute(id, ATT_LAYOUT_WIDTH,
+//						new Double(box.getDimensions().getWidth()));
+//			}
+//		}
+//	}
+//	
+//	
+//	/** Uses the stored bounding box information to set the positions of the
+//	 *  reaction and species.
+//	 *  Nodes with unknown positions are layouted above the complete layout.
+//	 * @param network
+//	 */
+//	public void applyLayoutPositionsToNetwork(CyNetwork network){
+//		
+//		CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
+//	    String key;
+//	    BoundingBox box; 
+//	    Point point;
+//	    
+//	    double offset = 80.0;
+//	    double current_x = min_x;
+//	    double current_y = min_y - 2.0*offset;
+//	    
+//	    double x;
+//	    double y;
+//	    
+//		@SuppressWarnings("unchecked")
+//		List<Node> nodes = network.nodesList();
+//	    for (Node node : nodes){
+//	    	key = node.getIdentifier();
+//	    	if (speciesBoundingBoxes.containsKey(key)){
+//	    		box = speciesBoundingBoxes.get(key);
+//	    	} else {
+//	    		box = reactionBoundingBoxes.get(key);
+//	    	}
+//	    	
+//	    	// set the position of the node
+//	    	giny.view.NodeView nodeView = view.getNodeView(node);
+//	    	
+//	    	point = box.getPosition();
+//	    	x = point.getX();
+//	    	y = point.getY();
+//	    	
+//	    	// layout generic nodes in grid
+//	    	if (x == GENERIC_X && y == GENERIC_Y){
+//	    		x = current_x;
+//	    		y = current_y;
+//	    		if ((current_x + offset) < max_x){
+//	    			current_x = current_x + offset;
+//	    		}else{
+//	    			current_x = min_x;
+//	    			current_y = current_y - offset;
+//	    		}
+//	    	}
+//	    	//System.out.println(
+//	    	//		String.format("Set position : %s -> [%f , %f]", key, x, y) );
+//	    	nodeView.setXPosition(x);
+//	    	nodeView.setYPosition(y);
+//	    }
+//	}
+//	
+//	public void applyLayoutPositionsToLayoutNetwork(CyNetwork network){
+//		CyNetworkView view = Cytoscape.getNetworkView(network.getIdentifier());
+//	    String key;
+//	    BoundingBox box; 
+//	    Point point;
+//	    
+//	    double offset = 80.0;
+//	    double current_x = min_x;
+//	    double current_y = min_y - 2.0*offset;
+//	    
+//	    double x;
+//	    double y;
+//	    
+//		@SuppressWarnings("unchecked")
+//		List<Node> nodes = network.nodesList();
+//	    for (Node node : nodes){
+//	    	key = node.getIdentifier();
+//	    	if (speciesGlyphBoundingBoxes.containsKey(key)){
+//	    		box = speciesGlyphBoundingBoxes.get(key);
+//	    	} else {
+//	    		box = reactionGlyphBoundingBoxes.get(key);
+//	    	}
+//	    	
+//	    	// set the position of the node
+//	    	giny.view.NodeView nodeView = view.getNodeView(node);
+//	    	
+//	    	point = box.getPosition();
+//	    	x = point.getX();
+//	    	y = point.getY();
+//	    	
+//	    	// layout generic nodes in grid
+//	    	if (x == GENERIC_X && y == GENERIC_Y){
+//	    		x = current_x;
+//	    		y = current_y;
+//	    		if ((current_x + offset) < max_x){
+//	    			current_x = current_x + offset;
+//	    		}else{
+//	    			current_x = min_x;
+//	    			current_y = current_y - offset;
+//	    		}
+//	    	}
+//	    	nodeView.setXPosition(x);
+//	    	nodeView.setYPosition(y);
+//	    }
+//	}
+//	
+//	/** Handles the Z-index information from the layout.
+//	 * Which nodes are in front of which other nodes.
+//	 *  <layout:boundingBox>
+//        	<layout:position layout:x="60" layout:y="0" layout:z="-1"/>
+//            <layout:dimensions layout:width="40" layout:height="40" layout:depth="-1"/>
+//        </layout:boundingBox>
+//       No control over z-index possible in Cytoscape.
+//	 */
+//	@Deprecated
+//	public void applyZIndexToLayoutNetwork(CyNetwork network){
+//	    CySBML.LOGGER.warning("Z-index in Layout not supported by Cytoscape");
+//	}
+//	
+//	
+
+//	
+//	///////////   HELPER STUFF //////////////////////
+//	/** Print the position Map **/
+//	public static void printPositions(Map<String, Position> map){
+//		for (String key : map.keySet()){
+//			System.out.println(String.format("\t%s : %s", key, map.get(key).toString()));
+//		}
+//	}
 	
 
 }
