@@ -2,6 +2,9 @@ package org.cy3sbml;
 
 public class SBML {
 	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
+	public static final String NETWORKTYPE_SBML = "SBML";
+	public static final String NETWORKTYPE_LAYOUT = "LAYOUT";
+	
 	public static final String NODETYPE_ATTR = "type";
 	public static final String INTERACTION_ATTR = "interaction";
 	
@@ -56,7 +59,8 @@ public class SBML {
 	public static final String NODETYPE_FBC_AND = "fbc:and";
 	public static final String NODETYPE_FBC_OR = "fbc:or";
 	public static final String NODETYPE_FBC_GENEPROTEINASSOCIATION = "fbc:geneProteinAssociation";
-	
+	public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
+	public static final String NODETYPE_LAYOUT_REACTIONGLYPH = "layout:reactionGlyph";
 	
 	// edge types (interactions)
 	public static final String INTERACTION_REACTION_ACTIVATOR = "activator-reaction";

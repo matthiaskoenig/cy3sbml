@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.HashMap;
@@ -49,8 +50,10 @@ import org.sbml.jsbml.ext.fbc.GeneProductRef;
 import org.sbml.jsbml.ext.fbc.GeneProteinAssociation;
 import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.fbc.Or;
+import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
 import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
+import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualConstants;
@@ -59,12 +62,12 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
 import org.cy3sbml.gui.ResultsPanel;
+import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * SBMLReaderTask
@@ -84,8 +87,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final ServiceAdapter adapter;
 	private SBMLDocument document;
 	
-	private CyNetwork network;      // global network of all SBML information
-	private CyNetwork coreNetwork;  // core reaction, species, (qualSpecies, qualTransitions) network
+	private CyNetwork network;       // global network of all SBML information
+	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions) network
+	private CyNetwork layoutNetwork; // layout network
 	
 	private CyRootNetwork rootNetwork;
 	private Map<String, CyNode> nodeById; // node dictionary
@@ -202,11 +206,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
 			if (layoutModel != null){
-				logger.info("layout model found, but not yet supported");
+				readLayouts(model, qualModel, layoutModel);	
 			}
-			
-			
+
 			// Create the subNetworks
+			/*
 			HashSet<CyNode> nodes = new HashSet<CyNode>();
 			HashSet<CyEdge> edges = new HashSet<CyEdge>();
 			for (CyNode n : network.getNodeList()){
@@ -214,9 +218,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// TODO:
 				nodes.add(n);
 			}
+			*/
 			
 			// create subnetwork from nodes
-			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
+			// coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
 			// add single nodes to the subnetwork
 			// ((CySubNetwork) coreNetwork).addNode(arg0)
 			
@@ -257,6 +262,60 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		return n;
 	}
+
+	// --- LAYOUT -----------------------------------------------------------------------------------
+	
+	/** Creates the layouts stored in the layout extension. */
+	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
+		logger.info("** layout **");
+		for (Layout layout : layoutModel.getListOfLayouts()){
+			// TODO: manage the multiple layout networks
+			layoutNetwork = rootNetwork.addSubNetwork();
+			readLayout(model, qualModel, layout);
+		}
+	}
+	
+	/** Read a single layout. */
+	private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
+		
+		// Process the layouts (Generate full id set and all edges for elements)
+		LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
+		layout = preprocessor.getProcessedLayout();
+		
+		// now generate the actual cytoscape network
+		
+		logger.info("** core **");
+		// Mark network as SBML
+		AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
+		
+		// addSpeciesGlyphNodes
+		for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
+			// create the node
+			String id = glyph.getId();
+			CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
+			
+			// get species node and copy information
+			if (glyph.isSetSpecies()){
+				CyNode sNode = Cytoscape.getCyNode(glyph.getSpecies(), false);
+				copyNodeInformation(sNode, node);
+			} else {
+				AttributeUtil.set(layoutNetwork, node, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(layoutNetwork, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
+			}
+			
+			
+			readNodeAttributesFromSpeciesGlyph(node, glyph);
+			nodeIds.add(node.getRootGraphIndex());
+		}
+		
+		// addReactionGlyphNodes();
+		
+		// addModelEdges();
+		// addQualitativeModelEdges();
+	}
+	
+	
+	// --- CORE -----------------------------------------------------------------------------------
 	
 	/**
 	 * Create nodes, edges and attributes from Core Model.
@@ -265,7 +324,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private void readCore(Model model){
 		logger.info("** core **");
 		// Mark network as SBML
-		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, "DEFAULT", String.class);
+		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
 		
 		// Network attributes
 		AttributeUtil.set(network, network, SBML.ATTR_ID, model.getId(), String.class);
@@ -710,7 +769,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	@Override
 	public CyNetwork[] getNetworks() {
 		// return new CyNetwork[] { network, coreNetwork };
-		return new CyNetwork[] { network };
+		return new CyNetwork[] { network, layoutNetwork };
 	}
 
 	@Override
