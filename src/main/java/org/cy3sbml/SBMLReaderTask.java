@@ -72,6 +72,7 @@ import org.sbml.jsbml.xml.XMLNode;
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
+import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
@@ -218,10 +219,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
-			// TODO fix the name of the network
-			
+			// set name of network
+			String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+			coreNetwork.getRow(coreNetwork).set(CyNetwork.NAME, "Core: "+ name);
+			 
 			// [2] layout subnetworks
-			// TODO:			
+			// TODO: create layout subnetworks (different mechanism necessary, 
+			//   probably via direct subnetwork generation)
 			
 			taskMonitor.setProgress(1.0);
 			logger.info("---------------------------------");
@@ -905,7 +909,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	@Override
 	public CyNetwork[] getNetworks() {
-		// return new CyNetwork[] { network, coreNetwork };
 		return new CyNetwork[] { network, coreNetwork };
 	}
 
@@ -917,8 +920,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				
 		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
-		NamedSBase2CyNodeMapping mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network);
+		// Look for already existing mappings (of read networks)
+		One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
+		mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network, mapping);
+		
+		// existing mapping is updated
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
+		// update the current network
 		sbmlManager.updateCurrent(network);
 		
 		// Display the model information in the results pane

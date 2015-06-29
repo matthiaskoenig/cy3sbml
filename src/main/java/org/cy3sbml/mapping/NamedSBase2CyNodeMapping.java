@@ -18,27 +18,23 @@ import org.cy3sbml.SBML;
  * For instance the Layout networks have to be managed in a different manner than
  * Qual networks.
  */
-public class NamedSBase2CyNodeMapping extends One2ManyMapping<String,Long>{	
+public class NamedSBase2CyNodeMapping {	
 	
 	/**
 	 * Create mapping from SBML network.
 	 */
-	public static NamedSBase2CyNodeMapping fromSBMLNetwork(SBMLDocument document, CyNetwork network){
-		NamedSBase2CyNodeMapping mapping = new NamedSBase2CyNodeMapping();
-		
+	public static One2ManyMapping<String, Long> fromSBMLNetwork(SBMLDocument document, CyNetwork network, One2ManyMapping<String, Long> mapping){
+		if (mapping == null){
+			mapping = new One2ManyMapping<String, Long>();
+		}
 		List<CyNode> nodes = network.getNodeList();
 		for (CyNode node: nodes){
-			Long suid = node.getSUID();
-			
-			// get attribute from node
+			// get sbml id
 			CyRow attributes = network.getRow(node);
-			String sbml_id = attributes.get(SBML.ATTR_ID, String.class);
+			String sbmlId = attributes.get(SBML.ATTR_ID, String.class);
 			
-			// normally one should check if the NamedSbases are really in the SBML,
-			// but the network was created from the SBML, so we skip this part here
-			// for performance
-			
-			mapping.put(sbml_id, suid);
+			// put the node in the mapping
+			mapping.put(sbmlId, node.getSUID());
 		}
 		return mapping;
 		

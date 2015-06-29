@@ -168,8 +168,7 @@ public class LayoutPreprocessor{
 	private void generateAllEdges(ReactionGlyph rGlyph, String speciesId, String role){
 		ListOf<SpeciesReferenceGlyph> speciesReferenceGlyphList = rGlyph.getListOfSpeciesReferenceGlyphs();
 		if (species2speciesGlyphs.containsKey(speciesId)){
-			List<String> sGlyphIds = species2speciesGlyphs.getValues(speciesId);
-			for (String sGlyphId : sGlyphIds){
+			for (String sGlyphId : species2speciesGlyphs.getValues(speciesId)){
 				SpeciesReferenceGlyph speciesReferenceGlyph = new SpeciesReferenceGlyph(sGlyphId);
 				speciesReferenceGlyph.setSpeciesGlyph(sGlyphId);
 				speciesReferenceGlyph.setName(role);

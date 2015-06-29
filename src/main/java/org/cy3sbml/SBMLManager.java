@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.cy3sbml.gui.ResultsPanel;
@@ -62,7 +63,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		this.adapter = adapter;
 	}
 	
-	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, NamedSBase2CyNodeMapping mapping){
+	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, One2ManyMapping<String, Long> mapping){
 		// stores the root network with the SBMLDocument
 		// all subnetworks can be looked up via the root network
 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
@@ -71,6 +72,13 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		// create and store navigation tree
 		NavigationTree tree = new NavigationTree(doc);
 		sbml2trees.put(suid, tree);
+	}
+	
+	/** Returns mapping or null if no mapping exists. */
+	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
+		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+		Long suid = rootNetwork.getSUID();
+		return sbml2networks.getNSB2CyNodeMapping(suid);
 	}
 	
 	public boolean networkIsSBML(CyNetwork network){
@@ -127,7 +135,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	
 	public List<String> getNSBIds(List<Long> suids){ 
 		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
-		return mapping.getValues(suids);
+		return new LinkedList<String>(mapping.getValues(suids));
 	}
 	
 	public String info(){

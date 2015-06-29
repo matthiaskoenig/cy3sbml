@@ -1,18 +1,18 @@
 package org.cy3sbml.mapping;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /** 
  * Simple one 2 many mapping class.
  */
 public class One2ManyMapping<T1, T2> {	
-	private HashMap<T1, List<T2>> map;
+	private HashMap<T1, HashSet<T2>> map;
 	
 	public One2ManyMapping(){
-		map = new HashMap<T1, List<T2>> ();
+		map = new HashMap<T1, HashSet<T2>> ();
 	}
 	
 	public boolean containsKey(T1 key){
@@ -25,7 +25,7 @@ public class One2ManyMapping<T1, T2> {
 	
 	public boolean put(T1 key, T2 newValue){
 		boolean valueAdded = false;
-		List<T2> values = getOrCreateValues(key);
+		HashSet<T2> values = getOrCreateValues(key);
 		if (! values.contains(newValue)){
 			values.add(newValue);
 			valueAdded = true;
@@ -34,18 +34,18 @@ public class One2ManyMapping<T1, T2> {
 		return valueAdded;
 	}
 	
-	public List<T2> getValues(T1 key){
-		List<T2> values; 
+	public HashSet<T2> getValues(T1 key){
+		HashSet<T2> values; 
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new LinkedList<T2>();
+			values = new HashSet<T2>();
 		}
 		return values;
 	}
 	
-	public List<T2> getValues(List<T1> keys){
-		List<T2> values = new LinkedList<T2>();
+	public HashSet<T2> getValues(Collection<T1> keys){
+		HashSet<T2> values = new HashSet<T2>();
 		for (T1 key: keys){
 			if (containsKey(key)){
 				values.addAll(map.get(key));
@@ -54,12 +54,12 @@ public class One2ManyMapping<T1, T2> {
 		return values;
 	}
 	
-	private List<T2> getOrCreateValues(T1 key){
-		List<T2> values;
+	private HashSet<T2> getOrCreateValues(T1 key){
+		HashSet<T2> values;
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new LinkedList<T2>();
+			values = new HashSet<T2>();
 		}
 		return values;
 	}
