@@ -306,8 +306,7 @@ public class BioModelDialog extends JDialog {
 		public void keyPressed(KeyEvent keyE) {
 			int key = keyE.getKeyCode();
 		     if (key == KeyEvent.VK_ENTER) {
-		    	 //searchBioModels();
-		    	 logger.info("search action not implemented");
+		    	 searchBioModels();
 		     }
 		}
 	}

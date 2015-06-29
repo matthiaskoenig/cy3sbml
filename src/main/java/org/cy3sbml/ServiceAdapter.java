@@ -10,6 +10,7 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
+import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -50,6 +51,7 @@ public class ServiceAdapter {
 	public OpenBrowser openBrowser;
 	public ConnectionProxy connectionProxy;
 	public LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
+	public FileUtil fileUtil;
 	
 	@SuppressWarnings("rawtypes")
 	public static synchronized ServiceAdapter getInstance(
@@ -69,7 +71,8 @@ public class ServiceAdapter {
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory
+			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+			FileUtil fileUtil
 			){
 		if (uniqueInstance == null){
 			uniqueInstance = new ServiceAdapter(
@@ -89,7 +92,8 @@ public class ServiceAdapter {
 					streamUtil,
 					openBrowser,
 					connectionProxy,
-					loadNetworkFileTaskFactory);
+					loadNetworkFileTaskFactory,
+					fileUtil);
 		}
 		return uniqueInstance;
 	}
@@ -116,7 +120,8 @@ public class ServiceAdapter {
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory
+			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+			FileUtil fileUtil
 			){
 		logger.info("ServiceAdapter created");
 		this.cySwingApplication = cySwingApplication;
@@ -136,6 +141,7 @@ public class ServiceAdapter {
 		this.openBrowser = openBrowser;
 		this.connectionProxy = connectionProxy;
 		this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
+		this.fileUtil = fileUtil;
 	}
 
 	public Object cy3sbmlProperty(String s){
