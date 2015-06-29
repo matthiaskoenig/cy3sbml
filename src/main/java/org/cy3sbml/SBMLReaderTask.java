@@ -15,8 +15,10 @@ import java.util.Map;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
+import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.view.model.CyNetworkView;
@@ -167,26 +169,59 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
 			if (layoutModel != null){
-				logger.info("comp model found, but not yet supported");
+				logger.info("layout model found, but not yet supported");
 				//readLayouts(model, qualModel, layoutModel);	
 			}
 
-			// Create subNetworks
-			// [1] core
+			// main SBML network consisting of the following nodes and edges
+			String[] nodeTypes = {
+				SBML.NODETYPE_SPECIES,
+				SBML.NODETYPE_REACTION,
+				SBML.NODETYPE_QUAL_SPECIES,
+				SBML.NODETYPE_QUAL_TRANSITION,
+				SBML.NODETYPE_FBC_GENEPRODUCT,
+				SBML.NODETYPE_FBC_AND,
+				SBML.NODETYPE_FBC_OR
+			}; 
+			String[] edgeTypes = {
+				SBML.INTERACTION_REACTION_REACTANT,
+				SBML.INTERACTION_REACTION_PRODUCT,
+				SBML.INTERACTION_REACTION_MODIFIER,
+				SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+				SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
+				SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
+				SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
+				SBML.INTERACTION_FBC_ASSOCIATION_REACTION
+			};
+			// O(1) lookup
+			HashSet<String> nodeTypesSet = new HashSet<String>(java.util.Arrays.asList(nodeTypes));
+			HashSet<String> edgeTypesSet = new HashSet<String>(java.util.Arrays.asList(edgeTypes));
+	
+			// collect nodes and edges
 			HashSet<CyNode> nodes = new HashSet<CyNode>();
-			HashSet<CyEdge> edges = new HashSet<CyEdge>();
 			for (CyNode n : network.getNodeList()){
-				// Check the types of the nodes and edges
-				// TODO:
-				nodes.add(n);
+				// check the type
+				CyRow row = network.getRow(n, CyNetwork.DEFAULT_ATTRS);
+				String type = row.get(SBML.ATTR_TYPE, String.class);
+				if (nodeTypesSet.contains(type)){
+					nodes.add(n);	
+				}
+			}
+	
+			HashSet<CyEdge> edges = new HashSet<CyEdge>();
+			for (CyEdge e : network.getEdgeList()){
+				// check the type
+				CyRow row = network.getRow(e, CyNetwork.DEFAULT_ATTRS);
+				String type = row.get(SBML.INTERACTION_ATTR, String.class);
+				if (edgeTypesSet.contains(type)){
+					edges.add(e);	
+				}
 			}
 			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
-			// add single nodes to the subnetwork
-			// ((CySubNetwork) coreNetwork).addNode(arg0)
+			// TODO fix the name of the network
 			
 			// [2] layout subnetworks
-			// TODO:
-			
+			// TODO:			
 			
 			taskMonitor.setProgress(1.0);
 			logger.info("---------------------------------");
@@ -526,24 +561,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// Create nodes for InitialAssignments
-		for (InitialAssignment assignment : model.getListOfInitialAssignments()) {
-			// CyNode node = createSBaseNode(assignment, SBML.NODETYPE_INITIAL_ASSIGNMENT);
-			// TODO:
-		}
+		// InitialAssignments (not parsed)
+		// for (InitialAssignment assignment : model.getListOfInitialAssignments()) {}
 		
-		// Create nodes for InitialAssignments
-		for (Rule rule : model.getListOfRules()){
-			// CyNode node = createSBaseNode(rule, SBML.NODETYPE_RULE);
-			// TODO:
-		}
+		// Rules (not parsed)
+		//for (Rule rule : model.getListOfRules()){}
 				
 		// Constraints (not parsed)
 		// for (Constraint constraint : model.getListOfConstraints()){}
 		
 		// Events (not parsed)
 		// for (Event event : model.getListOfEvents()){}
-		
 	}
 	
 
@@ -567,10 +595,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
 			}
 			if (qSpecies.isSetInitialLevel()){
-				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);	
+				AttributeUtil.set(network, node, SBML.ATTR_QUAL_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);	
 			}
 			if (qSpecies.isSetMaxLevel()){
-				AttributeUtil.set(network, node, SBML.ATTR_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
+				AttributeUtil.set(network, node, SBML.ATTR_QUAL_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
 			}				 
 		}
 		// QualTransitions
@@ -727,33 +755,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// handle And, Or, GeneProductRef recursively
 				Association association = gpa.getAssociation();
 				processAssociation(node, SBML.NODETYPE_REACTION, association);
-				
-				/* Do not create the GPA node
-				// create id
-				String gpaId;
-				if (gpa.isSetId()){
-					gpaId = gpa.getId();
-				} else {
-					gpaId = "gpa-" + reaction.getId();
-				}
-				// create node
-			 	CyNode gpaNode = network.addNode();
-			 	nodeById.put(gpaId, gpaNode);
-			 	
-			 	// set attributes
-				AttributeUtil.set(network, gpaNode, SBML.ATTR_ID, gpaId, String.class);
-				AttributeUtil.set(network, gpaNode, SBML.LABEL, gpaId, String.class);
-				AttributeUtil.set(network, gpaNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION, String.class);
-				
-				// create edge (reaction--gpa)
-				CyEdge edge = network.addEdge(node, gpaNode, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_REACTION_GPA, String.class);
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
-				
-				// handle And, Or, GeneProductRef recursively
-				Association association = gpa.getAssociation();
-				processAssociation(gpaNode, SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION, association);
-				*/
 			}
 		}
 		
@@ -804,9 +805,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 			CyEdge edge = network.addEdge(gpNode, parentNode, true);
 			AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
-			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
-			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+			if (parentType.equals(SBML.NODETYPE_REACTION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
@@ -820,9 +819,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, andNode, SBML.LABEL, "AND", String.class);
 			AttributeUtil.set(network, andNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_AND, String.class);
 			CyEdge edge = network.addEdge(andNode, parentNode, true);
-			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
-			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+			if (parentType.equals(SBML.NODETYPE_REACTION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
@@ -841,9 +838,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, orNode, SBML.LABEL, "OR", String.class);
 			AttributeUtil.set(network, orNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_OR, String.class);
 			CyEdge edge = network.addEdge(orNode, parentNode, true);
-			if (parentType.equals(SBML.NODETYPE_FBC_GENEPROTEINASSOCIATION)){
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_GPA, String.class);
-			} else if (parentType.equals(SBML.NODETYPE_REACTION)){
+			if (parentType.equals(SBML.NODETYPE_REACTION)){
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
 			} else {
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);

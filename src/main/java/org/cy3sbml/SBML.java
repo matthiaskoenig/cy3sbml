@@ -9,33 +9,33 @@ public class SBML {
 	public static final String NODETYPE_ATTR = "type";
 	public static final String INTERACTION_ATTR = "interaction";
 	
+	/** Node and edge attributes */
 	public static final String LABEL = "label"; 
 	
 	public static final String ATTR_ID = "id";
 	public static final String ATTR_TYPE = "type";
-	public static final String ATTR_METAID = "metaId";
 	public static final String ATTR_NAME = "name";
+	public static final String ATTR_SBOTERM = "sbo";
+	public static final String ATTR_METAID = "metaId";
+	
 	public static final String ATTR_COMPARTMENT = "compartment";
 	public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
 	public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
 	public static final String ATTR_CHARGE = "charge";
-	public static final String ATTR_SBOTERM = "sbo";
 	public static final String ATTR_CONSTANT = "constant";
 	public static final String ATTR_BOUNDARY_CONDITION = "boundaryCondition";
 	public static final String ATTR_HAS_ONLY_SUBSTANCE_UNITS = "hasOnlySubstanceUnits";
 	public static final String ATTR_REVERSIBLE = "reversible";
 	public static final String ATTR_STOICHIOMETRY = "stoichiometry";
-	public static final String ATTR_MAX_LEVEL = "maxLevel";
-	public static final String ATTR_INITIAL_LEVEL = "initialLevel";
 	public static final String ATTR_CONVERSION_FACTOR = "conversionFactor";
-	public static final String ATTR_UNITS = "units";
-	public static final String ATTR_DERIVED_UNITS = "derivedUnits";
 	public static final String ATTR_VALUE = "value";
 	public static final String ATTR_FAST = "fast";
 	public static final String ATTR_KINETIC_LAW = "kineticLaw";
 	public static final String ATTR_SIZE = "size";
 	public static final String ATTR_SPATIAL_DIMENSIONS = "spatialDimensions";
 	
+	public static final String ATTR_UNITS = "units";
+	public static final String ATTR_DERIVED_UNITS = "derivedUnits";
 	public static final String ATTR_AREA_UNITS = "areaUnits";
 	public static final String ATTR_EXTENT_UNITS = "extentUnits";
 	public static final String ATTR_LENGTH_UNITS = "lengthUnits";
@@ -43,6 +43,11 @@ public class SBML {
 	public static final String ATTR_TIME_UNITS = "timeUnits";
 	public static final String ATTR_VOLUME_UNITS = "volumeUnits";
 	
+	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
+	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
+	
+	public static final String ATTR_QUAL_MAX_LEVEL = "qual:maxLevel";
+	public static final String ATTR_QUAL_INITIAL_LEVEL = "qual:initialLevel";
 	public static final String ATTR_QUAL_SIGN = "qual:sign";
 	public static final String ATTR_QUAL_THRESHOLD_LEVEL = "qual:tresholdLevel";
 	public static final String ATTR_QUAL_TRANSITION_EFFECT = "qual:transitionEffect";
@@ -57,10 +62,8 @@ public class SBML {
 	public static final String ATTR_FBC_UPPER_FLUX_BOUND = "fbc:upperFluxBound";
 	public static final String ATTR_FBC_OBJECTIVE_TEMPLATE = "fbc:objective-%1$s";
 	
-	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
-	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
-	
-	// node types
+	/** Node types */
+	// core
 	public static final String NODETYPE_SPECIES = "species";
 	public static final String NODETYPE_PARAMETER = "parameter";
 	public static final String NODETYPE_COMPARTMENT = "compartment";
@@ -68,37 +71,38 @@ public class SBML {
 	public static final String NODETYPE_RULE = "rule";
 	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
-	
+	// qual
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
 	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
+	// fbc
 	public static final String NODETYPE_FBC_GENEPRODUCT = "fbc:geneProduct";
 	public static final String NODETYPE_FBC_AND = "fbc:and";
 	public static final String NODETYPE_FBC_OR = "fbc:or";
-	public static final String NODETYPE_FBC_GENEPROTEINASSOCIATION = "fbc:geneProteinAssociation";
+	// layout
 	public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
 	public static final String NODETYPE_LAYOUT_REACTIONGLYPH = "layout:reactionGlyph";
 	
-	// edge types (interactions)
+	/** Edge types */
+	// core
+	public static final String INTERACTION_REACTION_REACTANT = "reactant-reaction";
+	public static final String INTERACTION_REACTION_PRODUCT = "reaction-product";
+	public static final String INTERACTION_REACTION_MODIFIER = "modifier-reaction";
+	
 	public static final String INTERACTION_REACTION_ACTIVATOR = "activator-reaction";
 	public static final String INTERACTION_REACTION_INHIBITOR = "inhibitor-reaction";
-	public static final String INTERACTION_REACTION_MODIFIER = "modifier-reaction";
-	public static final String INTERACTION_REACTION_PRODUCT = "reaction-product";
 	public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction-sideproduct";
-	public static final String INTERACTION_REACTION_REACTANT = "reactant-reaction";
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
+	public static final String INTERACTION_UNDEFINED = "undefined";
 	
+	public static final String INTERACTION_SPECIES_COMPARTMENT = "species-compartment";
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
-	// public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
-	// public static final String INTERACTION_PARAMETER_KINETICLAW = "parameter-kineticLaw";
-	public static final String INTERACTION_SPECIES_COMPARTMENT = "species-compartment";
+	// qual
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
 	public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition-output";
-	
+	// fbc
 	public static final String INTERACTION_FBC_GENEPRODUCT_SPECIES = "species-geneProduct";
-	public static final String INTERACTION_FBC_REACTION_GPA = "geneProduct-gpa";
-	public static final String INTERACTION_FBC_ASSOCIATION_GPA = "association-gpa";
 	public static final String INTERACTION_FBC_ASSOCIATION_REACTION = "association-reaction";
 	public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association-association";
-	public static final String INTERACTION_UNDEFINED = "undefined";
+	
 }

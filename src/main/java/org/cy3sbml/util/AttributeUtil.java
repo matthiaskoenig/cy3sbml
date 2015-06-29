@@ -1,29 +1,5 @@
 package org.cy3sbml.util;
 
-/*
- * #%L
- * Cytoscape BioPAX Impl (biopax-impl)
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2006 - 2013 The Cytoscape Consortium
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/lgpl-2.1.html>.
- * #L%
- */
-
 import java.util.List;
 
 import org.cytoscape.model.CyColumn;
@@ -38,7 +14,7 @@ public class AttributeUtil {
 		set(network, entry, CyNetwork.DEFAULT_ATTRS, name, value, type);
 	}
 	
-	public static void set(CyNetwork network, CyIdentifiable entry, String tableName, String name, Object value, Class<?> type) {
+	private static void set(CyNetwork network, CyIdentifiable entry, String tableName, String name, Object value, Class<?> type) {
 		CyRow row = network.getRow(entry, tableName);
 		CyTable table = row.getTable();
 		CyColumn column = table.getColumn(name);
@@ -54,26 +30,17 @@ public class AttributeUtil {
 		}
 	}
 	
-	/*
-	@Deprecated
-	public void checkEdgeSchema(CyRow attributes) {
-		checkSchema(attributes, SBML.INTERACTION_TYPE_ATTR, String.class);
-	}
+	// TODO: ? figure out how to implement the generic get function
 	
-	@Deprecated
-	public void checkNodeSchema(CyRow attributes) {
-		checkSchema(attributes, SBML.SBML_TYPE_ATTR, String.class);
-		checkSchema(attributes, SBML.SBML_ID_ATTR, String.class);
-		checkSchema(attributes, SBML.SBML_INITIAL_CONCENTRATION_ATTR, Double.class);
-		checkSchema(attributes, SBML.SBML_INITIAL_AMOUNT_ATTR, Double.class);
-		checkSchema(attributes, SBML.SBML_CHARGE_ATTR, Integer.class);
-		checkSchema(attributes, SBML.SBML_COMPARTMENT_ATTR, String.class);
+	public static Class<?> get(CyNetwork network, CyIdentifiable entry, String name, Class<?> type) {
+		return get(network, entry, CyNetwork.DEFAULT_ATTRS, name, type);
 	}
-	*/
-	
-	public <T> void checkSchema(CyRow attributes, String attributeName, Class<T> type) {
-		if (attributes.getTable().getColumn(attributeName) == null)
-			attributes.getTable().createColumn(attributeName, type, false);
+
+	private static Class<?> get(CyNetwork network, CyIdentifiable entry, String tableName, String name, Class<?> type) {
+		CyRow row = network.getRow(entry, tableName);
+		// CyTable table = row.getTable();
+		// CyColumn column = table.getColumn(name);
+		return (Class<?>) row.get(name, type);
 	}
 	
 }
