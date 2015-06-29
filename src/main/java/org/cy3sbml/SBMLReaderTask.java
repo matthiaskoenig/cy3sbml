@@ -563,6 +563,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				continue;
 			}
 			CyNode node = nodeById.get(species.getId());
+			// optional
 			if (fbcSpecies.isSetCharge()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_CHARGE, fbcSpecies.getCharge(), Integer.class);
 			}
@@ -572,6 +573,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		
 		// List of flux objectives (handled via reaction attributes)
+		// (activeObjective is not parsed)
 		for (Objective objective : fbcModel.getListOfObjectives()){
 			// one reaction attribute column per objective
 			String key = String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, objective.getId());
@@ -593,7 +595,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyNode speciesNode = nodeById.get(geneProduct.getAssociatedSpecies());
 				CyEdge edge = network.addEdge(speciesNode, node, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES, String.class);
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);	
 			}
 		}
 		
@@ -604,8 +605,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (fbcReaction == null){
 				continue;
 			}
-			
-			// reaction has overwritten fbc information
+			// optional bounds
 			CyNode node = nodeById.get(reaction.getId());
 			if (fbcReaction.isSetLowerFluxBound()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_LOWER_FLUX_BOUND, fbcReaction.getLowerFluxBound(), String.class);
@@ -651,11 +651,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// parse the fbc v1 fluxBounds and geneAssociations
+		// parse fbc v1 fluxBounds and geneAssociations
 		if (fbcModel.getVersion() == 1){
+			// geneAssociations
 			if (model.isSetAnnotation()){
-				// fbc v1 geneAssociations not in specification or supported by
-				// JSBML, so not parsed
+				// fbc v1 geneAssociations not in specification or supported by JSBML, so not parsed
 				Annotation annotation = model.getAnnotation();
 				XMLNode xmlNode = annotation.getXMLNode();
 				
@@ -683,7 +683,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				} else if (operation.equals(Operation.LESS_EQUAL)){
 					AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value.toString(), String.class);
 				}
-			}	
+			}
 		}
 	}
 
