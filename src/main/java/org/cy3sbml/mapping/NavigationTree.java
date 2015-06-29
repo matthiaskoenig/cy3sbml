@@ -19,11 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Handling the NavigationTree model.
- * This is some relict of the older version. 
- * Only the objectMapping is really used. 
- * TODO: make sure this is created exactly once!, not every time the SBMLDocument is switched.
- *
+ * Handling the NavigationTree model. 
+ * Only the objectMapping is in use, the TreeModel is overkill. 
  */
 public class NavigationTree {
 	private static final Logger logger = LoggerFactory.getLogger(NavigationTree.class);
@@ -61,10 +58,9 @@ public class NavigationTree {
 	
 		try{
 			Model model = document.getModel();
-			String modelName = getModelNameFromModel(model);
 			SBMLNetwork = true;
 			
-			DefaultMutableTreeNode top = new DefaultMutableTreeNode(modelName);
+			DefaultMutableTreeNode top = new DefaultMutableTreeNode(model.getId());
 			treeModel = new DefaultTreeModel(top);
 			
 			// adding supported listOfs to the Navigation tree
@@ -103,7 +99,6 @@ public class NavigationTree {
 	
 	public NamedSBase getNamedSBaseById(String id){
 		NamedSBase nsb = null;
-		// NamedSBases have to be supported in the objectMap
 		if (objectMap.containsKey(id)){
 			return objectMap.get(id);
 		}
@@ -126,19 +121,5 @@ public class NavigationTree {
 	
 	private DefaultMutableTreeNode createTreeNodeForName(String name){
 		return new DefaultMutableTreeNode(name, true);
-	}
-	
-	@Deprecated
-	/** ? where is this used ?
-	 * Not necessary due to change to SUIDs.
-	 * @param model
-	 * @return
-	 */
-	private String getModelNameFromModel(Model model){
-		String name = model.getId();
-		if (name.equals("")){
-			name = model.getName();
-		}
-		return name;
-	}
+	}	
 }

@@ -15,8 +15,7 @@ import org.cy3sbml.gui.JEditorPaneSBML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Generates information for web resources in separate Thread. 
- */
+/** Generates information for web resources in separate thread. */
 public class NamedSBaseInfoThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoThread.class);
 	
@@ -53,7 +52,9 @@ public class NamedSBaseInfoThread extends Thread{
     	}
     }
         
-	/** Reads the annotation information in the Miriam Cash */
+	/** Reads the annotation information in the Miriam Cash 
+	 * TODO: full set of preloads (fbc, core), do during miriam refactoring 
+	 */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();
 		logger.debug("Preload Miriam for <compartments>");

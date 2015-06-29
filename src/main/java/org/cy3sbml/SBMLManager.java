@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	private ServiceAdapter adapter;
 	
 	private SBML2NetworkMapper sbml2networks;
+	private HashMap<Long, NavigationTree> sbml2trees;
 	private NavigationTree navigationTree;
 	
 	
@@ -55,6 +57,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	private SBMLManager(ServiceAdapter adapter){
 		logger.info("SBMLManager created");
 		sbml2networks = new SBML2NetworkMapper();
+		sbml2trees = new HashMap<Long, NavigationTree>();
 		navigationTree = new NavigationTree();
 		this.adapter = adapter;
 	}
@@ -65,6 +68,9 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
 		Long suid = rootNetwork.getSUID();
 		sbml2networks.putDocument(suid, doc, mapping);
+		// create and store navigation tree
+		NavigationTree tree = new NavigationTree(doc);
+		sbml2trees.put(suid, tree);
 	}
 	
 	public boolean networkIsSBML(CyNetwork network){
@@ -74,31 +80,21 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 	public void updateCurrent(CyNetwork network) {	
-		logger.info("Update current ...");
+		logger.debug("Update current ...");
 		Long suid = null;
 		if (network != null){
 			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
 			suid = rootNetwork.getSUID();
 		}
 		sbml2networks.setCurrentSUID(suid);
-		
-		// update tree
-		updateNavigationTree();
+		navigationTree = sbml2trees.get(suid);
 	}
 	
-	// TODO: only create the trees once for the SBMLDocuments -> lookup afterwards
-	// put in the SBML2Network mapper !
-	private void updateNavigationTree(){
-		SBMLDocument document = sbml2networks.getCurrentDocument();
-		navigationTree = new NavigationTree(document);
-	}
 	
-	// TODO: handle navigation tree better
 	public NamedSBase getNamedSBaseById(String nsbId){
 		NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
 		return nsb;
 	}
-	
 	
 	public SBMLDocument getCurrentSBMLDocument(){
 		return sbml2networks.getCurrentDocument();
@@ -129,12 +125,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		}
 	}
 	
-	/*
-	private List<Long> getSUIDs(List<String> NSBIds){ 
-		One2ManyMapping<String, Long> mapping = sbmlManager.getCurrentNSB2CyNodeMapping();
-		return mapping.getValues(NSBIds);
-	}
-	*/
 	public List<String> getNSBIds(List<Long> suids){ 
 		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
 		return mapping.getValues(suids);
