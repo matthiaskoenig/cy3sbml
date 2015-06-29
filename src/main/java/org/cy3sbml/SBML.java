@@ -67,6 +67,7 @@ public class SBML {
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_RULE = "rule";
 	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
+	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
 	
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
 	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
@@ -87,6 +88,9 @@ public class SBML {
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
 	
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
+	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
+	// public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
+	// public static final String INTERACTION_PARAMETER_KINETICLAW = "parameter-kineticLaw";
 	public static final String INTERACTION_SPECIES_COMPARTMENT = "species-compartment";
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
 	public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition-output";

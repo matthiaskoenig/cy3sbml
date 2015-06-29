@@ -22,6 +22,7 @@ import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.InitialAssignment;
@@ -328,8 +329,22 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// Create nodes for parameters
 		for (Parameter parameter : model.getListOfParameters()) {
 			CyNode node = createNamedSBaseNode(parameter, SBML.NODETYPE_PARAMETER);
-
-
+			if (parameter.isSetValue()){
+				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, parameter.getValue(), Double.class);
+			}
+			if (parameter.isSetUnits()){
+				AttributeUtil.set(network, node, SBML.ATTR_UNITS, parameter.getUnits(), String.class);
+			}
+			if (parameter.isSetConstant()){
+				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, parameter.getConstant(), Boolean.class);
+			}
+			// a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
+			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
+			// then the unit of that species' quantity is undefined.
+			UnitDefinition udef = parameter.getDerivedUnitDefinition();
+			if (udef != null){
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
+			}
 		}
 		
 		// Create nodes for species
@@ -341,12 +356,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyNode comp = nodeById.get(species.getCompartment());
 				CyEdge edge = network.addEdge(node, comp, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
-			}
-			if (species.isSetInitialConcentration()){
-				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
-			}
-			if (species.isSetInitialAmount()){
-				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, species.getInitialAmount(), Double.class);
 			}
 			if (species.isSetBoundaryCondition()){
 				AttributeUtil.set(network, node, SBML.ATTR_BOUNDARY_CONDITION, species.getBoundaryCondition(), Boolean.class);
@@ -366,19 +375,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetSubstanceUnits()){
 				AttributeUtil.set(network, node, SBML.ATTR_SUBSTANCE_UNITS, species.getSubstanceUnits(), String.class);
 			}
+			if (species.isSetInitialAmount()){
+				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, species.getInitialAmount(), Double.class);
+			}
+			if (species.isSetInitialConcentration()){
+				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
+			}
 			if (species.isSetUnits()){
 				AttributeUtil.set(network, node, SBML.ATTR_UNITS, species.getUnits(), String.class);
 			}
 			if (species.isSetValue()){
 				AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
 			}
-			
 			// a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
 			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
 			// then the unit of that species' quantity is undefined.
 			UnitDefinition udef = species.getDerivedUnitDefinition();
 			if (udef != null){
-				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
 			}
 		}
 		
@@ -410,12 +424,39 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
 			// then the unit of that species' quantity is undefined.
 			if (udef != null){
-				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, reaction.getDerivedUnits(), String.class);
+				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
 			}
 		
-			// Backwards compatibility of reader (anybody using this?)
 			if (reaction.isSetKineticLaw()){
 				KineticLaw law = reaction.getKineticLaw();
+				
+				/*
+				// Create a kinetic law node
+				String id = reaction.getId() + "_law";
+			 	CyNode lawNode = network.addNode();
+			 	nodeById.put(id, lawNode);
+				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, lawNode, SBML.ATTR_TYPE, SBML.NODETYPE_KINETIC_LAW, String.class);
+				// connect to reaction
+				CyEdge edge = network.addEdge(node, lawNode, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_KINETICLAW, String.class);
+				*/
+				
+				// global parameters
+				if (law.isSetMath()){
+					ASTNode astNode = law.getMath();
+					List<Parameter> parameters = astNode.findReferencedGlobalParameters();
+					// make unique (often parameter multiple times in equation
+					for (Parameter parameter : new HashSet<Parameter>(parameters)){
+						// add edge
+						CyNode parameterNode = nodeById.get(parameter.getId());
+						CyEdge edge = network.addEdge(parameterNode, node, true);
+						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);	
+					}
+				}
+				// local parameters
+				// Backwards compatibility of reader (anybody using this?)
+				// TODO: create LocalParameter nodes for parameters (and add edge)
 				if (law.isSetListOfLocalParameters()){
 					for (LocalParameter parameter: law.getListOfLocalParameters()){
 						if (parameter.isSetValue()){
