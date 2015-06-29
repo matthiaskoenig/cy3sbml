@@ -59,6 +59,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="#F0F0F0" attributeValue="species"/>
                     <discreteMappingEntry value="#999999" attributeValue="reaction"/>
+                    <discreteMappingEntry value="#00CC66" attributeValue="compartment"/>
+                    <discreteMappingEntry value="#0099FF" attributeValue="parameter"/>
                     <discreteMappingEntry value="#F0F0F0" attributeValue="qual:species"/>
                     <discreteMappingEntry value="#999999" attributeValue="qual:transition"/>
                     <discreteMappingEntry value="#FF9966" attributeValue="fbc:geneProduct"/>
@@ -74,6 +76,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="60.0" attributeValue="species"/>
                     <discreteMappingEntry value="30.0" attributeValue="reaction"/>
+                    <discreteMappingEntry value="90.0" attributeValue="compartment"/>
+                    <discreteMappingEntry value="30.0" attributeValue="parameter"/>
                     <discreteMappingEntry value="60.0" attributeValue="qual:species"/>
                     <discreteMappingEntry value="30.0" attributeValue="qual:transition"/>
                     <discreteMappingEntry value="60.0" attributeValue="fbc:geneProduct"/>
@@ -89,6 +93,8 @@
                 <discreteMapping attributeType="string" attributeName="type">
                     <discreteMappingEntry value="ELLIPSE" attributeValue="species"/>
                     <discreteMappingEntry value="RECTANGLE" attributeValue="reaction"/>
+                    <discreteMappingEntry value="HEXAGON" attributeValue="compartment"/>
+                    <discreteMappingEntry value="DIAMOND" attributeValue="parameter"/>
                     <discreteMappingEntry value="ELLIPSE" attributeValue="qual:species"/>
                     <discreteMappingEntry value="RECTANGLE" attributeValue="qual:transition"/>
                     <discreteMappingEntry value="TRIANGLE" attributeValue="fbc:geneProduct"/>

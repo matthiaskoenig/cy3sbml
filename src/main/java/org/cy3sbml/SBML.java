@@ -33,6 +33,8 @@ public class SBML {
 	public static final String ATTR_VALUE = "value";
 	public static final String ATTR_FAST = "fast";
 	public static final String ATTR_KINETIC_LAW = "kineticLaw";
+	public static final String ATTR_SIZE = "size";
+	public static final String ATTR_SPATIAL_DIMENSIONS = "spatialDimensions";
 	
 	public static final String ATTR_AREA_UNITS = "areaUnits";
 	public static final String ATTR_EXTENT_UNITS = "extentUnits";
@@ -63,6 +65,8 @@ public class SBML {
 	public static final String NODETYPE_PARAMETER = "parameter";
 	public static final String NODETYPE_COMPARTMENT = "compartment";
 	public static final String NODETYPE_REACTION = "reaction";
+	public static final String NODETYPE_RULE = "rule";
+	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
 	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
@@ -81,6 +85,9 @@ public class SBML {
 	public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction-sideproduct";
 	public static final String INTERACTION_REACTION_REACTANT = "reactant-reaction";
 	public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant-reaction";
+	
+	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
+	public static final String INTERACTION_SPECIES_COMPARTMENT = "species-compartment";
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
 	public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition-output";
 	

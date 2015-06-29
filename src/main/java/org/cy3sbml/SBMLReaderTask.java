@@ -24,6 +24,7 @@ import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.InitialAssignment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -32,6 +33,7 @@ import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.Rule;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
@@ -265,7 +267,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
 		
 		// Network attributes
-		AttributeUtil.set(network, network, SBML.ATTR_ID, model.getId(), String.class);
+		if (model.isSetId()){
+			AttributeUtil.set(network, network, SBML.ATTR_ID, model.getId(), String.class);	
+		}
 		if (model.isSetName()){
 			AttributeUtil.set(network, network, SBML.ATTR_NAME, model.getName(), String.class);
 		}
@@ -274,19 +278,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		if (model.isSetSBOTerm()){
 			AttributeUtil.set(network, network, SBML.ATTR_SBOTERM, model.getSBOTermID(), String.class);
-		}
-		if (model.isSetConversionFactor()){
-			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
-		}
-		
-		if (model.isSetAreaUnits()){
-			AttributeUtil.set(network, network, SBML.ATTR_AREA_UNITS, model.getAreaUnits(), String.class);
-		}
-		if (model.isSetExtentUnits()){
-			AttributeUtil.set(network, network, SBML.ATTR_EXTENT_UNITS, model.getExtentUnits(), String.class);	
-		}
-		if (model.isSetLengthUnits()){
-			AttributeUtil.set(network, network, SBML.ATTR_LENGTH_UNITS, model.getLengthUnits(), String.class);	
 		}
 		if (model.isSetSubstanceUnits()){
 			AttributeUtil.set(network, network, SBML.ATTR_SUBSTANCE_UNITS, model.getSubstanceUnits(), String.class);
@@ -297,13 +288,59 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (model.isSetVolumeUnits()){
 			AttributeUtil.set(network, network, SBML.ATTR_VOLUME_UNITS, model.getVolumeUnits(), String.class);	
 		}
+		if (model.isSetAreaUnits()){
+			AttributeUtil.set(network, network, SBML.ATTR_AREA_UNITS, model.getAreaUnits(), String.class);
+		}
+		if (model.isSetLengthUnits()){
+			AttributeUtil.set(network, network, SBML.ATTR_LENGTH_UNITS, model.getLengthUnits(), String.class);	
+		}
+		if (model.isSetExtentUnits()){
+			AttributeUtil.set(network, network, SBML.ATTR_EXTENT_UNITS, model.getExtentUnits(), String.class);	
+		}
+		if (model.isSetConversionFactor()){
+			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
+		}
 		
+		// FunctionDefinitions (not parsed)
+		// for (FunctionDefinition fdef : model.getListOfFunctionDefinitions()){}
+		
+		// UnitDefinitions (not parsed)
+		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
+		
+		// Create nodes for compartments
+		for (Compartment compartment : model.getListOfCompartments()) {
+			CyNode node = createNamedSBaseNode(compartment, SBML.NODETYPE_COMPARTMENT);
+
+			if (compartment.isSetSpatialDimensions()){
+				AttributeUtil.set(network, node, SBML.ATTR_SPATIAL_DIMENSIONS, compartment.getSpatialDimensions(), Double.class);
+			}
+			if (compartment.isSetSize()){
+				AttributeUtil.set(network, node, SBML.ATTR_SPATIAL_DIMENSIONS, compartment.getSize(), Double.class);
+			}
+			if (compartment.isSetUnits()){
+				AttributeUtil.set(network, node, SBML.ATTR_UNITS, compartment.getUnits(), String.class);
+			}
+			if (compartment.isSetConstant()){
+				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, compartment.getConstant(), Boolean.class);
+			}
+		}
+		
+		// Create nodes for parameters
+		for (Parameter parameter : model.getListOfParameters()) {
+			CyNode node = createNamedSBaseNode(parameter, SBML.NODETYPE_PARAMETER);
+
+
+		}
 		
 		// Create nodes for species
 		for (Species species : model.getListOfSpecies()) {
 			CyNode node = createNamedSBaseNode(species, SBML.NODETYPE_SPECIES);
 			if (species.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
+				// add edge to compartment
+				CyNode comp = nodeById.get(species.getCompartment());
+				CyEdge edge = network.addEdge(node, comp, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
 			}
 			if (species.isSetInitialConcentration()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
@@ -345,28 +382,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		
-		// Create nodes for compartments
-		for (Compartment compartment : model.getListOfCompartments()) {
-			CyNode node = createNamedSBaseNode(compartment, SBML.NODETYPE_COMPARTMENT);
-			
-		}
-		
-		// Create nodes for parameters
-		for (Parameter parameter : model.getListOfParameters()) {
-			CyNode node = createNamedSBaseNode(parameter, SBML.NODETYPE_PARAMETER);
-			if (parameter.isSetConstant()){
-				
-			}
-		}
-		
-		
 		// Create reaction nodes
 		for (Reaction reaction : model.getListOfReactions()) {
 			CyNode node = createNamedSBaseNode(reaction, SBML.NODETYPE_REACTION);
 	
 			if (reaction.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
+				// add edge to compartment
+				CyNode comp = nodeById.get(reaction.getCompartment());
+				CyEdge edge = network.addEdge(node, comp, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_COMPARTMENT, String.class);
 			}
 			// Reactions set reversible by default
 			if (reaction.isSetReversible()){
@@ -459,6 +484,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 		}
+		
+		// Create nodes for InitialAssignments
+		for (InitialAssignment assignment : model.getListOfInitialAssignments()) {
+			// CyNode node = createSBaseNode(assignment, SBML.NODETYPE_INITIAL_ASSIGNMENT);
+			// TODO:
+		}
+		
+		// Create nodes for InitialAssignments
+		for (Rule rule : model.getListOfRules()){
+			// CyNode node = createSBaseNode(rule, SBML.NODETYPE_RULE);
+			// TODO:
+		}
+				
+		// Constraints (not parsed)
+		// for (Constraint constraint : model.getListOfConstraints()){}
+		
+		// Events (not parsed)
+		// for (Event event : model.getListOfEvents()){}
+		
 	}
 	
 
@@ -473,6 +517,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyNode node = createNamedSBaseNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
 			if (qSpecies.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
+				// add edge to compartment
+				CyNode comp = nodeById.get(qSpecies.getCompartment());
+				CyEdge edge = network.addEdge(node, comp, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
 			}
 			if (qSpecies.isSetConstant()){
 				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
