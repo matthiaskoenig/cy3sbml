@@ -87,6 +87,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 	// TODO: only create the trees once for the SBMLDocuments -> lookup afterwards
+	// put in the SBML2Network mapper !
 	private void updateNavigationTree(){
 		SBMLDocument document = sbml2networks.getCurrentDocument();
 		navigationTree = new NavigationTree(document);

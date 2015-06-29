@@ -7,57 +7,43 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
-import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.Species;
-import org.sbml.jsbml.ext.fbc.FBCConstants;
-import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
-import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
-import org.sbml.jsbml.ext.qual.QualitativeSpecies;
-import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.ext.fbc.FBCConstants;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Handling the NavigationTree model.
+ * This is some relict of the older version. 
+ * Only the objectMapping is really used. 
+ * TODO: make sure this is created exactly once!, not every time the SBMLDocument is switched.
+ *
+ */
 public class NavigationTree {
 	private static final Logger logger = LoggerFactory.getLogger(NavigationTree.class);
 	
 	public static final String COMPARTMENTS = "Compartments";
+	public static final String PARAMETERS = "Parameters";
 	public static final String SPECIES = "Species";
 	public static final String REACTIONS = "Reactions";
-	public static final String QUALITATIVE_SPECIES = "QualitativeSpecies";
-	public static final String TRANSITIONS = "Transitions";
-	public static final String GENE_PRODUCTS = "GeneProducts";
+	
+	public static final String QUAL_SPECIES = "QualitativeSpecies";
+	public static final String QUAL_TRANSITIONS = "Transitions";
+	
+	public static final String FBC_GENE_PRODUCTS = "GeneProducts";
 	
 	private boolean SBMLNetwork;
 	private Map<String, NamedSBase> objectMap;
 	private Map<String, TreePath>   objectPathMap;
 	private DefaultTreeModel treeModel;
 	
-	public Map<String, NamedSBase> getObjectMap(){
-		return objectMap;
-	}
-	
-	public Map<String, TreePath> getObjectPathMap(){
-		return objectPathMap;
-	}
-	
-	public DefaultTreeModel getTreeModel(){
-		return treeModel;
-	}
-	
-	public boolean isSBMLNetwork(){
-		return SBMLNetwork;
-	}
-	
-	/////////////////// TREE MODELS ////////////////////////////////
-	
+	/** Constructor */
 	public NavigationTree(){
 		objectMap = new HashMap<String, NamedSBase>(); 
 		objectPathMap = new HashMap<String, TreePath>();
@@ -81,24 +67,38 @@ public class NavigationTree {
 			DefaultMutableTreeNode top = new DefaultMutableTreeNode(modelName);
 			treeModel = new DefaultTreeModel(top);
 			
-			// Here the supported things have to be added to the object map
-			addListOfCompartmentsToTreeModel(top, model.getListOfCompartments());
-			addListOfSpeciesToTreeModel(top, model.getListOfSpecies());
-			addListOfReactionsToTreeModel(top, model.getListOfReactions());
+			// adding supported listOfs to the Navigation tree
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(PARAMETERS), model.getListOfParameters());
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMPARTMENTS), model.getListOfCompartments());
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(SPECIES), model.getListOfSpecies());
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), model.getListOfReactions());
 	
 	        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 			if (qualModel != null){
-				addListOfQualitativeSpeciesToTreeModel(top, qualModel.getListOfQualitativeSpecies());
-				addListOfTransitionsToTreeModel(top, qualModel.getListOfTransitions());
+				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUAL_SPECIES), qualModel.getListOfQualitativeSpecies());
+				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUAL_TRANSITIONS), qualModel.getListOfTransitions());
 			}
 			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
 			if (fbcModel != null){
-				addListOfGeneProductsToTreeModel(top, fbcModel.getListOfGeneProducts());
+				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(FBC_GENE_PRODUCTS), fbcModel.getListOfGeneProducts());
 			}
-			
 		} catch (Throwable t) {
-			logger.error("Navigation tree creation");
+			logger.error("Navigation tree could not be created");
+			t.printStackTrace();
 		}
+	}
+	
+	public Map<String, NamedSBase> getObjectMap(){
+		return objectMap;
+	}
+	public Map<String, TreePath> getObjectPathMap(){
+		return objectPathMap;
+	}
+	public DefaultTreeModel getTreeModel(){
+		return treeModel;
+	}
+	public boolean isSBMLNetwork(){
+		return SBMLNetwork;
 	}
 	
 	public NamedSBase getNamedSBaseById(String id){
@@ -109,28 +109,7 @@ public class NavigationTree {
 		}
 		return nsb;
 	}
-	
-	private void addListOfCompartmentsToTreeModel(DefaultMutableTreeNode top, ListOf<Compartment> compartmentList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMPARTMENTS), compartmentList);
-	}
-	private void addListOfSpeciesToTreeModel(DefaultMutableTreeNode top, ListOf<Species> speciesList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(SPECIES), speciesList);
-	}
-	private void addListOfReactionsToTreeModel(DefaultMutableTreeNode top, ListOf<Reaction> reactionList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), reactionList);
-	}
-
-	private void addListOfQualitativeSpeciesToTreeModel(DefaultMutableTreeNode top, ListOf<QualitativeSpecies> qualitativeSpeciesList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUALITATIVE_SPECIES), qualitativeSpeciesList);
-	}
-	private void addListOfTransitionsToTreeModel(DefaultMutableTreeNode top, ListOf<Transition> transitionList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(TRANSITIONS), transitionList);
-	}
-	private void addListOfGeneProductsToTreeModel(DefaultMutableTreeNode top, ListOf<GeneProduct> geneProductList){		
-		addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(GENE_PRODUCTS), geneProductList);
-	}
-
-	
+		
 	private void addListOfNamedSBaseToTreeModel(DefaultMutableTreeNode top, DefaultMutableTreeNode category, ListOf<? extends NamedSBase> namedSBaseList){
 		if (namedSBaseList.size() > 0){
         	top.add(category);
@@ -149,6 +128,12 @@ public class NavigationTree {
 		return new DefaultMutableTreeNode(name, true);
 	}
 	
+	@Deprecated
+	/** ? where is this used ?
+	 * Not necessary due to change to SUIDs.
+	 * @param model
+	 * @return
+	 */
 	private String getModelNameFromModel(Model model){
 		String name = model.getId();
 		if (name.equals("")){

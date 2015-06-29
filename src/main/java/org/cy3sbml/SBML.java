@@ -4,6 +4,7 @@ public class SBML {
 	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
 	public static final String NETWORKTYPE_SBML = "SBML";
 	public static final String NETWORKTYPE_LAYOUT = "LAYOUT";
+	public static final String LEVEL_VERSION = "version";
 	
 	public static final String NODETYPE_ATTR = "type";
 	public static final String INTERACTION_ATTR = "interaction";
@@ -60,6 +61,7 @@ public class SBML {
 	// node types
 	public static final String NODETYPE_SPECIES = "species";
 	public static final String NODETYPE_PARAMETER = "parameter";
+	public static final String NODETYPE_COMPARTMENT = "compartment";
 	public static final String NODETYPE_REACTION = "reaction";
 	
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";

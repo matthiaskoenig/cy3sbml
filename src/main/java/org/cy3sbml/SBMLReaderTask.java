@@ -23,6 +23,7 @@ import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.Annotation;
+import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -261,6 +262,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.info("** core **");
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
+		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
 		
 		// Network attributes
 		AttributeUtil.set(network, network, SBML.ATTR_ID, model.getId(), String.class);
@@ -341,6 +343,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (udef != null){
 				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
 			}
+		}
+		
+		
+		// Create nodes for compartments
+		for (Compartment compartment : model.getListOfCompartments()) {
+			CyNode node = createNamedSBaseNode(compartment, SBML.NODETYPE_COMPARTMENT);
+			
 		}
 		
 		// Create nodes for parameters
