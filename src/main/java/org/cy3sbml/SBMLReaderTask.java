@@ -707,9 +707,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyNode node = nodeById.get(reaction.getId());
 			if (fbcReaction.isSetLowerFluxBound()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_LOWER_FLUX_BOUND, fbcReaction.getLowerFluxBound(), String.class);
+				// add edge
+				CyNode parameterNode = nodeById.get(fbcReaction.getLowerFluxBound());
+				CyEdge edge = network.addEdge(parameterNode, node, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
 			}
 			if (fbcReaction.isSetUpperFluxBound()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_UPPER_FLUX_BOUND, fbcReaction.getUpperFluxBound(), String.class);
+				// add edge
+				CyNode parameterNode = nodeById.get(fbcReaction.getLowerFluxBound());
+				CyEdge edge = network.addEdge(parameterNode, node, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
 			}
 			
 			// Create GeneProteinAssociation (GPA) network
