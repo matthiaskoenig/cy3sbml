@@ -43,6 +43,9 @@ public class SBML {
 	public static final String ATTR_QUAL_SIGN = "qual:sign";
 	public static final String ATTR_QUAL_THRESHOLD_LEVEL = "qual:tresholdLevel";
 	public static final String ATTR_QUAL_TRANSITION_EFFECT = "qual:transitionEffect";
+	public static final String ATTR_QUAL_QUALITATIVE_SPECIES = "qual:qualitativeSpecies";
+	public static final String ATTR_QUAL_OUTPUT_LEVEL = "qual:outputLevel";
+	public static final String ATTR_QUAL_RESULT_LEVELS = "qual:resultLevels";
 	
 	public static final String ATTR_FBC_STRICT = "fbc:strict";
 	public static final String ATTR_FBC_CHARGE = "fbc:charge";
@@ -55,8 +58,10 @@ public class SBML {
 	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
 	
 	// node types
-	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_SPECIES = "species";
+	public static final String NODETYPE_PARAMETER = "parameter";
+	public static final String NODETYPE_REACTION = "reaction";
+	
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
 	public static final String NODETYPE_QUAL_TRANSITION = "qual:transition";
 	public static final String NODETYPE_FBC_GENEPRODUCT = "fbc:geneProduct";

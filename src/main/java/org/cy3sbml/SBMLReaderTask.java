@@ -9,7 +9,8 @@ import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.HashSet;
-
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.cytoscape.io.read.CyNetworkReader;
@@ -28,6 +29,7 @@ import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
+import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
@@ -53,6 +55,7 @@ import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
 import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
 import org.sbml.jsbml.ext.layout.SpeciesGlyph;
+import org.sbml.jsbml.ext.qual.FunctionTerm;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualConstants;
@@ -160,7 +163,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
 			if (layoutModel != null){
-				readLayouts(model, qualModel, layoutModel);	
+				logger.info("comp model found, but not yet supported");
+				//readLayouts(model, qualModel, layoutModel);	
 			}
 
 			// Create subNetworks
@@ -272,6 +276,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (model.isSetConversionFactor()){
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
+		
 		if (model.isSetAreaUnits()){
 			AttributeUtil.set(network, network, SBML.ATTR_AREA_UNITS, model.getAreaUnits(), String.class);
 		}
@@ -290,6 +295,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (model.isSetVolumeUnits()){
 			AttributeUtil.set(network, network, SBML.ATTR_VOLUME_UNITS, model.getVolumeUnits(), String.class);	
 		}
+		
 		
 		// Create nodes for species
 		for (Species species : model.getListOfSpecies()) {
@@ -336,6 +342,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, species.getDerivedUnitDefinition().toString(), String.class);
 			}
 		}
+		
+		// Create nodes for parameters
+		for (Parameter parameter : model.getListOfParameters()) {
+			CyNode node = createNamedSBaseNode(parameter, SBML.NODETYPE_PARAMETER);
+			if (parameter.isSetConstant()){
+				
+			}
+		}
+		
 		
 		// Create reaction nodes
 		for (Reaction reaction : model.getListOfReactions()) {
@@ -450,15 +465,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (qSpecies.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
 			}
+			if (qSpecies.isSetConstant()){
+				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
+			}
 			if (qSpecies.isSetInitialLevel()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);	
 			}
 			if (qSpecies.isSetMaxLevel()){
 				AttributeUtil.set(network, node, SBML.ATTR_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
 			}				 
-			if (qSpecies.isSetConstant()){
-				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
-			}
 		}
 		// QualTransitions
 		for (Transition transition : qModel.getListOfTransitions()){
@@ -468,12 +483,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyNode inNode = nodeById.get(input.getQualitativeSpecies());
 				CyEdge edge = network.addEdge(node, inNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_QUAL_TRANSITION_INPUT, String.class);
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+
+				// required (no checking of required -> NullPointerException risk)
+				AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, input.getTransitionEffect().toString(), String.class);
+				AttributeUtil.set(network, edge, SBML.ATTR_QUAL_QUALITATIVE_SPECIES, input.getQualitativeSpecies().toString(), String.class);
+				// optional
 				if (input.isSetId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_ID, input.getId(), String.class);
 				}
 				if (input.isSetName()){
 					AttributeUtil.set(network, edge, SBML.ATTR_NAME, input.getName(), String.class);
+				}
+				if (input.isSetSign()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_SIGN, input.getSign().toString(), String.class);
 				}
 				if (input.isSetSBOTerm()){
 					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, input.getSBOTermID(), String.class);
@@ -481,14 +503,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (input.isSetMetaId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_METAID, input.getMetaId(), String.class);
 				}
-				if (input.isSetSign()){
-					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_SIGN, input.getSign().toString(), String.class);
-				}
 				if (input.isSetThresholdLevel()){
 					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_THRESHOLD_LEVEL, input.getThresholdLevel(), Integer.class);
-				}
-				if (input.isSetTransitionEffect()){
-					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, input.getTransitionEffect().toString(), String.class);
 				}
 			}
 			// Outputs
@@ -496,7 +512,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				CyNode outNode = nodeById.get(output.getQualitativeSpecies());
 				CyEdge edge = network.addEdge(node, outNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, String.class);
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
+				
+				// required
+				AttributeUtil.set(network, edge, SBML.ATTR_QUAL_QUALITATIVE_SPECIES, output.getQualitativeSpecies().toString(), String.class);
+				AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, output.getTransitionEffect().toString(), String.class);
+				// optional
 				if (output.isSetId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_ID, output.getId(), String.class);
 				}
@@ -508,10 +528,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 				if (output.isSetMetaId()){
 					AttributeUtil.set(network, edge, SBML.ATTR_METAID, output.getMetaId(), String.class);
-				}	
-				if (output.isSetTransitionEffect()){
-					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_TRANSITION_EFFECT, output.getTransitionEffect().toString(), String.class);
 				}
+				if (output.isSetOutputLevel()){
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_OUTPUT_LEVEL, output.getOutputLevel(), String.class);
+				}
+			}
+			
+			// parse the default term / function terms
+			if (transition.isSetListOfFunctionTerms()){
+				List<Integer> resultLevels = new LinkedList<Integer>();
+				for (FunctionTerm term: transition.getListOfFunctionTerms()){
+					resultLevels.add(term.getResultLevel());
+				}
+				AttributeUtil.set(network, node, SBML.ATTR_QUAL_RESULT_LEVELS, resultLevels, List.class);
 			}
 		}
 	}
