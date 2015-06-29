@@ -1,6 +1,5 @@
 package org.cy3sbml.miriam;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,22 +15,22 @@ import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
+import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
-/** Gets information from the MIRIAM web resource for given 
- * NamedSBase object.
- * The created information objects should be cached in the background
- * to reduce the webservice overhead. I.e. every resource should be
- * retrieved maximally one time. 
+/** 
+ * Get information from the MIRIAM web resource for given NamedSBase object.
+ * The created information objects are cached to reduce load on the 
+ * web services.
  * 
- * FIXME: offline mode & better overview over the information in the SBML
- *  Holds the available link information for already read resources (Store & Read Cache)
- *   
+ * TODO: move MIRIAM requests to file version.
+ * TODO: refactor information when moving to full HTML5 support 
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -41,13 +40,15 @@ public class NamedSBaseInfoFactory {
 	private String info = ""; 
 	
 	public NamedSBaseInfoFactory(Object obj){
-		
-		if (    obj.getClass().equals(Model.class)  ||
-				obj.getClass().equals(Compartment.class)  || 
-	  			obj.getClass().equals(Reaction.class) || 
-	  			obj.getClass().equals(Species.class) ||
-	  			obj.getClass().equals(QualitativeSpecies.class) ||
-	  			obj.getClass().equals(Transition.class) ){
+		Class<? extends Object> objClass = obj.getClass();
+		if (    objClass.equals(Model.class)  ||
+				objClass.equals(Compartment.class)  || 
+				objClass.equals(Parameter.class)  ||
+				objClass.equals(Reaction.class) || 
+				objClass.equals(Species.class) ||
+				objClass.equals(QualitativeSpecies.class) ||
+				objClass.equals(Transition.class) ||
+				objClass.equals(GeneProduct.class)){
 			sbmlObject = (AbstractNamedSBase) obj;
 		}
 		// WebService Link
@@ -66,18 +67,17 @@ public class NamedSBaseInfoFactory {
 		}
 	}
 	
-	/** Get information for the given Object 
-	 * @throws XMLStreamException */
+	/** 
+	 * Get information for the given Object.
+	 * TODO: read interesting information for given NamedSBase and present. 
+	 */
 	public void createInfo() throws XMLStreamException {
 		if (sbmlObject == null){
 			return;
 		}
-		
 		// SBML information
 		info = createHeader(sbmlObject);
 		info += createSBOInfo(sbmlObject);
-  		// Add type specific additional SBML information
-  		// TODO: read the const, boundary condition, ... kinetic law, assignment, ...
   		
   		// CVterm annotations (MIRIAM action)
 		List<CVTerm> terms = sbmlObject.getCVTerms();
@@ -90,13 +90,17 @@ public class NamedSBaseInfoFactory {
   		if (!notes.equals("") && notes != null ){
   			info += String.format("<p>%s</p>", notes);
   		}
-  		// TODO: read everything available according to standard
-	   }
-	
+	}
 	
 	private String createHeader(AbstractNamedSBase item){
-		return String.format("<h2><span color=\"gray\">%s</span> : %s (%s)</h2>",
-								getUnqualifiedClassName(item), item.getId(), item.getName());
+		if (item.isSetName()){
+			return String.format("<h2><span color=\"gray\">%s</span> : %s (%s)</h2>",
+					getUnqualifiedClassName(item), item.getId(), item.getName());	
+		} else {
+			return String.format("<h2><span color=\"gray\">%s</span> : %s</h2>",
+					getUnqualifiedClassName(item), item.getId());
+		}
+		
 	}
 	
 	/** Returns the unqualified class name of a given object. */
@@ -110,8 +114,6 @@ public class NamedSBaseInfoFactory {
 		return name;
 	}
 	
-	
-	/** Returns the SBOTermId if available. */
 	private String createSBOInfo(AbstractNamedSBase item){
 		String info = "";
 		if (item.isSetSBOTerm()){
@@ -120,7 +122,6 @@ public class NamedSBaseInfoFactory {
 		return info;
 	}
 	
-	/** Public get SBOTerm string */
 	private String getSBOTermString(String sboTerm){
 		String text = "<p>";
 		CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTerm);
@@ -133,7 +134,7 @@ public class NamedSBaseInfoFactory {
 	}
 	
 	
-	/** Get a String HTML representation of the CVTerm information */
+	/** Get string HTML representation of the CVTerm information. */
 	private String getCVTermsString(List<CVTerm> cvterms){
 		String text = "<hr>";
 		if (cvterms.size() > 0){
@@ -160,10 +161,9 @@ public class NamedSBaseInfoFactory {
 	
 	/**
 	 * Split the information in url, resource, id.
-	 * Necessary ?
-	 *
-	 * <rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
-	 * <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
+	 * Examples are:
+	 * 		<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
+	 * 		<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
 	 */
 	private Map<String, String> getMapForURI(final String rURI) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -179,6 +179,7 @@ public class NamedSBaseInfoFactory {
 	 * TODO: This has to be done offline and in the background (images have to be cashed) !
 	 * TODO: Create background database of information.  
 	 */
+	/*
 	@Deprecated
 	private String getAdditionalInformation(String r){
 		Map<String, String> map = getMapForURI(r);
@@ -211,22 +212,22 @@ public class NamedSBaseInfoFactory {
 			}
 		
 		// TODO resize image and use KEGG
-		/* Uncomment for reactions, but problems with large images 
-		}else if (item.equals("kegg.reaction")){
-			try{
-				String imgsrc = 
-					BioModelText.class.getClassLoader().getResource("http://www.genome.jp/Fig/reaction/"+id+".gif").toString();
-				text += "<img src=\""+imgsrc+"\"></img>";
-			} catch (Exception e){
-				//e.printStackTrace();
-				System.out.println("CySBML -> kegg.reaction image not available");
-			}
-		}*/
+		// Uncomment for reactions, but problems with large images 
+//		}else if (item.equals("kegg.reaction")){
+//			try{
+//				String imgsrc = 
+//					BioModelText.class.getClassLoader().getResource("http://www.genome.jp/Fig/reaction/"+id+".gif").toString();
+//				text += "<img src=\""+imgsrc+"\"></img>";
+//			} catch (Exception e){
+//				//e.printStackTrace();
+//				System.out.println("CySBML -> kegg.reaction image not available");
+//			}
+//		}
 			
 			
 		}
 		return text;
 	}
+	*/
 	
-
 }

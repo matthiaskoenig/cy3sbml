@@ -1,6 +1,5 @@
 package org.cy3sbml.biomodel;
 
-import org.cy3sbml.SBMLManager;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;

@@ -32,7 +32,6 @@ public class BundleInformation {
 		Bundle bundle = bc.getBundle();
 		name = bundle.getSymbolicName();
 		version = bundle.getVersion().toString();
-		logger.info(getInfo());
 	}
 	
 	public String getInfo(){

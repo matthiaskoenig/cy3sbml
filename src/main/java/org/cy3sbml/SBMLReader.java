@@ -73,7 +73,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent e) {
-		logger.info("handle NetworkViewAddedEvent in SBMLReader");
+		logger.info("NetworkViewAddedEvent in SBMLReader");
 		try {
 			// always apply the style and layout to new BioPAX views;
 			// i.e., not only for the first time when one's created.
@@ -94,7 +94,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				
 				String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
 				style = getVisualStyleByName(styleName);
-				logger.info("VisualStyle to set: " + style.getTitle());
+				logger.debug("VisualStyle to set: " + style.getTitle());
 				
 				if(style != null) {
 					final VisualStyle vs = style;			
@@ -139,7 +139,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		// another ugly fix because styles can not be get by name
 		for (VisualStyle style: styles){
 			if (style.getTitle().equals(styleName)){
-				logger.info("style found in VisualStyles: " + styleName + " == " + style.getTitle());
+				logger.debug("style found in VisualStyles: " + styleName + " == " + style.getTitle());
 				return style;
 			}
 		}

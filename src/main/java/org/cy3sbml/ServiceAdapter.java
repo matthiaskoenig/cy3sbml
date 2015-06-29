@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.cytoscape.application.CyApplicationManager;
@@ -9,6 +10,7 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
+import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -44,10 +46,12 @@ public class ServiceAdapter {
 	public CyNetworkFactory cyNetworkFactory;
 	public CyNetworkViewFactory cyNetworkViewFactory;
 	public CyProperty<Properties> cy3sbmlProperties;
+	public File cy3sbmlDirectory;
 	public StreamUtil streamUtil;
 	public OpenBrowser openBrowser;
 	public ConnectionProxy connectionProxy;
 	public LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
+	public FileUtil fileUtil;
 	
 	@SuppressWarnings("rawtypes")
 	public static synchronized ServiceAdapter getInstance(
@@ -63,10 +67,12 @@ public class ServiceAdapter {
 			CyNetworkFactory cyNetworkFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
+			File cy3sbmlDirectory,
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory
+			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+			FileUtil fileUtil
 			){
 		if (uniqueInstance == null){
 			uniqueInstance = new ServiceAdapter(
@@ -82,10 +88,12 @@ public class ServiceAdapter {
 					cyNetworkFactory,
 					cyNetworkViewFactory,
 					cy3sbmlProperties,
+					cy3sbmlDirectory,
 					streamUtil,
 					openBrowser,
 					connectionProxy,
-					loadNetworkFileTaskFactory);
+					loadNetworkFileTaskFactory,
+					fileUtil);
 		}
 		return uniqueInstance;
 	}
@@ -108,10 +116,12 @@ public class ServiceAdapter {
 			CyNetworkFactory cyNetworkFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
+			File cy3sbmlDirectory,
 			StreamUtil streamUtil,
 			OpenBrowser openBrowser,
 			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory
+			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+			FileUtil fileUtil
 			){
 		logger.info("ServiceAdapter created");
 		this.cySwingApplication = cySwingApplication;
@@ -126,10 +136,12 @@ public class ServiceAdapter {
 		this.cyNetworkFactory = cyNetworkFactory;
 		this.cyNetworkViewFactory = cyNetworkViewFactory;
 		this.cy3sbmlProperties = cy3sbmlProperties;
+		this.cy3sbmlDirectory = cy3sbmlDirectory;
 		this.streamUtil = streamUtil;
 		this.openBrowser = openBrowser;
 		this.connectionProxy = connectionProxy;
 		this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
+		this.fileUtil = fileUtil;
 	}
 
 	public Object cy3sbmlProperty(String s){

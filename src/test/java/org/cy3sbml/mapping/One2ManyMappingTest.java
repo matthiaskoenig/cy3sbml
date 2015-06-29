@@ -2,6 +2,7 @@ package org.cy3sbml.mapping;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class One2ManyMappingTest {
 		map.put("id1", new Long(10));
 		map.put("id1", new Long(20));
 		map.put("id1", new Long(30));
-		List<Long> values = map.getValues("id1");
+		HashSet<Long> values = map.getValues("id1");
 		assertEquals(values.size(), 3);
 		values = map.getValues("id2");
 		assertEquals(values.size(), 0);
@@ -72,7 +73,7 @@ public class One2ManyMappingTest {
 		keys.add("id1");
 		keys.add("id2");
 		
-		List<Long> values = map.getValues(keys);
+		HashSet<Long> values = map.getValues(keys);
 		assertEquals(values.size(), 6);
 	}
 

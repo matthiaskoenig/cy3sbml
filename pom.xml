@@ -15,7 +15,7 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.4</version>
+	<version>0.1.5</version>
 	
 	<name>cy3sbml</name>
 
@@ -250,6 +250,17 @@
   			<artifactId>jsbml-layout</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-comp</artifactId>
+  			<version>1.0-b1</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-fbc</artifactId>
+  			<version>1.0-b1</version>
+  		</dependency>
+  		
   		
   		 <!-- JSBML dependencies -->
   		<dependency>

@@ -38,6 +38,10 @@ public class LoadBioModelTaskFactory implements TaskFactory{
 			// convert to tmp file and use the core-task read Network from file task
 			final File tempFile = File.createTempFile(id, SUFFIX);
 			tempFile.deleteOnExit();
+			
+			// TODO: create file for storage in cy3sbml folder
+			//adapter.cy3sbmlDirectory
+			
 			try (FileOutputStream out = new FileOutputStream(tempFile)) {
 				IOUtils.copy(instream, out);
 			}

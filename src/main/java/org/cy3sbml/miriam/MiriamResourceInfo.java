@@ -94,7 +94,8 @@ public class MiriamResourceInfo {
 				miriamCache.put(element);
 				logger.debug("Added to cache: " + resourceURI);
 			} else {
-				logger.warn("Miriam locations could not be retrieved: " + resourceURI);
+				// TODO: currently problems if collection only has one resource
+				logger.debug("Miriam locations could not be retrieved: " + resourceURI);
 			}
 		}
 		return locations; 

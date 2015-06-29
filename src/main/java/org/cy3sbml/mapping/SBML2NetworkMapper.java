@@ -67,7 +67,7 @@ public class SBML2NetworkMapper {
 		return documentMap.keySet();
 	}
 	
-	public void putDocument(Long suid, SBMLDocument doc, NamedSBase2CyNodeMapping mapping){
+	public void putDocument(Long suid, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
 		documentMap.put(suid,  doc);
 		NSBToNodeMappingMap.put(suid, mapping);
 		nodeToNSBMappingMap.put(suid, mapping.createReverseMapping());
@@ -106,6 +106,10 @@ public class SBML2NetworkMapper {
 		}
 	}
 	
+	public One2ManyMapping<Long, String> getCyNode2NSBMapping(Long suid){
+			return nodeToNSBMappingMap.get(suid);
+	}
+	
 	public One2ManyMapping<String, Long> getCurrentNSBToCyNodeMapping(){
 		if (currentSUID == null){
 			logger.warn("No current SUID set. Mapping can not be retrieved !");
@@ -114,6 +118,11 @@ public class SBML2NetworkMapper {
 			return NSBToNodeMappingMap.get(currentSUID);	
 		}
 	}
+	
+	public One2ManyMapping<String, Long> getNSB2CyNodeMapping(Long suid){
+		return NSBToNodeMappingMap.get(suid);
+	}
+
 	
 	public SBMLDocument getDocumentForSUID(Long suid){
 		SBMLDocument doc = null;

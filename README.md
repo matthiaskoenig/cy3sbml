@@ -47,6 +47,8 @@ To build from source follow the instructions [here](./docs/cy3sbml_build_instruc
 We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html). 
 
 ## Changelog
+**v0.1.5** [?]
+
 **v0.1.4** [2015/06/24]
 * support of multiple networks, views and subnetworks
 * qualitative model support
