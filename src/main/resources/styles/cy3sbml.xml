@@ -56,7 +56,7 @@
             <visualProperty name="NODE_HEIGHT" default="20.0"/>
             <visualProperty name="NODE_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="NODE_FILL_COLOR" default="#FFFFFF">
-                <discreteMapping attributeType="string" attributeName="type">
+                <discreteMapping attributeType="string" attributeName="sbml-type">
                     <discreteMappingEntry value="#F0F0F0" attributeValue="species"/>
                     <discreteMappingEntry value="#999999" attributeValue="reaction"/>
                     <discreteMappingEntry value="#00CC66" attributeValue="compartment"/>
@@ -73,7 +73,7 @@
             <visualProperty name="NODE_BORDER_WIDTH" default="3.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_4" default="0.0"/>
             <visualProperty name="NODE_SIZE">
-                <discreteMapping attributeType="string" attributeName="type">
+                <discreteMapping attributeType="string" attributeName="sbml-type">
                     <discreteMappingEntry value="60.0" attributeValue="species"/>
                     <discreteMappingEntry value="30.0" attributeValue="reaction"/>
                     <discreteMappingEntry value="90.0" attributeValue="compartment"/>
@@ -90,7 +90,7 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_2" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_LABEL_POSITION" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_SHAPE" default="ELLIPSE">
-                <discreteMapping attributeType="string" attributeName="type">
+                <discreteMapping attributeType="string" attributeName="sbml-type">
                     <discreteMappingEntry value="ELLIPSE" attributeValue="species"/>
                     <discreteMappingEntry value="RECTANGLE" attributeValue="reaction"/>
                     <discreteMappingEntry value="HEXAGON" attributeValue="compartment"/>
@@ -113,7 +113,7 @@
             <visualProperty name="EDGE_WIDTH" default="2.0"/>
             <visualProperty name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT" default="#000000"/>
             <visualProperty name="EDGE_TARGET_ARROW_SHAPE" default="NONE">
-                <discreteMapping attributeType="string" attributeName="interaction">
+                <discreteMapping attributeType="string" attributeName="sbml-interaction">
                     <discreteMappingEntry value="DELTA" attributeValue="reaction-product"/>
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
                     <discreteMappingEntry value="DELTA" attributeValue="transition-output"/>
@@ -133,7 +133,7 @@
             <visualProperty name="EDGE_TARGET_ARROW_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="EDGE_VISIBLE" default="true"/>
             <visualProperty name="EDGE_SOURCE_ARROW_SHAPE" default="NONE">
-                <discreteMapping attributeType="string" attributeName="interaction">
+                <discreteMapping attributeType="string" attributeName="sbml-interaction">
                     <discreteMappingEntry value="NONE" attributeValue="reaction-product"/>
                     <discreteMappingEntry value="NONE" attributeValue="reactant-reaction"/>
                     <discreteMappingEntry value="NONE" attributeValue="transition-output"/>
@@ -143,7 +143,7 @@
             </visualProperty>
             <visualProperty name="EDGE_LABEL_FONT_SIZE" default="10"/>
             <visualProperty name="EDGE_STROKE_UNSELECTED_PAINT" default="#CCCCCC">
-               <discreteMapping attributeType="string" attributeName="interaction">
+               <discreteMapping attributeType="string" attributeName="sbml-interaction">
                     <discreteMappingEntry value="#000000" attributeValue="reaction-product"/>
                     <discreteMappingEntry value="#000000" attributeValue="reactant-reaction"/>
                     <discreteMappingEntry value="#000000" attributeValue="transition-output"/>

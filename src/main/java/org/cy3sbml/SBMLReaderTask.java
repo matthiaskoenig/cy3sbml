@@ -203,7 +203,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			for (CyNode n : network.getNodeList()){
 				// check the type
 				CyRow row = network.getRow(n, CyNetwork.DEFAULT_ATTRS);
-				String type = row.get(SBML.ATTR_TYPE, String.class);
+				String type = row.get(SBML.NODETYPE_ATTR, String.class);
 				if (nodeTypesSet.contains(type)){
 					nodes.add(n);	
 				}
@@ -248,7 +248,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 	nodeById.put(id, n);
 	 	// set the attributes
 		AttributeUtil.set(network, n, SBML.ATTR_ID, id, String.class);
-		AttributeUtil.set(network, n, SBML.ATTR_TYPE, type, String.class);
+		AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, type, String.class);
 		if (sbase.isSetName()){
 			AttributeUtil.set(network, n, SBML.ATTR_NAME, sbase.getName(), String.class);
 			AttributeUtil.set(network, n, SBML.LABEL, sbase.getName(), String.class);
@@ -896,7 +896,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					
 				} else {
 					AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
-					AttributeUtil.set(network, node, SBML.ATTR_TYPE, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
+					AttributeUtil.set(network, node, SBML.NODETYPE_ATTR, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
 				}
 			}
 			

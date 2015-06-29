@@ -6,14 +6,12 @@ public class SBML {
 	public static final String NETWORKTYPE_LAYOUT = "LAYOUT";
 	public static final String LEVEL_VERSION = "version";
 	
-	public static final String NODETYPE_ATTR = "type";
-	public static final String INTERACTION_ATTR = "interaction";
+	public static final String NODETYPE_ATTR = "sbml-type";
+	public static final String INTERACTION_ATTR = "sbml-interaction";
 	
 	/** Node and edge attributes */
 	public static final String LABEL = "label"; 
-	
 	public static final String ATTR_ID = "id";
-	public static final String ATTR_TYPE = "type";
 	public static final String ATTR_NAME = "name";
 	public static final String ATTR_SBOTERM = "sbo";
 	public static final String ATTR_METAID = "metaId";
