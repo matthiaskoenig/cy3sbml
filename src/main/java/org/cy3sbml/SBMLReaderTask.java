@@ -108,8 +108,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	// TODO: Create the full graph with all information
-	// TODO: Create the subgraph for the reaction species network
 	/**
 	 * Parse the SBML networks.
 	 */
@@ -129,8 +127,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
 			
-			// TODO: get and display all the reader warnings
+			// TODO: store and display JSBML reader warnings
 			document = JSBML.readSBMLFromString(xml);
+			
 			Model model = document.getModel();
 		
 			// create an empty root network
@@ -211,20 +210,26 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					edges.add(e);	
 				}
 			}
-			mainNetwork = rootNetwork.addSubNetwork(nodes, edges);
 			
-			// set name of main network
-			String name = network.getRow(network).get(CyNetwork.NAME, String.class);
-			if (name == null){
-				// name not set, try backup name via id
-				name = network.getRow(network).get(SBML.ATTR_ID, String.class);
-				// still not set, use the file name
+			// Create the subnetwork if there are nodes in the main network
+			// Some models like BIOMD0000000020, only work with parameters & rules,
+			// so that main network is empty.
+			if (nodes.size() > 0){
+				mainNetwork = rootNetwork.addSubNetwork(nodes, edges);
+				
+				// set name of main network
+				String name = network.getRow(network).get(CyNetwork.NAME, String.class);
 				if (name == null){
-					name = fileName;
+					// name not set, try backup name via id
+					name = network.getRow(network).get(SBML.ATTR_ID, String.class);
+					// still not set, use the file name
+					if (name == null){
+						name = fileName;
+					}
 				}
+				mainNetwork.getRow(mainNetwork).set(CyNetwork.NAME, "Main: "+ name);	
 			}
-			mainNetwork.getRow(mainNetwork).set(CyNetwork.NAME, "Main: "+ name);
-			 
+			
 			// [2] layout subnetworks
 			// TODO: create layout subnetworks (different mechanism necessary, 
 			//   probably via direct subnetwork generation)
@@ -239,6 +244,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			t.printStackTrace();
 			throw new SBMLReaderError("cy3sbml reader failed to build a SBML model " +
 					"(check the data for syntax errors) - " + t);
+			
+			// TODO: run the validator on the file and display the results
+			// with high probability this SBML file is corrupt and can not be parsed.
+			// => Display the information 
+			// => send SBML to author
+			
+			
 		}
 	}
 	
@@ -566,11 +578,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
+		// TODO: parse the InitialAssignments and RateRules
+		// Important for rate rule based models
+		
 		// InitialAssignments (not parsed)
 		// for (InitialAssignment assignment : model.getListOfInitialAssignments()) {}
 		
 		// Rules (not parsed)
 		//for (Rule rule : model.getListOfRules()){}
+		
+		
 				
 		// Constraints (not parsed)
 		// for (Constraint constraint : model.getListOfConstraints()){}
@@ -910,7 +927,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	@Override
 	public CyNetwork[] getNetworks() {
-		return new CyNetwork[] { network, mainNetwork };
+		if (mainNetwork == null){
+			return new CyNetwork[] { network };	
+		} else {
+			return new CyNetwork[] { network, mainNetwork };
+		}
 	}
 
 	@Override

@@ -206,6 +206,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					loadExampleFromResource("/models/iIT341.xml");
 				}else if (s.equals("http://cy3sbml-RECON1")){
 					loadExampleFromResource("/models/RECON1.xml");
+				}else if (s.equals("http://cy3sbml-BIOMD0000000016")){
+					loadExampleFromResource("/models/BIOMD0000000016.xml");
+				}else if (s.equals("http://cy3sbml-BIOMD0000000084")){
+					loadExampleFromResource("/models/BIOMD0000000016.xml");
+				}else if (s.equals("http://cy3sbml-hsa04360")){
+					loadExampleFromResource("/models/hsa04360.xml");
 				}
 				// HTML links	
 				else {
