@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,7 +14,6 @@ import java.util.Map;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
-import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
@@ -27,7 +25,6 @@ import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.Compartment;
-import org.sbml.jsbml.InitialAssignment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -36,7 +33,6 @@ import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
-import org.sbml.jsbml.Rule;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
@@ -88,30 +84,27 @@ import org.slf4j.LoggerFactory;
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {	
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 	
-	private static final String CREATE_NEW_COLLECTION = "A new network collection";
 	private static final int BUFFER_SIZE = 16384;
 	
-	private String inputName;
+	private String fileName;
 	private final InputStream stream;
 	private final ServiceAdapter adapter;
 	private SBMLDocument document;
 	
 	private CyNetwork network;       // global network of all SBML information
-	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
+	private CyNetwork mainNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 	
 	private CyRootNetwork rootNetwork;
 	private Map<String, CyNode> nodeById; // node dictionary
-	private final Collection<CyNetwork> networks;
 	
 	/** Constructor */ 
-	public SBMLReaderTask(InputStream stream, String inputName, ServiceAdapter adapter) {
+	public SBMLReaderTask(InputStream stream, String fileName, ServiceAdapter adapter) {
 		
 		this.stream = stream;
 		this.adapter = adapter;
-		this.inputName = inputName;
+		this.fileName = fileName;
 		
-		nodeById = new HashMap<String, CyNode>();
-		networks = new HashSet<CyNetwork>();		
+		nodeById = new HashMap<String, CyNode>();	
 	}
 	
 	
@@ -218,10 +211,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					edges.add(e);	
 				}
 			}
-			coreNetwork = rootNetwork.addSubNetwork(nodes, edges);
-			// set name of network
+			mainNetwork = rootNetwork.addSubNetwork(nodes, edges);
+			
+			// set name of main network
 			String name = network.getRow(network).get(CyNetwork.NAME, String.class);
-			coreNetwork.getRow(coreNetwork).set(CyNetwork.NAME, "Core: "+ name);
+			if (name == null){
+				// name not set, try backup name via id
+				name = network.getRow(network).get(SBML.ATTR_ID, String.class);
+				// still not set, use the file name
+				if (name == null){
+					name = fileName;
+				}
+			}
+			mainNetwork.getRow(mainNetwork).set(CyNetwork.NAME, "Main: "+ name);
 			 
 			// [2] layout subnetworks
 			// TODO: create layout subnetworks (different mechanism necessary, 
@@ -239,7 +241,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					"(check the data for syntax errors) - " + t);
 		}
 	}
-	
 	
 	private CyNode createNamedSBaseNode(NamedSBase sbase, String type){
 		String id = sbase.getId();
@@ -909,7 +910,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	@Override
 	public CyNetwork[] getNetworks() {
-		return new CyNetwork[] { network, coreNetwork };
+		return new CyNetwork[] { network, mainNetwork };
 	}
 
 	@Override

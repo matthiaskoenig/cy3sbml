@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hamcrest.core.IsInstanceOf;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -44,8 +45,8 @@ public class NamedSBaseInfoFactory {
 		if (    objClass.equals(Model.class)  ||
 				objClass.equals(Compartment.class)  || 
 				objClass.equals(Parameter.class)  ||
-				objClass.equals(Reaction.class) || 
 				objClass.equals(Species.class) ||
+				objClass.equals(Reaction.class) || 
 				objClass.equals(QualitativeSpecies.class) ||
 				objClass.equals(Transition.class) ||
 				objClass.equals(GeneProduct.class)){
@@ -67,17 +68,16 @@ public class NamedSBaseInfoFactory {
 		}
 	}
 	
-	/** 
-	 * Get information for the given Object.
-	 * TODO: read interesting information for given NamedSBase and present. 
-	 */
+	/** Parse and create information for the current sbmlObject. */
 	public void createInfo() throws XMLStreamException {
 		if (sbmlObject == null){
+			// unsupported classes
 			return;
 		}
 		// SBML information
 		info = createHeader(sbmlObject);
 		info += createSBOInfo(sbmlObject);
+		info += createNamedSBaseInfo(sbmlObject);
   		
   		// CVterm annotations (MIRIAM action)
 		List<CVTerm> terms = sbmlObject.getCVTerms();
@@ -93,14 +93,12 @@ public class NamedSBaseInfoFactory {
 	}
 	
 	private String createHeader(AbstractNamedSBase item){
+		String template = "<h2><span color=\"gray\">%s</span> : %s</h2>";
+		String name = item.getId();
 		if (item.isSetName()){
-			return String.format("<h2><span color=\"gray\">%s</span> : %s (%s)</h2>",
-					getUnqualifiedClassName(item), item.getId(), item.getName());	
-		} else {
-			return String.format("<h2><span color=\"gray\">%s</span> : %s</h2>",
-					getUnqualifiedClassName(item), item.getId());
+			name =  String.format("%s (%s)", item.getId(), item.getName());
 		}
-		
+		return String.format(template, getUnqualifiedClassName(item), name);
 	}
 	
 	/** Returns the unqualified class name of a given object. */
@@ -115,21 +113,63 @@ public class NamedSBaseInfoFactory {
 	}
 	
 	private String createSBOInfo(AbstractNamedSBase item){
-		String info = "";
+		String text = "";
 		if (item.isSetSBOTerm()){
-  			info = getSBOTermString(item.getSBOTermID());
+			String sboTerm = item.getSBOTermID();
+  			text = "<p>";
+  			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTerm);
+  			text += String.format("<b><span color=\"green\">%s</span></b><br>", sboTerm);
+  			for (String rURI : term.getResources()){
+  				text += MiriamResourceInfo.getInfoFromURI(link, rURI);
+  			}
+  			text += "</p>";
   		}
-		return info;
+		return text;
 	}
 	
-	private String getSBOTermString(String sboTerm){
-		String text = "<p>";
-		CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTerm);
-		text += String.format("<b><span color=\"green\">%s</span></b><br>", sboTerm);
-		for (String rURI : term.getResources()){
-			text += MiriamResourceInfo.getInfoFromURI(link, rURI);
+	/** The general NamedSBase information is handeled in the 
+	 * header generation. Here only the Class specific attributes are displayed.
+	 * 
+	 * TODO: not really clear what to display & how
+	 */
+	private String createNamedSBaseInfo(AbstractNamedSBase item){
+		String text = "";
+		// Model
+		if (item instanceof Model){
+			Model model = (Model) item;
+			String template = "<p>L%sV%s</p>"; 
+  			text = String.format(template, model.getLevel(), model.getVersion());
 		}
-		text += "</p>";
+		// Compartment
+		else if (item instanceof Compartment){
+			Compartment compartment = (Compartment) item;
+			String template = "<p>size = %d [%s] (%sD)</p>";
+			String size = "?";
+			String units = "?";
+			String dimensions = "?";
+			if (compartment.isSetSize()){
+				size = ((Double)compartment.getSize()).toString();
+			}
+			if (compartment.isSetUnits()){
+				units = compartment.getUnits();
+			}
+			if (compartment.isSetSpatialDimensions()){
+				dimensions = ((Double) compartment.getSpatialDimensions()).toString();
+			}
+			text = String.format(template, size, units, dimensions); 
+		}
+		// Parameter
+		
+		// Species
+		
+		// Reaction
+		
+		// QualitativeSpecies
+		
+		// Transition
+		
+		// GeneProduct
+		
 		return text;
 	}
 	
