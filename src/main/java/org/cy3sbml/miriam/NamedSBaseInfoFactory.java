@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hamcrest.core.IsInstanceOf;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -19,6 +18,7 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
@@ -26,12 +26,12 @@ import org.sbml.jsbml.ext.qual.Transition;
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
 /** 
- * Get information from the MIRIAM web resource for given NamedSBase object.
- * The created information objects are cached to reduce load on the 
- * web services.
- * 
- * TODO: move MIRIAM requests to file version.
- * TODO: refactor information when moving to full HTML5 support 
+ * Create the information for the selected NamedSBase.
+ * Core information is parsed from the NamedSBase object,
+ * with additional information like resources retrieved via
+ * web services (MIRIAM).
+ * Here the HTML information string is created which is displayed
+ * on selection of SBML objects in the graph.
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -76,8 +76,8 @@ public class NamedSBaseInfoFactory {
 		}
 		// SBML information
 		info = createHeader(sbmlObject);
-		info += createSBOInfo(sbmlObject);
 		info += createNamedSBaseInfo(sbmlObject);
+		info += createSBOInfo(sbmlObject);
   		
   		// CVterm annotations (MIRIAM action)
 		List<CVTerm> terms = sbmlObject.getCVTerms();
@@ -127,51 +127,7 @@ public class NamedSBaseInfoFactory {
 		return text;
 	}
 	
-	/** The general NamedSBase information is handeled in the 
-	 * header generation. Here only the Class specific attributes are displayed.
-	 * 
-	 * TODO: not really clear what to display & how
-	 */
-	private String createNamedSBaseInfo(AbstractNamedSBase item){
-		String text = "";
-		// Model
-		if (item instanceof Model){
-			Model model = (Model) item;
-			String template = "<p>L%sV%s</p>"; 
-  			text = String.format(template, model.getLevel(), model.getVersion());
-		}
-		// Compartment
-		else if (item instanceof Compartment){
-			Compartment compartment = (Compartment) item;
-			String template = "<p>size = %d [%s] (%sD)</p>";
-			String size = "?";
-			String units = "?";
-			String dimensions = "?";
-			if (compartment.isSetSize()){
-				size = ((Double)compartment.getSize()).toString();
-			}
-			if (compartment.isSetUnits()){
-				units = compartment.getUnits();
-			}
-			if (compartment.isSetSpatialDimensions()){
-				dimensions = ((Double) compartment.getSpatialDimensions()).toString();
-			}
-			text = String.format(template, size, units, dimensions); 
-		}
-		// Parameter
-		
-		// Species
-		
-		// Reaction
-		
-		// QualitativeSpecies
-		
-		// Transition
-		
-		// GeneProduct
-		
-		return text;
-	}
+	
 	
 	
 	/** Get string HTML representation of the CVTerm information. */
@@ -211,6 +167,156 @@ public class NamedSBaseInfoFactory {
 		map.put("id", items[items.length - 1]);
 		map.put("key", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), "/"));
 		return map;
+	}
+	
+	/** 
+	 * The general NamedSBase information is created in the 
+	 * header. Here the Class specific attribute information is generated.
+	 */
+	private String createNamedSBaseInfo(AbstractNamedSBase item){
+		String text = "";
+		// Model
+		if (item instanceof Model){
+			Model model = (Model) item;
+			String template = "<b>L%sV%s</b>"; 
+  			text = String.format(template, model.getLevel(), model.getVersion());
+		}
+		// Compartment
+		else if (item instanceof Compartment){
+			Compartment compartment = (Compartment) item;
+			String template = "<b>spatialDimensions</b>: %s<br />" +
+							  "<b>size</b>: %s [%s]<br />" +
+							  "<b>constant</b>: %s";
+			String dimensions = "?";
+			String size = "?";
+			String units = "?";
+			String constant = "?";
+			if (compartment.isSetSize()){
+				size = ((Double)compartment.getSize()).toString();
+			}
+			if (compartment.isSetUnits()){
+				units = compartment.getUnits();
+			}
+			if (compartment.isSetSpatialDimensions()){
+				dimensions = ((Double) compartment.getSpatialDimensions()).toString();
+			}
+			if (compartment.isSetConstant()){
+				constant = ((Boolean) compartment.getConstant()).toString();
+			}
+			text = String.format(template, dimensions, size, units, constant); 
+		}
+		// Parameter
+		else if (item instanceof Parameter){
+			Parameter parameter = (Parameter) item;
+			String template = "<b>value</b>: %s [%s]<br />" +
+							  "<b>constant</b>: %s";
+			String value = "?";
+			String units = "?";
+			String constant = "?";
+			if (parameter.isSetValue()){
+				value = ((Double) parameter.getValue()).toString();
+			}
+			if (parameter.isSetUnits()){
+				units = parameter.getUnits();
+			}
+			if (parameter.isSetConstant()){
+				constant = ((Boolean) parameter.getConstant()).toString();
+			}
+			text = String.format(template, value, units, constant); 
+		}
+		// Species
+		else if (item instanceof Species){
+			Species species = (Species) item;
+			String template = "<b>compartment</b>: %s<br />" +
+							  "<b>value</b>: %s [%s]<br />" +
+							  "<b>constant</b>: %s<br />" +
+							  "<b>boundaryCondition</b>: %s";
+			String compartment = "?";
+			String value = "?";
+			String units = "?";
+			String constant = "?";
+			String boundaryCondition = "?";
+			
+			if (species.isSetCompartment()){
+				compartment = species.getCompartment().toString();
+			}
+			if (species.isSetValue()){
+				value = ((Double) species.getValue()).toString();
+			}
+			UnitDefinition udef = species.getDerivedUnitDefinition();
+			if (udef != null){
+				units = udef.toString();
+			}
+			if (species.isSetConstant()){
+				constant = ((Boolean) species.getConstant()).toString();
+			}
+			if (species.isSetBoundaryCondition()){
+				boundaryCondition = ((Boolean) species.getBoundaryCondition()).toString();
+			}
+			text = String.format(template, compartment, value, units, constant, boundaryCondition); 
+		}
+		// Reaction
+		else if (item instanceof Reaction){
+			Reaction reaction = (Reaction) item;
+			String template = "<b>compartment</b>: %s<br />" +
+							  "<b>kineticLaw</b>: %s [%s]<br />" +
+							  "<b>reversible</b>: %s<br />" +
+							  "<b>fast</b>: %s";
+			String compartment = "?";
+			String kineticLaw = "";
+			String units = "?";
+			String reversible = "?";
+			String fast = "?";
+			
+			if (reaction.isSetCompartment()){
+				compartment = reaction.getCompartment().toString();
+			}
+			UnitDefinition udef = reaction.getDerivedUnitDefinition();
+			if (udef != null){
+				units = udef.toString();
+			}
+			if (reaction.isSetReversible()){
+				reversible = ((Boolean) reaction.getReversible()).toString();
+			}
+			if (reaction.isSetFast()){
+				fast = ((Boolean) reaction.getFast()).toString();
+			}
+			text = String.format(template, compartment, kineticLaw, units, reversible, fast); 
+		}
+		// QualitativeSpecies
+		else if (item instanceof Species){
+			QualitativeSpecies species = (QualitativeSpecies) item;
+			String template = "<b>compartment</b>: %s<br />" +
+							  "<b>initial [maximal] level</b>: %s [%s]<br />" +
+							  "<b>constant</b>: %s";
+			String compartment = "?";
+			String initialLevel = "?";
+			String maxLevel = "?";
+			String constant = "?";
+			
+			if (species.isSetCompartment()){
+				compartment = species.getCompartment().toString();
+			}
+			if (species.isSetInitialLevel()){
+				initialLevel = ((Integer) species.getInitialLevel()).toString();
+			}
+			if (species.isSetMaxLevel()){
+				maxLevel = ((Integer) species.getMaxLevel()).toString();
+			}
+			if (species.isSetConstant()){
+				constant = ((Boolean) species.getConstant()).toString();
+			}
+			text = String.format(template, compartment, initialLevel, maxLevel, constant); 
+		}
+		// Transition
+		else if (item instanceof Transition){
+			
+		}
+		// GeneProduct
+		else if (item instanceof GeneProduct){
+			
+		}
+		return text;
 	}
 	
 	

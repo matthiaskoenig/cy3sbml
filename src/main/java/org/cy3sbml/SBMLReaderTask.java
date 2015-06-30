@@ -671,7 +671,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				for (FunctionTerm term: transition.getListOfFunctionTerms()){
 					resultLevels.add(term.getResultLevel());
 				}
-				AttributeUtil.set(network, node, SBML.ATTR_QUAL_RESULT_LEVELS, resultLevels, List.class);
+				AttributeUtil.setList(network, node, SBML.ATTR_QUAL_RESULT_LEVELS, resultLevels, Integer.class);
 			}
 		}
 	}

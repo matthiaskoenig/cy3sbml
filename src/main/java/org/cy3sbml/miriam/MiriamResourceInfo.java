@@ -21,6 +21,10 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
  * Repeated queries are fetched from cache. 
  * Provides fast access to webservice information in combination with preloading of resources
  * during loading of files.
+ * The created information objects are cached to reduce load on the 
+ * web services.
+ * 
+ * TODO: move to file version of MIRIAM (see contribution Nicolas)
  */
 public class MiriamResourceInfo {
 	private static final Logger logger = LoggerFactory.getLogger(MiriamResourceInfo.class);
