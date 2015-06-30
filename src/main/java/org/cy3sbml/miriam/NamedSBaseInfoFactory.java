@@ -143,8 +143,8 @@ public class NamedSBaseInfoFactory {
 				
 				Map<String, String> map = null;
 				for (String rURI : term.getResources()){
-					map = getMapForURI(rURI);
-					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("key"));
+					map = getIdCollectionMapForURI(rURI);
+					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("collection"));
 					text += MiriamResourceInfo.getInfoFromURI(link, rURI);
 				}
 				text += "</p>";
@@ -159,15 +159,23 @@ public class NamedSBaseInfoFactory {
 	 * Examples are:
 	 * 		<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
 	 * 		<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
-	 * TODO: handle URNs
-	 * TODO: shorten the urls
-	 * 		"urn:miriam:kegg.compound:C00197" ()
+	 * 		"urn:miriam:kegg.compound:C00197" 
 	 */
-	private Map<String, String> getMapForURI(final String rURI) {
+	private Map<String, String> getIdCollectionMapForURI(final String rURI) {
 		Map<String, String> map = new HashMap<String, String>();
-		String[] items = rURI.split("/");
-		map.put("id", items[items.length - 1]);
-		map.put("key", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), "/"));
+		if (rURI.startsWith("http")){
+			String[] items = rURI.split("/");
+			map.put("id", items[items.length - 1]);
+			// map.put("key", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), "/"));
+			map.put("collection", items[items.length - 2]);
+		} else if (rURI.startsWith("urn")){
+			String[] items = rURI.split(":");
+			map.put("id", items[items.length - 1]);
+			// map.put("collection", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), ":"));
+			map.put("collection", items[items.length - 2]);
+		} else {
+			logger.warn("rURI neither 'urn' nor 'http':" + rURI);
+		}
 		return map;
 	}
 	

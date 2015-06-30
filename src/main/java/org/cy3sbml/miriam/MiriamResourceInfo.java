@@ -72,11 +72,18 @@ public class MiriamResourceInfo {
 		return text;
 	}
 
+	/* Get short server string from full location. */
 	private static String serverFromLocation(String location) {
 		// get everything instead of the last item 
 		String[] items = location.split("/");
 		String[] serverItems = Arrays.copyOfRange(items, 0, items.length-1);
-		return StringUtils.join(serverItems, "/"); 
+		String text = StringUtils.join(serverItems, "/");
+		/* strip http
+		if (text.startsWith("http://")){
+			text = text.substring(7, text.length());
+		}
+		*/
+		return text; 
 	}
 	
 	/** Get MIRIAM information from cache or via web service lookup. */
