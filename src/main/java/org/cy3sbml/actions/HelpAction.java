@@ -52,6 +52,7 @@ public class HelpAction extends AbstractCyAction{
 		panel.getTextPane().setHelp();
 		
 		// open browser help
+		/*
 		URL url;
 		try {
 			url = new URL(HELP_URL);
@@ -59,6 +60,7 @@ public class HelpAction extends AbstractCyAction{
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 }
 

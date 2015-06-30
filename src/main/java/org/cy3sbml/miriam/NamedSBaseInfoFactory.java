@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.cy3sbml.SBML;
+import org.cy3sbml.util.AttributeUtil;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -128,8 +130,6 @@ public class NamedSBaseInfoFactory {
 	}
 	
 	
-	
-	
 	/** Get string HTML representation of the CVTerm information. */
 	private String getCVTermsString(List<CVTerm> cvterms){
 		String text = "<hr>";
@@ -154,12 +154,14 @@ public class NamedSBaseInfoFactory {
   		return text;
 	}
 	
-	
 	/**
 	 * Split the information in url, resource, id.
 	 * Examples are:
 	 * 		<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
 	 * 		<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
+	 * TODO: handle URNs
+	 * TODO: shorten the urls
+	 * 		"urn:miriam:kegg.compound:C00197" ()
 	 */
 	private Map<String, String> getMapForURI(final String rURI) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -188,9 +190,9 @@ public class NamedSBaseInfoFactory {
 							  "<b>size</b>: %s [%s]<br />" +
 							  "<b>constant</b>: %s";
 			String dimensions = "?";
-			String size = "?";
-			String units = "?";
-			String constant = "?";
+			String size = noneHTML();
+			String units = noneHTML();
+			String constant = noneHTML();
 			if (compartment.isSetSize()){
 				size = ((Double)compartment.getSize()).toString();
 			}
@@ -201,7 +203,7 @@ public class NamedSBaseInfoFactory {
 				dimensions = ((Double) compartment.getSpatialDimensions()).toString();
 			}
 			if (compartment.isSetConstant()){
-				constant = ((Boolean) compartment.getConstant()).toString();
+				constant = booleanHTML(compartment.getConstant());
 			}
 			text = String.format(template, dimensions, size, units, constant); 
 		}
@@ -210,9 +212,9 @@ public class NamedSBaseInfoFactory {
 			Parameter parameter = (Parameter) item;
 			String template = "<b>value</b>: %s [%s]<br />" +
 							  "<b>constant</b>: %s";
-			String value = "?";
-			String units = "?";
-			String constant = "?";
+			String value = noneHTML();
+			String units = noneHTML();
+			String constant = noneHTML();
 			if (parameter.isSetValue()){
 				value = ((Double) parameter.getValue()).toString();
 			}
@@ -220,7 +222,7 @@ public class NamedSBaseInfoFactory {
 				units = parameter.getUnits();
 			}
 			if (parameter.isSetConstant()){
-				constant = ((Boolean) parameter.getConstant()).toString();
+				constant = booleanHTML(parameter.getConstant());
 			}
 			text = String.format(template, value, units, constant); 
 		}
@@ -231,11 +233,11 @@ public class NamedSBaseInfoFactory {
 							  "<b>value</b>: %s [%s]<br />" +
 							  "<b>constant</b>: %s<br />" +
 							  "<b>boundaryCondition</b>: %s";
-			String compartment = "?";
-			String value = "?";
-			String units = "?";
-			String constant = "?";
-			String boundaryCondition = "?";
+			String compartment = noneHTML();
+			String value = noneHTML();
+			String units = noneHTML();
+			String constant = noneHTML();
+			String boundaryCondition = noneHTML();
 			
 			if (species.isSetCompartment()){
 				compartment = species.getCompartment().toString();
@@ -248,10 +250,10 @@ public class NamedSBaseInfoFactory {
 				units = udef.toString();
 			}
 			if (species.isSetConstant()){
-				constant = ((Boolean) species.getConstant()).toString();
+				constant = booleanHTML(species.isConstant());
 			}
 			if (species.isSetBoundaryCondition()){
-				boundaryCondition = ((Boolean) species.getBoundaryCondition()).toString();
+				boundaryCondition = booleanHTML(species.getBoundaryCondition());
 			}
 			text = String.format(template, compartment, value, units, constant, boundaryCondition); 
 		}
@@ -259,40 +261,44 @@ public class NamedSBaseInfoFactory {
 		else if (item instanceof Reaction){
 			Reaction reaction = (Reaction) item;
 			String template = "<b>compartment</b>: %s<br />" +
-							  "<b>kineticLaw</b>: %s [%s]<br />" +
 							  "<b>reversible</b>: %s<br />" +
-							  "<b>fast</b>: %s";
-			String compartment = "?";
-			String kineticLaw = "";
-			String units = "?";
-			String reversible = "?";
-			String fast = "?";
+							  "<b>fast</b>: %s<br />" +
+							  "<b>kineticLaw</b>: %s<br />" +
+							  "<b>units</b>: [%s]";
+			String compartment = noneHTML();
+			String reversible = noneHTML();
+			String fast = noneHTML();
+			String kineticLaw = noneHTML();
+			String units = noneHTML();
 			
 			if (reaction.isSetCompartment()){
 				compartment = reaction.getCompartment().toString();
+			}
+			if (reaction.isSetReversible()){
+				reversible = booleanHTML(reaction.getReversible());
+			}
+			if (reaction.isSetFast()){
+				fast = booleanHTML(reaction.getFast());
+			}
+			if (reaction.isSetKineticLaw()){
+				kineticLaw = reaction.getKineticLaw().getMath().toFormula();	
 			}
 			UnitDefinition udef = reaction.getDerivedUnitDefinition();
 			if (udef != null){
 				units = udef.toString();
 			}
-			if (reaction.isSetReversible()){
-				reversible = ((Boolean) reaction.getReversible()).toString();
-			}
-			if (reaction.isSetFast()){
-				fast = ((Boolean) reaction.getFast()).toString();
-			}
-			text = String.format(template, compartment, kineticLaw, units, reversible, fast); 
+			text = String.format(template, compartment, reversible, fast, kineticLaw, units); 
 		}
 		// QualitativeSpecies
-		else if (item instanceof Species){
+		else if (item instanceof QualitativeSpecies){
 			QualitativeSpecies species = (QualitativeSpecies) item;
 			String template = "<b>compartment</b>: %s<br />" +
-							  "<b>initial [maximal] level</b>: %s [%s]<br />" +
+							  "<b>initial/max level</b>: %s/%s<br />" +
 							  "<b>constant</b>: %s";
-			String compartment = "?";
-			String initialLevel = "?";
-			String maxLevel = "?";
-			String constant = "?";
+			String compartment = noneHTML();
+			String initialLevel = noneHTML();
+			String maxLevel = noneHTML();
+			String constant = noneHTML();
 			
 			if (species.isSetCompartment()){
 				compartment = species.getCompartment().toString();
@@ -304,7 +310,7 @@ public class NamedSBaseInfoFactory {
 				maxLevel = ((Integer) species.getMaxLevel()).toString();
 			}
 			if (species.isSetConstant()){
-				constant = ((Boolean) species.getConstant()).toString();
+				constant = booleanHTML(species.getConstant());
 			}
 			text = String.format(template, compartment, initialLevel, maxLevel, constant); 
 		}
@@ -318,6 +324,25 @@ public class NamedSBaseInfoFactory {
 		}
 		return text;
 	}
+	
+	private String trueHTML(){
+		return "<img src=\"images/true.gif\" alt=\"true\" height=\"15\" width=\"15\"></img>";
+	}
+	private String falseHTML(){
+		return "<img src=\"images/false.gif\" alt=\"false\" height=\"15\" width=\"15\"></img>";
+	}
+	private String noneHTML(){
+		return "<img src=\"images/none.gif\" alt=\"none\" height=\"15\" width=\"15\"></img>";
+	}
+	
+	private String booleanHTML(boolean b){
+		if (b == true){
+			return trueHTML();
+		} else {
+			return falseHTML();
+		}	
+	}
+	
 	
 	
 	
