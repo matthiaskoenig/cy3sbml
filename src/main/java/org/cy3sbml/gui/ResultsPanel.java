@@ -2,6 +2,10 @@ package org.cy3sbml.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,8 +18,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
+import org.apache.commons.io.IOUtils;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.ValidationAction;
 import org.cy3sbml.biomodel.BioModelDialog;
@@ -29,6 +35,7 @@ import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.work.TaskIterator;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -150,9 +157,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
 	/** 
-	 * Handles the hyperlink events in the textPane.
-	 * Consists of opening browser or triggering certain cytoscape actions
-	 * via parsing link urls. 
+	 * Handles hyperlink events in the textPane.
+	 * Either opens browser for given hyperlink or triggers Cytoscape actions
+	 * for subsets of special hyperlinks.
 	 */
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
@@ -163,23 +170,69 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.EXITED) {
 				
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				if ("http://cy3sbml-biomodels".equals(url.toString())){
+				
+				String s = url.toString();
+				// BioModels
+				if (s.equals("http://cy3sbml-biomodels")){
 					 BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
-					 bioModelsDialog.setVisible(true);   
-				} else if ("http://cy3sbml-changestate".equals(url.toString())){
+					 bioModelsDialog.setVisible(true);
+				}
+				// ChangeState
+				else if (s.equals("http://cy3sbml-changestate")){
 					ResultsPanel panel = ResultsPanel.getInstance();
 					panel.changeState();
-				} else if ("http://cy3sbml-import".equals(url.toString())){
+				}
+				// Import
+				else if (s.equals("http://cy3sbml-import")){
 					ImportAction importAction = new ImportAction(adapter);
 					importAction.actionPerformed(null);
-				} else if ("http://cy3sbml-validation".equals(url.toString())){
+				}
+				// Validation
+				else if (s.equals("http://cy3sbml-validation")){
 					ValidationAction.openValidationPanel(adapter);
-				} else {
+				}
+				// Examples
+				else if (s.equals("http://cy3sbml-examples")){
+					ExamplesAction examplesAction = new ExamplesAction(adapter.cySwingApplication);
+					examplesAction.actionPerformed(null);
+				}
+				
+				// Example networks
+				else if (s.equals("http://cy3sbml-e_coli_core")){
+					loadExampleFromResource("/models/e_coli_core.xml");
+				}else if (s.equals("http://cy3sbml-iAB_RBC_283")){
+					loadExampleFromResource("/models/iAB_RBC_283.xml");
+				}else if (s.equals("http://cy3sbml-iIT341")){
+					loadExampleFromResource("/models/iIT341.xml");
+				}else if (s.equals("http://cy3sbml-RECON1")){
+					loadExampleFromResource("/models/RECON1.xml");
+				}
+				// HTML links	
+				else {
 					// handle the HTML links
 					adapter.openBrowser.openURL(url.toString());	
 				}
 			}
-		}	
+		}
+	}
+	
+	private void loadExampleFromResource(String resource){
+		// load the example network
+		InputStream instream = getClass().getResourceAsStream(resource);
+		File tempFile;
+		try {
+			tempFile = File.createTempFile("tmp-example", ".xml");
+			tempFile.deleteOnExit();
+			FileOutputStream out = new FileOutputStream(tempFile);
+			IOUtils.copy(instream, out);
+			
+			// read the file
+			TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
+			adapter.synchronousTaskManager.execute(iterator);	
+		} catch (Exception e) {
+			logger.warn("Could not read example");
+			e.printStackTrace();
+		}
 	}
 	
 	/** Handle node selection events in the table/network. 

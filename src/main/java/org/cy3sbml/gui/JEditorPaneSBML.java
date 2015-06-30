@@ -30,13 +30,18 @@ public class JEditorPaneSBML extends JEditorPane{
 	}
 	
 	public void setHelp(){
-		URL url;
+		setHTMLResource("/info.html");
+	}
+	public void setExamples(){
+		setHTMLResource("/examples.html");
+	}
+	private void setHTMLResource(String resource){
 		try {
 			// TODO: here the rendered template information has to be set, i.e. not static
 			// HTML, but rendering HTML template with the given information
 			// Use velocity or alternative for HTML rendering.
 			// Update in combination with JavaFX component.
-			url = new URL(ResultsPanel.class.getResource("/info.html").toString());
+			URL url = new URL(ResultsPanel.class.getResource(resource).toString());
 			this.setPage(url);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -44,6 +49,7 @@ public class JEditorPaneSBML extends JEditorPane{
 			e.printStackTrace();
 		}
 	}
+	
 	
    /**
     * Set URL content in textPane. 

@@ -38,6 +38,7 @@ import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
+import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.ValidationAction;
@@ -159,6 +160,7 @@ public class CyActivator extends AbstractCyActivator {
 			ImportAction importAction = new ImportAction(adapter);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
 			ValidationAction validationAction = new ValidationAction(adapter);
+			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
@@ -183,6 +185,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, bioModelAction, CyAction.class, new Properties());
 			registerService(bc, validationAction, CyAction.class, new Properties());
 			registerService(bc, importAction, CyAction.class, new Properties());
+			registerService(bc, examplesAction, CyAction.class, new Properties());
 			// TODO: SaveLayoutAction
 			// TODO: LoadLayoutAction
 			
