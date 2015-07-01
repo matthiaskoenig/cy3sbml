@@ -24,7 +24,9 @@ import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.Annotation;
+import org.sbml.jsbml.AssignmentRule;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.InitialAssignment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
@@ -32,7 +34,9 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
+import org.sbml.jsbml.RateRule;
 import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.Rule;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
@@ -482,28 +486,41 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (reaction.isSetKineticLaw()){
 				KineticLaw law = reaction.getKineticLaw();
 				
-				/*
 				// Create a kinetic law node
 				String id = reaction.getId() + "_law";
 			 	CyNode lawNode = network.addNode();
 			 	nodeById.put(id, lawNode);
 				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, id, String.class);
-				AttributeUtil.set(network, lawNode, SBML.ATTR_TYPE, SBML.NODETYPE_KINETIC_LAW, String.class);
+				AttributeUtil.set(network, lawNode, SBML.LABEL, id, String.class);
+				AttributeUtil.set(network, lawNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_KINETIC_LAW, String.class);
+			 	if (law.isSetMetaId()){
+					AttributeUtil.set(network, lawNode, SBML.ATTR_METAID, law.getMetaId(), String.class);
+				}
+				if (law.isSetSBOTerm()){
+					AttributeUtil.set(network, lawNode, SBML.ATTR_SBOTERM, law.getSBOTermID(), String.class);
+				}
+
 				// connect to reaction
 				CyEdge edge = network.addEdge(node, lawNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_KINETICLAW, String.class);
-				*/
 				
 				// global parameters
 				if (law.isSetMath()){
 					ASTNode astNode = law.getMath();
+					AttributeUtil.set(network, lawNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
 					List<Parameter> parameters = astNode.findReferencedGlobalParameters();
 					// make unique (often parameter multiple times in equation
 					for (Parameter parameter : new HashSet<Parameter>(parameters)){
 						// add edge
 						CyNode parameterNode = nodeById.get(parameter.getId());
-						CyEdge edge = network.addEdge(parameterNode, node, true);
-						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);	
+						
+						// direct edges if no kinetic law
+						// CyEdge edge = network.addEdge(parameterNode, node, true);
+						// AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
+						
+						// via kinetic law
+						network.addEdge(parameterNode, lawNode, true);
+						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_KINETICLAW, String.class);
 					}
 				}
 				// local parameters
@@ -578,17 +595,63 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// TODO: parse the InitialAssignments and RateRules
-		// Important for rate rule based models
-		
-		// InitialAssignments (not parsed)
-		// for (InitialAssignment assignment : model.getListOfInitialAssignments()) {}
+		// InitialAssignments set as attributes on target nodes (variables)
+		for (InitialAssignment assignment : model.getListOfInitialAssignments()){
+			String variable = assignment.getVariable();
+			CyNode targetNode = nodeById.get(variable);
+			if (targetNode != null & assignment.isSetMath()){
+				String math = assignment.getMath().toFormula();
+				AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, math, String.class);
+			}
+		}
 		
 		// Rules (not parsed)
-		//for (Rule rule : model.getListOfRules()){}
-		
-		
+		// Important for rate rule based models
+		for (Rule rule : model.getListOfRules()){
+			String variable = null;
+			if (rule.isAssignment()){
+				AssignmentRule assignmentRule = (AssignmentRule) rule;
+				variable = assignmentRule.getVariable();
+			} else if (rule.isRate()){
+				RateRule rateRule = (RateRule) rule;
+				variable = rateRule.getVariable();
+			}
+			if (variable != null){
+				// analog to kinetic law
+				String id = variable + "_rule";
+			 	CyNode ruleNode = network.addNode();
+			 	nodeById.put(id, ruleNode);
+				AttributeUtil.set(network, ruleNode, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, ruleNode, SBML.LABEL, id, String.class);
+				AttributeUtil.set(network, ruleNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
+			 	if (rule.isSetMetaId()){
+					AttributeUtil.set(network, ruleNode, SBML.ATTR_METAID, rule.getMetaId(), String.class);
+				}
+				if (rule.isSetSBOTerm()){
+					AttributeUtil.set(network, ruleNode, SBML.ATTR_SBOTERM, rule.getSBOTermID(), String.class);
+				}
+				// connect to variable
+				CyNode variableNode = nodeById.get(variable);
+				CyEdge edge = network.addEdge(variableNode, ruleNode, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_RULE, String.class);
 				
+				// global parameters
+				if (rule.isSetMath()){
+					ASTNode astNode = rule.getMath();
+					AttributeUtil.set(network, ruleNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
+					List<Parameter> parameters = astNode.findReferencedGlobalParameters();
+					// make unique (often parameter multiple times in math
+					for (Parameter parameter : new HashSet<Parameter>(parameters)){
+						// add edge
+						CyNode parameterNode = nodeById.get(parameter.getId());
+						network.addEdge(parameterNode, ruleNode, true);
+						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_RULE, String.class);
+					}
+				}
+			}
+			
+		}
+			
 		// Constraints (not parsed)
 		// for (Constraint constraint : model.getListOfConstraints()){}
 		

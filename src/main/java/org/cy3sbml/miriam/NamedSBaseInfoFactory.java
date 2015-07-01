@@ -182,6 +182,8 @@ public class NamedSBaseInfoFactory {
 	/** 
 	 * The general NamedSBase information is created in the 
 	 * header. Here the Class specific attribute information is generated.
+	 * 
+	 * TODO: check for InitialAssignment
 	 */
 	private String createNamedSBaseInfo(AbstractNamedSBase item){
 		String text = "";
