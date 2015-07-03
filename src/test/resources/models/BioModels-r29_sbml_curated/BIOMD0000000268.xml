@@ -1,0 +1,3686 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" metaid="_0866518c-c0d0-4155-a2d2-08936e95fb1d" version="4">
+  <model id="Reed2008" name="Reed2008_Glutathione_Metabolism" metaid="_280365">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p>This is the model described in the article:<br/>
+        <strong>A mathematical model of glutathione metabolism.</strong>
+        <br/>
+Michael C Reed, Rachel L Thomas, Jovana Pavisic, S. Jill James, Cornelia M Ulrich and H. Frederik Nijhout, <em>Theor Biol Med Model</em> 2008,5:8; PubmedID:<a href="http://www.ncbi.nlm.nih.gov/pubmed/18442411">18442411</a> ; DOI:<a href="http://dx.doi.org/10.1186/1742-4682-5-8">10.1186/1742-4682-5-8</a>;<br/>
+
+Abstract:<br/>
+BACKGROUND: Glutathione (GSH) plays an important role in anti-oxidant defense and detoxification reactions. It is primarily synthesized in the liver by the transsulfuration pathway and exported to provide precursors for in situ GSH synthesis by other tissues. Deficits in glutathione have been implicated in aging and a host of diseases including Alzheimer's disease, Parkinson's disease, cardiovascular disease, cancer, Down syndrome and autism.<br/>
+APPROACH: We explore the properties of glutathione metabolism in the liver by experimenting with a mathematical model of one-carbon metabolism, the transsulfuration pathway, and glutathione synthesis, transport, and breakdown. The model is based on known properties of the enzymes and the regulation of those enzymes by oxidative stress. We explore the half-life of glutathione, the regulation of glutathione synthesis, and its sensitivity to fluctuations in amino acid input. We use the model to simulate the metabolic profiles previously observed in Down syndrome and autism and compare the model results to clinical data.<br/>
+CONCLUSION: We show that the glutathione pools in hepatic cells and in the blood are quite insensitive to fluctuations in amino acid input and offer an explanation based on model predictions. In contrast, we show that hepatic glutathione pools are highly sensitive to the level of oxidative stress. The model shows that overexpression of genes on chromosome 21 and an increase in oxidative stress can explain the metabolic profile of Down syndrome. The model also correctly simulates the metabolic profile of autism when oxidative stress is substantially increased and the adenosine concentration is raised. Finally, we discuss how individual variation arises and its consequences for one-carbon and glutathione metabolism.
+	</p>
+        <table border="0" cellpadding="2" cellspacing="0">
+          <thead>
+            <tr>
+              <th align="left" bgcolor="#eeeeee" valign="middle"> parameter</th>
+              <th align="left" bgcolor="#eeeeee" valign="middle">orig. article </th>
+              <th align="center" bgcolor="#eeeeee" valign="middle"> this model</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vm_CBS </td>
+              <td>700000 </td>
+              <td>420000 </td>
+            </tr>
+            <tr>
+              <td>Vm_GNMT </td>
+              <td>245 </td>
+              <td>260 </td>
+            </tr>
+            <tr>
+              <td>K_sam_GNMT</td>
+              <td>32 </td>
+              <td>63 </td>
+            </tr>
+            <tr>
+              <td>Vr_MTD(mito)</td>
+              <td>600000 </td>
+              <td>595000 </td>
+            </tr>
+            <tr>
+              <td>V_CBS</td>
+              <td>kinetic law</td>
+              <td>rearranged</td>
+            </tr>
+            <tr>
+              <td>V_bmetc</td>
+              <td>913</td>
+              <td>913.4</td>
+            </tr>
+            <tr>
+              <td>Vm_GR</td>
+              <td>8925</td>
+              <td>892.5</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+This version of the model contains a feeding rhythm as used in figure 5 of the original article. Four parameters,  <em>breakfast</em>, <em>lunch</em>
+        <em>dinner</em> and <em>fasting</em>, describe the relative level of amino acids, described by the parameter <em>aa_input</em> or <em>Aminoacid_input</em>, in the blood. To remove the daily feeding rhythm, either set the parameters for meals and fasting to 1 (or for figure 3 to 0.333), or remove the assignment rule for the <em>Aminoacid_input</em>. For the steady state evaluations for figure 6, the mealtime parameters were set to one, which, while making Copasi complain about explicit time dependency, still gives valid results. 
+</p>
+        <p>This version of the model differs slightly from the version described in the supplement, in which contains some typos. It was corrected using the version of <a href="http://jjj.mib.ac.uk/">JWS-online</a>, created using the original matlab files, thankfully provided by the articles authors. Many thanks to Jacky Snoep for his help and support.</p>
+        <p/>
+        <p>In the SBML version of the model the volumes of the mitochondrion, the cytoplasm and the cell were all set to one to obtain the same equations as described in the supplemental materials of the article. The total folate is equally split between the cytosol and the mitochondrion and divided by 3/4 for the cytosol and 1/4 for the mitochondrion, respectively. To obtain an SBML model in which the volumes of the compartments, <em>cytosol</em> and <em>mito</em>, are used, the model needs to be altered as follows:<br/>
+        <ul>
+          <li>for the initial distribution of folate the terms 3/4 and 1/4 have to be replaced by volumes of cytosol and mitochondria respectively</li>
+          <li>in the transport reactions between mitochondrion and cytosol the stoichiometry of the mitochondrial reactants has to be set from 3 to 1 and in the first part of the according rate laws the factor <em>mito/3</em> should simply be replaced with <em>mito</em>.</li>
+          <li>the stoichiometries of <em>src</em> and <em>dmg</em> have to be changed to <em>cell/mito</em> for mitchondrial and <em>cell/cytosol</em> for cytosolic reactions involving these two species (for the relative volumes used in the article this would be 4 for mitochondrial reactions and 1.33333 for cytosolic ones).</li>
+        </ul>
+While the concentrations stay the same after these alteration, the reaction fluxes change by a factor of <em>cytosol</em> and <em>mito</em> for cytosolic and mitchondrial reactions, respectively. 
+</p>
+        <p> Originally created by libAntimony v1.3 (using libSBML 3.4.1) </p>
+      </body>
+    </notes>
+    <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280365">
+	<dc:creator>
+	<rdf:Bag>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Endler</vCard:Family>
+	<vCard:Given>Lukas</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>lukas@ebi.ac.uk</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>EMBL-EBI</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	</rdf:Bag>
+	</dc:creator>
+	<dcterms:created rdf:parseType="Resource">
+	<dcterms:W3CDTF>2010-09-07T16:28:04Z</dcterms:W3CDTF>
+	</dcterms:created>
+	<dcterms:modified rdf:parseType="Resource">
+	<dcterms:W3CDTF>2014-10-10T11:34:39Z</dcterms:W3CDTF>
+	</dcterms:modified>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL1007200001"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/BIOMD0000000268"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	<bqmodel:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubmed/18442411"/>
+	</rdf:Bag>
+	</bqmodel:isDescribedBy>
+	<bqmodel:isDerivedFrom>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL1007200000"/>
+	</rdf:Bag>
+	</bqmodel:isDerivedFrom>
+	<bqbiol:occursIn>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
+	<rdf:li rdf:resource="http://identifiers.org/bto/BTO:0000575"/>
+	</rdf:Bag>
+	</bqbiol:occursIn>
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006749"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:10652"/>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:14330"/>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:162"/>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:1287"/>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:14250"/>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:12849"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+      <listOfFunctionDefinitions>
+      <functionDefinition id="MM" metaid="_280569">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> Km </ci>
+            </bvar>
+            <bvar>
+              <ci> S </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Vmax </ci>
+                <ci> S </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> Km </ci>
+                <ci> S </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="MM_twosubst" metaid="_280571">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> Vmax </ci>
+            </bvar>
+            <bvar>
+              <ci> Km1 </ci>
+            </bvar>
+            <bvar>
+              <ci> Km2 </ci>
+            </bvar>
+            <bvar>
+              <ci> S1 </ci>
+            </bvar>
+            <bvar>
+              <ci> S2 </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Vmax </ci>
+                <ci> S1 </ci>
+                <ci> S2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Km1 </ci>
+                  <ci> S1 </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> Km2 </ci>
+                  <ci> S2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="substance" name="micromole" metaid="_30915c12-285c-4a31-84f0-5817ed4c0f4a">
+        <listOfUnits>
+          <unit scale="-6" metaid="d0506bd7-2cf1-44a8-8af4-c78ebceb0bc0" kind="mole"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="uM" name="uM" metaid="b42e8827-c762-4a95-b901-36b346f99dbd">
+        <listOfUnits>
+          <unit scale="-6" metaid="_0bed3849-8cb1-4e48-9b45-e58ce7a80144" kind="mole"/>
+          <unit exponent="-1" metaid="_2ec652e5-6226-4490-aae9-314d3cd7a2a6" kind="litre"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="uM_per_h" name="uM/h" metaid="_7ea77494-b741-4b1f-b8f6-9633f7555760">
+        <listOfUnits>
+          <unit scale="-6" metaid="_36e6b578-66dd-4fde-9be9-ea8ea11a1af6" kind="mole"/>
+          <unit exponent="-1" metaid="_4762c637-8581-4c72-bae7-fe53f1f46bc9" kind="litre"/>
+          <unit exponent="-1" metaid="ec73ee03-6ef2-4892-a99d-7d22bb54ed2a" multiplier="3600" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_h" name="1/h" metaid="_1fd14249-e043-417b-9e9c-d5e54ff9f7bc">
+        <listOfUnits>
+          <unit exponent="-1" metaid="_5b429fb2-91d1-4bef-ad88-f487e8795633" multiplier="3600" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_uM_per_h" name="1/(uM*h)" metaid="_20efdab5-6016-486f-94c3-24a835940b1c">
+        <listOfUnits>
+          <unit scale="-6" exponent="-1" metaid="be2e5470-876c-423d-9016-f860169ed000" kind="mole"/>
+          <unit metaid="_573b5385-c208-4e2b-9c7e-1e2721ca5384" kind="litre"/>
+          <unit exponent="-1" metaid="cc1da482-50ec-44b3-a9ee-04b7d2217642" multiplier="3600" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_uM" name="1/uM" metaid="d0824d13-f3cc-4676-91cf-a308157ed7e0">
+        <listOfUnits>
+          <unit scale="-6" exponent="-1" metaid="_04184b01-3170-4f66-af7a-3f77884d49f8" kind="mole"/>
+          <unit metaid="c80f114d-6935-48d0-8c55-8d5268823e41" kind="litre"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="hours" metaid="_5b61d890-1368-476f-8ecf-8f0ca7a650bf">
+        <listOfUnits>
+          <unit metaid="a4a5e0a4-c210-4b58-b9b9-5268d47b9989" multiplier="3600" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="blood" metaid="_280366" size="1">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280366">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/bto/BTO:0000089"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </compartment>
+      <compartment id="cytosol" metaid="_280367" size="1">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280367">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0005829"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </compartment>
+      <compartment id="mito" name="mitochondrion" metaid="_280368" size="1">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280368">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0005739"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </compartment>
+      <compartment id="cell" metaid="_280369" size="1">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280369">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0005623"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="b_met" name="b_Met" metaid="_280370" boundaryCondition="true" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280370">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16811"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01733"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_ser" name="b_Ser" metaid="_280371" boundaryCondition="true" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280371">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17822"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00716"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="GAR" initialConcentration="10" metaid="_280372" boundaryCondition="true" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280372">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:18349"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C003838"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="NADPH" initialConcentration="50" metaid="_280373" boundaryCondition="true" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280373">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16474"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00005"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="BET" initialConcentration="50" name="Betaine" metaid="_280375" boundaryCondition="true" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280375">
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17750"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00719"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="DUMP" initialConcentration="20" name="dUMP" metaid="_280376" boundaryCondition="true" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280376">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17622"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00365"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="Fol" initialConcentration="20.1" name="Folate" metaid="_280377" boundaryCondition="true" compartment="cell">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280377">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:27470"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00504"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="H2O2" initialConcentration="0.01" metaid="_280379" boundaryCondition="true" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280379">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16240"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00027"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="CO" initialConcentration="0" name="CO2" metaid="_280380" boundaryCondition="true" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280380">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16526"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00011"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="HCHO" initialConcentration="500" name="Formaldehyde" metaid="_280381" boundaryCondition="true" compartment="cell">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280381">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16842"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00067"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_thf" name="c_THF" metaid="_280383" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280383">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15635"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00101"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_thf" name="m_THF" metaid="_280384" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280384">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15635"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00101"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_5mf" initialConcentration="4.4965335653401" name="c_5-methyl-THF" metaid="_280385" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280385">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15641"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00440"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_2cf" initialConcentration="0.506278119133034" name="c_5-10-methylene-THF" metaid="_280387" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280387">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:1989"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00143"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_1cf" initialConcentration="0.278602708139276" name="c_5-10-methenyl-THF" metaid="_280388" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280388">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubchem.compound/644350"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_10f" initialConcentration="3.40907070478307" name="c_10-formyl-THF" metaid="_280389" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280389">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15637"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00234"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_dhf" initialConcentration="0.0385952337473159" name="c_DHF" metaid="_280391" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280391">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15633"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00415"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_2cf" initialConcentration="1.66610924423152" name="m_5-10-methylene-THF" metaid="_280392" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280392">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:1989"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00143"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_1cf" initialConcentration="1.54929073348709" name="m_5-10-methenyl-THF" metaid="_280393" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280393">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubchem.compound/644350"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_10f" initialConcentration="15.9087989350187" name="m_10-formyl-THF" metaid="_280395" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280395">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15637"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00234"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_gly" initialConcentration="221.101111778807" name="b_Glycine" metaid="_280396" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280396">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15428"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00037"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_glu" initialConcentration="60.4330872702655" name="b_Glutamate" metaid="_280397" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280397">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:18237"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00302"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_cys" initialConcentration="185.50378543937" name="b_Cysteine" metaid="_280399" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280399">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15356"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00736"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_gsg" initialConcentration="0.484328542816829" name="b_GSSG" metaid="_280400" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280400">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17858"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00127"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="b_gsh" initialConcentration="12.6996048211362" name="b_GSH" metaid="_280401" compartment="blood">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280401">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16856"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00051"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="aic" initialConcentration="0.942750394171554" name="AICAR" metaid="_280403" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280403">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:18406"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C04677"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_glu" initialConcentration="3219.39793573653" name="c_Glutamate" metaid="_280404" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280404">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:18237"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00302"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_cys" initialConcentration="194.96740946034" name="c_Cysteine" metaid="_280405" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280405">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15356"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00736"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="glc" initialConcentration="9.80842470037426" name="Glutamyl-Cysteine" metaid="_280407" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280407">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17515"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00669"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_gly" initialConcentration="924.429820216685" name="c_Glycine" metaid="_280408" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280408">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15428"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00037"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_gsg" initialConcentration="61.3019611792609" name="c_GSSG" metaid="_280409" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280409">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17858"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00127"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_gsh" initialConcentration="6590.56824161192" name="c_GSH" metaid="_280411" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280411">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16856"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00051"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="cyt" initialConcentration="36.8825861752429" name="Cystathione" metaid="_280412" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280412">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubchem.compound/834"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="hcy" initialConcentration="1.12248362561721" name="Homocysteine" metaid="_280413" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280413">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17230"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C05330"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_ser" initialConcentration="562.834377270222" name="c_Serine" metaid="_280415" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280415">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17822"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00716"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="sah" initialConcentration="19.1432773636787" name="S-adenosylhomocysteine" metaid="_280416" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280416">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16680"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00021"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="sam" initialConcentration="81.1684566962769" name="S-adenosylmethionine" metaid="_280417" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280417">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15414"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00019"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="met" initialConcentration="49.18682158" name="c_Methionine" metaid="_280419" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280419">
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:16811"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01733"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="c_coo" initialConcentration="13.0888186429922" name="c_formate" metaid="_280420" compartment="cytosol">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280420">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15740"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00058"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_ser" initialConcentration="2114.87119909779" name="m_Serine" metaid="_280421" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280421">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17822"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00716"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_gly" initialConcentration="2040.43402532595" name="m_Glycine" metaid="_280423" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280423">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15428"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00037"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="m_coo" initialConcentration="55.820116666595" name="m_Formate" metaid="_280424" compartment="mito">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280424">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15740"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00058"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="src" initialConcentration="9.16245914628594" name="Sarcosine" metaid="_280425" compartment="cell">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280425">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:15611"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00213"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+      <species id="dmg" initialConcentration="0.707382712261505" name="Dimethylglycine" metaid="_280427" compartment="cell">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280427">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17724"/>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01026"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+            </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="tot_cfol" constant="false" metaid="_280573" units="uM"/>
+      <parameter id="tot_mfol" constant="false" metaid="_280575" units="uM"/>
+      <parameter id="V_oCys_b" constant="false" metaid="_280576" units="uM_per_h"/>
+      <parameter id="V_oGly_b" constant="false" metaid="_280577" units="uM_per_h"/>
+      <parameter id="V_oGlu_b" constant="false" metaid="_280579" units="uM_per_h"/>
+      <parameter id="V_gshHb" metaid="_280580" value="150" units="uM_per_h"/>
+      <parameter id="K_gshHb" metaid="_280581" value="150" units="uM"/>
+      <parameter id="V_gshLb" metaid="_280583" value="1100" units="uM_per_h"/>
+      <parameter id="h_gshLb" metaid="_280584" value="3" units="dimensionless"/>
+      <parameter id="K_gshLb" metaid="_280585" value="3000" units="uM"/>
+      <parameter id="V_gsgHb" metaid="_280587" value="40" units="uM_per_h"/>
+      <parameter id="K_gsgHb" metaid="_280588" value="1250" units="uM"/>
+      <parameter id="V_gsgLb" metaid="_280589" value="4025" units="uM_per_h"/>
+      <parameter id="K_gsgLb" metaid="_280591" value="7100" units="uM"/>
+      <parameter id="V_bcysc" metaid="_280592" value="14950" units="uM_per_h"/>
+      <parameter id="K_bcysc" metaid="_280593" value="2100" units="uM"/>
+      <parameter id="V_bglutc" metaid="_280595" value="28000" units="uM_per_h"/>
+      <parameter id="K_bglutc" metaid="_280596" value="300" units="uM"/>
+      <parameter id="k_out_glu" metaid="_280597" value="1" units="per_h"/>
+      <parameter id="V_bglyc" metaid="_280599" value="4600" units="uM_per_h"/>
+      <parameter id="K_bglyc" metaid="_280600" value="150" units="uM"/>
+      <parameter id="k_out_gly" metaid="_280601" value="1" units="per_h"/>
+      <parameter id="V_bserc" metaid="_280603" value="2700" units="uM_per_h"/>
+      <parameter id="K_bserc" metaid="_280604" value="150" units="uM"/>
+      <parameter id="k_out_ser" metaid="_280605" value="1" units="per_h"/>
+      <parameter id="V_bmetc" metaid="_280607" value="913.4" units="uM_per_h"/>
+      <parameter id="K_bmetc" metaid="_280608" value="150" units="uM"/>
+      <parameter id="k_out_met" metaid="_280609" value="1" units="per_h"/>
+      <parameter id="Vm_mFTD" metaid="_280611" value="1050" units="uM_per_h"/>
+      <parameter id="K_10f_FTD" metaid="_280612" value="20" units="uM"/>
+      <parameter id="Vf_mSHMT" metaid="_280613" value="11440" units="uM_per_h"/>
+      <parameter id="K_thf_SHMT" metaid="_280615" value="50" units="uM"/>
+      <parameter id="K_ser_SHMT" metaid="_280616" value="600" units="uM"/>
+      <parameter id="Vr_mSHMT" metaid="_280617" value="30000000" units="uM_per_h"/>
+      <parameter id="K_gly_SHMT" metaid="_280619" value="10000" units="uM"/>
+      <parameter id="K_2cf_SHMT" metaid="_280620" value="3200" units="uM"/>
+      <parameter id="Vf_mFTS" metaid="_280621" value="2000" units="uM_per_h"/>
+      <parameter id="K_thf_mFTS" metaid="_280623" value="3" units="uM"/>
+      <parameter id="K_coo_mFTS" metaid="_280624" value="43" units="uM"/>
+      <parameter id="Vr_mFTS" metaid="_280625" value="6300" units="uM_per_h"/>
+      <parameter id="K_10f_mFTS" metaid="_280627" value="22" units="uM"/>
+      <parameter id="k1_mNE" metaid="_280628" value="0.03" units="per_uM_per_h"/>
+      <parameter id="k2_mNE" metaid="_280629" value="20" units="per_h"/>
+      <parameter id="Vm_GDC" metaid="_280631" value="15000" units="uM_per_h"/>
+      <parameter id="K_thf_GDC" metaid="_280632" value="50" units="uM"/>
+      <parameter id="K_gly_GDC" metaid="_280633" value="3400" units="uM"/>
+      <parameter id="Vm_SDH" metaid="_280635" value="15000" units="uM_per_h"/>
+      <parameter id="K_thf_SDH" metaid="_280636" value="50" units="uM"/>
+      <parameter id="K_src_SDH" metaid="_280637" value="320" units="uM"/>
+      <parameter id="Vm_DMGD" metaid="_280639" value="15000" units="uM_per_h"/>
+      <parameter id="K_thf_DMGD" metaid="_280640" value="50" units="uM"/>
+      <parameter id="K_dmg_DMGD" metaid="_280641" value="50" units="uM"/>
+      <parameter id="Vf_mMTD" metaid="_280643" value="180000" units="uM_per_h"/>
+      <parameter id="K_2cf_MTD" metaid="_280644" value="2" units="uM"/>
+      <parameter id="Vr_MTD" metaid="_280645" value="594000" units="uM_per_h"/>
+      <parameter id="K_1cf_MTD" metaid="_280647" value="10" units="uM"/>
+      <parameter id="Vf_mMTCH" metaid="_280648" value="790000" units="uM_per_h"/>
+      <parameter id="K_1cf_MTCH" metaid="_280649" value="250" units="uM"/>
+      <parameter id="Vr_MTCH" metaid="_280651" value="20000" units="uM_per_h"/>
+      <parameter id="K_10f_MTCH" metaid="_280652" value="100" units="uM"/>
+      <parameter id="V_mser" metaid="_280653" value="10000" units="uM_per_h"/>
+      <parameter id="K_mser" metaid="_280655" value="5700" units="uM"/>
+      <parameter id="V_cser" metaid="_280656" value="10000" units="uM_per_h"/>
+      <parameter id="K_cser" metaid="_280657" value="5700" units="uM"/>
+      <parameter id="k_in_coo" metaid="_280659" value="100" units="per_h"/>
+      <parameter id="k_out_coo" metaid="_280660" value="100" units="per_h"/>
+      <parameter id="V_mgly" metaid="_280661" value="10000" units="uM_per_h"/>
+      <parameter id="K_mgly" metaid="_280663" value="5700" units="uM"/>
+      <parameter id="V_cgly" metaid="_280664" value="10000" units="uM_per_h"/>
+      <parameter id="K_cgly" metaid="_280665" value="5700" units="uM"/>
+      <parameter id="Vm_MS" metaid="_280667" value="500" units="uM_per_h"/>
+      <parameter id="K_5mf_MS" metaid="_280668" value="25" units="uM"/>
+      <parameter id="K_hcy_MS" metaid="_280669" value="1" units="uM"/>
+      <parameter id="ssH2O2" metaid="_280671" value="0.01" units="uM"/>
+      <parameter id="Ki_MS" metaid="_280672" value="0.01" units="uM"/>
+      <parameter id="Vm_DHFR" metaid="_280673" value="2000" units="uM_per_h"/>
+      <parameter id="K_dhf_DHFR" metaid="_280675" value="0.5" units="uM"/>
+      <parameter id="K_NADPH_DHFR" metaid="_280676" value="4" units="uM"/>
+      <parameter id="Vm_cFTD" metaid="_280677" value="500" units="uM_per_h"/>
+      <parameter id="Vm_PGT" metaid="_280679" value="24300" units="uM_per_h"/>
+      <parameter id="K_10f_PGT" metaid="_280680" value="4.9" units="uM"/>
+      <parameter id="K_GAR_PGT" metaid="_280681" value="520" units="uM"/>
+      <parameter id="Vm_cFTS" metaid="_280683" value="3900" units="uM_per_h"/>
+      <parameter id="K_thf_cFTS" metaid="_280684" value="3" units="uM"/>
+      <parameter id="K_coo_cFTS" metaid="_280685" value="43" units="uM"/>
+      <parameter id="Vf_cSHMT" metaid="_280687" value="5200" units="uM_per_h"/>
+      <parameter id="Vr_cSHMT" metaid="_280688" value="15000000" units="uM_per_h"/>
+      <parameter id="k1_cNE" metaid="_280689" value="0.03" units="per_uM_per_h"/>
+      <parameter id="k2_cNE" metaid="_280691" value="22" units="per_h"/>
+      <parameter id="Vm_TS" metaid="_280692" value="5000" units="uM_per_h"/>
+      <parameter id="K_DUMP_TS" metaid="_280693" value="6.3" units="uM"/>
+      <parameter id="K_2cf_TS" metaid="_280695" value="14" units="uM"/>
+      <parameter id="Vm_MTHFR" metaid="_280696" value="5300" units="uM_per_h"/>
+      <parameter id="K_2cf_MTHFR" metaid="_280697" value="50" units="uM"/>
+      <parameter id="K_NADPH_MTHFR" metaid="_280699" value="16" units="uM"/>
+      <parameter id="Vf_cMTD" metaid="_280700" value="80000" units="uM_per_h"/>
+      <parameter id="Vr_cMTD" metaid="_280701" value="600000" units="uM_per_h"/>
+      <parameter id="Vf_cMTCH" metaid="_280703" value="500000" units="uM_per_h"/>
+      <parameter id="Vm_ART" metaid="_280704" value="55000" units="uM_per_h"/>
+      <parameter id="K_10f_ART" metaid="_280705" value="5.9" units="uM"/>
+      <parameter id="K_aic_ART" metaid="_280707" value="100" units="uM"/>
+      <parameter id="Vm_BHMT" metaid="_280708" value="2160" units="uM_per_h"/>
+      <parameter id="K_hcy_BHMT" metaid="_280709" value="12" units="uM"/>
+      <parameter id="K_bet_BHMT" metaid="_280711" value="100" units="uM"/>
+      <parameter id="Ki_BHMT" metaid="_280712" value="0.01" units="uM"/>
+      <parameter id="Vm_MAT1" metaid="_280713" value="260" units="uM_per_h"/>
+      <parameter id="Km_MAT1" metaid="_280715" value="41" units="uM"/>
+      <parameter id="Ki_MAT1" metaid="_280716" value="2140" units="uM"/>
+      <parameter id="Vm_MAT3" metaid="_280717" value="220" units="uM_per_h"/>
+      <parameter id="Km_MAT3" metaid="_280719" value="300" units="uM"/>
+      <parameter id="Ka_MAT3" metaid="_280720" value="360" units="uM"/>
+      <parameter id="Ki_MAT3" metaid="_280721" value="4030" units="uM"/>
+      <parameter id="Vm_GNMT" metaid="_280723" value="260" units="uM_per_h"/>
+      <parameter id="K_sam_GNMT" metaid="_280724" value="63" units="uM"/>
+      <parameter id="K_gly_GNMT" metaid="_280725" value="130" units="uM"/>
+      <parameter id="Ki_GNMT" metaid="_280727" value="18" units="uM"/>
+      <parameter id="Vm_DNMT" metaid="_280728" value="180" units="uM_per_h"/>
+      <parameter id="Km_DNMT" metaid="_280729" value="1.4" units="uM"/>
+      <parameter id="Ki_DNMT" metaid="_280731" value="1.4" units="uM"/>
+      <parameter id="Vf_SAHH" metaid="_280732" value="320" units="uM_per_h"/>
+      <parameter id="K_sah_SAHH" metaid="_280733" value="6.5" units="uM"/>
+      <parameter id="Vr_SAHH" metaid="_280735" value="4530" units="uM_per_h"/>
+      <parameter id="K_hcy_SAHH" metaid="_280736" value="150" units="uM"/>
+      <parameter id="Vm_CBS" metaid="_280737" value="420000" units="uM_per_h"/>
+      <parameter id="K_hcy_CBS" metaid="_280739" value="1000" units="uM"/>
+      <parameter id="K_ser_CBS" metaid="_280740" value="2000" units="uM"/>
+      <parameter id="Ka_CBS" metaid="_280741" value="0.035" units="uM"/>
+      <parameter id="Vm_CTGL" metaid="_280743" value="1500" units="uM_per_h"/>
+      <parameter id="K_cyt_CTGL" metaid="_280744" value="500" units="uM"/>
+      <parameter id="Vm_GCS" metaid="_280745" value="3600" units="uM_per_h"/>
+      <parameter id="Ke_GCS" metaid="_280747" value="5597" units="per_uM"/>
+      <parameter id="K_cys_GCS" metaid="_280748" value="100" units="uM"/>
+      <parameter id="K_glu_GCS" metaid="_280749" value="1900" units="uM"/>
+      <parameter id="Ki_GCS" metaid="_280751" value="8200" units="uM"/>
+      <parameter id="Kp_GCS" metaid="_280752" value="300" units="per_uM"/>
+      <parameter id="Ka_GCS" metaid="_280753" value="0.01" units="uM"/>
+      <parameter id="Vm_GS" metaid="_280755" value="5400" units="uM_per_h"/>
+      <parameter id="Ke_GS" metaid="_280756" value="5600" units="per_uM"/>
+      <parameter id="K_gly_GS" metaid="_280757" value="300" units="uM"/>
+      <parameter id="K_glc_GS" metaid="_280759" value="22" units="uM"/>
+      <parameter id="Kp_GS" metaid="_280760" value="30" units="per_uM"/>
+      <parameter id="Vm_GPX" metaid="_280761" value="4500" units="uM_per_h"/>
+      <parameter id="K_gsh_GPX" metaid="_280763" value="1330" units="uM"/>
+      <parameter id="K_H2O2_GPX" metaid="_280764" value="0.09" units="uM"/>
+      <parameter id="Vm_GR" metaid="_280765" value="892.5" units="uM_per_h"/>
+      <parameter id="K_gsg_GR" metaid="_280767" value="107" units="uM"/>
+      <parameter id="K_NADPH_GR" metaid="_280768" value="10.4" units="uM"/>
+      <parameter id="dinner" metaid="_280769" value="3.25" units="dimensionless"/>
+      <parameter id="lunch" metaid="_280771" value="1.75" units="dimensionless"/>
+      <parameter id="breakfast" metaid="_280772" value="1.75" units="dimensionless"/>
+      <parameter id="fasting" metaid="_280773" value="0.25" units="dimensionless"/>
+      <parameter id="daytime" constant="false" metaid="_280775" units="time"/>
+      <parameter id="aa_input" constant="false" name="Aminoacid_input" metaid="_280776"/>
+      <parameter id="b_met_basal" metaid="_280777" value="30" units="uM"/>
+      <parameter id="b_ser_basal" metaid="_280779" value="150" units="uM"/>
+      <parameter id="V_oGly_b_basal" metaid="_280780" value="630" units="uM_per_h"/>
+      <parameter id="V_oGlu_b_basal" metaid="_280781" value="273" units="uM_per_h"/>
+      <parameter id="V_oCys_b_basal" metaid="_280783" value="70" units="uM_per_h"/>
+      <parameter id="k_out_cys" metaid="_280784" value="1" units="per_h"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="c_thf" metaid="c7753777-2fc6-4017-b197-3b54d53e8291">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <minus/>
+            <apply>
+              <divide/>
+              <ci> Fol </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn type="integer"> 2 </cn>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <cn type="integer"> 4 </cn>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> c_5mf </ci>
+              <ci> c_2cf </ci>
+              <ci> c_1cf </ci>
+              <ci> c_10f </ci>
+              <ci> c_dhf </ci>
+            </apply>
+          </apply>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="m_thf" metaid="_32ffdea3-90ff-4815-9c96-d6aedc331780">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <minus/>
+            <apply>
+              <divide/>
+              <ci> Fol </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <cn type="integer"> 2 </cn>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+                <cn type="integer"> 4 </cn>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> m_2cf </ci>
+              <ci> m_1cf </ci>
+              <ci> m_10f </ci>
+            </apply>
+          </apply>
+        </math>
+            </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule metaid="_280556" variable="b_met">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> aa_input </ci>
+            <ci> b_met_basal </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280557" variable="b_ser">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> aa_input </ci>
+            <ci> b_ser_basal </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280559" variable="tot_cfol">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <plus/>
+            <ci> c_5mf </ci>
+            <ci> c_2cf </ci>
+            <ci> c_1cf </ci>
+            <ci> c_10f </ci>
+            <ci> c_dhf </ci>
+            <ci> c_thf </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280560" variable="tot_mfol">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <plus/>
+            <ci> m_thf </ci>
+            <ci> m_2cf </ci>
+            <ci> m_1cf </ci>
+            <ci> m_10f </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280561" variable="V_oCys_b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> aa_input </ci>
+            <ci> V_oCys_b_basal </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280563" variable="V_oGly_b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> aa_input </ci>
+            <ci> V_oGly_b_basal </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280564" variable="V_oGlu_b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> aa_input </ci>
+            <ci> V_oGlu_b_basal </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280565" variable="daytime">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <minus/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            <apply>
+              <times/>
+              <cn type="integer"> 24 </cn>
+              <apply>
+                <floor/>
+                <apply>
+                  <divide/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn type="integer"> 24 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule metaid="_280567" variable="aa_input">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <piecewise>
+            <piece>
+              <ci> breakfast </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <leq/>
+                  <cn type="integer"> 7 </cn>
+                  <ci> daytime </ci>
+                </apply>
+                <apply>
+                  <leq/>
+                  <ci> daytime </ci>
+                  <cn type="integer"> 10 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> lunch </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <leq/>
+                  <cn type="integer"> 12 </cn>
+                  <ci> daytime </ci>
+                </apply>
+                <apply>
+                  <leq/>
+                  <ci> daytime </ci>
+                  <cn type="integer"> 15 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> dinner </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <leq/>
+                  <cn type="integer"> 18 </cn>
+                  <ci> daytime </ci>
+                </apply>
+                <apply>
+                  <leq/>
+                  <ci> daytime </ci>
+                  <cn type="integer"> 21 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <ci> fasting </ci>
+            </otherwise>
+          </piecewise>
+        </math>
+            </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="b_gsh_decomp" metaid="_280429">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280429">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gsh" metaid="f3fb1295-2990-4b5e-ab6d-44d8fe9a8195"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_cys" metaid="_4bdee66f-f5c2-4e92-a8b3-e221eedab4af"/>
+          <speciesReference species="b_gly" metaid="_1f94fd12-1119-46fd-9cdf-38592bab0caf"/>
+          <speciesReference species="b_glu" metaid="_5819f8cf-0eda-42ea-8add-55fa7548d3ca"/>
+        </listOfProducts>
+        <kineticLaw metaid="f3bbb5dc-b876-4677-8db4-87b61bcaedb8">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn type="integer"> 90 </cn>
+              <ci> b_gsh </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_gsg_decomp" metaid="_280431">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280431">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gsg" metaid="_2a0ed50e-8ba9-4b83-aa66-20de05eb36da"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_cys" metaid="_5b674cb3-37a2-4ede-b4dc-0d5ec3d1d92e" stoichiometry="2"/>
+          <speciesReference species="b_gly" metaid="_4d223394-09f1-4884-939b-c3c7dff71339" stoichiometry="2"/>
+          <speciesReference species="b_glu" metaid="_2073c013-4cff-4665-a4ea-066399510b39" stoichiometry="2"/>
+        </listOfProducts>
+        <kineticLaw metaid="c35ba335-384a-4547-a7e5-2bfb0b7603bd">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 67.5 </cn>
+              <ci> b_gsg </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_cys_cystine_conv" metaid="_280432">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280432">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0019456"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_cys" metaid="d44aa6c4-d24a-4b2a-b1b2-9a386cab10a8"/>
+        </listOfReactants>
+        <kineticLaw metaid="_5a2ee044-c1cf-40c9-940a-d71a4db1be29">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 0.25 </cn>
+              <ci> b_cys </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_cys_loss" metaid="_280433">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280433">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0009093"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_cys" metaid="_41d0e43c-8442-4277-8069-ff6519e6e425"/>
+        </listOfReactants>
+        <kineticLaw metaid="f4025b7b-3977-4e96-b966-e38a8f274dcc">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 0.1 </cn>
+              <ci> b_cys </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_glu_loss" metaid="_280435">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280435">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006538"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_glu" metaid="_8b4ec71b-2657-498f-9eeb-b883f88022b0"/>
+        </listOfReactants>
+        <kineticLaw metaid="_07f97316-7852-47f7-97e1-b5a6ae8d8d00">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 0.1 </cn>
+              <ci> b_glu </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_gly_loss" metaid="_280436">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280436">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006546"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gly" metaid="bead894e-a40e-4ac4-90ba-9bf764397d4b"/>
+        </listOfReactants>
+        <kineticLaw metaid="_1827096f-2412-4c60-91af-482a54bd73a3">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 0.1 </cn>
+              <ci> b_gly </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_gsh_loss" metaid="_280437">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280437">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gsh" metaid="_6be57d99-9d8b-48ea-a552-4e8b595746b3"/>
+        </listOfReactants>
+        <kineticLaw metaid="b3a2ef74-fc28-4ba0-84e5-cf6ae386ed68">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 0.7 </cn>
+              <ci> b_gsh </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_gsg_loss" metaid="_280439">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280439">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gsg" metaid="d864c332-958a-447e-a25d-e14890aa022a"/>
+        </listOfReactants>
+        <kineticLaw metaid="e9d74b0d-9b33-4442-8237-7253e27a374e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <cn> 7.5 </cn>
+              <ci> b_gsg </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_cys_import" metaid="_280440">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280440">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0042883"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfProducts>
+          <speciesReference species="b_cys" metaid="_8f37c372-34de-43d8-ba86-10df3f0c5c7e"/>
+        </listOfProducts>
+        <kineticLaw metaid="_7812d843-adbe-4da0-b2f1-7840e55f2679">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <ci> V_oCys_b </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_gly_import" metaid="_280441">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280441">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0015816"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfProducts>
+          <speciesReference species="b_gly" metaid="b307064d-d79a-41c6-8c82-cbd3641ad23e"/>
+        </listOfProducts>
+        <kineticLaw metaid="_32d25f54-ca18-4500-8718-4db508d3f11c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <ci> V_oGly_b </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="b_glu_import" metaid="_280443">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280443">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0015813"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfProducts>
+          <speciesReference species="b_glu" metaid="bd120481-7baa-474b-80c1-a103dab7a4e3"/>
+        </listOfProducts>
+        <kineticLaw metaid="_5c820419-a8bd-48c8-9e22-6cd3716d3ce5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> blood </ci>
+              <ci> V_oGlu_b </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_c_gshHb" metaid="_280444">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280444">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0034635"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsh" metaid="_7519873b-6756-4987-b28a-1b87ac632436"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_gsh" metaid="_63d168c4-d4d1-43d9-8dcc-e104856ff4eb"/>
+        </listOfProducts>
+        <kineticLaw metaid="_8792c072-4275-41cd-bcbf-2881b2b8244c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> V_gshHb </ci>
+                <ci> K_gshHb </ci>
+                <ci> c_gsh </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_c_gshLb" metaid="_280445">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280445">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0034635"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsh" metaid="bcc25698-7a9c-40ca-88f0-15ecc4d17823"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_gsh" metaid="_020d70b5-c9ae-4dde-836c-a1267429868c"/>
+        </listOfProducts>
+        <kineticLaw metaid="f37ebadf-f6d2-4090-9fc6-8b4a989d64c2">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> cytosol </ci>
+                <ci> V_gshLb </ci>
+                <apply>
+                  <power/>
+                  <ci> c_gsh </ci>
+                  <ci> h_gshLb </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <power/>
+                  <ci> K_gshLb </ci>
+                  <ci> h_gshLb </ci>
+                </apply>
+                <apply>
+                  <power/>
+                  <ci> c_gsh </ci>
+                  <ci> h_gshLb </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_c_gsgHb" metaid="_280447">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280447">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0034635"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsg" metaid="d652a1eb-0b80-4434-a3bd-fc31dfbad664"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_gsg" metaid="_08eae51d-0c3b-4448-ac26-ed611d4cb9e9"/>
+        </listOfProducts>
+        <kineticLaw metaid="eb81ac72-3892-43d7-9b32-686e7a362c99">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> V_gsgHb </ci>
+                <ci> K_gsgHb </ci>
+                <ci> c_gsg </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_c_gsgLb" metaid="_280448">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280448">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0034635"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsg" metaid="_6bced6cb-ddec-4dab-a35f-f6aa459d1184"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="b_gsg" metaid="da429ff3-f4d3-4d38-89a4-8f412001af6c"/>
+        </listOfProducts>
+        <kineticLaw metaid="_81d9818c-32ac-4f44-a0b9-3c988801ecb9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> V_gsgLb </ci>
+                <ci> K_gsgLb </ci>
+                <ci> c_gsg </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_b_CYS_c" metaid="_280449">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280449">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0042883"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_cys" metaid="a500ddf1-971f-4e7f-be01-f10c9d564344"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_cys" metaid="_90567985-635d-493a-a61e-9de4a73c1d31"/>
+        </listOfProducts>
+        <kineticLaw metaid="_57019ac0-0514-489b-b84c-421886ca84cf">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> V_bcysc </ci>
+                <ci> K_bcysc </ci>
+                <ci> b_cys </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_b_GLU_c" metaid="_280451">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280451">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0015813"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_glu" metaid="d6078bde-856c-41fb-98a4-a886d2083521"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_glu" metaid="_33ebd509-be21-4106-a9a3-4f297a42424a"/>
+        </listOfProducts>
+        <kineticLaw metaid="_7c3e614b-d750-4b19-ad9c-6b2b3a376de7">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_bglutc </ci>
+                  <ci> K_bglutc </ci>
+                  <ci> b_glu </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k_out_glu </ci>
+                  <ci> c_glu </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_b_GLY_c" metaid="_280452">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280452">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0015816"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_gly" metaid="_5a593cce-a41e-46dc-b1fa-11d6ef6b157b"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gly" metaid="_71ae9ee7-48f0-45fb-80b0-ef857c95adff"/>
+        </listOfProducts>
+        <kineticLaw metaid="c2f96c05-2144-4229-8bef-257b59e0f5eb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_bglyc </ci>
+                  <ci> K_bglyc </ci>
+                  <ci> b_gly </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k_out_gly </ci>
+                  <ci> c_gly </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_b_SER_c" metaid="_280453">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280453">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0032329"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_ser" metaid="dc6de058-bb9d-4661-93b6-036ca70662bb"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_ser" metaid="_17f7e580-83c8-48dc-a100-5ce6fb1e3080"/>
+        </listOfProducts>
+        <kineticLaw metaid="_32546a1c-72aa-406f-a306-f535dc152128">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_bserc </ci>
+                  <ci> K_bserc </ci>
+                  <ci> b_ser </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k_out_ser </ci>
+                  <ci> c_ser </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_b_MET_c" metaid="_280455">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280455">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0015821"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="b_met" metaid="_57088e38-1aff-4ff0-bdaa-4f04fa5d88e5"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="met" metaid="_8348fe47-e5ef-445d-9f1a-2ef17eb084f0"/>
+        </listOfProducts>
+        <kineticLaw metaid="b9068a7a-07e3-4966-9320-91aa36f7fedb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_bmetc </ci>
+                  <ci> K_bmetc </ci>
+                  <ci> b_met </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k_out_met </ci>
+                  <ci> met </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmFTD" metaid="_280456">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280456">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00941"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="m_10f" metaid="_3db30e96-7567-43f6-ad25-877f57a0151b"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_thf" metaid="abf4efec-b1bd-4e9f-9832-f62f2406b0fd"/>
+        </listOfProducts>
+        <kineticLaw metaid="_27eec528-a213-4b5c-975d-346065ddaf3d">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> Vm_mFTD </ci>
+                <ci> K_10f_FTD </ci>
+                <ci> m_10f </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmSHMT" metaid="_280457">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280457">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00945"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="m_thf" metaid="ee443615-e88c-4156-98cd-d9eb150280af"/>
+          <speciesReference species="m_ser" metaid="_3493cf42-95f5-491d-a1fe-6ed834a44645"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_gly" metaid="_6430b1b4-81c9-4467-8577-a94edf607c68"/>
+          <speciesReference species="m_2cf" metaid="_6c0d212e-3c0a-466e-9683-44a9f646c181"/>
+        </listOfProducts>
+        <kineticLaw metaid="_97587d17-81f5-4278-8d52-4b57f5043824">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vf_mSHMT </ci>
+                  <ci> K_thf_SHMT </ci>
+                  <ci> K_ser_SHMT </ci>
+                  <ci> m_thf </ci>
+                  <ci> m_ser </ci>
+                </apply>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vr_mSHMT </ci>
+                  <ci> K_gly_SHMT </ci>
+                  <ci> K_2cf_SHMT </ci>
+                  <ci> m_gly </ci>
+                  <ci> m_2cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmFTS" metaid="_280459">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280459">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00944"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="m_thf" metaid="bca6bd39-ad11-4f8c-b25c-e5934c039265"/>
+          <speciesReference species="m_coo" metaid="_59df72f4-62cb-449a-b375-3bf774c80d76"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_10f" metaid="a1064ff3-be7d-448b-90d2-351bce5f2b15"/>
+        </listOfProducts>
+        <kineticLaw metaid="_78854a53-1c45-44c6-99a2-5e2991574ed0">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vf_mFTS </ci>
+                  <ci> K_thf_mFTS </ci>
+                  <ci> K_coo_mFTS </ci>
+                  <ci> m_thf </ci>
+                  <ci> m_coo </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_mFTS </ci>
+                  <ci> K_10f_mFTS </ci>
+                  <ci> m_10f </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmNE" metaid="_280460">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280460">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R09093"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="m_thf" metaid="d1afd4f2-09fc-473b-8b8b-1282ac80db91"/>
+          <speciesReference species="HCHO" metaid="_167c15d7-adaa-457c-a3ca-13b7d755f9c4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_2cf" metaid="_107d0b79-f1e3-4e87-9f89-043c20d18944"/>
+        </listOfProducts>
+        <kineticLaw metaid="e7fa6bb5-1357-466d-9965-14a531cc7928">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_mNE </ci>
+                  <ci> m_thf </ci>
+                  <ci> HCHO </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k2_mNE </ci>
+                  <ci> m_2cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GDC" metaid="_280461">
+        <listOfReactants>
+          <speciesReference species="m_thf" metaid="_9a5530a8-ea8d-4ff5-bc08-98af3ca8a73c"/>
+          <speciesReference species="m_gly" metaid="_176338df-d926-4794-af07-c6272be840a7"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_2cf" metaid="_2f417260-1428-4d98-a579-d1b8a53ce6a1"/>
+          <speciesReference species="CO" metaid="_943cae11-cca0-4191-9e0c-1caa2cbe0854"/>
+        </listOfProducts>
+        <kineticLaw metaid="_8b38c9bd-fedf-4fde-97b3-18c935b01a25">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_GDC </ci>
+                <ci> K_thf_GDC </ci>
+                <ci> K_gly_GDC </ci>
+                <ci> m_thf </ci>
+                <ci> m_gly </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_SDH" metaid="_280463">
+        <listOfReactants>
+          <speciesReference species="m_thf" metaid="_69e5c564-0dd6-4f78-b9ae-3b99195870e6"/>
+          <speciesReference species="src" metaid="_3dded937-ab63-4833-8bbd-06982ede5dac"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_2cf" metaid="_1ddf9621-7ba0-4767-9ad1-cd1b029a6df6"/>
+          <speciesReference species="m_gly" metaid="d3f2b294-762d-4177-a27a-379edcbed15f"/>
+        </listOfProducts>
+        <kineticLaw metaid="acb4d977-63c7-44e8-ba60-dd27466b0209">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_SDH </ci>
+                <ci> K_thf_SDH </ci>
+                <ci> K_src_SDH </ci>
+                <ci> m_thf </ci>
+                <ci> src </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_DMGD" metaid="_280464">
+        <listOfReactants>
+          <speciesReference species="m_thf" metaid="c99cd69b-0f4d-4791-b455-45c2b82969ac"/>
+          <speciesReference species="dmg" metaid="_07899b7e-5161-416f-aa25-82d011f85f09"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_2cf" metaid="_535ff1e4-5459-4c6a-8e52-53b2a88a7cc9"/>
+          <speciesReference species="src" metaid="c0e83325-5d48-4215-8112-a876e5b12b0a"/>
+        </listOfProducts>
+        <kineticLaw metaid="_61c01b7b-8741-4a10-a4af-1f72a0c20498">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_DMGD </ci>
+                <ci> K_thf_DMGD </ci>
+                <ci> K_dmg_DMGD </ci>
+                <ci> m_thf </ci>
+                <ci> dmg </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmMTD" metaid="_280465">
+        <listOfReactants>
+          <speciesReference species="m_2cf" metaid="_5274463e-a4fc-47d4-bcf1-255bc84985a0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_1cf" metaid="af71e903-8921-4c7d-9d88-0965c6a24fd4"/>
+        </listOfProducts>
+        <kineticLaw metaid="_928e3a9e-b57e-42b1-9f8d-b26d0bbc62ea">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vf_mMTD </ci>
+                  <ci> K_2cf_MTD </ci>
+                  <ci> m_2cf </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_MTD </ci>
+                  <ci> K_1cf_MTD </ci>
+                  <ci> m_1cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmMTCH" metaid="_280467">
+        <listOfReactants>
+          <speciesReference species="m_1cf" metaid="_32c35a1a-b529-47eb-8f9c-ee6e0c845e4a"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="m_10f" metaid="_30653b68-7b11-4463-b43d-51c3de47b04a"/>
+        </listOfProducts>
+        <kineticLaw metaid="_12213ffe-919e-4b59-9799-754f82e522ce">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> mito </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vf_mMTCH </ci>
+                  <ci> K_1cf_MTCH </ci>
+                  <ci> m_1cf </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_MTCH </ci>
+                  <ci> K_10f_MTCH </ci>
+                  <ci> m_10f </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmSERc" metaid="_280468">
+        <listOfReactants>
+          <speciesReference species="m_ser" metaid="_111f347c-5259-4339-bb1f-831859b0340b" stoichiometry="3"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_ser" metaid="ec62ca41-9585-414d-bdd2-c394eea26736"/>
+        </listOfProducts>
+        <kineticLaw metaid="_5397e2ed-b6dd-4544-8f88-9f5d245e2e4d">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <ci> MM </ci>
+                      <ci> V_mser </ci>
+                      <ci> K_mser </ci>
+                      <ci> m_ser </ci>
+                    </apply>
+                    <ci> mito </ci>
+                  </apply>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_cser </ci>
+                  <ci> K_cser </ci>
+                  <ci> c_ser </ci>
+                </apply>
+              </apply>
+              <ci> cytosol </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmHCOOHc" metaid="_280469">
+        <listOfReactants>
+          <speciesReference species="m_coo" metaid="e196243f-30fa-45a1-b85f-47606f6b2c33" stoichiometry="3"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_coo" metaid="_7a1f9291-8ea5-40b6-8b3d-f9877e44189a"/>
+        </listOfProducts>
+        <kineticLaw metaid="_4df4a7d5-120b-43cd-8863-e0940a574b3f">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> k_in_coo </ci>
+                  <ci> m_coo </ci>
+                  <ci> mito </ci>
+                </apply>
+                <cn type="integer"> 3 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> k_out_coo </ci>
+                <ci> c_coo </ci>
+                <ci> cytosol </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VmGLYc" metaid="_280471">
+        <listOfReactants>
+          <speciesReference species="m_gly" metaid="_633badcd-fa5d-4f91-b6ba-d7bf70b8b8fb" stoichiometry="3"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gly" metaid="aa7b3566-a3ad-4764-bbc5-a368f8040f79"/>
+        </listOfProducts>
+        <kineticLaw metaid="_1f1aaee2-18d5-4064-8389-54799914eae6">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_mgly </ci>
+                  <ci> K_mgly </ci>
+                  <ci> m_gly </ci>
+                </apply>
+                <ci> mito </ci>
+                <apply>
+                  <divide/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> V_cgly </ci>
+                  <ci> K_cgly </ci>
+                  <ci> c_gly </ci>
+                </apply>
+                <ci> cytosol </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_MS" metaid="_280472">
+        <listOfReactants>
+          <speciesReference species="c_5mf" metaid="_9268c69d-3eb4-4b95-8c69-ef093105bef4"/>
+          <speciesReference species="hcy" metaid="cc7c5fef-7356-4e37-a9fd-38f086a93712"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_thf" metaid="b6c16697-67f8-4e19-91e8-64bff1f152e9"/>
+          <speciesReference species="met" metaid="c1f174a9-b1c0-4dbd-85c0-cf8d2625681c"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="H2O2" metaid="ec99a2d1-9186-4d67-a3c1-6cd730c3a4ae"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_654f3dbc-8043-4ef1-be30-b49290005f29">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> cytosol </ci>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vm_MS </ci>
+                  <ci> K_5mf_MS </ci>
+                  <ci> K_hcy_MS </ci>
+                  <ci> c_5mf </ci>
+                  <ci> hcy </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> ssH2O2 </ci>
+                  <ci> Ki_MS </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> H2O2 </ci>
+                <ci> Ki_MS </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_DHFR" metaid="_280473">
+        <listOfReactants>
+          <speciesReference species="c_dhf" metaid="_5c82fdc3-9b47-4430-bc17-d0b82ac801d6"/>
+          <speciesReference species="NADPH" metaid="a811b6a4-3a2c-4bd9-a8d7-4865ca6640a9"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_thf" metaid="_0ba576bf-f9be-4edc-bd8f-c5692386402f"/>
+        </listOfProducts>
+        <kineticLaw metaid="_675c1273-c489-4d84-9222-b66d6548c920">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_DHFR </ci>
+                <ci> K_dhf_DHFR </ci>
+                <ci> K_NADPH_DHFR </ci>
+                <ci> c_dhf </ci>
+                <ci> NADPH </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcFTD" metaid="_280475">
+        <listOfReactants>
+          <speciesReference species="c_10f" metaid="_5ac5c84a-dfad-4677-83c9-484c9ec665a1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_thf" metaid="e0be95f9-3ad2-40d3-b451-08c7d4a5860a"/>
+        </listOfProducts>
+        <kineticLaw metaid="_04a10959-cd58-4200-ad9e-6559684bcee0">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> Vm_cFTD </ci>
+                <ci> K_10f_FTD </ci>
+                <ci> c_10f </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_PGT" metaid="_280476">
+        <listOfReactants>
+          <speciesReference species="c_10f" metaid="_652e4709-32b0-4324-bdf7-00ca66c794c9"/>
+          <speciesReference species="GAR" metaid="_332d4ecb-90b4-4ecf-b99a-2e9249e152e7"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="aic" metaid="_4e1429bf-5efd-47e1-b4e4-fa3f8fe9d2b9"/>
+          <speciesReference species="c_thf" metaid="_72791993-3de8-413b-8829-d2f7f904846c"/>
+        </listOfProducts>
+        <kineticLaw metaid="_560fb261-1de1-47f9-a045-9999ae60f8fb">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_PGT </ci>
+                <ci> K_10f_PGT </ci>
+                <ci> K_GAR_PGT </ci>
+                <ci> c_10f </ci>
+                <ci> GAR </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcFTS" metaid="_280477">
+        <listOfReactants>
+          <speciesReference species="c_thf" metaid="_27058147-4706-4017-8947-db579581ea61"/>
+          <speciesReference species="c_coo" metaid="f903f865-3792-447d-a525-11cdb1e8573f"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_10f" metaid="_470f5013-d3d6-45ad-8194-0619c351e19f"/>
+        </listOfProducts>
+        <kineticLaw metaid="bcaadedf-ca94-4f0d-9647-8ed677611fd8">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_cFTS </ci>
+                <ci> K_thf_cFTS </ci>
+                <ci> K_coo_cFTS </ci>
+                <ci> c_thf </ci>
+                <ci> c_coo </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcSHMT" metaid="_280479">
+        <listOfReactants>
+          <speciesReference species="c_ser" metaid="a68984b9-9060-449f-a78a-8ffa72571123"/>
+          <speciesReference species="c_thf" metaid="_4a764b1a-c8c6-4560-88f7-1868bf1c704e"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gly" metaid="d32115b1-ff61-4edc-bc50-5a7d295b07a3"/>
+          <speciesReference species="c_2cf" metaid="_8e754c08-4ff4-4b66-9c5f-fdbac0b9dfe5"/>
+        </listOfProducts>
+        <kineticLaw metaid="eac492bc-1475-4c62-b7f8-ea5c9a45deb9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vf_cSHMT </ci>
+                  <ci> K_thf_SHMT </ci>
+                  <ci> K_ser_SHMT </ci>
+                  <ci> c_thf </ci>
+                  <ci> c_ser </ci>
+                </apply>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vr_cSHMT </ci>
+                  <ci> K_gly_SHMT </ci>
+                  <ci> K_2cf_SHMT </ci>
+                  <ci> c_gly </ci>
+                  <ci> c_2cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcNE" metaid="_280480">
+        <listOfReactants>
+          <speciesReference species="c_thf" metaid="f777050c-b996-4892-a991-f7710d9f70ac"/>
+          <speciesReference species="HCHO" metaid="_98c05674-dbbd-4849-b987-e6b2e507c285"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_2cf" metaid="d3629063-e16a-4423-94bc-33347fb59b71"/>
+        </listOfProducts>
+        <kineticLaw metaid="_36164240-c065-4d05-9be0-adfa9072c24e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_cNE </ci>
+                  <ci> c_thf </ci>
+                  <ci> HCHO </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k2_cNE </ci>
+                  <ci> c_2cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_TS" metaid="_280481">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280481">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R02101"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="DUMP" metaid="b8b05918-a32a-455a-91e7-b3d599d176b1"/>
+          <speciesReference species="c_2cf" metaid="fbad8276-e057-4c57-92e2-686bbea271c8"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_dhf" metaid="_46a6ac66-05a5-47a3-829c-f96a3edd45a1"/>
+        </listOfProducts>
+        <kineticLaw metaid="_64f11828-e100-4868-aa54-9e880e8017c6">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_TS </ci>
+                <ci> K_DUMP_TS </ci>
+                <ci> K_2cf_TS </ci>
+                <ci> DUMP </ci>
+                <ci> c_2cf </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_MTHFR" metaid="_280483">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280483">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01220"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_2cf" metaid="_1d9faf2c-799f-465a-af5a-754b9e918271"/>
+          <speciesReference species="NADPH" metaid="_899aa5e4-a529-46b9-9f21-defaeee8a4a7"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_5mf" metaid="_57b492cb-a5d4-439c-b3d5-a753775f5d8b"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="sah" metaid="_5ddd74b6-aea4-4c7b-be12-42db309e12b7"/>
+          <modifierSpeciesReference species="sam" metaid="_8d510da0-15f2-4546-83ca-4a5948e95daa"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_898e2aee-02b8-4ff5-9584-577581c1dd46">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> cytosol </ci>
+                <apply>
+                  <ci> MM_twosubst </ci>
+                  <ci> Vm_MTHFR </ci>
+                  <ci> K_2cf_MTHFR </ci>
+                  <ci> K_NADPH_MTHFR </ci>
+                  <ci> c_2cf </ci>
+                  <ci> NADPH </ci>
+                </apply>
+                <cn type="integer"> 72 </cn>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 10 </cn>
+                  <ci> sam </ci>
+                </apply>
+                <ci> sah </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcMTD" metaid="_280484">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280484">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01220"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_2cf" metaid="_0df5a9c5-7096-4a6f-9a3e-c244eb2d2672"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_1cf" metaid="b4c8053a-f8d2-4eec-8f03-6d180cb639d3"/>
+          <speciesReference species="NADPH" metaid="_45c83d93-3f9a-4940-9aee-73bb02bbbebf"/>
+        </listOfProducts>
+        <kineticLaw metaid="b29e0cd1-37f2-4d70-b79f-4716f216ed89">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vf_cMTD </ci>
+                  <ci> K_2cf_MTD </ci>
+                  <ci> c_2cf </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_cMTD </ci>
+                  <ci> K_1cf_MTD </ci>
+                  <ci> c_1cf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="VcMTCH" metaid="_280485">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280485">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01655"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_1cf" metaid="_50f9d0bb-072b-4a01-a360-5736c09c8ba9"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_10f" metaid="c1f1fc7a-e074-46fc-a572-28a07b819ec5"/>
+        </listOfProducts>
+        <kineticLaw metaid="_452d5ebf-48ff-4c1f-ba62-950e35508911">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vf_cMTCH </ci>
+                  <ci> K_1cf_MTCH </ci>
+                  <ci> c_1cf </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_MTCH </ci>
+                  <ci> K_10f_MTCH </ci>
+                  <ci> c_10f </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_ART" metaid="_280487">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280487">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R04560"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_10f" metaid="_0a6d3fb0-9fd6-4a4d-ae1b-fbef445a9bec"/>
+          <speciesReference species="aic" metaid="_4f68fb20-657e-4928-9c91-e7ef2058d8ec"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_thf" metaid="f71bc266-efa9-46ef-a86d-45f33a4afd90"/>
+        </listOfProducts>
+        <kineticLaw metaid="_464b66e1-6d73-46a6-b3b6-8266ac68219e">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_ART </ci>
+                <ci> K_10f_ART </ci>
+                <ci> K_aic_ART </ci>
+                <ci> c_10f </ci>
+                <ci> aic </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_BHMT" metaid="_280488">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280488">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R02821"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="hcy" metaid="_48aa4ec7-7389-473c-bc49-2d1c3b8affc5"/>
+          <speciesReference species="BET" metaid="_75809d7d-0766-45d3-87b6-e09267ac9709"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="met" metaid="_2abbf97c-fd83-41a0-a0ee-a22b75788d86"/>
+          <speciesReference species="dmg" metaid="_87c36509-7722-4299-b480-f8e025d3632d"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="H2O2" metaid="_3e336fdc-c133-4376-b31d-b71cf3533645"/>
+          <modifierSpeciesReference species="sah" metaid="ff37a905-4798-4781-a769-114a14af1225"/>
+          <modifierSpeciesReference species="sam" metaid="c2e82972-ec66-4c4a-8590-e26e608d66d7"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_302986c8-4e75-473a-ab73-260eafc9fa12">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <exp/>
+                <apply>
+                  <times/>
+                  <cn> -0.0021 </cn>
+                  <apply>
+                    <plus/>
+                    <ci> sam </ci>
+                    <ci> sah </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <times/>
+                  <cn> 0.0021 </cn>
+                  <cn> 102.6 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_BHMT </ci>
+                <ci> K_hcy_BHMT </ci>
+                <ci> K_bet_BHMT </ci>
+                <ci> hcy </ci>
+                <ci> BET </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> ssH2O2 </ci>
+                  <ci> Ki_BHMT </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> H2O2 </ci>
+                  <ci> Ki_BHMT </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_MATI" metaid="_280489">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280489">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00650"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="met" metaid="d0cff065-4429-4d51-978f-b27a39e6782c"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sam" metaid="_09cb712c-0ada-4329-acff-bbdacea13e91"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="c_gsg" metaid="d8520a4e-6101-49e1-98e6-fc7b92e37ee4"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_302ccaff-3972-4e4e-bf78-052a001c176a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <ci> Vm_MAT1 </ci>
+              <apply>
+                <divide/>
+                <ci> met </ci>
+                <apply>
+                  <plus/>
+                  <ci> Km_MAT1 </ci>
+                  <ci> met </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn> 0.23 </cn>
+                <apply>
+                  <times/>
+                  <cn> 0.8 </cn>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <times/>
+                      <cn> -0.0026 </cn>
+                      <ci> sam </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> Ki_MAT1 </ci>
+                  <cn> 66.71 </cn>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> Ki_MAT1 </ci>
+                  <ci> c_gsg </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_MATIII" metaid="_280491">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280491">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00650"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="met" metaid="_45219b74-b3a9-4c76-93d2-749c464598fc"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sam" metaid="cbd82ff6-7773-4fa2-9ef9-5b576a34f0b7"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="c_gsg" metaid="_06f4bca5-5e4f-4b3a-9dfc-69168d8d895b"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_92551bc8-9e5e-41d4-acab-6ec10f476716">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <ci> Vm_MAT3 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <power/>
+                  <ci> met </ci>
+                  <cn> 1.21 </cn>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> Km_MAT3 </ci>
+                  <apply>
+                    <power/>
+                    <ci> met </ci>
+                    <cn> 1.21 </cn>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <cn> 7.2 </cn>
+                    <apply>
+                      <power/>
+                      <ci> sam </ci>
+                      <cn type="integer"> 2 </cn>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <power/>
+                      <ci> Ka_MAT3 </ci>
+                      <cn type="integer"> 2 </cn>
+                    </apply>
+                    <apply>
+                      <power/>
+                      <ci> sam </ci>
+                      <cn type="integer"> 2 </cn>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> Ki_MAT3 </ci>
+                  <cn> 66.71 </cn>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> Ki_MAT3 </ci>
+                  <ci> c_gsg </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GNMT" metaid="_280492">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280492">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00367"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="sam" metaid="_21883572-c2c9-4b9e-b26d-49c31d2dbf75"/>
+          <speciesReference species="c_gly" metaid="_6bc9062d-1a0d-4098-88c2-3f834962272e"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sah" metaid="_1303afdc-4d42-4ff9-913d-981ac65f2df4"/>
+          <speciesReference species="src" metaid="ad8610e8-0905-4dd2-950b-6e7f61bde23f"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="c_5mf" metaid="_88bbe002-a0ec-4233-bc68-391f645d92f6"/>
+        </listOfModifiers>
+        <kineticLaw metaid="a888e21e-24c1-4e52-ba1b-6ee22acf16bc">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_GNMT </ci>
+                <ci> K_sam_GNMT </ci>
+                <ci> K_gly_GNMT </ci>
+                <ci> sam </ci>
+                <ci> c_gly </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <divide/>
+                    <ci> sah </ci>
+                    <ci> Ki_GNMT </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <cn> 4.8 </cn>
+                <apply>
+                  <plus/>
+                  <cn> 0.35 </cn>
+                  <ci> c_5mf </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_DNMT" metaid="_280493">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280493">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00649"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="sam" metaid="ba45f678-35b7-45a3-990c-8f12191df27c"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sah" metaid="_3a78278f-2c68-4d55-8506-4700ff9a0e2e"/>
+        </listOfProducts>
+        <kineticLaw metaid="fd367bf0-5bf3-4c28-8f52-6a930681181a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <ci> Vm_DNMT </ci>
+              <apply>
+                <divide/>
+                <ci> sam </ci>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> Km_DNMT </ci>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <divide/>
+                        <ci> sah </ci>
+                        <ci> Ki_DNMT </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> sam </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_SAHH" metaid="_280495">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280495">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00192"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="sah" metaid="_195b4bf9-18ba-48e7-85a6-392ec0c4793f"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="hcy" metaid="a9e78e7c-c91e-4270-9d20-f94fac0d0ee2"/>
+        </listOfProducts>
+        <kineticLaw metaid="_6b15759b-a27d-4d8f-a6c6-e37215ea6329">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vf_SAHH </ci>
+                  <ci> K_sah_SAHH </ci>
+                  <ci> sah </ci>
+                </apply>
+                <apply>
+                  <ci> MM </ci>
+                  <ci> Vr_SAHH </ci>
+                  <ci> K_hcy_SAHH </ci>
+                  <ci> hcy </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="gluconeogenesis_ser" metaid="_280496">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280496">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R0006565"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_ser" metaid="f5ca7324-dfb6-4c66-921c-bbc91ca9438f"/>
+        </listOfReactants>
+        <kineticLaw metaid="c6a17d27-b41c-460c-b03a-517c27c38b4f">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <cn> 1.2 </cn>
+              <ci> c_ser </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_CBS" metaid="_280497">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280497">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R01289"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="hcy" metaid="a3ae6d12-95d0-4740-932b-e90c1e4acd89"/>
+          <speciesReference species="c_ser" metaid="af5ee024-3a20-4900-9f9b-c0e94429717e"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cyt" metaid="f5210e49-830b-472b-b68c-a22d1146af63"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="H2O2" metaid="_47cd04f7-2d29-4205-93e6-aea6adbd6a57"/>
+          <modifierSpeciesReference species="sah" metaid="bbdad6f7-7e84-43ad-884d-92109c5cc829"/>
+          <modifierSpeciesReference species="sam" metaid="_20b879e8-f7a9-4840-876f-a7c3054d5a01"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_554d4fd7-081d-412e-bba5-d3f8bdc052ca">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_CBS </ci>
+                <ci> K_hcy_CBS </ci>
+                <ci> K_ser_CBS </ci>
+                <ci> hcy </ci>
+                <ci> c_ser </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <cn type="integer"> 30 </cn>
+                      <cn> 102.59 </cn>
+                    </apply>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <cn type="integer"> 30 </cn>
+                      <apply>
+                        <plus/>
+                        <ci> sam </ci>
+                        <ci> sah </ci>
+                      </apply>
+                    </apply>
+                    <cn type="integer"> 2 </cn>
+                  </apply>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> H2O2 </ci>
+                  <ci> Ka_CBS </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> ssH2O2 </ci>
+                  <ci> Ka_CBS </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_CTGL" metaid="_280499">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280499">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00894"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="cyt" metaid="_40436ef4-bb85-4303-9d1f-b7200bb05616"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_cys" metaid="_40afcc29-a658-4f35-b285-1ee677ac04c6"/>
+        </listOfProducts>
+        <kineticLaw metaid="c4805a53-db64-4564-8922-f9df6e1f9be8">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM </ci>
+                <ci> Vm_CTGL </ci>
+                <ci> K_cyt_CTGL </ci>
+                <ci> cyt </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GCS" metaid="_280500">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280500">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00894"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_cys" metaid="_5b5c7840-2b9f-498f-abda-d6d59465fcd9"/>
+          <speciesReference species="c_glu" metaid="_1e642585-02ea-48aa-b0c0-9c5ba103af50"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="glc" metaid="_4e07c05d-3c14-4779-bdbc-92a40610b75c"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="H2O2" metaid="_91905331-7960-46b6-af62-a8768aee00f1"/>
+          <modifierSpeciesReference species="c_gsh" metaid="_22e8e3d2-84c3-4dca-90d7-1a6835d34c34"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_5e8a92ef-ca16-4ec9-8c40-11ff8a808a80">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> cytosol </ci>
+                  <ci> Vm_GCS </ci>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> c_cys </ci>
+                      <ci> c_glu </ci>
+                    </apply>
+                    <apply>
+                      <divide/>
+                      <ci> glc </ci>
+                      <ci> Ke_GCS </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> K_cys_GCS </ci>
+                    <ci> K_glu_GCS </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> c_glu </ci>
+                    <ci> K_cys_GCS </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> c_cys </ci>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> K_glu_GCS </ci>
+                        <apply>
+                          <plus/>
+                          <cn type="integer"> 1 </cn>
+                          <apply>
+                            <divide/>
+                            <ci> c_gsh </ci>
+                            <ci> Ki_GCS </ci>
+                          </apply>
+                        </apply>
+                      </apply>
+                      <ci> c_glu </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> glc </ci>
+                    <ci> Kp_GCS </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> c_gsh </ci>
+                    <ci> Ki_GCS </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> H2O2 </ci>
+                  <ci> Ka_GCS </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> ssH2O2 </ci>
+                  <ci> Ka_GCS </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="cys_usage" metaid="_280501">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280501">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0009093"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_cys" metaid="_577aa336-22f1-4dcd-b3b5-d4f7792dfe71"/>
+        </listOfReactants>
+        <kineticLaw metaid="_4f9c81e0-f904-41ad-940d-ded6928c4ea9">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> cytosol </ci>
+                <cn> 0.35 </cn>
+                <apply>
+                  <power/>
+                  <ci> c_cys </ci>
+                  <cn type="integer"> 2 </cn>
+                </apply>
+              </apply>
+              <cn type="integer"> 200 </cn>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="c_glu_usage" metaid="_280503">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280503">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006538"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_glu" metaid="b7f9e2ae-2f06-4751-9d60-22a3c01a0109"/>
+        </listOfReactants>
+        <kineticLaw metaid="c48322a1-39e2-49a1-bbd1-adcd8fc87360">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <cn> 0.07 </cn>
+              <ci> c_glu </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GS" metaid="_280504">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280504">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00497"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="glc" metaid="_43dc3896-54f2-4b0f-aa5d-df078784f957"/>
+          <speciesReference species="c_gly" metaid="_71bf8d89-f10e-4df3-9c74-868e45e1f3c1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gsh" metaid="_997eb62d-58c6-42ad-92b8-512ebdc4f86a"/>
+        </listOfProducts>
+        <kineticLaw metaid="daed7694-2d0a-4767-871a-af42f147d527">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> cytosol </ci>
+                <ci> Vm_GS </ci>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> c_gly </ci>
+                    <ci> glc </ci>
+                  </apply>
+                  <apply>
+                    <divide/>
+                    <ci> c_gsh </ci>
+                    <ci> Ke_GS </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> K_gly_GS </ci>
+                  <ci> K_glc_GS </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> glc </ci>
+                  <ci> K_gly_GS </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c_gly </ci>
+                  <apply>
+                    <plus/>
+                    <ci> K_glc_GS </ci>
+                    <ci> glc </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> c_gsh </ci>
+                  <ci> Kp_GS </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GPX" metaid="_280505">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280505">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00274"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsh" metaid="ef577c98-c731-4a59-8335-f254642a0cbb" stoichiometry="2"/>
+          <speciesReference species="H2O2" metaid="_662e3e68-15d4-4e54-850d-80ab840e1f71"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gsg" metaid="_88e0ec57-a951-48d1-8bb4-350c818cc4e3"/>
+        </listOfProducts>
+        <kineticLaw metaid="a7252f4d-9d36-4829-97db-199137e0cea5">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <ci> Vm_GPX </ci>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> c_gsh </ci>
+                  <apply>
+                    <plus/>
+                    <ci> K_gsh_GPX </ci>
+                    <ci> c_gsh </ci>
+                  </apply>
+                </apply>
+                <cn type="integer"> 2 </cn>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> H2O2 </ci>
+                <apply>
+                  <plus/>
+                  <ci> K_H2O2_GPX </ci>
+                  <ci> H2O2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="V_GR" metaid="_280507">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280507">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/kegg.reaction/R00115"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsg" metaid="_5f78c05c-e4cf-4016-92a8-d1018cdc686e"/>
+          <speciesReference species="NADPH" metaid="_30720879-fdde-45a6-8db4-65d34b46d0e3"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="c_gsh" metaid="_45bd3b38-85ab-4c61-8dd8-e9ccb4765c74" stoichiometry="2"/>
+        </listOfProducts>
+        <kineticLaw metaid="_5571c485-4de0-48d0-b220-085340533979">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <apply>
+                <ci> MM_twosubst </ci>
+                <ci> Vm_GR </ci>
+                <ci> K_gsg_GR </ci>
+                <ci> K_NADPH_GR </ci>
+                <ci> c_gsg </ci>
+                <ci> NADPH </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="c_gsh_degr" metaid="_280508">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280508">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsh" metaid="f3430643-c6d6-4347-a80f-0951fef3398f"/>
+        </listOfReactants>
+        <kineticLaw metaid="a1e0766b-f599-4436-898c-5b4a296d94dd">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <cn> 0.002 </cn>
+              <ci> c_gsh </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="c_gsg_degr" metaid="_280509">
+        <annotation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	<rdf:Description rdf:about="#_280509">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0006751"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	</rdf:RDF>
+	</annotation>
+              <listOfReactants>
+          <speciesReference species="c_gsg" metaid="_4d018f35-1b7d-4fff-bb1d-2cb7bd1b2089"/>
+        </listOfReactants>
+        <kineticLaw metaid="_32fb12ea-f1e0-4a55-94d4-7f76071d58e2">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> cytosol </ci>
+              <cn> 0.1 </cn>
+              <ci> c_gsg </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

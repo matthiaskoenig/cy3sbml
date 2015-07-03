@@ -63,7 +63,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		logger.info("createTaskIterator: input stream name: " + inputName);
 		try {
 			return new TaskIterator(
-				new SBMLReaderTask(copy(is), inputName, cyServices)
+				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory)
 			);
 		} catch (IOException e) {
 			throw new SBMLReaderError(e.toString());

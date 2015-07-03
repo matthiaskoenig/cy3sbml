@@ -15,13 +15,13 @@ public class NamedSBaseInfoThreadTest {
 	@Test
 	public void testStreamToString() {
 	   assertNotNull("Test file missing", 
-	               getClass().getResource("/sbml/BIOMD0000000001.xml"));
+	               getClass().getResource("/models/BIOMD0000000001.xml"));
 	}
 	
 	@Test
 	public void testPreloadAnnotationsForSBMLDocument() throws XMLStreamException {
 		// Load an SBML
-		InputStream is = getClass().getResourceAsStream("/sbml/BIOMD0000000001.xml");
+		InputStream is = getClass().getResourceAsStream("/models/BIOMD0000000001.xml");
 		SBMLDocument document = SBMLReader.read(is);
 		
 		// TODO: this is not testing properly due to the multiple started threads

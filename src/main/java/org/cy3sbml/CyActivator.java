@@ -163,6 +163,7 @@ public class CyActivator extends AbstractCyActivator {
 			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			
+			// TODO: associate multiple files
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
 			

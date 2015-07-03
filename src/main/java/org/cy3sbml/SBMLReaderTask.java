@@ -16,11 +16,13 @@ import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.ASTNode;
@@ -97,7 +99,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	private String fileName;
 	private final InputStream stream;
-	private final ServiceAdapter adapter;
+	private final CyNetworkFactory networkFactory;
+	private final CyNetworkViewFactory viewFactory;
 	private SBMLDocument document;
 	
 	private CyNetwork network;       // global network of all SBML information
@@ -107,13 +110,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private Map<String, CyNode> nodeById; // node dictionary
 	
 	/** Constructor */ 
-	public SBMLReaderTask(InputStream stream, String fileName, ServiceAdapter adapter) {
+	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory) {
 		
 		this.stream = stream;
-		this.adapter = adapter;
+		this.networkFactory = networkFactory;
+		this.viewFactory = viewFactory;
 		this.fileName = fileName;
-		
-		nodeById = new HashMap<String, CyNode>();	
 	}
 	
 	
@@ -126,11 +128,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.info("Start Reader.run()");
 		logger.info("---------------------------------");
 		try {
-			taskMonitor.setTitle("cy3sbml reader");
-			taskMonitor.setProgress(0.0);
+			if (taskMonitor != null){
+				taskMonitor.setTitle("cy3sbml reader");
+				taskMonitor.setProgress(0.0);
+			}
 			if(cancelled){
 				return;
 			}
+			
+			// Create empty root network and node map
+			network = networkFactory.createNetwork();
+			nodeById = new HashMap<String, CyNode>();
+			
 			
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
@@ -138,11 +147,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			// TODO: store and display JSBML reader warnings
 			document = JSBML.readSBMLFromString(xml);
-			
 			Model model = document.getModel();
-		
-			// create an empty root network
-			network = adapter.cyNetworkFactory.createNetwork();
 			
 			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
 			// CySubNetwork and call the CySubNetwork.getRootNetwork() method:
@@ -152,7 +157,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						
 			// Core model
 			readCore(model);
-			taskMonitor.setProgress(0.5);
+			if (taskMonitor != null){
+				taskMonitor.setProgress(0.5);
+			}
 				
 			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
 			if (qualModel != null){
@@ -243,7 +250,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// TODO: create layout subnetworks (different mechanism necessary, 
 			//   probably via direct subnetwork generation)
 			
-			taskMonitor.setProgress(1.0);
+			if (taskMonitor != null){
+				taskMonitor.setProgress(1.0);
+			}
 			logger.info("---------------------------------");
 			logger.info("End Reader.run()");
 			logger.info("---------------------------------");
@@ -981,14 +990,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());
 		
 		// create view depending on mode
-		CyNetworkView view = adapter.cyNetworkViewFactory.createNetworkView(network);
+		CyNetworkView view = viewFactory.createNetworkView(network);
 		
 		logger.debug("network: " + network.toString());
 		logger.debug("view: " + view.toString());
 		return view;
 	}
 
-	private static String readString(InputStream source) throws IOException {
+	public static String readString(InputStream source) throws IOException {
 		StringWriter writer = new StringWriter();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(source));
 		try {
