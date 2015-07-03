@@ -44,9 +44,6 @@ public class SBML {
 	public static final String ATTR_MATH = "math";
 	public static final String ATTR_INITIAL_ASSIGNMENT = "initialAssignment";
 	
-	public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
-	public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units";
-	
 	public static final String ATTR_QUAL_MAX_LEVEL = "qual:maxLevel";
 	public static final String ATTR_QUAL_INITIAL_LEVEL = "qual:initialLevel";
 	public static final String ATTR_QUAL_SIGN = "qual:sign";
@@ -71,6 +68,7 @@ public class SBML {
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_RULE = "rule";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
+	public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
 
 	// qual
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
@@ -100,9 +98,9 @@ public class SBML {
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
 	public static final String INTERACTION_VARIABLE_RULE = "variable-rule";
-	public static final String INTERACTION_PARAMETER_RULE = "parameter-rule";
+	public static final String INTERACTION_REFERENCE_RULE = "parameter-rule";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
-	public static final String INTERACTION_PARAMETER_KINETICLAW = "parameter-kineticLaw";
+	public static final String INTERACTION_REFERENCE_KINETICLAW = "parameter-kineticLaw";
 	
 	// qual
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";

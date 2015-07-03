@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
+import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
@@ -34,12 +35,15 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
+import org.sbml.jsbml.QuantityWithUnit;
 import org.sbml.jsbml.RateRule;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Rule;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
+import org.sbml.jsbml.Symbol;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
@@ -74,6 +78,7 @@ import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
+import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,6 +263,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
+	/* Sets metaId and SBOTerm. */
+	private void setSBaseAttributes(CyIdentifiable cyObject, SBase sbase){
+		if (sbase.isSetSBOTerm()){
+			AttributeUtil.set(network, cyObject, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
+		}
+		if (sbase.isSetMetaId()){
+			AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
+		}
+	}
+	
 	private CyNode createNamedSBaseNode(NamedSBase sbase, String type){
 		String id = sbase.getId();
 		// create node and add to network
@@ -266,20 +281,43 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 	// set the attributes
 		AttributeUtil.set(network, n, SBML.ATTR_ID, id, String.class);
 		AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, type, String.class);
+		setSBaseAttributes(n, sbase);
 		if (sbase.isSetName()){
 			AttributeUtil.set(network, n, SBML.ATTR_NAME, sbase.getName(), String.class);
 			AttributeUtil.set(network, n, SBML.LABEL, sbase.getName(), String.class);
 		} else {
 			AttributeUtil.set(network, n, SBML.LABEL, id, String.class);
 		}
-		if (sbase.isSetSBOTerm()){
-			AttributeUtil.set(network, n, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
+		return n;
+	}
+	
+	/* Handle QuantityWithUnit. 
+	 * Among others localParameters. */
+	private CyNode createQuantityWithUnitNode(QuantityWithUnit q, String type){
+		CyNode n = createNamedSBaseNode((NamedSBase) q, type);
+		if (q.isSetValue()){
+			AttributeUtil.set(network, n, SBML.ATTR_VALUE, q.getValue(), Double.class);
 		}
-		if (sbase.isSetMetaId()){
-			AttributeUtil.set(network, n, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
+		if (q.isSetUnits()){
+			AttributeUtil.set(network, n, SBML.ATTR_UNITS, q.getUnits(), String.class);
+		}
+		UnitDefinition udef = q.getDerivedUnitDefinition();
+		if (udef != null){
+			AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
 		}
 		return n;
 	}
+	
+	/* Handle symbol nodes.
+	 * Among others species and parameters. */
+	private CyNode createSymbolNode(Symbol symbol, String type){
+		CyNode n = createQuantityWithUnitNode(symbol, type);
+		if (symbol.isSetConstant()){
+			AttributeUtil.set(network, n, SBML.ATTR_CONSTANT, symbol.getConstant(), Boolean.class);
+		}
+		return n;
+	}
+	
 	
 	/** Probably not all information parsed.
 	 * TODO: implement general function for copying node attributes */
@@ -322,6 +360,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
 		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
+		// metaId and sbo
+		setSBaseAttributes(network, model);
 		
 		// Network attributes
 		if (model.isSetId()){
@@ -329,12 +369,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		if (model.isSetName()){
 			AttributeUtil.set(network, network, SBML.ATTR_NAME, model.getName(), String.class);
-		}
-		if (model.isSetMetaId()){
-			AttributeUtil.set(network, network, SBML.ATTR_METAID, model.getMetaId(), String.class);
-		}
-		if (model.isSetSBOTerm()){
-			AttributeUtil.set(network, network, SBML.ATTR_SBOTERM, model.getSBOTermID(), String.class);
 		}
 		if (model.isSetSubstanceUnits()){
 			AttributeUtil.set(network, network, SBML.ATTR_SUBSTANCE_UNITS, model.getSubstanceUnits(), String.class);
@@ -364,60 +398,34 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// UnitDefinitions (not parsed)
 		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
 		
-		// Create nodes for compartments
+		// Nodes for compartments
 		for (Compartment compartment : model.getListOfCompartments()) {
-			CyNode node = createNamedSBaseNode(compartment, SBML.NODETYPE_COMPARTMENT);
-
+			CyNode node = createSymbolNode(compartment, SBML.NODETYPE_COMPARTMENT);
 			if (compartment.isSetSpatialDimensions()){
 				AttributeUtil.set(network, node, SBML.ATTR_SPATIAL_DIMENSIONS, compartment.getSpatialDimensions(), Double.class);
 			}
 			if (compartment.isSetSize()){
-				AttributeUtil.set(network, node, SBML.ATTR_SPATIAL_DIMENSIONS, compartment.getSize(), Double.class);
-			}
-			if (compartment.isSetUnits()){
-				AttributeUtil.set(network, node, SBML.ATTR_UNITS, compartment.getUnits(), String.class);
-			}
-			if (compartment.isSetConstant()){
-				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, compartment.getConstant(), Boolean.class);
+				AttributeUtil.set(network, node, SBML.ATTR_SIZE, compartment.getSize(), Double.class);
 			}
 		}
 		
-		// Create nodes for parameters
+		// Nodes for parameters
 		for (Parameter parameter : model.getListOfParameters()) {
-			CyNode node = createNamedSBaseNode(parameter, SBML.NODETYPE_PARAMETER);
-			if (parameter.isSetValue()){
-				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_AMOUNT, parameter.getValue(), Double.class);
-			}
-			if (parameter.isSetUnits()){
-				AttributeUtil.set(network, node, SBML.ATTR_UNITS, parameter.getUnits(), String.class);
-			}
-			if (parameter.isSetConstant()){
-				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, parameter.getConstant(), Boolean.class);
-			}
-			// a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
-			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
-			// then the unit of that species' quantity is undefined.
-			UnitDefinition udef = parameter.getDerivedUnitDefinition();
-			if (udef != null){
-				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
-			}
+			CyNode node = createSymbolNode(parameter, SBML.NODETYPE_PARAMETER);
 		}
 		
-		// Create nodes for species
+		// Nodes for species
 		for (Species species : model.getListOfSpecies()) {
-			CyNode node = createNamedSBaseNode(species, SBML.NODETYPE_SPECIES);
+			CyNode node = createSymbolNode(species, SBML.NODETYPE_SPECIES);
 			if (species.isSetCompartment()){
+				// edge to compartment
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
-				// add edge to compartment
 				CyNode comp = nodeById.get(species.getCompartment());
 				CyEdge edge = network.addEdge(node, comp, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
 			}
 			if (species.isSetBoundaryCondition()){
 				AttributeUtil.set(network, node, SBML.ATTR_BOUNDARY_CONDITION, species.getBoundaryCondition(), Boolean.class);
-			}
-			if (species.isSetConstant()){
-				AttributeUtil.set(network, node, SBML.ATTR_CONSTANT, species.getConstant(), Boolean.class);
 			}
 			if (species.isSetHasOnlySubstanceUnits()){
 				AttributeUtil.set(network, node, SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, species.getHasOnlySubstanceUnits(), Boolean.class);
@@ -437,36 +445,23 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetInitialConcentration()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 			}
-			if (species.isSetUnits()){
-				AttributeUtil.set(network, node, SBML.ATTR_UNITS, species.getUnits(), String.class);
-			}
-			if (species.isSetValue()){
-				AttributeUtil.set(network, node, SBML.ATTR_VALUE, species.getValue(), Double.class);
-			}
-			// a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
-			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
-			// then the unit of that species' quantity is undefined.
-			UnitDefinition udef = species.getDerivedUnitDefinition();
-			if (udef != null){
-				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
-			}
 		}
 		
-		// Create reaction nodes
+		// Reactions
 		for (Reaction reaction : model.getListOfReactions()) {
 			CyNode node = createNamedSBaseNode(reaction, SBML.NODETYPE_REACTION);
 	
 			if (reaction.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
-				// add edge to compartment
+				// connect to reaction to compartment
 				CyNode comp = nodeById.get(reaction.getCompartment());
 				CyEdge edge = network.addEdge(node, comp, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_COMPARTMENT, String.class);
 			}
-			// Reactions set reversible by default
 			if (reaction.isSetReversible()){
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
 			} else {
+				// Reactions set reversible by default
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, true, Boolean.class);
 			}
 			if (reaction.isSetFast()){
@@ -476,121 +471,92 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getMath().toFormula(), String.class);	
 			}
 			UnitDefinition udef = reaction.getDerivedUnitDefinition();
-			// Returns:  a UnitDefinition that represent the derived unit of this quantity, or null if it is not possible to derive a unit.
-			// If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, 
-			// then the unit of that species' quantity is undefined.
 			if (udef != null){
 				AttributeUtil.set(network, node, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
 			}
 		
-			if (reaction.isSetKineticLaw()){
-				KineticLaw law = reaction.getKineticLaw();
-				
-				// Create a kinetic law node
-				String id = reaction.getId() + "_law";
-			 	CyNode lawNode = network.addNode();
-			 	nodeById.put(id, lawNode);
-				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, id, String.class);
-				AttributeUtil.set(network, lawNode, SBML.LABEL, id, String.class);
-				AttributeUtil.set(network, lawNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_KINETIC_LAW, String.class);
-			 	if (law.isSetMetaId()){
-					AttributeUtil.set(network, lawNode, SBML.ATTR_METAID, law.getMetaId(), String.class);
-				}
-				if (law.isSetSBOTerm()){
-					AttributeUtil.set(network, lawNode, SBML.ATTR_SBOTERM, law.getSBOTermID(), String.class);
-				}
-
-				// connect to reaction
-				CyEdge edge = network.addEdge(node, lawNode, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_KINETICLAW, String.class);
-				
-				// global parameters
-				if (law.isSetMath()){
-					ASTNode astNode = law.getMath();
-					AttributeUtil.set(network, lawNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
-					List<Parameter> parameters = astNode.findReferencedGlobalParameters();
-					// make unique (often parameter multiple times in equation
-					for (Parameter parameter : new HashSet<Parameter>(parameters)){
-						// add edge
-						CyNode parameterNode = nodeById.get(parameter.getId());
-						
-						// direct edges if no kinetic law
-						// CyEdge edge = network.addEdge(parameterNode, node, true);
-						// AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
-						
-						// via kinetic law
-						network.addEdge(parameterNode, lawNode, true);
-						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_KINETICLAW, String.class);
-					}
-				}
-				// local parameters
-				// Backwards compatibility of reader (anybody using this?)
-				// TODO: create LocalParameter nodes for parameters (and add edge)
-				if (law.isSetListOfLocalParameters()){
-					for (LocalParameter parameter: law.getListOfLocalParameters()){
-						if (parameter.isSetValue()){
-							String key = String.format(SBML.KINETIC_LAW_ATTR_TEMPLATE, parameter.getId());
-							AttributeUtil.set(network, node, key, parameter.getValue(), Double.class);
-						}
-						if (parameter.isSetUnits()){
-							String unitsKey = String.format(SBML.KINETIC_LAW_UNITS_ATTR_TEMPLATE, parameter.getId());
-							AttributeUtil.set(network, node, unitsKey, parameter.getUnits(), String.class);
-						}
-					}
-				}
-			}
 			// Reactants
 			Double stoichiometry;
 			for (SpeciesReference speciesRef : reaction.getListOfReactants()) {
 				CyNode reactant = nodeById.get(speciesRef.getSpecies());
 				CyEdge edge = network.addEdge(node, reactant, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
+				setSBaseAttributes(edge, speciesRef);  // metaId and sbo
 				
 				if (speciesRef.isSetStoichiometry()){
 					stoichiometry = speciesRef.getStoichiometry();
 				} else {
+					// default to 1.0
 					stoichiometry = 1.0;
 				}
 				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
-				if (speciesRef.isSetSBOTerm()){
-					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, speciesRef.getSBOTermID(), String.class);
-				}
-				if (speciesRef.isSetMetaId()){
-					AttributeUtil.set(network, edge, SBML.ATTR_METAID, speciesRef.getMetaId(), String.class);
-				}
 			}
 			// Products
 			for (SpeciesReference speciesRef : reaction.getListOfProducts()) {
 				CyNode product = nodeById.get(speciesRef.getSpecies());
 				CyEdge edge = network.addEdge(node, product, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_PRODUCT, String.class);
-				
+				setSBaseAttributes(edge, speciesRef);  // metaId and sbo
 				if (speciesRef.isSetStoichiometry()){
 					stoichiometry = speciesRef.getStoichiometry();
 				} else {
+					// default to 1.0
 					stoichiometry = 1.0;
 				}
 				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
-				if (speciesRef.isSetSBOTerm()){
-					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, speciesRef.getSBOTermID(), String.class);
-				}
-				if (speciesRef.isSetMetaId()){
-					AttributeUtil.set(network, edge, SBML.ATTR_METAID, speciesRef.getMetaId(), String.class);
-				}
+
 			}
 			// Modifiers
 			for (ModifierSpeciesReference msRef : reaction.getListOfModifiers()) {
 				CyNode modifier = nodeById.get(msRef.getSpecies());
 				CyEdge edge = network.addEdge(node, modifier, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_MODIFIER, String.class);
+				setSBaseAttributes(edge, msRef);  // metaId and sbo
+			}
+			
+			// Kinetic law 
+			if (reaction.isSetKineticLaw()){
+				KineticLaw law = reaction.getKineticLaw();
+				String reactionId = reaction.getId();
+				// node
+				String lawId = String.format("%s_law", reactionId + "_law");
+			 	CyNode lawNode = network.addNode();
+			 	nodeById.put(lawId, lawNode);
+				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, lawId, String.class);
+				AttributeUtil.set(network, lawNode, SBML.LABEL, lawId, String.class);
+				AttributeUtil.set(network, lawNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_KINETIC_LAW, String.class);
+				setSBaseAttributes(lawNode, law);  // metaId and sbo
 				
-				stoichiometry = 1.0;
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
-				if (msRef.isSetSBOTerm()){
-					AttributeUtil.set(network, edge, SBML.ATTR_SBOTERM, msRef.getSBOTermID(), String.class);
+				// edge to reaction
+				CyEdge edge = network.addEdge(node, lawNode, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_KINETICLAW, String.class);
+				
+				// local parameter nodes
+				if (law.isSetListOfLocalParameters()){
+					for (LocalParameter lp: law.getListOfLocalParameters()){
+						String lpId = lp.getId();
+						// necessary to create new identifiers due to scoping of local parameters
+						String tmpId = String.format("%s_%s", reactionId, lpId);
+						// FIXME: this changes the model during the reading, but necessary for the unique
+						// 		  mapping. Not a problem currently, but will when writing SBML.
+						lp.setId(tmpId);
+						CyNode lpNode = createQuantityWithUnitNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
+					}
 				}
-				if (msRef.isSetMetaId()){
-					AttributeUtil.set(network, edge, SBML.ATTR_METAID, msRef.getMetaId(), String.class);
+				
+				// referenced nodes in math
+				if (law.isSetMath()){
+					ASTNode astNode = law.getMath();
+					AttributeUtil.set(network, lawNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);		
+					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
+						// This can be parameters, localParameters, species, ...
+						// add edge if node exists
+						CyNode nsbNode = nodeById.get(nsb.getId());
+						if (nsbNode != null){
+							network.addEdge(nsbNode, lawNode, true);
+							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_KINETICLAW, String.class);	
+						}
+					}
 				}
 			}
 		}
@@ -605,8 +571,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// Rules (not parsed)
-		// Important for rate rule based models
+		// Rule nodes (Important for rate rule based models)
+		// FIXME: only AssignmentRules and RateRules handled
 		for (Rule rule : model.getListOfRules()){
 			String variable = null;
 			if (rule.isAssignment()){
@@ -617,35 +583,32 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				variable = rateRule.getVariable();
 			}
 			if (variable != null){
-				// analog to kinetic law
+				
 				String id = variable + "_rule";
 			 	CyNode ruleNode = network.addNode();
 			 	nodeById.put(id, ruleNode);
 				AttributeUtil.set(network, ruleNode, SBML.ATTR_ID, id, String.class);
 				AttributeUtil.set(network, ruleNode, SBML.LABEL, id, String.class);
 				AttributeUtil.set(network, ruleNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
-			 	if (rule.isSetMetaId()){
-					AttributeUtil.set(network, ruleNode, SBML.ATTR_METAID, rule.getMetaId(), String.class);
-				}
-				if (rule.isSetSBOTerm()){
-					AttributeUtil.set(network, ruleNode, SBML.ATTR_SBOTERM, rule.getSBOTermID(), String.class);
-				}
-				// connect to variable
+				setSBaseAttributes(ruleNode, rule);  // metaId and sbo
+			 	
+				// edge to variable
 				CyNode variableNode = nodeById.get(variable);
 				CyEdge edge = network.addEdge(variableNode, ruleNode, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_RULE, String.class);
 				
-				// global parameters
+				// referenced nodes in math
 				if (rule.isSetMath()){
 					ASTNode astNode = rule.getMath();
-					AttributeUtil.set(network, ruleNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
-					List<Parameter> parameters = astNode.findReferencedGlobalParameters();
-					// make unique (often parameter multiple times in math
-					for (Parameter parameter : new HashSet<Parameter>(parameters)){
-						// add edge
-						CyNode parameterNode = nodeById.get(parameter.getId());
-						network.addEdge(parameterNode, ruleNode, true);
-						AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_RULE, String.class);
+					AttributeUtil.set(network, ruleNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);		
+					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
+						// This can be parameters, localParameters, species, ...
+						// add edge if node exists
+						CyNode nsbNode = nodeById.get(nsb.getId());
+						if (nsbNode != null){
+							network.addEdge(nsbNode, ruleNode, true);
+							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_RULE, String.class);	
+						}
 					}
 				}
 			}
