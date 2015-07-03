@@ -519,7 +519,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				KineticLaw law = reaction.getKineticLaw();
 				String reactionId = reaction.getId();
 				// node
-				String lawId = String.format("%s_law", reactionId + "_law");
+				String lawId = String.format("%s_law", reactionId);
 			 	CyNode lawNode = network.addNode();
 			 	nodeById.put(lawId, lawNode);
 				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, lawId, String.class);
@@ -553,7 +553,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						// add edge if node exists
 						CyNode nsbNode = nodeById.get(nsb.getId());
 						if (nsbNode != null){
-							network.addEdge(nsbNode, lawNode, true);
+							edge = network.addEdge(nsbNode, lawNode, true);
 							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_KINETICLAW, String.class);	
 						}
 					}
@@ -606,7 +606,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						// add edge if node exists
 						CyNode nsbNode = nodeById.get(nsb.getId());
 						if (nsbNode != null){
-							network.addEdge(nsbNode, ruleNode, true);
+							edge = network.addEdge(nsbNode, ruleNode, true);
 							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_RULE, String.class);	
 						}
 					}

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
@@ -47,6 +48,7 @@ public class NamedSBaseInfoFactory {
 		if (    objClass.equals(Model.class)  ||
 				objClass.equals(Compartment.class)  || 
 				objClass.equals(Parameter.class)  ||
+				objClass.equals(LocalParameter.class)  ||
 				objClass.equals(Species.class) ||
 				objClass.equals(Reaction.class) || 
 				objClass.equals(QualitativeSpecies.class) ||

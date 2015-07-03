@@ -172,6 +172,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			} else if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 				
 				String s = url.toString();
+				
 				// BioModels
 				if (s.equals("http://cy3sbml-biomodels")){
 					 BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
@@ -198,7 +199,13 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				}
 				
 				// Example networks
-				else if (s.equals("http://cy3sbml-e_coli_core")){
+				else if (s.equals("http://cy3sbml-glucose")){
+					loadExampleFromResource("/models/Koenig2014_Glucose_Metabolism.xml");
+				}else if (s.equals("http://cy3sbml-galactose")){
+					loadExampleFromResource("/models/Galactose_v129_Nc1_core.xml");
+				}else if (s.equals("http://cy3sbml-HepatoNet1")){
+					loadExampleFromResource("/models/HepatoNet1.xml");
+				}else if (s.equals("http://cy3sbml-e_coli_core")){
 					loadExampleFromResource("/models/e_coli_core.xml");
 				}else if (s.equals("http://cy3sbml-iAB_RBC_283")){
 					loadExampleFromResource("/models/iAB_RBC_283.xml");
@@ -209,7 +216,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				}else if (s.equals("http://cy3sbml-BIOMD0000000016")){
 					loadExampleFromResource("/models/BIOMD0000000016.xml");
 				}else if (s.equals("http://cy3sbml-BIOMD0000000084")){
-					loadExampleFromResource("/models/BIOMD0000000016.xml");
+					loadExampleFromResource("/models/BIOMD0000000084.xml");
 				}else if (s.equals("http://cy3sbml-hsa04360")){
 					loadExampleFromResource("/models/hsa04360.xml");
 				}

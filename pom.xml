@@ -318,6 +318,7 @@
 		</dependency>
 		
 		<!-- Testing -->
+		<!--
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
@@ -344,6 +345,6 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+		-->
 	</dependencies>
 </project>

@@ -7,9 +7,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import org.sbml.jsbml.ASTNode;
+import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.ListOf;
+import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
+import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
@@ -27,6 +31,7 @@ public class NavigationTree {
 	
 	public static final String COMPARTMENTS = "Compartments";
 	public static final String PARAMETERS = "Parameters";
+	public static final String LOCAL_PARAMETERS = "LocalParameters";
 	public static final String SPECIES = "Species";
 	public static final String REACTIONS = "Reactions";
 	
@@ -65,6 +70,18 @@ public class NavigationTree {
 			
 			// adding supported listOfs to the Navigation tree
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(PARAMETERS), model.getListOfParameters());
+			
+			// collect all the local parameters for registration
+			ListOf<LocalParameter> localParameters = new ListOf<LocalParameter>();
+			for (Reaction r : model.getListOfReactions()){
+				if (r.isSetKineticLaw()){
+					KineticLaw law = r.getKineticLaw();
+					// have been made unique during reading of SBML
+					localParameters.addAll(law.getListOfLocalParameters());
+				}
+			}
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(LOCAL_PARAMETERS), localParameters);
+			
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMPARTMENTS), model.getListOfCompartments());
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(SPECIES), model.getListOfSpecies());
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), model.getListOfReactions());

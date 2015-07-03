@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
-  <model name="HepatoNet1">
+  <model name="tmpcompute">
     <listOfCompartments>
       <compartment id="lyso" metaid="meta_lyso" name="lyso" outside="cyto" size="1">
         <annotation>
