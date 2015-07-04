@@ -4,15 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.cy3sbml.SBML;
-import org.cy3sbml.util.AttributeUtil;
-
 import javax.xml.stream.XMLStreamException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
@@ -20,11 +17,13 @@ import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.SBO;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.ontology.Term;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
@@ -80,8 +79,8 @@ public class NamedSBaseInfoFactory {
 		}
 		// SBML information
 		info = createHeader(sbmlObject);
-		info += createNamedSBaseInfo(sbmlObject);
 		info += createSBOInfo(sbmlObject);
+		info += createNamedSBaseInfo(sbmlObject);
   		
   		// CVterm annotations (MIRIAM action)
 		List<CVTerm> terms = sbmlObject.getCVTerms();
@@ -119,16 +118,28 @@ public class NamedSBaseInfoFactory {
 	private String createSBOInfo(AbstractNamedSBase item){
 		String text = "";
 		if (item.isSetSBOTerm()){
-			String sboTerm = item.getSBOTermID();
-  			text = "<p>";
-  			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTerm);
-  			text += String.format("<b><span color=\"green\">%s</span></b><br>", sboTerm);
+			String sboTermId = item.getSBOTermID();
+			// Aliases are a construct introduced and used by CellDesigner.
+			// String sboAlias = SBO.convertSBO2Alias(item.getSBOTerm());
+			Term sboTerm = SBO.getTerm(sboTermId);
+			String definition = parseSBOTermDefinition(sboTerm.getDefinition());
+			
+			// sboTerm.getSynonyms();
+  			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTermId);
+  			text += String.format("<b> %s <span color=\"green\">%s</span></b><br>", sboTerm.getName(), sboTermId);
+  			text += definition + "<br>";
   			for (String rURI : term.getResources()){
   				text += MiriamResourceInfo.getInfoFromURI(link, rURI);
   			}
-  			text += "</p>";
+  			text += "<hr>";
   		}
 		return text;
+	}
+	
+	private String parseSBOTermDefinition(String definition){
+		String[] tokens = definition.split("\"");
+		String[] defTokens = (String []) ArrayUtils.subarray(tokens, 1, tokens.length-1);
+		return StringUtils.join(defTokens, "\"");
 	}
 	
 	

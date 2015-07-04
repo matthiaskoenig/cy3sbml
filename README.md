@@ -47,7 +47,16 @@ To build from source follow the instructions [here](./docs/cy3sbml_build_instruc
 We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html). 
 
 ## Changelog
-**v0.1.5** [?]
+**v0.1.5** [2015/07/04]
+* SBO Name and definitions for information
+* Parsing of rateRules, InitialAssignments and kineticLaws
+* Display of NamedSBase attributes in information
+* Example loader (menu) & examples added
+* FBC support
+* NetworkReader tests (passed all BioModels r29 curated models)
+* master SBML graph (compartments, kinetics, parameters, ...)
+* File selection & multiple file import ported
+* SBML validator ported
 
 **v0.1.4** [2015/06/24]
 * support of multiple networks, views and subnetworks

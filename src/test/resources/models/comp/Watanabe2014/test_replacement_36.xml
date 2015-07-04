@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" level="3" arrays:required="true" fbc:required="false" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" comp:required="true" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" version="1" layout:required="false">
+  <comp:listOfExternalModelDefinitions xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1">
+    <comp:externalModelDefinition comp:source="file:represCirc.xml" comp:id="represCirc"/>
+  </comp:listOfExternalModelDefinitions>
+  <model id="testHier49" metaid="iBioSim1">
+    <comp:listOfSubmodels xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1">
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim53" comp:id="C2">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim54" comp:id="C3">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim55" comp:id="C4">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim56" comp:id="C5">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim57" comp:id="C6">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim58" comp:id="C7">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim59" comp:id="C8">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim60" comp:id="C9">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim61" comp:id="C10">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim62" comp:id="C11">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim63" comp:id="C12">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim64" comp:id="C13">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim65" comp:id="C14">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim66" comp:id="C15">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim67" comp:id="C16">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim68" comp:id="C17">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim69" comp:id="C18">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim70" comp:id="C19">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim71" comp:id="C20">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim72" comp:id="C21">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim73" comp:id="C22">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim74" comp:id="C23">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim75" comp:id="C24">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim76" comp:id="C25">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim77" comp:id="C26">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim78" comp:id="C27">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim79" comp:id="C28">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim80" comp:id="C29">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim81" comp:id="C30">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim82" comp:id="C31">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim83" comp:id="C32">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim84" comp:id="C33">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim85" comp:id="C34">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim86" comp:id="C35">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim87" comp:id="C36">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:modelRef="represCirc" metaid="iBioSim88" comp:id="C37">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="reaction__Degradation_GFP"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+    </comp:listOfSubmodels>
+    <comp:listOfPorts xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1">
+      <comp:port comp:idRef="C2" sboTerm="SBO:0000600" comp:id="input__GFP__C2"/>
+      <comp:port comp:idRef="C2" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C2"/>
+      <comp:port comp:idRef="C3" sboTerm="SBO:0000600" comp:id="input__GFP__C3"/>
+      <comp:port comp:idRef="C3" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C3"/>
+      <comp:port comp:idRef="C4" sboTerm="SBO:0000600" comp:id="input__GFP__C4"/>
+      <comp:port comp:idRef="C4" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C4"/>
+      <comp:port comp:idRef="C5" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C5"/>
+      <comp:port comp:idRef="C6" sboTerm="SBO:0000600" comp:id="input__GFP__C6"/>
+      <comp:port comp:idRef="C6" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C6"/>
+      <comp:port comp:idRef="C7" sboTerm="SBO:0000600" comp:id="input__GFP__C7"/>
+      <comp:port comp:idRef="C7" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C7"/>
+      <comp:port comp:idRef="C8" sboTerm="SBO:0000600" comp:id="input__GFP__C8"/>
+      <comp:port comp:idRef="C8" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C8"/>
+      <comp:port comp:idRef="C9" sboTerm="SBO:0000600" comp:id="input__GFP__C9"/>
+      <comp:port comp:idRef="C9" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C9"/>
+      <comp:port comp:idRef="C10" sboTerm="SBO:0000600" comp:id="input__GFP__C10"/>
+      <comp:port comp:idRef="C10" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C10"/>
+      <comp:port comp:idRef="C11" sboTerm="SBO:0000600" comp:id="input__GFP__C11"/>
+      <comp:port comp:idRef="C11" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C11"/>
+      <comp:port comp:idRef="C12" sboTerm="SBO:0000600" comp:id="input__GFP__C12"/>
+      <comp:port comp:idRef="C12" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C12"/>
+      <comp:port comp:idRef="C13" sboTerm="SBO:0000600" comp:id="input__GFP__C13"/>
+      <comp:port comp:idRef="C13" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C13"/>
+      <comp:port comp:idRef="C14" sboTerm="SBO:0000600" comp:id="input__GFP__C14"/>
+      <comp:port comp:idRef="C14" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C14"/>
+      <comp:port comp:idRef="C15" sboTerm="SBO:0000600" comp:id="input__GFP__C15"/>
+      <comp:port comp:idRef="C15" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C15"/>
+      <comp:port comp:idRef="C16" sboTerm="SBO:0000600" comp:id="input__GFP__C16"/>
+      <comp:port comp:idRef="C16" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C16"/>
+      <comp:port comp:idRef="C17" sboTerm="SBO:0000600" comp:id="input__GFP__C17"/>
+      <comp:port comp:idRef="C17" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C17"/>
+      <comp:port comp:idRef="C18" sboTerm="SBO:0000600" comp:id="input__GFP__C18"/>
+      <comp:port comp:idRef="C18" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C18"/>
+      <comp:port comp:idRef="C19" sboTerm="SBO:0000600" comp:id="input__GFP__C19"/>
+      <comp:port comp:idRef="C19" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C19"/>
+      <comp:port comp:idRef="C20" sboTerm="SBO:0000600" comp:id="input__GFP__C20"/>
+      <comp:port comp:idRef="C20" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C20"/>
+      <comp:port comp:idRef="C21" sboTerm="SBO:0000600" comp:id="input__GFP__C21"/>
+      <comp:port comp:idRef="C21" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C21"/>
+      <comp:port comp:idRef="C22" sboTerm="SBO:0000600" comp:id="input__GFP__C22"/>
+      <comp:port comp:idRef="C22" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C22"/>
+      <comp:port comp:idRef="C23" sboTerm="SBO:0000600" comp:id="input__GFP__C23"/>
+      <comp:port comp:idRef="C23" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C23"/>
+      <comp:port comp:idRef="C24" sboTerm="SBO:0000600" comp:id="input__GFP__C24"/>
+      <comp:port comp:idRef="C24" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C24"/>
+      <comp:port comp:idRef="C25" sboTerm="SBO:0000600" comp:id="input__GFP__C25"/>
+      <comp:port comp:idRef="C25" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C25"/>
+      <comp:port comp:idRef="C26" sboTerm="SBO:0000600" comp:id="input__GFP__C26"/>
+      <comp:port comp:idRef="C26" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C26"/>
+      <comp:port comp:idRef="C27" sboTerm="SBO:0000600" comp:id="input__GFP__C27"/>
+      <comp:port comp:idRef="C27" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C27"/>
+      <comp:port comp:idRef="C28" sboTerm="SBO:0000600" comp:id="input__GFP__C28"/>
+      <comp:port comp:idRef="C28" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C28"/>
+      <comp:port comp:idRef="C29" sboTerm="SBO:0000600" comp:id="input__GFP__C29"/>
+      <comp:port comp:idRef="C29" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C29"/>
+      <comp:port comp:idRef="C30" sboTerm="SBO:0000600" comp:id="input__GFP__C30"/>
+      <comp:port comp:idRef="C30" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C30"/>
+      <comp:port comp:idRef="C31" sboTerm="SBO:0000600" comp:id="input__GFP__C31"/>
+      <comp:port comp:idRef="C31" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C31"/>
+      <comp:port comp:idRef="C32" sboTerm="SBO:0000600" comp:id="input__GFP__C32"/>
+      <comp:port comp:idRef="C32" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C32"/>
+      <comp:port comp:idRef="C33" sboTerm="SBO:0000600" comp:id="input__GFP__C33"/>
+      <comp:port comp:idRef="C33" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C33"/>
+      <comp:port comp:idRef="C34" sboTerm="SBO:0000600" comp:id="input__GFP__C34"/>
+      <comp:port comp:idRef="C34" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C34"/>
+      <comp:port comp:idRef="C35" sboTerm="SBO:0000600" comp:id="input__GFP__C35"/>
+      <comp:port comp:idRef="C35" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C35"/>
+      <comp:port comp:idRef="C36" sboTerm="SBO:0000600" comp:id="input__GFP__C36"/>
+      <comp:port comp:idRef="C36" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C36"/>
+      <comp:port comp:idRef="C37" sboTerm="SBO:0000600" comp:id="input__GFP__C37"/>
+      <comp:port comp:idRef="C37" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP__C37"/>
+      <comp:port comp:idRef="C5" sboTerm="SBO:0000600" comp:id="input__GFP__C5">
+      </comp:port>
+    </comp:listOfPorts>
+    <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <layout:layout layout:id="iBioSim">
+        <layout:dimensions layout:width="610" layout:height="430" layout:depth="0"/>
+        <layout:listOfAdditionalGraphicalObjects>
+          <layout:generalGlyph layout:reference="C2" layout:id="Glyph__C2">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C3" layout:id="Glyph__C3">
+            <layout:boundingBox>
+              <layout:position layout:x="90" layout:y="0"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C4" layout:id="Glyph__C4">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C5" layout:id="Glyph__C5">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C6" layout:id="Glyph__C6">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C7" layout:id="Glyph__C7">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C8" layout:id="Glyph__C8">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C9" layout:id="Glyph__C9">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C10" layout:id="Glyph__C10">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C11" layout:id="Glyph__C11">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C12" layout:id="Glyph__C12">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C13" layout:id="Glyph__C13">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C14" layout:id="Glyph__C14">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C15" layout:id="Glyph__C15">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C16" layout:id="Glyph__C16">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C17" layout:id="Glyph__C17">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C18" layout:id="Glyph__C18">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C19" layout:id="Glyph__C19">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C20" layout:id="Glyph__C20">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C21" layout:id="Glyph__C21">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C22" layout:id="Glyph__C22">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C23" layout:id="Glyph__C23">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C24" layout:id="Glyph__C24">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C25" layout:id="Glyph__C25">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C26" layout:id="Glyph__C26">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C27" layout:id="Glyph__C27">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C28" layout:id="Glyph__C28">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C29" layout:id="Glyph__C29">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C30" layout:id="Glyph__C30">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C31" layout:id="Glyph__C31">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C32" layout:id="Glyph__C32">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C33" layout:id="Glyph__C33">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C34" layout:id="Glyph__C34">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C35" layout:id="Glyph__C35">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C36" layout:id="Glyph__C36">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:reference="C37" layout:id="Glyph__C37">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="304"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+        </layout:listOfAdditionalGraphicalObjects>
+        <layout:listOfCompartmentGlyphs>
+          <layout:compartmentGlyph layout:id="Glyph__Cell" layout:compartment="Cell">
+            <layout:boundingBox>
+              <layout:position layout:x="0" layout:y="0"/>
+              <layout:dimensions layout:width="610" layout:height="430"/>
+            </layout:boundingBox>
+          </layout:compartmentGlyph>
+        </layout:listOfCompartmentGlyphs>
+        <layout:listOfSpeciesGlyphs>
+          <layout:speciesGlyph layout:id="Glyph__GFP_Total" layout:species="GFP_Total">
+            <layout:boundingBox>
+              <layout:position layout:x="480" layout:y="370"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+        </layout:listOfSpeciesGlyphs>
+        <layout:listOfReactionGlyphs>
+          <layout:reactionGlyph layout:id="Glyph__GFP_Degradation" layout:reaction="GFP_Degradation">
+            <layout:boundingBox>
+              <layout:position layout:x="550" layout:y="260"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__GFP_Degradation__substrate__GFP_Total" layout:role="substrate" layout:speciesGlyph="Glyph__GFP_Total">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="530" layout:y="385"/>
+                      <layout:end layout:x="565" layout:y="275"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+        </layout:listOfReactionGlyphs>
+        <layout:listOfTextGlyphs>
+          <layout:textGlyph layout:graphicalObject="Glyph__Cell" layout:id="TextGlyph__Cell" layout:text="Cell">
+            <layout:boundingBox>
+              <layout:position layout:x="0" layout:y="0"/>
+              <layout:dimensions layout:width="610" layout:height="430"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__GFP_Total" layout:id="TextGlyph__GFP_Total" layout:text="GFP_Total">
+            <layout:boundingBox>
+              <layout:position layout:x="480" layout:y="370"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__GFP_Degradation" layout:id="TextGlyph__GFP_Degradation" layout:text="GFP_Degradation">
+            <layout:boundingBox>
+              <layout:position layout:x="550" layout:y="260"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C2" layout:id="TextGlyph__C2" layout:text="C2">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C3" layout:id="TextGlyph__C3" layout:text="C3">
+            <layout:boundingBox>
+              <layout:position layout:x="90" layout:y="0"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C4" layout:id="TextGlyph__C4" layout:text="C4">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C5" layout:id="TextGlyph__C5" layout:text="C5">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C6" layout:id="TextGlyph__C6" layout:text="C6">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="3"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C7" layout:id="TextGlyph__C7" layout:text="C7">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C8" layout:id="TextGlyph__C8" layout:text="C8">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C9" layout:id="TextGlyph__C9" layout:text="C9">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C10" layout:id="TextGlyph__C10" layout:text="C10">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C11" layout:id="TextGlyph__C11" layout:text="C11">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="46"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C12" layout:id="TextGlyph__C12" layout:text="C12">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C13" layout:id="TextGlyph__C13" layout:text="C13">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C14" layout:id="TextGlyph__C14" layout:text="C14">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C15" layout:id="TextGlyph__C15" layout:text="C15">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C16" layout:id="TextGlyph__C16" layout:text="C16">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="89"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C17" layout:id="TextGlyph__C17" layout:text="C17">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C18" layout:id="TextGlyph__C18" layout:text="C18">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C19" layout:id="TextGlyph__C19" layout:text="C19">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C20" layout:id="TextGlyph__C20" layout:text="C20">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C21" layout:id="TextGlyph__C21" layout:text="C21">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="132"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C22" layout:id="TextGlyph__C22" layout:text="C22">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C23" layout:id="TextGlyph__C23" layout:text="C23">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C24" layout:id="TextGlyph__C24" layout:text="C24">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C25" layout:id="TextGlyph__C25" layout:text="C25">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C26" layout:id="TextGlyph__C26" layout:text="C26">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="175"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C27" layout:id="TextGlyph__C27" layout:text="C27">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C28" layout:id="TextGlyph__C28" layout:text="C28">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C29" layout:id="TextGlyph__C29" layout:text="C29">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C30" layout:id="TextGlyph__C30" layout:text="C30">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C31" layout:id="TextGlyph__C31" layout:text="C31">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="218"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C32" layout:id="TextGlyph__C32" layout:text="C32">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C33" layout:id="TextGlyph__C33" layout:text="C33">
+            <layout:boundingBox>
+              <layout:position layout:x="86" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C34" layout:id="TextGlyph__C34" layout:text="C34">
+            <layout:boundingBox>
+              <layout:position layout:x="169" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C35" layout:id="TextGlyph__C35" layout:text="C35">
+            <layout:boundingBox>
+              <layout:position layout:x="252" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C36" layout:id="TextGlyph__C36" layout:text="C36">
+            <layout:boundingBox>
+              <layout:position layout:x="335" layout:y="261"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__C37" layout:id="TextGlyph__C37" layout:text="C37">
+            <layout:boundingBox>
+              <layout:position layout:x="3" layout:y="304"/>
+              <layout:dimensions layout:width="80" layout:height="40"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+        </layout:listOfTextGlyphs>
+      </layout:layout>
+    </layout:listOfLayouts>
+    <listOfCompartments>
+      <compartment id="Cell" constant="true" spatialDimensions="3" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="GFP_Total" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" metaid="iBioSim27" boundaryCondition="false" compartment="Cell">
+        <comp:listOfReplacedElements xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1">
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C2"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C3"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C4"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C6"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C7"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C8"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C9"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C10"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C11"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C12"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C13"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C14"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C15"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C16"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C17"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C18"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C19"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C20"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C21"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C22"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C23"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C24"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C25"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C26"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C27"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C28"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C29"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C30"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C31"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C32"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C33"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C34"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C35"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C36"/>
+          <comp:replacedElement comp:portRef="input__GFP" comp:submodelRef="C37"/>
+        </comp:listOfReplacedElements>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="GFP_Degradation" metaid="iBioSim28" reversible="false" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="GFP_Total" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> kd </ci>
+              <ci> GFP_Total </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kd" metaid="GFP_Degradation___kd" value="0.0075"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
