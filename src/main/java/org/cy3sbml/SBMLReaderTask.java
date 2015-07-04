@@ -75,6 +75,7 @@ import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
+
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
@@ -142,7 +143,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			
 			// Read model
-			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
+			logger.info("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
 			
 			// TODO: store and display JSBML reader warnings
