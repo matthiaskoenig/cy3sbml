@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,7 +41,7 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 	}
 	
 	// Declare parameters
-	@Parameters
+	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> data(){
 		/*
 		new Object[][]{
@@ -57,7 +58,7 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 		return Arrays.asList(resources);
 	}
 	
-	@Test
+	@Ignore @Test
 	/** Single test for one BioModel: Can be read and creates network. */
 	public void testSingleBiomodel() throws Exception {
 		logger.info(String.format("BioModelsTest: %s", resource));

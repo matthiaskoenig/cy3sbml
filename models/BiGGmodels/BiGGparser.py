@@ -87,8 +87,9 @@ def download_model(model_id, target_dir, polished=True):
 # -------------------------------------------------------------------
 
 polished = True
-target_dir = '/home/mkoenig/cy3sbml/src/test/resources/models/BiGG'
-# target_dir = '/home/mkoenig/tmp'
+# target_dir = '/home/mkoenig/cy3sbml/src/test/resources/models/BiGG'
+target_dir = '/home/mkoenig/tmp'
+model_fnames = []
 
 r = requests.get('http://bigg.ucsd.edu/api/v2/models')
 for k, model in enumerate(json['results']):
@@ -96,5 +97,13 @@ for k, model in enumerate(json['results']):
     print(model_id)
     try:
         download_model(model_id, target_dir=target_dir, polished=polished)
+        model_fnames.append('"{}.xml"'.format(model_id))
     except zipfile.BadZipfile:
         print("Zip file missing: ", model_id)
+
+# ---------------------------
+# create the file listing for java
+print(len(model_fnames))
+java_string = ", ".join(model_fnames)
+print(java_string)
+

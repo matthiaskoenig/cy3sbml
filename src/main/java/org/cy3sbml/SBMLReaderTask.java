@@ -104,6 +104,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final CyNetworkViewFactory viewFactory;
 	private SBMLDocument document;
 	
+	private Boolean error = false;
 	private CyNetwork network;       // global network of all SBML information
 	private CyNetwork mainNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 	
@@ -260,6 +261,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		} catch (Throwable t){
 			logger.error("Could not read SBML into Cytoscape!", t);
+			error = true;
 			t.printStackTrace();
 			throw new SBMLReaderError("cy3sbml reader failed to build a SBML model " +
 					"(check the data for syntax errors) - " + t);
@@ -271,6 +273,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			
 		}
+	}
+	
+	public Boolean getError(){
+		return error;
 	}
 	
 	/* Sets metaId and SBOTerm. */
@@ -431,8 +437,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// edge to compartment
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, species.getCompartment(), String.class);
 				CyNode comp = nodeById.get(species.getCompartment());
-				CyEdge edge = network.addEdge(node, comp, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
+				if (comp != null){
+					CyEdge edge = network.addEdge(node, comp, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
+				} else {
+					logger.error(String.format("Compartment does not exist for species: %s for %s", species.getCompartment(), species.getId()));
+					error = true;
+				}
 			}
 			if (species.isSetBoundaryCondition()){
 				AttributeUtil.set(network, node, SBML.ATTR_BOUNDARY_CONDITION, species.getBoundaryCondition(), Boolean.class);
@@ -465,8 +476,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
 				// connect to reaction to compartment
 				CyNode comp = nodeById.get(reaction.getCompartment());
-				CyEdge edge = network.addEdge(node, comp, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_COMPARTMENT, String.class);
+				if (comp != null){
+					CyEdge edge = network.addEdge(node, comp, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_COMPARTMENT, String.class);
+				} else {
+					logger.error(String.format("Compartment does not exist for reaction: %s for %s", reaction.getCompartment(), reaction.getId()));
+					error = true;
+				}
 			}
 			if (reaction.isSetReversible()){
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
@@ -860,15 +876,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (association.getClass().equals(GeneProductRef.class)){
 			GeneProductRef gpRef = (GeneProductRef) association;
 			CyNode gpNode = nodeById.get(gpRef.getGeneProduct());
-	
-			CyEdge edge = network.addEdge(gpNode, parentNode, true);
-			AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, 1.0, Double.class);
-			if (parentType.equals(SBML.NODETYPE_REACTION)){
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
+			if (gpNode != null){
+				CyEdge edge = network.addEdge(gpNode, parentNode, true);
+				if (parentType.equals(SBML.NODETYPE_REACTION)){
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_REACTION, String.class);
+				} else {
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
+				}
 			} else {
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION, String.class);
+				logger.error(String.format("GeneProduct does not exist for GeneAssociation: %s in %s", gpRef.getGeneProduct(), association));
+				error = true;
 			}
-			
 		}else if (association.getClass().equals(And.class)){
 			And andRef = (And) association;
 			

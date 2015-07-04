@@ -32,7 +32,7 @@ public class SBMLReaderTaskTest {
 	@Test 
 	/* Test if test model can be read with JSBML. */
 	public void testModelLoading(){
-		String resource = "/models/BIOMD0000000001.xml";
+		String resource = "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml";
 		
 		InputStream instream = getClass().getResourceAsStream(resource);
 		try {
@@ -59,7 +59,7 @@ public class SBMLReaderTaskTest {
 		final CyNetworkViewFactory viewFactory = null;
 		
 		// read SBML	
-		String resource = "/models/BIOMD0000000001.xml";
+		String resource = "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml";
 		String fileName = "BIOMD0000000001.xml";		
 		InputStream instream = getClass().getResourceAsStream(resource);
 	
