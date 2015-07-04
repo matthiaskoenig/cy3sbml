@@ -18,6 +18,7 @@ import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -90,7 +91,7 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 		return Arrays.asList(resources);
 	}
 	
-	@Test
+	@Ignore @Test
 	/** Single test for BiGG model: Can be read and is network created ? */
 	public void testSingleBiGG() throws Exception {
 		logger.info(String.format("BioModelsTest: %s", resource));
