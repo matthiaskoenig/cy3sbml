@@ -1,0 +1,879 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" level="3" fbc:required="false" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" comp:required="true" version="1" layout:required="false">
+  <model id="repressilator" name="Created by iBioSim flatten routine" metaid="iBioSim1" substanceUnits="mole" volumeUnits="litre">
+    <annotation>
+</annotation>
+      <comp:listOfPorts xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1">
+      <comp:port comp:idRef="GFP" sboTerm="SBO:0000600" comp:id="input__GFP"/>
+      <comp:port comp:idRef="Degradation_GFP" sboTerm="SBO:0000601" comp:id="reaction__Degradation_GFP"/>
+    </comp:listOfPorts>
+    <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <layout:layout layout:id="iBioSim">
+        <layout:dimensions layout:width="1120" layout:height="530" layout:depth="0"/>
+        <layout:listOfCompartmentGlyphs>
+          <layout:compartmentGlyph layout:id="Glyph__Cell" layout:compartment="Cell">
+            <layout:boundingBox>
+              <layout:position layout:x="310" layout:y="60"/>
+              <layout:dimensions layout:width="810" layout:height="470"/>
+            </layout:boundingBox>
+          </layout:compartmentGlyph>
+        </layout:listOfCompartmentGlyphs>
+        <layout:listOfSpeciesGlyphs>
+          <layout:speciesGlyph layout:id="Glyph__CI" layout:species="CI">
+            <layout:boundingBox>
+              <layout:position layout:x="687" layout:y="332.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__LacI" layout:species="LacI">
+            <layout:boundingBox>
+              <layout:position layout:x="431" layout:y="317.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__TetR" layout:species="TetR">
+            <layout:boundingBox>
+              <layout:position layout:x="717" layout:y="237.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__GFP" layout:species="GFP">
+            <layout:boundingBox>
+              <layout:position layout:x="1012" layout:y="147.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P0" layout:species="P0">
+            <layout:boundingBox>
+              <layout:position layout:x="555" layout:y="260.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P1" layout:species="P1">
+            <layout:boundingBox>
+              <layout:position layout:x="320" layout:y="130.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P2" layout:species="P2">
+            <layout:boundingBox>
+              <layout:position layout:x="919" layout:y="61.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P1_RNAP" layout:species="P1_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="600" layout:y="130.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P1_LacI_bound" layout:species="P1_LacI_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="315" layout:y="444.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P0_RNAP" layout:species="P0_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="430" layout:y="70.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P0_CI_bound" layout:species="P0_CI_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="553" layout:y="469.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P2_RNAP" layout:species="P2_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="856" layout:y="154.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__P2_TetR_bound" layout:species="P2_TetR_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="976" layout:y="409.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__RNAP" layout:species="RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="732" layout:y="71.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+          <layout:speciesGlyph layout:id="Glyph__Cell__RNAP" layout:species="Cell__RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="930" layout:y="470"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:speciesGlyph>
+        </layout:listOfSpeciesGlyphs>
+        <layout:listOfReactionGlyphs>
+          <layout:reactionGlyph layout:id="Glyph__Degradation_CI" layout:reaction="Degradation_CI">
+            <layout:boundingBox>
+              <layout:position layout:x="815" layout:y="449.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__Degradation_CI__substrate__CI" layout:role="substrate" layout:speciesGlyph="Glyph__CI">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="737" layout:y="347.01171875"/>
+                      <layout:end layout:x="830" layout:y="464.81640625"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__Degradation_GFP" layout:reaction="Degradation_GFP">
+            <layout:boundingBox>
+              <layout:position layout:x="1070" layout:y="329.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__Degradation_GFP__substrate__GFP" layout:role="substrate" layout:speciesGlyph="Glyph__GFP">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="1062" layout:y="162.01171875"/>
+                      <layout:end layout:x="1085" layout:y="344.81640625"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__Degradation_LacI" layout:reaction="Degradation_LacI">
+            <layout:boundingBox>
+              <layout:position layout:x="466" layout:y="424.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__Degradation_LacI__substrate__LacI" layout:role="substrate" layout:speciesGlyph="Glyph__LacI">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="481" layout:y="332.01171875"/>
+                      <layout:end layout:x="481" layout:y="439.81640625"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__Degradation_TetR" layout:reaction="Degradation_TetR">
+            <layout:boundingBox>
+              <layout:position layout:x="751" layout:y="154.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__Degradation_TetR__substrate__TetR" layout:role="substrate" layout:speciesGlyph="Glyph__TetR">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="767" layout:y="252.01171875"/>
+                      <layout:end layout:x="766" layout:y="169.81640625"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__R_constitutive_production_P1" layout:reaction="R_constitutive_production_P1">
+            <layout:boundingBox>
+              <layout:position layout:x="637" layout:y="190.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P1__modifier__P1_RNAP" layout:role="modifier" layout:speciesGlyph="Glyph__P1_RNAP">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="650" layout:y="145.20703125"/>
+                      <layout:end layout:x="652" layout:y="205.609375"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P1__product__TetR" layout:role="product" layout:speciesGlyph="Glyph__TetR">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="652" layout:y="205.609375"/>
+                      <layout:end layout:x="767" layout:y="252.01171875"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__R_constitutive_production_P0" layout:reaction="R_constitutive_production_P0">
+            <layout:boundingBox>
+              <layout:position layout:x="465" layout:y="189.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P0__modifier__P0_RNAP" layout:role="modifier" layout:speciesGlyph="Glyph__P0_RNAP">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="480" layout:y="85.20703125"/>
+                      <layout:end layout:x="480" layout:y="204.609375"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P0__product__LacI" layout:role="product" layout:speciesGlyph="Glyph__LacI">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="480" layout:y="204.609375"/>
+                      <layout:end layout:x="481" layout:y="332.01171875"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+          <layout:reactionGlyph layout:id="Glyph__R_constitutive_production_P2" layout:reaction="R_constitutive_production_P2">
+            <layout:boundingBox>
+              <layout:position layout:x="875" layout:y="259.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+            <layout:listOfSpeciesReferenceGlyphs>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P2__modifier__P2_RNAP" layout:role="modifier" layout:speciesGlyph="Glyph__P2_RNAP">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="906" layout:y="169.20703125"/>
+                      <layout:end layout:x="890" layout:y="274.609375"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P2__product__CI" layout:role="product" layout:speciesGlyph="Glyph__CI">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="890" layout:y="274.609375"/>
+                      <layout:end layout:x="737" layout:y="347.01171875"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="Glyph__R_constitutive_production_P2__product__GFP" layout:role="product" layout:speciesGlyph="Glyph__GFP">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="890" layout:y="274.609375"/>
+                      <layout:end layout:x="1062" layout:y="162.01171875"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:speciesReferenceGlyph>
+            </layout:listOfSpeciesReferenceGlyphs>
+          </layout:reactionGlyph>
+        </layout:listOfReactionGlyphs>
+        <layout:listOfTextGlyphs>
+          <layout:textGlyph layout:graphicalObject="Glyph__Cell" layout:id="TextGlyph__Cell" layout:text="Cell">
+            <layout:boundingBox>
+              <layout:position layout:x="310" layout:y="60"/>
+              <layout:dimensions layout:width="810" layout:height="470"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__CI" layout:id="TextGlyph__CI" layout:text="CI">
+            <layout:boundingBox>
+              <layout:position layout:x="687" layout:y="332.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__LacI" layout:id="TextGlyph__LacI" layout:text="LacI">
+            <layout:boundingBox>
+              <layout:position layout:x="431" layout:y="317.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__TetR" layout:id="TextGlyph__TetR" layout:text="TetR">
+            <layout:boundingBox>
+              <layout:position layout:x="717" layout:y="237.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__GFP" layout:id="TextGlyph__GFP" layout:text="GFP">
+            <layout:boundingBox>
+              <layout:position layout:x="1012" layout:y="147.01171875"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P0" layout:id="TextGlyph__P0" layout:text="P0">
+            <layout:boundingBox>
+              <layout:position layout:x="555" layout:y="260.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P1" layout:id="TextGlyph__P1" layout:text="P1">
+            <layout:boundingBox>
+              <layout:position layout:x="320" layout:y="130.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P2" layout:id="TextGlyph__P2" layout:text="P2">
+            <layout:boundingBox>
+              <layout:position layout:x="919" layout:y="61.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P1_RNAP" layout:id="TextGlyph__P1_RNAP" layout:text="P1_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="600" layout:y="130.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P1_LacI_bound" layout:id="TextGlyph__P1_LacI_bound" layout:text="P1_LacI_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="315" layout:y="444.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P0_RNAP" layout:id="TextGlyph__P0_RNAP" layout:text="P0_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="430" layout:y="70.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P0_CI_bound" layout:id="TextGlyph__P0_CI_bound" layout:text="P0_CI_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="553" layout:y="469.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P2_RNAP" layout:id="TextGlyph__P2_RNAP" layout:text="P2_RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="856" layout:y="154.20703125"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__P2_TetR_bound" layout:id="TextGlyph__P2_TetR_bound" layout:text="P2_TetR_bound">
+            <layout:boundingBox>
+              <layout:position layout:x="976" layout:y="409.81640625"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__RNAP" layout:id="TextGlyph__RNAP" layout:text="RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="732" layout:y="71.40234375"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Cell__RNAP" layout:id="TextGlyph__Cell__RNAP" layout:text="Cell__RNAP">
+            <layout:boundingBox>
+              <layout:position layout:x="930" layout:y="470"/>
+              <layout:dimensions layout:width="100" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Degradation_CI" layout:id="TextGlyph__Degradation_CI" layout:text="Degradation_CI">
+            <layout:boundingBox>
+              <layout:position layout:x="815" layout:y="449.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Degradation_GFP" layout:id="TextGlyph__Degradation_GFP" layout:text="Degradation_GFP">
+            <layout:boundingBox>
+              <layout:position layout:x="1070" layout:y="329.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Degradation_LacI" layout:id="TextGlyph__Degradation_LacI" layout:text="Degradation_LacI">
+            <layout:boundingBox>
+              <layout:position layout:x="466" layout:y="424.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Degradation_TetR" layout:id="TextGlyph__Degradation_TetR" layout:text="Degradation_TetR">
+            <layout:boundingBox>
+              <layout:position layout:x="751" layout:y="154.81640625"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__R_constitutive_production_P1" layout:id="TextGlyph__R_constitutive_production_P1" layout:text="R_constitutive_production_P1">
+            <layout:boundingBox>
+              <layout:position layout:x="637" layout:y="190.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__R_constitutive_production_P0" layout:id="TextGlyph__R_constitutive_production_P0" layout:text="R_constitutive_production_P0">
+            <layout:boundingBox>
+              <layout:position layout:x="465" layout:y="189.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__R_constitutive_production_P2" layout:id="TextGlyph__R_constitutive_production_P2" layout:text="R_constitutive_production_P2">
+            <layout:boundingBox>
+              <layout:position layout:x="875" layout:y="259.609375"/>
+              <layout:dimensions layout:width="30" layout:height="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+        </layout:listOfTextGlyphs>
+      </layout:layout>
+    </layout:listOfLayouts>
+    <listOfUnitDefinitions>
+      <unitDefinition id="u_1_second_n1">
+        <listOfUnits>
+          <unit scale="0" exponent="-1" multiplier="1" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="u_1_mole_n1_1_second_n1">
+        <listOfUnits>
+          <unit scale="0" exponent="-1" multiplier="1" kind="mole"/>
+          <unit scale="0" exponent="-1" multiplier="1" kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="u_1_mole_n1">
+        <listOfUnits>
+          <unit scale="0" exponent="-1" multiplier="1" kind="mole"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="Cell" constant="true" spatialDimensions="3" size="1">
+        <annotation>
+</annotation>
+            </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="CI" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" metaid="iBioSim2" boundaryCondition="false" compartment="Cell"/>
+      <species id="LacI" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" metaid="iBioSim3" boundaryCondition="false" compartment="Cell"/>
+      <species id="TetR" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" metaid="iBioSim4" boundaryCondition="false" compartment="Cell"/>
+      <species id="GFP" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" metaid="iBioSim5" boundaryCondition="false" compartment="Cell">
+        <annotation>
+</annotation>
+            </species>
+      <species id="P0" constant="false" initialAmount="2" hasOnlySubstanceUnits="true" metaid="iBioSim7" boundaryCondition="false" compartment="Cell"/>
+      <species id="P1" constant="false" initialAmount="2" hasOnlySubstanceUnits="true" metaid="iBioSim9" boundaryCondition="false" compartment="Cell"/>
+      <species id="P2" constant="false" initialAmount="2" hasOnlySubstanceUnits="true" metaid="iBioSim11" boundaryCondition="false" compartment="Cell"/>
+      <species id="P1_RNAP" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P1_RNAP" metaid="iBioSim8" boundaryCondition="false" compartment="Cell"/>
+      <species id="P1_LacI_bound" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P1_LacI_bound" metaid="iBioSim10" boundaryCondition="false" compartment="Cell"/>
+      <species id="P0_RNAP" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P0_RNAP" metaid="iBioSim12" boundaryCondition="false" compartment="Cell"/>
+      <species id="P0_CI_bound" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P0_CI_bound" metaid="iBioSim28" boundaryCondition="false" compartment="Cell"/>
+      <species id="P2_RNAP" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P2_RNAP" metaid="iBioSim29" boundaryCondition="false" compartment="Cell"/>
+      <species id="P2_TetR_bound" constant="false" initialAmount="0" hasOnlySubstanceUnits="true" name="P2_TetR_bound" metaid="iBioSim30" boundaryCondition="false" compartment="Cell"/>
+      <species id="RNAP" constant="false" initialAmount="30" hasOnlySubstanceUnits="true" name="RNAP" metaid="iBioSim31" boundaryCondition="false" compartment="Cell"/>
+      <species id="Cell__RNAP" constant="false" initialAmount="30" hasOnlySubstanceUnits="true" name="Cell__RNAP" metaid="iBioSim32" boundaryCondition="false" compartment="Cell"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="kd" constant="true" name="Degradation rate" metaid="iBioSim6" value="0.0075"/>
+      <parameter id="kr_f" constant="true" name="Forward repression binding rate" metaid="iBioSim13" value="0.5"/>
+      <parameter id="kr_r" constant="true" name="Reverse repression binding rate" metaid="iBioSim14" value="1"/>
+      <parameter id="ka_f" constant="true" name="Forward activation binding rate" metaid="iBioSim15" value="0.0033"/>
+      <parameter id="ka_r" constant="true" name="Reverse activation binding rate" metaid="iBioSim16" value="1"/>
+      <parameter id="ko_f" constant="true" name="Forward RNAP binding rate" metaid="iBioSim17" value="0.033"/>
+      <parameter id="ko_r" constant="true" name="Reverse RNAP binding rate" metaid="iBioSim18" value="1"/>
+      <parameter id="kao_f" constant="true" name="Forward activated RNAP binding rate" metaid="iBioSim19" value="1"/>
+      <parameter id="kao_r" constant="true" name="Reverse activated RNAP binding rate" metaid="iBioSim20" value="1"/>
+      <parameter id="nc" constant="true" name="Stoichiometry of binding" metaid="iBioSim21" value="2"/>
+      <parameter id="nr" constant="true" name="Initial RNAP count" metaid="iBioSim22" value="30"/>
+      <parameter id="ko" constant="true" name="Open complex production rate" metaid="iBioSim23" value="0.05"/>
+      <parameter id="kb" constant="true" name="Basal production rate" metaid="iBioSim24" value="0.0001"/>
+      <parameter id="ng" constant="true" name="Initial promoter count" metaid="iBioSim25" value="2"/>
+      <parameter id="np" constant="true" name="Stoichiometry of production" metaid="iBioSim26" value="10"/>
+      <parameter id="ka" constant="true" name="Activated production rate" metaid="iBioSim27" value="0.25"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="Degradation_CI" metaid="iBioSim33" reversible="false" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="CI" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> kd </ci>
+              <ci> CI </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kd" value="0.0075" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Degradation_GFP" metaid="iBioSim34" reversible="false" fast="false" compartment="Cell">
+        <annotation>
+</annotation>
+              <listOfReactants>
+          <speciesReference constant="true" species="GFP" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> kd </ci>
+              <ci> GFP </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kd" value="0.0075" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Degradation_TetR" metaid="iBioSim36" reversible="false" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="TetR" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> kd </ci>
+              <ci> TetR </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kd" value="0.0075" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_constitutive_production_P1" metaid="iBioSim37" reversible="false" fast="false" compartment="Cell">
+        <listOfProducts>
+          <speciesReference constant="true" species="TetR" stoichiometry="10"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P1_RNAP"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> ko </ci>
+              <ci> P1_RNAP </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko" value="0.05" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_constitutive_production_P0" metaid="iBioSim38" reversible="false" fast="false" compartment="Cell">
+        <listOfProducts>
+          <speciesReference constant="true" species="LacI" stoichiometry="10"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P0_RNAP"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> ko </ci>
+              <ci> P0_RNAP </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko" value="0.05" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_constitutive_production_P2" metaid="iBioSim39" reversible="false" fast="false" compartment="Cell">
+        <listOfProducts>
+          <speciesReference constant="true" species="CI" stoichiometry="10"/>
+          <speciesReference constant="true" species="GFP" stoichiometry="10"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P2_RNAP"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> ko </ci>
+              <ci> P2_RNAP </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko" value="0.05" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_P1_RNAP" metaid="iBioSim40" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="RNAP" stoichiometry="1"/>
+          <speciesReference constant="true" species="P1" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P1_RNAP" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <ci> ko_f </ci>
+                  <ci> RNAP </ci>
+                </apply>
+                <ci> P1 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> ko_r </ci>
+                <ci> P1_RNAP </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko_f" value="0.033" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="ko_r" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_repression_binding_P1_LacI" metaid="iBioSim41" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="P1" stoichiometry="1"/>
+          <speciesReference constant="true" species="LacI" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P1_LacI_bound" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <times/>
+                    <ci> kr_f </ci>
+                    <apply>
+                      <power/>
+                      <ci> Kr </ci>
+                      <apply>
+                        <minus/>
+                        <ci> nc </ci>
+                        <cn type="integer"> 1 </cn>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> LacI </ci>
+                    <ci> nc </ci>
+                  </apply>
+                </apply>
+                <ci> P1 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kr_r </ci>
+                <ci> P1_LacI_bound </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kr_f" value="0.5" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="kr_r" value="1" units="u_1_second_n1"/>
+            <localParameter id="Kr" value="0.5" units="u_1_mole_n1"/>
+            <localParameter id="nc" value="2" units="dimensionless"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_P0_RNAP" metaid="iBioSim42" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="RNAP" stoichiometry="1"/>
+          <speciesReference constant="true" species="P0" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P0_RNAP" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <ci> ko_f </ci>
+                  <ci> RNAP </ci>
+                </apply>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> ko_r </ci>
+                <ci> P0_RNAP </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko_f" value="0.033" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="ko_r" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_repression_binding_P0_CI" metaid="iBioSim43" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="P0" stoichiometry="1"/>
+          <speciesReference constant="true" species="CI" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P0_CI_bound" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <times/>
+                    <ci> kr_f </ci>
+                    <apply>
+                      <power/>
+                      <ci> Kr </ci>
+                      <apply>
+                        <minus/>
+                        <ci> nc </ci>
+                        <cn type="integer"> 1 </cn>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> CI </ci>
+                    <ci> nc </ci>
+                  </apply>
+                </apply>
+                <ci> P0 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kr_r </ci>
+                <ci> P0_CI_bound </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kr_f" value="0.5" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="kr_r" value="1" units="u_1_second_n1"/>
+            <localParameter id="Kr" value="0.5" units="u_1_mole_n1"/>
+            <localParameter id="nc" value="2" units="dimensionless"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_P2_RNAP" metaid="iBioSim44" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="RNAP" stoichiometry="1"/>
+          <speciesReference constant="true" species="P2" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P2_RNAP" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <ci> ko_f </ci>
+                  <ci> RNAP </ci>
+                </apply>
+                <ci> P2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> ko_r </ci>
+                <ci> P2_RNAP </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="ko_f" value="0.033" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="ko_r" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="R_repression_binding_P2_TetR" metaid="iBioSim45" reversible="true" fast="false" compartment="Cell">
+        <listOfReactants>
+          <speciesReference constant="true" species="P2" stoichiometry="1"/>
+          <speciesReference constant="true" species="TetR" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="P2_TetR_bound" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <times/>
+                    <ci> kr_f </ci>
+                    <apply>
+                      <power/>
+                      <ci> Kr </ci>
+                      <apply>
+                        <minus/>
+                        <ci> nc </ci>
+                        <cn type="integer"> 1 </cn>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> TetR </ci>
+                    <ci> nc </ci>
+                  </apply>
+                </apply>
+                <ci> P2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kr_r </ci>
+                <ci> P2_TetR_bound </ci>
+              </apply>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kr_f" value="0.5" units="u_1_mole_n1_1_second_n1"/>
+            <localParameter id="kr_r" value="1" units="u_1_second_n1"/>
+            <localParameter id="Kr" value="0.5" units="u_1_mole_n1"/>
+            <localParameter id="nc" value="2" units="dimensionless"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Degradation_LacI" metaid="iBioSim35" reversible="false" fast="false" compartment="Cell">
+        <annotation>
+</annotation>
+              <listOfReactants>
+          <speciesReference constant="true" species="LacI" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> kd </ci>
+              <ci> LacI </ci>
+            </apply>
+          </math>
+                  <listOfLocalParameters>
+            <localParameter id="kd" value="0.0075" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

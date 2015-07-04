@@ -143,7 +143,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			
 			// Read model
-			logger.info("JSBML version: " + JSBML.getJSBMLVersionString());
+			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
 			
 			// TODO: store and display JSBML reader warnings

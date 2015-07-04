@@ -42,12 +42,6 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 	// Declare parameters
 	@Parameters
 	public static Iterable<Object[]> data(){
-		int N = 575;
-		String[][] resources = new String[1][N];
-		for (int i=1; i<=N; i++){
-			// zero tabbed 
-			resources[0][i-1] = String.format("/models/BioModels-r29_sbml_curated/BIOMD0000000%03d.xml", i);
-		}
 		/*
 		new Object[][]{
 		{ "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml" },
@@ -55,7 +49,11 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 		...
 		}
 		*/
-
+		int N = 575;
+		Object[][] resources = new String[N][1];
+		for (int i=1; i<=N; i++){ 
+			resources[i-1][0] = String.format("/models/BioModels-r29_sbml_curated/BIOMD0000000%03d.xml", i);
+		}
 		return Arrays.asList(resources);
 	}
 	
