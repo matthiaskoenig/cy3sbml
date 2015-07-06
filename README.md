@@ -4,16 +4,13 @@
 ![alt tag](./docs/images/logo100.png) 
 
 **cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
-visualization of SBML network annotations within the network context, direct import of models from repositories like [biomodels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information. SBML validation information about the imported files is available.
-
-We are currently porting the missing features from the Cytoscape 2 plugin to Cytoscape 3.
+visualization of SBML network annotations within the network context, direct import of models from repositories like [biomodels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information and SBML validation.
 
 **Status** : beta  
 **Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
 **Bug Tracker** : https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ## Features (beta release)
-Not all features have yet been ported to cy3sbml.
 * Java based SBML parser for Cytoscape based on JSBML (http://sourceforge.net/projects/jsbml/)
 * access to models and annotations via BioModel 
   (http://www.biomodels.org/) and MIRIAM WebServices (http://www.ebi.ac.uk/miriam/main/)
@@ -28,7 +25,7 @@ Not all features have yet been ported to cy3sbml.
 * succesfully tested against all SBML.org and Biomodels.org test
   cases (BioModels_Database-r29)
 
-Release information and changelogs are provided below.
+We are currently porting missing features from the Cytoscape 2 plugin to Cytoscape 3. Release information and changelogs are provided below.
 
 ## License
 * Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
@@ -39,10 +36,10 @@ Release information and changelogs are provided below.
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build from source
-For working with the latest **stable development release** follow the build instructions [here](https://docs.google.com/document/d/1EILRjGBPi1dmVaI8xXNE7Uk9RY-nmlVB8mkMzsDqgVo/edit?usp=sharing). This includes recently developed features not yet released. 
+For working with the latest **stable development release** follow the [build instructions] (https://docs.google.com/document/d/1EILRjGBPi1dmVaI8xXNE7Uk9RY-nmlVB8mkMzsDqgVo/edit?usp=sharing). This includes recently developed features not yet released.
 
 ## Funding
-We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html). 
+We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html) based on the following [cy3sbml proposal](https://docs.google.com/document/d/1a3t1EWuSqc3AOxtNoxPcZFSZqMPsKSMBLFJIS_P7Q4g/edit?usp=sharing).
 
 ## Changelog
 **v0.1.6** [?]
