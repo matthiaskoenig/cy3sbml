@@ -187,7 +187,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- 3rd party dependency -->
+		<!-- 3rd party dependency -->		
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
