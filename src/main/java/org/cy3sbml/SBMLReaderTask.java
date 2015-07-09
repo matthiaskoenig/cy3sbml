@@ -59,8 +59,9 @@ import org.sbml.jsbml.ext.fbc.FluxBound;
 import org.sbml.jsbml.ext.fbc.FluxBound.Operation;
 import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.fbc.GeneProductAssociation;
 import org.sbml.jsbml.ext.fbc.GeneProductRef;
-import org.sbml.jsbml.ext.fbc.GeneProteinAssociation;
+
 import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.fbc.Or;
 import org.sbml.jsbml.ext.layout.Layout;
@@ -823,8 +824,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 			
 			// Create GeneProteinAssociation (GPA) network
-			if (fbcReaction.isSetGeneProteinAssociation()){
-				GeneProteinAssociation gpa = fbcReaction.getGeneProteinAssociation();
+			if (fbcReaction.isSetGeneProductAssociation()){
+				GeneProductAssociation gpa = fbcReaction.getGeneProductAssociation();
 				
 				// handle And, Or, GeneProductRef recursively
 				Association association = gpa.getAssociation();

@@ -2,25 +2,28 @@ package org.cy3sbml.miriam;
 
 import static org.junit.Assert.*;
 
-import org.cy3sbml.ConnectionProxy;
+import org.cy3sbml.TestHelper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
+
 public class MiriamWebserviceTest {
 	MiriamLink link;
 	
+	@BeforeClass 
+	public static void onlyOnce() {
+	       TestHelper.setSystemProxyForTests();
+	}
+	
 	@Before
 	public void setUp() {
-		// If the connection test fails comment the proxy lines, which
-		// are necessary to pass through university proxy
-		// ConnectionProxy connectionProxy = new ConnectionProxy(null);
-		// connectionProxy.setSystemProxy("http", "proxy.charite.de", "8080");
-		link = MiriamWebservice.getMiriamLink();
+		link = MiriamWebservice.getMiriamLink();		
 	}
-	 
+	
 	@After
 	public void tearDown() {
 		link = null;
