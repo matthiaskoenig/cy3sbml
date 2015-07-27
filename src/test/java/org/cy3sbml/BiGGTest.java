@@ -150,7 +150,7 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 		return Arrays.asList(resources);
 	}
 	
-	@Ignore @Test
+	@Test
 	/** Single test for BiGG model: Can be read and is network created ? */
 	public void testSingleBiGG() throws Exception {
 		logger.info(String.format("BiGGTest: %s", resource));

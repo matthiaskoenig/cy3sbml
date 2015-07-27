@@ -140,7 +140,7 @@ private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTe
 		return Arrays.asList(resources);
 	}
 	
-	@Ignore @Test
+	@Test
 	public void testSingleCobra() throws Exception {
 		logger.info(String.format("CobraPyTest: %s", resource));
 		
