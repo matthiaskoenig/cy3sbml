@@ -104,6 +104,8 @@ if __name__ == "__main__":
     # ---------------------------
     # create the file listing for java
     print(len(model_fnames))
-    java_string = ", ".join(model_fnames)
+    java_string = ", \n".join(model_fnames)
+    print('*'*80)
     print(java_string)
+    print('*'*80)
 
