@@ -150,7 +150,7 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 		return Arrays.asList(resources);
 	}
 	
-	@Test
+	@Ignore @Test
 	/** Single test for BiGG model: Can be read and is network created ? */
 	public void testSingleBiGG() throws Exception {
 		logger.info(String.format("BiGGTest: %s", resource));
@@ -179,6 +179,5 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 		// Networks could be read
 		assertNotNull(networks);
 		assertTrue(networks.length >= 1);
-		
 	}
 }

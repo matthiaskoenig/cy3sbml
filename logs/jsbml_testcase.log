@@ -1,0 +1,383 @@
+###################################################################################################################################
+There are some issues with the sbml-testcases.
+In 21 cases JSBML does not parse the valid files.
+###################################################################################################################################
+
+=> Math parsing problem (serious issue, 15 Test cases)
+
+15:12:16,680  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10208/10208-pass-00-08-l2v3.xml
+[15:12:16,681  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:16,681  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:16,681  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:16,681  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 921
+[15:12:16,682  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 937
+[15:12:16,691 ERROR SBMLReaderTask:264] - Could not read SBML into Cytoscape!
+java.lang.IllegalArgumentException: Math element is expected to be of type LAMBDA, but given is UNKNOWN.
+	at org.sbml.jsbml.FunctionDefinition.setMath(FunctionDefinition.java:398)
+	at org.sbml.jsbml.xml.parsers.MathMLStaxParser.processStartElement(MathMLStaxParser.java:361)
+	at org.sbml.jsbml.xml.stax.SBMLReader.processStartElement(SBMLReader.java:919)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromXMLEventReader(SBMLReader.java:686)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromStream(SBMLReader.java:523)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:823)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:837)
+	at org.sbml.jsbml.SBMLReader.readSBMLFromString(SBMLReader.java:267)
+	at org.sbml.jsbml.SBMLReader.read(SBMLReader.java:143)
+	at org.sbml.jsbml.JSBML.readSBMLFromString(JSBML.java:377)
+	at org.cy3sbml.SBMLReaderTask.run(SBMLReaderTask.java:152)
+	at org.cy3sbml.SBMLTestCaseTest.testSingleTestCase(SBMLTestCaseTest.java:138)
+	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+=> same for
+[15:12:20,937  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20305/20305-pass-00-11-l2v3.xml
+[15:12:20,963  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20305/20305-pass-00-12-l2v3.xml
+[15:12:21,042  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20305/20305-pass-00-10-l2v3.xml
+[15:12:21,501  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20302/20302-pass-00-04-l2v3.xml
+[15:12:21,557  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20302/20302-pass-00-06-l2v3.xml
+[15:12:21,581  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20302/20302-pass-00-05-l2v3.xml
+[15:12:21,711  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10204/10204-pass-00-04-l2v3.xml
+...
+
+
+=> Problem with number parsing. Either problem in Testcase or in JSBML.
+
+[15:12:19,700  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/99220/99220-pass-00-02-sev1-l2v2.xml
+[15:12:19,700  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:19,700  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:19,700  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:19,700  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 11468
+[15:12:19,700  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 11484
+[15:12:19,705 ERROR SBMLReaderTask:264] - Could not read SBML into Cytoscape!
+java.lang.NumberFormatException: For input string: "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789      012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678      9012345678901"
+	at sun.misc.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2043)
+	at sun.misc.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.lang.Double.parseDouble(Double.java:538)
+	at java.lang.Double.valueOf(Double.java:502)
+	at org.sbml.jsbml.xml.parsers.MathMLStaxParser.processCharactersOf(MathMLStaxParser.java:218)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromXMLEventReader(SBMLReader.java:720)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromStream(SBMLReader.java:523)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:823)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:837)
+	at org.sbml.jsbml.SBMLReader.readSBMLFromString(SBMLReader.java:267)
+	at org.sbml.jsbml.SBMLReader.read(SBMLReader.java:143)
+	at org.sbml.jsbml.JSBML.readSBMLFromString(JSBML.java:377)
+	at org.cy3sbml.SBMLReaderTask.run(SBMLReaderTask.java:152)
+	at org.cy3sbml.SBMLTestCaseTest.testSingleTestCase(SBMLTestCaseTest.java:138)
+	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+
+=> same for
+[15:12:19,707  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/99220/99220-pass-00-01-sev1-l2v1.xml
+[15:12:19,718  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/99220/99220-pass-00-03-sev1-l2v3.xml
+
+
+=> ???? Some problem with parsing layout
+
+[15:12:21,153  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20404/layout-20404-pass-00-01-sev1-l3v1.xml
+[15:12:21,154  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:21,154  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:21,154  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:21,154  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 18012
+[15:12:21,154  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 18028
+[15:12:21,158  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'id' on the element graphicalObject is not part of the SBML specifications.
+[15:12:21,158  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'metaidRef' on the element graphicalObject is not part of the SBML specifications.
+[15:12:21,158  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'id' on the element boundingBox is not part of the SBML specifications.
+[15:12:21,159  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'x' on the element position is not part of the SBML specifications.
+[15:12:21,159  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'y' on the element position is not part of the SBML specifications.
+[15:12:21,159 ERROR SBMLReaderTask:264] - Could not read SBML into Cytoscape!
+java.util.EmptyStackException
+	at java.util.Stack.peek(Stack.java:102)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromXMLEventReader(SBMLReader.java:744)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readXMLFromStream(SBMLReader.java:523)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:823)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:837)
+	at org.sbml.jsbml.SBMLReader.readSBMLFromString(SBMLReader.java:267)
+	at org.sbml.jsbml.SBMLReader.read(SBMLReader.java:143)
+	at org.sbml.jsbml.JSBML.readSBMLFromString(JSBML.java:377)
+	at org.cy3sbml.SBMLReaderTask.run(SBMLReaderTask.java:152)
+	at org.cy3sbml.SBMLTestCaseTest.testSingleTestCase(SBMLTestCaseTest.java:138)
+	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+=> same for
+[15:12:23,471  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20402/layout-20402-pass-00-01-sev1-l3v1.xml
+[15:12:32,257  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20813/layout-20813-pass-00-01-sev1-l3v1.xml
+
+
+=> No idea? Something went completely wrong in JSBML
+
+[15:12:21,741  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10204/10204-pass-00-13-sev1-l2v5.xml
+[15:12:21,742  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:21,742  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:21,742  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:21,742  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 21286
+[15:12:21,742  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 21302
+[15:12:21,746  WARN SBMLReader:1151] - !!! event.isEndElement: there is a problem in your SBML file !!!!
+[15:12:21,746  WARN SBMLReader:1152] - Found an element 'org.sbml.jsbml.Model', expected org.sbml.jsbml.SBMLDocument
+[15:12:21,748 ERROR SBMLReaderTask:264] - Could not read SBML into Cytoscape!
+javax.xml.stream.XMLStreamException: The given file seems not to be a valid SBMl file. Please check it using the SBML online validator.
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:827)
+	at org.sbml.jsbml.xml.stax.SBMLReader.readSBMLFromString(SBMLReader.java:837)
+	at org.sbml.jsbml.SBMLReader.readSBMLFromString(SBMLReader.java:267)
+	at org.sbml.jsbml.SBMLReader.read(SBMLReader.java:143)
+	at org.sbml.jsbml.JSBML.readSBMLFromString(JSBML.java:377)
+	at org.cy3sbml.SBMLReaderTask.run(SBMLReaderTask.java:152)
+	at org.cy3sbml.SBMLTestCaseTest.testSingleTestCase(SBMLTestCaseTest.java:138)
+	at sun.reflect.GeneratedMethodAccessor11.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+=> same for
+[15:12:21,756  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10204/10204-pass-00-08-sev1-l3v1.xml
+
+###################################################################################################################################
+The rest are further issues, but JSBML does not stop parsing,
+so I can handle these.
+###################################################################################################################################
+
+=> UnitDefinition & compartment have same id: valid in SBML (different namespaces), but problems in JSBML
+
+[15:12:17,488  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10302/10302-pass-00-08-l1v2.xml
+[15:12:17,489  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:17,489  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:17,489  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:17,490  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 3315
+[15:12:17,490  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 3331
+[15:12:17,496 ERROR Model:3953] - An element of type unitDefinition with the id "mmls" is already present in this model. The new element will not be added to the model.
+[15:12:17,497 ERROR IdentifierException:62] - An element with the id "mmls" is already present in the SBML model. The identifier of compartment will not be set to this value.
+[15:12:17,497 ERROR SBMLCoreParser:190] - org.sbml.jsbml.IdentifierException: Cannot set duplicate identifier mmls for compartment.
+[15:12:17,497  INFO SBMLCoreParser:191] - Attribute = name, element = compartment
+[15:12:17,497  WARN SBMLCoreParser:218] - Could not recognize the attribute \"name\" on the element compartment. Please check the specification for SBML.
+=> same for 
+[15:12:17,507  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10302/10302-pass-00-10-sev1-l1v1.xml
+
+
+=> identical metaid in multiple submodels => Either JSBML or SBML error (allowed or not?)
+
+[15:12:18,533  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-21005/comp-21005-pass-00-05-sev1-l3v1.xml
+[15:12:18,533  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:18,533  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:18,533  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:18,534  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 6830
+[15:12:18,534  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 6846
+[15:12:18,543 ERROR IdentifierException:75] - An element with the metaid "ggg" is already present in the SBML document. The element other will not be annotated with it.
+[15:12:18,543 ERROR AbstractReaderWriter:83] - Cannot set duplicate meta identifier ggg for other.
+[15:12:18,543  WARN AbstractReaderWriter:97] - processAttribute: The attribute 'metaid' on the element listOfDeletions is not part of the SBML specifications.
+
+=> same for
+[15:12:19,957  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20702/comp-20702-pass-00-06-sev1-l3v1.xml
+[15:12:19,975  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20702/comp-20702-pass-00-09-sev1-l3v1.xml
+[15:12:20,001  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20702/comp-20702-pass-00-07-sev1-l3v1.xml
+[15:12:20,010  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20702/comp-20702-pass-00-08-sev1-l3v1.xml
+[15:12:20,077  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20702/comp-20702-pass-00-10-sev1-l3v1.xml
+[15:12:24,911  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/comp-20705/comp-20705-pass-00-05-sev1-l3v1.xml
+
+
+=> errors in SBMLCoreParser due to UnitDefinitions, but should be warnings
+
+[15:12:18,183  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-21702/layout-21702-pass-00-01-sev1-l3v1.xml
+[15:12:18,183  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:18,183  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:18,183  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:18,184  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 5824
+[15:12:18,184  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 5840
+[15:12:18,189 ERROR SBMLCoreParser:190] - Cannot identify unit volume in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,189  INFO SBMLCoreParser:191] - Attribute = units, element = compartment
+[15:12:18,189  WARN SBMLCoreParser:218] - Could not recognize the attribute \"units\" on the element compartment. Please check the specification for SBML.
+[15:12:18,190 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,190  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:18,190  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+[15:12:18,190 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,190  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:18,190  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+[15:12:18,191 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,191  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:18,191  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+[15:12:18,191 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,191  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:18,191  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+[15:12:18,191 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:18,192  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:18,192  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+[15:12:18,199  WARN SBMLCoreParser:290] - No UnitDefinition matches the timeUnitsID 'time' of model 'TestModel_with_modifiers'.
+
+=> same problem for the TestCases
+[15:12:18,545  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20302/layout-20302-pass-00-01-sev1-l3v1.xml
+[15:12:18,725  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-21502/layout-21502-pass-00-01-sev1-l3v1.xml
+15:12:18,379  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20704/layout-20704-pass-00-01-sev1-l3v1.xml
+[15:12:18,506  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20504/layout-20504-pass-00-01-sev1-l3v1.xml
+[15:12:18,741  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20506/layout-20506-pass-00-01-sev1-l3v1.xml
+[15:12:20,524  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-21602/layout-21602-pass-00-01-sev1-l3v1.xml
+[15:12:20,867  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20316/layout-20316-pass-00-01-sev1-l3v1.xml
+[15:12:21,326  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20502/layout-20502-pass-00-01-sev1-l3v1.xml
+[15:12:22,883  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20203/layout-20203-pass-00-01-sev1-l3v1.xml
+[15:12:23,103  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20311/layout-20311-pass-00-01-sev1-l3v1.xml
+[15:12:23,588  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-21202/layout-21202-pass-00-01-sev1-l3v1.xml
+[15:12:24,121  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20904/layout-20904-pass-00-01-sev1-l3v1.xml
+[15:12:24,385  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-21004/layout-21004-pass-00-01-sev1-l3v1.xml
+[15:12:24,417  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/layout-20204/layout-20204-pass-00-01-sev1-l3v1.xml
+
+=> similar error which should be warning
+[15:12:19,349  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20226/20226-pass-00-01-sev1-l3v1.xml
+[15:12:19,349  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:19,350  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:19,350  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:19,350  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 10806
+[15:12:19,350  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 10822
+[15:12:19,356 ERROR SBMLCoreParser:190] - Cannot identify unit substance in the model. Only a valid unit kind or the identifier of an existing unit definition are allowed.
+[15:12:19,356  INFO SBMLCoreParser:191] - Attribute = substanceUnits, element = species
+[15:12:19,356  WARN SBMLCoreParser:218] - Could not recognize the attribute \"substanceUnits\" on the element species. Please check the specification for SBML.
+=> same in 
+[15:12:21,685  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20231/20231-pass-00-01-sev1-l3v1.xml
+[15:12:23,132  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20705/20705-pass-00-02-sev1-l3v1.xml
+[15:12:20,741  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20518/20518-pass-00-02-sev1-l3v1.xml
+[15:12:21,904  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/20904/20904-pass-00-16-sev1-l3v1.xml
+
+
+=> JSBML does not handle Meta ID correctly or MetaId TestCase wrong (Ascii??)
+
+[15:12:27,321  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10309/10309-pass-00-11-l2v1.xml
+[15:12:27,322  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:27,322  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:27,322  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:27,322  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 53585
+[15:12:27,322  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 53601
+[15:12:27,325 ERROR SBMLCoreParser:190] - "ດA" is not a valid meta-identifier for this model.
+[15:12:27,325  INFO SBMLCoreParser:191] - Attribute = metaid, element = model
+[15:12:27,325  WARN SBMLCoreParser:218] - Could not recognize the attribute \"metaid\" on the element model. Please check the specification for SBML.
+
+=> similar meta id problem
+
+[15:12:27,338  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10309/10309-pass-00-14-l2v2.xml
+[15:12:27,338  INFO SBMLReaderTask:130] - ---------------------------------
+[15:12:27,338  INFO SBMLReaderTask:131] - Start Reader.run()
+[15:12:27,338  INFO SBMLReaderTask:132] - ---------------------------------
+[15:12:27,338  INFO CyNetworkFactoryImpl:87] - CyNetwork w/ public tables created: ID = 53689
+[15:12:27,338  INFO CyNetworkFactoryImpl:88] - CyNetwork w/ public tables created: Base Graph ID = 53705
+[15:12:27,341 ERROR SBMLCoreParser:190] - ":a" is not a valid meta-identifier for this model.
+[15:12:27,341  INFO SBMLCoreParser:191] - Attribute = metaid, element = model
+[15:12:27,341  WARN SBMLCoreParser:218] - Could not recognize the attribute \"metaid\" on the element model. Please check the specification for SBML.
+=> and in 
+[15:12:27,355  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10309/10309-pass-00-57-l2v5.xml
+[15:12:27,506  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10309/10309-pass-00-22-l2v2.xml
+[15:12:27,514  INFO SBMLTestCaseTest:122] - SBMLTestCase: /models/sbml-test-cases/syntactic/10309/10309-pass-00-63-l2v5.xml

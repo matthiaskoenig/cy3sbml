@@ -441,7 +441,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SPECIES_COMPARTMENT, String.class);
 				} else {
 					logger.error(String.format("Compartment does not exist for species: %s for %s", species.getCompartment(), species.getId()));
-					error = true;
 				}
 			}
 			if (species.isSetBoundaryCondition()){
@@ -492,7 +491,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
 			}
 			if (reaction.isSetKineticLaw()){
-				AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, reaction.getKineticLaw().getMath().toFormula(), String.class);	
+				KineticLaw law = reaction.getKineticLaw();
+				if (law.isSetMath()){
+					AttributeUtil.set(network, node, SBML.ATTR_KINETIC_LAW, law.getMath().toFormula(), String.class);	
+				} else {
+					logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
+				}
 			}
 			UnitDefinition udef = reaction.getDerivedUnitDefinition();
 			if (udef != null){
@@ -503,39 +507,51 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			Double stoichiometry;
 			for (SpeciesReference speciesRef : reaction.getListOfReactants()) {
 				CyNode reactant = nodeById.get(speciesRef.getSpecies());
-				CyEdge edge = network.addEdge(node, reactant, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
-				setSBaseAttributes(edge, speciesRef);  // metaId and sbo
-				
-				if (speciesRef.isSetStoichiometry()){
-					stoichiometry = speciesRef.getStoichiometry();
+				if (reactant != null){
+					CyEdge edge = network.addEdge(node, reactant, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
+					setSBaseAttributes(edge, speciesRef);  // metaId and sbo
+					
+					if (speciesRef.isSetStoichiometry()){
+						stoichiometry = speciesRef.getStoichiometry();
+					} else {
+						// default to 1.0
+						stoichiometry = 1.0;
+					}
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
 				} else {
-					// default to 1.0
-					stoichiometry = 1.0;
+					logger.error(String.format("Reactant does not exist for reaction: %s for %s", speciesRef.getSpecies(), reaction.getId()));
 				}
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
 			}
 			// Products
 			for (SpeciesReference speciesRef : reaction.getListOfProducts()) {
 				CyNode product = nodeById.get(speciesRef.getSpecies());
-				CyEdge edge = network.addEdge(node, product, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_PRODUCT, String.class);
-				setSBaseAttributes(edge, speciesRef);  // metaId and sbo
-				if (speciesRef.isSetStoichiometry()){
-					stoichiometry = speciesRef.getStoichiometry();
+				if (product != null){
+					CyEdge edge = network.addEdge(node, product, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_PRODUCT, String.class);
+					setSBaseAttributes(edge, speciesRef);  // metaId and sbo
+					if (speciesRef.isSetStoichiometry()){
+						stoichiometry = speciesRef.getStoichiometry();
+					} else {
+						// default to 1.0
+						stoichiometry = 1.0;
+					}
+					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
 				} else {
-					// default to 1.0
-					stoichiometry = 1.0;
+					logger.error(String.format("Product does not exist for reaction: %s for %s", speciesRef.getSpecies(), reaction.getId()));
 				}
-				AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
 
 			}
 			// Modifiers
 			for (ModifierSpeciesReference msRef : reaction.getListOfModifiers()) {
 				CyNode modifier = nodeById.get(msRef.getSpecies());
-				CyEdge edge = network.addEdge(node, modifier, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_MODIFIER, String.class);
-				setSBaseAttributes(edge, msRef);  // metaId and sbo
+				if (modifier != null){
+					CyEdge edge = network.addEdge(node, modifier, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_MODIFIER, String.class);
+					setSBaseAttributes(edge, msRef);  // metaId and sbo	
+				} else {
+					logger.error(String.format("ModifierSpecies does not exist for reaction: %s for %s", msRef.getSpecies(), reaction.getId()));
+				}
 			}
 			
 			// Kinetic law 
@@ -589,9 +605,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		for (InitialAssignment assignment : model.getListOfInitialAssignments()){
 			String variable = assignment.getVariable();
 			CyNode targetNode = nodeById.get(variable);
-			if (targetNode != null & assignment.isSetMath()){
-				String math = assignment.getMath().toFormula();
-				AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, math, String.class);
+			if (targetNode != null){
+				if (assignment.isSetMath()){
+					String math = assignment.getMath().toFormula();
+					AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, math, String.class);
+				}	
+			} else {
+				logger.error(String.format("Variable does not exist for InitialAssignment: %s for %s", assignment.getVariable(), "?"));
 			}
 		}
 		
@@ -618,8 +638,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			 	
 				// edge to variable
 				CyNode variableNode = nodeById.get(variable);
-				CyEdge edge = network.addEdge(variableNode, ruleNode, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_RULE, String.class);
+				if (variableNode != null){
+					CyEdge edge = network.addEdge(variableNode, ruleNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_RULE, String.class);	
+				} else {
+					logger.warn(String.format("Variable is neither Compartment, Species or Parameter: %s in %s", variable, id ));
+				}
 				
 				// referenced nodes in math
 				if (rule.isSetMath()){
@@ -630,7 +654,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						// add edge if node exists
 						CyNode nsbNode = nodeById.get(nsb.getId());
 						if (nsbNode != null){
-							edge = network.addEdge(nsbNode, ruleNode, true);
+							CyEdge edge = network.addEdge(nsbNode, ruleNode, true);
 							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_RULE, String.class);	
 						}
 					}
@@ -728,7 +752,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					AttributeUtil.set(network, edge, SBML.ATTR_METAID, output.getMetaId(), String.class);
 				}
 				if (output.isSetOutputLevel()){
-					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_OUTPUT_LEVEL, output.getOutputLevel(), String.class);
+					AttributeUtil.set(network, edge, SBML.ATTR_QUAL_OUTPUT_LEVEL, output.getOutputLevel(), Integer.class);
 				}
 			}
 			
