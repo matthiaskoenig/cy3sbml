@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-21403
+Validation number:	6021403
+Severity         :	Error
+Line number      :	89
+Package          :	layout
+Short message    :	Layout elements allowed on <curve>.
+Full message     :	There must be exactly one instance of a <listOfCurveSegments> object on a <curve>. No other elements from the Layout namespace are permitted on a <curve>. 
+Reference: L3V1 Layout V1 Section 3.4.4
+
+------------------

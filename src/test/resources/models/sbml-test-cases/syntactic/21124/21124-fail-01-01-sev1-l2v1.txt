@@ -1,0 +1,51 @@
+------------------
+Validation id    :	21124
+Validation number:	21124
+Severity         :	Warning
+Line number      :	37
+Package          :	
+Short message    :	Parameters local to a KineticLaw object must have a 'constant' attribute value of 'true'
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot have a value other than 'true'. The values of parameters local to <kineticLaw> definitions cannot be changed, and therefore they are always constant.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	13
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	17
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 's' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	18
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 'e' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	19
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 'p' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

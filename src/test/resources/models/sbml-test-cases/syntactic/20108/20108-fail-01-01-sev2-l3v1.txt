@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20108
+Validation number:	20108
+Severity         :	Error
+Line number      :	2
+Package          :	
+Short message    :	Invalid attribute found on the SBML container element
+Full message     :	The <sbml> object may only have the optional attributes 'metaid' and 'sboTerm'.
+Reference: L3V1 Section 4.1
+ Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 <sbml> element.
+
+------------------

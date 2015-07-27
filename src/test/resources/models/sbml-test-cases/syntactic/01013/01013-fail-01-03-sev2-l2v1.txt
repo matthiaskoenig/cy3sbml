@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01013
+Validation number:	1013
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Bad XML prefix
+Full message     :	Invalid or undefined XML namespace prefix.
+
+------------------

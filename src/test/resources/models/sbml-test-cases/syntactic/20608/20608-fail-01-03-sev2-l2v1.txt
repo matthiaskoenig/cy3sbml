@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20608
+Validation number:	20608
+Severity         :	Error
+Line number      :	22
+Package          :	
+Short message    :	Invalid value for a Species 'units' attribute
+Full message     :	The value of a <species>'s 'units' attribute is restricted. 
+Reference: L2V1 Section 4.6.4
+ The value of a <species>'s 'substanceUnits' attribute can only be one of the following: 'substance', 'mole' or 'item' or the identifier of a <unitDefinition> derived from 'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' of '1').  The current value ('mm') is not allowed.
+
+------------------

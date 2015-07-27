@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-20703
+Validation number:	6020703
+Severity         :	Error
+Line number      :	88
+Package          :	layout
+Short message    :	Layout elements allowed on <reactionGlyph>.
+Full message     :	There may be at most one instance of each of the following kinds of objects within a <reactionGlyph> object: <boundingBox>, and <curve> and there must be one instance of the <listOfSpeciesReferenceGlyphs>. No other elements from the Layout namespace are permitted on a <reactionGlyph>. 
+Reference: L3V1 Layout V1 Section 3.10
+
+------------------

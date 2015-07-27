@@ -1,0 +1,11 @@
+------------------
+Validation id    :	comp-20212
+Validation number:	1020212
+Severity         :	Error
+Line number      :	9
+Package          :	comp
+Short message    :	The comp:required attribute must be 'true'
+Full message     :	The value of attribute 'comp:required' on the SBML object must be set to 'true'.
+Reference: L3V1 Comp V1 Section 3.1
+
+------------------

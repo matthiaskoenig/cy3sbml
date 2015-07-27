@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10205
+Validation number:	10205
+Severity         :	Error
+Line number      :	22
+Package          :	
+Short message    :	Invalid <csymbol> 'definitionURL' attribute value
+Full message     :	In SBML Level 2, the only values permitted for 'definitionURL' on a <csymbol> element are "http://www.sbml.org/sbml/symbols/time" and "http://www.sbml.org/sbml/symbols/delay". SBML Level 3 added "http://www.sbml.org/sbml/symbols/avogadro". 
+Reference: L2V2 Section 3.5.5
+ The <csymbol> definitionURL 'http://www.sbml.org/sbml/symbols/other' is not allowed for this level and version of SBML.
+
+------------------

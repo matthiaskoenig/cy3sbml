@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20303
+Validation number:	20303
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Recursive function definitions are not permitted
+Full message     :	Inside the <lambda> of a <functionDefinition>, the identifier of that <functionDefinition> cannot appear as the value of a <ci> element. SBML functions are not permitted to be recursive. 
+Reference: L2V5 Sections 3.4.3 and 4.3.2
+ The FunctionDefinition with id 'add' creates a cycle with the FunctionDefinition with id 'minus'.
+
+------------------

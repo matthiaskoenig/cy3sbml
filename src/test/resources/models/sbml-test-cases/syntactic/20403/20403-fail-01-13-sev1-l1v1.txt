@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20403
+Validation number:	20403
+Severity         :	Warning
+Line number      :	6
+Package          :	
+Short message    :	Invalid redefinition of built-in type 'length'
+Full message     :	[Although SBML Level 1 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+Redefinitions of the built-in unit 'length' are restricted.
+ In later versions of SBML 'length' was added to the built-in units with restrictions on <unitDefinition>. Care would need be taken if this model were to be converted to a later Level and Version.
+
+------------------

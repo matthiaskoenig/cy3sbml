@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-21007
+Validation number:	6021007
+Severity         :	Error
+Line number      :	100
+Package          :	layout
+Short message    :	SpeciesReferenceGlyph 'speciesReference' must have SIdRef syntax.
+Full message     :	The attribute 'layout:speciesReference' of a <speciesReferenceGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.10.1
+ The speciesReference on the <speciesReferenceGlyph> is '1SpeciesReference_Glucose', which does not conform.
+
+------------------
+Validation id    :	layout-21008
+Validation number:	6021008
+Severity         :	Error
+Line number      :	100
+Package          :	layout
+Short message    :	SpeciesReferenceGlyph 'speciesReference' must reference existing element.
+Full message     :	The value of the 'layout:speciesReference' attribute of a <speciesReferenceGlyph> must be of the 'id' of an existing <speciesReference> in the <model>.
+Reference: L3V1 Layout V1 Section 3.10.1
+ The <speciesReferenceGlyph> with the id 'SpeciesReferenceGlyph_Glucose' has a speciesReference '1SpeciesReference_Glucose' which is not the id of any <speciesReference> in the model.
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-21104
+Validation number:	6021104
+Severity         :	Error
+Line number      :	61
+Package          :	layout
+Short message    :	Layout attributes allowed on <referenceGlyph>.
+Full message     :	A <referenceGlyph> object must have the required attributes 'layout:id' and 'layout:glyph' and may have the optional attributes 'layout:metaidRef', 'layout:reference' and 'layout:role'.  No other attributes from the Layout namespace are permitted on a <referenceGlyph>. 
+Reference: L3V1 Layout V1 Section 3.11.1
+
+------------------

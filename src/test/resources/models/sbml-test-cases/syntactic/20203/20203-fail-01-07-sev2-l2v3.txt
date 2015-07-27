@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20203
+Validation number:	20203
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Empty ListOf___ object found
+Full message     :	The <listOf___> containers in a <model> are optional, but if present, the lists cannot be empty. Specifically, if any of the following are present in a <model>, they must not be empty: <listOfFunctionDefinitions>, <listOfUnitDefinitions>, <listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>,  <listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, <listOfRules>, <listOfConstraints>, <listOfReactions> and <listOfEvents>.
+Reference: L2V3 Section 4.2
+
+------------------

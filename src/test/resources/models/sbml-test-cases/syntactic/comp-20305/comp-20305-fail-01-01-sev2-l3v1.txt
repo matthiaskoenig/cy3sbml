@@ -1,0 +1,21 @@
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-20305
+Validation number:	1020305
+Severity         :	Error
+Line number      :	10
+Package          :	comp
+Short message    :	'modelRef' must be the 'id' of a model in the 'source' document
+Full message     :	The value of the 'comp:modelRef' attribute on an <externalModelDefinition> object must be the value of an id attribute on a <model>, <modelDefinition>, or <externalModelDefinition> object in the SBML document referenced by the 'comp:source' attribute.
+Reference: L3V1 Comp V1 Section 3.3.2
+ The <externalModelDefinition> with the id 'EM1' refers to a model with id 'nonexistingid' that does not exist in the referenced document.
+
+------------------

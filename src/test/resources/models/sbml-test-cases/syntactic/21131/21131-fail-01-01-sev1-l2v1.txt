@@ -1,0 +1,52 @@
+------------------
+Validation id    :	21131
+Validation number:	21131
+Severity         :	Warning
+Line number      :	16
+Package          :	
+Short message    :	Unknown species referenced in the StoichiometryMath object's <math> formula
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+All species referenced in the <stoichiometryMath> formula of a given reaction must first be declared using <speciesReference> or <modifierSpeciesReference>. More formally, if a <species> identifier appears in a <ci> element of a <reaction>'s <stoichiometryMath> formula, that same identifier must also appear in at least one <speciesReference> or <modifierSpeciesReference> in the <reaction> definition.
+ The species 'h' is not listed as a product, reactant, or modifier of reaction 'r'.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	8
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	11
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 's' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	12
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 't' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	13
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 'h' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

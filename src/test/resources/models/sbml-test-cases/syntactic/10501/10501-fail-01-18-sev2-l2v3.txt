@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10501
+Validation number:	10501
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	The units of the function call's arguments are not consistent with its definition
+Full message     :	The units of the expressions used as arguments to a function call are expected to match the units expected for the arguments of that function. 
+Reference: L2V3 Section 3.4
+ The formula 'piecewise(c * six, gt(c, p2), p1)' in the math element of the <algebraicRule> uses a piecewise function where different branches return different units.
+
+------------------

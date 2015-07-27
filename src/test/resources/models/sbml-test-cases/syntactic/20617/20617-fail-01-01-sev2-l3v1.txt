@@ -1,0 +1,22 @@
+------------------
+Validation id    :	99303
+Validation number:	99303
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	Units must refer to valid unit or unitDefinition
+Full message     :	Where a component has an attribute that refers to a unit identifier, that attribute must refer to a unit defined in SBML or be the id of a UnitDefinition in the model.
+ The units 'volume' of the <compartment> with id 'a' do not refer to a valid unit kind/built-in unit or the identifier of an existing <unitDefinition>. 
+
+------------------
+Validation id    :	20617
+Validation number:	20617
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid value for the 'conversionFactor' attribute
+Full message     :	The value of the attribute 'conversionFactor' on a Species object must be the identifier of an existing Parameter object defined in the enclosing Model object.
+Reference: L3V1 Section 4.6.7
+ The <species> with id 's' sets the 'conversionFactor' to 'p' but no <parameter> with that 'id' exists in the <model>.
+
+------------------

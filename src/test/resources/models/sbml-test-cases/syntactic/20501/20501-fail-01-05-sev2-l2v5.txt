@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20501
+Validation number:	20501
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Invalid use of the 'size' attribute for a zero-dimensional compartment
+Full message     :	The size of a <compartment> must not be set if the compartment's 'spatialDimensions' attribute has value '0'.
+Reference: L2V5 Section 4.7.5
+ The <compartment> with id 'c' should not have a 'size' attribute OR should have a 'spatialDimensions' attribute that is not set to '0'.
+
+------------------

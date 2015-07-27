@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21121
+Validation number:	21121
+Severity         :	Error
+Line number      :	17
+Package          :	
+Short message    :	Unknown species referenced in the kinetic law <math> formula
+Full message     :	All species referenced in the <kineticLaw> formula of a given reaction must first be declared using <speciesReference> or <modifierSpeciesReference>. More formally, if a <species> identifier appears in a <ci> element of a <reaction>'s <kineticLaw> formula, that same identifier must also appear in at least one <speciesReference> or <modifierSpeciesReference> in the <reaction> definition.
+Reference: L2V2 Section 4.13.5
+ The species 'x' is not listed as a product, reactant, or modifier of reaction 'r'.
+
+------------------

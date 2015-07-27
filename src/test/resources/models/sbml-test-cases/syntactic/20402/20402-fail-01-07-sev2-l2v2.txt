@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20402
+Validation number:	20402
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid redefinition of built-in type 'substance'
+Full message     :	Redefinitions of the built-in unit 'substance' are restricted.
+Reference: L2V2 Section 4.4.3
+ Redefinitions of the predefined unit 'substance' must be based on the units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More formally, a <unitDefinition> for 'substance' must simplify to a single <unit> in which either (a) the 'kind' attribute has a value of 'mole', 'item', 'gram' or 'kilogram', and the 'exponent' attribute has a value of '1' or (b) the 'kind' attribute has a value of 'dimensionless' with any 'exponent' attribute value.
+
+------------------

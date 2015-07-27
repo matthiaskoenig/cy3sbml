@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20407
+Validation number:	20407
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Must use 'exponent'=1 when defining 'volume' in terms of litres
+Full message     :	If a <unitDefinition> for 'volume' simplifies to a <unit> in which the 'kind' attribute value is 'litre', then its 'exponent' attribute value must be '1'.
+Reference: L2V3 Section 4.4.3
+
+------------------

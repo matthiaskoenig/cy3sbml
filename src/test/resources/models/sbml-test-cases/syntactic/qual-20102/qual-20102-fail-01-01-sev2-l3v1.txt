@@ -1,0 +1,11 @@
+------------------
+Validation id    :	qual-20102
+Validation number:	3020102
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	The qual:required attribute must be Boolean
+Full message     :	The value of attribute 'qual:required' on the SBML object must be of the data type Boolean.
+Reference: L3V1 Core Section 4.1.2
+
+------------------

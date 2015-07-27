@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10209
+Validation number:	10209
+Severity         :	Warning
+Line number      :	12
+Package          :	
+Short message    :	Non-Boolean argument given to Boolean operator
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+The arguments of the MathML logical operators <and>, <or>, <xor>, and <not> must have Boolean values.
+ The formula 'and(1, true)' in the math element of the <event> with id 'e' uses an argument to a logical operator that is not boolean.
+
+------------------

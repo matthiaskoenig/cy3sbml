@@ -1,0 +1,82 @@
+------------------
+Validation id    :	10711
+Validation number:	10711
+Severity         :	Warning
+Line number      :	34
+Package          :	
+Short message    :	Invalid 'sboTerm' attribute value for an EventAssignment object
+Full message     :	The value of the 'sboTerm' attribute on an <eventAssignment> is expected to be an SBO identifier (http://www.biomodels.net/SBO/) referring to a mathematical expression (i.e., terms derived from SBO:0000064, "mathematical expression"). 
+Reference: L3V1 Section 5
+ SBO term 'SBO:0000236' on the <eventAssignment> is not in the appropriate branch.
+
+------------------
+Validation id    :	99506
+Validation number:	99506
+Severity         :	Warning
+Line number      :	3
+Package          :	
+Short message    :	Unable to verify consistency of units: the unit of time has not been declared
+Full message     :	In situations where a mathematical expression refers to time, the units of time should be consistent with the global time units of the model. In models where the 'timeUnits' attribute has not been declared, libSBML does not yet have the functionality to verify accurately the consistency of the units in such expressions. 
+
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20702
+Validation number:	20702
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	No units defined for the parameter
+Full message     :	If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p' does not have a 'units' attribute.
+
+------------------
+Validation id    :	99505
+Validation number:	99505
+Severity         :	Warning
+Line number      :	34
+Package          :	
+Short message    :	Missing unit declarations on parameters or literal numbers in expression
+Full message     :	In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <eventAssignment> <math> expression 'p' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	17
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80701
+Validation number:	80701
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	It's best to declare units for every parameter in a model
+Full message     :	As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p' does not have a 'units' attribute.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

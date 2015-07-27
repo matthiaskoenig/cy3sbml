@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20605
+Validation number:	20605
+Severity         :	Error
+Line number      :	15
+Package          :	
+Short message    :	Invalid value for 'spatialSizeUnits' attribute of a one-dimensional compartment
+Full message     :	If a <species> is located in a <compartment> whose 'spatialDimensions' has value '1', then that <species> definition can only set 'spatialSizeUnits' to a value of 'length', 'metre', 'dimensionless', or the identifier of a <unitDefinition> derived from 'metre' (with an 'exponent' value of '1') or 'dimensionless'.
+Reference: L2V1 Section 4.6.4
+ The <species> with id 's' is located in 1-D <compartment> 'c' and therefore should not have a 'spatialSizeUnits' attribute set to 'area'.
+
+------------------

@@ -1,0 +1,52 @@
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p8' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20702
+Validation number:	20702
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	No units defined for the parameter
+Full message     :	If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p8' does not have a 'units' attribute.
+
+------------------
+Validation id    :	80701
+Validation number:	80701
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	It's best to declare units for every parameter in a model
+Full message     :	As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p8' does not have a 'units' attribute.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-20623
+Validation number:	1020623
+Severity         :	Error
+Line number      :	13
+Package          :	comp
+Short message    :	The 'comp:extentConversionFactor' must reference a parameter
+Full message     :	The value of a 'comp:extentConversionFactor' attribute on a given <submodel> object must be the identifier of a <parameter> object defined in the same Model containing the <submodel>.
+Reference: L3V1 Comp V1 Section 3.5.1
+ The 'extentConversionFactor' of the <submodel> with the id 'sub1' in the main model in the document is set to 'p1' which is not a <parameter> within the <model>.
+
+------------------

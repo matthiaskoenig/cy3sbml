@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99104
+Validation number:	99104
+Severity         :	Error
+Line number      :	4
+Package          :	
+Short message    :	Annotation objects on the SBML container element are not permitted in SBML Level 1
+Full message     :	The <sbml> container element cannot contain <notes> or <annotations> in an SBML Level 1 document.
+
+------------------

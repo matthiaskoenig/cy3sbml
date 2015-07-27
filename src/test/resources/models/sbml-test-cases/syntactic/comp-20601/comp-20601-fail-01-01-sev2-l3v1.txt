@@ -1,0 +1,71 @@
+------------------
+Validation id    :	comp-20601
+Validation number:	1020601
+Severity         :	Error
+Line number      :	42
+Package          :	comp
+Short message    :	Allowed core attributes on <submodel>
+Full message     :	A <submodel> object may have the optional SBML Level 3 Core attributes 'metaid' and 'sboTerm'.  No other attributes from the SBML Level 3 Core namespace are permitted on a <submodel> object.
+Reference: L3V1 Core Section 3.2
+  Attribute 'constant' is not part of the definition of an SBML Level 3 Version 1 <submodel> element.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	99506
+Validation number:	99506
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	Unable to verify consistency of units: the unit of time has not been declared
+Full message     :	In situations where a mathematical expression refers to time, the units of time should be consistent with the global time units of the model. In models where the 'timeUnits' attribute has not been declared, libSBML does not yet have the functionality to verify accurately the consistency of the units in such expressions. 
+
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	22
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p80' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20702
+Validation number:	20702
+Severity         :	Warning
+Line number      :	22
+Package          :	
+Short message    :	No units defined for the parameter
+Full message     :	If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p80' does not have a 'units' attribute.
+
+------------------
+Validation id    :	99505
+Validation number:	99505
+Severity         :	Warning
+Line number      :	25
+Package          :	
+Short message    :	Missing unit declarations on parameters or literal numbers in expression
+Full message     :	In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <rateRule> <math> expression '4 * p80 + 3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	80701
+Validation number:	80701
+Severity         :	Warning
+Line number      :	22
+Package          :	
+Short message    :	It's best to declare units for every parameter in a model
+Full message     :	As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p80' does not have a 'units' attribute.
+
+------------------

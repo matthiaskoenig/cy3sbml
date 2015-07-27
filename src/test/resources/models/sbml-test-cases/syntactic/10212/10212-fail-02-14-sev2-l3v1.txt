@@ -1,0 +1,23 @@
+------------------
+Validation id    :	10212
+Validation number:	10212
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Terms in a <piecewise> expression must have consistent data types
+Full message     :	The types of values within <piecewise> operators must all be consistent: the set of expressions that make up the first arguments of the <piece> and <otherwise> operators within the same <piecewise> operator should all return values of the same type.
+Reference: L3V1 Section 3.4.9
+ The piecewise formula in the math element of the <algebraicRule> returns arguments which have different value types from the first element 'p * 6'.
+
+------------------
+Validation id    :	10212
+Validation number:	10212
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Terms in a <piecewise> expression must have consistent data types
+Full message     :	The types of values within <piecewise> operators must all be consistent: the set of expressions that make up the first arguments of the <piece> and <otherwise> operators within the same <piecewise> operator should all return values of the same type.
+Reference: L3V1 Section 3.4.9
+ The piecewise formula in the math element of the <algebraicRule> returns arguments which have different value types from the first element 'p * 6'.
+
+------------------

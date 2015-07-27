@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20421
+Validation number:	20421
+Severity         :	Error
+Line number      :	7
+Package          :	
+Short message    :	Invalid attribute found on the Unit object
+Full message     :	A Unit object must have the required attributes 'kind', 'exponent', 'scale' and 'multiplier', and may have the optional attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a Unit object.
+Reference: L3V1 Section 4.4
+ Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <unit> element.
+
+------------------

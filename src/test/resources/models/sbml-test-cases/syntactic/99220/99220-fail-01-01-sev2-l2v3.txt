@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99220
+Validation number:	99220
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Missing or invalid floating-point number in MathML expression
+Full message     :	Failed to read a valid double value from MathML.
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	fbc-20505
+Validation number:	2020505
+Severity         :	Error
+Line number      :	121
+Package          :	fbc
+Short message    :	The attribute 'fbc:type' must be of data type FbcType.
+Full message     :	The attribute 'fbc:type' on an <objective> must be of the data type FbcType and thus its value must be one of 'minimize' or 'maximize.
+Reference: L3V1 Fbc V1, Section 3.6
+
+------------------

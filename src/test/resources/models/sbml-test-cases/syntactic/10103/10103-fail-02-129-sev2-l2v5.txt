@@ -1,0 +1,23 @@
+------------------
+Validation id    :	10103
+Validation number:	10103
+Severity         :	Error
+Line number      :	7
+Package          :	
+Short message    :	Document does not conform to the SBML XML schema
+Full message     :	An SBML XML document must conform to the XML Schema for the corresponding SBML Level, Version and Release. The XML Schema for SBML defines the basic SBML object structure, the data types used by those objects, and the order in which the objects may appear in an SBML document.
+Reference: L2V5 Section 4.1
+ xmlns="http://www.sbml.org/sbml/level2/version2" in <listOfParameters> element is an invalid namespace.
+
+------------------
+Validation id    :	10103
+Validation number:	10103
+Severity         :	Error
+Line number      :	11
+Package          :	
+Short message    :	Document does not conform to the SBML XML schema
+Full message     :	An SBML XML document must conform to the XML Schema for the corresponding SBML Level, Version and Release. The XML Schema for SBML defines the basic SBML object structure, the data types used by those objects, and the order in which the objects may appear in an SBML document.
+Reference: L2V5 Section 4.1
+ xmlns="http://anything" in <rateRule> element is an invalid namespace.
+
+------------------

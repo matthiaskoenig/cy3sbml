@@ -1,0 +1,32 @@
+------------------
+Validation id    :	comp-20608
+Validation number:	1020608
+Severity         :	Error
+Line number      :	38
+Package          :	comp
+Short message    :	'comp:modelRef' must conform to SId syntax
+Full message     :	The value of a 'comp:modelRef' attribute on a <submodel> object must always conform to the syntax of the SBML data type SId. 
+Reference: L3V1 Comp V1 Section 3.5.1
+ Setting the attribute 'comp:modelRef' of a <submodel> in the comp package (version 1) to '1111invalidModdef1' is illegal:  the string is not a well-formed SId.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-20615
+Validation number:	1020615
+Severity         :	Error
+Line number      :	8
+Package          :	comp
+Short message    :	The 'comp:modelRef' attribute must reference a model
+Full message     :	The value of a 'comp:modelRef' attribute on a <submodel> must be the identifier of a <model>, <modelDefinition>, or <externalModelDefinition> object in the same SBML object as the <submodel>.
+Reference: L3V1 Comp V1 Section 3.5.1
+ The <submodel> with the id 'sub1' in the main model in the document refers to a model with id '1111invalidModdef1' that does not exist in the referenced document.
+
+------------------

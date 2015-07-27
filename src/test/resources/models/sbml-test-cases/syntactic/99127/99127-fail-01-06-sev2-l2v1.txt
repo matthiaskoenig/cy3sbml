@@ -1,0 +1,11 @@
+------------------
+Validation id    :	99127
+Validation number:	99127
+Severity         :	Error
+Line number      :	29
+Package          :	
+Short message    :	Disallowed value for attribute 'substanceUnits' on KineticLaw object
+Full message     :	A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or the id of a UnitDefinition that defines a variant of 'item' or 'mole' (L2v1 Section 4.9.7).
+ The substanceUnits of the <kineticLaw> in the <reaction> 'r' are 'mi', which are not a variant of 'item' or 'mole'.
+
+------------------

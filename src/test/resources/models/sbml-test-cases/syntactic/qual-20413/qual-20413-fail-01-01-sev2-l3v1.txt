@@ -1,0 +1,54 @@
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	6
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <compartment> 'cytosol' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20518
+Validation number:	20518
+Severity         :	Warning
+Line number      :	6
+Package          :	
+Short message    :	No units defined for Compartment object
+Full message     :	If neither the attribute 'units' nor the attribute 'spatialDimensions' on a Compartment object is set, the unit associated with that compartment's size is undefined.
+Reference: L3V1 Section 4.5
+ The <compartment> 'cytosol' has no discernable units.
+
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	7
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <compartment> 'nucleus' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20518
+Validation number:	20518
+Severity         :	Warning
+Line number      :	7
+Package          :	
+Short message    :	No units defined for Compartment object
+Full message     :	If neither the attribute 'units' nor the attribute 'spatialDimensions' on a Compartment object is set, the unit associated with that compartment's size is undefined.
+Reference: L3V1 Section 4.5
+ The <compartment> 'nucleus' has no discernable units.
+
+------------------
+Validation id    :	qual-20413
+Validation number:	3020413
+Severity         :	Error
+Line number      :	13
+Package          :	qual
+Short message    :	<listOfFunctionTerms> cannot make qualitativeSpecies exceed maxLevel.
+Full message     :	No element of the <listOfFunctionTerms> object may cause the level of a <qualitativeSpecies> to exceed the value 'qual:maxLevel' attribute.
+Reference: L3V1 Qual V1 Section 3.6
+ The <transition> with id 'tr_B' includes a resultLevel that may cause the <qualitativeSpecies> 'B' to exceed its maximumLevel.
+
+------------------

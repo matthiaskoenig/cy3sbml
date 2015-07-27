@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20305
+Validation number:	6020305
+Severity         :	Error
+Line number      :	24
+Package          :	layout
+Short message    :	<layout> must have 'id' and may have 'name'
+Full message     :	A <layout> object must have the required attribute 'layout:id' and may have the optional attribute 'layout:name'. No other attributes from the SBML Level 3 Layout namespace are permitted on a <layout> object.
+Reference: L3V1 Layout V1 Section 3.6
+  Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 Package layout Version 1 <layout> element.
+
+------------------

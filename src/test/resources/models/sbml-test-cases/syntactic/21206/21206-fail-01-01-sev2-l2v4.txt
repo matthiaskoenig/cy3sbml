@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21206
+Validation number:	21206
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Attribute 'useValuesFromTriggerTime'='false', but the Event object does not define a delay
+Full message     :	If an <event>'s 'useValuesFromTriggerTime' attribute has the value 'false', then the <event> must contain a <delay> element.  The implication of 'useValuesFromTriggerTime=false' is that there is a delay between the time of trigger and the time of value assignments performed by the <event>.  
+Reference: L2V4 Section 4.14
+ The <event> with id 'e' has 'useValuesFromTriggerTime' set to 'false' but is missing the <delay> element. 
+
+------------------

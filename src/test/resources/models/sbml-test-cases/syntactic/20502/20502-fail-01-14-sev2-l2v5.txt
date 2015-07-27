@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20502
+Validation number:	20502
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Invalid use of the 'units' attribute for a zero-dimensional compartment
+Full message     :	If a <compartment> definition has a 'spatialDimensions' value of '0', then its 'units' attribute must not be set. If the compartment has no dimensions, then no units can be associated with a non-existent size. 
+Reference: L2V5 Section 4.7.5
+ The <compartment> with id 'c' should not have a 'units' attribute OR should have a 'spatialDimensions' attribute that is not set to '0'.
+
+------------------

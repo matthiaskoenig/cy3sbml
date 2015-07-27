@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99129
+Validation number:	99129
+Severity         :	Error
+Line number      :	14
+Package          :	
+Short message    :	Only predefined functions are allowed in SBML Level 1 formulas
+Full message     :	In a Level 1 model, only predefined functions are permitted within the formula. (L1V2 Appendix C) 
+
+------------------

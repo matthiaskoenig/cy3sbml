@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20910
+Validation number:	6020910
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	TextGlyph 'graphicalObject' must have SIdRef syntax.
+Full message     :	The attribute 'layout:graphicalObject' of a <textGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.12
+ The graphicalObject on the <textGlyph> is '1SpeciesGlyph_Glucose', which does not conform.
+
+------------------
+Validation id    :	layout-20911
+Validation number:	6020911
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	TextGlyph 'graphicalObject' must reference existing element.
+Full message     :	The value of the 'layout:graphicalObject' attribute of a <textGlyph> must be of the 'id' of an existing <graphicalObject> (or derived) element in the <layout>.
+Reference: L3V1 Layout V1 Section 3.12
+ The <textGlyph> with the id 'TextGlyph_Glucose' has a graphicalObject '1SpeciesGlyph_Glucose' which is not the id of any <graphicalObject> in the model.
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	99128
+Validation number:	99128
+Severity         :	Error
+Line number      :	27
+Package          :	
+Short message    :	Disallowed value for attribute 'timeUnits' on KineticLaw object
+Full message     :	A KineticLaw's timeUnits must be 'time', 'second', or the id of a UnitDefnition that defines a variant of 'second' with exponent='1' (L2v1 Section 4.9.7).
+ The timeUnits of the <kineticLaw> in the <reaction> 'r' are 'ms', which are not a variant of 'second'.
+
+------------------

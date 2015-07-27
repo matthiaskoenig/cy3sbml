@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20303
+Validation number:	3020303
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attributes allowed on <qualitativeSpecies>.
+Full message     :	A <qualitativeSpecies> object must have the required attributes 'qual:id', 'qual:compartment' and 'qual:constant', and may have the optional attributes 'qual:name', 'qual:initialLevel' and 'qual:maxLevel'.  No other attributes from the SBML Level 3 Qualitative Models namespace are permitted on a <qualitativeSpecies> object. 
+Reference: L3V1 Qual V1 Section 3.5
+ Qual attribute 'compartment' is missing.
+
+------------------

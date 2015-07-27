@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-20103
+Validation number:	6020103
+Severity         :	Error
+Line number      :	160
+Package          :	layout
+Short message    :	The layout:required attribute must be 'false'
+Full message     :	The value of attribute 'layout:required' on the SBML object must be set to 'false'.
+Reference: L3V1 Layout V1 Section 3.1
+
+------------------

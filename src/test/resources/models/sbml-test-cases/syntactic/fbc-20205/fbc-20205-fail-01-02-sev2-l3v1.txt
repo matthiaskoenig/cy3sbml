@@ -1,0 +1,12 @@
+------------------
+Validation id    :	fbc-20205
+Validation number:	2020205
+Severity         :	Error
+Line number      :	79
+Package          :	fbc
+Short message    :	Allowed attributes on ListOfFluxBounds
+Full message     :	A <listOfFluxBounds> object may have the optional attributes 'metaid' and 'sboTerm' defined by SBML Level 3 Core. No other attributes from the SBML Level 3 Core namespace or the Flux Balance Constraints namespace are permitted on a <listOfFluxBounds> object. 
+Reference: L3V1 Fbc V1 Section 3.3
+  Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 Package fbc Version 1 <listOfFluxBounds> element.
+
+------------------

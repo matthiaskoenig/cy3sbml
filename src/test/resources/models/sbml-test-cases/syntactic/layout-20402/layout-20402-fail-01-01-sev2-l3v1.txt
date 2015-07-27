@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20402
+Validation number:	6020402
+Severity         :	Error
+Line number      :	30
+Package          :	layout
+Short message    :	Core attributes allowed on <graphicalObject>.
+Full message     :	A <graphicalObject> object may have the optional SBML Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a <graphicalObject>. 
+Reference: L3V1 Core Section 3.2
+  Attribute 'species' is not part of the definition of an SBML Level 3 Version 1 <graphicalObject> element.
+
+------------------

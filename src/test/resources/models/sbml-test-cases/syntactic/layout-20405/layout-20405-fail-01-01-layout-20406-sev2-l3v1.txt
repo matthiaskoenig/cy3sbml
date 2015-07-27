@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20405
+Validation number:	6020405
+Severity         :	Error
+Line number      :	30
+Package          :	layout
+Short message    :	Layout 'metaidRef' must be IDREF.
+Full message     :	The attribute 'layout:metaidRef' of a <graphicalObject> must be of the data type 'IDREF'.
+Reference: L3V1 Layout V1 Section 3.7
+ The metaIdRef on the <graphicalObject> with id 'go' is '1_Node0', which does not conform.
+
+------------------
+Validation id    :	layout-20406
+Validation number:	6020406
+Severity         :	Error
+Line number      :	30
+Package          :	layout
+Short message    :	Layout 'metaidRef' must reference existing object.
+Full message     :	The value of a 'layout:metaidRef' attribute of a <graphicalObject> must be of the 'metaid' of an existing element in the <model>.
+Reference: L3V1 Layout V1 Section 3.7
+ The <graphicalObject> with the id 'go' has a metaidRef '1_Node0' which is not the metaid of any element in the model.
+
+------------------

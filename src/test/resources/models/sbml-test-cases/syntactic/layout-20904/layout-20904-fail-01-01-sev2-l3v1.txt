@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-20904
+Validation number:	6020904
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	Layout attributes allowed on <textGlyph>.
+Full message     :	A <textGlyph> object must have the required attribute 'layout:id' and may have the optional attributes 'layout:metaidRef', 'layout:graphicalObject', 'layout:text' and 'layout:originOfText'.  No other attributes from the Layout namespace are permitted on a <textGlyph>. 
+Reference: L3V1 Layout V1 Section 3.12
+
+------------------

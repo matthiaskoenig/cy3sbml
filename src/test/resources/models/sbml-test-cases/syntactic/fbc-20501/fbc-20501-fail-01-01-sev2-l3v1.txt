@@ -1,0 +1,12 @@
+------------------
+Validation id    :	fbc-20501
+Validation number:	2020501
+Severity         :	Error
+Line number      :	121
+Package          :	fbc
+Short message    :	<objective> may only have 'metaId' and 'sboTerm' from L3 namespace
+Full message     :	An <objective> object may have the optional SBML Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on an <objective>. 
+Reference: L3V1 Core, Section 3.2
+  Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 <objective> element.
+
+------------------

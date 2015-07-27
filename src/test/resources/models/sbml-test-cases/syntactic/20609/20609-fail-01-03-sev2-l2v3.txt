@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20609
+Validation number:	20609
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Cannot set both 'initialConcentration' and 'initialAmount' attributes simultaneously
+Full message     :	A <species> cannot set values for both 'initialConcentration' and 'initialAmount' because they are mutually exclusive.
+Reference: L2V3 Section 4.8.4
+ The <species> with id 's' cannot have both attributes 'initialAmount' and 'initialConcentration'.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20604
+Validation number:	20604
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Attribute 'initialConcentration' must not be set if the compartment is zero-dimensional
+Full message     :	If a <species> located in a <compartment> whose 'spatialDimensions' is set to '0', then that <species> definition cannot set 'initialConcentration'.
+Reference: L2V3 Section 4.8.4
+ The <species> with id 's' is located in 0-D <compartment> 'c' and therefore should not have an 'initialConcentration' attribute.
+
+------------------

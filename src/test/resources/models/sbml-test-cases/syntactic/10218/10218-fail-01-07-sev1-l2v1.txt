@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10218
+Validation number:	10218
+Severity         :	Warning
+Line number      :	16
+Package          :	
+Short message    :	Incorrect number of arguments given to MathML operator
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+A MathML operator must be supplied the number of arguments appropriate for that operator.
+ The formula 'delay(p1)' in the math element of the <algebraicRule> has an inappropriate number of arguments.
+
+------------------

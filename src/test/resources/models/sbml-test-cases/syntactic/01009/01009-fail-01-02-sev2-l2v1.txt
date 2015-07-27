@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01009
+Validation number:	1009
+Severity         :	Error
+Line number      :	30
+Package          :	
+Short message    :	XML tag mismatch
+Full message     :	Element tag mismatch or missing tag.
+
+------------------

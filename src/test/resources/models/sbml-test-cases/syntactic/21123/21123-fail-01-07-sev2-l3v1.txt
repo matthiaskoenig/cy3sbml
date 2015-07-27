@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21123
+Validation number:	21123
+Severity         :	Error
+Line number      :	35
+Package          :	
+Short message    :	The list of parameters, if present, cannot be empty
+Full message     :	If present, the <listOfParameters> in a <kineticLaw> must not be an empty list.
+Reference: L3V1 Section 4.11
+
+------------------

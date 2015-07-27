@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20217
+Validation number:	20217
+Severity         :	Warning
+Line number      :	3
+Package          :	
+Short message    :	Invalid 'timeUnits' attribute value
+Full message     :	The value of the attribute 'timeUnits' on a Model object should be either the units 'second', 'dimensionless', or the identifier of a UnitDefinition object based on these units.
+Reference: L3V1 Section 4.2.4
+ The 'timeUnits' attribute of the <model> is 'ud1', which does not comply.
+
+------------------

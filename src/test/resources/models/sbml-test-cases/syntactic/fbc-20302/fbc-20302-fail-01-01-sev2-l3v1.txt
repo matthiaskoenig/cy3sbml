@@ -1,0 +1,11 @@
+------------------
+Validation id    :	fbc-20302
+Validation number:	2020302
+Severity         :	Error
+Line number      :	79
+Package          :	fbc
+Short message    :	Charge must be integer
+Full message     :	The value of attribute 'fbc:charge' on SBML <species> object must be of the data type integer.
+Reference: L3V1 Fbc V1 Section 3.4
+
+------------------

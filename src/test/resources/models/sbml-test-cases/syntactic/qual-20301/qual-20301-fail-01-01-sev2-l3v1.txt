@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20301
+Validation number:	3020301
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Core attributes allowed on <qualitativeSpecies>.
+Full message     :	A <qualitativeSpecies> object may have the optional 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Qualitative Models namespace are permitted on a <qualitativeSpecies> object.
+Reference: L3V1 Qual V1 Section 3.5
+  Attribute 'species' is not part of the definition of an SBML Level 3 Version 1 <qualitativeSpecies> element.
+
+------------------

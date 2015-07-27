@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99221
+Validation number:	99221
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Missing or invalid integer in MathML expression
+Full message     :	Failed to read a valid integer value from MathML.
+
+------------------

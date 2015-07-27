@@ -1,0 +1,23 @@
+------------------
+Validation id    :	qual-20806
+Validation number:	3020806
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attribute 'resultLevel' on <functionTerm> must be non negative integer.
+Full message     :	The attribute 'qual:resultLevel' in <functionTerm> must not be negative.
+Reference: L3V1 Qual V1 Section 3.6.5
+ The resultLevel of the <functionTerm> is '-1', which does not conform.
+
+------------------
+Validation id    :	qual-20414
+Validation number:	3020414
+Severity         :	Error
+Line number      :	13
+Package          :	qual
+Short message    :	<listOfFunctionTerms> cannot make qualitativeSpecies negative.
+Full message     :	No element of the <listOfFunctionTerms> object may cause the level of a <qualitativeSpecies> to become negative.
+Reference: L3V1 Qual V1 Section 3.6
+ The <transition> with id 'tr_B' includes a resultLevel that may cause the <qualitativeSpecies> 'B' to become negative.
+
+------------------

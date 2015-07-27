@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20419
+Validation number:	20419
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Invalid attribute found on the UnitDefinition object
+Full message     :	A UnitDefinition object must have the required attribute 'id' and may have the optional attributes 'metaid', 'sboTerm' and 'name'. No other attributes from the SBML Level 3 Core namespace are permitted on a UnitDefinition object.
+Reference: L3V1 Section 4.4
+ Attribute 'value' is not part of the definition of an SBML Level 3 Version 1 <unitDefinition> element.
+
+------------------

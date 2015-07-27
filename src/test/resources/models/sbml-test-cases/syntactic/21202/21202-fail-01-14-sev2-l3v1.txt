@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21202
+Validation number:	21202
+Severity         :	Error
+Line number      :	45
+Package          :	
+Short message    :	A Trigger object's <math> expression must evaluate to a Boolean value
+Full message     :	An <event>'s <trigger> expression must evaluate to a value of type Boolean.
+Reference: L3V1 Section 4.12.2
+ The <trigger> element of the <event> with id 'e' returns a value that is not boolean. 
+
+------------------

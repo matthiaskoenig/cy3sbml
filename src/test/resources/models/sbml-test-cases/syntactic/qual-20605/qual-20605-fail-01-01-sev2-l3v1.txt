@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20605
+Validation number:	3020605
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attribute 'transitionEffect' on <output> must be enum.
+Full message     :	The value of the attribute 'qual:transitionEffect' of an <output> object must conform to the syntax of the SBML data type 'transitionOutputEffect' and may only take on the allowed values of 'transitionOutputEffect' defined in SBML; that is, the value must be one of the following: 'production' or 'assignmentLevel'.
+Reference: L3V1 Qual V1 Section 3.6.2
+ The transitionEffect on the <output> is 'none', which does not conform.
+
+------------------

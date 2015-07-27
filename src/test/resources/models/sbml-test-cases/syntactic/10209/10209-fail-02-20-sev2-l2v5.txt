@@ -1,0 +1,23 @@
+------------------
+Validation id    :	10209
+Validation number:	10209
+Severity         :	Error
+Line number      :	11
+Package          :	
+Short message    :	Non-Boolean argument given to Boolean operator
+Full message     :	The arguments of the MathML logical operators <and>, <or>, <xor>, and <not> must have Boolean values.
+Reference: L2V5 Section 3.4.10
+ The formula 'and(1, cell)' in the math element of the <constraint> uses an argument to a logical operator that is not boolean.
+
+------------------
+Validation id    :	10209
+Validation number:	10209
+Severity         :	Error
+Line number      :	11
+Package          :	
+Short message    :	Non-Boolean argument given to Boolean operator
+Full message     :	The arguments of the MathML logical operators <and>, <or>, <xor>, and <not> must have Boolean values.
+Reference: L2V5 Section 3.4.10
+ The formula 'and(1, cell)' in the math element of the <constraint> uses an argument to a logical operator that is not boolean.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20903
+Validation number:	6020903
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	Layout elements allowed on <textGlyph>.
+Full message     :	A <textGlyph> must contain exactly one <boundingBox> object. No other elements from the Layout namespace are permitted on a <textGlyph>. 
+Reference: L3V1 Layout V1 Section 3.12
+ The <textGlyph> with id 'TextGlyph_Glucose' has multiple <boundingBox> children.
+
+------------------

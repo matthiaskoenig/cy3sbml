@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-10302
+Validation number:	6010302
+Severity         :	Error
+Line number      :	202
+Package          :	layout
+Short message    :	'id' attribute incorrect syntax
+Full message     :	The value of the 'layout:id' attribute must conform to the SBML data type SId
+Reference: L3V1 Layout V1 Section 3.3
+ The id on the <textGlyph> is '1TextGlyph_Glucose', which does not conform.
+
+------------------

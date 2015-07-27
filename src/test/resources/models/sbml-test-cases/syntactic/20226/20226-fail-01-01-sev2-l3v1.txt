@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20226
+Validation number:	20226
+Severity         :	Error
+Line number      :	7
+Package          :	
+Short message    :	Invalid attribute found on the ListOfSpecies object
+Full message     :	A ListOfSpecies object may have the optional attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a ListOfSpecies object.
+Reference: L3V1 Section 4.2.8
+ Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <listOfSpecies> element.
+
+------------------

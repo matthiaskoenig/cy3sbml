@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21105
+Validation number:	21105
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	Invalid object found in the list of modifiers
+Full message     :	The list of modifiers (<listOfModifiers>) in a <reaction> can only contain <modifierSpeciesReference> elements.
+Reference: L2V5 Section 4.13
+
+------------------

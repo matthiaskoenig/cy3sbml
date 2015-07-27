@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20406
+Validation number:	20406
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid redefinition of built-in type name 'volume'
+Full message     :	Redefinitions of the built-in unit 'volume' are restricted.
+ Redefinitions of the built-in unit 'volume' must be based on 'litre'. More formally, a <unitDefinition> for 'volume' must simplify to a single <unit> in which the 'kind' attribute value is 'litre'. 
+
+------------------

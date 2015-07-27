@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10713
+Validation number:	10713
+Severity         :	Error
+Line number      :	10
+Package          :	
+Short message    :	Invalid 'sboTerm' attribute value for a Species object
+Full message     :	The value of the 'sboTerm' attribute on a <species> is expected to be an SBO identifier (http://www.biomodels.net/SBO/). In SBML Level 2 prior to Version 4 it is expected to refer to a participant physical type (i.e., terms derived from SBO:0000236, "participant physical type"); in Versions 4 and above it is expected to refer to a material entity (i.e., terms derived from SBO:0000240, "material entity").
+Reference: L2V3 Section 5
+ SBO term 'SBO:0000064' on the <species> is not in the appropriate branch.
+
+------------------

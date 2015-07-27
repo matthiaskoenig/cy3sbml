@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20230
+Validation number:	20230
+Severity         :	Error
+Line number      :	4
+Package          :	
+Short message    :	Invalid attribute found on the ListOfConstraints object
+Full message     :	A ListOfConstraints object may have the optional attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a ListOfConstraints object.
+Reference: L3V1 Section 4.2.8
+ Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <listOfConstraints> element.
+
+------------------

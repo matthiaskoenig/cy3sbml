@@ -1,0 +1,11 @@
+------------------
+Validation id    :	qual-20606
+Validation number:	3020606
+Severity         :	Error
+Line number      :	135
+Package          :	qual
+Short message    :	Attribute 'outputLevel' on <output> must be non negative integer.
+Full message     :	The attribute 'qual:outputLevel' in <output> must be of the data type 'integer'.
+Reference: L3V1 Qual V1 Section 3.6.2
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10310
+Validation number:	10310
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid syntax for an 'id' attribute value
+Full message     :	The syntax of 'id' attribute values must conform to the syntax of the SBML type 'SId'.
+ The id '1s' does not conform.
+
+------------------

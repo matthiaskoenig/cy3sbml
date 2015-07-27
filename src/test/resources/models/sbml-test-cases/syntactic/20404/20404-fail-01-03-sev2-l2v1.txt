@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20404
+Validation number:	20404
+Severity         :	Error
+Line number      :	11
+Package          :	
+Short message    :	Invalid redefinition of built-in type name 'area'
+Full message     :	Redefinitions of the built-in unit 'area' are restricted. 
+Reference: L2V1 Section 4.4.3
+ Redefinitions of the built-in unit 'area' must be based on squared 'metre's. More formally, a <unitDefinition> for 'area' must simplify to a single <unit> in which  the 'kind' attribute has a value of 'metre' and the 'exponent' attribute has a value of '2'.
+
+------------------

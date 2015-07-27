@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-21103
+Validation number:	6021103
+Severity         :	Error
+Line number      :	60
+Package          :	layout
+Short message    :	Layout elements allowed on <referenceGlyph>.
+Full message     :	There may be at most one instance of a <boundingBox> and <curve> object on a <referenceGlyph>. No other elements from the Layout namespace are permitted on a <referenceGlyph>. 
+Reference: L3V1 Layout V1 Section 3.11.1
+
+------------------

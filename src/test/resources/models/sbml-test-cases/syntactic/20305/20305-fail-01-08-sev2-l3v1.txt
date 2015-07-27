@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20305
+Validation number:	20305
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	A function's return type must be either a number or a Boolean
+Full message     :	The value type returned by a <functionDefinition>'s <lambda> must be either Boolean or numeric.
+Reference: L3V1 Section 3.4.9
+ The <functionDefinition> with id 'pow' returns a value that is neither boolean nor numeric.
+
+------------------

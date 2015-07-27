@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21104
+Validation number:	21104
+Severity         :	Error
+Line number      :	17
+Package          :	
+Short message    :	Invalid object found in the list of reactants or products
+Full message     :	The list of reactants (<listOfReactants>) and list of products (<listOfProducts>) in a <reaction> can only contain <speciesReference> elements.
+Reference: L2V2 Section 4.13
+
+------------------

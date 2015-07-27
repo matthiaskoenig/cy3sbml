@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21001
+Validation number:	21001
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	A Constraint object's <math> must evaluate to a Boolean value
+Full message     :	A <constraint>'s <math> expression must evaluate to a value of type Boolean.
+Reference: L2V2 Section 4.12.1
+ The <constraint> with the formula '1 / cell' returns a value that is not boolean.
+
+------------------

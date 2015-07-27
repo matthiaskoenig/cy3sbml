@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20614
+Validation number:	20614
+Severity         :	Error
+Line number      :	26
+Package          :	
+Short message    :	Missing value for the 'compartment' attribute
+Full message     :	The 'compartment' attribute in a <species> is mandatory. A <species> definition in a model must include a value for this attribute. 
+Reference: L3V1 Section 4.6.3
+ The <species> with the id 's' is missing the 'compartment' attribute.
+
+------------------

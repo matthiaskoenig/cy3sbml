@@ -1,0 +1,32 @@
+------------------
+Validation id    :	comp-20803
+Validation number:	1020803
+Severity         :	Error
+Line number      :	32
+Package          :	comp
+Short message    :	Allowed attributes on a Port
+Full message     :	A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.
+Reference: L3V1 Comp V1 Section 3.4.3
+ In SBaseRef::getReferencedElementFrom, unable to find referenced element from <port> with ID 'ddd' as it does not have the required attributes.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-20801
+Validation number:	1020801
+Severity         :	Error
+Line number      :	32
+Package          :	comp
+Short message    :	Port must reference an object
+Full message     :	A <port> object must point to another object; that is, a <port> object must always have a value for one of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.
+Reference: L3V1 Comp V1 Section 3.4.3
+ The <port> 'ddd' in the main model in the document does not refer to another object.
+
+------------------

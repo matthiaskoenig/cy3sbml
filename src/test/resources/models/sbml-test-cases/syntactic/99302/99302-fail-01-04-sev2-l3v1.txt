@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99302
+Validation number:	99302
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	There must be a <lambda> body within the <math> element of a FunctionDefinition object
+Full message     :	The <lambda> element of a FunctionDefinition object must contain a function body in addition to zero or more arguments.
+
+------------------

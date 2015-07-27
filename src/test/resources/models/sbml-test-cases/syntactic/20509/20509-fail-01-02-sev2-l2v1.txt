@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20509
+Validation number:	20509
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	Invalid value for the 'units' attribute of a three-dimensional compartment
+Full message     :	The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '3' is restricted. 
+Reference: L2V1 Section 4.5.4
+ The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '3' must be either 'volume', 'litre', or the identifier of a <unitDefinition> based on either 'litre', 'metre' (with 'exponent' equal to '3').
+
+------------------

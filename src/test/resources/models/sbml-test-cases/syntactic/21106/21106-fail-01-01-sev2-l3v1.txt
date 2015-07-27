@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21106
+Validation number:	21106
+Severity         :	Error
+Line number      :	33
+Package          :	
+Short message    :	A Reaction object can only contain one of each allowed type of object
+Full message     :	A Reaction object may contain at most one of each of the following elements: <listOfReactants>, <listOfProducts>, <listOfModifiers>, and <kineticLaw>.
+Reference: L3V1 Section 4.11
+
+------------------

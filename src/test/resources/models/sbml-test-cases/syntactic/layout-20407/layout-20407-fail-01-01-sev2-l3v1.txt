@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20407
+Validation number:	6020407
+Severity         :	Error
+Line number      :	30
+Package          :	layout
+Short message    :	A <graphicalObject> must contain a <boundingBox>.
+Full message     :	A <graphicalObject> must contain exactly one <boundingBox> object.
+Reference: L3V1 Layout V1 Section 3.7
+ The <graphicalObject> with id 'go' has multiple <boundingBox> children.
+
+------------------

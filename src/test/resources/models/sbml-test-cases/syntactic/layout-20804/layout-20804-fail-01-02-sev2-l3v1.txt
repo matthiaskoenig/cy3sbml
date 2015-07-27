@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20804
+Validation number:	6020804
+Severity         :	Error
+Line number      :	43
+Package          :	layout
+Short message    :	Layout attributes allowed on <generalGlyph>.
+Full message     :	A <generalGlyph> object must have the required attribute 'layout:id' and may have the optional attributes 'layout:metaidRef' or 'layout:reference'.  No other attributes from the Layout namespace are permitted on a <generalGlyph>. 
+Reference: L3V1 Layout V1 Section 3.11
+  Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 Package layout Version 1 <generalGlyph> element.
+
+------------------

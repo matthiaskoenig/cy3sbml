@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10204
+Validation number:	10204
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	Use of the MathML 'definitionURL' attribute is not allowed on this element
+Full message     :	In the SBML subset of MathML 2.0, the MathML attribute 'definitionURL' is only permitted on <csymbol>, <semantics> or <ci> (Level 2 Version 5 and Level 3 only). No other MathML elements may have a 'definitionURL' attribute. 
+Reference: L2V5 Section 3.4.1
+ The attribute 'definitionURL' is not permitted on a <cn> element.
+
+------------------

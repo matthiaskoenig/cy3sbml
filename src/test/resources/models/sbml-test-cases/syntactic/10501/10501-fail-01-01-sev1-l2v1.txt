@@ -1,0 +1,22 @@
+------------------
+Validation id    :	10501
+Validation number:	10501
+Severity         :	Warning
+Line number      :	18
+Package          :	
+Short message    :	The units of the function call's arguments are not consistent with its definition
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+The units of the expressions used as arguments to a function call are expected to match the units expected for the arguments of that function. 
+ The formula 'p + p1' in the math element of the <algebraicRule> can only act on variables with the same units.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	11
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

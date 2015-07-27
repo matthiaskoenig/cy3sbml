@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10220
+Validation number:	10220
+Severity         :	Error
+Line number      :	13
+Package          :	
+Short message    :	Attribute 'units' is only permitted on <cn> elements
+Full message     :	The SBML attribute 'units' may only be added to MathML <cn> elements; no other MathML elements are permitted to have the 'units' attribute. 
+Reference: L3V1 Section 3.4.2
+ The attribute 'units' is not permitted on a <ci> element.
+
+------------------

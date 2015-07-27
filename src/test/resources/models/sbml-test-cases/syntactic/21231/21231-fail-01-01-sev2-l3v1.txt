@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21231
+Validation number:	21231
+Severity         :	Error
+Line number      :	30
+Package          :	
+Short message    :	A Priority object may have one <math> element
+Full message     :	An Priority object must contain exactly one MathML <math> element.  The <math> element is optional in L3V2 and beyond.
+Reference: L3V1 Section 4.12
+
+------------------

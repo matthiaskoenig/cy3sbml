@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01015
+Validation number:	1015
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Missing required attribute
+Full message     :	Missing a required XML attribute. The attribute 'variable' is required.
+
+------------------

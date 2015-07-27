@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21124
+Validation number:	21124
+Severity         :	Error
+Line number      :	28
+Package          :	
+Short message    :	Parameters local to a KineticLaw object must have a 'constant' attribute value of 'true'
+Full message     :	The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot have a value other than 'true'. The values of parameters local to <kineticLaw> definitions cannot be changed, and therefore they are always constant.
+Reference: L2V2 Section 4.9.4
+
+------------------

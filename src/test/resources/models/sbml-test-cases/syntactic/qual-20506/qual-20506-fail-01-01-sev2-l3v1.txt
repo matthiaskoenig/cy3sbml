@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20506
+Validation number:	3020506
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attribute 'transitionEffect' on <input> must be enum.
+Full message     :	The value of the attribute 'qual:transitionEffect' of an <input> object must conform to the syntax of the SBML data type 'transitionInputEffect' and may only take on the allowed values of 'transitionInputEffect' defined in SBML; that is, the value must be one of the following: 'none' or 'consumption'.
+Reference: L3V1 Qual V1 Section 3.6.1
+ The transitionEffect on the <input> with id 'theta_B_A' is 'incorrect', which does not conform.
+
+------------------

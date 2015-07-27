@@ -1,0 +1,30 @@
+------------------
+Validation id    :	99107
+Validation number:	99107
+Severity         :	Error
+Line number      :	2
+Package          :	
+Short message    :	The SBML document requires an SBML Level 3 package unavailable in this software
+Full message     :	Every SBML Level 3 package is identified uniquely by an XML namespace URI and defines the attribute named 'required'. A value of required=true indicates that interpreting the package is necessary for complete mathematical interpretation of the model. (L3V1 Section 4.1.2) This instance of libSBML version 5 cannot find the code necessary to interpret the package information.
+ Package 'extra' is a required package and the model cannot be properly interpreted.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-90115
+Validation number:	1090115
+Severity         :	Warning
+Line number      :	7
+Package          :	comp
+Short message    :	The 'comp:idRef' attribute must be the 'id' of a model element
+Full message     :	The value of a 'comp:idRef' attribute on an <sBaseRef> object must be the identifier of an object contained in (that is, within the SId namespace of) the <model> referenced by that <sBaseRef>. This includes objects with 'id' attributes defined in packages other than SBML Level 3 Core or the Hierarchical Model Composition package.
+ The 'idRef' of a <deletion> is set to 'y' which is not an element within the <model> referenced by submodel 'A'. However it may be an identifier of an object within an unrecognised package. 
+
+------------------

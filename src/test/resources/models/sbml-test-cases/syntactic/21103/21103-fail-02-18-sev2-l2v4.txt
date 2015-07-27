@@ -1,0 +1,21 @@
+------------------
+Validation id    :	21103
+Validation number:	21103
+Severity         :	Error
+Line number      :	21
+Package          :	
+Short message    :	Reaction components, if present, cannot be empty
+Full message     :	The following containers are all optional in a <reaction>, but if any is present, it must not be empty: <listOfReactants>, <listOfProducts>, <listOfModifiers>, <kineticLaw>.
+Reference: L2V4 Section 4.13
+
+------------------
+Validation id    :	21103
+Validation number:	21103
+Severity         :	Error
+Line number      :	21
+Package          :	
+Short message    :	Reaction components, if present, cannot be empty
+Full message     :	The following containers are all optional in a <reaction>, but if any is present, it must not be empty: <listOfReactants>, <listOfProducts>, <listOfModifiers>, <kineticLaw>.
+Reference: L2V4 Section 4.13
+
+------------------

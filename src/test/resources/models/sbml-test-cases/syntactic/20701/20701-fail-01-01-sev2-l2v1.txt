@@ -1,0 +1,22 @@
+------------------
+Validation id    :	99303
+Validation number:	99303
+Severity         :	Warning
+Line number      :	11
+Package          :	
+Short message    :	Units must refer to valid unit or unitDefinition
+Full message     :	Where a component has an attribute that refers to a unit identifier, that attribute must refer to a unit defined in SBML or be the id of a UnitDefinition in the model.
+ The units 'bogomips' of the <parameter> with id 'p' do not refer to a valid unit kind/built-in unit or the identifier of an existing <unitDefinition>. 
+
+------------------
+Validation id    :	20701
+Validation number:	20701
+Severity         :	Error
+Line number      :	11
+Package          :	
+Short message    :	Invalid value for the 'units' attribute of a Parameter object
+Full message     :	The 'units' in a <Parameter> definition must be a value chosen from among the following: a predefined unit (e.g., 'substance', 'time', etc.), the identifier of a <UnitDefinition> in the model, or one of the base units in SBML (e.g., 'litre', 'mole', 'metre', etc.)
+Reference: L2V1 Section 4.7.3
+ The 'units' attribute of the <parameter> is 'bogomips', which does not comply.
+
+------------------

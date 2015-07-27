@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10302
+Validation number:	10302
+Severity         :	Error
+Line number      :	6
+Package          :	
+Short message    :	Duplicate unit definition 'id' attribute value
+Full message     :	The value of the 'id' field of every <unitDefinition> must be unique across the set of all <unitDefinition>s in the entire model. 
+Reference: L3V1 Sections 3.3 and 4.4
+   The <unitDefinition> id 'mmls' conflicts with the previously defined <unitDefinition> id 'mmls' at line 5.
+
+------------------

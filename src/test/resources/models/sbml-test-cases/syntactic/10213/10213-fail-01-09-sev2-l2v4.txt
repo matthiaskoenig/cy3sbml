@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10213
+Validation number:	10213
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	The second argument of a <piece> expression must yield a Boolean value
+Full message     :	The second argument of a MathML <piece> operator must have a Boolean value. 
+Reference: L2V4 Section 3.4.9
+ The formula 'piecewise(p1 * 6, gt(5, 4), p1 * 6, 5 + 4, p1)' in the math element of the <algebraicRule> uses a piecewise function that does not return a boolean.
+
+------------------

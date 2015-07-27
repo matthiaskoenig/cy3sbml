@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21212
+Validation number:	21212
+Severity         :	Error
+Line number      :	39
+Package          :	
+Short message    :	An EventAssignment object cannot assign to a component having attribute 'constant'='true'
+Full message     :	Any <compartment>, <species>, <parameter>, or (in Level 3) <speciesReference> definition whose identifier is used as the value of 'variable' in an <eventAssignment> must have a value of 'false' for its 'constant' attribute.
+Reference: L3V1 Section 4.12.4
+ The species with id 's' should have a constant value of 'false'.
+
+------------------

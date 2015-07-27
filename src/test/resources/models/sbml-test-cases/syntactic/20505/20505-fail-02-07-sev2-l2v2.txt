@@ -1,0 +1,23 @@
+------------------
+Validation id    :	20505
+Validation number:	20505
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Recursive nesting of compartments via the 'outside' attribute is not permitted
+Full message     :	A <compartment> may not enclose itself through a chain of references involving the 'outside' field. This means that a compartment cannot have its own identifier as the value of 'outside', nor can it point to another compartment whose 'outside' field points directly or indirectly to the compartment.
+Reference: L2V2 Section 4.7.7
+ Compartment 'e' encloses itself.
+
+------------------
+Validation id    :	20505
+Validation number:	20505
+Severity         :	Error
+Line number      :	13
+Package          :	
+Short message    :	Recursive nesting of compartments via the 'outside' attribute is not permitted
+Full message     :	A <compartment> may not enclose itself through a chain of references involving the 'outside' field. This means that a compartment cannot have its own identifier as the value of 'outside', nor can it point to another compartment whose 'outside' field points directly or indirectly to the compartment.
+Reference: L2V2 Section 4.7.7
+ Compartment 'a' encloses itself via 'a' -> 'b' -> 'c' -> 'd' -> 'a'.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20804
+Validation number:	20804
+Severity         :	Error
+Line number      :	21
+Package          :	
+Short message    :	An InitialAssignment object may contain one <math> element
+Full message     :	An InitialAssignment object must contain exactly one MathML <math> element.  The <math> element is optional in L3V2 and beyond.
+Reference: L3V1 Section 4.8
+ The <initialAssignment> with symbol 'c' contains more than one <math> element.
+
+------------------

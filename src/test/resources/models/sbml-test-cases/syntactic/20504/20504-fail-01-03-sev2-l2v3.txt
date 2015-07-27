@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20504
+Validation number:	20504
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid value for the 'outside' attribute of a Compartment object
+Full message     :	The 'outside' attribute value of a <compartment> must be the identifier of another <compartment> defined in the model.
+Reference: L2V3 Section 4.7.7
+ The <compartment> with id 'c' sets the 'outside' attribute to 'a' which does not exist as a <compartment>.
+
+------------------

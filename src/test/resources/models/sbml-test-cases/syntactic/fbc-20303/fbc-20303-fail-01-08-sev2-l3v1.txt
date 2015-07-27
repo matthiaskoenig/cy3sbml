@@ -1,0 +1,12 @@
+------------------
+Validation id    :	fbc-20303
+Validation number:	2020303
+Severity         :	Error
+Line number      :	79
+Package          :	fbc
+Short message    :	Chemical formula must be string
+Full message     :	The value of attribute 'fbc:chemicalFormula' on the SBML <species> object must be set to a string consisting only of atomic names or user defined compounds and their occurrence.
+Reference: L3V1 Fbc V1 Section 3.4
+ Encountered '_' when expecting a capital letter.
+
+------------------

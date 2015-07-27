@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99507
+Validation number:	99507
+Severity         :	Warning
+Line number      :	3
+Package          :	
+Short message    :	Unable to verify consistency of units: the units of reaction extent have not been declared
+Full message     :	In situations where a mathematical expression refers to extent, the units of extent should be consistent with the global extent units of the model. In models where the 'extentUnits' attribute has not been declared, libSBML does not yet have the functionality to verify accurately the consistency of the units in such expressions. 
+
+------------------

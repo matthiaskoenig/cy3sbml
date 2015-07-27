@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21107
+Validation number:	21107
+Severity         :	Error
+Line number      :	33
+Package          :	
+Short message    :	Invalid value for the Reaction 'compartment' attribute
+Full message     :	The value of the attribute 'compartment' in a Reaction object is optional, but if present, must be the identifier of an existing Compartment object defined in the model.
+Reference: L3V1 Section 4.11.1
+ The <reaction> with id 'r' refers to the compartment 'c1' which is not defined. 
+
+------------------
