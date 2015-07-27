@@ -8,7 +8,7 @@ http://docs.python-requests.org/en/latest/
 The web service returns JSON content.
 
 @author: Matthias Koenig
-@date: 2015-07-05
+@date: 2015-07-27
 """
 from __future__ import print_function
 import requests
@@ -85,25 +85,25 @@ def download_model(model_id, target_dir, polished=True):
 #  - select polished True/False to get polished/dumped models
 #  - select target_dir where the xml is stored
 # -------------------------------------------------------------------
+if __name__ == "__main__":
+    polished = True
+    # target_dir = '/home/mkoenig/cy3sbml/src/test/resources/models/BiGG'
+    target_dir = '/home/mkoenig/tmp'
+    model_fnames = []
 
-polished = True
-# target_dir = '/home/mkoenig/cy3sbml/src/test/resources/models/BiGG'
-target_dir = '/home/mkoenig/tmp'
-model_fnames = []
+    r = requests.get('http://bigg.ucsd.edu/api/v2/models')
+    for k, model in enumerate(json['results']):
+        model_id = model['bigg_id']
+        print(model_id)
+        try:
+            download_model(model_id, target_dir=target_dir, polished=polished)
+            model_fnames.append('"{}.xml"'.format(model_id))
+        except zipfile.BadZipfile:
+            print("Zip file missing: ", model_id)
 
-r = requests.get('http://bigg.ucsd.edu/api/v2/models')
-for k, model in enumerate(json['results']):
-    model_id = model['bigg_id']
-    print(model_id)
-    try:
-        download_model(model_id, target_dir=target_dir, polished=polished)
-        model_fnames.append('"{}.xml"'.format(model_id))
-    except zipfile.BadZipfile:
-        print("Zip file missing: ", model_id)
-
-# ---------------------------
-# create the file listing for java
-print(len(model_fnames))
-java_string = ", ".join(model_fnames)
-print(java_string)
+    # ---------------------------
+    # create the file listing for java
+    print(len(model_fnames))
+    java_string = ", ".join(model_fnames)
+    print(java_string)
 
