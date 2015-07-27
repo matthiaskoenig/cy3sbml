@@ -271,8 +271,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// with high probability this SBML file is corrupt and can not be parsed.
 			// => Display the information 
 			// => send SBML to author
-			
-			
 		}
 	}
 	
@@ -482,7 +480,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_COMPARTMENT, String.class);
 				} else {
 					logger.error(String.format("Compartment does not exist for reaction: %s for %s", reaction.getCompartment(), reaction.getId()));
-					error = true;
 				}
 			}
 			if (reaction.isSetReversible()){
@@ -886,7 +883,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			} else {
 				logger.error(String.format("GeneProduct does not exist for GeneAssociation: %s in %s", gpRef.getGeneProduct(), association));
-				error = true;
 			}
 		}else if (association.getClass().equals(And.class)){
 			And andRef = (And) association;

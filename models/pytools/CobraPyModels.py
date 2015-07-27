@@ -1,6 +1,14 @@
 """
-Filenames of cobra models.
+Use the available cobra test models for testing in cy3sbml.
 
+This script generates a list of filenames for the test cases based on the
+cobra models.
+Only uses the subset of sbml3 models for testing.
+The model collection is available from github via:
+git clone https://github.com/opencobra/m_model_collection.git
+
+@author: Matthias Koenig
+@date: 2015-07-27
 """
 
 from __future__ import print_function
@@ -17,5 +25,7 @@ if __name__ == "__main__":
     for f in os.listdir(model_folder):
         print(f)
 
-    s_res = ", ".join(['"{}"'.format(fname) for fname in os.listdir(model_folder)])
+    s_res = ", \n".join(['"{}"'.format(fname) for fname in os.listdir(model_folder)])
+    print('*' * 80)
     print(s_res)
+    print('*' * 80)
