@@ -2,7 +2,7 @@ package org.cy3sbml.miriam;
 
 import static org.junit.Assert.*;
 
-import org.cy3sbml.TestHelper;
+import org.cy3sbml.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,7 +16,7 @@ public class MiriamWebserviceTest {
 	
 	@BeforeClass 
 	public static void onlyOnce() {
-	       TestHelper.setSystemProxyForTests();
+	       TestUtils.setSystemProxyForTests();
 	}
 	
 	@Before

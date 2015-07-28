@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -21,8 +21,12 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.ASTNode;
@@ -103,6 +107,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
+	private final CyNetworkViewManager viewManager;
 	private SBMLDocument document;
 	
 	private Boolean error = false;
@@ -113,11 +118,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private Map<String, CyNode> nodeById; // node dictionary
 	
 	/** Constructor */ 
-	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, CyNetworkViewFactory viewFactory) {
+	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, 
+			CyNetworkViewFactory viewFactory,
+			CyNetworkViewManager viewManager) {
 		
 		this.stream = stream;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
+		this.viewManager = viewManager;
 		this.fileName = fileName;
 	}
 	
@@ -1009,9 +1017,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
+	/* Somehow necessary to get the NetworkViewFactory via the rendererlist
+	protected CyNetworkViewFactory getNetworkViewFactory() {
+		if (rendererList != null && rendererList.getSelectedValue() != null)
+			return rendererList.getSelectedValue().getNetworkViewFactory();
+		
+		return cyNetworkViewFactory;
+	}*/
+	
+	
 	@Override
 	public CyNetworkView buildCyNetworkView(final CyNetwork network) {
 		logger.info("buildCyNetworkView");
+		
 		// Preload SBML WebService information
 		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 				
@@ -1027,16 +1045,27 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		sbmlManager.updateCurrent(network);
 		
 		// Display the model information in the results pane
-		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());
+		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());	
 		
-		// create view depending on mode
+		// Create the view
 		CyNetworkView view = viewFactory.createNetworkView(network);
+		
+		/*
+		if (!viewManager.viewExists(network)){
+			// this is a hack to force the update of the visual style via
+			// a triggered addedNetworkEvent
+			logger.info("view: " + view.toString() + " created");
+			// this adds the view to the manager and triggers the event
+		 	viewManager.addNetworkView(view);
+		}
+		*/
+
 		
 		logger.debug("network: " + network.toString());
 		logger.debug("view: " + view.toString());
 		return view;
-	}
-
+	}	
+	
 	public static String readString(InputStream source) throws IOException {
 		StringWriter writer = new StringWriter();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(source));

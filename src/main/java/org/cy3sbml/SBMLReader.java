@@ -63,13 +63,13 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		logger.info("createTaskIterator: input stream name: " + inputName);
 		try {
 			return new TaskIterator(
-				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory)
+				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory,
+						cyServices.cyNetworkViewManager)
 			);
 		} catch (IOException e) {
 			throw new SBMLReaderError(e.toString());
 		}
 	}
-
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent e) {
@@ -79,11 +79,10 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 			// i.e., not only for the first time when one's created.
 			final CyNetworkView view = e.getNetworkView();
 			final CyNetwork network = view.getModel();	
-			if(isSBMLNetwork(network)) {	
-				VisualStyle style = null;		
+			if(isSBMLNetwork(network)) {
 				
 				/*
-				// TODO: Store some kind infromation for the network & use to switch visual styles
+				// TODO: Store some kind information for the network & use to switch visual styles
 				String kind = cyNetwork.getRow(cyNetwork).get(SBML.SBML_NETWORK, String.class);
 				if ("DEFAULT".equals(kind))
 					style = visualStyleUtil.getBioPaxVisualStyle();
@@ -93,17 +92,19 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				//apply style and layout			
 				
 				String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
-				style = getVisualStyleByName(styleName);
+				VisualStyle style = getVisualStyleByName(styleName);
+				VisualStyle currentStyle = cyServices.visualMappingManager.getVisualStyle(view);
+				logger.debug("Current VisualStyle: " + currentStyle.getTitle());
 				logger.debug("VisualStyle to set: " + style.getTitle());
 				
-				if(style != null) {
+				if(style != null && !(style.getTitle()).equals(currentStyle.getTitle())){
 					final VisualStyle vs = style;			
 					//apply style and layout			
 					SwingUtilities.invokeLater(new Runnable() {
 							public void run() {			
-								layout(view);
 								cyServices.visualMappingManager.setVisualStyle(vs, view);
 								vs.apply(view);		
+								layout(view);
 								view.updateView();
 								logger.info("Style set and updated: " + vs.getTitle());
 							}
@@ -158,21 +159,4 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		is.close();
 		return new ByteArrayInputStream( copy.toByteArray() );
 	}	
-	
-	/* TODO: still necessary ? check
-	private void selectSBMLTableAttributes(){
-		String[] nAtts = {CySBMLConstants.ATT_TYPE,
-						  CySBMLConstants.ATT_NAME,
-						  CySBMLConstants.ATT_COMPARTMENT,
-						  CySBMLConstants.ATT_METAID,
-						  CySBMLConstants.ATT_SBOTERM};
-		
-		String[] eAtts = {Semantics.INTERACTION,
-						  CySBMLConstants.ATT_STOICHIOMETRY,
-						  CySBMLConstants.ATT_METAID,
-						  CySBMLConstants.ATT_SBOTERM};
-		AttributeUtils.selectTableAttributes(Arrays.asList(nAtts), Arrays.asList(eAtts));
-	}
-	*/
-
 }

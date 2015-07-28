@@ -12,9 +12,6 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -30,14 +27,6 @@ private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTe
 	//parameters pass via the constructor
 	public CobraPyCollectionTest(String resource) {
 		this.resource = resource;
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 	
 	// Declare parameters
@@ -157,7 +146,7 @@ private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTe
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, viewFactory);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());

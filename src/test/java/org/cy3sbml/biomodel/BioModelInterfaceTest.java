@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.cy3sbml.TestHelper;
+import org.cy3sbml.TestUtils;
 import org.cy3sbml.biomodel.BioModelWSInterface;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class BioModelInterfaceTest {
 	
 	@BeforeClass 
 	public static void onlyOnce() {
-	       TestHelper.setSystemProxyForTests();
+	       TestUtils.setSystemProxyForTests();
 	}
 	
     @Before

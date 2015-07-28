@@ -12,9 +12,6 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -31,36 +28,11 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 	public BiGGTest(String resource) {
 		this.resource = resource;
 	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
 	
 	// Declare parameters
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> data(){
 		
-		
-		/* Seems incredible difficult to get the filenames from a folder
-		 * in a resource in java, so just list all the file :/
-		
-		// get all file names in resource folder
-		ClassLoader classLoader = BiGGTest.class.getClassLoader();
-		URL url = classLoader.getResource("/models/BiGG/");
-		File file = new File(url.getFile());
-		LinkedList<String> fnames = new LinkedList<String>();
-		if (file.isDirectory()){
-			File[] files = file.listFiles();
-			for (File f : files){
-				fnames.add(f.getName());
-			}
-		}
-		int N = fnames.size();
-		*/
 		String[] fnames = {
 				"e_coli_core.xml", 
 				"iAB_RBC_283.xml", 
@@ -168,7 +140,7 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, viewFactory);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());

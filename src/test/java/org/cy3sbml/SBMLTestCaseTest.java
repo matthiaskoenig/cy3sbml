@@ -6,10 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.InputStream;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -21,9 +17,6 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -32,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Test all sbml files of the SBML TestCases.
+ * Test all SBML files of the SBML TestCases.
  * Necessary to walk the files recursively to get all the SBML test cases.
  * 
  */
@@ -70,14 +63,6 @@ private static final Logger logger = LoggerFactory.getLogger(SBMLTestCaseTest.cl
 	//parameters pass via the constructor
 	public SBMLTestCaseTest(String resource) {
 		this.resource = resource;
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 	
 	/* Search recursively for all SBML files in given path. */
@@ -159,7 +144,7 @@ private static final Logger logger = LoggerFactory.getLogger(SBMLTestCaseTest.cl
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, viewFactory);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());
