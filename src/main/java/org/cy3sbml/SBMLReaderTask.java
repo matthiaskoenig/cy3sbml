@@ -53,6 +53,9 @@ import org.sbml.jsbml.Symbol;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
+import org.sbml.jsbml.ext.distrib.DistribConstants;
+import org.sbml.jsbml.ext.distrib.DistribSBasePlugin;
+import org.sbml.jsbml.ext.distrib.Uncertainty;
 import org.sbml.jsbml.ext.fbc.And;
 import org.sbml.jsbml.ext.fbc.Association;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
@@ -192,6 +195,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				logger.info("layout model found, but not yet supported");
 				//readLayouts(model, qualModel, layoutModel);	
 			}
+			
+			/* Currently not working
+			DistribModelPlugin distribModel = (DistribModelPlugin) model.getExtension(DistribConstants.namespaceURI);
+			if (distribModel != null){
+				logger.info("distrib model not found, but not yet supported");
+				//readLayouts(model, qualModel, layoutModel);	
+			}
+			*/
+			readDistrib(model);
+			
+			
+			
 
 			// main SBML network consisting of the following nodes and edges
 			String[] nodeTypes = {
@@ -960,6 +975,34 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 	}
+	
+	// --- Distrib -----------------------------------------------------------------------------------
+	
+	/**
+	 * Create uncertainty information from distrib package. 
+	 */
+	private void readDistrib(Model model){
+		logger.info("** distrib **");
+		// Compartments
+		
+		
+		// Species
+		for (Species species: model.getListOfSpecies()){
+			DistribSBasePlugin distribSpecies = (DistribSBasePlugin) species.getExtension(DistribConstants.namespaceURI);
+			Uncertainty uc = distribSpecies.getUncertainty();
+			// 
+			if (uc.isSetUncertML()){
+				// TOOD: implement one generic mechanism to parse all the UncertML information.
+				XMLNode uncertML = uc.getUncertML();
+				logger.info(String.format("UncertML for species %s: %s", species.getId(), uncertML.toString()));
+			}
+		}
+		
+		// Parameters
+		
+		
+	}
+	
 	
 	// --- LAYOUT -----------------------------------------------------------------------------------
 	
