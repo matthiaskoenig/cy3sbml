@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +12,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
@@ -36,6 +39,7 @@ import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.InitialAssignment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
+import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.ModifierSpeciesReference;
@@ -982,25 +986,67 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * Create uncertainty information from distrib package. 
 	 */
 	private void readDistrib(Model model){
+		// TODO: necessary to display for all the SBase elements
+		// TODO: write the string as attribute to the respective node
+		
 		logger.info("** distrib **");
 		// Compartments
-		
+		readUncertainties(model.getListOfCompartments());
 		
 		// Species
-		for (Species species: model.getListOfSpecies()){
-			DistribSBasePlugin distribSpecies = (DistribSBasePlugin) species.getExtension(DistribConstants.namespaceURI);
-			Uncertainty uc = distribSpecies.getUncertainty();
-			// 
-			if (uc.isSetUncertML()){
-				// TOOD: implement one generic mechanism to parse all the UncertML information.
-				XMLNode uncertML = uc.getUncertML();
-				logger.info(String.format("UncertML for species %s: %s", species.getId(), uncertML.toString()));
-			}
-		}
+		readUncertainties(model.getListOfSpecies());
 		
 		// Parameters
+		readUncertainties(model.getListOfParameters());
 		
+	}
+	
+	private void readUncertainties(ListOf<?> listOfSBase){
+		for (SBase sbase: listOfSBase){
+			DistribSBasePlugin dSBase = (DistribSBasePlugin) sbase.getExtension(DistribConstants.namespaceURI);
+			if (dSBase != null && dSBase.isSetUncertainty()){
+				Uncertainty uc = dSBase.getUncertainty();
+				if (uc.isSetUncertML()){
+					readUncertainty(sbase, uc);
+				}
+			}			
+		}
+	}
+	
+	/* Parse the uncertainty information. 
+	 * Use the respective Java API.
+	 * https://github.com/52North/uncertml-api.git 
+	 */
+	private void readUncertainty(SBase sbase, Uncertainty uc){
+		String id = null;
+		String name = null;
+		if (uc.isSetId()){
+			id = uc.getId();
+		}
+		if (uc.isSetName()){
+			name = uc.getName();
+		}
 		
+		// XML node
+		XMLNode uncertML = uc.getUncertML();
+		//XMLParser ucParser = new XMLParser();
+		try {
+			// TODO: parse the uncertainty XML
+			// Problems with the library
+			// String xmlString = uncertML.toXMLString();
+			// IUncertainty iuc = ucParser.parse(xmlString);
+			// logger.info(iuc.toString());
+			
+		} catch (XMLStreamException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (sbase instanceof NamedSBase){
+			logger.info(String.format("UncertML <%s|%s> for %s: %s", name, id, ((NamedSBase) sbase).getId(), uncertML.toString()));
+		} else {
+			logger.info(String.format("UncertML <%s|%s>: %s", name, id, uncertML.toString()));
+		}	
 	}
 	
 	
