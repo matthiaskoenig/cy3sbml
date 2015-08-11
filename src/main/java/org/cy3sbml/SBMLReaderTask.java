@@ -416,7 +416,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		
 		// FunctionDefinitions (not parsed)
+		// extended in distrib
 		// for (FunctionDefinition fdef : model.getListOfFunctionDefinitions()){}
+
 		
 		// UnitDefinitions (not parsed)
 		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
