@@ -644,13 +644,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, ruleNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
 				setSBaseAttributes(ruleNode, rule);  // metaId and sbo
 			 	
-				// edge to variable
+				// edge to variable 
+				// an assignment rule can refer to the identifer of a Species, SpeciesReference,
+				// Compartment, or global Parameter object in the model
+				// The case SpeciesReference is not handled !
 				CyNode variableNode = nodeById.get(variable);
 				if (variableNode != null){
 					CyEdge edge = network.addEdge(variableNode, ruleNode, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_RULE, String.class);	
 				} else {
-					logger.warn(String.format("Variable is neither Compartment, Species or Parameter: %s in %s", variable, id ));
+					logger.warn(String.format("Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s", variable, id ));
 				}
 				
 				// referenced nodes in math
