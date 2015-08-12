@@ -1030,17 +1030,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// XML node
 		XMLNode uncertML = uc.getUncertML();
 		//XMLParser ucParser = new XMLParser();
-		try {
-			// TODO: parse the uncertainty XML
-			// Problems with the library
-			// String xmlString = uncertML.toXMLString();
-			// IUncertainty iuc = ucParser.parse(xmlString);
-			// logger.info(iuc.toString());
-			
-		} catch (XMLStreamException e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		// TODO: parse the uncertainty XML
+					// Problems with the library
+					// String xmlString = uncertML.toXMLString();
+					// IUncertainty iuc = ucParser.parse(xmlString);
+					// logger.info(iuc.toString());
 		
 		if (sbase instanceof NamedSBase){
 			logger.info(String.format("UncertML <%s|%s> for %s: %s", name, id, ((NamedSBase) sbase).getId(), uncertML.toString()));
