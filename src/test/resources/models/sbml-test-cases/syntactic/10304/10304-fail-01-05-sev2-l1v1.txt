@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10304
+Validation number:	10304
+Severity         :	Error
+Line number      :	16
+Package          :	
+Short message    :	Multiple rules for the same variable are not allowed
+Full message     :	The value of the 'variable' field in all <assignmentRule> and <rateRule> definitions must be unique across the set of all such rule definitions in a model.
+   The <parameterRule> variable 'p' conflicts with the previously defined <parameterRule> variable 'p' at line 15.
+
+------------------

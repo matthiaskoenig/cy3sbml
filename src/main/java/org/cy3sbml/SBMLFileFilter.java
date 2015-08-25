@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SBMLFileFilter implements CyFileFilter {
-	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/"; //$NON-NLS-1$
+	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
 
 	private static final int DEFAULT_LINES_TO_CHECK = 20;
 
@@ -30,11 +30,12 @@ public class SBMLFileFilter implements CyFileFilter {
 		this.streamUtil = streamUtil;
 		
 		extensions = new HashSet<String>();
-		extensions.add("xml"); //$NON-NLS-1$
+		extensions.add("xml");
+		//extensions.add("sbml");
 		
 		contentTypes = new HashSet<String>();
-		contentTypes.add("text/sbml"); //$NON-NLS-1$
-		contentTypes.add("text/sbml+xml"); //$NON-NLS-1$
+		contentTypes.add("text/sbml");
+		contentTypes.add("text/sbml+xml");
 		
 		this.description = description; 
 	}

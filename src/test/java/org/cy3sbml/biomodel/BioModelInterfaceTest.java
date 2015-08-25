@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.cy3sbml.TestUtils;
 import org.cy3sbml.biomodel.BioModelWSInterface;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.ebi.biomodels.ws.BioModelsWSException;
@@ -27,6 +29,10 @@ public class BioModelInterfaceTest {
 	
 	BioModelWSInterface bmInterface;
 	
+	@BeforeClass 
+	public static void onlyOnce() {
+	       TestUtils.setSystemProxyForTests();
+	}
 	
     @Before
     public void setUp() {

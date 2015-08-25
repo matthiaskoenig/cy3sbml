@@ -1,0 +1,11 @@
+------------------
+Validation id    :	layout-20201
+Validation number:	6020201
+Severity         :	Error
+Line number      :	253
+Package          :	layout
+Short message    :	Only one listOfLayouts on <model>
+Full message     :	There may be at most one instance of <listOfLayouts> element within a <model> object using Layout. No other elements from the Layout package are allowed.
+Reference: L3V1 Layout V1 Section 3.5
+
+------------------

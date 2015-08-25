@@ -31,25 +31,10 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 	public BioModelsTest(String resource) {
 		this.resource = resource;
 	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
 	
 	// Declare parameters
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> data(){
-		/*
-		new Object[][]{
-		{ "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml" },
-		{ "/models/BioModels-r29_sbml_curated/BIOMD0000000002.xml"  }
-		...
-		}
-		*/
 		int N = 575;
 		Object[][] resources = new String[N][1];
 		for (int i=1; i<=N; i++){ 
@@ -75,7 +60,7 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, viewFactory);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 		} catch (Throwable t){

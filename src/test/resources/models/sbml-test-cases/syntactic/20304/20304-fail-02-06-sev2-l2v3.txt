@@ -1,0 +1,23 @@
+------------------
+Validation id    :	20304
+Validation number:	20304
+Severity         :	Error
+Line number      :	15
+Package          :	
+Short message    :	Invalid <ci> reference found inside the <lambda> mathematical formula
+Full message     :	Inside the <lambda> of a <functionDefinition>, if a <ci> element is not the first element within a MathML <apply>, then the <ci>'s value can only be the value of a <bvar> element declared in that <lambda>. In other words, all model entities referenced inside a function definition must be passed arguments to that function. 
+Reference: L2V3 Sections 3.4.3 and 4.3.2
+ The variable 'x' is not listed as a <bvar> of FunctionDefinition 'pow'.
+
+------------------
+Validation id    :	20304
+Validation number:	20304
+Severity         :	Error
+Line number      :	15
+Package          :	
+Short message    :	Invalid <ci> reference found inside the <lambda> mathematical formula
+Full message     :	Inside the <lambda> of a <functionDefinition>, if a <ci> element is not the first element within a MathML <apply>, then the <ci>'s value can only be the value of a <bvar> element declared in that <lambda>. In other words, all model entities referenced inside a function definition must be passed arguments to that function. 
+Reference: L2V3 Sections 3.4.3 and 4.3.2
+ The variable 'y' is not listed as a <bvar> of FunctionDefinition 'pow'.
+
+------------------

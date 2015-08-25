@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20807
+Validation number:	6020807
+Severity         :	Error
+Line number      :	43
+Package          :	layout
+Short message    :	GeneralGlyph 'reference' must have SIdRef syntax.
+Full message     :	The attribute 'layout:reference' of a <generalGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.11
+ The reference on the <generalGlyph> is '6sGlyph_0', which does not conform.
+
+------------------
+Validation id    :	layout-20808
+Validation number:	6020808
+Severity         :	Error
+Line number      :	43
+Package          :	layout
+Short message    :	GeneralGlyph 'reference' must reference existing element.
+Full message     :	The value of the 'layout:reference' attribute of a <generalGlyph> must be of the 'id' of an existing element in the <model>.
+Reference: L3V1 Layout V1 Section 3.11
+ The <generalGlyph> with the id 'rGlyph_0' has a reference '6sGlyph_0' which is not the id of any element in the model.
+
+------------------

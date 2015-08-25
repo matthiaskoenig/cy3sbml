@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21213
+Validation number:	21213
+Severity         :	Error
+Line number      :	26
+Package          :	
+Short message    :	An EventAssignment object may have one <math> element
+Full message     :	An EventAssignment object must contain exactly one MathML <math> element.  The <math> element is optional in L3V2 and beyond.
+Reference: L3V1 Section 4.12
+
+------------------

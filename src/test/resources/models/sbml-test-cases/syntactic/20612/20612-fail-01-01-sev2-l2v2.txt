@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20612
+Validation number:	20612
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Invalid value for the 'speciesType' attribute of a species
+Full message     :	The value of 'speciesType' in a <species> definition must be the identifier of an existing <speciesType>.
+Reference: L2V2 Section 4.8.2
+ The <species> with id 's' refers to the speciesType 'hh' which is not defined. 
+
+------------------

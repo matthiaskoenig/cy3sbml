@@ -1,0 +1,21 @@
+------------------
+Validation id    :	99505
+Validation number:	99505
+Severity         :	Warning
+Line number      :	27
+Package          :	
+Short message    :	Missing unit declarations on parameters or literal numbers in expression
+Full message     :	In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <eventAssignment> <math> expression 'p1 + p2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	10562
+Validation number:	10562
+Severity         :	Error
+Line number      :	27
+Package          :	
+Short message    :	Mismatched units in event assignment for species
+Full message     :	When the 'variable' in an <eventAssignment> refers to a <species>, the units of the <eventAssignment>'s <math> expression are expected to be consistent with the units of the species' quantity.
+ Expected units are mole (exponent = 1, multiplier = 1, scale = 0), litre (exponent = -1, multiplier = 1, scale = 0) but the units returned by the <eventAssignment> with variable 'S2's <math> expression are metre (exponent = 1, multiplier = 1, scale = 0).
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10304
+Validation number:	10304
+Severity         :	Error
+Line number      :	16
+Package          :	
+Short message    :	Multiple rules for the same variable are not allowed
+Full message     :	The value of the 'variable' field in all <assignmentRule> and <rateRule> definitions must be unique across the set of all such rule definitions in a model.
+Reference: L2V1 Section 4.8.4
+   The <assignmentRule> variable 'c' conflicts with the previously defined <assignmentRule> variable 'c' at line 15.
+
+------------------

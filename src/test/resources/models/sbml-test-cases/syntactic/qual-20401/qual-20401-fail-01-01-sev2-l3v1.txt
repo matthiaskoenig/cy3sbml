@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20401
+Validation number:	3020401
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Core attributes allowed on <transition>.
+Full message     :	A <transition> object may have the optional 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Qualitative Models namespace are permitted on a <transition> object.
+Reference: L3V1 Qual V1 Section 3.6
+  Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 <transition> element.
+
+------------------

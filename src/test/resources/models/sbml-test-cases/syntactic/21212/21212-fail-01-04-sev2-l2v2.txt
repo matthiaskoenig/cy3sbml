@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21212
+Validation number:	21212
+Severity         :	Error
+Line number      :	19
+Package          :	
+Short message    :	An EventAssignment object cannot assign to a component having attribute 'constant'='true'
+Full message     :	Any <compartment>, <species>, <parameter>, or (in Level 3) <speciesReference> definition whose identifier is used as the value of 'variable' in an <eventAssignment> must have a value of 'false' for its 'constant' attribute.
+Reference: L2V2 Section 4.14.2
+ The compartment with id 'c' should have a constant value of 'false'.
+
+------------------

@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
-import org.cytoscape.view.model.CyNetworkViewFactory;
 
 // @RunWith(Parametrized.class)
 public class SBMLReaderTaskTest {
@@ -47,31 +46,14 @@ public class SBMLReaderTaskTest {
 	}
 	
 	@Test
-	/* 
-	 * Test if the run() method of SBMLReaderTask creates networks
-	 * for test model.
-	 */
+	/* Test that networks are created by SBMLReaderTask.run(). */
 	public void testRunTaskMonitor() throws Exception {
 		final NetworkTestSupport nts = new NetworkTestSupport();
-		// final CyNetwork network = nts.getNetwork();
-		// final CyNetworkManager networkManager = nts.getNetworkManager();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
-		final CyNetworkViewFactory viewFactory = null;
 		
 		// read SBML	
 		String resource = "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml";
-		String fileName = "BIOMD0000000001.xml";		
-		InputStream instream = getClass().getResourceAsStream(resource);
-	
-		CyNetwork[] networks;
-		try {
-			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, viewFactory);
-			readerTask.run(null);
-			networks = readerTask.getNetworks();
-		} catch (Throwable t){
-			networks = null;
-		}
+		CyNetwork[] networks = TestUtils.readNetwork(resource);
 		assertNotNull(networks);
 		assertTrue(networks.length == 2);
 		
@@ -89,6 +71,5 @@ public class SBMLReaderTaskTest {
 		// TODO
 		
 	}
-	
 	
 }

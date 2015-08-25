@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20507
+Validation number:	20507
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Invalid value for the 'units' attribute of a one-dimensional compartment
+Full message     :	The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '1' is restricted. 
+ The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '1' must be either 'length' or 'metre', or the identifier of a <unitDefinition> based on either 'metre' (with 'exponent' equal to '1'). The <compartment> with id 'c' does not comply.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20606
+Validation number:	20606
+Severity         :	Error
+Line number      :	15
+Package          :	
+Short message    :	Invalid value for the 'spatialSizeUnits' attribute of a two-dimensional compartment
+Full message     :	If a <species> is located in a <compartment> whose 'spatialDimensions' has value '2', then that <species> definition can only set 'spatialSizeUnits' to a value of 'area', 'dimensionless', or the identifier of a <unitDefinition> derived from either 'metre' (with an 'exponent' value of '2') or 'dimensionless'.
+Reference: L2V1 Section 4.6.4
+ The <species> with id 's' is located in 2-D <compartment> 'c' and therefore should not have a 'spatialSizeUnits' attribute set to 'length'.
+
+------------------

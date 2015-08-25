@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20901
+Validation number:	20901
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Invalid value for the 'variable' attribute of an AssignmentRule object
+Full message     :	The value of an <assignmentRule>'s 'variable' must be the identifier of an existing <compartment>, <species>, globally-defined <parameter>, or (in Level 3) <speciesReference>. 
+Reference: L2V5 Section 4.11.3
+ The <assignmentRule> with variable 'x' does not refer to an existing <compartment>, <species>, <parameter> or <speciesReference>.
+
+------------------

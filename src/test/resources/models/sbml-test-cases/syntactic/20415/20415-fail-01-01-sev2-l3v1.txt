@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20415
+Validation number:	20415
+Severity         :	Error
+Line number      :	6
+Package          :	
+Short message    :	Only Unit, Notes and Annotation objects are allowed in ListOfUnits objects
+Full message     :	Apart from the general Notes and Annotation subobjects permitted on all SBML components, a ListOfUnits container object may only contain Unit objects.
+Reference: L3V1 Section 4.2.8
+ Element 'species' is not part of the definition of <listOfUnits>.
+
+------------------

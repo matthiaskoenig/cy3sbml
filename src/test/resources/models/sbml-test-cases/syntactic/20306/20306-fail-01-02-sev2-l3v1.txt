@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20306
+Validation number:	20306
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	A FunctionDefinition object may contain one <math> element
+Full message     :	A FunctionDefinition object must contain exactly one MathML math element.  The <math> element is optional in L3V2 and beyond.
+Reference: L3V1 Section 4.3
+ The <functionDefinition> with id 'pow' contains more than one <math> element.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10218
+Validation number:	10218
+Severity         :	Error
+Line number      :	16
+Package          :	
+Short message    :	Incorrect number of arguments given to MathML operator
+Full message     :	A MathML operator must be supplied the number of arguments appropriate for that operator.
+Reference: L2V2 Section 3.5.1
+ The formula 'root(5.5, 3, 6)' in the math element of the <assignmentRule> with id 'p' has an inappropriate number of arguments.
+
+------------------

@@ -1,0 +1,20 @@
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-90101
+Validation number:	1090101
+Severity         :	Error
+Line number      :	11
+Package          :	comp
+Short message    :	Unresolved reference.
+Full message     :	The external model referenced in this model could not be resolved. 
+ The <externalModelDefinition> with the id 'EM1' refers to a source 'file:/jjj/lllk#lkkk' that cannot be accessed from here. Further checks relating to this document cannot be performed.
+
+------------------

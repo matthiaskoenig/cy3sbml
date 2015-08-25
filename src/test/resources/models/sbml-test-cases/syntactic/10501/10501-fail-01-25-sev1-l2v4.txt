@@ -1,0 +1,32 @@
+------------------
+Validation id    :	10501
+Validation number:	10501
+Severity         :	Warning
+Line number      :	14
+Package          :	
+Short message    :	The units of the function call's arguments are not consistent with its definition
+Full message     :	The units of the expressions used as arguments to a function call are expected to match the units expected for the arguments of that function. 
+Reference: L2V4 Section 3.4
+ The formula 'piecewise(c * six, gt(c, p2), p1)' in the math element of the <algebraicRule> uses a piecewise function where different branches return different units.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80701
+Validation number:	80701
+Severity         :	Warning
+Line number      :	8
+Package          :	
+Short message    :	It's best to declare units for every parameter in a model
+Full message     :	As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p' does not have a 'units' attribute.
+
+------------------

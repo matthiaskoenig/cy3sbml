@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10801
+Validation number:	10801
+Severity         :	Error
+Line number      :	3
+Package          :	
+Short message    :	Notes must be placed in the XHTML XML namespace
+Full message     :	The contents of the <notes> element must be explicitly placed in the XHTML XML namespace.
+Reference: L3V1 Section 3.2.3
+
+------------------

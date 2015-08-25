@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10307
+Validation number:	10307
+Severity         :	Error
+Line number      :	25
+Package          :	
+Short message    :	Duplicate 'metaid' attribute value
+Full message     :	Every 'metaid' attribute value must be unique across the set of all 'metaid' values in a model.
+Reference: L3V1 Sections 3.1.6 and 3.2.1
+   The <species> metaid 'mg' conflicts with the previously defined <model> metaid 'mg' at line 3.
+
+------------------

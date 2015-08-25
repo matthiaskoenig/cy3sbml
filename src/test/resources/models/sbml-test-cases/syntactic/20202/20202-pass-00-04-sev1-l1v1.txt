@@ -1,0 +1,11 @@
+------------------
+Validation id    :	80701
+Validation number:	80701
+Severity         :	Warning
+Line number      :	20
+Package          :	
+Short message    :	It's best to declare units for every parameter in a model
+Full message     :	As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p' does not have a 'units' attribute.
+
+------------------

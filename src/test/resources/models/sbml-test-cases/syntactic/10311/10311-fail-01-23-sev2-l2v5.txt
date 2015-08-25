@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10311
+Validation number:	10311
+Severity         :	Error
+Line number      :	15
+Package          :	
+Short message    :	Invalid syntax for the identifier of a unit
+Full message     :	The syntax of unit identifiers (i.e., the values of the 'id' attribute on UnitDefinition, the 'units' attribute on Compartment, the 'units' attribute on Parameter, and the 'substanceUnits' attribute on Species) must conform to the syntax of the SBML type UnitSId.
+Reference: L2V5 Section 3.1.8
+ The substanceUnits attribute '1c' does not conform.
+
+------------------

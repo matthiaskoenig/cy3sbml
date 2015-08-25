@@ -1,0 +1,12 @@
+------------------
+Validation id    :	fbc-20401
+Validation number:	2020401
+Severity         :	Error
+Line number      :	79
+Package          :	fbc
+Short message    :	<fluxBound> may only have 'metaId' and 'sboTerm' from L3 namespace
+Full message     :	A <fluxBound> object may have the optional SBML Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a <fluxBound>.
+Reference: L3V1 Core, Section 3.2.
+  Attribute 'constant' is not part of the definition of an SBML Level 3 Version 1 <fluxBound> element.
+
+------------------

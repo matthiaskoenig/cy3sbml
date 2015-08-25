@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-21304
+Validation number:	6021304
+Severity         :	Error
+Line number      :	49
+Package          :	layout
+Short message    :	Layout attributes allowed on <boundingBox>.
+Full message     :	A <boundingBox> object may have the optional attributes 'layout:id'. No other attributes from the Layout namespace are permitted on a <boundingBox>. 
+Reference: L3V1 Layout V1 Section 3.4.3
+  Attribute 'compartment' is not part of the definition of an SBML Level 3 Version 1 Package layout Version 1 <boundingBox> element.
+
+------------------

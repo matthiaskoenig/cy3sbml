@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10101
+Validation number:	10101
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	File does not use UTF-8 encoding
+Full message     :	An SBML XML file must use UTF-8 as the character encoding. More precisely, the 'encoding' attribute of the XML declaration at the beginning of the XML data stream cannot have a value other than 'UTF-8'. An example valid declaration is '<?xml version="1.0" encoding="UTF-8"?>'.
+Reference: L3V1 Section 4.1
+
+------------------

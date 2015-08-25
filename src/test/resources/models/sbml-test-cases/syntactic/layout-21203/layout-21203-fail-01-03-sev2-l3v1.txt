@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-21203
+Validation number:	6021203
+Severity         :	Error
+Line number      :	50
+Package          :	layout
+Short message    :	Layout attributes allowed on <point>.
+Full message     :	A <point> object must have the required attributes 'layout:x' and 'layout:y' and may have the optional attributes 'layout:id', and 'layout:z'.  No other attributes from the Layout namespace are permitted on a <point>. 
+Reference: L3V1 Layout V1 Section 3.4.1
+  Attribute 'depth' is not part of the definition of an SBML Level 3 Version 1 Package layout Version 1 <position> element.
+
+------------------

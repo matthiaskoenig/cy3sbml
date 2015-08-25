@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21204
+Validation number:	21204
+Severity         :	Error
+Line number      :	22
+Package          :	
+Short message    :	Units referenced by 'timeUnits' attribute are not compatible with units of time
+Full message     :	The value of an <event>'s 'timeUnits' attribute must be 'time', 'second', 'dimensionless', or the identifier of a <unitDefinition> derived from either 'second' (with an 'exponent' value of '1') or 'dimensionless'. 
+Reference: L2V1 Section 4.10.4
+
+------------------

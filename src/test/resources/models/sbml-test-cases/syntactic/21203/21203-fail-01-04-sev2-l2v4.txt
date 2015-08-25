@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21203
+Validation number:	21203
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	The Event object is missing an EventAssignment subobject
+Full message     :	An <event> object must have at least one <eventAssignment> object in its <listOfEventAssignments>.
+Reference: L2V4 Section 4.14
+ The <event> with id 'e' does not contain any <eventAssignment> elements. 
+
+------------------

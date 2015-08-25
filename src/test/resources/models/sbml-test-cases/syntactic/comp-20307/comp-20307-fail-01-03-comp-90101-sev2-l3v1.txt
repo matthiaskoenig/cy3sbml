@@ -1,0 +1,31 @@
+------------------
+Validation id    :	comp-20307
+Validation number:	1020307
+Severity         :	Error
+Line number      :	14
+Package          :	comp
+Short message    :	The 'comp:source' attribute must be of type 'anyURI'
+Full message     :	The value of a 'comp:source' attribute on an <externalModelDefinition> object must always conform to the syntax of the XML Schema 1.0 data type 'anyURI'.
+Reference: L3V1 Comp V1 Section 3.3.2
+ The source attribute value 'file:/jjj/lllk]l' does not conform to the anyURI syntax.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-90101
+Validation number:	1090101
+Severity         :	Error
+Line number      :	11
+Package          :	comp
+Short message    :	Unresolved reference.
+Full message     :	The external model referenced in this model could not be resolved. 
+ The <externalModelDefinition> with the id 'EM1' refers to a source 'file:/jjj/lllk]l' that cannot be accessed from here. Further checks relating to this document cannot be performed.
+
+------------------

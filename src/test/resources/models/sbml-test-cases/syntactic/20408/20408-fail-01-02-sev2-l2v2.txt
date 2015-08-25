@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20408
+Validation number:	20408
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Must use 'exponent'=3 when defining 'volume' in terms of metres
+Full message     :	If a <unitDefinition> for 'volume' simplifies to a <unit> in which the 'kind' attribute value is 'metre', then its 'exponent' attribute value must be '3'.
+Reference: L2V2 Section 4.4.3
+
+------------------

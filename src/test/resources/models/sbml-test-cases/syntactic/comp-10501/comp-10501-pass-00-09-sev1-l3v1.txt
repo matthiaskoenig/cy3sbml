@@ -1,0 +1,60 @@
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'param1' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	10
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'cf' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	27
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'param2' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'param1' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	10
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'cf' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

@@ -1,0 +1,32 @@
+------------------
+Validation id    :	comp-20614
+Validation number:	1020614
+Severity         :	Error
+Line number      :	43
+Package          :	comp
+Short message    :	'comp:extentConversionFactor' must conform to SId syntax
+Full message     :	The value of a 'comp:extentConversionFactor' attribute on a <submodel> object must always conform to the syntax of the SBML data type SId. 
+Reference: L3V1 Comp V1 Section 3.5.1
+ Setting the attribute 'comp:extentConversionFactor' of a <submodel> in the comp package (version 1) to '8p' is illegal:  the string is not a well-formed SId.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-20623
+Validation number:	1020623
+Severity         :	Error
+Line number      :	13
+Package          :	comp
+Short message    :	The 'comp:extentConversionFactor' must reference a parameter
+Full message     :	The value of a 'comp:extentConversionFactor' attribute on a given <submodel> object must be the identifier of a <parameter> object defined in the same Model containing the <submodel>.
+Reference: L3V1 Comp V1 Section 3.5.1
+ The 'extentConversionFactor' of the <submodel> with the id 'sub1' in the main model in the document is set to '8p' which is not a <parameter> within the <model>.
+
+------------------

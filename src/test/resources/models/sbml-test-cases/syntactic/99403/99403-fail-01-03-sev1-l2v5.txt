@@ -1,0 +1,11 @@
+------------------
+Validation id    :	99403
+Validation number:	99403
+Severity         :	Warning
+Line number      :	6
+Package          :	
+Short message    :	RDF <about> tag is not metaid
+Full message     :	In order to follow the general syntax for a standard SBML RDF annotation, the 'about' attribute of the Description element must be of the form #string, where the string component is equal to the value of the metaid attribute of the containing SBML element. 
+Reference: L2V5 Section 6.3
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20607
+Validation number:	20607
+Severity         :	Error
+Line number      :	23
+Package          :	
+Short message    :	Invalid value for the 'spatialSizeUnits' attribute of a three-dimensional compartment
+Full message     :	If a <species> is located in a <compartment> whose 'spatialDimensions' has value '3', then that <species> definition can only set 'spatialSizeUnits' to a value of 'volume', 'litre', 'dimensionless', or the identifier of a <unitDefinition> derived from either 'litre', 'metre' (with an 'exponent' value of '3') or 'dimensionless'. 
+Reference: L2V1 Section 4.6.4
+ The <species> with id 's' is located in 3-D <compartment> 'c' and therefore should not have a 'spatialSizeUnits' attribute set to 'sqmm'.
+
+------------------

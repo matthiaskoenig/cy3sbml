@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21111
+Validation number:	21111
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid 'species' attribute value in SpeciesReference object
+Full message     :	The value of a <speciesReference> 'species' attribute must be the identifier of an existing <species> in the model. 
+Reference: L2V3 Section 4.13.3
+ The <speciesReference> in the <reaction> with id 'r' references species 's', which is undefined. 
+
+------------------

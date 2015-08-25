@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20316
+Validation number:	6020316
+Severity         :	Error
+Line number      :	202
+Package          :	layout
+Short message    :	Attributes allowed on <listOfTextGlyphs>.
+Full message     :	A <listOfTextGlyphs> object may have the optional attributes 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Layout namespace are permitted on a <listOfTextGlyphs> object. 
+Reference: L3V1 Layout V1 Section 3.6
+  Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <listOfTextGlyphs> element.
+
+------------------

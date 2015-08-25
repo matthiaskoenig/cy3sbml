@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="1" distrib:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" units="litre" constant="true">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <prVal>0.3</prVal>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="4.2" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <prVal>0.3</prVal>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="p1" value="3.5" units="dimensionless" constant="true">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <prVal>0.3</prVal>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </parameter>
+      <parameter id="p2" units="dimensionless" constant="false"/>
+      <parameter id="p3" units="dimensionless" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <power/>
+            <cn type="integer"> 2 </cn>
+            <cn type="integer"> 4 </cn>
+          </apply>
+        </math>
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <prVal>0.3</prVal>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 8 </cn>
+        </math>
+      </rateRule>
+      <assignmentRule variable="p3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <pi/>
+        </math>
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <prVal>0.3</prVal>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J0" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr1" species="S1" stoichiometry="1" constant="true">
+            <distrib:uncertainty>
+              <UncertML xmlns="http://www.uncertml.org/3.0">
+                <StandardDeviation definition="http://www.uncertml.org/distributions">
+                  <value>
+                    <prVal>0.3</prVal>
+                  </value>
+                </StandardDeviation>
+              </UncertML>
+            </distrib:uncertainty>
+          </speciesReference>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> plocal </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="plocal" value="4.2" units="dimensionless">
+              <distrib:uncertainty>
+                <UncertML xmlns="http://www.uncertml.org/3.0">
+                  <StandardDeviation definition="http://www.uncertml.org/distributions">
+                    <value>
+                      <prVal>0.3</prVal>
+                    </value>
+                  </StandardDeviation>
+                </UncertML>
+              </distrib:uncertainty>
+            </localParameter>
+          </listOfLocalParameters>
+          <distrib:uncertainty>
+            <UncertML xmlns="http://www.uncertml.org/3.0">
+              <StandardDeviation definition="http://www.uncertml.org/distributions">
+                <value>
+                  <prVal>0.3</prVal>
+                </value>
+              </StandardDeviation>
+            </UncertML>
+          </distrib:uncertainty>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

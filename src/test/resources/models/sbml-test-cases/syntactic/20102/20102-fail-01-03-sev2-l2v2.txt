@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20102
+Validation number:	20102
+Severity         :	Error
+Line number      :	6
+Package          :	
+Short message    :	Missing or inconsistent value for the 'level' attribute
+Full message     :	The <sbml> container element must declare the SBML Level using the attribute 'level', and this declaration must be consistent with the XML Namespace declared for the <sbml> element.
+Reference: L2V2 Section 4.1
+
+------------------

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="1" distrib:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1_standard_deviation" compartment="C" initialAmount="4.2" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StandardDeviation definition="http://www.uncertml.org/distributions">
+              <value>
+                <var varId="STDDEV"/>
+              </value>
+            </StandardDeviation>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S2_variance" compartment="C" initialAmount="1.03" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <Variance definition="http://www.uncertml.org/distributions">
+              <value>
+                <var varId="VARIANCE"/>
+              </value>
+            </Variance>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S3_stddev_and_variance" compartment="C" initialAmount="6.9" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StatisticsCollection definition="http://www.uncertml.org/distributions">
+              <StandardDeviation definition="http://www.uncertml.org/distributions">
+                <value>
+                  <var varId="STDDEV"/>
+                </value>
+              </StandardDeviation>
+              <Variance definition="http://www.uncertml.org/distributions">
+                <value>
+                  <var varId="VARIANCE"/>
+                </value>
+              </Variance>
+            </StatisticsCollection>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S4_stddev_variance_and_mean" compartment="C" initialAmount="3.22" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StatisticsCollection definition="http://www.uncertml.org/distributions">
+              <StandardDeviation definition="http://www.uncertml.org/distributions">
+                <value>
+                  <var varId="STDDEV"/>
+                </value>
+              </StandardDeviation>
+              <Variance definition="http://www.uncertml.org/distributions">
+                <value>
+                  <var varId="VARIANCE"/>
+                </value>
+              </Variance>
+              <Mean definition="http://www.uncertml.org/distributions">
+                <value>
+                  <var varId="MEAN"/>
+                </value>
+              </Mean>
+            </StatisticsCollection>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S5_noval_range" compartment="C" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <Range definition="http://www.uncertml.org/distributions">
+              <lower>
+                <var varId="LOW"/>
+              </lower>
+              <upper>
+                <var varId="HIGH"/>
+              </upper>
+            </Range>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S6_noval_uniform" compartment="C" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <UniformDistribution definition="http://www.uncertml.org/distributions">
+              <minimum>
+                <var varId="LOW"/>
+              </minimum>
+              <maximum>
+                <var varId="HIGH"/>
+              </maximum>
+            </UniformDistribution>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S7_val_range" compartment="C" initialAmount="1.5" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <Range definition="http://www.uncertml.org/distributions">
+              <lower>
+                <var varId="LOW"/>
+              </lower>
+              <upper>
+                <var varId="HIGH"/>
+              </upper>
+            </Range>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S8_val_uniform" compartment="C" initialAmount="2.04" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <UniformDistribution definition="http://www.uncertml.org/distributions">
+              <minimum>
+                <var varId="LOW"/>
+              </minimum>
+              <maximum>
+                <var varId="HIGH"/>
+              </maximum>
+            </UniformDistribution>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+      <species id="S9_normal" compartment="C" initialAmount="8.8" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <NormalDistribution definition="http://www.uncertml.org/distributions">
+              <mean>
+                <var varId="MEAN"/>
+              </mean>
+              <stddev>
+                <var varId="STDDEV"/>
+              </stddev>
+            </NormalDistribution>
+          </UncertML>
+        </distrib:uncertainty>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="STDDEV" value="0.3" units="dimensionless" constant="true"/>
+      <parameter id="VARIANCE" value="0.9" units="dimensionless" constant="true"/>
+      <parameter id="MEAN" value="3.2" units="mole" constant="true"/>
+      <parameter id="LOW" value="0.5" units="mole" constant="true"/>
+      <parameter id="HIGH" value="8.6" units="mole" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

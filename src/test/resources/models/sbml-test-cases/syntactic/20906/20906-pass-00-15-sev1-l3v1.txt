@@ -1,0 +1,32 @@
+------------------
+Validation id    :	10521
+Validation number:	10521
+Severity         :	Warning
+Line number      :	31
+Package          :	
+Short message    :	Mismatched units in initial assignment to compartment
+Full message     :	When the 'variable' in an <initialAssignment> refers to a <compartment>, the units of the <initialAssignment>'s <math> expression are expected to be consistent with the units of that compartment's size. 
+Reference: L3V1 Section 4.8
+ Expected units are litre (exponent = 1, multiplier = 1, scale = 0) but the units returned by the <initialAssignment> with symbol 'C's <math> expression are mole (exponent = 1, multiplier = 1, scale = 0).
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	25
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 'S1' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80702
+Validation number:	80702
+Severity         :	Warning
+Line number      :	28
+Package          :	
+Short message    :	It's best to declare values for every parameter in a model
+Full message     :	As a principle of best modeling practice, the <parameter> should set an initial value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p1' does not have 'value' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

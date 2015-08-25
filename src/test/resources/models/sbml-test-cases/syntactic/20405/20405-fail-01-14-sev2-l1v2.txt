@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20405
+Validation number:	20405
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid redefinition of built-in type name 'time'
+Full message     :	Redefinitions of the built-in unit 'time' are restricted.
+ Redefinitions of the built-in unit 'time' must be based on 'second'. More formally, a <unitDefinition> for 'time' must simplify to a single <unit> in which the 'kind' attribute has a value of 'second' and the 'exponent' attribute has a value of '1'.
+
+------------------

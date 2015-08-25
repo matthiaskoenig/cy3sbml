@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20505
+Validation number:	6020505
+Severity         :	Error
+Line number      :	48
+Package          :	layout
+Short message    :	Layout 'metaidRef' must be IDREF.
+Full message     :	The attribute 'layout:metaidRef' of a <compartmentGlyph> must be of the data type 'IDREF'.
+Reference: L3V1 Layout V1 Section 3.7
+ The metaIdRef on the <compartmentGlyph> with id 'CompartmentGlyph_1' is '6__Yeast', which does not conform.
+
+------------------
+Validation id    :	layout-20506
+Validation number:	6020506
+Severity         :	Error
+Line number      :	48
+Package          :	layout
+Short message    :	Layout 'metaidRef' must reference existing object.
+Full message     :	The value of a 'layout:metaidRef' attribute of a <compartmentGlyph> must be of the 'metaid' of an existing element in the <model>.
+Reference: L3V1 Layout V1 Section 3.7
+ The <compartmentGlyph> with the id 'CompartmentGlyph_1' has a metaidRef '6__Yeast' which is not the metaid of any element in the model.
+
+------------------

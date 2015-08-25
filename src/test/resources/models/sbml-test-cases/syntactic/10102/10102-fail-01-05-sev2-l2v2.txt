@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10102
+Validation number:	10102
+Severity         :	Error
+Line number      :	3
+Package          :	
+Short message    :	Encountered unrecognized element
+Full message     :	An SBML XML document must not contain undefined elements or attributes in the SBML namespace. Documents containing unknown elements or attributes placed in the SBML namespace do not conform to the SBML specification.
+Reference: L2V2 Section 4.1
+ Element 'sarah' is not part of the definition of SBML Level 2 Version 2.
+
+------------------

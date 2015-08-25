@@ -1,0 +1,23 @@
+------------------
+Validation id    :	10401
+Validation number:	10401
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Missing declaration of the XML namespace for the annotation
+Full message     :	Every top-level element within an annotation element must have a namespace declared.
+Reference: L2V4 Section 3.2.4
+ An SBML <compartment> element with the id 'compartment_0000001' is missing a namespace on an element in its child <annotation>.
+
+------------------
+Validation id    :	10403
+Validation number:	10403
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	The SBML XML namespace cannot be used in an Annotation object
+Full message     :	Top-level elements within an annotation element cannot use any SBML namespace, whether explicitly (by declaring the namespace to be one of the URIs "http://www.sbml.org/sbml/level1", "http://www.sbml.org/sbml/level2", "http://www.sbml.org/sbml/level2/version2", or "http://www.sbml.org/sbml/level2/version3", or "http://www.sbml.org/sbml/level2/version4", or "http://www.sbml.org/sbml/level2/version5" or "http://www.sbml.org/sbml/level3/version1/core"), or implicitly (by failing to declare any namespace).
+Reference: L2V4 Section 3.2.4
+ An SBML <compartment> element with the id 'compartment_0000001' uses a restricted namespace on an element in its child <annotation>.
+
+------------------

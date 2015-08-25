@@ -1,0 +1,10 @@
+------------------
+Validation id    :	99222
+Validation number:	99222
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Missing or invalid exponential expression in MathML
+Full message     :	Failed to read a valid exponential value from MathML.
+
+------------------

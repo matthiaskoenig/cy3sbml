@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10212
+Validation number:	10212
+Severity         :	Warning
+Line number      :	37
+Package          :	
+Short message    :	Terms in a <piecewise> expression must have consistent data types
+Full message     :	[Although SBML Level 2 Version 1 does not explicitly define the following as an error, other Levels and/or Versions of SBML do.] 
+The types of values within <piecewise> operators must all be consistent: the set of expressions that make up the first arguments of the <piece> and <otherwise> operators within the same <piecewise> operator should all return values of the same type.
+ The piecewise formula in the math element of the <event> with id 'e' returns arguments which have different value types from the first element 'f(S1)'.
+
+------------------

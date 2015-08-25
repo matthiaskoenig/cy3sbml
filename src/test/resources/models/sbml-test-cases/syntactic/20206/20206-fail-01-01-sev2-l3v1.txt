@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20206
+Validation number:	20206
+Severity         :	Error
+Line number      :	4
+Package          :	
+Short message    :	Only FunctionDefinition, Notes and Annotation objects are allowed in ListOfFunctionDefinitions
+Full message     :	Apart from the general Notes and Annotation subobjects permitted on all SBML components, a ListOfFunctionDefinitions container object may only contain FunctionDefinition objects.
+Reference: L3V1 Section 4.2.8
+ Element 'assignmentRule' is not part of the definition of <listOfFunctionDefinitions>.
+
+------------------

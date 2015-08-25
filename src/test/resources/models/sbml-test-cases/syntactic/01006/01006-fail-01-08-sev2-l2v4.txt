@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01006
+Validation number:	1006
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	Badly formed XML
+Full message     :	XML content is not well-formed.
+
+------------------

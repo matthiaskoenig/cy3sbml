@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01010
+Validation number:	1010
+Severity         :	Error
+Line number      :	2
+Package          :	
+Short message    :	Duplicate attribute
+Full message     :	Duplicate XML attribute.
+
+------------------

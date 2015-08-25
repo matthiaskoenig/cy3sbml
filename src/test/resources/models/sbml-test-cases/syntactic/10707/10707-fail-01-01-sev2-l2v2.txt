@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10707
+Validation number:	10707
+Severity         :	Error
+Line number      :	17
+Package          :	
+Short message    :	Invalid 'sboTerm' attribute value for a Reaction object
+Full message     :	The value of the 'sboTerm' attribute on a <reaction> is expected to be an SBO identifier (http://www.biomodels.net/SBO/) referring to an occurring entity representation defined in SBO (i.e., terms derived from SBO:0000231, "occurring entity representation"). 
+Reference: L2V2 Section 4.13.1
+ SBO term 'SBO:0000064' on the <reaction> is not in the appropriate branch.
+
+------------------

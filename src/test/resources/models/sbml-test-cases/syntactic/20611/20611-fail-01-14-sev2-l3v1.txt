@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20611
+Validation number:	20611
+Severity         :	Error
+Line number      :	30
+Package          :	
+Short message    :	Cannot use a constant, non-boundary species as a reactant or product
+Full message     :	A <species> having boundaryCondition='false' cannot appear as a reactant or product in any reaction if that Species also has constant='true'.
+Reference: L3V1 Section 4.6.6
+ The <species> with id 's' cannot have 'boundaryCondition' set to 'false' and 'constant' set to 'true'.
+
+------------------

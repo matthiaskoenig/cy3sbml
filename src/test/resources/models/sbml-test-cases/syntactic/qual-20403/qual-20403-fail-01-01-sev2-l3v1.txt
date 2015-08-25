@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20403
+Validation number:	3020403
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attributes allowed on <transition>.
+Full message     :	A <transition> object may have the optional attributes 'qual:name' and 'qual:id'.  No other attributes from the SBML Level 3 Qualitative Models namespace are permitted on a <transition> object. 
+Reference: L3V1 Qual V1 Section 3.6
+  Attribute 'constant' is not part of the definition of an SBML Level 3 Version 1 Package qual Version 1 <transition> element.
+
+------------------

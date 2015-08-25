@@ -56,6 +56,11 @@
     		<releases><enabled>true</enabled></releases>
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
+		<repository>
+			<id>UncertWebMavenRepository</id>
+			<name>UncertWeb Maven Repository</name>
+			<url>http://giv-uw.uni-muenster.de/m2/repo</url>
+		</repository>
   	</repositories>
 
 	<build>
@@ -187,7 +192,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- 3rd party dependency -->
+		<!-- 3rd party dependency -->		
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
@@ -259,6 +264,21 @@
   			<artifactId>jsbml-fbc</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-distrib</artifactId>
+  			<version>0.5</version>
+  		</dependency>
+  		
+  		<!-- UncertML -->
+  		<!--
+  		<dependency>
+  			<groupId>org.uncertml</groupId>
+  			<artifactId>uncertml</artifactId>
+  			<version>2.0.6</version>
+  		</dependency>  		
+  		-->
+  		
   		
   		
   		 <!-- JSBML dependencies -->

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10404
+Validation number:	10404
+Severity         :	Error
+Line number      :	3
+Package          :	
+Short message    :	Only one Annotation object is permitted under a given SBML object
+Full message     :	A given SBML object may contain at most one <annotation> element.
+Reference: L3V1 Section 3.2
+ The SBML <model> element has multiple <annotation> children.
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10512
+Validation number:	10512
+Severity         :	Error
+Line number      :	24
+Package          :	
+Short message    :	Mismatched units in assignment rule for species
+Full message     :	When the 'variable' in an <assignmentRule> refers to a <species>, the units of the rule's right-hand side are expected to be consistent with the units of the species' quantity.
+  Expected units are mole (exponent = 1, multiplier = 1, scale = 0), litre (exponent = -1, multiplier = 1, scale = 0) but the units returned by the <assignmentRule> with variable 's1's <math> expression are ampere (exponent = 1, multiplier = 1, scale = 0), litre (exponent = -1, multiplier = 1, scale = 0).
+
+------------------

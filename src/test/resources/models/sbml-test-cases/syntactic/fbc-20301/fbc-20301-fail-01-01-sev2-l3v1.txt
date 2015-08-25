@@ -1,0 +1,11 @@
+------------------
+Validation id    :	fbc-20301
+Validation number:	2020301
+Severity         :	Error
+Line number      :	79
+Package          :	fbc
+Short message    :	Species allowed attributes
+Full message     :	A SBML <species> object may have the optional attributes 'fbc:charge' and 'fbc:chemicalFormula'. No other attributes from the Flux Balance Constraints namespaces are permitted on a <species>. 
+Reference: L3V1 Fbc V1 Section 3.4
+
+------------------

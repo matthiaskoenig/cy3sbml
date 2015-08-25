@@ -1,0 +1,10 @@
+------------------
+Validation id    :	21006
+Validation number:	21006
+Severity         :	Error
+Line number      :	13
+Package          :	
+Short message    :	Invalid content for a Constraint object's Message object
+Full message     :	The XHTML content inside a <constraint>'s message element can only take one of the following general forms: (1) a complete XHTML document beginning with the element <html> and ending with </html>; (2) the "body" portion of a document beginning with the element <body> and ending with </body>; or (3) XHTML content that is permitted within a <body> ... </body> elements.
+
+------------------

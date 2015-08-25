@@ -1,0 +1,11 @@
+------------------
+Validation id    :	qual-20101
+Validation number:	3020101
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Required qual:required attribute on <sbml>
+Full message     :	In all SBML documents using the Qualitative Models package, the SBML object must include a value for the attribute 'qual:required' attribute.
+Reference: L3V1 Core Section 4.1.2
+
+------------------

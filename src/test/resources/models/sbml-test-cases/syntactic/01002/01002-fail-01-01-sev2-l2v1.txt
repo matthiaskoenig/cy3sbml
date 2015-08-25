@@ -1,0 +1,10 @@
+------------------
+Validation id    :	01002
+Validation number:	1002
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Missing XML encoding attribute
+Full message     :	Missing encoding attribute in XML declaration.
+
+------------------

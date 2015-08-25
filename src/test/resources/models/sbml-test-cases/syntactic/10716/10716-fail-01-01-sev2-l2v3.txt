@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10716
+Validation number:	10716
+Severity         :	Error
+Line number      :	13
+Package          :	
+Short message    :	Invalid 'sboTerm' attribute value for an Event Trigger object
+Full message     :	The value of the 'sboTerm' attribute on a <trigger> is expected to be an SBO identifier (http://www.biomodels.net/SBO/) referring to a mathematical expression (i.e., terms derived from SBO:0000064, "mathematical expression"). 
+Reference: L2V3 Section 5
+ SBO term 'SBO:0000236' on the <trigger> is not in the appropriate branch.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10301
+Validation number:	10301
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Duplicate 'id' attribute value
+Full message     :	The value of the 'id' field on every instance of the following type of object in a model must be unique: <model>, <functionDefinition>, <compartmentType>, <compartment>, <speciesType>, <species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, <event>, and model-wide <parameter>s. Note that <unitDefinition> and parameters defined inside a reaction are treated separately. 
+Reference: L2V5 Section 3.3
+   The <species> id 'm' conflicts with the previously defined <model> id 'm' at line 3.
+
+------------------

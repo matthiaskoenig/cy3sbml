@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21222
+Validation number:	21222
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	An Event object can only have one ListOfEventAssignments subobject
+Full message     :	An Event object may contain at most one ListOfEventAssignments object.
+Reference: L3V1 Section 4.12
+
+------------------

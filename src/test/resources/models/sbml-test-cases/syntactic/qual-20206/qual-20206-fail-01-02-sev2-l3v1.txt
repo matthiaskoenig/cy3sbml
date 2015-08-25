@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20206
+Validation number:	3020206
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attributes allowed on <listOfTransitions>.
+Full message     :	A <listOfTransitions> object may have the optional 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Qualitative Models namespace are permitted on a <listOfTransitions> object.
+Reference: L3V1 Qual V1 Section 3.4
+  Attribute 'name' is not part of the definition of an SBML Level 3 Version 1 Package qual Version 1 <listOfTransitions> element.
+
+------------------

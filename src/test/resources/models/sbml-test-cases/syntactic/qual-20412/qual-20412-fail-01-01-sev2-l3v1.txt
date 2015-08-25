@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20412
+Validation number:	3020412
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attributes allowed on <listOfFunctionTerms>.
+Full message     :	A <listOfFunctionTerms> object may have the optional 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Qualitative Models namespace are permitted on a <listOfFunctionTerms> object.
+Reference: L3V1 Qual V1 Section 3.6
+  Attribute 'constant' is not part of the definition of an SBML Level 3 Version 1 <listOfFunctionTerms> element.
+
+------------------

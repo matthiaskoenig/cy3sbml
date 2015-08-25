@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20613
+Validation number:	20613
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Cannot have multiple species of the same species type in the same compartment
+Full message     :	There cannot be more than one species of a given <speciesType> in the same compartment of a model. More formally, for any given compartment, there cannot be more than one <species> definition in which both of the following hold simultaneously: (i) the <species>' 'compartment' value is set to that compartment's identifier and (ii) the <species>' 'speciesType' is set the same value as the 'speciesType' of another <species> that also sets its 'compartment' to that compartment identifier.
+Reference: L2V2 Section 4.8.2
+ The compartment 'c' contains more than one species with species type 'gg'.
+
+------------------

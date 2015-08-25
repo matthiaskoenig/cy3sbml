@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-20204
+Validation number:	6020204
+Severity         :	Error
+Line number      :	45
+Package          :	layout
+Short message    :	Allowed attributes on ListOfLayouts
+Full message     :	A <listOfLayouts> object may have the optional attributes 'metaid' and 'sboTerm' defined by SBML Level 3 Core. No other attributes from the SBML Level 3 Core namespace or the Layout namespace are permitted on a <listOfLayouts> object. 
+Reference: L3V1 Layout V1 Section 3.5
+  Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <listOfLayouts> element.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21009
+Validation number:	21009
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	Invalid attribute found on Constraint object
+Full message     :	A Constraint object may have the optional attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a Constraint object.
+Reference: L3V1 Section 4.10
+ Attribute 'value' is not part of the definition of an SBML Level 3 Version 1 <constraint> element.
+
+------------------

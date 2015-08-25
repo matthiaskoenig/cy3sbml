@@ -1,0 +1,11 @@
+------------------
+Validation id    :	21221
+Validation number:	21221
+Severity         :	Error
+Line number      :	20
+Package          :	
+Short message    :	An Event object can only have one Delay subobject
+Full message     :	An Event object may contain at most one Delay object.
+Reference: L3V1 Section 4.12
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	10221
+Validation number:	10221
+Severity         :	Error
+Line number      :	9
+Package          :	
+Short message    :	Invalid value given for the 'units' attribute
+Full message     :	The value of the SBML attribute 'units' on a MathML <cn> element must be chosen from either the set of identifiers of UnitDefinition objects in the model, or the set of base units defined by SBML. 
+Reference: L3V1 Section 3.4.2
+
+------------------

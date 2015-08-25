@@ -1,0 +1,32 @@
+------------------
+Validation id    :	10564
+Validation number:	10564
+Severity         :	Warning
+Line number      :	45
+Package          :	
+Short message    :	Mismatched units in event assignment for stoichiometry
+Full message     :	When the value of the attribute variable of an EventAssignment object is the identifier of a SpeciesReference object, the unit of measurement associated with the EventAssignment's math expression should be consistent with the unit of stoichiometry, i.e., dimensionless.
+Reference: L3V1 Section 4.12.4
+  Expected units are dimensionless but the units returned by the <eventAssignment> with variable 'sr's <math> expression are mole (exponent = 1, multiplier = 1, scale = 0).
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	30
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 's' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------
+Validation id    :	80601
+Validation number:	80601
+Severity         :	Warning
+Line number      :	31
+Package          :	
+Short message    :	It's best to define an initial amount or initial concentration for every species in a model
+Full message     :	As a principle of best modeling practice, the <species> should set an initial value (amount or concentration) rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <species> with the id 'p' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

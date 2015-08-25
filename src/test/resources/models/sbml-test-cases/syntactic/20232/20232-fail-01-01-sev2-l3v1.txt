@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20232
+Validation number:	20232
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid attribute found on the ListOfEvents object
+Full message     :	A ListOfEvents object may have the optional attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace are permitted on a ListOfEvents object.
+Reference: L3V1 Section 4.2.8
+ Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 <listOfEvents> element.
+
+------------------

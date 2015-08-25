@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-21404
+Validation number:	6021404
+Severity         :	Error
+Line number      :	89
+Package          :	layout
+Short message    :	Layout attributes allowed on <curve>.
+Full message     :	No attributes from the Layout namespace are permitted on a <curve>. 
+Reference: L3V1 Layout V1 Section 3.4.4
+  Attribute 'id' is not part of the definition of an SBML Level 3 Version 1 Package layout Version 1 <curve> element.
+
+------------------

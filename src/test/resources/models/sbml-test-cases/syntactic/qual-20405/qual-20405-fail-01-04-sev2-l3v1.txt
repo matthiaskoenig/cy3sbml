@@ -1,0 +1,11 @@
+------------------
+Validation id    :	qual-20405
+Validation number:	3020405
+Severity         :	Error
+Line number      :	115
+Package          :	qual
+Short message    :	ListOf elements on <transition>.
+Full message     :	A <transition> must have one and only one instance of the <listOfFunctionTerms> objects and may have at most one instance of the <listOfInputs> and <listOfOutputs> objects from the Qualitative Models namespace.
+Reference: L3V1 Qual V1 Section 3.6
+
+------------------

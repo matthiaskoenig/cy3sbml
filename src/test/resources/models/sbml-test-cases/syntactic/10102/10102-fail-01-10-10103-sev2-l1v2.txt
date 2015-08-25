@@ -1,0 +1,21 @@
+------------------
+Validation id    :	10102
+Validation number:	10102
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Encountered unrecognized element
+Full message     :	An SBML XML document must not contain undefined elements or attributes in the SBML namespace. Documents containing unknown elements or attributes placed in the SBML namespace do not conform to the SBML specification.
+ Element 'listOfSpeciesTypes' is not part of the definition of SBML Level 1 Version 2.
+
+------------------
+Validation id    :	10103
+Validation number:	10103
+Severity         :	Error
+Line number      :	16
+Package          :	
+Short message    :	Document does not conform to the SBML XML schema
+Full message     :	An SBML XML document must conform to the XML Schema for the corresponding SBML Level, Version and Release. The XML Schema for SBML defines the basic SBML object structure, the data types used by those objects, and the order in which the objects may appear in an SBML document.
+ Attribute 'speciesType' is not part of the definition of an SBML Level 1 Version 2 <species> element.
+
+------------------

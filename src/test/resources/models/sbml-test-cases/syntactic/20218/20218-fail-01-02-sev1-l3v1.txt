@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20218
+Validation number:	20218
+Severity         :	Warning
+Line number      :	3
+Package          :	
+Short message    :	Invalid 'volumeUnits' attribute value
+Full message     :	The value of the attribute 'volumeUnits' on a Model object should be either the units 'litre', 'dimensionless', or the identifier of a UnitDefinition object based on these units or a unit derived from 'metre' (with an exponent of '3').
+Reference: L3V1 Section 4.2.5
+ The 'volumeUnits' attribute of the <model> is 'metre', which does not comply.
+
+------------------

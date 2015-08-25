@@ -1,0 +1,11 @@
+------------------
+Validation id    :	qual-20307
+Validation number:	3020307
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attribute 'maxLevel' on <qualitativeSpecies> must be integer.
+Full message     :	The attribute 'qual:maxLevel' in <qualitativeSpecies> must be of the data type integer.
+Reference: L3V1 Qual V1 Section 3.5
+
+------------------

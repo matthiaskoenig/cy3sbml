@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20623
+Validation number:	20623
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid attribute found on Species object
+Full message     :	A Species object must have the required attributes 'id', 'compartment', 'hasOnlySubstanceUnits', 'boundaryCondition' and 'constant', and may have the optional attributes 'metaid', 'sboTerm', 'name', 'initialAmount', 'initialConcentration', 'substanceUnits' and 'conversionFactor'. No other attributes from the SBML Level 3 Core namespace are permitted on a Species object.
+Reference: L3V1 Section 4.6
+ The required attribute 'hasOnlySubstanceUnits' is missing from the <species> with the id 's'.
+
+------------------

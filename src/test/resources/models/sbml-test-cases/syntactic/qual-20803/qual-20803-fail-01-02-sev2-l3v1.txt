@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20803
+Validation number:	3020803
+Severity         :	Error
+Line number      :	134
+Package          :	qual
+Short message    :	Attributes allowed on <functionTerm>.
+Full message     :	A <functionTerm> object must have the required attributes 'qual:resultLevel'.  No other attributes from the SBML Level 3 Qualitative Models namespace are permitted on a <functionTerm> object. 
+Reference: L3V1 Qual V1 Section 3.6.5
+ Qual attribute 'resultLevel' is missing.
+
+------------------

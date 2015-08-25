@@ -1,0 +1,12 @@
+------------------
+Validation id    :	20706
+Validation number:	20706
+Severity         :	Error
+Line number      :	5
+Package          :	
+Short message    :	Invalid attribute found on Parameter object
+Full message     :	A Parameter object must have the required attributes 'id' and 'constant', and may have the optional attributes 'metaid', 'sboTerm', 'name', 'value' and 'units'. No other attributes from the SBML Level 3 Core namespace are permitted on a Parameter object.
+Reference: L3V1 Section 4.7
+ The required attribute 'id' is missing.
+
+------------------

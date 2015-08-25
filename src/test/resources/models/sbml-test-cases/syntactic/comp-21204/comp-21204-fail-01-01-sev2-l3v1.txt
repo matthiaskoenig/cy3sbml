@@ -1,0 +1,84 @@
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <compartment> 'Cell' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20518
+Validation number:	20518
+Severity         :	Warning
+Line number      :	5
+Package          :	
+Short message    :	No units defined for Compartment object
+Full message     :	If neither the attribute 'units' nor the attribute 'spatialDimensions' on a Compartment object is set, the unit associated with that compartment's size is undefined.
+Reference: L3V1 Section 4.5
+ The <compartment> 'Cell' has no discernable units.
+
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	8
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'J' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20616
+Validation number:	20616
+Severity         :	Warning
+Line number      :	8
+Package          :	
+Short message    :	No substance units defined for the species
+Full message     :	If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'J' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+------------------
+Validation id    :	99508
+Validation number:	99508
+Severity         :	Warning
+Line number      :	9
+Package          :	
+Short message    :	Unable to verify consistency of units: encountered a model entity with no declared units
+Full message     :	In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'M' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+------------------
+Validation id    :	20616
+Validation number:	20616
+Severity         :	Warning
+Line number      :	9
+Package          :	
+Short message    :	No substance units defined for the species
+Full message     :	If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'M' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+------------------
+Validation id    :	comp-90106
+Validation number:	1090106
+Severity         :	Warning
+Line number      :	1
+Package          :	comp
+Short message    :	Line numbers unreliable.
+Full message     :	Due to the need to instantiate models, modelDefinitions, submodels etc. for the purposes of validation it is problematic to reliably report line numbers when performing validation on models using the Hierarchical Model Composition package.
+
+------------------
+Validation id    :	comp-21204
+Validation number:	1021204
+Severity         :	Error
+Line number      :	24
+Package          :	comp
+Short message    :	Replaced package IDs must be replaced with package IDs.
+Full message     :	If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, if the replaced element has an identifier attribute from some other SBML package set, the replacement element must also have that same identifier attribute set.
+Reference: L3V1 Comp V1 Section 3.6.5
+ A ReplacedElement object on the FluxBound object with no id attribute refers to the FluxBound object that does has an id 'c0'.
+
+------------------

@@ -1,0 +1,11 @@
+------------------
+Validation id    :	fbc-10302
+Validation number:	2010302
+Severity         :	Error
+Line number      :	121
+Package          :	fbc
+Short message    :	Invalid 'id' attribute
+Full message     :	The value of a fbc:id attribute must always conform to the syntax of the SBML data type SId.
+Reference: L3V1 Fbc V1 Section 3.2
+
+------------------

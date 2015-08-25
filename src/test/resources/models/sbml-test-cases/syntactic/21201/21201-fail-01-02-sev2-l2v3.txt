@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21201
+Validation number:	21201
+Severity         :	Error
+Line number      :	12
+Package          :	
+Short message    :	The Event object is missing a Trigger subobject
+Full message     :	An <event> object must have a 'trigger'.
+Reference: L2V3 Section 4.14.2
+ The <event> with id 'e' does not contain a <trigger> element. 
+
+------------------

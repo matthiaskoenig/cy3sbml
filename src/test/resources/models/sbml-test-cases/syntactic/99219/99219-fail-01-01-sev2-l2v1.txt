@@ -1,0 +1,11 @@
+------------------
+Validation id    :	99219
+Validation number:	99219
+Severity         :	Error
+Line number      :	19
+Package          :	
+Short message    :	Invalid MathML expression
+Full message     :	Invalid MathML. The body of an <apply> tag must begin with an operator.
+ <cn> cannot be used directly following an <apply> tag.
+
+------------------

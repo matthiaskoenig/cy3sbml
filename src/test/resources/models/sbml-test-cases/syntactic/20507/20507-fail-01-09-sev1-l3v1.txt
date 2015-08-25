@@ -1,0 +1,22 @@
+------------------
+Validation id    :	20507
+Validation number:	20507
+Severity         :	Warning
+Line number      :	17
+Package          :	
+Short message    :	Invalid value for the 'units' attribute of a one-dimensional compartment
+Full message     :	The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '1' is restricted. 
+Reference: L3V1 Section 4.5.4
+ The value of the 'units' attribute on a <compartment> having 'spatialDimensions' of '1' must be either 'metre', 'dimensionless', or the identifier of a <unitDefinition> based on either 'metre' (with 'exponent' equal to '1') or 'dimensionless'. The <compartment> with id 'c' does not comply.
+
+------------------
+Validation id    :	80501
+Validation number:	80501
+Severity         :	Warning
+Line number      :	17
+Package          :	
+Short message    :	It's best to define a size for every compartment in a model
+Full message     :	As a principle of best modeling practice, the size of a <compartment> should be set to a value rather than be left undefined. Doing so improves the portability of models between different simulation and analysis systems, and helps make it easier to detect potential errors in models.
+ The <compartment> with the id 'c' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.
+
+------------------

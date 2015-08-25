@@ -1,0 +1,11 @@
+------------------
+Validation id    :	99129
+Validation number:	99129
+Severity         :	Error
+Line number      :	18
+Package          :	
+Short message    :	Only predefined functions are allowed in SBML Level 1 formulas
+Full message     :	In a Level 1 model, only predefined functions are permitted within the formula. (L1V2 Appendix C) 
+ The <kineticLaw> with the formula 'sum(s) *p' uses one or more undefined functions.
+
+------------------

@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-21110
+Validation number:	6021110
+Severity         :	Error
+Line number      :	61
+Package          :	layout
+Short message    :	ReferenceGlyph 'glyph' must have SIdRef syntax.
+Full message     :	The attribute 'layout:glyph' of a <referenceGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.11.1
+ The glyph on the <referenceGlyph> is '1sGlyph_1', which does not conform.
+
+------------------
+Validation id    :	layout-21111
+Validation number:	6021111
+Severity         :	Error
+Line number      :	61
+Package          :	layout
+Short message    :	ReferenceGlyph 'glyph' must reference existing element.
+Full message     :	The value of the 'layout:glyph' attribute of a <referenceGlyph> must be of the 'id' of an existing <graphicalObject> (or derived) element in the <layout>.
+Reference: L3V1 Layout V1 Section 3.11.1
+ The <referenceGlyph> with the id 'SpeciesReference_J0_0' has a glyph '1sGlyph_1' which is not the id of any <graphicalObject> in the model.
+
+------------------

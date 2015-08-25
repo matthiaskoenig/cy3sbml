@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10523
+Validation number:	10523
+Severity         :	Error
+Line number      :	19
+Package          :	
+Short message    :	Mismatched units in initial assignment to parameter
+Full message     :	When the 'variable' in an <initialAssignment> refers to a <parameter>, the units of the <initialAssignment>'s <math> expression are expected to be consistent with the units declared for that parameter.
+Reference: L2V2 Section 4.10.4
+ Expected units are ampere (exponent = 1, multiplier = 1, scale = 0) but the units returned by the <initialAssignment> with symbol 'p's <math> expression are litre (exponent = 1, multiplier = 1, scale = 0).
+
+------------------

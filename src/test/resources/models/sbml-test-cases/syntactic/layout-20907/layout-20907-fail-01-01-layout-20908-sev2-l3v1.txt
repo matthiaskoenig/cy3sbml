@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20907
+Validation number:	6020907
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	TextGlyph 'originOfText' must have SIdRef syntax.
+Full message     :	The attribute 'layout:originOfText' of a <textGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.12
+ The originOfText on the <textGlyph> is '1Glucose', which does not conform.
+
+------------------
+Validation id    :	layout-20908
+Validation number:	6020908
+Severity         :	Error
+Line number      :	67
+Package          :	layout
+Short message    :	TextGlyph 'originOfText' must reference existing element.
+Full message     :	The value of the 'layout:originOfText' attribute of a <textGlyph> must be of the 'id' of an existing element in the <model>.
+Reference: L3V1 Layout V1 Section 3.12
+ The <textGlyph> with the id 'TextGlyph_Glucose' has an originOfText '1Glucose' which is not the id of any element in the model.
+
+------------------

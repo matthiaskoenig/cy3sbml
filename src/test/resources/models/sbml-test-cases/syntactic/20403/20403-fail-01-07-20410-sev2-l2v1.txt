@@ -1,0 +1,22 @@
+------------------
+Validation id    :	20403
+Validation number:	20403
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid redefinition of built-in type 'length'
+Full message     :	Redefinitions of the built-in unit 'length' are restricted.
+Reference: L2V1 Section 4.4.3
+ Redefinitions of the built-in unit 'length' must be based on the unit 'metre'. More formally, a <unitDefinition> for 'length' must simplify to a single <unit> in which the 'kind' attribute has a value of 'metre' and the 'exponent' attribute has a value of '1'.
+
+------------------
+Validation id    :	20410
+Validation number:	20410
+Severity         :	Error
+Line number      :	8
+Package          :	
+Short message    :	Invalid value for the 'kind' attribute of a UnitDefinition object
+Full message     :	The value of the 'kind' attribute of a <unit> can only be one of the base units enumerated by 'UnitKind'; that is, the SBML unit system is not hierarchical and user-defined units cannot be defined using other user-defined units. 
+ A <unit> in the <unitDefinition> with the id 'length' has a 'kind' attribute not on the list of base units.
+
+------------------

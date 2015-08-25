@@ -1,0 +1,12 @@
+------------------
+Validation id    :	layout-21204
+Validation number:	6021204
+Severity         :	Error
+Line number      :	50
+Package          :	layout
+Short message    :	Layout 'x', 'y' and 'z' must be double.
+Full message     :	The attributes 'layout:x', 'layout:y' and 'layout:z' of a <point> element must be of the data type 'double'.
+Reference: L3V1 Layout V1 Section 3.4.1
+ The 'x' on the <position> does not conform.
+
+------------------

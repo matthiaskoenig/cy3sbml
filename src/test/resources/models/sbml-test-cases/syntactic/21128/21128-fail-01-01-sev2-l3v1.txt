@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21128
+Validation number:	21128
+Severity         :	Error
+Line number      :	48
+Package          :	
+Short message    :	Only LocalParameter, Notes and Annotation objects are allowed in ListOfLocalParameter objects
+Full message     :	Apart from the general Notes and Annotation subobjects permitted on all SBML components, a ListOfLocalParameters container object may only contain LocalParameter objects.
+Reference: L3V1 Section 4.2.8
+ Element 'parameter' is not part of the definition of <listOfLocalParameters>.
+
+------------------

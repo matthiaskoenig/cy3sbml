@@ -1,0 +1,23 @@
+------------------
+Validation id    :	layout-20707
+Validation number:	6020707
+Severity         :	Error
+Line number      :	88
+Package          :	layout
+Short message    :	ReactionGlyph 'reaction' must have SIdRef syntax.
+Full message     :	The attribute 'layout:reaction' of a <reactionGlyph> must be the data type 'SIdRef'.
+Reference: L3V1 Layout V1 Section 3.10
+ The reaction on the <reactionGlyph> is '6Hexokinase', which does not conform.
+
+------------------
+Validation id    :	layout-20708
+Validation number:	6020708
+Severity         :	Error
+Line number      :	88
+Package          :	layout
+Short message    :	ReactionGlyph reaction must reference existing reaction.
+Full message     :	The value of the 'layout:reaction' attribute of a <reactionGlyph> must be of the 'id' of an existing <reaction> in the <model>.
+Reference: L3V1 Layout V1 Section 3.10
+ The <reactionGlyph> with the id 'glyph_Hexokinase' has a reaction '6Hexokinase' which is not the id of any <reaction> in the model.
+
+------------------

@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10305
+Validation number:	10305
+Severity         :	Error
+Line number      :	21
+Package          :	
+Short message    :	Multiple event assignments for the same variable are not allowed
+Full message     :	In each <event>, the value of the 'variable' field within every <eventAssignment> definition must be unique across the set of all <eventAssignment>s within that <event>.
+Reference: L2V4 Section 4.14.4
+   The <eventAssignment> variable 'c' conflicts with the previously defined <eventAssignment> variable 'c' at line 20.
+
+------------------

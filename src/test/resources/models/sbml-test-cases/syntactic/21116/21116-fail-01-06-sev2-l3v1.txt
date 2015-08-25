@@ -1,0 +1,12 @@
+------------------
+Validation id    :	21116
+Validation number:	21116
+Severity         :	Error
+Line number      :	35
+Package          :	
+Short message    :	Invalid attribute found on the SpeciesReference object
+Full message     :	A SpeciesReference object must have the required attributes 'species' and 'constant', and may have the optional attributes 'metaid', 'sboTerm', 'name' 'id' and 'stoichiometry'. No other attributes from the SBML Level 3 Core namespace are permitted on a SpeciesReference object.
+Reference: L3V1 Section 4.11
+ Attribute 'substance' is not part of the definition of an SBML Level 3 Version 1 <speciesReference> element.
+
+------------------

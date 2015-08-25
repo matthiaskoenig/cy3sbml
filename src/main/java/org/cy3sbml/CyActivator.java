@@ -108,10 +108,6 @@ public class CyActivator extends AbstractCyActivator {
 			
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 			
-			// CyNetworkReaderManager cyNetworkReaderManager = getService(bc, CyNetworkReaderManager.class);
-			// CyNetworkReader reader = cyNetworkReaderManager.getReader(stream, inputName);
-			// reader.buildCyNetworkView(network);
-			
 			// Use the Cytoscape properties to set proxy for webservices
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();

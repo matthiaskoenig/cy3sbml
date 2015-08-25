@@ -1,0 +1,11 @@
+------------------
+Validation id    :	20101
+Validation number:	20101
+Severity         :	Error
+Line number      :	6
+Package          :	
+Short message    :	Invalid XML namespace for the SBML container element
+Full message     :	The <sbml> container element must declare the XML Namespace for SBML, and this declaration must be consistent with the values of the 'level' and 'version' attributes on the <sbml> element. 
+Reference: L2V5 Section 4.1
+
+------------------

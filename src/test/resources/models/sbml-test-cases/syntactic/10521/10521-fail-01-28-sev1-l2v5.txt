@@ -1,0 +1,12 @@
+------------------
+Validation id    :	10521
+Validation number:	10521
+Severity         :	Warning
+Line number      :	12
+Package          :	
+Short message    :	Mismatched units in initial assignment to compartment
+Full message     :	When the 'variable' in an <initialAssignment> refers to a <compartment>, the units of the <initialAssignment>'s <math> expression are expected to be consistent with the units of that compartment's size. 
+Reference: L2V5 Section 4.10
+ Expected units are metre (exponent = 2, multiplier = 1, scale = 0) but the units returned by the <initialAssignment> with symbol 'c's <math> expression are volt (exponent = 1, multiplier = 1, scale = 0).
+
+------------------

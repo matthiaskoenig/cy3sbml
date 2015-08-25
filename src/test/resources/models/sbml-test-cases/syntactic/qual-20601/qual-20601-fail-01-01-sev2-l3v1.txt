@@ -1,0 +1,12 @@
+------------------
+Validation id    :	qual-20601
+Validation number:	3020601
+Severity         :	Error
+Line number      :	135
+Package          :	qual
+Short message    :	Core attributes allowed on <output>.
+Full message     :	An <output> object may have the optional 'metaid' and 'sboTerm' defined by SBML Level 3 Core.  No other attributes from the SBML Level 3 Core namespace or the Qualitative Models namespace are permitted on an <output> object.
+Reference: L3V1 Qual V1 Section 3.6.2
+  Attribute 'variable' is not part of the definition of an SBML Level 3 Version 1 <output> element.
+
+------------------
