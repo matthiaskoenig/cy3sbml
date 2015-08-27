@@ -42,6 +42,8 @@ For working with the latest **stable development release** follow the [build ins
 We are funded by the [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session](http://nrnb.org/gsoc.html) based on the following [cy3sbml proposal](https://docs.google.com/document/d/1a3t1EWuSqc3AOxtNoxPcZFSZqMPsKSMBLFJIS_P7Q4g/edit?usp=sharing).
 
 ## Changelog
+**v0.1.7** [?]
+
 **v0.1.6** [2015/08/27]
 * Testing, bug fixes and documentation
 * sbml-test-cases models successfully parsed
