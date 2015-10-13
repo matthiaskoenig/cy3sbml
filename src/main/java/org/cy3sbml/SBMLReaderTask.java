@@ -871,7 +871,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (fbcReaction.isSetUpperFluxBound()){
 				AttributeUtil.set(network, node, SBML.ATTR_FBC_UPPER_FLUX_BOUND, fbcReaction.getUpperFluxBound(), String.class);
 				// add edge
-				CyNode parameterNode = nodeById.get(fbcReaction.getLowerFluxBound());
+				CyNode parameterNode = nodeById.get(fbcReaction.getUpperFluxBound());
 				CyEdge edge = network.addEdge(parameterNode, node, true);
 				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
 			}
