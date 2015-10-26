@@ -1,5 +1,5 @@
-# cy3sbml - SBML for Cytoscape
-**cy3sbml** is a [Cytoscape](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).
+# cy3sbml - SBML for Cytoscape 3
+**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org). For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
 
 ![alt tag](./docs/images/logo100.png) 
 
