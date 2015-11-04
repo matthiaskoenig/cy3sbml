@@ -57,7 +57,8 @@ Clone the repository and build with `mvn`
 ```
 git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml
 cd cy3sbml
-mvn clean install cy3sbml
+mvn clean install
+mvn clean install -DskipTests
 ```
 Development is done in `develop` branch, documentation in `README.md`
 ```
