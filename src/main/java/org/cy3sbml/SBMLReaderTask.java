@@ -154,18 +154,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				return;
 			}
 			
-			// Create empty root network and node map
-			network = networkFactory.createNetwork();
-			nodeById = new HashMap<String, CyNode>();
-			
-			
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
 			
 			// TODO: store and display JSBML reader warnings
 			document = JSBML.readSBMLFromString(xml);
-			Model model = document.getModel();
+			Model model = null;
+			if (document.isSetModel()){
+				model = document.getModel();
+			} else {
+				logger.warn("No model in SBML file. Please check the model definition.");
+				model = document.createModel();
+				model.setId("null_model");
+			}
+			
+			// Create empty root network and node map
+			network = networkFactory.createNetwork();
+			nodeById = new HashMap<String, CyNode>();
 			
 			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
 			// CySubNetwork and call the CySubNetwork.getRootNetwork() method:
@@ -209,9 +215,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			*/
 			readDistrib(model);
 			
-			
-			
-
 			// main SBML network consisting of the following nodes and edges
 			String[] nodeTypes = {
 				SBML.NODETYPE_SPECIES,
