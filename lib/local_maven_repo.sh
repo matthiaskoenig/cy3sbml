@@ -22,7 +22,7 @@ mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jigsaw-dateParser -
 # here have to be synchronized!
 
 # core
-mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml -Dversion=1.1-dev -Dfile=$CY3SBML/lib/jsbml-1.1-dev.jar -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml -Dversion=1.1-b1 -Dfile=$CY3SBML/lib/jsbml-1.1-b1.jar -Dpackaging=jar -DgeneratePom=true
 # qual
 mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-qual -Dversion=2.1-b1 -Dfile=$CY3SBML/lib/jsbml-qual-2.1-b1.jar -Dpackaging=jar -DgeneratePom=true
 # layout
