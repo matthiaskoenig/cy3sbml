@@ -8,9 +8,10 @@
 # check if the necessary enviroment variables are set
 # The environment variable can be set via
 # export JSBMLCODE=$HOME/svn/jsbml-code
-
 : "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code svn directory.}"
-: "${CY3SBML:?The CY3SBML environment variable must be set to the cy3sbml git directory.}"
+
+# cy3sbml/lib directory
+LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # now update to latest revision
 cd $JSBMLCODE
@@ -21,8 +22,8 @@ rm -r $JSBMLCODE/build
 ant jar 
 
 # copy CORE
-cp $JSBMLCODE/core/build/*.jar $CY3SBML/lib/
+cp $JSBMLCODE/core/build/*.jar $LIBDIR
 
 # copy EXTENSIONS
-cp $JSBMLCODE/build/*.jar $CY3SBML/lib/
+cp $JSBMLCODE/build/*.jar $LIBDIR
 
