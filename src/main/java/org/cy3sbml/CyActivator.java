@@ -194,6 +194,11 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 			
+			
+			// register cy3sbml services for other plugins
+			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
+			
+			
 			// Show the cy3sbml panel
 			ResultsPanel.getInstance().activate();
 			logger.info("---------------------------------");

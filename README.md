@@ -51,7 +51,7 @@ Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://docs.google.com/document/d/1EILRjGBPi1dmVaI8xXNE7Uk9RY-nmlVB8mkMzsDqgVo/edit?usp=sharing). This includes recently developed features not yet released.
+For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released.
 
 Clone the repository and build with `mvn`
 ```
@@ -66,6 +66,8 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.1.7** [?]
+
 **v0.1.6** [2015/08/27]
 * Testing, bug fixes and documentation
 * sbml-test-cases models successfully parsed

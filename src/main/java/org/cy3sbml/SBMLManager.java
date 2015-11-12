@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
@@ -30,6 +29,8 @@ import org.slf4j.LoggerFactory;
  * CyNetworks.
  * Interaction with the SBMLDocuments and information should go through the 
  * SBMLManager.
+ * 
+ * TODO: implement proper to string information
  */
 public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
