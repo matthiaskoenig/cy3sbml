@@ -67,6 +67,7 @@ public class SBML {
 	public static final String NODETYPE_COMPARTMENT = "compartment";
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_RULE = "rule";
+	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
 	public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
 
@@ -98,7 +99,9 @@ public class SBML {
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
 	public static final String INTERACTION_VARIABLE_RULE = "variable-rule";
+	public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable-initialAssignment";
 	public static final String INTERACTION_REFERENCE_RULE = "parameter-rule";
+	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "parameter-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
 	public static final String INTERACTION_REFERENCE_KINETICLAW = "parameter-kineticLaw";
 	

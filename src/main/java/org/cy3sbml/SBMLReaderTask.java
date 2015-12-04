@@ -638,9 +638,38 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			String variable = assignment.getVariable();
 			CyNode targetNode = nodeById.get(variable);
 			if (targetNode != null){
+				
+				String id = variable + "_assignment";
+			 	CyNode assignmentNode = network.addNode();
+			 	nodeById.put(id, assignmentNode);
+				AttributeUtil.set(network, assignmentNode, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, assignmentNode, SBML.LABEL, id, String.class);
+				AttributeUtil.set(network, assignmentNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_INITIAL_ASSIGNMENT, String.class);
+				setSBaseAttributes(assignmentNode, assignment);  // metaId and sbo
+			 	
+				// edge to variable 
+				CyNode variableNode = nodeById.get(variable);
+				if (variableNode != null){
+					CyEdge edge = network.addEdge(targetNode, assignmentNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_VARIABLE_INITIAL_ASSIGNMENT, String.class);	
+				} else {
+					logger.warn(String.format("Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s", variable, id ));
+				}
+
+				// referenced nodes in math
+				// TODO: reusable code for the math -> graph operation (needed for assignments and rules)
 				if (assignment.isSetMath()){
-					String math = assignment.getMath().toFormula();
-					AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, math, String.class);
+					ASTNode astNode = assignment.getMath();
+					AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, astNode.toFormula(), String.class);
+					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
+						// This can be parameters, localParameters, species, ...
+						// add edge if node exists
+						CyNode nsbNode = nodeById.get(nsb.getId());
+						if (nsbNode != null){
+							CyEdge edge = network.addEdge(nsbNode, assignmentNode, true);
+							AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT, String.class);	
+						}
+					}
 				}	
 			} else {
 				logger.error(String.format("Variable does not exist for InitialAssignment: %s for %s", assignment.getVariable(), "?"));
