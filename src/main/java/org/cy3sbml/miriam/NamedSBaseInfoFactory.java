@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.cy3sbml.util.AnnotationUtil;
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
@@ -34,6 +35,9 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
  * web services (MIRIAM).
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
+ * 
+ * TODO: refactor the SBML HTML information completely.
+ * 
  */
 public class NamedSBaseInfoFactory {
 	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -156,7 +160,7 @@ public class NamedSBaseInfoFactory {
 				
 				Map<String, String> map = null;
 				for (String rURI : term.getResources()){
-					map = getIdCollectionMapForURI(rURI);
+					map = AnnotationUtil.getIdCollectionMapForURI(rURI);
 					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("collection"));
 					text += MiriamResourceInfo.getInfoFromURI(link, rURI);
 				}
@@ -167,30 +171,7 @@ public class NamedSBaseInfoFactory {
   		return text;
 	}
 	
-	/**
-	 * Split the information in url, resource, id.
-	 * Examples are:
-	 * 		<rdf:li rdf:resource="http://identifiers.org/chebi/CHEBI:17234"/>
-	 * 		<rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00293"/>
-	 * 		"urn:miriam:kegg.compound:C00197" 
-	 */
-	private Map<String, String> getIdCollectionMapForURI(final String rURI) {
-		Map<String, String> map = new HashMap<String, String>();
-		if (rURI.startsWith("http")){
-			String[] items = rURI.split("/");
-			map.put("id", items[items.length - 1]);
-			// map.put("key", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), "/"));
-			map.put("collection", items[items.length - 2]);
-		} else if (rURI.startsWith("urn")){
-			String[] items = rURI.split(":");
-			map.put("id", items[items.length - 1]);
-			// map.put("collection", StringUtils.join(ArrayUtils.subarray(items, 0, items.length-1), ":"));
-			map.put("collection", items[items.length - 2]);
-		} else {
-			logger.warn("rURI neither 'urn' nor 'http':" + rURI);
-		}
-		return map;
-	}
+
 	
 	/** 
 	 * The general NamedSBase information is created in the 

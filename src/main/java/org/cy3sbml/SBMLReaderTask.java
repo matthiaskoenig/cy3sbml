@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -86,6 +87,7 @@ import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.util.CobraUtil;
 import org.sbml.jsbml.xml.XMLNode;
 
 import org.cy3sbml.gui.ResultsPanel;
@@ -94,6 +96,7 @@ import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.cy3sbml.util.ASTNodeUtil;
+import org.cy3sbml.util.AnnotationUtil;
 import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -308,13 +311,30 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		return error;
 	}
 	
-	/* Sets metaId and SBOTerm. */
+	/* 
+	 * Sets metaId and SBOTerm. 
+	 * RDF & COBRA attributes are set. 
+	 */
 	private void setSBaseAttributes(CyIdentifiable cyObject, SBase sbase){
 		if (sbase.isSetSBOTerm()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
 		}
 		if (sbase.isSetMetaId()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
+		}
+		// COBRA attributes
+		Properties props = CobraUtil.parseCobraNotes(sbase);
+		for(Object key : props.keySet()){
+			String keyString = key.toString();
+			String valueString = props.getProperty((String) key);
+			AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
+		}
+		// RDF attributes
+		props = AnnotationUtil.parseCVTerms(sbase);
+		for(Object key : props.keySet()){
+			String keyString = key.toString();
+			String valueString = props.getProperty((String) key);
+			AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
 		}
 	}
 	

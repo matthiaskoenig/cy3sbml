@@ -86,7 +86,9 @@ public class MiriamResourceInfo {
 		return text; 
 	}
 	
-	/** Get MIRIAM information from cache or via web service lookup. */
+	/** Get MIRIAM information from cache or via web service lookup. 
+	 * TODO: this has to be replaced with the local lookup via the xml file. 
+	 */
 	public static String[] getLocationsFromURI(MiriamLink link, String resourceURI){
 		String[] locations = null;
 		
