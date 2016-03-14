@@ -33,6 +33,7 @@ import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+// SBML CORE
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.AssignmentRule;
@@ -56,11 +57,17 @@ import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
 import org.sbml.jsbml.Symbol;
 import org.sbml.jsbml.UnitDefinition;
-import org.sbml.jsbml.ext.comp.CompConstants;
-import org.sbml.jsbml.ext.comp.CompModelPlugin;
-import org.sbml.jsbml.ext.distrib.DistribConstants;
-import org.sbml.jsbml.ext.distrib.DistribSBasePlugin;
-import org.sbml.jsbml.ext.distrib.Uncertainty;
+import org.sbml.jsbml.util.CobraUtil;
+import org.sbml.jsbml.xml.XMLNode;
+// SBML QUAL
+import org.sbml.jsbml.ext.qual.FunctionTerm;
+import org.sbml.jsbml.ext.qual.Input;
+import org.sbml.jsbml.ext.qual.Output;
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.qual.QualitativeSpecies;
+import org.sbml.jsbml.ext.qual.Transition;
+// SBML FBC
 import org.sbml.jsbml.ext.fbc.And;
 import org.sbml.jsbml.ext.fbc.Association;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
@@ -73,22 +80,24 @@ import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.fbc.GeneProductAssociation;
 import org.sbml.jsbml.ext.fbc.GeneProductRef;
-
 import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.fbc.Or;
+// SBML COMP
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompModelPlugin;
+// SBML GROUPS
+import org.sbml.jsbml.ext.groups.GroupsConstants;
+import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
+// DISTRIB
+import org.sbml.jsbml.ext.distrib.DistribConstants;
+import org.sbml.jsbml.ext.distrib.DistribSBasePlugin;
+import org.sbml.jsbml.ext.distrib.Uncertainty;
+
+// LAYOUT
 import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
 import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
 import org.sbml.jsbml.ext.layout.SpeciesGlyph;
-import org.sbml.jsbml.ext.qual.FunctionTerm;
-import org.sbml.jsbml.ext.qual.Input;
-import org.sbml.jsbml.ext.qual.Output;
-import org.sbml.jsbml.ext.qual.QualConstants;
-import org.sbml.jsbml.ext.qual.QualModelPlugin;
-import org.sbml.jsbml.ext.qual.QualitativeSpecies;
-import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.util.CobraUtil;
-import org.sbml.jsbml.xml.XMLNode;
 
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.layout.LayoutPreprocessor;
@@ -102,11 +111,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * SBMLReaderTask
- * parts based on SBMLNetworkReader core-impl and BioPax reader.
+ * The SBMLReaderTask creates CyNetworks from SBMLDocuments.
  * 
- * The reader creates the master SBML network graph with various subnetworks created from 
- * the full graph.
+ * The reader creates the master SBML network graph with various subnetworks 
+ * created from the full graph.
  */
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {	
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
@@ -181,7 +189,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork(); 
 			// CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()). 
 			rootNetwork = ((CySubNetwork) network).getRootNetwork();
-						
+
+			//////////////////////////////////////////////////////////////////
+			// Read SBML & Extensions
+			//////////////////////////////////////////////////////////////////
+			
 			// Core model
 			readCore(model);
 			if (taskMonitor != null){
@@ -203,6 +215,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				logger.info("comp model found, but not yet supported");
 			}
 			
+			GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
+			if (groupsModel != null){
+				logger.info("groups model found, but not yet supported");
+			}
+			
 			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
 			if (layoutModel != null){
 				logger.info("layout model found, but not yet supported");
@@ -217,6 +234,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 			*/
 			readDistrib(model);
+			
+			//////////////////////////////////////////////////////////////////
 			
 			// main SBML network consisting of the following nodes and edges
 			String[] nodeTypes = {
@@ -263,9 +282,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 			
-			// Create the subnetwork if there are nodes in the main network
-			// Some models like BIOMD0000000020, only work with parameters & rules,
-			// so that main network is empty.
+			// Create the main subnetwork if nodes exist in main network.
+			// Models can be fully encoded via parameters & rules,
+			// resulting in an empty main network (for instance BIOMD0000000020).
 			if (nodes.size() > 0){
 				mainNetwork = rootNetwork.addSubNetwork(nodes, edges);
 				
@@ -300,7 +319,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			throw new SBMLReaderError("cy3sbml reader failed to build a SBML model " +
 					"(check the data for syntax errors) - " + t);
 			
-			// TODO: run the validator on the file and display the results
+			// TODO: run validator on the file and display the results
 			// with high probability this SBML file is corrupt and can not be parsed.
 			// => Display the information 
 			// => send SBML to author
@@ -311,7 +330,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		return error;
 	}
 	
-	/* 
+	/** 
 	 * Sets metaId and SBOTerm. 
 	 * RDF & COBRA attributes are set. 
 	 */
@@ -384,8 +403,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	/** Probably not all information parsed.
-	 * TODO: implement general function for copying node attributes */
+	/** 
+	 * Copy node attributes. 
+	 * Probably not all information parsed.
+	 * TODO: implement general function for copying node attributes 
+	 */
 	private void copyNodeAttributes(CyNode sourceNode, CyNode targetNode){
 		logger.warn("copyNodeAttributes NOT IMPLEMENTED");
 		/*	
@@ -414,10 +436,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	// --- CORE -----------------------------------------------------------------------------------
-	
+	////////////////////////////////////////////////////////////////////////////
+	// SBML CORE
+	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Create nodes, edges and attributes from Core Model.
+	 * Read SBML core.
+	 * 
+	 * Create nodes, edges and attributes from SBML core.
 	 * @param model
 	 */
 	private void readCore(Model model){
@@ -425,7 +450,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
 		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
-		// metaId and sbo
+		// metaId and SBO
 		setSBaseAttributes(network, model);
 		
 		// Network attributes
@@ -754,7 +779,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// for (Event event : model.getListOfEvents()){}
 	}
 	
-
+	////////////////////////////////////////////////////////////////////////////
+	// SBML QUAL
+	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Create nodes, edges and attributes from Qualitative Model.
 	 * @param qModel
@@ -851,7 +878,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
-	
+	////////////////////////////////////////////////////////////////////////////
+	// SBML FBC
+	////////////////////////////////////////////////////////////////////////////
 	/** Creates network information from fbc model. */
 	private void readFBC(Model model, FBCModelPlugin fbcModel){
 		logger.info("** fbc **");
@@ -1032,8 +1061,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
-	// --- Distrib -----------------------------------------------------------------------------------
-	
+	////////////////////////////////////////////////////////////////////////////
+	// SBML DISTRIB
+	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Create uncertainty information from distrib package. 
 	 */
@@ -1097,56 +1127,57 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	// --- LAYOUT -----------------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+	// SBML LAYOUT
+	////////////////////////////////////////////////////////////////////////////
+	/** Creates the layouts stored in the layout extension. */
+	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
+		logger.info("** layout **");
+		for (Layout layout : layoutModel.getListOfLayouts()){
+			// TODO: manage the multiple layout networks
+			// layoutNetwork = rootNetwork.addSubNetwork();
+			readLayout(model, qualModel, layout);
+		}
+	}
 	
-		/** Creates the layouts stored in the layout extension. */
-		private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
-			logger.info("** layout **");
-			for (Layout layout : layoutModel.getListOfLayouts()){
-				// TODO: manage the multiple layout networks
-				// layoutNetwork = rootNetwork.addSubNetwork();
-				readLayout(model, qualModel, layout);
+	/** Read a single layout. */
+	private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
+
+		// Process the layouts (Generate full id set and all edges for elements)
+		LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
+		layout = preprocessor.getProcessedLayout();
+		
+		// now generate nodes and edges
+		// TODO: AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
+		
+		// addSpeciesGlyphNodes
+		for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
+			// create the node
+			String id = glyph.getId();
+			// creates node in network
+			CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
+			
+			// get species node and copy information
+			if (glyph.isSetSpecies()){
+				String speciesId = glyph.getSpecies();
+				if (nodeById.containsKey(speciesId)){
+					CyNode sNode = nodeById.get(speciesId);
+					
+					// copy node attributes from species node to speciesGlyph node
+					copyNodeAttributes(sNode, node);	
+				}
+				
+			} else {
+				AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
+				AttributeUtil.set(network, node, SBML.NODETYPE_ATTR, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
 			}
 		}
 		
-		/** Read a single layout. */
-		private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
-
-			// Process the layouts (Generate full id set and all edges for elements)
-			LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
-			layout = preprocessor.getProcessedLayout();
-			
-			// now generate nodes and edges
-			// TODO: AttributeUtil.set(layoutNetwork, layoutNetwork, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
-			
-			// addSpeciesGlyphNodes
-			for (SpeciesGlyph glyph : layout.getListOfSpeciesGlyphs()) {
-				// create the node
-				String id = glyph.getId();
-				// creates node in network
-				CyNode node = createNamedSBaseNode(glyph, SBML.NODETYPE_LAYOUT_SPECIESGLYPH);
-				
-				// get species node and copy information
-				if (glyph.isSetSpecies()){
-					String speciesId = glyph.getSpecies();
-					if (nodeById.containsKey(speciesId)){
-						CyNode sNode = nodeById.get(speciesId);
-						
-						// copy node attributes from species node to speciesGlyph node
-						copyNodeAttributes(sNode, node);	
-					}
-					
-				} else {
-					AttributeUtil.set(network, node, SBML.ATTR_ID, id, String.class);
-					AttributeUtil.set(network, node, SBML.NODETYPE_ATTR, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
-				}
-			}
-			
-			// addReactionGlyphNodes();
-			
-			// addModelEdges();
-			// addQualitativeModelEdges();
-		}
+		// addReactionGlyphNodes();
+		
+		// addModelEdges();
+		// addQualitativeModelEdges();
+	}
 	
 	
 	@Override

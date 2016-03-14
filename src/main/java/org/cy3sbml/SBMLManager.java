@@ -24,11 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The SBMLManager manages the loaded/available SBML files.
- * The sbml2networks manages the mapping between SBMLDocuments and
- * CyNetworks.
- * Interaction with the SBMLDocuments and information should go through the 
- * SBMLManager.
+ * The SBMLManager class manages mappings between SBMLDocuments & CyNetworks.
+ * 
+ * The SBMLManager provides the entry point to interact with SBMLDocuments.
+ * All access to SBMLDocuments should go via the SBMLManager.
+ * The SBMLManager is a singleton class.
  * 
  * TODO: implement proper to string information
  */

@@ -43,7 +43,14 @@ import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.ValidationAction;
 
-
+/**
+ * Entry point to cy3sbml.
+ * 
+ * The CyActivator registers the cy3sbml services with OSGI. This is the class
+ * used for startup of the app by Cytoscape 3.
+ * 
+ * TODO: write logger information to cy3sbml directory
+ */
 public class CyActivator extends AbstractCyActivator {
 	private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
 	
@@ -51,6 +58,9 @@ public class CyActivator extends AbstractCyActivator {
 		super();
 	}
 	
+	/**
+	 * Start the OSGI bundle for cy3sbml.
+	 */
 	public void start(BundleContext bc) {
 		try {
 			// store bundle information (for display of dependencies, versions, ...)
