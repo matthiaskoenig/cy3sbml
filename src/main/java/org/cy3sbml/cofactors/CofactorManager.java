@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory;
  * Class to manage the cofactor nodes in a given network.
  * 
  * Has to manage for a given network the cofactor nodes.
+ * 
+ * TODO: update the SBML mapping with the cofactor node identifiers
  *
  */
 public class CofactorManager {
@@ -59,28 +61,28 @@ public class CofactorManager {
 		// Get mapping for network
 		CofactorMapping networkMapping = network2CofactorMappings.get(network.getSUID());
 		if (networkMapping == null){
-			// there is no mapping for the network
-			int degree = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY).size();
-			if (degree <= 1){
-				// this is not a node to split
-				logger.info("Node has degree 1 or 0, will not be split: " + cofactor.getSUID());
-				return;
-			}else{
-				networkMapping = new CofactorMapping();
-				network2CofactorMappings.put(network.getSUID(), networkMapping);
-			}
+			networkMapping = new CofactorMapping();
+			network2CofactorMappings.put(network.getSUID(), networkMapping);
 		}
+			
+		// degree of node
+		int degree = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY).size();
+		
+		// targets in the mapping
 		List<Long> targets = networkMapping.get(cofactor.getSUID());
 		if (targets == null){
-			// no targets, we can split
-			logger.info("Split nodes");
+			if (degree <= 1){
+				logger.info("Node has degree 1 or 0, will not be split: " + cofactor.getSUID());
+				return;
+			}
+			logger.info("Split cofactors");
 			splitCofactorNode(networkMapping, network, cofactor);	
 		} else {
-			// it should be a split node and have exactly one target
+			// the node was already split and should have exactly one target
 			// we get the node back from the root network
 			CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
 			cofactor = rootNetwork.getNode(targets.get(0));
-			logger.info("Merge nodes");
+			logger.info("Merge cofactors");
 			mergeCofactorNode(networkMapping, network, cofactor);
 		}		
 	}
@@ -120,7 +122,6 @@ public class CofactorManager {
 			CyNode target = edge.getTarget();
 			
 			// Clone the edge
-			// TODO: attributes
 			CyEdge edgeClone = null;
 			if (source.getSUID() == cofactor.getSUID()){
 				edgeClone = network.addEdge(cofactorClone, target, edge.isDirected());
@@ -150,8 +151,12 @@ public class CofactorManager {
 		// remove all clones
 		List<Long> cloneSuids = mapping.get(cofactor.getSUID());
 		System.out.println("Clones: " + cloneSuids);
-				
+		// set attribute for force update of style
+		AttributeUtil.set(network, cofactor, SBML.NODETYPE_ATTR, 
+				AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class), 
+				String.class);
 		
+				
 		// edges from root network
 		CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
 		List<CyEdge> edges = rootNetwork.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
@@ -166,6 +171,7 @@ public class CofactorManager {
 			}
 		}
 		
+		
 		// remove the clone nodes
 		List<CyNode> cloneNodes = new LinkedList<CyNode>();
 		for (Long suid: cloneSuids){
@@ -177,10 +183,7 @@ public class CofactorManager {
 		
 		// TODO: update the mappings (forward & backwards)
 		mapping.remove(cofactor.getSUID());
-	
 	}
-	
-	
 
 }
 

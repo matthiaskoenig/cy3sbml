@@ -45,7 +45,7 @@ public class CofactorNodesAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Cofactor Nodes");
-		setToolbarGravity((float) 95.0);
+		setToolbarGravity((float) 200.0);
 	}
 		
 	public boolean isInToolBar() {
@@ -60,8 +60,6 @@ public class CofactorNodesAction extends AbstractCyAction{
 		System.out.println("Cofactor nodes");
 		System.out.println("****************************************");
 	
-		// Get set of cofactor nodes
-		// Testcase: selected node in network
 		
 		// Get the current network via the service adapter
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
@@ -76,17 +74,18 @@ public class CofactorNodesAction extends AbstractCyAction{
 		
 		CofactorManager cofactorManager = CofactorManager.getInstance();	
 		for (CyNode cofactor : nodes){
+			System.out.println("Handling Cofactor Node:" + cofactor);
 			cofactorManager.handleCofactorNode(network, cofactor);
 		}
 		
 		view.updateView();
 		/*
 		Collection<CyNetworkView> views = adapter.cyNetworkViewManager.getNetworkViews(network);
-		for (CyNetworkView view: views){
-			view.updateView();
+		for (CyNetworkView v: views){
+			v.updateView();
+			v.updateView();
 		}
 		*/
-		
 	}
 
 }
