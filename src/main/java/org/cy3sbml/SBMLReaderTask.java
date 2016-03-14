@@ -407,8 +407,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * Copy node attributes. 
 	 * Probably not all information parsed.
 	 * TODO: implement general function for copying node attributes 
+	 * Use in cofactor nodes.
 	 */
-	private void copyNodeAttributes(CyNode sourceNode, CyNode targetNode){
+	public void copyNodeAttributes(CyNode sourceNode, CyNode targetNode){
 		logger.warn("copyNodeAttributes NOT IMPLEMENTED");
 		/*	
 		String sId = sourceNode.getIdentifier();

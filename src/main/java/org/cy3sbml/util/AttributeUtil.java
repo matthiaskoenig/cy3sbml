@@ -1,14 +1,23 @@
 package org.cy3sbml.util;
 
-
 import org.cytoscape.model.CyColumn;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.CyTable;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 
+/**
+ * Helper class for getting and setting attribute.
+ * 
+ * Use these function to get and set attributes in the network, node and
+ * edge tables.
+ */
+
 public class AttributeUtil {
 	
+	//////////////////////////////////////////////////////////////////////////
+	// Set Attributes
+	//////////////////////////////////////////////////////////////////////////
 	public static void set(CyNetwork network, CyIdentifiable entry, String name, Object value, Class<?> type) {
 		set(network, entry, CyNetwork.DEFAULT_ATTRS, name, value, type);
 	}
@@ -39,19 +48,19 @@ public class AttributeUtil {
 			row.set(name, value);
 		}
 	}
-	
-	
-	// TODO: ? figure out how to implement the generic get function
-	
-	public static Class<?> get(CyNetwork network, CyIdentifiable entry, String name, Class<?> type) {
+
+	//////////////////////////////////////////////////////////////////////////
+	// Get Attributes
+	//////////////////////////////////////////////////////////////////////////
+	public static <T> T get(CyNetwork network, CyIdentifiable entry, String name, Class<?extends T> type) {
 		return get(network, entry, CyNetwork.DEFAULT_ATTRS, name, type);
 	}
 
-	private static Class<?> get(CyNetwork network, CyIdentifiable entry, String tableName, String name, Class<?> type) {
+	private static <T> T get(CyNetwork network, CyIdentifiable entry, String tableName, String name, Class<?extends T>  type) {
 		CyRow row = network.getRow(entry, tableName);
 		// CyTable table = row.getTable();
 		// CyColumn column = table.getColumn(name);
-		return (Class<?>) row.get(name, type);
+		return row.get(name, type);
 	}
 	
 }
