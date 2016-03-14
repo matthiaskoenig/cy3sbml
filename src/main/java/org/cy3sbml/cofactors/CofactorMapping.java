@@ -1,5 +1,7 @@
 package org.cy3sbml.cofactors;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.cytoscape.model.CyNetwork;
@@ -10,8 +12,8 @@ import org.cytoscape.model.CyNetwork;
  * original nodes (depending on the selected view (with or without
  * cofactors) these have to be removed from the network temporarily.
  */
-public class CofactorMapping {
+public class CofactorMapping extends HashMap<Long, List<Long>> {
 	// CyNode SUID -> CyNodes SUIDs
-	private Map<Long, Long> cofactor2Nodes;
+	
 	
 }
