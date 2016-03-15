@@ -3,6 +3,8 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.session.events.SessionAboutToBeSavedListener;
+import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.application.CyApplicationConfiguration;
@@ -81,12 +83,16 @@ public class CyActivator extends AbstractCyActivator {
 				logger.warn("cy3sbml directory was not available. New directory created.");
 			}
 			logger.info("cy3sbml directory = " + cy3sbmlDirectory.getAbsolutePath());
+			// TODO: set the log file location (see https://github.com/matthiaskoenig/cy3sbml/issues/74)
+			
+			
 			
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
 			Properties propsReaderServiceProps = new Properties();
 			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
 			registerAllServices(bc, propsReader, propsReaderServiceProps);
+			
 			
 			/**
 			 * Get services 
@@ -185,7 +191,11 @@ public class CyActivator extends AbstractCyActivator {
 			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
-			
+			// Session reading and restoring
+			SessionData sessionData = new SessionData();
+			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
+			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
+			// panels
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
 			// registerService(bc, resultsPanelAction, CyAction.class, new Properties());

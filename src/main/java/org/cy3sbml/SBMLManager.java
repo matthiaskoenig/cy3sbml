@@ -75,6 +75,11 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		sbml2trees.put(suid, tree);
 	}
 	
+	/** Required for storing the session state. */
+	public SBML2NetworkMapper getSBML2NetworkMapper(){
+		return sbml2networks;
+	}
+	
 	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
