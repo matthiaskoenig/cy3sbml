@@ -1,7 +1,10 @@
 package org.cy3sbml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +93,27 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		// Serialize the documentMap
+		logger.info("Serializing documentMap: networkSuid2sbmlDocument");
+		try {
+			File temp = File.createTempFile("documentMap", ".ser");
+			
+	        FileOutputStream fileOut;
+			try {
+				fileOut = new FileOutputStream(temp.getAbsolutePath());
+				ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		        out.writeObject(documentMap);
+		        out.close();
+		        fileOut.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}		
 	}
 	
 	/**
