@@ -86,7 +86,6 @@ public class CyActivator extends AbstractCyActivator {
 			// TODO: set the log file location (see https://github.com/matthiaskoenig/cy3sbml/issues/74)
 			
 			
-			
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
 			Properties propsReaderServiceProps = new Properties();
@@ -192,9 +191,10 @@ public class CyActivator extends AbstractCyActivator {
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			// Session reading and restoring
-			SessionData sessionData = new SessionData();
+			SessionData sessionData = new SessionData(cy3sbmlDirectory);
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
+			
 			// panels
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
