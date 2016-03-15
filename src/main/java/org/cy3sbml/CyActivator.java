@@ -3,6 +3,8 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.session.CySession;
+import org.cytoscape.session.CySessionManager;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
@@ -13,8 +15,12 @@ import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.CyNetworkTableManager;
+import org.cytoscape.model.CyTableManager;
+import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
@@ -103,6 +109,7 @@ public class CyActivator extends AbstractCyActivator {
 			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
+			
 			
 			DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
 			@SuppressWarnings("rawtypes")

@@ -1,5 +1,6 @@
 package org.cy3sbml.mapping;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,10 +19,15 @@ import org.slf4j.LoggerFactory;
  * This implements only the mapping store. 
  * The update of the current status has to be managed by the SBMLManager via listening
  * to NetworkSelected events.
+ * 
+ * Changes to the data structure have to be reflected in the SessionData
+ * which reads this information from the session file.
  */
-public class SBML2NetworkMapper {
+public class SBML2NetworkMapper implements Serializable{
 	private static final Logger logger = LoggerFactory.getLogger(SBML2NetworkMapper.class);
+	private static final long serialVersionUID = 1L;
 	
+
 	// current networkSUID if in mapping
 	private Long currentSUID;
 	
@@ -36,6 +42,7 @@ public class SBML2NetworkMapper {
 		initCurrent();
 	}
 	
+
 	private void initCurrent(){
 		currentSUID = null;
 	}

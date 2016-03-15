@@ -1,5 +1,6 @@
 package org.cy3sbml.mapping;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +9,8 @@ import java.util.Set;
 /** 
  * Simple one 2 many mapping class.
  */
-public class One2ManyMapping<T1, T2> {	
+public class One2ManyMapping<T1, T2> implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private HashMap<T1, HashSet<T2>> map;
 	
 	public One2ManyMapping(){

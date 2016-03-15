@@ -10,13 +10,19 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
+import org.cytoscape.model.CyIdentifiable;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.session.CySession;
+import org.cytoscape.session.CySessionManager;
 import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedEvent;
@@ -42,7 +48,8 @@ import org.slf4j.LoggerFactory;
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
 	// File names for serialization
-	private static final String DOCUMENT_MAP = "documentMap.ser";
+	// private static final String DOCUMENT_MAP = "documentMap.ser";
+	private static final String SBML2NETWORK_SERIALIZATION = "SBML2NetworkMapper.ser";
 	private File directory;
 	
 	/**
@@ -54,25 +61,22 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	}
 	
 	// Save app state in a file
-	public void handleEvent(SessionAboutToBeSavedEvent e){
-		// save app state file "myAppStateFile"
+	public void handleEvent(SessionAboutToBeSavedEvent event){
 		logger.info("SessionAboutToBeSaved Event: Save cy3sbml session state");
 		
 		// Files to save
 		List<File> files = new LinkedList<File>();
 		
-		// Save SBMLManager
-		// Save all the SBML files & the sbml2networkMapping
+		// get SBMLManager for serialization
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		SBML2NetworkMapper mapper = sbmlManager.getSBML2NetworkMapper();
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 		
-		// add xml files for all SBMLDocuments
+		// Save all the SBML files
 		for (Long networkSuid : documentMap.keySet()){
 			SBMLDocument doc = documentMap.get(networkSuid);
 			SBMLWriter writer = new SBMLWriter();
-			
-			
+				
 			String modelId = "";
 			Model model = doc.getModel();
 			if ((model != null) && (model.isSetId())){
@@ -95,18 +99,18 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			}
 		}
 				
-		// Serialize the documentMap
-		logger.info("Serializing documentMap");
+		// Serialize
+		logger.info("Serializing SBMl2NetworkMapper");
 		try {
-			File mapFile = new File(directory, DOCUMENT_MAP);
+			File file = new File(directory, SBML2NETWORK_SERIALIZATION);
 	        FileOutputStream fileOut;
 			try {
-				fileOut = new FileOutputStream(mapFile.getAbsolutePath());
+				fileOut = new FileOutputStream(file.getAbsolutePath());
 				ObjectOutputStream out = new ObjectOutputStream(fileOut);
-		        out.writeObject(documentMap);
+		        out.writeObject(mapper);
 		        out.close();
 		        fileOut.close();
-		        files.add(mapFile);
+		        files.add(file);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -116,9 +120,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			e2.printStackTrace();
 		}
 		
-		// Write the files in the session file
+		// Write files in session file
 		try {
-			e.addAppFiles("cy3sbml", files);
+			event.addAppFiles("cy3sbml", files);
 			logger.info("Save SBML files for session.");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -130,30 +134,36 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	/**
 	 * Restore app state from session files.
 	 */
-	public void handleEvent(SessionLoadedEvent e){
+	public void handleEvent(SessionLoadedEvent event){
 		// check if there is app file data
-		if (e.getLoadedSession().getAppFileListMap() == null || e.getLoadedSession().getAppFileListMap().size() ==0){
+		if (event.getLoadedSession().getAppFileListMap() == null || event.getLoadedSession().getAppFileListMap().size() ==0){
 	       return;
 	    }       
-		List<File> files = e.getLoadedSession().getAppFileListMap().get("cy3sbml");
+		List<File> files = event.getLoadedSession().getAppFileListMap().get("cy3sbml");
 		for (File f : files){
 			logger.info("cy3sbml file in session:" + f.toString());
 			logger.info(f.getName());
 
 			// deserialize the documentMap
-			if (DOCUMENT_MAP.equals(f.getName())){
+			if (SBML2NETWORK_SERIALIZATION.equals(f.getName())){
 				logger.info("Deserialize documentMap");
-			    File mapFile = new File(directory, DOCUMENT_MAP);
+			    File mapFile = new File(directory, SBML2NETWORK_SERIALIZATION);
 				
-			    InputStream file;
+			    InputStream inputStream;
 			    ObjectInput input;
 				try {
-					file = new FileInputStream(mapFile.getAbsolutePath());
-					InputStream buffer = new BufferedInputStream(file);
+					inputStream = new FileInputStream(mapFile.getAbsolutePath());
+					InputStream buffer = new BufferedInputStream(inputStream);
 					input = new ObjectInputStream (buffer);
-					SBML2NetworkMapper documentMap = (SBML2NetworkMapper)input.readObject();
 					
-					// TODO: set the DocumentMap
+					// read the mapper
+					SBML2NetworkMapper mapper = (SBML2NetworkMapper)input.readObject();
+					// update the suids
+					updateSUIDS(event.getLoadedSession(), mapper);
+					
+					
+					SBMLManager sbmlManager = SBMLManager.getInstance();
+					sbmlManager.setSBML2NetworkMapper(mapper);
 					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
@@ -169,5 +179,42 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			}
 		}
     }
+	
+	/**
+	 * Updates the changed suids in the data structure
+	 * @param s
+	 * @param m
+	 */
+	public void updateSUIDS(CySession s, SBML2NetworkMapper m){
+
+		// Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
+		
+		// documentMap
+		Map<Long, SBMLDocument> documentMap = m.getDocumentMap();
+		Map<Long, SBMLDocument> newDocumentMap = new HashMap<Long, SBMLDocument>();
+		
+		
+		for (Long oldSuid: documentMap.keySet()){
+			Long suid = s.getObject(oldSuid, CyNetwork.class).getSUID();
+			newDocumentMap.put(suid, documentMap.get(oldSuid));
+		}
+		
+		/* TODO
+		// mappings
+		Map<Long, One2ManyMapping<String, Long>> nsb2nodeMap = m.get
+		Map<Long, One2ManyMapping<String, Long>> nsb2nodeMap;
+		for (Long oldSuid: )
+		
+		
+		//private Map<Long, One2ManyMapping<String, Long>> NSBToNodeMappingMap;
+		//private Map<Long, One2ManyMapping<Long, String>> nodeToNSBMappingMap;
+
+		
+		// update currentSUID
+		Long suid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
+		m.setCurrentSUID(suid);
+		*/
+		
+	}
 	
 }

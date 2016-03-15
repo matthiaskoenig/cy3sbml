@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.NavigationTree;
@@ -64,6 +65,50 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		this.adapter = adapter;
 	}
 	
+
+	
+	/** Get network sbml mapping to store in session file. */
+	public SBML2NetworkMapper getSBML2NetworkMapper(){
+		return sbml2networks;
+	}
+	
+	// TODO: Document the use of rootNetwork suids in mappings
+	
+	/** 
+	 * Set all information in SBMLManager from
+	 * given SBML2NetworkMapper.
+	 * Used to restore the SBMLManager state from a session file. */
+	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
+		logger.info("SBMLManager from session file");
+		
+		// TODO: update SUIDs in mapper
+		sbml2networks = mapper;
+		
+		sbml2trees = new HashMap<Long, NavigationTree>();
+		navigationTree = new NavigationTree();
+		
+	
+		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
+		
+		for (Long networkSuid: documentMap.keySet()){
+			// TODO: u
+			
+			logger.info("add SBML for network:" +  networkSuid);
+			CyNetwork network = adapter.cyNetworkManager.getNetwork(networkSuid);
+			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+			Long suid = rootNetwork.getSUID();
+			
+			SBMLDocument doc = documentMap.get(suid);
+			logger.info("SBMLDocument: " + doc);
+			One2ManyMapping<String, Long> mapping = getMapping(network);
+			// recreate the entry
+			addSBML2NetworkEntry(doc, network, mapping);
+		}
+		// Set current network
+		CyNetwork current = adapter.cyApplicationManager.getCurrentNetwork();
+		updateCurrent(current);
+	}
+	
 	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, One2ManyMapping<String, Long> mapping){
 		// stores the root network with the SBMLDocument
 		// all subnetworks can be looked up via the root network
@@ -75,10 +120,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		sbml2trees.put(suid, tree);
 	}
 	
-	/** Required for storing the session state. */
-	public SBML2NetworkMapper getSBML2NetworkMapper(){
-		return sbml2networks;
-	}
 	
 	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
