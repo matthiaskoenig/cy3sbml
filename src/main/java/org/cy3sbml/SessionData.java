@@ -162,8 +162,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					// read the mapper
 					SBML2NetworkMapper mapper = (SBML2NetworkMapper)input.readObject();
 					// update suids in mapper and set in manager
-					setMapperWithCurrentSUIDsInManager(session, mapper);
+					SBML2NetworkMapper updatedMapper = updateSUIDsInMapper(session, mapper);
+					SBMLManager sbmlManager = SBMLManager.getInstance();
 					// set updated mapper
+					sbmlManager.setSBML2NetworkMapper(updatedMapper);
 					
 					
 				} catch (FileNotFoundException e1) {
@@ -182,17 +184,17 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     }
 	
 	/**
-	 * Updates the changed suids in the data structure.
+	 * Updates the changed SUIDs in the data structure.
 	 * 
-	 * SUIDs are not persistant across sessions.
+	 * SUIDs are not persistent across sessions.
 	 * Consequently the mappings have to be updated.
 	 * 
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public void setMapperWithCurrentSUIDsInManager(CySession s, SBML2NetworkMapper m){
-		// SBMLManger is empty
-		SBMLManager sbmlManager = SBMLManager.getInstance();
+	public SBML2NetworkMapper updateSUIDsInMapper(CySession s, SBML2NetworkMapper m){
+		// mapper with updated SUIDS
+		SBML2NetworkMapper newM = new SBML2NetworkMapper();
 		
 		// documentMap
 		Map<Long, SBMLDocument> documentMap = m.getDocumentMap();
@@ -200,7 +202,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			Long newNetworkSuid = s.getObject(networkSuid, CyNetwork.class).getSUID();
 			SBMLDocument doc = documentMap.get(networkSuid);
 			One2ManyMapping<String, Long> nsb2node = m.getNSB2CyNodeMapping(networkSuid);
-			System.out.println(nsb2node);
+			
 			// replace keys in nsb2node mapping
 			One2ManyMapping<String, Long> newNsb2node = new One2ManyMapping<String, Long>();
 			for (String key: nsb2node.keySet()){
@@ -209,14 +211,11 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					newNsb2node.put(key, newSuid);	
 				}
 			}
-			
-			// Add to the manager, so that trees are created
-			sbmlManager.addSBML2NetworkEntry(doc, newNetworkSuid, newNsb2node);
+			newM.putDocument(newNetworkSuid, doc, newNsb2node);
 		}
-
-		// update currentSUID
-		Long newSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
-		sbmlManager.getSBML2NetworkMapper().setCurrentSUID(newSuid);
+		Long newCurrentSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
+		newM.setCurrentSUID(newCurrentSuid);
+		return newM;
 	}
 	
 }
