@@ -42,7 +42,7 @@ public class SBML2NetworkMapper implements Serializable{
 		initCurrent();
 	}
 	
-
+	
 	private void initCurrent(){
 		currentSUID = null;
 	}

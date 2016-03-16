@@ -91,8 +91,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 		
 		for (Long networkSuid: documentMap.keySet()){
-			// TODO: u
-			
 			logger.info("add SBML for network:" +  networkSuid);
 			CyNetwork network = adapter.cyNetworkManager.getNetwork(networkSuid);
 			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
@@ -119,6 +117,14 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		NavigationTree tree = new NavigationTree(doc);
 		sbml2trees.put(suid, tree);
 	}
+	
+	public void addSBML2NetworkEntry(SBMLDocument doc, Long rootNetworkSuid, One2ManyMapping<String, Long> mapping){
+		sbml2networks.putDocument(rootNetworkSuid, doc, mapping);
+		// create and store navigation tree
+		NavigationTree tree = new NavigationTree(doc);
+		sbml2trees.put(rootNetworkSuid, tree);
+	}
+	
 	
 	
 	/** Returns mapping or null if no mapping exists. */

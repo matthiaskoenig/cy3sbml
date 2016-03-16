@@ -151,6 +151,7 @@ public class CofactorManager {
 		// remove all clones
 		List<Long> cloneSuids = mapping.get(cofactor.getSUID());
 		System.out.println("Clones: " + cloneSuids);
+		
 		// set attribute for force update of style
 		AttributeUtil.set(network, cofactor, SBML.NODETYPE_ATTR, 
 				AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class), 

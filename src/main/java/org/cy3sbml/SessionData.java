@@ -11,6 +11,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
 import org.cytoscape.session.CySessionManager;
 import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
@@ -135,8 +137,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * Restore app state from session files.
 	 */
 	public void handleEvent(SessionLoadedEvent event){
+		CySession session = event.getLoadedSession();
 		// check if there is app file data
-		if (event.getLoadedSession().getAppFileListMap() == null || event.getLoadedSession().getAppFileListMap().size() ==0){
+		if (session.getAppFileListMap() == null || session.getAppFileListMap().size() ==0){
 	       return;
 	    }       
 		List<File> files = event.getLoadedSession().getAppFileListMap().get("cy3sbml");
@@ -158,12 +161,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					
 					// read the mapper
 					SBML2NetworkMapper mapper = (SBML2NetworkMapper)input.readObject();
-					// update the suids
-					updateSUIDS(event.getLoadedSession(), mapper);
+					// update suids in mapper and set in manager
+					setMapperWithCurrentSUIDsInManager(session, mapper);
+					// set updated mapper
 					
-					
-					SBMLManager sbmlManager = SBMLManager.getInstance();
-					sbmlManager.setSBML2NetworkMapper(mapper);
 					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
@@ -181,40 +182,41 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     }
 	
 	/**
-	 * Updates the changed suids in the data structure
-	 * @param s
-	 * @param m
+	 * Updates the changed suids in the data structure.
+	 * 
+	 * SUIDs are not persistant across sessions.
+	 * Consequently the mappings have to be updated.
+	 * 
+	 * The network, node and edge SUIDs can be updated via:
+	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public void updateSUIDS(CySession s, SBML2NetworkMapper m){
-
-		// Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
+	public void setMapperWithCurrentSUIDsInManager(CySession s, SBML2NetworkMapper m){
+		// SBMLManger is empty
+		SBMLManager sbmlManager = SBMLManager.getInstance();
 		
 		// documentMap
 		Map<Long, SBMLDocument> documentMap = m.getDocumentMap();
-		Map<Long, SBMLDocument> newDocumentMap = new HashMap<Long, SBMLDocument>();
-		
-		
-		for (Long oldSuid: documentMap.keySet()){
-			Long suid = s.getObject(oldSuid, CyNetwork.class).getSUID();
-			newDocumentMap.put(suid, documentMap.get(oldSuid));
+		for (Long networkSuid: documentMap.keySet()){
+			Long newNetworkSuid = s.getObject(networkSuid, CyNetwork.class).getSUID();
+			SBMLDocument doc = documentMap.get(networkSuid);
+			One2ManyMapping<String, Long> nsb2node = m.getNSB2CyNodeMapping(networkSuid);
+			System.out.println(nsb2node);
+			// replace keys in nsb2node mapping
+			One2ManyMapping<String, Long> newNsb2node = new One2ManyMapping<String, Long>();
+			for (String key: nsb2node.keySet()){
+				for (Long suid : nsb2node.getValues(key)){
+					Long newSuid = s.getObject(suid, CyNode.class).getSUID();
+					newNsb2node.put(key, newSuid);	
+				}
+			}
+			
+			// Add to the manager, so that trees are created
+			sbmlManager.addSBML2NetworkEntry(doc, newNetworkSuid, newNsb2node);
 		}
-		
-		/* TODO
-		// mappings
-		Map<Long, One2ManyMapping<String, Long>> nsb2nodeMap = m.get
-		Map<Long, One2ManyMapping<String, Long>> nsb2nodeMap;
-		for (Long oldSuid: )
-		
-		
-		//private Map<Long, One2ManyMapping<String, Long>> NSBToNodeMappingMap;
-		//private Map<Long, One2ManyMapping<Long, String>> nodeToNSBMappingMap;
 
-		
 		// update currentSUID
-		Long suid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
-		m.setCurrentSUID(suid);
-		*/
-		
+		Long newSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
+		sbmlManager.getSBML2NetworkMapper().setCurrentSUID(newSuid);
 	}
 	
 }

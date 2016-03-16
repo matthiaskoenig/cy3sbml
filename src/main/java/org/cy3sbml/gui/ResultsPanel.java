@@ -292,6 +292,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 			for (CyNode n : nodes){
 				suids.add(n.getSUID());
+				System.out.println("Selected: " + n);
 			}
 			// information for selected node(s)
 			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
