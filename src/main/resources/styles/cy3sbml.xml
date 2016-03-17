@@ -49,7 +49,7 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_PAINT" default="#000000">
-            	<discreteMapping attributeType="string" attributeName="comp-code">
+            	<discreteMapping attributeType="string" attributeName="compartmentCode">
                     <discreteMappingEntry value="#3333FF" attributeValue="c1"/>
                     <discreteMappingEntry value="#FF3333" attributeValue="c2"/>
                     <discreteMappingEntry value="#336600" attributeValue="c3"/>

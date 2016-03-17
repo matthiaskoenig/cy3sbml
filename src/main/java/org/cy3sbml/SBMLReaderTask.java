@@ -492,6 +492,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
 		
 		// Nodes for compartments
+		HashMap<String, Integer> compartmentCodes = new HashMap<String, Integer>();
+		// TODO: store the compartment codes and assign in all objects which have compartments
+		
 		for (Compartment compartment : model.getListOfCompartments()) {
 			CyNode node = createSymbolNode(compartment, SBML.NODETYPE_COMPARTMENT);
 			if (compartment.isSetSpatialDimensions()){

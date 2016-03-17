@@ -17,6 +17,7 @@ public class SBML {
 	public static final String ATTR_METAID = "metaId";
 	
 	public static final String ATTR_COMPARTMENT = "compartment";
+	public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
 	public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
 	public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
 	public static final String ATTR_CHARGE = "charge";
