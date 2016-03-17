@@ -62,41 +62,43 @@ import org.cy3sbml.actions.ValidationAction;
  */
 public class CyActivator extends AbstractCyActivator {
 	private static Logger logger;
+	private static final String PROPERTIES_FILE = "cy3sbml.props";
 	
 	public CyActivator() {
 		super();
 	}
 	
 	/**
-	 * Start the cy3sbml OSGI bundle.
+	 * Starts the cy3sbml OSGI bundle.
 	 */
 	public void start(BundleContext bc) {
 		try {
+			BundleInformation bundleInfo = new BundleInformation(bc);
+			
 			// Default configuration directory used for all cy3sbml files 
 			// Used for retrieving
 			CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
 			File cyDirectory = configuration.getConfigurationDirectoryLocation();
-			File cy3sbmlDirectory = new File(cyDirectory, "cy3sbml");
+			File appDirectory = new File(cyDirectory, bundleInfo.getName());
 			
-			if(cy3sbmlDirectory.exists() == false) {
-				cy3sbmlDirectory.mkdir();
+			if(appDirectory.exists() == false) {
+				appDirectory.mkdir();
 			}
 			// store bundle information (for display of dependencies, versions, ...)
-			File logFile = new File(cy3sbmlDirectory, "cy3sbml.log");
+			File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
 			System.setProperty("logfile.name", logFile.getAbsolutePath());
 			logger = LoggerFactory.getLogger(CyActivator.class);
 			
-			BundleInformation bundleInfo = BundleInformation.getInstance(bc);
 			logger.info("----------------------------");
 			logger.info("Start " + bundleInfo.getInfo());
 			logger.info("----------------------------");
-			logger.info("directory = " + cy3sbmlDirectory.getAbsolutePath());
+			logger.info("directory = " + appDirectory.getAbsolutePath());
 			logger.info("logfile = " + logFile.getAbsolutePath());
 						
 			// cy3sbml properties
-			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
+			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
 			Properties propsReaderServiceProps = new Properties();
-			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
+			propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
 			registerAllServices(bc, propsReader, propsReaderServiceProps);
 			
 			/**
@@ -153,7 +155,7 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkViewFactory,
 					
 					cy3sbmlProperties,
-					cy3sbmlDirectory,
+					appDirectory,
 					streamUtil,
 					openBrowser,
 					connectionProxy,
@@ -198,7 +200,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			// Session reading and restoring
-			SessionData sessionData = new SessionData(cy3sbmlDirectory);
+			SessionData sessionData = new SessionData(appDirectory);
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 			
