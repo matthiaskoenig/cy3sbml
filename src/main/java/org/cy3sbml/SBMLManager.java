@@ -58,7 +58,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 	private SBMLManager(ServiceAdapter adapter){
-		logger.info("SBMLManager created");
+		logger.debug("SBMLManager created");
 		sbml2networks = new SBML2NetworkMapper();
 		sbml2trees = new HashMap<Long, NavigationTree>();
 		navigationTree = new NavigationTree();
@@ -78,7 +78,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 */
 	
 	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
-		logger.info("SBMLManager from session file");
+		logger.info("SBMLManager from given mapper");
 		
 		sbml2networks = mapper;
 		sbml2trees = new HashMap<Long, NavigationTree>();

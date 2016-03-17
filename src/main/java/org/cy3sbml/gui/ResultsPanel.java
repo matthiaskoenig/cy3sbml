@@ -60,7 +60,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	
 	public static synchronized ResultsPanel getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
-			logger.info("ResultsPanel created");
+			logger.debug("ResultsPanel created");
 			uniqueInstance = new ResultsPanel(adapter);
 		}
 		return uniqueInstance;
@@ -300,11 +300,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				List<String> selectedNSBIds = sbmlManager.getNSBIds(suids);
 			
 				if (selectedNSBIds.size() > 0){
-					// log selected nodes
-					logger.debug("--- SELECTION ---");
-					for (Long suid: suids){
-						logger.debug(suid.toString());
-					}
+
 					// TODO: How to handle multiple selections? Currently only first node in selection used
 					String nsbId = selectedNSBIds.get(0);
 					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);

@@ -61,23 +61,17 @@ import org.cy3sbml.actions.ValidationAction;
  * TODO: write logger information to cy3sbml directory
  */
 public class CyActivator extends AbstractCyActivator {
-	private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
+	private static Logger logger;
 	
 	public CyActivator() {
 		super();
 	}
 	
 	/**
-	 * Start the OSGI bundle for cy3sbml.
+	 * Start the cy3sbml OSGI bundle.
 	 */
 	public void start(BundleContext bc) {
 		try {
-			// store bundle information (for display of dependencies, versions, ...)
-			BundleInformation bundleInfo = BundleInformation.getInstance(bc);
-			logger.info("---------------------------------");
-			logger.info("Start " + bundleInfo.getInfo());
-			logger.info("---------------------------------");
-			
 			// Default configuration directory used for all cy3sbml files 
 			// Used for retrieving
 			CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
@@ -86,18 +80,24 @@ public class CyActivator extends AbstractCyActivator {
 			
 			if(cy3sbmlDirectory.exists() == false) {
 				cy3sbmlDirectory.mkdir();
-				logger.warn("cy3sbml directory was not available. New directory created.");
 			}
-			logger.info("cy3sbml directory = " + cy3sbmlDirectory.getAbsolutePath());
-			// TODO: set the log file location (see https://github.com/matthiaskoenig/cy3sbml/issues/74)
+			// store bundle information (for display of dependencies, versions, ...)
+			File logFile = new File(cy3sbmlDirectory, "cy3sbml.log");
+			System.setProperty("logfile.name", logFile.getAbsolutePath());
+			logger = LoggerFactory.getLogger(CyActivator.class);
 			
-			
+			BundleInformation bundleInfo = BundleInformation.getInstance(bc);
+			logger.info("----------------------------");
+			logger.info("Start " + bundleInfo.getInfo());
+			logger.info("----------------------------");
+			logger.info("directory = " + cy3sbmlDirectory.getAbsolutePath());
+			logger.info("logfile = " + logFile.getAbsolutePath());
+						
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
 			Properties propsReaderServiceProps = new Properties();
 			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
 			registerAllServices(bc, propsReader, propsReaderServiceProps);
-			
 			
 			/**
 			 * Get services 
@@ -231,9 +231,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// Show the cy3sbml panel
 			ResultsPanel.getInstance().activate();
-			logger.info("---------------------------------");
-			logger.info("Started " + bundleInfo.getInfo());
-			logger.info("---------------------------------");
+			logger.info("----------------------------");
 			
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);

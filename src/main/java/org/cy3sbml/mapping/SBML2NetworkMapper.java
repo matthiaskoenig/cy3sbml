@@ -37,7 +37,7 @@ public class SBML2NetworkMapper implements Serializable{
 	private Map<Long, One2ManyMapping<Long, String>> nodeToNSBMappingMap;
 	
 	public SBML2NetworkMapper(){
-		logger.info("SBML2NetworkMapper created");
+		logger.debug("SBML2NetworkMapper created");
 		initMaps();
 		initCurrent();
 	}

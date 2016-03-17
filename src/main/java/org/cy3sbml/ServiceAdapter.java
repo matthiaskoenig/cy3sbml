@@ -123,7 +123,7 @@ public class ServiceAdapter {
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
 			FileUtil fileUtil
 			){
-		logger.info("ServiceAdapter created");
+		logger.debug("ServiceAdapter created");
 		this.cySwingApplication = cySwingApplication;
 		this.cyApplicationManager = cyApplicationManager;
 		this.cyNetworkManager = cyNetworkManager;

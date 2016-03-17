@@ -75,7 +75,7 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 	}
 	
 	public void setSystemProxy(String type, String host, String port) {
-		logger.info("set proxy: "+ type + " " + host + ":" + port);
+		logger.debug("set proxy: "+ type + " " + host + ":" + port);
 		if ("direct".equals(type)){
 			System.setProperty("http.proxyHost", "");
 		    System.setProperty("http.proxyPort", "");
@@ -97,6 +97,6 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 		
 		CyProperty property = event.getSource();
 		String name = property.getName();
-		logger.info("PropertyUpdatedEvent: " + name);
+		logger.debug("PropertyUpdatedEvent: " + name);
 	}
 }
