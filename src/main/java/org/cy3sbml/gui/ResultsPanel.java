@@ -42,8 +42,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Results Panel for cy3sbml registered as Cytoscape Results Panel.
- * This is the main display area for information.
+ * cy3sbml results panel. 
+ * 
+ * The panel is registered as Cytoscape Results Panel and available
+ * from within the GUI.
+ * 
+ * This panel is the main area for displaying SBML information for the 
+ * network.
+ * 
+ * ResultsPanel is a singleton class.
  */
 public class ResultsPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
 	private static final Logger logger = LoggerFactory.getLogger(ResultsPanel.class);
@@ -57,7 +64,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	
 	private JEditorPaneSBML textPane;
 
-	
+	/** Singleton. */
 	public static synchronized ResultsPanel getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
 			logger.debug("ResultsPanel created");
@@ -69,7 +76,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		return uniqueInstance;
 	}
 	
-	/** Constructor of cy3sbml Results Panel. */
+	/** Constructor */
 	private ResultsPanel(ServiceAdapter adapter){
 		this.adapter = adapter;
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
@@ -80,16 +87,11 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		
 		textPane = new JEditorPaneSBML();
 		textPane.addHyperlinkListener(this);
+		
 		JScrollPane annotationScrollPane = new JScrollPane();
-		// annotationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		annotationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		annotationScrollPane.setViewportView(textPane);
 		this.add(annotationScrollPane);
-		
-		// TODO: how to managet the size consistently. 
-		// This was already a challenge in cy2
-		// Dimension size = this.getSize();
-		// this.setSize(250, size.height);
 	}
 	
 	@Override
@@ -117,7 +119,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	}
 
     public void activate(){
-    	logger.debug("activate");
 		// If the state of the cytoPanelWest is HIDE, show it
 		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
 			cytoPanelEast.setState(CytoPanelState.DOCK);
@@ -127,7 +128,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
     }
 		
 	public void deactivate(){
-		logger.debug("deactivate");
 		// Test if still other Components in Panel, otherwise hide the complete panel
 		if (cytoPanelEast.getCytoPanelComponentCount() == 1){
 			cytoPanelEast.setState(CytoPanelState.HIDE);
@@ -157,9 +157,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
 	/** 
-	 * Handles hyperlink events in the textPane.
+	 * Handle hyperlink events in the textPane.
 	 * Either opens browser for given hyperlink or triggers Cytoscape actions
 	 * for subsets of special hyperlinks.
+	 * 
+	 * This provides an easy solution for integrating app functionality
+	 * with click on hyperlinks.
 	 */
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
 		/* Open link in browser. */
@@ -273,53 +276,29 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		updateInformation();
 	}
 	
-	/**
-	 * Here the node information update is performed.
+	/*
+	 * Updates information within a separate thread.
 	 */
 	public void updateInformation(){
+		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		if (network == null || view == null){
+			return;
+		}
+		// Update the information in separate thread
 		try {
-			if (!isActive()){
-				textPane.setText("");
-				return;
-			}
-			CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-			CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-			if (network == null || view == null){
-				return;
-			}
-			// selected node SUIDs
-			LinkedList<Long> suids = new LinkedList<Long>();
-			List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-			for (CyNode n : nodes){
-				suids.add(n.getSUID());
-				System.out.println("Selected: " + n);
-			}
-			// information for selected node(s)
-			SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-			if (document != null){
-				List<String> selectedNSBIds = sbmlManager.getNSBIds(suids);
-			
-				if (selectedNSBIds.size() > 0){
-
-					// TODO: How to handle multiple selections? Currently only first node in selection used
-					String nsbId = selectedNSBIds.get(0);
-					NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
-					if (nsb != null){
-						textPane.showNSBInfo(nsb);	
-					} else {
-						textPane.setText("No SBML object registered for node.");
-					}
-							
-				} else {
-					textPane.showNSBInfo(document.getModel());
-				}
-			} else {
-				textPane.setText("No SBML associated with current network.");
-			}
-		
+			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
+			Thread t = new Thread(updater);
+			t.start();	
 		} catch (Throwable t){
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();
 		}
-	}	
+	}
+	
+	/** Set help information. */
+	public void setHelp(){
+		textPane.setHelp();
+	}
+	
 }

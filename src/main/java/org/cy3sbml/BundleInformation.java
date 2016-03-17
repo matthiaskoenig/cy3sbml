@@ -4,25 +4,20 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
- * Necessary to store the information interested in, because bc stops to exist at some point.
- * Access to full manifest information and registered services is possible via the bundle.
+ * The BundleInformation provides runtime information on the bundle.
+ * 
+ * Important things like 
+ * - name
+ * - version
+ * - dependencies
+ * can be accessed and used programmatically.
+ * 
+ * All String generation using names and versions should use the 
+ * BundleInformation directly.
  */
 public class BundleInformation {
 	private String name;
 	private String version;
-	
-	/*
-	private static BundleInformation uniqueInstance;
-	public static synchronized BundleInformation getInstance(BundleContext bc){
-		if (uniqueInstance == null){
-			uniqueInstance = new BundleInformation(bc);
-		}
-		return uniqueInstance;
-	}
-	public static synchronized BundleInformation getInstance(){
-		return uniqueInstance;
-	}
-	*/
 	
 	
 	public BundleInformation(BundleContext bc){
@@ -31,12 +26,17 @@ public class BundleInformation {
 		version = bundle.getVersion().toString();
 	}
 	
+	/* {name}-v{version} of bundle. */
 	public String getInfo(){
 		return getName() + "-v" + getVersion();
 	}
+	
+	/* Name of bundle. */
 	public String getName(){
 		return name;
 	}
+	
+	/* Version of bundle. */
 	public String getVersion(){
 		return version;
 	}

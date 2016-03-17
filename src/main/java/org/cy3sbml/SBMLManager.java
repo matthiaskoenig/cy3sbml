@@ -29,9 +29,8 @@ import org.slf4j.LoggerFactory;
  * 
  * The SBMLManager provides the entry point to interact with SBMLDocuments.
  * All access to SBMLDocuments should go via the SBMLManager.
- * The SBMLManager is a singleton class.
  * 
- * TODO: implement proper to string information
+ * The SBMLManager is a singleton class.
  */
 public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
@@ -66,17 +65,14 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 
-	/** Get network sbml mapping to store in session file. */
 	public SBML2NetworkMapper getSBML2NetworkMapper(){
 		return sbml2networks;
 	}
 	
 	/** 
-	 * Set all information in SBMLManager from
-	 * given SBML2NetworkMapper.
+	 * Set all information in SBMLManager from given SBML2NetworkMapper.
 	 * Used to restore the SBMLManager state from a session file. 
 	 */
-	
 	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
 		logger.info("SBMLManager from given mapper");
 		
@@ -101,7 +97,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 
 	/** 
 	 * Get the SUID of the root network.
-	 * 
 	 * Returns null if the network is null.
 	 */
 	private Long getRootNetworkSuid(CyNetwork network){
@@ -133,13 +128,13 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		sbml2trees.put(rootNetworkSuid, tree);
 	}
 	
-	
 	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
 		Long suid = getRootNetworkSuid(network);
 		return getMapping(suid);
 	}
 	
+	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(Long rootNetworkSUID){
 		return sbml2networks.getNSB2CyNodeMapping(rootNetworkSUID);
 	}
@@ -157,23 +152,23 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 	/** Update the current SBML based the SUID of the root network. */
-	public void updateCurrent(Long rootNetworkSUID) {	
+	public void updateCurrent(Long rootNetworkSUID) {
+		logger.info("Set current network to root SUID: " + rootNetworkSUID);
 		sbml2networks.setCurrentSUID(rootNetworkSUID);
 		navigationTree = sbml2trees.get(rootNetworkSUID);
 	}
 	
-	/** Lookup NamedSBased via id in the NavigationTree.
+	/** 
+	 * Lookup NamedSBased via id in the NavigationTree.
 	 * Key method to get SBML information for nodes in the network.
-	 * @param nsbId
-	 * @return
 	 */
 	public NamedSBase getNamedSBaseById(String nsbId){
 		NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
 		return nsb;
 	}
 	
-	/** Get SBMLDocument for given network.
-	 * 
+	/** 
+	 * Get SBMLDocument for given network.
 	 * Returns null if no SBMLDocument exist for the network.
 	 */
 	public SBMLDocument getSBMLDocument(CyNetwork network){
@@ -214,9 +209,13 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		return new LinkedList<String>(mapping.getValues(suids));
 	}
 	
-	public String info(){
+	public String toString(){
 		return sbml2networks.toString();
 	}
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// This are all events which should be handled by the ResultsPanel
 	
 	/**
 	 * Listening to changes in Networks and NetworkViews.
@@ -233,10 +232,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	@Override
 	public void handleEvent(SetCurrentNetworkEvent event) {
 		CyNetwork network = event.getNetwork();
-		Long suid = getRootNetworkSuid(network);
-		
-		logger.info("Set current network to root SUID: " + suid);
-		updateCurrent(suid);
+		updateCurrent(network);
 		// update selection
 		ResultsPanel.getInstance().updateInformation();
 	}
@@ -254,6 +250,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-		ResultsPanel.getInstance().getTextPane().setHelp();
+		ResultsPanel.getInstance().setHelp();
 	}
 }
