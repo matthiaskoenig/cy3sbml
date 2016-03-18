@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<vizmap documentVersion="3.0" id="VizMap-cy3sbml"> 
-     <visualStyle name="cy3sbml">
+<vizmap documentVersion="3.0" id="VizMap-cy3sbml-dark"> 
+     <visualStyle name="cy3sbml-dark">
         <network>
             <visualProperty name="NETWORK_HEIGHT" default="400.0"/>
             <visualProperty name="NETWORK_CENTER_Z_LOCATION" default="0.0"/>
@@ -11,7 +11,7 @@
             <visualProperty name="NETWORK_CENTER_X_LOCATION" default="0.0"/>
             <visualProperty name="NETWORK_NODE_SELECTION" default="true"/>
             <visualProperty name="NETWORK_DEPTH" default="0.0"/>
-            <visualProperty name="NETWORK_BACKGROUND_PAINT" default="#FFFFFF"/>
+            <visualProperty name="NETWORK_BACKGROUND_PAINT" default="#333333"/>
             <visualProperty name="NETWORK_CENTER_Y_LOCATION" default="0.0"/>
         </network>
         <node>
@@ -48,7 +48,7 @@
             <visualProperty name="NODE_SELECTED" default="false"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_BORDER_PAINT" default="#000000">
+            <visualProperty name="NODE_BORDER_PAINT" default="#FFFFFF">
             	<discreteMapping attributeType="integer" attributeName="compartmentCode">
                     <discreteMappingEntry value="#3333FF" attributeValue="1"/>
                     <discreteMappingEntry value="#FF3333" attributeValue="2"/>
@@ -62,7 +62,7 @@
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_6" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_2" default="0.0"/>
-            <visualProperty name="NODE_LABEL_COLOR" default="#000000"/>
+            <visualProperty name="NODE_LABEL_COLOR" default="#FFFFFF"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_5" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_TOOLTIP" default=""/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_6" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
@@ -71,17 +71,17 @@
             <visualProperty name="NODE_LABEL_WIDTH" default="200.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_7" default="0.0"/>
             <visualProperty name="NODE_HEIGHT" default="10.0"/>
-            <visualProperty name="NODE_SELECTED_PAINT" default="#FFFF00"/>
-            <visualProperty name="NODE_FILL_COLOR" default="#FFFFFF">
+            <visualProperty name="NODE_SELECTED_PAINT" default="#CC6600"/>
+            <visualProperty name="NODE_FILL_COLOR" default="#666666">
                 <discreteMapping attributeType="string" attributeName="sbml-type">
-                    <discreteMappingEntry value="#F0F0F0" attributeValue="species"/>
+                    <discreteMappingEntry value="#666666" attributeValue="species"/>
                     <discreteMappingEntry value="#999999" attributeValue="reaction"/>
                     <discreteMappingEntry value="#00CC66" attributeValue="compartment"/>
                     <discreteMappingEntry value="#0099FF" attributeValue="parameter"/>
                     <discreteMappingEntry value="#0099FF" attributeValue="localParameter"/>
                     <discreteMappingEntry value="#66CCFF" attributeValue="rule"/>
                     <discreteMappingEntry value="#66CCFF" attributeValue="kineticLaw"/>
-                    <discreteMappingEntry value="#F0F0F0" attributeValue="qual:species"/>
+                    <discreteMappingEntry value="#666666" attributeValue="qual:species"/>
                     <discreteMappingEntry value="#999999" attributeValue="qual:transition"/>
                     <discreteMappingEntry value="#FF9966" attributeValue="fbc:geneProduct"/>
                 </discreteMapping>

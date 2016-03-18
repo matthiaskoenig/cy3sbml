@@ -153,10 +153,12 @@ public class CyActivator extends AbstractCyActivator {
 					fileUtil
 			);
 			
-			// visual styles
+			// visual styles (normal and dark)
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
-			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
-			loadVizmapFileTaskFactory.loadStyles(stream);
+			InputStream streamCy3sbml = getClass().getResourceAsStream("/styles/cy3sbml.xml");
+			loadVizmapFileTaskFactory.loadStyles(streamCy3sbml);
+			InputStream streamCy3sbmlDark = getClass().getResourceAsStream("/styles/cy3sbml-dark.xml");
+			loadVizmapFileTaskFactory.loadStyles(streamCy3sbmlDark);
 			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
