@@ -1,31 +1,21 @@
 package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import org.cytoscape.application.swing.AbstractCyAction;
-import org.cytoscape.model.CyColumn;
-import org.cytoscape.model.CyEdge;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyRow;
-import org.cytoscape.model.CyTable;
-import org.cytoscape.model.CyTableManager;
-import org.cytoscape.model.CyTableUtil;
-import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.model.CyNetworkViewManager;
-import org.cy3sbml.SBML;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.cofactors.CofactorManager;
-import org.cy3sbml.util.AttributeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.cytoscape.application.swing.AbstractCyAction;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.view.model.CyNetworkView;
+
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.cofactors.CofactorManager;
 
 /**
  * Action to handle cofactor nodes.
@@ -56,11 +46,6 @@ public class CofactorNodesAction extends AbstractCyAction{
 	public void actionPerformed(ActionEvent e) {
 		logger.info("actionPerformed()"); 
 		
-		System.out.println("****************************************");
-		System.out.println("Cofactor nodes");
-		System.out.println("****************************************");
-	
-		
 		// Get the current network via the service adapter
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
@@ -69,10 +54,10 @@ public class CofactorNodesAction extends AbstractCyAction{
 		}
 		
 		// Selected nodes are inputs to the cofactor handling
-		// TODO: implement different inputs (from SBML, from List)
+		// TODO: implement different inputs (from SBML, from List, cofactor files)
 		List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 		
-		CofactorManager cofactorManager = CofactorManager.getInstance();	
+		CofactorManager cofactorManager = CofactorManager.getInstance();
 		for (CyNode cofactor : nodes){
 			System.out.println("Handling Cofactor Node:" + cofactor);
 			cofactorManager.handleCofactorNode(network, cofactor);

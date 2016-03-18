@@ -7,16 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.cy3sbml.SBML;
-import org.cy3sbml.SBMLManager;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.mapping.NavigationTree;
-import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.subnetwork.CyRootNetwork;
-import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +24,8 @@ import org.slf4j.LoggerFactory;
  */
 public class CofactorManager {
 	private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
+	private static final String CLONE_TAG = "-clone";
+	
 	
 	private static CofactorManager uniqueInstance;
 	// store of CofactorMappings for given network
@@ -57,34 +53,29 @@ public class CofactorManager {
 	 * Checks in the Mapping if cloned or not cloned.
 	 */
 	public void handleCofactorNode(CyNetwork network, CyNode cofactor){
+		Long suid = network.getSUID();
 		
 		// Get mapping for network
-		CofactorMapping networkMapping = network2CofactorMappings.get(network.getSUID());
-		if (networkMapping == null){
-			networkMapping = new CofactorMapping();
-			network2CofactorMappings.put(network.getSUID(), networkMapping);
+		CofactorMapping cofactorMapping = network2CofactorMappings.get(suid);
+		if (cofactorMapping == null){
+			cofactorMapping = new CofactorMapping();
+			network2CofactorMappings.put(suid, cofactorMapping);
 		}
-			
-		// degree of node
+				
+		// degree of node in network
 		int degree = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY).size();
 		
-		// targets in the mapping
-		List<Long> targets = networkMapping.get(cofactor.getSUID());
-		if (targets == null){
-			if (degree <= 1){
-				logger.info("Node has degree 1 or 0, will not be split: " + cofactor.getSUID());
-				return;
-			}
+		
+		// In the cofactorMapping for every split cofactor the targets are stored
+		List<Long> clones = cofactorMapping.get(cofactor.getSUID());
+		if (clones == null){
 			logger.info("Split cofactors");
-			splitCofactorNode(networkMapping, network, cofactor);	
+			splitCofactorNode(cofactorMapping, network, cofactor);	
 		} else {
-			// the node was already split and should have exactly one target
-			// we get the node back from the root network
-			CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-			cofactor = rootNetwork.getNode(targets.get(0));
 			logger.info("Merge cofactors");
-			mergeCofactorNode(networkMapping, network, cofactor);
-		}		
+			mergeCofactorClones(network, clones);
+			cofactorMapping.remove(cofactor.getSUID());
+		}
 	}
 	
 	/**
@@ -111,17 +102,13 @@ public class CofactorManager {
 			origin.add(cofactor.getSUID());
 			mapping.put(cofactorClone.getSUID(), origin);
 		
-			// update sbml-type to *Clone
+			// update sbml-type to have clone tag
 			String sbmlType = AttributeUtil.get(network, cofactorClone, SBML.NODETYPE_ATTR, String.class);
-			System.out.println("sbml-type: " + sbmlType);
-			sbmlType = sbmlType + "Clone";
-			AttributeUtil.set(network, cofactorClone, SBML.NODETYPE_ATTR, sbmlType, String.class);
-			
-			System.out.println("Redirect edge:" + edge.getSUID().toString());
-			CyNode source = edge.getSource();
-			CyNode target = edge.getTarget();
+			AttributeUtil.set(network, cofactorClone, SBML.NODETYPE_ATTR, sbmlType + CLONE_TAG, String.class);
 			
 			// Clone the edge
+			CyNode source = edge.getSource();
+			CyNode target = edge.getTarget();
 			CyEdge edgeClone = null;
 			if (source.getSUID() == cofactor.getSUID()){
 				edgeClone = network.addEdge(cofactorClone, target, edge.isDirected());
@@ -141,49 +128,48 @@ public class CofactorManager {
 	 * N single cofactor nodes are merged into single cofactor node with
 	 * degree N.
 	 */
-	private void mergeCofactorNode(CofactorMapping mapping, CyNetwork network, CyNode cofactor){
-		System.out.println("cofactor node: " + cofactor);
-		System.out.println("cofactor node: " + cofactor.getSUID());
+	private void mergeCofactorClones(CyNetwork network, List<Long> clones){
 		
-		// add the original node
-		((CySubNetwork) network).addNode(cofactor);
-		
-		// remove all clones
-		List<Long> cloneSuids = mapping.get(cofactor.getSUID());
-		System.out.println("Clones: " + cloneSuids);
+		// we get the first node from the targets (on this node the other 
+		//     targets are merged)
+		Long cofactorSUID = clones.get(0);
+		CyNode cofactor = network.getNode(cofactorSUID);
 		
 		// set attribute for force update of style
-		AttributeUtil.set(network, cofactor, SBML.NODETYPE_ATTR, 
-				AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class), 
-				String.class);
+		String cloneType = AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class);
+		String sbmlType = cloneType.substring(0, cloneType.length()-CLONE_TAG.length());
+		System.out.println("sbmlType: " + sbmlType);
+		AttributeUtil.set(network, cofactor, SBML.NODETYPE_ATTR, sbmlType, String.class);
 		
-				
-		// edges from root network
-		CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-		List<CyEdge> edges = rootNetwork.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
-		for (CyEdge edge : edges){
-			Long sourceSuid = edge.getSource().getSUID();
-			Long targetSuid = edge.getTarget().getSUID();
-			// add edge if part of subnetwork
-			if ((sourceSuid == cofactor.getSUID()) && (network.getNode(targetSuid) != null)){
-				((CySubNetwork) network).addEdge(edge);
-			} else if ((targetSuid == cofactor.getSUID()) && (network.getNode(sourceSuid) != null)){
-				((CySubNetwork) network).addEdge(edge);
+		// redirect remaining clone edges
+		for (int k=1; k<clones.size(); k++){
+			// clone
+			Long cloneSUID = clones.get(k);
+			CyNode clone = network.getNode(cloneSUID);
+			// edge connecting clone
+			List<CyEdge> edges = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
+			if (edges.size() != 1){
+				logger.warn("Target has more than one edge.");
 			}
+			CyEdge edge = edges.get(0);
+			CyNode source = edge.getSource();
+			CyNode target = edge.getTarget();
+			
+			// redirect edge (add new, remove old)
+			CyEdge newEdge = null;
+			if (source.getSUID() == clone.getSUID()){
+				 newEdge = network.addEdge(cofactor, target, edge.isDirected());
+			} else if (target.getSUID() == clone.getSUID()){
+				newEdge = network.addEdge(source, cofactor, edge.isDirected());
+			} else {
+				logger.error("Problems with cofactors.");
+			}
+			AttributeUtil.copyEdgeAttributes(network, edge, newEdge);
+			network.removeEdges(Collections.singletonList(edge));
+			
+			// remove isolated clone node
+			network.removeNodes(Collections.singletonList(clone));
 		}
-		
-		
-		// remove the clone nodes
-		List<CyNode> cloneNodes = new LinkedList<CyNode>();
-		for (Long suid: cloneSuids){
-			CyNode clone = network.getNode(suid);
-			cloneNodes.add(clone);
-			mapping.remove(suid);
-		}
-		network.removeNodes(cloneNodes);
-		
-		// TODO: update the mappings (forward & backwards)
-		mapping.remove(cofactor.getSUID());
 	}
 
 }

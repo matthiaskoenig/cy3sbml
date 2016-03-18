@@ -4,7 +4,7 @@
 		"cofactors": [		
 			"cofactor":{
 				"id": "h2o",
-				"alternatives": ["H2O"]
+				"alternatives": ["H2O", "water"]
 				"kegg": ["C00001"]
 				"chebi": []
 			},
@@ -15,57 +15,69 @@
 				"chebi": []
 			},
 			"cofactor":{
+				"id": "o2",
+				"alternatives": ["O2", "oxygen"]
+				"kegg": ["C00007"]
+				"chebi": []
+			},
+			"cofactor":{
 				"id": "h2",
 				"alternatives": ["H2", "hydrogen"]
-				"kegg": [C00282]
+				"kegg": ["C00282"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "h",
 				"alternatives": ["H", "h+", "H+", "proton"]
-				"kegg": [C00080]
+				"kegg": ["C00080"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "p",
-				"alternatives": ["P", "phosphate"]
-				"kegg": []
+				"alternatives": ["P", "Pi", "pi", "phosphate"]
+				"kegg": ["C00009"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "pp",
-				"alternatives": ["PP", "pyrophosphate"]
-				"kegg": []
+				"alternatives": ["PP", "PPi", "ppi", "pyrophosphate"]
+				"kegg": ["C00013"]
 				"chebi": []
-			},	
+			},
+			"cofactor":{
+				"id": "nh3",
+				"alternatives": ["NH3", "ammonia"]
+				"kegg": ["C00014"]
+				"chebi": []
+			},
 			"cofactor":{
 				"id": "atp",
 				"alternatives": ["ATP"]
-				"kegg": []
+				"kegg": ["C00002"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "adp",
 				"alternatives": ["ADP"]
-				"kegg": []
+				"kegg": ["C00008"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "amp",
 				"alternatives": ["AMP"]
-				"kegg": []
+				"kegg": ["C00020"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "gtp",
 				"alternatives": ["GTP"]
-				"kegg": []
+				"kegg": ["C00044"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "gdp",
 				"alternatives": ["GDP"]
-				"kegg": []
+				"kegg": ["C00035"]
 				"chebi": []
 			},
 			"cofactor":{
@@ -93,15 +105,33 @@
 				"chebi": []
 			},
 			"cofactor":{
+				"id": "ctp",
+				"alternatives": ["CTP"]
+				"kegg": ["C00063"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "cdp",
+				"alternatives": ["CDP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "cmp",
+				"alternatives": ["CMP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
 				"id": "nad",
 				"alternatives": ["NAD"]
-				"kegg": []
+				"kegg": ["C00003"]
 				"chebi": []
 			},
 			"cofactor":{
 				"id": "nadh",
 				"alternatives": ["NADH"]
-				"kegg": []
+				"kegg": ["C00004"]
 				"chebi": []
 			},
 			"cofactor":{
@@ -162,6 +192,12 @@
 				"id": "Fe2+",
 				"alternatives": ["Fe3+", "iron", "Iron"]
 				"kegg": ["C14818", "C14819"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Mo2+",
+				"alternatives": ["molybdenum", "Iron"]
+				"kegg": ["C00150"]
 				"chebi": []
 			},
 		]

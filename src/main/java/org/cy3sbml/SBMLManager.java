@@ -99,13 +99,22 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 * Get the SUID of the root network.
 	 * Returns null if the network is null.
 	 */
-	private Long getRootNetworkSuid(CyNetwork network){
+	public static Long getRootNetworkSuid(CyNetwork network){
 		Long suid = null;
 		if (network != null){
 			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
 			suid = rootNetwork.getSUID();
 		}
 		return suid;
+	}
+	
+	/** Get rootNetwork. */
+	public static CyNetwork getRootNetwork(CyNetwork network){
+		CyNetwork rootNetwork = null;
+		if (network != null){
+			rootNetwork = ((CySubNetwork)network).getRootNetwork();	
+		}
+		return rootNetwork;
 	}
 	
 	/*
