@@ -49,15 +49,15 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_PAINT" default="#000000">
-            	<discreteMapping attributeType="string" attributeName="compartmentCode">
-                    <discreteMappingEntry value="#3333FF" attributeValue="c1"/>
-                    <discreteMappingEntry value="#FF3333" attributeValue="c2"/>
-                    <discreteMappingEntry value="#336600" attributeValue="c3"/>
-                    <discreteMappingEntry value="#0099FF" attributeValue="c4"/>
-                    <discreteMappingEntry value="#0099FF" attributeValue="c5"/>
-                    <discreteMappingEntry value="#66CCFF" attributeValue="c6"/>
-                    <discreteMappingEntry value="#66CCFF" attributeValue="c7"/>
-                    <discreteMappingEntry value="#F0F0F0" attributeValue="c8"/>
+            	<discreteMapping attributeType="integer" attributeName="compartmentCode">
+                    <discreteMappingEntry value="#3333FF" attributeValue="1"/>
+                    <discreteMappingEntry value="#FF3333" attributeValue="2"/>
+                    <discreteMappingEntry value="#336600" attributeValue="3"/>
+                    <discreteMappingEntry value="#0099FF" attributeValue="4"/>
+                    <discreteMappingEntry value="#0099FF" attributeValue="5"/>
+                    <discreteMappingEntry value="#66CCFF" attributeValue="6"/>
+                    <discreteMappingEntry value="#66CCFF" attributeValue="7"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="8"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_6" default="0.0"/>

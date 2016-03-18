@@ -193,8 +193,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			//////////////////////////////////////////////////////////////////
 			// Read SBML & Extensions
 			//////////////////////////////////////////////////////////////////
+			// Creates the main network of all information
 			
-			// Core model
 			readCore(model);
 			if (taskMonitor != null){
 				taskMonitor.setProgress(0.5);
@@ -234,7 +234,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 			*/
 			readDistrib(model);
-			
+
+			// Add compartment codes for dynamical colors
+			addCompartmentCodes(network, model);
+						
 			//////////////////////////////////////////////////////////////////
 			
 			// main SBML network consisting of the following nodes and edges
@@ -282,6 +285,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 			
+
+			
+			
 			// Create the main subnetwork if nodes exist in main network.
 			// Models can be fully encoded via parameters & rules,
 			// resulting in an empty main network (for instance BIOMD0000000020).
@@ -328,6 +334,31 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	public Boolean getError(){
 		return error;
+	}
+
+	/**
+	 * Adds integer compartment codes as node attribute.
+	 * 
+	 * The compartmentCodes can be used in the visual mapping for dynamical
+	 * visualization of compartment colors.
+	 */
+	private void addCompartmentCodes(CyNetwork network, Model model){
+		// Calculate compartment code mapping
+		HashMap<String, Integer> compartmentCodes = new HashMap<String, Integer>();
+		Integer compartmentCode = 1;
+		for (Compartment c: model.getListOfCompartments()){
+			String cid = c.getId();
+			if (!compartmentCodes.containsKey(cid)){
+				compartmentCodes.put(cid, compartmentCode);
+				compartmentCode += 1;
+			}
+		}
+		// set compartment code attribute
+		for (CyNode n : network.getNodeList()){
+			String cid = AttributeUtil.get(network, n, SBML.ATTR_COMPARTMENT, String.class);
+			Integer code = compartmentCodes.get(cid);
+			AttributeUtil.set(network, n, SBML.ATTR_COMPARTMENT_CODE, code, Integer.class);
+		}
 	}
 	
 	/** 
@@ -401,41 +432,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		return n;
 	}
-	
-	
-	/** 
-	 * Copy node attributes. 
-	 * Probably not all information parsed.
-	 * TODO: implement general function for copying node attributes 
-	 * Use in cofactor nodes.
-	 */
-	public void copyNodeAttributes(CyNode sourceNode, CyNode targetNode){
-		logger.warn("copyNodeAttributes NOT IMPLEMENTED");
-		/*	
-		String sId = sourceNode.getIdentifier();
-		String tId = targetNode.getIdentifier();
-		String info = null;
-		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_ID);
-		nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_ID, info);
 		
-		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_TYPE);
-		nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_TYPE, info);
-		
-		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_NAME);
-		if (info != null){
-			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_NAME, info);
-		}
-		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_COMPARTMENT);
-		if (info != null){
-			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_COMPARTMENT, info);
-		}
-		info = (String) nodeAttributes.getAttribute(sId, CySBMLConstants.ATT_SBOTERM);
-		if (info != null){
-			nodeAttributes.setAttribute(tId, CySBMLConstants.ATT_SBOTERM, info);
-		}
-		*/
-	}
-	
 	
 	////////////////////////////////////////////////////////////////////////////
 	// SBML CORE
@@ -491,10 +488,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// UnitDefinitions (not parsed)
 		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
 		
-		// Nodes for compartments
-		HashMap<String, Integer> compartmentCodes = new HashMap<String, Integer>();
-		// TODO: store the compartment codes and assign in all objects which have compartments
-		
+		// Nodes for compartments		
 		for (Compartment compartment : model.getListOfCompartments()) {
 			CyNode node = createSymbolNode(compartment, SBML.NODETYPE_COMPARTMENT);
 			if (compartment.isSetSpatialDimensions()){
@@ -1168,7 +1162,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					CyNode sNode = nodeById.get(speciesId);
 					
 					// copy node attributes from species node to speciesGlyph node
-					copyNodeAttributes(sNode, node);	
+					AttributeUtil.copyNodeAttributes(network, sNode, node);	
 				}
 				
 			} else {
