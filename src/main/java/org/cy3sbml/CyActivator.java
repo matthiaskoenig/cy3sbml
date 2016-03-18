@@ -3,8 +3,6 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
-import org.cytoscape.session.CySession;
-import org.cytoscape.session.CySessionManager;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
@@ -15,12 +13,8 @@ import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
-import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.model.CyNetworkTableManager;
-import org.cytoscape.model.CyTableManager;
-import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
@@ -50,6 +44,8 @@ import org.cy3sbml.actions.CofactorNodesAction;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
+import org.cy3sbml.actions.LoadLayoutAction;
+import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
 
 /**
@@ -58,7 +54,6 @@ import org.cy3sbml.actions.ValidationAction;
  * The CyActivator registers the cy3sbml services with OSGI. This is the class
  * used for startup of the app by Cytoscape 3.
  * 
- * TODO: write logger information to cy3sbml directory
  */
 public class CyActivator extends AbstractCyActivator {
 	private static Logger logger;
@@ -101,9 +96,7 @@ public class CyActivator extends AbstractCyActivator {
 			propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
 			registerAllServices(bc, propsReader, propsReaderServiceProps);
 			
-			/**
-			 * Get services 
-			 */
+			/** Get services */
 			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 			
 			CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
@@ -111,7 +104,6 @@ public class CyActivator extends AbstractCyActivator {
 			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
 			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
 			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
-			
 			
 			DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
 			@SuppressWarnings("rawtypes")
@@ -133,13 +125,11 @@ public class CyActivator extends AbstractCyActivator {
 			
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 			
-			// Use the Cytoscape properties to set proxy for webservices
+			// Use Cytoscape properties to set proxy for webservices
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();
 						
-			/**  
-			 * Create ServiceAdapter
-			 */
+			/** Create ServiceAdapter */
 			ServiceAdapter adapter = ServiceAdapter.getInstance(
 					cySwingApplication,
 					cyApplicationManager,
@@ -163,10 +153,7 @@ public class CyActivator extends AbstractCyActivator {
 					fileUtil
 			);
 			
-			/**
-			 * Create things depending on services (with adapter)
-			 */ 
-			// load cy3sbml styles
+			// visual styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
 			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
 			loadVizmapFileTaskFactory.loadStyles(stream);
@@ -176,7 +163,6 @@ public class CyActivator extends AbstractCyActivator {
 			// init cy3sbml ControlPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
 			// init actions
-			// ResultsPanelAction resultsPanelAction = new ResultsPanelAction(cySwingApplication);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			ImportAction importAction = new ImportAction(adapter);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
@@ -184,14 +170,13 @@ public class CyActivator extends AbstractCyActivator {
 			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
 			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
 			CofactorNodesAction cofactorNodesAction = new CofactorNodesAction(adapter);
+			SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
 			
-			// TODO: associate multiple files
+			// SBML Filter
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
-			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
 			
-			/**
-			 * Register services 
-			 */			
+			/** Register services */			
 			// SBML file reader
 			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
 			Properties sbmlReaderProps = new Properties();
@@ -199,7 +184,7 @@ public class CyActivator extends AbstractCyActivator {
 			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
-			// Session reading and restoring
+			// Session loading & saving
 			SessionData sessionData = new SessionData(appDirectory);
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
@@ -207,7 +192,6 @@ public class CyActivator extends AbstractCyActivator {
 			// panels
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
-			// registerService(bc, resultsPanelAction, CyAction.class, new Properties());
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
 			registerService(bc, bioModelAction, CyAction.class, new Properties());
@@ -215,8 +199,8 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, importAction, CyAction.class, new Properties());
 			registerService(bc, examplesAction, CyAction.class, new Properties());
 			registerService(bc, cofactorNodesAction, CyAction.class, new Properties());
-			// TODO: SaveLayoutAction
-			// TODO: LoadLayoutAction
+			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
+			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 			
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
@@ -226,12 +210,10 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 			
-			
 			// register cy3sbml services for other plugins
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 			
-			
-			// Show the cy3sbml panel
+			// show cy3sbml panel
 			ResultsPanel.getInstance().activate();
 			logger.info("----------------------------");
 			

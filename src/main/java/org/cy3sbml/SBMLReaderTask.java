@@ -285,9 +285,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 			
-
-			
-			
 			// Create the main subnetwork if nodes exist in main network.
 			// Models can be fully encoded via parameters & rules,
 			// resulting in an empty main network (for instance BIOMD0000000020).
@@ -307,7 +304,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				mainNetwork.getRow(mainNetwork).set(CyNetwork.NAME, "Main: "+ name);	
 			}
 			
-			// [2] layout subnetworks
+			// Layout subnetworks
 			// TODO: create layout subnetworks (different mechanism necessary, 
 			//   probably via direct subnetwork generation)
 			
