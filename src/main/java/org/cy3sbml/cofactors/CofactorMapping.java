@@ -2,9 +2,7 @@ package org.cy3sbml.cofactors;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.cytoscape.model.CyNetwork;
 
 /* Information which nodes map to which cofactor nodes.
  * 
@@ -13,7 +11,18 @@ import org.cytoscape.model.CyNetwork;
  * cofactors) these have to be removed from the network temporarily.
  */
 public class CofactorMapping extends HashMap<Long, List<Long>> {
-	// CyNode SUID -> CyNodes SUIDs
-	
+	private static final long serialVersionUID = 1L;
+
+	public String toString(){
+		String string = "";
+		for (Long key : this.keySet()){
+			string += "\t(" +  key + ")\n";
+			List<Long> clones = this.get(key);
+			for (Long clone : clones){
+				string += "\t\t- " + clone + "\n";
+			}
+		}
+		return string;
+	}
 	
 }

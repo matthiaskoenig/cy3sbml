@@ -26,8 +26,8 @@ public class CofactorManager {
 	private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
 	private static final String CLONE_TAG = "-clone";
 	
-	
 	private static CofactorManager uniqueInstance;
+	
 	// store of CofactorMappings for given network
 	private Map<Long, CofactorMapping> network2CofactorMappings;
 
@@ -42,6 +42,18 @@ public class CofactorManager {
 	private CofactorManager(){
 		logger.info("CofactorManager created");
 		network2CofactorMappings = new HashMap<Long, CofactorMapping>();
+	}
+	
+	public String toString(){
+		String string = "------------------------\n"; 
+		string += "Cofactor Mapping\n";
+		string += "------------------------\n";
+		for (Long suid : network2CofactorMappings.keySet()){
+			string += "[network: " + suid + "]\n";
+			CofactorMapping mapping = network2CofactorMappings.get(suid);
+			string += mapping.toString();
+		}
+		return string;
 	}
 	
 	
@@ -85,40 +97,45 @@ public class CofactorManager {
 		
 		// get edges/neighbors for cofactor
 		List<CyEdge> edges = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
-		List<Long> targets = new LinkedList<Long>();
+		List<Long> cloneSUIDList = new LinkedList<Long>();
 		
 		// redirect edges
 		for (int k=0; k<edges.size(); k++){
 			CyEdge edge = edges.get(k);
 
 			// add clone node 
-			CyNode cofactorClone = network.addNode();
-			AttributeUtil.copyNodeAttributes(network, cofactor, cofactorClone);
-		
-			// add cofactor -> clone mapping
-			targets.add(cofactorClone.getSUID());
-			// add clone -> cofactor mapping
-			List<Long> origin = new LinkedList<Long>();
-			origin.add(cofactor.getSUID());
-			mapping.put(cofactorClone.getSUID(), origin);
-		
-			// update sbml-type to have clone tag
-			String sbmlType = AttributeUtil.get(network, cofactorClone, SBML.NODETYPE_ATTR, String.class);
-			AttributeUtil.set(network, cofactorClone, SBML.NODETYPE_ATTR, sbmlType + CLONE_TAG, String.class);
+			CyNode clone = network.addNode();
+			Long cloneSUID = clone.getSUID();
+			AttributeUtil.copyNodeAttributes(network, cofactor, clone);
+			cloneSUIDList.add(cloneSUID);
 			
-			// Clone the edge
+			// update sbml-type to have clone tag
+			String sbmlType = AttributeUtil.get(network, clone, SBML.NODETYPE_ATTR, String.class);
+			AttributeUtil.set(network, clone, SBML.NODETYPE_ATTR, sbmlType + CLONE_TAG, String.class);
+			
+			// clone edge
 			CyNode source = edge.getSource();
 			CyNode target = edge.getTarget();
 			CyEdge edgeClone = null;
+			CyNode neighbor = null;
 			if (source.getSUID() == cofactor.getSUID()){
-				edgeClone = network.addEdge(cofactorClone, target, edge.isDirected());
+				neighbor = target;
+				edgeClone = network.addEdge(clone, target, edge.isDirected());
 			} else if (target.getSUID() == cofactor.getSUID()){
-				edgeClone = network.addEdge(source, cofactorClone, edge.isDirected());
+				neighbor = source;
+				edgeClone = network.addEdge(source, clone, edge.isDirected());
 			}
 			AttributeUtil.copyEdgeAttributes(network, edge, edgeClone);
+			
+			// Reposition the cofactor
+			/*
+			String nodeId = AttributeUtil.get(network, node, SBML.ATTR_ID, String.class);
+	    	Double x = nodeView.getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION);
+	    	Double y = nodeView.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION);
+			*/
 		}
 		// Add full cofactor -> clones mapping
-		mapping.put(cofactor.getSUID(), targets);
+		mapping.put(cofactor.getSUID(), cloneSUIDList);
 		
 		// remove the original node (make invisible)
 		network.removeNodes(Collections.singletonList(cofactor));

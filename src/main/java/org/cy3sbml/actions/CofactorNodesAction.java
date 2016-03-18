@@ -59,9 +59,9 @@ public class CofactorNodesAction extends AbstractCyAction{
 		
 		CofactorManager cofactorManager = CofactorManager.getInstance();
 		for (CyNode cofactor : nodes){
-			System.out.println("Handling Cofactor Node:" + cofactor);
 			cofactorManager.handleCofactorNode(network, cofactor);
 		}
+		System.out.println(cofactorManager.toString());
 		
 		view.updateView();
 		/*
