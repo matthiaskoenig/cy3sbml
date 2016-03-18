@@ -1,0 +1,169 @@
+{
+	"listOfCofactors": {
+		"id": "default",
+		"cofactors": [		
+			"cofactor":{
+				"id": "h2o",
+				"alternatives": ["H2O"]
+				"kegg": ["C00001"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "co2",
+				"alternatives": ["CO2"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "h2",
+				"alternatives": ["H2", "hydrogen"]
+				"kegg": [C00282]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "h",
+				"alternatives": ["H", "h+", "H+", "proton"]
+				"kegg": [C00080]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "p",
+				"alternatives": ["P", "phosphate"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "pp",
+				"alternatives": ["PP", "pyrophosphate"]
+				"kegg": []
+				"chebi": []
+			},	
+			"cofactor":{
+				"id": "atp",
+				"alternatives": ["ATP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "adp",
+				"alternatives": ["ADP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "amp",
+				"alternatives": ["AMP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "gtp",
+				"alternatives": ["GTP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "gdp",
+				"alternatives": ["GDP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "gmp",
+				"alternatives": ["GMP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "utp",
+				"alternatives": ["UTP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "udp",
+				"alternatives": ["UDP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "ump",
+				"alternatives": ["UMP"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "nad",
+				"alternatives": ["NAD"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "nadh",
+				"alternatives": ["NADH"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "nadph",
+				"alternatives": ["NADPH"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "coa",
+				"alternatives": ["COA"]
+				"kegg": []
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Zn2+",
+				"alternatives": ["zinc", "Zinc"]
+				"kegg": ["C00038"]
+				"chebi": []
+			},			
+			"cofactor":{
+				"id": "Cu2+",
+				"alternatives": ["copper", "Copper"]
+				"kegg": ["C00070"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Ca2+",
+				"alternatives": ["calcium", "Calcium"]
+				"kegg": ["C00076"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Co2+",
+				"alternatives": ["cobalt", "Cobalt"]
+				"kegg": ["C00175"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "K+",
+				"alternatives": ["potassium", "Potassium"]
+				"kegg": ["C00238"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Ni2+",
+				"alternatives": ["nickel", "Nickel"]
+				"kegg": ["C00291"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Cl-",
+				"alternatives": ["chloride", "Chloride"]
+				"kegg": ["C00698"]
+				"chebi": []
+			},
+			"cofactor":{
+				"id": "Fe2+",
+				"alternatives": ["Fe3+", "iron", "Iron"]
+				"kegg": ["C14818", "C14819"]
+				"chebi": []
+			},
+		]
+	}
+}
