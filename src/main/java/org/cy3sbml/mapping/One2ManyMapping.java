@@ -37,7 +37,7 @@ public class One2ManyMapping<T1, T2> implements Serializable{
 	}
 	
 	public void remove(T1 key){
-		remove(key);
+		map.remove(key);
 	}
 	
 	

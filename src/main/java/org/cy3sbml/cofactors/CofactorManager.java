@@ -1,11 +1,8 @@
 package org.cy3sbml.cofactors;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -77,7 +74,9 @@ public class CofactorManager {
 		// It is a cofactor node
 		} else if (cofactor2clones.containsKey(nodeSUID)){
 			logger.warn("Selected nodes should never be cofactor nodes, something went wrong.");
+			
 		} else {
+			logger.info("Node not in cofactor mapping -> splitting:" + node.toString());
 			splitCofactorNode(network, node);
 		}
 	}
@@ -151,9 +150,15 @@ public class CofactorManager {
 			CyNode source = edge.getSource();
 			CyNode target = edge.getTarget();
 			if (network.containsNode(source) && network.containsNode(target)){
-				((CySubNetwork)network).addEdge(edge);	
+				((CySubNetwork)network).addEdge(edge);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, 
+						AttributeUtil.get(network, edge, SBML.INTERACTION_ATTR, String.class),
+						String.class);
 			}	
 		}
+		
+		// update mapper
+		mapper.remove(network.getSUID(), cofactor.getSUID());
 	}
 
 	/** String representation. */
