@@ -56,14 +56,16 @@ public class CofactorNodesAction extends AbstractCyAction{
 		
 		// Selected nodes are inputs to the cofactor handling
 		// TODO: implement different inputs (from SBML, from List, cofactor files)
+		//  (this has to be processed in the network generation)
 		List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 		
 		CofactorManager cofactorManager = CofactorManager.getInstance();
-		for (CyNode cofactor : nodes){
-			cofactorManager.handleCofactorNode(network, cofactor);
-		}
 		System.out.println(cofactorManager.toString());
-		
+		for (CyNode node : nodes){
+			System.out.println("Processing: " + node);
+			cofactorManager.processNode(network, node);
+			System.out.println(cofactorManager.toString());
+		}
 		view.updateView();
 	}
 
