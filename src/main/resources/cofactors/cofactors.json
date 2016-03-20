@@ -131,14 +131,12 @@
 			"kegg": ["C00038"],
 			"chebi": ["CHEBI:29105"]
 		},			
-		{
-			"id": "Cu2+",
+		{ "id": "Cu2+",
 			"alternatives": ["copper", "Copper"],
 			"kegg": ["C00070"],
 			"chebi": ["CHEBI:28694"]
 		},
-		{
-			"id": "Ca2+",
+		{ "id": "Ca2+",
 			"alternatives": ["calcium", "Calcium"],
 			"kegg": ["C00076"],
 			"chebi": ["CHEBI:29108"]
