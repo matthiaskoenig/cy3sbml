@@ -61,6 +61,9 @@ public class Network2CofactorMapper implements Serializable{
 	
 	/** Use this function to add values. */
 	public void put(Long networkSUID, Long cofactorSUID, Long cloneSUID){
+		if (!cofactor2clone.containsKey(networkSUID)){
+			newCofactor2CloneMapping(networkSUID);
+		}
 		cofactor2clone.get(networkSUID).put(cofactorSUID, cloneSUID);
 		clone2cofactor.get(networkSUID).put(cloneSUID, cofactorSUID);
 	}

@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +151,8 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			logger.info("cy3sbml file in session: " + f.toString());
 			logger.info(f.getName());
 
+			try {
+			
 			// deserialize the documentMap
 			if (SBML2NETWORK_SERIALIZATION.equals(f.getName())){
 				logger.info("Deserialize documentMap");
@@ -194,16 +195,13 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					
 					// read mapper
 					Network2CofactorMapper m = (Network2CofactorMapper)input.readObject();
-					
 					CofactorManager cofactorManager = CofactorManager.getInstance();
 					
 					// update suids in mapper & set in manager
 					Network2CofactorMapper updatedMapper = updateSUIDsInCofactorMapper(session, m);
-					logger.info("SUID update finished");
 					// set updated mapper
 					cofactorManager.setNetwork2CofactorMapper(updatedMapper);
-					
-					logger.info("UPDATED");
+				
 					System.out.println(cofactorManager.toString());
 					
 					
@@ -214,6 +212,11 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 				} catch (ClassNotFoundException e3) {
 					e3.printStackTrace();
 				}
+			}
+			
+			} catch (Throwable e){
+				logger.error("Errors in deserialization", e);
+				e.printStackTrace();
 			}
 			
 		}
@@ -249,8 +252,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			}
 			newM.putDocument(newNetworkSuid, doc, newNsb2node);
 		}
-		Long newCurrentSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
-		newM.setCurrentSUID(newCurrentSuid);
+		if (m.getCurrentSUID() != null){
+			Long newCurrentSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
+			newM.setCurrentSUID(newCurrentSuid);
+		}
 		return newM;
 	}
 	
@@ -264,14 +269,14 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
 	public Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
-		logger.info("Update SUIDs in Network2CofactorMapper");
+		logger.debug("Update SUIDs in Network2CofactorMapper");
 		// mapper with updated SUIDS
 		Network2CofactorMapper newM = new Network2CofactorMapper();
 	
 		// update all network & node SUIDs
 		for (Long networkSUID: m.keySet()){
 			Long newNetworkSUID = s.getObject(networkSUID, CyNetwork.class).getSUID();
-			One2ManyMapping<Long, Long> cofactor2clones = m.getClone2CofactorMapping(networkSUID);
+			One2ManyMapping<Long, Long> cofactor2clones = m.getCofactor2CloneMapping(networkSUID);
 			for (Long cofactorSUID: cofactor2clones.keySet()){
 				// update cofactor SUID
 				Long newCofactorSUID = s.getObject(cofactorSUID, CyNode.class).getSUID();
