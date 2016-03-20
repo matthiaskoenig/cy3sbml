@@ -47,6 +47,7 @@ import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.LoadLayoutAction;
 import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
+import org.cy3sbml.cofactors.CofactorManager;
 
 /**
  * Entry point to cy3sbml.
@@ -161,8 +162,13 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
+			// init Cofactor manager
+			CofactorManager cofactorManager = CofactorManager.getInstance();
+			
 			// init cy3sbml ControlPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
+			
+			
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			ImportAction importAction = new ImportAction(adapter);

@@ -108,6 +108,7 @@ public class MiriamResourceInfo {
 				logger.debug("Added to cache: " + resourceURI);
 			} else {
 				// TODO: currently problems if collection only has one resource
+				// This is a real bug and has to be fixed.
 				logger.debug("Miriam locations could not be retrieved: " + resourceURI);
 			}
 		}

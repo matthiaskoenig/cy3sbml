@@ -83,7 +83,7 @@ public class Network2CofactorMapper implements Serializable{
 		string += "Cofactor Mapping\n";
 		string += "------------------------\n";
 		for (Long suid : cofactor2clone.keySet()){
-			string += "[network: " + suid + "]\n";
+			string += "\n[network: " + suid + "]\n";
 			One2ManyMapping<Long, Long> mapping = cofactor2clone.get(suid);
 			string += mapping.toString();
 			// add reverse mapping

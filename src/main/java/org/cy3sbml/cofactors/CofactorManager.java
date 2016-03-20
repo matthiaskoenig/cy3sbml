@@ -45,6 +45,19 @@ public class CofactorManager {
 		mapper = new Network2CofactorMapper();
 	}
 	
+	/**
+	 *  Get the mapper.
+	 * Used in serialization of the cofactor mappings. 
+	 */
+	public Network2CofactorMapper getNetwork2CofactorMapper(){
+		return mapper;
+	}
+	
+	public void setNetwork2CofactorMapper(Network2CofactorMapper m){
+		logger.info("Network2CofactorMapper from given mapper");
+		this.mapper = m;
+	}
+	
 	/*
 	 * Process given cofactor node.
 	 * 
