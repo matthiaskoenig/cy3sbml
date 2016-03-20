@@ -135,6 +135,7 @@ private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTe
 		
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
 		final CyNetworkViewFactory viewFactory = null;
 		TaskMonitor taskMonitor = null;
 		

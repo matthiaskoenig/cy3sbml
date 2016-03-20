@@ -19,24 +19,24 @@ public class BundleInformation {
 	private String name;
 	private String version;
 	
-	
+	/** Constructor. */
 	public BundleInformation(BundleContext bc){
 		Bundle bundle = bc.getBundle();
 		name = bundle.getSymbolicName();
 		version = bundle.getVersion().toString();
 	}
 	
-	/* {name}-v{version} of bundle. */
+	/** {name}-v{version} of bundle. */
 	public String getInfo(){
 		return getName() + "-v" + getVersion();
 	}
 	
-	/* Name of bundle. */
+	/** Name of bundle. */
 	public String getName(){
 		return name;
 	}
 	
-	/* Version of bundle. */
+	/** Version of bundle. */
 	public String getVersion(){
 		return version;
 	}

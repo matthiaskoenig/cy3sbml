@@ -10,8 +10,6 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +18,9 @@ import javax.xml.stream.XMLStreamException;
 
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
-import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
-import org.cytoscape.session.CySessionManager;
 import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedEvent;
@@ -39,13 +35,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Save cy3sbml data in session file and restore from session file.
  * 
- * Which data has to be saved and restored?
- * - SBMLManager (SBMLDocuments & network2sbml mapper)
- * TODO: write restore function, which create the mapping from the rest
- * - CofactorManager
- * 
- * TODO: look into serializing the key singleton classes which store
- * 			the cy3sbml information.
+ * TODO: serialize/deserialize cofactor nodes
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
@@ -90,14 +80,11 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 				writer.write(doc, sbmlFile);
 				files.add(sbmlFile);
 			} catch (SBMLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (XMLStreamException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (XMLStreamException e2) {
+				e2.printStackTrace();
+			} catch (IOException e3) {
+				e3.printStackTrace();
 			}
 		}
 				
@@ -106,19 +93,16 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		try {
 			File file = new File(directory, SBML2NETWORK_SERIALIZATION);
 	        FileOutputStream fileOut;
-			try {
-				fileOut = new FileOutputStream(file.getAbsolutePath());
-				ObjectOutputStream out = new ObjectOutputStream(fileOut);
-		        out.writeObject(mapper);
-		        out.close();
-		        fileOut.close();
-		        files.add(file);
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
+			fileOut = new FileOutputStream(file.getAbsolutePath());
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	        out.writeObject(mapper);
+	        out.close();
+	        fileOut.close();
+	        files.add(file);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
@@ -127,10 +111,8 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			event.addAppFiles("cy3sbml", files);
 			logger.info("Save SBML files for session.");
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-			
 	}
 	
 	/**
@@ -159,26 +141,20 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					InputStream buffer = new BufferedInputStream(inputStream);
 					input = new ObjectInputStream (buffer);
 					
-					// read the mapper
+					// read mapper
 					SBML2NetworkMapper mapper = (SBML2NetworkMapper)input.readObject();
-					// update suids in mapper and set in manager
+					// update suids in mapper & set in manager
 					SBML2NetworkMapper updatedMapper = updateSUIDsInMapper(session, mapper);
 					SBMLManager sbmlManager = SBMLManager.getInstance();
 					// set updated mapper
 					sbmlManager.setSBML2NetworkMapper(updatedMapper);
-					
-					
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				} catch (ClassNotFoundException e3) {
-					// TODO Auto-generated catch block
 					e3.printStackTrace();
 				}
-						
 			}
 		}
     }

@@ -6,11 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -19,25 +15,23 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
-import org.cy3sbml.SBMLManager;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.actions.ExamplesAction;
-import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.actions.ValidationAction;
-import org.cy3sbml.biomodel.BioModelDialog;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.TaskIterator;
-import org.sbml.jsbml.NamedSBase;
-import org.sbml.jsbml.SBMLDocument;
+
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.actions.ExamplesAction;
+import org.cy3sbml.actions.ImportAction;
+import org.cy3sbml.actions.ValidationAction;
+import org.cy3sbml.biomodel.BioModelDialog;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,12 +50,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private static final Logger logger = LoggerFactory.getLogger(ResultsPanel.class);
 	private static final long serialVersionUID = 1L;
 
-	CytoPanel cytoPanelEast;
 	private static ResultsPanel uniqueInstance;
-	
+	private CytoPanel cytoPanelEast;
 	private ServiceAdapter adapter;
-	private SBMLManager sbmlManager;
-	
 	private JEditorPaneSBML textPane;
 
 	/** Singleton. */
@@ -80,7 +71,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private ResultsPanel(ServiceAdapter adapter){
 		this.adapter = adapter;
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
-		this.sbmlManager = SBMLManager.getInstance();
 		
 		// SBML information area
 		setLayout(new BorderLayout(0, 0));

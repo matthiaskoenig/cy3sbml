@@ -1,20 +1,16 @@
 package org.cy3sbml;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
@@ -25,14 +21,12 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-import org.cytoscape.view.layout.CyLayoutAlgorithm;
-import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
-import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+
 // SBML CORE
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.Annotation;
@@ -116,6 +110,7 @@ import org.slf4j.LoggerFactory;
  * The reader creates the master SBML network graph with various subnetworks 
  * created from the full graph.
  */
+@SuppressWarnings("deprecation")
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {	
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 	
@@ -125,6 +120,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
+	@SuppressWarnings("unused")
 	private final CyNetworkViewManager viewManager;
 	private SBMLDocument document;
 	
@@ -148,11 +144,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	/**
-	 * Parse the SBML networks.
-	 */
+	/** Parse the SBML networks. */
 	public void run(TaskMonitor taskMonitor) throws Exception {
-	
 		logger.info("---------------------------------");
 		logger.info("Start Reader.run()");
 		logger.info("---------------------------------");
@@ -235,7 +228,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			*/
 			readDistrib(model);
 
-			// Add compartment codes for dynamical colors
+			// Add compartment codes dynamically for colors
 			addCompartmentCodes(network, model);
 						
 			//////////////////////////////////////////////////////////////////
@@ -498,6 +491,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		// Nodes for parameters
 		for (Parameter parameter : model.getListOfParameters()) {
+			@SuppressWarnings("unused")
 			CyNode node = createSymbolNode(parameter, SBML.NODETYPE_PARAMETER);
 		}
 		
@@ -652,6 +646,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						// FIXME: this changes the model during the reading, but necessary for the unique
 						// 		  mapping. Not a problem currently, but will when writing SBML.
 						lp.setId(tmpId);
+						@SuppressWarnings("unused")
 						CyNode lpNode = createQuantityWithUnitNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
 					}
 				}
@@ -1125,7 +1120,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	// SBML LAYOUT
 	////////////////////////////////////////////////////////////////////////////
-	/** Creates the layouts stored in the layout extension. */
+	/** 
+	 * Creates the layouts stored in the layout extension. 
+	 * TODO: implement
+	 */
+	@SuppressWarnings("unused")
 	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
 		logger.info("** layout **");
 		for (Layout layout : layoutModel.getListOfLayouts()){

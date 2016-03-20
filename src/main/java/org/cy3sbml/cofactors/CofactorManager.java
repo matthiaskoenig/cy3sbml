@@ -75,7 +75,7 @@ public class CofactorManager {
 		}
 				
 		// degree of node in network
-		int degree = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY).size();
+		// int degree = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY).size();
 		
 		
 		// In the cofactorMapping for every split cofactor the targets are stored
@@ -93,6 +93,7 @@ public class CofactorManager {
 	/**
 	 * Cofactor node of degree N is split into N single nodes.
 	 */
+	@SuppressWarnings("unused")
 	private void splitCofactorNode(CofactorMapping mapping, CyNetwork network, CyNode cofactor){
 		
 		// get edges/neighbors for cofactor

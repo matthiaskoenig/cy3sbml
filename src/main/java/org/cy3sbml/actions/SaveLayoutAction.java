@@ -3,33 +3,30 @@ package org.cy3sbml.actions;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Collection;
 import java.util.HashSet;
-
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.util.swing.FileUtil;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodel.BioModelDialog;
 import org.cy3sbml.layout.LayoutTools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/** Save node positions to file. */
+/** 
+ * Save node positions to file. 
+ */
 public class SaveLayoutAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(SaveLayoutAction.class);
 	private static final long serialVersionUID = 1L;
 	
 	private ServiceAdapter adapter;
 	
+	/** Constructor. */
 	public SaveLayoutAction(ServiceAdapter adapter){
 		super("Save Layout");
-		logger.debug("SaveLayoutAction created");
 		this.adapter = adapter;
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/savelayout.png"));

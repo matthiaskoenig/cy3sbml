@@ -3,9 +3,6 @@ package org.cy3sbml;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -49,6 +46,7 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 		logger.info(String.format("BioModelsTest: %s", resource));
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
 		final CyNetworkViewFactory viewFactory = null;
 		TaskMonitor taskMonitor = null;
 		

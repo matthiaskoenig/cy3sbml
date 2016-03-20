@@ -28,6 +28,7 @@ public class CofactorNodesAction extends AbstractCyAction{
 	private static final long serialVersionUID = 1L;
 	private ServiceAdapter adapter;
 
+	/** Constructor. */
 	public CofactorNodesAction(ServiceAdapter adapter){
 		super("CofactorNodesAction");
 		this.adapter = adapter;
@@ -64,13 +65,6 @@ public class CofactorNodesAction extends AbstractCyAction{
 		System.out.println(cofactorManager.toString());
 		
 		view.updateView();
-		/*
-		Collection<CyNetworkView> views = adapter.cyNetworkViewManager.getNetworkViews(network);
-		for (CyNetworkView v: views){
-			v.updateView();
-			v.updateView();
-		}
-		*/
 	}
 
 }

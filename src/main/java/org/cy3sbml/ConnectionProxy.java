@@ -13,23 +13,22 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Handling the system proxy settings required to use the web services (SOAP, REST).
- * Listening to changes in the cytoscape properties which are used for 
+ * Listens to changes in Cytoscape properties which are used for 
  * updating the system proxy settings.
  * 
  * Proxy authentication is currently not supported.
- * Will be supported if requested. 
- * 
- * TODO: listen to changes in settings
  */
 public class ConnectionProxy implements PropertyUpdatedListener{
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionProxy.class);
 	
 	private CyProperty<Properties> cyProperties;
 	
+	/** Constructor. */
 	public ConnectionProxy(CyProperty<Properties> cyProperties){
 		this.cyProperties = cyProperties;
 	}
 	
+	/** Get proxy information. */
 	public Proxy getProxy() {
 		Properties properties = cyProperties.getProperties();
 		final String proxyType = properties.getProperty("proxy.server.type");
@@ -56,7 +55,7 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 		return Proxy.NO_PROXY;
 	}
 	
-	/** Set Cytoscape proxy settings for system. */
+	/** Sets Cytoscape proxy settings. */
 	public void setSystemProxyFromCyProperties(){
 		String type = getProxyType();
 		String host = getProxyHost();
@@ -67,9 +66,11 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 	public String getProxyType() {
 		return cyProperties.getProperties().getProperty("proxy.server.type");
 	}
+	
 	public String getProxyHost() {
 		return cyProperties.getProperties().getProperty("proxy.server");
 	}
+	
 	public String getProxyPort() {
 		return cyProperties.getProperties().getProperty("proxy.server.port");
 	}
@@ -95,6 +96,7 @@ public class ConnectionProxy implements PropertyUpdatedListener{
 		// TODO: currently bug in change of properties in cytoscape
 		// as a consequence there is no way to listen to these changes.
 		
+		@SuppressWarnings("rawtypes")
 		CyProperty property = event.getSource();
 		String name = property.getName();
 		logger.debug("PropertyUpdatedEvent: " + name);

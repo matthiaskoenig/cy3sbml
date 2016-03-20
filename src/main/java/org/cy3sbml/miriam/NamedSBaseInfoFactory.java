@@ -1,16 +1,14 @@
 package org.cy3sbml.miriam;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
+import uk.ac.ebi.miriam.lib.MiriamLink;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.cy3sbml.util.AnnotationUtil;
+
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
@@ -25,8 +23,7 @@ import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.ontology.Term;
-
-import uk.ac.ebi.miriam.lib.MiriamLink;
+import org.cy3sbml.util.AnnotationUtil;
 
 /** 
  * Create the information for the selected NamedSBase.
@@ -36,11 +33,13 @@ import uk.ac.ebi.miriam.lib.MiriamLink;
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
  * 
- * TODO: refactor the SBML HTML information completely.
+ * TODO: cached MIRIAM information (faster access & less workload on MIRIAM)
  * 
+ * TODO: refactor SBML HTML information completely 
+ * 		(https://github.com/matthiaskoenig/cy3sbml/milestones/0.1.8)
  */
 public class NamedSBaseInfoFactory {
-	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
+	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
 	
 	private MiriamLink link;
 	private AbstractNamedSBase sbmlObject;

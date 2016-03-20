@@ -53,7 +53,6 @@ import org.cy3sbml.actions.ValidationAction;
  * 
  * The CyActivator registers the cy3sbml services with OSGI. This is the class
  * used for startup of the app by Cytoscape 3.
- * 
  */
 public class CyActivator extends AbstractCyActivator {
 	private static Logger logger;
@@ -170,7 +169,7 @@ public class CyActivator extends AbstractCyActivator {
 			BioModelAction bioModelAction = new BioModelAction(adapter);
 			ValidationAction validationAction = new ValidationAction(adapter);
 			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
-			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
+			HelpAction helpAction = new HelpAction(cySwingApplication);
 			CofactorNodesAction cofactorNodesAction = new CofactorNodesAction(adapter);
 			SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
 			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);

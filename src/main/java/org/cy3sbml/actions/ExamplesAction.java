@@ -3,9 +3,11 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-import org.cy3sbml.gui.ResultsPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
+
+import org.cy3sbml.gui.ResultsPanel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ public class ExamplesAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
 	private static final long serialVersionUID = 1L;
 	
+	/** Constructor. */
 	public ExamplesAction(CySwingApplication cySwingApplication){
 		super("ExamplesAction");
 		

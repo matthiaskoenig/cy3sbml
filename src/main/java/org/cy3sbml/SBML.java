@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+/**
+ * Definition of cy3sbml and SBML constants.
+ */
 public class SBML {
 	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
 	public static final String NETWORKTYPE_SBML = "SBML";
@@ -9,7 +12,7 @@ public class SBML {
 	public static final String NODETYPE_ATTR = "sbml-type";
 	public static final String INTERACTION_ATTR = "sbml-interaction";
 	
-	/** Node and edge attributes */
+	/* Node and edge attributes */
 	public static final String LABEL = "label"; 
 	public static final String ATTR_ID = "id";
 	public static final String ATTR_NAME = "name";

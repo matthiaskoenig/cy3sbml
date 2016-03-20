@@ -6,23 +6,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.cy3sbml.CyActivator;
-import org.cy3sbml.ServiceAdapter;
+import uk.ac.ebi.biomodels.ws.SimpleModel;
+
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskObserver;
 import org.cytoscape.work.swing.DialogTaskManager;
+import org.cy3sbml.ServiceAdapter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.ebi.biomodels.ws.SimpleModel;
 
+/**
+ * Searching BioModels.
+ */
 public class SearchBioModel implements TaskObserver {
 	private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
 	
 	DialogTaskManager dialogTaskManager;
+	@SuppressWarnings("rawtypes")
 	SynchronousTaskManager synchronousTaskManager;
 	
 	private BioModelWSInterface bmInterface;
@@ -121,13 +126,12 @@ public class SearchBioModel implements TaskObserver {
 		}
 		
 		simpleModels = getSimpleModelsForSearchResult(modelIds);
-		// TODO: somehow notify that this is finished & update the conent
+		// TODO: somehow notify that this is finished & update the content
 		// do synchronous
 	}
 
 	@Override
 	public void allFinished(FinishStatus finishStatus) {
-		// TODO Auto-generated method stub
 	}
 	
 	
