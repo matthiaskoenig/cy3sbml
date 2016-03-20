@@ -163,6 +163,7 @@ public class CyActivator extends AbstractCyActivator {
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init Cofactor manager
+			@SuppressWarnings("unused")
 			CofactorManager cofactorManager = CofactorManager.getInstance();
 			
 			// init cy3sbml ControlPanel

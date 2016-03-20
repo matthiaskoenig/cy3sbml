@@ -60,12 +60,8 @@ public class CofactorNodesAction extends AbstractCyAction{
 		List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 		
 		CofactorManager cofactorManager = CofactorManager.getInstance();
-		System.out.println(cofactorManager.toString());
-		for (CyNode node : nodes){
-			System.out.println("Processing: " + node);
-			cofactorManager.processNode(network, node);
-			System.out.println(cofactorManager.toString());
-		}
+		cofactorManager.processNodes(network, nodes);
+		
 		view.updateView();
 	}
 
