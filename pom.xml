@@ -275,6 +275,11 @@
   			<artifactId>jsbml-distrib</artifactId>
   			<version>0.5</version>
   		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jsbml-tidy</artifactId>
+  			<version>1.2.1</version>
+  		</dependency>
   		
   		<!-- UncertML -->
   		<!--
@@ -300,6 +305,11 @@
   			<groupId>org.biojava</groupId>
   			<artifactId>biojava3-ontology</artifactId>
   			<version>3.1.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>cy3sbml-temp</groupId>
+  			<artifactId>jtidy</artifactId>
+  			<version>r938</version>
   		</dependency>
   		<!--
   		<dependency>
