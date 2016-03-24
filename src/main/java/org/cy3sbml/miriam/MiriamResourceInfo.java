@@ -98,7 +98,7 @@ public class MiriamResourceInfo {
 			logger.debug("cached: " + resourceURI);
 			locations = (String[]) element.getObjectValue();
 		} else {
-			logger.info("Webservice lookup: " + resourceURI);
+			logger.debug("Webservice lookup: " + resourceURI);
 			locations = link.getLocations(resourceURI);
 			
 			if (locations != null){

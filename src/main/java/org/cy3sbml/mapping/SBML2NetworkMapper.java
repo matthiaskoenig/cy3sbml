@@ -63,7 +63,7 @@ public class SBML2NetworkMapper implements Serializable{
 		} else {
 			initCurrent();
 		}
-		logger.info("Current network set to: " + currentSUID);
+		logger.debug("Current network set to: " + currentSUID);
 	}
 	
 	public boolean containsSUID(Long suid){

@@ -23,8 +23,6 @@ import org.slf4j.LoggerFactory;
  * merging of clones into the original cofactor before splitting.
  * 
  * The CofactorManager is a singleton class.
- * 
- * TODO: Necessary to update the mappings in the SBML2Networkmapper
  */
 public class CofactorManager {
 	private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
@@ -63,13 +61,12 @@ public class CofactorManager {
 	/**
 	 * Process given nodes.
 	 */
-	
 	public void processNodes(CyNetwork network, List<CyNode> nodes){
-		System.out.println(this.toString());
+		logger.debug(this.toString());
 		for (CyNode node : nodes){
 			processNode(network, node);
 		}
-		System.out.println(this.toString());
+		logger.debug(this.toString());
 	}
 	
 	/*
