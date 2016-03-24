@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.LocalParameter;
@@ -24,7 +23,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Handling the NavigationTree model. 
- * Only the objectMapping is in use, the TreeModel is overkill. 
+ * Only the objectMapping is in use, the TreeModel is overkill.
+ * 
+ * TODO: refactor & clean the NavigationTree concept
  */
 public class NavigationTree {
 	private static final Logger logger = LoggerFactory.getLogger(NavigationTree.class);

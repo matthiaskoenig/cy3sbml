@@ -133,6 +133,7 @@ private static final Logger logger = LoggerFactory.getLogger(SBMLTestCaseTest.cl
 				
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
 		final CyNetworkViewFactory viewFactory = null;
 		TaskMonitor taskMonitor = null;
 		

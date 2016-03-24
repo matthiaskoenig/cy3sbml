@@ -31,5 +31,4 @@ public class SearchBioModelTaskFactory implements TaskFactory {
 		// How to get data out of the task (Observable?)
 		return true;
 	}
-
 }

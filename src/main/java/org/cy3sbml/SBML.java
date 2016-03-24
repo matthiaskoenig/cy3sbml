@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+/**
+ * Definition of cy3sbml and SBML constants.
+ */
 public class SBML {
 	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
 	public static final String NETWORKTYPE_SBML = "SBML";
@@ -9,7 +12,7 @@ public class SBML {
 	public static final String NODETYPE_ATTR = "sbml-type";
 	public static final String INTERACTION_ATTR = "sbml-interaction";
 	
-	/** Node and edge attributes */
+	/* Node and edge attributes */
 	public static final String LABEL = "label"; 
 	public static final String ATTR_ID = "id";
 	public static final String ATTR_NAME = "name";
@@ -17,6 +20,7 @@ public class SBML {
 	public static final String ATTR_METAID = "metaId";
 	
 	public static final String ATTR_COMPARTMENT = "compartment";
+	public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
 	public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
 	public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
 	public static final String ATTR_CHARGE = "charge";
@@ -67,6 +71,7 @@ public class SBML {
 	public static final String NODETYPE_COMPARTMENT = "compartment";
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_RULE = "rule";
+	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
 	public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
 
@@ -98,7 +103,9 @@ public class SBML {
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
 	public static final String INTERACTION_VARIABLE_RULE = "variable-rule";
+	public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable-initialAssignment";
 	public static final String INTERACTION_REFERENCE_RULE = "parameter-rule";
+	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "parameter-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
 	public static final String INTERACTION_REFERENCE_KINETICLAW = "parameter-kineticLaw";
 	

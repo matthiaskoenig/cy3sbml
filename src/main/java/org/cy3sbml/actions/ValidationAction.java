@@ -6,25 +6,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.cytoscape.application.swing.AbstractCyAction;
+import org.sbml.jsbml.SBMLDocument;
+
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.ValidationDialog;
-import org.cytoscape.application.swing.AbstractCyAction;
-import org.sbml.jsbml.SBMLDocument;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/** Open the BioModel GUI for importing BioModels via search terms. */
+/** 
+ * Open the BioModel GUI for importing BioModels via search terms. 
+ */
 public class ValidationAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ValidationAction.class);
 	private static final long serialVersionUID = 1L;
 	
 	private ServiceAdapter adapter;
 	
+	/** Constructor. */
 	public ValidationAction(ServiceAdapter adapter){
 		super("ValidationAction");
-		logger.debug("ValidationAction created");
 		this.adapter = adapter;
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/validation.png"));

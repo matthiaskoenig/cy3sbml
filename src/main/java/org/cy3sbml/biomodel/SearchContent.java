@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/** Parsing of the form fields into usable SearchContent instance. */
+/** 
+ * Parsing of the form fields into usable SearchContent instance. 
+ */
 public class SearchContent {
 	
 	public static final String CONTENT_NAME = "NAME";

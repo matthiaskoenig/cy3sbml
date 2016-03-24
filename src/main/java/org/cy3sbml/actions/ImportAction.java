@@ -15,6 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * Importing SBML networks in Cytoscape.
+ */
 public class ImportAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
 	private static final long serialVersionUID = 1L;
@@ -36,7 +39,7 @@ public class ImportAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		logger.info("actionPerformed()"); 
+		logger.debug("actionPerformed()"); 
 		
 		// open new file open dialog
 		Collection<FileChooserFilter> filters = new HashSet<FileChooserFilter>();
@@ -54,6 +57,4 @@ public class ImportAction extends AbstractCyAction{
 			}
 		}
 	}
-
 }
-

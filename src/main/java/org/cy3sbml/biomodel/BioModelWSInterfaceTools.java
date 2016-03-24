@@ -3,14 +3,13 @@ package org.cy3sbml.biomodel;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
+/**
+ * Tools to interact with BioModels.
+ */
 public class BioModelWSInterfaceTools {
-	private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterfaceTools.class);
+	// private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterfaceTools.class);
 	
 	// string and html representations
 	public static String getHTMLInformationForSimpleModels(LinkedHashMap<String, SimpleModel> simpleModels, 

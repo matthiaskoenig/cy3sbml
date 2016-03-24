@@ -10,23 +10,30 @@ import org.sbml.jsbml.SBMLDocument;
 import org.cy3sbml.SBML;
 
 /**
- * Mapping between the CyNetwork elements and the SBML elements are 
- * based on the unique SUIDs of CyNodes and unique SBML identifiers 
+ * Mapping between SBML & Cytoscape elements.
+ * 
+ * The mapping between CyNetwork elements and SBML elements uses  
+ * the unique SUIDs of CyNodes and unique SBML identifiers. 
  * for a single SBML model (mapping is always restricted to a single
  * SBML <- multiple networks).
- * Depending on the generated network different mappings are created.
- * For instance the Layout networks have to be managed in a different manner than
- * Qual networks.
+ * 
+ * Depending on the kind of generated different mappings are created.
+ * For instance Cytoscape Layout networks for an SBML have different 
+ * mappings Qual networks.
  */
 public class NamedSBase2CyNodeMapping {	
 	
 	/**
-	 * Create mapping from SBML network.
+	 * Construct the mapping from given network and SBMLDocument.
+	 * 
+	 * Uses the SBML identifiers which are node attributes in the network
+	 * to build the network.
 	 */
 	public static One2ManyMapping<String, Long> fromSBMLNetwork(SBMLDocument document, CyNetwork network, One2ManyMapping<String, Long> mapping){
 		if (mapping == null){
 			mapping = new One2ManyMapping<String, Long>();
 		}
+		// Create the mapping from all nodes in the network
 		List<CyNode> nodes = network.getNodeList();
 		for (CyNode node: nodes){
 			// get sbml id

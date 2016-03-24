@@ -17,7 +17,7 @@ mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jigsaw-dateParser -
 # JSBML (generated in build_jsbml script)
 # The registered jars have to correspond to the actual pom.xml, so changes here have to be synchronized!
 # core
-mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml -Dversion=1.1-b1 -Dfile=$DIR/jsbml-1.1-b1.jar -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml -Dversion=1.2-SNAPSHOT -Dfile=$DIR/jsbml-1.2-SNAPSHOT.jar -Dpackaging=jar -DgeneratePom=true
 # qual
 mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-qual -Dversion=2.1-b1 -Dfile=$DIR/jsbml-qual-2.1-b1.jar -Dpackaging=jar -DgeneratePom=true
 # layout
@@ -26,6 +26,11 @@ mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-layout -Dvers
 mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-comp -Dversion=1.0-b1 -Dfile=$DIR/jsbml-comp-1.0-b1.jar -Dpackaging=jar -DgeneratePom=true
 # fbc
 mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-fbc -Dversion=1.0-b1 -Dfile=$DIR/jsbml-fbc-1.0-b1.jar -Dpackaging=jar -DgeneratePom=true
+# groups
+mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-groups -Dversion=0.4-b1 -Dfile=$DIR/jsbml-groups-0.4-b1.jar -Dpackaging=jar -DgeneratePom=true
 # distrib
 mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-distrib -Dversion=0.5 -Dfile=$DIR/jsbml-distrib-0.5.jar -Dpackaging=jar -DgeneratePom=true
+# tidy SBML
+mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jsbml-tidy -Dversion=1.2.1 -Dfile=$DIR/jsbml-tidy-1.2.1.jar -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DgroupId=cy3sbml-temp -DartifactId=jtidy -Dversion=r938 -Dfile=$DIR/jtidy-r938.jar -Dpackaging=jar -DgeneratePom=true
 

@@ -14,12 +14,11 @@ import uk.ac.ebi.biomodels.ws.BioModelsWSException;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 
-/** Main class for interaction with the biomodels via webservices. 
- * TODO: better management of the proxy settings (directly use the connectionProxy settings)
- * */
+/** 
+ * Main class for interaction with the BioModels via web services. 
+ */
 public class BioModelWSInterface {
 	private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterface.class);
-	// TODO: set address private static final String URL;
 	
 	private String proxyHost;
 	private String proxyPort;
@@ -40,18 +39,13 @@ public class BioModelWSInterface {
 			proxyPort = connectionProxy.getProxyPort();
 		}
 	}
-	
-	
-	
 		
 	private BioModelsWSClient createBioModelsWSClient(){
 		BioModelsWSClient client = new BioModelsWSClient();
-		// TODO: client.setEndPoint(address);
 		setProxyForClient(client);
 		return client;
 	}
 	
-	// Proxy settings //
 	private void setProxyForClient(BioModelsWSClient client){
 		if (proxyHost != null && proxyPort != null){
 	 		client.setProperty("http.proxyHost", proxyHost);
@@ -61,7 +55,7 @@ public class BioModelWSInterface {
 	 	}
 	}
 	
-    // Webservice queries //
+    /** Web service queries. */
 	public List<String> getBioModelIdsByName(String name){
 		BioModelsWSClient client = createBioModelsWSClient();
 		String[] ids = null;
@@ -257,7 +251,7 @@ public class BioModelWSInterface {
 		return simpleModels;
 	}
 	
-	// Connection Tests //
+	/** Connection test. */
 	public static boolean testBioModelConnection(String proxyHost, String proxyPort) {
 		BioModelWSInterface gbm = new BioModelWSInterface(proxyHost, proxyPort);
 	    boolean connected = gbm.testBioModel();
@@ -270,7 +264,6 @@ public class BioModelWSInterface {
 		try {
 			test = client.getModelNameById("BIOMD0000000070");
 		} catch (BioModelsWSException e) {
-			//e.printStackTrace();
 			logger.warn("BioModelsWSException accessing BioModels");
 			return false;
 		}

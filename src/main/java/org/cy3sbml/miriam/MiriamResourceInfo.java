@@ -86,7 +86,9 @@ public class MiriamResourceInfo {
 		return text; 
 	}
 	
-	/** Get MIRIAM information from cache or via web service lookup. */
+	/** Get MIRIAM information from cache or via web service lookup. 
+	 * TODO: this has to be replaced with the local lookup via the xml file. 
+	 */
 	public static String[] getLocationsFromURI(MiriamLink link, String resourceURI){
 		String[] locations = null;
 		
@@ -106,6 +108,7 @@ public class MiriamResourceInfo {
 				logger.debug("Added to cache: " + resourceURI);
 			} else {
 				// TODO: currently problems if collection only has one resource
+				// This is a real bug and has to be fixed.
 				logger.debug("Miriam locations could not be retrieved: " + resourceURI);
 			}
 		}

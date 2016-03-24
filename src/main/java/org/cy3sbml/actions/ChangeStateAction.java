@@ -3,16 +3,22 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-import org.cy3sbml.gui.ResultsPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
+
+import org.cy3sbml.gui.ResultsPanel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Activate/deactive cy3sbml
+ */
 public class ChangeStateAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ChangeStateAction.class);
 	private static final long serialVersionUID = 1L;
 	
+	/** Constructor. */
 	public ChangeStateAction(CySwingApplication cySwingApplication){
 		super("ChangeStateAction");
 		
