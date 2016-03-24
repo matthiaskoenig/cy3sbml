@@ -66,7 +66,17 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
-**v0.1.7** [?]
+**v0.1.8** [?]
+
+**v0.1.7** [2016/03/24]
+* position saving and restoring ported from cy2sbml (saving & restoring layouts)
+* dark VisualStyle implemented (cy3sbml-dark)
+* improved visual styles & dynamic compartment colors
+* saving and restoring of full session with SBML files
+* COBRA information parsed into attributes
+* multiple bugfixes
+* first version of cofactor nodes
+* tested with Cy3.3 and Cy3.4-milestone-2
 
 **v0.1.6** [2015/08/27]
 * Testing, bug fixes and documentation
