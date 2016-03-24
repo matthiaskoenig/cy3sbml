@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.swing.JEditorPane;
 import javax.swing.text.Document;
+import javax.swing.SwingUtilities;
 
 import org.cy3sbml.miriam.NamedSBaseInfoThread;
 import org.slf4j.Logger;
@@ -35,32 +36,57 @@ public class JEditorPaneSBML extends JEditorPane{
 	public void setExamples(){
 		setHTMLResource("/examples.html");
 	}
-	private void setHTMLResource(String resource){
+	/**
+	 * Set given URL in the ResultsPanel.
+	 */
+	private void setHTMLResource(String resource){	
 		try {
-			// TODO: here the rendered template information has to be set, i.e. not static
-			// HTML, but rendering HTML template with the given information
-			// Use velocity or alternative for HTML rendering.
-			// Update in combination with JavaFX component.
+			// here static HTML is set 
 			URL url = new URL(ResultsPanel.class.getResource(resource).toString());
-			this.setPage(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			// access to outer class methods
+			JEditorPaneSBML.this.setPage(url);
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
 		}
 	}
-	
 	
    /**
     * Set URL content in textPane. 
 	* To force a document reload it is necessary to clear the
     * stream description property of the document.
     */
-	public void setPage(URL page) throws IOException {
-		Document doc = this.getDocument();
-	    doc.putProperty(Document.StreamDescriptionProperty, null);
-		super.setPage(page);
+	public void setPage(URL page){
+		// Necessary to use invokeLater to handle the Swing GUI update
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run() {
+				Document doc = JEditorPaneSBML.this.getDocument();
+			    doc.putProperty(Document.StreamDescriptionProperty, null);
+			    // call the super of outer class
+				try {
+					JEditorPaneSBML.super.setPage(page);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}    
+		});
 	}
+	
+   /**
+    * set text
+    */
+	public void setText(String text){
+		// Necessary to use invokeLater to handle the Swing GUI update
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run() {
+				JEditorPaneSBML.super.setText(text);
+			} 
+		});
+	}
+	
 			
 	/**
 	 * Update Text in the navigation panel.
