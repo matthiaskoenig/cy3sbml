@@ -79,6 +79,7 @@ import org.sbml.jsbml.ext.fbc.Or;
 // SBML COMP
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
+import org.sbml.jsbml.ext.comp.Port;
 // SBML GROUPS
 import org.sbml.jsbml.ext.groups.GroupsConstants;
 import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
@@ -130,6 +131,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	private CyRootNetwork rootNetwork;
 	private Map<String, CyNode> nodeById; // node dictionary
+	
 	
 	/** Constructor */ 
 	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, 
@@ -205,7 +207,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
 			if (compModel != null){
-				logger.info("comp model found, but not yet supported");
+				readComp(model, compModel);
 			}
 			
 			GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
@@ -1050,6 +1052,44 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	// SBML COMP
+	////////////////////////////////////////////////////////////////////////////
+	/** Create network information from comp model. */
+	private void readComp(Model model, CompModelPlugin compModel){
+		logger.info("** comp **");
+
+		// TODO: model ListOfSubmodels
+		//          -> listOfDeletions
+		
+		// List of ports
+		for (Port port : compModel.getListOfPorts()) {
+			CyNode node = createNamedSBaseNode(port, SBML.NODETYPE_COMP_PORT);
+			
+			if (port.isSetPortRef()){
+				AttributeUtil.set(network, node, SBML.ATTR_COMP_PORTREF, port.getPortRef(), String.class);
+			}
+			if (port.isSetIdRef()){
+				String idRef = port.getIdRef();
+				AttributeUtil.set(network, node, SBML.ATTR_COMP_IDREF, idRef, String.class);
+				// add edge
+				CyNode portNode = nodeById.get(idRef);
+				CyEdge edge = network.addEdge(node, portNode, true);
+				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_COMP_PORT_ID, String.class);
+			}
+			if (port.isSetUnitRef()){
+				AttributeUtil.set(network, node, SBML.ATTR_COMP_UNITREF, port.getUnitRef(), String.class);
+			}
+			if (port.isSetMetaIdRef()){
+				AttributeUtil.set(network, node, SBML.ATTR_COMP_METAIDREF, port.getMetaIdRef(), String.class);
+			}
+		}
+		
+		// TODO: SBase replacedBy & listOfReplacedElements
+		
+	}
+	
 	
 	////////////////////////////////////////////////////////////////////////////
 	// SBML DISTRIB

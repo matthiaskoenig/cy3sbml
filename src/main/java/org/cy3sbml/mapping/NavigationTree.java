@@ -16,6 +16,8 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.slf4j.Logger;
@@ -41,6 +43,8 @@ public class NavigationTree {
 	
 	public static final String FBC_GENE_PRODUCTS = "GeneProducts";
 	
+	public static final String COMP_PORTS = "Ports";
+	
 	private boolean SBMLNetwork;
 	private Map<String, NamedSBase> objectMap;
 	private Map<String, TreePath>   objectPathMap;
@@ -54,6 +58,13 @@ public class NavigationTree {
 		treeModel = new DefaultTreeModel(new DefaultMutableTreeNode("sbml"));
 	}
 	
+	/**
+	 * SBML objects have to be registered in the Tree to
+	 * be visisble in the ResulsPanel.
+	 * 
+	 * In addition the information has to be created for the registered SBases
+	 * via the NamedSBaseInfoFactory.
+	 */
 	public NavigationTree(SBMLDocument document){
 		this();
 		logger.info("Create NavigationTree for SBMLDocument");
@@ -96,6 +107,12 @@ public class NavigationTree {
 			if (fbcModel != null){
 				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(FBC_GENE_PRODUCTS), fbcModel.getListOfGeneProducts());
 			}
+			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+			if (compModel != null){
+				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMP_PORTS), compModel.getListOfPorts());
+			}
+			
+			
 		} catch (Throwable t) {
 			logger.error("Navigation tree could not be created");
 			t.printStackTrace();

@@ -14,11 +14,13 @@ import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
+import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBO;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
@@ -42,7 +44,7 @@ public class NamedSBaseInfoFactory {
 	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
 	
 	private MiriamLink link;
-	private AbstractNamedSBase sbmlObject;
+	private NamedSBase sbmlObject;
 	private String info = ""; 
 	
 	public NamedSBaseInfoFactory(Object obj){
@@ -55,8 +57,9 @@ public class NamedSBaseInfoFactory {
 				objClass.equals(Reaction.class) || 
 				objClass.equals(QualitativeSpecies.class) ||
 				objClass.equals(Transition.class) ||
-				objClass.equals(GeneProduct.class)){
-			sbmlObject = (AbstractNamedSBase) obj;
+				objClass.equals(GeneProduct.class) ||
+				objClass.equals(Port.class)){
+			sbmlObject = (NamedSBase) obj;
 		}
 		// WebService Link
 		link = MiriamWebservice.getMiriamLink();
@@ -98,7 +101,7 @@ public class NamedSBaseInfoFactory {
   		}
 	}
 	
-	private String createHeader(AbstractNamedSBase item){
+	private String createHeader(NamedSBase item){
 		String template = "<h2><span color=\"gray\">%s</span> : %s</h2>";
 		String name = item.getId();
 		if (item.isSetName()){
@@ -118,7 +121,7 @@ public class NamedSBaseInfoFactory {
 		return name;
 	}
 	
-	private String createSBOInfo(AbstractNamedSBase item){
+	private String createSBOInfo(NamedSBase item){
 		String text = "";
 		if (item.isSetSBOTerm()){
 			String sboTermId = item.getSBOTermID();
@@ -178,7 +181,7 @@ public class NamedSBaseInfoFactory {
 	 * 
 	 * TODO: check for InitialAssignment
 	 */
-	private String createNamedSBaseInfo(AbstractNamedSBase item){
+	private String createNamedSBaseInfo(NamedSBase item){
 		String text = "";
 		// Model
 		if (item instanceof Model){
@@ -324,6 +327,31 @@ public class NamedSBaseInfoFactory {
 		// GeneProduct
 		else if (item instanceof GeneProduct){
 			
+		}
+		// comp:Port
+		else if (item instanceof Port){
+			Port port = (Port) item;
+			String template = "<b>portRef</b>: %s <br />" +
+							  "<b>idRef</b>: %s <br />" +
+							  "<b>unitRef</b>: %s <br />" +
+							  "<b>metaIdRef</b>: %s";
+			String portRef = noneHTML();
+			String idRef = noneHTML();
+			String unitRef = noneHTML();
+			String metaIdRef = noneHTML();
+			if (port.isSetPortRef()){
+				portRef = port.getPortRef();
+			}
+			if (port.isSetIdRef()){
+				idRef = port.getIdRef();
+			}
+			if (port.isSetUnitRef()){
+				unitRef = port.getUnitRef();
+			}
+			if (port.isSetMetaIdRef()){
+				metaIdRef = port.getMetaIdRef();
+			}
+			text = String.format(template, portRef, idRef, unitRef, metaIdRef); 
 		}
 		return text;
 	}
