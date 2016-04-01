@@ -8,5 +8,7 @@ jdk:
 branches:
   only:
     - develop
-    - master
+
+after_success:
+  - mvn clean
 
