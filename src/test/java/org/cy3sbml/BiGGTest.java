@@ -6,9 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.CyNetworkTableManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -145,6 +148,9 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());
+			// CyNetworkTableManager cyNetworkTableManager = nts.getNetworkTableManager();
+			
+			
 		} catch (Throwable t){
 			networks = null;
 			t.printStackTrace();

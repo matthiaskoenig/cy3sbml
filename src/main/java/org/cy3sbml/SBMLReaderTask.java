@@ -1240,6 +1240,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				
 		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
+		
 		// Look for already existing mappings (of read networks)
 		One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
 		mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network, mapping);

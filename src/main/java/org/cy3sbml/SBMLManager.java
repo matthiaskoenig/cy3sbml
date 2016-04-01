@@ -58,10 +58,15 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	
 	private SBMLManager(ServiceAdapter adapter){
 		logger.debug("SBMLManager created");
+		this.adapter = adapter;
+		reset();
+	}
+	
+	/** Reset the SBMLManager for unittests. */
+	private void reset(){
 		sbml2networks = new SBML2NetworkMapper();
 		sbml2trees = new HashMap<Long, NavigationTree>();
 		navigationTree = new NavigationTree();
-		this.adapter = adapter;
 	}
 	
 
