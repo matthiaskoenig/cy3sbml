@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sbml.jsbml.AbstractNamedSBase;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
@@ -287,7 +288,10 @@ public class NamedSBaseInfoFactory {
 				fast = booleanHTML(reaction.getFast());
 			}
 			if (reaction.isSetKineticLaw()){
-				kineticLaw = reaction.getKineticLaw().getMath().toFormula();	
+				KineticLaw law = reaction.getKineticLaw();
+				if (law.isSetMath()){
+					kineticLaw = law.getMath().toFormula();	
+				}
 			}
 			UnitDefinition udef = reaction.getDerivedUnitDefinition();
 			if (udef != null){

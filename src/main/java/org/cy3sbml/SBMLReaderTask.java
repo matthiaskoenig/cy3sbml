@@ -641,8 +641,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						// FIXME: this changes the model during the reading, but necessary for the unique
 						// 		  mapping. Not a problem currently, but will when writing SBML.
 						lp.setId(tmpId);
-						@SuppressWarnings("unused")
+						// create node
 						CyNode lpNode = createQuantityWithUnitNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
+						
+						// edge to reaction
+						CyEdge lpEdge = network.addEdge(lpNode, lawNode, true);
+						AttributeUtil.set(network, lpEdge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_KINETICLAW, String.class);
 					}
 				}
 				

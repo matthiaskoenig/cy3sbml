@@ -112,10 +112,10 @@ public class SBML {
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
 	public static final String INTERACTION_VARIABLE_RULE = "variable-rule";
 	public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable-initialAssignment";
-	public static final String INTERACTION_REFERENCE_RULE = "parameter-rule";
-	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "parameter-initialAssignment";
+	public static final String INTERACTION_REFERENCE_RULE = "reference-rule";
+	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
-	public static final String INTERACTION_REFERENCE_KINETICLAW = "parameter-kineticLaw";
+	public static final String INTERACTION_REFERENCE_KINETICLAW = "reference-kineticLaw";
 	
 	// qual
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";

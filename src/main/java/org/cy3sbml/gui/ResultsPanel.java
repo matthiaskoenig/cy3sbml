@@ -224,8 +224,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				else if (s.equals("http://sbml-file")){
 					SBMLManager sbmlManager = SBMLManager.getInstance();
 					SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
-					System.out.println(doc.toString());
-					
 					 //create a temp file
 			    	File temp;
 					try {
