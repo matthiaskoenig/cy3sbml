@@ -78,11 +78,11 @@ public class SBML2NetworkMapper implements Serializable{
 		documentMap.put(suid,  doc);
 		NSBToNodeMappingMap.put(suid, mapping);
 		nodeToNSBMappingMap.put(suid, mapping.createReverseMapping());
-		logger.info("Network put: " + suid.toString());
+		logger.debug("Network put: " + suid.toString());
 	}
 	
 	public void removeDocument(Long deletedNetworkSUID){
-		logger.info("Network remove:" + deletedNetworkSUID.toString());
+		logger.debug("Network remove:" + deletedNetworkSUID.toString());
 		if (currentSUID == deletedNetworkSUID){
 			initCurrent();
 		}

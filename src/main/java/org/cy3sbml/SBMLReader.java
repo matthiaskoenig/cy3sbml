@@ -36,7 +36,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 
 	@Override
 	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
-		logger.info("createTaskIterator: input stream name: " + inputName);
+		logger.debug("createTaskIterator: input stream name: " + inputName);
 		try {
 			return new TaskIterator(
 				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory,
@@ -49,7 +49,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent e) {
-		logger.info("NetworkViewAddedEvent in SBMLReader");
+		logger.debug("NetworkViewAddedEvent in SBMLReader");
 		try {
 			// always apply the style and layout to new BioPAX views;
 			// i.e., not only for the first time when one's created.
@@ -120,7 +120,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				return style;
 			}
 		}
-		logger.warn("style not found in VisualStyles, default style used.");
+		logger.warn("style [" + styleName +"] not in VisualStyles, default style used.");
 		return vmm.getDefaultVisualStyle();
 	}
 	

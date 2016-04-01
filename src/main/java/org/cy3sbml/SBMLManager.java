@@ -74,7 +74,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 * Used to restore the SBMLManager state from a session file. 
 	 */
 	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
-		logger.info("SBMLManager from given mapper");
+		logger.debug("SBMLManager from given mapper");
 		
 		sbml2networks = mapper;
 		sbml2trees = new HashMap<Long, NavigationTree>();
@@ -162,7 +162,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	
 	/** Update the current SBML based the SUID of the root network. */
 	public void updateCurrent(Long rootNetworkSUID) {
-		logger.info("Set current network to root SUID: " + rootNetworkSUID);
+		logger.debug("Set current network to root SUID: " + rootNetworkSUID);
 		sbml2networks.setCurrentSUID(rootNetworkSUID);
 		navigationTree = sbml2trees.get(rootNetworkSUID);
 	}

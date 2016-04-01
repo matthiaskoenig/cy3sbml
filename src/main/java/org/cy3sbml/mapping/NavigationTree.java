@@ -67,9 +67,9 @@ public class NavigationTree {
 	 */
 	public NavigationTree(SBMLDocument document){
 		this();
-		logger.info("Create NavigationTree for SBMLDocument");
+		logger.debug("Create NavigationTree for SBMLDocument");
 		if (document == null){
-			logger.info("No SBMLDocument");
+			logger.debug("No SBMLDocument");
 			return;
 		}
 	
