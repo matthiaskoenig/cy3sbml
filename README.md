@@ -1,7 +1,7 @@
 # ![alt tag](./docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
-[![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=master)](https://travis-ci.org/matthiaskoenig/cy3sbml)
+[![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
