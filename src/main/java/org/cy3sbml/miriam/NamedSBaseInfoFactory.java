@@ -186,7 +186,7 @@ public class NamedSBaseInfoFactory {
 		// Model
 		if (item instanceof Model){
 			Model model = (Model) item;
-			String template = "<b>L%sV%s</b>"; 
+			String template = "<b>L%sV%s</b> <a href=\"http://sbml-file\">(SBML file)</a>"; 
   			text = String.format(template, model.getLevel(), model.getVersion());
 		}
 		// Compartment

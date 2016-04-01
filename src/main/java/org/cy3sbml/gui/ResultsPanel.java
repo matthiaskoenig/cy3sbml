@@ -3,7 +3,9 @@ package org.cy3sbml.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import org.apache.commons.io.IOUtils;
@@ -14,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
@@ -24,7 +27,10 @@ import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.TaskIterator;
-
+import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLException;
+import org.sbml.jsbml.TidySBMLWriter;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.ImportAction;
@@ -213,6 +219,29 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				}else if (s.equals("http://cy3sbml-hsa04360")){
 					loadExampleFromResource("/models/hsa04360.xml");
 				}
+				
+				// SBML Document
+				else if (s.equals("http://sbml-file")){
+					SBMLManager sbmlManager = SBMLManager.getInstance();
+					SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
+					System.out.println(doc.toString());
+					
+					 //create a temp file
+			    	File temp;
+					try {
+						temp = File.createTempFile("temp-file-name", ".xml");
+						System.out.println("Temp file : " + temp.getAbsolutePath());
+						try {
+							TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
+							adapter.openBrowser.openURL("file://" + temp.getAbsolutePath());
+						} catch (SBMLException | FileNotFoundException | XMLStreamException e) {
+							e.printStackTrace();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					} 
+				}
+				
 				// HTML links	
 				else {
 					// handle the HTML links

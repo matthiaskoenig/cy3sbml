@@ -118,7 +118,7 @@ public class CyActivator extends AbstractCyActivator {
 			@SuppressWarnings("unchecked")
 			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
 			@SuppressWarnings("unchecked")
-			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
+			CyProperty<Properties> appProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 			FileUtil fileUtil = getService(bc, FileUtil.class);
@@ -144,7 +144,7 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkFactory,
 					cyNetworkViewFactory,
 					
-					cy3sbmlProperties,
+					appProperties,
 					appDirectory,
 					streamUtil,
 					openBrowser,
