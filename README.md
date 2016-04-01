@@ -46,13 +46,18 @@ Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 
 ## Installation
 ### Install
-* cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml). Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2).  Within Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. Select `cy3sbml` click install. After installation cy3sbml will be listed in the `Currently Installed` apps tab.  
+cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
+* Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.3) or use the latest nightly build [Cytoscape develop](http://code.cytoscape.org/jenkins/job/cytoscape-3-gui-distribution/lastSuccessfulBuild/org.cytoscape.distribution$cytoscape/). 
+* In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
+* Select `cy3sbml` and click install.
+
+After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released.
+For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released. In short
 
 Clone the repository and build with `mvn`
 ```
@@ -61,7 +66,7 @@ cd cy3sbml
 mvn clean install
 mvn clean install -DskipTests
 ```
-Development is done in `develop` branch, documentation in `README.md`
+Development is done in `develop` branch
 ```
 git checkout -b develop --track origin/develop
 ```
@@ -124,4 +129,4 @@ git checkout -b develop --track origin/develop
 
 
 ----
-&copy; 2015 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
+&copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
