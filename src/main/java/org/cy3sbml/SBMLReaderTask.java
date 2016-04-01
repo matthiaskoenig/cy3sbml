@@ -221,13 +221,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				//readLayouts(model, qualModel, layoutModel);	
 			}
 			
-			/* Currently not working
-			DistribModelPlugin distribModel = (DistribModelPlugin) model.getExtension(DistribConstants.namespaceURI);
-			if (distribModel != null){
-				logger.info("distrib model not found, but not yet supported");
-				//readLayouts(model, qualModel, layoutModel);	
-			}
-			*/
 			readDistrib(model);
 
 			// Add compartment codes dynamically for colors
@@ -1075,8 +1068,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.ATTR_COMP_IDREF, idRef, String.class);
 				// add edge
 				CyNode portNode = nodeById.get(idRef);
-				CyEdge edge = network.addEdge(node, portNode, true);
-				AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_COMP_PORT_ID, String.class);
+				if (portNode == null){
+					// for instance referring to submodel (not part of master network yet)
+					logger.warn("No target found for port with idRef: ", idRef);
+				} else {
+					CyEdge edge = network.addEdge(node, portNode, true);
+					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_COMP_PORT_ID, String.class);	
+				}
+				
 			}
 			if (port.isSetUnitRef()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMP_UNITREF, port.getUnitRef(), String.class);
@@ -1101,7 +1100,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// TODO: necessary to display for all the SBase elements
 		// TODO: write the string as attribute to the respective node
 		
-		logger.info("** distrib **");
+		logger.debug("** distrib **");
 		// Compartments
 		readUncertainties(model.getListOfCompartments());
 		
