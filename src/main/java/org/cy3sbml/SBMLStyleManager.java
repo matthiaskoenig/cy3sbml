@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class to manage the loading of the visual styles.
- * 
  * The style manager is a singleton class.
  */
 public class SBMLStyleManager implements SessionLoadedListener{
@@ -74,13 +73,13 @@ public class SBMLStyleManager implements SessionLoadedListener{
 				return style;
 			}
 		}
-		logger.warn("style [" + styleName +"] not in VisualStyles, default style used.");
+		logger.debug("style [" + styleName +"] not in VisualStyles, default style used.");
 		return vmm.getDefaultVisualStyle();
 	}
 
 	@Override
 	public void handleEvent(SessionLoadedEvent e) {
-		logger.info("SessionAboutToBeLoadedEvent");
+		logger.debug("SessionAboutToBeLoadedEvent");
 		loadStyles();
 	}
 	
