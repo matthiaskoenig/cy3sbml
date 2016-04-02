@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Set;
 
 import javax.swing.SwingUtilities;
 
@@ -23,6 +22,13 @@ import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * SBMLReader class
+ * 
+ * The class manages the reading of SBMLDocuments within
+ * the SBMLReaderTasks and creates networks and views for the given
+ * SBMLDocument.
+ */
 public class SBMLReader extends AbstractInputStreamTaskFactory implements NetworkViewAddedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReader.class);
 	private final ServiceAdapter cyServices;
@@ -33,7 +39,6 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		this.cyServices = cyServices;
 	}
 	
-
 	@Override
 	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
 		logger.debug("createTaskIterator: input stream name: " + inputName);
@@ -68,8 +73,9 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				
 				//apply style and layout			
 				String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
-				VisualStyle style = getVisualStyleByName(styleName);
-				VisualStyle currentStyle = cyServices.visualMappingManager.getVisualStyle(view);
+				VisualMappingManager vmm = cyServices.visualMappingManager;
+				VisualStyle style = SBMLStyleManager.getVisualStyleByName(vmm, styleName);
+				VisualStyle currentStyle = vmm.getVisualStyle(view);
 				logger.debug("Current VisualStyle: " + currentStyle.getTitle());
 				logger.debug("VisualStyle to set: " + style.getTitle());
 				
@@ -93,6 +99,9 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		}		
 	}
 	
+	/** 
+	 * Controls the layout in the created views. 
+	 */
 	private void layout(CyNetworkView view) {
 		// do layout
 		CyLayoutAlgorithm layout = cyServices.cyLayoutAlgorithmManager.getLayout("force-directed");
@@ -104,24 +113,14 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS,""));
 	}	
 	
+	/**
+	 * Check if the network is an SBMLNetwork.
+	 * This uses a attribute in the network table to check the type of the network.
+	 */
 	private boolean isSBMLNetwork(CyNetwork cyNetwork) {
 		//true if the attribute column exists
 		CyTable cyTable = cyNetwork.getDefaultNetworkTable();
 		return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
-	}
-	
-	private VisualStyle getVisualStyleByName(String styleName){
-		VisualMappingManager vmm = cyServices.visualMappingManager;
-		Set<VisualStyle> styles = vmm.getAllVisualStyles();
-		// another ugly fix because styles can not be get by name
-		for (VisualStyle style: styles){
-			if (style.getTitle().equals(styleName)){
-				logger.debug("style found in VisualStyles: " + styleName + " == " + style.getTitle());
-				return style;
-			}
-		}
-		logger.warn("style [" + styleName +"] not in VisualStyles, default style used.");
-		return vmm.getDefaultVisualStyle();
 	}
 	
 		

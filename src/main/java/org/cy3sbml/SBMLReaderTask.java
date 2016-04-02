@@ -317,6 +317,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 	
+	/** 
+	 * Returns the error status for unit testing. 
+	 */
 	public Boolean getError(){
 		return error;
 	}
@@ -1226,15 +1229,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
-	/* Somehow necessary to get the NetworkViewFactory via the rendererlist
-	protected CyNetworkViewFactory getNetworkViewFactory() {
-		if (rendererList != null && rendererList.getSelectedValue() != null)
-			return rendererList.getSelectedValue().getNetworkViewFactory();
-		
-		return cyNetworkViewFactory;
-	}*/
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * @see org.cytoscape.io.read.CyNetworkReader#buildCyNetworkView(org.cytoscape.model.CyNetwork)
+	 */
 	@Override
 	public CyNetworkView buildCyNetworkView(final CyNetwork network) {
 		logger.debug("buildCyNetworkView");
@@ -1259,23 +1258,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		// Create the view
 		CyNetworkView view = viewFactory.createNetworkView(network);
-		
-		/*
-		if (!viewManager.viewExists(network)){
-			// this is a hack to force the update of the visual style via
-			// a triggered addedNetworkEvent
-			logger.info("view: " + view.toString() + " created");
-			// this adds the view to the manager and triggers the event
-		 	viewManager.addNetworkView(view);
-		}
-		*/
-
-		
+				
 		logger.debug("network: " + network.toString());
 		logger.debug("view: " + view.toString());
 		return view;
 	}	
 	
+	/**
+	 * Read String from InputStream.
+	 */
 	public static String readString(InputStream source) throws IOException {
 		StringWriter writer = new StringWriter();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(source));
