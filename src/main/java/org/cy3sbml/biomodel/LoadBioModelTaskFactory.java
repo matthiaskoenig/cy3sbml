@@ -23,7 +23,7 @@ public class LoadBioModelTaskFactory implements TaskFactory{
 	public LoadBioModelTaskFactory(String id, ServiceAdapter adapter) {
 		this.adapter = adapter;
 		
-		// TODO: reading the SBML & creating the temp file should be in a separate task
+		// TODO: reading SBML & creating the temp file should be in a separate task
 		BioModelWSInterface bmInterface = new BioModelWSInterface(adapter.connectionProxy);
 		InputStream instream = null;
 		try {	

@@ -33,16 +33,33 @@
             <visualProperty name="NODE_Z_LOCATION" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_3" default="0.0"/>
             <visualProperty name="NODE_LABEL_TRANSPARENCY" default="255"/>
-            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="255"/>
+            <visualProperty name="NODE_BORDER_TRANSPARENCY" default="200"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_8" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
             <visualProperty name="NODE_BORDER_STROKE" default="SOLID"/>
             <visualProperty name="NODE_WIDTH" default="20.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_4" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_LABEL_FONT_SIZE" default="20"/>
+            <visualProperty name="NODE_LABEL_FONT_SIZE" default="16">
+            	<discreteMapping attributeType="string" attributeName="sbml-type">
+                    <discreteMappingEntry value="20" attributeValue="species"/>
+                    <discreteMappingEntry value="20" attributeValue="qual:species"/>
+                    <discreteMappingEntry value="20" attributeValue="fbc:geneProduct"/>
+                </discreteMapping>
+            </visualProperty>
             <visualProperty name="NODE_SELECTED" default="false"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_5" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_5" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_BORDER_PAINT" default="#000000"/>
+            <visualProperty name="NODE_BORDER_PAINT" default="#000000">
+            	<discreteMapping attributeType="integer" attributeName="compartmentCode">
+                    <discreteMappingEntry value="#3333FF" attributeValue="1"/>
+                    <discreteMappingEntry value="#FF3333" attributeValue="2"/>
+                    <discreteMappingEntry value="#336600" attributeValue="3"/>
+                    <discreteMappingEntry value="#CC6600" attributeValue="4"/>
+                    <discreteMappingEntry value="#CCCC00" attributeValue="5"/>
+                    <discreteMappingEntry value="#66CCFF" attributeValue="6"/>
+                    <discreteMappingEntry value="#990099" attributeValue="7"/>
+                    <discreteMappingEntry value="#F0F0F0" attributeValue="8"/>
+                </discreteMapping>
+            </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_6" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_2" default="0.0"/>
             <visualProperty name="NODE_LABEL_COLOR" default="#000000"/>
@@ -53,7 +70,7 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_9" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_LABEL_WIDTH" default="200.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_7" default="0.0"/>
-            <visualProperty name="NODE_HEIGHT" default="20.0"/>
+            <visualProperty name="NODE_HEIGHT" default="10.0"/>
             <visualProperty name="NODE_SELECTED_PAINT" default="#FFFF00"/>
             <visualProperty name="NODE_FILL_COLOR" default="#FFFFFF">
                 <discreteMapping attributeType="string" attributeName="sbml-type">
@@ -71,22 +88,32 @@
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_4" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_3" default="C,C,c,0.00,0.00"/>
-            <visualProperty name="NODE_LABEL_FONT_FACE" default="SansSerif.plain,plain,12"/>
+            <visualProperty name="NODE_LABEL_FONT_FACE" default="Liberation Sans,plain,12">
+                   <discreteMapping attributeType="string" attributeName="sbml-type">
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="reaction"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="compartment"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="parameter"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="localParameter"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="rule"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="kineticLaw"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="qual:transition"/>
+                </discreteMapping>
+            </visualProperty>     
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_8" default="0.0"/>
-            <visualProperty name="NODE_BORDER_WIDTH" default="3.0"/>
+            <visualProperty name="NODE_BORDER_WIDTH" default="10.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_4" default="0.0"/>
-            <visualProperty name="NODE_SIZE">
+            <visualProperty name="NODE_SIZE" default="25">
                 <discreteMapping attributeType="string" attributeName="sbml-type">
-                    <discreteMappingEntry value="60.0" attributeValue="species"/>
-                    <discreteMappingEntry value="30.0" attributeValue="reaction"/>
+                    <discreteMappingEntry value="50.0" attributeValue="species"/>
+                    <discreteMappingEntry value="15.0" attributeValue="reaction"/>
                     <discreteMappingEntry value="90.0" attributeValue="compartment"/>
                     <discreteMappingEntry value="30.0" attributeValue="parameter"/>
                     <discreteMappingEntry value="30.0" attributeValue="localParameter"/>
-                    <discreteMappingEntry value="30.0" attributeValue="rule"/>
-                    <discreteMappingEntry value="30.0" attributeValue="kineticLaw"/>
-                    <discreteMappingEntry value="60.0" attributeValue="qual:species"/>
-                    <discreteMappingEntry value="30.0" attributeValue="qual:transition"/>
-                    <discreteMappingEntry value="60.0" attributeValue="fbc:geneProduct"/>
+                    <discreteMappingEntry value="20.0" attributeValue="rule"/>
+                    <discreteMappingEntry value="20.0" attributeValue="kineticLaw"/>
+                    <discreteMappingEntry value="50.0" attributeValue="qual:species"/>
+                    <discreteMappingEntry value="15.0" attributeValue="qual:transition"/>
+                    <discreteMappingEntry value="50.0" attributeValue="fbc:geneProduct"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_6" default="C,C,c,0.00,0.00"/>
@@ -94,7 +121,16 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_9" default="0.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_1" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_2" default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],"/>
-            <visualProperty name="NODE_LABEL_POSITION" default="C,C,c,0.00,0.00"/>
+            <visualProperty name="NODE_LABEL_POSITION" default="C,C,c,0.00,0.00">
+            	<discreteMapping attributeType="string" attributeName="sbml-type">
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="reaction"/>
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="parameter"/>
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="localParameter"/>
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="rule"/>
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="kineticLaw"/>
+                    <discreteMappingEntry value="N,S,c,0.00,0.00" attributeValue="qual:transition"/>
+               </discreteMapping>
+            </visualProperty>
             <visualProperty name="NODE_SHAPE" default="ELLIPSE">
                 <discreteMapping attributeType="string" attributeName="sbml-type">
                     <discreteMappingEntry value="ELLIPSE" attributeValue="species"/>

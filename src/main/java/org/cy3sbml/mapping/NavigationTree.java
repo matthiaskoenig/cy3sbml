@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.LocalParameter;
@@ -17,6 +16,8 @@ import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.slf4j.Logger;
@@ -24,7 +25,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Handling the NavigationTree model. 
- * Only the objectMapping is in use, the TreeModel is overkill. 
+ * Only the objectMapping is in use, the TreeModel is overkill.
+ * 
+ * TODO: refactor & clean the NavigationTree concept
  */
 public class NavigationTree {
 	private static final Logger logger = LoggerFactory.getLogger(NavigationTree.class);
@@ -40,6 +43,8 @@ public class NavigationTree {
 	
 	public static final String FBC_GENE_PRODUCTS = "GeneProducts";
 	
+	public static final String COMP_PORTS = "Ports";
+	
 	private boolean SBMLNetwork;
 	private Map<String, NamedSBase> objectMap;
 	private Map<String, TreePath>   objectPathMap;
@@ -53,11 +58,18 @@ public class NavigationTree {
 		treeModel = new DefaultTreeModel(new DefaultMutableTreeNode("sbml"));
 	}
 	
+	/**
+	 * SBML objects have to be registered in the Tree to
+	 * be visisble in the ResulsPanel.
+	 * 
+	 * In addition the information has to be created for the registered SBases
+	 * via the NamedSBaseInfoFactory.
+	 */
 	public NavigationTree(SBMLDocument document){
 		this();
-		logger.info("Create NavigationTree for SBMLDocument");
+		logger.debug("Create NavigationTree for SBMLDocument");
 		if (document == null){
-			logger.info("No SBMLDocument");
+			logger.debug("No SBMLDocument");
 			return;
 		}
 	
@@ -95,6 +107,12 @@ public class NavigationTree {
 			if (fbcModel != null){
 				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(FBC_GENE_PRODUCTS), fbcModel.getListOfGeneProducts());
 			}
+			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+			if (compModel != null){
+				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMP_PORTS), compModel.getListOfPorts());
+			}
+			
+			
 		} catch (Throwable t) {
 			logger.error("Navigation tree could not be created");
 			t.printStackTrace();

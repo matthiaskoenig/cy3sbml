@@ -109,7 +109,6 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 		logger.info("taskFinished in ValidationDialog");
 		
 		// execute task with task observer to be able to get results back
-		@SuppressWarnings("unchecked")
 		Validator validator = (Validator) task.getResults(Validator.class);
 		this.validator = validator;
 		setErrorTable();
@@ -117,7 +116,6 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 
 	@Override
 	public void allFinished(FinishStatus finishStatus) {
-		// TODO Auto-generated method stub
 	}
 	
 	

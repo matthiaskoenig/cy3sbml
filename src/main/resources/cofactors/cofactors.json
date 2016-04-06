@@ -1,0 +1,190 @@
+{"cofactors": {
+	"id": "default",
+	"items": [
+		{	"id": "h2o",
+			"alternatives": ["H2O", "water"],
+			"kegg": ["C00001"],
+			"chebi": ["CHEBI:15377"]
+		},
+		{	"id": "co2",
+			"alternatives": ["CO2"],
+			"kegg": ["C00011"],
+			"chebi": ["CHEBI:16526"]
+		},
+		{	"id": "o2",
+			"alternatives": ["O2", "oxygen"],
+			"kegg": ["C00007"],
+			"chebi": ["CHEBI:15379"]
+		},
+		{	"id": "h2",
+			"alternatives": ["H2", "hydrogen"],
+			"kegg": ["C00282"],
+			"chebi": ["CHEBI:18276"]
+		},
+		{	"id": "h",
+			"alternatives": ["H", "h+", "H+", "proton", "hydron"],
+			"kegg": ["C00080"],
+			"chebi": ["CHEBI:15378"]
+		},
+		{	"id": "p",
+			"alternatives": ["P", "Pi", "pi", "phosphate", "phosphoric acid"],
+			"kegg": ["C00009"],
+			"chebi": ["CHEBI:43474", "CHEBI:26078"]
+		},
+		{	"id": "pp",
+			"alternatives": ["PP", "PPi", "ppi", "pyrophosphate", "diphosphoric acid", "diphosphate"],
+			"kegg": ["C00013"],
+			"chebi": ["CHEBI:33019", "CHEBI:29888", "CHEBI:18361"]
+		},
+		{	"id": "nh3",
+			"alternatives": ["NH3", "ammonia"],
+			"kegg": ["C00014"],
+			"chebi": ["CHEBI:16134"]
+		},
+		{	"id": "atp",
+			"alternatives": ["ATP"],
+			"kegg": ["C00002"],
+			"chebi": ["CHEBI:30616", "CHEBI:15422"]
+		},
+		{	"id": "adp",
+			"alternatives": ["ADP"],
+			"kegg": ["C00008"],
+			"chebi": ["CHEBI:456216", "CHEBI:16761"]
+		},
+		{	"id": "amp",
+			"alternatives": ["AMP"],
+			"kegg": ["C00020"],
+			"chebi": ["CHEBI:456215", "CHEBI:16027"]
+		},
+		{	"id": "gtp",
+			"alternatives": ["GTP"],
+			"kegg": ["C00044"],
+			"chebi": ["CHEBI:37565", "CHEBI:15996"]
+		},
+		{	"id": "gdp",
+			"alternatives": ["GDP"],
+			"kegg": ["C00035"],
+			"chebi": ["CHEBI:58189", "CHEBI:17552"]
+		},
+		{	"id": "gmp",
+			"alternatives": ["GMP"],
+			"kegg": ["C00144"],
+			"chebi": ["CHEBI:58115", "CHEBI:17345"]
+		},
+		{	"id": "utp",
+			"alternatives": ["UTP"],
+			"kegg": ["C00075"],
+			"chebi": ["CHEBI:46398", "CHEBI:15713"]
+		},
+		{	"id": "udp",
+			"alternatives": ["UDP"],
+			"kegg": ["C00015"],
+			"chebi": ["CHEBI:58223", "CHEBI:17659"]
+		},
+		{	"id": "ump",
+			"alternatives": ["UMP"],
+			"kegg": ["C00105"],
+			"chebi": ["CHEBI:57865", "CHEBI:16695"]
+		},
+		{	"id": "ctp",
+			"alternatives": ["CTP"],
+			"kegg": ["C00063"],
+			"chebi": ["CHEBI:37563", "CHEBI:17677"]
+		},
+		{	"id": "cdp",
+			"alternatives": ["CDP"],
+			"kegg": ["C00112"],
+			"chebi": ["CHEBI:58069", "CHEBI:17239"]
+		},
+		{	"id": "cmp",
+			"alternatives": ["CMP"],
+			"kegg": ["C00055"],
+			"chebi": ["CHEBI:60377", "CHEBI:17361"]
+		},
+		{	"id": "nad",
+			"alternatives": ["NAD"],
+			"kegg": ["C00003"],
+			"chebi": ["CHEBI:57540", "CHEBI:15846"]
+		},
+		{	"id": "nadh",
+			"alternatives": ["NADH"],
+			"kegg": ["C00004"],
+			"chebi": ["CHEBI:57945", "CHEBI:16908"]
+		},
+		{	"id": "nadp",
+			"alternatives": ["NADP"],
+			"kegg": ["C00006"],
+			"chebi": ["CHEBI:58349", "CHEBI:18009"]
+		},
+		{	"id": "nadph",
+			"alternatives": ["NADPH"],
+			"kegg": ["C00005"],
+			"chebi": ["CHEBI:57783", "CHEBI:16474"]
+		},
+		{	"id": "coa",
+			"alternatives": ["COA"],
+			"kegg": ["C00010"],
+			"chebi": ["CHEBI:57287", "CHEBI:15346"]
+		},
+		{	"id": "Zn2+",
+			"alternatives": ["zinc", "Zinc"],
+			"kegg": ["C00038"],
+			"chebi": ["CHEBI:29105"]
+		},			
+		{ 	"id": "Cu2+",
+			"alternatives": ["copper", "Copper"],
+			"kegg": ["C00070"],
+			"chebi": ["CHEBI:28694"]
+		},
+		{ 	"id": "Ca2+",
+			"alternatives": ["calcium", "Calcium"],
+			"kegg": ["C00076"],
+			"chebi": ["CHEBI:29108"]
+		},
+		{	"id": "Co2+",
+			"alternatives": ["cobalt", "Cobalt"],
+			"kegg": ["C00175"],
+			"chebi": ["CHEBI:48828"]
+		},
+		{	"id": "K+",
+			"alternatives": ["potassium", "Potassium"],
+			"kegg": ["C00238"],
+			"chebi": ["CHEBI:29103"]
+		},
+		{	"id": "Ni2+",
+			"alternatives": ["nickel", "Nickel"],
+			"kegg": ["C19609"],
+			"chebi": ["CHEBI:49786"]
+		},
+		{	"id": "Cl-",
+			"alternatives": ["chloride", "Chloride"],
+			"kegg": ["C00698"],
+			"chebi": ["CHEBI:17996"]
+		},
+		{	"id": "Fe2+",
+			"alternatives": ["iron", "Iron"],
+			"kegg": ["C14818"],
+			"chebi": ["CHEBI:29033"]
+		},
+		{	"id": "Fe3+",
+			"alternatives": ["iron", "Iron"],
+			"kegg": ["C14819"],
+			"chebi": ["CHEBI:29034"]
+		},
+		{	"id": "Mo4+",
+			"alternatives": ["molybdenum", "Molybdenum"],
+			"kegg": ["C00150"],
+			"chebi": ["CHEBI:49414"]
+		},
+		{	"id": "Mo5+",
+			"alternatives": ["molybdenum", "Molybdenum"],
+			"kegg": ["C00150"],
+			"chebi": ["CHEBI:30511"]
+		},
+		{	"id": "Mg2+",
+			"alternatives": ["magnesium", "Magnesium"],
+			"kegg": ["C00305"],
+			"chebi": ["CHEBI:18420"]
+		}
+	]}
+}

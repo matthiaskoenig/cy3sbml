@@ -6,9 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -135,6 +137,7 @@ private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTe
 		
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
 		final CyNetworkViewFactory viewFactory = null;
 		TaskMonitor taskMonitor = null;
 		

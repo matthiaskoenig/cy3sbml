@@ -2,10 +2,8 @@ package org.cy3sbml;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,6 +13,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.CyNetworkTableManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -49,6 +49,7 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 		logger.info(String.format("BioModelsTest: %s", resource));
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
 		final CyNetworkViewFactory viewFactory = null;
 		TaskMonitor taskMonitor = null;
 		

@@ -3,6 +3,8 @@ package org.cy3sbml;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.session.events.SessionAboutToBeSavedListener;
+import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.application.CyApplicationConfiguration;
@@ -31,55 +33,69 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
+import org.cy3sbml.actions.CofactorNodesAction;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
+import org.cy3sbml.actions.LoadLayoutAction;
+import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
+import org.cy3sbml.cofactors.CofactorManager;
 
-
+/**
+ * Entry point to cy3sbml.
+ * 
+ * The CyActivator registers the cy3sbml services with OSGI. This is the class
+ * used for startup of the app by Cytoscape 3.
+ */
 public class CyActivator extends AbstractCyActivator {
-	private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
+	private static Logger logger;
+	private static final String PROPERTIES_FILE = "cy3sbml.props";
 	
 	public CyActivator() {
 		super();
 	}
 	
+	/**
+	 * Starts the cy3sbml OSGI bundle.
+	 */
 	public void start(BundleContext bc) {
 		try {
-			// store bundle information (for display of dependencies, versions, ...)
-			BundleInformation bundleInfo = BundleInformation.getInstance(bc);
-			logger.info("---------------------------------");
-			logger.info("Start " + bundleInfo.getInfo());
-			logger.info("---------------------------------");
+			BundleInformation bundleInfo = new BundleInformation(bc);
 			
 			// Default configuration directory used for all cy3sbml files 
 			// Used for retrieving
 			CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
 			File cyDirectory = configuration.getConfigurationDirectoryLocation();
-			File cy3sbmlDirectory = new File(cyDirectory, "cy3sbml");
+			File appDirectory = new File(cyDirectory, bundleInfo.getName());
 			
-			if(cy3sbmlDirectory.exists() == false) {
-				cy3sbmlDirectory.mkdir();
-				logger.warn("cy3sbml directory was not available. New directory created.");
+			if(appDirectory.exists() == false) {
+				appDirectory.mkdir();
 			}
-			logger.info("cy3sbml directory = " + cy3sbmlDirectory.getAbsolutePath());
+			// store bundle information (for display of dependencies, versions, ...)
+			File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
+			System.setProperty("logfile.name", logFile.getAbsolutePath());
+			logger = LoggerFactory.getLogger(CyActivator.class);
 			
+			logger.info("----------------------------");
+			logger.info("Start " + bundleInfo.getInfo());
+			logger.info("----------------------------");
+			logger.info("directory = " + appDirectory.getAbsolutePath());
+			logger.info("logfile = " + logFile.getAbsolutePath());
+						
 			// cy3sbml properties
-			PropsReader propsReader = new PropsReader("cy3sbml", "cy3sbml.props");
+			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
 			Properties propsReaderServiceProps = new Properties();
-			propsReaderServiceProps.setProperty("cyPropertyName", "cy3sbml.props");
+			propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
 			registerAllServices(bc, propsReader, propsReaderServiceProps);
 			
-			/**
-			 * Get services 
-			 */
+			/** Get services */
 			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 			
 			CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
@@ -101,20 +117,18 @@ public class CyActivator extends AbstractCyActivator {
 			@SuppressWarnings("unchecked")
 			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
 			@SuppressWarnings("unchecked")
-			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
+			CyProperty<Properties> appProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 			FileUtil fileUtil = getService(bc, FileUtil.class);
 			
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 			
-			// Use the Cytoscape properties to set proxy for webservices
+			// Use Cytoscape properties to set proxy for webservices
 			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
 			connectionProxy.setSystemProxyFromCyProperties();
 						
-			/**  
-			 * Create ServiceAdapter
-			 */
+			/** Create ServiceAdapter */
 			ServiceAdapter adapter = ServiceAdapter.getInstance(
 					cySwingApplication,
 					cyApplicationManager,
@@ -129,8 +143,8 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkFactory,
 					cyNetworkViewFactory,
 					
-					cy3sbmlProperties,
-					cy3sbmlDirectory,
+					appProperties,
+					appDirectory,
 					streamUtil,
 					openBrowser,
 					connectionProxy,
@@ -138,34 +152,38 @@ public class CyActivator extends AbstractCyActivator {
 					fileUtil
 			);
 			
-			/**
-			 * Create things depending on services (with adapter)
-			 */ 
-			// load cy3sbml styles
+			// load visual styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
-			InputStream stream = getClass().getResourceAsStream("/styles/cy3sbml.xml");
-			loadVizmapFileTaskFactory.loadStyles(stream);
+			SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
+			sbmlStyleManager.loadStyles();
+			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
+			
 			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
+			// init Cofactor manager
+			@SuppressWarnings("unused")
+			CofactorManager cofactorManager = CofactorManager.getInstance();
+			
 			// init cy3sbml ControlPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
+			
+			
 			// init actions
-			// ResultsPanelAction resultsPanelAction = new ResultsPanelAction(cySwingApplication);
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			ImportAction importAction = new ImportAction(adapter);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
 			ValidationAction validationAction = new ValidationAction(adapter);
 			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
-			HelpAction helpAction = new HelpAction(cySwingApplication, openBrowser);
+			HelpAction helpAction = new HelpAction(cySwingApplication);
+			CofactorNodesAction cofactorNodesAction = new CofactorNodesAction(adapter);
+			SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
 			
-			// TODO: associate multiple files
+			// SBML Filter
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
-			// SBMLNetworkViewTaskFactory sbmlNetworkViewTaskFactory = new SBMLNetworkViewTaskFactory(sbmlFilter, adapter);
 			
-			/**
-			 * Register services 
-			 */			
+			/** Register services */			
 			// SBML file reader
 			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
 			Properties sbmlReaderProps = new Properties();
@@ -173,18 +191,23 @@ public class CyActivator extends AbstractCyActivator {
 			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
+			// Session loading & saving
+			SessionData sessionData = new SessionData(appDirectory);
+			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
+			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 			
+			// panels
 			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
 			// actions
-			// registerService(bc, resultsPanelAction, CyAction.class, new Properties());
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
 			registerService(bc, bioModelAction, CyAction.class, new Properties());
 			registerService(bc, validationAction, CyAction.class, new Properties());
 			registerService(bc, importAction, CyAction.class, new Properties());
 			registerService(bc, examplesAction, CyAction.class, new Properties());
-			// TODO: SaveLayoutAction
-			// TODO: LoadLayoutAction
+			registerService(bc, cofactorNodesAction, CyAction.class, new Properties());
+			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
+			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 			
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
@@ -198,12 +221,9 @@ public class CyActivator extends AbstractCyActivator {
 			// register cy3sbml services for other plugins
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 			
-			
-			// Show the cy3sbml panel
+			// show cy3sbml panel
 			ResultsPanel.getInstance().activate();
-			logger.info("---------------------------------");
-			logger.info("Started " + bundleInfo.getInfo());
-			logger.info("---------------------------------");
+			logger.info("----------------------------");
 			
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);

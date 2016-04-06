@@ -22,10 +22,11 @@ import org.cytoscape.work.swing.DialogTaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Adapter for working with services.
+/** 
+ * Adapter for working with services.
+ * 
  * Avoids to have to pass around the services to everywhere, but provides
  * a one-stop shop for getting the necessary things.
- *
  */
 public class ServiceAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(ServiceAdapter.class);
@@ -123,7 +124,7 @@ public class ServiceAdapter {
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
 			FileUtil fileUtil
 			){
-		logger.info("ServiceAdapter created");
+		logger.debug("ServiceAdapter created");
 		this.cySwingApplication = cySwingApplication;
 		this.cyApplicationManager = cyApplicationManager;
 		this.cyNetworkManager = cyNetworkManager;

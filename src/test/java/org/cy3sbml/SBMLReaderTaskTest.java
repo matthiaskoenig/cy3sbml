@@ -37,6 +37,7 @@ public class SBMLReaderTaskTest {
 		try {
 			String xml = SBMLReaderTask.readString(instream);
 			SBMLDocument document = JSBML.readSBMLFromString(xml);
+			@SuppressWarnings("unused")
 			Model model = document.getModel();
 
 		} catch (Exception e) {
@@ -49,6 +50,7 @@ public class SBMLReaderTaskTest {
 	/* Test that networks are created by SBMLReaderTask.run(). */
 	public void testRunTaskMonitor() throws Exception {
 		final NetworkTestSupport nts = new NetworkTestSupport();
+		@SuppressWarnings("unused")
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
 		
 		// read SBML	

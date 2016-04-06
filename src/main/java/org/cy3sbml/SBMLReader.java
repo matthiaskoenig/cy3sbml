@@ -1,34 +1,9 @@
 package org.cy3sbml;
 
-/*
- * #%L
- * Cytoscape BioPAX Impl (biopax-impl)
- * $Id:$
- * $HeadURL:$
- * %%
- * Copyright (C) 2006 - 2013 The Cytoscape Consortium
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/lgpl-2.1.html>.
- * #L%
- */
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Set;
 
 import javax.swing.SwingUtilities;
 
@@ -47,20 +22,26 @@ import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * SBMLReader class
+ * 
+ * The class manages the reading of SBMLDocuments within
+ * the SBMLReaderTasks and creates networks and views for the given
+ * SBMLDocument.
+ */
 public class SBMLReader extends AbstractInputStreamTaskFactory implements NetworkViewAddedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReader.class);
 	private final ServiceAdapter cyServices;
 
-	public SBMLReader(CyFileFilter filter, ServiceAdapter cyServices)
-	{
+	/** Constructor. */
+	public SBMLReader(CyFileFilter filter, ServiceAdapter cyServices){
 		super(filter);
 		this.cyServices = cyServices;
 	}
 	
-
 	@Override
 	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
-		logger.info("createTaskIterator: input stream name: " + inputName);
+		logger.debug("createTaskIterator: input stream name: " + inputName);
 		try {
 			return new TaskIterator(
 				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory,
@@ -73,7 +54,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent e) {
-		logger.info("NetworkViewAddedEvent in SBMLReader");
+		logger.debug("NetworkViewAddedEvent in SBMLReader");
 		try {
 			// always apply the style and layout to new BioPAX views;
 			// i.e., not only for the first time when one's created.
@@ -89,11 +70,12 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				else if ("SIF".equals(kind))
 					style = visualStyleUtil.getBinarySifVisualStyle();
 				*/
-				//apply style and layout			
 				
+				//apply style and layout			
 				String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
-				VisualStyle style = getVisualStyleByName(styleName);
-				VisualStyle currentStyle = cyServices.visualMappingManager.getVisualStyle(view);
+				VisualMappingManager vmm = cyServices.visualMappingManager;
+				VisualStyle style = SBMLStyleManager.getVisualStyleByName(vmm, styleName);
+				VisualStyle currentStyle = vmm.getVisualStyle(view);
 				logger.debug("Current VisualStyle: " + currentStyle.getTitle());
 				logger.debug("VisualStyle to set: " + style.getTitle());
 				
@@ -117,6 +99,9 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 		}		
 	}
 	
+	/** 
+	 * Controls the layout in the created views. 
+	 */
 	private void layout(CyNetworkView view) {
 		// do layout
 		CyLayoutAlgorithm layout = cyServices.cyLayoutAlgorithmManager.getLayout("force-directed");
@@ -128,24 +113,14 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 				layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS,""));
 	}	
 	
+	/**
+	 * Check if the network is an SBMLNetwork.
+	 * This uses a attribute in the network table to check the type of the network.
+	 */
 	private boolean isSBMLNetwork(CyNetwork cyNetwork) {
 		//true if the attribute column exists
 		CyTable cyTable = cyNetwork.getDefaultNetworkTable();
 		return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
-	}
-	
-	private VisualStyle getVisualStyleByName(String styleName){
-		VisualMappingManager vmm = cyServices.visualMappingManager;
-		Set<VisualStyle> styles = vmm.getAllVisualStyles();
-		// another ugly fix because styles can not be get by name
-		for (VisualStyle style: styles){
-			if (style.getTitle().equals(styleName)){
-				logger.debug("style found in VisualStyles: " + styleName + " == " + style.getTitle());
-				return style;
-			}
-		}
-		logger.warn("style not found in VisualStyles, default style used.");
-		return vmm.getDefaultVisualStyle();
 	}
 	
 		

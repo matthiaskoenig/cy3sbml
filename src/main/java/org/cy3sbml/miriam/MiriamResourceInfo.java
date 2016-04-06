@@ -86,7 +86,9 @@ public class MiriamResourceInfo {
 		return text; 
 	}
 	
-	/** Get MIRIAM information from cache or via web service lookup. */
+	/** Get MIRIAM information from cache or via web service lookup. 
+	 * TODO: this has to be replaced with the local lookup via the xml file. 
+	 */
 	public static String[] getLocationsFromURI(MiriamLink link, String resourceURI){
 		String[] locations = null;
 		
@@ -96,8 +98,14 @@ public class MiriamResourceInfo {
 			logger.debug("cached: " + resourceURI);
 			locations = (String[]) element.getObjectValue();
 		} else {
-			logger.debug("Webservice lookup: " + resourceURI);
-			locations = link.getLocations(resourceURI);
+			
+			if (resourceURI.startsWith("http://identifiers.org")){
+				locations = new String[1];
+				locations[0] = resourceURI;
+			} else {
+				logger.debug("Webservice lookup: " + resourceURI);
+				locations = link.getLocations(resourceURI);
+			}
 			
 			if (locations != null){
 				// update the cache
@@ -106,6 +114,7 @@ public class MiriamResourceInfo {
 				logger.debug("Added to cache: " + resourceURI);
 			} else {
 				// TODO: currently problems if collection only has one resource
+				// This is a real bug and has to be fixed.
 				logger.debug("Miriam locations could not be retrieved: " + resourceURI);
 			}
 		}

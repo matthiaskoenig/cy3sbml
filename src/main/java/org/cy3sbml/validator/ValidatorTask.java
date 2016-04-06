@@ -4,11 +4,14 @@ import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.SBMLDocument;
 
-/** Running the online SBML validation. */
+/** 
+ * Running the online SBML validation. 
+ */
 public class ValidatorTask implements ObservableTask{
 	private SBMLDocument document;
 	private Validator validator;
 	
+	/** Constructor. */
 	public ValidatorTask(SBMLDocument document) {
 		this.document = document;
 	}
@@ -29,9 +32,9 @@ public class ValidatorTask implements ObservableTask{
 
 	@Override
 	public void cancel() {
-		// TODO Auto-generated method stub
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <R> R getResults(Class<? extends R> type) {
 		return (R) validator;

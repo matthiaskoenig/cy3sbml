@@ -1,6 +1,7 @@
 # ![alt tag](./docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
+[![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
@@ -45,13 +46,18 @@ Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 
 ## Installation
 ### Install
-* cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml). Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2).  Within Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. Select `cy3sbml` click install. After installation cy3sbml will be listed in the `Currently Installed` apps tab.  
+cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
+* Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.3) or use the latest nightly build [Cytoscape develop](http://code.cytoscape.org/jenkins/job/cytoscape-3-gui-distribution/lastSuccessfulBuild/org.cytoscape.distribution$cytoscape/). 
+* In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
+* Select `cy3sbml` and click install.
+
+After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released.
+For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released. In short
 
 Clone the repository and build with `mvn`
 ```
@@ -60,13 +66,23 @@ cd cy3sbml
 mvn clean install
 mvn clean install -DskipTests
 ```
-Development is done in `develop` branch, documentation in `README.md`
+Development is done in `develop` branch
 ```
 git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
-**v0.1.7** [?]
+**v0.1.8** [?]
+
+**v0.1.7** [2016/03/24]
+* position saving and restoring ported from cy2sbml (saving & restoring layouts)
+* dark VisualStyle implemented (cy3sbml-dark)
+* improved visual styles & dynamic compartment colors
+* saving and restoring of full session with SBML files
+* COBRA information parsed into attributes
+* multiple bugfixes
+* first version of cofactor nodes
+* tested with Cy3.3 and Cy3.4-milestone-2
 
 **v0.1.6** [2015/08/27]
 * Testing, bug fixes and documentation
@@ -113,4 +129,4 @@ git checkout -b develop --track origin/develop
 
 
 ----
-&copy; 2015 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
+&copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.

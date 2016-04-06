@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+/**
+ * Definition of cy3sbml and SBML constants.
+ */
 public class SBML {
 	public static final String NETWORKTYPE_ATTR = "SBML_NETWORK";
 	public static final String NETWORKTYPE_SBML = "SBML";
@@ -9,7 +12,7 @@ public class SBML {
 	public static final String NODETYPE_ATTR = "sbml-type";
 	public static final String INTERACTION_ATTR = "sbml-interaction";
 	
-	/** Node and edge attributes */
+	/* Node and edge attributes */
 	public static final String LABEL = "label"; 
 	public static final String ATTR_ID = "id";
 	public static final String ATTR_NAME = "name";
@@ -17,6 +20,7 @@ public class SBML {
 	public static final String ATTR_METAID = "metaId";
 	
 	public static final String ATTR_COMPARTMENT = "compartment";
+	public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
 	public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
 	public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
 	public static final String ATTR_CHARGE = "charge";
@@ -60,6 +64,12 @@ public class SBML {
 	public static final String ATTR_FBC_UPPER_FLUX_BOUND = "fbc:upperFluxBound";
 	public static final String ATTR_FBC_OBJECTIVE_TEMPLATE = "fbc:objective-%1$s";
 	
+	public static final String ATTR_COMP_PORTREF = "comp:portRef";
+	public static final String ATTR_COMP_IDREF = "comp:idRef";
+	public static final String ATTR_COMP_UNITREF = "comp:unitRef";
+	public static final String ATTR_COMP_METAIDREF = "comp:metaIdRef";
+	
+	
 	/** Node types */
 	// core
 	public static final String NODETYPE_SPECIES = "species";
@@ -67,6 +77,7 @@ public class SBML {
 	public static final String NODETYPE_COMPARTMENT = "compartment";
 	public static final String NODETYPE_REACTION = "reaction";
 	public static final String NODETYPE_RULE = "rule";
+	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
 	public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
 
@@ -77,6 +88,8 @@ public class SBML {
 	public static final String NODETYPE_FBC_GENEPRODUCT = "fbc:geneProduct";
 	public static final String NODETYPE_FBC_AND = "fbc:and";
 	public static final String NODETYPE_FBC_OR = "fbc:or";
+	// comp
+	public static final String NODETYPE_COMP_PORT = "comp:port";
 	// layout
 	public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
 	public static final String NODETYPE_LAYOUT_REACTIONGLYPH = "layout:reactionGlyph";
@@ -98,9 +111,11 @@ public class SBML {
 	public static final String INTERACTION_REACTION_COMPARTMENT = "reaction-compartment";
 	public static final String INTERACTION_PARAMETER_REACTION = "parameter-reaction";
 	public static final String INTERACTION_VARIABLE_RULE = "variable-rule";
-	public static final String INTERACTION_REFERENCE_RULE = "parameter-rule";
+	public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable-initialAssignment";
+	public static final String INTERACTION_REFERENCE_RULE = "reference-rule";
+	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
-	public static final String INTERACTION_REFERENCE_KINETICLAW = "parameter-kineticLaw";
+	public static final String INTERACTION_REFERENCE_KINETICLAW = "reference-kineticLaw";
 	
 	// qual
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
@@ -109,5 +124,6 @@ public class SBML {
 	public static final String INTERACTION_FBC_GENEPRODUCT_SPECIES = "species-geneProduct";
 	public static final String INTERACTION_FBC_ASSOCIATION_REACTION = "association-reaction";
 	public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association-association";
-	
+	// comp
+	public static final String INTERACTION_COMP_PORT_ID = "port-id";
 }

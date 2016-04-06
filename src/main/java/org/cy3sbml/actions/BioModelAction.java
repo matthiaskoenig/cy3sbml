@@ -3,27 +3,28 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
+import org.cytoscape.application.swing.AbstractCyAction;
 
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.biomodel.BioModelDialog;
-import org.cytoscape.application.swing.AbstractCyAction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Open the BioModel GUI for importing BioModels via search terms. */
+/** 
+ * Open the BioModel GUI for importing BioModels via search terms. 
+ */
 public class BioModelAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(BioModelAction.class);
 	private static final long serialVersionUID = 1L;
 	
 	private ServiceAdapter adapter;
-	
+
+	/** Constructor. */
 	public BioModelAction(ServiceAdapter adapter){
 		super("BioModelAction");
-		logger.debug("BioModelAction created");
 		this.adapter = adapter;
 		
-		//ImageIcon icon = new ImageIcon(getClass().getResource("/images/biomodel.png"));
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/biomodels_logo.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		

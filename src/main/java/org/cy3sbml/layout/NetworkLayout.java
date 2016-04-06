@@ -4,7 +4,6 @@ package org.cy3sbml.layout;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.sbml.jsbml.Model;
@@ -25,7 +24,8 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 
 
-/** Gets the information for the Layout positions and boundary boxes.
+/** 
+ * Get information for Layout positions and boundary boxes.
  * - Compartment information is ignored.
  * - Only the first layout is used, additional layouts are not taken into account
  *
@@ -35,9 +35,6 @@ import org.sbml.jsbml.ext.qual.Transition;
  * 
  * - no layout information : generic layout information is generated
  * - multiple layout information : last layout information is used.
- *
- * @author Matthias Koenig
- *
  */
 public class NetworkLayout {
 	
