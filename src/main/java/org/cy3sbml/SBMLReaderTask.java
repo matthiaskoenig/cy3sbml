@@ -1249,7 +1249,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (mainNetwork == null){
 			return new CyNetwork[] { network };	
 		} else {
-			return new CyNetwork[] { network, mainNetwork };
+			return new CyNetwork[] { mainNetwork, network };
 		}
 	}
 
