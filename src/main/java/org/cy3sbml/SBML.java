@@ -80,6 +80,7 @@ public class SBML {
 	public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
 	public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
 	public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
+	public static final String NODETYPE_FUNCTION_DEFINITION = "functionDefinition";
 
 	// qual
 	public static final String NODETYPE_QUAL_SPECIES = "qual:species";
@@ -116,6 +117,7 @@ public class SBML {
 	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
 	public static final String INTERACTION_REFERENCE_KINETICLAW = "reference-kineticLaw";
+	public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference-functionDefinition";
 	
 	// qual
 	public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input-transition";
