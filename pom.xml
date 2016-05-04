@@ -50,12 +50,10 @@
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
     	<repository>
-    		<id>biojava3</id>
-    		<name>Biojava repository</name>
-    		<url>http://www.biojava.org/download/maven</url>
-    		<releases><enabled>true</enabled></releases>
-    		<snapshots><enabled>false</enabled></snapshots>
-    	</repository>
+		    <id>biojava-legacy-repo</id>
+		    <name>BioJava's Git based legacy maven repo</name>
+		    <url>https://github.com/biojava/maven-repo/raw/master/</url>
+		</repository>
 		<repository>
     		<id>in-project</id>
     		<name>In project repository</name>
