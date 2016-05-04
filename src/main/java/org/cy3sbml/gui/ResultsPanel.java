@@ -297,8 +297,11 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * Updates information within a separate thread.
 	 */
 	public void updateInformation(){
+		logger.info("updateInformation()");
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		logger.info("current view: " + view);
+		logger.info("current network: " + network);
 		if (network == null || view == null){
 			return;
 		}

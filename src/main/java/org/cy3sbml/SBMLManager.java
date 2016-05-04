@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JEditorPane;
+
 import org.cy3sbml.gui.ResultsPanel;
+import org.cy3sbml.gui.UpdatePanelInformation;
 import org.cy3sbml.mapping.NavigationTree;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
@@ -17,8 +20,11 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
+import org.cytoscape.view.model.events.NetworkViewAddedEvent;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -32,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * 
  * The SBMLManager is a singleton class.
  */
-public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAboutToBeDestroyedListener {
+public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private ServiceAdapter adapter;
@@ -261,7 +267,17 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	public void handleEvent(NetworkAddedEvent event) {
 		
 	}
+	
+	
+	public void handleEvent(NetworkViewAddedEvent event){
+		CyNetworkView view = event.getNetworkView();
+		// adapter.cyApplicationManager.setCurrentNetworkView(view);
+		// logger.info("Current network view set to: " +  view.toString());
+		// ResultsPanel.getInstance().updateInformation();
+	}
 
+	
+	
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
 		ResultsPanel.getInstance().setHelp();
