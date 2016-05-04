@@ -29,6 +29,7 @@ import org.cytoscape.work.TaskMonitor;
 
 // SBML CORE
 import org.sbml.jsbml.ASTNode;
+import org.sbml.jsbml.AbstractMathContainer;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.AssignmentRule;
 import org.sbml.jsbml.Compartment;
@@ -420,6 +421,38 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		return n;
 	}
+	
+	/* Handle AbstractMathContainer nodes.
+	 * Direct known subclasses
+	 *     AnalyticVolume, 
+	 *     Constraint, 
+	 *     Delay, 
+	 *     EventAssignment, 
+	 *     FunctionDefinition, 
+	 *     FunctionTerm, 
+	 *     Index, 
+	 *     InitialAssignment, 
+	 *     KineticLaw, 
+	 *     Priority, 
+	 *     Rule, 
+	 *     StoichiometryMath, 
+	 *     Trigger
+	 */
+	private CyNode createAbstractMathContainerNode(AbstractMathContainer container, String type){
+		CyNode n = network.addNode();
+		AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
+		setSBaseAttributes(n, container);
+		
+		String derivedUnits = container.getDerivedUnits();
+		AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
+	
+		if (container.isSetMath()){
+			ASTNode astNode = container.getMath();
+			AttributeUtil.set(network, n, SBML.ATTR_MATH, astNode.toFormula(), String.class);
+		}
+		
+		return n;
+	}
 		
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -622,14 +655,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (reaction.isSetKineticLaw()){
 				KineticLaw law = reaction.getKineticLaw();
 				String reactionId = reaction.getId();
-				// node
 				String lawId = String.format("%s_law", reactionId);
-			 	CyNode lawNode = network.addNode();
+				// node
+			 	CyNode lawNode = createAbstractMathContainerNode(law, SBML.NODETYPE_KINETIC_LAW);
 			 	nodeById.put(lawId, lawNode);
 				AttributeUtil.set(network, lawNode, SBML.ATTR_ID, lawId, String.class);
 				AttributeUtil.set(network, lawNode, SBML.LABEL, lawId, String.class);
-				AttributeUtil.set(network, lawNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_KINETIC_LAW, String.class);
-				setSBaseAttributes(lawNode, law);  // metaId and sbo
 				
 				// edge to reaction
 				CyEdge edge = network.addEdge(node, lawNode, true);
@@ -656,7 +687,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// referenced nodes in math
 				if (law.isSetMath()){
 					ASTNode astNode = law.getMath();
-					AttributeUtil.set(network, lawNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);		
 					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
 						// This can be parameters, localParameters, species, ...
 						// add edge if node exists
@@ -677,12 +707,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (targetNode != null){
 				
 				String id = variable + "_assignment";
-			 	CyNode assignmentNode = network.addNode();
+			 	CyNode assignmentNode = createAbstractMathContainerNode(assignment, SBML.NODETYPE_INITIAL_ASSIGNMENT);
 			 	nodeById.put(id, assignmentNode);
 				AttributeUtil.set(network, assignmentNode, SBML.ATTR_ID, id, String.class);
 				AttributeUtil.set(network, assignmentNode, SBML.LABEL, id, String.class);
-				AttributeUtil.set(network, assignmentNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_INITIAL_ASSIGNMENT, String.class);
-				setSBaseAttributes(assignmentNode, assignment);  // metaId and sbo
 			 	
 				// edge to variable 
 				CyNode variableNode = nodeById.get(variable);
@@ -694,13 +722,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 
 				// referenced nodes in math
-				// TODO: reusable code for the math -> graph operation (needed for assignments and rules)
 				if (assignment.isSetMath()){
 					ASTNode astNode = assignment.getMath();
+					// set math in addition on target variable
 					AttributeUtil.set(network, targetNode, SBML.ATTR_INITIAL_ASSIGNMENT, astNode.toFormula(), String.class);
 					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
 						// This can be parameters, localParameters, species, ...
-						// add edge if node exists
 						CyNode nsbNode = nodeById.get(nsb.getId());
 						if (nsbNode != null){
 							CyEdge edge = network.addEdge(nsbNode, assignmentNode, true);
@@ -727,13 +754,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (variable != null){
 				
 				String id = variable + "_rule";
-			 	CyNode ruleNode = network.addNode();
+			 	CyNode ruleNode = createAbstractMathContainerNode(rule, SBML.NODETYPE_RULE);
 			 	nodeById.put(id, ruleNode);
 				AttributeUtil.set(network, ruleNode, SBML.ATTR_ID, id, String.class);
 				AttributeUtil.set(network, ruleNode, SBML.LABEL, id, String.class);
-				AttributeUtil.set(network, ruleNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
-				setSBaseAttributes(ruleNode, rule);  // metaId and sbo
-			 	
+				
 				// edge to variable 
 				// an assignment rule can refer to the identifer of a Species, SpeciesReference,
 				// Compartment, or global Parameter object in the model
@@ -748,8 +773,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				
 				// referenced nodes in math
 				if (rule.isSetMath()){
-					ASTNode astNode = rule.getMath();
-					AttributeUtil.set(network, ruleNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);		
+					ASTNode astNode = rule.getMath();		
 					for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
 						// This can be parameters, localParameters, species, ...
 						// add edge if node exists
