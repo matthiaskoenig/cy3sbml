@@ -441,7 +441,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 */
 	private CyNode createAbstractMathContainerNode(AbstractMathContainer container, String type){
 		CyNode n = network.addNode();
-		AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, SBML.NODETYPE_RULE, String.class);
+		AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, type, String.class);
 		setSBaseAttributes(n, container);
 		
 		String derivedUnits = container.getDerivedUnits();
