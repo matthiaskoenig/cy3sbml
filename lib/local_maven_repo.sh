@@ -1,7 +1,14 @@
 #!/bin/bash
+########################################################
 # JSBML - local maven dependencies
-# This script installs the required java libraries not available via maven repositories from the 
+# 
+# This script installs the required java libraries not 
+# available via maven repositories from the 
 # lib folder in the local maven repository 'cy3sbml-dep'.
+#
+# If version numbers of the JSBML libraries change,
+# these have to be updated in this script.
+########################################################
 
 # lib directory
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
