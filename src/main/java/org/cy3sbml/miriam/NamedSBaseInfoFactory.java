@@ -352,7 +352,13 @@ public class NamedSBaseInfoFactory {
 		}
 		// FunctionDefinition
 		else if (item instanceof FunctionDefinition){
-			
+			FunctionDefinition fd = (FunctionDefinition) item;
+			String template = "<b>kineticLaw</b>: %s";
+			String math = noneHTML();
+			if (fd.isSetMath()){
+				math = fd.getMath().toFormula();
+			}
+			text = String.format(template, math);
 		}
 		
 		// comp:Port

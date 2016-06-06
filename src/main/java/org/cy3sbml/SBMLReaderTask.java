@@ -455,9 +455,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		return n;
 	}
 	
-	/**
-	 * Creates the math subgraph for the given math container and node.
-	 */
+	/** Creates math subgraph for given math container and node. */
 	private void createMathNetwork(AbstractMathContainer container, CyNode containerNode, String edgeType){
 		if (container.isSetMath()){
 			ASTNode astNode = container.getMath();
@@ -469,6 +467,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (nsbNode != null){
 					CyEdge edge = network.addEdge(nsbNode, containerNode, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, edgeType, String.class);	
+				}else{
+					logger.warn("Node for id in math not found: " + nsb.getId());
 				}
 			}
 		}
@@ -520,8 +520,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
 		
-		
 		// TODO: UnitDefinitions (not parsed)
+		
+		// FunctionDefinitions
+		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
+			CyNode fdNode = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
+			
+			String derivedUnits = fd.getDerivedUnits();
+			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
+		
+			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
+		}
 		
 		// Nodes for compartments		
 		for (Compartment compartment : model.getListOfCompartments()) {
@@ -575,16 +584,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetInitialConcentration()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 			}
-		}
-		
-		// FunctionDefinitions
-		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
-			CyNode fdNode = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
-			
-			String derivedUnits = fd.getDerivedUnits();
-			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
-		
-			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
 		}
 		
 		// Reactions
@@ -704,7 +703,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 						
 						// edge to reaction
 						CyEdge lpEdge = network.addEdge(lpNode, lawNode, true);
-						AttributeUtil.set(network, lpEdge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REFERENCE_KINETICLAW, String.class);
+						AttributeUtil.set(network, lpEdge, SBML.INTERACTION_ATTR, SBML.INTERACTION_LOCALPARAMETER_KINETICLAW, String.class);
 					}
 				}
 				

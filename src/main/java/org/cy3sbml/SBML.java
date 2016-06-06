@@ -117,6 +117,7 @@ public class SBML {
 	public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference-initialAssignment";
 	public static final String INTERACTION_REACTION_KINETICLAW = "reaction-kineticLaw";
 	public static final String INTERACTION_REFERENCE_KINETICLAW = "reference-kineticLaw";
+	public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter-kineticLaw";
 	public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference-functionDefinition";
 	
 	// qual
