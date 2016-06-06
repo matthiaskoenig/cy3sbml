@@ -14,11 +14,11 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # spi-full-0.2.4
-wget http://sourceforge.net/p/jsbml/code/HEAD/tree/trunk/core/lib/spi-full-0.2.4.jar?format=raw -O $DIR/spi-full-0.2.4.jar
+wget https://github.com/sbmlteam/jsbml/raw/master/core/lib/spi-full-0.2.4.jar -O $DIR/spi-full-0.2.4.jar
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=spi-full -Dversion=0.2.4 -Dfile=$DIR/spi-full-0.2.4.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 
 # jigsaw-dateParser-0.1
-wget http://sourceforge.net/p/jsbml/code/HEAD/tree/trunk/core/lib/jigsaw-dateParser.jar?format=raw -O $DIR/jigsaw-dateParser-0.1.jar
+wget https://github.com/sbmlteam/jsbml/raw/master/core/lib/jigsaw-dateParser.jar -O $DIR/jigsaw-dateParser-0.1.jar
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jigsaw-dateParser -Dversion=0.1 -Dfile=$DIR/jigsaw-dateParser-0.1.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 
 # JSBML (generated in build_jsbml script)
