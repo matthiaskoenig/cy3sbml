@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.FunctionDefinition;
 import org.sbml.jsbml.KineticLaw;
 import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
@@ -58,6 +59,7 @@ public class NamedSBaseInfoFactory {
 				objClass.equals(QualitativeSpecies.class) ||
 				objClass.equals(Transition.class) ||
 				objClass.equals(GeneProduct.class) ||
+				objClass.equals(FunctionDefinition.class) ||
 				objClass.equals(Port.class)){
 			sbmlObject = (NamedSBase) obj;
 		}
@@ -95,9 +97,11 @@ public class NamedSBaseInfoFactory {
   		// notes and annotations if available
   		// !!! have to be set at the end due to the html content which
   		// breaks the rest of the html.
-  		String notes = sbmlObject.getNotesString();
-  		if (!notes.equals("") && notes != null ){
-  			info += String.format("<p>%s</p>", notes);
+  		if (sbmlObject.isSetNotes()){
+  			String notes = sbmlObject.getNotesString();
+  	  		if (!notes.equals("") && notes != null ){
+  	  			info += String.format("<p>%s</p>", notes);
+  	  		}	
   		}
 	}
 	
@@ -178,8 +182,6 @@ public class NamedSBaseInfoFactory {
 	/** 
 	 * The general NamedSBase information is created in the 
 	 * header. Here the Class specific attribute information is generated.
-	 * 
-	 * TODO: check for InitialAssignment
 	 */
 	private String createNamedSBaseInfo(NamedSBase item){
 		String text = "";
@@ -232,6 +234,22 @@ public class NamedSBaseInfoFactory {
 			}
 			text = String.format(template, value, units, constant); 
 		}
+		
+		// LocalParameter
+		else if (item instanceof LocalParameter){
+			LocalParameter parameter = (LocalParameter) item;
+			String template = "<b>value</b>: %s [%s]";
+			String value = noneHTML();
+			String units = noneHTML();
+			if (parameter.isSetValue()){
+				value = ((Double) parameter.getValue()).toString();
+			}
+			if (parameter.isSetUnits()){
+				units = parameter.getUnits();
+			}
+			text = String.format(template, value, units); 
+		}
+		
 		// Species
 		else if (item instanceof Species){
 			Species species = (Species) item;
@@ -263,6 +281,7 @@ public class NamedSBaseInfoFactory {
 			}
 			text = String.format(template, compartment, value, units, constant, boundaryCondition); 
 		}
+		
 		// Reaction
 		else if (item instanceof Reaction){
 			Reaction reaction = (Reaction) item;
@@ -331,6 +350,11 @@ public class NamedSBaseInfoFactory {
 		else if (item instanceof GeneProduct){
 			
 		}
+		// FunctionDefinition
+		else if (item instanceof FunctionDefinition){
+			
+		}
+		
 		// comp:Port
 		else if (item instanceof Port){
 			Port port = (Port) item;

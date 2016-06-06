@@ -165,7 +165,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
 			String xml = readString(stream);
-			logger.info(xml);
 			
 			// TODO: store and display JSBML reader warnings
 			document = JSBML.readSBMLFromString(xml);
@@ -521,13 +520,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
 		
-		// FunctionDefinitions (not parsed)
-		// extended in distrib
-		// for (FunctionDefinition fdef : model.getListOfFunctionDefinitions()){}
-
 		
-		// UnitDefinitions (not parsed)
-		// for (UnitDefinition udef : model.getListOfUnitDefinitions()){}
+		// TODO: UnitDefinitions (not parsed)
 		
 		// Nodes for compartments		
 		for (Compartment compartment : model.getListOfCompartments()) {
@@ -581,6 +575,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetInitialConcentration()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 			}
+		}
+		
+		// FunctionDefinitions
+		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
+			CyNode fdNode = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
+			
+			String derivedUnits = fd.getDerivedUnits();
+			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
+		
+			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
 		}
 		
 		// Reactions
@@ -777,15 +781,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// FunctionDefinitions
-		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
-			CyNode fdNode = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
-			
-			String derivedUnits = fd.getDerivedUnits();
-			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
-		
-			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
-		}
 			
 		// Constraints (not parsed)
 		// for (Constraint constraint : model.getListOfConstraints()){}

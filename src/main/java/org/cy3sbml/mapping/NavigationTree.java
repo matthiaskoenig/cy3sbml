@@ -42,6 +42,7 @@ public class NavigationTree {
 	public static final String QUAL_TRANSITIONS = "Transitions";
 	
 	public static final String FBC_GENE_PRODUCTS = "GeneProducts";
+	public static final String FUNCTION_DEFINITIONS = "FunctionDefinitions";
 	
 	public static final String COMP_PORTS = "Ports";
 	
@@ -97,7 +98,8 @@ public class NavigationTree {
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(COMPARTMENTS), model.getListOfCompartments());
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(SPECIES), model.getListOfSpecies());
 			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(REACTIONS), model.getListOfReactions());
-	
+			addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(FUNCTION_DEFINITIONS), model.getListOfFunctionDefinitions());
+			
 	        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 			if (qualModel != null){
 				addListOfNamedSBaseToTreeModel(top, createTreeNodeForName(QUAL_SPECIES), qualModel.getListOfQualitativeSpecies());

@@ -143,7 +143,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		if (index == -1) {
 			return;
 		}
-		cytoPanelEast.setSelectedIndex(index);
+		if (cytoPanelEast.getSelectedIndex() != index){
+			cytoPanelEast.setSelectedIndex(index);
+		}
 	}
 		
 	public JEditorPaneSBML getTextPane(){
@@ -306,6 +308,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			return;
 		}
 		// Update the information in separate thread
+		select();
 		try {
 			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
 			Thread t = new Thread(updater);
