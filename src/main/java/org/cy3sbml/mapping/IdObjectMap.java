@@ -51,18 +51,23 @@ public class IdObjectMap {
 			// Parameters
 			addListOf(model.getListOfParameters());
 			
-			// LocalParameters
+			// LocalParameters & KineticLaws
 			ListOf<LocalParameter> localParameters = new ListOf<LocalParameter>();
-			for (Reaction r : model.getListOfReactions()){
+			ListOf<KineticLaw> kineticLaws = new ListOf<KineticLaw>();
+			for (Reaction r : model.getListOfReactions()){	
 				if (r.isSetKineticLaw()){
 					KineticLaw law = r.getKineticLaw();
+					
+					// Create law id (analogue to reader)
+					String reactionId = r.getId();
+					String lawId = String.format("%s_law", reactionId);
+					objectMap.put(lawId, law);
+				
 					// have been made unique during reading of SBML
 					localParameters.addAll(law.getListOfLocalParameters());
 				}
 			}
-			for (LocalParameter obj: localParameters){
-				objectMap.put(obj.getId(), obj);
-			}
+			addListOf(localParameters);
 			
 			// Compartments
 			addListOf(model.getListOfCompartments());
@@ -72,10 +77,6 @@ public class IdObjectMap {
 			addListOf(model.getListOfReactions());
 			// FunctionDefinitions
 			addListOf(model.getListOfFunctionDefinitions());
-			
-			// Kinetic laws
-			//TODO:
-			
 			
 	        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 			if (qualModel != null){

@@ -19,6 +19,7 @@ import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.SBO;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.comp.Port;
@@ -45,25 +46,11 @@ public class SBaseInfoFactory {
 	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
 	
 	private MiriamLink link;
-	private NamedSBase sbmlObject;
+	private SBase sbase;
 	private String info = ""; 
 	
-	public SBaseInfoFactory(Object obj){
-		Class<? extends Object> objClass = obj.getClass();
-		if (    objClass.equals(Model.class)  ||
-				objClass.equals(Compartment.class)  || 
-				objClass.equals(Parameter.class)  ||
-				objClass.equals(LocalParameter.class)  ||
-				objClass.equals(Species.class) ||
-				objClass.equals(Reaction.class) || 
-				objClass.equals(QualitativeSpecies.class) ||
-				objClass.equals(Transition.class) ||
-				objClass.equals(GeneProduct.class) ||
-				objClass.equals(FunctionDefinition.class) ||
-				objClass.equals(Port.class)){
-			sbmlObject = (NamedSBase) obj;
-		}
-		// WebService Link
+	public SBaseInfoFactory(Object obj){		
+		sbase = (SBase) obj;
 		link = MiriamWebservice.getMiriamLink();
 	}
 	
@@ -72,7 +59,7 @@ public class SBaseInfoFactory {
 	}
 	
 	public void cacheMiriamInformation(){
-		for (CVTerm term : sbmlObject.getCVTerms()){
+		for (CVTerm term : sbase.getCVTerms()){
 			for (String rURI : term.getResources()){
 				MiriamResourceInfo.getLocationsFromURI(link, rURI);
 			}
@@ -81,40 +68,54 @@ public class SBaseInfoFactory {
 	
 	/** Parse and create information for the current sbmlObject. */
 	public void createInfo() throws XMLStreamException {
-		if (sbmlObject == null){
+		if (sbase == null){
 			// unsupported classes
 			return;
 		}
 		// SBML information
-		info = createHeader(sbmlObject);
-		info += createSBOInfo(sbmlObject);
-		info += createNamedSBaseInfo(sbmlObject);
+		info = createHeader(sbase);
+		info += createSBOInfo(sbase);
+		info += createSBaseInfo(sbase);
   		
   		// CVterm annotations (MIRIAM action)
-		List<CVTerm> terms = sbmlObject.getCVTerms();
+		List<CVTerm> terms = sbase.getCVTerms();
   		info += getCVTermsString(terms);
   		
   		// notes and annotations if available
   		// !!! have to be set at the end due to the html content which
   		// breaks the rest of the html.
-  		if (sbmlObject.isSetNotes()){
-  			String notes = sbmlObject.getNotesString();
+  		if (sbase.isSetNotes()){
+  			String notes = sbase.getNotesString();
   	  		if (!notes.equals("") && notes != null ){
   	  			info += String.format("<p>%s</p>", notes);
   	  		}	
   		}
 	}
 	
-	private String createHeader(NamedSBase item){
-		String template = "<h2><span color=\"gray\">%s</span> : %s</h2>";
-		String name = item.getId();
-		if (item.isSetName()){
-			name =  String.format("%s (%s)", item.getId(), item.getName());
+	/**
+	 * Creates the header information.
+	 * Displays the class and id, name if existing.
+	 */
+	private String createHeader(SBase item){
+		String className = getUnqualifiedClassName(item);
+		String header = String.format("<h2><span color=\"gray\">%s</span></h2>",
+									  className);
+		// if NamedSBase get additional information
+		if (NamedSBase.class.isAssignableFrom(item.getClass())){
+			NamedSBase nsb = (NamedSBase) item;
+			String template = "<h2><span color=\"gray\">%s</span> : %s</h2>";
+			String name = nsb.getId();
+			if (nsb.isSetName()){
+				name =  String.format("%s (%s)", nsb.getId(), nsb.getName());
+			}
+			header = String.format(template, className, name);
 		}
-		return String.format(template, getUnqualifiedClassName(item), name);
+		return header; 
 	}
 	
-	/** Returns the unqualified class name of a given object. */
+	/** 
+	 * Returns unqualified class name of a given object. 
+	 */
 	private static String getUnqualifiedClassName(Object obj){
 		String name = obj.getClass().getName();
 		if (name.lastIndexOf('.') > 0) {
@@ -125,7 +126,7 @@ public class SBaseInfoFactory {
 		return name;
 	}
 	
-	private String createSBOInfo(NamedSBase item){
+	private String createSBOInfo(SBase item){
 		String text = "";
 		if (item.isSetSBOTerm()){
 			String sboTermId = item.getSBOTermID();
@@ -176,14 +177,12 @@ public class SBaseInfoFactory {
 		}
   		return text;
 	}
-	
-
-	
+		
 	/** 
 	 * The general NamedSBase information is created in the 
 	 * header. Here the Class specific attribute information is generated.
 	 */
-	private String createNamedSBaseInfo(NamedSBase item){
+	private String createSBaseInfo(SBase item){
 		String text = "";
 		// Model
 		if (item instanceof Model){
@@ -191,6 +190,7 @@ public class SBaseInfoFactory {
 			String template = "<b>L%sV%s</b> <a href=\"http://sbml-file\">(SBML file)</a>"; 
   			text = String.format(template, model.getLevel(), model.getVersion());
 		}
+		
 		// Compartment
 		else if (item instanceof Compartment){
 			Compartment compartment = (Compartment) item;
@@ -317,6 +317,17 @@ public class SBaseInfoFactory {
 			}
 			text = String.format(template, compartment, reversible, fast, kineticLaw, units); 
 		}
+		// KineticLaw
+		else if (item instanceof KineticLaw){
+			KineticLaw law = (KineticLaw) item;
+			String template = "<b>kineticLaw</b>: %s";
+			String kineticLaw = noneHTML();
+			if (law.isSetMath()){
+				kineticLaw = law.getMath().toFormula();	
+			}
+			text = String.format(template, kineticLaw);
+		}
+		
 		// QualitativeSpecies
 		else if (item instanceof QualitativeSpecies){
 			QualitativeSpecies species = (QualitativeSpecies) item;
