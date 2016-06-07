@@ -29,6 +29,7 @@ import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.ontology.Term;
+import org.sbml.jsbml.xml.XMLNode;
 import org.cy3sbml.util.AnnotationUtil;
 
 /** 
@@ -86,9 +87,21 @@ public class SBaseInfoFactory {
   		// Non-RDF annotation
   		if (sbase.isSetAnnotation()){
   			Annotation annotation = sbase.getAnnotation();
-  			String text = annotation.getNonRDFannotationAsString();
-  			text = StringEscapeUtils.escapeHtml(text);
-  			info += info += String.format("<p><span color=\"gray\">%s</span></p>", text);
+  			String text = "";
+  			XMLNode xmlNode = annotation.getNonRDFannotation();
+  			if (xmlNode != null){
+  				// get all children which are not RDF
+  				for (int i=0; i<xmlNode.getChildCount(); i++){
+  					XMLNode child = xmlNode.getChildAt(i);
+  					String name = child.getName();
+  					System.out.println(name);
+  					if (name != "RDF"){
+  						text += StringEscapeUtils.escapeHtml(XMLNode.convertXMLNodeToString(child));
+  					}
+  				}
+  				
+  			}
+  			info += String.format("<p><span color=\"gray\">%s</span></p>", text);
   		}
   		
   		// notes
