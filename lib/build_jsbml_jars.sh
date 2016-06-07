@@ -1,13 +1,20 @@
 #!/bin/bash
-# script for building the latest jsbml core jar.
-# ! register in local maven repository after build for using !
-
-# JSBML should be checked out and environment variable $JSBMLCODE be set
-# to the location of latest source code, i.e. 
-
-# check if the necessary enviroment variables are set
-# The environment variable can be set via
-# export JSBMLCODE=$HOME/svn/jsbml-code
+########################################################
+# Script for building JSBML (core & packages) from 
+# the repository
+#
+# 1. Get the repository code
+#	cd $HOME/git 
+#	git clone https://github.com/sbmlteam/jsbml.git
+#	
+# 2. Export environment variable
+# 	export JSBMLCODE=$HOME/git/jsbml
+#
+# After building the latest JSBML jars these have to be 
+# updated in the local maven repository with the script
+# 	local_maven_repo.sh
+#
+########################################################
 : "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code svn directory.}"
 
 # cy3sbml/lib directory
@@ -15,7 +22,7 @@ LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # now update to latest revision
 cd $JSBMLCODE
-svn update 
+git pull 
 rm -r $JSBMLCODE/build
 
 # build core and extensions

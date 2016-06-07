@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.mapping.NavigationTree;
+import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
@@ -17,10 +17,13 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
-import org.sbml.jsbml.NamedSBase;
+import org.cytoscape.view.model.events.NetworkViewAddedEvent;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,14 +35,14 @@ import org.slf4j.LoggerFactory;
  * 
  * The SBMLManager is a singleton class.
  */
-public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAboutToBeDestroyedListener {
+public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private ServiceAdapter adapter;
 	
 	private SBML2NetworkMapper sbml2networks;
-	private HashMap<Long, NavigationTree> sbml2trees;
-	private NavigationTree navigationTree;
+	private HashMap<Long, IdObjectMap> sbml2objectMap;
+	private IdObjectMap objectMap;
 	
 	
 	public static synchronized SBMLManager getInstance(ServiceAdapter adapter){
@@ -58,10 +61,15 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	
 	private SBMLManager(ServiceAdapter adapter){
 		logger.debug("SBMLManager created");
-		sbml2networks = new SBML2NetworkMapper();
-		sbml2trees = new HashMap<Long, NavigationTree>();
-		navigationTree = new NavigationTree();
 		this.adapter = adapter;
+		reset();
+	}
+	
+	/** Reset the SBMLManager for unittests. */
+	private void reset(){
+		sbml2networks = new SBML2NetworkMapper();
+		sbml2objectMap = new HashMap<Long, IdObjectMap>();
+		objectMap = new IdObjectMap();
 	}
 	
 
@@ -74,11 +82,11 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 * Used to restore the SBMLManager state from a session file. 
 	 */
 	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
-		logger.info("SBMLManager from given mapper");
+		logger.debug("SBMLManager from given mapper");
 		
 		sbml2networks = mapper;
-		sbml2trees = new HashMap<Long, NavigationTree>();
-		navigationTree = new NavigationTree();
+		sbml2objectMap = new HashMap<Long, IdObjectMap>();
+		objectMap = new IdObjectMap();
 		
 		// Create all the trees
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();	
@@ -86,8 +94,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 			SBMLDocument doc = documentMap.get(suid);
 			
 			// create and store navigation tree
-			NavigationTree tree = new NavigationTree(doc);
-			sbml2trees.put(suid, tree);
+			IdObjectMap map = new IdObjectMap(doc);
+			sbml2objectMap.put(suid, map);
 		}
 		
 		// Set current network and tree
@@ -133,8 +141,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		// store document and mapping
 		sbml2networks.putDocument(rootNetworkSuid, doc, mapping);
 		// create and store navigation tree
-		NavigationTree tree = new NavigationTree(doc);
-		sbml2trees.put(rootNetworkSuid, tree);
+		IdObjectMap map = new IdObjectMap(doc);
+		sbml2objectMap.put(rootNetworkSuid, map);
 	}
 	
 	/** Returns mapping or null if no mapping exists. */
@@ -162,18 +170,23 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	
 	/** Update the current SBML based the SUID of the root network. */
 	public void updateCurrent(Long rootNetworkSUID) {
-		logger.info("Set current network to root SUID: " + rootNetworkSUID);
+		logger.debug("Set current network to root SUID: " + rootNetworkSUID);
 		sbml2networks.setCurrentSUID(rootNetworkSUID);
-		navigationTree = sbml2trees.get(rootNetworkSUID);
+		objectMap = sbml2objectMap.get(rootNetworkSUID);
 	}
 	
-	/** 
-	 * Lookup NamedSBased via id in the NavigationTree.
-	 * Key method to get SBML information for nodes in the network.
-	 */
-	public NamedSBase getNamedSBaseById(String nsbId){
-		NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
-		return nsb;
+	
+	/////// SBML objects for SUIDS ///////////////////////////////////////////
+	
+	/** Lookup of SBase via id. */
+	public SBase getObjectById(String key){
+		SBase sbase = objectMap.getObject(key);
+		return sbase;
+	}
+	
+	public List<String> getObjectIds(List<Long> suids){ 
+		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
+		return new LinkedList<String>(mapping.getValues(suids));
 	}
 	
 	/** 
@@ -212,12 +225,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 			}
 		}
 	}
-	
-	public List<String> getNSBIds(List<Long> suids){ 
-		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
-		return new LinkedList<String>(mapping.getValues(suids));
-	}
-	
+		
 	public String toString(){
 		return sbml2networks.toString();
 	}
@@ -256,7 +264,17 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	public void handleEvent(NetworkAddedEvent event) {
 		
 	}
+	
+	
+	public void handleEvent(NetworkViewAddedEvent event){
+		CyNetworkView view = event.getNetworkView();
+		// adapter.cyApplicationManager.setCurrentNetworkView(view);
+		// logger.info("Current network view set to: " +  view.toString());
+		// ResultsPanel.getInstance().updateInformation();
+	}
 
+	
+	
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
 		ResultsPanel.getInstance().setHelp();

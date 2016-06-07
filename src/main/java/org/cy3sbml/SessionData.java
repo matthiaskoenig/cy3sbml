@@ -55,7 +55,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	
 	// Save app state in a file
 	public void handleEvent(SessionAboutToBeSavedEvent event){
-		logger.info("SessionAboutToBeSaved Event: Save cy3sbml session state");
+		logger.info("SessionAboutToBeSaved: save cy3sbml session state");
 		
 		// Files to save
 		List<File> files = new LinkedList<File>();
@@ -90,7 +90,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		}
 				
 		// Serialize
-		logger.info("Serializing SBMl2NetworkMapper");
+		logger.debug("Serializing SBMl2NetworkMapper");
 		try {
 			File file = new File(directory, SBML2NETWORK_SERIALIZATION);
 	        FileOutputStream fileOut;
@@ -108,7 +108,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		}
 		
 		// Serialize
-		logger.info("Serializing Network2CofactorMapper");
+		logger.debug("Serializing Network2CofactorMapper");
 		CofactorManager cofactorManager = CofactorManager.getInstance();
 		Network2CofactorMapper network2cofactorMapper = cofactorManager.getNetwork2CofactorMapper();
 		
@@ -131,7 +131,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		// Write files in session file
 		try {
 			event.addAppFiles("cy3sbml", files);
-			logger.info("Save SBML files for session.");
+			logger.debug("Save SBML files");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -148,14 +148,12 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	    }       
 		List<File> files = event.getLoadedSession().getAppFileListMap().get("cy3sbml");
 		for (File f : files){
-			logger.info("cy3sbml file in session: " + f.toString());
-			logger.info(f.getName());
-
+			logger.info("cy3sbml file in session: " + f.getName());
 			try {
 			
 			// deserialize the documentMap
 			if (SBML2NETWORK_SERIALIZATION.equals(f.getName())){
-				logger.info("Deserialize documentMap");
+				logger.debug("Deserialize documentMap");
 			    File mapFile = new File(directory, SBML2NETWORK_SERIALIZATION);
 				
 			    InputStream inputStream;
@@ -183,7 +181,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			
 			// deserialize 
 			else if (NETWORK2COFACTOR_SERIALIZATION.equals(f.getName())){
-				logger.info("Deserialize Network2CofactorMapper");
+				logger.debug("Deserialize Network2CofactorMapper");
 			    File mapFile = new File(directory, NETWORK2COFACTOR_SERIALIZATION);
 				
 			    InputStream inputStream;

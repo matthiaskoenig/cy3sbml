@@ -61,8 +61,8 @@ public class SBMLReaderTaskTest {
 		
 		// now test the network content & the attributes
 		CyNetwork network = networks[1];
-		assertEquals(29, network.getNodeCount());
-		assertEquals(34, network.getEdgeCount());
+		assertEquals(82, network.getNodeCount());
+		assertEquals(148, network.getEdgeCount());
 		// attribute table
 		// nts.getNetworkTableManager().getTable(network, type, namespace)
 	}

@@ -15,7 +15,7 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.7</version>
+	<version>0.1.8</version>
 	
 	<name>cy3sbml</name>
 
@@ -50,16 +50,14 @@
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
     	<repository>
-    		<id>biojava3</id>
-    		<name>Biojava repository</name>
-    		<url>http://www.biojava.org/download/maven</url>
-    		<releases><enabled>true</enabled></releases>
-    		<snapshots><enabled>false</enabled></snapshots>
-    	</repository>
+		    <id>biojava-legacy-repo</id>
+		    <name>BioJava's Git based legacy maven repo</name>
+		    <url>https://github.com/biojava/maven-repo/raw/master/</url>
+		</repository>
 		<repository>
-			<id>UncertWebMavenRepository</id>
-			<name>UncertWeb Maven Repository</name>
-			<url>http://giv-uw.uni-muenster.de/m2/repo</url>
+    		<id>in-project</id>
+    		<name>In project repository</name>
+    		<url>file://${project.basedir}/lib</url>
 		</repository>
   	</repositories>
 
@@ -237,87 +235,69 @@
       			<version>1.21</version>
     	</dependency>
     	
-		<!-- JSBML CORE dependency -->
+		<!-- JSBML dependencies -->
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml</artifactId>
   			<version>1.2-SNAPSHOT</version>
   		</dependency>
- 
-  		<!-- JSBML EXTENSION dependency -->
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-qual</artifactId>
   			<version>2.1-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-layout</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-comp</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-fbc</artifactId>
   			<version>1.0-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-groups</artifactId>
   			<version>0.4-b1</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-distrib</artifactId>
   			<version>0.5</version>
   		</dependency>
   		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
+  			<groupId>cy3sbml-dep</groupId>
   			<artifactId>jsbml-tidy</artifactId>
   			<version>1.2.1</version>
   		</dependency>
-  		
-  		<!-- UncertML -->
-  		<!--
-  		<dependency>
-  			<groupId>org.uncertml</groupId>
-  			<artifactId>uncertml</artifactId>
-  			<version>2.0.6</version>
-  		</dependency>  		
-  		-->
-  
+  		  
   		 <!-- JSBML dependencies -->
   		<dependency>
-    			<groupId>cy3sbml-temp</groupId>
-	    		<artifactId>jigsaw-dateParser</artifactId>
-	    		<version>0.1</version>
-    		</dependency>
-    		<dependency>
-	    		<groupId>cy3sbml-temp</groupId>
-	    		<artifactId>spi-full</artifactId>
-	    		<version>0.2.4</version>
-    		</dependency>
+   			<groupId>cy3sbml-dep</groupId>
+    		<artifactId>jigsaw-dateParser</artifactId>
+    		<version>0.1</version>
+   		</dependency>
+   		<dependency>
+    		<groupId>cy3sbml-dep</groupId>
+    		<artifactId>spi-full</artifactId>
+    		<version>0.2.4</version>
+   		</dependency>
+    	<dependency>
+  			<groupId>cy3sbml-dep</groupId>
+  			<artifactId>jtidy</artifactId>
+  			<version>r938</version>
+  		</dependency>
   		<dependency>
   			<groupId>org.biojava</groupId>
   			<artifactId>biojava3-ontology</artifactId>
   			<version>3.1.0</version>
   		</dependency>
-  		<dependency>
-  			<groupId>cy3sbml-temp</groupId>
-  			<artifactId>jtidy</artifactId>
-  			<version>r938</version>
-  		</dependency>
-  		<!--
-  		<dependency>
-	    		<groupId>junit</groupId>
-	    		<artifactId>junit</artifactId>
-	    		<version>4.8</version>
-		</dependency>
-		-->
 		<dependency>
 	    		<groupId>log4j</groupId>
 	    		<artifactId>log4j</artifactId>

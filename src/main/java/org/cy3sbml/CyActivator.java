@@ -21,6 +21,7 @@ import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
@@ -33,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.cy3sbml.gui.ResultsPanel;
@@ -118,7 +118,7 @@ public class CyActivator extends AbstractCyActivator {
 			@SuppressWarnings("unchecked")
 			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
 			@SuppressWarnings("unchecked")
-			CyProperty<Properties> cy3sbmlProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
+			CyProperty<Properties> appProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 			FileUtil fileUtil = getService(bc, FileUtil.class);
@@ -144,7 +144,7 @@ public class CyActivator extends AbstractCyActivator {
 					cyNetworkFactory,
 					cyNetworkViewFactory,
 					
-					cy3sbmlProperties,
+					appProperties,
 					appDirectory,
 					streamUtil,
 					openBrowser,
@@ -153,12 +153,12 @@ public class CyActivator extends AbstractCyActivator {
 					fileUtil
 			);
 			
-			// visual styles (normal and dark)
+			// load visual styles
 			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
-			InputStream streamCy3sbml = getClass().getResourceAsStream("/styles/cy3sbml.xml");
-			loadVizmapFileTaskFactory.loadStyles(streamCy3sbml);
-			InputStream streamCy3sbmlDark = getClass().getResourceAsStream("/styles/cy3sbml-dark.xml");
-			loadVizmapFileTaskFactory.loadStyles(streamCy3sbmlDark);
+			SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
+			sbmlStyleManager.loadStyles();
+			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
+			
 			
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
@@ -215,7 +215,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
+			registerService(bc, sbmlManager, NetworkViewAddedListener.class, new Properties());
 			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 			
 			// register cy3sbml services for other plugins

@@ -98,8 +98,14 @@ public class MiriamResourceInfo {
 			logger.debug("cached: " + resourceURI);
 			locations = (String[]) element.getObjectValue();
 		} else {
-			logger.debug("Webservice lookup: " + resourceURI);
-			locations = link.getLocations(resourceURI);
+			
+			if (resourceURI.startsWith("http://identifiers.org")){
+				locations = new String[1];
+				locations[0] = resourceURI;
+			} else {
+				logger.debug("Webservice lookup: " + resourceURI);
+				locations = link.getLocations(resourceURI);
+			}
 			
 			if (locations != null){
 				// update the cache

@@ -3,7 +3,9 @@ package org.cy3sbml.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import org.apache.commons.io.IOUtils;
@@ -14,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
@@ -24,7 +27,10 @@ import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.work.TaskIterator;
-
+import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLException;
+import org.sbml.jsbml.TidySBMLWriter;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.ImportAction;
@@ -137,7 +143,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		if (index == -1) {
 			return;
 		}
-		cytoPanelEast.setSelectedIndex(index);
+		if (cytoPanelEast.getSelectedIndex() != index){
+			cytoPanelEast.setSelectedIndex(index);
+		}
 	}
 		
 	public JEditorPaneSBML getTextPane(){
@@ -213,6 +221,27 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 				}else if (s.equals("http://cy3sbml-hsa04360")){
 					loadExampleFromResource("/models/hsa04360.xml");
 				}
+				
+				// SBML Document
+				else if (s.equals("http://sbml-file")){
+					SBMLManager sbmlManager = SBMLManager.getInstance();
+					SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
+					 //create a temp file
+			    	File temp;
+					try {
+						temp = File.createTempFile("temp-file-name", ".xml");
+						System.out.println("Temp file : " + temp.getAbsolutePath());
+						try {
+							TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
+							adapter.openBrowser.openURL("file://" + temp.getAbsolutePath());
+						} catch (SBMLException | FileNotFoundException | XMLStreamException e) {
+							e.printStackTrace();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					} 
+				}
+				
 				// HTML links	
 				else {
 					// handle the HTML links
@@ -241,7 +270,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 	}
 	
-	/** Handle node selection events in the table/network. 
+	/** 
+	 * Handle node selection events in the table/network. 
+	 * 
 	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
 	 * make sure to minimize the unnecessary action here.
 	 * I.e. only act on the Event if everything in the right state.
@@ -270,12 +301,16 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	 * Updates information within a separate thread.
 	 */
 	public void updateInformation(){
+		logger.info("updateInformation()");
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+		logger.info("current view: " + view);
+		logger.info("current network: " + network);
 		if (network == null || view == null){
 			return;
 		}
 		// Update the information in separate thread
+		select();
 		try {
 			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
 			Thread t = new Thread(updater);

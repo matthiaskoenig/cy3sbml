@@ -1,6 +1,7 @@
 # ![alt tag](./docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
+[![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
@@ -19,13 +20,11 @@ visualization of SBML network annotations within the network context, direct imp
 * supports all versions of SBML
 * SBML validation (SBML warnings and errors accessible)
 * Network graph based on the species/reaction model
-* Network graph of full SBML information
+* Additional graph of SBML objects (Kinetics, FunctionDefinitions, Parameters, ...)
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
-  the network context
-* Annotation information 
-* succesfully tested against all SBML.org and Biomodels.org test
-  cases (BioModels_Database-r29)
+  the network context (and non-RDF annotations)
+* Tested with SBML.org and Biomodels.org test cases (BioModels_Database-r29)
 
 We are currently porting missing features from the Cytoscape 2 plugin to Cytoscape 3. Documentation of most of the features is available from http://matthiaskoenig.github.io/cy2sbml/
 
@@ -37,6 +36,7 @@ We are currently porting missing features from the Cytoscape 2 plugin to Cytosca
 **cy3sbml** was funded by 
 * [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html)
 * Virtual Liver Network (VLN)
+* Systems Medicine of the Liver (LiSyM)
 
 ## Citation
 Matthias König, Andreas Dräger and Hermann-Georg Holzhütter  
@@ -45,13 +45,18 @@ Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 
 ## Installation
 ### Install
-* cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml). Download and install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.2).  Within Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. Select `cy3sbml` click install. After installation cy3sbml will be listed in the `Currently Installed` apps tab.  
+cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
+* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.4) 
+* In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
+* Select `cy3sbml` and click install.
+
+After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released.
+For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released. In short
 
 Clone the repository and build with `mvn`
 ```
@@ -60,13 +65,19 @@ cd cy3sbml
 mvn clean install
 mvn clean install -DskipTests
 ```
-Development is done in `develop` branch, documentation in `README.md`
+Development is done in `develop` branch
 ```
 git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
-**v0.1.8** [?]
+**v0.1.8** [2016/06/07]
+* visualStyles for new and reopened sessions
+* display of RDF & non-RDF annotation information
+* kineticLaws as first class objects (with annotation display)
+* FunctionDefinitions are now parsed correctly
+* Refactoring of CyNode to SBase mapping (performance increase)
+* Multitude of smaller bugfixes
 
 **v0.1.7** [2016/03/24]
 * position saving and restoring ported from cy2sbml (saving & restoring layouts)
@@ -123,4 +134,4 @@ git checkout -b develop --track origin/develop
 
 
 ----
-&copy; 2015 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
+&copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.

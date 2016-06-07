@@ -79,7 +79,8 @@
                     <discreteMappingEntry value="#00CC66" attributeValue="compartment"/>
                     <discreteMappingEntry value="#0099FF" attributeValue="parameter"/>
                     <discreteMappingEntry value="#0099FF" attributeValue="localParameter"/>
-                    <discreteMappingEntry value="#66CCFF" attributeValue="rule"/>
+                    <discreteMappingEntry value="#009933" attributeValue="rule"/>
+                    <discreteMappingEntry value="#FF6666" attributeValue="initialAssignment"/>
                     <discreteMappingEntry value="#66CCFF" attributeValue="kineticLaw"/>
                     <discreteMappingEntry value="#F0F0F0" attributeValue="qual:species"/>
                     <discreteMappingEntry value="#999999" attributeValue="qual:transition"/>
@@ -95,6 +96,7 @@
                     <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="parameter"/>
                     <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="localParameter"/>
                     <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="rule"/>
+                    <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="initialAssignment"/>
                     <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="kineticLaw"/>
                     <discreteMappingEntry value="Liberation Sans Bold,plain,12" attributeValue="qual:transition"/>
                 </discreteMapping>
