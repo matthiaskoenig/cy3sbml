@@ -41,14 +41,14 @@ import org.cy3sbml.util.AnnotationUtil;
  * TODO: refactor SBML HTML information completely 
  * 		(https://github.com/matthiaskoenig/cy3sbml/milestones/0.1.8)
  */
-public class NamedSBaseInfoFactory {
+public class SBaseInfoFactory {
 	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
 	
 	private MiriamLink link;
 	private NamedSBase sbmlObject;
 	private String info = ""; 
 	
-	public NamedSBaseInfoFactory(Object obj){
+	public SBaseInfoFactory(Object obj){
 		Class<? extends Object> objClass = obj.getClass();
 		if (    objClass.equals(Model.class)  ||
 				objClass.equals(Compartment.class)  || 

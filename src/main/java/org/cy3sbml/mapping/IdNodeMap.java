@@ -21,7 +21,7 @@ import org.cy3sbml.SBML;
  * For instance Cytoscape Layout networks for an SBML have different 
  * mappings Qual networks.
  */
-public class NamedSBase2CyNodeMapping {	
+public class IdNodeMap {	
 	
 	/**
 	 * Construct the mapping from given network and SBMLDocument.
@@ -44,33 +44,5 @@ public class NamedSBase2CyNodeMapping {
 			mapping.put(sbmlId, node.getSUID());
 		}
 		return mapping;
-		
 	}
-
-	 // TODO: generate the layout networks
-	 // Find a general solution for SBML based information. A master graph from which
-	 // subnetworks are generated is probably the best solution and easily extendible to 
-	 // other SBML extensions.
-	
-	 /* In the Layout case the LayoutNodes are mapped to species and reaction nodes.
-	  * Mapping is one to many !, meaning that multiple 
-
-	public NamedSBaseToNodeMapping(Layout layout){
-		super();	
-		for (ReactionGlyph glyph: layout.getListOfReactionGlyphs()){
-			String value = glyph.getId();
-			if (glyph.isSetReaction()){
-				String key = glyph.getReaction();
-				put(key, value);
-			}
-		}
-		for (SpeciesGlyph glyph: layout.getListOfSpeciesGlyphs()){
-			String value = glyph.getId();
-			if (glyph.isSetSpecies()){
-				String key = glyph.getSpecies();
-				put(key, value);
-			}
-		}
-	}
-	*/
 }

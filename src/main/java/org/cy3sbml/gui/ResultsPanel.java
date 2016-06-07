@@ -270,7 +270,9 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 	}
 	
-	/** Handle node selection events in the table/network. 
+	/** 
+	 * Handle node selection events in the table/network. 
+	 * 
 	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
 	 * make sure to minimize the unnecessary action here.
 	 * I.e. only act on the Event if everything in the right state.

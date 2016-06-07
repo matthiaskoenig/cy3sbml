@@ -9,6 +9,7 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBase;
 
 public class UpdatePanelInformation implements Runnable {
 	private ResultsPanel panel;
@@ -23,13 +24,10 @@ public class UpdatePanelInformation implements Runnable {
         updateInformation();
     }
     
-	/**
-	 * Here the node information update is performed.
-	 */
+	/** Here the node information update is performed. */
 	public void updateInformation(){
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		JEditorPaneSBML textPane = panel.getTextPane();
-		
 		
 		if (!panel.isActive()){
 			textPane.setText("");
@@ -45,21 +43,21 @@ public class UpdatePanelInformation implements Runnable {
 		// information for selected node(s)
 		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 		if (document != null){
-			List<String> selectedNSBIds = sbmlManager.getNSBIds(suids);
+			List<String> objectIds = sbmlManager.getObjectIds(suids);
 		
-			if (selectedNSBIds.size() > 0){
-
-				// TODO: How to handle multiple selections? Currently only first node in selection used
-				String nsbId = selectedNSBIds.get(0);
-				NamedSBase nsb = sbmlManager.getNamedSBaseById(nsbId);
-				if (nsb != null){
-					textPane.showNSBInfo(nsb);	
+			if (objectIds.size() > 0){
+				// TODO: How to handle multiple selections? 
+				// Currently only first node in selection used
+				String key = objectIds.get(0);
+				SBase sbase = sbmlManager.getObjectById(key);
+				if (sbase != null){
+					textPane.showSBaseInfo(sbase);	
 				} else {
 					textPane.setText("No SBML object registered for node.");
 				}
 						
 			} else {
-				textPane.showNSBInfo(document.getModel());
+				textPane.showSBaseInfo(document.getModel());
 			}
 		} else {
 			textPane.setText("No SBML associated with current network.");

@@ -11,7 +11,7 @@ import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
 
-import org.cy3sbml.miriam.NamedSBaseInfoThread;
+import org.cy3sbml.miriam.SBaseInfoThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +93,7 @@ public class JEditorPaneSBML extends JEditorPane{
 	 * Only updates information if the current thread is the last requested thread 
 	 * for updating text. 
 	 */
-    public void updateText(NamedSBaseInfoThread infoThread){
+    public void updateText(SBaseInfoThread infoThread){
     	if (infoThread.getId() == lastInformationThreadId){
     		this.setText(infoThread.info);
     	}
@@ -102,19 +102,19 @@ public class JEditorPaneSBML extends JEditorPane{
    /** 
     * Create information string for SBML Node and display. 
     */ 
-	public void showNSBInfo(Object obj) {
+	public void showSBaseInfo(Object obj) {
 	   Set<Object> objSet = new HashSet<Object>();
 	   objSet.add(obj);
-	   showNSBInfo(objSet);
+	   showSBaseInfo(objSet);
    }
    
   /**
    * Display information for set of nodes.
    */
-   public void showNSBInfo(Set<Object> objSet) {
+   public void showSBaseInfo(Set<Object> objSet) {
 	   this.setText("Retrieving information via WebServices ...");
 	   // starting threads for webservice calls
-	   NamedSBaseInfoThread thread = new NamedSBaseInfoThread(objSet, this);
+	   SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
 	   lastInformationThreadId = thread.getId();
 	   thread.start();
    }

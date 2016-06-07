@@ -6,11 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JEditorPane;
-
 import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.gui.UpdatePanelInformation;
-import org.cy3sbml.mapping.NavigationTree;
+import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
@@ -25,8 +22,8 @@ import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
-import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +41,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	private ServiceAdapter adapter;
 	
 	private SBML2NetworkMapper sbml2networks;
-	private HashMap<Long, NavigationTree> sbml2trees;
-	private NavigationTree navigationTree;
+	private HashMap<Long, IdObjectMap> sbml2objectMap;
+	private IdObjectMap objectMap;
 	
 	
 	public static synchronized SBMLManager getInstance(ServiceAdapter adapter){
@@ -71,8 +68,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	/** Reset the SBMLManager for unittests. */
 	private void reset(){
 		sbml2networks = new SBML2NetworkMapper();
-		sbml2trees = new HashMap<Long, NavigationTree>();
-		navigationTree = new NavigationTree();
+		sbml2objectMap = new HashMap<Long, IdObjectMap>();
+		objectMap = new IdObjectMap();
 	}
 	
 
@@ -88,8 +85,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		logger.debug("SBMLManager from given mapper");
 		
 		sbml2networks = mapper;
-		sbml2trees = new HashMap<Long, NavigationTree>();
-		navigationTree = new NavigationTree();
+		sbml2objectMap = new HashMap<Long, IdObjectMap>();
+		objectMap = new IdObjectMap();
 		
 		// Create all the trees
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();	
@@ -97,8 +94,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 			SBMLDocument doc = documentMap.get(suid);
 			
 			// create and store navigation tree
-			NavigationTree tree = new NavigationTree(doc);
-			sbml2trees.put(suid, tree);
+			IdObjectMap map = new IdObjectMap(doc);
+			sbml2objectMap.put(suid, map);
 		}
 		
 		// Set current network and tree
@@ -144,8 +141,8 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		// store document and mapping
 		sbml2networks.putDocument(rootNetworkSuid, doc, mapping);
 		// create and store navigation tree
-		NavigationTree tree = new NavigationTree(doc);
-		sbml2trees.put(rootNetworkSuid, tree);
+		IdObjectMap map = new IdObjectMap(doc);
+		sbml2objectMap.put(rootNetworkSuid, map);
 	}
 	
 	/** Returns mapping or null if no mapping exists. */
@@ -175,16 +172,21 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	public void updateCurrent(Long rootNetworkSUID) {
 		logger.debug("Set current network to root SUID: " + rootNetworkSUID);
 		sbml2networks.setCurrentSUID(rootNetworkSUID);
-		navigationTree = sbml2trees.get(rootNetworkSUID);
+		objectMap = sbml2objectMap.get(rootNetworkSUID);
 	}
 	
-	/** 
-	 * Lookup NamedSBased via id in the NavigationTree.
-	 * Key method to get SBML information for nodes in the network.
-	 */
-	public NamedSBase getNamedSBaseById(String nsbId){
-		NamedSBase nsb = navigationTree.getNamedSBaseById(nsbId);
-		return nsb;
+	
+	/////// SBML objects for SUIDS ///////////////////////////////////////////
+	
+	/** Lookup of SBase via id. */
+	public SBase getObjectById(String key){
+		SBase sbase = objectMap.getObject(key);
+		return sbase;
+	}
+	
+	public List<String> getObjectIds(List<Long> suids){ 
+		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
+		return new LinkedList<String>(mapping.getValues(suids));
 	}
 	
 	/** 
@@ -223,12 +225,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 			}
 		}
 	}
-	
-	public List<String> getNSBIds(List<Long> suids){ 
-		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
-		return new LinkedList<String>(mapping.getValues(suids));
-	}
-	
+		
 	public String toString(){
 		return sbml2networks.toString();
 	}

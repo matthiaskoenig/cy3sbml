@@ -28,10 +28,10 @@ public class NamedSBaseInfoThreadTest {
 		// TODO: fix the tests
 		
 		// preload all the Miriam information
-		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+		SBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 		// Second time should just lookup in cache
-		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+		SBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 		
 	}
 

@@ -16,14 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Generates information for web resources in separate thread. */
-public class NamedSBaseInfoThread extends Thread{
-	private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoThread.class);
+public class SBaseInfoThread extends Thread{
+	private static final Logger logger = LoggerFactory.getLogger(SBaseInfoThread.class);
 	
 	Collection<Object> objSet;
 	JEditorPaneSBML textPane;
 	public String info;
 	   
-    public NamedSBaseInfoThread(Collection<Object> objSet, JEditorPaneSBML textPane) {
+    public SBaseInfoThread(Collection<Object> objSet, JEditorPaneSBML textPane) {
         this.objSet = objSet;
         this.textPane = textPane;
         info = "";
@@ -33,7 +33,7 @@ public class NamedSBaseInfoThread extends Thread{
     	if (textPane != null){
     		// Info creating mode
     		for (Object obj : objSet){	
-    			NamedSBaseInfoFactory infoFac = new NamedSBaseInfoFactory(obj);
+    			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
     			try {
 					infoFac.createInfo();
 				} catch (XMLStreamException e) {
@@ -46,7 +46,7 @@ public class NamedSBaseInfoThread extends Thread{
     	} else {
     		// Cache filling mode
     		for (Object obj : objSet){	
-    			NamedSBaseInfoFactory infoFac = new NamedSBaseInfoFactory(obj);
+    			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
     			infoFac.cacheMiriamInformation();
     		}
     	}
@@ -78,7 +78,7 @@ public class NamedSBaseInfoThread extends Thread{
 		for (Object nsb: list){
 			nsbSet.add(nsb);
 		}
-		NamedSBaseInfoThread thread = new NamedSBaseInfoThread((Collection<Object>) nsbSet, null);
+		SBaseInfoThread thread = new SBaseInfoThread((Collection<Object>) nsbSet, null);
 		thread.start();
 	}
 }

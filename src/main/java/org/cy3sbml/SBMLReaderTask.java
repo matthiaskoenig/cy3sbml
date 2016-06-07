@@ -98,9 +98,9 @@ import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 
 import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.layout.LayoutPreprocessor;
-import org.cy3sbml.mapping.NamedSBase2CyNodeMapping;
+import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.miriam.NamedSBaseInfoThread;
+import org.cy3sbml.miriam.SBaseInfoThread;
 import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.AnnotationUtil;
 import org.cy3sbml.util.AttributeUtil;
@@ -1274,14 +1274,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.debug("buildCyNetworkView");
 		
 		// Preload SBML WebService information
-		NamedSBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+		SBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
 				
 		// Set SBML in SBMLManager 
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 		
 		// Look for already existing mappings (of read networks)
 		One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
-		mapping = NamedSBase2CyNodeMapping.fromSBMLNetwork(document, network, mapping);
+		mapping = IdNodeMap.fromSBMLNetwork(document, network, mapping);
 		
 		// existing mapping is updated
 		sbmlManager.addSBML2NetworkEntry(document, network, mapping);
@@ -1289,7 +1289,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		sbmlManager.updateCurrent(network);
 		
 		// Display the model information in the results pane
-		ResultsPanel.getInstance().getTextPane().showNSBInfo(document.getModel());	
+		ResultsPanel.getInstance().getTextPane().showSBaseInfo(document.getModel());	
 		
 		// Create the view
 		CyNetworkView view = viewFactory.createNetworkView(network);
