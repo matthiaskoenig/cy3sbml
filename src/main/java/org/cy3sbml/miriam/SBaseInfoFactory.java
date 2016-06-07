@@ -3,12 +3,14 @@ package org.cy3sbml.miriam;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import javax.xml.stream.XMLStreamException;
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-
+import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.FunctionDefinition;
@@ -81,7 +83,15 @@ public class SBaseInfoFactory {
 		List<CVTerm> terms = sbase.getCVTerms();
   		info += getCVTermsString(terms);
   		
-  		// notes and annotations if available
+  		// Non-RDF annotation
+  		if (sbase.isSetAnnotation()){
+  			Annotation annotation = sbase.getAnnotation();
+  			String text = annotation.getNonRDFannotationAsString();
+  			text = StringEscapeUtils.escapeHtml(text);
+  			info += info += String.format("<p><span color=\"gray\">%s</span></p>", text);
+  		}
+  		
+  		// notes
   		// !!! have to be set at the end due to the html content which
   		// breaks the rest of the html.
   		if (sbase.isSetNotes()){
