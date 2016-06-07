@@ -71,6 +71,8 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.1.9** [?]
+
 **v0.1.8** [2016/06/07]
 * visualStyles for new and reopened sessions
 * display of RDF & non-RDF annotation information

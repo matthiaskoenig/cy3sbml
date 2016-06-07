@@ -15,7 +15,7 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.8</version>
+	<version>0.1.9</version>
 	
 	<name>cy3sbml</name>
 
