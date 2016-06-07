@@ -76,8 +76,8 @@ git checkout -b develop --track origin/develop
 * display of RDF & non-RDF annotation information
 * kineticLaws as first class objects (with annotation display)
 * FunctionDefinitions are now parsed correctly
-* Refactoring of CyNode to SBase mapping (performance increase)
-* Multitude of smaller bugfixes
+* refactoring of CyNode to SBase mapping (performance increase)
+* multitude of smaller bugfixes
 
 **v0.1.7** [2016/03/24]
 * position saving and restoring ported from cy2sbml (saving & restoring layouts)
