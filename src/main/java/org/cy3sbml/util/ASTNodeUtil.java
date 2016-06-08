@@ -29,7 +29,8 @@ public class ASTNodeUtil {
 	 */
 	public static HashSet<NamedSBase> findReferencedNamedSBases(ASTNode astNode){
 		HashSet<NamedSBase> nsbSet = new HashSet<NamedSBase>();
-	    if (astNode.getType().equals(ASTNode.Type.NAME) && (astNode.getVariable() instanceof NamedSBase)){
+	    if ((astNode.getType().equals(ASTNode.Type.NAME) || (astNode.getType().equals(ASTNode.Type.FUNCTION) ) 
+	    		&& (astNode.getVariable() instanceof NamedSBase))){
 	      nsbSet.add((NamedSBase) astNode.getVariable());
 	    }
 	    // recursive search

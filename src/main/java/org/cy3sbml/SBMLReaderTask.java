@@ -460,7 +460,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (container.isSetMath()){
 			ASTNode astNode = container.getMath();
 			AttributeUtil.set(network, containerNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
-			for (NamedSBase nsb : findReferencedNamedSBases(astNode)){
+			for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
 				// This can be parameters, localParameters, species, ...
 				// add edge if node exists
 				CyNode nsbNode = nodeById.get(nsb.getId());
@@ -472,24 +472,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 		}
-	}
-	
-	/*
-	 * Find all referenced NamedSBases in a given ASTNode.
-	 * Returns unique set (often multiple occurence of parameter, variable in equation.
-	 * 
-	 * FIX for ASTNodeUtil.findReferencedNamedSBases
-	 */
-	public static HashSet<NamedSBase> findReferencedNamedSBases(ASTNode astNode){
-		HashSet<NamedSBase> nsbSet = new HashSet<NamedSBase>();
-	    if ((astNode.getType().equals(ASTNode.Type.NAME) || (astNode.getType().equals(ASTNode.Type.FUNCTION))) && (astNode.getVariable() instanceof NamedSBase)){
-	      nsbSet.add((NamedSBase) astNode.getVariable());
-	    }
-	    // recursive search
-	    for (ASTNode child : astNode.getListOfNodes()) {
-	      nsbSet.addAll(ASTNodeUtil.findReferencedNamedSBases(child));
-	    }
-	    return nsbSet;
 	}
 	
 	////////////////////////////////////////////////////////////////////////////
