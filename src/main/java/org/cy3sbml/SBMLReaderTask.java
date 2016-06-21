@@ -176,6 +176,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				model = document.createModel();
 				model.setId("null_model");
 			}
+		
 			
 			// Create empty root network and node map
 			network = networkFactory.createNetwork();
@@ -186,17 +187,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork(); 
 			// CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()). 
 			rootNetwork = ((CySubNetwork) network).getRootNetwork();
-
+			
 			//////////////////////////////////////////////////////////////////
 			// Read SBML & Extensions
 			//////////////////////////////////////////////////////////////////
 			// Creates the main network of all information
-			
 			readCore(model);
 			if (taskMonitor != null){
 				taskMonitor.setProgress(0.5);
 			}
-				
+
+			
 			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
 			if (qualModel != null){
 				readQual(model, qualModel);
@@ -519,7 +520,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (model.isSetConversionFactor()){
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
-		
+	
 		// TODO: UnitDefinitions (not parsed)
 		
 		// FunctionDefinitions
@@ -531,6 +532,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
 		}
+
 		
 		// Nodes for compartments		
 		for (Compartment compartment : model.getListOfCompartments()) {
@@ -548,6 +550,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			@SuppressWarnings("unused")
 			CyNode node = createSymbolNode(parameter, SBML.NODETYPE_PARAMETER);
 		}
+	
 		
 		// Nodes for species
 		for (Species species : model.getListOfSpecies()) {
@@ -584,7 +587,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (species.isSetInitialConcentration()){
 				AttributeUtil.set(network, node, SBML.ATTR_INITIAL_CONCENTRATION, species.getInitialConcentration(), Double.class);
 			}
-		}
+		}	
 		
 		// Reactions
 		for (Reaction reaction : model.getListOfReactions()) {

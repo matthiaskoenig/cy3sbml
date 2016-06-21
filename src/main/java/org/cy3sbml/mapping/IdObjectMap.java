@@ -52,8 +52,6 @@ public class IdObjectMap {
 			addListOf(model.getListOfParameters());
 			
 			// LocalParameters & KineticLaws
-			ListOf<LocalParameter> localParameters = new ListOf<LocalParameter>();
-			ListOf<KineticLaw> kineticLaws = new ListOf<KineticLaw>();
 			for (Reaction r : model.getListOfReactions()){	
 				if (r.isSetKineticLaw()){
 					KineticLaw law = r.getKineticLaw();
@@ -64,10 +62,12 @@ public class IdObjectMap {
 					objectMap.put(lawId, law);
 				
 					// have been made unique during reading of SBML
-					localParameters.addAll(law.getListOfLocalParameters());
+					for (LocalParameter lp: law.getListOfLocalParameters()){
+						objectMap.put(lp.getId(), lp);	
+					}
+					
 				}
 			}
-			addListOf(localParameters);
 			
 			// Compartments
 			addListOf(model.getListOfCompartments());
