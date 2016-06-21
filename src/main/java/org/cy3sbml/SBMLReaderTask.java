@@ -299,7 +299,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (taskMonitor != null){
 				taskMonitor.setProgress(1.0);
 			}
-			logger.info("< ---- End Reader.run() ---->");
+			logger.info("<---- End Reader.run() ---->");
 			
 		
 		} catch (Throwable t){
@@ -353,13 +353,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * RDF & COBRA attributes are set. 
 	 */
 	private void setSBaseAttributes(CyIdentifiable cyObject, SBase sbase){
-		
-		// FIXME: SBOTerm is not set any more.
-		logger.info("Set SBOTerm");
 		if (sbase.isSetSBOTerm()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
 		}
-		
 		
 		if (sbase.isSetMetaId()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
@@ -522,7 +518,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
 	
-		// TODO: UnitDefinitions (not parsed)
+		// TODO: ListOfUnitDefinitions and UnitDefinitions (not parsed)
+		//     currently not displayed in network
 		
 		// FunctionDefinitions
 		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
