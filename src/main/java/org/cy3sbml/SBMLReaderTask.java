@@ -150,9 +150,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	/** Parse the SBML networks. */
 	public void run(TaskMonitor taskMonitor) throws Exception {
-		logger.info("---------------------------------");
-		logger.info("Start Reader.run()");
-		logger.info("---------------------------------");
+		logger.info("<---- Start Reader.run() ---->");
 		try {
 			if (taskMonitor != null){
 				taskMonitor.setTitle("cy3sbml reader");
@@ -177,7 +175,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				model.setId("null_model");
 			}
 		
-			
 			// Create empty root network and node map
 			network = networkFactory.createNetwork();
 			nodeById = new HashMap<String, CyNode>();
@@ -302,9 +299,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (taskMonitor != null){
 				taskMonitor.setProgress(1.0);
 			}
-			logger.info("---------------------------------");
-			logger.info("End Reader.run()");
-			logger.info("---------------------------------");
+			logger.info("< ---- End Reader.run() ---->");
+			
 		
 		} catch (Throwable t){
 			logger.error("Could not read SBML into Cytoscape!", t);
@@ -357,9 +353,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * RDF & COBRA attributes are set. 
 	 */
 	private void setSBaseAttributes(CyIdentifiable cyObject, SBase sbase){
+		
+		// FIXME: SBOTerm is not set any more.
+		logger.info("Set SBOTerm");
 		if (sbase.isSetSBOTerm()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
 		}
+		
+		
 		if (sbase.isSetMetaId()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
 		}
@@ -485,7 +486,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param model
 	 */
 	private void readCore(Model model){
-		logger.info("** core **");
+		logger.info("<core>");
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
 		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
@@ -800,7 +801,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param qModel
 	 */
 	private void readQual(Model model, QualModelPlugin qModel){
-		logger.info("** qual **");
+		logger.info("<qual>");
 		 // QualSpecies 
 		 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
 			CyNode node = createNamedSBaseNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
@@ -896,7 +897,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	/** Creates network information from fbc model. */
 	private void readFBC(Model model, FBCModelPlugin fbcModel){
-		logger.info("** fbc **");
+		logger.info("<fbc>");
 
 		// Model attributes
 		if (fbcModel.isSetStrict()){
@@ -1079,7 +1080,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	/** Create network information from comp model. */
 	private void readComp(Model model, CompModelPlugin compModel){
-		logger.info("** comp **");
+		logger.info("<comp>");
 
 		// TODO: model ListOfSubmodels
 		//          -> listOfDeletions
@@ -1128,7 +1129,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		// TODO: necessary to display for all the SBase elements
 		// TODO: write the string as attribute to the respective node
 		
-		logger.debug("** distrib **");
+		logger.debug("<distrib>");
 		// Compartments
 		readUncertainties(model.getListOfCompartments());
 		
@@ -1191,9 +1192,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * Creates the layouts stored in the layout extension. 
 	 * TODO: implement
 	 */
-	@SuppressWarnings("unused")
 	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
-		logger.info("** layout **");
+		logger.info("<layout>");
 		for (Layout layout : layoutModel.getListOfLayouts()){
 			// TODO: manage the multiple layout networks
 			// layoutNetwork = rootNetwork.addSubNetwork();
