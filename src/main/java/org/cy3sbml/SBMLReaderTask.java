@@ -601,6 +601,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					logger.error(String.format("Compartment does not exist for reaction: %s for %s", reaction.getCompartment(), reaction.getId()));
 				}
 			}
+			
 			if (reaction.isSetReversible()){
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
 			} else {
