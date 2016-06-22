@@ -150,7 +150,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	/** Parse the SBML networks. */
 	public void run(TaskMonitor taskMonitor) throws Exception {
-		logger.info("<---- Start Reader.run() ---->");
+		logger.info("<--- Start Reader --->");
 		try {
 			if (taskMonitor != null){
 				taskMonitor.setTitle("cy3sbml reader");
@@ -299,7 +299,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (taskMonitor != null){
 				taskMonitor.setProgress(1.0);
 			}
-			logger.info("<---- End Reader.run() ---->");
+			logger.info("<--- End Reader --->");
 			
 		
 		} catch (Throwable t){
@@ -404,6 +404,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (q.isSetUnits()){
 			AttributeUtil.set(network, n, SBML.ATTR_UNITS, q.getUnits(), String.class);
 		}
+		
 		UnitDefinition udef = q.getDerivedUnitDefinition();
 		if (udef != null){
 			AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
@@ -466,7 +467,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					CyEdge edge = network.addEdge(nsbNode, containerNode, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, edgeType, String.class);	
 				}else{
-					logger.warn("Node for id in math not found: " + nsb.getId());
+					logger.warn("Node for id <" + nsb.getId() +"> not found in math <" + astNode.toFormula() + ">");
 				}
 			}
 		}
@@ -528,7 +529,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			String derivedUnits = fd.getDerivedUnits();
 			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
 		
-			createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
+			// Do not create the math network for the function definition
+			// The objects of the FunctionDefinition ASTNode can have different naming conventions
+			// than the objects, i.e. a lambda(x), does not mean that it is called with
+			// an object x
+			// createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
 		}
 
 		
