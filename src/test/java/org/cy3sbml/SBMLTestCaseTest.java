@@ -10,8 +10,8 @@ import org.junit.runners.Parameterized.Parameters;
 /**
  * Test all SBML files of the SBML TestCases.
  * 
- * TODO: from where the files
- * TODO: update
+ * sbml-test-cases v3.1.1
+ * https://sourceforge.net/projects/sbml/files/test-suite/
  */
 @RunWith(value = Parameterized.class)
 public class SBMLTestCaseTest{
@@ -28,7 +28,6 @@ public class SBMLTestCaseTest{
 				"99220-pass-00-02-sev1-l2v2.xml",
 				"99220-pass-00-03-sev1-l2v3.xml",
 		}));
-		skip = null;
 		String filter = "pass";
 		return TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip);
 	}
