@@ -1,15 +1,32 @@
 package org.cy3sbml;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.work.TaskMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestUtils {
+	public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
+	public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.2";
+	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-cases";
+	
 	private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);
 	
 	/** Reads the system proxy variables and sets the 
@@ -35,6 +52,88 @@ public class TestUtils {
 		}	
 	}
 	
+	/** Get an iteratable over the resources in the resourcePath. */
+	public static Iterable<Object[]> findResources(String resourcePath, String extension, String filter, HashSet<String> skip){
+		
+		File currentDir = new File(System.getProperty("user.dir"));
+		// String rootPath = new File(currentDir, resourcePath).getPath();
+		String rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
+		
+		System.out.println("curDir:" + currentDir);
+		System.out.println("rootPath:" + rootPath);
+		
+		// Get SBML files for passed tests
+		LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
+		Collections.sort(sbmlPaths);
+		
+		int N = sbmlPaths.size();
+		System.out.println("Number of resources: " + N);
+		Object[][] resources = new String[N][1];
+		for (int k=0; k<N; k++){
+			String path = sbmlPaths.get(k);
+			// create the resource
+			String[] items = path.split("/");
+			int mindex = -1;
+			for (int i=0; i<items.length; i++){
+				if (items[i].equals("models")){
+					mindex = i;
+					break;
+				}
+			}
+			String resource = StringUtils.join(ArrayUtils.subarray(items, mindex, items.length), "/");
+			resources[k][0] = "/" + resource;
+		}
+		return Arrays.asList(resources);
+	}
+	
+	
+	/**
+	 * Search recursively for all SBML files in given path.
+	 * SBML files have to end in ".xml" and pass the filter expression
+	 * and is not in the skip set.
+	 */
+	public static LinkedList<String> findFiles(String path, String extension, String filter, HashSet<String> skip){
+		LinkedList<String> fileList = new LinkedList<String>();
+		
+        File root = new File(path);
+        File[] list = root.listFiles();
+        
+        if (list == null){
+        	return fileList;
+        }
+        if (skip == null){
+        	skip = new HashSet<String>();
+        }
+
+        for (File f : list) {
+        	String fpath = f.getAbsolutePath();
+        	// recursively search directories
+            if (f.isDirectory()) {
+                fileList.addAll(findFiles(fpath, extension, filter, skip));
+            }
+            else {
+            	String fname = f.getName();
+                if (fname.endsWith(extension) && !skip.contains(fname)){
+                	// no filter add
+                	if (filter == null){
+                		fileList.add(fpath);
+                	} else {
+                		// filter matches add
+                		if (fname.contains(filter)){
+                			fileList.add(fpath);	 
+                   	 	}	
+                	}
+                }
+            }
+        }
+        return fileList;
+    }
+	
+	public static LinkedList<String> findFiles(String path, String extension){
+		return findFiles(path, extension, null, null);
+	}
+	
+	
 	public static CyNetwork[] readNetwork(String resource) throws Exception {
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
@@ -53,6 +152,45 @@ public class TestUtils {
 			networks = null;
 		}
 		return networks;
+	}
+	
+	/**
+	 * Perform the network test for a given SBML resource.
+	 */
+	public static void testNetwork(String testType, String resource){
+		logger.info("--------------------------------------------------------");
+		logger.info(String.format("%s: %s", testType, resource));
+		logger.info("--------------------------------------------------------");
+				
+		final NetworkTestSupport nts = new NetworkTestSupport();
+		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+		@SuppressWarnings("unused")
+		final CyNetworkViewFactory viewFactory = null;
+		TaskMonitor taskMonitor = null;
+		
+		// read SBML	
+		String[] tokens = resource.split("/");
+		String fileName = tokens[2];		
+		InputStream instream = TestUtils.class.getResourceAsStream(resource);
+	
+		CyNetwork[] networks;
+		try {
+			// Reader can be tested without service adapter, 
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
+			readerTask.run(taskMonitor);
+			networks = readerTask.getNetworks();
+			assertFalse(readerTask.getError());
+			// CyNetworkTableManager cyNetworkTableManager = nts.getNetworkTableManager();
+			
+			
+		} catch (Throwable t){
+			networks = null;
+			t.printStackTrace();
+		}
+		// Networks could be read
+		assertNotNull(networks);
+		assertTrue(networks.length >= 1);
+		
 	}
 	
 }
