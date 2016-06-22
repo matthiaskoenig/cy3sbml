@@ -6,11 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Set;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -21,6 +19,11 @@ import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Test cases for the Cobra py collection.
+ * 
+ * TODO: update models and document how and when retrieved
+ */
 @RunWith(value = Parameterized.class)
 public class CobraPyCollectionTest {
 private static final Logger logger = LoggerFactory.getLogger(CobraPyCollectionTest.class);

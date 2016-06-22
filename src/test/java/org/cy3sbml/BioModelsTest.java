@@ -22,6 +22,11 @@ import org.cytoscape.work.TaskMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Test cases for biomodels.
+ * 
+ * TODO: update models and document how and when retrieved
+ */
 @RunWith(value = Parameterized.class)
 public class BioModelsTest {
 private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class);
@@ -46,7 +51,10 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 	@Test
 	/** Single test for one BioModel: Can be read and creates network. */
 	public void testSingleBiomodel() throws Exception {
+		logger.info("--------------------------------------------------------");
 		logger.info(String.format("BioModelsTest: %s", resource));
+		logger.info("--------------------------------------------------------");
+		
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
 		@SuppressWarnings("unused")

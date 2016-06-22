@@ -6,12 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Set;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.model.CyNetworkTableManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -22,6 +19,11 @@ import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Test cases for the BIGG models.
+ * 
+ * TODO: update models and document how and when retrieved
+ */
 @RunWith(value = Parameterized.class)
 public class BiGGTest {
 private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
@@ -128,7 +130,9 @@ private static final Logger logger = LoggerFactory.getLogger(BiGGTest.class);
 	@Test
 	/** Single test for BiGG model: Can be read and is network created ? */
 	public void testSingleBiGG() throws Exception {
+		logger.info("--------------------------------------------------------");
 		logger.info(String.format("BiGGTest: %s", resource));
+		logger.info("--------------------------------------------------------");
 				
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
