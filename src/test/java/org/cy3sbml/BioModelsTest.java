@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +12,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.model.CyNetworkTableManager;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
@@ -24,6 +21,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Test cases for biomodels.
+ * 
+ * 30th BioModels Release, 2016-05-10
+ * http://www.ebi.ac.uk/biomodels-main/static-pages.do?page=release_20160510
+ * Retrieved on 2016-06-22, 611 curated models
  * 
  * TODO: update models and document how and when retrieved
  */
@@ -40,10 +41,10 @@ private static final Logger logger = LoggerFactory.getLogger(BioModelsTest.class
 	// Declare parameters
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> data(){
-		int N = 575;
+		int N = 611;
 		Object[][] resources = new String[N][1];
 		for (int i=1; i<=N; i++){ 
-			resources[i-1][0] = String.format("/models/BioModels-r29_sbml_curated/BIOMD0000000%03d.xml", i);
+			resources[i-1][0] = String.format("/models/BioModels-r30_curated/BIOMD0000000%03d.xml", i);
 		}
 		return Arrays.asList(resources);
 	}
