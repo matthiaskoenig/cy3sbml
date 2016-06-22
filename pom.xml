@@ -5,22 +5,20 @@
 	<properties>
 		<bundle.symbolicName>cy3sbml</bundle.symbolicName>
 		<bundle.namespace>org.cy3sbml</bundle.namespace>
-		
-		<maven-bundle-plugin.version>2.3.4</maven-bundle-plugin.version>
-		<osgi.api.version>4.2.0</osgi.api.version>
+		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+		<maven-bundle-plugin.version>2.5.4</maven-bundle-plugin.version>
+		<osgi.api.version>4.2.0</osgi.api.version>	 
+		<org.osgi.framework.system.packages.extra>javax.xml.namespace</org.osgi.framework.system.packages.extra>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cytoscape.api.version>3.2.1</cytoscape.api.version>
-		 
-		<org.osgi.framework.system.packages.extra>javax.xml.namespace</org.osgi.framework.system.packages.extra>
-		
 	</properties>
 
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
 	<version>0.1.9</version>
-	
 	<name>cy3sbml</name>
+	<description>A Cytoscape app for SBML.</description>
 
 	<repositories>
 		<repository>
@@ -113,7 +111,7 @@
 						<Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
 						<Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
           				<Embed-Transitive>true</Embed-Transitive>
-          				<Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>	
+          				<Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -214,6 +212,12 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 			<version>2.10.0</version>
+			<exclusions>
+			      <exclusion> 
+			        <groupId>org.slf4j</groupId>
+			        <artifactId>slf4j-api</artifactId>
+			      </exclusion>
+		    </exclusions> 
 		</dependency> 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -241,18 +245,31 @@
    			<version>1.21</version>
     	</dependency>
     	
+    	<!-- Logging -->
+    	<!-- 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>
 		</dependency>
-		
+		 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+			<version>2.3</version>
+		</dependency>
+    	-->
     	
 		<!-- JSBML -->
   		<dependency>
@@ -297,18 +314,6 @@
   		</dependency>
   		  
   		 <!-- JSBML dependencies -->
-  		 <!-- 
-  		 <dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-1.2-api</artifactId>
-			<version>2.3</version>
-		</dependency>
-		 -->
 		<dependency>
 			<groupId>com.fasterxml.woodstox</groupId>
 			<artifactId>woodstox-core</artifactId>
@@ -319,7 +324,7 @@
 			<artifactId>jigsaw</artifactId>
 			<version>2.2.6</version>
 		</dependency>
-		<!-- 
+		<!--
 		<dependency>
    			<groupId>cy3sbml-dep</groupId>
     		<artifactId>jigsaw-dateParser</artifactId>

@@ -94,7 +94,6 @@ public class SBaseInfoFactory {
   				for (int i=0; i<xmlNode.getChildCount(); i++){
   					XMLNode child = xmlNode.getChildAt(i);
   					String name = child.getName();
-  					System.out.println(name);
   					if (name != "RDF"){
   						text += StringEscapeUtils.escapeHtml(XMLNode.convertXMLNodeToString(child));
   					}
