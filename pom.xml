@@ -239,7 +239,6 @@
    			<groupId>uk.ac.ebi.miriam</groupId>
    			<artifactId>miriam-lib</artifactId>
    			<version>1.1.6</version>
-   			
    		</dependency>
 		<dependency>
    			<groupId>uk.ac.ebi.biomodels</groupId>
@@ -253,8 +252,7 @@
 		    </exclusions> 
     	</dependency>
     	
-    	<!-- Logging -->
- 		 
+    	<!-- Logging -->		 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -267,19 +265,6 @@
 			<version>1.7.12</version>
 		</dependency>
 		 
-		<!--
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-1.2-api</artifactId>
-			<version>2.3</version>
-		</dependency>
-		-->
-
 		<!-- JSBML -->
   		<dependency>
   			<groupId>cy3sbml-dep</groupId>
@@ -323,24 +308,7 @@
   		</dependency>
   		  
   		 <!-- JSBML dependencies -->
-		<dependency>
-			<groupId>com.fasterxml.woodstox</groupId>
-			<artifactId>woodstox-core</artifactId>
-			<version>5.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.w3c.jigsaw</groupId>
-			<artifactId>jigsaw</artifactId>
-			<version>2.2.6</version>
-		</dependency>
-		<!--
-		<dependency>
-   			<groupId>cy3sbml-dep</groupId>
-    		<artifactId>jigsaw-dateParser</artifactId>
-    		<version>0.1</version>
-   		</dependency> 
-   		-->
-		<dependency>
+  		 <dependency>
 			<groupId>org.biojava</groupId>
 			<artifactId>biojava-ontology</artifactId>
 			<version>4.0.0</version>
@@ -358,6 +326,17 @@
 			        <artifactId>log4j-api</artifactId>
 			      </exclusion>
 		    </exclusions> 
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.w3c.jigsaw</groupId>
+			<artifactId>jigsaw</artifactId>
+			<version>2.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -391,13 +370,6 @@
     		<artifactId>stax2-api</artifactId>
     		<version>3.1.4</version>
 		</dependency>
-		<!-- 
-		<dependency>
-	    		<groupId>stax</groupId>
-	    		<artifactId>stax-api</artifactId>
-	    		<version>1.0.1</version>
-		</dependency>
-		 -->
 
 		<!-- Testing -->
 		<dependency>
