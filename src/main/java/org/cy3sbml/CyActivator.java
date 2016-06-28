@@ -89,7 +89,12 @@ public class CyActivator extends AbstractCyActivator {
 			logger.info("----------------------------");
 			logger.info("directory = " + appDirectory.getAbsolutePath());
 			logger.info("logfile = " + logFile.getAbsolutePath());
-						
+			
+			// increase the javax.xml: Maximum Element Depth limit (1000), which is
+			// otherwise exceded for genome-scale models 
+			// see https://github.com/matthiaskoenig/cy3sbml/issues/100
+			System.setProperty("jdx.xml.maxElementDepth", "2000");
+			
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
 			Properties propsReaderServiceProps = new Properties();

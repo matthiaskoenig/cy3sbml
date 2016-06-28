@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import java.io.InputStream;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
@@ -19,21 +17,12 @@ import org.cytoscape.model.NetworkTestSupport;
 // @RunWith(Parametrized.class)
 public class SBMLReaderTaskTest {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTaskTest.class);
+	public static final String TEST_MODEL = TestUtils.BIOMODELS_RESOURCE_PATH + "/" + "BIOMD0000000001.xml"; 
 	
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test 
 	/* Test if test model can be read with JSBML. */
+	@Test 
 	public void testModelLoading(){
-		String resource = "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml";
-		
-		InputStream instream = getClass().getResourceAsStream(resource);
+		InputStream instream = getClass().getResourceAsStream(TEST_MODEL);
 		try {
 			String xml = SBMLReaderTask.readString(instream);
 			SBMLDocument document = JSBML.readSBMLFromString(xml);
@@ -46,16 +35,15 @@ public class SBMLReaderTaskTest {
 		}
 	}
 	
-	@Test
 	/* Test that networks are created by SBMLReaderTask.run(). */
+	@Test
 	public void testRunTaskMonitor() throws Exception {
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		@SuppressWarnings("unused")
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
 		
 		// read SBML	
-		String resource = "/models/BioModels-r29_sbml_curated/BIOMD0000000001.xml";
-		CyNetwork[] networks = TestUtils.readNetwork(resource);
+		CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL);
 		assertNotNull(networks);
 		assertTrue(networks.length == 2);
 		
@@ -65,13 +53,6 @@ public class SBMLReaderTaskTest {
 		assertEquals(148, network.getEdgeCount());
 		// attribute table
 		// nts.getNetworkTableManager().getTable(network, type, namespace)
-	}
-
-	@Test
-	/* Test if network attributes have been read correctly. */
-	public void testCoreNetworkAttributes(){
-		// TODO
-		
 	}
 	
 }
