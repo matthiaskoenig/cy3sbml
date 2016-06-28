@@ -10,13 +10,13 @@
 		<osgi.api.version>4.2.0</osgi.api.version>	 
 		<org.osgi.framework.system.packages.extra>javax.xml.namespace</org.osgi.framework.system.packages.extra>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cytoscape.api.version>3.2.1</cytoscape.api.version>
+		<cytoscape.api.version>3.4.0</cytoscape.api.version>
 	</properties>
 
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.1.9</version>
+	<version>0.2.0</version>
 	<name>cy3sbml</name>
 	<description>A Cytoscape app for SBML.</description>
 

@@ -71,6 +71,9 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.2.0** [?]
+* depending now on Cytoscape > 3.4
+
 **v0.1.9** [2016/06/28]
 * updated test models to BiGG v1.2
 * updated test BioModels to release 30
