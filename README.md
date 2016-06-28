@@ -71,7 +71,13 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
-**v0.1.9** [?]
+**v0.1.9** [2016/06/28]
+* updated test models to BiGG v1.2
+* updated test BioModels to release 30
+* improved unit tests against test models
+* bug fixes related to new test models, SBOTerms, LocalParameters & annotations
+* additional support for cy3sabiork
+* updated JSBML dependencies and pom files
 
 **v0.1.8** [2016/06/07]
 * visualStyles for new and reopened sessions
