@@ -71,6 +71,8 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.2.1** [?]
+
 **v0.2.0** [2016/07/01]
 * bug fixes
 
