@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Osmorc" name="OSGi">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="cy3sbml-0.2.1.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="org.cy3sbml.CyActivator" bundleSymbolicName="cy3sbml" bundleVersion="0.2.1" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+        <additionalProperties>
+          <property key="Bundle-Description" value="A Cytoscape app for SBML." />
+          <property key="Export-Package" value="org.cy3sbml.*;version=&quot;0.2.1&quot;" />
+          <property key="Private-Package" value="org.cy3sbml.*" />
+          <property key="Embed-Dependency" value="*;scope=!provided|test;groupId=!org.cytoscape" />
+          <property key="Embed-Transitive" value="true" />
+          <property key="Import-Package" value="javax.xml.namespace, *;resolution:=optional" />
+          <property key="Bundle-Name" value="cy3sbml" />
+          <property key="Bundle-ClassPath" value=".,biomodels-wslib-1.21.jar,miriam-lib-1.1.6.jar,jsbml-layout-1.0-b1.jar,jsbml-tidy-1.2.1.jar,axis-1.4.jar,jmxtools-1.2.1.jar,jsbml-qual-2.1-b1.jar,staxmate-2.3.0.jar,axis-wsdl4j-1.5.1.jar,axis-jaxrpc-1.4.jar,commons-lang3-3.4.jar,ehcache-2.10.0.jar,spi-0.2.4.jar,jms-1.1.jar,slf4j-api-1.7.12.jar,junit-4.12.jar,xpp3_min-1.1.4c.jar,woodstox-core-5.0.1.jar,jsbml-distrib-0.5.jar,jigsaw-2.2.6.jar,biojava-ontology-4.0.0.jar,log4j-1.2.15.jar,velocity-1.7.jar,jmxri-1.2.1.jar,jsbml-groups-0.4-b1.jar,commons-lang-2.4.jar,commons-logging-1.0.4.jar,commons-collections-3.2.1.jar,jsbml-1.2-SNAPSHOT.jar,stax2-api-3.1.4.jar,commons-io-2.4.jar,axis-saaj-1.4.jar,hamcrest-core-1.3.jar,slf4j-log4j12-1.7.12.jar,xstream-1.3.1.jar,jsbml-fbc-1.0-b1.jar,jsbml-comp-1.0-b1.jar,jtidy-r938.jar,commons-discovery-0.2.jar,activation-1.1.jar,mail-1.4.jar" />
+          <property key="Include-Resource" value="biomodels-wslib-1.21.jar=$MAVEN_REPOSITORY$/uk/ac/ebi/biomodels/biomodels-wslib/1.21/biomodels-wslib-1.21.jar,miriam-lib-1.1.6.jar=$MAVEN_REPOSITORY$/uk/ac/ebi/miriam/miriam-lib/1.1.6/miriam-lib-1.1.6.jar,jsbml-layout-1.0-b1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar,jsbml-tidy-1.2.1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar,axis-1.4.jar=$MAVEN_REPOSITORY$/axis/axis/1.4/axis-1.4.jar,jmxtools-1.2.1.jar=$MAVEN_REPOSITORY$/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar,jsbml-qual-2.1-b1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar,staxmate-2.3.0.jar=$MAVEN_REPOSITORY$/com/fasterxml/staxmate/staxmate/2.3.0/staxmate-2.3.0.jar,axis-wsdl4j-1.5.1.jar=$MAVEN_REPOSITORY$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1.jar,axis-jaxrpc-1.4.jar=$MAVEN_REPOSITORY$/org/apache/axis/axis-jaxrpc/1.4/axis-jaxrpc-1.4.jar,commons-lang3-3.4.jar=$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar,ehcache-2.10.0.jar=$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache/2.10.0/ehcache-2.10.0.jar,spi-0.2.4.jar=$MAVEN_REPOSITORY$/org/mangosdk/spi/spi/0.2.4/spi-0.2.4.jar,jms-1.1.jar=$MAVEN_REPOSITORY$/javax/jms/jms/1.1/jms-1.1.jar,slf4j-api-1.7.12.jar=$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar,junit-4.12.jar=$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar,xpp3_min-1.1.4c.jar=$MAVEN_REPOSITORY$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar,woodstox-core-5.0.1.jar=$MAVEN_REPOSITORY$/com/fasterxml/woodstox/woodstox-core/5.0.1/woodstox-core-5.0.1.jar,jsbml-distrib-0.5.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar,jigsaw-2.2.6.jar=$MAVEN_REPOSITORY$/org/w3c/jigsaw/jigsaw/2.2.6/jigsaw-2.2.6.jar,biojava-ontology-4.0.0.jar=$MAVEN_REPOSITORY$/org/biojava/biojava-ontology/4.0.0/biojava-ontology-4.0.0.jar,log4j-1.2.15.jar=$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15.jar,velocity-1.7.jar=$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7.jar,jmxri-1.2.1.jar=$MAVEN_REPOSITORY$/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar,jsbml-groups-0.4-b1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar,commons-lang-2.4.jar=$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4.jar,commons-logging-1.0.4.jar=$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar,commons-collections-3.2.1.jar=$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar,jsbml-1.2-SNAPSHOT.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar,stax2-api-3.1.4.jar=$MAVEN_REPOSITORY$/org/codehaus/woodstox/stax2-api/3.1.4/stax2-api-3.1.4.jar,commons-io-2.4.jar=$MAVEN_REPOSITORY$/commons-io/commons-io/2.4/commons-io-2.4.jar,axis-saaj-1.4.jar=$MAVEN_REPOSITORY$/org/apache/axis/axis-saaj/1.4/axis-saaj-1.4.jar,hamcrest-core-1.3.jar=$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar,slf4j-log4j12-1.7.12.jar=$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.7.12/slf4j-log4j12-1.7.12.jar,xstream-1.3.1.jar=$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar,jsbml-fbc-1.0-b1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar,jsbml-comp-1.0-b1.jar=$MAVEN_REPOSITORY$/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar,jtidy-r938.jar=$MAVEN_REPOSITORY$/net/sf/jtidy/jtidy/r938/jtidy-r938.jar,commons-discovery-0.2.jar=$MAVEN_REPOSITORY$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar,activation-1.1.jar=$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar,mail-1.4.jar=$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4.jar" />
+          <property key="Embedded-Artifacts" value="biomodels-wslib-1.21.jar;g=&quot;uk.ac.ebi.biomodels&quot;;a=&quot;biomodels-wslib&quot;;v=&quot;1.21&quot;,miriam-lib-1.1.6.jar;g=&quot;uk.ac.ebi.miriam&quot;;a=&quot;miriam-lib&quot;;v=&quot;1.1.6&quot;,jsbml-layout-1.0-b1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-layout&quot;;v=&quot;1.0-b1&quot;,jsbml-tidy-1.2.1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-tidy&quot;;v=&quot;1.2.1&quot;,axis-1.4.jar;g=&quot;axis&quot;;a=&quot;axis&quot;;v=&quot;1.4&quot;,jmxtools-1.2.1.jar;g=&quot;com.sun.jdmk&quot;;a=&quot;jmxtools&quot;;v=&quot;1.2.1&quot;,jsbml-qual-2.1-b1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-qual&quot;;v=&quot;2.1-b1&quot;,staxmate-2.3.0.jar;g=&quot;com.fasterxml.staxmate&quot;;a=&quot;staxmate&quot;;v=&quot;2.3.0&quot;,axis-wsdl4j-1.5.1.jar;g=&quot;axis&quot;;a=&quot;axis-wsdl4j&quot;;v=&quot;1.5.1&quot;,axis-jaxrpc-1.4.jar;g=&quot;org.apache.axis&quot;;a=&quot;axis-jaxrpc&quot;;v=&quot;1.4&quot;,commons-lang3-3.4.jar;g=&quot;org.apache.commons&quot;;a=&quot;commons-lang3&quot;;v=&quot;3.4&quot;,ehcache-2.10.0.jar;g=&quot;net.sf.ehcache&quot;;a=&quot;ehcache&quot;;v=&quot;2.10.0&quot;,spi-0.2.4.jar;g=&quot;org.mangosdk.spi&quot;;a=&quot;spi&quot;;v=&quot;0.2.4&quot;,jms-1.1.jar;g=&quot;javax.jms&quot;;a=&quot;jms&quot;;v=&quot;1.1&quot;,slf4j-api-1.7.12.jar;g=&quot;org.slf4j&quot;;a=&quot;slf4j-api&quot;;v=&quot;1.7.12&quot;,junit-4.12.jar;g=&quot;junit&quot;;a=&quot;junit&quot;;v=&quot;4.12&quot;,xpp3_min-1.1.4c.jar;g=&quot;xpp3&quot;;a=&quot;xpp3_min&quot;;v=&quot;1.1.4c&quot;,woodstox-core-5.0.1.jar;g=&quot;com.fasterxml.woodstox&quot;;a=&quot;woodstox-core&quot;;v=&quot;5.0.1&quot;,jsbml-distrib-0.5.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-distrib&quot;;v=&quot;0.5&quot;,jigsaw-2.2.6.jar;g=&quot;org.w3c.jigsaw&quot;;a=&quot;jigsaw&quot;;v=&quot;2.2.6&quot;,biojava-ontology-4.0.0.jar;g=&quot;org.biojava&quot;;a=&quot;biojava-ontology&quot;;v=&quot;4.0.0&quot;,log4j-1.2.15.jar;g=&quot;log4j&quot;;a=&quot;log4j&quot;;v=&quot;1.2.15&quot;,velocity-1.7.jar;g=&quot;org.apache.velocity&quot;;a=&quot;velocity&quot;;v=&quot;1.7&quot;,jmxri-1.2.1.jar;g=&quot;com.sun.jmx&quot;;a=&quot;jmxri&quot;;v=&quot;1.2.1&quot;,jsbml-groups-0.4-b1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-groups&quot;;v=&quot;0.4-b1&quot;,commons-lang-2.4.jar;g=&quot;commons-lang&quot;;a=&quot;commons-lang&quot;;v=&quot;2.4&quot;,commons-logging-1.0.4.jar;g=&quot;commons-logging&quot;;a=&quot;commons-logging&quot;;v=&quot;1.0.4&quot;,commons-collections-3.2.1.jar;g=&quot;commons-collections&quot;;a=&quot;commons-collections&quot;;v=&quot;3.2.1&quot;,jsbml-1.2-SNAPSHOT.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml&quot;;v=&quot;1.2-SNAPSHOT&quot;,stax2-api-3.1.4.jar;g=&quot;org.codehaus.woodstox&quot;;a=&quot;stax2-api&quot;;v=&quot;3.1.4&quot;,commons-io-2.4.jar;g=&quot;commons-io&quot;;a=&quot;commons-io&quot;;v=&quot;2.4&quot;,axis-saaj-1.4.jar;g=&quot;org.apache.axis&quot;;a=&quot;axis-saaj&quot;;v=&quot;1.4&quot;,hamcrest-core-1.3.jar;g=&quot;org.hamcrest&quot;;a=&quot;hamcrest-core&quot;;v=&quot;1.3&quot;,slf4j-log4j12-1.7.12.jar;g=&quot;org.slf4j&quot;;a=&quot;slf4j-log4j12&quot;;v=&quot;1.7.12&quot;,xstream-1.3.1.jar;g=&quot;com.thoughtworks.xstream&quot;;a=&quot;xstream&quot;;v=&quot;1.3.1&quot;,jsbml-fbc-1.0-b1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-fbc&quot;;v=&quot;1.0-b1&quot;,jsbml-comp-1.0-b1.jar;g=&quot;cy3sbml-dep&quot;;a=&quot;jsbml-comp&quot;;v=&quot;1.0-b1&quot;,jtidy-r938.jar;g=&quot;net.sf.jtidy&quot;;a=&quot;jtidy&quot;;v=&quot;r938&quot;,commons-discovery-0.2.jar;g=&quot;commons-discovery&quot;;a=&quot;commons-discovery&quot;;v=&quot;0.2&quot;,activation-1.1.jar;g=&quot;javax.activation&quot;;a=&quot;activation&quot;;v=&quot;1.1&quot;,mail-1.4.jar;g=&quot;javax.mail&quot;;a=&quot;mail&quot;;v=&quot;1.4&quot;" />
+        </additionalProperties>
+        <additionalJARContents />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:model-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:event-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:swing-application-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:application-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:swing-util-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:viewmodel-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:io-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:presentation-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:filter-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:work-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:work-swing-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:service-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:session-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:vizmap-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:core-task-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:layout-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:property-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.osgi:org.osgi.core:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.velocity:velocity:1.7" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
+    <orderEntry type="library" name="Maven: uk.ac.ebi.miriam:miriam-lib:1.1.6" level="project" />
+    <orderEntry type="library" name="Maven: axis:axis:1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.axis:axis-jaxrpc:1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.axis:axis-saaj:1.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: axis:axis-wsdl4j:1.5.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: commons-logging:commons-logging:1.0.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: commons-discovery:commons-discovery:0.2" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: javax.jms:jms:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jdmk:jmxtools:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jmx:jmxri:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
+    <orderEntry type="library" name="Maven: uk.ac.ebi.biomodels:biomodels-wslib:1.21" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.12" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.12" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml:1.2-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-qual:2.1-b1" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-layout:1.0-b1" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-comp:1.0-b1" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-fbc:1.0-b1" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-groups:0.4-b1" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-distrib:0.5" level="project" />
+    <orderEntry type="library" name="Maven: cy3sbml-dep:jsbml-tidy:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.biojava:biojava-ontology:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.woodstox:woodstox-core:5.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.w3c.jigsaw:jigsaw:2.2.6" level="project" />
+    <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.staxmate:staxmate:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.mangosdk.spi:spi:0.2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jtidy:jtidy:r938" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.woodstox:stax2-api:3.1.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.10.19" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:event-api:test-jar:tests:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:model-impl:test-jar:tests:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:equations-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:equations-impl:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.google.guava:guava:r09" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:parallelcolt:0.9.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:model-impl:3.4.0" level="project" />
+  </component>
+</module>

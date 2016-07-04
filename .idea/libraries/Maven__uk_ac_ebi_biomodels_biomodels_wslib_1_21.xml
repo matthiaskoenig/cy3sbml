@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: uk.ac.ebi.biomodels:biomodels-wslib:1.21">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/uk/ac/ebi/biomodels/biomodels-wslib/1.21/biomodels-wslib-1.21.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/uk/ac/ebi/biomodels/biomodels-wslib/1.21/biomodels-wslib-1.21-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/uk/ac/ebi/biomodels/biomodels-wslib/1.21/biomodels-wslib-1.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
