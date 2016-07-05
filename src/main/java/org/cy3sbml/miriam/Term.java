@@ -21,9 +21,19 @@ public class Term {
 
     public String toString(){
         String info = getClass().toString() + "<" + iri + ">";
-        info += "\n" + label;
-        info += "\n" + description;
-        info += "\n" + synonyms;
+        info += "\n" + label + "\n";
+        for (String d: description){
+            info += d + "; ";
+        }
+        info += "\n";
+        if (synonyms != null) {
+            for (String s : synonyms) {
+                info += s + "; ";
+            }
+        } else {
+            info += synonyms;
+        }
+        info += "\n";
         return info;
     }
 }

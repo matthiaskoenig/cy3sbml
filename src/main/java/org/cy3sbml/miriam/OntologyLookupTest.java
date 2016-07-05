@@ -136,8 +136,15 @@ public class OntologyLookupTest {
                 "http://identifiers.org/biomodels.sbo/SBO:0000247",
                 // http://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_25858
                 "http://identifiers.org/chebi/CHEBI:25858",
-                "http://identifiers.org/kegg.compound/C13747"
+                "http://identifiers.org/kegg.compound/C13747",
+                "http://identifiers.org/efo/0000589"
         };
+
+
+        // TODO: get the physical location of OLS via MIRIAM, i.e. there should be a a resource through OLS
+        // Parse the resourses, which are primary resources and use them for the lookup of the term
+        // http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?obo_id=EFO:0004859
+
         for (String r : resources){
             Term term = getTermFromResource(r);
             System.out.println(term);
