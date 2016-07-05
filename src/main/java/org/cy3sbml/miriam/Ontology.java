@@ -14,4 +14,8 @@ public class Ontology {
         this.loaded = loaded;
         this.updated = updated;
     }
+
+    public String toString(){
+        return getClass().toString() + "<" + ontologyId + ">";
+    }
 }

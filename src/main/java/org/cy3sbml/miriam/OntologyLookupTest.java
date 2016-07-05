@@ -23,30 +23,15 @@ import java.util.Map;
  * Use UniRest for REST queries.
  */
 public class OntologyLookupTest {
+    public static final String OLS_PURL_PREFIX = "http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F";
     private static final Map<String, String> ONTOLOGY_MAP;
 
     static {
         Map<String, String> map = new HashMap<String, String>();
         map.put("biomodels.sbo", "sbo");
-        map.put("Substrate", "Compound");
-        map.put("Product", "Compound");
-        map.put("Inhibitor", "Compound");
-        map.put("Catalyst", "Compound");
-        map.put("Cofactor", "Compound");
-        map.put("Activator", "Compound");
-        map.put("OtherModifier", "Compound");
-        map.put("AnyRole", "Compound");
-        map.put("Enzymename", "Enzyme");
-        map.put("PubMedID", "PubmedID");
-        map.put("KeggCompoundID", "KEGGCompoundID");
-        map.put("KeggReactionID", "KEGGReactionID");
-        map.put("SabioCompoundID", "SABIOCompoundID");
-        map.put("SabioReactionID", "SABIOReactionID");
-        map.put("ChebiID", "CHEBICompoundID");
-        map.put("PubChemID", "PUBCHEMCompoundID");
+
         ONTOLOGY_MAP = Collections.unmodifiableMap(map);
     }
-
 
     /**
      * Create client and perform query.
@@ -76,11 +61,56 @@ public class OntologyLookupTest {
     }
 
     /**
-     * Get all available ontologies from OLS.
-     * Uses the ontology mapping.
+     * Get available ontologies from OLS.
      */
-    public static HashMap<String, Ontology> getOntologies(){
+    public static Map<String, Ontology> getOntologies(){
+        Map<String, Ontology> map = new HashMap<>();
+        // set a high size parameter, so all ontologies are returned within one query.
+        JSONObject jsonObject = olsQuery("http://www.ebi.ac.uk/ols/api/ontologies?size=500");
+        JSONArray ontologies = jsonObject.getJSONObject("_embedded").getJSONArray("ontologies");
 
+        Gson g = new Gson();
+        for (int i=0; i<ontologies.length(); i++){
+            JSONObject jsonOntology = ontologies.getJSONObject(i);
+            Ontology ontology = g.fromJson(jsonOntology.toString(), Ontology.class);
+            String key = ontology.ontologyId;
+            map.put(key, ontology);
+
+            // Use the replacements for storing. Required for ontologies stored
+            // under different keys in MIRIAM and OLS.
+            // FIXME: this is lazy lookup
+            for (String oid: ONTOLOGY_MAP.keySet()){
+                String value = ONTOLOGY_MAP.get(oid);
+                if (value.equals(key)){
+                    map.put(oid, ontology);
+                }
+            }
+        }
+        return map;
+    }
+
+    public static Term getTermFromResource(String resource){
+        Term term = null;
+
+        // parse the resource String, i.e. from MIRIAM to OLS
+        String[] tokens = resource.split("/");
+        String entry = tokens[tokens.length-1];
+        if (entry.contains(":")){
+            String[] parts = entry.split(":");
+            String ontology = parts[0].toLowerCase();
+            String termId = entry.replace(":", "_");
+
+            // finally request the term
+            String query = "http://www.ebi.ac.uk/ols/api/ontologies/" + ontology + "/terms/" + OLS_PURL_PREFIX + termId;
+            System.out.println(query);
+            JSONObject jsonObject = olsQuery(query);
+            Gson g = new Gson();
+            term = g.fromJson(jsonObject.toString(), Term.class);
+
+        } else {
+            System.out.println("Resource is not an ontology: " + resource);
+        }
+        return term;
     }
 
 
@@ -95,18 +125,25 @@ public class OntologyLookupTest {
      *      <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C13747" />
      */
     public static void main(String[] args){
-        JSONObject jsonNode = olsQuery("http://www.ebi.ac.uk/ols/api/ontologies?size=500");
+        Map<String, Ontology> map = getOntologies();
+        for (String key: map.keySet()){
+            System.out.println(key + ":" + map.get(key));
+        }
 
-        JSONArray ontologies = jsonResponse.getJSONObject("_embedded").getJSONArray("ontologies");
-
-        Gson g = new Gson();
-        for (int i=0; i<ontologies.length(); i++){
-            JSONObject jsonOntology = ontologies.getJSONObject(i);
-            Ontology ontology = g.fromJson(jsonOntology.toString(), Ontology.class);
-            System.out.println(" --> " + ontology.ontologyId + "\t" + ontology.loaded);
-
+        // Get the resources
+        String[] resources = {
+                // http://www.ebi.ac.uk/ols/api/ontologies/sbo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FSBO_0000247
+                "http://identifiers.org/biomodels.sbo/SBO:0000247",
+                // http://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_25858
+                "http://identifiers.org/chebi/CHEBI:25858",
+                "http://identifiers.org/kegg.compound/C13747"
+        };
+        for (String r : resources){
+            Term term = getTermFromResource(r);
+            System.out.println(term);
 
         }
+
 
     }
 }
