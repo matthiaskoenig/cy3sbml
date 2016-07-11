@@ -73,6 +73,8 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.2.2** [?]
+
 **v0.2.1** [2016/07/11]
 
 * bug fixes (autofocus)

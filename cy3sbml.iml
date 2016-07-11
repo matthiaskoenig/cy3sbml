@@ -2,10 +2,10 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Osmorc" name="OSGi">
-      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="cy3sbml-0.2.1.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="org.cy3sbml.CyActivator" bundleSymbolicName="cy3sbml" bundleVersion="0.2.1" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="cy3sbml-0.2.2.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="org.cy3sbml.CyActivator" bundleSymbolicName="cy3sbml" bundleVersion="0.2.2" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
           <property key="Bundle-Description" value="A Cytoscape app for SBML." />
-          <property key="Export-Package" value="org.cy3sbml.*;version=&quot;0.2.1&quot;" />
+          <property key="Export-Package" value="org.cy3sbml.*;version=&quot;0.2.2&quot;" />
           <property key="Private-Package" value="org.cy3sbml.*" />
           <property key="Embed-Dependency" value="*;scope=!provided|test;groupId=!org.cytoscape" />
           <property key="Embed-Transitive" value="true" />
