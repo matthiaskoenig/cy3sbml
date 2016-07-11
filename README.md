@@ -7,10 +7,10 @@
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
 
-[![Download](docs/images/icon-download.png) Download](https://github.com/matthiaskoenig/cy3sbml/releases/latest)  
-**App store** : http://apps.cytoscape.org/apps/cy3sbml
-**Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
-**Bug Tracker** : https://github.com/matthiaskoenig/cy3sbml/issues  
+**App store**: http://apps.cytoscape.org/apps/cy3sbml
+**Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest
+**Support & Forum**: https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
+**Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ## Features
 **cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
