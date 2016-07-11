@@ -14,8 +14,11 @@ import org.sbml.jsbml.UnitDefinition;
 public class TestInvalidUnit {
 	
 	public static void main(String[] args) throws XMLStreamException, IOException{
-		String path = "/home/mkoenig/git/cy3sbml/src/test/resources/models/BioModels-r29_sbml_curated/BIOMD0000000002.xml";
-		
+		System.setProperty("logfile.name","/tmp/test.log");
+
+		String path = "/home/mkoenig/git/cy3sbml/src/test/resources/models/BioModels-r30_curated/BIOMD0000000002.xml";
+		System.out.println("Hello world");
+
 		// from file okay
 		SBMLDocument doc = JSBML.readSBMLFromFile(path);
 		Model model = doc.getModel();
