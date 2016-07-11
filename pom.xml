@@ -16,7 +16,7 @@
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	<name>cy3sbml</name>
 	<description>A Cytoscape app for SBML.</description>
 
@@ -251,7 +251,41 @@
 			      </exclusion>
 		    </exclusions> 
     	</dependency>
-    	
+
+		<!--  UniRest -->
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.3.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.7</version>
+        </dependency>
+
     	<!-- Logging -->		 
 		<dependency>
 			<groupId>org.slf4j</groupId>

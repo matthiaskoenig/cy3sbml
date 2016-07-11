@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.io.IOUtils;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -60,6 +64,23 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 	private CytoPanel cytoPanelEast;
 	private ServiceAdapter adapter;
 	private JEditorPaneSBML textPane;
+
+	private static final Map<String, String> EXAMPLE_SBML;
+	static {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("http://cy3sbml-glucose", "/models/Koenig2014_Glucose_Metabolism.xml");
+		map.put("http://cy3sbml-galactose", "/models/Galactose_v129_Nc1_core.xml");
+		map.put("http://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
+		map.put("http://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
+		map.put("http://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");
+		map.put("http://cy3sbml-iIT341", "/models/iIT341.xml");
+		map.put("http://cy3sbml-RECON1", "/models/RECON1.xml");
+		map.put("http://cy3sbml-BIOMD0000000016", "/models/BIOMD0000000016.xml");
+		map.put("http://cy3sbml-BIOMD0000000084", "/models/BIOMD0000000084.xml");
+		map.put("http://cy3sbml-hsa04360", "/models/hsa04360.xml");
+		EXAMPLE_SBML = Collections.unmodifiableMap(map);
+	}
+
 
 	/** Singleton. */
 	public static synchronized ResultsPanel getInstance(ServiceAdapter adapter){
@@ -198,31 +219,12 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 					ExamplesAction examplesAction = new ExamplesAction(adapter.cySwingApplication);
 					examplesAction.actionPerformed(null);
 				}
-				
 				// Example networks
-				else if (s.equals("http://cy3sbml-glucose")){
-					loadExampleFromResource("/models/Koenig2014_Glucose_Metabolism.xml");
-				}else if (s.equals("http://cy3sbml-galactose")){
-					loadExampleFromResource("/models/Galactose_v129_Nc1_core.xml");
-				}else if (s.equals("http://cy3sbml-HepatoNet1")){
-					loadExampleFromResource("/models/HepatoNet1.xml");
-				}else if (s.equals("http://cy3sbml-e_coli_core")){
-					loadExampleFromResource("/models/e_coli_core.xml");
-				}else if (s.equals("http://cy3sbml-iAB_RBC_283")){
-					loadExampleFromResource("/models/iAB_RBC_283.xml");
-				}else if (s.equals("http://cy3sbml-iIT341")){
-					loadExampleFromResource("/models/iIT341.xml");
-				}else if (s.equals("http://cy3sbml-RECON1")){
-					loadExampleFromResource("/models/RECON1.xml");
-				}else if (s.equals("http://cy3sbml-BIOMD0000000016")){
-					loadExampleFromResource("/models/BIOMD0000000016.xml");
-				}else if (s.equals("http://cy3sbml-BIOMD0000000084")){
-					loadExampleFromResource("/models/BIOMD0000000084.xml");
-				}else if (s.equals("http://cy3sbml-hsa04360")){
-					loadExampleFromResource("/models/hsa04360.xml");
+				else if (EXAMPLE_SBML.containsKey(s)){
+					String resource = EXAMPLE_SBML.get(s);
+					loadExampleFromResource(resource);
 				}
-				
-				// SBML Document
+				// SBML file
 				else if (s.equals("http://sbml-file")){
 					SBMLManager sbmlManager = SBMLManager.getInstance();
 					SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
@@ -250,9 +252,16 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			}
 		}
 	}
-	
+
+	/**
+	 * Loads an SBML example file from the given resource.
+	 * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
+	 *
+	 * TODO: make this a general function.
+	 *
+	 * @param resource
+     */
 	private void loadExampleFromResource(String resource){
-		// load the example network
 		InputStream instream = getClass().getResourceAsStream(resource);
 		File tempFile;
 		try {
@@ -297,9 +306,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		updateInformation();
 	}
 	
-	/*
-	 * Updates information within a separate thread.
-	 */
+	/** Update information within a separate thread. */
 	public void updateInformation(){
 		logger.debug("updateInformation()");
 		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
@@ -310,7 +317,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			return;
 		}
 		// Update the information in separate thread
-		select();
 		try {
 			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
 			Thread t = new Thread(updater);
