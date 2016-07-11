@@ -9,6 +9,8 @@ branches:
   only:
     - develop
 
+script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
+
 after_success:
   - mvn clean
 
