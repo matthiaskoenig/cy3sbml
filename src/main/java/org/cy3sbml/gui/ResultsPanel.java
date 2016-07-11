@@ -310,7 +310,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 			return;
 		}
 		// Update the information in separate thread
-		select();
+		//select();
 		try {
 			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
 			Thread t = new Thread(updater);
