@@ -4,10 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/OntologyLookupTest.java" line="156" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19477117-41f2-4e92-a8df-b9b1620c3fd2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-    </list>
+    <list default="true" id="19477117-41f2-4e92-a8df-b9b1620c3fd2" name="Default" comment="" />
     <ignored path="cy3sbml.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -709,12 +706,12 @@
       <workItem from="1467634908949" duration="1840000" />
       <workItem from="1467724465631" duration="10945000" />
       <workItem from="1467972503626" duration="1285000" />
-      <workItem from="1468228299308" duration="2824000" />
+      <workItem from="1468228299308" duration="3047000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17524000" />
+    <option name="totallyTimeSpent" value="17747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="568" y="24" width="1352" height="1200" extended-state="0" />
