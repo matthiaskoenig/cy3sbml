@@ -17,7 +17,7 @@ public class TestInvalidUnit {
 		System.setProperty("logfile.name","/tmp/test.log");
 
 		String path = "/home/mkoenig/git/cy3sbml/src/test/resources/models/BioModels-r30_curated/BIOMD0000000002.xml";
-		System.out.println("Hello world");
+		System.out.println("<--------------------->");
 
 		// from file okay
 		SBMLDocument doc = JSBML.readSBMLFromFile(path);
@@ -28,6 +28,8 @@ public class TestInvalidUnit {
 				UnitDefinition ud = law.getDerivedUnitDefinition();
 			}
 		}
+
+        System.out.println("<--------------------->");
 	}
 	
 }

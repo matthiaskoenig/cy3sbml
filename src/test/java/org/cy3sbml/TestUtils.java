@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,9 +15,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 import org.slf4j.Logger;
@@ -156,6 +155,12 @@ public class TestUtils {
 	
 	/**
 	 * Perform the network test for a given SBML resource.
+	 *
+	 * There is a memory leak in the network creation, probably the following issue
+	 * 	http://code.cytoscape.org/redmine/issues/3507
+     *
+     * See also:
+	 * This aborts the travis build.
 	 */
 	public static void testNetwork(String testType, String resource){
 		logger.info("--------------------------------------------------------");
@@ -175,22 +180,36 @@ public class TestUtils {
 	
 		CyNetwork[] networks;
 		try {
-			// Reader can be tested without service adapter, 
+			// Reader can be tested without service adapter
+			// calls networkFactory.createNetwork()
 			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());
-			// CyNetworkTableManager cyNetworkTableManager = nts.getNetworkTableManager();
-			
-			
+
+            for (CyNetwork network: networks){
+                network.dispose();
+            }
+
+			/*
+			CyNetworkManager cyNetworkManager = nts.getNetworkManager();
+			for (CyNetwork network: networks) {
+				cyNetworkManager.destroyNetwork(network);
+			}
+			*/
 		} catch (Throwable t){
 			networks = null;
 			t.printStackTrace();
 		}
+		try {
+			instream.close();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+
 		// Networks could be read
 		assertNotNull(networks);
 		assertTrue(networks.length >= 1);
-		
 	}
 	
 }

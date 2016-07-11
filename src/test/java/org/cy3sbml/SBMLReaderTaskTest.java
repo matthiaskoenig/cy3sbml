@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.InputStream;
 
+import org.cytoscape.model.CyNetworkManager;
 import org.junit.Test;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
@@ -53,6 +54,10 @@ public class SBMLReaderTaskTest {
 		assertEquals(148, network.getEdgeCount());
 		// attribute table
 		// nts.getNetworkTableManager().getTable(network, type, namespace)
+
+		// remove the networks
+		CyNetworkManager cyNetworkManager = nts.getNetworkManager();
+		cyNetworkManager.reset();
 	}
 	
 }
