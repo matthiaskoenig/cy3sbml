@@ -5,58 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19477117-41f2-4e92-a8df-b9b1620c3fd2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/1.0-b1/jsbml-comp-1.0-b1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-comp/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/0.5/jsbml-distrib-0.5.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-distrib/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/1.0-b1/jsbml-fbc-1.0-b1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-fbc/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/0.4-b1/jsbml-groups-0.4-b1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-groups/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/1.0-b1/jsbml-layout-1.0-b1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-layout/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/2.1-b1/jsbml-qual-2.1-b1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-qual/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/1.2.1/jsbml-tidy-1.2.1.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml-tidy/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/jsbml-1.2-SNAPSHOT.jar.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/1.2-SNAPSHOT/maven-metadata-local.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml.md5" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml.md5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml.sha1" afterPath="$PROJECT_DIR$/lib/cy3sbml-dep/jsbml/maven-metadata-local.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/cy3sbml/gui/ResultsPanel.java" afterPath="$PROJECT_DIR$/src/main/java/org/cy3sbml/gui/ResultsPanel.java" />
     </list>
     <ignored path="cy3sbml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,105 +29,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5058">
-              <caret line="281" column="17" selection-start-line="281" selection-start-column="17" selection-end-line="281" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestUniRest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestUniRest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JsonNode.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/mashape/unirest/unirest-java/1.4.9/unirest-java-1.4.9-sources.jar!/com/mashape/unirest/http/JsonNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#2223#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#1980#1981#0" expanded="false" />
-                <element signature="e#2004#2005#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestMaxElementDepth.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestMaxElementDepth.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Ontology.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Ontology.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="19" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestInvalidUnit.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestInvalidUnit.java">
+      <file leaf-file-name="ResultsPanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/gui/ResultsPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OntologyLookupTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/OntologyLookupTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="118" column="6" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
+              <caret line="200" column="54" selection-start-line="200" selection-start-column="54" selection-end-line="200" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#10563#10564#0" expanded="true" />
+                <element signature="e#10588#10589#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Term.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Term.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Gson.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.7/gson-2.7.jar!/com/google/gson/Gson.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7380">
-              <caret line="471" column="17" selection-start-line="471" selection-start-column="17" selection-end-line="471" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -209,6 +70,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Ontology.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Term.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/OntologyLookupTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/gui/ResultsPanel.java" />
       </list>
     </option>
   </component>
@@ -234,9 +96,9 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1919" />
+    <option name="x" value="1920" />
     <option name="width" value="1920" />
-    <option name="height" value="1228" />
+    <option name="height" value="1200" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -263,7 +125,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -313,10 +175,6 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -370,44 +228,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="oven" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cy3sbml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cy3sbml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cy3sbml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="miriam" />
+              <option name="myItemId" value="gui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -893,27 +721,28 @@
       <workItem from="1467634908949" duration="1840000" />
       <workItem from="1467724465631" duration="10945000" />
       <workItem from="1467972503626" duration="1285000" />
+      <workItem from="1468228299308" duration="1470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14700000" />
+    <option name="totallyTimeSpent" value="16170000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1919" y="0" width="1920" height="1228" extended-state="7" />
+    <frame x="1920" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32789856" sideWeight="0.43649948" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32744187" sideWeight="0.43649948" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18676628" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19583778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19551282" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -960,10 +789,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestUniRest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -972,12 +801,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#2223#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#1980#1981#0" expanded="false" />
-            <element signature="e#2004#2005#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -985,9 +809,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1003,9 +825,83 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/OntologyLookupTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1926">
+          <caret line="118" column="6" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Term.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.7/gson-2.7.jar!/com/google/gson/Gson.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7380">
+          <caret line="471" column="17" selection-start-line="471" selection-start-column="17" selection-end-line="471" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5058">
+          <caret line="281" column="17" selection-start-line="281" selection-start-column="17" selection-end-line="281" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestUniRest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="954">
+          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/mashape/unirest/unirest-java/1.4.9/unirest-java-1.4.9-sources.jar!/com/mashape/unirest/http/JsonNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestMaxElementDepth.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/Ontology.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="19" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestInvalidUnit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1014,7 +910,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1047,9 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1085,9 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1159,9 +1049,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1169,18 +1057,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#2223#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#1980#1981#0" expanded="false" />
-            <element signature="e#2004#2005#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.7/gson-2.7.jar!/com/google/gson/Gson.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7380">
+        <state relative-caret-position="7452">
           <caret line="471" column="17" selection-start-line="471" selection-start-column="17" selection-end-line="471" selection-end-column="17" />
           <folding />
         </state>
@@ -1190,9 +1073,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1214,20 +1095,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/miriam/OntologyLookupTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
+        <state relative-caret-position="1926">
           <caret line="118" column="6" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/oven/TestUniRest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
+        <state relative-caret-position="726">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cy3sbml/gui/ResultsPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="200" column="54" selection-start-line="200" selection-start-column="54" selection-end-line="200" selection-end-column="54" />
+          <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#10563#10564#0" expanded="true" />
+            <element signature="e#10588#10589#0" expanded="true" />
           </folding>
         </state>
       </provider>
