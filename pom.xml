@@ -67,7 +67,7 @@
 		<repository>
     		<id>in-project</id>
     		<name>In project repository</name>
-    		<url>file://${project.basedir}/lib</url>
+    		<url>file:${project.basedir}/lib</url>
 		</repository>
 		
 		<repository>
