@@ -5,10 +5,9 @@
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
-For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
 
-**App store**: http://apps.cytoscape.org/apps/cy3sbml
-**Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest
+**App store**: http://apps.cytoscape.org/apps/cy3sbml  
+**Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest  
 **Support & Forum**: https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
 **Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
@@ -28,7 +27,7 @@ visualization of SBML network annotations within the network context, direct imp
   the network context (and non-RDF annotations)
 * Tested with SBML.org testcases, Biomodels (release 30) and BiGG models (v1.2)
 
-We are currently porting missing features from the Cytoscape 2 plugin to Cytoscape 3. Documentation of most of the features is available from http://matthiaskoenig.github.io/cy2sbml/
+For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
 
 ## License
 * Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
