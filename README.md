@@ -8,7 +8,7 @@
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
 
 [![Download](docs/images/icon-download.png) Download](https://github.com/matthiaskoenig/cy3sbml/releases/latest)  
-**APP store** : http://apps.cytoscape.org/apps/cy3sbml  
+**App store** : http://apps.cytoscape.org/apps/cy3sbml
 **Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
 **Bug Tracker** : https://github.com/matthiaskoenig/cy3sbml/issues  
 
@@ -26,7 +26,7 @@ visualization of SBML network annotations within the network context, direct imp
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
   the network context (and non-RDF annotations)
-* Tested with SBML.org and Biomodels.org test cases (BioModels_Database-r29)
+* Tested with SBML.org testcases, Biomodels (release 30) and BiGG models (v1.2)
 
 We are currently porting missing features from the Cytoscape 2 plugin to Cytoscape 3. Documentation of most of the features is available from http://matthiaskoenig.github.io/cy2sbml/
 
@@ -74,6 +74,7 @@ git checkout -b develop --track origin/develop
 
 ## Changelog
 **v0.2.1** [2016/07/11]
+
 * bug fixes (autofocus)
 
 **v0.2.0** [2016/07/01]
