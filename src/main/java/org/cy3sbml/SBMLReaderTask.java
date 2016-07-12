@@ -194,7 +194,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				taskMonitor.setProgress(0.5);
 			}
 
-			
 			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
 			if (qualModel != null){
 				readQual(model, qualModel);

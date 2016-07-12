@@ -20,8 +20,6 @@
 # to force the update.
 #
 ########################################################
-
-############################
 CORE_VERSION=1.2-SNAPSHOT
 QUAL_VERSION=2.1-b1
 LAYOUT_VERSION=1.0-b1
@@ -30,15 +28,15 @@ FBC_VERSION=1.0-b1
 GROUPS_VERSION=0.4-b1
 DISTRIB_VERSION=0.5
 TIDY_VERSION=1.2.1
-############################
+########################################################
 
 # JSBML code directory
-: "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code svn directory.}"
+: "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code directory.}"
 
 # lib directory
 LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# update to latest revision
+# update to latest commit
 cd $JSBMLCODE
 git pull 
 
