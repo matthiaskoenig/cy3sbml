@@ -164,8 +164,8 @@ public class TestUtils {
 	 */
 	public static void testNetwork(String testType, String resource){
 		logger.info("--------------------------------------------------------");
-		logger.info(String.format("%s: %s", testType, resource));
-		logger.info("--------------------------------------------------------");
+		logger.info(String.format("%s : %s", testType, resource));
+		// logger.info("--------------------------------------------------------");
 				
 		final NetworkTestSupport nts = new NetworkTestSupport();
 		final CyNetworkFactory networkFactory = nts.getNetworkFactory();

@@ -150,7 +150,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	/** Parse the SBML networks. */
 	public void run(TaskMonitor taskMonitor) throws Exception {
-		logger.info("<--- Start Reader --->");
+		logger.debug("<--- Start Reader --->");
 		try {
 			if (taskMonitor != null){
 				taskMonitor.setTitle("cy3sbml reader");
@@ -299,7 +299,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (taskMonitor != null){
 				taskMonitor.setProgress(1.0);
 			}
-			logger.info("<--- End Reader --->");
+			logger.debug("<--- End Reader --->");
 			
 		
 		} catch (Throwable t){
