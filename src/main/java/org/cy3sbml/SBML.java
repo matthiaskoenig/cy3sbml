@@ -151,4 +151,6 @@ public class SBML {
     public static final String INTERACTION_COMP_PORT_ID = "port-id";
 
     // -------------------------------------------------------------------------
+
+    private SBML() {};
 }
