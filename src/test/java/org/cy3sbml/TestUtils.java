@@ -15,9 +15,13 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
+import org.junit.Before;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +29,9 @@ public class TestUtils {
 	public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
 	public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.2";
 	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-cases";
-	
+
+    @Mock TaskMonitor taskMonitor;
+
 	private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);
 	
 	/** Reads the system proxy variables and sets the 
@@ -133,9 +139,12 @@ public class TestUtils {
 	}
 	
 	
-	public static CyNetwork[] readNetwork(String resource) throws Exception {
-		final NetworkTestSupport nts = new NetworkTestSupport();
-		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+	public CyNetwork[] readNetwork(String resource) throws Exception {
+
+        MockitoAnnotations.initMocks(this);
+        final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+
 		
 		// read SBML	
 		InputStream instream = TestUtils.class.getResourceAsStream(resource);
@@ -144,13 +153,25 @@ public class TestUtils {
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
-			readerTask.run(null);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, networkViewFactory, null);
+			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 		} catch (Throwable t){
 			networks = null;
 		}
 		return networks;
+	}
+
+
+	public static CyNode findNodeById(String sbmlId, CyNetwork network) {
+		for (CyNode node : network.getNodeList()) {
+			CyRow attributes = network.getRow(node);
+			String id = attributes.get(SBML.ATTR_ID, String.class);
+			if (id.equals(sbmlId)) {
+				return node;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -191,12 +212,6 @@ public class TestUtils {
                 network.dispose();
             }
 
-			/*
-			CyNetworkManager cyNetworkManager = nts.getNetworkManager();
-			for (CyNetwork network: networks) {
-				cyNetworkManager.destroyNetwork(network);
-			}
-			*/
 		} catch (Throwable t){
 			networks = null;
 			t.printStackTrace();

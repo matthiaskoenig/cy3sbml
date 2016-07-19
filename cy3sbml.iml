@@ -107,5 +107,17 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.google.guava:guava:r09" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:parallelcolt:0.9.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:model-impl:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:ding-presentation-impl:test-jar:tests:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:vizmap-gui-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:jfree-jfreechart:1.0.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:jfree-jcommon:1.0.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:org.swinglabs.swingx:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:l2fprod-common-sheet:7.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:l2fprod-common-shared:7.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:l2fprod-common-fontchooser:7.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:ding-presentation-impl:3.4.0" level="project" />
   </component>
 </module>
