@@ -1,24 +1,25 @@
-package org.cy3sbml;
+package org.cy3sbml.models;
 
 import java.util.HashSet;
 
+import org.cy3sbml.TestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Test cases for the BIGG models.
- * bigg_models v1.2 (https://github.com/SBRG/bigg_models/releases)
+ * Test cases for biomodels.
  * 
- * Models were retrieved on 2016-06-22 from the available database dumps on
- * https://www.dropbox.com/sh/yayfmcrsrtrcypw/AACDoew92pCYlSJa8vCs5rSMa?dl=0
+ * 30th BioModels Release, 2016-05-10
+ * http://www.ebi.ac.uk/biomodels-main/static-pages.do?page=release_20160510
+ * Retrieved on 2016-06-22, 611 curated models
  */
 @RunWith(value = Parameterized.class)
-public class BiGGTest {
+public class BioModelsTest {
 	private String resource;
 	
-	public BiGGTest(String resource) {
+	public BioModelsTest(String resource) {
 		this.resource = resource;
 	}
 	
@@ -26,7 +27,7 @@ public class BiGGTest {
 	public static Iterable<Object[]> data(){
 		HashSet<String> skip = null;
 		String filter = null;
-		return TestUtils.findResources(TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip);
+		return TestUtils.findResources(TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip);
 	}
 	
 	@Test

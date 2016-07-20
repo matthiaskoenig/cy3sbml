@@ -12,5 +12,5 @@ branches:
 script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
 
 after_success:
-  - mvn clean
+  - bash <(curl -s https://codecov.io/bash)
 

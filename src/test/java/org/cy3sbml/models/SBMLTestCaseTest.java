@@ -1,7 +1,9 @@
-package org.cy3sbml;
+package org.cy3sbml.models;
 
 import java.util.Arrays;
 import java.util.HashSet;
+
+import org.cy3sbml.TestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
