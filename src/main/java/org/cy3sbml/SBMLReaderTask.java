@@ -359,20 +359,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (sbase.isSetMetaId()){
 			AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
 		}
+        // RDF attributes
+        Properties props = AnnotationUtil.parseCVTerms(sbase);
+        for(Object key : props.keySet()){
+            String keyString = key.toString();
+            String valueString = props.getProperty((String) key);
+            AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
+        }
 		// COBRA attributes
-		Properties props = CobraUtil.parseCobraNotes(sbase);
-		for(Object key : props.keySet()){
-			String keyString = key.toString();
-			String valueString = props.getProperty((String) key);
-			AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
-		}
-		// RDF attributes
-		props = AnnotationUtil.parseCVTerms(sbase);
-		for(Object key : props.keySet()){
-			String keyString = key.toString();
-			String valueString = props.getProperty((String) key);
-			AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
-		}
+		if ((sbase instanceof Reaction) || (sbase instanceof Species)){
+            Properties cobraProps = CobraUtil.parseCobraNotes(sbase);
+            props.putAll(cobraProps);
+        }
+        // create attributes for properties
+        for(Object key : props.keySet()){
+            String keyString = key.toString();
+            String valueString = props.getProperty((String) key);
+            AttributeUtil.set(network, cyObject, keyString, valueString, String.class);
+        }
 	}
 	
 	private CyNode createNamedSBaseNode(NamedSBase sbase, String type){

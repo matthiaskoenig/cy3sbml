@@ -9,8 +9,8 @@ branches:
   only:
     - develop
 
-script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
+script: mvn install -Dlogfile.name="cy3sbml.log" -Dmaven.javadoc.skip=true
 
 after_success:
-  - mvn clean
+  - bash <(curl -s https://codecov.io/bash)
 

@@ -3,8 +3,9 @@
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
+[![codecov](https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg)](https://codecov.io/gh/matthiaskoenig/cy3sbml)
 
-**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
+**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is a tool for the visualization of SBML information within the graph context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with existing computational modeling frameworks and workflows.
 
 **App store**: http://apps.cytoscape.org/apps/cy3sbml  
 **Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest  
@@ -33,16 +34,13 @@ For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with do
 * Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
-## Funding
-**cy3sbml** was funded by 
-* [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html)
-* Virtual Liver Network (VLN)
-* Systems Medicine of the Liver (LiSyM)
-
 ## Citation
 Matthias König, Andreas Dräger and Hermann-Georg Holzhütter  
 *CySBML: a Cytoscape plugin for SBML*  
 Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946) 
+
+## Funding
+Matthias König is supported by the Federal Ministry of Education and Research (BMBF, Germany) within the research network Systems Medicine of the Liver (**LiSyM**, grant number 031L0054) and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html).
 
 ## Installation
 ### Install

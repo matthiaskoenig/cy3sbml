@@ -19,6 +19,9 @@
 # The maven repository files have to be deleted to 
 # to force the update.
 #
+# !!! NOT USED !!! - This is only the alternative solution
+# to the available SNAPSHOT repository.
+#
 ########################################################
 CORE_VERSION=1.2-SNAPSHOT
 QUAL_VERSION=2.1-b1

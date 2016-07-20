@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +15,10 @@ import org.cytoscape.io.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * SBML Filter class.
+ * Extends CyFileFilter for integration into the Cytoscape ImportHandler framework.
+ */
 public class SBMLFileFilter implements CyFileFilter {
 	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
 
@@ -26,38 +29,68 @@ public class SBMLFileFilter implements CyFileFilter {
 	private final Set<String> contentTypes;
 	private final String description;
 
+	/**
+	 * Constructor.
+	 */
 	public SBMLFileFilter(String description, StreamUtil streamUtil) {
 		this.streamUtil = streamUtil;
 		
 		extensions = new HashSet<String>();
 		extensions.add("xml");
-		//extensions.add("sbml");
+		extensions.add("sbml");
+		extensions.add("");
 		
 		contentTypes = new HashSet<String>();
+		contentTypes.add("text/xml");
 		contentTypes.add("text/sbml");
 		contentTypes.add("text/sbml+xml");
-		
+		contentTypes.add("application/xml");
+		contentTypes.add("text/plain");
+
 		this.description = description; 
 	}
-	
+
+	/**
+	 * Indicates which URI the SBMLFileFilter accepts.
+	 */
 	@Override
 	public boolean accepts(URI uri, DataCategory category) {
 		if (!category.equals(DataCategory.NETWORK)) {
 			return false;
 		}
+
 		try {
-			return accepts(getInputStream(uri.toURL()), category);
+			// check for extension
+			// String ext = FilenameUtils.getExtension(uri.toString());
+			// extensions.contains(ext)
+			return accepts(streamUtil.getInputStream(uri.toURL()), category);
 		} catch (IOException e) {
 			Logger logger = LoggerFactory.getLogger(getClass());
-			logger.error("Error while checking header", e); //$NON-NLS-1$
+			logger.error("Error while checking header", e);
 			return false;
 		}
 	}
 
-	private InputStream getInputStream(URL url) throws IOException {
-		return streamUtil.getInputStream(url);
+    /**
+     * Indicates which streams the SBMLFileFilter accepts.
+     */
+	@Override
+	public boolean accepts(InputStream stream, DataCategory category) {
+		if (!category.equals(DataCategory.NETWORK)) {
+			return false;
+		}
+		try {
+			return checkHeader(stream);
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(getClass());
+			logger.error("Error while checking header", e);
+			return false;
+		}
 	}
 
+	/**
+	 * Checks if the header contains the SBML namespace definition.
+     */
 	private boolean checkHeader(InputStream stream) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 		int linesToCheck = DEFAULT_LINES_TO_CHECK;
@@ -69,20 +102,6 @@ public class SBMLFileFilter implements CyFileFilter {
 			linesToCheck--;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean accepts(InputStream stream, DataCategory category) {
-		if (!category.equals(DataCategory.NETWORK)) {
-			return false;
-		}
-		try {
-			return checkHeader(stream);
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(getClass());
-			logger.error("Error while checking header", e); //$NON-NLS-1$
-			return false;
-		}
 	}
 
 	@Override

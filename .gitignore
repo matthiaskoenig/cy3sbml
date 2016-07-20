@@ -15,3 +15,4 @@ cy3sbml.log
 .idea
 .idea/
 .idea/workspace.xml
+logs/cy3sbml_build.log

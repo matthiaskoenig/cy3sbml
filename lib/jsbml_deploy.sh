@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Here a solution should be implemented which deploys jsbml into a local
+# mvn repository.
+# This would allow a simple update of the mvn dependency without a very
+# complicated pom.xml.
+
 # <exec executable="mvn">
 # 		<arg value="deploy:deploy-file"/>
 # 			<arg value="-DpomFile=./dev/maven/pom.xml"/>
