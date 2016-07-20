@@ -3,6 +3,7 @@
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
+[![codecov](https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg)](https://codecov.io/gh/matthiaskoenig/cy3sbml)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is a tool for the visualization of SBML information within the graph context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with existing computational modeling frameworks and workflows.
 
