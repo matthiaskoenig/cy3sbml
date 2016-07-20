@@ -19,9 +19,7 @@ import org.slf4j.LoggerFactory;
  * Test reading of SBML core model.
  */
 public class SBMLCoreTest {
-
-	private static final Logger logger = LoggerFactory.getLogger(SBMLCoreTest.class);
-	public static final String TEST_MODEL_01 = TestUtils.BIOMODELS_RESOURCE_PATH + "/" + "BIOMD0000000001.xml";
+	public static final String TEST_MODEL_CORE = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "BIOMD0000000001.xml";
 
     /** Load the given model resource. */
     private void loadModel(String resource){
@@ -33,7 +31,6 @@ public class SBMLCoreTest {
             Model model = document.getModel();
 
         } catch (Exception e) {
-            logger.warn("Could not read example");
             e.printStackTrace();
         }
     }
@@ -41,14 +38,14 @@ public class SBMLCoreTest {
 	/** Test if model can be read with JSBML. */
 	@Test 
 	public void testModelLoading_01(){
-	    loadModel(TEST_MODEL_01);
+	    loadModel(TEST_MODEL_CORE);
 	}
 
 
 	/** Test that networks are created by reader. */
 	@Test
 	public void testCoreNetwork() throws Exception {
-		CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+		CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
 		assertNotNull(networks);
 		assertTrue(networks.length == 2);
 		
@@ -65,7 +62,7 @@ public class SBMLCoreTest {
     /** Test core edges. */
     @Test
     public void testCoreEdges() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[0];
 
         // 2 directed edges
@@ -101,7 +98,7 @@ public class SBMLCoreTest {
     /** Test species attributes. */
     @Test
     public void testCoreSpecies() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[1];
 
         // Test species node
@@ -120,7 +117,7 @@ public class SBMLCoreTest {
     /** Test compartment attributes. */
     @Test
     public void testCoreCompartment() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[1];
 
         // <compartment id="comp1" name="compartment1" metaid="_000002" sboTerm="SBO:0000290" size="1E-16">
@@ -138,7 +135,7 @@ public class SBMLCoreTest {
     /** Test parameter attributes. */
     @Test
     public void testCoreParameter() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[1];
 
         //   <parameter id="kf_0" constant="false" metaid="metaid_0000037" value="3000" sboTerm="SBO:0000035"/>
@@ -156,7 +153,7 @@ public class SBMLCoreTest {
     /** Test reaction attributes. */
     @Test
     public void testCoreReaction() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[1];
 
         // <reaction id="React0" name="React0" metaid="_000016" sboTerm="SBO:0000177">
@@ -195,7 +192,7 @@ public class SBMLCoreTest {
      */
     @Test(expected=AssertionError.class)
     public void testCoreNameSharing() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_01);
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE);
         CyNetwork network = networks[0];
         CyNetwork kineticNetwork = networks[1];
 

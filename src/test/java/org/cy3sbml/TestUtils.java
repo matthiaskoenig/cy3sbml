@@ -25,10 +25,14 @@ import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Helper functions to test SBML models.
+ */
 public class TestUtils {
 	public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
 	public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.2";
 	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-cases";
+    public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
 
     @Mock TaskMonitor taskMonitor;
 
