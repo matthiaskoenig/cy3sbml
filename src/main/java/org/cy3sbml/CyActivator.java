@@ -56,8 +56,8 @@ import org.cy3sbml.cofactors.CofactorManager;
  * used for startup of the app by Cytoscape 3.
  */
 public class CyActivator extends AbstractCyActivator {
+	public static final String PROPERTIES_FILE = "cy3sbml.props";
 	private static Logger logger;
-	private static final String PROPERTIES_FILE = "cy3sbml.props";
 	
 	public CyActivator() {
 		super();
@@ -89,12 +89,7 @@ public class CyActivator extends AbstractCyActivator {
 			logger.info("----------------------------");
 			logger.info("directory = " + appDirectory.getAbsolutePath());
 			logger.info("logfile = " + logFile.getAbsolutePath());
-			
-			// increase the javax.xml: Maximum Element Depth limit (1000), which is
-			// otherwise exceded for genome-scale models 
-			// see https://github.com/matthiaskoenig/cy3sbml/issues/100
-			System.setProperty("jdx.xml.maxElementDepth", "2000");
-			
+
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
 			Properties propsReaderServiceProps = new Properties();
@@ -163,8 +158,7 @@ public class CyActivator extends AbstractCyActivator {
 			SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
 			sbmlStyleManager.loadStyles();
 			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
-			
-			
+
 			// init SBML manager
 			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
 			// init Cofactor manager
@@ -173,8 +167,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// init cy3sbml ControlPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-			
-			
+
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
 			ImportAction importAction = new ImportAction(adapter);
