@@ -171,7 +171,7 @@ public class TestUtils {
 		for (CyNode node : network.getNodeList()) {
 			CyRow attributes = network.getRow(node);
 			String id = attributes.get(SBML.ATTR_ID, String.class);
-			if (id.equals(sbmlId)) {
+			if (id != null && id.equals(sbmlId)) {
 				return node;
 			}
 		}

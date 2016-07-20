@@ -19,8 +19,10 @@ public class SBMLFbcTest {
     @Test
     public void testFbcSpecies() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_FBC);
-        CyNetwork network = networks[1];
+        CyNetwork network = networks[0];
         assertNotNull(network);
+        assertEquals(358, network.getNodeCount());
+        assertEquals(588, network.getEdgeCount());
 
         // Test species node
         // <species boundaryCondition="false" constant="false" metaid="M_13dpg_c" hasOnlySubstanceUnits="false" sboTerm="SBO:0000247" compartment="c" name="3-Phospho-D-glyceroyl phosphate"

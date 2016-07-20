@@ -32,6 +32,8 @@ public class SBMLFileFilterTest {
         InputStream instream = getClass().getResourceAsStream(SBMLCoreTest.TEST_MODEL_CORE);
         boolean accepted = filter.accepts(instream, DataCategory.NETWORK);
         assertTrue(accepted);
+        accepted = filter.accepts(instream, DataCategory.TABLE);
+        assertFalse(accepted);
     }
 
     @Test
@@ -60,5 +62,4 @@ public class SBMLFileFilterTest {
         DataCategory category = filter.getDataCategory();
         assertEquals(DataCategory.NETWORK, category);
     }
-
 }

@@ -1,4 +1,4 @@
-package org.cy3sbml.template;
+package org.cy3sbml.oven;
 
 import java.io.StringWriter;
 

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
  * Extends CyFileFilter for integration into the Cytoscape ImportHandler framework.
  */
 public class SBMLFileFilter implements CyFileFilter {
+    private Logger logger = LoggerFactory.getLogger(getClass());
 	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
 
 	private static final int DEFAULT_LINES_TO_CHECK = 20;
@@ -64,9 +66,8 @@ public class SBMLFileFilter implements CyFileFilter {
 			// String ext = FilenameUtils.getExtension(uri.toString());
 			// extensions.contains(ext)
 			return accepts(streamUtil.getInputStream(uri.toURL()), category);
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(getClass());
-			logger.error("Error while checking header", e);
+		} catch (IOException e){
+            logger.error("Error while creating stream from uri", e);
 			return false;
 		}
 	}
@@ -82,7 +83,6 @@ public class SBMLFileFilter implements CyFileFilter {
 		try {
 			return checkHeader(stream);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(getClass());
 			logger.error("Error while checking header", e);
 			return false;
 		}

@@ -261,11 +261,9 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	 * automatically can use the mappings of the parent networks.
 	 */
 	@Override
-	public void handleEvent(NetworkAddedEvent event) {
-		
-	}
-	
-	
+	public void handleEvent(NetworkAddedEvent event) {}
+
+	@Override
 	public void handleEvent(NetworkViewAddedEvent event){
 		CyNetworkView view = event.getNetworkView();
 		// adapter.cyApplicationManager.setCurrentNetworkView(view);
@@ -273,8 +271,6 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		// ResultsPanel.getInstance().updateInformation();
 	}
 
-	
-	
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
 		ResultsPanel.getInstance().setHelp();
