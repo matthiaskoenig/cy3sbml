@@ -21,23 +21,23 @@ public class SBML {
 
     public static final String LEVEL_VERSION = "sbmlVersion";
 
-    public static final String NODETYPE_ATTR = "sbmlType";
-    public static final String INTERACTION_ATTR = "sbmlInteraction";
+    public static final String NODETYPE_ATTR = SBMLCoreReader.SBML_TYPE_ATTR;
+    public static final String INTERACTION_ATTR = SBMLCoreReader.INTERACTION_TYPE_ATTR;
 
     // -----------------------
     // Node & edge attributes
     // -----------------------
     public static final String LABEL = "label";
-    public static final String ATTR_ID = "id";
-    public static final String ATTR_NAME = "name";
+    public static final String ATTR_ID = SBMLCoreReader.SBML_ID_ATTR;
+    public static final String ATTR_NAME = SBMLCoreReader.NODE_NAME_ATTR_LABEL;
     public static final String ATTR_SBOTERM = "sbo";
     public static final String ATTR_METAID = "metaId";
 
-    public static final String ATTR_COMPARTMENT = "compartment";
+    public static final String ATTR_COMPARTMENT = SBMLCoreReader.SBML_COMPARTMENT_ATTR;
     public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
-    public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
-    public static final String ATTR_INITIAL_AMOUNT = "initialAmount";
-    public static final String ATTR_CHARGE = "charge";
+    public static final String ATTR_INITIAL_CONCENTRATION = SBMLCoreReader.SBML_INITIAL_CONCENTRATION_ATTR;
+    public static final String ATTR_INITIAL_AMOUNT = SBMLCoreReader.SBML_INITIAL_AMOUNT_ATTR;
+    public static final String ATTR_CHARGE = SBMLCoreReader.SBML_CHARGE_ATTR;
     public static final String ATTR_CONSTANT = "constant";
     public static final String ATTR_BOUNDARY_CONDITION = "boundaryCondition";
     public static final String ATTR_HAS_ONLY_SUBSTANCE_UNITS = "hasOnlySubstanceUnits";
@@ -89,10 +89,10 @@ public class SBML {
 	// ----------------------
     // Node types
     // ----------------------
-    public static final String NODETYPE_SPECIES = "species";
+    public static final String NODETYPE_SPECIES = SBMLCoreReader.SBML_TYPE_SPECIES;
     public static final String NODETYPE_PARAMETER = "parameter";
     public static final String NODETYPE_COMPARTMENT = "compartment";
-    public static final String NODETYPE_REACTION = "reaction";
+    public static final String NODETYPE_REACTION = SBMLCoreReader.SBML_TYPE_REACTION;
     public static final String NODETYPE_RULE = "rule";
     public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
     public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
@@ -120,9 +120,9 @@ public class SBML {
     // ----------------------
     public static final String INTERACTION_UNDEFINED = "undefined";
 
-    public static final String INTERACTION_REACTION_REACTANT = "reactant_reaction";
-    public static final String INTERACTION_REACTION_PRODUCT = "reaction_product";
-    public static final String INTERACTION_REACTION_MODIFIER = "modifier_reaction";
+    public static final String INTERACTION_REACTION_REACTANT = SBMLCoreReader.INTERACTION_TYPE_REACTION_REACTANT; // "reactant_reaction";
+    public static final String INTERACTION_REACTION_PRODUCT = SBMLCoreReader.INTERACTION_TYPE_REACTION_PRODUCT;   // "reaction_product";
+    public static final String INTERACTION_REACTION_MODIFIER = SBMLCoreReader.INTERACTION_TYPE_REACTION_MODIFIER; // "modifier_reaction";
     public static final String INTERACTION_REACTION_ACTIVATOR = "activator_reaction";
     public static final String INTERACTION_REACTION_INHIBITOR = "inhibitor_reaction";
     public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction_sideproduct";
