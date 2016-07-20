@@ -51,7 +51,7 @@ public class SBMLFileFilter implements CyFileFilter {
 	}
 
 	/**
-	 * Indicates which files the SBMLFileFilter accepts.
+	 * Indicates which URI the SBMLFileFilter accepts.
 	 */
 	@Override
 	public boolean accepts(URI uri, DataCategory category) {
@@ -71,7 +71,9 @@ public class SBMLFileFilter implements CyFileFilter {
 		}
 	}
 
-
+    /**
+     * Indicates which streams the SBMLFileFilter accepts.
+     */
 	@Override
 	public boolean accepts(InputStream stream, DataCategory category) {
 		if (!category.equals(DataCategory.NETWORK)) {
@@ -87,7 +89,7 @@ public class SBMLFileFilter implements CyFileFilter {
 	}
 
 	/**
-	 * Checks if the header contains the sbml namespace definition.
+	 * Checks if the header contains the SBML namespace definition.
      */
 	private boolean checkHeader(InputStream stream) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
