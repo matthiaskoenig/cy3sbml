@@ -4,9 +4,6 @@ import java.util.*;
 
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyTable;
-import org.cytoscape.model.subnetwork.CyRootNetwork;
-import org.cytoscape.model.subnetwork.CySubNetwork;
 
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
@@ -14,6 +11,7 @@ import org.sbml.jsbml.SBase;
 import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
+import org.cy3sbml.util.NetworkUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +23,8 @@ import org.slf4j.LoggerFactory;
  * All access to SBMLDocuments should go via the SBMLManager.
  * 
  * The SBMLManager is a singleton class.
+ *
+ * FIXME: The current SUID should be handled here in the manager & not in the mapping.
  */
 public class SBMLManager {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
@@ -70,16 +70,19 @@ public class SBMLManager {
 		sbml2objectMap = new HashMap<Long, IdObjectMap>();
 		objectMap = new IdObjectMap();
 	}
-	
 
-    /** Access to the SBML <-> network mapper. */
+    /**
+     * Access to the SBML <-> network mapper.
+     * The mapper should not be modified.
+     */
 	public SBML2NetworkMapper getSBML2NetworkMapper(){
 	    return sbml2networks;
 	}
 	
 	/** 
 	 * Set all information in SBMLManager from given SBML2NetworkMapper.
-	 * Used to restore the SBMLManager state from a session file. 
+	 * This function is used to set the SBML2NetworkMapper from a stored state.
+     * For instance during session reloading.
 	 */
 	public void setSBML2NetworkMapper(SBML2NetworkMapper mapper){
 		logger.debug("SBMLManager from given mapper");
@@ -103,28 +106,6 @@ public class SBMLManager {
 		updateCurrent(current);
 	}
 
-	/** 
-	 * Get the SUID of the root network.
-	 * Returns null if the network is null.
-	 */
-	public static Long getRootNetworkSuid(CyNetwork network){
-		Long suid = null;
-		if (network != null){
-			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();	
-			suid = rootNetwork.getSUID();
-		}
-		return suid;
-	}
-	
-	/** Get rootNetwork. */
-	public static CyNetwork getRootNetwork(CyNetwork network){
-		CyNetwork rootNetwork = null;
-		if (network != null){
-			rootNetwork = ((CySubNetwork)network).getRootNetwork();	
-		}
-		return rootNetwork;
-	}
-	
 	/**
 	 * Adds an SBMLDocument - network entry to the SBMLManager.
 	 * 
@@ -133,11 +114,14 @@ public class SBMLManager {
 	 * the mapping. 
 	 */
 	public void addSBML2NetworkEntry(SBMLDocument doc, CyNetwork network, One2ManyMapping<String, Long> mapping){	
-		Long suid = getRootNetworkSuid(network);
+		Long suid = NetworkUtil.getRootNetworkSUID(network);
 		addSBML2NetworkEntry(doc, suid, mapping);
 	}
-	
-	public void addSBML2NetworkEntry(SBMLDocument doc, Long rootNetworkSuid, One2ManyMapping<String, Long> mapping){
+
+    /**
+     * Adds an SBMLDocument - network entry to the SBMLManager.
+     */
+     public void addSBML2NetworkEntry(SBMLDocument doc, Long rootNetworkSuid, One2ManyMapping<String, Long> mapping){
 		// store document and mapping
 		sbml2networks.putDocument(rootNetworkSuid, doc, mapping);
 		// create and store navigation tree
@@ -147,7 +131,7 @@ public class SBMLManager {
 	
 	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
-		Long suid = getRootNetworkSuid(network);
+		Long suid = NetworkUtil.getRootNetworkSUID(network);
 		return getMapping(suid);
 	}
 	
@@ -156,35 +140,19 @@ public class SBMLManager {
 		return sbml2networks.getNSB2CyNodeMapping(rootNetworkSUID);
 	}
 
-	/** The network is a network with a mapping to an SBMLDocument. */
-	public boolean networkIsSBML(CyNetwork network){
-		Long suid = getRootNetworkSuid(network);
-		return sbml2networks.containsSUID(suid);
-	}
-	
+    /** Update current SBML for network. */
 	public void updateCurrent(CyNetwork network) {
-		Long suid = getRootNetworkSuid(network);
+		Long suid = NetworkUtil.getRootNetworkSUID(network);
 		updateCurrent(suid);
 	}
 	
-	/** Update the current SBML based the SUID of the root network. */
+	/** Update current SBML via rootNetworkSUID. */
 	public void updateCurrent(Long rootNetworkSUID) {
 		logger.debug("Set current network to root SUID: " + rootNetworkSUID);
+
+        // FIXME
 		sbml2networks.setCurrentSUID(rootNetworkSUID);
 		objectMap = sbml2objectMap.get(rootNetworkSUID);
-	}
-	
-	/**
-     * Lookup a SBase object via id.
-     */
-	public SBase getObjectById(String key){
-		SBase sbase = objectMap.getObject(key);
-		return sbase;
-	}
-	
-	public List<String> getObjectIds(List<Long> suids){ 
-		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
-		return new LinkedList<String>(mapping.getValues(suids));
 	}
 
     /**
@@ -195,12 +163,31 @@ public class SBMLManager {
         return sbml2networks.getCurrentDocument();
     }
 
+    public One2ManyMapping<Long, String> getCurrentCyNode2NSBMapping(){
+        return sbml2networks.getCurrentCyNode2NSBMapping();
+    }
+    public One2ManyMapping<String, Long> getCurrentNSB2CyNodeMapping(){
+        return sbml2networks.getCurrentNSBToCyNodeMapping();
+    }
+
+	
+	/** Lookup a SBase object via id. */
+	public SBase getObjectById(String key){
+		SBase sbase = objectMap.getObject(key);
+		return sbase;
+	}
+	
+	public List<String> getObjectIds(List<Long> suids){ 
+		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
+		return new LinkedList<String>(mapping.getValues(suids));
+	}
+
 	/** 
 	 * Get SBMLDocument for given network.
 	 * Returns null if no SBMLDocument exist for the network.
 	 */
 	public SBMLDocument getSBMLDocument(CyNetwork network){
-		Long suid = getRootNetworkSuid(network);
+		Long suid = NetworkUtil.getRootNetworkSUID(network);
 		return getSBMLDocument(suid);
 	}
 
@@ -212,27 +199,19 @@ public class SBMLManager {
 	    return sbml2networks.getDocumentForSUID(rootNetworkSUID);
 	}
 
-
-	public One2ManyMapping<Long, String> getCurrentCyNode2NSBMapping(){
-		return sbml2networks.getCurrentCyNode2NSBMapping();
-	}
-	public One2ManyMapping<String, Long> getCurrentNSB2CyNodeMapping(){
-		return sbml2networks.getCurrentNSBToCyNodeMapping();
-	}
-
 	/** String information. */
 	public String toString(){
 	    return sbml2networks.toString();
 	}
 
-    /**
-     * Check if network is an SBMLNetwork.
-     * This uses a attribute in the network table to check the type of the network.
-     */
-    public static boolean isSBMLNetwork(CyNetwork cyNetwork) {
-        //true if the attribute column exists
-        CyTable cyTable = cyNetwork.getDefaultNetworkTable();
-        return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /** The network is a network with a mapping to an SBMLDocument. */
+    @Deprecated
+    public boolean networkIsSBML(CyNetwork network){
+        Long suid = NetworkUtil.getRootNetworkSUID(network);
+        return sbml2networks.containsSUID(suid);
     }
 
     /**
@@ -245,7 +224,7 @@ public class SBMLManager {
     public void synchronizeDocuments(Collection<CyNetwork> networks){
         HashSet<Long> suids = new HashSet<Long>();
         for (CyNetwork network: networks){
-            suids.add(getRootNetworkSuid(network));
+            suids.add(NetworkUtil.getRootNetworkSUID(network));
         }
         for (Long key : sbml2networks.keySet()){
             if (!suids.contains(key)){
