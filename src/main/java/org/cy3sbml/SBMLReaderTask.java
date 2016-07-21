@@ -163,14 +163,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         // Set SBML in SBMLManager
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
-        // Look for already existing mappings (of read networks)
-        One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
-        mapping = IdNodeMap.fromSBMLNetwork(document, network, mapping);
+        // SBMLManager is only available in the OSGI context
+        // FIXME: refactor SBMLManager dependencies for unit testing
+        if (sbmlManager != null) {
+            // get existing mappings (of read networks)
+            One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
+            mapping = IdNodeMap.fromSBMLNetwork(document, network, mapping);
 
-        // existing mapping is updated
-        sbmlManager.addSBML2NetworkEntry(document, network, mapping);
-        // update the current network
-        sbmlManager.updateCurrent(network);
+            // existing mapping is updated
+            sbmlManager.addSBML2NetworkEntry(document, network, mapping);
+            // update the current network
+            sbmlManager.updateCurrent(network);
+        } else {
+            logger.warn("No mapping found for SBML network.");
+        }
 
         // Create the view
         CyNetworkView view = viewFactory.createNetworkView(network);

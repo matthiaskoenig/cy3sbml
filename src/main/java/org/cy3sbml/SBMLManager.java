@@ -14,7 +14,6 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
@@ -38,6 +37,10 @@ import org.slf4j.LoggerFactory;
  * All access to SBMLDocuments should go via the SBMLManager.
  * 
  * The SBMLManager is a singleton class.
+ *
+ * TODO: reduce the dependencies needed for creation, i.e single classes instead of full adapter.
+ *  This will make the unittesting much easier.
+ *  Most of the things are needed for the event handling which should be done by the ResultsPanel.
  */
 public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAddedListener, NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);

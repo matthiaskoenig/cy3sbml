@@ -20,6 +20,7 @@ import org.cy3sbml.util.IOUtil;
 public class SBMLCoreTest {
 	public static final String TEST_MODEL_CORE_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
     public static final String TEST_MODEL_CORE_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "galactose.xml";
+    public static final String TEST_MODEL_CORE_03 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "yeast_glycolysis.xml";
 
     /** Load the given model resource. */
     private void loadModel(String resource){
@@ -41,15 +42,25 @@ public class SBMLCoreTest {
 	    loadModel(TEST_MODEL_CORE_01);
 	}
 
-    /** Test if model can be read with JSBML. */
+    /** Test if model can be read with JSBML.
+     * Tests for InitialAssignments and Rules.
+     */
     @Test
     public void testModelLoading_02(){
         loadModel(TEST_MODEL_CORE_02);
     }
 
+    /** Test if model can be read with JSBML.
+     * Tests for LocalParameters.
+     */
+    @Test
+    public void testModelLoading_03(){
+        loadModel(TEST_MODEL_CORE_03);
+    }
+
 	/** Test that networks are created by reader. */
 	@Test
-	public void testCoreNetwork() throws Exception {
+	public void testCoreNetwork_01() throws Exception {
 		CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
 		assertNotNull(networks);
 		assertTrue(networks.length == 2);
@@ -63,6 +74,20 @@ public class SBMLCoreTest {
 		assertEquals(82, kineticNetwork.getNodeCount());
 		assertEquals(148, kineticNetwork.getEdgeCount());
 	}
+
+    @Test
+    public void testCoreNetwork_02() throws Exception {
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_02);
+        assertNotNull(networks);
+        assertTrue(networks.length == 2);
+    }
+
+    @Test
+    public void testCoreNetwork_03() throws Exception {
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_03);
+        assertNotNull(networks);
+        assertTrue(networks.length == 2);
+    }
 
     /** Test core edges. */
     @Test

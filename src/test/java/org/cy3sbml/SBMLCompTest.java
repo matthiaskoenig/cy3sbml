@@ -10,12 +10,23 @@ import static org.junit.Assert.assertNotNull;
  * Testing comp models.
  */
 public class SBMLCompTest {
-    public static final String TEST_MODEL_COMP = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "small_population.xml";
+    public static final String TEST_MODEL_COMP_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "small_population.xml";
+    public static final String TEST_MODEL_COMP_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "toy_top_level.xml";
 
     /** Test comp model reading. */
     @Test
-    public void testComp() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP);
+    public void testComp_01() throws Exception {
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_01);
+        CyNetwork network = networks[0];
+        assertNotNull(network);
+        assertEquals(2, network.getNodeCount());
+        assertEquals(1, network.getEdgeCount());
+    }
+
+    /** Test comp model reading. */
+    @Test
+    public void testComp_02() throws Exception {
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_02);
         CyNetwork network = networks[0];
         assertNotNull(network);
         assertEquals(2, network.getNodeCount());
