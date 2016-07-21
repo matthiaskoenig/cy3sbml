@@ -11,7 +11,7 @@ import org.sbml.jsbml.SBMLReader;
 import org.cy3sbml.TestUtils;
 
 public class NamedSBaseInfoThreadTest {
-	public static final String TEST_MODEL = TestUtils.BIOMODELS_RESOURCE_PATH + "/" + "BIOMD0000000001.xml"; 
+	public static final String TEST_MODEL = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
 	
 	@Test
 	public void testPreloadAnnotationsForSBMLDocument() throws XMLStreamException {

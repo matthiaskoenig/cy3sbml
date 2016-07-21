@@ -207,7 +207,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, cofactorNodesAction, CyAction.class, new Properties());
 			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
 			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
-			
+
 			// listeners
 			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
 			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * Test reading of SBML core model.
  */
 public class SBMLCoreTest {
-	public static final String TEST_MODEL_CORE = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "BIOMD0000000001.xml";
+	public static final String TEST_MODEL_CORE = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
 
     /** Load the given model resource. */
     private void loadModel(String resource){
@@ -82,12 +82,16 @@ public class SBMLCoreTest {
         assertEquals(2, edgeList.size());
 
         CyEdge e1 = edgeList.get(1);
-        CyRow attributes = network.getRow(e1);
-        assertEquals(SBML.INTERACTION_REACTION_REACTANT, attributes.get(SBML.INTERACTION_ATTR, String.class));
-
         CyEdge e2 = edgeList.get(0);
-        attributes = network.getRow(e2);
-        assertEquals(SBML.INTERACTION_REACTION_PRODUCT, attributes.get(SBML.INTERACTION_ATTR, String.class));
+        CyNode n1 = e1.getSource();
+        String n1Id = network.getRow(n1).get(SBML.ATTR_ID, String.class);
+        if (n1Id.equals("React2")){
+            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+        } else {
+            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+        }
 
         // 0 outgoing edge
         edgeList = network.getAdjacentEdgeList(node, CyEdge.Type.OUTGOING);

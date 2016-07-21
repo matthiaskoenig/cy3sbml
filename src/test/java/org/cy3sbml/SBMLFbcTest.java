@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
  * Testing fbc models.
  */
 public class SBMLFbcTest {
-    public static final String TEST_MODEL_FBC = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "e_coli_core.xml";
+    public static final String TEST_MODEL_FBC = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "fbc_01.xml";
 
 
     /** Test fbc species attributes. */
