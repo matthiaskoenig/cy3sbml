@@ -25,4 +25,16 @@ public class IOUtil {
         return writer.toString();
     }
 
+    /** Copy InputStream. */
+    public static InputStream copyInputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream copy = new ByteArrayOutputStream();
+        int chunk = 0;
+        byte[] data = new byte[1024*1024];
+        while((-1 != (chunk = is.read(data)))) {
+            copy.write(data, 0, chunk);
+        }
+        is.close();
+        return new ByteArrayInputStream( copy.toByteArray() );
+    }
+
 }

@@ -6,13 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.mapping.IdObjectMap;
-import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyTable;
 import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
@@ -22,8 +19,15 @@ import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
+
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
+
+import org.cy3sbml.gui.ResultsPanel;
+import org.cy3sbml.mapping.IdObjectMap;
+import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.mapping.SBML2NetworkMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -229,10 +233,24 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	public String toString(){
 		return sbml2networks.toString();
 	}
-	
-	
+
+
+
+    /**
+     * Check if the network is an SBMLNetwork.
+     * This uses a attribute in the network table to check the type of the network.
+     */
+    public static boolean isSBMLNetwork(CyNetwork cyNetwork) {
+        //true if the attribute column exists
+        CyTable cyTable = cyNetwork.getDefaultNetworkTable();
+        return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
+    }
+
+
 	///////////////////////////////////////////////////////////////////
 	// This are all events which should be handled by the ResultsPanel
+    // TODO: refactor the event handling to the ResultsPanel
+    // Keep manager classes clean for unit testing & API.
 	
 	/**
 	 * Listening to changes in Networks and NetworkViews.
@@ -265,10 +283,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent event){
-		CyNetworkView view = event.getNetworkView();
-		// adapter.cyApplicationManager.setCurrentNetworkView(view);
-		// logger.info("Current network view set to: " +  view.toString());
-		// ResultsPanel.getInstance().updateInformation();
+		ResultsPanel.getInstance().updateInformation();
 	}
 
 	@Override
