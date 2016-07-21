@@ -18,8 +18,8 @@ import javax.xml.stream.XMLStreamException;
 
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
+import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.mapping.SBML2NetworkMapper;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
-	private static final String SBML2NETWORK_SERIALIZATION = "SBML2NetworkMapper.ser";
+	private static final String SBML2NETWORK_SERIALIZATION = "Network2SBMLMapper.ser";
 	private static final String NETWORK2COFACTOR_SERIALIZATION = "Network2Cofactors.ser";
 	private File directory;
 	
@@ -60,7 +60,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		
 		// get SBMLManager for serialization
 		SBMLManager sbmlManager = SBMLManager.getInstance();
-		SBML2NetworkMapper mapper = sbmlManager.getSBML2NetworkMapper();
+		Network2SBMLMapper mapper = sbmlManager.getSBML2NetworkMapper();
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 		
 		// Save all the SBML files
@@ -162,9 +162,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					input = new ObjectInputStream (buffer);
 					
 					// read mapper
-					SBML2NetworkMapper mapper = (SBML2NetworkMapper)input.readObject();
+					Network2SBMLMapper mapper = (Network2SBMLMapper)input.readObject();
 					// update suids in mapper & set in manager
-					SBML2NetworkMapper updatedMapper = updateSUIDsInMapper(session, mapper);
+					Network2SBMLMapper updatedMapper = updateSUIDsInMapper(session, mapper);
 					SBMLManager sbmlManager = SBMLManager.getInstance();
 					// set updated mapper
 					sbmlManager.setSBML2NetworkMapper(updatedMapper);
@@ -230,9 +230,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public SBML2NetworkMapper updateSUIDsInMapper(CySession s, SBML2NetworkMapper m){
+	public Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
 		// mapper with updated SUIDS
-		SBML2NetworkMapper newM = new SBML2NetworkMapper();
+		Network2SBMLMapper newM = new Network2SBMLMapper();
 		
 		// documentMap
 		Map<Long, SBMLDocument> documentMap = m.getDocumentMap();
@@ -251,10 +251,12 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			}
 			newM.putDocument(newNetworkSuid, doc, newNsb2node);
 		}
+		/*
 		if (m.getCurrentSUID() != null){
 			Long newCurrentSuid = s.getObject(m.getCurrentSUID(), CyNetwork.class).getSUID();
 			newM.setCurrentSUID(newCurrentSuid);
 		}
+		*/
 		return newM;
 	}
 	
