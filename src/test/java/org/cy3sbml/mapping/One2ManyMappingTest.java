@@ -11,6 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Testing One2ManyMapping.
+ */
 public class One2ManyMappingTest {
 
 	One2ManyMapping<String, Long> map;
@@ -47,6 +50,15 @@ public class One2ManyMappingTest {
 		map.put("id1", new Long(10));
 		assertTrue(map.containsKey("id1"));
 		assertEquals(map.keySet().size(), 1);
+	}
+
+	@Test
+	public void testRemove() {
+		map.put("id1", new Long(10));
+		assertTrue(map.containsKey("id1"));
+		map.remove("id1");
+		assertFalse(map.containsKey("id1"));
+		assertEquals(map.keySet().size(), 0);
 	}
 
 	@Test

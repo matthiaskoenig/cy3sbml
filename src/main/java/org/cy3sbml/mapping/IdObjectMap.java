@@ -65,7 +65,6 @@ public class IdObjectMap {
 					for (LocalParameter lp: law.getListOfLocalParameters()){
 						objectMap.put(lp.getId(), lp);	
 					}
-					
 				}
 			}
 			
