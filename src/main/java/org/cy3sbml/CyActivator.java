@@ -111,7 +111,6 @@ public class CyActivator extends AbstractCyActivator {
 			@SuppressWarnings("rawtypes")
 			TaskManager taskManager = getService(bc, TaskManager.class);
 			
-			
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
 			
@@ -159,14 +158,14 @@ public class CyActivator extends AbstractCyActivator {
 			sbmlStyleManager.loadStyles();
 			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
 
-			// init SBML manager
-			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
+			// init SBMLManager
+			SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
 			// init Cofactor manager
-			@SuppressWarnings("unused")
 			CofactorManager cofactorManager = CofactorManager.getInstance();
 			
-			// init cy3sbml ControlPanel
+			// init cy3sbml ResultsPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
+
 
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
@@ -186,8 +185,8 @@ public class CyActivator extends AbstractCyActivator {
 			// SBML file reader
 			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
 			Properties sbmlReaderProps = new Properties();
-			sbmlReaderProps.setProperty("readerDescription","SBML file reader (cy3sbml)");
-			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
+			sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
+			sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			// Session loading & saving
@@ -209,16 +208,18 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
 			// listeners
-			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
-			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
-			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkViewAddedListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-			
-			// register cy3sbml services for other plugins
+            registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
+            registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
+            registerService(bc, resultsPanel, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, resultsPanel, NetworkAddedListener.class, new Properties());
+            registerService(bc, resultsPanel, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, resultsPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
+
+            // register cy3sbml services for other apps
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
-			
+
+
 			// show cy3sbml panel
 			ResultsPanel.getInstance().activate();
 			logger.info("----------------------------");

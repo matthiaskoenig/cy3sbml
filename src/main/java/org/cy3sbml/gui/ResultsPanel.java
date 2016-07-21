@@ -22,14 +22,22 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.xml.stream.XMLStreamException;
 
+import org.cytoscape.application.events.SetCurrentNetworkEvent;
+import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.events.NetworkAddedEvent;
+import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
+import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
+import org.cytoscape.view.model.events.NetworkViewAddedEvent;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.work.TaskIterator;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
@@ -56,7 +64,13 @@ import org.slf4j.LoggerFactory;
  * 
  * ResultsPanel is a singleton class.
  */
-public class ResultsPanel extends JPanel implements CytoPanelComponent, HyperlinkListener, RowsSetListener{
+public class ResultsPanel extends JPanel implements CytoPanelComponent,
+        HyperlinkListener,
+        RowsSetListener,
+        SetCurrentNetworkListener,
+        NetworkAddedListener,
+        NetworkViewAddedListener,
+        NetworkViewAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(ResultsPanel.class);
 	private static final long serialVersionUID = 1L;
 
@@ -305,7 +319,46 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent, Hyperlin
 		}
 		updateInformation();
 	}
-	
+
+	/**
+	 * Listening to changes in Networks and NetworkViews.
+	 * When must the SBMLDocument store be updated.
+	 * - NetworkViewAddedEvent
+	 * - NetworkViewDestroyedEvent
+	 *
+	 * An event indicating that a network view has been set to current.
+	 *  SetCurrentNetworkViewEvent
+	 *
+	 * An event signaling that the a network has been set to current.
+	 *  SetCurrentNetworkEvent
+	 */
+	@Override
+	public void handleEvent(SetCurrentNetworkEvent event) {
+		CyNetwork network = event.getNetwork();
+		SBMLManager.getInstance().updateCurrent(network);
+		ResultsPanel.getInstance().updateInformation();
+	}
+
+	/** If networks are added check if they are subnetworks
+	 * of SBML networks and add the respective SBMLDocument
+	 * to them in the mapping.
+	 * Due to the mapping based on the RootNetworks sub-networks
+	 * automatically can use the mappings of the parent networks.
+	 */
+	@Override
+	public void handleEvent(NetworkAddedEvent event) {}
+
+	@Override
+	public void handleEvent(NetworkViewAddedEvent event){
+		ResultsPanel.getInstance().updateInformation();
+	}
+
+	@Override
+	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
+		ResultsPanel.getInstance().setHelp();
+	}
+
+
 	/** Update information within a separate thread. */
 	public void updateInformation(){
 		logger.debug("updateInformation()");

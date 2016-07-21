@@ -39,8 +39,6 @@ import org.slf4j.LoggerFactory;
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
-	// File names for serialization
-	// private static final String DOCUMENT_MAP = "documentMap.ser";
 	private static final String SBML2NETWORK_SERIALIZATION = "SBML2NetworkMapper.ser";
 	private static final String NETWORK2COFACTOR_SERIALIZATION = "Network2Cofactors.ser";
 	private File directory;
@@ -170,6 +168,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 					SBMLManager sbmlManager = SBMLManager.getInstance();
 					// set updated mapper
 					sbmlManager.setSBML2NetworkMapper(updatedMapper);
+					//
+
+
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (IOException e2) {

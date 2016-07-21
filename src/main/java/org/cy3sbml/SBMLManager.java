@@ -1,28 +1,16 @@
 package org.cy3sbml;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.cytoscape.application.events.SetCurrentNetworkEvent;
-import org.cytoscape.application.events.SetCurrentNetworkListener;
+import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyTable;
-import org.cytoscape.model.events.NetworkAddedEvent;
-import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
-import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
-import org.cytoscape.view.model.events.NetworkViewAddedEvent;
-import org.cytoscape.view.model.events.NetworkViewAddedListener;
 
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
-import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.mapping.SBML2NetworkMapper;
@@ -37,42 +25,46 @@ import org.slf4j.LoggerFactory;
  * All access to SBMLDocuments should go via the SBMLManager.
  * 
  * The SBMLManager is a singleton class.
- *
- * TODO: reduce the dependencies needed for creation, i.e single classes instead of full adapter.
- *  This will make the unittesting much easier.
- *  Most of the things are needed for the event handling which should be done by the ResultsPanel.
  */
-public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListener, NetworkViewAddedListener, NetworkViewAboutToBeDestroyedListener {
+public class SBMLManager {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
-	private ServiceAdapter adapter;
+	private CyApplicationManager cyApplicationManager;
 	
 	private SBML2NetworkMapper sbml2networks;
 	private HashMap<Long, IdObjectMap> sbml2objectMap;
 	private IdObjectMap objectMap;
-	
-	
-	public static synchronized SBMLManager getInstance(ServiceAdapter adapter){
+
+    /**
+     * Construct the instance.
+     * Use the variant without arguments for access.
+     */
+	public static synchronized SBMLManager getInstance(CyApplicationManager cyApplicationManager){
 		if (uniqueInstance == null){
-			uniqueInstance = new SBMLManager(adapter);
+			uniqueInstance = new SBMLManager(cyApplicationManager);
 		}
 		return uniqueInstance;
 	}
-	
+
+    /**
+     * Get SBMLManager instance.
+     * Use this function to access the SBMLManager.
+     */
 	public static synchronized SBMLManager getInstance(){
 		if (uniqueInstance == null){
 			logger.error("Access to SBMLManager before creation");
 		}
 		return uniqueInstance;
 	}
-	
-	private SBMLManager(ServiceAdapter adapter){
+
+    /** Constructor. */
+	private SBMLManager(CyApplicationManager cyApplicationManager){
 		logger.debug("SBMLManager created");
-		this.adapter = adapter;
+		this.cyApplicationManager = cyApplicationManager;
 		reset();
 	}
 	
-	/** Reset the SBMLManager for unittests. */
+	/** Reset SBMLManager to empty state. */
 	private void reset(){
 		sbml2networks = new SBML2NetworkMapper();
 		sbml2objectMap = new HashMap<Long, IdObjectMap>();
@@ -80,8 +72,9 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	}
 	
 
+    /** Access to the SBML <-> network mapper. */
 	public SBML2NetworkMapper getSBML2NetworkMapper(){
-		return sbml2networks;
+	    return sbml2networks;
 	}
 	
 	/** 
@@ -106,7 +99,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		}
 		
 		// Set current network and tree
-		CyNetwork current = adapter.cyApplicationManager.getCurrentNetwork();
+		CyNetwork current = cyApplicationManager.getCurrentNetwork();
 		updateCurrent(current);
 	}
 
@@ -132,7 +125,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		return rootNetwork;
 	}
 	
-	/*
+	/**
 	 * Adds an SBMLDocument - network entry to the SBMLManager.
 	 * 
 	 * For all networks the root network is associated with the SBMLDocument
@@ -162,8 +155,7 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 	public One2ManyMapping<String, Long> getMapping(Long rootNetworkSUID){
 		return sbml2networks.getNSB2CyNodeMapping(rootNetworkSUID);
 	}
-	
-	
+
 	/** The network is a network with a mapping to an SBMLDocument. */
 	public boolean networkIsSBML(CyNetwork network){
 		Long suid = getRootNetworkSuid(network);
@@ -182,10 +174,9 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		objectMap = sbml2objectMap.get(rootNetworkSUID);
 	}
 	
-	
-	/////// SBML objects for SUIDS ///////////////////////////////////////////
-	
-	/** Lookup of SBase via id. */
+	/**
+     * Lookup a SBase object via id.
+     */
 	public SBase getObjectById(String key){
 		SBase sbase = objectMap.getObject(key);
 		return sbase;
@@ -195,7 +186,15 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		One2ManyMapping<Long, String> mapping = getCurrentCyNode2NSBMapping();
 		return new LinkedList<String>(mapping.getValues(suids));
 	}
-	
+
+    /**
+     * Get current SBMLDocument.
+     * Returns null if no current SBMLDocument exists.
+     */
+    public SBMLDocument getCurrentSBMLDocument(){
+        return sbml2networks.getCurrentDocument();
+    }
+
 	/** 
 	 * Get SBMLDocument for given network.
 	 * Returns null if no SBMLDocument exist for the network.
@@ -204,43 +203,30 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
 		Long suid = getRootNetworkSuid(network);
 		return getSBMLDocument(suid);
 	}
-	
+
+    /**
+     * Get SBMLDocument for given rootNetworkSUID.
+     * Returns null if no SBMLDocument exist for the network.
+     */
 	public SBMLDocument getSBMLDocument(Long rootNetworkSUID){
-		return sbml2networks.getDocumentForSUID(rootNetworkSUID);
+	    return sbml2networks.getDocumentForSUID(rootNetworkSUID);
 	}
-	
-	public SBMLDocument getCurrentSBMLDocument(){
-		return sbml2networks.getCurrentDocument();
-	}
+
+
 	public One2ManyMapping<Long, String> getCurrentCyNode2NSBMapping(){
 		return sbml2networks.getCurrentCyNode2NSBMapping();
 	}
 	public One2ManyMapping<String, Long> getCurrentNSB2CyNodeMapping(){
 		return sbml2networks.getCurrentNSBToCyNodeMapping();
 	}
-	
-	/** Remove all mapping entries were the networks are no longer available. */
-	public void synchronizeDocuments(){
-		HashSet<Long> suids = new HashSet<Long>();
-		for (CyNetwork network : adapter.cyNetworkManager.getNetworkSet()){
-			CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-			suids.add(rootNetwork.getSUID());
-		}
-		for (Long key : sbml2networks.keySet()){
-			if (!suids.contains(key)){
-				sbml2networks.removeDocument(key);
-			}
-		}
-	}
-		
+
+	/** String information. */
 	public String toString(){
-		return sbml2networks.toString();
+	    return sbml2networks.toString();
 	}
-
-
 
     /**
-     * Check if the network is an SBMLNetwork.
+     * Check if network is an SBMLNetwork.
      * This uses a attribute in the network table to check the type of the network.
      */
     public static boolean isSBMLNetwork(CyNetwork cyNetwork) {
@@ -249,48 +235,23 @@ public class SBMLManager implements SetCurrentNetworkListener, NetworkAddedListe
         return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
     }
 
+    /**
+     * Remove all mapping entries for networks which are not in the SBML<->network mapping.
+     *
+     * The current network set can be accessed via
+     *      CyNetworkManager.getNetworkSet()
+     */
+    @Deprecated
+    public void synchronizeDocuments(Collection<CyNetwork> networks){
+        HashSet<Long> suids = new HashSet<Long>();
+        for (CyNetwork network: networks){
+            suids.add(getRootNetworkSuid(network));
+        }
+        for (Long key : sbml2networks.keySet()){
+            if (!suids.contains(key)){
+                sbml2networks.removeDocument(key);
+            }
+        }
+    }
 
-	///////////////////////////////////////////////////////////////////
-	// This are all events which should be handled by the ResultsPanel
-    // TODO: refactor the event handling to the ResultsPanel
-    // Keep manager classes clean for unit testing & API.
-	
-	/**
-	 * Listening to changes in Networks and NetworkViews.
-	 * When must the SBMLDocument store be updated.
-	 * - NetworkViewAddedEvent
-	 * - NetworkViewDestroyedEvent
-	 * 
-	 * An event indicating that a network view has been set to current.
-	 *  SetCurrentNetworkViewEvent
-	 * 
-	 * An event signaling that the a network has been set to current.
-	 *  SetCurrentNetworkEvent
-	 */
-	@Override
-	public void handleEvent(SetCurrentNetworkEvent event) {
-		CyNetwork network = event.getNetwork();
-		updateCurrent(network);
-		// update selection
-		ResultsPanel.getInstance().updateInformation();
-	}
-
-	/** If networks are added check if they are subnetworks
-	 * of SBML networks and add the respective SBMLDocument 
-	 * to them in the mapping.
-	 * Due to the mapping based on the RootNetworks sub-networks
-	 * automatically can use the mappings of the parent networks.
-	 */
-	@Override
-	public void handleEvent(NetworkAddedEvent event) {}
-
-	@Override
-	public void handleEvent(NetworkViewAddedEvent event){
-		ResultsPanel.getInstance().updateInformation();
-	}
-
-	@Override
-	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-		ResultsPanel.getInstance().setHelp();
-	}
 }
