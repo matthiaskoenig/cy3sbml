@@ -172,7 +172,7 @@ public class SBMLManager {
     }
 
     public One2ManyMapping<String, Long> getCurrentNSB2CyNodeMapping(){
-        return sbml2networks.getNSBToCyNodeMapping(currentSUID);
+        return sbml2networks.getNSB2CyNodeMapping(currentSUID);
     }
 
 	

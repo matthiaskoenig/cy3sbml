@@ -83,13 +83,13 @@ public class Network2SBMLMapperTest {
     @Test
     public void getNSB2CyNodeMapping() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertNotNull(mapper.getNSB2CyNodeMapping());
+        assertNotNull(mapper.getNSB2CyNodeMapping(SUID));
     }
 
     @Test
     public void getCyNode2NSBMapping() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertNotNull(mapper.getCyNode2NSBMapping());
+        assertNotNull(mapper.getCyNode2NSBMapping(SUID));
     }
 
 }
