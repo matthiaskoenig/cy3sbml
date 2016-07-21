@@ -1,10 +1,6 @@
 package org.cy3sbml;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -12,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.cy3sbml.util.IOUtil;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
@@ -37,7 +34,6 @@ import org.sbml.jsbml.FunctionDefinition;
 import org.sbml.jsbml.InitialAssignment;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.KineticLaw;
-import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.LocalParameter;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.ModifierSpeciesReference;
@@ -85,11 +81,6 @@ import org.sbml.jsbml.ext.comp.Port;
 // SBML GROUPS
 import org.sbml.jsbml.ext.groups.GroupsConstants;
 import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
-// DISTRIB
-import org.sbml.jsbml.ext.distrib.DistribConstants;
-import org.sbml.jsbml.ext.distrib.DistribSBasePlugin;
-import org.sbml.jsbml.ext.distrib.Uncertainty;
-
 // LAYOUT
 import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
@@ -104,6 +95,7 @@ import org.cy3sbml.miriam.SBaseInfoThread;
 import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.AnnotationUtil;
 import org.cy3sbml.util.AttributeUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,9 +108,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("deprecation")
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {	
 	private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
-	
-	private static final int BUFFER_SIZE = 16384;
-	
+
 	private String fileName;
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
@@ -147,8 +137,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		this.viewManager = viewManager;
 		this.fileName = fileName;
 	}
-	
-	
+
 	/**
      * Parse SBML networks.
      */
@@ -165,9 +154,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
-			String xml = readString(stream);
-			
-			// TODO: store and display JSBML reader warnings
+			String xml = IOUtil.readString(stream);
 			document = JSBML.readSBMLFromString(xml);
 			Model model = null;
 			if (document.isSetModel()){
@@ -1230,23 +1217,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.debug("view: " + view.toString());
 		return view;
 	}	
-	
-	/** Read String from InputStream. */
-	public static String readString(InputStream source) throws IOException {
-		StringWriter writer = new StringWriter();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(source));
-		try {
-			char[] buffer = new char[BUFFER_SIZE];
-			int charactersRead = reader.read(buffer, 0, buffer.length);
-			while (charactersRead != -1) {
-				writer.write(buffer, 0, charactersRead);
-				charactersRead = reader.read(buffer, 0, buffer.length);
-			}
-		} finally {
-			reader.close();
-		}
-		return writer.toString();
-	}
 
     @Override
 	public void cancel() {

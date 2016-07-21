@@ -6,12 +6,13 @@ import java.io.InputStream;
 import java.util.List;
 
 
+
 import org.junit.Test;
 import org.cytoscape.model.*;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-
+import org.cy3sbml.util.IOUtil;
 
 /**
  * Test reading of SBML core model.
@@ -24,7 +25,7 @@ public class SBMLCoreTest {
     private void loadModel(String resource){
         InputStream instream = getClass().getResourceAsStream(resource);
         try {
-            String xml = SBMLReaderTask.readString(instream);
+            String xml = IOUtil.readString(instream);
             SBMLDocument document = JSBML.readSBMLFromString(xml);
             @SuppressWarnings("unused")
             Model model = document.getModel();
