@@ -133,9 +133,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	
 	private CyRootNetwork rootNetwork;
 	private Map<String, CyNode> nodeById; // node dictionary
-	
-	
-	/** Constructor */ 
+
+	/**
+     * Constructor
+     */
 	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, 
 			CyNetworkViewFactory viewFactory,
 			CyNetworkViewManager viewManager) {
@@ -148,7 +149,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 	
 	
-	/** Parse the SBML networks. */
+	/**
+     * Parse SBML networks.
+     */
 	public void run(TaskMonitor taskMonitor) throws Exception {
 		logger.debug("<--- Start Reader --->");
 		try {
@@ -184,43 +187,44 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork(); 
 			// CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()). 
 			rootNetwork = ((CySubNetwork) network).getRootNetwork();
-			
+
+
 			//////////////////////////////////////////////////////////////////
 			// Read SBML & Extensions
 			//////////////////////////////////////////////////////////////////
 			// Creates the main network of all information
 			readCore(model);
 			if (taskMonitor != null){
-				taskMonitor.setProgress(0.5);
+				taskMonitor.setProgress(0.4);
 			}
-
 			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
 			if (qualModel != null){
 				readQual(model, qualModel);
+                taskMonitor.setProgress(0.5);
 			}
 			
 			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
 			if (fbcModel != null){
 				readFBC(model, fbcModel);
+                taskMonitor.setProgress(0.6);
 			}
 			
 			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
 			if (compModel != null){
 				readComp(model, compModel);
+                taskMonitor.setProgress(0.7);
 			}
 			
 			GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
 			if (groupsModel != null){
-				logger.info("groups model found, but not yet supported");
+                readGroups(model, groupsModel);
+                taskMonitor.setProgress(0.8);
 			}
 			
 			LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
 			if (layoutModel != null){
-				logger.info("layout model found, but not yet supported");
-				//readLayouts(model, qualModel, layoutModel);	
+			    readLayouts(model, qualModel, layoutModel);
 			}
-			
-			readDistrib(model);
 
 			// Add compartment codes dynamically for colors
 			addCompartmentCodes(network, model);
@@ -1022,9 +1026,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
-	/** Recursive function for processing the Associations. 
-	 * TODO: remove code redundancy 
-	 */
+	/** Recursive function for processing the Associations. */
 	private void processAssociation(CyNode parentNode, String parentType, Association association){
 		
 		if (association.getClass().equals(GeneProductRef.class)){
@@ -1088,7 +1090,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		logger.info("<comp>");
 
 		// TODO: model ListOfSubmodels
-		//          -> listOfDeletions
+		//
 		
 		// List of ports
 		for (Port port : compModel.getListOfPorts()) {
@@ -1119,77 +1121,22 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 		
-		// TODO: SBase replacedBy & listOfReplacedElements
+		// TODO: SBase replacedBy & listOfReplacedElements & listOfDeletions
 		
 	}
-	
-	
+
 	////////////////////////////////////////////////////////////////////////////
-	// SBML DISTRIB
+	// SBML GROUPS
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Create uncertainty information from distrib package. 
+	 * Creates groups.
+	 * TODO: implement
 	 */
-	private void readDistrib(Model model){
-		// TODO: necessary to display for all the SBase elements
-		// TODO: write the string as attribute to the respective node
-		
-		logger.debug("<distrib>");
-		// Compartments
-		readUncertainties(model.getListOfCompartments());
-		
-		// Species
-		readUncertainties(model.getListOfSpecies());
-		
-		// Parameters
-		readUncertainties(model.getListOfParameters());
-		
+	private void readGroups(Model model, GroupsModelPlugin groupsModel){
+		logger.info("<groups>");
+        logger.info("\tgroups model found, but not yet supported");
 	}
-	
-	private void readUncertainties(ListOf<?> listOfSBase){
-		for (SBase sbase: listOfSBase){
-			DistribSBasePlugin dSBase = (DistribSBasePlugin) sbase.getExtension(DistribConstants.namespaceURI);
-			if (dSBase != null && dSBase.isSetUncertainty()){
-				Uncertainty uc = dSBase.getUncertainty();
-				if (uc.isSetUncertML()){
-					readUncertainty(sbase, uc);
-				}
-			}			
-		}
-	}
-	
-	/* Parse the uncertainty information. 
-	 * Use the respective Java API.
-	 * https://github.com/52North/uncertml-api.git 
-	 */
-	private void readUncertainty(SBase sbase, Uncertainty uc){
-		String id = null;
-		String name = null;
-		if (uc.isSetId()){
-			id = uc.getId();
-		}
-		if (uc.isSetName()){
-			name = uc.getName();
-		}
-		
-		// XML node
-		XMLNode uncertML = uc.getUncertML();
-		//XMLParser ucParser = new XMLParser();
-		
-		// TODO: parse the uncertainty XML
-					// Problems with the library
-					// String xmlString = uncertML.toXMLString();
-					// IUncertainty iuc = ucParser.parse(xmlString);
-					// logger.info(iuc.toString());
-		
-		if (sbase instanceof NamedSBase){
-			logger.info(String.format("UncertML <%s|%s> for %s: %s", name, id, ((NamedSBase) sbase).getId(), uncertML.toString()));
-		} else {
-			logger.info(String.format("UncertML <%s|%s>: %s", name, id, uncertML.toString()));
-		}	
-	}
-	
-	
+
 	////////////////////////////////////////////////////////////////////////////
 	// SBML LAYOUT
 	////////////////////////////////////////////////////////////////////////////
@@ -1199,17 +1146,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 */
 	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
 		logger.info("<layout>");
+        logger.info("\tlayout model found, but not yet supported");
+
 		for (Layout layout : layoutModel.getListOfLayouts()){
-			// TODO: manage the multiple layout networks
 			// layoutNetwork = rootNetwork.addSubNetwork();
-			readLayout(model, qualModel, layout);
+			// readLayout(model, qualModel, layout);
 		}
 	}
 	
-	/** Read a single layout. */
+	/** Read single layout. */
 	private void readLayout(Model model, QualModelPlugin qualModel, Layout layout){
 
-		// Process the layouts (Generate full id set and all edges for elements)
+		// Process layouts (Generate full id set and all edges for elements)
 		LayoutPreprocessor preprocessor = new LayoutPreprocessor(model, qualModel, layout);
 		layout = preprocessor.getProcessedLayout();
 		
@@ -1238,9 +1186,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				AttributeUtil.set(network, node, SBML.NODETYPE_ATTR, SBML.NODETYPE_LAYOUT_SPECIESGLYPH, String.class);
 			}
 		}
-		
 		// addReactionGlyphNodes();
-		
 		// addModelEdges();
 		// addQualitativeModelEdges();
 	}
@@ -1255,11 +1201,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 	}
 
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.cytoscape.io.read.CyNetworkReader#buildCyNetworkView(org.cytoscape.model.CyNetwork)
-	 */
 	@Override
 	public CyNetworkView buildCyNetworkView(final CyNetwork network) {
 		logger.debug("buildCyNetworkView");
@@ -1290,9 +1231,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		return view;
 	}	
 	
-	/**
-	 * Read String from InputStream.
-	 */
+	/** Read String from InputStream. */
 	public static String readString(InputStream source) throws IOException {
 		StringWriter writer = new StringWriter();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(source));
@@ -1309,6 +1248,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		return writer.toString();
 	}
 
+    @Override
 	public void cancel() {
 	}
 }

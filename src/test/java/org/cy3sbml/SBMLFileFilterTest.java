@@ -29,7 +29,7 @@ public class SBMLFileFilterTest {
 
     @Test
     public void accept() throws Exception {
-        InputStream instream = getClass().getResourceAsStream(SBMLCoreTest.TEST_MODEL_CORE);
+        InputStream instream = getClass().getResourceAsStream(SBMLCoreTest.TEST_MODEL_CORE_01);
         boolean accepted = filter.accepts(instream, DataCategory.NETWORK);
         assertTrue(accepted);
         accepted = filter.accepts(instream, DataCategory.TABLE);
