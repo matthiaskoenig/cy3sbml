@@ -4,8 +4,7 @@ package org.cy3sbml.mapping;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import org.sbml.jsbml.SBase;
 
@@ -24,9 +23,18 @@ import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Class manages the SBMLObject lookup from given key.  
+ * Class manages the SBMLObject lookup from given key.
+ * FIXME: most of the lookups should be done via the SBMLDocument.
+ * only in the cases where ids are generated these have to be looked
+ * up separately.
+ *
+ * This will guarantee that new SBases are available without the need
+ * to register them first (this is a major source of bugs).
+ *
  */
 public class IdObjectMap {
 	private static final Logger logger = LoggerFactory.getLogger(IdObjectMap.class);

@@ -23,8 +23,8 @@ public class Network2SBMLMapper implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Map<Long, SBMLDocument> documentMap;
-	private Map<Long, One2ManyMapping<String, Long>> NSBToNodeMappingMap;
-	private Map<Long, One2ManyMapping<Long, String>> nodeToNSBMappingMap;
+	private Map<Long, One2ManyMapping<String, Long>> sbase2nodeMappingMap;
+	private Map<Long, One2ManyMapping<Long, String>> node2sbaseMappingMap;
 	
 	public Network2SBMLMapper(){
 		logger.debug("Network2SBMLMapper created");
@@ -33,8 +33,8 @@ public class Network2SBMLMapper implements Serializable{
 
 	private void initMaps(){
 		documentMap = new HashMap<>();
-		NSBToNodeMappingMap = new HashMap<>();
-		nodeToNSBMappingMap = new HashMap<>();
+		sbase2nodeMappingMap = new HashMap<>();
+		node2sbaseMappingMap = new HashMap<>();
 	}
 
 	/**
@@ -71,32 +71,32 @@ public class Network2SBMLMapper implements Serializable{
 	public void putDocument(Long SUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
         logger.debug("Network put: " + SUID.toString());
 	    documentMap.put(SUID,  doc);
-		NSBToNodeMappingMap.put(SUID, mapping);
-		nodeToNSBMappingMap.put(SUID, mapping.createReverseMapping());
+		sbase2nodeMappingMap.put(SUID, mapping);
+		node2sbaseMappingMap.put(SUID, mapping.createReverseMapping());
 	}
 
 	public void removeDocument(Long deletedNetworkSUID){
 		logger.debug("Network remove:" + deletedNetworkSUID.toString());
 		documentMap.remove(deletedNetworkSUID);
-		NSBToNodeMappingMap.remove(deletedNetworkSUID);
-		nodeToNSBMappingMap.remove(deletedNetworkSUID);
+		sbase2nodeMappingMap.remove(deletedNetworkSUID);
+		node2sbaseMappingMap.remove(deletedNetworkSUID);
 	}
 
 
-    public One2ManyMapping<Long, String> getCyNode2NSBMapping(Long SUID){
+    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long SUID){
         if (SUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
         }
-        return nodeToNSBMappingMap.get(SUID);
+        return node2sbaseMappingMap.get(SUID);
     }
 
-    public One2ManyMapping<String, Long> getNSB2CyNodeMapping(Long SUID){
+    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long SUID){
         if (SUID == null){
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
         }
-        return NSBToNodeMappingMap.get(SUID);
+        return sbase2nodeMappingMap.get(SUID);
     }
 
 	public String toString(){

@@ -60,7 +60,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		
 		// get SBMLManager for serialization
 		SBMLManager sbmlManager = SBMLManager.getInstance();
-		Network2SBMLMapper mapper = sbmlManager.getSBML2NetworkMapper();
+		Network2SBMLMapper mapper = sbmlManager.getNetwork2SBMLMapper();
 		Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 		
 		// Save all the SBML files
@@ -239,7 +239,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		for (Long networkSuid: documentMap.keySet()){
 			Long newNetworkSuid = s.getObject(networkSuid, CyNetwork.class).getSUID();
 			SBMLDocument doc = documentMap.get(networkSuid);
-			One2ManyMapping<String, Long> nsb2node = m.getNSB2CyNodeMapping(networkSuid);
+			One2ManyMapping<String, Long> nsb2node = m.getSBase2CyNodeMapping(networkSuid);
 			
 			// replace keys in nsb2node mapping
 			One2ManyMapping<String, Long> newNsb2node = new One2ManyMapping<String, Long>();

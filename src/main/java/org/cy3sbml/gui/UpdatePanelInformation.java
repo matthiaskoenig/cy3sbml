@@ -7,7 +7,6 @@ import org.cy3sbml.SBMLManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
-import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
@@ -49,7 +48,7 @@ public class UpdatePanelInformation implements Runnable {
 				// TODO: How to handle multiple selections? 
 				// Currently only first node in selection used
 				String key = objectIds.get(0);
-				SBase sbase = sbmlManager.getObjectById(key);
+				SBase sbase = sbmlManager.getSBaseById(key);
 				if (sbase != null){
 					textPane.showSBaseInfo(sbase);	
 				} else {

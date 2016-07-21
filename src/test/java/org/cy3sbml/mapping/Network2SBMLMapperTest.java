@@ -20,7 +20,6 @@ public class Network2SBMLMapperTest {
     private static final One2ManyMapping<String, Long> MAPPING = new One2ManyMapping<>();
     private static final SBMLDocument DOC = new SBMLDocument();
 
-
     @Before
     public void setUp(){
         mapper = new Network2SBMLMapper();
@@ -81,15 +80,15 @@ public class Network2SBMLMapperTest {
     }
 
     @Test
-    public void getNSB2CyNodeMapping() throws Exception {
+    public void getSBase2CyNodeMapping() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertNotNull(mapper.getNSB2CyNodeMapping(SUID));
+        assertNotNull(mapper.getSBase2CyNodeMapping(SUID));
     }
 
     @Test
-    public void getCyNode2NSBMapping() throws Exception {
+    public void getCyNode2SBaseMapping() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertNotNull(mapper.getCyNode2NSBMapping(SUID));
+        assertNotNull(mapper.getCyNode2SBaseMapping(SUID));
     }
 
 }
