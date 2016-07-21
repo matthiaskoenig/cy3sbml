@@ -18,6 +18,7 @@ import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.TaskIterator;
 
 import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.NetworkUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +70,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 			final CyNetwork network = view.getModel();
 
             // check if SBML network
-			if(SBMLManager.isSBMLNetwork(network)) {
+			if(NetworkUtil.isSBMLNetwork(network)) {
 
 				//apply style and layout
                 // TODO: define constant

@@ -171,7 +171,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             mapping = IdNodeMap.fromSBMLNetwork(document, network, mapping);
 
             // existing mapping is updated
-            sbmlManager.addSBML2NetworkEntry(document, network, mapping);
+            sbmlManager.addSBMLForNetwork(document, network, mapping);
             // update the current network
             sbmlManager.updateCurrent(network);
         } else {
