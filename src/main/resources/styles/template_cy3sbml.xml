@@ -97,5 +97,4 @@
             <visualProperty name="EDGE_STROKE_UNSELECTED_PAINT" default="#CCCCCC"/>
         </edge>
     </visualStyle>
-
 </vizmap>

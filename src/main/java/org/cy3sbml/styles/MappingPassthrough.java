@@ -11,7 +11,7 @@ public class MappingPassthrough extends Mapping{
                               VisualPropertyKey property,
                               String attributeName,
                               String defaultValue){
-        super(MappingType.DISCRETE, dataType, property, attributeName, defaultValue);
+        super(MappingType.PASSTHROUGH, dataType, property, attributeName, defaultValue);
     }
 
 }
