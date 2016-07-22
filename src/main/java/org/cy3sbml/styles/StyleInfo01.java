@@ -34,7 +34,7 @@ public class StyleInfo01 extends StyleInfo {
         // passthroughMapping
         ////////////////////////////////
 
-        mappings.add(new MappingPassthrough(Mapping.DataType.INTEGER,
+        mappings.add(new MappingPassthrough(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL, SBML.LABEL, ""));
 
         ////////////////////////////////
@@ -50,14 +50,14 @@ public class StyleInfo01 extends StyleInfo {
         m1.put("6", "#66CCFF");
         m1.put("7", "#990099");
         m1.put("8", "#F0F0F0");
-        mappings.add(new MappingDiscrete(Mapping.DataType.INTEGER,
+        mappings.add(new MappingDiscrete(Mapping.DataType.integer,
                 VisualPropertyKey.NODE_BORDER_PAINT, SBML.ATTR_COMPARTMENT_CODE, "#000000", m1));
 
         Map<String, String> m2 = new HashMap<>();
         m2.put(SBML.NODETYPE_SPECIES, "20");
         m2.put(SBML.NODETYPE_QUAL_SPECIES, "20");
         m2.put(SBML.NODETYPE_FBC_GENEPRODUCT, "20");
-        mappings.add(new MappingDiscrete(Mapping.DataType.INTEGER,
+        mappings.add(new MappingDiscrete(Mapping.DataType.integer,
                 VisualPropertyKey.NODE_LABEL_FONT_SIZE, SBML.NODETYPE_ATTR, "16", m2));
 
         Map<String, String> m3 = new HashMap<>();
@@ -72,7 +72,7 @@ public class StyleInfo01 extends StyleInfo {
         m3.put(SBML.NODETYPE_QUAL_SPECIES, "#F0F0F0");
         m3.put(SBML.NODETYPE_QUAL_TRANSITION, "#999999");
         m3.put(SBML.NODETYPE_FBC_GENEPRODUCT, "#FF9966");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR, "#FFFFFF", m3));
 
         Map<String, String> m4 = new HashMap<>();
@@ -84,7 +84,7 @@ public class StyleInfo01 extends StyleInfo {
         m4.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_KINETIC_LAW, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_QUAL_TRANSITION, "Liberation Sans Bold,plain,12");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_FONT_FACE, SBML.NODETYPE_ATTR, "Liberation Sans,plain,12", m4));
 
         Map<String, String> m5 = new HashMap<>();
@@ -97,8 +97,8 @@ public class StyleInfo01 extends StyleInfo {
         m5.put(SBML.NODETYPE_KINETIC_LAW, "20.0");
         m5.put(SBML.NODETYPE_QUAL_SPECIES, "50.0");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
-        m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "50.0");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
         Map<String, String> m6 = new HashMap<>();
@@ -108,7 +108,7 @@ public class StyleInfo01 extends StyleInfo {
         m6.put(SBML.NODETYPE_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_KINETIC_LAW, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_QUAL_TRANSITION, "N,S,c,0.00,0.00");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_POSITION, SBML.NODETYPE_ATTR, "C,C,c,0.00,0.00", m6));
 
         Map<String, String> m7 = new HashMap<>();
@@ -118,7 +118,7 @@ public class StyleInfo01 extends StyleInfo {
         m7.put(SBML.NODETYPE_LOCAL_PARAMTER, "DIAMOND");
         m7.put(SBML.NODETYPE_QUAL_TRANSITION, "RECTANGLE");
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
 
         // EDGE
@@ -126,12 +126,12 @@ public class StyleInfo01 extends StyleInfo {
         Map<String, String> m8 = new HashMap<>();
         m8.put(SBML.INTERACTION_REACTION_PRODUCT, "DELTA");
         m8.put(SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, "DELTA");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_TARGET_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m8));
 
         Map<String, String> m9 = new HashMap<>();
         m9.put(SBML.INTERACTION_REACTION_MODIFIER, "CIRCLE");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m9));
 
         Map<String, String> m10 = new HashMap<>();
@@ -141,7 +141,7 @@ public class StyleInfo01 extends StyleInfo {
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_INPUT, "#000000");
         m10.put(SBML.INTERACTION_REACTION_MODIFIER, "#3333FF");
         m10.put(SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES, "#3333FF");
-        mappings.add(new MappingDiscrete(Mapping.DataType.STRING,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR, "#CCCCCC", m10));
 
         return mappings;

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Factory for creating visual styles depending on the current
@@ -86,6 +87,22 @@ public class StyleFactory {
                             }else if (m.getMappingType() == Mapping.MappingType.DISCRETE){
                                 System.out.println(Mapping.MappingType.DISCRETE);
                                 // create mapping node
+                                Element eMap = doc.createElement("discreteMapping");
+                                eMap.setAttribute("attributeType", m.getDataType().toString());
+                                eMap.setAttribute("attributeName", m.getAttributeName());
+                                nvp.appendChild(eMap);
+
+                                // create mapping entries
+                                Map<String, String> map = ((MappingDiscrete) m).getMap();
+                                for (String attributeValue: map.keySet()){
+                                    String value = map.get(attributeValue);
+                                    Element eEntry = doc.createElement("discreteMappingEntry");
+                                    eEntry.setAttribute("attributeValue", attributeValue);
+                                    eEntry.setAttribute("value", value);
+                                    nvp.appendChild(eMap);
+                                    eMap.appendChild(eEntry);
+                                }
+
                             }else if (m.getMappingType() == Mapping.MappingType.CONTINOUS){
                                 // TODO: implement
                                 System.out.println("Continous mapping not supported.");
@@ -106,6 +123,8 @@ public class StyleFactory {
             System.out.println(file.getAbsolutePath());
 
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             Result output = new StreamResult(file);
             Source input = new DOMSource(doc);
             transformer.transform(input, output);

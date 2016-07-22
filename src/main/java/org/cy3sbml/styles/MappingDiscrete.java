@@ -6,6 +6,7 @@ import java.util.Map;
  * Information storage for DiscreteMapping
  */
 public class MappingDiscrete extends Mapping{
+
     private Map map;
 
     public MappingDiscrete(DataType dataType,
@@ -15,6 +16,10 @@ public class MappingDiscrete extends Mapping{
                            Map map){
         super(MappingType.DISCRETE, dataType, property, attributeName, defaultValue);
         this.map = map;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
 }

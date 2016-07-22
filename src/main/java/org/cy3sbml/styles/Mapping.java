@@ -19,7 +19,7 @@ public class Mapping {
     }
 
     public enum DataType {
-        INTEGER, STRING
+        integer, string
     }
 
     public Mapping(MappingType mappingType,
