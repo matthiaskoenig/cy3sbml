@@ -116,8 +116,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private SBMLDocument document;
 
 	private CyNetwork network;       // global network of all SBML information
-	private CyNetwork mainNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 	private CyRootNetwork rootNetwork;
+	private CyNetwork mainNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 
 	private Map<String, CyNode> nodeById; // node dictionary
     private Boolean error = false;

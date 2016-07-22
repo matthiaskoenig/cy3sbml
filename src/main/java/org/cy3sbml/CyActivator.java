@@ -37,7 +37,6 @@ import java.io.File;
 import java.util.Properties;
 
 import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.SBMLFileFilter;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.CofactorNodesAction;
@@ -165,7 +164,6 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// init cy3sbml ResultsPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-
 
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);

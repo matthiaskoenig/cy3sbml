@@ -91,8 +91,8 @@ public class LayoutTools {
 	    			View<CyNode> nodeView = view.getNodeView(node);
 	    			nodeView.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, box.getXpos());
 	    			nodeView.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, box.getYpos());
-	    			// nodeView.setVisualProperty(BasicVisualLexicon.NODE_HEIGHT, box.getHeight());
-	    			// nodeView.setVisualProperty(BasicVisualLexicon.NODE_WIDTH, box.getWidth());
+	    			// nodeView.setVisualProperty(VisualPropertyKey.NODE_HEIGHT, box.getHeight());
+	    			// nodeView.setVisualProperty(VisualPropertyKey.NODE_WIDTH, box.getWidth());
 	    		}
 	    	}
 	    	view.updateView();
