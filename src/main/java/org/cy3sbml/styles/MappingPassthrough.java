@@ -1,7 +1,5 @@
 package org.cy3sbml.styles;
 
-import org.cytoscape.view.model.VisualProperty;
-
 /**
  * Information storage for PassthroughMapping.
  */

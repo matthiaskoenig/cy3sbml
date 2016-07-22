@@ -1,6 +1,7 @@
 package org.cy3sbml.styles;
 
 import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.XMLUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,7 +37,7 @@ public class StyleFactory {
     /**
      * Creates VisualStyle from StyleInfo
      */
-    public static void createStyle(StyleInfo info, String targetDir){
+    public static void createStyle(StyleInfo info, File file){
 
         // read template
         String template = info.getTemplate();
@@ -114,17 +115,14 @@ public class StyleFactory {
                         }
                     }
                 }
-
-
             }
 
             // save the template
-            File file = new File(targetDir, name + ".xml");
             System.out.println(file.getAbsolutePath());
-
+            XMLUtil.cleanEmptyTextNodes(doc);
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             Result output = new StreamResult(file);
             Source input = new DOMSource(doc);
             transformer.transform(input, output);
@@ -132,9 +130,6 @@ public class StyleFactory {
         }catch (ParserConfigurationException | IOException | SAXException | TransformerException e){
             e.printStackTrace();
         }
-
-
-
     }
 
     /**
@@ -144,13 +139,14 @@ public class StyleFactory {
     public static void main(String[] args){
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
 
+
         List<StyleInfo> styleInfos = new LinkedList<>();
         styleInfos.add(new StyleInfo01());  // cy3sbml
+        styleInfos.add(new StyleInfo02());  // cy3sbml-dark
         for (StyleInfo info: styleInfos){
-            StyleFactory.createStyle(info, targetDir);
+            File file = new File(targetDir, info.getName() + ".xml");
+            StyleFactory.createStyle(info, file);
         }
-
     }
-
 
 }
