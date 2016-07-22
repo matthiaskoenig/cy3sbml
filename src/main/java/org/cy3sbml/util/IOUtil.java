@@ -8,6 +8,11 @@ import java.io.*;
 public class IOUtil {
     private static final int BUFFER_SIZE = 16384;
 
+    /** Read resource to InputStream */
+    public static InputStream readResource(String resource){
+        return IOUtil.class.getResourceAsStream(resource);
+    }
+
     /** Read String from InputStream. */
     public static String readString(InputStream source) throws IOException {
         StringWriter writer = new StringWriter();
