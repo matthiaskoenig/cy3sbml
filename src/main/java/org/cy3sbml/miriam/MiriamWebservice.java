@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
-/** Set up the Miriam Link to get data via the webservice. 
+/**
+ * Setup the Miriam Link to get data via the webservice.
  *
  * It can be necessary to set the proxy information for the webservice.
  */

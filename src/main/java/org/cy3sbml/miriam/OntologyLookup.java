@@ -6,6 +6,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import com.google.gson.Gson;
+import org.cy3sbml.miriam.Ontology;
+import org.cy3sbml.miriam.Term;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,7 +24,7 @@ import java.util.Map;
  *
  * Use UniRest for REST queries.
  */
-public class OntologyLookupTest {
+public class OntologyLookup {
     public static final String OLS_PURL_PREFIX = "http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F";
     private static final Map<String, String> ONTOLOGY_MAP;
 

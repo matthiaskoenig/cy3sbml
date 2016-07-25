@@ -30,9 +30,7 @@ import org.cy3sbml.util.AnnotationUtil;
  * on selection of SBML objects in the graph.
  * 
  * TODO: cached MIRIAM information (faster access & less workload on MIRIAM)
- * 
- * TODO: refactor SBML HTML information completely 
- * 		(https://github.com/matthiaskoenig/cy3sbml/milestones/0.1.8)
+ * TODO: refactor SBML HTML information completely
  */
 public class SBaseInfoFactory {
 	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
@@ -457,7 +455,7 @@ public class SBaseInfoFactory {
 			return falseHTML();
 		}	
 	}
-    
+
 	
 	/** Get additional image information for the database and identifier.
 	 * TODO: This has to be done offline and in the background (images have to be cashed) !
