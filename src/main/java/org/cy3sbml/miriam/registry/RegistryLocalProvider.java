@@ -13,6 +13,8 @@ import org.cy3sbml.miriam.registry.data.PhysicalLocation;
 
 /**
  * Identifiers.org Registry Local Services provider.
+ *
+ * Provides access to the data.
  */
 public class RegistryLocalProvider {
 	private Logger logger = Logger.getLogger(RegistryLocalProvider.class);
@@ -21,38 +23,25 @@ public class RegistryLocalProvider {
 	private final String JAVA_LIBRARY_VERSION = "20130212";
 
 	
-	/**
-	 * Creates a new getInstance() of {@link RegistryLocalProvider}.
-	 */
-	public RegistryLocalProvider()
-	{
+	/** Creates a new getInstance() of {@link RegistryLocalProvider}. */
+	public RegistryLocalProvider() {
         logger.debug("RegistryLocalProvider Constructor");        
 	}
 	
 	
-	/**
-	 * Retrieves some information about these Services.
-	 * 
-	 * @return information about the Services
-	 */
-	public String getServicesInfo()
-	{
+	/** Retrieve some information about these Services. */
+	public String getServicesInfo() {
 	    return "Identiers.org Registry Local Services. For more information: http://identifiers.org/registry/. " +
 	    		"Developed and maintained by the BioModels.net team (biomodels-net-support@lists.sf.net).";
 	}
 	
 	
-	/**
-	 * Retrieves the current version of MIRIAM Registry Local Services.
-	 *   
-	 * @return Current version of the MIRIAM Registry Local Services
-	 */
+	/** Retrieves the current version of MIRIAM Registry Local Services. */
 	public String getServicesVersion()
 	{
 	    return JAVA_LIBRARY_VERSION;
 	}
-	
-	
+
 	/**
 	 * Retrieves the latest version of the Java library available.
 	 * @return latest version of the Java library available  
@@ -70,17 +59,13 @@ public class RegistryLocalProvider {
 	 * @return unique (official) URN of the data collection
 	 * @deprecated Use {@link #getDataTypeURI(String)} instead.
 	 */
-	public String getDataTypeURN(String name)
-	{
+	public String getDataTypeURN(String name) {
 		logger.debug("Call of the (deprecated) 'GetDataTypeURN()' request...");
-
 	    DataType dataType = getDataType(name);
 		
-	    if (dataType != null) 
-	    {
+	    if (dataType != null) {
 			return dataType.getURN();	    	
 	    }
-	    
         return null;
 	}
 	

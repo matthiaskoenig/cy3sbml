@@ -8,6 +8,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.google.gson.Gson;
 import org.cy3sbml.miriam.Ontology;
 import org.cy3sbml.miriam.Term;
+import org.cy3sbml.miriam.registry.RegistryDatabase;
+import org.cy3sbml.miriam.registry.RegistryLocalProvider;
+import org.cy3sbml.miriam.registry.RegistryUtilities;
+import org.cy3sbml.miriam.registry.data.DataType;
+import org.cy3sbml.miriam.registry.data.PhysicalLocation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -64,6 +69,7 @@ public class OntologyLookup {
 
     /**
      * Get available ontologies from OLS.
+     * Queries all the ontologies and parses them in ontology objects.
      */
     public static Map<String, Ontology> getOntologies(){
         Map<String, Ontology> map = new HashMap<>();
@@ -91,32 +97,63 @@ public class OntologyLookup {
         return map;
     }
 
-    public static Term getTermFromResource(String resource){
-        Term term = null;
+    /**
+     * Searches the OLS physical location and
+     * returns the root URL which can be used for term
+     * queries with OLS.
+     */
+    public static String getURLRootForOLS(String uri){
+        String OLS_PREFIX = "http://www.ebi.ac.uk/ols/ontologies/";
+        // find the ontology from the resources
+        String dataPart = RegistryUtilities.getDataPart(uri);
 
-        // parse the resource String, i.e. from MIRIAM to OLS
-        String[] tokens = resource.split("/");
-        String entry = tokens[tokens.length-1];
-        if (entry.contains(":")){
-            String[] parts = entry.split(":");
-            String ontology = parts[0].toLowerCase();
-            String termId = entry.replace(":", "_");
+        // MIRIAM DataType from the given dataPart
+        DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataPart);
+        String rootURL = null;
+        if (dataType != null){
+            for (PhysicalLocation location : dataType.getPhysicalLocations()){
+                String url = location.getUrlRoot();
+                if (url.startsWith(OLS_PREFIX)) {
+                    rootURL = url;
+                    break;
+                }
+            }
+        }
+        return rootURL;
+    }
+
+    public static Term getTermFromResource(String uri){
+        Term term = null;
+        // It is an ontology supported by OLS
+        String urlRoot = getURLRootForOLS(uri);
+
+        // TODO: go via the data entry and replace the $id
+        // than parse all the terms in the returned JSON.
+
+
+        if (urlRoot!= null){
+            urlRoot = urlRoot.replace("http://www.ebi.ac.uk/ols/ontologies/", "http://www.ebi.ac.uk/ols/api/ontologies/");
+            System.out.println("rootURL: " + urlRoot);
+            // term to search
+            String termId = RegistryUtilities.getElementPart(uri);
+            termId = termId.replace(":", "_");
 
             // finally request the term
-            String query = "http://www.ebi.ac.uk/ols/api/ontologies/" + ontology + "/terms/" + OLS_PURL_PREFIX + termId;
+            String query = urlRoot + "/terms/" + OLS_PURL_PREFIX + termId;
+            System.out.println("query: " +  query);
             System.out.println(query);
             JSONObject jsonObject = olsQuery(query);
             Gson g = new Gson();
             term = g.fromJson(jsonObject.toString(), Term.class);
 
         } else {
-            System.out.println("Resource is not an ontology: " + resource);
+            System.out.println("Resource is not an ontology: " + uri);
         }
         return term;
     }
 
 
-	/*
+	/**
 	 * Test the Restful API.
 	 *
 	 * For Json parsing see
@@ -127,13 +164,14 @@ public class OntologyLookup {
      *      <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C13747" />
      */
     public static void main(String[] args){
+        // Get ontologies
         Map<String, Ontology> map = getOntologies();
         for (String key: map.keySet()){
             System.out.println(key + ":" + map.get(key));
         }
 
         // Get the resources
-        String[] resources = {
+        String[] uris = {
                 // http://www.ebi.ac.uk/ols/api/ontologies/sbo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FSBO_0000247
                 "http://identifiers.org/biomodels.sbo/SBO:0000247",
                 // http://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_25858
@@ -147,8 +185,11 @@ public class OntologyLookup {
         // Parse the resourses, which are primary resources and use them for the lookup of the term
         // http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?obo_id=EFO:0004859
 
-        for (String r : resources){
-            Term term = getTermFromResource(r);
+        for (String uri : uris){
+            String[] locations = new RegistryLocalProvider().getLocations(uri);
+
+
+            Term term = getTermFromResource(uri);
             System.out.println(term);
 
         }
