@@ -1,5 +1,9 @@
 package org.cy3sbml;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Definition of cy3sbml constants.
  *
@@ -22,6 +26,7 @@ public class SBML {
     public static final String LEVEL_VERSION = "sbmlVersion";
 
     public static final String NODETYPE_ATTR = SBMLCoreReader.SBML_TYPE_ATTR;
+
     public static final String INTERACTION_ATTR = SBMLCoreReader.INTERACTION_TYPE_ATTR;
 
     // -----------------------
@@ -36,7 +41,6 @@ public class SBML {
     public static final String ATTR_METAID = "metaId";
 
     public static final String ATTR_COMPARTMENT = SBMLCoreReader.SBML_COMPARTMENT_ATTR;
-    public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
     public static final String ATTR_INITIAL_CONCENTRATION = SBMLCoreReader.SBML_INITIAL_CONCENTRATION_ATTR;
     public static final String ATTR_INITIAL_AMOUNT = SBMLCoreReader.SBML_INITIAL_AMOUNT_ATTR;
     public static final String ATTR_CHARGE = SBMLCoreReader.SBML_CHARGE_ATTR;
@@ -120,15 +124,11 @@ public class SBML {
     // ----------------------
     // Edge types
     // ----------------------
-    public static final String INTERACTION_UNDEFINED = "undefined";
-
     public static final String INTERACTION_REACTION_REACTANT = SBMLCoreReader.INTERACTION_TYPE_REACTION_REACTANT; // "reactant_reaction";
     public static final String INTERACTION_REACTION_PRODUCT = SBMLCoreReader.INTERACTION_TYPE_REACTION_PRODUCT;   // "reaction_product";
     public static final String INTERACTION_REACTION_MODIFIER = SBMLCoreReader.INTERACTION_TYPE_REACTION_MODIFIER; // "modifier_reaction";
-    public static final String INTERACTION_REACTION_ACTIVATOR = "activator_reaction";
-    public static final String INTERACTION_REACTION_INHIBITOR = "inhibitor_reaction";
-    public static final String INTERACTION_REACTION_SIDEPRODUCT = "reaction_sideproduct";
-    public static final String INTERACTION_REACTION_SIDEREACTANT = "sidereactant_reaction";
+    public static final String INTERACTION_REACTION_ACTIVATOR = "reaction-activator";
+    public static final String INTERACTION_REACTION_INHIBITOR = "reaction-inhibitor";
 
     public static final String INTERACTION_SPECIES_COMPARTMENT = "species_compartment";
     public static final String INTERACTION_REACTION_COMPARTMENT = "reaction_compartment";
@@ -154,7 +154,53 @@ public class SBML {
     // comp
     public static final String INTERACTION_COMP_PORT_ID = "port-id";
 
+
     // -------------------------------------------------------------------------
+    // Visualization attributes
+    // Some derived attributes are calculated for visual representation.
+    // -------------------------------------------------------------------------
+    public static final String NODETYPE_ATTR_EXTENDED = SBMLCoreReader.SBML_TYPE_ATTR + " ext";
+    public static final String INTERACTION_ATTR_EXTENDED = "shared interaction";
+
+    public static final String ATTR_COMPARTMENT_CODE = "compartmentCode";
+    public static final String NODETYPE_REACTION_REVERSIBLE = NODETYPE_REACTION + " reversible";
+    public static final String NODETYPE_REACTION_IRREVERSIBLE = NODETYPE_REACTION + " irreversible";
+
+    // -------------------------------------------------------------------------
+    // Important SBO terms used in styles
+    // -------------------------------------------------------------------------
+    public static final Set<String> SBO_MODIFIERS;
+    public static final Set<String> SBO_ACTIVATORS;
+    public static final Set<String> SBO_INHIBITORS;
+
+    static {
+        Set<String> mSet = new HashSet<String>();
+        mSet.add("SBO:0000019"); // modfier
+        mSet.add("SBO:0000595"); // dual-activity modifier
+        mSet.add("SBO:0000596"); // modifier of unknown activity
+        SBO_MODIFIERS = Collections.unmodifiableSet(mSet);
+
+        Set<String> aSet = new HashSet<String>();
+        aSet.add("SBO:0000459"); // stimulator
+        aSet.add("SBO:0000013"); // catalyst
+        aSet.add("SBO:0000460"); // enzymatic catalyst
+        aSet.add("SBO:0000462"); // non-essential activator
+        aSet.add("SBO:0000021"); // potentiator
+        aSet.add("SBO:0000461"); // essential activator
+        aSet.add("SBO:0000535"); // binding activator
+        aSet.add("SBO:0000534"); // catalytic activator
+        aSet.add("SBO:0000533"); // specific activator
+        SBO_ACTIVATORS = Collections.unmodifiableSet(aSet);
+
+        Set<String> iSet = new HashSet<String>();
+        iSet.add("SBO:0000020"); //inhibitor
+        iSet.add("SBO:0000206"); //competitive inhibitor
+        iSet.add("SBO:0000597"); //silencer
+        iSet.add("SBO:0000207"); //non-competitive inhibitor
+        iSet.add("SBO:0000537"); //complete-inhibitor
+        iSet.add("SBO:0000536"); //partial-inhibitor
+        SBO_INHIBITORS = Collections.unmodifiableSet(iSet);
+    }
 
     private SBML() {};
 

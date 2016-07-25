@@ -271,6 +271,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 			// Add compartment codes dynamically for colors
 			addCompartmentCodes(network, model);
+            addSBMLTypesExtended(network, model);
+            addSBMLInteractionExtended(network, model);
 						
 			//////////////////////////////////////////////////////////////////
 			
@@ -1219,4 +1221,49 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             AttributeUtil.set(network, n, SBML.ATTR_COMPARTMENT_CODE, code, Integer.class);
         }
     }
+
+    /**
+     * Adds extended sbml types as node attributes.
+     *
+     * The extended SBML types can be used in the visual mapping.
+     * This allows for instance to distinguish reversible and irreversible reactions.
+     */
+    private void addSBMLTypesExtended(CyNetwork network, Model model){
+        for (CyNode n : network.getNodeList()){
+            String type = AttributeUtil.get(network, n, SBML.NODETYPE_ATTR, String.class);
+            // additional subtypes
+            if (type.equals(SBML.NODETYPE_REACTION)){
+                Boolean reversible = AttributeUtil.get(network, n, SBML.ATTR_REVERSIBLE, Boolean.class);
+                if (reversible == true){
+                    type = SBML.NODETYPE_REACTION_REVERSIBLE;
+                } else {
+                    type = SBML.NODETYPE_REACTION_IRREVERSIBLE;
+                }
+            }
+            AttributeUtil.set(network, n, SBML.NODETYPE_ATTR_EXTENDED, type, String.class);
+        }
+    }
+
+    /**
+     * Adds extended sbml interaction as edge attributes.
+     *
+     * The extended SBML types can be used in the visual mapping.
+     * This allows for instance to distinguish modifiers from activators and inhibitors.
+     */
+    private void addSBMLInteractionExtended(CyNetwork network, Model model){
+        for (CyEdge e : network.getEdgeList()){
+            String type = AttributeUtil.get(network, e, SBML.INTERACTION_ATTR, String.class);
+            // additional subtypes
+            if (type.equals(SBML.INTERACTION_REACTION_MODIFIER)){
+                String sboterm = AttributeUtil.get(network, e, SBML.ATTR_SBOTERM, String.class);
+                if (SBML.SBO_INHIBITORS.contains(sboterm)){
+                    type = SBML.INTERACTION_REACTION_INHIBITOR;
+                } else if (SBML.SBO_ACTIVATORS.contains(sboterm)) {
+                    type = SBML.INTERACTION_REACTION_ACTIVATOR;
+                }
+            }
+            AttributeUtil.set(network, e, SBML.INTERACTION_ATTR_EXTENDED, type, String.class);
+        }
+    }
+
 }

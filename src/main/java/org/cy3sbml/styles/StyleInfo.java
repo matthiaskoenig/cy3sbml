@@ -82,14 +82,14 @@ public class StyleInfo {
                 VisualPropertyKey.NODE_LABEL_FONT_FACE, SBML.NODETYPE_ATTR, "Liberation Sans,plain,12", m4));
 
         Map<String, String> m5 = new HashMap<>();
-        m5.put(SBML.NODETYPE_SPECIES, "50.0");
+        m5.put(SBML.NODETYPE_SPECIES, "40.0");
         m5.put(SBML.NODETYPE_REACTION, "15.0");
         m5.put(SBML.NODETYPE_COMPARTMENT, "90.0");
         m5.put(SBML.NODETYPE_PARAMETER, "30.0");
         m5.put(SBML.NODETYPE_LOCAL_PARAMTER, "30.0");
         m5.put(SBML.NODETYPE_RULE, "20.0");
         m5.put(SBML.NODETYPE_KINETIC_LAW, "20.0");
-        m5.put(SBML.NODETYPE_QUAL_SPECIES, "50.0");
+        m5.put(SBML.NODETYPE_QUAL_SPECIES, "40.0");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
         m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
@@ -125,8 +125,15 @@ public class StyleInfo {
 
         Map<String, String> m9 = new HashMap<>();
         m9.put(SBML.INTERACTION_REACTION_MODIFIER, "CIRCLE");
+        m9.put(SBML.INTERACTION_REACTION_ACTIVATOR, "DIAMOND");
+        m9.put(SBML.INTERACTION_REACTION_INHIBITOR, "T");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m9));
+                VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE, SBML.INTERACTION_ATTR_EXTENDED, "NONE", m9));
+
+        Map<String, String> m11 = new HashMap<>();
+        m11.put(SBML.INTERACTION_REACTION_MODIFIER, "LONG_DASH");
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
+                VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 
         return mappings;
     }

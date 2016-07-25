@@ -72,13 +72,14 @@
             <visualProperty default="10.0" name="NODE_HEIGHT"/>
             <visualProperty default="#FFFF00" name="NODE_SELECTED_PAINT"/>
             <visualProperty default="#FFFFFF" name="NODE_FILL_COLOR">
-                <discreteMapping attributeName="sbml type" attributeType="string">
-                    <discreteMappingEntry attributeValue="reaction" value="#999999"/>
+                <discreteMapping attributeName="sbml type ext" attributeType="string">
+                    <discreteMappingEntry attributeValue="reaction irreversible" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="species" value="#F0F0F0"/>
                     <discreteMappingEntry attributeValue="localParameter" value="#0099FF"/>
                     <discreteMappingEntry attributeValue="parameter" value="#0099FF"/>
                     <discreteMappingEntry attributeValue="qual_species" value="#F0F0F0"/>
                     <discreteMappingEntry attributeValue="compartment" value="#00CC66"/>
+                    <discreteMappingEntry attributeValue="reaction reversible" value="#000000"/>
                     <discreteMappingEntry attributeValue="rule" value="#009933"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="#FF6666"/>
@@ -101,15 +102,15 @@
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="0.0" name="NODE_CUSTOMGRAPHICS_SIZE_8"/>
-            <visualProperty default="10.0" name="NODE_BORDER_WIDTH"/>
+            <visualProperty default="5.0" name="NODE_BORDER_WIDTH"/>
             <visualProperty default="0.0" name="NODE_CUSTOMGRAPHICS_SIZE_4"/>
             <visualProperty default="25" name="NODE_SIZE">
                 <discreteMapping attributeName="sbml type" attributeType="string">
                     <discreteMappingEntry attributeValue="reaction" value="15.0"/>
-                    <discreteMappingEntry attributeValue="species" value="50.0"/>
+                    <discreteMappingEntry attributeValue="species" value="40.0"/>
                     <discreteMappingEntry attributeValue="localParameter" value="30.0"/>
                     <discreteMappingEntry attributeValue="parameter" value="30.0"/>
-                    <discreteMappingEntry attributeValue="qual_species" value="50.0"/>
+                    <discreteMappingEntry attributeValue="qual_species" value="40.0"/>
                     <discreteMappingEntry attributeValue="compartment" value="90.0"/>
                     <discreteMappingEntry attributeValue="rule" value="20.0"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="20.0"/>
@@ -152,7 +153,18 @@
             <visualProperty default="true" name="EDGE_CURVED"/>
             <visualProperty default="255" name="EDGE_TRANSPARENCY"/>
             <visualProperty default="2.0" name="EDGE_WIDTH"/>
-            <visualProperty default="#000000" name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT"/>
+            <visualProperty default="#CCCCCC" name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT">
+                <discreteMapping attributeName="shared interaction" attributeType="string">
+                    <discreteMappingEntry attributeValue="reaction-product" value="#000000"/>
+                    <discreteMappingEntry attributeValue="reaction-reactant" value="#000000"/>
+                    <discreteMappingEntry attributeValue="input_transition" value="#000000"/>
+                    <discreteMappingEntry attributeValue="species_geneProduct" value="#3333FF"/>
+                    <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
+                    <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
+                    <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
+                    <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
+                </discreteMapping>
+            </visualProperty>
             <visualProperty default="NONE" name="EDGE_TARGET_ARROW_SHAPE">
                 <discreteMapping attributeName="interaction type" attributeType="string">
                     <discreteMappingEntry attributeValue="reaction-product" value="DELTA"/>
@@ -162,7 +174,11 @@
             <visualProperty default="#FF0000" name="EDGE_STROKE_SELECTED_PAINT"/>
             <visualProperty default="255" name="EDGE_LABEL_TRANSPARENCY"/>
             <visualProperty default="#000000" name="EDGE_TARGET_ARROW_UNSELECTED_PAINT"/>
-            <visualProperty default="SOLID" name="EDGE_LINE_TYPE"/>
+            <visualProperty default="SOLID" name="EDGE_LINE_TYPE">
+                <discreteMapping attributeName="interaction type" attributeType="string">
+                    <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
+                </discreteMapping>
+            </visualProperty>
             <visualProperty default="" name="EDGE_LABEL"/>
             <visualProperty default="SansSerif.plain,plain,10" name="EDGE_LABEL_FONT_FACE"/>
             <visualProperty name="EDGE_BEND"/>
@@ -171,17 +187,21 @@
             <visualProperty default="#FFFF00" name="EDGE_TARGET_ARROW_SELECTED_PAINT"/>
             <visualProperty default="true" name="EDGE_VISIBLE"/>
             <visualProperty default="NONE" name="EDGE_SOURCE_ARROW_SHAPE">
-                <discreteMapping attributeName="interaction type" attributeType="string">
+                <discreteMapping attributeName="shared interaction" attributeType="string">
+                    <discreteMappingEntry attributeValue="reaction-activator" value="DIAMOND"/>
+                    <discreteMappingEntry attributeValue="reaction-inhibitor" value="T"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="CIRCLE"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="10" name="EDGE_LABEL_FONT_SIZE"/>
             <visualProperty default="#CCCCCC" name="EDGE_STROKE_UNSELECTED_PAINT">
-                <discreteMapping attributeName="interaction type" attributeType="string">
+                <discreteMapping attributeName="shared interaction" attributeType="string">
                     <discreteMappingEntry attributeValue="reaction-product" value="#000000"/>
                     <discreteMappingEntry attributeValue="reaction-reactant" value="#000000"/>
                     <discreteMappingEntry attributeValue="input_transition" value="#000000"/>
                     <discreteMappingEntry attributeValue="species_geneProduct" value="#3333FF"/>
+                    <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
+                    <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
                     <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
                 </discreteMapping>

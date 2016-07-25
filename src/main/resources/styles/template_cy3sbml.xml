@@ -58,7 +58,7 @@
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_3" default="C,C,c,0.00,0.00"/>
             <visualProperty name="NODE_LABEL_FONT_FACE" default="Liberation Sans,plain,12"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_8" default="0.0"/>
-            <visualProperty name="NODE_BORDER_WIDTH" default="10.0"/>
+            <visualProperty name="NODE_BORDER_WIDTH" default="5.0"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_SIZE_4" default="0.0"/>
             <visualProperty name="NODE_SIZE" default="25"/>
             <visualProperty name="NODE_CUSTOMGRAPHICS_POSITION_6" default="C,C,c,0.00,0.00"/>
