@@ -222,9 +222,8 @@ public class SBMLCoreTest {
      * Test if name attribute is accessible in all subnetworks.
      * This tests the issue:
      *      https://github.com/matthiaskoenig/cy3sbml/issues/115
-     * FIXME: This should pass when fixed.
      */
-    @Test(expected=AssertionError.class)
+    @Test
     public void testCoreNameSharing() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = networks[0];
