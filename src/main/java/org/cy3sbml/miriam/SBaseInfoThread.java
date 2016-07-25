@@ -47,15 +47,15 @@ public class SBaseInfoThread extends Thread{
     		}
     	} else {
     		// Cache filling mode
-    		for (Object obj : objSet){	
+    		for (Object obj : objSet){
     			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
     			infoFac.cacheMiriamInformation();
     		}
     	}
     }
         
-	/** Reads the annotation information in the Miriam Cash 
-	 * TODO: full set of preloads (fbc, core), do during miriam refactoring 
+	/**
+     * Reads the annotation information in the Miriam Cash
 	 */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();

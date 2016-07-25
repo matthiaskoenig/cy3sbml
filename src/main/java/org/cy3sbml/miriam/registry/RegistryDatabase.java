@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.cy3sbml.miriam.registry.data.*;
+import org.cy3sbml.util.IOUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -183,45 +184,16 @@ public class RegistryDatabase {
     public Map<String, String> getTagNameDefinitionMap(String tagName) { return tagNameDefinitionMap; }
 
 
-
+    /////////////////////////////////////////////////
+    // DATA LOADING
+    /////////////////////////////////////////////////
     /** Read the default file from resources. */
     private static RegistryDatabase defaultLoad() {
-        String RESOURCES_FILE;
-
-        RESOURCES_FILE = System.getProperty("registry.xml.export", "Miriam.xml");
-
-        File file = new File(RESOURCES_FILE);
-
-        if (!file.exists() || file.isDirectory()) {
-            RESOURCES_FILE = "miriam.xml"; //Context.getProperty(Context.MIRIAM_XML_FILE);
-            file = new File(RESOURCES_FILE);
-        }
-
-        if (!file.exists() || file.isDirectory()) {
-
-            System.out.println("Loading the default Identifiers.org registry database from the jar file.");
-
-            InputStream stream = RegistryDatabase.class.getResourceAsStream("/org/identifiers/registry/data/IdentifiersOrg-Registry.xml");
-
-            return read(stream);
-
-        } else {
-
-            System.out.println("Loading the Identifiers.org registry database from  '" + file.getAbsolutePath() + "'.");
-
-            try {
-                return read(new FileInputStream(file));
-            } catch (Exception e) {
-                throw new ExceptionInInitializerError(e);
-            }
-        }
-
+        InputStream miriamStream = IOUtil.readResource("/miriam/IdentifiersOrg-Registry.xml");
+        return read(miriamStream);
     }
 
-
-    /**
-     * The parser for the RegistryDatabase.
-     */
+    /** The parser for the RegistryDatabase. */
     private static RegistryDatabase read(InputStream inputStream) {
 
         BufferedInputStream stream = new BufferedInputStream(inputStream);
@@ -276,31 +248,23 @@ public class RegistryDatabase {
                 dataType.setObsoleteComment(comment);
             }
 
-            // Read Definition
+            // definition
             NodeList definitionLists = datatypeElement.getElementsByTagName("definition");
             if (definitionLists.getLength() > 0) {
-
                 Element definitionElt = (Element) definitionLists.item(0);
                 String definition = definitionElt.getTextContent().trim();
-
-                // System.out.println("MiriamDatabase : read : definition = " + definition);
-
                 dataType.setDefinition(definition);
             }
 
-            // Read Synonyms
+            // synonyms
             NodeList synonymLists = datatypeElement.getElementsByTagName("synonyms");
             if (synonymLists.getLength() > 0) {
-
                 NodeList synonymList = ((Element) synonymLists.item(0)).getElementsByTagName("synonym");
                 ArrayList<String> synoArrayList = new ArrayList<String>();
 
                 for (int j = 0; j < synonymList.getLength(); ++j) {
                     Element synonym = (Element) synonymList.item(j);
                     String synoString = synonym.getTextContent().trim();
-
-                    // System.out.println("MiriamDatabase : read : synonyms = " + synoString);
-
                     instance.nameDataTypeMap.put(synoString, dataType);
                     synoArrayList.add(synoString);
                 }
@@ -308,7 +272,7 @@ public class RegistryDatabase {
                 dataType.setSynonyms(synoArrayList);
             }
 
-            // Read URIs
+            /// URIs ///
             NodeList uriLists = datatypeElement.getElementsByTagName("uris");
 
             if (uriLists.getLength() > 0) {
@@ -338,26 +302,20 @@ public class RegistryDatabase {
                 }
             }
 
-            // Read namespace
+            ///  namespace ///
             NodeList namespaceLists = datatypeElement.getElementsByTagName("namespace");
             if (namespaceLists.getLength() > 0) {
                 Element namespaceElt = (Element) namespaceLists.item(0);
                 String namespace = namespaceElt.getTextContent().trim();
-
-                // System.out.println("MiriamDatabase : read : namespace = " + namespace);
-
                 dataType.setNamespace(namespace);
             }
 
             instance.idDataTypeMap.put(dataType.getId(), dataType);
-
             instance.nameDataTypeMap.put(dataType.getName(), dataType);
-
             instance.urnMap.put(dataType.getURN(), dataType);
-
             instance.namespaceMap.put(dataType.getNamespace(), dataType);
 
-            // Read Resources
+            /// resources ///
             NodeList locationLists = datatypeElement.getElementsByTagName("resources");
             if (locationLists.getLength() > 0) {
 
@@ -412,7 +370,7 @@ public class RegistryDatabase {
                 }
             }
 
-            // Read documentations
+            /// documentations ///
             NodeList documentationLists = datatypeElement.getElementsByTagName("documentations");
             if (documentationLists.getLength() > 0) {
 
@@ -429,8 +387,7 @@ public class RegistryDatabase {
                 }
             }
 
-
-            // Read restrictions
+            /// restrictions ///
             NodeList restrictionLists = datatypeElement.getElementsByTagName("restrictions");
 
             if (restrictionLists.getLength() > 0) {
@@ -470,8 +427,7 @@ public class RegistryDatabase {
                 }
             }
 
-
-            // Read Annotation
+            /// annotation ///
             NodeList annotationLists = datatypeElement.getElementsByTagName("annotation");
             if (annotationLists.getLength() > 0) {
 
@@ -481,18 +437,11 @@ public class RegistryDatabase {
                     Element formatElt = (Element) formatList.item(j);
 
                     String formatName = formatElt.getAttribute("name");
-
                     Annotation annotation = new Annotation(formatName);
 
                     NodeList elementList = ((Element) formatElt.getElementsByTagName("elements").item(0)).getElementsByTagName("element");
-
-                    // System.out.println("RegistryDatabase : read : tag lengths = " + elementList.getLength());
-
                     for (int k = 0; k < elementList.getLength(); k++) {
                         String elementName = elementList.item(k).getTextContent().trim();
-
-                        // System.out.println("RegistryDatabase : read : tag = " + elementName);
-
                         annotation.addTag(new Tag(elementName, elementName, null));
                     }
                     dataType.getAnnotations().add(annotation);
@@ -500,7 +449,7 @@ public class RegistryDatabase {
 
             }
 
-            // Read tags
+            /// tags ///
             NodeList tagsLists = datatypeElement.getElementsByTagName("tags");
             if (tagsLists.getLength() > 0) {
 
@@ -524,7 +473,7 @@ public class RegistryDatabase {
             }
         }
 
-        // Tag definitions
+        /// definitions ///
         NodeList tagsLists = document.getElementsByTagName("listOfTags");
 
         if (tagsLists.getLength() > 0) {
@@ -602,6 +551,8 @@ public class RegistryDatabase {
 
     /**
      * Testing the registry access.
+     *
+     * Creates the RegistryDatabase from the resource file.
      */
     public static void main(String[] args) throws FileNotFoundException {
         // use default load from resources
@@ -620,13 +571,6 @@ public class RegistryDatabase {
         System.out.println("Size of the list of tags = " + RegistryDatabase.getInstance().tagNameDefinitionMap.size());
         System.out.println("Nb datatype tag with neuroscience = " + RegistryDatabase.getInstance().getDataTypesByTagName("neuroscience").size());
 
-        // Load from file
-        RegistryDatabase.loadFromFile(new File("/home/rodrigue/download/IdentifiersOrg-Registry_2015-07-09.xml"));
-        System.out.println("Full size after loadFromFile 1 = " + RegistryDatabase.getInstance().getDataTypes().size());
-
-        // Load from stream
-        RegistryDatabase.loadFromInputStream(new FileInputStream(new File("/home/rodrigue/download/IdentifiersOrg-Registry_2015-07-09-tiny.xml")));
-        System.out.println("Full size after loadFromFile 3 = " + RegistryDatabase.getInstance().getDataTypes().size());
     }
 
 }

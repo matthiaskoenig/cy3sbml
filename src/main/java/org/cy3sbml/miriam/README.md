@@ -5,7 +5,6 @@ This includes parsing of the RDF annotations and retrieval of information
 from MIRIAM.
 
 Next steps are
-* moving the MIRIAM lookup to MIRIAM xml file (Nico code)
 * functionality for updating resources files (MIRIAM file, other local information)
 * OLS lookup of terms
 * display of term information

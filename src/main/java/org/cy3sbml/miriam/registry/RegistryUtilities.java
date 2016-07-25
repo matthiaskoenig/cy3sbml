@@ -72,18 +72,14 @@ public class RegistryUtilities {
      * @param url physical URL
      * @return the same URL, but W3C valid
      */
-    public static String urlConvert(String url)
-    {
+    public static String urlConvert(String url) {
         String valid = new String();
         valid = replace(url, "&", "&amp;");
-        
         return valid;
     }
-    
-    
+
     /**
-     * Replaces each substring of the {@code original} string that matches the given regular expression with the given replacement. 
-     * 
+     * Replaces each substring of the {@code original} string that matches the given regular expression with the given replacement.
      * 
      * @param original the original String
      * @param pattern the regular expression to which the string is to be matched
@@ -116,25 +112,17 @@ public class RegistryUtilities {
      * @param str character string
      * @return response to the question: "is this character string only composed of space(s)?"
      */
-    public static boolean isEmpty(String str)
-    {
+    public static boolean isEmpty(String str) {
         boolean space = true;
-        
-        if ((str == null) || (str.equalsIgnoreCase("")))
-        {
+        if ((str == null) || (str.equalsIgnoreCase(""))) {
             return space; // true
-        }
-        else
-        {
-            for (int i = 0; i < str.length(); ++i)
-            {
-                if (str.charAt(i) != ' ')
-                {
+        } else {
+            for (int i = 0; i < str.length(); ++i) {
+                if (str.charAt(i) != ' ') {
                     space = false;
                 }
             }
         }
-        
         return space;
     }
     
@@ -146,8 +134,7 @@ public class RegistryUtilities {
      * @param oldStr a string (usually a name with space)
      * @return the string in parameter without any space but "%20" instead
      */
-    public static String nameTrans(String oldStr)
-    {
+    public static String nameTrans(String oldStr) {
         String newStr = "";
         
         for (int j = 0; j < oldStr.length(); ++j)
@@ -165,8 +152,7 @@ public class RegistryUtilities {
         return newStr;
     }
     
-      
-    
+
     /**
      * Searches the type of the URI (URL or URN?).
      * <p>
@@ -187,10 +173,7 @@ public class RegistryUtilities {
             return "URL";
         }
     }
-    
-    
 
-    
     /**
      * Generates a random word (could be used as a password) of a given length.
      * 
@@ -210,9 +193,7 @@ public class RegistryUtilities {
         
         return generated;
     }
-    
-    
-    
+
     /**
      * Converts a MIRIAM URN into its equivalent Identifiers.org URL.
      * The method expects a fully valid and official URN, please use 'getMiriamURI(String)' beforehand if you are unsure.
@@ -337,8 +318,9 @@ public class RegistryUtilities {
      */
     public static DataType getDataTypeById(String id)
     {
-    	return RegistryDatabase.getInstance().getDatatypeById(id);
+        return RegistryDatabase.getInstance().getDatatypeById(id);
     }
+
 
     /**
      * Retrieves all the information about a data collection.
@@ -346,26 +328,22 @@ public class RegistryUtilities {
      * @param name identifier(for example "MIR:00000005"), name, synonym or a URI  of a data collection 
      * @return <code>DataType</code> object containing all the information relative to the given identifier
      */
-	public static DataType getDataType(String name) 
-	{
-		if (name == null || name.trim().length() == 0)
-		{
+	public static DataType getDataType(String name) {
+		if (name == null || name.trim().length() == 0) {
 			return null;
 		}
 		
 		// Trying name
 		DataType dataType = RegistryDatabase.getInstance().getDataTypeByName(name);
-		
-		
-	    if (dataType == null) 
-	    {
-	    	// Trying id
+
+        // Trying id
+	    if (dataType == null) {
 	    	dataType = RegistryDatabase.getInstance().getDatatypeById(name);
 	    }
-	    
-	    if (dataType == null) 
-	    {
-	    	// Trying uri
+
+        // Trying uri
+	    if (dataType == null) {
+
 	    	dataType = RegistryDatabase.getInstance().getDataTypeByURI(name);
 	    }
 	    
@@ -637,14 +615,12 @@ public class RegistryUtilities {
      * This encodes the character ':' (if any) in the identifier part with its percent-encoded equivalent '%3A'. Works as well with any other reserved character. 
      * This should only be useful if the MIRIAM URIs don't follow the URN syntax!
      */
-    public static String urlMagicEncode(String uri)
-    {
+    public static String urlMagicEncode(String uri) {
         StringBuilder temp = null;
         String id;
         
         // no transformation necessary for URLs
-        if (getUriType(uri) == ID_URN)
-        {
+        if (getUriType(uri) == ID_URN) {
             String[] parts = uri.split(":");
             // ':' presents in the identifier part
             // one exception: "urn:lsid:uniprot.org:uniprot:P12345"
@@ -664,12 +640,10 @@ public class RegistryUtilities {
         }
         
         // no transformation necessary
-        if (null == temp)
-        {
+        if (null == temp) {
             temp = new StringBuilder();
             temp.append(uri);
         }
-        
         return temp.toString();
     }
     
@@ -679,60 +653,38 @@ public class RegistryUtilities {
      * @param element a URN or URL
      * @return the type of the element, using an integer based constant with the following possible 'url' or 'urn'
      */
-    public static int getUriType(String element)
-    {
+    public static int getUriType(String element) {
        int result;
-       
-       if (isURN(element))
-       {
+        if (isURN(element)) {
            result = ID_URN;
-       }
-       else if (isURL(element))
-       {
+       } else if (isURL(element)) {
            result = ID_URL;
-       }
-       else
-       {
+       } else {
     	   result = ID_UNKNOWN;
        }
-       
        return result;
     }
-    
-    
-    /**
-     * Checks if a URI is a URL.
-     */
-    public static Boolean isURL(String uri)
-    {
+
+    /** Checks if a URI is a URL. */
+    public static Boolean isURL(String uri) {
     	Boolean isURL = false;
-    	
-    	try
-		{
+    	try {
 			@SuppressWarnings("unused")
 			URL url = new URL(uri);
 			isURL = true;
 		}
-		catch (MalformedURLException e)
-		{
+		catch (MalformedURLException e) {
 			// no need to manage this exception: we now know if the URI is a URL
 		}
-		
 		return isURL;
     }
     
-    /**
-     * Checks if a URI is a URN.
-     */
-    public static Boolean isURN(String uri)
-    {
+    /** Checks if a URI is a URN. */
+    public static Boolean isURN(String uri) {
     	Boolean isURN = false;
-    	
-    	if (null != uri)
-		{
+    	if (null != uri) {
 			isURN = uri.startsWith("urn:");
 		}
-    	
     	return isURN;
     }
     

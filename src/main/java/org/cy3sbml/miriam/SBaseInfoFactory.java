@@ -1,5 +1,6 @@
 package org.cy3sbml.miriam;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,8 @@ import javax.xml.stream.XMLStreamException;
 
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.*;
-import uk.ac.ebi.miriam.lib.MiriamLink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,34 +30,33 @@ import org.cy3sbml.util.AnnotationUtil;
  * web services (MIRIAM).
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
- * 
- * TODO: cached MIRIAM information (faster access & less workload on MIRIAM)
+ *
  * TODO: refactor SBML HTML information completely
  */
 public class SBaseInfoFactory {
-	// private static final Logger logger = LoggerFactory.getLogger(NamedSBaseInfoFactory.class);
-	
-	private MiriamLink link;
+    private static final Logger logger = LoggerFactory.getLogger(SBaseInfoFactory.class);
+
 	private SBase sbase;
 	private String info = ""; 
 	
 	public SBaseInfoFactory(Object obj){		
 		sbase = (SBase) obj;
-		link = MiriamWebservice.getMiriamLink();
 	}
-	
+
+    /** Get the created information string. */
 	public String getInfo() {
-		return info;
+	    return info;
 	}
-	
+
+
 	public void cacheMiriamInformation(){
 		for (CVTerm term : sbase.getCVTerms()){
 			for (String rURI : term.getResources()){
-				MiriamResourceInfo.getLocationsFromURI(link, rURI);
+				MiriamResource.getLocationsFromURI(rURI);
 			}
 		}
 	}
-	
+
 	/** Parse and create information for the current sbmlObject. */
 	public void createInfo() throws XMLStreamException {
 		if (sbase == null){
@@ -149,13 +150,55 @@ public class SBaseInfoFactory {
   			text += String.format("<b> %s <span color=\"green\">%s</span></b><br>", sboTerm.getName(), sboTermId);
   			text += definition + "<br>";
   			for (String rURI : term.getResources()){
-  				text += MiriamResourceInfo.getInfoFromURI(link, rURI);
+  				text += createInfoForURI(rURI);
   			}
   			text += "<hr>";
   		}
 		return text;
 	}
-	
+
+    /**
+     * Creates the information for a given resourceURI.
+     * Resolves the locations and uses it them to create the links.
+     */
+    private static String createInfoForURI(String resourceURI) {
+
+        String text = "";
+        String[] locations = MiriamResource.getLocationsFromURI(resourceURI);
+
+
+        if (locations != null){
+            if (locations.length == 0){
+                logger.warn("No locations for URI:" + resourceURI);
+            }
+            String[] items = new String[locations.length];
+            for (int k=0; k<locations.length; k++) {
+                String location = locations[k];
+                items[k] = String.format("<a href=\"%s\">%s</a><br>", location, serverFromLocation(location));
+            }
+            text = org.apache.commons.lang3.StringUtils.join(items, "");
+
+        } else {
+            logger.warn("No locations for URI: " + resourceURI);
+        }
+        return text;
+    }
+
+    /** Get short server string from full location. */
+    private static String serverFromLocation(String location) {
+        // get everything instead of the last item
+        String[] items = location.split("/");
+        String[] serverItems = Arrays.copyOfRange(items, 0, items.length-1);
+        String text = org.apache.commons.lang3.StringUtils.join(serverItems, "/");
+		/* strip http
+		if (text.startsWith("http://")){
+			text = text.substring(7, text.length());
+		}
+		*/
+        return text;
+    }
+
+
 	private String parseSBOTermDefinition(String definition){
 		String[] tokens = definition.split("\"");
 		String[] defTokens = (String []) ArrayUtils.subarray(tokens, 1, tokens.length-1);
@@ -178,7 +221,7 @@ public class SBaseInfoFactory {
 				for (String rURI : term.getResources()){
 					map = AnnotationUtil.getIdCollectionMapForURI(rURI);
 					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("collection"));
-					text += MiriamResourceInfo.getInfoFromURI(link, rURI);
+					text += createInfoForURI(rURI);
 				}
 				text += "</p>";
 			}
