@@ -15,7 +15,9 @@ import org.cy3sbml.gui.JEditorPaneSBML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Generates information for web resources in separate thread. */
+/**
+ * Generates information for web resources in separate thread.
+ */
 public class SBaseInfoThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(SBaseInfoThread.class);
 	

@@ -5,16 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
-import org.sbml.jsbml.SBase;
-
-import org.sbml.jsbml.KineticLaw;
-import org.sbml.jsbml.ListOf;
-import org.sbml.jsbml.LocalParameter;
-import org.sbml.jsbml.Model;
-import org.sbml.jsbml.NamedSBase;
-import org.sbml.jsbml.Reaction;
-import org.sbml.jsbml.SBMLDocument;
+import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.*;
 
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
@@ -28,13 +20,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class manages the SBMLObject lookup from given key.
- * FIXME: most of the lookups should be done via the SBMLDocument.
- * only in the cases where ids are generated these have to be looked
- * up separately.
  *
- * This will guarantee that new SBases are available without the need
- * to register them first (this is a major source of bugs).
+ * The information in this class must be synchronized with the SBMLReaderTask
+ * and the
  *
+ * Probably better to switch to the metaid of the objects which
+ * is unique for the objects.
+ * This requires to create meta ids for all nodes which are registered.
  */
 public class IdObjectMap {
 	private static final Logger logger = LoggerFactory.getLogger(IdObjectMap.class);
@@ -54,10 +46,42 @@ public class IdObjectMap {
 		}
 	
 		try{
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML CORE
+            ////////////////////////////////////////////////////////////////////////////
 			Model model = document.getModel();
-			
+
+            // FunctionDefinitions
+            addListOf(model.getListOfFunctionDefinitions());
+            // UnitDefinitions
+            addListOf(model.getListOfUnitDefinitions());
+            // Compartments
+            addListOf(model.getListOfCompartments());
+            // Species
+            addListOf(model.getListOfSpecies());
 			// Parameters
 			addListOf(model.getListOfParameters());
+
+            // InitialAssignments (no ids)
+            for (InitialAssignment assignment: model.getListOfInitialAssignments()){
+                String variable = assignment.getVariable();
+                String id = SBMLUtil.initialAssignmentId(variable);
+                objectMap.put(id, assignment);
+            }
+
+            // Rules (no ids)
+            for (Rule rule: model.getListOfRules()){
+                String variable = SBMLUtil.getVariableFromRule(rule);
+                String id = SBMLUtil.ruleId(variable);
+                objectMap.put(id, rule);
+            }
+
+            // Constraints
+            // TODO: implement
+            // addListOf(model.getListOfConstraints());
+
+            // Reactions
+            addListOf(model.getListOfReactions());
 			
 			// LocalParameters & KineticLaws
 			for (Reaction r : model.getListOfReactions()){	
@@ -69,22 +93,20 @@ public class IdObjectMap {
 					String lawId = String.format("%s_law", reactionId);
 					objectMap.put(lawId, law);
 				
-					// have been made unique during reading of SBML
+					// this were made unique during reading of SBML
 					for (LocalParameter lp: law.getListOfLocalParameters()){
 						objectMap.put(lp.getId(), lp);	
 					}
 				}
 			}
-			
-			// Compartments
-			addListOf(model.getListOfCompartments());
-			// Species
-			addListOf(model.getListOfSpecies());
-			// Reactions
-			addListOf(model.getListOfReactions());
-			// FunctionDefinitions
-			addListOf(model.getListOfFunctionDefinitions());
-			
+
+			// Events
+            addListOf(model.getListOfEvents());
+
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML QUAL
+            ////////////////////////////////////////////////////////////////////////////
+
 	        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 			if (qualModel != null){
 				// QualitativeSpecies
@@ -92,20 +114,40 @@ public class IdObjectMap {
 				// Transitions
 				addListOf(qualModel.getListOfTransitions());
 			}
-			
-			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML FBC
+            ////////////////////////////////////////////////////////////////////////////
+
+            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
 			if (fbcModel != null){
 				// GeneProducts
 				addListOf(fbcModel.getListOfGeneProducts());
 			}
-			
-			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML COMP
+            ////////////////////////////////////////////////////////////////////////////
+
+            CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
 			if (compModel != null){
 				// Ports
 				addListOf(compModel.getListOfPorts());
 			}
-			
-		} catch (Throwable t) {
+
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML GROUPS
+            ////////////////////////////////////////////////////////////////////////////
+
+            // TODO: implement
+
+            ////////////////////////////////////////////////////////////////////////////
+            // SBML LAYOUT
+            ////////////////////////////////////////////////////////////////////////////
+
+            // TODO: implement
+
+        } catch (Throwable t) {
 			logger.error("IdObjectMap could not be created");
 			t.printStackTrace();
 		}

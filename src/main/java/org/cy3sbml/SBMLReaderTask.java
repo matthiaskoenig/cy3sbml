@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.*;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
@@ -28,7 +28,6 @@ import org.cytoscape.work.TaskMonitor;
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.AbstractMathContainer;
 import org.sbml.jsbml.Annotation;
-import org.sbml.jsbml.AssignmentRule;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.FunctionDefinition;
 import org.sbml.jsbml.InitialAssignment;
@@ -40,7 +39,6 @@ import org.sbml.jsbml.ModifierSpeciesReference;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.QuantityWithUnit;
-import org.sbml.jsbml.RateRule;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Rule;
 import org.sbml.jsbml.SBMLDocument;
@@ -91,9 +89,6 @@ import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.miriam.SBaseInfoThread;
-import org.cy3sbml.util.ASTNodeUtil;
-import org.cy3sbml.util.AnnotationUtil;
-import org.cy3sbml.util.AttributeUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,7 +159,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
         // SBMLManager is only available in the OSGI context
-        // FIXME: refactor SBMLManager dependencies for unit testing
         if (sbmlManager != null) {
             // get existing mappings (of read networks)
             One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
@@ -398,9 +392,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		if (model.isSetConversionFactor()){
 			AttributeUtil.set(network, network, SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor(), String.class);
 		}
-	
-		// TODO: ListOfUnitDefinitions and UnitDefinitions (not parsed)
-		//     currently not displayed in network
+
+        // UnitDefinitions
+		// TODO: implement ListOfUnitDefinitions and UnitDefinitions
 		
 		// FunctionDefinitions
 		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
@@ -433,8 +427,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			@SuppressWarnings("unused")
 			CyNode node = createSymbolNode(parameter, SBML.NODETYPE_PARAMETER);
 		}
-	
-		
+
 		// Nodes for species
 		for (Species species : model.getListOfSpecies()) {
 			CyNode node = createSymbolNode(species, SBML.NODETYPE_SPECIES);
@@ -473,12 +466,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}	
 		
 		// Reactions
-		for (Reaction reaction : model.getListOfReactions()) {
+		for (Reaction reaction: model.getListOfReactions()) {
 			CyNode node = createNamedSBaseNode(reaction, SBML.NODETYPE_REACTION);
 	
 			if (reaction.isSetCompartment()){
 				AttributeUtil.set(network, node, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
-				// connect to reaction to compartment
+				// connect reaction to compartment
 				CyNode comp = nodeById.get(reaction.getCompartment());
 				if (comp != null){
 					CyEdge edge = network.addEdge(node, comp, true);
@@ -487,11 +480,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					logger.error(String.format("Compartment does not exist for reaction: %s for %s", reaction.getCompartment(), reaction.getId()));
 				}
 			}
-			
 			if (reaction.isSetReversible()){
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, reaction.getReversible(), Boolean.class);
 			} else {
-				// Reactions set reversible by default
+				// reversible=true by default
 				AttributeUtil.set(network, node, SBML.ATTR_REVERSIBLE, true, Boolean.class);
 			}
 			if (reaction.isSetFast()){
@@ -517,12 +509,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (reactant != null){
 					CyEdge edge = network.addEdge(node, reactant, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
-					setSBaseAttributes(edge, speciesRef);  // metaId and sbo
+					setSBaseAttributes(edge, speciesRef);
 					
 					if (speciesRef.isSetStoichiometry()){
 						stoichiometry = speciesRef.getStoichiometry();
 					} else {
-						// default to 1.0
+						// default value
 						stoichiometry = 1.0;
 					}
 					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
@@ -536,11 +528,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (product != null){
 					CyEdge edge = network.addEdge(node, product, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_PRODUCT, String.class);
-					setSBaseAttributes(edge, speciesRef);  // metaId and sbo
+					setSBaseAttributes(edge, speciesRef);
 					if (speciesRef.isSetStoichiometry()){
 						stoichiometry = speciesRef.getStoichiometry();
 					} else {
-						// default to 1.0
+						// default value
 						stoichiometry = 1.0;
 					}
 					AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
@@ -555,7 +547,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				if (modifier != null){
 					CyEdge edge = network.addEdge(node, modifier, true);
 					AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_MODIFIER, String.class);
-					setSBaseAttributes(edge, msRef);  // metaId and sbo	
+					setSBaseAttributes(edge, msRef);
 				} else {
 					logger.error(String.format("ModifierSpecies does not exist for reaction: %s for %s", msRef.getSpecies(), reaction.getId()));
 				}
@@ -565,7 +557,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (reaction.isSetKineticLaw()){
 				KineticLaw law = reaction.getKineticLaw();
 				String reactionId = reaction.getId();
-				String lawId = String.format("%s_law", reactionId);
+				String lawId = SBMLUtil.kineticLawId(reactionId);
 				// node
 			 	CyNode lawNode = createAbstractMathContainerNode(law, SBML.NODETYPE_KINETIC_LAW);
 			 	nodeById.put(lawId, lawNode);
@@ -579,15 +571,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// local parameter nodes
 				if (law.isSetListOfLocalParameters()){
 					for (LocalParameter lp: law.getListOfLocalParameters()){
-						String lpId = lp.getId();
-						// necessary to create new identifiers due to scoping of local parameters
-						String tmpId = String.format("%s_%s", reactionId, lpId);
-						// FIXME: this changes the model during the reading, but necessary for the unique
-						// 		  mapping. Not a problem currently, but will when writing SBML.
-						lp.setId(tmpId);
-						// create node
+                        // necessary to create new identifiers due to scoping of local parameters
+                        // this changes the SBMLDocument !
+						lp.setId(SBMLUtil.localParameterId(reactionId, lp));
+                        // create node
 						CyNode lpNode = createQuantityWithUnitNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
-						
 						// edge to reaction
 						CyEdge lpEdge = network.addEdge(lpNode, lawNode, true);
 						AttributeUtil.set(network, lpEdge, SBML.INTERACTION_ATTR, SBML.INTERACTION_LOCALPARAMETER_KINETICLAW, String.class);
@@ -605,7 +593,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyNode targetNode = nodeById.get(variable);
 			if (targetNode != null){
 				
-				String id = variable + "_assignment";
+				String id = SBMLUtil.initialAssignmentId(variable);
 			 	CyNode assignmentNode = createAbstractMathContainerNode(assignment, SBML.NODETYPE_INITIAL_ASSIGNMENT);
 			 	nodeById.put(id, assignmentNode);
 				AttributeUtil.set(network, assignmentNode, SBML.ATTR_ID, id, String.class);
@@ -632,19 +620,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		
 		// Rule nodes (Important for rate rule based models)
-		// FIXME: only AssignmentRules and RateRules handled
+		// FIXME: only AssignmentRules and RateRules handled, not AlgebraicRules
 		for (Rule rule : model.getListOfRules()){
-			String variable = null;
-			if (rule.isAssignment()){
-				AssignmentRule assignmentRule = (AssignmentRule) rule;
-				variable = assignmentRule.getVariable();
-			} else if (rule.isRate()){
-				RateRule rateRule = (RateRule) rule;
-				variable = rateRule.getVariable();
-			}
+            String variable = SBMLUtil.getVariableFromRule(rule);
 			if (variable != null){
-				
-				String id = variable + "_rule";
+				String id = SBMLUtil.ruleId(variable);
 			 	CyNode ruleNode = createAbstractMathContainerNode(rule, SBML.NODETYPE_RULE);
 			 	nodeById.put(id, ruleNode);
 				AttributeUtil.set(network, ruleNode, SBML.ATTR_ID, id, String.class);
@@ -666,12 +646,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				createMathNetwork(rule, ruleNode, SBML.INTERACTION_REFERENCE_RULE);
 			}
 		}
-		
-			
+
 		// Constraints (not parsed)
+        // TODO: implement
 		// for (Constraint constraint : model.getListOfConstraints()){}
 		
 		// Events (not parsed)
+        // TODO: implement
 		// for (Event event : model.getListOfEvents()){}
 	}
 		

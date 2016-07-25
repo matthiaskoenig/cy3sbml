@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.cy3sbml.util.IOUtil;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -22,6 +23,8 @@ import org.cytoscape.work.TaskMonitor;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,8 +144,20 @@ public class TestUtils {
 	public static LinkedList<String> findFiles(String path, String extension){
 		return findFiles(path, extension, null, null);
 	}
-	
-	
+
+	/**
+	 * Read the SBMLDocument from given SBML file resource.
+	 */
+	public static SBMLDocument readSBMLDocument(String resource) throws Exception {
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        String xml = IOUtil.readString(instream);
+        SBMLDocument doc = JSBML.readSBMLFromString(xml);
+        return doc;
+    }
+
+	/**
+	 * Read the CyNetworks from given SBML file resource.
+     */
 	public CyNetwork[] readNetwork(String resource) throws Exception {
 
         MockitoAnnotations.initMocks(this);

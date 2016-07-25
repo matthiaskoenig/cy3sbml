@@ -167,6 +167,14 @@ public class SBML {
     public static final String NODETYPE_REACTION_IRREVERSIBLE = NODETYPE_REACTION + " irreversible";
 
     // -------------------------------------------------------------------------
+    // Suffixes and rules
+    // -------------------------------------------------------------------------
+    public static final String SUFFIX_INITIAL_ASSIGNMENT = "_assignment";
+    public static final String SUFFIX_KINETIC_LAW = "_law";
+    public static final String SUFFIX_RULE = "_rule";
+
+
+    // -------------------------------------------------------------------------
     // Important SBO terms used in styles
     // -------------------------------------------------------------------------
     public static final Set<String> SBO_MODIFIERS;
@@ -201,6 +209,8 @@ public class SBML {
         iSet.add("SBO:0000536"); //partial-inhibitor
         SBO_INHIBITORS = Collections.unmodifiableSet(iSet);
     }
+
+
 
     private SBML() {};
 

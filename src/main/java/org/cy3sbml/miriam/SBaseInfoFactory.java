@@ -6,24 +6,13 @@ import java.util.Map;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.xml.stream.XMLStreamException;
+
+import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.*;
 import uk.ac.ebi.miriam.lib.MiriamLink;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.sbml.jsbml.Annotation;
-import org.sbml.jsbml.CVTerm;
-import org.sbml.jsbml.Compartment;
-import org.sbml.jsbml.FunctionDefinition;
-import org.sbml.jsbml.KineticLaw;
-import org.sbml.jsbml.LocalParameter;
-import org.sbml.jsbml.Model;
-import org.sbml.jsbml.NamedSBase;
-import org.sbml.jsbml.Parameter;
-import org.sbml.jsbml.Reaction;
-import org.sbml.jsbml.SBO;
-import org.sbml.jsbml.SBase;
-import org.sbml.jsbml.Species;
-import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -256,7 +245,36 @@ public class SBaseInfoFactory {
 			}
 			text = String.format(template, value, units, constant); 
 		}
-		
+		// InitialAssignment
+		else if (item instanceof InitialAssignment){
+			InitialAssignment assignment = (InitialAssignment) item;
+            String template = "<b>%s</b> = %s";
+            String variable = noneHTML();
+            String math = noneHTML();
+            if (assignment.isSetVariable()){
+                variable = assignment.getVariable();
+            }
+            if (assignment.isSetMath()){
+                math = assignment.getMath().toFormula();
+            }
+            text = String.format(template, variable, math);
+		}
+		// Rule
+		else if (item instanceof Rule){
+            Rule rule = (Rule) item;
+            String template = "<b>%s</b> = %s";
+
+            String math = noneHTML();
+            String variable = SBMLUtil.getVariableFromRule(rule);
+            if (variable == null){
+                variable = noneHTML();
+            }
+            if (rule.isSetMath()){
+                math = rule.getMath().toFormula();
+            }
+            text = String.format(template, variable, math);
+		}
+
 		// LocalParameter
 		else if (item instanceof LocalParameter){
 			LocalParameter parameter = (LocalParameter) item;
@@ -439,9 +457,7 @@ public class SBaseInfoFactory {
 			return falseHTML();
 		}	
 	}
-	
-	
-	
+    
 	
 	/** Get additional image information for the database and identifier.
 	 * TODO: This has to be done offline and in the background (images have to be cashed) !
