@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 [![codecov](https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg)](https://codecov.io/gh/matthiaskoenig/cy3sbml)
 [![GitHub version](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml.svg)](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml)
+[![License (GPL version 3)](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](http://opensource.org/licenses/GPL-3.0)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is a tool for the visualization of SBML information within the graph context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with existing computational modeling frameworks and workflows.
 
