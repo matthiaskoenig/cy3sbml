@@ -31,7 +31,7 @@ public class ValidationAction extends AbstractCyAction{
 		super("ValidationAction");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/validation.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/validation.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "SBML validation");

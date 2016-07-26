@@ -29,7 +29,7 @@ public class LoadLayoutAction extends AbstractCyAction{
 		logger.debug("LoadLayoutAction created");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/loadlayout.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/loadlayout.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Load Layout");

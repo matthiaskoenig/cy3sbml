@@ -29,7 +29,7 @@ public class SaveLayoutAction extends AbstractCyAction{
 		super("Save Layout");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/savelayout.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/savelayout.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Save Layout");

@@ -22,7 +22,7 @@ public class HelpAction extends AbstractCyAction{
 	public HelpAction(CySwingApplication cySwingApplication){
 		super("HelpAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/help.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/help.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");

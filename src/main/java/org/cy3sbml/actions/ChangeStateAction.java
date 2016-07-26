@@ -22,7 +22,7 @@ public class ChangeStateAction extends AbstractCyAction{
 	public ChangeStateAction(CySwingApplication cySwingApplication){
 		super("ChangeStateAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/changestate.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/changestate.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "show/hide cy3sbml");

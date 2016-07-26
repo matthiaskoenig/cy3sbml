@@ -19,7 +19,7 @@ public class ExamplesAction extends AbstractCyAction{
 	public ExamplesAction(CySwingApplication cySwingApplication){
 		super("ExamplesAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/examples.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/examples.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml examples");

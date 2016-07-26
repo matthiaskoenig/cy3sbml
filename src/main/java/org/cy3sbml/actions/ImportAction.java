@@ -26,7 +26,7 @@ public class ImportAction extends AbstractCyAction{
 	public ImportAction(ServiceAdapter adapter){
 		super("ImportAction");
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/import.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/import.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Import SBML");

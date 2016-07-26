@@ -32,7 +32,7 @@ public class CofactorNodesAction extends AbstractCyAction{
 	public CofactorNodesAction(ServiceAdapter adapter){
 		super("CofactorNodesAction");
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/cofactor.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/cofactor.png"));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Cofactor Nodes");
