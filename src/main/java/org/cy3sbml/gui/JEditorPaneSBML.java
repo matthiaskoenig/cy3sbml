@@ -31,14 +31,13 @@ public class JEditorPaneSBML extends JEditorPane{
 	}
 	
 	public void setHelp(){
-		setHTMLResource("/info.html");
+		setHTMLResource(GUIConstants.HTML_HELP_RESOURCE);
 	}
 	public void setExamples(){
-		setHTMLResource("/examples.html");
+		setHTMLResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
 	}
-	/**
-	 * Set given URL in the ResultsPanel.
-	 */
+
+	/** Set given URL in the ResultsPanel. */
 	private void setHTMLResource(String resource){	
 		try {
 			// here static HTML is set 
@@ -66,17 +65,13 @@ public class JEditorPaneSBML extends JEditorPane{
 				try {
 					JEditorPaneSBML.super.setPage(page);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}    
 		});
 	}
 	
-   /**
-    * set text
-    */
+   /** Set text. */
 	public void setText(String text){
 		// Necessary to use invokeLater to handle the Swing GUI update
 		SwingUtilities.invokeLater(new Runnable(){
@@ -86,8 +81,7 @@ public class JEditorPaneSBML extends JEditorPane{
 			} 
 		});
 	}
-	
-			
+
 	/**
 	 * Update Text in the navigation panel.
 	 * Only updates information if the current thread is the last requested thread 

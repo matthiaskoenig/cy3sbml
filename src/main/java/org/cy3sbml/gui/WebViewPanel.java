@@ -9,10 +9,6 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
-import org.cytoscape.application.swing.events.CytoPanelComponentSelectedEvent;
-import org.cytoscape.application.swing.events.CytoPanelComponentSelectedListener;
-import org.cytoscape.application.swing.events.CytoPanelStateChangedEvent;
-import org.cytoscape.application.swing.events.CytoPanelStateChangedListener;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
@@ -43,7 +39,7 @@ import java.io.File;
  * 
  * ResultsPanel is a singleton class.
  */
-public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoPanelComponentSelectedListener, CytoPanelStateChangedListener,
+public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //CytoPanelComponentSelectedListener, CytoPanelStateChangedListener,
         HyperlinkListener,
         RowsSetListener,
         SetCurrentNetworkListener,
@@ -57,14 +53,16 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoP
 	private CytoPanel cytoPanelEast;
 	private CySwingApplication cySwingApplication;
     private CyApplicationManager cyApplicationManager;
+    private Browser browser;
+    private File appDirectory;
 
 
 	/** Singleton. */
 	public static synchronized WebViewPanel getInstance(CyApplicationManager cyApplicationManager,
-                                                        CySwingApplication cySwingApplication){
+                                                        CySwingApplication cySwingApplication, File appDirectory){
 		if (uniqueInstance == null){
 			logger.info("WebViewPanel created");
-			uniqueInstance = new WebViewPanel(cyApplicationManager, cySwingApplication);
+			uniqueInstance = new WebViewPanel(cyApplicationManager, cySwingApplication, appDirectory);
 		}
 		return uniqueInstance;
 	}
@@ -73,66 +71,43 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoP
 	}
 
 	/** Constructor */
-	private WebViewPanel(CyApplicationManager cyApplicationManager, CySwingApplication cySwingApplication){
-            this.cyApplicationManager = cyApplicationManager;
-            this.cySwingApplication = cySwingApplication;
-            this.cytoPanelEast = cySwingApplication.getCytoPanel(CytoPanelName.EAST);
+	private WebViewPanel(CyApplicationManager cyApplicationManager, CySwingApplication cySwingApplication,
+                         File appDirectory){
+		this.cyApplicationManager = cyApplicationManager;
+		this.cySwingApplication = cySwingApplication;
+        this.appDirectory = appDirectory;
+		this.cytoPanelEast = cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
-            setLayout(new BorderLayout());
-
-            // final JFXPanel fxPanel = new JFXPanel();
-            // this.add(fxPanel);
-            // this.setVisible(true);
-            //this.setBackground(new Color(255, 255, 255));
-
-            updateFxPanel();
+		setLayout(new BorderLayout());
+        // TODO: set dimension of panel
 
 
-            // SBML information area
-            // Add the textPane to the JPanel
+		JFXPanel fxPanel = this;
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				initFX(fxPanel);
+                // set the help text
+                // load default page
+                browser.loadPage("http://www.google.com");
+                setHelp();
+			}
+		});
 
 
-            // textPane = new JEditorPaneSBML();
-            // textPane.addHyperlinkListener(this);
+		// textPane = new JEditorPaneSBML();
+		// textPane.addHyperlinkListener(this);
 
-            //JEditorPane testPane = new JEditorPane();
-            //testPane.setBackground(Color.white);
-            //this.add(testPane);
-
-            System.out.println("Finish WebViewPanel creation");
 
 	}
 
-    @Override
-    public void handleEvent(CytoPanelComponentSelectedEvent e) {
-        logger.info("CytoPanelComponentSelectedEvent e -> updating FXPanel()");
-        updateFxPanel();
-    }
-
-    @Override
-    public void handleEvent(CytoPanelStateChangedEvent e) {
-        logger.info("CytoPanelComponentSelectedEvent e -> updating FXPanel()");
-        updateFxPanel();
-    }
-
-    private void updateFxPanel(){
-        // TODO: update so that displayed in all occasions
-
-
-        JFXPanel fxPanel = this;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel);
-            }
-        });
-    }
-
-    private static void initFX(JFXPanel fxPanel) {
+    /**
+     * Initialize the JavaFX components.
+     */
+    private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        // Set browser
-        File appDirectory = null;
-        Scene scene = new Scene(new Browser(appDirectory));
+        browser = new Browser(appDirectory);
+        Scene scene = new Scene(browser);
         fxPanel.setScene(scene);
         Platform.setImplicitExit(false);
     }
@@ -148,18 +123,18 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoP
 	}
 
 	@Override
-	public Icon getIcon() {
-		return null;
-	}
+    public Icon getIcon() {
+        return new ImageIcon(getClass().getResource("/images/cy3sbml_icon.png"));
+    }
 
     @Override
     public String getIdentifier() {
-        return "cy3sbml javafx";
+        return "javafx";
     }
 
 	@Override
 	public String getTitle() {
-		return "cy3sbml javafx";
+		return "javafx  ";
 	}
 
 	public boolean isActive(){
@@ -170,7 +145,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoP
 		// If the state of the cytoPanelWest is HIDE, show it
 		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
 			cytoPanelEast.setState(CytoPanelState.DOCK);
-			// cytoPanelEast.setState(CytoPanelState.FLOAT);
 		}	
 		// Select panel
 		select();
@@ -201,7 +175,16 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, CytoP
 		}
 	}
 
-	
+    /////////////////// INFORMATION DISPLAY ///////////////////////////////////
+
+    public void setHelp(){
+        browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE);
+    }
+
+    public void setExamples(){
+        browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
+    }
+
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
 	/** 

@@ -220,18 +220,22 @@ public class CyActivator extends AbstractCyActivator {
             // register cy3sbml services for other apps
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
+            // Extract all resource files for JavaFX (no bundle access)
+            final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
+            resourceHandler.extract();
 
 			// cy3sbml JTextPane panel
 			ResultsPanel.getInstance().activate();
 
+
 			// cy3sbml JavaFx CyPanel
-			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication);
+			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication, appDirectory);
 			registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
 			webViewPanel.getInstance().activate();
 
 			// Listen to state change events
-			registerService(bc, webViewPanel, CytoPanelStateChangedListener.class, new Properties());
-			registerService(bc, webViewPanel, CytoPanelComponentSelectedListener.class, new Properties());
+			// registerService(bc, webViewPanel, CytoPanelStateChangedListener.class, new Properties());
+			// registerService(bc, webViewPanel, CytoPanelComponentSelectedListener.class, new Properties());
 
 
 			logger.info("----------------------------");

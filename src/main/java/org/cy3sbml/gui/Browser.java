@@ -6,14 +6,18 @@ import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.net.URI;
 
 /**
  * Browser for displaying HTML.
  * This can be embedded in Swing using a JFXPanel.
  */
 public class Browser extends Region {
+    private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
 	final WebView browser = new WebView();
 	final WebEngine webEngine = browser.getEngine();
@@ -21,44 +25,26 @@ public class Browser extends Region {
 
 	public Browser(File appDirectory) {
 		this.appDirectory = appDirectory;
-		//apply the styles
-		// getStyleClass().add("browser");
-		
-		// external URLs work
-		// webEngine.load("http://sabiork.h-its.org/newSearch/index");
-		
-		// String content works
-        // webEngine.loadContent("<html><h1>Hello world</h1></html>");
-		
-		// Resource content does not work
-		// URL queryURL = getClass().getResource("/gui/query.html");
-		// System.out.println(queryURL);    
-        // loadPage(queryURL.toString());
-        
-		/*
-        // load local resource
-        File file = new File(appDirectory + "/gui/query.html");
-		URI fileURI = file.toURI();
-		System.out.println(fileURI);    
-        loadPage(fileURI.toString());
-        
-        System.out.println("app directory: " + appDirectory.getAbsolutePath());
-    	*/
+        logger.info("WebView version: " + webEngine.getUserAgent());
+        logger.info("appDirectory: " + appDirectory);
 
-        System.out.println("WebView version: " + webEngine.getUserAgent());
-
-        // webEngine.load("http://www.google.com");
-		loadPage("http://www.google.com");
 
 		//add the web view to the scene
 		getChildren().add(browser);
-
 	}
 
-    /**
-     * Load page in browser;
-     */
-	private void loadPage(String url) {
+	/**
+	 * Load local resource;
+	 */
+	public void loadPageFromResource(String resource) {
+		File file = new File(appDirectory, resource);
+		URI fileURI = file.toURI();
+		logger.info("resource to load:" + fileURI);
+		loadPage(fileURI.toString());
+	}
+
+    /** Load page in browser; */
+	public void loadPage(String url) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
