@@ -46,7 +46,7 @@ public class MiriamResource {
 		miriamCache = new Cache(config);
 		cacheManager.addCache(miriamCache);
 	}
-    
+
 	/**
      * Get locations for given URI.
      *

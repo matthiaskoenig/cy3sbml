@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+import org.cy3sbml.gui.WebViewPanel;
+import org.cytoscape.application.swing.events.CytoPanelComponentSelectedListener;
+import org.cytoscape.application.swing.events.CytoPanelStateChangedListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -218,8 +221,19 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-			// show cy3sbml panel
+			// cy3sbml JTextPane panel
 			ResultsPanel.getInstance().activate();
+
+			// cy3sbml JavaFx CyPanel
+			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication);
+			registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
+			webViewPanel.getInstance().activate();
+
+			// Listen to state change events
+			registerService(bc, webViewPanel, CytoPanelStateChangedListener.class, new Properties());
+			registerService(bc, webViewPanel, CytoPanelComponentSelectedListener.class, new Properties());
+
+
 			logger.info("----------------------------");
 			
 		} catch (Throwable e){

@@ -25,7 +25,7 @@ import javax.xml.stream.XMLStreamException;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CytoPanel;
-import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.application.swing.CytoPanelComponent2;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.application.swing.CytoPanelState;
 import org.cytoscape.model.CyNetwork;
@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
  * 
  * ResultsPanel is a singleton class.
  */
-public class ResultsPanel extends JPanel implements CytoPanelComponent,
+public class ResultsPanel extends JPanel implements CytoPanelComponent2,
         HyperlinkListener,
         RowsSetListener,
         SetCurrentNetworkListener,
@@ -138,6 +138,11 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent,
 	@Override
 	public Icon getIcon() {
 		return new ImageIcon(getClass().getResource("/images/cy3sbml_icon.png"));
+	}
+
+	@Override
+	public String getIdentifier() {
+		return "cy3sbml";
 	}
 
 	@Override

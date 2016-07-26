@@ -7,8 +7,8 @@
 		<bundle.namespace>org.cy3sbml</bundle.namespace>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
 		<maven-bundle-plugin.version>2.5.4</maven-bundle-plugin.version>
-		<osgi.api.version>4.2.0</osgi.api.version>	 
-		<org.osgi.framework.system.packages.extra>javax.xml.namespace</org.osgi.framework.system.packages.extra>
+		<osgi.api.version>4.2.0</osgi.api.version>
+		<org.osgi.framework.system.packages.extra>javax.xml.namespace, javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,netscape.javascript,org.osgi.framework</org.osgi.framework.system.packages.extra>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cytoscape.api.version>3.4.0</cytoscape.api.version>
 
