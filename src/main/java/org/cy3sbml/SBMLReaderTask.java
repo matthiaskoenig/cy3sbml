@@ -88,7 +88,7 @@ import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.miriam.SBaseInfoThread;
+import org.cy3sbml.gui.SBaseInfoThread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

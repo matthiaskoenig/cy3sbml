@@ -1,4 +1,4 @@
-package org.cy3sbml.miriam;
+package org.cy3sbml.gui;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -6,13 +6,11 @@ import java.util.Set;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.cy3sbml.gui.SBMLPanel;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.ext.qual.QualConstants;
 import org.sbml.jsbml.ext.qual.QualModelPlugin;
-import org.cy3sbml.gui.JEditorPaneSBML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

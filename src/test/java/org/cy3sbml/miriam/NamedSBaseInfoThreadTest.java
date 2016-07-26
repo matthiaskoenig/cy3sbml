@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.cy3sbml.gui.SBaseInfoThread;
 import org.junit.Test;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;

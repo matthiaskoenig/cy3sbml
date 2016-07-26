@@ -11,7 +11,6 @@ import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 import javax.swing.SwingUtilities;
 
-import org.cy3sbml.miriam.SBaseInfoThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

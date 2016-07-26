@@ -1,7 +1,5 @@
 package org.cy3sbml.gui;
 
-import org.cy3sbml.miriam.SBaseInfoThread;
-
 import java.util.Set;
 
 

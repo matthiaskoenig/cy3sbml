@@ -1,4 +1,4 @@
-package org.cy3sbml.miriam;
+package org.cy3sbml.gui;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.cy3sbml.miriam.MiriamResource;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.*;
 import org.slf4j.Logger;
