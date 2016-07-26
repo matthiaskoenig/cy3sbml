@@ -3,6 +3,8 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 
@@ -11,6 +13,9 @@ import org.cy3sbml.gui.ResultsPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Loads the example HTML page.
+ */
 public class ExamplesAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
 	private static final long serialVersionUID = 1L;
@@ -19,7 +24,7 @@ public class ExamplesAction extends AbstractCyAction{
 	public ExamplesAction(CySwingApplication cySwingApplication){
 		super("ExamplesAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/examples.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_EXAMPLES));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml examples");
@@ -45,6 +50,10 @@ public class ExamplesAction extends AbstractCyAction{
 		ResultsPanel panel = ResultsPanel.getInstance();
 		panel.activate();
 		panel.getTextPane().setExamples();
+
+		WebViewPanel vwPanel = WebViewPanel.getInstance();
+		vwPanel.activate();
+		vwPanel.setExamples();
 	}
 }
 

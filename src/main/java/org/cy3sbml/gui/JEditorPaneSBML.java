@@ -15,7 +15,7 @@ import org.cy3sbml.miriam.SBaseInfoThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JEditorPaneSBML extends JEditorPane{
+public class JEditorPaneSBML extends JEditorPane implements SBMLPanel{
 	private static final Logger logger = LoggerFactory.getLogger(JEditorPaneSBML.class);
 	private static final long serialVersionUID = 1L;
 
@@ -72,6 +72,7 @@ public class JEditorPaneSBML extends JEditorPane{
 	}
 	
    /** Set text. */
+   @Override
 	public void setText(String text){
 		// Necessary to use invokeLater to handle the Swing GUI update
 		SwingUtilities.invokeLater(new Runnable(){
@@ -87,7 +88,8 @@ public class JEditorPaneSBML extends JEditorPane{
 	 * Only updates information if the current thread is the last requested thread 
 	 * for updating text. 
 	 */
-    public void updateText(SBaseInfoThread infoThread){
+	@Override
+    public void setText(SBaseInfoThread infoThread){
     	if (infoThread.getId() == lastInformationThreadId){
     		this.setText(infoThread.info);
     	}
@@ -95,21 +97,23 @@ public class JEditorPaneSBML extends JEditorPane{
     
    /** 
     * Create information string for SBML Node and display. 
-    */ 
+    */
+   @Override
 	public void showSBaseInfo(Object obj) {
 	   Set<Object> objSet = new HashSet<Object>();
 	   objSet.add(obj);
 	   showSBaseInfo(objSet);
    }
    
-  /**
-   * Display information for set of nodes.
-   */
-   public void showSBaseInfo(Set<Object> objSet) {
-	   this.setText("Retrieving information via WebServices ...");
-	   // starting threads for webservice calls
-	   SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
-	   lastInformationThreadId = thread.getId();
-	   thread.start();
-   }
+    /**
+    * Display information for set of nodes.
+    */
+    @Override
+    public void showSBaseInfo(Set<Object> objSet) {
+        this.setText("Retrieving information via WebServices ...");
+        // starting threads for webservice calls
+        SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
+        lastInformationThreadId = thread.getId();
+        thread.start();
+    }
 }

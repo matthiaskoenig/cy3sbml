@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.cy3sbml.gui.SBMLPanel;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
@@ -22,17 +23,17 @@ public class SBaseInfoThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(SBaseInfoThread.class);
 	
 	Collection<Object> objSet;
-	JEditorPaneSBML textPane;
+	SBMLPanel panel;
 	public String info;
 	   
-    public SBaseInfoThread(Collection<Object> objSet, JEditorPaneSBML textPane) {
+    public SBaseInfoThread(Collection<Object> objSet, SBMLPanel panel) {
         this.objSet = objSet;
-        this.textPane = textPane;
+        this.panel = panel;
         info = "";
     }
 
     public void run() {
-    	if (textPane != null){
+    	if (panel != null){
     		// Info creating mode
     		for (Object obj : objSet){	
     			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
@@ -43,7 +44,7 @@ public class SBaseInfoThread extends Thread{
 					e.printStackTrace();
 				}
     			info += infoFac.getInfo();
-    			textPane.updateText(this);
+    			panel.setText(this);
     		}
     	} else {
     		// Cache filling mode
@@ -55,7 +56,8 @@ public class SBaseInfoThread extends Thread{
     }
         
 	/**
-     * Reads the annotation information in the Miriam Cash
+     * Creates SBase information and
+	 * stores in cache.
 	 */
 	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();
@@ -76,11 +78,11 @@ public class SBaseInfoThread extends Thread{
 	}
 	
 	private static void preloadAnnotationForListOf(@SuppressWarnings("rawtypes") ListOf list){
-		Set<Object> nsbSet = new HashSet<Object>();
+		Set<Object> nsbSet = new HashSet<>();
 		for (Object nsb: list){
 			nsbSet.add(nsb);
 		}
-		SBaseInfoThread thread = new SBaseInfoThread((Collection<Object>) nsbSet, null);
+		SBaseInfoThread thread = new SBaseInfoThread(nsbSet, null);
 		thread.start();
 	}
 }

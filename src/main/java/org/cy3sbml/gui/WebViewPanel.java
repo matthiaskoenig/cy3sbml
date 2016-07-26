@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import org.cy3sbml.SBMLManager;
+import org.cy3sbml.miriam.SBaseInfoThread;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
@@ -27,6 +28,8 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * cy3sbml results panel. 
@@ -39,7 +42,7 @@ import java.io.File;
  * 
  * ResultsPanel is a singleton class.
  */
-public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //CytoPanelComponentSelectedListener, CytoPanelStateChangedListener,
+public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLPanel,
         HyperlinkListener,
         RowsSetListener,
         SetCurrentNetworkListener,
@@ -55,6 +58,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
     private CyApplicationManager cyApplicationManager;
     private Browser browser;
     private File appDirectory;
+	private long lastInformationThreadId = -1;
 
 
 	/** Singleton. */
@@ -94,10 +98,9 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
 			}
 		});
 
-
+        // FIXME
 		// textPane = new JEditorPaneSBML();
 		// textPane.addHyperlinkListener(this);
-
 
 	}
 
@@ -124,7 +127,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
 
 	@Override
     public Icon getIcon() {
-        return new ImageIcon(getClass().getResource("/images/cy3sbml_icon.png"));
+        return new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CY3SBML_ICON));
     }
 
     @Override
@@ -184,6 +187,56 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
     public void setExamples(){
         browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
     }
+
+	/** Set text. */
+	@Override
+	public void setText(String text){
+		// Necessary to use invokeLater to handle the Swing GUI update
+
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run() {
+				browser.loadText(text);
+			}
+		});
+	}
+
+	/**
+	 * Update Text in the navigation panel.
+	 * Only updates information if the current thread is the last requested thread
+	 * for updating text.
+	 */
+	@Override
+	public void setText(SBaseInfoThread infoThread){
+		if (infoThread.getId() == lastInformationThreadId){
+			this.setText(infoThread.info);
+		}
+	}
+
+	/**
+	 * Create information string for SBML Node and display.
+	 */
+	@Override
+	public void showSBaseInfo(Object obj) {
+        logger.info("showSBaseInfo for Object");
+		Set<Object> objSet = new HashSet<Object>();
+		objSet.add(obj);
+		showSBaseInfo(objSet);
+	}
+
+	/**
+	 * Display information for set of nodes.
+	 */
+	@Override
+	public void showSBaseInfo(Set<Object> objSet) {
+	    logger.info("showSBaseInfo for Set<Object>");
+		this.setText("Retrieving information via WebServices ...");
+		// starting threads for webservice calls
+		SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
+		lastInformationThreadId = thread.getId();
+		thread.start();
+	}
+
 
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
@@ -268,7 +321,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
 
 	/** Update information within a separate thread. */
 	public void updateInformation(){
-		logger.debug("updateInformation()");
+		logger.info("updateInformation()");
 		CyNetwork network = cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = cyApplicationManager.getCurrentNetworkView();
 		logger.debug("current view: " + view);
@@ -276,21 +329,22 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, //Cyt
 		if (network == null || view == null){
 			return;
 		}
-		// TODO: fix
+
 		// Update the information in separate thread
-		/*
+        if (!this.isActive()){
+            this.setText("");
+            return;
+        }
+
 		try {
-			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
+			UpdatePanel updater = new UpdatePanel(this, network);
 			Thread t = new Thread(updater);
 			t.start();	
 		} catch (Throwable t){
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();
 		}
-		*/
+
 	}
-
-
-
 
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class LoadLayoutAction extends AbstractCyAction{
 		logger.debug("LoadLayoutAction created");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/loadlayout.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_LOADLAYOUT));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Load Layout");

@@ -10,11 +10,11 @@ import org.cytoscape.model.CyTableUtil;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
-public class UpdatePanelInformation implements Runnable {
-	private ResultsPanel panel;
+public class UpdatePanel implements Runnable {
+	private SBMLPanel panel;
 	private CyNetwork network;
 
-    public UpdatePanelInformation(ResultsPanel panel, CyNetwork network) {
+    public UpdatePanel(SBMLPanel panel, CyNetwork network) {
         this.panel = panel;
         this.network = network;
     }
@@ -26,12 +26,6 @@ public class UpdatePanelInformation implements Runnable {
 	/** Here the node information update is performed. */
 	public void updateInformation(){
 		SBMLManager sbmlManager = SBMLManager.getInstance();
-		JEditorPaneSBML textPane = panel.getTextPane();
-		
-		if (!panel.isActive()){
-			textPane.setText("");
-			return;
-		}
 
 		// selected node SUIDs
 		LinkedList<Long> suids = new LinkedList<Long>();
@@ -50,16 +44,16 @@ public class UpdatePanelInformation implements Runnable {
 				String key = objectIds.get(0);
 				SBase sbase = sbmlManager.getSBaseById(key);
 				if (sbase != null){
-					textPane.showSBaseInfo(sbase);	
+					panel.showSBaseInfo(sbase);
 				} else {
-					textPane.setText("No SBML object registered for node.");
+					panel.setText("No SBML object registered for node.");
 				}
 						
 			} else {
-				textPane.showSBaseInfo(document.getModel());
+				panel.showSBaseInfo(document.getModel());
 			}
 		} else {
-			textPane.setText("No SBML associated with current network.");
+			panel.setText("No SBML associated with current network.");
 		}
 	}	
     

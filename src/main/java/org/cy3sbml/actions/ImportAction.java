@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.work.TaskIterator;
@@ -26,7 +27,7 @@ public class ImportAction extends AbstractCyAction{
 	public ImportAction(ServiceAdapter adapter){
 		super("ImportAction");
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/import.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_IMPORT));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Import SBML");

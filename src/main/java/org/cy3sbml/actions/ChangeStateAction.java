@@ -3,6 +3,7 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 
@@ -22,7 +23,7 @@ public class ChangeStateAction extends AbstractCyAction{
 	public ChangeStateAction(CySwingApplication cySwingApplication){
 		super("ChangeStateAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/changestate.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CHANGESTATE));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "show/hide cy3sbml");

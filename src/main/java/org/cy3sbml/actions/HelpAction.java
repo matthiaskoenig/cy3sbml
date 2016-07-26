@@ -3,6 +3,8 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cy3sbml.gui.ResultsPanel;
@@ -22,7 +24,7 @@ public class HelpAction extends AbstractCyAction{
 	public HelpAction(CySwingApplication cySwingApplication){
 		super("HelpAction");
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/help.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_HELP));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");
@@ -48,6 +50,10 @@ public class HelpAction extends AbstractCyAction{
 		ResultsPanel panel = ResultsPanel.getInstance();
 		panel.activate();
 		panel.getTextPane().setHelp();
+
+		WebViewPanel vwPanel = WebViewPanel.getInstance();
+		vwPanel.activate();
+		vwPanel.setHelp();
 	}
 }
 

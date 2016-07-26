@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.util.swing.FileUtil;
@@ -29,7 +30,7 @@ public class SaveLayoutAction extends AbstractCyAction{
 		super("Save Layout");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/savelayout.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_SAVELAYOUT));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Save Layout");

@@ -3,6 +3,8 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
+
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 
 import org.cy3sbml.ServiceAdapter;
@@ -25,7 +27,7 @@ public class BioModelAction extends AbstractCyAction{
 		super("BioModelAction");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/biomodels_logo.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_BIOMODELS_LOGO));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml BioModel Import");

@@ -137,7 +137,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 
 	@Override
 	public Icon getIcon() {
-		return new ImageIcon(getClass().getResource("/images/cy3sbml_icon.png"));
+		return new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CY3SBML_ICON));
 	}
 
 	@Override
@@ -374,9 +374,16 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 		if (network == null || view == null){
 			return;
 		}
+
+		// Update the information in separate thread
+		if (!this.isActive()){
+			this.textPane.setText("");
+			return;
+		}
+
 		// Update the information in separate thread
 		try {
-			UpdatePanelInformation updater = new UpdatePanelInformation(this, network);
+			UpdatePanel updater = new UpdatePanel(this.textPane, network);
 			Thread t = new Thread(updater);
 			t.start();	
 		} catch (Throwable t){

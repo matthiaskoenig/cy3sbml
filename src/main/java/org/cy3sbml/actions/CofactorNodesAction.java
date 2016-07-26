@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +33,7 @@ public class CofactorNodesAction extends AbstractCyAction{
 	public CofactorNodesAction(ServiceAdapter adapter){
 		super("CofactorNodesAction");
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/cofactor.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_COFACTOR));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "Cofactor Nodes");

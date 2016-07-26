@@ -28,7 +28,6 @@ public class Browser extends Region {
         logger.info("WebView version: " + webEngine.getUserAgent());
         logger.info("appDirectory: " + appDirectory);
 
-
 		//add the web view to the scene
 		getChildren().add(browser);
 	}
@@ -52,6 +51,19 @@ public class Browser extends Region {
             }
         });
     }
+
+    /**
+	 * Load HTML text in the webEngine.
+	 */
+    public void loadText(String text){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                webEngine.loadContent(text);
+            }
+        });
+
+	}
 
 	@Override
     protected void layoutChildren() {

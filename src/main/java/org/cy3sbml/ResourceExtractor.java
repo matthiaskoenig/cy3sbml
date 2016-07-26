@@ -72,13 +72,13 @@ public class ResourceExtractor {
 					"Files not extracted");
 			return;
 		}
-		logger.debug("-------------------------------------------------");
-		logger.debug("Extract bundle resources");
-		logger.debug("-------------------------------------------------");
+		logger.info("-------------------------------------------------");
+		logger.info("Extract bundle resources");
+		logger.info("-------------------------------------------------");
 		// bundle root
 		Bundle bundle = bc.getBundle();
 		URL rootURL = bundle.getEntry("/");
-		logger.debug("bundle root: " + rootURL);
+		logger.info("bundle root: " + rootURL);
 		
 		/* FIXME: we don't care about existing resources, just overwriting them
 		 * This will accumulate files with versions and should be cleaned up.
@@ -93,7 +93,7 @@ public class ResourceExtractor {
 					deleteAll(destination);
 		*/
 		extractDirectory(rootURL, GUI_RESOURCES);
-		logger.debug("-------------------------------------------------");
+		logger.info("-------------------------------------------------");
 	}
 	
 	/* 
@@ -126,7 +126,7 @@ public class ResourceExtractor {
 						    throw new IllegalStateException("Couldn't create dir: " + parent);
 						}
 						
-						logger.debug(" --> " + outFile.getAbsolutePath());
+						logger.info(" --> " + outFile.getAbsolutePath());
 						OutputStream outputStream = new FileOutputStream(outFile);
 				
 						int read = 0;
