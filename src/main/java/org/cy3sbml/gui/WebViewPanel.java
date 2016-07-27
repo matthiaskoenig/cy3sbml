@@ -219,7 +219,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	 */
 	@Override
 	public void showSBaseInfo(Set<Object> objSet) {
-		this.setText("Retrieving information via WebServices ...");
+		this.setText(SBaseInfoFactory.createHTMLText("<p>Retrieving information via WebServices ...</p>"));
 		// starting threads for webservice calls
 		SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
 		lastInformationThreadId = thread.getId();

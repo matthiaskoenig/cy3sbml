@@ -153,7 +153,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         logger.debug("buildCyNetworkView");
 
         // Preload SBML WebService information
-        SBaseInfoThread.preloadAnnotationsForSBMLDocument(document);
+        SBaseInfoThread.preloadInfosForSBMLDocument(document);
 
         // Set SBML in SBMLManager
         SBMLManager sbmlManager = SBMLManager.getInstance();

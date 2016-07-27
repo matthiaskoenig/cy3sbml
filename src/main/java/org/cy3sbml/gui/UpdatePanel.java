@@ -52,14 +52,14 @@ public class UpdatePanel implements Runnable {
 				if (sbase != null){
 					panel.showSBaseInfo(sbase);
 				} else {
-					panel.setText("<h2>No information</h2><p>No SBML object registered for node.</p>");
+					panel.setText(SBaseInfoFactory.createHTMLText("<h2>No information</h2><p>No SBML object registered for node.</p>"));
 				}
 						
 			} else {
 				panel.showSBaseInfo(document.getModel());
 			}
 		} else {
-			panel.setText("<h2>No information</h2><p>No SBML associated with current network.</p>");
+			panel.setText(SBaseInfoFactory.createHTMLText("<h2>No information</h2><p>No SBML associated with current network.</p>"));
 		}
 	}	
     

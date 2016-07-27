@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.stream.XMLStreamException;
-
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
@@ -36,12 +34,7 @@ public class SBaseInfoThread extends Thread{
     		// Info creating mode
     		for (Object obj : objSet){	
     			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
-    			try {
-					infoFac.createInfo();
-				} catch (XMLStreamException e) {
-					logger.error("Creating info for object failed");
-					e.printStackTrace();
-				}
+				infoFac.createInfo();
     			info += infoFac.getInfo();
     			panel.setText(this);
     		}
@@ -55,28 +48,30 @@ public class SBaseInfoThread extends Thread{
     }
         
 	/**
-     * Creates SBase information and
-	 * stores in cache.
+     * Creates SBase information and stores in cache.
 	 */
-	public static void preloadAnnotationsForSBMLDocument(SBMLDocument document){
+	public static void preloadInfosForSBMLDocument(SBMLDocument document){
 		Model model = document.getModel();
-		logger.debug("Preload Miriam for <compartments>");
-		preloadAnnotationForListOf(model.getListOfCompartments());
-		logger.debug("Preload Miriam for <species>");
-		preloadAnnotationForListOf(model.getListOfSpecies());
-		logger.debug("Preload Miriam for <reactions>");
-		preloadAnnotationForListOf(model.getListOfReactions());
+		logger.debug("Preload <compartments>");
+		preloadInfosForListOf(model.getListOfCompartments());
+		logger.debug("Preload <species>");
+		preloadInfosForListOf(model.getListOfSpecies());
+		logger.debug("Preload <reactions>");
+		preloadInfosForListOf(model.getListOfReactions());
 		
 		QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 		if (qModel != null){
-			logger.debug("Preload Miriam for <qualitativeSpecies>");
-			preloadAnnotationForListOf(qModel.getListOfQualitativeSpecies());
-			logger.debug("Preload Miriam for <transitions>");
-			preloadAnnotationForListOf(qModel.getListOfTransitions());
+			logger.debug("Preload <qualitativeSpecies>");
+			preloadInfosForListOf(qModel.getListOfQualitativeSpecies());
+			logger.debug("Preload <transitions>");
+			preloadInfosForListOf(qModel.getListOfTransitions());
 		}
 	}
-	
-	private static void preloadAnnotationForListOf(@SuppressWarnings("rawtypes") ListOf list){
+
+	/**
+	 * Preload all the information.
+     */
+	private static void preloadInfosForListOf(@SuppressWarnings("rawtypes") ListOf list){
 		Set<Object> nsbSet = new HashSet<>();
 		for (Object nsb: list){
 			nsbSet.add(nsb);
