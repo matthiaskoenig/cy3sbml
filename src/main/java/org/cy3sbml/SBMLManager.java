@@ -16,6 +16,7 @@ import org.cy3sbml.util.NetworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * The SBMLManager class manages mappings between SBMLDocuments & CyNetworks.
  * 
@@ -198,6 +199,7 @@ public class SBMLManager {
 	public String toString(){
 	    return network2sbml.toString();
 	}
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 

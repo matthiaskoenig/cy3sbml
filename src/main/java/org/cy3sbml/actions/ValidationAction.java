@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
 
@@ -31,7 +32,7 @@ public class ValidationAction extends AbstractCyAction{
 		super("ValidationAction");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/validation.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_VALIDATION));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "SBML validation");

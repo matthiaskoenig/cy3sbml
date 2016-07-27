@@ -33,6 +33,7 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
@@ -52,6 +53,8 @@ import org.cy3sbml.biomodel.BioModelDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.cy3sbml.util.GUIUtil.openCurrentSBMLInBrowser;
 
 /**
  * cy3sbml results panel. 
@@ -78,22 +81,6 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 	private CytoPanel cytoPanelEast;
 	private ServiceAdapter adapter;
 	private JEditorPaneSBML textPane;
-
-	private static final Map<String, String> EXAMPLE_SBML;
-	static {
-		HashMap<String, String> map = new HashMap<>();
-		map.put("http://cy3sbml-glucose", "/models/Koenig2014_Glucose_Metabolism.xml");
-		map.put("http://cy3sbml-galactose", "/models/Galactose_v129_Nc1_core.xml");
-		map.put("http://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
-		map.put("http://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
-		map.put("http://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");
-		map.put("http://cy3sbml-iIT341", "/models/iIT341.xml");
-		map.put("http://cy3sbml-RECON1", "/models/RECON1.xml");
-		map.put("http://cy3sbml-BIOMD0000000016", "/models/BIOMD0000000016.xml");
-		map.put("http://cy3sbml-BIOMD0000000084", "/models/BIOMD0000000084.xml");
-		map.put("http://cy3sbml-hsa04360", "/models/hsa04360.xml");
-		EXAMPLE_SBML = Collections.unmodifiableMap(map);
-	}
 
 
 	/** Singleton. */
@@ -150,6 +137,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 		return "cy3sbml";
 	}
 
+
 	public boolean isActive(){
 		return (cytoPanelEast.getState() != CytoPanelState.HIDE);
 	}
@@ -177,7 +165,7 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 			activate();
 		}
 	}
-	
+
 	public void select(){
 		int index = cytoPanelEast.indexOfComponent(this);
 		if (index == -1) {
@@ -215,62 +203,46 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 				String s = url.toString();
 				
 				// BioModels
-				if (s.equals("http://cy3sbml-biomodels")){
+				if (s.equals(GUIConstants.URL_BIOMODELS)){
 					 BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
 					 bioModelsDialog.setVisible(true);
 				}
 				// ChangeState
-				else if (s.equals("http://cy3sbml-changestate")){
+				else if (s.equals(GUIConstants.URL_CHANGESTATE)){
 					ResultsPanel panel = ResultsPanel.getInstance();
 					panel.changeState();
 				}
 				// Import
-				else if (s.equals("http://cy3sbml-import")){
+				else if (s.equals(GUIConstants.URL_IMPORT)){
 					ImportAction importAction = new ImportAction(adapter);
 					importAction.actionPerformed(null);
 				}
 				// Validation
-				else if (s.equals("http://cy3sbml-validation")){
+				else if (s.equals(GUIConstants.URL_VALIDATION)){
 					ValidationAction.openValidationPanel(adapter);
 				}
 				// Examples
-				else if (s.equals("http://cy3sbml-examples")){
+				else if (s.equals(GUIConstants.URL_EXAMPLES)){
 					ExamplesAction examplesAction = new ExamplesAction(adapter.cySwingApplication);
 					examplesAction.actionPerformed(null);
 				}
 				// Example networks
-				else if (EXAMPLE_SBML.containsKey(s)){
-					String resource = EXAMPLE_SBML.get(s);
+				else if (GUIConstants.EXAMPLE_SBML.containsKey(s)){
+					String resource = GUIConstants.EXAMPLE_SBML.get(s);
 					loadExampleFromResource(resource);
 				}
 				// SBML file
-				else if (s.equals("http://sbml-file")){
-					SBMLManager sbmlManager = SBMLManager.getInstance();
-					SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
-					 //create a temp file
-			    	File temp;
-					try {
-						temp = File.createTempFile("temp-file-name", ".xml");
-						System.out.println("Temp file : " + temp.getAbsolutePath());
-						try {
-							TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
-							adapter.openBrowser.openURL("file://" + temp.getAbsolutePath());
-						} catch (SBMLException | FileNotFoundException | XMLStreamException e) {
-							e.printStackTrace();
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					} 
+				else if (s.equals(GUIConstants.URL_SBMLFILE)){
+					openCurrentSBMLInBrowser(adapter.openBrowser);
 				}
-				
 				// HTML links	
 				else {
-					// handle the HTML links
 					adapter.openBrowser.openURL(url.toString());	
 				}
 			}
 		}
 	}
+
 
 	/**
 	 * Loads an SBML example file from the given resource.

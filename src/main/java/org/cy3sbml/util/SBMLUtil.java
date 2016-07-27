@@ -1,10 +1,13 @@
 package org.cy3sbml.util;
 
 import org.cy3sbml.SBML;
-import org.sbml.jsbml.Rule;
-import org.sbml.jsbml.AssignmentRule;
-import org.sbml.jsbml.LocalParameter;
-import org.sbml.jsbml.RateRule;
+import org.cy3sbml.SBMLManager;
+import org.sbml.jsbml.*;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Some utils to work with SBML and SBML naming.
@@ -48,5 +51,6 @@ public class SBMLUtil {
         }
         return variable;
     }
+
 
 }

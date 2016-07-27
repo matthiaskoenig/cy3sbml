@@ -167,7 +167,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// init cy3sbml ResultsPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication, appDirectory);
+			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication, appDirectory, openBrowser);
 
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);

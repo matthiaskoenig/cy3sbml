@@ -35,6 +35,26 @@ import org.cy3sbml.util.AnnotationUtil;
  * TODO: refactor SBML HTML information completely
  */
 public class SBaseInfoFactory {
+	private static String HTML_START =
+			"<html>\n" +
+			"<head>\n" +
+			"\t<meta charset=\"utf-8\">\n" +
+			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+			"\t<title>cy3sabiork</title>\n" +
+			"\t<link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"\n" +
+			"\t\t  integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\n" +
+			"\t<link rel=\"stylesheet\" href=\"css/cy3sbml.css\">\n" +
+			"</head>";
+
+	private static String HTML_STOP =
+			"</div>\n" +
+			"<script src=\"js/jquery.min.js\"></script>\n" +
+			"<script src=\"js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>\n" +
+			"</body>\n" +
+			"</html>\n";
+
+
     private static final Logger logger = LoggerFactory.getLogger(SBaseInfoFactory.class);
 
 	private SBase sbase;
@@ -65,7 +85,8 @@ public class SBaseInfoFactory {
 			return;
 		}
 		// SBML information
-		info = createHeader(sbase);
+        info = HTML_START;
+		info += createHeader(sbase);
 		info += createSBOInfo(sbase);
 		info += createSBaseInfo(sbase);
   		
@@ -101,6 +122,7 @@ public class SBaseInfoFactory {
   	  			info += String.format("<p>%s</p>", notes);
   	  		}	
   		}
+  		info += HTML_STOP;
 	}
 	
 	/**
@@ -499,61 +521,4 @@ public class SBaseInfoFactory {
 			return falseHTML();
 		}	
 	}
-
-	
-	/** Get additional image information for the database and identifier.
-	 * TODO: This has to be done offline and in the background (images have to be cashed) !
-	 * TODO: Create background database of information.  
-	 */
-	/*
-	@Deprecated
-	private String getAdditionalInformation(String r){
-		Map<String, String> map = getMapForURI(r);
-		String text = "";
-		String id = map.get("id");
-		String key = map.get("key");
-		String[] keyitems = key.split(":");
-		String item = keyitems[keyitems.length-1];
-		
-		// Add chebi info
-		if (item.equals("obo.chebi")){
-			try{
-				String[] tmps = id.split("%3A");
-				String cid = tmps[tmps.length-1];
-				text += "<img src=\"http://www.ebi.ac.uk/chebi/displayImage.do?defaultImage=true&imageIndex=0&chebiId="+cid+"&dimensions=160\"></img>";
-			} catch (Exception e){
-				//e.printStackTrace();
-				logger.warn("obo.chebi image not available");
-			}
-		
-		// Add kegg info
-		}else if (item.equals("kegg.compound")){
-			try{
-				String imgsrc = 
-					NamedSBaseInfoFactory.class.getClassLoader().getResource("http://www.genome.jp/Fig/compound/"+id+".gif").toString();
-				text += "<img src=\""+imgsrc+"\"></img>";
-			} catch (Exception e){
-				//e.printStackTrace();
-				logger.warn("kegg.compound image not available");
-			}
-		
-		// TODO resize image and use KEGG
-		// Uncomment for reactions, but problems with large images 
-//		}else if (item.equals("kegg.reaction")){
-//			try{
-//				String imgsrc = 
-//					BioModelText.class.getClassLoader().getResource("http://www.genome.jp/Fig/reaction/"+id+".gif").toString();
-//				text += "<img src=\""+imgsrc+"\"></img>";
-//			} catch (Exception e){
-//				//e.printStackTrace();
-//				System.out.println("CySBML -> kegg.reaction image not available");
-//			}
-//		}
-			
-			
-		}
-		return text;
-	}
-	*/
-	
 }

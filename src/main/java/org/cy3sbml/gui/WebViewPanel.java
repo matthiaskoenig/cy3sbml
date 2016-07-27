@@ -1,10 +1,18 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import org.cy3sbml.SBMLManager;
+
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
@@ -14,32 +22,27 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
+
+import org.cy3sbml.SBMLManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-import java.awt.*;
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * cy3sbml results panel. 
+ * cy3sbml WebView panel based on javafx.
  * 
- * The panel is registered as Cytoscape Results Panel and available
- * from within the GUI.
- * 
+ * The panel is registered as Cytoscape Results Panel.
  * This panel is the main area for displaying SBML information for the 
  * network.
  * 
- * ResultsPanel is a singleton class.
+ * WebViewPanel is a singleton class.
  */
 public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLPanel,
         HyperlinkListener,
@@ -56,16 +59,18 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	private CySwingApplication cySwingApplication;
     private CyApplicationManager cyApplicationManager;
     private Browser browser;
+    private OpenBrowser openBrowser;
     private File appDirectory;
 	private long lastInformationThreadId = -1;
 
 
 	/** Singleton. */
 	public static synchronized WebViewPanel getInstance(CyApplicationManager cyApplicationManager,
-                                                        CySwingApplication cySwingApplication, File appDirectory){
+                                                        CySwingApplication cySwingApplication, File appDirectory,
+                                                        OpenBrowser openBrowser){
 		if (uniqueInstance == null){
 			logger.info("WebViewPanel created");
-			uniqueInstance = new WebViewPanel(cyApplicationManager, cySwingApplication, appDirectory);
+			uniqueInstance = new WebViewPanel(cyApplicationManager, cySwingApplication, appDirectory, openBrowser);
 		}
 		return uniqueInstance;
 	}
@@ -75,10 +80,11 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
 	/** Constructor */
 	private WebViewPanel(CyApplicationManager cyApplicationManager, CySwingApplication cySwingApplication,
-                         File appDirectory){
+                         File appDirectory, OpenBrowser openBrowser){
 		this.cyApplicationManager = cyApplicationManager;
 		this.cySwingApplication = cySwingApplication;
         this.appDirectory = appDirectory;
+        this.openBrowser = openBrowser;
 		this.cytoPanelEast = cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
 		setLayout(new BorderLayout());
@@ -108,7 +114,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(appDirectory);
+        browser = new Browser(appDirectory, openBrowser);
         Scene scene = new Scene(browser);
         fxPanel.setScene(scene);
         Platform.setImplicitExit(false);
@@ -143,6 +149,8 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		return (cytoPanelEast.getState() != CytoPanelState.HIDE);
 	}
 
+    /////////////////// ACTIVATION HANDLING ///////////////////////////////////
+
     public void activate(){
 		// If the state of the cytoPanelWest is HIDE, show it
 		if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
@@ -150,6 +158,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		}	
 		// Select panel
 		select();
+        setHelp();
     }
 		
 	public void deactivate(){
@@ -191,7 +200,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	@Override
 	public void setText(String text){
 		// Necessary to use invokeLater to handle the Swing GUI update
-
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
@@ -249,8 +257,11 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	 */
 	@Override
 	public void hyperlinkUpdate(HyperlinkEvent evt) {
-
+        // TODO implement
 	}
+
+
+
 
 	/** 
 	 * Handle node selection events in the table/network. 
@@ -295,7 +306,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	public void handleEvent(SetCurrentNetworkEvent event) {
 		CyNetwork network = event.getNetwork();
 		SBMLManager.getInstance().updateCurrent(network);
-		ResultsPanel.getInstance().updateInformation();
+		updateInformation();
 	}
 
 	/** If networks are added check if they are subnetworks
@@ -318,9 +329,18 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	}
 
 
-	/** Update information within a separate thread. */
+	/**
+     * Updates panel information within a separate thread.
+     */
 	public void updateInformation(){
-		logger.info("updateInformation()");
+		logger.debug("updateInformation()");
+
+        // Only update if active
+        if (!this.isActive()){
+            return;
+        }
+
+        // Only update if current network and view
 		CyNetwork network = cyApplicationManager.getCurrentNetwork();
 		CyNetworkView view = cyApplicationManager.getCurrentNetworkView();
 		logger.debug("current view: " + view);
@@ -329,12 +349,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 			return;
 		}
 
-		// Update the information in separate thread
-        if (!this.isActive()){
-            this.setText("");
-            return;
-        }
-
+        // Update the information in separate thread
 		try {
 			UpdatePanel updater = new UpdatePanel(this, network);
 			Thread t = new Thread(updater);
@@ -343,7 +358,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 			logger.error("Error in handling node selection in CyNetwork");
 			t.printStackTrace();
 		}
-
 	}
 
 }
