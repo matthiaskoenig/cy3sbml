@@ -1,5 +1,6 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.*;
@@ -53,17 +54,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
     private ServiceAdapter adapter;
     private CytoPanel cytoPanelEast;
-
-
-    private Browser browser;
-
-    /*
-    private CySwingApplication cySwingApplication;
-    private CyApplicationManager cyApplicationManager;
-    private OpenBrowser openBrowser;
-    private File appDirectory;
-    */
-
+	private Browser browser;
 	private long lastInformationThreadId = -1;
 
 
@@ -92,7 +83,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 			@Override
 			public void run() {
 				initFX(fxPanel);
-                // set the help text
                 setHelp();
 			}
 		});
@@ -153,7 +143,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		}	
 		// Select panel
 		select();
-        setHelp();
     }
 		
 	public void deactivate(){
@@ -220,8 +209,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	 */
 	@Override
 	public void showSBaseInfo(Object obj) {
-        logger.info("showSBaseInfo for Object");
-		Set<Object> objSet = new HashSet<Object>();
+		Set<Object> objSet = new HashSet<>();
 		objSet.add(obj);
 		showSBaseInfo(objSet);
 	}
@@ -231,12 +219,16 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	 */
 	@Override
 	public void showSBaseInfo(Set<Object> objSet) {
-	    logger.info("showSBaseInfo for Set<Object>");
 		this.setText("Retrieving information via WebServices ...");
 		// starting threads for webservice calls
 		SBaseInfoThread thread = new SBaseInfoThread(objSet, this);
 		lastInformationThreadId = thread.getId();
 		thread.start();
+	}
+
+	@Override
+	public File getApplicationDir() {
+		return adapter.cy3sbmlDirectory;
 	}
 
 

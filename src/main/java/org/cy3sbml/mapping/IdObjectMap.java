@@ -90,7 +90,7 @@ public class IdObjectMap {
 					
 					// Create law id (analogue to reader)
 					String reactionId = r.getId();
-					String lawId = String.format("%s_law", reactionId);
+					String lawId = SBMLUtil.kineticLawId(reactionId);
 					objectMap.put(lawId, law);
 				
 					// this were made unique during reading of SBML

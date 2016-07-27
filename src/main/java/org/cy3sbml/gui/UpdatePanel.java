@@ -27,7 +27,10 @@ public class UpdatePanel implements Runnable {
         updateInformation();
     }
     
-	/** Here the node information update is performed. */
+	/**
+	 * Here the node information update is performed.
+	 * If multiple nodes are selected only the information for the first node is displayed.
+	 * */
 	public void updateInformation(){
 		SBMLManager sbmlManager = SBMLManager.getInstance();
 
@@ -43,21 +46,20 @@ public class UpdatePanel implements Runnable {
 			List<String> objectIds = sbmlManager.getObjectIds(suids);
 		
 			if (objectIds.size() > 0){
-				// TODO: How to handle multiple selections? 
-				// Currently only first node in selection used
+				// use first node in selection
 				String key = objectIds.get(0);
 				SBase sbase = sbmlManager.getSBaseById(key);
 				if (sbase != null){
 					panel.showSBaseInfo(sbase);
 				} else {
-					panel.setText("No SBML object registered for node.");
+					panel.setText("<h2>No information</h2><p>No SBML object registered for node.</p>");
 				}
 						
 			} else {
 				panel.showSBaseInfo(document.getModel());
 			}
 		} else {
-			panel.setText("No SBML associated with current network.");
+			panel.setText("<h2>No information</h2><p>No SBML associated with current network.</p>");
 		}
 	}	
     

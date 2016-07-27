@@ -27,7 +27,7 @@ import org.sbml.jsbml.xml.XMLNode;
 import org.cy3sbml.util.AnnotationUtil;
 
 /** 
- * Create the information for the selected NamedSBase.
+ * Creates HTML information for given SBase.
  * Core information is parsed from the NamedSBase object,
  * with additional information like resources retrieved via
  * web services (MIRIAM).
@@ -38,16 +38,7 @@ import org.cy3sbml.util.AnnotationUtil;
  */
 public class SBaseInfoFactory {
 
-    // TODO: set the base dir from application directory
-    /*
-    File file = new File(appDirectory, resource);
-    URI fileURI = file.toURI();
-		logger.info("resource to load:" + fileURI);
-    loadPage(fileURI.toString());
-    */
-    private static String BASE_DIR = "file:///home/mkoenig/CytoscapeConfiguration/cy3sbml/gui/";
-
-	private static String HTML_START = String.format(
+	private static String HTML_START_TEMPLATE =
 			"<html>\n" +
 			"<head>\n" +
             "<base href=\"%s\" />\n" +
@@ -58,22 +49,22 @@ public class SBaseInfoFactory {
 			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\"\n" +
 			"\t\t  integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-			"</head>", BASE_DIR);
+			"</head>";
 
-	private static String HTML_STOP =
+	private static String HTML_STOP_TEMPLATE =
 			"</div>\n" +
 			"<script src=\"./js/jquery.min.js\"></script>\n" +
 			"<script src=\"./js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>\n" +
 			"</body>\n" +
 			"</html>\n";
 
+    private static String baseDir;
 
     private static final Logger logger = LoggerFactory.getLogger(SBaseInfoFactory.class);
-
 	private SBase sbase;
 	private String info = ""; 
 	
-	public SBaseInfoFactory(Object obj){		
+	public SBaseInfoFactory(Object obj){
 		sbase = (SBase) obj;
 	}
 
@@ -81,6 +72,10 @@ public class SBaseInfoFactory {
 	public String getInfo() {
 	    return info;
 	}
+
+	public static void setBaseDir(String baseDir) {
+        SBaseInfoFactory.baseDir = baseDir;
+    }
 
 
 	public void cacheMiriamInformation(){
@@ -98,7 +93,9 @@ public class SBaseInfoFactory {
 			return;
 		}
 		// SBML information
-        info = HTML_START;
+
+        logger.info("baseDirStr:" +  baseDir);
+        info = String.format(HTML_START_TEMPLATE, baseDir);
 		info += createHeader(sbase);
 		info += createSBOInfo(sbase);
 		info += createSBaseInfo(sbase);
@@ -132,10 +129,10 @@ public class SBaseInfoFactory {
   		if (sbase.isSetNotes()){
   			String notes = sbase.getNotesString();
   	  		if (!notes.equals("") && notes != null ){
-  	  			info += String.format("<p>%s</p>", notes);
+  	  			info += String.format("<h2>Notes</h2><p>%s</p>", notes);
   	  		}	
   		}
-  		info += HTML_STOP;
+  		info += HTML_STOP_TEMPLATE;
 	}
 	
 	/**
@@ -501,13 +498,14 @@ public class SBaseInfoFactory {
 	}
 	
 	private String trueHTML(){
-		return "<img src=\"images/true.gif\" alt=\"true\" height=\"15\" width=\"15\"></img>";
+	    return "<span class=\"glyphicon glyphicon-ok-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/true.gif\" alt=\"true\" height=\"15\" width=\"15\"></img>";
 	}
 	private String falseHTML(){
-		return "<img src=\"images/false.gif\" alt=\"false\" height=\"15\" width=\"15\"></img>";
+	    return "<span class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/false.gif\" alt=\"false\" height=\"15\" width=\"15\"></img>";
 	}
 	private String noneHTML(){
-		return "<img src=\"images/none.gif\" alt=\"none\" height=\"15\" width=\"15\"></img>";
+
+	    return "<span class=\"glyphicon glyphicon-ban-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/none.gif\" alt=\"none\" height=\"15\" width=\"15\"></img>";
 	}
 	
 	private String booleanHTML(boolean b){
