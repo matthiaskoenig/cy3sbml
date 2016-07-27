@@ -132,12 +132,12 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
     @Override
     public String getIdentifier() {
-        return "javafx";
+        return "cy3sbml";
     }
 
 	@Override
 	public String getTitle() {
-		return "javafx  ";
+		return "cy3sbml  ";
 	}
 
 	public boolean isActive(){

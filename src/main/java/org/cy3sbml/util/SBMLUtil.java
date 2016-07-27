@@ -53,4 +53,17 @@ public class SBMLUtil {
     }
 
 
+    /**
+     * Returns unqualified class name of a given object.
+     */
+    public static String getUnqualifiedClassName(Object obj){
+        String name = obj.getClass().getName();
+        if (name.lastIndexOf('.') > 0) {
+            name = name.substring(name.lastIndexOf('.')+1);
+        }
+        // The $ can be converted to a .
+        name = name.replace('$', '.');
+        return name;
+    }
+
 }

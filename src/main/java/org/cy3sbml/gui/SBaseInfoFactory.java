@@ -37,18 +37,20 @@ import org.cy3sbml.util.AnnotationUtil;
  * TODO: refactor SBML HTML information completely
  */
 public class SBaseInfoFactory {
-    // TODO: inject the location of the static resources
+
+    // TODO: set the base dir from application directory
     /*
     File file = new File(appDirectory, resource);
     URI fileURI = file.toURI();
 		logger.info("resource to load:" + fileURI);
     loadPage(fileURI.toString());
     */
+    private static String BASE_DIR = "file:///home/mkoenig/CytoscapeConfiguration/cy3sbml/gui/";
 
-	private static String HTML_START =
+	private static String HTML_START = String.format(
 			"<html>\n" +
 			"<head>\n" +
-            "<base href=\"file:///home/mkoenig/CytoscapeConfiguration/cy3sbml/gui/\" />\n" +
+            "<base href=\"%s\" />\n" +
 			"\t<meta charset=\"utf-8\">\n" +
 			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
 			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
@@ -56,7 +58,7 @@ public class SBaseInfoFactory {
 			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\"\n" +
 			"\t\t  integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-			"</head>";
+			"</head>", BASE_DIR);
 
 	private static String HTML_STOP =
 			"</div>\n" +
@@ -121,7 +123,7 @@ public class SBaseInfoFactory {
   				}
   				
   			}
-  			info += String.format("<p><span color=\"gray\">%s</span></p>", text);
+  			info += String.format("<p>%s</p>", text);
   		}
   		
   		// notes
@@ -141,13 +143,12 @@ public class SBaseInfoFactory {
 	 * Displays the class and id, name if existing.
 	 */
 	private String createHeader(SBase item){
-		String className = getUnqualifiedClassName(item);
-		String header = String.format("<h2><span color=\"gray\">%s</span></h2>",
-									  className);
+		String className = SBMLUtil.getUnqualifiedClassName(item);
+		String header = String.format("<h2>%s</h2>", className);
 		// if NamedSBase get additional information
 		if (NamedSBase.class.isAssignableFrom(item.getClass())){
 			NamedSBase nsb = (NamedSBase) item;
-			String template = "<h2><span color=\"gray\">%s</span> : %s</h2>";
+			String template = "<h2>%s : <small>%s</small></h2>";
 			String name = nsb.getId();
 			if (nsb.isSetName()){
 				name =  String.format("%s (%s)", nsb.getId(), nsb.getName());
@@ -157,19 +158,7 @@ public class SBaseInfoFactory {
 		return header; 
 	}
 	
-	/** 
-	 * Returns unqualified class name of a given object. 
-	 */
-	private static String getUnqualifiedClassName(Object obj){
-		String name = obj.getClass().getName();
-		if (name.lastIndexOf('.') > 0) {
-		    name = name.substring(name.lastIndexOf('.')+1);
-		}
-		// The $ can be converted to a .
-		name = name.replace('$', '.');  
-		return name;
-	}
-	
+
 	private String createSBOInfo(SBase item){
 		String text = "";
 		if (item.isSetSBOTerm()){
@@ -180,13 +169,14 @@ public class SBaseInfoFactory {
 			String definition = parseSBOTermDefinition(sboTerm.getDefinition());
 			
 			// sboTerm.getSynonyms();
+            // FIXME: to identifiers
   			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "urn:miriam:biomodels.sbo:" + sboTermId);
-  			text += String.format("<b> %s <span color=\"green\">%s</span></b><br>", sboTerm.getName(), sboTermId);
-  			text += definition + "<br>";
+  			text += String.format("<b>%s</b> <span class=\"term\">%s</span> <span class=\"ontology\">SBO</span> <br />", sboTerm.getName(), sboTermId);
+  			text += definition + "<br />";
   			for (String rURI : term.getResources()){
   				text += createInfoForURI(rURI);
   			}
-  			text += "<hr>";
+  			text += "<hr />";
   		}
 		return text;
 	}
@@ -224,11 +214,6 @@ public class SBaseInfoFactory {
         String[] items = location.split("/");
         String[] serverItems = Arrays.copyOfRange(items, 0, items.length-1);
         String text = org.apache.commons.lang3.StringUtils.join(serverItems, "/");
-		/* strip http
-		if (text.startsWith("http://")){
-			text = text.substring(7, text.length());
-		}
-		*/
         return text;
     }
 
@@ -246,15 +231,15 @@ public class SBaseInfoFactory {
 		if (cvterms.size() > 0){
 			for (CVTerm term : cvterms){
 				if (term.isModelQualifier()){
-					text += String.format("<p><b>%s : %s</b><br>", term.getQualifierType(), term.getModelQualifierType());	
+					text += String.format("<p><b>%s</b> <span class=\"qualifier\">%s</span><br />", term.getQualifierType(), term.getModelQualifierType());
 				} else if (term.isBiologicalQualifier()){
-					text += String.format("<p><b>%s : %s</b><br>", term.getQualifierType(), term.getBiologicalQualifierType());
+					text += String.format("<p><b>%s</b> <span class=\"qualifier\">%s</span><br>", term.getQualifierType(), term.getBiologicalQualifierType());
 				}
 				
 				Map<String, String> map = null;
 				for (String rURI : term.getResources()){
 					map = AnnotationUtil.getIdCollectionMapForURI(rURI);
-					text += String.format("<span color=\"red\">%s</span> (%s)<br>", map.get("id"), map.get("collection"));
+					text += String.format("<span class=\"term\">%s</span> <span class=\"ontology\">%s</span><br/>", map.get("id"), map.get("collection").toUpperCase());
 					text += createInfoForURI(rURI);
 				}
 				text += "</p>";

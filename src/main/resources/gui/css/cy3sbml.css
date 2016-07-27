@@ -5,3 +5,39 @@
 table {
     font-size: 11px;
 }
+
+.ontology{
+    background-color: #5FBDCE;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.term{
+    background-color: #ffac1b;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.qualifier{
+    background-color: #13721c;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
