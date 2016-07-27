@@ -4,15 +4,13 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
+import org.cy3sbml.gui.browser.Browser;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
@@ -45,7 +43,6 @@ import org.slf4j.LoggerFactory;
  * WebViewPanel is a singleton class.
  */
 public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLPanel,
-        HyperlinkListener,
         RowsSetListener,
         SetCurrentNetworkListener,
         NetworkAddedListener,
@@ -90,33 +87,27 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		setLayout(new BorderLayout());
         // TODO: set dimension of panel
 
-
 		JFXPanel fxPanel = this;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				initFX(fxPanel);
                 // set the help text
-                // load default page
-                browser.loadPage("http://www.google.com");
                 setHelp();
 			}
 		});
-
-        // FIXME
-		// textPane = new JEditorPaneSBML();
-		// textPane.addHyperlinkListener(this);
-
 	}
 
     /**
      * Initialize the JavaFX components.
+     * This creates the browser and adds it to the scene.
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
         browser = new Browser(appDirectory, openBrowser);
-        Scene scene = new Scene(browser);
+        Scene scene = new Scene(browser,300,600);
         fxPanel.setScene(scene);
+        // necessary to support the detached mode
         Platform.setImplicitExit(false);
     }
 	
@@ -246,20 +237,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
 
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
-
-	/** 
-	 * Handle hyperlink events in the textPane.
-	 * Either opens browser for given hyperlink or triggers Cytoscape actions
-	 * for subsets of special hyperlinks.
-	 * 
-	 * This provides an easy solution for integrating app functionality
-	 * with click on hyperlinks.
-	 */
-	@Override
-	public void hyperlinkUpdate(HyperlinkEvent evt) {
-        // TODO implement
-	}
-
 
 
 

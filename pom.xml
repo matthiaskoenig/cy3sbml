@@ -322,6 +322,13 @@
 			<version>20140107</version>
 		</dependency>
 
+		<!-- JavaFX -->
+		<dependency>
+			<groupId>org.codefx.libfx</groupId>
+			<artifactId>LibFX</artifactId>
+			<version>0.3.0</version>
+		</dependency>
+
         <!-- JSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

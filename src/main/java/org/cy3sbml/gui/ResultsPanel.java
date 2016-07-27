@@ -3,14 +3,9 @@ package org.cy3sbml.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import javax.swing.Icon;
@@ -20,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.xml.stream.XMLStreamException;
 
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
@@ -33,16 +27,12 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
-import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.work.TaskIterator;
-import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBMLException;
-import org.sbml.jsbml.TidySBMLWriter;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.ExamplesAction;
@@ -227,8 +217,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 					examplesAction.actionPerformed(null);
 				}
 				// Example networks
-				else if (GUIConstants.EXAMPLE_SBML.containsKey(s)){
-					String resource = GUIConstants.EXAMPLE_SBML.get(s);
+				else if (GUIConstants.URLS_EXAMPLE_SBML.containsKey(s)){
+					String resource = GUIConstants.URLS_EXAMPLE_SBML.get(s);
 					loadExampleFromResource(resource);
 				}
 				// SBML file

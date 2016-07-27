@@ -1,8 +1,6 @@
 package org.cy3sbml.gui;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Constants used in GUI.
@@ -32,7 +30,9 @@ public class GUIConstants {
 
     public static String URL_SBMLFILE = "http://sbml-file";
 
+
     public static final Map<String, String> EXAMPLE_SBML;
+    public static final Set<String> URLS_ACTION;
     static {
         HashMap<String, String> map = new HashMap<>();
         map.put("http://cy3sbml-glucose", "/models/Koenig2014_Glucose_Metabolism.xml");
@@ -46,25 +46,17 @@ public class GUIConstants {
         map.put("http://cy3sbml-BIOMD0000000084", "/models/BIOMD0000000084.xml");
         map.put("http://cy3sbml-hsa04360", "/models/hsa04360.xml");
         EXAMPLE_SBML = Collections.unmodifiableMap(map);
+
+        Set<String> set = new HashSet<>();
+        set.add(URL_BIOMODELS);
+        set.add(URL_CHANGESTATE);
+        set.add(URL_IMPORT);
+        set.add(URL_VALIDATION);
+        set.add(URL_EXAMPLES);
+        URLS_ACTION = Collections.unmodifiableSet(set);
     }
 
 
     private GUIConstants(){}
 
-
-
-    /**
-    * Check if given link is an external link.
-    * File links, and links to kineticLawInformation are opened in the WebView.
-    */
-    public static Boolean isExternalLink(String link){
-        // String html
-        if (link.startsWith("<html>")) {
-            return false;
-        }
-        if (link.startsWith("file:///")){
-            return false;
-        }
-        return true;
-    }
 }
