@@ -531,14 +531,13 @@ public class SBaseInfoFactory {
 
 
 	private String trueHTML(){
-	    return "<span class=\"glyphicon glyphicon-ok-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/true.gif\" alt=\"true\" height=\"15\" width=\"15\"></img>";
+	    return "<img src=\"images/true2.png\" alt=\"true\" height=\"15\" width=\"15\"></img>";
 	}
 	private String falseHTML(){
-	    return "<span class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/false.gif\" alt=\"false\" height=\"15\" width=\"15\"></img>";
+	    return "<img src=\"images/false2.png\" alt=\"false\" height=\"15\" width=\"15\"></img>";
 	}
 	private String noneHTML(){
-
-	    return "<span class=\"glyphicon glyphicon-ban-circle\" aria-hidden=\"true\"></span>";  //"<img src=\"images/none.gif\" alt=\"none\" height=\"15\" width=\"15\"></img>";
+	    return "<img src=\"images/none2.png\" alt=\"none\" height=\"15\" width=\"15\"></img>";
 	}
 	
 	private String booleanHTML(boolean b){
