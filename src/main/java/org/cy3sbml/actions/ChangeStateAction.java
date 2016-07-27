@@ -43,8 +43,8 @@ public class ChangeStateAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed");
-		ResultsPanel panel = ResultsPanel.getInstance();
-		panel.changeState();
+        // ResultsPanel panel = ResultsPanel.getInstance();
+        // panel.changeState();
 
 		WebViewPanel vwPanel = WebViewPanel.getInstance();
 		vwPanel.changeState();

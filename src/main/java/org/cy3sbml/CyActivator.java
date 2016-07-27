@@ -167,7 +167,7 @@ public class CyActivator extends AbstractCyActivator {
 			
 			// init cy3sbml ResultsPanel
 			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-			WebViewPanel webViewPanel = WebViewPanel.getInstance(cyApplicationManager, cySwingApplication, appDirectory, openBrowser);
+			WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
 
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
@@ -211,12 +211,12 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 
             // panels
-            registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
-            registerService(bc, resultsPanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, resultsPanel, NetworkAddedListener.class, new Properties());
-            registerService(bc, resultsPanel, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, resultsPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+            // registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
+            // registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
+            // registerService(bc, resultsPanel, SetCurrentNetworkListener.class, new Properties());
+            // registerService(bc, resultsPanel, NetworkAddedListener.class, new Properties());
+            // registerService(bc, resultsPanel, NetworkViewAddedListener.class, new Properties());
+            // registerService(bc, resultsPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
@@ -233,7 +233,8 @@ public class CyActivator extends AbstractCyActivator {
             resourceHandler.extract();
 
 			// cy3sbml JTextPane panel
-			ResultsPanel.getInstance().activate();
+			// ResultsPanel.getInstance().activate();
+
 			// cy3sbml JavaFx CyPanel
 			webViewPanel.getInstance().activate();
 

@@ -217,8 +217,8 @@ public class ResultsPanel extends JPanel implements CytoPanelComponent2,
 					examplesAction.actionPerformed(null);
 				}
 				// Example networks
-				else if (GUIConstants.URLS_EXAMPLE_SBML.containsKey(s)){
-					String resource = GUIConstants.URLS_EXAMPLE_SBML.get(s);
+				else if (GUIConstants.EXAMPLE_SBML.containsKey(s)){
+					String resource = GUIConstants.EXAMPLE_SBML.get(s);
 					loadExampleFromResource(resource);
 				}
 				// SBML file

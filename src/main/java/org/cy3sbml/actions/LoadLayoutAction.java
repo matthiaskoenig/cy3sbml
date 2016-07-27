@@ -52,7 +52,7 @@ public class LoadLayoutAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-		Component frame = (Component) adapter.cySwingApplication.getJFrame();
+		Component frame = adapter.cySwingApplication.getJFrame();
 		HashSet<FileChooserFilter> filters = new HashSet<FileChooserFilter>();
 		FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
 		filters.add(filter);

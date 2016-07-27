@@ -51,7 +51,7 @@ public class SaveLayoutAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.debug("actionPerformed()");
+		logger.debug("SaveLayoutAction");
 		
 		Component frame = (Component) adapter.cySwingApplication.getJFrame();
 		HashSet<FileChooserFilter> filters = new HashSet<FileChooserFilter>();

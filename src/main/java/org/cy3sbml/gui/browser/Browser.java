@@ -6,21 +6,27 @@ import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.apache.commons.io.IOUtils;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
+import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.ValidationAction;
 import org.cy3sbml.biomodel.BioModelDialog;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.ResultsPanel;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 
@@ -33,7 +39,8 @@ import static org.cy3sbml.util.GUIUtil.openCurrentSBMLInBrowser;
 public class Browser extends Region {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
-	private final WebView webView;
+
+    private final WebView webView;
 	private final WebEngine webEngine;
     private final OpenBrowser openBrowser;
 	private final File appDirectory;
@@ -76,6 +83,8 @@ public class Browser extends Region {
 
                 // Cytoscape Action
                 if (GUIConstants.URLS_ACTION.contains(s)){
+                    ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
+
                     // BioModels
                     if (s.equals(GUIConstants.URL_BIOMODELS)){
                         BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
@@ -131,7 +140,8 @@ public class Browser extends Region {
         // WebViews.addHyperlinkListener(webView, eventPrintingListener);
         // only listening to the clicks
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
-	}
+
+    }
 
 
     /** Open url in external webView. */
@@ -145,6 +155,33 @@ public class Browser extends Region {
             });
         } else {
             logger.error("No external webView available.");
+        }
+    }
+
+    /**
+     * Loads an SBML example file from the given resource.
+     * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
+     *
+     * TODO: make this a general function.
+     *
+     * @param resource
+     */
+    private void loadExampleFromResource(String resource){
+        InputStream instream = getClass().getResourceAsStream(resource);
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("tmp-example", ".xml");
+            tempFile.deleteOnExit();
+            FileOutputStream out = new FileOutputStream(tempFile);
+            IOUtils.copy(instream, out);
+
+            // read the file
+            ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
+            TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
+            adapter.synchronousTaskManager.execute(iterator);
+        } catch (Exception e) {
+            logger.warn("Could not read example");
+            e.printStackTrace();
         }
     }
 

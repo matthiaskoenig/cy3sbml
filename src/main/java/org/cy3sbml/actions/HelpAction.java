@@ -47,9 +47,9 @@ public class HelpAction extends AbstractCyAction{
 		logger.debug("actionPerformed()");
 		
 		// set information
-		ResultsPanel panel = ResultsPanel.getInstance();
-		panel.activate();
-		panel.getTextPane().setHelp();
+		// ResultsPanel panel = ResultsPanel.getInstance();
+		// panel.activate();
+		// panel.getTextPane().setHelp();
 
 		WebViewPanel vwPanel = WebViewPanel.getInstance();
 		vwPanel.activate();
