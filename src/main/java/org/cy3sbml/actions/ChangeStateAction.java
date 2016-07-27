@@ -8,8 +8,6 @@ import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 
-import org.cy3sbml.gui.ResultsPanel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +41,6 @@ public class ChangeStateAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed");
-        // ResultsPanel panel = ResultsPanel.getInstance();
-        // panel.changeState();
-
 		WebViewPanel vwPanel = WebViewPanel.getInstance();
 		vwPanel.changeState();
 	}

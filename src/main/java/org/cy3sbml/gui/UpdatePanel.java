@@ -10,6 +10,10 @@ import org.cytoscape.model.CyTableUtil;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
+
+/**
+ * Updates the Panel information based on selection.
+ */
 public class UpdatePanel implements Runnable {
 	private SBMLPanel panel;
 	private CyNetwork network;

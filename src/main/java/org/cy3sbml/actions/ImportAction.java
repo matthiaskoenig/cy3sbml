@@ -51,7 +51,6 @@ public class ImportAction extends AbstractCyAction{
 		
 		if ((files != null) && (files.length != 0)) {
 			for (int i = 0; i < files.length; i++) {
-				// TODO load the network file
 				logger.info("Load: " + files[i].getName());
 				TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(files[i]);
 				adapter.synchronousTaskManager.execute(iterator);

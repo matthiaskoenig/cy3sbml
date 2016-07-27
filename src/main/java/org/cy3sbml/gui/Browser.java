@@ -1,26 +1,4 @@
-package org.cy3sbml.gui.browser;
-
-import javafx.application.Platform;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.layout.Region;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import org.apache.commons.io.IOUtils;
-import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
-import org.codefx.libfx.control.webview.WebViews;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.actions.ExamplesAction;
-import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.actions.ValidationAction;
-import org.cy3sbml.biomodel.BioModelDialog;
-import org.cy3sbml.gui.GUIConstants;
-import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.gui.WebViewPanel;
-import org.cytoscape.util.swing.OpenBrowser;
-import org.cytoscape.work.TaskIterator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.cy3sbml.gui;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -30,7 +8,31 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 
-import static org.cy3sbml.util.GUIUtil.openCurrentSBMLInBrowser;
+import org.apache.commons.io.IOUtils;
+
+import javafx.application.Platform;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.layout.Region;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
+import org.codefx.libfx.control.webview.WebViews;
+
+import org.cy3sbml.util.GUIUtil;
+import org.cytoscape.util.swing.OpenBrowser;
+import org.cytoscape.work.TaskIterator;
+
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.actions.ExamplesAction;
+import org.cy3sbml.actions.ImportAction;
+import org.cy3sbml.actions.ValidationAction;
+import org.cy3sbml.biomodel.BioModelDialog;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Browser for displaying HTML.
@@ -93,8 +95,7 @@ public class Browser extends Region {
                     }
                     // ChangeState
                     if (s.equals(GUIConstants.URL_CHANGESTATE)){
-                        ResultsPanel panel = ResultsPanel.getInstance();
-                        panel.changeState();
+                        WebViewPanel.getInstance().changeState();
                         return true;
                     }
                     // Import
@@ -125,7 +126,7 @@ public class Browser extends Region {
 
                 // SBML file
                 if (s.equals(GUIConstants.URL_SBMLFILE)){
-                    openCurrentSBMLInBrowser(openBrowser);
+                    GUIUtil.openCurrentSBMLInBrowser(openBrowser);
                     return true;
                 }
 

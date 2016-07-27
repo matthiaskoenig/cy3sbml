@@ -1,8 +1,6 @@
 package org.cy3sbml;
 
 import org.cy3sbml.gui.WebViewPanel;
-import org.cytoscape.application.swing.events.CytoPanelComponentSelectedListener;
-import org.cytoscape.application.swing.events.CytoPanelStateChangedListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -39,7 +37,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Properties;
 
-import org.cy3sbml.gui.ResultsPanel;
 import org.cy3sbml.actions.BioModelAction;
 import org.cy3sbml.actions.ChangeStateAction;
 import org.cy3sbml.actions.CofactorNodesAction;
@@ -160,14 +157,10 @@ public class CyActivator extends AbstractCyActivator {
 			sbmlStyleManager.loadStyles();
 			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
 
-			// init SBMLManager
+			// SBMLManager
 			SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
-			// init Cofactor manager
+			// Cofactor manager
 			CofactorManager cofactorManager = CofactorManager.getInstance();
-			
-			// init cy3sbml ResultsPanel
-			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-			WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
 
 			// init actions
 			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
@@ -207,17 +200,11 @@ public class CyActivator extends AbstractCyActivator {
 			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
 			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
-			// listeners
+			// proxy listener
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 
             // panels
-            // registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
-            // registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
-            // registerService(bc, resultsPanel, SetCurrentNetworkListener.class, new Properties());
-            // registerService(bc, resultsPanel, NetworkAddedListener.class, new Properties());
-            // registerService(bc, resultsPanel, NetworkViewAddedListener.class, new Properties());
-            // registerService(bc, resultsPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-
+            WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -225,19 +212,15 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
-            // register cy3sbml services for other apps
+            // register services for other apps
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
             // Extract all resource files for JavaFX (no bundle access)
             final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
             resourceHandler.extract();
 
-			// cy3sbml JTextPane panel
-			// ResultsPanel.getInstance().activate();
-
-			// cy3sbml JavaFx CyPanel
+			// cy3sbml panel
 			webViewPanel.getInstance().activate();
-
 			logger.info("----------------------------");
 			
 		} catch (Throwable e){

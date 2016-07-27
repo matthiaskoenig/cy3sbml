@@ -49,7 +49,6 @@ public class BioModelAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-		// Open the BioModels Dialog
 	    BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
 	    bioModelsDialog.setVisible(true);   
 	}

@@ -1,26 +1,15 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
-import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
-import org.codefx.libfx.control.webview.WebViews;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.actions.ExamplesAction;
-import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.actions.ValidationAction;
-import org.cy3sbml.biomodel.BioModelDialog;
-import org.cy3sbml.gui.browser.Browser;
-import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -29,7 +18,6 @@ import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
-import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
@@ -40,8 +28,6 @@ import org.cy3sbml.SBMLManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.cy3sbml.util.GUIUtil.openCurrentSBMLInBrowser;
 
 
 /**
@@ -314,12 +300,12 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
 	@Override
 	public void handleEvent(NetworkViewAddedEvent event){
-		ResultsPanel.getInstance().updateInformation();
+		updateInformation();
 	}
 
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-		ResultsPanel.getInstance().setHelp();
+		setHelp();
 	}
 
 

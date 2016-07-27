@@ -1,4 +1,4 @@
-package org.cy3sbml.gui.browser;
+package org.cy3sbml.gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

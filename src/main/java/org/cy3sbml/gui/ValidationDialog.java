@@ -137,7 +137,7 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 	}
 	
 	private void updateErrorTable(){
-		List<SBMLError> eList = new LinkedList<SBMLError>();
+		List<SBMLError> eList = new LinkedList<>();
 		// if categories selected get the errors
 		if (errorTable.getSelectedRowCount() > 0){
 			int[] selectedRows = errorTable.getSelectedRows();
