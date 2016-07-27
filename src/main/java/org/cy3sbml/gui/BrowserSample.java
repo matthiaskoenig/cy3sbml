@@ -17,10 +17,8 @@ public class BrowserSample extends Application {
 		Browser browser = new Browser(null, null);
 		scene = new Scene(browser,900,600, Color.web("#666970"));
 		stage.setScene(scene);
-		// scene.getStylesheets().add("webviewsample/BrowserToolbar.css");
 		stage.show();
 		browser.loadPage("http://www.google.com");
-
 	}
 
 	public static void main(String[] args){

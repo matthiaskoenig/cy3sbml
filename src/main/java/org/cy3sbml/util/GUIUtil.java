@@ -8,6 +8,7 @@ import org.sbml.jsbml.TidySBMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +32,11 @@ public class GUIUtil {
             logger.info("Temp file : " + temp.getAbsolutePath());
             try {
                 TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
-                openBrowser.openURL("file://" + temp.getAbsolutePath());
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        openBrowser.openURL("file://" + temp.getAbsolutePath());
+                    }
+                });
             } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
                 e.printStackTrace();
             }

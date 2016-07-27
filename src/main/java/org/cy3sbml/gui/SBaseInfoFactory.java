@@ -1,5 +1,7 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,22 +37,31 @@ import org.cy3sbml.util.AnnotationUtil;
  * TODO: refactor SBML HTML information completely
  */
 public class SBaseInfoFactory {
+    // TODO: inject the location of the static resources
+    /*
+    File file = new File(appDirectory, resource);
+    URI fileURI = file.toURI();
+		logger.info("resource to load:" + fileURI);
+    loadPage(fileURI.toString());
+    */
+
 	private static String HTML_START =
 			"<html>\n" +
 			"<head>\n" +
+            "<base href=\"file:///home/mkoenig/CytoscapeConfiguration/cy3sbml/gui/\" />\n" +
 			"\t<meta charset=\"utf-8\">\n" +
 			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
 			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
 			"\t<title>cy3sabiork</title>\n" +
-			"\t<link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"\n" +
+			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\"\n" +
 			"\t\t  integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\n" +
-			"\t<link rel=\"stylesheet\" href=\"css/cy3sbml.css\">\n" +
+			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
 			"</head>";
 
 	private static String HTML_STOP =
 			"</div>\n" +
-			"<script src=\"js/jquery.min.js\"></script>\n" +
-			"<script src=\"js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>\n" +
+			"<script src=\"./js/jquery.min.js\"></script>\n" +
+			"<script src=\"./js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>\n" +
 			"</body>\n" +
 			"</html>\n";
 
