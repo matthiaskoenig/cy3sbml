@@ -11,7 +11,6 @@ table {
     padding:2px;
     padding-right:4px;
     color: white;
-    /*font-size: larger;*/
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;
@@ -23,7 +22,6 @@ table {
     padding:2px;
     padding-right:4px;
     color: white;
-    /*font-size: larger;*/
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;
@@ -35,7 +33,6 @@ table {
     padding:2px;
     padding-right:4px;
     color: white;
-    /*font-size: larger;*/
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;
@@ -47,7 +44,7 @@ table {
     padding:2px;
     padding-right:4px;
     color: black;
-    /*font-size: larger;*/
+    font-family: monospace;
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;

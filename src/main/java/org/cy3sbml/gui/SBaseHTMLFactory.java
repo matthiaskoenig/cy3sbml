@@ -10,6 +10,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.sbml.jsbml.*;
+import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -289,7 +290,7 @@ public class SBaseHTMLFactory {
                     }
                 }
             }
-            html = String.format("<code>%s</code>", text);
+            html = String.format("<p><code>%s</code></p>", text);
         }
         return html;
     }
@@ -305,7 +306,7 @@ public class SBaseHTMLFactory {
             try {
                 String notes = sbase.getNotesString();
                 if (!notes.equals("") && notes != null) {
-                    html = String.format("<h2>Notes</h2><p>%s</p>", notes);
+                    html = String.format("<hr /><h3>Notes</h3><p>%s</p>", notes);
                 }
             } catch (XMLStreamException e){
                 logger.error("Error parsing notes xml");
@@ -321,9 +322,12 @@ public class SBaseHTMLFactory {
 	private String createSBase(SBase item){
 
 		// Model //
-        // TODO: add the package information, i.e. which packages are used in the model
+
 		if (item instanceof Model){
 			Model model = (Model) item;
+            Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
+            // TODO: add the package information
+
   			return String.format(TEMPLATE_MODEL,
                     model.getLevel(), model.getVersion(), GUIConstants.URL_SBMLFILE);
 		}
@@ -382,6 +386,9 @@ public class SBaseHTMLFactory {
             String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
 			String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : NONE_HTML;
 			String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : NONE_HTML;
+
+            // TODO: charge & package information (formula, charge)
+
 			return String.format(TEMPLATE_SPECIES, compartment, value, units, constant, boundaryCondition);
 		}
 		
@@ -399,7 +406,10 @@ public class SBaseHTMLFactory {
 					kineticLaw = law.getMath().toFormula();	
 				}
 			}
-            String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
+            String units = getDerivedUnitString((SBaseWithDerivedUnit) item);
+
+            // TODO: extension information (upper & lower bound, objective)
+
 			return String.format(TEMPLATE_REACTION,
                     compartment,
                     reversible,
@@ -465,7 +475,7 @@ public class SBaseHTMLFactory {
     }
 
     /** Derived unit string. */
-    private String getDerivedUnitString(AbstractNamedSBaseWithUnit usbase){
+    private String getDerivedUnitString(SBaseWithDerivedUnit usbase){
         String units = NONE_HTML;
         UnitDefinition udef = usbase.getDerivedUnitDefinition();
         if (udef != null){
