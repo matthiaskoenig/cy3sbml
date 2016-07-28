@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class TestUniRest {
+public class ExampleUniRest {
 	/**
 	 * Create client and perform query.
 	 * @throws UnirestException

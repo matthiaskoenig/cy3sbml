@@ -8,7 +8,7 @@ import java.util.Properties;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.CobraUtil;
 
-public class TestCobraUtils {
+public class ExampleCobraUtils {
     public static void main(String[] args) throws XMLStreamException, IOException {
         System.setProperty("logfile.name","/tmp/test.log");
 

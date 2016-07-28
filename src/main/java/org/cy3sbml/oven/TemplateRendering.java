@@ -6,9 +6,13 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+
+/**
+ * Template rendering with velocity.
+ */
 public class TemplateRendering {
 
-	public void test(){
+	public static void test(){
 		/*  first, get and initialize an engine  */
 	    VelocityEngine ve = new VelocityEngine();
 	    ve.init();
@@ -23,4 +27,10 @@ public class TemplateRendering {
 	    /* show the World */
 	    System.out.println( writer.toString() );	
 	}
+
+	public static void main(String[] args){
+	    test();
+    }
+
+
 }

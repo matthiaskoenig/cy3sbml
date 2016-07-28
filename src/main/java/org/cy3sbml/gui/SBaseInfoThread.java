@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Generates information for web resources in separate thread.
+ * Provides some helper functions to preload information for given SBMLDocuments.
  */
 public class SBaseInfoThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(SBaseInfoThread.class);
@@ -29,9 +30,12 @@ public class SBaseInfoThread extends Thread{
         info = "";
     }
 
+    /**
+     * Creates information for all objects within the single thread.
+     */
     public void run() {
     	if (panel != null){
-    		// Info creating mode
+    		// Info creating mode, this is mostly called with a single object in the collection
     		for (Object obj : objSet){	
     			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
 				infoFac.createInfo();
@@ -39,39 +43,40 @@ public class SBaseInfoThread extends Thread{
     			panel.setText(this);
     		}
     	} else {
-    		// Cache filling mode
+    		// Cache filling mode. Stores costly information in cache.
     		for (Object obj : objSet){
     			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
-    			infoFac.cacheMiriamInformation();
+    			infoFac.cacheInformation();
     		}
     	}
     }
         
 	/**
-     * Creates SBase information and stores in cache.
+     * Creates SBase information for given Document and stores in cache.
+     * Currently only subset of information is cached.
 	 */
-	public static void preloadInfosForSBMLDocument(SBMLDocument document){
+	public static void preload(SBMLDocument document){
 		Model model = document.getModel();
 		logger.debug("Preload <compartments>");
-		preloadInfosForListOf(model.getListOfCompartments());
+		preloadListOf(model.getListOfCompartments());
 		logger.debug("Preload <species>");
-		preloadInfosForListOf(model.getListOfSpecies());
+		preloadListOf(model.getListOfSpecies());
 		logger.debug("Preload <reactions>");
-		preloadInfosForListOf(model.getListOfReactions());
+		preloadListOf(model.getListOfReactions());
 		
 		QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 		if (qModel != null){
 			logger.debug("Preload <qualitativeSpecies>");
-			preloadInfosForListOf(qModel.getListOfQualitativeSpecies());
+			preloadListOf(qModel.getListOfQualitativeSpecies());
 			logger.debug("Preload <transitions>");
-			preloadInfosForListOf(qModel.getListOfTransitions());
+			preloadListOf(qModel.getListOfTransitions());
 		}
 	}
 
 	/**
 	 * Preload all the information.
      */
-	private static void preloadInfosForListOf(@SuppressWarnings("rawtypes") ListOf list){
+	private static void preloadListOf(@SuppressWarnings("rawtypes") ListOf list){
 		Set<Object> nsbSet = new HashSet<>();
 		for (Object nsb: list){
 			nsbSet.add(nsb);

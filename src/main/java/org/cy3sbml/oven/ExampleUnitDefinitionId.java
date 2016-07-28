@@ -6,7 +6,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 
-public class TestUnitDefinitionId {
+public class ExampleUnitDefinitionId {
 
 
 	/**

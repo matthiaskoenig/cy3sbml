@@ -28,6 +28,8 @@ import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.stream.XMLStreamException;
+
 /**
  * Helper functions to test SBML models.
  */
@@ -148,10 +150,16 @@ public class TestUtils {
 	/**
 	 * Read the SBMLDocument from given SBML file resource.
 	 */
-	public static SBMLDocument readSBMLDocument(String resource) throws Exception {
+	public static SBMLDocument readSBMLDocument(String resource) {
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
-        String xml = IOUtil.readString(instream);
-        SBMLDocument doc = JSBML.readSBMLFromString(xml);
+		SBMLDocument doc = null;
+		try {
+			String xml = IOUtil.readString(instream);
+			doc = JSBML.readSBMLFromString(xml);
+		} catch (IOException | XMLStreamException e) {
+			logger.error("Error reading SBMLDocument from resource.");
+			e.printStackTrace();
+		}
         return doc;
     }
 
