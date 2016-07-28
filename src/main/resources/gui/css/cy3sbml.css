@@ -41,3 +41,15 @@ table {
     margin-right: 4px;
     vertical-align: middle;
 }
+
+.unit{
+    background-color: rgba(200, 200, 200, 0.51);
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}

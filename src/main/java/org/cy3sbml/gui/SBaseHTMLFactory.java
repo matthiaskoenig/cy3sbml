@@ -71,19 +71,19 @@ public class SBaseHTMLFactory {
 
     private static final String TEMPLATE_MODEL =
             TABLE_START +
-            TS + "L%sV%s" + TM + "<a href=\"%s\">SBML file <img src=\"./images/sbml_logo.png\" height=\"25\"></img></a>" + TE +
+            TS + "L%sV%s" + TM + "<a href=\"%s\"><img src=\"./images/sbml_logo.png\" height=\"20\"></img></a>" + TE +
             TABLE_END;
 
     private static final String TEMPLATE_COMPARTMENT =
             TABLE_START +
             TS + "spatialDimensions" + TM + "%s" + TE +
-            TS + "size" + TM + "%s [%s]" + TE +
+            TS + "size" + TM + "%s <span class=\"unit\">%s</span>" + TE +
             TS + "constant" + TM + "%s" + TE +
             TABLE_END;
 
     private static final String TEMPLATE_PARAMETER =
             TABLE_START +
-            TS + "value" + TM + "%s [%s]" + TE +
+            TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
             TS + "constant" + TM + "%s" +
             TABLE_END;
 
@@ -96,13 +96,13 @@ public class SBaseHTMLFactory {
 
     private static final String TEMPLATE_LOCAL_PARAMETER =
             TABLE_START +
-            TS + "value" + TM + "%s [%s]" + TE +
+            TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
             TABLE_END;
 
      private static final String TEMPLATE_SPECIES =
              TABLE_START +
              TS + "compartment" + TM + "%s" + TE +
-             TS + "value" + TM + "%s [%s]" + TE +
+             TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
              TS + "constant" + TM + "%s" + TE +
              TS + "boundaryCondition" + TM + "%s" + TE +
              TABLE_END;
@@ -120,7 +120,7 @@ public class SBaseHTMLFactory {
             TS + "reversible" + TM + "%s" + TE +
             TS + "fast" + TM + "%s" + TE +
             TS + "kineticLaw" + TM + "%s" + TE +
-            TS + "units" + TM + "[%s]" + TE +
+            TS + "units" + TM + "<span class=\"unit\">%s</span>" + TE +
             TABLE_END;
 
     private static final String TEMPLATE_KINETIC_LAW =
@@ -188,8 +188,8 @@ public class SBaseHTMLFactory {
 		}
         info = String.format(HTML_START_TEMPLATE, baseDir);
 		info += createHeader(sbase);
-        info += createSBO(sbase);
         info += createSBase(sbase);
+        info += createSBO(sbase);
         info += createCVTerms(sbase);
         // TODO: implement
         // info += createHistory(sbase);
@@ -209,9 +209,6 @@ public class SBaseHTMLFactory {
 		if (NamedSBase.class.isAssignableFrom(item.getClass())){
 			NamedSBase nsb = (NamedSBase) item;
             header = String.format("<h2>%s <small>%s</small></h2>", className, nsb.getId());
-			if (nsb.isSetName()){
-			    header += String.format("<h2><small>%s</small></h2>", nsb.getName);
-			}
 		}
 		return header; 
 	}
@@ -235,6 +232,7 @@ public class SBaseHTMLFactory {
   			for (String rURI : term.getResources()){
   				text += createInfoForURI(rURI);
   			}
+  			text += "<hr />";
   		}
 		return text;
 	}
