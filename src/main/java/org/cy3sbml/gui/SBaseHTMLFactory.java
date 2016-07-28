@@ -44,13 +44,13 @@ public class SBaseHTMLFactory {
 			"<html>\n" +
 			"<head>\n" +
             "<base href=\"%s\" />\n" +
-			"\t<meta charset=\"utf-8\">\n" +
-			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-			"\t<title>cy3sabiork</title>\n" +
-			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\"\n" +
-			"\t\t  integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">\n" +
-			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
+			"<meta charset=\"utf-8\">\n" +
+			"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+			"<title>cy3sbml</title>\n" +
+			"<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
+            "<link rel=\"stylesheet\" href=\"./css/font-awesome.min.css\">" +
+			"<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
 			"</head>";
 
 	private static final String HTML_STOP_TEMPLATE =
@@ -192,8 +192,10 @@ public class SBaseHTMLFactory {
         info += createSBase(sbase);
         info += createSBO(sbase);
         info += createCVTerms(sbase);
+
         // TODO: implement
         // info += createHistory(sbase);
+
         info += createAnnotation(sbase);
         info += createNotes(sbase);
   		info += HTML_STOP_TEMPLATE;
@@ -241,7 +243,6 @@ public class SBaseHTMLFactory {
 	/** Create HTML for CVTerms. */
 	private String createCVTerms(SBase sbase){
         List<CVTerm> cvterms = sbase.getCVTerms();
-
 		String text = "";
 		if (cvterms.size() > 0){
 			for (CVTerm term : cvterms){
@@ -265,56 +266,7 @@ public class SBaseHTMLFactory {
   		return text;
 	}
 
-    /**
-     * Create annotation XML.
-     */
-	private String createAnnotation(SBase sbase){
-	    String html = "";
-        // Non-RDF annotation
-        if (sbase.isSetAnnotation()){
-            Annotation annotation = sbase.getAnnotation();
-            String text = "";
-            XMLNode xmlNode = annotation.getNonRDFannotation();
-            if (xmlNode != null){
-                // get all children which are not RDF
-                for (int i=0; i<xmlNode.getChildCount(); i++){
-                    XMLNode child = xmlNode.getChildAt(i);
-                    String name = child.getName();
-                    if (name != "RDF"){
-                        try {
-                            text += StringEscapeUtils.escapeHtml(XMLNode.convertXMLNodeToString(child));
-                        } catch(XMLStreamException e){
-                            logger.error("Error parsing annotation xml");
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            html = String.format("<p><code>%s</code></p>", text);
-        }
-        return html;
-    }
 
-    /**
-     * Create HMTL for notes.
-     * Have to be set at the end due to the html content which
-     * breaks the rest of the html.
-     */
-    private String createNotes(SBase sbase){
-        String html = "";
-        if (sbase.isSetNotes()){
-            try {
-                String notes = sbase.getNotesString();
-                if (!notes.equals("") && notes != null) {
-                    html = String.format("<hr /><h3>Notes</h3><p>%s</p>", notes);
-                }
-            } catch (XMLStreamException e){
-                logger.error("Error parsing notes xml");
-                e.printStackTrace();
-            }
-        }
-        return html;
-    }
 		
 	/** 
 	 * Creation of class specific attribute information.
@@ -327,6 +279,7 @@ public class SBaseHTMLFactory {
 			Model model = (Model) item;
             Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
             // TODO: add the package information
+            // TODO: add the areaUnits, ...
 
   			return String.format(TEMPLATE_MODEL,
                     model.getLevel(), model.getVersion(), GUIConstants.URL_SBMLFILE);
@@ -464,6 +417,62 @@ public class SBaseHTMLFactory {
 		}
 		return "";
 	}
+
+    /**
+     * Create annotation XML.
+     */
+    private String createAnnotation(SBase sbase){
+        String html = "";
+        // Non-RDF annotation
+        if (sbase.isSetAnnotation()){
+            Annotation annotation = sbase.getAnnotation();
+            String text = "";
+            XMLNode xmlNode = annotation.getNonRDFannotation();
+            if (xmlNode != null){
+                // get all children which are not RDF
+                for (int i=0; i<xmlNode.getChildCount(); i++){
+                    XMLNode child = xmlNode.getChildAt(i);
+                    String name = child.getName();
+                    if (name != "RDF"){
+                        try {
+                            text += StringEscapeUtils.escapeHtml(XMLNode.convertXMLNodeToString(child));
+                        } catch(XMLStreamException e){
+                            logger.error("Error parsing annotation xml");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            // Handle special case of whitespaces
+            text = text.trim();
+            if (text.length()>0){
+                html = String.format("<p><code>%s</code></p>", text);
+            }
+        }
+        return html;
+    }
+
+    /**
+     * Create HMTL for notes.
+     * Have to be set at the end due to the html content which
+     * breaks the rest of the html.
+     */
+    private String createNotes(SBase sbase){
+        String html = "";
+        if (sbase.isSetNotes()){
+            try {
+                String notes = sbase.getNotesString();
+                if (!notes.equals("") && notes != null) {
+                    html = String.format("<hr />%s", notes);
+                }
+            } catch (XMLStreamException e){
+                logger.error("Error parsing notes xml");
+                e.printStackTrace();
+            }
+        }
+        return html;
+    }
+
 
 	/////////////////////////////////////////////////////////////////////////////////////
     // Helper functions

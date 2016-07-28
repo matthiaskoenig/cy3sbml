@@ -27,6 +27,7 @@ public class GUIConstants {
     public static String URL_IMPORT = "http://cy3sbml-import";
     public static String URL_VALIDATION = "http://cy3sbml-validation";
     public static String URL_EXAMPLES = "http://cy3sbml-examples";
+    public static String URL_HELP = "http://cy3sbml-help";
 
     public static String URL_SBMLFILE = "http://sbml-file";
 
@@ -53,6 +54,7 @@ public class GUIConstants {
         set.add(URL_IMPORT);
         set.add(URL_VALIDATION);
         set.add(URL_EXAMPLES);
+        set.add(URL_HELP);
         URLS_ACTION = Collections.unmodifiableSet(set);
     }
 

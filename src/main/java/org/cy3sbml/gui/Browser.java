@@ -20,6 +20,7 @@ import javafx.scene.web.WebView;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
+import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.util.GUIUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.work.TaskIterator;
@@ -115,6 +116,13 @@ public class Browser extends Region {
                         examplesAction.actionPerformed(null);
                         return true;
                     }
+                    // Examples
+                    if (s.equals(GUIConstants.URL_HELP)){
+                        HelpAction helpAction = new HelpAction(adapter.cySwingApplication);
+                        helpAction.actionPerformed(null);
+                        return true;
+                    }
+
                 }
 
                 // Example networks
