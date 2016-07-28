@@ -1,6 +1,6 @@
 package org.cy3sbml;
 
-import org.cy3sbml.gui.SBaseInfoFactory;
+import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
@@ -94,7 +94,7 @@ public class CyActivator extends AbstractCyActivator {
             // allows the dynamical generated HTML to resolve the gui resources
             String baseDir = appDirectory.toURI().toString();
             baseDir = baseDir.replace("file:/", "file:///");
-			SBaseInfoFactory.setBaseDir(baseDir + "gui/");
+			SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
 
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);

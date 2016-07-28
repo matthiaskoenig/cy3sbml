@@ -17,17 +17,23 @@ import org.slf4j.LoggerFactory;
  * Generates information for web resources in separate thread.
  * Provides some helper functions to preload information for given SBMLDocuments.
  */
-public class SBaseInfoThread extends Thread{
-	private static final Logger logger = LoggerFactory.getLogger(SBaseInfoThread.class);
+public class SBaseHTMLThread extends Thread{
+	private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
 	
 	Collection<Object> objSet;
 	SBMLPanel panel;
-	public String info;
+
+    private String info;
 	   
-    public SBaseInfoThread(Collection<Object> objSet, SBMLPanel panel) {
+    public SBaseHTMLThread(Collection<Object> objSet, SBMLPanel panel) {
         this.objSet = objSet;
         this.panel = panel;
         info = "";
+    }
+
+    /** Get the created information. */
+    public String getInfo() {
+        return info;
     }
 
     /**
@@ -37,7 +43,7 @@ public class SBaseInfoThread extends Thread{
     	if (panel != null){
     		// Info creating mode, this is mostly called with a single object in the collection
     		for (Object obj : objSet){	
-    			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
+    			SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
 				infoFac.createInfo();
     			info += infoFac.getInfo();
     			panel.setText(this);
@@ -45,7 +51,7 @@ public class SBaseInfoThread extends Thread{
     	} else {
     		// Cache filling mode. Stores costly information in cache.
     		for (Object obj : objSet){
-    			SBaseInfoFactory infoFac = new SBaseInfoFactory(obj);
+    			SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
     			infoFac.cacheInformation();
     		}
     	}
@@ -81,7 +87,7 @@ public class SBaseInfoThread extends Thread{
 		for (Object nsb: list){
 			nsbSet.add(nsb);
 		}
-		SBaseInfoThread thread = new SBaseInfoThread(nsbSet, null);
+		SBaseHTMLThread thread = new SBaseHTMLThread(nsbSet, null);
 		thread.start();
 	}
 }

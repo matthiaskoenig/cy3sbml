@@ -13,7 +13,7 @@ public interface SBMLPanel {
      * Only updates information if the current thread is the last requested thread
      * for updating text.
      */
-    void setText(SBaseInfoThread infoThread);
+    void setText(SBaseHTMLThread infoThread);
 
 
     /**

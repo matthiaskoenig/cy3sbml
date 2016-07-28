@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * TODO: tests for creating HTML information with simple main.
  *
  */
-public class SBaseInfoFactory {
+public class SBaseHTMLFactory {
     private static String baseDir;
 
 	private static final String HTML_START_TEMPLATE =
@@ -63,31 +63,85 @@ public class SBaseInfoFactory {
     private static final String FALSE_HTML = "<img src=\"images/false2.png\" alt=\"false\" height=\"15\" width=\"15\"></img>";
     private static final String NONE_HTML = "<img src=\"images/none2.png\" alt=\"none\" height=\"15\" width=\"15\"></img>";
 
+    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">";
+    private static final String TABLE_END = "</table>";
+    private static final String TS = "<tr><td><b>";
+    private static final String TM = "</b></td><td>";
+    private static final String TE = "<td/></tr>";
+
     private static final String TEMPLATE_MODEL =
-            "<b>L%sV%s</b> <a href=\"%s\">(SBML file)</a>";
+            TABLE_START +
+            TS + "L%sV%s" + TM + "<a href=\"%s\">(SBML file)</a>" + TE +
+            TABLE_END;
 
     private static final String TEMPLATE_COMPARTMENT =
-            "<table class=\"table table-striped table-condensed table-hover\">" +
-            "<tr><td><b>spatialDimensions</b></td><td>%s<td/></tr>" +
-            "<tr><td><b>size</b></td><td>%s [%s]<td/></tr>" +
-            "<tr><td><b>constant</b></td><td>%s<td/></tr>" +
-            "</table>";
+            TABLE_START +
+            TS + "spatialDimensions" + TM + "%s" + TE +
+            TS + "size" + TM + "%s [%s]" + TE +
+            TS + "constant" + TM + "%s" + TE +
+            TABLE_END;
+
+    private static final String TEMPLATE_PARAMETER =
+            TABLE_START +
+            TS + "value" + TM + "%s [%s]" + TE +
+            TS + "constant" + TM + "%s" +
+            TABLE_END;
+
+    private static final String TEMPLATE_INITIAL_ASSIGNMENT =
+            TABLE_START +
+            TS + "%s" + TM + "= %s" + TE +
+            TABLE_END;
+
+    private static final String TEMPLATE_RULE = TEMPLATE_INITIAL_ASSIGNMENT;
+
+    private static final String TEMPLATE_LOCAL_PARAMETER =
+            TABLE_START +
+            TS + "value" + TM + "%s [%s]" + TE +
+            TABLE_END;
+
+     private static final String TEMPLATE_SPECIES =
+             TABLE_START +
+             TS + "compartment" + TM + "%s" + TE +
+             TS + "value" + TM + "%s [%s]" + TE +
+             TS + "constant" + TM + "%s" + TE +
+             TS + "boundaryCondition" + TM + "%s" + TE +
+             TABLE_END;
+
+    private static final String TEMPLATE_QUALITATIVE_SPECIES =
+            TABLE_START +
+            TS + "compartment" + TM + "%s" + TE +
+            TS + "initial/max level" + TM + "%s/%s" + TE +
+            TS + "constant" + TM + "%s" + TE +
+            TABLE_END;
+
+    private static final String TEMPLATE_REACTION =
+            TABLE_START +
+            TS + "compartment" + TM + "%s" + TE +
+            TS + "reversible" + TM + "%s" + TE +
+            TS + "fast" + TM + "%s" + TE +
+            TS + "kineticLaw" + TM + "%s" + TE +
+            TS + "units" + TM + "[%s]" + TE +
+            TABLE_END;
 
     private static final String TEMPLATE_KINETIC_LAW =
-            "<b>kineticLaw</b>: %s";
+            TABLE_START +
+            TS + "kineticLaw" + TM + "%s" + TE +
+            TABLE_END;
 
     private static final String TEMPLATE_PORT =
-            "<b>portRef</b>: %s <br />" +
-            "<b>idRef</b>: %s <br />" +
-            "<b>unitRef</b>: %s <br />" +
-            "<b>metaIdRef</b>: %s";
+            TABLE_START +
+            TS + "portRef" + TM + "%s " + TE +
+            TS + "idRef" + TM + "%s " + TE +
+            TS + "unitRef" + TM + "%s " + TE +
+            TS + "metaIdRef" + TM + "%s" + TE +
+            TABLE_END;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(SBaseInfoFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
 	private SBase sbase;
 	private String info = ""; 
 	
-	public SBaseInfoFactory(Object obj){
+	public SBaseHTMLFactory(Object obj){
 		sbase = (SBase) obj;
 	}
 
@@ -97,7 +151,7 @@ public class SBaseInfoFactory {
 	}
 
 	public static void setBaseDir(String baseDir) {
-        SBaseInfoFactory.baseDir = baseDir;
+        SBaseHTMLFactory.baseDir = baseDir;
     }
 
 
@@ -134,13 +188,11 @@ public class SBaseInfoFactory {
 		}
         info = String.format(HTML_START_TEMPLATE, baseDir);
 		info += createHeader(sbase);
+        info += createSBO(sbase);
         info += createSBase(sbase);
-		info += createSBO(sbase);
         info += createCVTerms(sbase);
-
         // TODO: implement
         // info += createHistory(sbase);
-
         info += createAnnotation(sbase);
         info += createNotes(sbase);
   		info += HTML_STOP_TEMPLATE;
@@ -177,7 +229,9 @@ public class SBaseInfoFactory {
 			String definition = parseSBOTermDefinition(sboTerm.getDefinition());
 
   			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
-  			text += String.format("<b>%s</b> <span class=\"term\">%s</span> <span class=\"ontology\">SBO</span> <br />", sboTerm.getName(), sboTermId);
+            String template =
+                    "<b>%s</b> <span class=\"term\">%s</span> <span class=\"ontology\">SBO</span> <br />";
+  			text += String.format(template, sboTerm.getName(), sboTermId);
   			text += definition + "<br />";
   			for (String rURI : term.getResources()){
   				text += createInfoForURI(rURI);
@@ -266,115 +320,72 @@ public class SBaseInfoFactory {
 		
 	/** 
 	 * Creation of class specific attribute information.
-     * TODO: create map<attribute, value> and create the HTML from the map
 	 */
 	private String createSBase(SBase item){
 
-		// Model
+		// Model //
         // TODO: add the package information, i.e. which packages are used in the model
 		if (item instanceof Model){
 			Model model = (Model) item;
-
   			return String.format(TEMPLATE_MODEL,
                     model.getLevel(), model.getVersion(), GUIConstants.URL_SBMLFILE);
 		}
 		
-		// Compartment
+		// Compartment //
 		else if (item instanceof Compartment){
 			Compartment compartment = (Compartment) item;
-
 			String dimensions = (compartment.isSetSpatialDimensions()) ? ((Double) compartment.getSpatialDimensions()).toString() : NONE_HTML;
 			String size = (compartment.isSetSize()) ? ((Double)compartment.getSize()).toString() : NONE_HTML;
 			String units = (compartment.isSetUnits()) ? compartment.getUnits() : NONE_HTML;
 			String constant = (compartment.isSetConstant()) ? booleanHTML(compartment.getConstant()) : NONE_HTML;
-
-			return String.format(TEMPLATE_COMPARTMENT,
-                    dimensions,
-                    size,
-                    units,
-                    constant);
+			return String.format(TEMPLATE_COMPARTMENT, dimensions, size, units, constant);
 		}
-		// Parameter
+
+		// Parameter //
 		else if (item instanceof Parameter){
-			Parameter parameter = (Parameter) item;
-			String template = "<b>value</b>: %s [%s]<br />" +
-							  "<b>constant</b>: %s";
-
-            // TODO: ternary operators
-			String value = NONE_HTML;
-			String units = NONE_HTML;
-			String constant = NONE_HTML;
-			if (parameter.isSetValue()){
-				value = ((Double) parameter.getValue()).toString();
-			}
-			if (parameter.isSetUnits()){
-				units = parameter.getUnits();
-			}
-			if (parameter.isSetConstant()){
-				constant = booleanHTML(parameter.getConstant());
-			}
-			text = String.format(template, value, units, constant); 
+			Parameter p = (Parameter) item;
+			String value = (p.isSetValue()) ? ((Double) p.getValue()).toString() : NONE_HTML;
+			String units = (p.isSetUnits()) ? p.getUnits() : NONE_HTML;
+			String constant = (p.isSetConstant()) ? booleanHTML(p.getConstant()) : NONE_HTML;
+			return String.format(TEMPLATE_PARAMETER, value, units, constant);
 		}
-		// InitialAssignment
+
+		// InitialAssignment //
 		else if (item instanceof InitialAssignment){
 			InitialAssignment ass = (InitialAssignment) item;
-
-            String variable = NONE_HTML;
-            String math = NONE_HTML;
-            if (ass.isSetVariable()){
-                variable = ass.getVariable();
-            }
-            if (ass.isSetMath()){
-                math = ass.getMath().toFormula();
-            }
-            String template =
-                    "<b>%s</b> = %s";
-            text = String.format(template, variable, math);
+            String variable = (ass.isSetVariable()) ? ass.getVariable() : NONE_HTML;
+            String math = (ass.isSetMath()) ? ass.getMath().toFormula() : NONE_HTML;
+            return String.format(TEMPLATE_INITIAL_ASSIGNMENT, variable, math);
 		}
 
-		// Rule
+		// Rule //
 		else if (item instanceof Rule){
             Rule rule = (Rule) item;
-
             String math = (rule.isSetMath()) ? rule.getMath().toFormula() : NONE_HTML;
             String variable = SBMLUtil.getVariableFromRule(rule);
             if (variable == null){
                 variable = NONE_HTML;
             }
-            return String.format(
-                    "<b>%s</b> = %s",
-                    variable, math);
+            return String.format(TEMPLATE_RULE, variable, math);
 		}
 
-		// LocalParameter
+		// LocalParameter //
 		else if (item instanceof LocalParameter){
 			LocalParameter lp = (LocalParameter) item;
-
 			String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : NONE_HTML;
 			String units = (lp.isSetUnits()) ? lp.getUnits() : NONE_HTML;
-			return String.format(
-			        "<b>value</b>: %s [%s]",
-                    value, units);
+			return String.format(TEMPLATE_LOCAL_PARAMETER, value, units);
 		}
 		
-		// Species
+		// Species //
 		else if (item instanceof Species){
 			Species s = (Species) item;
-
 			String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : NONE_HTML;
 			String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : NONE_HTML;
             String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
 			String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : NONE_HTML;
 			String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : NONE_HTML;
-			return String.format(
-			        "<b>compartment</b>: %s<br />" +
-                    "<b>value</b>: %s [%s]<br />" +
-                    "<b>constant</b>: %s<br />" +
-                    "<b>boundaryCondition</b>: %s",
-                    compartment,
-                    value, units,
-                    constant,
-                    boundaryCondition);
+			return String.format(TEMPLATE_SPECIES, compartment, value, units, constant, boundaryCondition);
 		}
 		
 		// Reaction
@@ -392,12 +403,7 @@ public class SBaseInfoFactory {
 				}
 			}
             String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
-			return String.format(
-			        "<b>compartment</b>: %s<br />" +
-                    "<b>reversible</b>: %s<br />" +
-                    "<b>fast</b>: %s<br />" +
-                    "<b>kineticLaw</b>: %s<br />" +
-                    "<b>units</b>: [%s]",
+			return String.format(TEMPLATE_REACTION,
                     compartment,
                     reversible,
                     fast,
@@ -409,9 +415,7 @@ public class SBaseInfoFactory {
 		else if (item instanceof KineticLaw){
 			KineticLaw law = (KineticLaw) item;
 			String kineticLaw = (law.isSetMath()) ? law.getMath().toFormula() : NONE_HTML;
-			return String.format(
-			        "<b>kineticLaw</b>: %s",
-                    kineticLaw);
+			return String.format(TEMPLATE_KINETIC_LAW, kineticLaw);
 		}
 		
 		// QualitativeSpecies
@@ -422,47 +426,34 @@ public class SBaseInfoFactory {
 			String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : NONE_HTML;
 			String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : NONE_HTML;
 			String constant = (qs.isSetConstant()) ? booleanHTML(qs.getConstant()) : NONE_HTML;
-			return String.format(
-                    "<b>compartment</b>: %s<br />" +
-                    "<b>initial/max level</b>: %s/%s<br />" +
-                    "<b>constant</b>: %s",
-                    compartment,
-                    initialLevel, maxLevel,
-                    constant);
+			return String.format(TEMPLATE_QUALITATIVE_SPECIES, compartment, initialLevel, maxLevel, constant);
 		}
 
-		// Transition
+		// Transition //
 		else if (item instanceof Transition){
             // TODO:
 		}
 
-		// GeneProduct
+		// GeneProduct //
 		else if (item instanceof GeneProduct){
             // TODO:
 		}
 
-		// FunctionDefinition
+		// FunctionDefinition //
 		else if (item instanceof FunctionDefinition){
 			FunctionDefinition fd = (FunctionDefinition) item;
-
             String math = (fd.isSetMath()) ? fd.getMath().toFormula() : NONE_HTML;
 			return String.format(TEMPLATE_KINETIC_LAW, math);
 		}
 		
-		// comp:Port
+		// comp:Port //
 		else if (item instanceof Port){
 			Port port = (Port) item;
-
 			String portRef = (port.isSetPortRef()) ? port.getPortRef() : NONE_HTML;
 			String idRef = (port.isSetIdRef()) ? port.getIdRef() : NONE_HTML;
 			String unitRef = (port.isSetUnitRef()) ? port.getUnitRef() : NONE_HTML;
 			String metaIdRef = (port.isSetMetaIdRef()) ? port.getMetaIdRef() : NONE_HTML;
-
-			return String.format(TEMPLATE_PORT,
-                    portRef,
-                    idRef,
-                    unitRef,
-                    metaIdRef);
+			return String.format(TEMPLATE_PORT, portRef, idRef, unitRef, metaIdRef);
 		}
 		return "";
 	}

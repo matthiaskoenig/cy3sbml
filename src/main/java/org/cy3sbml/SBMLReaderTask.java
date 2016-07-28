@@ -88,7 +88,7 @@ import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.gui.SBaseInfoThread;
+import org.cy3sbml.gui.SBaseHTMLThread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +153,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         logger.debug("buildCyNetworkView");
 
         // Preload SBML WebService information
-        SBaseInfoThread.preload(document);
+        SBaseHTMLThread.preload(document);
 
         // Set SBML in SBMLManager
         SBMLManager sbmlManager = SBMLManager.getInstance();
