@@ -30,15 +30,20 @@ import org.slf4j.LoggerFactory;
  * Core information is parsed from the NamedSBase object,
  * with additional information like resources retrieved via
  * web services (MIRIAM).
+ *
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
  *
  * TODO: refactor SBML HTML information completely
- * TODO: tests for creating HTML information with simple main.
- *
+
  */
 public class SBaseHTMLFactory {
+    private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
     private static String baseDir;
+
+    ///////////////////////////////////////////////
+    // HTML template strings
+    ///////////////////////////////////////////////
 
 	private static final String HTML_START_TEMPLATE =
 			"<html>\n" +
@@ -137,42 +142,43 @@ public class SBaseHTMLFactory {
             TS + "metaIdRef" + TM + "%s" + TE +
             TABLE_END;
 
+    ///////////////////////////////////////////////
 
-    private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
 	private SBase sbase;
-	private String info = ""; 
-	
+	private String html;
+
+    /** Constructor. */
 	public SBaseHTMLFactory(Object obj){
-		sbase = (SBase) obj;
+	    sbase = (SBase) obj;
 	}
 
-    /** Get the created information string. */
-	public String getInfo() {
-	    return info;
-	}
-
+    /**
+     * Sets the baseDir for the HTML document.
+     * This is used to find relative resources within the WebView.
+     */
 	public static void setBaseDir(String baseDir) {
-        SBaseHTMLFactory.baseDir = baseDir;
+	    SBaseHTMLFactory.baseDir = baseDir;
     }
 
+    /**
+     * Get created information string.
+     * No information String created in cache mode.
+     */
+    public String getHtml() {
+        return html;
+    }
 
     /**
 	 * Cache the information for the given sbase.
 	 * TODO: cache the costly lookups and creations.
 	 */
     public void cacheInformation(){
-    	cacheMiriamInformation();
-	}
-
-	/**
-	 * Cache the miriam information.
-	 */
-	private void cacheMiriamInformation(){
-		for (CVTerm term : sbase.getCVTerms()){
-			for (String rURI : term.getResources()){
-				MiriamResource.getLocationsFromURI(rURI);
-			}
-		}
+        // cache miriam information
+        for (CVTerm term : sbase.getCVTerms()){
+            for (String rURI : term.getResources()){
+                MiriamResource.getLocationsFromURI(rURI);
+            }
+        }
 	}
 
     /**
@@ -187,25 +193,25 @@ public class SBaseHTMLFactory {
 		if (sbase == null){
 			return;
 		}
-        info = String.format(HTML_START_TEMPLATE, baseDir);
-		info += createHeader(sbase);
-        info += createSBase(sbase);
-        info += createSBO(sbase);
-        info += createCVTerms(sbase);
+        html = String.format(HTML_START_TEMPLATE, baseDir);
+		html += createHeader(sbase);
+        html += createSBase(sbase);
+        html += createSBO(sbase);
+        html += createCVTerms(sbase);
 
         // TODO: implement
-        // info += createHistory(sbase);
+        // html += createHistory(sbase);
 
-        info += createAnnotation(sbase);
-        info += createNotes(sbase);
-  		info += HTML_STOP_TEMPLATE;
+        html += createAnnotation(sbase);
+        html += createNotes(sbase);
+  		html += HTML_STOP_TEMPLATE;
 	}
 	
 	/**
 	 * Creates header HTML.
 	 * Displays class information, in addition id and name if existing.
 	 */
-	private String createHeader(SBase item){
+	private static String createHeader(SBase item){
 		String className = SBMLUtil.getUnqualifiedClassName(item);
 		String header = String.format("<h2>%s</h2>", className);
 		// if NamedSBase get additional information
@@ -220,7 +226,7 @@ public class SBaseHTMLFactory {
      * Creates SBO HTML.
      * TODO: handle as CVTerm.
      */
-	private String createSBO(SBase item){
+	private static String createSBO(SBase item){
 		String text = "";
 		if (item.isSetSBOTerm()){
 			String sboTermId = item.getSBOTermID();
@@ -241,7 +247,7 @@ public class SBaseHTMLFactory {
 	}
 
 	/** Create HTML for CVTerms. */
-	private String createCVTerms(SBase sbase){
+	private static String createCVTerms(SBase sbase){
         List<CVTerm> cvterms = sbase.getCVTerms();
 		String text = "";
 		if (cvterms.size() > 0){
@@ -271,7 +277,7 @@ public class SBaseHTMLFactory {
 	/** 
 	 * Creation of class specific attribute information.
 	 */
-	private String createSBase(SBase item){
+	private static String createSBase(SBase item){
 
 		// Model //
 
@@ -421,7 +427,7 @@ public class SBaseHTMLFactory {
     /**
      * Create annotation XML.
      */
-    private String createAnnotation(SBase sbase){
+    private static String createAnnotation(SBase sbase){
         String html = "";
         // Non-RDF annotation
         if (sbase.isSetAnnotation()){
@@ -457,20 +463,20 @@ public class SBaseHTMLFactory {
      * Have to be set at the end due to the html content which
      * breaks the rest of the html.
      */
-    private String createNotes(SBase sbase){
-        String html = "";
+    private static String createNotes(SBase sbase){
+        String text = "";
         if (sbase.isSetNotes()){
             try {
                 String notes = sbase.getNotesString();
                 if (!notes.equals("") && notes != null) {
-                    html = String.format("<hr />%s", notes);
+                    text = String.format("<hr />%s", notes);
                 }
             } catch (XMLStreamException e){
                 logger.error("Error parsing notes xml");
                 e.printStackTrace();
             }
         }
-        return html;
+        return text;
     }
 
 
@@ -478,13 +484,17 @@ public class SBaseHTMLFactory {
     // Helper functions
     /////////////////////////////////////////////////////////////////////////////////////
 
-    /** Creates true or false HTML depending on boolean. */
-    private String booleanHTML(boolean b){
+    /**
+     * Creates true or false HTML depending on boolean.
+     */
+    private static String booleanHTML(boolean b){
         return (b == true) ? TRUE_HTML : FALSE_HTML;
     }
 
-    /** Derived unit string. */
-    private String getDerivedUnitString(SBaseWithDerivedUnit usbase){
+    /**
+     * Derived unit string.
+     */
+    private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
         String units = NONE_HTML;
         UnitDefinition udef = usbase.getDerivedUnitDefinition();
         if (udef != null){
@@ -496,7 +506,10 @@ public class SBaseHTMLFactory {
     /**
      * Creates the information for a given resourceURI.
      * Resolves the locations and uses it them to create the links.
+     * FIXME: update me with the new Miriam Functionality
+     * TODO: resolve information with OLS
      */
+    @Deprecated
     private static String createInfoForURI(String resourceURI) {
         String text = "";
         String[] locations = MiriamResource.getLocationsFromURI(resourceURI);
@@ -518,7 +531,10 @@ public class SBaseHTMLFactory {
         return text;
     }
 
-    /** Get short server string from full location. */
+    /**
+     * Get short server string from full location.
+     */
+    @Deprecated
     private static String serverFromLocation(String location) {
         // get everything instead of the last item
         String[] items = location.split("/");
@@ -527,7 +543,11 @@ public class SBaseHTMLFactory {
         return text;
     }
 
-    private String parseSBOTermDefinition(String definition){
+    /**
+     * FIXME: document me
+     */
+    @Deprecated
+    private static String parseSBOTermDefinition(String definition){
         String[] tokens = definition.split("\"");
         String[] defTokens = (String []) ArrayUtils.subarray(tokens, 1, tokens.length-1);
         return StringUtils.join(defTokens, "\"");

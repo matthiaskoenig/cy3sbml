@@ -28,7 +28,9 @@ public class SBaseHTMLThread extends Thread{
     public SBaseHTMLThread(Collection<Object> objSet, SBMLPanel panel) {
         this.objSet = objSet;
         this.panel = panel;
-        info = "";
+
+
+        info = null;
     }
 
     /** Get the created information. */
@@ -45,7 +47,7 @@ public class SBaseHTMLThread extends Thread{
     		for (Object obj : objSet){	
     			SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
 				infoFac.createInfo();
-    			info += infoFac.getInfo();
+    			info += infoFac.getHtml();
     			panel.setText(this);
     		}
     	} else {
