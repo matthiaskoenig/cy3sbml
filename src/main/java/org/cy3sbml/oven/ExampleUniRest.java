@@ -51,7 +51,7 @@ public class ExampleUniRest {
 	public static void main(String[] args){
 
 		// olsQuery("http://www.ebi.ac.uk/ols/api/ontologies?page=1&size=1");
-        JsonNode jsonNode = newQuery("http://www.ebi.ac.uk/ols/api/ontologies?size=500");
+        JsonNode jsonNode = newQuery("http://www.ebi.ac.uk/org.cy3sbml.ols/api/ontologies?size=500");
         JSONObject jsonResponse = jsonNode.getObject();
         JSONArray ontologies = jsonResponse.getJSONObject("_embedded").getJSONArray("ontologies");
 

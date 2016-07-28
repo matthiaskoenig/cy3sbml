@@ -68,7 +68,7 @@
     		<releases><enabled>true</enabled></releases>
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
-		
+
 		<repository>
     		<id>in-project</id>
     		<name>In project repository</name>
@@ -127,6 +127,13 @@
 					</instructions>
 				</configuration>
 			</plugin>
+            <!-- Jar installation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+
             <!-- testing -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -327,6 +334,13 @@
 			<groupId>org.codefx.libfx</groupId>
 			<artifactId>LibFX</artifactId>
 			<version>0.3.0</version>
+		</dependency>
+
+		<!-- OLS -->
+		<dependency>
+			<groupId>uk.ac.ebi.pride.utilities</groupId>
+			<artifactId>ols-client</artifactId>
+			<version>2.5-SNAPSHOT</version>
 		</dependency>
 
         <!-- JSON -->

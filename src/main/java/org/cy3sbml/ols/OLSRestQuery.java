@@ -1,4 +1,4 @@
-package org.cy3sbml.miriam;
+package org.cy3sbml.ols;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -6,15 +6,16 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import com.google.gson.Gson;
-import org.cy3sbml.miriam.Ontology;
-import org.cy3sbml.miriam.Term;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 import org.cy3sbml.miriam.registry.RegistryDatabase;
 import org.cy3sbml.miriam.registry.RegistryLocalProvider;
 import org.cy3sbml.miriam.registry.RegistryUtilities;
 import org.cy3sbml.miriam.registry.data.DataType;
 import org.cy3sbml.miriam.registry.data.PhysicalLocation;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,16 +30,8 @@ import java.util.Map;
  *
  * Use UniRest for REST queries.
  */
-public class OntologyLookup {
+public class OLSRestQuery {
     public static final String OLS_PURL_PREFIX = "http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F";
-    private static final Map<String, String> ONTOLOGY_MAP;
-
-    static {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("biomodels.sbo", "sbo");
-
-        ONTOLOGY_MAP = Collections.unmodifiableMap(map);
-    }
 
     /**
      * Create client and perform query.
@@ -71,30 +64,16 @@ public class OntologyLookup {
      * Get available ontologies from OLS.
      * Queries all the ontologies and parses them in ontology objects.
      */
-    public static Map<String, Ontology> getOntologies(){
-        Map<String, Ontology> map = new HashMap<>();
+    public static JSONArray getOntologies(){
+
         // set a high size parameter, so all ontologies are returned within one query.
         JSONObject jsonObject = olsQuery("http://www.ebi.ac.uk/ols/api/ontologies?size=500");
         JSONArray ontologies = jsonObject.getJSONObject("_embedded").getJSONArray("ontologies");
 
-        Gson g = new Gson();
         for (int i=0; i<ontologies.length(); i++){
             JSONObject jsonOntology = ontologies.getJSONObject(i);
-            Ontology ontology = g.fromJson(jsonOntology.toString(), Ontology.class);
-            String key = ontology.ontologyId;
-            map.put(key, ontology);
-
-            // Use the replacements for storing. Required for ontologies stored
-            // under different keys in MIRIAM and OLS.
-            // FIXME: this is lazy lookup
-            for (String oid: ONTOLOGY_MAP.keySet()){
-                String value = ONTOLOGY_MAP.get(oid);
-                if (value.equals(key)){
-                    map.put(oid, ontology);
-                }
-            }
         }
-        return map;
+        return ontologies;
     }
 
     /**
@@ -122,17 +101,19 @@ public class OntologyLookup {
         return rootURL;
     }
 
-    public static Term getTermFromResource(String uri){
-        Term term = null;
+    /**
+     * Get a term.
+     */
+    public static JSONObject getTermFromResource(String uri){
+        JSONObject term = null;
         // It is an ontology supported by OLS
         String urlRoot = getURLRootForOLS(uri);
 
         // TODO: go via the data entry and replace the $id
         // than parse all the terms in the returned JSON.
 
-
         if (urlRoot!= null){
-            urlRoot = urlRoot.replace("http://www.ebi.ac.uk/ols/ontologies/", "http://www.ebi.ac.uk/ols/api/ontologies/");
+            urlRoot = urlRoot.replace("http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/", "http://www.ebi.ac.uk/org.cy3sbml.ols/api/ontologies/");
             System.out.println("rootURL: " + urlRoot);
             // term to search
             String termId = RegistryUtilities.getElementPart(uri);
@@ -142,10 +123,7 @@ public class OntologyLookup {
             String query = urlRoot + "/terms/" + OLS_PURL_PREFIX + termId;
             System.out.println("query: " +  query);
             System.out.println(query);
-            JSONObject jsonObject = olsQuery(query);
-            Gson g = new Gson();
-            term = g.fromJson(jsonObject.toString(), Term.class);
-
+            term = olsQuery(query);
         } else {
             System.out.println("Resource is not an ontology: " + uri);
         }
@@ -154,7 +132,7 @@ public class OntologyLookup {
 
 
 	/**
-	 * Test the Restful API.
+	 * Test the Restful API by direct querying.
 	 *
 	 * For Json parsing see
 	 *  http://stackoverflow.com/questions/2591098/how-to-parse-json-in-java
@@ -165,10 +143,7 @@ public class OntologyLookup {
      */
     public static void main(String[] args){
         // Get ontologies
-        Map<String, Ontology> map = getOntologies();
-        for (String key: map.keySet()){
-            System.out.println(key + ":" + map.get(key));
-        }
+        getOntologies();
 
         // Get the resources
         String[] uris = {
@@ -187,13 +162,9 @@ public class OntologyLookup {
 
         for (String uri : uris){
             String[] locations = new RegistryLocalProvider().getLocations(uri);
-
-
-            Term term = getTermFromResource(uri);
+            JSONObject term = getTermFromResource(uri);
             System.out.println(term);
-
         }
-
 
     }
 }

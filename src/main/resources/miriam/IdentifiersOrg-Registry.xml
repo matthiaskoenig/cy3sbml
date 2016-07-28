@@ -79,9 +79,9 @@
 				<dataLocation>United Kingdom</dataLocation>
 			</resource>
 			<resource id="MIR:00100158" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/chebi</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/chebi</dataResource>
 				<dataEntityExample>CHEBI:36927</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/chebi/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/chebi/terms?obo_id=$id</dataEntry>
 				<dataInfo>ChEBI through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -1233,9 +1233,9 @@
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100675" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/go</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/go</dataResource>
 				<dataEntityExample>GO:0006915</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/go/terms?obo_id=$id</dataEntry>
 				<dataInfo>GO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -1357,9 +1357,9 @@
 				<dataLocation>United Kingdom</dataLocation>
 			</resource>
 			<resource id="MIR:00100176" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/sbo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/sbo</dataResource>
 				<dataEntityExample>SBO:0000262</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/sbo/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/sbo/terms?obo_id=$id</dataEntry>
 				<dataInfo>SBO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -2718,9 +2718,9 @@
 		</documentations>
 		<resources>
 			<resource id="MIR:00100083" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/eco</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/eco</dataResource>
 				<dataEntityExample>ECO:0000006</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/eco/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/eco/terms?obo_id=$id</dataEntry>
 				<dataInfo>Evidence Codes via the Ontology Lookup Service (OLS)</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -2758,9 +2758,9 @@
 		</documentations>
 		<resources>
 			<resource id="MIR:00100084" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/mod</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mod</dataResource>
 				<dataEntityExample>MOD:00001</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/mod/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mod/terms?obo_id=$id</dataEntry>
 				<dataInfo>Protein modifications ontology via the Ontology Lookup Service (OLS)</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -3177,9 +3177,9 @@
 		</documentations>
 		<resources>
 			<resource id="MIR:00100097" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/fma/</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/fma/</dataResource>
 				<dataEntityExample>FMA:67112</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/fma/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/fma/terms?obo_id=$id</dataEntry>
 				<dataInfo>Foundational Model of Anatomy via Ontology Lookup Service (OLS)</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -3735,9 +3735,9 @@ All content is under the Creative Commons Attribution 3.0 Unported license.</def
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100628" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/so</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/so</dataResource>
 				<dataEntityExample>SO:0000704</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/so/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/so/terms?obo_id=$id</dataEntry>
 				<dataInfo>Sequence Ontology through Ontology Lookup Service (OLS)</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4711,9 +4711,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100761" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/teddy</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/teddy</dataResource>
 				<dataEntityExample>TEDDY_0000066</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/teddy/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/teddy/terms?short_form=$id</dataEntry>
 				<dataInfo>TEDDY though OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4748,9 +4748,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100757" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/kisao</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/kisao</dataResource>
 				<dataEntityExample>KISAO_0000057</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/kisao/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/kisao/terms?short_form=$id</dataEntry>
 				<dataInfo>KiSAO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4776,9 +4776,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 		</documentations>
 		<resources>
 			<resource id="MIR:00100142" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/mi</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mi</dataResource>
 				<dataEntityExample>MI:0308</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/mi/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mi/terms?obo_id=$id</dataEntry>
 				<dataInfo>Molecular Interactions Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4832,9 +4832,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 		</documentations>
 		<resources>
 			<resource id="MIR:00100143" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/cl</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/cl</dataResource>
 				<dataEntityExample>CL:0000232</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/cl/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/cl/terms?obo_id=$id</dataEntry>
 				<dataInfo>Cell Type Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4880,9 +4880,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 		</documentations>
 		<resources>
 			<resource id="MIR:00100144" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/bto</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/bto</dataResource>
 				<dataEntityExample>BTO:0000146</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/bto/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/bto/terms?obo_id=$id</dataEntry>
 				<dataInfo>Brenda Tissue Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -4927,9 +4927,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 		</documentations>
 		<resources>
 			<resource id="MIR:00100145" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/pato</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pato</dataResource>
 				<dataEntityExample>PATO:0001998</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/pato/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pato/terms?obo_id=$id</dataEntry>
 				<dataInfo>PATO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -5229,9 +5229,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100767" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/ro</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ro</dataResource>
 				<dataEntityExample>RO_0002533</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/ro/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ro/terms?short_form=$id</dataEntry>
 				<dataInfo>OBO Relation Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -5517,9 +5517,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100760" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/obi</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/obi</dataResource>
 				<dataEntityExample>OBI_0000070</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/obi/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/obi/terms?short_form=$id</dataEntry>
 				<dataInfo>OBI through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -5533,9 +5533,9 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100759" obsolete="true">
-				<dataResource>http://www.ebi.ac.uk/ols/beta/ontologies/obi</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/beta/ontologies/obi</dataResource>
 				<dataEntityExample>OBI_0000070</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/beta/ontologies/obi/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/beta/ontologies/obi/terms?obo_id=$id</dataEntry>
 				<dataInfo>OBI through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -5871,9 +5871,9 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 		<namespace>unit</namespace>
 		<resources>
 			<resource id="MIR:00100178" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/uo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/uo</dataResource>
 				<dataEntityExample>UO:0000080</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/uo/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/uo/terms?obo_id=$id</dataEntry>
 				<dataInfo>Unit Ontology via Ontology Lookup Service</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -6067,9 +6067,9 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100755" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/pr</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pr</dataResource>
 				<dataEntityExample>PR:000000024</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/pr/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pr/terms?obo_id=$id</dataEntry>
 				<dataInfo>Protein Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -7789,9 +7789,9 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100762" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/edam</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/edam</dataResource>
 				<dataEntityExample>data_1664</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/edam/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/edam/terms?short_form=$id</dataEntry>
 				<dataInfo>EDAM through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -9447,9 +9447,9 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100293" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/doid</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/doid</dataResource>
 				<dataEntityExample>DOID:11337</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/doid/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/doid/terms?obo_id=$id</dataEntry>
 				<dataInfo>Human Disease Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -9810,9 +9810,9 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100310" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/pw</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pw</dataResource>
 				<dataEntityExample>PW:0000208</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/pw/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/pw/terms?obo_id=$id</dataEntry>
 				<dataInfo>Pathway Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -12318,9 +12318,9 @@ The interactions include direct (physical) and indirect (functional) association
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100676" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/po</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/po</dataResource>
 				<dataEntityExample>PO:0009089</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/po/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/po/terms?obo_id=$id</dataEntry>
 				<dataInfo>Plant Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -15681,9 +15681,9 @@ We recommend usage of the following data collection for pathway related annotati
 		</documentations>
 		<resources>
 			<resource id="MIR:00100509" state="up" reliability="95">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/efo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/efo</dataResource>
 				<dataEntityExample>0004859</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/efo/terms?obo_id=EFO:$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/efo/terms?obo_id=EFO:$id</dataEntry>
 				<dataInfo>EFO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -16283,9 +16283,9 @@ Each page contains information about a particular group, with pages linked one t
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100677" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/vario</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/vario</dataResource>
 				<dataEntityExample>VariO:0294</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/vario/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/vario/terms?obo_id=$id</dataEntry>
 				<dataInfo>VariO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -17726,9 +17726,9 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100577" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/ma</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ma</dataResource>
 				<dataEntityExample>MA:0002502</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/ma/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ma/terms?obo_id=$id</dataEntry>
 				<dataInfo>Mouse Adult Gross Anatomy through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -17780,9 +17780,9 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100580" state="up" reliability="96">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/uberon</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/uberon</dataResource>
 				<dataEntityExample>UBERON:0008203</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/uberon/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/uberon/terms?obo_id=$id</dataEntry>
 				<dataInfo>UBERON through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -20022,9 +20022,9 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100758" state="up" reliability="98">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/mamo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mamo</dataResource>
 				<dataEntityExample>MAMO_0000026</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/mamo/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/mamo/terms?short_form=$id</dataEntry>
 				<dataInfo>MaMO through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -20071,9 +20071,9 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 				<dataLocation>USA</dataLocation>
 			</resource>
 			<resource id="MIR:00100669" state="up" reliability="99">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/eo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/eo</dataResource>
 				<dataEntityExample>EO:0007404</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/eo/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/eo/terms?obo_id=$id</dataEntry>
 				<dataInfo>Plant Environment Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
@@ -20514,9 +20514,9 @@ It integrates a nosology (classification of rare diseases), relationships (gene-
 		</documentations>
 		<resources>
 			<resource id="MIR:00100705" state="up" reliability="99" primary="true">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/ordo</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ordo</dataResource>
 				<dataEntityExample>Orphanet_C023</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/ordo/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/ordo/terms?short_form=$id</dataEntry>
 				<dataInfo>ORDO via OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -21653,9 +21653,9 @@ The initiative works with participating journals to intercept manuscripts in the
 				<dataLocation>Germany</dataLocation>
 			</resource>
 			<resource id="MIR:00100754" state="up" reliability="96">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/hp</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/hp</dataResource>
 				<dataEntityExample>HP:0000118</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/hp/terms?obo_id=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/hp/terms?obo_id=$id</dataEntry>
 				<dataInfo>Human Phenotype Ontology through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
@@ -21771,9 +21771,9 @@ The initiative works with participating journals to intercept manuscripts in the
 		</documentations>
 		<resources>
 			<resource id="MIR:00100768" state="up" reliability="100">
-				<dataResource>http://www.ebi.ac.uk/ols/ontologies/probonto</dataResource>
+				<dataResource>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/probonto</dataResource>
 				<dataEntityExample>0000005</dataEntityExample>
-				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/probonto/terms?short_form=$id</dataEntry>
+				<dataEntry>http://www.ebi.ac.uk/org.cy3sbml.ols/ontologies/probonto/terms?short_form=$id</dataEntry>
 				<dataInfo>ProbOnto through OLS</dataInfo>
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
