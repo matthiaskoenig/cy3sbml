@@ -226,12 +226,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		thread.start();
 	}
 
-	@Override
-	public File getApplicationDir() {
-		return adapter.cy3sbmlDirectory;
-	}
-
-
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
 
 

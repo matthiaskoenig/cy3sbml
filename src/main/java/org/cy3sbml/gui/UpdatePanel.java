@@ -15,6 +15,19 @@ import org.sbml.jsbml.SBase;
  * Updates the Panel information based on selection.
  */
 public class UpdatePanel implements Runnable {
+
+    private static final String TEMPLATE_NO_NODE = SBaseHTMLFactory.createHTMLText(
+            "<h2>No information</h2>" +
+            "<p>No SBML object registered for node in ObjectMapper.</p>" +
+            "<p>Some nodes do not have SBase objects associated with them, e.g." +
+            "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>");
+
+    private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
+            "<h2>No information</h2>" +
+            "<p>No SBML associated with current network.</p>" +
+            "<p>Loading a SBML file will associate the respective SBML with the " +
+            "CyNetwork and all CySubNetworks.</p>");
+
 	private SBMLPanel panel;
 	private CyNetwork network;
 
@@ -23,45 +36,40 @@ public class UpdatePanel implements Runnable {
         this.network = network;
     }
 
+    /**
+     * Here the node information update is performed.
+     * If multiple nodes are selected only the information for the first node is displayed.
+     */
     public void run() {
-        updateInformation();
-    }
-    
-	/**
-	 * Here the node information update is performed.
-	 * If multiple nodes are selected only the information for the first node is displayed.
-	 * */
-	public void updateInformation(){
-		SBMLManager sbmlManager = SBMLManager.getInstance();
+        SBMLManager sbmlManager = SBMLManager.getInstance();
 
-		// selected node SUIDs
-		LinkedList<Long> suids = new LinkedList<Long>();
-		List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-		for (CyNode n : nodes){
-			suids.add(n.getSUID());
-		}
-		// information for selected node(s)
-		SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-		if (document != null){
-			List<String> objectIds = sbmlManager.getObjectIds(suids);
-		
-			if (objectIds.size() > 0){
-				// use first node in selection
-				String key = objectIds.get(0);
-				SBase sbase = sbmlManager.getSBaseById(key);
-				if (sbase != null){
-					panel.showSBaseInfo(sbase);
-				} else {
-					panel.setText(SBaseHTMLFactory.createHTMLText("<h2>No information</h2><p>No SBML object registered for node.</p>"));
-				}
-						
-			} else {
-				panel.showSBaseInfo(document.getModel());
-			}
-		} else {
-			panel.setText(SBaseHTMLFactory.createHTMLText("<h2>No information</h2><p>No SBML associated with current network.</p>"));
-		}
-	}	
-    
+        // selected node SUIDs
+        LinkedList<Long> suids = new LinkedList<>();
+        List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+        for (CyNode n : nodes){
+            suids.add(n.getSUID());
+        }
+        // information for selected node(s)
+        SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
+        if (document != null){
+            List<String> objectIds = sbmlManager.getObjectIds(suids);
+            if (objectIds.size() > 0){
+                // use first node in selection
+                String key = objectIds.get(0);
+                SBase sbase = sbmlManager.getSBaseById(key);
+                if (sbase != null){
+                    panel.showSBaseInfo(sbase);
+                } else {
+                    panel.setText(TEMPLATE_NO_NODE);
+                }
+            } else {
+                // show model information
+                panel.showSBaseInfo(document.getModel());
+            }
+        } else {
+            panel.setText(TEMPLATE_NO_SBML);
+        }
+    }
+
     
 }

@@ -1,94 +1,120 @@
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>cy3sabiork</title>
-	<meta name="description"
-		  content="cy3sbml: A Cytoscape app for SBML">
-	<meta name="author" content="Matthias Koenig">
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>cy3sabiork</title>
+    <meta name="description"
+          content="cy3sbml: A Cytoscape app for SBML">
+    <meta name="author" content="Matthias Koenig">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="./css/bootstrap.min.css"
-		  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<!-- Custom css -->
-	<link rel="stylesheet" href="./css/cy3sbml.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="./css/cy3sbml.css">
 </head>
 
 <body>
 <div class="container">
-<h1>cy3sbml <small>A Cytoscape App for SBML</small></h1>
-<p>
-	The main functions of cy3sbml are accessible from the Cytoscape menu bar above.
-</p>
-<table class="table table-striped table-condensed table-hover">
-	<tr>
-		<td><a href="http://cy3sbml-changestate"><img src="./images/changestate.png" alt="hide/show panel"></img></a></td>
-		<td><b>Hide/Show panel</b></td>
-		<td>Changes the visibility of the cy3sbml panel.</td>
-	</tr>
-	<tr>
-		<td><a href="http://cy3sbml-import"><img src="./images/import.png" alt="SBML import"></img></a></td>
-		<td><b>SBML Import</b></td>
-		<td>Load SBML files via the File Import Dialogue. To import multiple files select multiple files.</td>
-	</tr>
-	<tr>
-		<td><a href="http://cy3sbml-biomodels"><img src="./images/biomodels_logo.png" alt="BioModel import"></img></a></td>
-		<td><b>BioModel Import</b></td>
-		<td>Load SBML files from BioModels.</td>
-	</tr>
-	<tr>
-		<td><a href="http://cy3sbml-validation"><img src="./images/validation.png" alt="Validate SBML"></img></a></td>
-		<td><b>SBML Validation</b></td>
-		<td>Validate SBML files against the SBML specification. Select the network to validate and click the validation icon.</td>
-	</tr>
-	<tr>
-		<td><a href="http://cy3sbml-examples"><img src="./images/examples.png" alt="SBML examples"></img></a></td>
-		<td><b>Examples</b></td>
-		<td>Load and explore the SBML examples.</td>
-	</tr>
-	<tr>
-		<td><a href="https://github.com/matthiaskoenig/cy3sbml"><img src="./images/help.png"></img></a></td>
-		<td><b>Help</b></td>
-		<td>Display this help information.</td>
-	</tr>
-</table>
-<p>
-<strong>Ask questions</strong>: <a href="https://groups.google.com/forum/#!forum/cysbml-cyfluxviz">https://groups.google.com/forum/#!forum/cysbml-cyfluxviz</a><br />
-<strong>Report issue</strong>: <a href="https://github.com/matthiaskoenig/cy3sbml/issues">https://github.com/matthiaskoenig/cy3sbml/issues</a><br />
-<strong>Email</strong>: <a href="mailto:konigmatt@googlemail.com">konigmatt@googlemail.com</a>
-</p>
+    <h1>cy3sbml
+        <small>A Cytoscape App for SBML</small>
+    </h1>
+    <p>
+        The main functions of cy3sbml are accessible from the Cytoscape menu bar above.
+    </p>
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <td><a href="http://cy3sbml-changestate"><img src="./images/changestate.png"
+                                                          alt="hide/show panel"></img></a></td>
+            <td><b>Hide/Show panel</b></td>
+            <td>Changes the visibility of the cy3sbml panel.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-import"><img src="./images/import.png" alt="SBML import"></img></a></td>
+            <td><b>SBML Import</b></td>
+            <td>Load SBML files via the File Import Dialogue. To import multiple files select multiple files.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-biomodels"><img src="./images/biomodels_logo.png"
+                                                        alt="BioModel import"></img></a></td>
+            <td><b>BioModel Import</b></td>
+            <td>Load SBML files from BioModels.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-validation"><img src="./images/validation.png" alt="Validate SBML"></img></a>
+            </td>
+            <td><b>SBML Validation</b></td>
+            <td>Validate SBML files against the SBML specification. Select the network to validate and click the
+                validation icon.
+            </td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-examples"><img src="./images/examples.png" alt="SBML examples"></img></a></td>
+            <td><b>Examples</b></td>
+            <td>Load and explore the SBML examples.</td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/matthiaskoenig/cy3sbml"><img src="./images/help.png"></img></a></td>
+            <td><b>Help</b></td>
+            <td>Display this help information.</td>
+        </tr>
+    </table>
+    <p>
+        <strong>App store</strong>: <a href ="http://apps.cytoscape.org/apps/cy3sbml">http://apps.cytoscape.org/apps/cy3sbml</a><br />
+        <strong>Source code</strong>: <a href ="https://github.com/matthiaskoenig/cy3sbml">https://github.com/matthiaskoenig/cy3sbml</a><br />
+        <strong>Support & Forum</strong>: <a href="https://groups.google.com/forum/#!forum/cysbml-cyfluxviz">https://groups.google.com/forum/#!forum/cysbml-cyfluxviz</a><br/>
+        <strong>Bug Tracker</strong>: <a href="https://github.com/matthiaskoenig/cy3sbml/issues">https://github.com/matthiaskoenig/cy3sbml/issues</a><br/>
+        <strong>Email</strong>: <a href="mailto:konigmatt@googlemail.com">konigmatt@googlemail.com</a>
+    </p>
 
     <h2>About</h2>
-<p>
-    cy3sbml was developed by <a href="https://livermetabolism.com/contact">Matthias K&ouml;nig</a> in cooperation with Andreas Dr&auml;ger and Nikolas Rodriquez.
-    If you use cy3sbml please cite
-</p>
     <p>
-        <strong>Matthias König, Andreas Dräger and Hermann-Georg Holzhütter</strong><br />
-            <em>CySBML: a Cytoscape plugin for SBML</em><br />
-            Bioinformatics. 2012 Jul 5. <a href="http://www.ncbi.nlm.nih.gov/pubmed/22772946">PubMed</a>
+        **cy3sbml** is a Cytoscape app for the Systems Biology Markup Language <a href="http://www.sbml.org">SBML</a>).
+        Our mission is a tool for the visualization of SBML information within the graph context.
+        Our vision is a visualization tool for computational models and simulations which seamlessly
+        integrates with existing computational modeling frameworks and workflows.
     </p>
-	<h3>Funding & Support</h3>
-    We thank the SBML, Cytoscape, BioModels, BiGG and OLS community for their support.
     <p>
-        <a href="http://sbml.org"><img src="./images/sbml_logo.png" alt="SBML Logo" border=0 height=32></img></a>&nbsp;&nbsp;
-        <a href="http://www.virtual-liver.de/"><img src="./images/logo-vln.png" alt="VLN Logo" border=0 height=37></img></a>&nbsp;&nbsp;
-        <a href="http://www.virtual-liver.de/"><img src="./images/logo-lisym.png" alt="LiSyM Logo" border=0 height=37></img></a>&nbsp;&nbsp;
-        <a href="https://www.bmbf.de/"><img src="./images/logo-bmbf.png" alt="BMBF Logo" border=0></img></a>&nbsp;&nbsp;
-        <a href="http://nrnb.org"><img src="./images/nrnb_logo.png" alt="NRNB Logo" border=0 height=37></img></a>&nbsp;&nbsp;
-        <a href="http://www.biomodels.org"><img src="./images/biomodels_logo.png" alt="BioModels Logo" border=0></img></a>&nbsp;&nbsp;
-        <a href="http://www.ebi.ac.uk/miriam/main/"><img src="./images/miriam_logo.png" alt="MIRIAM Logo" border=0 height=37></img></a>&nbsp;&nbsp;
-		<a href="http://www.ebi.ac.uk/ols/index"><img src="./images/logo-ols.jpg" alt="OLS Logo" border=0></img></a>&nbsp;&nbsp;
-		<a href="http://www.ebi.ac.uk/"><img src="./images/logo-ebml_ebi.png" alt="EMBL EBI Logo" border=0></img></a>&nbsp;&nbsp;
+        cy3sbml was developed by <a href="https://livermetabolism.com/contact">Matthias K&ouml;nig</a> in cooperation
+        with Andreas Dr&auml;ger and Nikolas Rodriquez.
     </p>
+    <h3>How to cite</h3>
+    <p>
+        <strong>Matthias König, Andreas Dräger and Hermann-Georg Holzhütter</strong><br/>
+        <em>CySBML: a Cytoscape plugin for SBML</em><br/>
+        Bioinformatics. 2012 Jul 5. <a href="http://www.ncbi.nlm.nih.gov/pubmed/22772946">PubMed</a>
+    </p>
+    <h3>Funding & Support</h3>
     <p>
         This project was supported by the Federal Ministry of Education and Research (BMBF, Germany)
         within the research network Systems Medicine of the Liver (LiSyM, grant number 031L0054)
-        and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology NRNB within the NRNB Academy Summer Session 2015.
+        and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology NRNB
+        within the NRNB Academy Summer Session 2015.
     </p>
+    <p>
+        We thank the SBML, Cytoscape, BioModels, BiGG and OLS community for their support.
+    </p>
+    <p>
+        <a href="http://sbml.org"><img src="./images/sbml_logo.png" alt="SBML Logo" border=0 height=32></img></a>&nbsp;&nbsp;
+        <a href="http://www.virtual-liver.de/"><img src="./images/logo-vln.png" alt="VLN Logo" border=0 height=37></img></a>&nbsp;&nbsp;
+        <a href="http://www.virtual-liver.de/"><img src="./images/logo-lisym.png" alt="LiSyM Logo" border=0
+                                                    height=37></img></a>&nbsp;&nbsp;
+        <a href="http://nrnb.org"><img src="./images/nrnb_logo.png" alt="NRNB Logo" border=0 height=30></img></a>&nbsp;&nbsp;
+        <a href="http://www.biomodels.org"><img src="./images/biomodels_logo.png" alt="BioModels Logo"
+                                                border=0></img></a>&nbsp;&nbsp;
+        <a href="http://www.ebi.ac.uk/miriam/main/"><img src="./images/miriam_logo.png" alt="MIRIAM Logo" border=0
+                                                         height=37></img></a>&nbsp;&nbsp;
+        <a href="http://www.ebi.ac.uk/ols/index"><img src="./images/logo-ols.jpg" alt="OLS Logo" border=0
+                                                      height="40"></img></a>&nbsp;&nbsp;
+        <a href="http://www.ebi.ac.uk/"><img src="./images/logo-embl-ebi.jpg" alt="EMBL EBI Logo" border=0
+                                             height="40"></img></a>&nbsp;&nbsp;
+        <br/><a href="https://www.bmbf.de/"><img src="./images/logo-bmbf.png" alt="BMBF Logo" border=0
+                                                 height="80"></img></a>&nbsp;&nbsp;
+    </p>
+
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

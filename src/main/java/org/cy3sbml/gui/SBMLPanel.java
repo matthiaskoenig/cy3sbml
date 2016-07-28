@@ -1,6 +1,5 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
 import java.util.Set;
 
 
@@ -25,11 +24,5 @@ public interface SBMLPanel {
      * Display information for set of nodes.
      */
     void showSBaseInfo(Set<Object> objSet);
-
-    /**
-     * Function for getting the application directory.
-     * @return
-     */
-    File getApplicationDir();
 
 }

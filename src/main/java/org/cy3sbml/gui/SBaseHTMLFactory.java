@@ -59,9 +59,9 @@ public class SBaseHTMLFactory {
 			"</body>\n" +
 			"</html>\n";
 
-    private static final String TRUE_HTML = "<img src=\"images/true2.png\" alt=\"true\" height=\"15\" width=\"15\"></img>";
-    private static final String FALSE_HTML = "<img src=\"images/false2.png\" alt=\"false\" height=\"15\" width=\"15\"></img>";
-    private static final String NONE_HTML = "<img src=\"images/none2.png\" alt=\"none\" height=\"15\" width=\"15\"></img>";
+    private static final String TRUE_HTML = "<img src=\"./images/true2.png\" alt=\"true\" height=\"15\" width=\"15\"></img>";
+    private static final String FALSE_HTML = "<img src=\"./images/false2.png\" alt=\"false\" height=\"15\" width=\"15\"></img>";
+    private static final String NONE_HTML = "<img src=\"./images/none2.png\" alt=\"none\" height=\"15\" width=\"15\"></img>";
 
     private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">";
     private static final String TABLE_END = "</table>";
@@ -71,7 +71,7 @@ public class SBaseHTMLFactory {
 
     private static final String TEMPLATE_MODEL =
             TABLE_START +
-            TS + "L%sV%s" + TM + "<a href=\"%s\">(SBML file)</a>" + TE +
+            TS + "L%sV%s" + TM + "<a href=\"%s\">SBML file <img src=\"./images/sbml_logo.png\" height=\"25\"></img></a>" + TE +
             TABLE_END;
 
     private static final String TEMPLATE_COMPARTMENT =
@@ -208,11 +208,10 @@ public class SBaseHTMLFactory {
 		// if NamedSBase get additional information
 		if (NamedSBase.class.isAssignableFrom(item.getClass())){
 			NamedSBase nsb = (NamedSBase) item;
-			String name = nsb.getId();
+            header = String.format("<h2>%s <small>%s</small></h2>", className, nsb.getId());
 			if (nsb.isSetName()){
-				name =  String.format("%s (%s)", nsb.getId(), nsb.getName());
+			    header += String.format("<h2><small>%s</small></h2>", nsb.getName);
 			}
-			header = String.format("<h2>%s <small>%s</small></h2>", className, name);
 		}
 		return header; 
 	}
