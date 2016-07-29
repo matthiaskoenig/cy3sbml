@@ -5,16 +5,14 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import com.google.gson.Gson;
+import org.cy3sbml.miriam.RegistryUtil;
+import org.identifiers.registry.RegistryDatabase;
+import org.identifiers.registry.RegistryLocalProvider;
+import org.identifiers.registry.RegistryUtilities;
+import org.identifiers.registry.data.DataType;
+import org.identifiers.registry.data.PhysicalLocation;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-
-import org.cy3sbml.miriam.registry.RegistryDatabase;
-import org.cy3sbml.miriam.registry.RegistryLocalProvider;
-import org.cy3sbml.miriam.registry.RegistryUtilities;
-import org.cy3sbml.miriam.registry.data.DataType;
-import org.cy3sbml.miriam.registry.data.PhysicalLocation;
 
 
 import java.util.Collections;
@@ -142,6 +140,8 @@ public class OLSRestQuery {
      *      <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C13747" />
      */
     public static void main(String[] args){
+        RegistryUtil.loadRegistry();
+
         // Get ontologies
         getOntologies();
 

@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.miriam.RegistryUtil;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -225,6 +226,9 @@ public class CyActivator extends AbstractCyActivator {
             // Extract all resource files for JavaFX (no bundle access)
             final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
             resourceHandler.extract();
+
+			// Load registry
+			RegistryUtil.loadRegistry();
 
 			// cy3sbml panel
 			webViewPanel.getInstance().activate();

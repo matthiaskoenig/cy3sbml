@@ -5,8 +5,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 
-import org.cy3sbml.miriam.registry.RegistryLocalProvider;
-
+import org.identifiers.registry.RegistryLocalProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
