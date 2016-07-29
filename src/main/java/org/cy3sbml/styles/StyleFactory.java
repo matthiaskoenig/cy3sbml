@@ -116,7 +116,7 @@ public class StyleFactory {
 
             // save the template
             System.out.println(file.getAbsolutePath());
-            XMLUtil.writeTidyDocumentToFile(doc, file);
+            XMLUtil.writeNodeToTidyFile(doc, file);
 
         }catch (ParserConfigurationException | IOException | SAXException e){
             e.printStackTrace();

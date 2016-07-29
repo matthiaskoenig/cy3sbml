@@ -3,14 +3,23 @@ package org.cy3sbml.util;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.sbml.jsbml.*;
 import org.cy3sbml.SBML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Some utils to work with SBML and SBML naming.
  */
 public class SBMLUtil {
+    private static final Logger logger = LoggerFactory.getLogger(SBMLUtil.class);
 
     /**
      * Read the SBMLDocument from given SBML file resource.
@@ -26,6 +35,58 @@ public class SBMLUtil {
         }
         return doc;
     }
+
+    /**
+     * Parses the notes xml from the <notes> </notes>.
+     * Removes enclosing <body> elements if existing.
+     * Returns null if error occurred.
+     */
+    public static String parseNotes(SBase sbase){
+        String text = "";
+        if (sbase.isSetNotes()){
+            try {
+                String notes = sbase.getNotesString();
+                Document doc = XMLUtil.readXMLString(notes);
+                XMLUtil.cleanEmptyTextNodes(doc);
+
+                // part of nodes which are of interest
+                Set<Node> nodes = new HashSet<>();
+
+                // interested in children of notes element
+                NodeList nodeList = doc.getElementsByTagName("notes");
+                nodeList = nodeList.item(0).getChildNodes();
+
+                // filter for body
+                for (int k=0; k<nodeList.getLength(); k++){
+                    Element e = (Element) nodeList.item(k);
+                    if (e.getTagName().equals("body")){
+                        NodeList children = e.getChildNodes();
+                        for (int i=0; i<children.getLength(); i++){
+                            nodes.add(children.item(i));
+                        }
+                    }else{
+                        nodes.add(e);
+                    }
+                }
+
+                // create xml string
+                for (Node n: nodes){
+                    String nText = XMLUtil.writeNodeToTidyString(n);
+                    nText = nText.trim();
+                    if (nText != null && !nText.equals("")) {
+                        text += String.format("%s\n", nText);
+                    }
+                }
+                return text;
+            } catch (XMLStreamException e){
+                logger.error("Error parsing notes xml");
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
+
 
     public static String localParameterId(String reactionId, LocalParameter lp){
         return String.format("%s_%s", reactionId, lp.getId());

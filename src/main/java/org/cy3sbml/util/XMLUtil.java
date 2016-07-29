@@ -30,7 +30,7 @@ public class XMLUtil {
         String html = null;
         Document doc = XMLUtil.readXMLString(xml);
         if (doc != null){
-            xml = XMLUtil.writeTidyDocumentToString(doc);
+            xml = XMLUtil.writeNodeToTidyString(doc);
 
             // escape the rest, i.e. things like < and >
             html = StringEscapeUtils.escapeHtml(xml);
@@ -43,44 +43,15 @@ public class XMLUtil {
     }
 
     /**
-     * Write XML Document to file.
+     * Create tidy xml string from xml string.
      */
-    public static void writeTidyDocumentToFile(Document doc, File file){
-        XMLUtil.cleanEmptyTextNodes(doc);
-        Transformer transformer;
-        try {
-            transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
-            Result output = new StreamResult(file);
-            Source input = new DOMSource(doc);
-            transformer.transform(input, output);
-        } catch (TransformerException e) {
-            e.printStackTrace();
+    public static String xml2xml(String xml){
+        String html = null;
+        Document doc = XMLUtil.readXMLString(xml);
+        if (doc != null){
+            html = XMLUtil.writeNodeToTidyString(doc);
         }
-    }
-
-    /**
-     * Write XML Document to string.
-     * See: http://stackoverflow.com/questions/5456680/xml-document-to-string
-     */
-    public static String writeTidyDocumentToString(Document doc){
-        XMLUtil.cleanEmptyTextNodes(doc);
-
-        String output = null;
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(doc), new StreamResult(writer));
-            output = writer.getBuffer().toString();
-
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        return output;
+        return html;
     }
 
     /**
@@ -101,6 +72,48 @@ public class XMLUtil {
             e.printStackTrace();
         }
         return doc;
+    }
+
+
+    /**
+     * Write XML Document to file.
+     */
+    public static void writeNodeToTidyFile(Node node, File file){
+        XMLUtil.cleanEmptyTextNodes(node);
+        Transformer transformer;
+        try {
+            transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
+            Result output = new StreamResult(file);
+            Source input = new DOMSource(node);
+            transformer.transform(input, output);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Write XML Document to string.
+     * See: http://stackoverflow.com/questions/5456680/xml-document-to-string
+     */
+    public static String writeNodeToTidyString(Node node){
+        XMLUtil.cleanEmptyTextNodes(node);
+
+        String output = null;
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(node), new StreamResult(writer));
+            output = writer.getBuffer().toString();
+
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        return output;
     }
 
     /**

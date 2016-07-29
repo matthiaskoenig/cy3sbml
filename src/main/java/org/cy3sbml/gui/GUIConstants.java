@@ -30,6 +30,7 @@ public class GUIConstants {
     public static String URL_HELP = "http://cy3sbml-help";
 
     public static String URL_SBMLFILE = "http://sbml-file";
+    public static String URL_HTMLFILE = "http://html-file";
 
 
     public static final Map<String, String> EXAMPLE_SBML;

@@ -6,10 +6,7 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.cy3sbml.styles.StyleFactory;
-import org.cy3sbml.styles.StyleInfo;
-import org.cy3sbml.styles.StyleInfo01;
-import org.cy3sbml.styles.StyleInfo02;
+import org.apache.commons.lang.StringUtils;
 import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
@@ -47,18 +44,21 @@ public class SBaseHTMLFactory {
     ///////////////////////////////////////////////
 
 	private static final String HTML_START_TEMPLATE =
-			"<html>\n" +
+			"<!DOCTYPE html>\n" +
+            "<html>\n" +
 			"<head>\n" +
-            "<base href=\"%s\" />\n" +
-			"<meta charset=\"utf-8\">\n" +
-			"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-            "<meta http-equiv=\"refresh\" content=\"5\">" +
-			"<title>cy3sbml</title>\n" +
-			"<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
-            "<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">" +
-			"<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-			"</head>";
+            "\t<base href=\"%s\" />\n" +
+			"\t<meta charset=\"utf-8\">\n" +
+			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+			"\t<title>cy3sbml</title>\n" +
+			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
+            "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
+			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
+            "\t<meta http-equiv=\"refresh\" content=\"5\">\n" +
+			"</head>\n\n" +
+            "<body>\n" +
+            "<div class=\"container\">\n";
 
 	private static final String HTML_STOP_TEMPLATE =
 			"</div>\n" +
@@ -71,15 +71,15 @@ public class SBaseHTMLFactory {
 	private static final String FALSE_HTML = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
 	private static final String NONE_HTML = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
 
-    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">";
-    private static final String TABLE_END = "</table>";
-    private static final String TS = "<tr><td><b>";
-    private static final String TM = "</b></td><td>";
-    private static final String TE = "<td/></tr>";
+    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
+    private static final String TABLE_END = "</table>\n";
+    private static final String TS = "\t<tr>\n\t\t<td><b>";
+    private static final String TM = "</b></td>\n\t\t<td>";
+    private static final String TE = "<td/>\n\t</tr>\n";
 
     private static final String TEMPLATE_MODEL =
             TABLE_START +
-            TS + "L%sV%s" + TM + "<a href=\"%s\"><img src=\"./images/sbml_logo.png\" height=\"20\"></img></a>" + TE +
+            TS + "L%sV%s" + TM + "<a href=\"%s\"><img src=\"./images/sbml_logo.png\" height=\"20\" /></a>" + TE +
             TABLE_END;
 
     private static final String TEMPLATE_COMPARTMENT =
@@ -214,12 +214,13 @@ public class SBaseHTMLFactory {
 	 * Displays class information, in addition id and name if existing.
 	 */
 	private static String createHeader(SBase item){
+	    String export = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
 		String className = SBMLUtil.getUnqualifiedClassName(item);
-		String header = String.format("<h2>%s</h2>", className);
+		String header = String.format("<h2>%s%s</h2>\n", export, className);
 		// if NamedSBase get additional information
 		if (NamedSBase.class.isAssignableFrom(item.getClass())){
 			NamedSBase nsb = (NamedSBase) item;
-            header = String.format("<h2>%s <small>%s</small></h2>", className, nsb.getId());
+            header = String.format("<h2>%s%s <small>%s</small></h2>\n", export, className, nsb.getId());
 		}
 		return header; 
 	}
@@ -229,7 +230,7 @@ public class SBaseHTMLFactory {
 		if (item.isSetSBOTerm()){
 			String sboTermId = item.getSBOTermID();
   			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
-  			return createCVTerm(term) + "<hr />";
+  			return createCVTerm(term) + "<hr />\n";
   		}
 		return "";
 	}
@@ -255,17 +256,17 @@ public class SBaseHTMLFactory {
         } else if (term.isBiologicalQualifier()){
             bmQualifierType = term.getBiologicalQualifierType();
         }
-        String text = "<p>";
+        String text = "<p>\n";
 
         String qualifierHTML = String.format(
-                "<span class=\"qualifier\" title=\"%s\">%s</span>",
+                "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
                 term.getQualifierType(), bmQualifierType);
 
         Map<String, String> map = null;
         for (String rURI : term.getResources()){
             map = AnnotationUtil.getIdCollectionMapForURI(rURI);
             text += qualifierHTML + String.format(
-                    "<span class=\"ontology\" title=\"ontology\">%s</span><span class=\"term\" title=\"term\">%s</span><br/>",
+                    "\t<span class=\"ontology\" title=\"ontology\">%s</span>\n\t<span class=\"term\" title=\"term\">%s</span><br/>\n",
                     map.get("collection").toUpperCase(), map.get("id"));
 
             // TODO: create the URIs (use datatype, and registry tools)
@@ -275,15 +276,12 @@ public class SBaseHTMLFactory {
             // TODO: get the definition from OLS & other infos
             String definition = "DEFINITION";
             if (definition != null) {
-                text += definition + "<br />";
+                text += String.format("\t%s\n", definition);
             }
         }
-        text += "</p>";
+        text += "</p>\n";
         return text;
     }
-
-
-
 		
 	/** 
 	 * Creation of class specific attribute information.
@@ -479,27 +477,20 @@ public class SBaseHTMLFactory {
         return html;
     }
 
-    /**
-     * Create HMTL for notes.
-     * Have to be set at the end due to the html content which
-     * breaks the rest of the html.
-     */
+    /** Create HMTL for notes. */
     private static String createNotes(SBase sbase){
-        String text = "";
-        if (sbase.isSetNotes()){
-            try {
-                String notes = sbase.getNotesString();
-                if (!notes.equals("") && notes != null) {
-                    text = String.format("<hr />%s", notes);
-                }
-            } catch (XMLStreamException e){
-                logger.error("Error parsing notes xml");
-                e.printStackTrace();
-            }
+        String notes = SBMLUtil.parseNotes(sbase);
+        if (notes != null){
+            return String.format(
+                    "<hr />\n" +
+                    "<div id=\"notes\">\n" +
+                    "%s\n" +
+                    "</div>\n",
+                    notes);
         }
-        return text;
-    }
+        return "";
 
+    }
 
 	/////////////////////////////////////////////////////////////////////////////////////
     // Helper functions
@@ -542,9 +533,9 @@ public class SBaseHTMLFactory {
             String[] items = new String[locations.length];
             for (int k=0; k<locations.length; k++) {
                 String location = locations[k];
-                items[k] = String.format("<a href=\"%s\">%s</a><br>", location, serverFromLocation(location));
+                items[k] = String.format("\t<a href=\"%s\">%s</a><br />\n", location, serverFromLocation(location));
             }
-            text = org.apache.commons.lang3.StringUtils.join(items, "");
+            text = StringUtils.join(items, "");
 
         } else {
             logger.warn("No locations for URI: " + resourceURI);
@@ -564,7 +555,6 @@ public class SBaseHTMLFactory {
         return text;
     }
 
-
     /////////////////////////////////////////////////////////////////////////////////////
 
     /** Create HTML and write to test file for fast
@@ -577,13 +567,18 @@ public class SBaseHTMLFactory {
 
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
         Model model = doc.getModel();
+        Object object = model;
+
+        //object = model.getListOfSpecies().get(0);
 
         // retrieve info for object
-        SBaseHTMLFactory f = new SBaseHTMLFactory(model);
+        SBaseHTMLFactory f = new SBaseHTMLFactory(object);
         f.createInfo();
         String html = f.getHtml();
 
+        System.out.println("------------------------------------");
         System.out.println(html);
+        System.out.println("------------------------------------");
 
         // Save to tmp file for viewing
         File file = new File(targetDir, "testinfo.html");
