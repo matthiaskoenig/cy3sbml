@@ -82,7 +82,13 @@
     	</repository>
 
         <repository>
-            <id>JSBML</id>
+            <id>EBI SNAPSHOT</id>
+            <name>EBI Snapshot repository</name>
+            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
+        </repository>
+
+        <repository>
+            <id>JSBML SNAPSHOT</id>
             <name>The JSBML repository</name>
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
         </repository>
@@ -95,7 +101,7 @@
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.5.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -342,6 +348,11 @@
 			<artifactId>ols-client</artifactId>
 			<version>2.5-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.3</version>
+        </dependency>
 
         <!-- JSON -->
         <dependency>
