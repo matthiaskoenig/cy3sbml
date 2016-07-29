@@ -14,11 +14,10 @@ import org.sbml.jsbml.SBMLDocument;
 
 import org.cy3sbml.SBMLCoreTest;
 import org.cy3sbml.SBMLQualTest;
-import org.cy3sbml.TestUtils;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
-
+import org.cy3sbml.util.SBMLUtil;
 
 /**
  * Testing the HTML information generation.
@@ -26,7 +25,7 @@ import static org.junit.Assert.assertEquals;
  * A mock for the panel is created to simplify testing.
  * http://www.vogella.com/tutorials/Mockito/article.html
  */
-public class SBaseInfoThreadTest {
+public class SBaseHtmlThreadTest {
     @Mock
     SBMLPanel panel;
 
@@ -34,7 +33,7 @@ public class SBaseInfoThreadTest {
 
     @Test
     public void run() throws Exception {
-        SBMLDocument doc = TestUtils.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
+        SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
         Model model = doc.getModel();
 
         Collection<Object> objSet = new HashSet<>();
@@ -48,7 +47,7 @@ public class SBaseInfoThreadTest {
     }
 
     private void preloadResource(String resource) throws Exception{
-        SBMLDocument document = TestUtils.readSBMLDocument(resource);
+        SBMLDocument document = SBMLUtil.readSBMLDocument(resource);
         Model model = document.getModel();
 
         Collection<Object> objSet = new HashSet<>();
@@ -81,7 +80,7 @@ public class SBaseInfoThreadTest {
 
     @Test
     public void preload() throws Exception {
-        SBMLDocument doc = TestUtils.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
+        SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
         // preload all the Miriam information
         SBaseHTMLThread.preload(doc);
 
@@ -90,7 +89,7 @@ public class SBaseInfoThreadTest {
     }
 
     public String createHTMLOutput(String resource) throws Exception{
-        SBMLDocument doc = TestUtils.readSBMLDocument(resource);
+        SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
         Model model = doc.getModel();
 
         Collection<Object> objSet = new HashSet<>();
@@ -113,7 +112,7 @@ public class SBaseInfoThreadTest {
      */
     public static void main(String[] args) throws Exception{
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
-        SBaseInfoThreadTest test = new SBaseInfoThreadTest();
+        SBaseHtmlThreadTest test = new SBaseHtmlThreadTest();
         String html = test.createHTMLOutput(resource);
         System.out.println(html);
     }

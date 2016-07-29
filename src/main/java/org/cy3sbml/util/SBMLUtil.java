@@ -1,18 +1,31 @@
 package org.cy3sbml.util;
 
-import org.cy3sbml.SBML;
-import org.cy3sbml.SBMLManager;
-import org.sbml.jsbml.*;
-
 import javax.xml.stream.XMLStreamException;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+
+import org.sbml.jsbml.*;
+import org.cy3sbml.SBML;
 
 /**
  * Some utils to work with SBML and SBML naming.
  */
 public class SBMLUtil {
+
+    /**
+     * Read the SBMLDocument from given SBML file resource.
+     */
+    public static SBMLDocument readSBMLDocument(String resource) {
+        InputStream instream = SBMLUtil.class.getResourceAsStream(resource);
+        SBMLDocument doc = null;
+        try {
+            String xml = IOUtil.inputStream2String(instream);
+            doc = JSBML.readSBMLFromString(xml);
+        } catch (IOException | XMLStreamException e) {
+            e.printStackTrace();
+        }
+        return doc;
+    }
 
     public static String localParameterId(String reactionId, LocalParameter lp){
         return String.format("%s_%s", reactionId, lp.getId());

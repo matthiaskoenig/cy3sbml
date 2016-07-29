@@ -1,5 +1,9 @@
 package org.cy3sbml.util;
 
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.SBMLDocument;
+
+import javax.xml.stream.XMLStreamException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -48,5 +52,6 @@ public class IOUtil {
         is.close();
         return new ByteArrayInputStream( copy.toByteArray() );
     }
+
 
 }

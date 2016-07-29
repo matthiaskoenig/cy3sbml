@@ -1,14 +1,15 @@
 package org.cy3sbml.gui;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 
+import org.apache.commons.io.FileUtils;
+import org.cy3sbml.styles.StyleFactory;
+import org.cy3sbml.styles.StyleInfo;
+import org.cy3sbml.styles.StyleInfo01;
+import org.cy3sbml.styles.StyleInfo02;
 import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
@@ -16,7 +17,6 @@ import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.ontology.Term;
 import org.sbml.jsbml.xml.XMLNode;
 
 import org.cy3sbml.miriam.MiriamResource;
@@ -25,7 +25,6 @@ import org.cy3sbml.util.AnnotationUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 /** 
  * Creates HTML information for given SBase.
@@ -54,6 +53,7 @@ public class SBaseHTMLFactory {
 			"<meta charset=\"utf-8\">\n" +
 			"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
 			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+            "<meta http-equiv=\"refresh\" content=\"5\">" +
 			"<title>cy3sbml</title>\n" +
 			"<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
             "<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">" +
@@ -566,4 +566,28 @@ public class SBaseHTMLFactory {
 
 
     /////////////////////////////////////////////////////////////////////////////////////
+
+    /** Create HTML and write to test file for fast
+     * development iterations.
+     */
+    public static void main(String[] args) throws Exception{
+        SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
+        String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/tmp";
+
+
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
+        Model model = doc.getModel();
+
+        // retrieve info for object
+        SBaseHTMLFactory f = new SBaseHTMLFactory(model);
+        f.createInfo();
+        String html = f.getHtml();
+
+        System.out.println(html);
+
+        // Save to tmp file for viewing
+        File file = new File(targetDir, "testinfo.html");
+        FileUtils.writeStringToFile(file, html);
+    }
+
 }
