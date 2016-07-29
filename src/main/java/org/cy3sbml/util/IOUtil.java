@@ -1,6 +1,7 @@
 package org.cy3sbml.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Helper functions for input and output.
@@ -14,7 +15,7 @@ public class IOUtil {
     }
 
     /** Read String from InputStream. */
-    public static String readString(InputStream source) throws IOException {
+    public static String inputStream2String(InputStream source) throws IOException {
         StringWriter writer = new StringWriter();
         BufferedReader reader = new BufferedReader(new InputStreamReader(source));
         try {
@@ -29,6 +30,12 @@ public class IOUtil {
         }
         return writer.toString();
     }
+
+    /** Create InputStream from String. */
+    public static InputStream string2InputStream(String s){
+        return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+    }
+
 
     /** Copy InputStream. */
     public static InputStream copyInputStream(InputStream is) throws IOException {

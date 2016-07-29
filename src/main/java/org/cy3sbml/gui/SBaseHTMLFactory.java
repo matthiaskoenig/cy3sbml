@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
@@ -24,6 +25,7 @@ import org.cy3sbml.util.AnnotationUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 /** 
  * Creates HTML information for given SBase.
@@ -450,7 +452,17 @@ public class SBaseHTMLFactory {
                     String name = child.getName();
                     if (name != "RDF"){
                         try {
-                            text += StringEscapeUtils.escapeHtml(XMLNode.convertXMLNodeToString(child));
+                            String xml = XMLNode.convertXMLNodeToString(child);
+                            // Handle special case of whitespaces/empty text nodes
+                            xml = xml.trim();
+                            if (xml.length() > 0){
+                                xml = XMLUtil.xml2Html(xml);
+                                if (xml != null) {
+                                    text += xml;
+                                } else {
+                                    logger.error("Annotation XML could not be parsed.");
+                                }
+                            }
                         } catch(XMLStreamException e){
                             logger.error("Error parsing annotation xml");
                             e.printStackTrace();
@@ -458,13 +470,10 @@ public class SBaseHTMLFactory {
                     }
                 }
             }
-            // Handle special case of whitespaces
 
-            text = text.trim();
-            //TODO: xml formating
 
             if (text.length()>0){
-                html = String.format("<p><code>%s</code></p>", text);
+                html = String.format("<code>%s</code>", text);
             }
         }
         return html;

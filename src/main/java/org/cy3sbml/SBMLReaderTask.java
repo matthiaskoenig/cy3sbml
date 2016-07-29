@@ -200,7 +200,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			
 			// Read model
 			logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
-			String xml = IOUtil.readString(stream);
+			String xml = IOUtil.inputStream2String(stream);
 			document = JSBML.readSBMLFromString(xml);
 			Model model = null;
 			if (document.isSetModel()){

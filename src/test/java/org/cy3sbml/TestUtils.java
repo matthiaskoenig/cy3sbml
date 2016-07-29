@@ -20,7 +20,6 @@ import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.sbml.jsbml.JSBML;
@@ -154,7 +153,7 @@ public class TestUtils {
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
 		SBMLDocument doc = null;
 		try {
-			String xml = IOUtil.readString(instream);
+			String xml = IOUtil.inputStream2String(instream);
 			doc = JSBML.readSBMLFromString(xml);
 		} catch (IOException | XMLStreamException e) {
 			logger.error("Error reading SBMLDocument from resource.");

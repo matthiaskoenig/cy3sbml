@@ -11,9 +11,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,15 +116,9 @@ public class StyleFactory {
 
             // save the template
             System.out.println(file.getAbsolutePath());
-            XMLUtil.cleanEmptyTextNodes(doc);
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            Result output = new StreamResult(file);
-            Source input = new DOMSource(doc);
-            transformer.transform(input, output);
+            XMLUtil.writeTidyDocumentToFile(doc, file);
 
-        }catch (ParserConfigurationException | IOException | SAXException | TransformerException e){
+        }catch (ParserConfigurationException | IOException | SAXException e){
             e.printStackTrace();
         }
     }
