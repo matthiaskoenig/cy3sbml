@@ -28,8 +28,6 @@ public class SBaseHTMLThread extends Thread{
     public SBaseHTMLThread(Collection<Object> objSet, SBMLPanel panel) {
         this.objSet = objSet;
         this.panel = panel;
-
-
         info = null;
     }
 
@@ -47,7 +45,12 @@ public class SBaseHTMLThread extends Thread{
     		for (Object obj : objSet){	
     			SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
 				infoFac.createInfo();
-    			info += infoFac.getHtml();
+				String html = infoFac.getHtml();
+				if (info == null) {
+                    info = html;
+                } else {
+                    info +=html;
+                }
     			panel.setText(this);
     		}
     	} else {

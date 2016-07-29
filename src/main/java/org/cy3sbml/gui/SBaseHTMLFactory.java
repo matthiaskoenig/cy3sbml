@@ -54,7 +54,7 @@ public class SBaseHTMLFactory {
 			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
 			"<title>cy3sbml</title>\n" +
 			"<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
-            "<link rel=\"stylesheet\" href=\"./css/font-awesome.min.css\">" +
+            "<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">" +
 			"<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
 			"</head>";
 
@@ -65,9 +65,9 @@ public class SBaseHTMLFactory {
 			"</body>\n" +
 			"</html>\n";
 
-    private static final String TRUE_HTML = "<img src=\"./images/true2.png\" alt=\"true\" height=\"15\" width=\"15\"></img>";
-    private static final String FALSE_HTML = "<img src=\"./images/false2.png\" alt=\"false\" height=\"15\" width=\"15\"></img>";
-    private static final String NONE_HTML = "<img src=\"./images/none2.png\" alt=\"none\" height=\"15\" width=\"15\"></img>";
+	private static final String TRUE_HTML = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
+	private static final String FALSE_HTML = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
+	private static final String NONE_HTML = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
 
     private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">";
     private static final String TABLE_END = "</table>";
@@ -222,28 +222,14 @@ public class SBaseHTMLFactory {
 		return header; 
 	}
 
-    /**
-     * Creates SBO HTML.
-     * TODO: handle as CVTerm.
-     */
+    /** Creates SBO HTML. */
 	private static String createSBO(SBase item){
-		String text = "";
 		if (item.isSetSBOTerm()){
 			String sboTermId = item.getSBOTermID();
-			Term sboTerm = SBO.getTerm(sboTermId);
-			String definition = parseSBOTermDefinition(sboTerm.getDefinition());
-
   			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
-            String template =
-                    "<b>%s</b> <span class=\"term\">%s</span> <span class=\"ontology\">SBO</span> <br />";
-  			text += String.format(template, sboTerm.getName(), sboTermId);
-  			text += definition + "<br />";
-  			for (String rURI : term.getResources()){
-  				text += createInfoForURI(rURI);
-  			}
-  			text += "<hr />";
+  			return createCVTerm(term) + "<hr />";
   		}
-		return text;
+		return "";
 	}
 
 	/** Create HTML for CVTerms. */
@@ -252,25 +238,48 @@ public class SBaseHTMLFactory {
 		String text = "";
 		if (cvterms.size() > 0){
 			for (CVTerm term : cvterms){
-			    CVTerm.Qualifier bmQualifierType = null;
-				if (term.isModelQualifier()){
-					bmQualifierType = term.getModelQualifierType();
-				} else if (term.isBiologicalQualifier()){
-					bmQualifierType = term.getBiologicalQualifierType();
-				}
-                text += String.format("<p><b>%s</b> <span class=\"qualifier\">%s</span>", term.getQualifierType(), bmQualifierType);
-				
-				Map<String, String> map = null;
-				for (String rURI : term.getResources()){
-					map = AnnotationUtil.getIdCollectionMapForURI(rURI);
-					text += String.format("<span class=\"term\">%s</span> <span class=\"ontology\">%s</span><br/>", map.get("id"), map.get("collection").toUpperCase());
-					text += createInfoForURI(rURI);
-				}
-				text += "</p>";
+                text += createCVTerm(term);
 			}
 		}
   		return text;
 	}
+
+    /** Creates HTML for single CVTerm. */
+	private static String createCVTerm(CVTerm term){
+        // get the biological/model qualifier type
+        CVTerm.Qualifier bmQualifierType = null;
+        if (term.isModelQualifier()){
+            bmQualifierType = term.getModelQualifierType();
+        } else if (term.isBiologicalQualifier()){
+            bmQualifierType = term.getBiologicalQualifierType();
+        }
+        String text = "<p>";
+
+        String qualifierHTML = String.format(
+                "<span class=\"qualifier\" title=\"%s\">%s</span>",
+                term.getQualifierType(), bmQualifierType);
+
+        Map<String, String> map = null;
+        for (String rURI : term.getResources()){
+            map = AnnotationUtil.getIdCollectionMapForURI(rURI);
+            text += qualifierHTML + String.format(
+                    "<span class=\"ontology\" title=\"ontology\">%s</span><span class=\"term\" title=\"term\">%s</span><br/>",
+                    map.get("collection").toUpperCase(), map.get("id"));
+
+            // TODO: create the URIs (use datatype, and registry tools)
+            // Use information about dataResource
+            text += createInfoForURI(rURI);
+
+            // TODO: get the definition from OLS & other infos
+            String definition = "DEFINITION";
+            if (definition != null) {
+                text += definition + "<br />";
+            }
+        }
+        text += "</p>";
+        return text;
+    }
+
 
 
 		
@@ -280,7 +289,6 @@ public class SBaseHTMLFactory {
 	private static String createSBase(SBase item){
 
 		// Model //
-
 		if (item instanceof Model){
 			Model model = (Model) item;
             Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
@@ -426,6 +434,7 @@ public class SBaseHTMLFactory {
 
     /**
      * Create annotation XML.
+     * This is for instance used to process the SABIO-RK data.
      */
     private static String createAnnotation(SBase sbase){
         String html = "";
@@ -450,7 +459,10 @@ public class SBaseHTMLFactory {
                 }
             }
             // Handle special case of whitespaces
+
             text = text.trim();
+            //TODO: xml formating
+
             if (text.length()>0){
                 html = String.format("<p><code>%s</code></p>", text);
             }
@@ -543,15 +555,6 @@ public class SBaseHTMLFactory {
         return text;
     }
 
-    /**
-     * FIXME: document me
-     */
-    @Deprecated
-    private static String parseSBOTermDefinition(String definition){
-        String[] tokens = definition.split("\"");
-        String[] defTokens = (String []) ArrayUtils.subarray(tokens, 1, tokens.length-1);
-        return StringUtils.join(defTokens, "\"");
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////
 }
