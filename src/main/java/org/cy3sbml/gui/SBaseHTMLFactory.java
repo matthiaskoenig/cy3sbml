@@ -58,7 +58,6 @@ public class SBaseHTMLFactory {
 			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
             "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-            "\t<meta http-equiv=\"refresh\" content=\"5\">\n" +
 			"</head>\n\n" +
             "<body>\n" +
             "<div class=\"container\">\n";
@@ -391,8 +390,9 @@ public class SBaseHTMLFactory {
 
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
-        // TODO: check if the SBO term is double, i.e. in RDF and SBO
-        // only display once
+        // TODO: check if the SBO term is double, i.e. in RDF and SBO only display once
+        // TODO: link to primary resource via id
+        // TODO: put OLS description on top
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -410,21 +410,39 @@ public class SBaseHTMLFactory {
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
 
+            String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             DataType dataType = RegistryUtilities.getDataType(dataCollection);
-            String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+
+            // check that identifier is correct for given datatype
+            if (dataType != null){
+                String pattern = dataType.getRegexp();
+                if (!RegistryUtilities.checkRegexp(identifier, pattern)){
+                    logger.warn(String.format(
+                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
+                            identifier, pattern, dataType.getId()));
+                }
+            }
+
+            // not possible to resolve dataType from MIRIAM registry
+            if (dataType == null){
+                logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
+                text += qualifierHTML + String.format(
+                        "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
+                        identifier);
+                text += String.format(
+                        "\t%s <a href=\"%s\"> %s</a><br />\n",
+                        ICON_INVISIBLE, resourceURI, resourceURI);
+            }
+            // dataType found
+            if (dataType != null){
+                text += qualifierHTML + String.format(
+                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>\n" +
+                                "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
+                        dataType.getURL(), dataType.getName(),
+                        identifier);
 
 
-            // TODO: link to primary resource via id
-            // TODO: handle the case if dataType == null
-
-            text += qualifierHTML + String.format(
-                    "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>\n" +
-                    "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
-                    dataType.getURL(), dataType.getName(),
-                    identifier);
-
-            if (dataCollection != null){
                 for (PhysicalLocation location: dataType.getPhysicalLocations()){
                     if (location.isObsolete()){
                         continue;
@@ -445,13 +463,27 @@ public class SBaseHTMLFactory {
                     // OLS resource, we can query the term
                     if (RegistryUtil.isPhysicalLocationOLS(location)){
                         Term term = OLSObject.getTermFromIdentifier(identifier);
-                        text += String.format("<span class=\"ontology\">%s</span> <b>%s</b><br />\n", term.getOntologyName(), term.getLabel());
-                        text += String.format("\t<a href=%s>%s</a><br />", term.getIri().getIdentifier(), term.getIri().getIdentifier());
-                        for (String description : term.getDescription()){
-                            text += String.format("\t%s<br />\n", description);
+                        if (term != null) {
+                            // FIXME: check for null in the information
+                            text += String.format("<span class=\"ontology\">%s</span> <b>%s</b><br />\n", term.getOntologyName(), term.getLabel());
+                            text += String.format("\t<a href=%s>%s</a><br />", term.getIri().getIdentifier(), term.getIri().getIdentifier());
+                            String [] descriptions = term.getDescription();
+                            if (descriptions != null) {
+                                for (String description : term.getDescription()) {
+                                    text += String.format("\t%s<br />\n", description);
+                                }
+                            }
+                            text += String.format("%s<br />\n", term.getShortForm());
+                            text += String.format("%s<br />\n", term.getSynonyms());
+
+                            // special information
+                            if (term.getOntologyName().equals("chebi")) {
+                                text += chebiHTML(identifier);
+                            }
+
+                        } else {
+                            logger.error("OLS term could not be fetched.");
                         }
-                        text += String.format("%s<br />\n", term.getShortForm());
-                        text += String.format("%s<br />\n", term.getSynonyms());
                     }
                 }
 
@@ -462,7 +494,24 @@ public class SBaseHTMLFactory {
         return text;
     }
 
-
+    /**
+     * Creates additional chebi information for the entry.
+     * Identifier is of form "CHEBI:28061"
+     */
+    private static String chebiHTML(String identifier){
+        // Image
+        String text = "";
+        String[] tokens = identifier.split(":");
+        String imageSource = String.format(
+                "http://www.ebi.ac.uk/chebi/displayImage.do;?defaultImage=true&imageIndex=0&chebiId=%s&dimensions=200",
+                tokens[1]);
+        String imageLink = String.format(
+                "http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:%s",
+                tokens[1]);
+        text += String.format("<a href=\"%s\"><img src=\"%s\" /></a><br />", imageLink, imageSource);
+        return text;
+        // TODO: additional things like formula, net charge, average mass, ...
+    }
 
     /**
      * Create non-RDF annotation XML.
@@ -562,11 +611,14 @@ public class SBaseHTMLFactory {
 
         // Create the HTML for selected SBMLDocuments and SBases
 
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
+        // SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_v31.xml");
+
         Model model = doc.getModel();
         Object object = model;
 
-        //object = model.getListOfSpecies().get(0);
+        object = model.getListOfSpecies().get("c__gal");
+
 
         // retrieve info for object
         SBaseHTMLFactory f = new SBaseHTMLFactory(object);

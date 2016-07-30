@@ -41,18 +41,26 @@ public class OLSObject {
      * Gets the OLS term for a given MIRIAM resourceURI.
      * Example: "GO:0042752"
      * Returns NULL if not an ontology term, or no term.
+     *
+     * FIXME: issues with UBERON:2107
      */
     public static Term getTermFromIdentifier(String identifier){
-        // String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-        String[] tokens = identifier.split(":");
-        if (tokens.length !=2){
-            logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
+        try {
+            // String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+            String[] tokens = identifier.split(":");
+            if (tokens.length != 2) {
+                logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
+                return null;
+            }
+            String ontologyId = tokens[0];
+            Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
+            Term term = olsClient.getTermById(id, ontologyId);
+            return term;
+        } catch (Throwable e){
+            logger.error(String.format("Error retrieving OLS term for: %s", identifier));
+            e.printStackTrace();
             return null;
         }
-        String ontologyId = tokens[0];
-        Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
-        Term term =olsClient.getTermById(id, ontologyId);
-        return term;
     }
 
     /** Create string representation of term. */
