@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.ListOf;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
@@ -53,19 +54,36 @@ public class SBaseHTMLThread extends Thread{
                 }
     			panel.setText(this);
     		}
-    	} else {
+    	}
+
+    	else {
+    	    logger.info("Cache filling mode NOT implemented");
     		// Cache filling mode. Stores costly information in cache.
     		for (Object obj : objSet){
     			SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
-    			infoFac.cacheInformation();
+    			// infoFac.cacheInformation();
     		}
+
+			/*
+			public void cacheInformation(){
+				// cache miriam information
+				for (CVTerm term : sbase.getCVTerms()){
+					for (String rURI : term.getResources()){
+						MiriamResource.getLocationsFromURI(rURI);
+					}
+				}
+			}
+			 */
+
     	}
     }
         
 	/**
      * Creates SBase information for given Document and stores in cache.
      * Currently only subset of information is cached.
+     * TODO: refactor to cache costly information.
 	 */
+	@Deprecated
 	public static void preload(SBMLDocument document){
 		Model model = document.getModel();
 		logger.debug("Preload <compartments>");

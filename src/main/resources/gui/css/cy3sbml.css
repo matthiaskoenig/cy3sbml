@@ -17,6 +17,28 @@ table {
     vertical-align: middle;
 }
 
+.collection{
+    background-color: #cc53ce;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.identifier{
+    background-color: #ffac1b;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
 .term{
     background-color: #ffac1b;
     padding:2px;
@@ -27,6 +49,8 @@ table {
     margin-right: 4px;
     vertical-align: middle;
 }
+
+
 
 .qualifier{
     background-color: #13721c;

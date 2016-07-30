@@ -6,8 +6,11 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.util.XMLUtil;
+import org.identifiers.registry.RegistryUtilities;
+import org.identifiers.registry.data.DataType;
+import org.identifiers.registry.data.PhysicalLocation;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
@@ -16,9 +19,7 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
 
-import org.cy3sbml.miriam.MiriamResource;
 import org.cy3sbml.util.SBMLUtil;
-import org.cy3sbml.util.AnnotationUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -170,18 +171,6 @@ public class SBaseHTMLFactory {
         return html;
     }
 
-    /**
-	 * Cache the information for the given sbase.
-	 * TODO: cache the costly lookups and creations.
-	 */
-    public void cacheInformation(){
-        // cache miriam information
-        for (CVTerm term : sbase.getCVTerms()){
-            for (String rURI : term.getResources()){
-                MiriamResource.getLocationsFromURI(rURI);
-            }
-        }
-	}
 
     /**
      * Creates HTML for given text String.
@@ -204,7 +193,7 @@ public class SBaseHTMLFactory {
         // TODO: implement
         // html += createHistory(sbase);
 
-        html += createAnnotation(sbase);
+        html += createNonRDFAnnotation(sbase);
         html += createNotes(sbase);
   		html += HTML_STOP_TEMPLATE;
 	}
@@ -225,64 +214,6 @@ public class SBaseHTMLFactory {
 		return header; 
 	}
 
-    /** Creates SBO HTML. */
-	private static String createSBO(SBase item){
-		if (item.isSetSBOTerm()){
-			String sboTermId = item.getSBOTermID();
-  			CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
-  			return createCVTerm(term) + "<hr />\n";
-  		}
-		return "";
-	}
-
-	/** Create HTML for CVTerms. */
-	private static String createCVTerms(SBase sbase){
-        List<CVTerm> cvterms = sbase.getCVTerms();
-		String text = "";
-		if (cvterms.size() > 0){
-			for (CVTerm term : cvterms){
-                text += createCVTerm(term);
-			}
-		}
-  		return text;
-	}
-
-    /** Creates HTML for single CVTerm. */
-	private static String createCVTerm(CVTerm term){
-        // get the biological/model qualifier type
-        CVTerm.Qualifier bmQualifierType = null;
-        if (term.isModelQualifier()){
-            bmQualifierType = term.getModelQualifierType();
-        } else if (term.isBiologicalQualifier()){
-            bmQualifierType = term.getBiologicalQualifierType();
-        }
-        String text = "<p>\n";
-
-        String qualifierHTML = String.format(
-                "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
-                term.getQualifierType(), bmQualifierType);
-
-        Map<String, String> map = null;
-        for (String rURI : term.getResources()){
-            map = AnnotationUtil.getIdCollectionMapForURI(rURI);
-            text += qualifierHTML + String.format(
-                    "\t<span class=\"ontology\" title=\"ontology\">%s</span>\n\t<span class=\"term\" title=\"term\">%s</span><br/>\n",
-                    map.get("collection").toUpperCase(), map.get("id"));
-
-            // TODO: create the URIs (use datatype, and registry tools)
-            // Use information about dataResource
-            text += createInfoForURI(rURI);
-
-            // TODO: get the definition from OLS & other infos
-            String definition = "DEFINITION";
-            if (definition != null) {
-                text += String.format("\t%s\n", definition);
-            }
-        }
-        text += "</p>\n";
-        return text;
-    }
-		
 	/** 
 	 * Creation of class specific attribute information.
 	 */
@@ -432,13 +363,109 @@ public class SBaseHTMLFactory {
 		return "";
 	}
 
+
+    /** Creates SBO HTML. */
+    private static String createSBO(SBase item){
+        if (item.isSetSBOTerm()){
+            String sboTermId = item.getSBOTermID();
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
+            return createCVTerm(term) + "<hr />\n";
+        }
+        return "";
+    }
+
+    /** Create HTML for CVTerms. */
+    private static String createCVTerms(SBase sbase){
+        List<CVTerm> cvterms = sbase.getCVTerms();
+        String text = "";
+        if (cvterms.size() > 0){
+            for (CVTerm term : cvterms){
+                text += createCVTerm(term);
+            }
+        }
+        return text;
+    }
+
+    /** Creates HTML for single CVTerm. */
+    private static String createCVTerm(CVTerm cvterm){
+        // get the biological/model qualifier type
+        CVTerm.Qualifier bmQualifierType = null;
+        if (cvterm.isModelQualifier()){
+            bmQualifierType = cvterm.getModelQualifierType();
+        } else if (cvterm.isBiologicalQualifier()){
+            bmQualifierType = cvterm.getBiologicalQualifierType();
+        }
+        String text = "<p>\n";
+
+        String qualifierHTML = String.format(
+                "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
+                cvterm.getQualifierType(), bmQualifierType);
+
+        // List of Resource URIs
+        for (String resourceURI : cvterm.getResources()){
+
+            String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
+            DataType dataType = RegistryUtilities.getDataType(dataCollection);
+            String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+
+
+            // TODO: link to primary resource via id
+            // TODO: handle the case if dataType == null
+
+            text += qualifierHTML + String.format(
+                    "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>\n" +
+                    "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
+                    dataType.getURL(), dataType.getName(),
+                    identifier);
+
+            if (dataCollection != null){
+                for (PhysicalLocation location: dataType.getPhysicalLocations()){
+                    if (location.isObsolete()){
+                        continue;
+                    }
+                    String url = String.format("%s%s%s", location.getUrlPrefix(), identifier, location.getUrlSuffix());
+                    Boolean primary = location.isPrimary();
+                    String info = location.getInfo();
+                    if (RegistryUtil.isPhysicalLocationOLS(location)){
+                        info = String.format(
+                            "<span class=\"ontology\" title=\"Ontology\">%s</span>",
+                            info);
+                    }
+                    text += String.format(
+                            "\t%s <a href=\"%s\"> %s</a><br />\n",
+                            (primary == true) ? TRUE_HTML : NONE_HTML, url, info);
+
+
+                    // OLS resource, we can query the term
+                    if (RegistryUtil.isPhysicalLocationOLS(location)){
+                        // TODO: get the definition from OLS & other infos
+                        String ontology = null;
+                        String term = null;
+                        String definition = "DEFINITION";
+
+                        if (definition != null) {
+                            text += String.format("\t%s\n", definition);
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+        text += "</p>\n";
+        return text;
+    }
+
+
+
     /**
-     * Create annotation XML.
+     * Create non-RDF annotation XML.
      * This is for instance used to process the SABIO-RK data.
+     * Parses all the information in the annotation xml which is not RDF CV-Terms.
      */
-    private static String createAnnotation(SBase sbase){
+    private static String createNonRDFAnnotation(SBase sbase){
         String html = "";
-        // Non-RDF annotation
         if (sbase.isSetAnnotation()){
             Annotation annotation = sbase.getAnnotation();
             String text = "";
@@ -469,7 +496,7 @@ public class SBaseHTMLFactory {
                 }
             }
 
-
+            // move into <code> tag for display
             if (text.length()>0){
                 html = String.format("<code>%s</code>", text);
             }
@@ -496,16 +523,12 @@ public class SBaseHTMLFactory {
     // Helper functions
     /////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Creates true or false HTML depending on boolean.
-     */
+    /** Creates true or false HTML depending on boolean. */
     private static String booleanHTML(boolean b){
         return (b == true) ? TRUE_HTML : FALSE_HTML;
     }
 
-    /**
-     * Derived unit string.
-     */
+    /** Derived unit string. */
     private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
         String units = NONE_HTML;
         UnitDefinition udef = usbase.getDerivedUnitDefinition();
@@ -515,55 +538,24 @@ public class SBaseHTMLFactory {
         return units;
     }
 
-    /**
-     * Creates the information for a given resourceURI.
-     * Resolves the locations and uses it them to create the links.
-     * FIXME: update me with the new Miriam Functionality
-     * TODO: resolve information with OLS
-     */
-    @Deprecated
-    private static String createInfoForURI(String resourceURI) {
-        String text = "";
-        String[] locations = MiriamResource.getLocationsFromURI(resourceURI);
-
-        if (locations != null){
-            if (locations.length == 0){
-                logger.warn("No locations for URI:" + resourceURI);
-            }
-            String[] items = new String[locations.length];
-            for (int k=0; k<locations.length; k++) {
-                String location = locations[k];
-                items[k] = String.format("\t<a href=\"%s\">%s</a><br />\n", location, serverFromLocation(location));
-            }
-            text = StringUtils.join(items, "");
-
-        } else {
-            logger.warn("No locations for URI: " + resourceURI);
-        }
-        return text;
-    }
-
-    /**
-     * Get short server string from full location.
-     */
-    @Deprecated
-    private static String serverFromLocation(String location) {
-        // get everything instead of the last item
-        String[] items = location.split("/");
-        String[] serverItems = Arrays.copyOfRange(items, 0, items.length-1);
-        String text = org.apache.commons.lang3.StringUtils.join(serverItems, "/");
-        return text;
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-    /** Create HTML and write to test file for fast
+    /**
+     * <main> : Testing the HTML creation
+     *
+     * Create HTML and write to test file for fast
      * development iterations.
      */
     public static void main(String[] args) throws Exception{
+        // resources for HTML
         SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
+        // where to write the tmp HTML
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/tmp";
+        // prepare miriam registry support
+        RegistryUtil.loadRegistry();
 
+        // Create the HTML for selected SBMLDocuments and SBases
 
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
         Model model = doc.getModel();

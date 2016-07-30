@@ -1062,6 +1062,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             AttributeUtil.set(network, cyObject, SBML.ATTR_METAID, sbase.getMetaId(), String.class);
         }
         // RDF attributes
+		// This creates Cytoscape attributes from the CV terms
         Properties props = AnnotationUtil.parseCVTerms(sbase);
         for(Object key : props.keySet()){
             String keyString = key.toString();
