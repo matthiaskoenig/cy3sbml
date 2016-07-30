@@ -33,7 +33,7 @@ public class IdObjectMap {
 	private Map<String, SBase> objectMap;
 	
 	public IdObjectMap(){
-		objectMap = new HashMap<String, SBase>(); 
+		objectMap = new HashMap<>();
 	}
 	
 	/** Register SBMLObjects for id lookup from SBMLDocument. */ 
@@ -49,7 +49,14 @@ public class IdObjectMap {
             ////////////////////////////////////////////////////////////////////////////
             // SBML CORE
             ////////////////////////////////////////////////////////////////////////////
-			Model model = document.getModel();
+
+            Model model;
+            if (document.isSetModel()) {
+                model = document.getModel();
+            } else {
+                // nothing to add
+                return;
+            }
 
             // FunctionDefinitions
             addListOf(model.getListOfFunctionDefinitions());

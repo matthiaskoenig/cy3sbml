@@ -46,6 +46,7 @@ public class SBaseHtmlThreadTest {
         assertNotNull(html);
     }
 
+    /* Currently no caching.
     private void preloadResource(String resource) throws Exception{
         SBMLDocument document = SBMLUtil.readSBMLDocument(resource);
         Model model = document.getModel();
@@ -87,6 +88,7 @@ public class SBaseHtmlThreadTest {
         // Second time should just lookup in cache
         SBaseHTMLThread.preload(doc);
     }
+    */
 
     public String createHTMLOutput(String resource) throws Exception{
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
@@ -102,6 +104,7 @@ public class SBaseHtmlThreadTest {
         String html = t1.getInfo();
         return html;
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
 
