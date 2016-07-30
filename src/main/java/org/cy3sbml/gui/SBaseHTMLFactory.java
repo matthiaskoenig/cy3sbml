@@ -459,7 +459,6 @@ public class SBaseHTMLFactory {
                             "\t%s <a href=\"%s\"> %s</a><br />\n",
                             (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
 
-
                     // OLS resource, we can query the term
                     if (RegistryUtil.isPhysicalLocationOLS(location)){
                         Term term = OLSObject.getTermFromIdentifier(identifier);
@@ -476,16 +475,23 @@ public class SBaseHTMLFactory {
                             text += String.format("%s<br />\n", term.getShortForm());
                             text += String.format("%s<br />\n", term.getSynonyms());
 
-                            // special information
-                            if (term.getOntologyName().equals("chebi")) {
-                                text += chebiHTML(identifier);
-                            }
-
                         } else {
                             logger.error("OLS term could not be fetched.");
                         }
                     }
                 }
+
+                // special information
+                if (dataType.getNamespace().equals("uniprot")) {
+                    text += uniprotHTML(identifier);
+                }
+
+                // special information
+                if (dataType.getNamespace().equals("chebi")) {
+                    text += chebiHTML(identifier);
+                }
+
+
 
 
             }
@@ -512,6 +518,22 @@ public class SBaseHTMLFactory {
         return text;
         // TODO: additional things like formula, net charge, average mass, ...
     }
+
+    /**
+     * Creates additional information for entry.
+     * Identifier of the form "P29218"
+     */
+    private static String uniprotHTML(String identifier){
+        // TODO: xml available for parsing
+        // http://www.uniprot.org/uniprot/P29218.xml
+
+        // names
+        // gene
+        // ec number
+        // organism
+        return "";
+    }
+
 
     /**
      * Create non-RDF annotation XML.
