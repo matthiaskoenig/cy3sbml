@@ -152,6 +152,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         logger.debug("buildCyNetworkView");
 
+        // TODO: set the style here
+        // String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
+        // setDefaultLayout()
+
+
         // Preload SBML WebService information
         SBaseHTMLThread.preload(document);
 
