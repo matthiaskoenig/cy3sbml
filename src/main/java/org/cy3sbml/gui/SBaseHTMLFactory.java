@@ -7,6 +7,7 @@ import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.ols.OLSObject;
 import org.cy3sbml.util.XMLUtil;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
@@ -23,6 +24,7 @@ import org.cy3sbml.util.SBMLUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 /** 
  * Creates HTML information for given SBase.
@@ -389,6 +391,9 @@ public class SBaseHTMLFactory {
 
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
+        // TODO: check if the SBO term is double, i.e. in RDF and SBO
+        // only display once
+
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
         if (cvterm.isModelQualifier()){
@@ -439,17 +444,15 @@ public class SBaseHTMLFactory {
 
                     // OLS resource, we can query the term
                     if (RegistryUtil.isPhysicalLocationOLS(location)){
-                        // TODO: get the definition from OLS & other infos
-                        String ontology = null;
-                        String term = null;
-                        String definition = "DEFINITION";
-
-                        text += String.format("\tURI: %s<br />\n", resourceURI);
-                        if (definition != null) {
-                            text += String.format("\t%s<br />\n", definition);
+                        Term term = OLSObject.getTermFromIdentifier(identifier);
+                        text += String.format("<span class=\"ontology\">%s</span> <b>%s</b><br />\n", term.getOntologyName(), term.getLabel());
+                        text += String.format("\t<a href=%s>%s</a><br />", term.getIri().getIdentifier(), term.getIri().getIdentifier());
+                        for (String description : term.getDescription()){
+                            text += String.format("\t%s<br />\n", description);
                         }
+                        text += String.format("%s<br />\n", term.getShortForm());
+                        text += String.format("%s<br />\n", term.getSynonyms());
                     }
-
                 }
 
 
