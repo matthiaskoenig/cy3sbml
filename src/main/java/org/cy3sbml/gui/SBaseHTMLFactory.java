@@ -68,9 +68,10 @@ public class SBaseHTMLFactory {
 			"</body>\n" +
 			"</html>\n";
 
-	private static final String TRUE_HTML = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
-	private static final String FALSE_HTML = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
-	private static final String NONE_HTML = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
+	private static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
+	private static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
+	private static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
+    private static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
 
     private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     private static final String TABLE_END = "</table>\n";
@@ -233,37 +234,37 @@ public class SBaseHTMLFactory {
 		// Compartment //
 		else if (item instanceof Compartment){
 			Compartment compartment = (Compartment) item;
-			String dimensions = (compartment.isSetSpatialDimensions()) ? ((Double) compartment.getSpatialDimensions()).toString() : NONE_HTML;
-			String size = (compartment.isSetSize()) ? ((Double)compartment.getSize()).toString() : NONE_HTML;
-			String units = (compartment.isSetUnits()) ? compartment.getUnits() : NONE_HTML;
-			String constant = (compartment.isSetConstant()) ? booleanHTML(compartment.getConstant()) : NONE_HTML;
+			String dimensions = (compartment.isSetSpatialDimensions()) ? ((Double) compartment.getSpatialDimensions()).toString() : ICON_NONE;
+			String size = (compartment.isSetSize()) ? ((Double)compartment.getSize()).toString() : ICON_NONE;
+			String units = (compartment.isSetUnits()) ? compartment.getUnits() : ICON_NONE;
+			String constant = (compartment.isSetConstant()) ? booleanHTML(compartment.getConstant()) : ICON_NONE;
 			return String.format(TEMPLATE_COMPARTMENT, dimensions, size, units, constant);
 		}
 
 		// Parameter //
 		else if (item instanceof Parameter){
 			Parameter p = (Parameter) item;
-			String value = (p.isSetValue()) ? ((Double) p.getValue()).toString() : NONE_HTML;
-			String units = (p.isSetUnits()) ? p.getUnits() : NONE_HTML;
-			String constant = (p.isSetConstant()) ? booleanHTML(p.getConstant()) : NONE_HTML;
+			String value = (p.isSetValue()) ? ((Double) p.getValue()).toString() : ICON_NONE;
+			String units = (p.isSetUnits()) ? p.getUnits() : ICON_NONE;
+			String constant = (p.isSetConstant()) ? booleanHTML(p.getConstant()) : ICON_NONE;
 			return String.format(TEMPLATE_PARAMETER, value, units, constant);
 		}
 
 		// InitialAssignment //
 		else if (item instanceof InitialAssignment){
 			InitialAssignment ass = (InitialAssignment) item;
-            String variable = (ass.isSetVariable()) ? ass.getVariable() : NONE_HTML;
-            String math = (ass.isSetMath()) ? ass.getMath().toFormula() : NONE_HTML;
+            String variable = (ass.isSetVariable()) ? ass.getVariable() : ICON_NONE;
+            String math = (ass.isSetMath()) ? ass.getMath().toFormula() : ICON_NONE;
             return String.format(TEMPLATE_INITIAL_ASSIGNMENT, variable, math);
 		}
 
 		// Rule //
 		else if (item instanceof Rule){
             Rule rule = (Rule) item;
-            String math = (rule.isSetMath()) ? rule.getMath().toFormula() : NONE_HTML;
+            String math = (rule.isSetMath()) ? rule.getMath().toFormula() : ICON_NONE;
             String variable = SBMLUtil.getVariableFromRule(rule);
             if (variable == null){
-                variable = NONE_HTML;
+                variable = ICON_NONE;
             }
             return String.format(TEMPLATE_RULE, variable, math);
 		}
@@ -271,19 +272,19 @@ public class SBaseHTMLFactory {
 		// LocalParameter //
 		else if (item instanceof LocalParameter){
 			LocalParameter lp = (LocalParameter) item;
-			String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : NONE_HTML;
-			String units = (lp.isSetUnits()) ? lp.getUnits() : NONE_HTML;
+			String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : ICON_NONE;
+			String units = (lp.isSetUnits()) ? lp.getUnits() : ICON_NONE;
 			return String.format(TEMPLATE_LOCAL_PARAMETER, value, units);
 		}
 		
 		// Species //
 		else if (item instanceof Species){
 			Species s = (Species) item;
-			String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : NONE_HTML;
-			String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : NONE_HTML;
+			String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : ICON_NONE;
+			String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : ICON_NONE;
             String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
-			String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : NONE_HTML;
-			String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : NONE_HTML;
+			String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : ICON_NONE;
+			String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : ICON_NONE;
 
             // TODO: charge & package information (formula, charge)
 
@@ -294,10 +295,10 @@ public class SBaseHTMLFactory {
 		else if (item instanceof Reaction){
 			Reaction r = (Reaction) item;
 
-			String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : NONE_HTML;
-			String reversible = (r.isSetReversible()) ? booleanHTML(r.getReversible()) : NONE_HTML;
-			String fast = (r.isSetFast()) ? booleanHTML(r.getFast()) : NONE_HTML;
-            String kineticLaw = NONE_HTML;
+			String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : ICON_NONE;
+			String reversible = (r.isSetReversible()) ? booleanHTML(r.getReversible()) : ICON_NONE;
+			String fast = (r.isSetFast()) ? booleanHTML(r.getFast()) : ICON_NONE;
+            String kineticLaw = ICON_NONE;
 			if (r.isSetKineticLaw()){
 				KineticLaw law = r.getKineticLaw();
 				if (law.isSetMath()){
@@ -319,7 +320,7 @@ public class SBaseHTMLFactory {
 		// KineticLaw
 		else if (item instanceof KineticLaw){
 			KineticLaw law = (KineticLaw) item;
-			String kineticLaw = (law.isSetMath()) ? law.getMath().toFormula() : NONE_HTML;
+			String kineticLaw = (law.isSetMath()) ? law.getMath().toFormula() : ICON_NONE;
 			return String.format(TEMPLATE_KINETIC_LAW, kineticLaw);
 		}
 		
@@ -327,10 +328,10 @@ public class SBaseHTMLFactory {
 		else if (item instanceof QualitativeSpecies){
 			QualitativeSpecies qs = (QualitativeSpecies) item;
 
-			String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : NONE_HTML;
-			String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : NONE_HTML;
-			String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : NONE_HTML;
-			String constant = (qs.isSetConstant()) ? booleanHTML(qs.getConstant()) : NONE_HTML;
+			String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : ICON_NONE;
+			String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : ICON_NONE;
+			String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : ICON_NONE;
+			String constant = (qs.isSetConstant()) ? booleanHTML(qs.getConstant()) : ICON_NONE;
 			return String.format(TEMPLATE_QUALITATIVE_SPECIES, compartment, initialLevel, maxLevel, constant);
 		}
 
@@ -347,17 +348,17 @@ public class SBaseHTMLFactory {
 		// FunctionDefinition //
 		else if (item instanceof FunctionDefinition){
 			FunctionDefinition fd = (FunctionDefinition) item;
-            String math = (fd.isSetMath()) ? fd.getMath().toFormula() : NONE_HTML;
+            String math = (fd.isSetMath()) ? fd.getMath().toFormula() : ICON_NONE;
 			return String.format(TEMPLATE_KINETIC_LAW, math);
 		}
 		
 		// comp:Port //
 		else if (item instanceof Port){
 			Port port = (Port) item;
-			String portRef = (port.isSetPortRef()) ? port.getPortRef() : NONE_HTML;
-			String idRef = (port.isSetIdRef()) ? port.getIdRef() : NONE_HTML;
-			String unitRef = (port.isSetUnitRef()) ? port.getUnitRef() : NONE_HTML;
-			String metaIdRef = (port.isSetMetaIdRef()) ? port.getMetaIdRef() : NONE_HTML;
+			String portRef = (port.isSetPortRef()) ? port.getPortRef() : ICON_NONE;
+			String idRef = (port.isSetIdRef()) ? port.getIdRef() : ICON_NONE;
+			String unitRef = (port.isSetUnitRef()) ? port.getUnitRef() : ICON_NONE;
+			String metaIdRef = (port.isSetMetaIdRef()) ? port.getMetaIdRef() : ICON_NONE;
 			return String.format(TEMPLATE_PORT, portRef, idRef, unitRef, metaIdRef);
 		}
 		return "";
@@ -433,7 +434,7 @@ public class SBaseHTMLFactory {
                     }
                     text += String.format(
                             "\t%s <a href=\"%s\"> %s</a><br />\n",
-                            (primary == true) ? TRUE_HTML : NONE_HTML, url, info);
+                            (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
 
 
                     // OLS resource, we can query the term
@@ -443,8 +444,9 @@ public class SBaseHTMLFactory {
                         String term = null;
                         String definition = "DEFINITION";
 
+                        text += String.format("\tURI: %s<br />\n", resourceURI);
                         if (definition != null) {
-                            text += String.format("\t%s\n", definition);
+                            text += String.format("\t%s<br />\n", definition);
                         }
                     }
 
@@ -525,12 +527,12 @@ public class SBaseHTMLFactory {
 
     /** Creates true or false HTML depending on boolean. */
     private static String booleanHTML(boolean b){
-        return (b == true) ? TRUE_HTML : FALSE_HTML;
+        return (b == true) ? ICON_TRUE : ICON_FALSE;
     }
 
     /** Derived unit string. */
     private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
-        String units = NONE_HTML;
+        String units = ICON_NONE;
         UnitDefinition udef = usbase.getDerivedUnitDefinition();
         if (udef != null){
             units = udef.toString();

@@ -18,7 +18,7 @@ table {
 }
 
 .collection{
-    background-color: #cc53ce;
+    background-color: #000000;
     padding:2px;
     padding-right:4px;
     color: white;
@@ -37,6 +37,10 @@ table {
     display: inline-block;
     margin-right: 4px;
     vertical-align: middle;
+}
+
+.icon-invisible {
+    visibility: hidden;
 }
 
 .term{
