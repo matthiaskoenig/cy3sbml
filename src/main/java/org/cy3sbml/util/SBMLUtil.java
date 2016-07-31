@@ -4,6 +4,8 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.sbml.jsbml.*;
@@ -50,7 +52,7 @@ public class SBMLUtil {
                 XMLUtil.cleanEmptyTextNodes(doc);
 
                 // part of nodes which are of interest
-                Set<Node> nodes = new HashSet<>();
+                List<Node> nodes = new LinkedList<>();
 
                 // interested in children of notes element
                 NodeList nodeList = doc.getElementsByTagName("notes");
