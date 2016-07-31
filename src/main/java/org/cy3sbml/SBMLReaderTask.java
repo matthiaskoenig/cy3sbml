@@ -187,10 +187,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         CyNetworkView view = viewFactory.createNetworkView(network);
 
         // Set style
-        String styleName = (String) cy3sbmlProperties.getProperties().get(SBML.PROPERTY_VISUAL_STYLE);
-        VisualStyle style = SBMLStyleManager.getVisualStyleByName(visualMappingManager, styleName);
-        if(style != null){
-            visualMappingManager.setVisualStyle(style, view);
+        // VisualMappingManager only available in OSGI context
+        if (visualMappingManager != null) {
+            String styleName = (String) cy3sbmlProperties.getProperties().get(SBML.PROPERTY_VISUAL_STYLE);
+            VisualStyle style = SBMLStyleManager.getVisualStyleByName(visualMappingManager, styleName);
+            if (style != null) {
+                visualMappingManager.setVisualStyle(style, view);
+            }
         }
 
         return view;

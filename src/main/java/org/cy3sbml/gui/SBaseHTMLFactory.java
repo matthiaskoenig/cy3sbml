@@ -65,7 +65,7 @@ public class SBaseHTMLFactory {
 	private static final String HTML_STOP_TEMPLATE =
 			"</div>\n" +
 			"<script src=\"./js/jquery.min.js\"></script>\n" +
-			"<script src=\"./js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>\n" +
+			"<script src=\"./js/bootstrap.min.js\"></script>\n" +
 			"</body>\n" +
 			"</html>\n";
 
