@@ -138,6 +138,12 @@ public class Browser extends Region {
                     return true;
                 }
 
+                // HTML info
+                if (s.equals(GUIConstants.URL_HTMLFILE)){
+                    GUIUtil.openCurrentHTMLInBrowser(openBrowser);
+                    return true;
+                }
+
                 // HTML links
                 openURLinExternalBrowser(s);
                 return true;

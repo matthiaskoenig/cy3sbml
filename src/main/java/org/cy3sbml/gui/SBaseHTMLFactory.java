@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import javax.xml.stream.XMLStreamException;
@@ -8,7 +9,9 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
+import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.XMLUtil;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -55,6 +58,7 @@ public class SBaseHTMLFactory {
 			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
 			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
 			"\t<title>cy3sbml</title>\n" +
+            "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
             "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
@@ -73,6 +77,8 @@ public class SBaseHTMLFactory {
 	private static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
 	private static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
     private static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
+
+    public static final String EXPORT_HTML = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
 
     private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     private static final String TABLE_END = "</table>\n";
@@ -205,13 +211,12 @@ public class SBaseHTMLFactory {
 	 * Displays class information, in addition id and name if existing.
 	 */
 	private static String createHeader(SBase item){
-	    String export = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
 		String className = SBMLUtil.getUnqualifiedClassName(item);
-		String header = String.format("<h2>%s%s</h2>\n", export, className);
+		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
 		// if NamedSBase get additional information
 		if (NamedSBase.class.isAssignableFrom(item.getClass())){
 			NamedSBase nsb = (NamedSBase) item;
-            header = String.format("<h2>%s%s <small>%s</small></h2>\n", export, className, nsb.getId());
+            header = String.format("<h2>%s%s <small>%s</small></h2>\n", EXPORT_HTML, className, nsb.getId());
 		}
 		return header; 
 	}

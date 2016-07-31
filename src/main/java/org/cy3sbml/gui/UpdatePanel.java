@@ -3,13 +3,14 @@ package org.cy3sbml.gui;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cy3sbml.SBMLManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
+
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
+import org.cy3sbml.SBMLManager;
 
 /**
  * Updates the Panel information based on selection.

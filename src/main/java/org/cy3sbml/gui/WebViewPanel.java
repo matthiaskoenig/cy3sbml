@@ -1,6 +1,5 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.*;
@@ -56,6 +55,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
     private CytoPanel cytoPanelEast;
 	private Browser browser;
 	private long lastInformationThreadId = -1;
+    private String html;
 
 
 	/** Singleton. */
@@ -104,6 +104,8 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
     public ServiceAdapter getAdapter() {
         return adapter;
     }
+    public String getHtml() { return html; }
+
 
 	@Override
 	public CytoPanelName getCytoPanelName() {
@@ -183,6 +185,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	/** Set text. */
 	@Override
 	public void setText(String text){
+	    html = text;
 		// Necessary to use invokeLater to handle the Swing GUI update
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
