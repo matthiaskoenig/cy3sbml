@@ -28,7 +28,13 @@ public class UpdatePanel implements Runnable {
             "<p>Loading a SBML file will associate the respective SBML with the " +
             "CyNetwork and all CySubNetworks.</p>");
 
-	private SBMLPanel panel;
+    private static final String TEMPLATE_LOAD_WEBSERVICE = SBaseHTMLFactory.createHTMLText(
+            "<h2>Web Services</h2>" +
+            "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n" +
+            "Loading information from WebServices ...</p>");
+
+
+    private SBMLPanel panel;
 	private CyNetwork network;
 
     public UpdatePanel(SBMLPanel panel, CyNetwork network) {
@@ -58,6 +64,7 @@ public class UpdatePanel implements Runnable {
                 String key = objectIds.get(0);
                 SBase sbase = sbmlManager.getSBaseById(key);
                 if (sbase != null){
+                    panel.setText(TEMPLATE_LOAD_WEBSERVICE);
                     panel.showSBaseInfo(sbase);
                 } else {
                     panel.setText(TEMPLATE_NO_NODE);
@@ -71,5 +78,4 @@ public class UpdatePanel implements Runnable {
         }
     }
 
-    
 }

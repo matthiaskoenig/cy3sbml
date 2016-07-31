@@ -192,6 +192,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		});
 	}
 
+
 	/**
 	 * Update Text in the navigation panel.
 	 * Only updates information if the current thread is the last requested thread
@@ -219,7 +220,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 	 */
 	@Override
 	public void showSBaseInfo(Set<Object> objSet) {
-		this.setText(SBaseHTMLFactory.createHTMLText("<p>Retrieving information via WebServices ...</p>"));
 		// starting threads for webservice calls
 		SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
 		lastInformationThreadId = thread.getId();

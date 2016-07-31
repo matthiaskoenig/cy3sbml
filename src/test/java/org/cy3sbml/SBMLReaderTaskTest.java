@@ -39,7 +39,6 @@ public class SBMLReaderTaskTest {
         readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, networkViewFactory, null, null);
     }
 
-
     @Test
     public void getError() throws Exception {
         readerTask.run(taskMonitor);
