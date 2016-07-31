@@ -36,7 +36,7 @@ public class SBMLReaderTaskTest {
         String fileName = tokens[tokens.length-1];
         CyNetwork[] networks;
 
-        readerTask = new SBMLReaderTask(instream, fileName, networkFactory, networkViewFactory, null);
+        readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
     }
 
 

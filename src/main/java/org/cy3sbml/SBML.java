@@ -210,6 +210,15 @@ public class SBML {
         SBO_INHIBITORS = Collections.unmodifiableSet(iSet);
     }
 
+    // -------------------------------------------------------------------------
+    // Default Layout
+    // -------------------------------------------------------------------------
+    public static final String SBML_LAYOUT = "force-directed";
+
+    // -------------------------------------------------------------------------
+    // cy3sbml properties
+    // -------------------------------------------------------------------------
+    public static final String PROPERTY_VISUAL_STYLE = "cy3sbml.visualStyle";
 
 
     private SBML() {};

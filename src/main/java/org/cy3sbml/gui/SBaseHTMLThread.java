@@ -77,40 +77,5 @@ public class SBaseHTMLThread extends Thread{
 
     	}
     }
-        
-	/**
-     * Creates SBase information for given Document and stores in cache.
-     * Currently only subset of information is cached.
-     * TODO: refactor to cache costly information.
-	 */
-	@Deprecated
-	public static void preload(SBMLDocument document){
-		Model model = document.getModel();
-		logger.debug("Preload <compartments>");
-		preloadListOf(model.getListOfCompartments());
-		logger.debug("Preload <species>");
-		preloadListOf(model.getListOfSpecies());
-		logger.debug("Preload <reactions>");
-		preloadListOf(model.getListOfReactions());
-		
-		QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-		if (qModel != null){
-			logger.debug("Preload <qualitativeSpecies>");
-			preloadListOf(qModel.getListOfQualitativeSpecies());
-			logger.debug("Preload <transitions>");
-			preloadListOf(qModel.getListOfTransitions());
-		}
-	}
 
-	/**
-	 * Preload all the information.
-     */
-	private static void preloadListOf(@SuppressWarnings("rawtypes") ListOf list){
-		Set<Object> nsbSet = new HashSet<>();
-		for (Object nsb: list){
-			nsbSet.add(nsb);
-		}
-		SBaseHTMLThread thread = new SBaseHTMLThread(nsbSet, null);
-		thread.start();
-	}
 }

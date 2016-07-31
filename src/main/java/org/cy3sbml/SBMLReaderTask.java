@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.cy3sbml.util.*;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
@@ -18,9 +17,11 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.property.CyProperty;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
-import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 
@@ -85,13 +86,15 @@ import org.sbml.jsbml.ext.layout.LayoutConstants;
 import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
 import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 
+
+import org.cy3sbml.util.*;
 import org.cy3sbml.layout.LayoutPreprocessor;
 import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.gui.SBaseHTMLThread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * The SBMLReaderTask creates CyNetworks from SBMLDocuments.
@@ -107,7 +110,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
-	private final CyNetworkViewManager viewManager;
+    private final VisualMappingManager visualMappingManager;
+	private final CyProperty<Properties> cy3sbmlProperties;
+
 	private SBMLDocument document;
 
 	private CyNetwork network;       // global network of all SBML information
@@ -118,16 +123,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private Boolean error = false;
 
 	/** Constructor */
-	public SBMLReaderTask(InputStream stream, String fileName, CyNetworkFactory networkFactory, 
-			CyNetworkViewFactory viewFactory,
-			CyNetworkViewManager viewManager) {
+	public SBMLReaderTask(InputStream stream, String fileName,
+                          CyNetworkFactory networkFactory,
+						  CyNetworkViewFactory viewFactory,
+                          VisualMappingManager visualMappingManager,
+                          CyProperty<Properties> cy3sbmlProperties) {
 		
 		this.stream = stream;
+		this.fileName = fileName;
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
-		this.viewManager = viewManager;
-		this.fileName = fileName;
+        this.visualMappingManager = visualMappingManager;
+		this.cy3sbmlProperties = cy3sbmlProperties;
 	}
+
+	/** Testing constructor. */
+	public SBMLReaderTask (InputStream stream, String fileName, CyNetworkFactory networkFactory){
+	    this(stream, fileName, networkFactory, null, null, null);
+    }
+
 
     /** Returns the error status for unit testing. */
     public Boolean getError(){
@@ -152,14 +166,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         logger.debug("buildCyNetworkView");
 
-        // TODO: set the style here
-        // String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
-        // setDefaultLayout()
-
-
-        // Preload SBML WebService information
-        SBaseHTMLThread.preload(document);
-
         // Set SBML in SBMLManager
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
@@ -177,11 +183,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             logger.warn("No mapping found for SBML network.");
         }
 
-        // Create the view
+        // Create view
         CyNetworkView view = viewFactory.createNetworkView(network);
 
-        logger.debug("network: " + network.toString());
-        logger.debug("view: " + view.toString());
+        // Set style
+        String styleName = (String) cy3sbmlProperties.getProperties().get(SBML.PROPERTY_VISUAL_STYLE);
+        VisualStyle style = SBMLStyleManager.getVisualStyleByName(visualMappingManager, styleName);
+        if(style != null){
+            visualMappingManager.setVisualStyle(style, view);
+        }
+
         return view;
     }
 

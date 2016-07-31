@@ -15,17 +15,17 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cy3sbml.util.IOUtil;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
+
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.stream.XMLStreamException;
 
 /**
  * Helper functions to test SBML models.
@@ -104,7 +104,7 @@ public class TestUtils {
 	 * and is not in the skip set.
 	 */
 	public static LinkedList<String> findFiles(String path, String extension, String filter, HashSet<String> skip){
-		LinkedList<String> fileList = new LinkedList<String>();
+		LinkedList<String> fileList = new LinkedList<>();
 		
         File root = new File(path);
         File[] list = root.listFiles();
@@ -113,7 +113,7 @@ public class TestUtils {
         	return fileList;
         }
         if (skip == null){
-        	skip = new HashSet<String>();
+        	skip = new HashSet<>();
         }
 
         for (File f : list) {
@@ -144,8 +144,6 @@ public class TestUtils {
 		return findFiles(path, extension, null, null);
 	}
 
-
-
 	/**
 	 * Read the CyNetworks from given SBML file resource.
      */
@@ -163,7 +161,8 @@ public class TestUtils {
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, networkViewFactory, null);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 		} catch (Throwable t){
@@ -213,7 +212,7 @@ public class TestUtils {
 		try {
 			// Reader can be tested without service adapter
 			// calls networkFactory.createNetwork()
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
 			readerTask.run(taskMonitor);
 			networks = readerTask.getNetworks();
 			assertFalse(readerTask.getError());
