@@ -379,6 +379,13 @@
             <version>2.7.3</version>
         </dependency>
 
+		<!-- UniProt -->
+		<dependency>
+			<groupId>uk.ac.ebi.uniprot</groupId>
+			<artifactId>japi</artifactId>
+			<version>1.0.7</version>
+		</dependency>
+
     	<!-- Logging -->		 
 		<dependency>
 			<groupId>org.slf4j</groupId>

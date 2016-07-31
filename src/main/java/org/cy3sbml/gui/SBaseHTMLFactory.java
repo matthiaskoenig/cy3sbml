@@ -9,6 +9,7 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -27,6 +28,13 @@ import org.cy3sbml.util.SBMLUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.ebi.kraken.interfaces.uniprot.*;
+import uk.ac.ebi.kraken.interfaces.uniprot.comments.Comment;
+import uk.ac.ebi.kraken.interfaces.uniprot.comments.CommentText;
+import uk.ac.ebi.kraken.interfaces.uniprot.comments.CommentType;
+import uk.ac.ebi.kraken.interfaces.uniprot.comments.FunctionComment;
+import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
+import uk.ac.ebi.kraken.interfaces.uniprot.evidences.Evidence;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 /** 
@@ -528,15 +536,54 @@ public class SBaseHTMLFactory {
      * Creates additional information for entry.
      * Identifier of the form "P29218"
      */
-    private static String uniprotHTML(String identifier){
-        // TODO: xml available for parsing
-        // http://www.uniprot.org/uniprot/P29218.xml
+    private static String uniprotHTML(String accession){
+        String text = "";
+        UniProtEntry entry = UniprotAccess.getEntryByAccession(accession);
+        if (entry != null) {
+            // id
+            String uniProtId = entry.getUniProtId().toString();
+            text += String.format(
+                    "<b>%s</b>", uniProtId);
 
-        // names
-        // gene
-        // ec number
-        // organism
-        return "";
+            // description
+            ProteinDescription description = entry.getProteinDescription();
+            description.getEcNumbers();
+            Name name = description.getRecommendedName();
+            text += String.format(
+                    "<b>%s</b>", name);
+            for (Name n: description.getAlternativeNames()){
+                text += String.format(
+                        "<b>%s</b>", n);
+            }
+            //TODO
+            List<Evidence> evidences = entry.getEvidences();
+
+            // function
+            for (Comment comment : entry.getComments()){
+                if (comment.getCommentType().equals(CommentType.FUNCTION)){
+                    FunctionComment fComment = (FunctionComment) comment;
+                    for (CommentText commentText : fComment.getTexts()) {
+                        text += String.format("<p>Function: %s</p>", commentText.getValue());
+                    }
+                }
+            }
+
+            // genes
+            for (Gene gene : entry.getGenes()){
+                // TODO: gene name synonyms
+                text += String.format("Gene: <%s><br />", gene.getGeneName());
+            }
+
+            // organism
+            Organism organism = entry.getOrganism();
+            text += String.format("Organism: <%s>", organism.getScientificName());
+            if (organism.hasCommonName()){
+                text += String.format(" (%s)", organism.getCommonName());
+            }
+            text += "<br />\n";
+
+        }
+        return text;
     }
 
 
