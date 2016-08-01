@@ -54,6 +54,11 @@ table {
     vertical-align: middle;
 }
 
+.cvterm{
+    border-radius: 25px;
+    background: #f9f9f9;
+    padding: 10px;
+}
 
 
 .qualifier{

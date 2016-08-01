@@ -203,7 +203,7 @@ public class SBaseHTMLFactory {
         html = String.format(HTML_START_TEMPLATE, baseDir);
 		html += createHeader(sbase);
         html += createSBase(sbase);
-        html += createSBO(sbase);
+
         html += createCVTerms(sbase);
 
         // TODO: implement
@@ -231,6 +231,7 @@ public class SBaseHTMLFactory {
 
 	/** 
 	 * Creation of class specific attribute information.
+     * TODO: read the missing information, i.e. all fields
 	 */
 	private static String createSBase(SBase item){
 
@@ -379,19 +380,34 @@ public class SBaseHTMLFactory {
 	}
 
 
-    /** Creates SBO HTML. */
-    private static String createSBO(SBase item){
-        if (item.isSetSBOTerm()){
-            String sboTermId = item.getSBOTermID();
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
-            return createCVTerm(term) + "<hr />\n";
-        }
-        return "";
-    }
+
 
     /** Create HTML for CVTerms. */
     private static String createCVTerms(SBase sbase){
         List<CVTerm> cvterms = sbase.getCVTerms();
+
+        // add the SBO term to the annotations if not existing already
+        if (sbase.isSetSBOTerm()){
+            String sboTermId = sbase.getSBOTermID();
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
+            // createCVTerm(term) + "<hr />\n";
+
+            Boolean termExists = false;
+            outerloop:
+            for (CVTerm t : cvterms){
+                for (String uri: t.getResources()){
+                    if (uri.endsWith(sboTermId)){
+                        termExists = true;
+                        break outerloop;
+                    }
+                }
+            }
+            if (!termExists) {
+                cvterms.add(0, term);
+            }
+        }
+
+        // Create all the cvterms
         String text = "";
         if (cvterms.size() > 0){
             for (CVTerm term : cvterms){
@@ -401,11 +417,12 @@ public class SBaseHTMLFactory {
         return text;
     }
 
+
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
-        // TODO: check if the SBO term is double, i.e. in RDF and SBO only display once
+
         // TODO: link to primary resource via id
-        // TODO: put OLS description on top
+        // TODO: OLS description on top
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -414,9 +431,11 @@ public class SBaseHTMLFactory {
         } else if (cvterm.isBiologicalQualifier()){
             bmQualifierType = cvterm.getBiologicalQualifierType();
         }
-        String text = "<p>\n";
+
+        String text = "";
 
         String qualifierHTML = String.format(
+                "<p class=\"cvterm\">\n" +
                 "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
                 cvterm.getQualifierType(), bmQualifierType);
 
@@ -426,6 +445,10 @@ public class SBaseHTMLFactory {
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             DataType dataType = RegistryUtilities.getDataType(dataCollection);
+
+            String identifierHTML = String.format(
+                    "<span class=\"identifier\" title=\"identifier\">%s</span>",
+                    identifier);
 
             // check that identifier is correct for given datatype
             if (dataType != null){
@@ -438,11 +461,10 @@ public class SBaseHTMLFactory {
             }
 
             // not possible to resolve dataType from MIRIAM registry
+
             if (dataType == null){
                 logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
-                text += qualifierHTML + String.format(
-                        "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
-                        identifier);
+                text += qualifierHTML + identifierHTML + "<br />\n";
                 text += String.format(
                         "\t%s <a href=\"%s\"> %s</a><br />\n",
                         ICON_INVISIBLE, resourceURI, resourceURI);
@@ -451,11 +473,14 @@ public class SBaseHTMLFactory {
             if (dataType != null){
                 text += qualifierHTML + String.format(
                         "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>\n" +
-                                "\t<span class=\"identifier\" title=\"identifier\">%s</span><br/>\n",
+                        "\t%s<br/>\n",
                         dataType.getURL(), dataType.getName(),
-                        identifier);
+                        identifierHTML);
+
+                // TODO: create OLS resource for physical location if existing
 
 
+                // TODO: create all other
                 for (PhysicalLocation location: dataType.getPhysicalLocations()){
                     if (location.isObsolete()){
                         continue;
@@ -473,6 +498,7 @@ public class SBaseHTMLFactory {
                             (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
 
                     // OLS resource, we can query the term
+
                     if (RegistryUtil.isPhysicalLocationOLS(location)){
                         Term term = OLSObject.getTermFromIdentifier(identifier);
                         if (term != null) {
@@ -492,6 +518,7 @@ public class SBaseHTMLFactory {
                             logger.error("OLS term could not be fetched.");
                         }
                     }
+
                 }
 
                 // special information
@@ -503,13 +530,9 @@ public class SBaseHTMLFactory {
                 if (dataType.getNamespace().equals("chebi")) {
                     text += chebiHTML(identifier);
                 }
-
-
-
-
             }
+            text += "</p>\n";
         }
-        text += "</p>\n";
         return text;
     }
 
