@@ -544,15 +544,15 @@ public class SBaseHTMLFactory {
                     "%s%s%s",
                     location.getUrlPrefix(), identifier, location.getUrlSuffix());
             html += String.format(
-                    "<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
+                    "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
                     purlURL, purlURL);
 
             String [] synonyms = term.getSynonyms();
             if (synonyms != null && synonyms.length > 0) {
-                html += "\t<em>Synonyms</em>: ";
+                html += "\t<span class=\"item\">Synonyms</span> ";
                 for (String syn: synonyms) {
-                    html += String.format("%s, ", syn);
+                    html += String.format("%s; ", syn);
                 }
                 html += "<br />\n";
             }
@@ -564,13 +564,11 @@ public class SBaseHTMLFactory {
                 }
             }
 
-            // TODO: other information from ontology
-
             html += "\t<br />";
 
         } else {
             logger.error("OLS term could not be fetched.");
-            // TODO: alternative information if not fetchable
+            createNonOLSLocation(location, identifier);
         }
         return html;
     }

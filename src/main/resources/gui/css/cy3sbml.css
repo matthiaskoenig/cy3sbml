@@ -57,6 +57,16 @@ table {
     margin-right: 4px;
     vertical-align: middle;
 }
+.item{
+    background-color: gray;
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
 
 .cvterm{
     border-radius: 25px;
