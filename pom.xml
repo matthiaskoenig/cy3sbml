@@ -20,33 +20,28 @@
 
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
-	<packaging>bundle</packaging>
-	<version>0.2.2</version>
+    <version>0.2.2</version>
+    <packaging>bundle</packaging>
+
 	<name>cy3sbml</name>
 	<description>A Cytoscape app for SBML.</description>
+    <url>https://github.com/matthiaskoenig/cy3sbml</url>
+
 
 	<repositories>
 		<repository>
 			<id>cytoscape_snapshots</id>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<name>Cytoscape Snapshots</name>
-			<url>http://code.cytoscape.org/nexus/content/repositories/snapshots/</url>
+            <name>Cytoscape Snapshots</name>
+            <url>http://code.cytoscape.org/nexus/content/repositories/snapshots/</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
 		</repository>
 		<repository>
 			<id>cytoscape_releases</id>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<name>Cytoscape Releases</name>
-			<url>http://code.cytoscape.org/nexus/content/repositories/releases/</url>
+            <name>Cytoscape Releases</name>
+            <url>http://code.cytoscape.org/nexus/content/repositories/releases/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
 		</repository>
 		
 		<repository>
@@ -54,13 +49,7 @@
 			<name>Maven central repository</name>
 			<url>http://repo.maven.apache.org/maven2/</url>
 		</repository>  
-		
-    	<repository>
-			<id>biojava-maven-repo</id>
-			<name>BioJava repository</name>
-			<url>https://github.com/biojava/maven-repo/raw/master/</url>			
-		</repository>
-		
+
 		<repository>
     		<id>ebi-repo</id>
     		<name>The EBI internal repository</name>
@@ -68,6 +57,12 @@
     		<releases><enabled>true</enabled></releases>
     		<snapshots><enabled>false</enabled></snapshots>
     	</repository>
+
+        <repository>
+            <id>EBI SNAPSHOT</id>
+            <name>EBI Snapshot repository</name>
+            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
+        </repository>
 
 		<repository>
     		<id>in-project</id>
@@ -82,17 +77,10 @@
     	</repository>
 
         <repository>
-            <id>EBI SNAPSHOT</id>
-            <name>EBI Snapshot repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
-        </repository>
-
-        <repository>
             <id>JSBML SNAPSHOT</id>
             <name>The JSBML repository</name>
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
         </repository>
-
     </repositories>
 
 	<build>
@@ -175,7 +163,6 @@
 	</build>
 
 	<dependencies>
-
 		<!-- Cytoscape 3 dependency -->
 		<dependency>
 			<groupId>org.cytoscape</groupId>
@@ -291,22 +278,7 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
-		<dependency>
-   			<groupId>uk.ac.ebi.miriam</groupId>
-   			<artifactId>miriam-lib</artifactId>
-   			<version>1.1.6</version>
-   		</dependency>
-		<dependency>
-   			<groupId>uk.ac.ebi.biomodels</groupId>
-   			<artifactId>biomodels-wslib</artifactId>
-   			<version>1.21</version>
-   			<exclusions>
-			      <exclusion> 
-			        <groupId>log4j</groupId>
-			        <artifactId>log4j</artifactId>
-			      </exclusion>
-		    </exclusions> 
-    	</dependency>
+
 
 		<!--  UniRest -->
 		<dependency>
@@ -342,11 +314,29 @@
 			<version>0.3.0</version>
 		</dependency>
 
-        <!-- Registry -->
+        <!-- MIRIAM Registry -->
         <dependency>
             <groupId>org.identifiers</groupId>
             <artifactId>registry-lib</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.ac.ebi.miriam</groupId>
+            <artifactId>miriam-lib</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+
+        <!-- BioModels -->
+        <dependency>
+            <groupId>uk.ac.ebi.biomodels</groupId>
+            <artifactId>biomodels-wslib</artifactId>
+            <version>1.21</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 		<!-- OLS -->
@@ -385,6 +375,24 @@
 			<artifactId>japi</artifactId>
 			<version>1.0.7</version>
 		</dependency>
+
+		<!-- ChEBI-->
+        <!-- This is not working due to error:
+        Classes found in the wrong directory
+        # see https://stackoverflow.com/questions/37616903/error-trying-to-osgi-wrap-embed-jaxb-xjc-with-maven-bundle-plugin-bnd
+        -->
+		<dependency>
+			<groupId>uk.ac.ebi.chebi.webapps.chebiWS.client</groupId>
+			<artifactId>chebiWS-client</artifactId>
+			<version>2.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>jaxws-tools</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
 
     	<!-- Logging -->		 
 		<dependency>
