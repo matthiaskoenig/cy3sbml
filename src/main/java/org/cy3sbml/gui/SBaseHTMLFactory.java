@@ -6,6 +6,7 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
+import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
 import org.cy3sbml.uniprot.UniprotAccess;
@@ -30,6 +31,7 @@ import uk.ac.ebi.kraken.interfaces.uniprot.comments.Comment;
 import uk.ac.ebi.kraken.interfaces.uniprot.comments.CommentText;
 import uk.ac.ebi.kraken.interfaces.uniprot.comments.CommentType;
 import uk.ac.ebi.kraken.interfaces.uniprot.comments.FunctionComment;
+import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
 import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
 import uk.ac.ebi.kraken.interfaces.uniprot.evidences.Evidence;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
@@ -608,9 +610,32 @@ public class SBaseHTMLFactory {
         String imageLink = String.format(
                 "http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:%s",
                 tokens[1]);
-        text += String.format("<a href=\"%s\"><img src=\"%s\" /></a><br />", imageLink, imageSource);
+
+        // Resolve additional webservice information
+        // FIXME: this is not working in OSGI bundle
+        /*
+        Entity entity = ChebiAccess.getEntityByAccession(identifier);
+        String info = "";
+        if (entity != null){
+            String formula = "";
+            List<DataItem> items = entity.getFormulae();
+            if (items != null && items.size() > 0){
+                formula = items.get(0).getData();
+            }
+            info = String.format(
+                    TABLE_START +
+                    TS + "Formula" + TM + "%s" + TE +
+                    TS + "Charge" + TM + "%s" + TE +
+                    TS + "Mass" + TM + "%s" + TE +
+                    TABLE_END,
+                    formula, entity.getCharge(), entity.getMass());
+        }
+        */
+
+        text += String.format(
+                "<a href=\"%s\"><img src=\"%s\" /></a><br />\n",
+                imageLink, imageSource);
         return text;
-        // TODO: additional things like formula, net charge, average mass, ...
     }
 
     /**
@@ -618,50 +643,62 @@ public class SBaseHTMLFactory {
      * Identifier of the form "P29218"
      */
     private static String uniprotHTML(String accession){
-        String text = "";
+        String text = "\t<br />";
         UniProtEntry entry = UniprotAccess.getEntryByAccession(accession);
         if (entry != null) {
             // id
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(
-                    "<b>%s</b>", uniProtId);
+                    "<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />", accession, accession, uniProtId);
 
             // description
             ProteinDescription description = entry.getProteinDescription();
-            description.getEcNumbers();
+
+            // Names (Full, Short, EC, AltName)
             Name name = description.getRecommendedName();
-            text += String.format(
-                    "<b>%s</b>", name);
+            List<Field> fields = name.getFields();
+            for (Field field: fields){
+                text += String.format(
+                    "<b>%s</b>: %s<br />",
+                    field.getType().getValue(), field.getValue());
+            }
+
+            // alternative names
+            /*
             for (Name n: description.getAlternativeNames()){
                 text += String.format(
                         "<b>%s</b>", n);
             }
-            //TODO
-            List<Evidence> evidences = entry.getEvidences();
+            */
+
+            // organism
+            Organism organism = entry.getOrganism();
+            String organismStr = organism.getScientificName().toString();
+            if (organism.hasCommonName()){
+                organismStr += String.format(" (%s)", organism.getCommonName());
+            }
+            text += String.format(
+                    "<b>Organism</b>: %s<br />",
+                    organismStr);
+
+            // genes
+            // TODO: gene name synonyms
+
+            for (Gene gene : entry.getGenes()){
+                text += String.format("Gene: <%s><br />", gene.getGeneName());
+            }
+            
+            text += TABLE_END;
 
             // function
             for (Comment comment : entry.getComments()){
                 if (comment.getCommentType().equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("<p>Function: %s</p>", commentText.getValue());
+                        text += String.format("<span class=\"item\">Function</span> %s<br />", commentText.getValue());
                     }
                 }
             }
-
-            // genes
-            for (Gene gene : entry.getGenes()){
-                // TODO: gene name synonyms
-                text += String.format("Gene: <%s><br />", gene.getGeneName());
-            }
-
-            // organism
-            Organism organism = entry.getOrganism();
-            text += String.format("Organism: <%s>", organism.getScientificName());
-            if (organism.hasCommonName()){
-                text += String.format(" (%s)", organism.getCommonName());
-            }
-            text += "<br />\n";
 
         }
         return text;
@@ -773,6 +810,7 @@ public class SBaseHTMLFactory {
         Object object = model;
 
         object = model.getListOfSpecies().get("c__gal");
+        object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
