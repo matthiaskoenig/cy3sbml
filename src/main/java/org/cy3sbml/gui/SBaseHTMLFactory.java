@@ -47,7 +47,6 @@ import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
  * on selection of SBML objects in the graph.
  *
  * TODO: refactor SBML HTML information completely
-
  */
 public class SBaseHTMLFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
@@ -65,7 +64,7 @@ public class SBaseHTMLFactory {
 			"\t<meta charset=\"utf-8\">\n" +
 			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
 			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-			"\t<title>cy3sbml</title>\n" +
+			"\t<title>%s</title>\n" +
             "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
 			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
             "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
@@ -188,11 +187,16 @@ public class SBaseHTMLFactory {
     }
 
 
+
+    public static String createHTMLText(String text){
+        return createHTMLText(text, "cy3sbml");
+    }
+
     /**
      * Creates HTML for given text String.
      */
-	public static String createHTMLText(String text){
-        return String.format(HTML_START_TEMPLATE, baseDir) + text + HTML_STOP_TEMPLATE;
+	public static String createHTMLText(String text, String title){
+        return String.format(HTML_START_TEMPLATE, baseDir, title) + text + HTML_STOP_TEMPLATE;
     }
 
 	/** Parse and create information for the current sbmlObject. */
@@ -200,7 +204,18 @@ public class SBaseHTMLFactory {
 		if (sbase == null){
 			return;
 		}
-        html = String.format(HTML_START_TEMPLATE, baseDir);
+        // title from class and id
+        String id = "";
+        if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
+            NamedSBase nsb = (NamedSBase) sbase;
+            if (nsb.isSetId()){
+                id = nsb.getId();
+            }
+        }
+		String title = String.format(
+		        "%s %s", id, SBMLUtil.getUnqualifiedClassName(sbase));
+
+        html = String.format(HTML_START_TEMPLATE, baseDir, title);
 		html += createHeader(sbase);
         html += createSBase(sbase);
 
@@ -218,12 +233,12 @@ public class SBaseHTMLFactory {
 	 * Creates header HTML.
 	 * Displays class information, in addition id and name if existing.
 	 */
-	private static String createHeader(SBase item){
-		String className = SBMLUtil.getUnqualifiedClassName(item);
+	private static String createHeader(SBase sbase){
+		String className = SBMLUtil.getUnqualifiedClassName(sbase);
 		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
 		// if NamedSBase get additional information
-		if (NamedSBase.class.isAssignableFrom(item.getClass())){
-			NamedSBase nsb = (NamedSBase) item;
+		if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
+			NamedSBase nsb = (NamedSBase) sbase;
             header = String.format("<h2>%s%s <small>%s</small></h2>\n", EXPORT_HTML, className, nsb.getId());
 		}
 		return header; 
@@ -379,11 +394,24 @@ public class SBaseHTMLFactory {
 		return "";
 	}
 
-
-
-
     /** Create HTML for CVTerms. */
     private static String createCVTerms(SBase sbase){
+        List<CVTerm> cvterms = sbase.getCVTerms();
+        // Handle SBO
+        addCVTermForSBO(sbase);
+
+        // Create HTML
+        String text = "";
+        if (cvterms.size() > 0){
+            for (CVTerm term : cvterms){
+                text += createCVTerm(term);
+            }
+        }
+        return text;
+    }
+
+    /** Adds the CVTerm for SBO to the CVTerms. */
+    private static void addCVTermForSBO(SBase sbase){
         List<CVTerm> cvterms = sbase.getCVTerms();
 
         // add the SBO term to the annotations if not existing already
@@ -406,17 +434,7 @@ public class SBaseHTMLFactory {
                 cvterms.add(0, term);
             }
         }
-
-        // Create all the cvterms
-        String text = "";
-        if (cvterms.size() > 0){
-            for (CVTerm term : cvterms){
-                text += createCVTerm(term);
-            }
-        }
-        return text;
     }
-
 
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
@@ -521,19 +539,32 @@ public class SBaseHTMLFactory {
 
                 }
 
-                // special information
-                if (dataType.getNamespace().equals("uniprot")) {
-                    text += uniprotHTML(identifier);
-                }
-
-                // special information
-                if (dataType.getNamespace().equals("chebi")) {
-                    text += chebiHTML(identifier);
-                }
+                // add secondary information
+                text += createSecondaryInformation(dataType, identifier);
             }
             text += "</p>\n";
         }
         return text;
+    }
+
+    /**
+     * Resolves secondary resourses and returns the HTML.
+     * @param dataType
+     * @param identifier
+     * @return html string
+     */
+    public static String createSecondaryInformation(DataType dataType, String identifier){
+        String html = "";
+        String namespace = dataType.getNamespace();
+
+        if (namespace.equals("uniprot")) {
+            html += uniprotHTML(identifier);
+        }
+        else if (namespace.equals("chebi")) {
+            html += chebiHTML(identifier);
+        }
+
+        return html;
     }
 
     /**
