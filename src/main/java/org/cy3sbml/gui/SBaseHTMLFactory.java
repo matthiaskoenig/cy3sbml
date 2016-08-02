@@ -641,14 +641,13 @@ public class SBaseHTMLFactory {
      * Identifier of the form "P29218"
      */
     private static String uniprotHTML(String accession){
-        String text = "\t<br />";
+        String text = "\t<br />\n";
         UniProtEntry entry = UniprotAccess.getEntryByAccession(accession);
         if (entry != null) {
-            // id
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(
-                    "<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/uniprot-icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;" +
-                    "<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />", accession, accession, uniProtId);
+                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/uniprot-icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
+                    "\t<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
 
             // description
             ProteinDescription description = entry.getProteinDescription();
@@ -660,23 +659,14 @@ public class SBaseHTMLFactory {
                 String value = field.getValue();
                 if (field.getType().getValue().equals("Full")){
                     text += String.format(
-                            "<b>%s</b><br />",
+                            "\t<b>%s</b><br />\n",
                             field.getValue());
                 }else {
                     text += String.format(
-                            "<b>%s</b>: %s<br />",
+                            "\t<b>%s</b>: %s<br />\n",
                             field.getType().getValue(), field.getValue());
                 }
             }
-
-            // alternative names
-
-            /*
-            for (Name n: description.getAlternativeNames()){
-                text += String.format(
-                        "<b>%s</b>", n);
-            }
-            */
 
             // organism
             Organism organism = entry.getOrganism();
@@ -685,14 +675,22 @@ public class SBaseHTMLFactory {
                 organismStr += String.format(" (%s)", organism.getCommonName());
             }
             text += String.format(
-                    "<b>Organism</b>: %s<br />",
+                    "\t<b>Organism</b>: %s<br />\n",
                     organismStr);
 
             // genes
             for (Gene gene : entry.getGenes()){
-                //TODO: fix gene.
-                text += String.format("<b>Gene</b>: <%s><br />", gene.getGeneName());
+                String geneName = gene.getGeneName().getValue();
+                text += String.format("\t<b>Gene</b>: %s<br />\n", geneName);
             }
+
+            // alternative names
+            text +="\t<span class=\"comment\">Synonyms</span>";
+            for (Name n: description.getAlternativeNames()){
+                text += String.format(
+                        "%s; ", n.getFields().get(0).getValue());
+            }
+            text += "<br />\n";
 
             // comments
             for (Comment comment : entry.getComments()){
@@ -700,19 +698,19 @@ public class SBaseHTMLFactory {
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("<span class=\"item\">Function</span> <span class=\"text-success\">%s</span><br />", commentText.getValue());
+                        text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
                     }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityComment caComment = (CatalyticActivityComment) comment;
                     for (CommentText commentText : caComment.getTexts()) {
-                        text += String.format("<span class=\"comment\">Catalytic Activity</span> <span class=\"text-success\">%s</span><br />", commentText.getValue());
+                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", commentText.getValue());
                     }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
-                        text += String.format("<span class=\"comment\">Pathway</span> <span class=\"text-success\">%s</span><br />", commentText.getValue());
+                        text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());
                     }
                 }
             }
@@ -826,7 +824,7 @@ public class SBaseHTMLFactory {
         Object object = model;
 
         object = model.getListOfSpecies().get("c__gal");
-        //object = model.getListOfReactions().get("c__GALTM2");
+        object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
