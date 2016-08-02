@@ -1,7 +1,6 @@
 package org.cy3sbml.gui;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import javax.xml.stream.XMLStreamException;
@@ -10,9 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
 import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.XMLUtil;
-import org.cytoscape.util.swing.OpenBrowser;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -439,8 +436,6 @@ public class SBaseHTMLFactory {
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
 
-        // TODO: link to primary resource via id
-        // TODO: OLS description on top
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -465,7 +460,7 @@ public class SBaseHTMLFactory {
             DataType dataType = RegistryUtilities.getDataType(dataCollection);
 
             String identifierHTML = String.format(
-                    "<span class=\"identifier\" title=\"identifier\">%s</span>",
+                    "<span class=\"identifier\" title=\"Resource identifier\">%s</span>",
                     identifier);
 
             // check that identifier is correct for given datatype
@@ -478,8 +473,9 @@ public class SBaseHTMLFactory {
                 }
             }
 
-            // not possible to resolve dataType from MIRIAM registry
+            // TODO: link to primary resource via id
 
+            // not possible to resolve dataType from MIRIAM registry
             if (dataType == null){
                 logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
                 text += qualifierHTML + identifierHTML + "<br />\n";
@@ -490,53 +486,22 @@ public class SBaseHTMLFactory {
             // dataType found
             if (dataType != null){
                 text += qualifierHTML + String.format(
-                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>\n" +
-                        "\t%s<br/>\n",
-                        dataType.getURL(), dataType.getName(),
-                        identifierHTML);
+                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>%s<br/>\n",
+                        dataType.getURL(), dataType.getName(), identifierHTML);
 
-                // TODO: create OLS resource for physical location if existing
-
-
-                // TODO: create all other
+                // Create OLS resource for location
+                for (PhysicalLocation location: dataType.getPhysicalLocations()) {
+                    if (location.isObsolete()) { continue; }
+                    if (RegistryUtil.isPhysicalLocationOLS(location)){
+                        text += createOLSLocation(location, identifier);
+                    }
+                }
+                // Create other locations
                 for (PhysicalLocation location: dataType.getPhysicalLocations()){
-                    if (location.isObsolete()){
-                        continue;
+                    if (location.isObsolete()){ continue; }
+                    if (! RegistryUtil.isPhysicalLocationOLS(location)) {
+                        text += createNonOLSLocation(location, identifier);
                     }
-                    String url = String.format("%s%s%s", location.getUrlPrefix(), identifier, location.getUrlSuffix());
-                    Boolean primary = location.isPrimary();
-                    String info = location.getInfo();
-                    if (RegistryUtil.isPhysicalLocationOLS(location)){
-                        info = String.format(
-                            "<span class=\"ontology\" title=\"Ontology\">%s</span>",
-                            info);
-                    }
-                    text += String.format(
-                            "\t%s <a href=\"%s\"> %s</a><br />\n",
-                            (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
-
-                    // OLS resource, we can query the term
-
-                    if (RegistryUtil.isPhysicalLocationOLS(location)){
-                        Term term = OLSObject.getTermFromIdentifier(identifier);
-                        if (term != null) {
-                            // FIXME: check for null in the information
-                            text += String.format("<span class=\"ontology\">%s</span> <b>%s</b><br />\n", term.getOntologyName(), term.getLabel());
-                            text += String.format("\t<a href=%s>%s</a><br />", term.getIri().getIdentifier(), term.getIri().getIdentifier());
-                            String [] descriptions = term.getDescription();
-                            if (descriptions != null) {
-                                for (String description : term.getDescription()) {
-                                    text += String.format("\t%s<br />\n", description);
-                                }
-                            }
-                            text += String.format("%s<br />\n", term.getShortForm());
-                            text += String.format("%s<br />\n", term.getSynonyms());
-
-                        } else {
-                            logger.error("OLS term could not be fetched.");
-                        }
-                    }
-
                 }
 
                 // add secondary information
@@ -546,6 +511,70 @@ public class SBaseHTMLFactory {
         }
         return text;
     }
+
+    /**
+     * Information for non-OLS location.
+     */
+    private static String createNonOLSLocation(PhysicalLocation location, String identifier){
+        String text = "";
+        String url = String.format(
+                "%s%s%s",
+                location.getUrlPrefix(), identifier, location.getUrlSuffix());
+        Boolean primary = location.isPrimary();
+        String info = location.getInfo();
+
+        text += String.format(
+                "\t%s <a href=\"%s\"> %s</a><br />\n",
+                (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
+        return text;
+    }
+
+
+    /**
+     * Information for an OLS location.
+     * Only the identifier needed for the query.
+     */
+    private static String createOLSLocation(PhysicalLocation location, String identifier){
+        String html = "";
+        Term term = OLSObject.getTermFromIdentifier(identifier);
+        if (term != null) {
+
+            String purlURL = term.getIri().getIdentifier();
+            String ontologyURL = String.format(
+                    "%s%s%s",
+                    location.getUrlPrefix(), identifier, location.getUrlSuffix());
+            html += String.format(
+                    "<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
+                    ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
+                    purlURL, purlURL);
+
+            String [] synonyms = term.getSynonyms();
+            if (synonyms != null && synonyms.length > 0) {
+                html += "\t<em>Synonyms</em>: ";
+                for (String syn: synonyms) {
+                    html += String.format("%s, ", syn);
+                }
+                html += "<br />\n";
+            }
+
+            String [] descriptions = term.getDescription();
+            if (descriptions != null && descriptions.length > 0) {
+                for (String description : descriptions) {
+                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", description);
+                }
+            }
+
+            // TODO: other information from ontology
+
+            html += "\t<br />";
+
+        } else {
+            logger.error("OLS term could not be fetched.");
+            // TODO: alternative information if not fetchable
+        }
+        return html;
+    }
+
 
     /**
      * Resolves secondary resourses and returns the HTML.
