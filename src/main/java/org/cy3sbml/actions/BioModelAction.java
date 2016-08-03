@@ -27,7 +27,7 @@ public class BioModelAction extends AbstractCyAction{
 		super("BioModelAction");
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_BIOMODELS_LOGO));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.LOGO_BIOMODELS));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml BioModel Import");

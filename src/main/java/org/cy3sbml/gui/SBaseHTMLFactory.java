@@ -630,7 +630,7 @@ public class SBaseHTMLFactory {
         */
 
         text += String.format(
-                //"<a href=\"http://www.ebi.ac.uk/chebi/init.do\"><img src=\"./images/chebi-logo.png\" title=\"Information from ChEBI\"/></a>" +
+                //"<a href=\"http://www.ebi.ac.uk/chebi/init.do\"><img src=\"./images/chebi_logo.png\" title=\"Information from ChEBI\"/></a>" +
                 "<a href=\"%s\"><img src=\"%s\" /></a><br />\n",
                 imageLink, imageSource);
         return text;
@@ -646,7 +646,7 @@ public class SBaseHTMLFactory {
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(
-                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/uniprot-icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
+                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
                     "\t<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
 
             // description

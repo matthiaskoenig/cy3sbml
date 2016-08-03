@@ -119,7 +119,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
 	@Override
     public Icon getIcon() {
-        return new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CY3SBML_ICON));
+        return new ImageIcon(getClass().getResource(GUIConstants.ICON_CY3SBML));
     }
 
     @Override

@@ -4,7 +4,7 @@ import org.cy3sbml.gui.GUIConstants;
 
 public class BioModelDialogText {
 	public static String getHeaderString(){
-		String imgsrc = BioModelDialogText.class.getResource(GUIConstants.IMAGE_BIOMODELS_LOGO_80).toString();
+		String imgsrc = BioModelDialogText.class.getResource(GUIConstants.ICON_BIOMODELS).toString();
 		String info = "<a href=\"http://www.biomodels.org/\"><img src=\""+imgsrc+"\"alt=\"BioModel.net Logo\" height=80 width=80 border=0></img></a>";
 		return info;
 	}

@@ -10,9 +10,12 @@ public class GUIConstants {
     public static String HTML_HELP_RESOURCE = "/gui/help.html";
     public static String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
 
-    public static String IMAGE_CY3SBML_ICON = "/gui/images/cy3sbml_icon.png";
-    public static String IMAGE_BIOMODELS_LOGO_80 = "/gui/images/biomodels_logo_80.png";
-    public static String IMAGE_BIOMODELS_LOGO = "/gui/images/biomodels_logo.png";
+    // TODO: add logos
+    // TODO: add favicon
+    public static String ICON_BIOMODELS = "/gui/images/logos/biomodels_icon.png";
+    public static String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
+    public static String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
+
     public static String IMAGE_CHANGESTATE = "/gui/images/changestate.png";
     public static String IMAGE_COFACTOR = "/gui/images/cofactor.png";
     public static String IMAGE_EXAMPLES = "/gui/images/examples.png";
