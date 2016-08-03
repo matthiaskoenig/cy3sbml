@@ -150,6 +150,17 @@ git checkout -b develop --track origin/develop
 **v0.1** [2015/05]
 * first app release (OSGI build with JSBML integration)
 
+## Third-party software 
+cy3sbml uses the following third-party software libraries; these
+are distributed along with the bundled cy3sbml app. 
+The license statements for these third-party
+software libraries can be found at the web addresses noted
+below. 
+
+JSBML -- https://github.com/sbmlteam/jsbml  
+[checked 2016-08-03]  
+Distributed under the LGPL version 2.1
+[![License (LGPL 2.1)](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1)
 
 ----
 &copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
