@@ -157,8 +157,51 @@ The license statements for these third-party
 software libraries can be found at the web addresses noted
 below. 
 
-[JSBML](https://github.com/sbmlteam/jsbml)  [checked 2016-08-03]  
-[![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1)
+[JSBML](https://github.com/sbmlteam/jsbml) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[Cytoscape](http://www.cytoscape.org/download.php) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[org.osgi.core](https://mvnrepository.com/artifact/org.osgi/org.osgi.core) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Ehcache](https://mvnrepository.com/artifact/net.sf.ehcache/ehcache) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Commons Lang](https://mvnrepository.com/artifact/org.apache.commons/commons-lang3) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Commons IO](https://mvnrepository.com/artifact/commons-io/commons-io) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Velocity](https://mvnrepository.com/artifact/org.apache.velocity/velocity) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Unirest Java](https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[Apache HttpClient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache HttpAsyncClient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpasyncclient) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache HttpClient Mime](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[JSON in Java](https://mvnrepository.com/artifact/org.json/json) [![License (JSON)](https://img.shields.io/badge/license-JSON-blue.svg?style=flat-square)](http://www.json.org/license.html) [checked 2016-08-03]
+
+[LibFX](https://mvnrepository.com/artifact/org.codefx.libfx/LibFX) [![License (GPL 3.0)](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)](https://opensource.org/licenses/GPL-3.0) [checked 2016-08-03]
+
+[uk.ac.ebi.miriam.registry-lib](https://sourceforge.net/projects/identifiers-org/) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[uk.ac.ebi.miriam.mirian-lib](https://sourceforge.net/projects/identifiers-org/) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[OLS client](https://github.com/EBISPOT/OLS) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Jackson Databind](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Uniprot Japi](https://www.ebi.ac.uk/uniprot/japi/license.html) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[chebiWS-client](https://www.ebi.ac.uk/chebi/webServices.do) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[SLF4J API Module](https://mvnrepository.com/artifact/org.slf4j/slf4j-api) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[SLF4J LOG4J 12 Binding](https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[Junit](https://mvnrepository.com/artifact/junit/junit) [![License (EPL-1.0)](https://img.shields.io/badge/license-EPL1.0-blue.svg?style=flat-square)](https://opensource.org/licenses/EPL-1.0) [checked 2016-08-03]
+
+[Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-all) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
 
 ----
 &copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
