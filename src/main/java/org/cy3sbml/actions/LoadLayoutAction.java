@@ -35,6 +35,7 @@ public class LoadLayoutAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, "Load Layout");
 		setToolbarGravity((float) 210.0);
+		insertSeparatorAfter();
 	}
 	
 	public boolean insertSeparatorBefore(){

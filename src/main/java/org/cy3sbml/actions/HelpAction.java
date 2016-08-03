@@ -26,8 +26,8 @@ public class HelpAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_HELP));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "cy3sbml help");
-		setToolbarGravity((float) 120.0);
+		this.putValue(SHORT_DESCRIPTION, "Help");
+		setToolbarGravity((float) 190.0);
 	}
 	
 	public boolean insertSeparatorBefore(){

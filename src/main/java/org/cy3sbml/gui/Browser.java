@@ -20,15 +20,12 @@ import javafx.scene.web.WebView;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
-import org.cy3sbml.actions.HelpAction;
+import org.cy3sbml.actions.*;
 import org.cy3sbml.util.GUIUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.work.TaskIterator;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.actions.ExamplesAction;
-import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.actions.ValidationAction;
 import org.cy3sbml.biomodel.BioModelDialog;
 
 import org.slf4j.Logger;
@@ -88,12 +85,6 @@ public class Browser extends Region {
                 if (GUIConstants.URLS_ACTION.contains(s)){
                     ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
 
-                    // BioModels
-                    if (s.equals(GUIConstants.URL_BIOMODELS)){
-                        BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
-                        bioModelsDialog.setVisible(true);
-                        return true;
-                    }
                     // ChangeState
                     if (s.equals(GUIConstants.URL_CHANGESTATE)){
                         WebViewPanel.getInstance().changeState();
@@ -116,13 +107,38 @@ public class Browser extends Region {
                         examplesAction.actionPerformed(null);
                         return true;
                     }
-                    // Examples
+                    // BioModels
+                    if (s.equals(GUIConstants.URL_BIOMODELS)){
+                        BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
+                        bioModelsDialog.setVisible(true);
+                        return true;
+                    }
+                    // Help
                     if (s.equals(GUIConstants.URL_HELP)){
                         HelpAction helpAction = new HelpAction(adapter.cySwingApplication);
                         helpAction.actionPerformed(null);
                         return true;
                     }
 
+                    // Cofactor nodes
+                    if (s.equals(GUIConstants.URL_COFACTOR_NODES)){
+                        HelpAction helpAction = new HelpAction(adapter.cySwingApplication);
+                        CofactorNodesAction nodesAction = new CofactorNodesAction(adapter);
+                        nodesAction.actionPerformed(null);
+                        return true;
+                    }
+                    // Save layout
+                    if (s.equals(GUIConstants.URL_LAYOUT_SAVE)){
+                        SaveLayoutAction action = new SaveLayoutAction(adapter);
+                        action.actionPerformed(null);
+                        return true;
+                    }
+                    // Load layout
+                    if (s.equals(GUIConstants.URL_LAYOUT_LOAD)){
+                        LoadLayoutAction action = new LoadLayoutAction(adapter);
+                        action.actionPerformed(null);
+                        return true;
+                    }
                 }
 
                 // Example networks

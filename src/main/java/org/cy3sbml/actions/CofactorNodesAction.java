@@ -36,8 +36,8 @@ public class CofactorNodesAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_COFACTOR));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Cofactor Nodes");
-		setToolbarGravity((float) 200.0);
+		this.putValue(SHORT_DESCRIPTION, "Cofactor nodes");
+		setToolbarGravity((float) 195.0);
 	}
 		
 	public boolean isInToolBar() {

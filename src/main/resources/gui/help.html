@@ -7,11 +7,9 @@
     <title>cy3sbml</title>
     <meta name="description" content="cy3sbml: A Cytoscape app for SBML">
     <meta name="author" content="Matthias Koenig">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="./css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <!-- Custom css -->
     <link rel="stylesheet" href="./font-awesome-4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/cy3sbml.css">
@@ -28,19 +26,38 @@
     <table class="table table-striped table-condensed table-hover">
         <tr>
             <td><a href="http://cy3sbml-changestate">
-                <!-- <img src="./images/changestate.png" alt="hide/show panel"></img> -->
-                <span class="fa fa-toggle-on fa-2x fa-fw icon-black" title="hide|show panel"></span></a>
+                <span class="fa fa-toggle-on fa-2x fa-fw icon-black" title="Hide|show panel"></span></a>
             </a></td>
             <td><b>Hide|show panel</b></td>
             <td>Changes the visibility of the cy3sbml panel.</td>
         </tr>
+
         <tr>
             <td><a href="http://cy3sbml-import">
-                <span class="fa fa-file-code-o fa-2x fa-fw icon-black" title="SBML import"></span></a>
+                <span class="fa fa-file-code-o fa-2x fa-fw icon-black" title="Import SBML"></span></a>
             </td>
-            <td><b>SBML Import</b></td>
+            <td><b>Import SBML</b></td>
             <td>Load SBML files via the File Import Dialogue. To import multiple files select multiple files.</td>
         </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-validation">
+                <span class="fa fa-check-square-o fa-2x fa-fw icon-black" title="Validate SBML"></span></a>
+            </td>
+            <td><b>Validate SBML</b></td>
+            <td>Validate SBML files against the SBML specification. Select the network to validate and click the
+                validation icon.
+            </td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-examples">
+                <span class="fa fa-database fa-2x fa-fw icon-black" title="SBML examples"></span></a>
+            </td>
+            <td><b>SBML Examples</b></td>
+            <td>Load and explore the SBML examples.</td>
+        </tr>
+
         <tr>
             <td><a href="http://cy3sbml-biomodels">
                 <img src="images/biomodels.png" title="BioModel import" /></a>
@@ -48,25 +65,10 @@
             <td><b>BioModel Import</b></td>
             <td>Load SBML files from BioModels.</td>
         </tr>
-        <tr>
-            <td><a href="http://cy3sbml-validation">
-                <span class="fa fa-check-square-o fa-2x fa-fw icon-black" title="Validate SBML"></span></a>
-            </td>
-            <td><b>SBML Validation</b></td>
-            <td>Validate SBML files against the SBML specification. Select the network to validate and click the
-                validation icon.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="http://cy3sbml-examples">
-                <span class="fa fa-database fa-2x fa-fw icon-black" title="SBML examples"></span></a>
-            </td>
-            <td><b>Examples</b></td>
-            <td>Load and explore the SBML examples.</td>
-        </tr>
+
         <tr>
             <td><a href="http://cy3sbml-help">
-                <span class="fa fa-question-circle-o fa-2x fa-fw icon-black" title="SBML examples"></span></a>
+                <span class="fa fa-question-circle-o fa-2x fa-fw icon-black" title="Help"></span></a>
             </td>
             <td><b>Help</b></td>
             <td>Display this help information.</td>
@@ -227,6 +229,20 @@
                     <li class="ref-authors">Li C, Courtot M, Le Novère N, Laibe C.</li>
                     <li class="ref-title">BioModels.net Web Services, a free and integrated toolkit for computational modelling software.</li>
                     <li class="ref-journal">Brief Bioinform. 2010 May;11(3):270-7. doi: 10.1093/bib/bbp056. <a href="http://www.ncbi.nlm.nih.gov/pubmed/19939940">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>BiGG Models</b><br/>
+                <a href="http://bigg.ucsd.edu/"><img src="images/logos/bigg_logo.png" alt="BiGG Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">King ZA, Lu J, Dräger A, Miller P, Federowicz S, Lerman JA, Ebrahim A, Palsson BO, Lewis NE.</li>
+                    <li class="ref-title">BiGG Models: A platform for integrating, standardizing and sharing genome-scale models.</li>
+                    <li class="ref-journal">Nucleic Acids Res. 2016 Jan 4;44(D1):D515-22. doi: 10.1093/nar/gkv1049. Epub 2015 Oct 17. <a href="http://www.ncbi.nlm.nih.gov/pubmed/26476456">PubMed</a></li>
                 </ul>
             </td>
         </tr>

@@ -27,8 +27,9 @@ public class ChangeStateAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CHANGESTATE));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "show/hide cy3sbml");
+		this.putValue(SHORT_DESCRIPTION, "Hide|show panel");
 		setToolbarGravity((float) 90.0);
+		insertSeparatorBefore();
 	}
 		
 	public boolean isInToolBar() {

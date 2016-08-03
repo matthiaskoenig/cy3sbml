@@ -35,7 +35,7 @@ public class ValidationAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_VALIDATION));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "SBML validation");
+		this.putValue(SHORT_DESCRIPTION, "Validate SBML");
 		setToolbarGravity((float) 100.0);
 	}
 	

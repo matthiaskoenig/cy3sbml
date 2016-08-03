@@ -31,7 +31,7 @@ public class BioModelAction extends AbstractCyAction{
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, "cy3sbml BioModel Import");
-		setToolbarGravity((float) 100.0);
+		setToolbarGravity((float) 120.0);
 	}
 	
 	public boolean insertSeparatorBefore(){

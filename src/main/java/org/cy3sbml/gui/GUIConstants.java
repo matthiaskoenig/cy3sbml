@@ -25,12 +25,17 @@ public class GUIConstants {
     public static String IMAGE_LOADLAYOUT = "/gui/images/loadlayout.png";
     public static String IMAGE_SAVELAYOUT = "/gui/images/savelayout.png";
 
-    public static String URL_BIOMODELS = "http://cy3sbml-biomodels";
+
     public static String URL_CHANGESTATE = "http://cy3sbml-changestate";
     public static String URL_IMPORT = "http://cy3sbml-import";
     public static String URL_VALIDATION = "http://cy3sbml-validation";
     public static String URL_EXAMPLES = "http://cy3sbml-examples";
+    public static String URL_BIOMODELS = "http://cy3sbml-biomodels";
     public static String URL_HELP = "http://cy3sbml-help";
+    public static String URL_COFACTOR_NODES = "http://cy3sbml-cofactor";
+    public static String URL_LAYOUT_SAVE = "http://cy3sbml-layout-save";
+    public static String URL_LAYOUT_LOAD = "http://cy3sbml-layout-load";
+
 
     public static String URL_SBMLFILE = "http://sbml-file";
     public static String URL_HTMLFILE = "http://html-file";
@@ -53,12 +58,16 @@ public class GUIConstants {
         EXAMPLE_SBML = Collections.unmodifiableMap(map);
 
         Set<String> set = new HashSet<>();
-        set.add(URL_BIOMODELS);
+
         set.add(URL_CHANGESTATE);
         set.add(URL_IMPORT);
         set.add(URL_VALIDATION);
         set.add(URL_EXAMPLES);
+        set.add(URL_BIOMODELS);
         set.add(URL_HELP);
+        set.add(URL_COFACTOR_NODES);
+        set.add(URL_LAYOUT_SAVE);
+        set.add(URL_LAYOUT_LOAD);
         URLS_ACTION = Collections.unmodifiableSet(set);
     }
 

@@ -47,7 +47,7 @@ public class ImportAction extends AbstractCyAction{
 		filters.add(new FileChooserFilter("SBML files (*.xml)", "xml"));
 	
 		File[] files = adapter.fileUtil.getFiles(adapter.cySwingApplication.getJFrame(), 
-				"cy3sbml load SBML files", FileDialog.LOAD, filters);
+				"Import SBML", FileDialog.LOAD, filters);
 		
 		if ((files != null) && (files.length != 0)) {
 			for (int i = 0; i < files.length; i++) {

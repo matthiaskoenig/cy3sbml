@@ -43,6 +43,7 @@ import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
  * on selection of SBML objects in the graph.
  *
  * TODO: refactor SBML HTML information completely
+ * TODO: more compact layout, i.e remove empty rows
  */
 public class SBaseHTMLFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
@@ -646,7 +647,7 @@ public class SBaseHTMLFactory {
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(
-                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
+                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
                     "\t<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
 
             // description

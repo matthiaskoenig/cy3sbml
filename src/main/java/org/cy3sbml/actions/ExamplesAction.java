@@ -25,7 +25,7 @@ public class ExamplesAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_EXAMPLES));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "cy3sbml examples");
+		this.putValue(SHORT_DESCRIPTION, "SBML examples");
 		setToolbarGravity((float) 110.0);
 	}
 	
