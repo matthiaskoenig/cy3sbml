@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
 [![codecov](https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg)](https://codecov.io/gh/matthiaskoenig/cy3sbml)
 [![GitHub version](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml.svg)](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml)
-[![License (GPL version 3)](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](http://opensource.org/licenses/GPL-3.0)
+[![License (LGPL version 3)](https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
 
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is the visualization of SBML information within the network context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling frameworks and workflows.
 
@@ -33,7 +33,7 @@ visualization of SBML network annotations within the network context, direct imp
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
 
 ## License
-* Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
+* Source Code: [LGPLv3.0](http://opensource.org/licenses/LGPL-3.0)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Citation
@@ -181,7 +181,7 @@ below.
 
 [JSON in Java](https://mvnrepository.com/artifact/org.json/json) [![License (JSON)](https://img.shields.io/badge/license-JSON-blue.svg?style=flat-square)](http://www.json.org/license.html) [checked 2016-08-03]
 
-[LibFX](https://mvnrepository.com/artifact/org.codefx.libfx/LibFX) [![License (GPL 3.0)](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)](https://opensource.org/licenses/GPL-3.0) [checked 2016-08-03]
+[LibFX](https://mvnrepository.com/artifact/org.codefx.libfx/LibFX) [![License (LGPL 3.0)](https://img.shields.io/badge/license-LGPL3.0-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-3.0) [checked 2016-08-03]
 
 [uk.ac.ebi.miriam.registry-lib](https://sourceforge.net/projects/identifiers-org/) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
 
