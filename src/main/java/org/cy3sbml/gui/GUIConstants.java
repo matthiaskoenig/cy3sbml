@@ -12,8 +12,8 @@ public class GUIConstants {
 
     // TODO: add logos
     // TODO: add favicon
-    public static String ICON_BIOMODELS = "/gui/images/logos/biomodels_icon.png";
     public static String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
+    public static String ICON_BIOMODELS = "/gui/images/biomodels.png";
     public static String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
 
     public static String IMAGE_CHANGESTATE = "/gui/images/changestate.png";

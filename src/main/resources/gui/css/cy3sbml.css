@@ -46,6 +46,27 @@ table {
 .icon-invisible {
     visibility: hidden;
 }
+.icon-black {
+    color: black;
+}
+
+/* References */
+.ref-item {
+    list-style-type: none;
+}
+.ref-item a{
+    font-size: 10px;
+}
+.ref-title{
+    font-size: 10px;
+    font-weight: bold;
+}
+.ref-authors{
+    font-size: 10px;
+}
+.ref-journal{
+    font-size: 10px;
+}
 
 .term{
     background-color: #ffac1b;
