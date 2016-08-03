@@ -158,7 +158,7 @@ software libraries can be found at the web addresses noted
 below. 
 
 [JSBML](https://github.com/sbmlteam/jsbml)  [checked 2016-08-03]  
-[![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL-2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1)
+[![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1)
 
 ----
 &copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
