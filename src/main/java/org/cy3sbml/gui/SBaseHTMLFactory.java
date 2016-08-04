@@ -6,11 +6,15 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
+import org.cy3sbml.SBML;
+import org.cy3sbml.SBMLCoreReader;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
 import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.XMLUtil;
+import org.cytoscape.model.CyNode;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -52,6 +56,14 @@ public class SBaseHTMLFactory {
     ///////////////////////////////////////////////
     // HTML template strings
     ///////////////////////////////////////////////
+    // necessary to overwrite the SBML constants as long as not fixed in BaseReader
+    public static final String ATTR_ID = "id";
+    private static final String ATTR_NAME = "name";
+    public static final String ATTR_COMPARTMENT = "compartment";
+    public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
+    public static final String ATTR_INITIAL_AMOUNT = "amount";
+    public static final String ATTR_CHARGE = "charge";
+
 
 	private static final String HTML_START_TEMPLATE =
 			"<!DOCTYPE html>\n" +
@@ -90,10 +102,6 @@ public class SBaseHTMLFactory {
     private static final String TM = "</b></td>\n\t\t<td>";
     private static final String TE = "<td/>\n\t</tr>\n";
 
-    private static final String TEMPLATE_MODEL =
-            TABLE_START +
-            TS + "L%sV%s" + TM + "<a href=\"%s\"><img src=\"./images/sbml_logo.png\" height=\"20\" /></a>" + TE +
-            TABLE_END;
 
     private static final String TEMPLATE_COMPARTMENT =
             TABLE_START +
@@ -241,21 +249,83 @@ public class SBaseHTMLFactory {
 		return header; 
 	}
 
+    /**
+     * Creates the HTML table from map.
+     */
+	private static String createTableFromMap(Map<String, String> map){
+        String html = TABLE_START;
+        for (String key: map.keySet()){
+            html += TS + key + TM + map.get(key) + TE;
+        }
+        return html + TABLE_END;
+    }
+
+    /** Map with metaid information. */
+    private static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put(SBML.ATTR_METAID,
+                (sbase.isSetMetaId()) ? sbase.getMetaId() : ICON_NONE);
+        return map;
+    }
+
+    /** Map with name information. */
+    private static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        // map.put(ATTR_ID,
+        //         (sbase.isSetId()) ? sbase.getId() : ICON_NONE);
+        map.put(ATTR_NAME,
+                (nsb.isSetName()) ? nsb.getName() : ICON_NONE);
+        map.putAll(createSBaseMap(nsb));
+        return map;
+    }
+
+    /** Model HTML. */
+	private static String createModel(Model model){
+        Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
+        // TODO: add the package information
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put(
+                String.format("L%sV%s", model.getLevel(), model.getVersion()),
+                String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", GUIConstants.URL_SBMLFILE)
+                );
+        map.putAll(createNamedSBaseMap(model));
+        // optional
+        if (model.isSetSubstanceUnits()){
+            map.put(SBML.ATTR_SUBSTANCE_UNITS, model.getSubstanceUnits());
+        }
+        if (model.isSetTimeUnits()){
+            map.put(SBML.ATTR_TIME_UNITS, model.getTimeUnits());
+        }
+        if (model.isSetVolumeUnits()){
+            map.put(SBML.ATTR_VOLUME_UNITS, model.getVolumeUnits());
+        }
+        if (model.isSetAreaUnits()){
+            map.put(SBML.ATTR_AREA_UNITS, model.getAreaUnits());
+        }
+        if (model.isSetLengthUnits()){
+            map.put(SBML.ATTR_LENGTH_UNITS, model.getLengthUnits());
+        }
+        if (model.isSetExtentUnits()){
+            map.put(SBML.ATTR_EXTENT_UNITS, model.getExtentUnits());
+        }
+        if (model.isSetConversionFactor()){
+            map.put(SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor());
+        }
+        return createTableFromMap(map);
+    }
+
+
+
 	/** 
 	 * Creation of class specific attribute information.
-     * TODO: read the missing information, i.e. all fields
+     * This mimics the SBMLReader
 	 */
 	private static String createSBase(SBase item){
 
 		// Model //
 		if (item instanceof Model){
-			Model model = (Model) item;
-            Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
-            // TODO: add the package information
-            // TODO: add the areaUnits, ...
-
-  			return String.format(TEMPLATE_MODEL,
-                    model.getLevel(), model.getVersion(), GUIConstants.URL_SBMLFILE);
+		    return createModel((Model) item);
 		}
 		
 		// Compartment //
@@ -390,6 +460,9 @@ public class SBaseHTMLFactory {
 		}
 		return "";
 	}
+
+
+
 
     /** Create HTML for CVTerms. */
     private static String createCVTerms(SBase sbase){
