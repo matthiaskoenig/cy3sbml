@@ -374,6 +374,15 @@
 			<groupId>uk.ac.ebi.uniprot</groupId>
 			<artifactId>japi</artifactId>
 			<version>1.0.7</version>
+			<exclusions>
+            <!--
+            This does currently not work due to hardwiring of logging.
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            -->
+			</exclusions>
 		</dependency>
 
 		<!-- ChEBI-->

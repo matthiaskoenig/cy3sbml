@@ -171,7 +171,7 @@ public class CyActivator extends AbstractCyActivator {
 			CofactorManager cofactorManager = CofactorManager.getInstance();
 
 			// init actions
-			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
+			ChangeStateAction changeStateAction = new ChangeStateAction();
 			ImportAction importAction = new ImportAction(adapter);
 			BioModelAction bioModelAction = new BioModelAction(adapter);
 			ValidationAction validationAction = new ValidationAction(adapter);

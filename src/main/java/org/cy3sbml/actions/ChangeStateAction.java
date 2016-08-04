@@ -21,7 +21,7 @@ public class ChangeStateAction extends AbstractCyAction{
 	private static final long serialVersionUID = 1L;
 	
 	/** Constructor. */
-	public ChangeStateAction(CySwingApplication cySwingApplication){
+	public ChangeStateAction(){
 		super("ChangeStateAction");
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CHANGESTATE));
@@ -29,12 +29,19 @@ public class ChangeStateAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, "Hide|show panel");
 		setToolbarGravity((float) 90.0);
-		insertSeparatorBefore();
+		insertSeparatorBefore = true;
+        insertSeparatorAfter = true;
 	}
-		
+
+	@Override
+	public boolean insertSeparatorBefore() { return true; }
+    @Override
+    public boolean insertSeparatorAfter() { return true; }
+	@Override
 	public boolean isInToolBar() {
 		return true;
 	}
+	@Override
 	public boolean isInMenuBar() {
 		return false;
 	}

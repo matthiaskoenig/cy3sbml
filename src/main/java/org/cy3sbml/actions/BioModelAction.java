@@ -30,7 +30,7 @@ public class BioModelAction extends AbstractCyAction{
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "cy3sbml BioModel Import");
+		this.putValue(SHORT_DESCRIPTION, "BioModel Import");
 		setToolbarGravity((float) 120.0);
 	}
 	

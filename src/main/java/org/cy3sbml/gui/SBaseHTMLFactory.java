@@ -42,7 +42,7 @@ import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
  *
- * TODO: refactor SBML HTML information completely
+ * TODO: display additional attributes of sbase
  * TODO: more compact layout, i.e remove empty rows
  */
 public class SBaseHTMLFactory {
