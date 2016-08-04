@@ -163,6 +163,8 @@ public class SBMLUtil {
     public static final String ATTR_CHARGE = "charge";
 
 
+    private static final String UNIT_TEMPLATE = "<span class=\"unit\">%s</span>";
+
     /** Map with metaid information. */
     public static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
@@ -187,8 +189,12 @@ public class SBMLUtil {
         // packages
         Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
         String packages = "";
-        for (String key: packageMap.keySet()){
-            packages += String.format("%s; ", key);
+        if (packageMap.size()>0) {
+            packages = "[";
+            for (String key : packageMap.keySet()) {
+                packages += String.format("%s; ", key);
+            }
+            packages += "]";
         }
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
@@ -228,164 +234,118 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createCompartmentMap(Compartment compartment) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(compartment);
         map.put(SBML.ATTR_SPATIAL_DIMENSIONS,
-                (compartment.isSetSpatialDimensions()) ? ((Double) compartment.getSpatialDimensions()).toString() : SBaseHTMLFactory.ICON_NONE
+                compartment.isSetSpatialDimensions() ? ((Double) compartment.getSpatialDimensions()).toString() : SBaseHTMLFactory.ICON_NONE
         );
         map.put(SBML.ATTR_SIZE,
-                (compartment.isSetSize()) ? ((Double)compartment.getSize()).toString() : SBaseHTMLFactory.ICON_NONE
+                compartment.isSetSize() ? ((Double)compartment.getSize()).toString() : SBaseHTMLFactory.ICON_NONE
         );
         map.put(SBML.ATTR_UNITS,
-                (compartment.isSetUnits()) ? String.format("%s <span class=\"unit\">%s</span>", compartment.getUnits()) : SBaseHTMLFactory.ICON_NONE
+                compartment.isSetUnits() ? String.format("%s "+UNIT_TEMPLATE, compartment.getUnits()) : SBaseHTMLFactory.ICON_NONE
         );
         map.put(SBML.ATTR_CONSTANT,
-                (compartment.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(compartment.getConstant()) : SBaseHTMLFactory.ICON_NONE
+                compartment.isSetConstant() ? SBaseHTMLFactory.booleanHTML(compartment.getConstant()) : SBaseHTMLFactory.ICON_NONE
         );
         return map;
     }
 
     /** Parameter map. */
     public static LinkedHashMap<String, String> createParameterMap(Parameter p) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(compartment);
-
-        private static final String TEMPLATE_PARAMETER =
-                TABLE_START +
-                        TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-                        TS + "constant" + TM + "%s" +
-                        TABLE_END;
-
-        String value = (p.isSetValue()) ? ((Double) p.getValue()).toString() : ICON_NONE;
-        String units = (p.isSetUnits()) ? p.getUnits() : ICON_NONE;
-        String constant = (p.isSetConstant()) ? booleanHTML(p.getConstant()) : ICON_NONE;
-        return String.format(TEMPLATE_PARAMETER, value, units, constant);
-
-
-
+        LinkedHashMap<String, String> map = createNamedSBaseMap(p);
+        map.put(SBML.ATTR_VALUE,
+                p.isSetValue() ? ((Double) p.getValue()).toString() : SBaseHTMLFactory.ICON_NONE
+        );
+        map.put(SBML.ATTR_UNITS,
+                p.isSetUnits() ? String.format("%s "+UNIT_TEMPLATE, p.getUnits()) : SBaseHTMLFactory.ICON_NONE
+        );
+        map.put(SBML.ATTR_CONSTANT,
+                p.isSetConstant() ? SBaseHTMLFactory.booleanHTML(p.getConstant()) : SBaseHTMLFactory.ICON_NONE
+        );
         return map;
     }
 
     /** InitialAssignment map. */
     public static LinkedHashMap<String, String> createInitialAssignmentMap(InitialAssignment ass) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(ass);
-        private static final String TEMPLATE_INITIAL_ASSIGNMENT =
-                TABLE_START +
-                        TS + "%s" + TM + "= %s" + TE +
-                        TABLE_END;
-
-        String variable = (ass.isSetVariable()) ? ass.getVariable() : ICON_NONE;
-        String math = (ass.isSetMath()) ? ass.getMath().toFormula() : ICON_NONE;
-        return String.format(TEMPLATE_INITIAL_ASSIGNMENT, variable, math);
-
-
+        LinkedHashMap<String, String> map = createSBaseMap(ass);
+        String variable = ass.isSetVariable() ? ass.getVariable() : SBaseHTMLFactory.ICON_NONE;
+        String math = ass.isSetMath() ? ass.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
+        map.put(variable, String.format("= %s", math));
         return map;
     }
 
     /** Rule map. */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(rule);
-
-        private static final String TEMPLATE_RULE = TEMPLATE_INITIAL_ASSIGNMENT;
-
-        String math = (rule.isSetMath()) ? rule.getMath().toFormula() : ICON_NONE;
+        LinkedHashMap<String, String> map = createSBaseMap(rule);
+        String math = rule.isSetMath() ? rule.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
         String variable = SBMLUtil.getVariableFromRule(rule);
         if (variable == null){
-            variable = ICON_NONE;
+            variable = SBaseHTMLFactory.ICON_NONE;
         }
-        return String.format(TEMPLATE_RULE, variable, math);
-
+        map.put(variable, String.format("= %s", math));
         return map;
     }
 
     /** LocalParameter map. */
     public static LinkedHashMap<String, String> createLocalParameterMap(LocalParameter lp) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(lp);
-
-        private static final String TEMPLATE_LOCAL_PARAMETER =
-                TABLE_START +
-                        TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-                        TABLE_END;
-
-        String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : ICON_NONE;
-        String units = (lp.isSetUnits()) ? lp.getUnits() : ICON_NONE;
-        return String.format(TEMPLATE_LOCAL_PARAMETER, value, units);
-
+        String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String units = (lp.isSetUnits()) ? lp.getUnits() : SBaseHTMLFactory.ICON_NONE;
+        map.put(SBML.ATTR_VALUE, String.format("%s "+UNIT_TEMPLATE, value, units));
         return map;
     }
 
-
     /** Species map. */
-    public static LinkedHashMap<String, String> createSpeciesMap(Species species) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(species);
+    public static LinkedHashMap<String, String> createSpeciesMap(Species s) {
+        LinkedHashMap<String, String> map = createNamedSBaseMap(s);
 
-        private static final String TEMPLATE_SPECIES =
-                TABLE_START +
-                        TS + "compartment" + TM + "%s" + TE +
-                        TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-                        TS + "constant" + TM + "%s" + TE +
-                        TS + "boundaryCondition" + TM + "%s" + TE +
-                        TABLE_END;
+        String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : SBaseHTMLFactory.ICON_NONE;
+        String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String units = getDerivedUnitString(s);
+        String constant = (s.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(s.isConstant()) : SBaseHTMLFactory.ICON_NONE;
+        String boundaryCondition = (s.isSetBoundaryCondition()) ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition()) : SBaseHTMLFactory.ICON_NONE;
 
-        String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : ICON_NONE;
-        String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : ICON_NONE;
-        String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
-        String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : ICON_NONE;
-        String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : ICON_NONE;
+        map.put(ATTR_COMPARTMENT, compartment);
+        map.put(SBML.ATTR_VALUE, String.format("%s "+UNIT_TEMPLATE, value, units));
+        map.put(SBML.ATTR_CONSTANT, constant);
+        map.put(SBML.ATTR_BOUNDARY_CONDITION, boundaryCondition);
 
         // TODO: charge & package information (formula, charge)
 
-        return String.format(TEMPLATE_SPECIES, compartment, value, units, constant, boundaryCondition);
-
         return map;
     }
 
-
     /** Reaction map. */
-    public static LinkedHashMap<String, String> createReactionMap(Reaction reaction) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(reaction);
+    public static LinkedHashMap<String, String> createReactionMap(Reaction r) {
+        LinkedHashMap<String, String> map = createNamedSBaseMap(r);
 
-        private static final String TEMPLATE_REACTION =
-                TABLE_START +
-                        TS + "compartment" + TM + "%s" + TE +
-                        TS + "reversible" + TM + "%s" + TE +
-                        TS + "fast" + TM + "%s" + TE +
-                        TS + "kineticLaw" + TM + "%s" + TE +
-                        TS + "units" + TM + "<span class=\"unit\">%s</span>" + TE +
-                        TABLE_END;
-
-        String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : ICON_NONE;
-        String reversible = (r.isSetReversible()) ? booleanHTML(r.getReversible()) : ICON_NONE;
-        String fast = (r.isSetFast()) ? booleanHTML(r.getFast()) : ICON_NONE;
-        String kineticLaw = ICON_NONE;
+        String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : SBaseHTMLFactory.ICON_NONE;
+        String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : SBaseHTMLFactory.ICON_NONE;
+        String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : SBaseHTMLFactory.ICON_NONE;
+        String kineticLaw = SBaseHTMLFactory.ICON_NONE;
         if (r.isSetKineticLaw()){
             KineticLaw law = r.getKineticLaw();
             if (law.isSetMath()){
                 kineticLaw = law.getMath().toFormula();
             }
         }
-        String units = getDerivedUnitString((SBaseWithDerivedUnit) item);
+        String units = getDerivedUnitString(r);
+
+        map.put(ATTR_COMPARTMENT, compartment);
+        map.put(SBML.ATTR_REVERSIBLE, reversible);
+        map.put(SBML.ATTR_FAST, fast);
+        map.put(SBML.ATTR_KINETIC_LAW, kineticLaw);
+        map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
         // TODO: extension information (upper & lower bound, objective)
-
-        return String.format(TEMPLATE_REACTION,
-                compartment,
-                reversible,
-                fast,
-                kineticLaw,
-                units);
 
         return map;
     }
 
     /** KineticLaw map. */
     public static LinkedHashMap<String, String> createKineticLawMap(KineticLaw law) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(law);
-
-        private static final String TEMPLATE_KINETIC_LAW =
-                TABLE_START +
-                        TS + "kineticLaw" + TM + "%s" + TE +
-                        TABLE_END;
-
-        String kineticLaw = (law.isSetMath()) ? law.getMath().toFormula() : ICON_NONE;
-        return String.format(TEMPLATE_KINETIC_LAW, kineticLaw);
-
+        LinkedHashMap<String, String> map = createSBaseMap(law);
+        map.put(SBML.ATTR_KINETIC_LAW,
+                law.isSetMath() ? law.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE
+        );
         return map;
     }
 
@@ -393,22 +353,17 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(qs);
 
-        private static final String TEMPLATE_QUALITATIVE_SPECIES =
-                TABLE_START +
-                        TS + "compartment" + TM + "%s" + TE +
-                        TS + "initial/max level" + TM + "%s/%s" + TE +
-                        TS + "constant" + TM + "%s" + TE +
-                        TABLE_END;
-
-        String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : ICON_NONE;
-        String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : ICON_NONE;
-        String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : ICON_NONE;
-        String constant = (qs.isSetConstant()) ? booleanHTML(qs.getConstant()) : ICON_NONE;
-        return String.format(TEMPLATE_QUALITATIVE_SPECIES, compartment, initialLevel, maxLevel, constant);
-
+        String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : SBaseHTMLFactory.ICON_NONE;
+        String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String constant = (qs.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : SBaseHTMLFactory.ICON_NONE;
+        map.put(ATTR_COMPARTMENT, compartment);
+        map.put(String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
+                String.format("%s/%s", initialLevel, maxLevel)
+        );
+        map.put(SBML.ATTR_CONSTANT, constant);
         return map;
     }
-
 
     /** Transition map. */
     public static LinkedHashMap<String, String> createTransitionMap(Transition transition) {
@@ -427,32 +382,37 @@ public class SBMLUtil {
     /** FunctionDefinition map. */
     public static LinkedHashMap<String, String> createFunctionDefinitionMap(FunctionDefinition fd) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(fd);
-
-        String math = (fd.isSetMath()) ? fd.getMath().toFormula() : ICON_NONE;
-        return String.format(TEMPLATE_KINETIC_LAW, math);
-
+        String math = (fd.isSetMath()) ? fd.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
+        map.put(SBML.ATTR_MATH, math);
         return map;
     }
 
     /** Port map. */
     public static LinkedHashMap<String, String> createPortMap(Port port) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(port);
-
-        private static final String TEMPLATE_PORT =
-                TABLE_START +
-                        TS + "portRef" + TM + "%s " + TE +
-                        TS + "idRef" + TM + "%s " + TE +
-                        TS + "unitRef" + TM + "%s " + TE +
-                        TS + "metaIdRef" + TM + "%s" + TE +
-                        TABLE_END;
-
-        String portRef = (port.isSetPortRef()) ? port.getPortRef() : ICON_NONE;
-        String idRef = (port.isSetIdRef()) ? port.getIdRef() : ICON_NONE;
-        String unitRef = (port.isSetUnitRef()) ? port.getUnitRef() : ICON_NONE;
-        String metaIdRef = (port.isSetMetaIdRef()) ? port.getMetaIdRef() : ICON_NONE;
-        return String.format(TEMPLATE_PORT, portRef, idRef, unitRef, metaIdRef);
-
+        map.put(SBML.ATTR_COMP_PORTREF,
+                port.isSetPortRef() ? port.getPortRef() : SBaseHTMLFactory.ICON_NONE
+        );
+        map.put(SBML.ATTR_COMP_IDREF,
+                port.isSetIdRef() ? port.getIdRef() : SBaseHTMLFactory.ICON_NONE
+        );
+        map.put(SBML.ATTR_COMP_UNITREF,
+                port.isSetUnitRef() ? port.getUnitRef() : SBaseHTMLFactory.ICON_NONE
+        );
+        map.put(SBML.ATTR_COMP_METAIDREF,
+                port.isSetMetaIdRef() ? port.getMetaIdRef() : SBaseHTMLFactory.ICON_NONE
+        );
         return map;
+    }
+
+    /** Derived unit string. */
+    private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
+        String units = SBaseHTMLFactory.ICON_NONE;
+        UnitDefinition udef = usbase.getDerivedUnitDefinition();
+        if (udef != null){
+            units = udef.toString();
+        }
+        return units;
     }
 
 }

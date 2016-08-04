@@ -656,25 +656,10 @@ public class SBaseHTMLFactory {
 
     }
 
-	/////////////////////////////////////////////////////////////////////////////////////
-    // Helper functions
-    /////////////////////////////////////////////////////////////////////////////////////
-
     /** Creates true or false HTML depending on boolean. */
     public static String booleanHTML(boolean b){
-        return (b) ? ICON_TRUE : ICON_FALSE;
+        return (b) ? SBaseHTMLFactory.ICON_TRUE : SBaseHTMLFactory.ICON_FALSE;
     }
-
-    /** Derived unit string. */
-    private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
-        String units = ICON_NONE;
-        UnitDefinition udef = usbase.getDerivedUnitDefinition();
-        if (udef != null){
-            units = udef.toString();
-        }
-        return units;
-    }
-
 
     /////////////////////////////////////////////////////////////////////////////////////
 
