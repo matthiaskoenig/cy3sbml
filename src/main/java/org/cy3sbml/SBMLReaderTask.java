@@ -417,11 +417,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		// FunctionDefinitions
 		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
-			CyNode fdNode = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
-			
-			String derivedUnits = fd.getDerivedUnits();
-			AttributeUtil.set(network, fdNode, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
-		
+			CyNode fdNode = createAbstractMathContainerNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
+
 			// Do not create the math network for the function definition
 			// The objects of the FunctionDefinition ASTNode can have different naming conventions
 			// than the objects, i.e. a lambda(x), does not mean that it is called with
@@ -429,7 +426,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
 		}
 
-		
 		// Nodes for compartments		
 		for (Compartment compartment : model.getListOfCompartments()) {
 			CyNode node = createSymbolNode(compartment, SBML.NODETYPE_COMPARTMENT);
