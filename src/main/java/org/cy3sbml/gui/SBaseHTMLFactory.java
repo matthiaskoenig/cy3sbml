@@ -46,7 +46,7 @@ import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
  *
- * TODO: display additional attributes of sbase
+
  * TODO: more compact layout, i.e remove empty rows
  */
 public class SBaseHTMLFactory {
@@ -56,114 +56,43 @@ public class SBaseHTMLFactory {
     ///////////////////////////////////////////////
     // HTML template strings
     ///////////////////////////////////////////////
-    // necessary to overwrite the SBML constants as long as not fixed in BaseReader
-    public static final String ATTR_ID = "id";
-    private static final String ATTR_NAME = "name";
-    public static final String ATTR_COMPARTMENT = "compartment";
-    public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
-    public static final String ATTR_INITIAL_AMOUNT = "amount";
-    public static final String ATTR_CHARGE = "charge";
 
+    public static final String HTML_START_TEMPLATE =
+            "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "\t<base href=\"%s\" />\n" +
+                    "\t<meta charset=\"utf-8\">\n" +
+                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                    "\t<title>%s</title>\n" +
+                    "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
+                    "\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
+                    "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
+                    "\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
+                    "</head>\n\n" +
+                    "<body>\n" +
+                    "<div class=\"container\">\n";
 
-	private static final String HTML_START_TEMPLATE =
-			"<!DOCTYPE html>\n" +
-            "<html>\n" +
-			"<head>\n" +
-            "\t<base href=\"%s\" />\n" +
-			"\t<meta charset=\"utf-8\">\n" +
-			"\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-			"\t<title>%s</title>\n" +
-            "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
-			"\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
-            "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
-			"\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-			"</head>\n\n" +
-            "<body>\n" +
-            "<div class=\"container\">\n";
+    public static final String HTML_STOP_TEMPLATE =
+            "</div>\n" +
+                    "<script src=\"./js/jquery.min.js\"></script>\n" +
+                    "<script src=\"./js/bootstrap.min.js\"></script>\n" +
+                    "</body>\n" +
+                    "</html>\n";
 
-	private static final String HTML_STOP_TEMPLATE =
-			"</div>\n" +
-			"<script src=\"./js/jquery.min.js\"></script>\n" +
-			"<script src=\"./js/bootstrap.min.js\"></script>\n" +
-			"</body>\n" +
-			"</html>\n";
-
-	private static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
-	private static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
-	private static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
-    private static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
+    public static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
+    public static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
+    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
+    public static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
 
     public static final String EXPORT_HTML = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
 
-    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
-    private static final String TABLE_END = "</table>\n";
-    private static final String TS = "\t<tr>\n\t\t<td><b>";
-    private static final String TM = "</b></td>\n\t\t<td>";
-    private static final String TE = "<td/>\n\t</tr>\n";
-
-
-    private static final String TEMPLATE_COMPARTMENT =
-            TABLE_START +
-            TS + "spatialDimensions" + TM + "%s" + TE +
-            TS + "size" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-            TS + "constant" + TM + "%s" + TE +
-            TABLE_END;
-
-    private static final String TEMPLATE_PARAMETER =
-            TABLE_START +
-            TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-            TS + "constant" + TM + "%s" +
-            TABLE_END;
-
-    private static final String TEMPLATE_INITIAL_ASSIGNMENT =
-            TABLE_START +
-            TS + "%s" + TM + "= %s" + TE +
-            TABLE_END;
-
-    private static final String TEMPLATE_RULE = TEMPLATE_INITIAL_ASSIGNMENT;
-
-    private static final String TEMPLATE_LOCAL_PARAMETER =
-            TABLE_START +
-            TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-            TABLE_END;
-
-     private static final String TEMPLATE_SPECIES =
-             TABLE_START +
-             TS + "compartment" + TM + "%s" + TE +
-             TS + "value" + TM + "%s <span class=\"unit\">%s</span>" + TE +
-             TS + "constant" + TM + "%s" + TE +
-             TS + "boundaryCondition" + TM + "%s" + TE +
-             TABLE_END;
-
-    private static final String TEMPLATE_QUALITATIVE_SPECIES =
-            TABLE_START +
-            TS + "compartment" + TM + "%s" + TE +
-            TS + "initial/max level" + TM + "%s/%s" + TE +
-            TS + "constant" + TM + "%s" + TE +
-            TABLE_END;
-
-    private static final String TEMPLATE_REACTION =
-            TABLE_START +
-            TS + "compartment" + TM + "%s" + TE +
-            TS + "reversible" + TM + "%s" + TE +
-            TS + "fast" + TM + "%s" + TE +
-            TS + "kineticLaw" + TM + "%s" + TE +
-            TS + "units" + TM + "<span class=\"unit\">%s</span>" + TE +
-            TABLE_END;
-
-    private static final String TEMPLATE_KINETIC_LAW =
-            TABLE_START +
-            TS + "kineticLaw" + TM + "%s" + TE +
-            TABLE_END;
-
-    private static final String TEMPLATE_PORT =
-            TABLE_START +
-            TS + "portRef" + TM + "%s " + TE +
-            TS + "idRef" + TM + "%s " + TE +
-            TS + "unitRef" + TM + "%s " + TE +
-            TS + "metaIdRef" + TM + "%s" + TE +
-            TABLE_END;
+    public static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
+    public static final String TABLE_END = "</table>\n";
+    public static final String TS = "\t<tr>\n\t\t<td><b>";
+    public static final String TM = "</b></td>\n\t\t<td>";
+    public static final String TE = "<td/>\n\t</tr>\n";
 
     ///////////////////////////////////////////////
 
@@ -191,17 +120,16 @@ public class SBaseHTMLFactory {
         return html;
     }
 
-
-
-    public static String createHTMLText(String text){
-        return createHTMLText(text, "cy3sbml");
-    }
-
     /**
      * Creates HTML for given text String.
      */
-	public static String createHTMLText(String text, String title){
+    public static String createHTMLText(String text, String title){
         return String.format(HTML_START_TEMPLATE, baseDir, title) + text + HTML_STOP_TEMPLATE;
+    }
+
+    /** Creates HTML text. */
+    public static String createHTMLText(String text){
+        return createHTMLText(text, "cy3sbml");
     }
 
 	/** Parse and create information for the current sbmlObject. */
@@ -240,11 +168,15 @@ public class SBaseHTMLFactory {
 	 */
 	private static String createHeader(SBase sbase){
 		String className = SBMLUtil.getUnqualifiedClassName(sbase);
-		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
+		String header = String.format(
+		        "<h2>%s%s</h2>\n",
+                EXPORT_HTML, className);
 		// if NamedSBase get additional information
 		if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
 			NamedSBase nsb = (NamedSBase) sbase;
-            header = String.format("<h2>%s%s <small>%s</small></h2>\n", EXPORT_HTML, className, nsb.getId());
+            header = String.format(
+                    "<h2>%s%s <small>%s</small></h2>\n",
+                    EXPORT_HTML, className, nsb.getId());
 		}
 		return header; 
 	}
@@ -260,209 +192,80 @@ public class SBaseHTMLFactory {
         return html + TABLE_END;
     }
 
-    /** Map with metaid information. */
-    private static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put(SBML.ATTR_METAID,
-                (sbase.isSetMetaId()) ? sbase.getMetaId() : ICON_NONE);
-        return map;
-    }
-
-    /** Map with name information. */
-    private static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        // map.put(ATTR_ID,
-        //         (sbase.isSetId()) ? sbase.getId() : ICON_NONE);
-        map.put(ATTR_NAME,
-                (nsb.isSetName()) ? nsb.getName() : ICON_NONE);
-        map.putAll(createSBaseMap(nsb));
-        return map;
-    }
-
-    /** Model HTML. */
-	private static String createModel(Model model){
-        Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
-        // TODO: add the package information
-
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put(
-                String.format("L%sV%s", model.getLevel(), model.getVersion()),
-                String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", GUIConstants.URL_SBMLFILE)
-                );
-        map.putAll(createNamedSBaseMap(model));
-        // optional
-        if (model.isSetSubstanceUnits()){
-            map.put(SBML.ATTR_SUBSTANCE_UNITS, model.getSubstanceUnits());
-        }
-        if (model.isSetTimeUnits()){
-            map.put(SBML.ATTR_TIME_UNITS, model.getTimeUnits());
-        }
-        if (model.isSetVolumeUnits()){
-            map.put(SBML.ATTR_VOLUME_UNITS, model.getVolumeUnits());
-        }
-        if (model.isSetAreaUnits()){
-            map.put(SBML.ATTR_AREA_UNITS, model.getAreaUnits());
-        }
-        if (model.isSetLengthUnits()){
-            map.put(SBML.ATTR_LENGTH_UNITS, model.getLengthUnits());
-        }
-        if (model.isSetExtentUnits()){
-            map.put(SBML.ATTR_EXTENT_UNITS, model.getExtentUnits());
-        }
-        if (model.isSetConversionFactor()){
-            map.put(SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor());
-        }
-        return createTableFromMap(map);
-    }
-
-
-
 	/** 
 	 * Creation of class specific attribute information.
      * This mimics the SBMLReader
 	 */
 	private static String createSBase(SBase item){
+	    LinkedHashMap<String, String> map;
 
-		// Model //
+        // Model //
 		if (item instanceof Model){
-		    return createModel((Model) item);
+		    map = SBMLUtil.createModelMap((Model) item);
 		}
-		
-		// Compartment //
+        // Compartment //
 		else if (item instanceof Compartment){
-			Compartment compartment = (Compartment) item;
-			String dimensions = (compartment.isSetSpatialDimensions()) ? ((Double) compartment.getSpatialDimensions()).toString() : ICON_NONE;
-			String size = (compartment.isSetSize()) ? ((Double)compartment.getSize()).toString() : ICON_NONE;
-			String units = (compartment.isSetUnits()) ? compartment.getUnits() : ICON_NONE;
-			String constant = (compartment.isSetConstant()) ? booleanHTML(compartment.getConstant()) : ICON_NONE;
-			return String.format(TEMPLATE_COMPARTMENT, dimensions, size, units, constant);
+            map = SBMLUtil.createCompartmentMap((Compartment) item);
 		}
-
-		// Parameter //
+        // Parameter //
 		else if (item instanceof Parameter){
-			Parameter p = (Parameter) item;
-			String value = (p.isSetValue()) ? ((Double) p.getValue()).toString() : ICON_NONE;
-			String units = (p.isSetUnits()) ? p.getUnits() : ICON_NONE;
-			String constant = (p.isSetConstant()) ? booleanHTML(p.getConstant()) : ICON_NONE;
-			return String.format(TEMPLATE_PARAMETER, value, units, constant);
+            map = SBMLUtil.createParameterMap((Parameter) item);
 		}
-
 		// InitialAssignment //
 		else if (item instanceof InitialAssignment){
-			InitialAssignment ass = (InitialAssignment) item;
-            String variable = (ass.isSetVariable()) ? ass.getVariable() : ICON_NONE;
-            String math = (ass.isSetMath()) ? ass.getMath().toFormula() : ICON_NONE;
-            return String.format(TEMPLATE_INITIAL_ASSIGNMENT, variable, math);
+            map = SBMLUtil.createInitialAssignmentMap((InitialAssignment) item);
 		}
-
 		// Rule //
 		else if (item instanceof Rule){
-            Rule rule = (Rule) item;
-            String math = (rule.isSetMath()) ? rule.getMath().toFormula() : ICON_NONE;
-            String variable = SBMLUtil.getVariableFromRule(rule);
-            if (variable == null){
-                variable = ICON_NONE;
-            }
-            return String.format(TEMPLATE_RULE, variable, math);
+            map = SBMLUtil.createRuleMap((Rule) item);
 		}
-
 		// LocalParameter //
 		else if (item instanceof LocalParameter){
-			LocalParameter lp = (LocalParameter) item;
-			String value = (lp.isSetValue()) ? ((Double) lp.getValue()).toString() : ICON_NONE;
-			String units = (lp.isSetUnits()) ? lp.getUnits() : ICON_NONE;
-			return String.format(TEMPLATE_LOCAL_PARAMETER, value, units);
+			map = SBMLUtil.createLocalParameterMap((LocalParameter) item);
 		}
-		
 		// Species //
 		else if (item instanceof Species){
-			Species s = (Species) item;
-			String compartment = (s.isSetCompartment()) ? s.getCompartment().toString() : ICON_NONE;
-			String value = (s.isSetValue()) ? ((Double) s.getValue()).toString() : ICON_NONE;
-            String units = getDerivedUnitString((AbstractNamedSBaseWithUnit) item);
-			String constant = (s.isSetConstant()) ? booleanHTML(s.isConstant()) : ICON_NONE;
-			String boundaryCondition = (s.isSetBoundaryCondition()) ? booleanHTML(s.getBoundaryCondition()) : ICON_NONE;
-
-            // TODO: charge & package information (formula, charge)
-
-			return String.format(TEMPLATE_SPECIES, compartment, value, units, constant, boundaryCondition);
+			map = SBMLUtil.createSpeciesMap((Species) item);
 		}
-		
 		// Reaction
 		else if (item instanceof Reaction){
-			Reaction r = (Reaction) item;
-
-			String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : ICON_NONE;
-			String reversible = (r.isSetReversible()) ? booleanHTML(r.getReversible()) : ICON_NONE;
-			String fast = (r.isSetFast()) ? booleanHTML(r.getFast()) : ICON_NONE;
-            String kineticLaw = ICON_NONE;
-			if (r.isSetKineticLaw()){
-				KineticLaw law = r.getKineticLaw();
-				if (law.isSetMath()){
-					kineticLaw = law.getMath().toFormula();	
-				}
-			}
-            String units = getDerivedUnitString((SBaseWithDerivedUnit) item);
-
-            // TODO: extension information (upper & lower bound, objective)
-
-			return String.format(TEMPLATE_REACTION,
-                    compartment,
-                    reversible,
-                    fast,
-                    kineticLaw,
-                    units);
+			map = SBMLUtil.createReactionMap((Reaction) item);
 		}
-
 		// KineticLaw
 		else if (item instanceof KineticLaw){
-			KineticLaw law = (KineticLaw) item;
-			String kineticLaw = (law.isSetMath()) ? law.getMath().toFormula() : ICON_NONE;
-			return String.format(TEMPLATE_KINETIC_LAW, kineticLaw);
+			map = SBMLUtil.createKineticLawMap((KineticLaw) item);
 		}
-		
-		// QualitativeSpecies
+        // FunctionDefinition //
+        else if (item instanceof FunctionDefinition){
+            map = SBMLUtil.createFunctionDefinitionMap((FunctionDefinition) item);
+        }
+		// qual:QualitativeSpecies
 		else if (item instanceof QualitativeSpecies){
-			QualitativeSpecies qs = (QualitativeSpecies) item;
-
-			String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : ICON_NONE;
-			String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : ICON_NONE;
-			String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : ICON_NONE;
-			String constant = (qs.isSetConstant()) ? booleanHTML(qs.getConstant()) : ICON_NONE;
-			return String.format(TEMPLATE_QUALITATIVE_SPECIES, compartment, initialLevel, maxLevel, constant);
+			map = SBMLUtil.createQualitativeSpeciesMap((QualitativeSpecies) item);
 		}
-
-		// Transition //
+		// qual:Transition //
 		else if (item instanceof Transition){
-            // TODO:
+            map = SBMLUtil.createTransitionMap((Transition) item);
 		}
-
-		// GeneProduct //
+		// fbc:GeneProduct //
 		else if (item instanceof GeneProduct){
-            // TODO:
+            map = SBMLUtil.createGeneProductMap((GeneProduct) item);
 		}
-
-		// FunctionDefinition //
-		else if (item instanceof FunctionDefinition){
-			FunctionDefinition fd = (FunctionDefinition) item;
-            String math = (fd.isSetMath()) ? fd.getMath().toFormula() : ICON_NONE;
-			return String.format(TEMPLATE_KINETIC_LAW, math);
-		}
-		
 		// comp:Port //
 		else if (item instanceof Port){
-			Port port = (Port) item;
-			String portRef = (port.isSetPortRef()) ? port.getPortRef() : ICON_NONE;
-			String idRef = (port.isSetIdRef()) ? port.getIdRef() : ICON_NONE;
-			String unitRef = (port.isSetUnitRef()) ? port.getUnitRef() : ICON_NONE;
-			String metaIdRef = (port.isSetMetaIdRef()) ? port.getMetaIdRef() : ICON_NONE;
-			return String.format(TEMPLATE_PORT, portRef, idRef, unitRef, metaIdRef);
+			map = SBMLUtil.createPortMap((Port) item);
 		}
-		return "";
+		// Not supported
+		else {
+            logger.warn(String.format("No dedicated map support for %s.", item));
+		    if (item instanceof NamedSBase){
+                map = SBMLUtil.createNamedSBaseMap((NamedSBase) item);
+            } else {
+                map = SBMLUtil.createSBaseMap(item);
+            }
+        }
+		return createTableFromMap(map);
 	}
-
-
-
 
     /** Create HTML for CVTerms. */
     private static String createCVTerms(SBase sbase){
@@ -858,8 +661,8 @@ public class SBaseHTMLFactory {
     /////////////////////////////////////////////////////////////////////////////////////
 
     /** Creates true or false HTML depending on boolean. */
-    private static String booleanHTML(boolean b){
-        return (b == true) ? ICON_TRUE : ICON_FALSE;
+    public static String booleanHTML(boolean b){
+        return (b) ? ICON_TRUE : ICON_FALSE;
     }
 
     /** Derived unit string. */
