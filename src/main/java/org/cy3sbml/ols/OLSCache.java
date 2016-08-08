@@ -7,13 +7,13 @@ import net.sf.ehcache.config.CacheConfiguration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 
 /**
  * Caching OLS information.
  *
- *  The data is cached in memory cache using ehcache. This was
- * initially implemented to reduce minimize the web service calls to MIRIAM.
+ * The data is cached in memory cache using ehcache.
  * Provides fast access to webservice information in combination with preloading of resources
  * during loading of files. The created information objects are cached to reduce load on the
  * web services.
@@ -47,27 +47,27 @@ public class OLSCache {
      * Get OLS object for given URI.
      * Unique URI is used for caching.
      */
-    public static OLSObject getOLSObject(String resourceURI){
-        OLSObject olsObject;
+    public static Term getTerm(String identifier){
+        Term term;
 
         // check in cache
-        Element element = cache.get(resourceURI);
+        Element element = cache.get(identifier);
         if (element != null){
-            logger.debug("cached: " + resourceURI);
-            olsObject = (OLSObject) element.getObjectValue();
+            logger.debug("Found in cache: " + identifier);
+            term = (Term) element.getObjectValue();
         }
         // not in cache, lookup element
         else {
-            olsObject = new OLSObject(resourceURI);
+            term = OLSAccess.getTerm(identifier);
             // update the cache
-            if (olsObject != null){
-                element = new Element(resourceURI, olsObject);
+            if (term != null){
+                element = new Element(identifier, term);
                 cache.put(element);
-                logger.debug("Added to cache: " + resourceURI);
+                logger.debug("Put in cache: " + identifier);
             } else {
-                logger.debug("Miriam locations could not be retrieved: " + resourceURI);
+                logger.debug("Object could not be retrieved: " + identifier);
             }
         }
-        return olsObject;
+        return term;
     }
 }

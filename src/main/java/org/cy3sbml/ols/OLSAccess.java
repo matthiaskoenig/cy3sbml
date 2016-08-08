@@ -1,52 +1,36 @@
 package org.cy3sbml.ols;
 
 
-import org.cy3sbml.miriam.RegistryUtil;
-import org.identifiers.registry.RegistryUtilities;
-import org.identifiers.registry.data.DataType;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
+import org.cy3sbml.miriam.RegistryUtil;
+import org.identifiers.registry.RegistryUtilities;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
- * Information for given OLSObject.
+ * Information for given OLSAccess.
  * This represent the information for a term.
+ * FIXME: probably not a good idea to have one static client (multi-threading)
  */
-public class OLSObject {
-    private static final Logger logger = LoggerFactory.getLogger(OLSObject.class);
-
-    // FIXME: probably not a good idea to have one static client (multi-threading)
-    private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
-
+public class OLSAccess {
+    private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
     public final static String OLS_BASE_URL = "http://www.ebi.ac.uk/ols/ontologies/";
-
-
-    private String uri;
-    private Term term;
-
-    public OLSObject(String resourceURI){
-        uri = resourceURI;
-
-        // TODO: lookup the information via OLS
-        term = null;
-    }
+    private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
      * Gets the OLS term for a given MIRIAM resourceURI.
      * Example: "GO:0042752"
-     * Returns NULL if not an ontology term, or no term.
      *
-     * FIXME: issues with UBERON:2107
+     * Returns NULL if not an ontology term, or no term.
      */
-    public static Term getTermFromIdentifier(String identifier){
+    public static Term getTerm(String identifier){
         try {
-            // String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String[] tokens = identifier.split(":");
             if (tokens.length != 2) {
                 logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
@@ -96,14 +80,9 @@ public class OLSObject {
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
 
 
-        Term term = getTermFromIdentifier(identifier);
+        Term term = getTerm(identifier);
         // Term term = olsClient.getTermById(new Identifier("GO:0042752", Identifier.IdentifierType.OBO), "GO");
         System.out.println(termToString(term));
     }
-
-
-
-
-
 
 }

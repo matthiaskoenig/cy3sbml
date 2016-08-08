@@ -18,7 +18,7 @@ public class UniprotAccess {
      * Retrieve UniProt Entry by accession id.
      * Example: "P10415"
      */
-    public static UniProtEntry getEntryByAccession(String accession){
+    public static UniProtEntry getUniProtEntry(String accession){
         UniProtEntry entry = null;
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();

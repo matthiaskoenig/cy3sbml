@@ -19,7 +19,7 @@ public class UniprotAccessTest {
     @Test
     public void getEntryByAccession(){
         String accession = "P10415";
-        UniProtEntry entry = UniprotAccess.getEntryByAccession(accession);
+        UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         assertNotNull(entry);
         assertEquals("BCL2_HUMAN", entry.getUniProtId().toString());
     }

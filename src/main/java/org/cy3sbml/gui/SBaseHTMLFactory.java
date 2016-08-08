@@ -7,8 +7,9 @@ import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
-import org.cy3sbml.ols.OLSObject;
-import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.ols.OLSAccess;
+import org.cy3sbml.ols.OLSCache;
+import org.cy3sbml.uniprot.UniprotCache;
 import org.cy3sbml.util.XMLUtil;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
@@ -405,7 +406,8 @@ public class SBaseHTMLFactory {
      */
     private static String createOLSLocation(PhysicalLocation location, String identifier){
         String html = "";
-        Term term = OLSObject.getTermFromIdentifier(identifier);
+        // Term term = OLSAccess.getTerm(identifier);
+        Term term = OLSCache.getTerm(identifier);
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
@@ -512,7 +514,8 @@ public class SBaseHTMLFactory {
      */
     private static String uniprotHTML(String accession){
         String text = "\t<br />\n";
-        UniProtEntry entry = UniprotAccess.getEntryByAccession(accession);
+        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
+        UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(

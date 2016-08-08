@@ -1,6 +1,6 @@
 package org.cy3sbml.miriam;
 
-import org.cy3sbml.ols.OLSObject;
+import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.util.IOUtil;
 import org.identifiers.registry.RegistryDatabase;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -25,7 +25,7 @@ public class RegistryUtil {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().startsWith(OLSObject.OLS_BASE_URL);
+        return location.getUrlRoot().startsWith(OLSAccess.OLS_BASE_URL);
     }
 
 
