@@ -1,8 +1,10 @@
 package org.cy3sbml;
 
-import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cy3sbml.gui.WebViewPanel;
-import org.cy3sbml.miriam.RegistryUtil;
+import org.osgi.framework.BundleContext;
+
+import java.io.File;
+import java.util.Properties;
+
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
@@ -33,13 +35,7 @@ import org.cytoscape.work.swing.DialogTaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
-import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.io.File;
-import java.util.Properties;
 
 import org.cy3sbml.actions.BiomodelsAction;
 import org.cy3sbml.actions.ChangeStateAction;
@@ -50,9 +46,14 @@ import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.LoadLayoutAction;
 import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
-import org.cy3sbml.cofactors.CofactorManager;
 
-import javax.swing.*;
+import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.miriam.RegistryUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Entry point to cy3sbml.
@@ -221,7 +222,7 @@ public class CyActivator extends AbstractCyActivator {
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			// Session loading & saving
-			SessionData sessionData = new SessionData(appDirectory);
+			SessionData sessionData = new SessionData();
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
