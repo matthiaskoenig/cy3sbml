@@ -6,20 +6,14 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.cy3sbml.SBML;
-import org.cy3sbml.SBMLCoreReader;
-import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSObject;
 import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.XMLUtil;
-import org.cytoscape.model.CyNode;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
 import org.sbml.jsbml.*;
-import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -34,7 +28,6 @@ import uk.ac.ebi.kraken.interfaces.uniprot.*;
 import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
 import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
 import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
-import uk.ac.ebi.kraken.interfaces.uniprot.evidences.Evidence;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 /** 

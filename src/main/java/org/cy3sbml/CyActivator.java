@@ -210,13 +210,10 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
 
-			// SBML Filter
-			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
-			
-			/** Register services */			
 			// SBML file reader
+            SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
 			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
-			Properties sbmlReaderProps = new Properties();
+            Properties sbmlReaderProps = new Properties();
 			sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
 			sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);

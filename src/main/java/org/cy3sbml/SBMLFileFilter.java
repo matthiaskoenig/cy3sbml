@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.cytoscape.io.BasicCyFileFilter;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.DataCategory;
 import org.cytoscape.io.util.StreamUtil;
@@ -20,36 +21,23 @@ import org.slf4j.LoggerFactory;
  * SBML Filter class.
  * Extends CyFileFilter for integration into the Cytoscape ImportHandler framework.
  */
-public class SBMLFileFilter implements CyFileFilter {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+public class SBMLFileFilter extends BasicCyFileFilter {
+    private static final Logger logger = LoggerFactory.getLogger(SBMLFileFilter.class);
 	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
-
 	private static final int DEFAULT_LINES_TO_CHECK = 20;
 
-	private final StreamUtil streamUtil;
-	private final Set<String> extensions;
-	private final Set<String> contentTypes;
-	private final String description;
 
 	/**
 	 * Constructor.
 	 */
-	public SBMLFileFilter(String description, StreamUtil streamUtil) {
-		this.streamUtil = streamUtil;
-		
-		extensions = new HashSet<String>();
-		extensions.add("xml");
-		extensions.add("sbml");
-		extensions.add("");
-		
-		contentTypes = new HashSet<String>();
-		contentTypes.add("text/xml");
-		contentTypes.add("text/sbml");
-		contentTypes.add("text/sbml+xml");
-		contentTypes.add("application/xml");
-		contentTypes.add("text/plain");
-
-		this.description = description; 
+	public SBMLFileFilter(StreamUtil streamUtil) {
+		super(
+				new String[] { "xml", "sbml", ""},
+				new String[] { "text/xml", "application/rdf+xml", "application/xml", "text/plain", "text/sbml", "text/sbml+xml" },
+				"SBML network reader (cy3sbml)",
+				DataCategory.NETWORK,
+				streamUtil
+		);
 	}
 
 	/**
@@ -104,23 +92,4 @@ public class SBMLFileFilter implements CyFileFilter {
 		return false;
 	}
 
-	@Override
-	public Set<String> getExtensions() {
-		return extensions;
-	}
-
-	@Override
-	public Set<String> getContentTypes() {
-		return contentTypes;
-	}
-
-	@Override
-	public String getDescription() {
-		return description;
-	}
-
-	@Override
-	public DataCategory getDataCategory() {
-		return DataCategory.NETWORK;
-	}
 }

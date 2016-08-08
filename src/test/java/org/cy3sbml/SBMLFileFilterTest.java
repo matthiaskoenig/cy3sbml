@@ -15,11 +15,10 @@ import static org.junit.Assert.*;
  */
 public class SBMLFileFilterTest {
     private SBMLFileFilter filter;
-    private static final String DESCRIPTION = "Test description";
 
     @Before
     public void setUp() {
-        filter = new SBMLFileFilter(DESCRIPTION, null);
+        filter = new SBMLFileFilter(null);
     }
 
     @After
@@ -54,7 +53,7 @@ public class SBMLFileFilterTest {
     @Test
     public void getDescription() throws Exception {
         String description = filter.getDescription();
-        assertEquals(DESCRIPTION, description);
+        assertNotNull(description);
     }
 
     @Test
