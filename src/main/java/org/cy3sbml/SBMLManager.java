@@ -8,6 +8,8 @@ import org.cytoscape.model.CyNetwork;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
@@ -104,15 +106,22 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * The SBMLDocument is only removed if no other subnetworks reference the SBMLDocument.
      */
     public Boolean removeSBMLForNetwork(CyNetwork network){
-        // TODO: implement
+
         // necessary to check if there are other SubNetworks for the root network.
-        // If yes the SBMLDocument cannot be removed.
+        // If yes the SBMLDocument is not removed
 
-        // FIXME:
-        Long suid = NetworkUtil.getRootNetworkSUID(network);
-        // network2sbml;
-        // network2sbml.removeDocument();
-
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+        List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
+        if (subnetworks.size() == 1){
+            network2sbml.removeDocument(rootSUID);
+            logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
+            return true;
+        }else {
+            logger.info(String.format("SBMLDocument not removed for rootSUID: %s. Number of associated networks: %s",
+                    rootSUID, subnetworks.size()));
+            return false;
+        }
     }
 
 	/** Returns mapping or null if no mapping exists. */
@@ -141,7 +150,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 	/** Set the current network SUID. */
     private void setCurrentSUID(Long SUID){
         currentSUID = null;
-        if (SUID != null && network2sbml.containsNetwork(SUID)){
+        if (SUID != null && network2sbml.containsDocument(SUID)){
             currentSUID = SUID;
         }
         logger.debug("Current network set to: " + currentSUID);
@@ -174,7 +183,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * Returns null if no SBMLDocument exist for the network.
      */
     public SBMLDocument getSBMLDocument(Long rootNetworkSUID){
-        return network2sbml.getDocumentForSUID(rootNetworkSUID);
+        return network2sbml.getDocument(rootNetworkSUID);
     }
 
 
@@ -256,8 +265,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     @Override
     public void handleEvent(NetworkAboutToBeDestroyedEvent e) {
         CyNetwork network = e.getNetwork();
-
-
+        removeSBMLForNetwork(network);
     }
 
 

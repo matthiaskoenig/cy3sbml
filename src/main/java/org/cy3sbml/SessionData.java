@@ -62,6 +62,12 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         saveSessionData(event, directory);
     }
 
+    /**
+     * Load Session.
+     */
+    public void handleEvent(SessionLoadedEvent event) {
+        loadSessionData(event, directory);
+    }
 
     /**
      * Save the session data from cy3sbml.
@@ -149,19 +155,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 		}
 	}
 
-
-	
-	/**
-	 * Load Session.
-	 */
-	public void handleEvent(SessionLoadedEvent event) {
-        loadSessionData(event, directory);
-    }
-
     /**
      * Load Session data for cy3sbml.
      */
-    public static void loadSessionData(SessionLoadedEvent event, File directory){
+    private static void loadSessionData(SessionLoadedEvent event, File directory){
 		CySession session = event.getLoadedSession();
 		// check if there is app file data
 		if (session.getAppFileListMap() == null || session.getAppFileListMap().size() ==0){
@@ -253,7 +250,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
+	private static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
 		// mapper with updated SUIDS
 		Network2SBMLMapper newM = new Network2SBMLMapper();
 		
@@ -292,7 +289,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
+	private static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
 		logger.debug("Update SUIDs in Network2CofactorMapper");
 		// mapper with updated SUIDS
 		Network2CofactorMapper newM = new Network2CofactorMapper();

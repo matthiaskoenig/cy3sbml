@@ -54,4 +54,28 @@ public class IOUtil {
     }
 
 
+    /**
+     * Get a Temporary file with a given filename and a given extension.
+     * IF the file already exists, suffixes will be added.
+     *
+     * @param FileName - Filename of the Temporary file
+     * @param Extension - File extension of the temporary file.
+     * @return The Temporary File Object.
+     */
+    // TODO: implement me
+    /*
+    public static File getTemporaryFile(String FileName, String Extension) {
+        File target = new File(System.getProperty("java.io.tmpdir") + File.separator + CY3SBML_TEMP_FOLDER + FileName + Extension);
+        int suffix = 0;
+        while(target.exists())
+        {
+            target = new File(System.getProperty("java.io.tmpdir") + File.separator + CY3SBML_TEMP_FOLDER + File.separator + FileName + "_" + suffix + Extension);
+            suffix++;
+        }
+
+        return target;
+    }
+    */
+
+
 }

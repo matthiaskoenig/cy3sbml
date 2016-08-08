@@ -33,21 +33,21 @@ public class Network2SBMLMapperTest {
     @Test
     public void getDocumentForSUID() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertTrue(mapper.containsNetwork(SUID));
-        SBMLDocument doc = mapper.getDocumentForSUID(SUID);
+        assertTrue(mapper.containsDocument(SUID));
+        SBMLDocument doc = mapper.getDocument(SUID);
         assertEquals(DOC, doc);
     }
 
     @Test
     public void containsNetwork() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertTrue(mapper.containsNetwork(SUID));
+        assertTrue(mapper.containsDocument(SUID));
     }
 
     @Test
     public void keySet() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertTrue(mapper.containsNetwork(SUID));
+        assertTrue(mapper.containsDocument(SUID));
         Set<Long> keySet = mapper.keySet();
         assertNotNull(keySet);
         assertEquals(1, keySet.size());
@@ -67,15 +67,15 @@ public class Network2SBMLMapperTest {
     @Test
     public void putDocument() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertTrue(mapper.containsNetwork(SUID));
+        assertTrue(mapper.containsDocument(SUID));
     }
 
     @Test
     public void removeDocument() throws Exception {
         mapper.putDocument(SUID, DOC, MAPPING);
-        assertTrue(mapper.containsNetwork(SUID));
+        assertTrue(mapper.containsDocument(SUID));
         mapper.removeDocument(SUID);
-        assertFalse(mapper.containsNetwork(SUID));
+        assertFalse(mapper.containsDocument(SUID));
         assertEquals(0, mapper.keySet().size());
     }
 

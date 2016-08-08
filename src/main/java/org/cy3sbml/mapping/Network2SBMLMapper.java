@@ -42,10 +42,32 @@ public class Network2SBMLMapper implements Serializable{
 		node2sbaseMappingMap = new HashMap<>();
 	}
 
-	/**
+    /**
+     * The SBMLDocument is stored with the SBML id to SUID (CyNode) mapping.
+     * A reverse mapping from SUIDs to SBML ids is created in the process.
+     */
+    public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
+        logger.debug("Network put: " + rootSUID.toString());
+        documentMap.put(rootSUID,  doc);
+        sbase2nodeMappingMap.put(rootSUID, mapping);
+        node2sbaseMappingMap.put(rootSUID, mapping.createReverseMapping());
+    }
+
+    /**
+     * Removes the document for a given root network SUID.
+     * This removes the mapping for all subnetworks of the given root network SUID.
+     */
+    public void removeDocument(Long rootSUID){
+        logger.debug("Network remove:" + rootSUID.toString());
+        documentMap.remove(rootSUID);
+        sbase2nodeMappingMap.remove(rootSUID);
+        node2sbaseMappingMap.remove(rootSUID);
+    }
+
+    /**
      * Get SBMLDocument for given rootNetworkSUID.
      */
-    public SBMLDocument getDocumentForNetwork(Long rootSUID){
+    public SBMLDocument getDocument(Long rootSUID){
         SBMLDocument doc = null;
         if (rootSUID == null) {
             logger.debug("No SUID set. No SBMLDocument can be retrieved !");
@@ -57,12 +79,16 @@ public class Network2SBMLMapper implements Serializable{
         return doc;
     }
 
-    /** Exists a SBMLDocument for the given rootNetwork ? */
-	public boolean containsNetwork(Long rootSUID){
+    /**
+     * Exists a SBMLDocument for the given rootNetwork ?
+     */
+	public boolean containsDocument(Long rootSUID){
 	    return (documentMap.containsKey(rootSUID));
 	}
 
-	/** Get all rootNetwork SUIDs which have an association SBMLDocument. */
+	/**
+     * Get all rootNetwork SUIDs which have an association SBMLDocument.
+     */
 	public Set<Long> keySet(){
 	    return documentMap.keySet();
 	}
@@ -73,28 +99,10 @@ public class Network2SBMLMapper implements Serializable{
     }
 
     /**
-     * The SBMLDocument is stored with the SBML id to SUID (CyNode) mapping.
-     * A reverse mapping from SUIDs to SBML ids is created in the process.
+     * Mapping
+     * @param rootSUID
+     * @return
      */
-	public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
-        logger.debug("Network put: " + rootSUID.toString());
-	    documentMap.put(rootSUID,  doc);
-		sbase2nodeMappingMap.put(rootSUID, mapping);
-		node2sbaseMappingMap.put(rootSUID, mapping.createReverseMapping());
-	}
-
-	/**
-	 * Removes the document for a given root network SUID.
-     * This removes the mapping for all subnetworks of the given root network SUID.
-	 */
-	public void removeDocument(Long rootSUID){
-		logger.debug("Network remove:" + rootSUID.toString());
-		documentMap.remove(rootSUID);
-		sbase2nodeMappingMap.remove(rootSUID);
-		node2sbaseMappingMap.remove(rootSUID);
-	}
-
-
     public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID){
         if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
@@ -103,6 +111,9 @@ public class Network2SBMLMapper implements Serializable{
         return node2sbaseMappingMap.get(rootSUID);
     }
 
+    /**
+     * Mapping
+     */
     public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID){
         if (rootSUID == null){
             logger.warn("No current SUID set. Mapping can not be retrieved !");
@@ -111,6 +122,9 @@ public class Network2SBMLMapper implements Serializable{
         return sbase2nodeMappingMap.get(rootSUID);
     }
 
+    /**
+     * Information string.
+     */
 	public String toString(){
 		String info = "\n--- SBML2NetworkMapping ---\n";
 		for (Long key: documentMap.keySet()){
