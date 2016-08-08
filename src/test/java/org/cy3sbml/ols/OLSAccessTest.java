@@ -28,7 +28,7 @@ public class OLSAccessTest {
         String text = OLSAccess.termToString(term);
         assertNotNull(text);
         assertTrue(text.contains("regulation of circadian rhythm"));
-        assertTrue(text.contains("ontologyName:\tgo\n"));
+        assertTrue(text.contains("go\n"));
     }
 
 }

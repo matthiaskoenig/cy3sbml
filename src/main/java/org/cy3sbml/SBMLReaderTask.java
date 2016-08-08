@@ -210,18 +210,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
 
         // layout
-        CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
-        if (layout == null) {
-            layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
-            logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
-        }
-        TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
-        Task nextTask = itr.next();
-        try {
-            nextTask.run(taskMonitor);
-        } catch (Exception e) {
-            throw new RuntimeException("Could not finish layout", e);
-        }
+		if (cyLayoutAlgorithmManager != null) {
+			CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
+			if (layout == null) {
+				layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
+				logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
+			}
+			TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
+			Task nextTask = itr.next();
+			try {
+				nextTask.run(taskMonitor);
+			} catch (Exception e) {
+				throw new RuntimeException("Could not finish layout", e);
+			}
+		}
 
         // finished
         return view;

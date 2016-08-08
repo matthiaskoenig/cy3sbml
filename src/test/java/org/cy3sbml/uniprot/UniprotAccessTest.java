@@ -17,7 +17,7 @@ import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExam
 public class UniprotAccessTest {
 
     @Test
-    public void getEntryByAccession(){
+    public void getUniProtEntry(){
         String accession = "P10415";
         UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         assertNotNull(entry);
