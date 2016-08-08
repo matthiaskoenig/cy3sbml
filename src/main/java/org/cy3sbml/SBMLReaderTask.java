@@ -115,9 +115,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	private SBMLDocument document;
 
-	private CyNetwork network;       // global network of all SBML information
 	private CyRootNetwork rootNetwork;
-	private CyNetwork mainNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
+	private CyNetwork network;       // global network of all SBML information
+	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
 
 	private Map<String, CyNode> nodeById; // node dictionary
     private Boolean error = false;
@@ -151,10 +151,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     /** Get created networks from the reader. */
     @Override
     public CyNetwork[] getNetworks() {
-        if (mainNetwork == null){
+        if (coreNetwork == null){
             return new CyNetwork[] { network };
         } else {
-            return new CyNetwork[] { mainNetwork, network };
+            return new CyNetwork[] {coreNetwork, network };
         }
     }
 
@@ -229,7 +229,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				model = document.createModel();
 				model.setId("null_model");
 			}
-		
+
+			// FIXME: better naming of collection
 			// Create empty root network and node map
 			network = networkFactory.createNetwork();
 			nodeById = new HashMap<String, CyNode>();
@@ -311,42 +312,35 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			};
 
 			// O(1) lookup (collect nodes and edges)
-			HashSet<String> nodeTypesSet = new HashSet<String>(java.util.Arrays.asList(nodeTypes));
-			HashSet<String> edgeTypesSet = new HashSet<String>(java.util.Arrays.asList(edgeTypes));
-
-			HashSet<CyNode> nodes = new HashSet<CyNode>();
+			HashSet<String> nodeTypesSet = new HashSet<>(java.util.Arrays.asList(nodeTypes));
+			HashSet<CyNode> coreNodes = new HashSet<>();
 			for (CyNode n : network.getNodeList()){
 				CyRow row = network.getRow(n, CyNetwork.DEFAULT_ATTRS);
 				String type = row.get(SBML.NODETYPE_ATTR, String.class);
 				if (nodeTypesSet.contains(type)){
-					nodes.add(n);	
+					coreNodes.add(n);
 				}
 			}
-	
-			HashSet<CyEdge> edges = new HashSet<CyEdge>();
+
+            HashSet<String> edgeTypesSet = new HashSet<>(java.util.Arrays.asList(edgeTypes));
+			HashSet<CyEdge> coreEdges = new HashSet<>();
 			for (CyEdge e : network.getEdgeList()){
 				CyRow row = network.getRow(e, CyNetwork.DEFAULT_ATTRS);
 				String type = row.get(SBML.INTERACTION_ATTR, String.class);
 				if (edgeTypesSet.contains(type)){
-					edges.add(e);	
+					coreEdges.add(e);
 				}
 			}
-			
-			// Create main subnetwork if any node in main network
-			if (nodes.size() > 0){
-				mainNetwork = rootNetwork.addSubNetwork(nodes, edges);
-				
-				// set name of main network
-				String name = network.getRow(network).get(CyNetwork.NAME, String.class);
-				if (name == null){
-					// name not set, try backup name via id
-					name = network.getRow(network).get(SBML.ATTR_ID, String.class);
-					// still not set, use the file name
-					if (name == null){
-						name = fileName;
-					}
-				}
-				mainNetwork.getRow(mainNetwork).set(CyNetwork.NAME, "Main: "+ name);	
+
+            // Set naming
+			String name = networkName();
+            rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
+            network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
+
+			// Create core subnetwork if any node in main network
+			if (coreNodes.size() > 0){
+				coreNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
+				coreNetwork.getRow(coreNetwork).set(CyNetwork.NAME, String.format("Core: %s", name));
 			}
 
 			if (taskMonitor != null){
@@ -364,6 +358,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues'" + t);
 		}
 	}
+
+	/**
+     * Get network name.
+     * Is used for naming the network and the network collection.
+     */
+	private String networkName(){
+       // name of root network
+        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+        if (name == null){
+            // name not set, try backup name via id
+            name = network.getRow(network).get(SBML.ATTR_ID, String.class);
+            // still not set, use the file name
+            if (name == null){
+                name = fileName;
+            }
+        }
+        return name;
+    }
 	
 
 	////////////////////////////////////////////////////////////////////////////
