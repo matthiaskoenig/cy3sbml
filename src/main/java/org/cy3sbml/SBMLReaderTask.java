@@ -19,11 +19,16 @@ import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.property.CyProperty;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
+import org.cytoscape.work.Task;
+import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
 
 // SBML CORE
@@ -96,6 +101,8 @@ import org.cy3sbml.mapping.One2ManyMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
+
 
 /**
  * The SBMLReaderTask creates CyNetworks from SBMLDocuments.
@@ -112,6 +119,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private final CyNetworkFactory networkFactory;
 	private final CyNetworkViewFactory viewFactory;
     private final VisualMappingManager visualMappingManager;
+    private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
 	private final CyProperty<Properties> cy3sbmlProperties;
 
 	private SBMLDocument document;
@@ -123,11 +131,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private Map<String, CyNode> nodeById; // node dictionary
     private Boolean error = false;
 
+    private TaskMonitor taskMonitor;
+
 	/** Constructor */
 	public SBMLReaderTask(InputStream stream, String fileName,
                           CyNetworkFactory networkFactory,
 						  CyNetworkViewFactory viewFactory,
                           VisualMappingManager visualMappingManager,
+                          CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
                           CyProperty<Properties> cy3sbmlProperties) {
 		
 		this.stream = stream;
@@ -135,12 +146,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		this.networkFactory = networkFactory;
 		this.viewFactory = viewFactory;
         this.visualMappingManager = visualMappingManager;
+        this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
 		this.cy3sbmlProperties = cy3sbmlProperties;
 	}
 
 	/** Testing constructor. */
 	public SBMLReaderTask (InputStream stream, String fileName, CyNetworkFactory networkFactory){
-	    this(stream, fileName, networkFactory, null, null, null);
+	    this(stream, fileName, networkFactory, null, null, null, null);
     }
 
 
@@ -197,6 +209,21 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
+        // layout
+        CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
+        if (layout == null) {
+            layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
+            logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
+        }
+        TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
+        Task nextTask = itr.next();
+        try {
+            nextTask.run(taskMonitor);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not finish layout", e);
+        }
+
+        // finished
         return view;
     }
 
@@ -209,6 +236,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	@Override
 	public void run(TaskMonitor taskMonitor) throws Exception {
 		logger.debug("<--- Start Reader --->");
+        this.taskMonitor = taskMonitor;
 		try {
 			if (taskMonitor != null){
 				taskMonitor.setTitle("cy3sbml reader");

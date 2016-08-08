@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * the SBMLReaderTasks and creates networks and views for the given
  * SBMLDocument.
  */
-public class SBMLReader extends AbstractInputStreamTaskFactory implements NetworkViewAddedListener {
+public class SBMLReader extends AbstractInputStreamTaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBMLReader.class);
 	private final ServiceAdapter adapter;
 
@@ -44,55 +44,18 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
 	@Override
 	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
 		logger.debug("createTaskIterator: input stream name: " + inputName);
+
 		try {
 			return new TaskIterator(
 				new SBMLReaderTask(IOUtil.copyInputStream(is), inputName,
                         adapter.cyNetworkFactory,
                         adapter.cyNetworkViewFactory,
 						adapter.visualMappingManager,
+                        adapter.cyLayoutAlgorithmManager,
                         adapter.cy3sbmlProperties)
 			);
 		} catch (IOException e) {
 			throw new SBMLReaderError(e.toString());
 		}
-	}
-
-    /**
-     * Handles the cytoscape specific actions when adding views.
-     * This consists of applying the layout to the view.
-	 *
-	 * FIXME: This creates a bug in session loading -> overwrites existing layout
-     */
-	@Override
-	public void handleEvent(NetworkViewAddedEvent e) {
-		logger.debug("NetworkViewAddedEvent in SBMLReader");
-        try {
-            final CyNetworkView view = e.getNetworkView();
-            final CyNetwork network = view.getModel();
-            final CyLayoutAlgorithmManager cyLayoutAlgorithmManager = adapter.cyLayoutAlgorithmManager;
-
-            if(NetworkUtil.isSBMLNetwork(network)) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        layout(view, cyLayoutAlgorithmManager);
-                    }
-                });
-            }
-        } catch(Throwable t){
-            t.printStackTrace();
-        }
-	}
-
-	/**
-     * Applies SBML layout to view.
-     */
-	private void layout(CyNetworkView view, CyLayoutAlgorithmManager cyLayoutAlgorithmManager) {
-		CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
-		if (layout == null) {
-			layout = adapter.cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
-			logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
-		}
-		adapter.taskManager.execute(layout.createTaskIterator(view,
-                layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS,""));
 	}
 }
