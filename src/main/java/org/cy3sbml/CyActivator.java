@@ -36,12 +36,13 @@ import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Properties;
 
-import org.cy3sbml.actions.BioModelAction;
+import org.cy3sbml.actions.BiomodelsAction;
 import org.cy3sbml.actions.ChangeStateAction;
-import org.cy3sbml.actions.CofactorNodesAction;
+import org.cy3sbml.actions.CofactorAction;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
@@ -49,6 +50,8 @@ import org.cy3sbml.actions.LoadLayoutAction;
 import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
 import org.cy3sbml.cofactors.CofactorManager;
+
+import javax.swing.*;
 
 /**
  * Entry point to cy3sbml.
@@ -170,15 +173,19 @@ public class CyActivator extends AbstractCyActivator {
 			// Cofactor manager
 			CofactorManager cofactorManager = CofactorManager.getInstance();
 
-			// init actions
+			// init actions [100 - 120]
+            // FIXME: currently not possible to set separators in menu bar
+			// JToolBar toolBar = cySwingApplication.getJToolBar();
+            // toolBar.addSeparator(new Dimension(89.0));
+
 			ChangeStateAction changeStateAction = new ChangeStateAction();
 			ImportAction importAction = new ImportAction(adapter);
-			BioModelAction bioModelAction = new BioModelAction(adapter);
 			ValidationAction validationAction = new ValidationAction(adapter);
-			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
-			HelpAction helpAction = new HelpAction(cySwingApplication);
-			CofactorNodesAction cofactorNodesAction = new CofactorNodesAction(adapter);
-			SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+			ExamplesAction examplesAction = new ExamplesAction();
+            CofactorAction cofactorAction = new CofactorAction(adapter);
+            BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
+            HelpAction helpAction = new HelpAction();
+            SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
 			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
 			
 			// SBML Filter
@@ -200,11 +207,11 @@ public class CyActivator extends AbstractCyActivator {
 			// actions
 			registerService(bc, helpAction, CyAction.class, new Properties());
 			registerService(bc, changeStateAction, CyAction.class, new Properties());
-			registerService(bc, bioModelAction, CyAction.class, new Properties());
+			registerService(bc, biomodelsAction, CyAction.class, new Properties());
 			registerService(bc, validationAction, CyAction.class, new Properties());
 			registerService(bc, importAction, CyAction.class, new Properties());
 			registerService(bc, examplesAction, CyAction.class, new Properties());
-			registerService(bc, cofactorNodesAction, CyAction.class, new Properties());
+			registerService(bc, cofactorAction, CyAction.class, new Properties());
 			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
 			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 

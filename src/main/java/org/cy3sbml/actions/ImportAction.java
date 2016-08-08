@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * Importing SBML networks in Cytoscape.
+ * Importing SBML networks..
  */
 public class ImportAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
@@ -25,13 +25,13 @@ public class ImportAction extends AbstractCyAction{
 	private ServiceAdapter adapter;
 
 	public ImportAction(ServiceAdapter adapter){
-		super("ImportAction");
+		super(ImportAction.class.getSimpleName());
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_IMPORT));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_IMPORT));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Import SBML");
-		setToolbarGravity((float) 95.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_IMPORT);
+		setToolbarGravity(GUIConstants.GRAVITY_IMPORT);
 	}
 		
 	public boolean isInToolBar() {
@@ -43,11 +43,11 @@ public class ImportAction extends AbstractCyAction{
 		logger.debug("actionPerformed()"); 
 		
 		// open new file open dialog
-		Collection<FileChooserFilter> filters = new HashSet<FileChooserFilter>();
+		Collection<FileChooserFilter> filters = new HashSet<>();
 		filters.add(new FileChooserFilter("SBML files (*.xml)", "xml"));
 	
 		File[] files = adapter.fileUtil.getFiles(adapter.cySwingApplication.getJFrame(), 
-				"Import SBML", FileDialog.LOAD, filters);
+				GUIConstants.DESCRIPTION_IMPORT, FileDialog.LOAD, filters);
 		
 		if ((files != null) && (files.length != 0)) {
 			for (int i = 0; i < files.length; i++) {

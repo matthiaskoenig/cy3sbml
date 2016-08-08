@@ -24,20 +24,20 @@ import org.cy3sbml.cofactors.CofactorManager;
  * Handle clones of network nodes for better visualization.
  * This allows to clone a selected set of nodes.
  */
-public class CofactorNodesAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(CofactorNodesAction.class);
+public class CofactorAction extends AbstractCyAction{
+	private static final Logger logger = LoggerFactory.getLogger(CofactorAction.class);
 	private static final long serialVersionUID = 1L;
 	private ServiceAdapter adapter;
 
 	/** Constructor. */
-	public CofactorNodesAction(ServiceAdapter adapter){
-		super("CofactorNodesAction");
+	public CofactorAction(ServiceAdapter adapter){
+		super(CofactorAction.class.getSimpleName());
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_COFACTOR));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_COFACTOR));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Cofactor nodes");
-		setToolbarGravity((float) 195.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_COFACTOR);
+		setToolbarGravity(GUIConstants.GRAVITY_LOCATION);
 	}
 		
 	public boolean isInToolBar() {

@@ -8,7 +8,7 @@ import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodel.BioModelDialog;
+import org.cy3sbml.biomodel.BiomodelsDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,32 +16,27 @@ import org.slf4j.LoggerFactory;
 /** 
  * Open the BioModel GUI for importing BioModels via search terms. 
  */
-public class BioModelAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(BioModelAction.class);
+public class BiomodelsAction extends AbstractCyAction{
+	private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
 	private static final long serialVersionUID = 1L;
 	
 	private ServiceAdapter adapter;
 
 	/** Constructor. */
-	public BioModelAction(ServiceAdapter adapter){
-		super("BioModelAction");
+	public BiomodelsAction(ServiceAdapter adapter){
+		super(BiomodelsAction.class.getSimpleName());
 		this.adapter = adapter;
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "BioModel Import");
-		setToolbarGravity((float) 120.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
+		setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
 	}
-	
-	public boolean insertSeparatorBefore(){
-		return true;
-	}
-	
+
 	public boolean isInToolBar() {
 		return true;
 	}
-	
 	public boolean isInMenuBar() {
 		return false;
 	}
@@ -49,7 +44,7 @@ public class BioModelAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-	    BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
+	    BiomodelsDialog bioModelsDialog = BiomodelsDialog.getInstance(adapter);
 	    bioModelsDialog.setVisible(true);   
 	}
 }

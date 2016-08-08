@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
-import org.cytoscape.application.swing.CySwingApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,21 +21,15 @@ public class ChangeStateAction extends AbstractCyAction{
 	
 	/** Constructor. */
 	public ChangeStateAction(){
-		super("ChangeStateAction");
+		super(ChangeStateAction.class.getSimpleName());
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_CHANGESTATE));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_CHANGESTATE));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Hide|show panel");
-		setToolbarGravity((float) 90.0);
-		insertSeparatorBefore = true;
-        insertSeparatorAfter = true;
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_CHANGESTATE);
+		setToolbarGravity(GUIConstants.GRAVITY_CHANGESTATE);
 	}
 
-	@Override
-	public boolean insertSeparatorBefore() { return true; }
-    @Override
-    public boolean insertSeparatorAfter() { return true; }
 	@Override
 	public boolean isInToolBar() {
 		return true;

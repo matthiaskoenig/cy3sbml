@@ -22,11 +22,12 @@ import org.codefx.libfx.control.webview.WebViews;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.util.GUIUtil;
+import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.work.TaskIterator;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodel.BioModelDialog;
+import org.cy3sbml.biomodel.BiomodelsDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,60 +86,42 @@ public class Browser extends Region {
                 if (GUIConstants.URLS_ACTION.contains(s)){
                     ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
 
-                    // ChangeState
+                    AbstractCyAction action = null;
                     if (s.equals(GUIConstants.URL_CHANGESTATE)){
-                        WebViewPanel.getInstance().changeState();
-                        return true;
+                        action = new ChangeStateAction();
                     }
-                    // Import
                     if (s.equals(GUIConstants.URL_IMPORT)){
-                        ImportAction importAction = new ImportAction(adapter);
-                        importAction.actionPerformed(null);
-                        return true;
+                        action = new ImportAction(adapter);
                     }
-                    // Validation
                     if (s.equals(GUIConstants.URL_VALIDATION)){
-                        ValidationAction.openValidationPanel(adapter);
-                        return true;
+                        action = new ValidationAction(adapter);
                     }
-                    // Examples
                     if (s.equals(GUIConstants.URL_EXAMPLES)){
-                        ExamplesAction examplesAction = new ExamplesAction(adapter.cySwingApplication);
-                        examplesAction.actionPerformed(null);
-                        return true;
+                        action = new ExamplesAction();
                     }
-                    // BioModels
                     if (s.equals(GUIConstants.URL_BIOMODELS)){
-                        BioModelDialog bioModelsDialog = BioModelDialog.getInstance(adapter);
-                        bioModelsDialog.setVisible(true);
-                        return true;
+                        action = new BiomodelsAction(adapter);
                     }
-                    // Help
                     if (s.equals(GUIConstants.URL_HELP)){
-                        HelpAction helpAction = new HelpAction(adapter.cySwingApplication);
-                        helpAction.actionPerformed(null);
-                        return true;
+                        action = new HelpAction();
+                    }
+                    if (s.equals(GUIConstants.URL_COFACTOR_NODES)){
+                        action = new CofactorAction(adapter);
+                    }
+                    if (s.equals(GUIConstants.URL_SAVELAYOUT)){
+                        action = new SaveLayoutAction(adapter);
+                    }
+                    if (s.equals(GUIConstants.URL_LOADLAYOUT)){
+                        action = new LoadLayoutAction(adapter);
                     }
 
-                    // Cofactor nodes
-                    if (s.equals(GUIConstants.URL_COFACTOR_NODES)){
-                        HelpAction helpAction = new HelpAction(adapter.cySwingApplication);
-                        CofactorNodesAction nodesAction = new CofactorNodesAction(adapter);
-                        nodesAction.actionPerformed(null);
-                        return true;
-                    }
-                    // Save layout
-                    if (s.equals(GUIConstants.URL_LAYOUT_SAVE)){
-                        SaveLayoutAction action = new SaveLayoutAction(adapter);
+                    // execute action
+                    if (action != null){
                         action.actionPerformed(null);
-                        return true;
+                    } else {
+                        logger.error(String.format("Action not created for <%s>", s));
                     }
-                    // Load layout
-                    if (s.equals(GUIConstants.URL_LAYOUT_LOAD)){
-                        LoadLayoutAction action = new LoadLayoutAction(adapter);
-                        action.actionPerformed(null);
-                        return true;
-                    }
+                    return true;
                 }
 
                 // Example networks
@@ -171,7 +154,6 @@ public class Browser extends Region {
         // WebViews.addHyperlinkListener(webView, eventPrintingListener);
         // only listening to the clicks
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
-
     }
 
 

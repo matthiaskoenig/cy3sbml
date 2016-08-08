@@ -29,20 +29,16 @@ public class ValidationAction extends AbstractCyAction{
 	
 	/** Constructor. */
 	public ValidationAction(ServiceAdapter adapter){
-		super("ValidationAction");
+		super(ValidationAction.class.getSimpleName());
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_VALIDATION));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_VALIDATION));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Validate SBML");
-		setToolbarGravity((float) 100.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_VALIDATION);
+		setToolbarGravity(GUIConstants.GRAVITY_VALIDATION);
 	}
-	
-	public boolean insertSeparatorBefore(){
-		return true;
-	}
-	
+
 	public boolean isInToolBar() {
 		return true;
 	}

@@ -27,14 +27,14 @@ public class SaveLayoutAction extends AbstractCyAction{
 	
 	/** Constructor. */
 	public SaveLayoutAction(ServiceAdapter adapter){
-		super("Save Layout");
+		super(SaveLayoutAction.class.getSimpleName());
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.IMAGE_SAVELAYOUT));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_SAVELAYOUT));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Save Layout");
-		setToolbarGravity((float) 200.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_SAVELAYOUT);
+		setToolbarGravity(GUIConstants.GRAVITY_SAVELAYOUT);
 	}
 	
 	public boolean insertSeparatorBefore(){
@@ -51,10 +51,10 @@ public class SaveLayoutAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.debug("SaveLayoutAction");
+		logger.debug("actionPerformed()");
 		
 		Component frame = adapter.cySwingApplication.getJFrame();
-		HashSet<FileChooserFilter> filters = new HashSet<FileChooserFilter>();
+		HashSet<FileChooserFilter> filters = new HashSet<>();
 		FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
 		filters.add(filter);
 	    FileUtil fileUtil = adapter.fileUtil;
