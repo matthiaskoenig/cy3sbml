@@ -275,7 +275,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * The current network set can be accessed via
      *      CyNetworkManager.getNetworkSet()
      */
-
+    @Deprecated
     private void synchronizeDocuments(Collection<CyNetwork> networks){
         HashSet<Long> suids = new HashSet<>();
         for (CyNetwork network: networks){

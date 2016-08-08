@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -333,7 +334,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 
             // Set naming
-			String name = networkName();
+			String name = getNetworkName();
             rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
             network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
 
@@ -363,15 +364,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * Get network name.
      * Is used for naming the network and the network collection.
      */
-	private String networkName(){
+	private String getNetworkName(){
        // name of root network
-        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+        String name = network.getRow(network).get(SBML.ATTR_NAME, String.class);
         if (name == null){
             // name not set, try backup name via id
             name = network.getRow(network).get(SBML.ATTR_ID, String.class);
             // still not set, use the file name
             if (name == null){
-                name = fileName;
+            	String[] tokens = fileName.split(File.separator);
+                name = tokens[tokens.length-1];
             }
         }
         return name;

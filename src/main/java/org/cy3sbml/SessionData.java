@@ -44,6 +44,8 @@ import org.slf4j.LoggerFactory;
  *
  * In addition to the saved data structures the SBML files are written in
  * the session file. These are not used for deserialization.
+ *
+ * TODO: bug: layout information not stored for networks.
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);

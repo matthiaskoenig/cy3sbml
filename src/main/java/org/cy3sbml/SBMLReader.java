@@ -60,6 +60,8 @@ public class SBMLReader extends AbstractInputStreamTaskFactory implements Networ
     /**
      * Handles the cytoscape specific actions when adding views.
      * This consists of applying the layout to the view.
+	 *
+	 * FIXME: This creates a bug in session loading -> overwrites existing layout
      */
 	@Override
 	public void handleEvent(NetworkViewAddedEvent e) {
