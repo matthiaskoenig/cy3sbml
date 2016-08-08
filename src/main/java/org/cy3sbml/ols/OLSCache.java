@@ -53,7 +53,7 @@ public class OLSCache {
         // check in cache
         Element element = cache.get(identifier);
         if (element != null){
-            logger.debug("Found in cache: " + identifier);
+            logger.info("Found in cache: " + identifier);
             term = (Term) element.getObjectValue();
         }
         // not in cache, lookup element

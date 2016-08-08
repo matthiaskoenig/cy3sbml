@@ -1,12 +1,12 @@
 package org.cy3sbml.ols;
 
 
+import org.identifiers.registry.data.PhysicalLocation;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
-import org.cy3sbml.miriam.RegistryUtil;
 import org.identifiers.registry.RegistryUtilities;
 
 import org.slf4j.Logger;
@@ -70,19 +70,20 @@ public class OLSAccess {
         );
     }
 
+    /**
+     * Is a given location a OLS location, i.e. an ontology in OLS.
+     */
+    public static boolean isPhysicalLocationOLS(PhysicalLocation location){
+        return location.getUrlRoot().startsWith(OLS_BASE_URL);
+    }
 
     public static void main(String[] args){
-        // prepare miriam registry support
-        RegistryUtil.loadRegistry();
-
         // Exists on OLS
         String resourceURI = "http://identifiers.org/go/GO:0042752";
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
 
-
-        Term term = getTerm(identifier);
-        // Term term = olsClient.getTermById(new Identifier("GO:0042752", Identifier.IdentifierType.OBO), "GO");
-        System.out.println(termToString(term));
+        Term term = OLSAccess.getTerm(identifier);
+        System.out.println(OLSAccess.termToString(term));
     }
 
 }

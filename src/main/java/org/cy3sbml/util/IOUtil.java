@@ -2,6 +2,10 @@ package org.cy3sbml.util;
 
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -67,6 +71,25 @@ public class IOUtil {
             suffix++;
         }
         return target;
+    }
+
+    /**
+     * Get URL as file.
+     * Use to download files
+     * @param file
+     */
+    public static void saveURLasFile(URL url, File file){
+        try {
+            ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+            FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

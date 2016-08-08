@@ -362,14 +362,14 @@ public class SBaseHTMLFactory {
                 // Create OLS resource for location
                 for (PhysicalLocation location: dataType.getPhysicalLocations()) {
                     if (location.isObsolete()) { continue; }
-                    if (RegistryUtil.isPhysicalLocationOLS(location)){
+                    if (OLSAccess.isPhysicalLocationOLS(location)){
                         text += createOLSLocation(location, identifier);
                     }
                 }
                 // Create other locations
                 for (PhysicalLocation location: dataType.getPhysicalLocations()){
                     if (location.isObsolete()){ continue; }
-                    if (! RegistryUtil.isPhysicalLocationOLS(location)) {
+                    if (! OLSAccess.isPhysicalLocationOLS(location)) {
                         text += createNonOLSLocation(location, identifier);
                     }
                 }

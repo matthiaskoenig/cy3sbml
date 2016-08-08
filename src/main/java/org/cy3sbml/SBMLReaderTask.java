@@ -259,7 +259,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				model.setId("null_model");
 			}
 
-			// FIXME: better naming of collection
 			// Create empty root network and node map
 			network = networkFactory.createNetwork();
 			nodeById = new HashMap<String, CyNode>();

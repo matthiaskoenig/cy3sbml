@@ -242,8 +242,10 @@ public class CyActivator extends AbstractCyActivator {
             final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
             resourceHandler.extract();
 
-			// Load registry
-			RegistryUtil.loadRegistry();
+			// Update and load registry
+			File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+			RegistryUtil.updateMiriamXML(miriamFile);
+			RegistryUtil.loadRegistry(miriamFile);
 
 			// cy3sbml panel
 			webViewPanel.getInstance().activate();

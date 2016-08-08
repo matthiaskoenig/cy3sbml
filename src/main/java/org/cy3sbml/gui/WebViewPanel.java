@@ -76,7 +76,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
 		setLayout(new BorderLayout());
-        // TODO: set dimension of panel
 
 		JFXPanel fxPanel = this;
 		Platform.runLater(new Runnable() {
