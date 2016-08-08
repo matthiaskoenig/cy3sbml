@@ -16,10 +16,6 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.cy3sbml.cofactors.CofactorManager;
-import org.cy3sbml.cofactors.Network2CofactorMapper;
-import org.cy3sbml.mapping.Network2SBMLMapper;
-import org.cy3sbml.mapping.One2ManyMapping;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
@@ -27,15 +23,23 @@ import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedEvent;
 import org.cytoscape.session.events.SessionLoadedListener;
+
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
 import org.sbml.jsbml.SBMLWriter;
+
+import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.cofactors.Network2CofactorMapper;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.mapping.One2ManyMapping;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Save cy3sbml data in session file and restore from session file.
+ * Manages the update of the SBMLNetworks.
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
@@ -50,13 +54,23 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	public SessionData(File dir){
 		directory = dir;
 	}
-	
-	// Save app state in a file
-	public void handleEvent(SessionAboutToBeSavedEvent event){
+
+    /**
+     * Save session.
+     */
+	public void handleEvent(SessionAboutToBeSavedEvent event) {
+        saveSessionData(event, directory);
+    }
+
+
+    /**
+     * Save the session data from cy3sbml.
+     */
+    public static void saveSessionData(SessionAboutToBeSavedEvent event, File directory){
 		logger.info("SessionAboutToBeSaved: save cy3sbml session state");
 		
 		// Files to save
-		List<File> files = new LinkedList<File>();
+		List<File> files = new LinkedList<>();
 		
 		// get SBMLManager for serialization
 		SBMLManager sbmlManager = SBMLManager.getInstance();
@@ -134,11 +148,20 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 			e1.printStackTrace();
 		}
 	}
+
+
 	
 	/**
-	 * Restore app state from session files.
+	 * Load Session.
 	 */
-	public void handleEvent(SessionLoadedEvent event){
+	public void handleEvent(SessionLoadedEvent event) {
+        loadSessionData(event, directory);
+    }
+
+    /**
+     * Load Session data for cy3sbml.
+     */
+    public static void loadSessionData(SessionLoadedEvent event, File directory){
 		CySession session = event.getLoadedSession();
 		// check if there is app file data
 		if (session.getAppFileListMap() == null || session.getAppFileListMap().size() ==0){
@@ -230,7 +253,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
+	public static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
 		// mapper with updated SUIDS
 		Network2SBMLMapper newM = new Network2SBMLMapper();
 		
@@ -269,7 +292,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * The network, node and edge SUIDs can be updated via:
 	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
 	 */
-	public Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
+	public static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
 		logger.debug("Update SUIDs in Network2CofactorMapper");
 		// mapper with updated SUIDS
 		Network2CofactorMapper newM = new Network2CofactorMapper();

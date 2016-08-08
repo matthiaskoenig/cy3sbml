@@ -3,6 +3,7 @@ package org.cy3sbml;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -170,7 +171,9 @@ public class CyActivator extends AbstractCyActivator {
 
 			// SBMLManager
 			SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
-			// Cofactor manager
+            registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
+
+            // Cofactor manager
 			CofactorManager cofactorManager = CofactorManager.getInstance();
 
 			// init actions [100 - 120]
@@ -179,15 +182,33 @@ public class CyActivator extends AbstractCyActivator {
             // toolBar.addSeparator(new Dimension(89.0));
 
 			ChangeStateAction changeStateAction = new ChangeStateAction();
-			ImportAction importAction = new ImportAction(adapter);
+            registerService(bc, changeStateAction, CyAction.class, new Properties());
+
+            ImportAction importAction = new ImportAction(adapter);
+            registerService(bc, importAction, CyAction.class, new Properties());
+
 			ValidationAction validationAction = new ValidationAction(adapter);
-			ExamplesAction examplesAction = new ExamplesAction();
+            registerService(bc, validationAction, CyAction.class, new Properties());
+
+            ExamplesAction examplesAction = new ExamplesAction();
+            registerService(bc, examplesAction, CyAction.class, new Properties());
+
             CofactorAction cofactorAction = new CofactorAction(adapter);
+            registerService(bc, cofactorAction, CyAction.class, new Properties());
+
             BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
+            registerService(bc, biomodelsAction, CyAction.class, new Properties());
+
             HelpAction helpAction = new HelpAction();
+            registerService(bc, helpAction, CyAction.class, new Properties());
+
             SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+            registerService(bc, saveLayoutAction, CyAction.class, new Properties());
+
 			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
-			
+            registerService(bc, loadLayoutAction, CyAction.class, new Properties());
+
+
 			// SBML Filter
 			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
 			
@@ -203,17 +224,6 @@ public class CyActivator extends AbstractCyActivator {
 			SessionData sessionData = new SessionData(appDirectory);
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
-
-			// actions
-			registerService(bc, helpAction, CyAction.class, new Properties());
-			registerService(bc, changeStateAction, CyAction.class, new Properties());
-			registerService(bc, biomodelsAction, CyAction.class, new Properties());
-			registerService(bc, validationAction, CyAction.class, new Properties());
-			registerService(bc, importAction, CyAction.class, new Properties());
-			registerService(bc, examplesAction, CyAction.class, new Properties());
-			registerService(bc, cofactorAction, CyAction.class, new Properties());
-			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
-			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
 			// proxy listener
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());

@@ -13,10 +13,15 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Mapping between CyNetworks and SBMLDocuments.
+ * The mapping is defined for the CyRootNetwork. All subnetworks use the same
+ * mapping and can access it via the rootNetwork SUID.
  *
- * When an SBML is read and one or multiple networks are created, the links
- * between the SBMLDocument and these network(s) are stored in the 
- * Network2SBMLMapper for lookup. Networks are identified uniquely via their network SUID.
+ * The rootNetwork SUID is accessible via
+ *     NetworkUtil.getRootNetworkSUID(CyNetwork network);
+ *
+ * The SBMLReader creates multiple networks with the mapping between networks
+ * and SBMLDocuments managed by the SBMLManager which updates this mapper.
+ * The mappings should only be changed via the SBMLManager and not directly.
  */
 public class Network2SBMLMapper implements Serializable{
 	private static final Logger logger = LoggerFactory.getLogger(Network2SBMLMapper.class);
@@ -29,7 +34,7 @@ public class Network2SBMLMapper implements Serializable{
 	public Network2SBMLMapper(){
 		logger.debug("Network2SBMLMapper created");
 		initMaps();
-	}
+    }
 
 	private void initMaps(){
 		documentMap = new HashMap<>();
@@ -38,65 +43,72 @@ public class Network2SBMLMapper implements Serializable{
 	}
 
 	/**
-     * Get SBMLDocument for network SUID.
+     * Get SBMLDocument for given rootNetworkSUID.
      */
-    public SBMLDocument getDocumentForSUID(Long SUID){
+    public SBMLDocument getDocumentForNetwork(Long rootSUID){
         SBMLDocument doc = null;
-        if (SUID == null) {
+        if (rootSUID == null) {
             logger.debug("No SUID set. No SBMLDocument can be retrieved !");
             return null;
         }
-        if (documentMap.containsKey(SUID)){
-            doc = documentMap.get(SUID);
+        if (documentMap.containsKey(rootSUID)){
+            doc = documentMap.get(rootSUID);
         }
         return doc;
     }
 
-	public boolean containsNetwork(Long SUID){
-	    return (documentMap.containsKey(SUID));
+    /** Exists a SBMLDocument for the given rootNetwork ? */
+	public boolean containsNetwork(Long rootSUID){
+	    return (documentMap.containsKey(rootSUID));
 	}
-	
+
+	/** Get all rootNetwork SUIDs which have an association SBMLDocument. */
 	public Set<Long> keySet(){
 	    return documentMap.keySet();
 	}
 
+	/** Get the complete DocumentMap. */
     public Map<Long, SBMLDocument> getDocumentMap(){
         return documentMap;
     }
 
     /**
-     * The SBMLDocument is stored with the SBML id to SUID mapping.
-     * A reverse mapping from SUIDs to SBML ids is created in the proces.
+     * The SBMLDocument is stored with the SBML id to SUID (CyNode) mapping.
+     * A reverse mapping from SUIDs to SBML ids is created in the process.
      */
-	public void putDocument(Long SUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
-        logger.debug("Network put: " + SUID.toString());
-	    documentMap.put(SUID,  doc);
-		sbase2nodeMappingMap.put(SUID, mapping);
-		node2sbaseMappingMap.put(SUID, mapping.createReverseMapping());
+	public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
+        logger.debug("Network put: " + rootSUID.toString());
+	    documentMap.put(rootSUID,  doc);
+		sbase2nodeMappingMap.put(rootSUID, mapping);
+		node2sbaseMappingMap.put(rootSUID, mapping.createReverseMapping());
 	}
 
-	public void removeDocument(Long deletedNetworkSUID){
-		logger.debug("Network remove:" + deletedNetworkSUID.toString());
-		documentMap.remove(deletedNetworkSUID);
-		sbase2nodeMappingMap.remove(deletedNetworkSUID);
-		node2sbaseMappingMap.remove(deletedNetworkSUID);
+	/**
+	 * Removes the document for a given root network SUID.
+     * This removes the mapping for all subnetworks of the given root network SUID.
+	 */
+	public void removeDocument(Long rootSUID){
+		logger.debug("Network remove:" + rootSUID.toString());
+		documentMap.remove(rootSUID);
+		sbase2nodeMappingMap.remove(rootSUID);
+		node2sbaseMappingMap.remove(rootSUID);
 	}
 
 
-    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long SUID){
-        if (SUID == null) {
+    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID){
+        if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
         }
-        return node2sbaseMappingMap.get(SUID);
+        return node2sbaseMappingMap.get(rootSUID);
     }
 
-    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long SUID){
-        if (SUID == null){
+    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID){
+        if (rootSUID == null){
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
         }
-        return sbase2nodeMappingMap.get(SUID);
+        return sbase2nodeMappingMap.get(rootSUID);
     }
 
 	public String toString(){

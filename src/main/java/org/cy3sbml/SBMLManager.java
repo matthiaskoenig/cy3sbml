@@ -2,13 +2,16 @@ package org.cy3sbml;
 
 import java.util.*;
 
-import org.cy3sbml.mapping.Network2SBMLMapper;
+
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 
+import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
+import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
+import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
@@ -25,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * 
  * The SBMLManager is a singleton class.
  */
-public class SBMLManager {
+public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 	private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
 	private static SBMLManager uniqueInstance;
 	private CyApplicationManager cyApplicationManager;
@@ -35,8 +38,7 @@ public class SBMLManager {
 	private HashMap<Long, IdObjectMap> network2objectMap;
 
     /**
-     * Construct the instance.
-     * Use the variant without arguments for access.
+     * Get SBMLManager (creates the instance).
      */
 	public static synchronized SBMLManager getInstance(CyApplicationManager cyApplicationManager){
 		if (uniqueInstance == null){
@@ -96,6 +98,22 @@ public class SBMLManager {
 		// object map
 		network2objectMap.put(rootNetworkSUID, new IdObjectMap(doc));
 	}
+
+    /**
+     * Remove the SBMLDocument for network.
+     * The SBMLDocument is only removed if no other subnetworks reference the SBMLDocument.
+     */
+    public Boolean removeSBMLForNetwork(CyNetwork network){
+        // TODO: implement
+        // necessary to check if there are other SubNetworks for the root network.
+        // If yes the SBMLDocument cannot be removed.
+
+        // FIXME:
+        Long suid = NetworkUtil.getRootNetworkSUID(network);
+        // network2sbml;
+        // network2sbml.removeDocument();
+
+    }
 
 	/** Returns mapping or null if no mapping exists. */
 	public One2ManyMapping<String, Long> getMapping(CyNetwork network){
@@ -231,12 +249,17 @@ public class SBMLManager {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    /** The network is a network with a mapping to an SBMLDocument. */
-    @Deprecated
-    public boolean networkIsSBML(CyNetwork network){
-        Long suid = NetworkUtil.getRootNetworkSUID(network);
-        return network2sbml.containsNetwork(suid);
+    /**
+     * Remove the mappings if networks are destroyed.
+     * This handles also the new Session (all networks are destroyed).
+     */
+    @Override
+    public void handleEvent(NetworkAboutToBeDestroyedEvent e) {
+        CyNetwork network = e.getNetwork();
+
+
     }
+
 
     /**
      * Remove all mapping entries for networks which are not in the SBML<->network mapping.
@@ -244,8 +267,8 @@ public class SBMLManager {
      * The current network set can be accessed via
      *      CyNetworkManager.getNetworkSet()
      */
-    @Deprecated
-    public void synchronizeDocuments(Collection<CyNetwork> networks){
+
+    private void synchronizeDocuments(Collection<CyNetwork> networks){
         HashSet<Long> suids = new HashSet<>();
         for (CyNetwork network: networks){
             suids.add(NetworkUtil.getRootNetworkSUID(network));
@@ -256,5 +279,6 @@ public class SBMLManager {
             }
         }
     }
+
 
 }
