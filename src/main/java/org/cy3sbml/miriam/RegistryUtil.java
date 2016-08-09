@@ -43,7 +43,14 @@ public class RegistryUtil {
         RegistryDatabase.loadFromInputStream(miriamStream);
     }
 
-    /** Updates the MiriamFile. */
+    /**
+     * Updates the MiriamFile.
+     * The HTTP header Last-Modified: will avoid that you download data more than once per release,
+     * if you use a download tool that makes use of this information,
+     * e.g. the unix commands lwp-mirror or curl with the -z option.
+     * Here are examples of how to do this in Perl:
+     *
+     */
     public static void updateMiriamXML(File file){
         try {
             URL miriamURL = new URL(URL_MIRIAM_XML);
