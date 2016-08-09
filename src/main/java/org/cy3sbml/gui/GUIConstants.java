@@ -6,22 +6,23 @@ import java.util.*;
  * Constants used in GUI.
  */
 public class GUIConstants {
+    public static final String GUI_RESOURCES = "/gui/";
 
-    public static String HTML_HELP_RESOURCE = "/gui/help.html";
-    public static String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
+    public static final String HTML_HELP_RESOURCE = "/gui/help.html";
+    public static final String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
 
-    public static String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
-    public static String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
+    public static final String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
+    public static final String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
 
-    public static String ICON_CHANGESTATE = "/gui/images/changestate.png";
-    public static String ICON_IMPORT = "/gui/images/import.png";
-    public static String ICON_VALIDATION = "/gui/images/validation.png";
-    public static String ICON_EXAMPLES = "/gui/images/examples.png";
-    public static String ICON_COFACTOR = "/gui/images/cofactor.png";
-    public static String ICON_BIOMODELS = "/gui/images/biomodels.png";
-    public static String ICON_HELP = "/gui/images/help.png";
-    public static String ICON_LOADLAYOUT = "/gui/images/loadlayout.png";
-    public static String ICON_SAVELAYOUT = "/gui/images/savelayout.png";
+    public static final String ICON_CHANGESTATE = "/gui/images/changestate.png";
+    public static final String ICON_IMPORT = "/gui/images/import.png";
+    public static final String ICON_VALIDATION = "/gui/images/validation.png";
+    public static final String ICON_EXAMPLES = "/gui/images/examples.png";
+    public static final String ICON_COFACTOR = "/gui/images/cofactor.png";
+    public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
+    public static final String ICON_HELP = "/gui/images/help.png";
+    public static final String ICON_LOADLAYOUT = "/gui/images/loadlayout.png";
+    public static final String ICON_SAVELAYOUT = "/gui/images/savelayout.png";
 
     public static float GRAVITY_CHANGESTATE = (float) 100.0;
     public static float GRAVITY_IMPORT = (float) 102.0;
@@ -33,29 +34,29 @@ public class GUIConstants {
     public static float GRAVITY_LOADLAYOUT = (float) 114.0;
     public static float GRAVITY_SAVELAYOUT = (float) 120.0;
 
-    public static String DESCRIPTION_CHANGESTATE = "Hide|show panel";
-    public static String DESCRIPTION_IMPORT = "Import SBML";
-    public static String DESCRIPTION_VALIDATION = "Validate SBML";
-    public static String DESCRIPTION_EXAMPLES = "SBML examples";
-    public static String DESCRIPTION_COFACTOR = "Cofactor nodes";
-    public static String DESCRIPTION_BIOMODELS = "Biomodel Import";
-    public static String DESCRIPTION_HELP = "Help";
-    public static String DESCRIPTION_LOADLAYOUT = "Save Layout";
-    public static String DESCRIPTION_SAVELAYOUT = "Load Layout";
+    public static final String DESCRIPTION_CHANGESTATE = "Hide|show panel";
+    public static final String DESCRIPTION_IMPORT = "Import SBML";
+    public static final String DESCRIPTION_VALIDATION = "Validate SBML";
+    public static final String DESCRIPTION_EXAMPLES = "SBML examples";
+    public static final String DESCRIPTION_COFACTOR = "Cofactor nodes";
+    public static final String DESCRIPTION_BIOMODELS = "Biomodel Import";
+    public static final String DESCRIPTION_HELP = "Help";
+    public static final String DESCRIPTION_LOADLAYOUT = "Save Layout";
+    public static final String DESCRIPTION_SAVELAYOUT = "Load Layout";
 
-    public static String URL_CHANGESTATE = "http://cy3sbml-changestate";
-    public static String URL_IMPORT = "http://cy3sbml-import";
-    public static String URL_VALIDATION = "http://cy3sbml-validation";
-    public static String URL_EXAMPLES = "http://cy3sbml-examples";
-    public static String URL_BIOMODELS = "http://cy3sbml-biomodels";
-    public static String URL_HELP = "http://cy3sbml-help";
-    public static String URL_COFACTOR_NODES = "http://cy3sbml-cofactor";
-    public static String URL_LOADLAYOUT = "http://cy3sbml-layoutload";
-    public static String URL_SAVELAYOUT = "http://cy3sbml-layoutsave";
+    public static final String URL_CHANGESTATE = "http://cy3sbml-changestate";
+    public static final String URL_IMPORT = "http://cy3sbml-import";
+    public static final String URL_VALIDATION = "http://cy3sbml-validation";
+    public static final String URL_EXAMPLES = "http://cy3sbml-examples";
+    public static final String URL_BIOMODELS = "http://cy3sbml-biomodels";
+    public static final String URL_HELP = "http://cy3sbml-help";
+    public static final String URL_COFACTOR_NODES = "http://cy3sbml-cofactor";
+    public static final String URL_LOADLAYOUT = "http://cy3sbml-layoutload";
+    public static final String URL_SAVELAYOUT = "http://cy3sbml-layoutsave";
 
 
-    public static String URL_SBMLFILE = "http://sbml-file";
-    public static String URL_HTMLFILE = "http://html-file";
+    public static final String URL_SBMLFILE = "http://sbml-file";
+    public static final String URL_HTMLFILE = "http://html-file";
 
 
     public static final Map<String, String> EXAMPLE_SBML;

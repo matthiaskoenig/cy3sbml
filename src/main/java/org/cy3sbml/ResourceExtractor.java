@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -9,54 +10,71 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.*;
 
 /**
- * Class extracts the bundle resources to given app directory.
+ * This class extracts bundled resources to a local directory.
  * This provides access to the local resources via 
  * file:// uris. 
- * Required to allow JavaFX access to bundle resources. JavaFX does currently
- * not support the access via bundle: uris.
+ * Required to allow JavaFX access to bundle resources.
+ * JavaFX does currently not support the access via bundle: uris.
  */
 public class ResourceExtractor {
 	private static Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
-	
-	/** Resources made available via the ResourceExtractor. */
-	public final String GUI_RESOURCES = "/gui/";   
-	
-	private static File appDirectory;
+    private static File appDirectory;
+
+    public static final Set<String> RESOURCES;
+    static {
+        Set<String> set = new HashSet<>();
+        set.add(GUIConstants.GUI_RESOURCES);
+        RESOURCES = Collections.unmodifiableSet(set);
+    }
 	private final BundleContext bc;
 
+    /** Constructor. */
 	public ResourceExtractor(final BundleContext bc, final File appDirectory) {
 		this.bc = bc;
 		setAppDirectory(appDirectory);
 	}
-	
+
+    /**
+     * Sets the appDirectory where the resources are extracted.
+     * @param appDirectory local directory for files
+     */
 	public static void setAppDirectory(File appDirectory){
-		ResourceExtractor.appDirectory = appDirectory;
-	}
-	
-	/** 
-	 * Replacement of getClass().getResource("/gui/info.html");
-	 * which does not work for bundle resources in context of JavaFX. 
-	 */
-	public static String getResource(String resource){
-		return fileURIforResource(resource);
+	    ResourceExtractor.appDirectory = appDirectory;
 	}
 	
 	/**
-	 * Returns the file URI in the application folder
-	 * for the given resource string.
-	 * 
-	 * For instance "/gui/query.html" 
+     * Returns the file URI in the application folder for given resource string.
+     * Example "/gui/query.html"
+     * Replacement of
+     *     getClass().getResource("/gui/info.html");
+	 * which does not work for bundle resources in JavaFX.
 	 */
-	public static String fileURIforResource(String resource){
+	public static String getResource(String resource){
+	    return fileURIforResource(resource);
+	}
+
+    /**
+     * Returns the file URI in the application folder for given resource string.
+     * Example "/gui/query.html"
+     *
+     * @param resource resource path
+     * @return String representation of fileURI or null
+     */
+	private static String fileURIforResource(String resource){
+	    if (appDirectory == null){
+	        logger.error("appDirectory is not set in ResourceExtractor");
+            return null;
+        }
+        // resource file
 		File file = new File(appDirectory + resource);
 		if (!file.exists()){
-			System.out.println("ERROR: Resource is not available");
+			logger.error(String.format("Resource <%s> does not exist in <%s>.", resource, appDirectory));
+            return null;
 		}
 		URI fileURI = file.toURI();
-		
 		return fileURI.toString();
 	}
 	
@@ -68,36 +86,25 @@ public class ResourceExtractor {
 	 */
 	public void extract(){
 		if (bc == null || appDirectory == null){
-			System.out.println("WARNING BundleContext or application directory not set. " +
-					"Files not extracted");
+			logger.error("BundleContext or application directory not set. Files not extracted");
 			return;
 		}
-		logger.info("-------------------------------------------------");
-		logger.info("Extract bundle resources");
-		logger.info("-------------------------------------------------");
-		// bundle root
+		logger.debug("-------------------------------------------------");
+		logger.debug("Extract bundle resources");
+		logger.debug("-------------------------------------------------");
+        // bundle root
 		Bundle bundle = bc.getBundle();
 		URL rootURL = bundle.getEntry("/");
-		logger.info("bundle root: " + rootURL);
-		
-		/* FIXME: we don't care about existing resources, just overwriting them
-		 * This will accumulate files with versions and should be cleaned up.
-		 * Also copying everything on every bundle startup is overkill.
-		 * 
-		 // Delete if resources are already available
-		 if(destination.exists()) {
-				// Maybe there is an old version
-				final File versionFile = new File(destination, VERSION_NAME);
-				if(!versionFile.exists()) {
-					logger.info("Version file not found.  Creating new preview template...");
-					deleteAll(destination);
-		*/
-		extractDirectory(rootURL, GUI_RESOURCES);
-		logger.info("-------------------------------------------------");
+		for (String resource: RESOURCES){
+            extractDirectory(rootURL, resource);
+        }
+		logger.debug("-------------------------------------------------");
 	}
-	
-	/* 
-	 * Extract the resources in given directory.  
+
+	/**
+	 * Extract the resources in given directory.
+     * FIXME: no removal of old resources, existing files are overwritten,
+     *   old files accumulate
 	 */
 	private void extractDirectory(URL rootURL, String directory){
 		// list all GUI resources of bundle and extract them
@@ -118,7 +125,6 @@ public class ResourceExtractor {
 						outFile.mkdirs();
 						// extract subdirectory recursively
 						extractDirectory(rootURL, "/" + path);
-						
 					}else{
 						// create directories for file if required
 						File parent = outFile.getParentFile();
@@ -126,7 +132,7 @@ public class ResourceExtractor {
 						    throw new IllegalStateException("Couldn't create dir: " + parent);
 						}
 						
-						logger.info(" --> " + outFile.getAbsolutePath());
+						logger.debug(" --> " + outFile.getAbsolutePath());
 						OutputStream outputStream = new FileOutputStream(outFile);
 				
 						int read = 0;
@@ -141,8 +147,7 @@ public class ResourceExtractor {
 					ioException.printStackTrace();
 					return;
 				}
-				
-				
+
 			} catch (MalformedURLException urlException) {
 				urlException.printStackTrace();
 				return;
