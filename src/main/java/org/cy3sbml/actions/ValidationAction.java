@@ -7,12 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.validator.ValidatorDialog;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.ValidationDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class ValidationAction extends AbstractCyAction{
 					"Import network from BioModel or load network from file or URL first.");
     	}
     	else{
-    		ValidationDialog validationDialog = new ValidationDialog(adapter);
+    		ValidatorDialog validationDialog = new ValidatorDialog(adapter);
     		validationDialog.runValidation(document);
     		validationDialog.setVisible(true);
     	}

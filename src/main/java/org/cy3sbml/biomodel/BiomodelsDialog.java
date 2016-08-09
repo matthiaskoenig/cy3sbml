@@ -43,7 +43,11 @@ import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("serial")
+
+/**
+ * BiomodelsDialog.
+ * FIXME: Reduce dependency on cytoscape, allow individual testing.
+ */
 public class BiomodelsDialog extends JDialog {
 	private static final Logger logger = LoggerFactory.getLogger(BiomodelsDialog.class);
 	

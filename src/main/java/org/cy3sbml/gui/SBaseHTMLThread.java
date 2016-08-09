@@ -14,11 +14,11 @@ import org.slf4j.LoggerFactory;
 public class SBaseHTMLThread extends Thread{
 	private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
 	private Collection<Object> objSet;
-	private SBMLPanel panel;
+	private InfoPanel panel;
     private String info;
 
     /** Constructor. */
-    public SBaseHTMLThread(Collection<Object> objSet, SBMLPanel panel) {
+    public SBaseHTMLThread(Collection<Object> objSet, InfoPanel panel) {
         this.objSet = objSet;
         this.panel = panel;
         this.info = null;

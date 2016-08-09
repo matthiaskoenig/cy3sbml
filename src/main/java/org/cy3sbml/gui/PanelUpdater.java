@@ -15,7 +15,7 @@ import org.cy3sbml.SBMLManager;
 /**
  * Updates the Panel information based on selection.
  */
-public class UpdatePanel implements Runnable {
+public class PanelUpdater implements Runnable {
 
     private static final String TEMPLATE_NO_NODE = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" +
@@ -35,10 +35,10 @@ public class UpdatePanel implements Runnable {
             "Loading information from WebServices ...</p>");
 
 
-    private SBMLPanel panel;
+    private InfoPanel panel;
 	private CyNetwork network;
 
-    public UpdatePanel(SBMLPanel panel, CyNetwork network) {
+    public PanelUpdater(InfoPanel panel, CyNetwork network) {
         this.panel = panel;
         this.network = network;
     }

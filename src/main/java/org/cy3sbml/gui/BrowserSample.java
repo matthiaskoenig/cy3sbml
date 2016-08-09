@@ -9,8 +9,12 @@ import javafx.stage.Stage;
  * Run the webView example.
  */
 public class BrowserSample extends Application {
+    private Scene scene;
 
-	private Scene scene;
+    /**
+     * Start the application.
+     * @param stage
+     */
 	@Override public void start(Stage stage) {
 		// create the scene
 		stage.setTitle("Web View");
@@ -23,5 +27,6 @@ public class BrowserSample extends Application {
 
 	public static void main(String[] args){
 		launch(args);
+
 	}
 }

@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * 
  * WebViewPanel is a singleton class.
  */
-public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLPanel,
+public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoPanel,
         RowsSetListener,
         SetCurrentNetworkListener,
         NetworkAddedListener,
@@ -319,7 +319,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, SBMLP
 
         // Update the information in separate thread
 		try {
-			UpdatePanel updater = new UpdatePanel(this, network);
+			PanelUpdater updater = new PanelUpdater(this, network);
 			Thread t = new Thread(updater);
 			t.start();	
 		} catch (Throwable t){

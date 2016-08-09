@@ -3,7 +3,7 @@ package org.cy3sbml.gui;
 import java.util.Set;
 
 
-public interface SBMLPanel {
+public interface InfoPanel {
     /** Set text. */
     void setText(String text);
 

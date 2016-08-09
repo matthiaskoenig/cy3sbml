@@ -20,14 +20,14 @@ import javafx.scene.web.WebView;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
-import org.cy3sbml.actions.*;
-import org.cy3sbml.util.GUIUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.work.TaskIterator;
 
+import org.cy3sbml.actions.*;
+import org.cy3sbml.util.GUIUtil;
+
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodel.BiomodelsDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

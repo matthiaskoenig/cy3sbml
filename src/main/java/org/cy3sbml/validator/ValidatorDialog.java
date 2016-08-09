@@ -1,4 +1,4 @@
-package org.cy3sbml.gui;
+package org.cy3sbml.validator;
 
 import java.awt.Font;
 import java.util.LinkedList;
@@ -17,8 +17,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.validator.Validator;
-import org.cy3sbml.validator.ValidatorTaskFactory;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskIterator;
@@ -31,8 +29,8 @@ import org.slf4j.LoggerFactory;
 import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
-public class ValidationDialog extends JDialog implements ListSelectionListener, TaskObserver {
-	private static final Logger logger = LoggerFactory.getLogger(ValidationDialog.class);
+public class ValidatorDialog extends JDialog implements ListSelectionListener, TaskObserver {
+	private static final Logger logger = LoggerFactory.getLogger(ValidatorDialog.class);
 
 	private ServiceAdapter adapter;
 	private JEditorPane errorPane;
@@ -40,7 +38,7 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 	private Validator validator;
 
 	/** Constructor */
-	private ValidationDialog(JFrame parentFrame) {
+	private ValidatorDialog(JFrame parentFrame) {
 		super(parentFrame, true);
 		this.setSize(600, 800);
 		this.setResizable(true);
@@ -84,12 +82,12 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 		errorTable.getSelectionModel().addListSelectionListener(this);
 	}
 
-	public ValidationDialog(ServiceAdapter adapter) {
+	public ValidatorDialog(ServiceAdapter adapter) {
 		this(adapter.cySwingApplication.getJFrame());
 		this.adapter = adapter;
 
 		
-		logger.info("ValidationDialog created");
+		logger.info("ValidatorDialog created");
 	}
 	
 	public void runValidation(SBMLDocument document){
@@ -106,7 +104,7 @@ public class ValidationDialog extends JDialog implements ListSelectionListener, 
 	
 	@Override
 	public void taskFinished(ObservableTask task) {
-		logger.info("taskFinished in ValidationDialog");
+		logger.info("taskFinished in ValidatorDialog");
 		
 		// execute task with task observer to be able to get results back
 		Validator validator = (Validator) task.getResults(Validator.class);
