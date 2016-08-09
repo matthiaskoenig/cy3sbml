@@ -1,0 +1,18 @@
+<p>
+The model contains two varying parameters called S1 and S2 and two constant
+parameters called k1 and k2.  (Note that indeed S1 and S2 are parameters and not 
+species in this model.)</p>
+<p>The model contains two rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;">          </td><td style="text-align:center;"> <dfn>add(S1, add(S2, &#8722;k1))</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate      </td><td style="text-align:center;"> S1       </td><td style="text-align:center;"> <dfn>multiply(k2, S2)</dfn>  </td></tr></table>
+<p>The model contains two functionDefinitions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> multiply </td><td style="text-align:center;"> x, y      </td><td style="text-align:center;"> <dfn>x &#183; y</dfn> </td></tr>
+<tr><td style="text-align:center;"> add      </td><td style="text-align:center;"> x, y      </td><td style="text-align:center;"> <dfn>x + y</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter S1 </td><td style="text-align:left;"><dfn>          0.5</dfn> </td><td style="text-align:left;">any </td></tr>
+<tr><td style="text-align:left;">Value of parameter S2 </td><td style="text-align:left;"><dfn>          0.5</dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>          1.0</dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2 </td><td style="text-align:left;"><dfn>          0.8</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr></table>

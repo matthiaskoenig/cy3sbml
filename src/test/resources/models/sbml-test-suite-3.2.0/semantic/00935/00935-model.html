@@ -1,0 +1,28 @@
+<p>
+The model contains three events that assign value to species S1 and S2 defined below.</p>
+<p>The events will execute simultaneously and must be executed in order determined by
+the Priority. However, since Event2 is not persistent, the execution of Event1
+causes the Trigger of Event2 to return to 'false'. It must therefore be removed
+from the list of pending events.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (S1, S2)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There are 3 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Persistent</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> A </td><td style="text-align:center;"> <dfn>and(geq(time, 0.99), lt(S1, 0.5))</dfn> </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>S1 = 1</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>S2 = 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> B </td><td style="text-align:center;"> <dfn>and(geq(time, 0.99), lt(S1, 0.5))</dfn> </td><td style="text-align:center;"> <dfn>8</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>S1 = 2</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>S2 = 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> C1 </td><td style="text-align:center;"> <dfn>and(geq(time, 0.99), lt(S1, 0.5))</dfn> </td><td style="text-align:center;"> <dfn>9</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>S1 = 3</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>S2 = 2</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S2 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

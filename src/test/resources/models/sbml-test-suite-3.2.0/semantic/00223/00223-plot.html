@@ -1,0 +1,215 @@
+
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<style>
+body {
+   background-color: white;   
+   font-family: Helvetica, Verdana, sans-serif;
+   font-size: 10pt;
+}
+@media print {
+  .no-print { display: none; }
+}
+#plot-wrapper {
+  display: inline-block;
+}
+#placeholder {
+  margin-top: 0.25em;
+}
+#info-text {
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+  left: 170px;
+  color: #bbb;
+}
+</style>
+<script>
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            credits: {
+                enabled: false
+            },
+            chart: {
+                backgroundColor: '#fff',
+                renderTo: 'placeholder',
+                type: 'line',
+                zoomType: 'xy',
+                height: 500,
+                width: 600,
+                spacingTop: 37
+            },
+            plotOptions: {
+                line: {
+                    dashStyle: 'Solid',
+                    marker: {
+                        enabled: false
+                    }
+                }
+
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 1,
+                gridLineDashStyle: 'ShortDot',
+                tickPosition: 'inside',
+                maxPadding: 0,
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineWidth: 1,
+                gridLineDashStyle: 'ShortDot',
+                tickPosition: 'inside',
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                borderWidth: 1,
+                formatter: function() {
+                    return 'At time ' + this.x + '<br><b>' + this.series.name
+                           + '<\/b> = ' + this.y;
+                }
+            },
+            legend: {
+                borderWidth: 0,
+                margin: 10,
+                itemWidth: 140,
+                itemMarginBottom: 10,
+                symbolWidth: 45,
+                symbolPadding: 5,
+                x: 20
+            },
+
+            exporting: {
+                buttons: {
+                    exportButton: { y: 5 },
+                    printButton: { y: 5 }
+                }
+            },
+            series: [
+
+{ name: "S1", color: "#4572A7", dashStyle: "Solid", shadow: false, data: [
+[0, 1.50000E-06],
+[0.1, 1.29106E-06],
+[0.2, 1.11123E-06],
+[0.3, 9.56442E-07],
+[0.4, 8.23217E-07],
+[0.5, 7.08550E-07],
+[0.6, 6.09854E-07],
+[0.7, 5.24907E-07],
+[0.8, 4.51791E-07],
+[0.9, 3.88860E-07],
+[1, 3.34695E-07],
+[1.1, 2.88075E-07],
+[1.2, 2.47948E-07],
+[1.3, 2.13411E-07],
+[1.4, 1.83685E-07],
+[1.5, 1.58099E-07],
+[1.6, 1.36077E-07],
+[1.7, 1.17122E-07],
+[1.8, 1.00808E-07],
+[1.9, 8.67665E-08],
+[2, 7.46806E-08],
+[2.1, 6.42782E-08],
+[2.2, 5.53248E-08],
+[2.3, 4.76185E-08],
+[2.4, 4.09856E-08],
+[2.5, 3.52766E-08],
+[2.6, 3.03629E-08],
+[2.7, 2.61336E-08],
+[2.8, 2.24934E-08],
+[2.9, 1.93602E-08],
+[3, 1.66635E-08],
+[3.1, 1.43424E-08],
+[3.2, 1.23446E-08],
+[3.3, 1.06251E-08],
+[3.4, 9.14512E-09],
+[3.5, 7.87128E-09],
+[3.6, 6.77487E-09],
+[3.7, 5.83119E-09],
+[3.8, 5.01895E-09],
+[3.9, 4.31985E-09],
+[4, 3.71813E-09],
+[4.1, 3.20022E-09],
+[4.2, 2.75446E-09],
+[4.3, 2.37078E-09],
+[4.4, 2.04055E-09],
+[4.5, 1.75632E-09],
+[4.6, 1.51168E-09],
+[4.7, 1.30111E-09],
+[4.8, 1.11988E-09],
+[4.9, 9.63889E-10],
+[5, 8.29627E-10]] },
+{ name: "S2", color: "#AA4643", dashStyle: "Solid", shadow: false, data: [
+[0, 1.00000E-06],
+[0.1, 1.20894E-06],
+[0.2, 1.38877E-06],
+[0.3, 1.54356E-06],
+[0.4, 1.67678E-06],
+[0.5, 1.79145E-06],
+[0.6, 1.89015E-06],
+[0.7, 1.97509E-06],
+[0.8, 2.04821E-06],
+[0.9, 2.11114E-06],
+[1, 2.16530E-06],
+[1.1, 2.21193E-06],
+[1.2, 2.25205E-06],
+[1.3, 2.28659E-06],
+[1.4, 2.31632E-06],
+[1.5, 2.34190E-06],
+[1.6, 2.36392E-06],
+[1.7, 2.38288E-06],
+[1.8, 2.39919E-06],
+[1.9, 2.41323E-06],
+[2, 2.42532E-06],
+[2.1, 2.43572E-06],
+[2.2, 2.44468E-06],
+[2.3, 2.45238E-06],
+[2.4, 2.45901E-06],
+[2.5, 2.46472E-06],
+[2.6, 2.46964E-06],
+[2.7, 2.47387E-06],
+[2.8, 2.47751E-06],
+[2.9, 2.48064E-06],
+[3, 2.48334E-06],
+[3.1, 2.48566E-06],
+[3.2, 2.48766E-06],
+[3.3, 2.48937E-06],
+[3.4, 2.49085E-06],
+[3.5, 2.49213E-06],
+[3.6, 2.49323E-06],
+[3.7, 2.49417E-06],
+[3.8, 2.49498E-06],
+[3.9, 2.49568E-06],
+[4, 2.49628E-06],
+[4.1, 2.49680E-06],
+[4.2, 2.49725E-06],
+[4.3, 2.49763E-06],
+[4.4, 2.49796E-06],
+[4.5, 2.49824E-06],
+[4.6, 2.49849E-06],
+[4.7, 2.49870E-06],
+[4.8, 2.49888E-06],
+[4.9, 2.49904E-06],
+[5, 2.49917E-06]] }
+]
+        });
+    });
+    
+});
+</script>
+
+<div id="plot-wrapper">
+<div id="info-text" class="no-print">
+Drag the mouse to zoom in on a rectangular region.<br>
+Click on variable names in the legend to toggle their visibility.
+</div>
+<div id="placeholder"></div>
+<div id="legend"></div>
+</div>

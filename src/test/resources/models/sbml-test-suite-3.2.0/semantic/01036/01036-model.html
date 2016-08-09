@@ -1,0 +1,30 @@
+<p>
+Note:  This test is a copy of model 836, with the products and reactants reversed, 
+and a negative kinetic law.  This gives the same results, but during the simulation, 
+the kinetic law actually goes negative (a requirement for reversibe reactions).  
+The reaction listed below is therfore equivalent to the one in the file, but reversed from it.</p>
+<p>The model contains one compartment called C.  There are three species called 
+S1, S2 and S3 and three parameters called kf, kr and p1.  The model contains  one reaction
+defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8596; S3 </td><td style="text-align:center;"> <dfn>(kf &#183; S1 &#183; S2 &#8722; kr &#183; S3) &#183; C</dfn>  </td></tr></table>
+<p>The model contains one initialAssignment:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;"> Variable </td><td style="text-align:center;"> Formula </td></tr>
+<tr><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn>p1 &#183; 2</dfn>  </td></tr></table>
+<p>Note: SBML's InitialAssignment construct override any declared initial
+values.  In this case the initial value declared for species S1 is
+inconsistent with the value returned by the InitialAssignment.  The
+calculated value should be used.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong>       </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1        </td><td style="text-align:left;"><dfn>0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2        </td><td style="text-align:left;"><dfn>0.5</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3        </td><td style="text-align:left;"><dfn>0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter kf       </td><td style="text-align:left;"><dfn>1.1</dfn>          </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter kr       </td><td style="text-align:left;"><dfn>0.09</dfn>          </td><td style="text-align:left;">second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter p1       </td><td style="text-align:left;"><dfn>0.5</dfn>           </td><td style="text-align:left;">mole                </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C     </td><td style="text-align:left;"><dfn>1</dfn>             </td><td style="text-align:left;">litre                  </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

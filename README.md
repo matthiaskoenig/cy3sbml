@@ -28,7 +28,7 @@ visualization of SBML network annotations within the network context, direct imp
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
   the network context (and non-RDF annotations)
-* Tested with SBML.org testcases, Biomodels (release 30) and BiGG models (v1.2)
+* Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.2)
 
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
 

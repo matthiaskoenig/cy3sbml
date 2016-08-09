@@ -1,0 +1,267 @@
+
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<style>
+body {
+   background-color: white;   
+   font-family: Helvetica, Verdana, sans-serif;
+   font-size: 10pt;
+}
+@media print {
+  .no-print { display: none; }
+}
+#plot-wrapper {
+  display: inline-block;
+}
+#placeholder {
+  margin-top: 0.25em;
+}
+#info-text {
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+  left: 170px;
+  color: #bbb;
+}
+</style>
+<script>
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            credits: {
+                enabled: false
+            },
+            chart: {
+                backgroundColor: '#fff',
+                renderTo: 'placeholder',
+                type: 'line',
+                zoomType: 'xy',
+                height: 500,
+                width: 600,
+                spacingTop: 37
+            },
+            plotOptions: {
+                line: {
+                    dashStyle: 'Solid',
+                    marker: {
+                        enabled: false
+                    }
+                }
+
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 1,
+                gridLineDashStyle: 'ShortDot',
+                tickPosition: 'inside',
+                maxPadding: 0,
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineWidth: 1,
+                gridLineDashStyle: 'ShortDot',
+                tickPosition: 'inside',
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                borderWidth: 1,
+                formatter: function() {
+                    return 'At time ' + this.x + '<br><b>' + this.series.name
+                           + '<\/b> = ' + this.y;
+                }
+            },
+            legend: {
+                borderWidth: 0,
+                margin: 10,
+                itemWidth: 140,
+                itemMarginBottom: 10,
+                symbolWidth: 45,
+                symbolPadding: 5,
+                x: 20
+            },
+
+            exporting: {
+                buttons: {
+                    exportButton: { y: 5 },
+                    printButton: { y: 5 }
+                }
+            },
+            series: [
+
+{ name: "S1", color: "#4572A7", dashStyle: "Solid", shadow: false, data: [
+[0, 1],
+[0.02, 1],
+[0.04, 1],
+[0.06, 1],
+[0.08, 1],
+[0.1, 1],
+[0.12, 1],
+[0.14, 1],
+[0.16, 1],
+[0.18, 1],
+[0.2, 1],
+[0.22, 1],
+[0.24, 1],
+[0.26, 1],
+[0.28, 1],
+[0.3, 1],
+[0.32, 1],
+[0.34, 1],
+[0.36, 1],
+[0.38, 1],
+[0.4, 1],
+[0.42, 1],
+[0.44, 1],
+[0.46, 1],
+[0.48, 1],
+[0.5, 1],
+[0.52, 1],
+[0.54, 1],
+[0.56, 1],
+[0.58, 1],
+[0.6, 1],
+[0.62, 1],
+[0.64, 1],
+[0.66, 1],
+[0.68, 1],
+[0.7, 1],
+[0.72, 1],
+[0.74, 1],
+[0.76, 1],
+[0.78, 1],
+[0.8, 1],
+[0.82, 1],
+[0.84, 1],
+[0.86, 1],
+[0.88, 1],
+[0.9, 1],
+[0.92, 1],
+[0.94, 1],
+[0.96, 1],
+[0.98, 1],
+[1, 1]] },
+{ name: "S2", color: "#AA4643", dashStyle: "Solid", shadow: false, data: [
+[0, 2],
+[0.02, 1.72977],
+[0.04, 1.49719],
+[0.06, 1.297],
+[0.08, 1.12469],
+[0.1, 0.976391],
+[0.12, 0.848745],
+[0.14, 0.738879],
+[0.16, 0.644317],
+[0.18, 0.562926],
+[0.2, 0.492873],
+[0.22, 0.432577],
+[0.24, 0.38068],
+[0.26, 0.336012],
+[0.28, 0.297565],
+[0.3, 0.264474],
+[0.32, 0.235993],
+[0.34, 0.211478],
+[0.36, 0.190379],
+[0.38, 0.172218],
+[0.4, 0.156587],
+[0.42, 0.143133],
+[0.44, 0.131553],
+[0.46, 0.121587],
+[0.48, 0.113008],
+[0.5, 0.105624],
+[0.52, 0.0992693],
+[0.54, 0.0937994],
+[0.56, 0.0890914],
+[0.58, 0.0850392],
+[0.6, 0.0815515],
+[0.62, 0.0785495],
+[0.64, 0.0759657],
+[0.66, 0.0737418],
+[0.68, 0.0718277],
+[0.7, 0.0701802],
+[0.72, 0.0687622],
+[0.74, 0.0675417],
+[0.76, 0.0664912],
+[0.78, 0.065587],
+[0.8, 0.0648088],
+[0.82, 0.064139],
+[0.84, 0.0635624],
+[0.86, 0.0630662],
+[0.88, 0.0626391],
+[0.9, 0.0622715],
+[0.92, 0.0619551],
+[0.94, 0.0616828],
+[0.96, 0.0614484],
+[0.98, 0.0612466],
+[1, 0.061073]] },
+{ name: "S3", color: "#89A54E", dashStyle: "Solid", shadow: false, data: [
+[0, 1.5],
+[0.02, 1.5],
+[0.04, 1.5],
+[0.06, 1.5],
+[0.08, 1.5],
+[0.1, 1.5],
+[0.12, 1.5],
+[0.14, 1.5],
+[0.16, 1.5],
+[0.18, 1.5],
+[0.2, 1.5],
+[0.22, 1.5],
+[0.24, 1.5],
+[0.26, 1.5],
+[0.28, 1.5],
+[0.3, 1.5],
+[0.32, 1.5],
+[0.34, 1.5],
+[0.36, 1.5],
+[0.38, 1.5],
+[0.4, 1.5],
+[0.42, 1.5],
+[0.44, 1.5],
+[0.46, 1.5],
+[0.48, 1.5],
+[0.5, 1.5],
+[0.52, 1.5],
+[0.54, 1.5],
+[0.56, 1.5],
+[0.58, 1.5],
+[0.6, 1.5],
+[0.62, 1.5],
+[0.64, 1.5],
+[0.66, 1.5],
+[0.68, 1.5],
+[0.7, 1.5],
+[0.72, 1.5],
+[0.74, 1.5],
+[0.76, 1.5],
+[0.78, 1.5],
+[0.8, 1.5],
+[0.82, 1.5],
+[0.84, 1.5],
+[0.86, 1.5],
+[0.88, 1.5],
+[0.9, 1.5],
+[0.92, 1.5],
+[0.94, 1.5],
+[0.96, 1.5],
+[0.98, 1.5],
+[1, 1.5]] }
+]
+        });
+    });
+    
+});
+</script>
+
+<div id="plot-wrapper">
+<div id="info-text" class="no-print">
+Drag the mouse to zoom in on a rectangular region.<br>
+Click on variable names in the legend to toggle their visibility.
+</div>
+<div id="placeholder"></div>
+<div id="legend"></div>
+</div>

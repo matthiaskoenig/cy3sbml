@@ -1,0 +1,43 @@
+<p>
+This model contains two events that trigger when the parameter multitrig increases to 
+above 1.  The first is set 'persistent=true' and 'useValuesFromTriggerTime=false', and sets x=x+1, meaning that every time
+it triggers, it ends up increasing x by one.  </p>
+<p>The second is set 'persistent=true' but 'useValuesFromTriggerTime=true', meaning that it executes
+multiple times, but each time uses the value of y from the time it first triggered, meaning
+that y gets reset to one four times.</p>
+<p>The third is set 'persistent=false' and 'useValuesFromTriggerTime=false',
+and sets z=z+3, meaning that every time it triggers, it has the potential to increase z
+by three, but if multitrig drops below 1 again, it will not actually do so.  In the end,
+it only executes a single time.</p>
+<p>The model also contains nine events with the same trigger and with decreasing priorities 
+that alternate setting the value of the parameter 'multitrig' from zero to 2, then to 
+zero, then back again, etc.  The priorities of all these events are higher than the first 
+two, meaning that at a single time point, the first two events are triggered five times,
+and 'de-triggered' four times.  Since the first event was persistent, x should increase
+from zero to five, and since the second event was not persistent, y should increase from
+zero to one.</p>
+<p>For a different view of this model, see 00978-antimony.txt</p>
+<p>The model contains:</p><ul>
+<li class="u">4 parameters (multitrig, x, y, z)</li></ul>
+<p>There are 12 events:</p>
+<table style="width:45em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Persistent</strong>  </td><td style="text-align:center;">  <strong>Use values from:</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> _E0 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E1 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>9</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E2 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>8</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E3 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>7</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E4 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>6</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E5 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>5</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E6 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E7 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E8 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>multitrig = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E9 </td><td style="text-align:center;"> <dfn>multitrig &gt; 1</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>x = x + 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E10 </td><td style="text-align:center;"> <dfn>multitrig &gt; 1</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>y = y + 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E11 </td><td style="text-align:center;"> <dfn>multitrig &gt; 1</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>z = z + 3</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter multitrig </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter y </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter z </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

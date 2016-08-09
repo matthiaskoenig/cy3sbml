@@ -1,0 +1,23 @@
+<p>
+This model contains two events with the same trigger, the same priority, both set 'persistent=false', and both of which disable the trigger of the other.  This means that every .01 seconds, one fires and the other does not, at random, and increases the parameters Q or R, respectively.  A third parameter, S, is assigned the value of Q+R, meaning that it doesn't matter which one fires; S will increase monotonically.  A final parameter, 'error' checks to make sure neither Q nor R are chosen more frequently than the other&#8211;if the difference gets higher than 4, it triggers. In our simulations, this happened less often than one time in a million, so if you see it happen in your simulator more often than once, there's a good chance something is wrong.</p>
+<p>The model contains:</p><ul>
+<li class="u">5 parameters (S, Q, R, reset, error)</li></ul>
+<p>There are 3 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Persistent</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Qinc </td><td style="text-align:center;"> <dfn>geq(time &#8722; reset, 0.01)</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Q = Q + 0.01</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rinc </td><td style="text-align:center;"> <dfn>geq(time &#8722; reset, 0.01)</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>R = R + 0.01</dfn> </td></tr>
+<tr><td style="text-align:center;"> error_check </td><td style="text-align:center;"> <dfn>geq(abs(Q &#8722; R), 4)</dfn> </td><td style="text-align:center;"> (unset) </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>error = 1</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> S </td><td style="text-align:center;"> <dfn>Q + R</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter S </td><td style="text-align:center;"> <dfn>Q + R</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Q </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter R </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter reset </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter error </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

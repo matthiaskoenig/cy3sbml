@@ -1,0 +1,34 @@
+<p>
+ A stripped-down version of model 1000, without events.  Designed to test a lot of thing in concert.</p>
+<p>The model contains:</p><ul>
+<li class="u">4 species (S1, S2, S3, S4)</li>
+<li class="u">8 parameters (kavo, k1, k3, k4, k5, k2, conversion1, conversion2)</li>
+<li class="u">2 compartments (comp, comp2)</li></ul>
+<p>It also contains 1 function definition(s):
+</p><dl><dt>kinetics</dt><dd><dfn>(&#8722;a + b + c + d + e + f + g + h + i + j) / 10</dfn></dd></dl>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> _J0: S3 + S1ref S1 &#8594; S2ref S2 </td><td style="text-align:center;"> <dfn>kinetics(k1, k2, k3, k4, k5, S1, S1ref, S3, S4, S2)</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  S1ref, S2ref</p>
+<p>There are 4 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> comp </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> comp2 </td><td style="text-align:center;"> <dfn>k4</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> k4 </td><td style="text-align:center;"> <dfn>time</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> S2ref </td><td style="text-align:center;"> <dfn>k1 &#183; S1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S4 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S3 </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter kavo </td><td style="text-align:center;"> <dfn>avogadro / 6.022000e+023</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>1.1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k2 </td><td style="text-align:center;"> <dfn>8.12</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter conversion1 </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter conversion2 </td><td style="text-align:center;"> <dfn>100</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k3 </td><td style="text-align:center;"> <dfn>2.5</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k4 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k5 </td><td style="text-align:center;"> <dfn>2.8</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp' </td><td style="text-align:center;"> <dfn>5</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp2' </td><td style="text-align:center;"> <dfn>k4</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

@@ -1,0 +1,19 @@
+<p>
+The model contains one compartment called C.  There are three species
+called S1, S2 and S3 and two parameters called k1 and k2.  The model
+contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; C</dfn>     </td></tr></table>
+<p>The model contains one event that assigns values to both species S1 and S2:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:center;"> <strong>Trigger</strong>   </td><td style="text-align:center;"> <strong>Delay</strong> </td><td style="text-align:center;"> <strong>Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Event1                      </td><td style="text-align:center;"> <dfn>S1 &lt; 0.65</dfn> </td><td style="text-align:center;"> <dfn>1</dfn>     </td><td style="text-align:center;"> <dfn>S2 = 1.5</dfn>    </td></tr>
+<tr><td style="text-align:center;">                             </td><td style="text-align:center;">             </td><td style="text-align:center;">         </td><td style="text-align:center;"> <dfn>S1 = 1</dfn>      </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong> </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial concentration of S1          </td><td style="text-align:left;"><dfn>1.0</dfn>   </td><td style="text-align:left;">mole litre<sup>-1</sup>                      </td></tr>
+<tr><td style="text-align:left;">Initial concentration of S2          </td><td style="text-align:left;"><dfn>2.0</dfn>   </td><td style="text-align:left;">mole litre<sup>-1</sup>                      </td></tr>
+<tr><td style="text-align:left;">Initial concentration of S3          </td><td style="text-align:left;"><dfn>1.0</dfn>   </td><td style="text-align:left;">mole litre<sup>-1</sup>                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1         </td><td style="text-align:left;"><dfn>0.75</dfn>  </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2         </td><td style="text-align:left;"><dfn>0.25</dfn>  </td><td style="text-align:left;">second<sup>-1</sup>                </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C       </td><td style="text-align:left;"><dfn>0.9</dfn>   </td><td style="text-align:left;">litre                     </td></tr></table>

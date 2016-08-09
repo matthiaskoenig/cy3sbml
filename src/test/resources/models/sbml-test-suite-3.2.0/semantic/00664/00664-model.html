@@ -1,0 +1,29 @@
+<p>
+The model contains one compartment called C.  There are four
+species called S1, S2, S3 and S4 and three parameters called k1, k2 and k3.
+The model contains three reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; C</dfn>     </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S4 </td><td style="text-align:center;"> <dfn>k3 &#183; S3 &#183; C</dfn>     </td></tr></table>
+<p>The model contains one rule which must be used to determine the value of
+parameter k2:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;">   n/a    </td><td style="text-align:center;"> <dfn>k2 &#8722; 0.9</dfn>  </td></tr></table>
+<p>The model contains one event that assigns value to species S4 defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:center;"> <strong>Trigger</strong>    </td><td style="text-align:center;"> <strong>Delay</strong> </td><td style="text-align:center;"> <strong>Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Event1 </td><td style="text-align:center;"> <dfn>S4 &gt; S3</dfn> </td><td style="text-align:center;"> <dfn>2</dfn>   </td><td style="text-align:center;"> <dfn>S4 = 2 &#183; S4</dfn>    </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;3</sup></dfn>  </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;3</sup></dfn>  </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">3</sup></dfn>   </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2               </td><td style="text-align:left;"><dfn>undeclared</dfn>     </td><td style="text-align:left;">second<sup>-1</sup>                 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k3               </td><td style="text-align:left;"><dfn>0.7</dfn>            </td><td style="text-align:left;">second<sup>-1</sup>                 </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C             </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">litre                      </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

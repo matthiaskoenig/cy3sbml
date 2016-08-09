@@ -1,0 +1,33 @@
+<p>
+This model (the same basic model as 952) contains two events with the same trigger, the same priority, both set 'persistent=false', and both of which disable the trigger of the other.  This means that every .01 seconds, one fires and the other does not, at random, and increases the parameters Q or R, respectively.  A third parameter, S, is assigned the value of Q+R, meaning that it doesn't matter which one fires; S will increase monotonically.</p>
+<p>In this test, we also keep track of how many times in a row either Q or R have been chosen, through the parameters Qrun and Rrun.  Another parameter, maxrun, is set by its own events to be max(maxrun, Qrun, Rrun).  A final event checks to see if maxrun has exceeded 20; if so, it is set to 1.  In our simulations, in 1,000,000 runs, maxrun had an average of 13.25, and never exceeded 15 at all, so exceeding 300 is an occurrence that should happen much less than one time in a million.  While this doesn't mean that your simulator will never have a run where maxrun exceeds 300, it does mean that this is a very rare event, and almost certainly means that something is wrong with your simulator:  it may be that the same random number is being chosen multiple times.</p>
+<p>The model contains:</p><ul>
+<li class="u">8 parameters (S, Q, R, reset, Qrun, Rrun, maxrun, error)</li></ul>
+<p>There are 5 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Persistent</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Qinc </td><td style="text-align:center;"> <dfn>(time &#8722; reset) &geq; 0.01</dfn> </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Rrun = 0</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Qrun = Qrun + 1</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Q = Q + 0.01</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rinc </td><td style="text-align:center;"> <dfn>(time &#8722; reset) &geq; 0.01</dfn> </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Qrun = 0</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Rrun = Rrun + 1</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>R = R + 0.01</dfn> </td></tr>
+<tr><td style="text-align:center;"> maxrun_check1 </td><td style="text-align:center;"> <dfn>Qrun &gt; maxrun</dfn> </td><td style="text-align:center;"> <dfn>9</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>maxrun = Qrun</dfn> </td></tr>
+<tr><td style="text-align:center;"> maxrun_check2 </td><td style="text-align:center;"> <dfn>Rrun &gt; maxrun</dfn> </td><td style="text-align:center;"> <dfn>8</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>maxrun = Rrun</dfn> </td></tr>
+<tr><td style="text-align:center;"> error_check </td><td style="text-align:center;"> <dfn>maxrun &gt; 300</dfn> </td><td style="text-align:center;"> <dfn>7</dfn> </td><td style="text-align:center;"> true </td><td style="text-align:center;"> <dfn>error = 1</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> S </td><td style="text-align:center;"> <dfn>Q + R</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter S </td><td style="text-align:center;"> <dfn>Q + R</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Q </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter R </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter reset </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Qrun </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Rrun </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter maxrun </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter error </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="3" numberOfPoints="305">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01121-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S1_1" name="S1">
+      <listOfVariables>
+        <variable id="S1_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S1']" />
+        <variable id="S1_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> S1_1_s </ci>
+          <ci> S1_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S2_1" name="S2">
+      <listOfVariables>
+        <variable id="S2_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S2']" />
+        <variable id="S2_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> S2_1_s </ci>
+          <ci> S2_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S3_1" name="S3">
+      <listOfVariables>
+        <variable id="S3" name="S3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> S3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S4_1" name="S4">
+      <listOfVariables>
+        <variable id="S4" name="S4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> S4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="k1_1" name="k1">
+      <listOfVariables>
+        <variable id="k1" name="k1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> k1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="k2_1" name="k2">
+      <listOfVariables>
+        <variable id="k2" name="k2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> k2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="k3_1" name="k3">
+      <listOfVariables>
+        <variable id="k3" name="k3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> k3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="k4_1" name="k4">
+      <listOfVariables>
+        <variable id="k4" name="k4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> k4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="k5_1" name="k5">
+      <listOfVariables>
+        <variable id="k5" name="k5" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k5']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> k5 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="kavo_1" name="kavo">
+      <listOfVariables>
+        <variable id="kavo" name="kavo" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kavo']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> kavo </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="comp_1" name="comp">
+      <listOfVariables>
+        <variable id="comp" name="comp" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> comp </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="comp2_1" name="comp2">
+      <listOfVariables>
+        <variable id="comp2" name="comp2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> comp2 </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01121">
+      <listOfCurves>
+        <curve id="c_S1_1" name="S1" logX="false" logY="false" xDataReference="time_1" yDataReference="S1_1" />
+        <curve id="c_S2_1" name="S2" logX="false" logY="false" xDataReference="time_1" yDataReference="S2_1" />
+        <curve id="c_S3_1" name="S3" logX="false" logY="false" xDataReference="time_1" yDataReference="S3_1" />
+        <curve id="c_S4_1" name="S4" logX="false" logY="false" xDataReference="time_1" yDataReference="S4_1" />
+        <curve id="c_k1_1" name="k1" logX="false" logY="false" xDataReference="time_1" yDataReference="k1_1" />
+        <curve id="c_k2_1" name="k2" logX="false" logY="false" xDataReference="time_1" yDataReference="k2_1" />
+        <curve id="c_k3_1" name="k3" logX="false" logY="false" xDataReference="time_1" yDataReference="k3_1" />
+        <curve id="c_k4_1" name="k4" logX="false" logY="false" xDataReference="time_1" yDataReference="k4_1" />
+        <curve id="c_k5_1" name="k5" logX="false" logY="false" xDataReference="time_1" yDataReference="k5_1" />
+        <curve id="c_kavo_1" name="kavo" logX="false" logY="false" xDataReference="time_1" yDataReference="kavo_1" />
+        <curve id="c_comp_1" name="comp" logX="false" logY="false" xDataReference="time_1" yDataReference="comp_1" />
+        <curve id="c_comp2_1" name="comp2" logX="false" logY="false" xDataReference="time_1" yDataReference="comp2_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01121">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_S1_1" dataReference="S1_1" label="S1" />
+        <dataSet id="ds_S2_1" dataReference="S2_1" label="S2" />
+        <dataSet id="ds_S3_1" dataReference="S3_1" label="S3" />
+        <dataSet id="ds_S4_1" dataReference="S4_1" label="S4" />
+        <dataSet id="ds_k1_1" dataReference="k1_1" label="k1" />
+        <dataSet id="ds_k2_1" dataReference="k2_1" label="k2" />
+        <dataSet id="ds_k3_1" dataReference="k3_1" label="k3" />
+        <dataSet id="ds_k4_1" dataReference="k4_1" label="k4" />
+        <dataSet id="ds_k5_1" dataReference="k5_1" label="k5" />
+        <dataSet id="ds_kavo_1" dataReference="kavo_1" label="kavo" />
+        <dataSet id="ds_comp_1" dataReference="comp_1" label="comp" />
+        <dataSet id="ds_comp2_1" dataReference="comp2_1" label="comp2" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

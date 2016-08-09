@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="1" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01169-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__S1_1" name="A__S1">
+      <listOfVariables>
+        <variable id="A__S1_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A__S1']" />
+        <variable id="A__S1_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='A__default_compartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> A__S1_1_s </ci>
+          <ci> A__S1_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="Q_1" name="Q">
+      <listOfVariables>
+        <variable id="Q" name="Q" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='Q']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> Q </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="R_1" name="R">
+      <listOfVariables>
+        <variable id="R" name="R" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='R']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> R </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cf_1" name="cf">
+      <listOfVariables>
+        <variable id="cf" name="cf" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cf']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cf </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="X_1" name="X">
+      <listOfVariables>
+        <variable id="X" name="X" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='X']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> X </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="U1_1" name="U1">
+      <listOfVariables>
+        <variable id="U1" name="U1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='U1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> U1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="U2_1" name="U2">
+      <listOfVariables>
+        <variable id="U2" name="U2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='U2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> U2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__y_1" name="A__y">
+      <listOfVariables>
+        <variable id="A__y" name="A__y" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='A__y']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> A__y </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__k1_1" name="A__k1">
+      <listOfVariables>
+        <variable id="A__k1" name="A__k1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='A__k1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> A__k1 </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01169">
+      <listOfCurves>
+        <curve id="c_A__S1_1" name="A__S1" logX="false" logY="false" xDataReference="time_1" yDataReference="A__S1_1" />
+        <curve id="c_Q_1" name="Q" logX="false" logY="false" xDataReference="time_1" yDataReference="Q_1" />
+        <curve id="c_R_1" name="R" logX="false" logY="false" xDataReference="time_1" yDataReference="R_1" />
+        <curve id="c_cf_1" name="cf" logX="false" logY="false" xDataReference="time_1" yDataReference="cf_1" />
+        <curve id="c_X_1" name="X" logX="false" logY="false" xDataReference="time_1" yDataReference="X_1" />
+        <curve id="c_U1_1" name="U1" logX="false" logY="false" xDataReference="time_1" yDataReference="U1_1" />
+        <curve id="c_U2_1" name="U2" logX="false" logY="false" xDataReference="time_1" yDataReference="U2_1" />
+        <curve id="c_A__y_1" name="A__y" logX="false" logY="false" xDataReference="time_1" yDataReference="A__y_1" />
+        <curve id="c_A__k1_1" name="A__k1" logX="false" logY="false" xDataReference="time_1" yDataReference="A__k1_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01169">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_A__S1_1" dataReference="A__S1_1" label="A__S1" />
+        <dataSet id="ds_Q_1" dataReference="Q_1" label="Q" />
+        <dataSet id="ds_R_1" dataReference="R_1" label="R" />
+        <dataSet id="ds_cf_1" dataReference="cf_1" label="cf" />
+        <dataSet id="ds_X_1" dataReference="X_1" label="X" />
+        <dataSet id="ds_U1_1" dataReference="U1_1" label="U1" />
+        <dataSet id="ds_U2_1" dataReference="U2_1" label="U2" />
+        <dataSet id="ds_A__y_1" dataReference="A__y_1" label="A__y" />
+        <dataSet id="ds_A__k1_1" dataReference="A__k1_1" label="A__k1" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

@@ -3,10 +3,14 @@ package org.cy3sbml.models;
 import java.util.HashSet;
 
 import org.cy3sbml.TestUtils;
+import org.cytoscape.work.TaskMonitor;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for biomodels.
@@ -18,7 +22,15 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(value = Parameterized.class)
 public class BioModelsTest {
 	private String resource;
-	
+
+	@Mock
+	TaskMonitor taskMonitor;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+
 	public BioModelsTest(String resource) {
 		this.resource = resource;
 	}
@@ -32,6 +44,6 @@ public class BioModelsTest {
 	
 	@Test
 	public void testSingle() throws Exception {
-		TestUtils.testNetwork(getClass().getName(), resource);
+		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
 	}
 }

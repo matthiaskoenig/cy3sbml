@@ -58,17 +58,6 @@ public class OLSClientTest {
     }
 
     @Test
-    @Ignore
-    public void testGetTermsByName() throws Exception {
-        List<Term> terms = olsClient.getTermsByName("modification", "ms", false);
-        logger.info(terms.toString());
-        Assert.assertTrue(terms.size() > 0);
-        terms = olsClient.getTermsByName("modification", "ms", true);
-        Iterator iterator = terms.iterator();
-        Assert.assertTrue(((Term) iterator.next()).getTermOBOId().getIdentifier().equalsIgnoreCase("MS:1001876"));
-    }
-
-    @Test
     public void testGetTermChildren() throws Exception {
         List<Term> children = olsClient.getTermChildren(new Identifier("MS:1001143", Identifier.IdentifierType.OBO), "ms", 1);
         logger.info(children.toString());

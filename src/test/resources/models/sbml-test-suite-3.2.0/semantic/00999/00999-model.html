@@ -1,0 +1,39 @@
+<p>
+ This model has four species in a constant (non-unity) compartment with the four different combinations of being set by initialAmount or initialConcentration, and being set 'hasOnlySubstanceUnits' equal to true or false.  It also has another four species with the same spread, in a different compartment whose volume changes over time.  Each of these eight species is assigned to a parameter, to catch the 'hasOnlySubstanceUnits' differences (every other parameter has units of amount or concentration, respectively).</p>
+<p>The model contains:</p><ul>
+<li class="u">8 species (S1, S2, S3, S4, S5, S6, S7, S8)</li>
+<li class="u">8 parameters (p1, p2, p3, p4, p5, p6, p7, p8)</li>
+<li class="u">2 compartments (comp1, comp2)</li></ul>
+<p>There are 9 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> comp2 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p1 </td><td style="text-align:center;"> <dfn>S1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p2 </td><td style="text-align:center;"> <dfn>S2</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p3 </td><td style="text-align:center;"> <dfn>S3</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p4 </td><td style="text-align:center;"> <dfn>S4</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p5 </td><td style="text-align:center;"> <dfn>S5</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p6 </td><td style="text-align:center;"> <dfn>S6</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p7 </td><td style="text-align:center;"> <dfn>S7</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p8 </td><td style="text-align:center;"> <dfn>S8</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S3 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S4 </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S5 </td><td style="text-align:center;"> <dfn>5</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S6 </td><td style="text-align:center;"> <dfn>6</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S7 </td><td style="text-align:center;"> <dfn>7</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S8 </td><td style="text-align:center;"> <dfn>8</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p1 </td><td style="text-align:center;"> <dfn>S1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p2 </td><td style="text-align:center;"> <dfn>S2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p3 </td><td style="text-align:center;"> <dfn>S3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p4 </td><td style="text-align:center;"> <dfn>S4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p5 </td><td style="text-align:center;"> <dfn>S5</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p6 </td><td style="text-align:center;"> <dfn>S6</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p7 </td><td style="text-align:center;"> <dfn>S7</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p8 </td><td style="text-align:center;"> <dfn>S8</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp1' </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp2' </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

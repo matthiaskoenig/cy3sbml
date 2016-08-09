@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -33,10 +35,8 @@ import org.slf4j.LoggerFactory;
 public class TestUtils {
 	public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
 	public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.2";
-	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-cases";
+	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.2.0";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
-
-    @Mock TaskMonitor taskMonitor;
 
 	private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);
 	
@@ -63,7 +63,12 @@ public class TestUtils {
 		}	
 	}
 	
-	/** Get an iteratable over the resources in the resourcePath. */
+	/**
+	 * Get an iteratable over the resources in the resourcePath.
+	 *
+	 * Resources in the skip set are skipped.
+	 * If a filter string is given only the resources matching the filter are returned.
+	 */
 	public static Iterable<Object[]> findResources(String resourcePath, String extension, String filter, HashSet<String> skip){
 		
 		File currentDir = new File(System.getProperty("user.dir"));
@@ -130,9 +135,11 @@ public class TestUtils {
                 		fileList.add(fpath);
                 	} else {
                 		// filter matches add
-                		if (fname.contains(filter)){
+                        Pattern pattern = Pattern.compile(filter);
+                        Matcher m = pattern.matcher(fname);
+                		if (m.find()){
                 			fileList.add(fpath);	 
-                   	 	}	
+                   	 	}
                 	}
                 }
             }
@@ -163,7 +170,7 @@ public class TestUtils {
 			// Reader can be tested without service adapter, 
 			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
 
-			readerTask.run(taskMonitor);
+			readerTask.run(null);
 			networks = readerTask.getNetworks();
 		} catch (Throwable t){
 			networks = null;
@@ -182,58 +189,57 @@ public class TestUtils {
 		}
 		return null;
 	}
-	
-	/**
-	 * Perform the network test for a given SBML resource.
-	 *
-	 * There is a memory leak in the network creation, probably the following issue
-	 * 	http://code.cytoscape.org/redmine/issues/3507
+
+    /**
+     * Perform the network test for a given SBML resource.
+     *
+     * There is a memory leak in the network creation, probably the following issue
+     * 	http://code.cytoscape.org/redmine/issues/3507
      *
      * See also:
-	 * This aborts the travis build.
-	 */
-	public static void testNetwork(String testType, String resource){
-		logger.info("--------------------------------------------------------");
-		logger.info(String.format("%s : %s", testType, resource));
-		// logger.info("--------------------------------------------------------");
-				
-		final NetworkTestSupport nts = new NetworkTestSupport();
-		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
-		@SuppressWarnings("unused")
-		final CyNetworkViewFactory viewFactory = null;
-		TaskMonitor taskMonitor = null;
-		
-		// read SBML	
-		String[] tokens = resource.split("/");
-		String fileName = tokens[2];		
-		InputStream instream = TestUtils.class.getResourceAsStream(resource);
-	
-		CyNetwork[] networks;
-		try {
-			// Reader can be tested without service adapter
-			// calls networkFactory.createNetwork()
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
-			readerTask.run(taskMonitor);
-			networks = readerTask.getNetworks();
-			assertFalse(readerTask.getError());
+     * This aborts the travis build.
+     */
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource){
+        logger.info("--------------------------------------------------------");
+        logger.info(String.format("%s : %s", testType, resource));
+        // logger.info("--------------------------------------------------------");
+
+        final NetworkTestSupport nts = new NetworkTestSupport();
+        final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+        @SuppressWarnings("unused")
+        final CyNetworkViewFactory viewFactory = null;
+
+        // read SBML
+        String[] tokens = resource.split("/");
+        String fileName = tokens[2];
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+
+        CyNetwork[] networks;
+        try {
+            // Reader can be tested without service adapter
+            // calls networkFactory.createNetwork()
+            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+            readerTask.run(taskMonitor);
+            networks = readerTask.getNetworks();
+            assertFalse(readerTask.getError());
 
             for (CyNetwork network: networks){
                 network.dispose();
             }
 
-		} catch (Throwable t){
-			networks = null;
-			t.printStackTrace();
-		}
-		try {
-			instream.close();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
+        } catch (Throwable t){
+            networks = null;
+            t.printStackTrace();
+        }
+        try {
+            instream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
-		// Networks could be read
-		assertNotNull(networks);
-		assertTrue(networks.length >= 1);
-	}
+        // Networks could be read
+        assertNotNull(networks);
+        assertTrue(networks.length >= 1);
+    }
 	
 }

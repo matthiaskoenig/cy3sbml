@@ -1,0 +1,10 @@
+<p>
+ MathML allows the construction of 'piecwise' functions without 'otherwise'.  When all cases are accounted for, this shouldn't make a difference in the output of the model.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (a, b)
+The initial conditions are as follows:</li></ul>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter a </td><td style="text-align:center;"> <dfn>piecewise(1, true)</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter b </td><td style="text-align:center;"> <dfn>piecewise(1, gt(a, 0), 2, leq(a, 0))</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

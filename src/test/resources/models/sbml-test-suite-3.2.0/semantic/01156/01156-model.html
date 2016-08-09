@@ -1,0 +1,12 @@
+<p>
+ This model contains an event with a priority which is deleted when imported as part of a submodel.  It is actually impossible to test the behavior of a model that deletes a priority, because the behavior of an event without a priority has fewer restrictions on its behavior in a simulator than that same event with a priority, and allowing the event to behave as if it had any arbitrary priority (including the one deleted) is actually perfectly legal.  As a result, this test merely checks to ensure that the simulation occurred at all, despite containing that deletion construct.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 parameters (sub1_<em>t1, sub1</em>_t2)</li></ul>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> sub1__E0 </td><td style="text-align:center;"> <dfn>gt(time, 3)</dfn> </td><td style="text-align:center;"> <dfn>1 / time</dfn> </td><td style="text-align:center;"> <dfn>sub1_<sub class="i">t1</sub> = 3.3</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>sub1_<sub class="i">t2</sub> = 5.5</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter sub1__t1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter sub1__t2 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

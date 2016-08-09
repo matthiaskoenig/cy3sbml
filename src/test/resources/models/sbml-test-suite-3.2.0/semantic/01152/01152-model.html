@@ -1,0 +1,11 @@
+<p>
+ The replaced parameter in the submodel is assigned a value by an event.  The replacement contains a conversion factor, affecting the value given by the event.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 parameters (conv, p8)</li></ul>
+<p>There is one event:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> sub1__E1 </td><td style="text-align:center;"> <dfn>gt(time, 0.31)</dfn> </td><td style="text-align:center;"> <dfn>p8 = (800 + p8 / conv) &#183; conv</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter conv </td><td style="text-align:center;"> <dfn>0.1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p8 </td><td style="text-align:center;"> <dfn>8</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

@@ -1,0 +1,17 @@
+<p>
+This model contains two events with the same trigger, both set 'persistent=false', and both of which disable the trigger of the other.  This means that every .01 seconds, one fires and the other does not.  One has the priority 'time' and the other the priority '5.001', meaning that for the first 5 seconds, one fires, and for the next 5 seconds, the other fires.</p>
+<p>The model contains:</p><ul>
+<li class="u">3 parameters (reset, Q, R)</li></ul>
+<p>There are 2 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Persistent</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Qinc </td><td style="text-align:center;"> <dfn>(time &#8722; reset) &geq; 0.01</dfn> </td><td style="text-align:center;"> <dfn>time</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>Q = Q + 0.01</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rinc </td><td style="text-align:center;"> <dfn>(time &#8722; reset) &geq; 0.01</dfn> </td><td style="text-align:center;"> <dfn>5.001</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> <dfn>reset = time</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>R = R + 0.01</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter reset </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Q </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter R </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

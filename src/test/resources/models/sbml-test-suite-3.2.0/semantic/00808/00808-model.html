@@ -1,0 +1,19 @@
+<p>
+The model contains one compartment called C.  There are four species called 
+S1, S2, S3 and S4 and one parameter called k.  The model contains one reaction that has
+a kinetic law that defines third order mass action kinetics with three reactants
+(as referenced by SBO:0000061):</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 + S3 &#8594; S4 </td><td style="text-align:center;"> <dfn>k &#183; S1 &#183; S2 &#183; S3 &#183; C</dfn>  </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong>       </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1        </td><td style="text-align:left;"><dfn>1.0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2        </td><td style="text-align:left;"><dfn>0.5</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3        </td><td style="text-align:left;"><dfn>0.75</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4        </td><td style="text-align:left;"><dfn>0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k       </td><td style="text-align:left;"><dfn>0.8</dfn>          </td><td style="text-align:left;">litre<sup>2</sup> mole<sup>-2</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C     </td><td style="text-align:left;"><dfn>1</dfn>             </td><td style="text-align:left;">litre                  </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

@@ -1,0 +1,23 @@
+<p>
+ A submodel with a two-step reaction is imported twice into the parent model, creating parallel sets of species affected by parallel reactions.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">8 species (submod1_<em>S, submod1</em><em>E, submod1</em><em>D, submod1</em><em>ES, submod2</em><em>S, submod2</em><em>E, submod2</em><em>D, submod2</em>_ES)</li>
+<li class="u">2 compartments (submod1_<em>comp, submod2</em>_comp)</li></ul>
+<p>There are 4 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> submod1_<em>S + submod1</em><em>E &#8594; submod1</em>_ES </td><td style="text-align:center;"> <dfn>(submod1_<sub class="i">S</sub> + submod1_<sub class="i">E</sub>) / submod1_<sub class="i">ES</sub></dfn> </td></tr>
+<tr><td style="text-align:center;"> submod1_<em>ES &#8594; submod1</em><em>E + submod1</em>_D </td><td style="text-align:center;"> <dfn>submod1_<sub class="i">ES</sub> / (submod1_<sub class="i">E</sub> + submod1_<sub class="i">D</sub>)</dfn> </td></tr>
+<tr><td style="text-align:center;"> submod2_<em>S + submod2</em><em>E &#8594; submod2</em>_ES </td><td style="text-align:center;"> <dfn>(submod2_<sub class="i">S</sub> + submod2_<sub class="i">E</sub>) / submod2_<sub class="i">ES</sub></dfn> </td></tr>
+<tr><td style="text-align:center;"> submod2_<em>ES &#8594; submod2</em><em>E + submod2</em>_D </td><td style="text-align:center;"> <dfn>submod2_<sub class="i">ES</sub> / (submod2_<sub class="i">E</sub> + submod2_<sub class="i">D</sub>)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod1__S </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod1__E </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod1__D </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod1__ES </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod2__S </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod2__E </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod2__D </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species submod2__ES </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'submod1__comp' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'submod2__comp' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

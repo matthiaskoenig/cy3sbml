@@ -1,0 +1,16 @@
+<p>
+ In the original submodel, there is a local parameter whose value is used in the kinetic law of a reaction.  When it is imported as a submodel, the local parameter is deleted, causing the kinetic law to instead reference a global parameter with the same ID, but a different value.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (sub1__s1)</li>
+<li class="u">1 parameter (sub1__p1)</li>
+<li class="u">1 compartment (sub1__C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; sub1__s1 </td><td style="text-align:center;"> <dfn>sub1_<sub class="i">p1</sub> &#183; sub1_<sub class="i">s1</sub></dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species sub1__s1 </td><td style="text-align:center;"> <dfn>0.001</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter sub1__p1 </td><td style="text-align:center;"> <dfn>100</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'sub1__C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

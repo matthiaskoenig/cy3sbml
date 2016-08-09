@@ -1,0 +1,19 @@
+<p>
+The model contains one compartment called "compartment".  There are two
+species named S1 and S2 and one parameter named k1.  Compartment
+compartment is 0-dimensional.  The model contains one reaction defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>multiply(k1,S1)</dfn>  </td></tr></table>
+<p>The model contains one functionDefinition defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> multiply </td><td style="text-align:center;"> x, y </td><td style="text-align:center;"> <dfn>x &#183; y</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1  </td><td style="text-align:left;"><dfn>1.5 &#215; 10<sup class="i">&#8722;4</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2  </td><td style="text-align:left;"><dfn>1.5 &#215; 10<sup class="i">&#8722;4</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>            1</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr></table>
+<p>In this example, the compartment has its spatialDimensions attribute set to
+zero; i.e., it represents a point and therefore cannot have size or units.
+The species values must be treated as amounts and not concentrations.</p>
+<p>Note: The test data for this model was generated from an analytical solution
+of the system of equations.</p>

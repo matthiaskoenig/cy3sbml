@@ -1,0 +1,33 @@
+<p>
+ Time, extent, and replacement conversion factors all combine in this model to affect a variety of constructs.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (A__S1)</li>
+<li class="u">10 parameters (extentconv, timeconv, Q, R, cf, X, U1, U2, A_<em>k1, A</em>_y)</li>
+<li class="u">1 compartment (A_<em>default</em>compartment)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> A__<em>J0: A</em>_S1 &#8594; </td><td style="text-align:center;"> <dfn>extentconv / timeconv &#183; A_<sub class="i">k1</sub> &#183; A_<sub class="i">S1</sub></dfn> </td></tr></table>
+<p>There are 2 events:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> A___E0 </td><td style="text-align:center;"> <dfn>gt(X / cf, 0.1515)</dfn> </td><td style="text-align:center;"> <dfn>Q</dfn> </td><td style="text-align:center;"> <dfn>A_<sub class="i">y</sub> = 4</dfn> </td></tr>
+<tr><td style="text-align:center;"> A___E1 </td><td style="text-align:center;"> <dfn>gt(X / cf, 0.1515)</dfn> </td><td style="text-align:center;"> <dfn>R</dfn> </td><td style="text-align:center;"> <dfn>A_<sub class="i">y</sub> = 5</dfn> </td></tr></table>
+<p>There are 4 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> U1 </td><td style="text-align:center;"> <dfn>X / 100</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> U2 </td><td style="text-align:center;"> <dfn>23</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> Q </td><td style="text-align:center;"> <dfn>X / cf &#8722; 3</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> X </td><td style="text-align:center;"> <dfn>0.2 &#183; cf / timeconv</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species A__S1 </td><td style="text-align:center;"> <dfn>7.2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentconv </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter R </td><td style="text-align:center;"> <dfn>20</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter cf </td><td style="text-align:center;"> <dfn>100</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter A__k1 </td><td style="text-align:center;"> <dfn>1.06</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter Q </td><td style="text-align:center;"> <dfn>X / cf &#8722; 3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter X </td><td style="text-align:center;"> <dfn>15</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter U1 </td><td style="text-align:center;"> <dfn>1.1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter U2 </td><td style="text-align:center;"> <dfn>23</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter A__y </td><td style="text-align:center;"> <dfn>8.8</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'A_<em>default</em>compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

@@ -3,10 +3,14 @@ package org.cy3sbml.models;
 import java.util.HashSet;
 
 import org.cy3sbml.TestUtils;
+import org.cytoscape.work.TaskMonitor;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for the BIGG models.
@@ -18,6 +22,14 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(value = Parameterized.class)
 public class BiGGTest {
 	private String resource;
+
+	@Mock
+	TaskMonitor taskMonitor;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	public BiGGTest(String resource) {
 		this.resource = resource;
@@ -32,6 +44,6 @@ public class BiGGTest {
 	
 	@Test
 	public void testSingle() throws Exception {
-		TestUtils.testNetwork(getClass().getName(), resource);
+		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
 	}
 }

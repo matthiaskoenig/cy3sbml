@@ -283,28 +283,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI); 
 			if (qualModel != null){
 				readQual(model, qualModel);
-                taskMonitor.setProgress(0.5);
 			}
 
 			// <fbc>
 			FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
 			if (fbcModel != null){
 				readFBC(model, fbcModel);
-                taskMonitor.setProgress(0.6);
 			}
 
 			// <comp>
 			CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
 			if (compModel != null){
 				readComp(model, compModel);
-                taskMonitor.setProgress(0.7);
 			}
 
 			// <groups>
 			GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
 			if (groupsModel != null){
                 readGroups(model, groupsModel);
-                taskMonitor.setProgress(0.8);
 			}
 
 			// <layout>
@@ -374,7 +370,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 
 			if (taskMonitor != null){
-				taskMonitor.setProgress(1.0);
+				taskMonitor.setProgress(0.8);
 			}
 			logger.debug("<--- End Reader --->");
 			

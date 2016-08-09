@@ -1,0 +1,18 @@
+<p>
+ This model contains two events that trigger when time > 0.98 and 0.99.  In each, there is one event assignment that changes the value of a parameter, and a second event assignment that uses that parameter to change the value of a second parameter.  However, the second event assignment should not use the changed value from the first parameter, but rather the value it had at the beginning of event assignment.  (This is true regardless of the value of 'useValuesFromTriggerTime', but the value of that flag here happens to be false.  In order to test this in l2v4 and l2v5, there had to be a delay.)</p>
+<p>The model contains:</p><ul>
+<li class="u">4 parameters (x, y, p, q)</li></ul>
+<p>There are 2 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Use values from:</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> _E0 </td><td style="text-align:center;"> <dfn>time &geq; 0.98</dfn> </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>0.1</dfn> </td><td style="text-align:center;"> <dfn>y = y + x</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>x = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> _E1 </td><td style="text-align:center;"> <dfn>time &geq; 0.99</dfn> </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>0.1</dfn> </td><td style="text-align:center;"> <dfn>p = 3</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>q = p + 1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter y </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter q </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

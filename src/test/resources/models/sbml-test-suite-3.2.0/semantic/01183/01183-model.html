@@ -1,0 +1,24 @@
+<p>
+ In the submodel, there is a reference to a reaction's SId in an assignment rule math.  This reference would normally be modified by the time and extent conversion factors, however, the reaction is replaced, meaning that the only conversion factor to be applied is the conversion factor on the replacement (which, unlike test 1182, exists in this model).  </p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 species (s1, sub1__s1)</li>
+<li class="u">4 parameters (extentconv, timeconv, extentpertimeconv, sub1__p80)</li>
+<li class="u">2 compartments (C, sub1__C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; s1 </td><td style="text-align:center;"> <dfn>10</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> sub1__p80 </td><td style="text-align:center;"> <dfn>J0 / extentpertimeconv + 6</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species s1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species sub1__s1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentconv </td><td style="text-align:center;"> <dfn>1000</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentpertimeconv </td><td style="text-align:center;"> <dfn>16.6667</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter sub1__p80 </td><td style="text-align:center;"> <dfn>J0 / extentpertimeconv + 6</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'sub1__C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

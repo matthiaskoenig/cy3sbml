@@ -1,0 +1,27 @@
+<p>
+ This model contains a submodel with various time-based constructs in it, contained in a model with a time conversion factor.  For broken-down versions of this model that test only one construct at a time, see tests 01170-01177.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (s1)</li>
+<li class="u">6 parameters (timeconv, t1, t2, t3, t4, t5)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> sub1__J0: &#8594; s1 </td><td style="text-align:center;"> <dfn>1 / timeconv &#183; (t3 &#183; (time / timeconv) / (s1 &#183; delay(t5, timeconv &#183; 2.000000e&#8722;001)))</dfn> </td></tr></table>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> event_0 </td><td style="text-align:center;"> <dfn>gt(time / timeconv, 3)</dfn> </td><td style="text-align:center;"> <dfn>timeconv &#183; (1 / (time / timeconv))</dfn> </td><td style="text-align:center;"> <dfn>t5 = time / timeconv</dfn> </td></tr></table>
+<p>There are 3 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> t1 </td><td style="text-align:center;"> <dfn>(time / timeconv / t1 + 3) / timeconv</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> t3 </td><td style="text-align:center;"> <dfn>delay(t1, timeconv &#183; 3)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> <dfn>t4 &#8722; delay(t3, timeconv &#183; (time / timeconv / 2))</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species s1 </td><td style="text-align:center;"> <dfn>0.001</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t2 </td><td style="text-align:center;"> <dfn>time / timeconv + 3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t3 </td><td style="text-align:center;"> <dfn>delay(t1, timeconv &#183; 3)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t4 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t5 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

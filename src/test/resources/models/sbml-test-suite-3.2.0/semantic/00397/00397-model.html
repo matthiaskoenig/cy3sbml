@@ -1,0 +1,20 @@
+<p>
+The model contains three varying parameters called S1, S2 and S3 and two constant
+parameters called k1 and k2.  (Note that indeed S1, S2 and S3 are parameters and 
+not species in this model.)</p>
+<p>The model contains three rules defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S1  </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#8722; k1 &#183; S1 &#183; S2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S2  </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#8722; k1 &#183; S1 &#183; S2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S3  </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#8722; k2 &#183; S3</dfn>  </td></tr></table>
+<p>The model contains two events, that assign value to parameters S2 and S1 respectively, defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:center;"> <strong>Trigger</strong>    </td><td style="text-align:center;"> <strong>Delay</strong> </td><td style="text-align:center;"> <strong>Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Event1 </td><td style="text-align:center;"> <dfn>S1 &lt; 0.75</dfn> </td><td style="text-align:center;"> <dfn>&#8722;</dfn>   </td><td style="text-align:center;"> <dfn>S2 = 1</dfn>    </td></tr>
+<tr><td style="text-align:center;"> Event2 </td><td style="text-align:center;"> <dfn>S3 &gt; 1.4</dfn> </td><td style="text-align:center;"> <dfn>&#8722;</dfn>   </td><td style="text-align:center;"> <dfn>S1 = 1</dfn>    </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1  </td><td style="text-align:left;"><dfn>1.0</dfn>  </td><td style="text-align:left;">any                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2  </td><td style="text-align:left;"><dfn>2.0</dfn>  </td><td style="text-align:left;">same as S1                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3  </td><td style="text-align:left;"><dfn>1.0</dfn>  </td><td style="text-align:left;">same as S1                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>0.75</dfn>           </td><td style="text-align:left;">(unit of S1)<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2 </td><td style="text-align:left;"><dfn>0.25</dfn>           </td><td style="text-align:left;">second<sup>-1</sup>                </td></tr></table>

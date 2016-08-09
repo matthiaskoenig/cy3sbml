@@ -1,0 +1,18 @@
+<p>
+The model contains four variable parameters called p1, p2, p3 and p4 
+and three constant parameters called k1, k2 and k3.  The model contains 
+five rules defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;">   n/a    </td><td style="text-align:center;"> <dfn>k2 &#8722; 0.9</dfn>  </td></tr>?(t_c)<td style="text-align:center;"> Rate      </td><td style="text-align:center;">   p1     </td><td style="text-align:center;"> <dfn>&#8722;k1 &#183; p1 &#183; p2 + k2 &#183; p3 + k3 &#183; p3</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate      </td><td style="text-align:center;">   p2     </td><td style="text-align:center;"> <dfn>&#8722;k1 &#183; p1 &#183; p2 + k2 &#183; p3</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate      </td><td style="text-align:center;">   p3     </td><td style="text-align:center;"> <dfn>k1 &#183; p1 &#183; p2 &#8722; k2 &#183; p3 &#8722; k3 &#183; p3</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate      </td><td style="text-align:center;">   p4     </td><td style="text-align:center;"> <dfn>k3 &#183; p3</dfn>  </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial value of parameter p1       </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;4</sup></dfn>  </td><td style="text-align:left;">any                      </td></tr>
+<tr><td style="text-align:left;">Initial value of parameter p2       </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;4</sup></dfn>  </td><td style="text-align:left;">same as p1                      </td></tr>
+<tr><td style="text-align:left;">Initial value of parameter p3       </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">same as p1                      </td></tr>
+<tr><td style="text-align:left;">Initial value of parameter p4       </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">same as p1                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">4</sup></dfn>   </td><td style="text-align:left;">(units of p1)<sup>-1</sup> second<sup>-1</sup>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2               </td><td style="text-align:left;"><dfn>undeclared</dfn>     </td><td style="text-align:left;">second<sup>-1</sup>                 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k3               </td><td style="text-align:left;"><dfn>0.7</dfn>            </td><td style="text-align:left;">second<sup>-1</sup>                 </td></tr></table>

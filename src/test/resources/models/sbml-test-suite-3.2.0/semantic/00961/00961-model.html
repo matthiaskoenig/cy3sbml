@@ -1,0 +1,22 @@
+<p>
+The model assigns avogadro's number as a csymbol to four parameters in an assignment rule.  It tries to fool you by calling two of them 'time' and 'delay', and by not giving one a name at all.</p>
+<p>To test that the value of avogadro is the same as is in the specification without requiring that you write out all 9 digits of precision, a fifth parameter is added with the value (avogadro - 6.0221e+23).</p>
+<p>The model contains:</p><ul>
+<li class="u">5 parameters (P1, P2, P3, P4, P5)</li></ul>
+<p>There are 5 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>avogadro</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P2 </td><td style="text-align:center;"> <dfn>time</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P3 </td><td style="text-align:center;"> <dfn>delay</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P4 </td><td style="text-align:center;"> <dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P5 </td><td style="text-align:center;"> <dfn>avogadro &#8722; 6.022100e+023</dfn> </td></tr></table>
+<p> Note:  All parameters actually assigned the CSymbol 'avogadro', but the text is different for the first four cases.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>avogadro</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P2 </td><td style="text-align:center;"> <dfn>time</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P3 </td><td style="text-align:center;"> <dfn>delay</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P4 </td><td style="text-align:center;"> <dfn></dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P5 </td><td style="text-align:center;"> <dfn>avogadro &#8722; 6.022100e+023</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>
