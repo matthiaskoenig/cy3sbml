@@ -54,4 +54,9 @@ public class SBMLTestCaseTest{
 	public void testSingle() throws Exception {
 		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
 	}
+
+    @Test
+    public void testSerialization() throws Exception {
+        TestUtils.testNetworkSerialization(getClass().getName(), resource);
+    }
 }

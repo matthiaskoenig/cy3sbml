@@ -4,9 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,6 +16,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.util.IOUtil;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -25,8 +26,13 @@ import org.cytoscape.work.TaskMonitor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.stream.XMLStreamException;
 
 
 /**
@@ -202,7 +208,6 @@ public class TestUtils {
     public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource){
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
-        // logger.info("--------------------------------------------------------");
 
         final NetworkTestSupport nts = new NetworkTestSupport();
         final CyNetworkFactory networkFactory = nts.getNetworkFactory();
@@ -241,5 +246,41 @@ public class TestUtils {
         assertNotNull(networks);
         assertTrue(networks.length >= 1);
     }
-	
+
+    /**
+     * Perform the network test for a given SBML resource.
+     *
+     * There is a memory leak in the network creation, probably the following issue
+     * 	http://code.cytoscape.org/redmine/issues/3507
+     *
+     * See also:
+     * This aborts the travis build.
+     */
+    public static void testNetworkSerialization(String testType, String resource) throws IOException, XMLStreamException, ClassNotFoundException {
+        logger.info("--------------------------------------------------------");
+        logger.info(String.format("%s : %s", testType, resource));
+
+        // read SBML
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        String xml = IOUtil.inputStream2String(instream);
+        SBMLDocument doc = JSBML.readSBMLFromString(xml);
+        assertNotNull(doc);
+
+        // Serialize SBMLDocument
+        File tempFile = File.createTempFile("sbml", ".ser");
+
+        FileOutputStream fileOut = new FileOutputStream(tempFile.getAbsolutePath());
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(doc);
+        out.close();
+        fileOut.close();
+
+        // Deserialize
+        InputStream inputStream = new FileInputStream(tempFile.getAbsolutePath());
+        InputStream buffer = new BufferedInputStream(inputStream);
+        ObjectInput input = new ObjectInputStream (buffer);
+
+        SBMLDocument docSerialized = (SBMLDocument)input.readObject();
+        assertNotNull(docSerialized);
+    }
 }
