@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Cache UniProt.
+ * Cache UniProtEntry for accessions.
  */
 public class UniprotCache {
     private static final Logger logger = LoggerFactory.getLogger(org.cy3sbml.ols.OLSCache.class);
@@ -36,6 +36,8 @@ public class UniprotCache {
 
     /**
      * Get UniProtEntry with cache support.
+     * @param accession uniprot accession id, e.g. "P10415"
+     * @return
      */
     public static UniProtEntry getUniProtEntry(String accession){
         UniProtEntry entry;
@@ -43,7 +45,7 @@ public class UniprotCache {
         // check in cache
         Element element = cache.get(accession);
         if (element != null){
-            logger.info("Found in cache: " + accession);
+            logger.debug("UniProtEntry in cache: " + accession);
             entry = (UniProtEntry) element.getObjectValue();
         }
         // not in cache, lookup element

@@ -7,6 +7,7 @@ import java.net.URL;
 import org.identifiers.registry.RegistryDatabase;
 import org.cy3sbml.util.IOUtil;
 
+import org.identifiers.registry.data.DataType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class RegistryUtil {
      * @param file MIRIAM xml file
      */
     public static void loadRegistry(File file) {
-        if (file.exists()){
+        if (file != null && file.exists()){
             try {
                 RegistryDatabase.loadFromFile(file);
                 logger.info("Miriam loaded from file:" + file.getAbsolutePath());
@@ -70,8 +71,15 @@ public class RegistryUtil {
      */
     public static void main(String[] args){
 
-        File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
-        updateMiriamXML(miriamFile);
+        // File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
+        // updateMiriamXML(miriamFile);
+
+        /*
+        String uri = "http://identifiers.org/metanetx.chemical/";
+        RegistryUtil.loadRegistry();
+        DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(uri);
+        System.out.println(dataType);
+        */
     }
 
 }

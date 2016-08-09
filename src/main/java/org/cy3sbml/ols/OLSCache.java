@@ -53,7 +53,7 @@ public class OLSCache {
         // check in cache
         Element element = cache.get(identifier);
         if (element != null){
-            logger.info("Found in cache: " + identifier);
+            logger.debug("Term found in cache: " + identifier);
             term = (Term) element.getObjectValue();
         }
         // not in cache, lookup element
@@ -63,9 +63,9 @@ public class OLSCache {
             if (term != null){
                 element = new Element(identifier, term);
                 cache.put(element);
-                logger.debug("Put in cache: " + identifier);
+                logger.debug("Put term in cache: " + identifier);
             } else {
-                logger.debug("Object could not be retrieved: " + identifier);
+                logger.debug("Term could not be retrieved: " + identifier);
             }
         }
         return term;

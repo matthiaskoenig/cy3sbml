@@ -2,6 +2,7 @@ package org.cy3sbml.ols;
 
 
 import org.identifiers.registry.data.PhysicalLocation;
+import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
@@ -40,6 +41,9 @@ public class OLSAccess {
             Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
             Term term = olsClient.getTermById(id, ontologyId);
             return term;
+        } catch (HttpClientErrorException e) {
+            logger.warn(String.format("OLS term not found <%s>: %s", identifier, e.getMessage()));
+            return null;
         } catch (Throwable e){
             logger.error(String.format("Error retrieving OLS term for: %s", identifier));
             e.printStackTrace();

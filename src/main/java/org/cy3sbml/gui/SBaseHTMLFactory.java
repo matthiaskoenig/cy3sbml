@@ -11,6 +11,8 @@ import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
 import org.cy3sbml.uniprot.UniprotCache;
 import org.cy3sbml.util.XMLUtil;
+import org.identifiers.registry.RegistryDatabase;
+import org.identifiers.registry.RegistryLocalProvider;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -327,7 +329,9 @@ public class SBaseHTMLFactory {
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-            DataType dataType = RegistryUtilities.getDataType(dataCollection);
+
+            //DataType dataType = RegistryUtilities.getDataType(dataCollection);
+            DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
 
             String identifierHTML = String.format(
                     "<span class=\"identifier\" title=\"Resource identifier\">%s</span>",
@@ -438,7 +442,6 @@ public class SBaseHTMLFactory {
             html += "\t<br />";
 
         } else {
-            logger.error("OLS term could not be fetched.");
             createNonOLSLocation(location, identifier);
         }
         return html;

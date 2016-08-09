@@ -8,15 +8,16 @@ import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
 
 /**
- * Testing UniProt Access
+ * Access UniProt information.
  */
 public class UniprotAccess {
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
 
-
     /**
      * Retrieve UniProt Entry by accession id.
-     * Example: "P10415"
+     *
+     * @param accession UniProt accession id, e.g. "P10415"
+     * @return
      */
     public static UniProtEntry getUniProtEntry(String accession){
         UniProtEntry entry = null;
@@ -31,24 +32,15 @@ public class UniprotAccess {
             if (entry == null) {
                 logger.warn("UniProt Entry " + accession + " could not be retrieved");
             } else {
-                logger.info("Retrieved UniProtEntry object");
-                logger.info(entry.getUniProtId().getValue());
+                logger.debug("Retrieved UniProtEntry " + accession);
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // always remember to stop the service
             uniProtService.stop();
-            System.out.println("service now stopped.");
         }
         return entry;
-    }
-
-
-
-    public static void main(String[] args){
-
-
     }
 
 }
