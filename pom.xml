@@ -63,23 +63,27 @@
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
 
-		<repository>
-    		<id>in-project</id>
-    		<name>In project repository</name>
-    		<url>file:${project.basedir}/lib</url>
-		</repository>
-		
-		<repository>
-		     <id>repository.jboss.org-public</id>
-		     <name>JBoss.org Maven repository</name>
-		     <url>https://repository.jboss.org/nexus/content/groups/public</url>
-    	</repository>
-
         <repository>
             <id>JSBML SNAPSHOT</id>
             <name>The JSBML repository</name>
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
         </repository>
+
+		<repository>
+    		<id>in-project</id>
+    		<name>In project repository</name>
+    		<url>file:${project.basedir}/lib</url>
+		</repository>
+
+        <!--
+		resolves javax.jms:jms:jar:1.1
+		see http://stackoverflow.com/questions/3622773/java-net-maven-repo-jms-artifact-missing
+        -->
+		<repository>
+		     <id>repository.jboss.org-public</id>
+		     <name>JBoss.org Maven repository</name>
+		     <url>https://repository.jboss.org/nexus/content/groups/public</url>
+    	</repository>
     </repositories>
 
 	<build>
@@ -311,18 +315,21 @@
 		</dependency>
 
         <!-- MIRIAM Registry -->
+        <!-- manually registered from repo -->
         <dependency>
             <groupId>org.identifiers</groupId>
             <artifactId>registry-lib</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/miriam/miriam-lib/ -->
         <dependency>
             <groupId>uk.ac.ebi.miriam</groupId>
             <artifactId>miriam-lib</artifactId>
             <version>1.1.6</version>
         </dependency>
 
-        <!-- BioModels -->
+        <!-- BioModels (2015-08-09) -->
+        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/biomodels/biomodels-wslib/ -->
         <dependency>
             <groupId>uk.ac.ebi.biomodels</groupId>
             <artifactId>biomodels-wslib</artifactId>
@@ -336,6 +343,7 @@
         </dependency>
 
 		<!-- OLS -->
+        <!-- http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
 		<dependency>
 			<groupId>uk.ac.ebi.pride.utilities</groupId>
 			<artifactId>ols-client</artifactId>
@@ -366,6 +374,7 @@
         </dependency>
 
 		<!-- UniProt -->
+        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
 		<dependency>
 			<groupId>uk.ac.ebi.uniprot</groupId>
 			<artifactId>japi</artifactId>
@@ -382,6 +391,7 @@
 		</dependency>
 
 		<!-- ChEBI-->
+        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/chebi/webapps/chebiWS/client/chebiWS-client/ -->
         <!-- This is not working due to error:
         Classes found in the wrong directory
         # see https://stackoverflow.com/questions/37616903/error-trying-to-osgi-wrap-embed-jaxb-xjc-with-maven-bundle-plugin-bnd
