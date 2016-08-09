@@ -56,6 +56,8 @@ public class Network2SBMLMapper implements Serializable{
     /**
      * Removes the document for a given root network SUID.
      * This removes the mapping for all subnetworks of the given root network SUID.
+     *
+     * @param rootSUID root network SUID
      */
     public void removeDocument(Long rootSUID){
         logger.debug("Network remove:" + rootSUID.toString());
@@ -66,6 +68,9 @@ public class Network2SBMLMapper implements Serializable{
 
     /**
      * Get SBMLDocument for given rootNetworkSUID.
+     *
+     * @param rootSUID root network SUID
+     * @return SBMLDocument or null
      */
     public SBMLDocument getDocument(Long rootSUID){
         SBMLDocument doc = null;
@@ -80,27 +85,38 @@ public class Network2SBMLMapper implements Serializable{
     }
 
     /**
-     * Exists a SBMLDocument for the given rootNetwork ?
+     * Exists a SBMLDocument for the given rootNetwork.
+     * @param rootSUID root network SUID
+     * @return
      */
 	public boolean containsDocument(Long rootSUID){
 	    return (documentMap.containsKey(rootSUID));
 	}
 
-	/**
+
+    /**
      * Get all rootNetwork SUIDs which have an association SBMLDocument.
+     *
+     * @return Set of root network SUIDs
      */
 	public Set<Long> keySet(){
 	    return documentMap.keySet();
 	}
 
-	/** Get the complete DocumentMap. */
+
+    /**
+     * Get DocumentMap.
+     *
+     * @return
+     */
     public Map<Long, SBMLDocument> getDocumentMap(){
         return documentMap;
     }
 
     /**
      * Mapping
-     * @param rootSUID
+     *
+     * @param rootSUID root network SUID
      * @return
      */
     public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID){
@@ -113,6 +129,9 @@ public class Network2SBMLMapper implements Serializable{
 
     /**
      * Mapping
+     *
+     * @param rootSUID root network SUID
+     * @return
      */
     public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID){
         if (rootSUID == null){
@@ -123,7 +142,8 @@ public class Network2SBMLMapper implements Serializable{
     }
 
     /**
-     * Information string.
+     * Creates information string.
+     * @return
      */
 	public String toString(){
 		String info = "\n--- SBML2NetworkMapping ---\n";

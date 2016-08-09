@@ -3,6 +3,7 @@ package org.cy3sbml.gui;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.cy3sbml.mapping.IdObjectMap;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,6 +19,7 @@ import org.cy3sbml.SBMLQualTest;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.SBase;
 
 /**
  * Testing the HTML information generation.
@@ -46,51 +48,28 @@ public class SBaseHtmlThreadTest {
         assertNotNull(html);
     }
 
-    /* Currently no caching.
-    private void preloadResource(String resource) throws Exception{
-        SBMLDocument document = SBMLUtil.readSBMLDocument(resource);
-        Model model = document.getModel();
-
-        Collection<Object> objSet = new HashSet<>();
-        objSet.add(model);
-
-        // running in caching mode, no html generated
-        SBaseHTMLThread t1 = new SBaseHTMLThread(objSet, null);
-        t1.start();
-        t1.join();
-        String html = t1.getInfo();
-        assertEquals(null, html);
-
-        // running in info generation mode with Mock Panel
-        SBaseHTMLThread t2 = new SBaseHTMLThread(objSet, panel);
-        t2.start();
-        t2.join();
-        html = t2.getInfo();
-        assertNotNull(html);
-    }
-
     @Test
-    public void preloadCore() throws Exception{
-        preloadResource(SBMLCoreTest.TEST_MODEL_CORE_01);
+    public void runCoreTest1() throws Exception{
+        String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
+        SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
+        Model model = doc.getModel();
+
+        // objects from model
+        IdObjectMap map = new IdObjectMap(doc);
+        Collection<SBase> objects = map.getObjects();
+        for (SBase sbase : objects){
+            Collection<Object> objCollection = new HashSet<>();
+            objCollection.add(sbase);
+            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
+            t1.start();
+            t1.join();
+            String html = t1.getInfo();
+            assertNotNull(html);
+        }
     }
 
-    @Test
-    public void preloadQual() throws Exception{
-        preloadResource(SBMLQualTest.TEST_MODEL_QUAL);
-    }
 
-    @Test
-    public void preload() throws Exception {
-        SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
-        // preload all the Miriam information
-        SBaseHTMLThread.preload(doc);
-
-        // Second time should just lookup in cache
-        SBaseHTMLThread.preload(doc);
-    }
-    */
-
-    public String createHTMLOutput(String resource) throws Exception{
+    private String createHTMLOutput(String resource) throws Exception{
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
         Model model = doc.getModel();
 
@@ -104,6 +83,8 @@ public class SBaseHtmlThreadTest {
         String html = t1.getInfo();
         return html;
     }
+
+
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import java.util.*;
 
-
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 
@@ -179,8 +178,9 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     }
 
     /**
-     * Get SBMLDocument for given rootNetworkSUID.
-     * Returns null if no SBMLDocument exist for the network.
+     * Get SBMLDocument.
+     * @param rootNetworkSUID root network SUID
+     * @return SBMLDocument or null
      */
     public SBMLDocument getSBMLDocument(Long rootNetworkSUID){
         return network2sbml.getDocument(rootNetworkSUID);
@@ -246,7 +246,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         for (Long suid: documentMap.keySet()){
             SBMLDocument doc = documentMap.get(suid);
 
-            // create and store navigation tree
+            // create id<->object mapping
             IdObjectMap map = new IdObjectMap(doc);
             network2objectMap.put(suid, map);
         }
@@ -266,26 +266,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     public void handleEvent(NetworkAboutToBeDestroyedEvent e) {
         CyNetwork network = e.getNetwork();
         removeSBMLForNetwork(network);
-    }
-
-
-    /**
-     * Remove all mapping entries for networks which are not in the SBML<->network mapping.
-     *
-     * The current network set can be accessed via
-     *      CyNetworkManager.getNetworkSet()
-     */
-    @Deprecated
-    private void synchronizeDocuments(Collection<CyNetwork> networks){
-        HashSet<Long> suids = new HashSet<>();
-        for (CyNetwork network: networks){
-            suids.add(NetworkUtil.getRootNetworkSUID(network));
-        }
-        for (Long key : network2sbml.keySet()){
-            if (!suids.contains(key)){
-                network2sbml.removeDocument(key);
-            }
-        }
     }
 
 

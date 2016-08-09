@@ -2,6 +2,12 @@ package org.cy3sbml;
 
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.util.NetworkUtil;
+import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +58,27 @@ public class SBMLManagerTest {
         assertNotNull(doc);
         assertEquals(DOC, doc);
     }
+
+    @Test
+    public void removeSBMLForNetwork() throws Exception {
+        final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        CyNetwork network = networkFactory.createNetwork();
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+
+        manager.addSBMLForNetwork(DOC, rootSUID, MAPPING);
+        SBMLDocument doc = manager.getSBMLDocument(rootSUID);
+        assertNotNull(doc);
+        assertEquals(DOC, doc);
+
+        doc = manager.getSBMLDocument(network);
+        assertNotNull(doc);
+        assertEquals(DOC, doc);
+
+        manager.removeSBMLForNetwork(network);
+        doc = manager.getSBMLDocument(rootSUID);
+        assertNull(doc);
+    }
+
 
     @Test
     public void getMapping() throws Exception {

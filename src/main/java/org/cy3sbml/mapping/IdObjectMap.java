@@ -1,6 +1,7 @@
 package org.cy3sbml.mapping;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -166,12 +167,21 @@ public class IdObjectMap {
 		}
 	}
 	
-	/** SBMLObject lookup via id key. */
+	/**
+	 * SBMLObject lookup via id key.
+	 */
 	public SBase getObject(String key){
 		SBase sbase = null;
 		if (objectMap.containsKey(key)){
 			return objectMap.get(key);
 		}
 		return sbase;
-	}	
+	}
+
+	/** Get SBase Objects in the map. */
+	public Collection<SBase> getObjects(){
+		return objectMap.values();
+	}
+
+
 }
