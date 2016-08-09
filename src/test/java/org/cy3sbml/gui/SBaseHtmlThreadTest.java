@@ -5,6 +5,8 @@ import java.util.HashSet;
 
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.IdObjectMap;
+import org.cy3sbml.miriam.RegistryUtil;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,6 +32,12 @@ public class SBaseHtmlThreadTest {
     InfoPanel panel;
 
     @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        // Setup with local registry
+        RegistryUtil.loadRegistry();
+    }
 
     @Test
     public void run() throws Exception {
