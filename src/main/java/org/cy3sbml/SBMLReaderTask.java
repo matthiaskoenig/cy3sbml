@@ -456,7 +456,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		// FunctionDefinitions
 		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
-			CyNode fdNode = createAbstractMathContainerNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
+
+		    // implements both interfaces
+            CyNode n = createNamedSBaseNode(fd, SBML.NODETYPE_FUNCTION_DEFINITION);
+            setAbstractMathContainerNodeAttributes(n, fd, SBML.NODETYPE_FUNCTION_DEFINITION);
 
 			// Do not create the math network for the function definition
 			// The objects of the FunctionDefinition ASTNode can have different naming conventions
@@ -1157,7 +1160,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     /* Handle QuantityWithUnit.
      * Among others localParameters. */
     private CyNode createQuantityWithUnitNode(QuantityWithUnit q, String type){
-        CyNode n = createNamedSBaseNode((NamedSBase) q, type);
+        CyNode n = createNamedSBaseNode(q, type);
         if (q.isSetValue()){
             AttributeUtil.set(network, n, SBML.ATTR_VALUE, q.getValue(), Double.class);
         }
@@ -1200,6 +1203,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      */
     private CyNode createAbstractMathContainerNode(AbstractMathContainer container, String type){
         CyNode n = network.addNode();
+        setAbstractMathContainerNodeAttributes(n, container, type);
+        return n;
+    }
+
+    private void setAbstractMathContainerNodeAttributes(CyNode n, AbstractMathContainer container, String type){
         AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, type, String.class);
         setSBaseAttributes(n, container);
 
@@ -1210,9 +1218,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             ASTNode astNode = container.getMath();
             AttributeUtil.set(network, n, SBML.ATTR_MATH, astNode.toFormula(), String.class);
         }
-
-        return n;
     }
+
 
     /** Creates math subgraph for given math container and node. */
     private void createMathNetwork(AbstractMathContainer container, CyNode containerNode, String edgeType){
