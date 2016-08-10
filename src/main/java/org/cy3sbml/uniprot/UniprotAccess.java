@@ -1,11 +1,16 @@
 package org.cy3sbml.uniprot;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 import uk.ac.ebi.uniprot.dataservice.client.Client;
+import uk.ac.ebi.uniprot.dataservice.client.QueryResult;
 import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
+import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
+import uk.ac.ebi.uniprot.dataservice.query.Query;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Access UniProt information.
@@ -27,8 +32,16 @@ public class UniprotAccess {
             // start the service
             uniProtService.start();
 
-            // fetch emtry
+            // fetch entry
             entry = uniProtService.getEntry(accession);
+
+            if (entry == null){
+                // is secondary accession, get first result
+                logger.debug("Querying any accession: " + accession);
+                Query query = UniProtQueryBuilder.anyAccession(accession);
+                QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
+                entry = result.getFirstResult();
+            }
             if (entry == null) {
                 logger.warn("UniProt Entry " + accession + " could not be retrieved");
             } else {
@@ -38,7 +51,7 @@ public class UniprotAccess {
             logger.error("Problems retrieving uniprot entry.", e);
             e.printStackTrace();
         } finally {
-            // always remember to stop the service
+            // always remember to stop service
             uniProtService.stop();
         }
         return entry;

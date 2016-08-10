@@ -3,8 +3,8 @@
         <file>${logfile.name}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logFile.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>1MB</maxFileSize>
+            <fileNamePattern>logfile.name_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
             <maxHistory>20</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
         </rollingPolicy>
@@ -32,6 +32,5 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
-
 
 </configuration>
