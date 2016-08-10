@@ -21,11 +21,11 @@ visualization of SBML network annotations within the network context, direct imp
 
 * Java based SBML parser for Cytoscape based on JSBML (http://sourceforge.net/projects/jsbml/)
 * access to models and annotations via BioModel 
-  (http://www.biomodels.org/) and MIRIAM WebServices (http://www.ebi.ac.uk/miriam/main/)
+  (http://www.biomodels.org/), MIRIAM (http://www.ebi.ac.uk/miriam/main/), and Ontology Lookup Service (http://www.ebi.ac.uk/ols/index)
 * supports all versions of SBML
 * SBML validation (SBML warnings and errors accessible)
 * Network graph based on the species/reaction model
-* Additional graph of SBML objects (Kinetics, FunctionDefinitions, Parameters, ...)
+* Graph of SBML objects (Kinetics, FunctionDefinitions, Parameters, ...)
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
   the network context (and non-RDF annotations)
@@ -73,7 +73,29 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
-**v0.2.2** [?]
+**v0.2.2** [2016/08/10]
+* Complete redesign of information pane (JavaFx instead of Swing with CSS, JS and HTML)
+* HTML export of information
+* Ontology information retrieved via Ontology Lookup Service
+* Proper formating and display of raw xml in annotations
+* Support of KineticLaws
+* Offline MIRIAM with latest MIRIAM registry (faster access & reduced webservice calls)
+* Improved visual styles (distinguish reversible & irreversible reactions)
+* Fixed name attributes
+* Improved compatibility to SBMLCore reader (identical attributes)
+* Updated icons
+* UniProt secondary information for RDF
+* Caching of webservice information from OLS and UniProt
+* Support of *.sbml files
+* Multitude of bug fixes
+* Improved session saving & loading (now with layout information)
+* Unittest coverage increased to 37%
+* Simplified maven dependencies
+* Testing of serialization & deserialization
+* Updated and tested sbml-test-suite 3.2.0 
+* Licence update to LGPL v3.0
+* Dependencies updated
+* Improved logging
 
 **v0.2.1** [2016/07/11]
 
