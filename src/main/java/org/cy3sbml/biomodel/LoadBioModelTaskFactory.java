@@ -6,13 +6,16 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 import javax.swing.JOptionPane;
-
 import org.apache.commons.io.IOUtils;
-import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
 
+import org.cy3sbml.ServiceAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class LoadBioModelTaskFactory implements TaskFactory{
+    private static final Logger logger = LoggerFactory.getLogger(LoadBioModelTaskFactory.class);
     public static final String SUFFIX = ".xml"; // has to match the reader
 	
 	private ServiceAdapter adapter;
@@ -47,6 +50,7 @@ public class LoadBioModelTaskFactory implements TaskFactory{
 			}
 			file = tempFile;
 		} catch (Exception e) {
+			logger.error("Problem loading Biomodel.", e);
 			e.printStackTrace();
 		}
 	}

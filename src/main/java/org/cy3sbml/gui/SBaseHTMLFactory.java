@@ -625,7 +625,7 @@ public class SBaseHTMLFactory {
                                 }
                             }
                         } catch(XMLStreamException e){
-                            logger.error("Error parsing annotation xml");
+                            logger.error("Error parsing annotation xml", e);
                             e.printStackTrace();
                         }
                     }

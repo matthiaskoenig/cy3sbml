@@ -32,8 +32,9 @@ public class RegistryUtil {
                 logger.info("Load MIRIAM: " + file.getAbsolutePath());
                 return;
             } catch (FileNotFoundException e) {
+                logger.error("Problems loading the downloaded MIRIAM XML.", e);
                 e.printStackTrace();
-                logger.warn("Problems loading the downloaded MIRIAM XML, using packed resource.");
+
             }
         }
         // something went wrong, using fallback, i.e. the packed MIRIAM xml
@@ -63,6 +64,7 @@ public class RegistryUtil {
             IOUtil.saveURLasFile(miriamURL, file);
             logger.info("Updated MIRIAM: " + file.getAbsolutePath());
         } catch (MalformedURLException e) {
+            logger.error("MalformedURLException", e);
             e.printStackTrace();
         }
     }

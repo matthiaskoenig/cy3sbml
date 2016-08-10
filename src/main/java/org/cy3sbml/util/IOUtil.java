@@ -1,17 +1,19 @@
 package org.cy3sbml.util;
 
-
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Helper functions for input and output.
  */
 public class IOUtil {
+    private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
     private static final int BUFFER_SIZE = 16384;
 
     /** Read resource to InputStream */
@@ -83,11 +85,8 @@ public class IOUtil {
             ReadableByteChannel rbc = Channels.newChannel(url.openStream());
             FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            logger.error("URL could not be saved.", e);
             e.printStackTrace();
         }
     }

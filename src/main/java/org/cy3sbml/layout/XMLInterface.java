@@ -1,5 +1,7 @@
 package org.cy3sbml.layout;
 
+import org.cy3sbml.gui.WebViewPanel;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -19,7 +21,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class XMLInterface {
+    private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
+
+
 	public static String LAYOUT = "layout";
 	public static String BOX_LIST = "listOfBoundingBoxes";
 	
@@ -60,6 +68,7 @@ public class XMLInterface {
 			}
 		} catch (ParserConfigurationException e) {
 			doc = null;
+			logger.error("Problems with xml parsing.", e);
 			e.printStackTrace();
 		}
 		return doc;
@@ -85,6 +94,7 @@ public class XMLInterface {
 			StreamResult result = new StreamResult(xmlFile);
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
+		    logger.error("Problems writing layout", e);
 			e.printStackTrace();
 		}
 	}
@@ -112,6 +122,7 @@ public class XMLInterface {
 				boxes.put(box.getNodeId(), box); 
 			}
 		} catch (Exception e) {
+		    logger.error("Problems reading layout.", e);
 			e.printStackTrace();
 		}
 		return boxes;

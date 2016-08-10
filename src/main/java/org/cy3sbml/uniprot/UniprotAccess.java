@@ -35,6 +35,7 @@ public class UniprotAccess {
                 logger.debug("Retrieved UniProtEntry " + accession);
             }
         } catch (Exception e) {
+            logger.error("Problems retrieving uniprot entry.", e);
             e.printStackTrace();
         } finally {
             // always remember to stop the service

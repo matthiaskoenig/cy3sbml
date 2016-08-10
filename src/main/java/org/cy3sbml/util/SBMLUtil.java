@@ -42,6 +42,7 @@ public class SBMLUtil {
             String xml = IOUtil.inputStream2String(instream);
             doc = JSBML.readSBMLFromString(xml);
         } catch (IOException | XMLStreamException e) {
+            logger.error("SBMLDocument reading failed.", e);
             e.printStackTrace();
         }
         return doc;
@@ -90,7 +91,7 @@ public class SBMLUtil {
                 }
                 return text;
             } catch (XMLStreamException e){
-                logger.error("Error parsing notes xml");
+                logger.error("Error parsing notes xml.", e);
                 e.printStackTrace();
             }
 

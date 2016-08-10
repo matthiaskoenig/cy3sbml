@@ -40,9 +40,11 @@ public class GUIUtil {
                 TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
                 openFileInBrowser(temp, openBrowser);
             } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
+                logger.error("SBML opening failed.", e);
                 e.printStackTrace();
             }
         } catch (IOException e) {
+            logger.error("SBML could not be opened in browser.", e);
             e.printStackTrace();
         }
     }
@@ -64,6 +66,7 @@ public class GUIUtil {
             FileUtils.writeStringToFile(temp, html);
             GUIUtil.openFileInBrowser(temp, openBrowser);
         } catch (IOException e) {
+            logger.error("File could not be opened.", e);
             e.printStackTrace();
         }
     }

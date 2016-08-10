@@ -45,7 +45,7 @@ public class OLSAccess {
             logger.warn(String.format("OLS term not found <%s>", identifier));
             return null;
         } catch (Throwable e){
-            logger.error(String.format("Error retrieving OLS term for: %s", identifier));
+            logger.error(String.format("Error retrieving OLS term for: %s", identifier), e);
             e.printStackTrace();
             return null;
         }

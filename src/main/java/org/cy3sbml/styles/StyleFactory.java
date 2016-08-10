@@ -2,6 +2,8 @@ package org.cy3sbml.styles;
 
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -30,6 +32,7 @@ import java.util.Map;
  * The additional mappings are added.
  */
 public class StyleFactory {
+    private static final Logger logger = LoggerFactory.getLogger(StyleFactory.class);
 
     /**
      * Creates VisualStyle from StyleInfo
@@ -119,6 +122,7 @@ public class StyleFactory {
             XMLUtil.writeNodeToTidyFile(doc, file);
 
         }catch (ParserConfigurationException | IOException | SAXException e){
+            logger.error("Style could not be created.", e);
             e.printStackTrace();
         }
     }

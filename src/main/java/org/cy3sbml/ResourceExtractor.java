@@ -135,7 +135,7 @@ public class ResourceExtractor {
 						logger.debug(" --> " + outFile.getAbsolutePath());
 						OutputStream outputStream = new FileOutputStream(outFile);
 				
-						int read = 0;
+						int read;
 						byte[] bytes = new byte[1024];
 				
 						while ((read = inputStream.read(bytes)) != -1) {
@@ -143,13 +143,15 @@ public class ResourceExtractor {
 						}
 						outputStream.close();
 					}
-				} catch (IOException ioException) {
-					ioException.printStackTrace();
+				} catch (IOException e1) {
+				    logger.error("Directory could not be extracted", e1);
+					e1.printStackTrace();
 					return;
 				}
 
-			} catch (MalformedURLException urlException) {
-				urlException.printStackTrace();
+			} catch (MalformedURLException me) {
+			    logger.error("Problems with url", me);
+				me.printStackTrace();
 				return;
 			}	
 		}

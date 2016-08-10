@@ -33,6 +33,7 @@ public class ChebiAccess {
             logger.info("CHEBI ID: " + entity.getChebiId());
 
         } catch (ChebiWebServiceFault_Exception e) {
+            logger.error("Entity retrieval failed.", e);
             e.printStackTrace();
         }
         return entity;

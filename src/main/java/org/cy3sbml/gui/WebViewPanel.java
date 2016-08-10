@@ -323,7 +323,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 			Thread t = new Thread(updater);
 			t.start();	
 		} catch (Throwable t){
-			logger.error("Error in handling node selection in CyNetwork");
+			logger.error("Error in handling node selection in CyNetwork", t);
 			t.printStackTrace();
 		}
 	}

@@ -192,7 +192,7 @@ public class Browser extends Region {
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);
         } catch (Exception e) {
-            logger.warn("Could not read example");
+            logger.warn("Could not read example.", e);
             e.printStackTrace();
         }
     }

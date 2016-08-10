@@ -1,6 +1,9 @@
 package org.cy3sbml.util;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.solr.common.util.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -18,6 +21,7 @@ import java.io.StringWriter;
 
 
 public class XMLUtil {
+    private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
     public static final Integer INDENT_AMOUNT = 4;
 
     public static final String XML_INDENT = new String(new char[INDENT_AMOUNT]).replace("\0", " ");
@@ -64,11 +68,8 @@ public class XMLUtil {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(xmlStream);
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SAXException|ParserConfigurationException|IOException e) {
+            logger.error("Reading xml string failed.", e);
             e.printStackTrace();
         }
         return doc;
@@ -89,6 +90,7 @@ public class XMLUtil {
             Source input = new DOMSource(node);
             transformer.transform(input, output);
         } catch (TransformerException e) {
+            logger.error("Writing node failed.", e);
             e.printStackTrace();
         }
     }
@@ -111,6 +113,7 @@ public class XMLUtil {
             output = writer.getBuffer().toString();
 
         } catch (TransformerException e) {
+            logger.error("Writing node failed.", e);
             e.printStackTrace();
         }
         return output;

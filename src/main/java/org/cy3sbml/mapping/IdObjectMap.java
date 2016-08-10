@@ -156,7 +156,7 @@ public class IdObjectMap {
             // TODO: implement
 
         } catch (Throwable t) {
-			logger.error("IdObjectMap could not be created");
+			logger.error("IdObjectMap could not be created", t);
 			t.printStackTrace();
 		}
 	}
