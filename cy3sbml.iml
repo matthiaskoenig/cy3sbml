@@ -2,10 +2,10 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Osmorc" name="OSGi">
-      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="cy3sbml-0.2.2.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="org.cy3sbml.CyActivator" bundleSymbolicName="cy3sbml" bundleVersion="0.2.2" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="cy3sbml-0.3.0.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="org.cy3sbml.CyActivator" bundleSymbolicName="cy3sbml" bundleVersion="0.3.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
           <property key="Bundle-Description" value="A Cytoscape app for SBML." />
-          <property key="Export-Package" value="org.cy3sbml.*;version=&quot;0.2.2&quot;" />
+          <property key="Export-Package" value="org.cy3sbml.*;version=&quot;0.3.0&quot;" />
           <property key="Private-Package" value="org.cy3sbml.*" />
           <property key="Embed-Dependency" value="*;scope=!provided|test;groupId=!org.cytoscape" />
           <property key="Embed-Transitive" value="true" />
@@ -34,6 +34,18 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: javax.jms:jms:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jdmk:jmxtools:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jmx:jmxri:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.woodstox:stax2-api:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.woodstox:woodstox-core:5.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.w3c.jigsaw:jigsaw:2.2.6" level="project" />
+    <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.staxmate:staxmate:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mangosdk.spi:spi:0.2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jtidy:jtidy:r938" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:model-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:event-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:swing-application-api:3.4.0" level="project" />

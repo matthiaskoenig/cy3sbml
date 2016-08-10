@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="19477117-41f2-4e92-a8df-b9b1620c3fd2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cy3sbml.iml" afterPath="$PROJECT_DIR$/cy3sbml.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="cy3sbml.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,8 +55,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="558">
-                <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="54" selection-end-column="77" />
+              <first_editor relative-caret-position="0">
+                <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -61,6 +64,16 @@
           </provider>
           <provider editor-type-id="MarkdownFxPreviewEditor">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3492">
+              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -114,7 +127,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/SBMLStyleManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/SBMLReaderTask.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/logback-test.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/SBMLReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/SessionData.java" />
@@ -136,6 +148,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/util/XMLUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/validator/Validator.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cy3sbml/ResourceExtractor.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -1203,7 +1216,7 @@
       <workItem from="1470213575812" duration="22884000" />
       <workItem from="1470303269828" duration="24637000" />
       <workItem from="1470638095611" duration="14163000" />
-      <workItem from="1470660597439" duration="61142000" />
+      <workItem from="1470660597439" duration="61684000" />
     </task>
     <servers />
   </component>
@@ -1240,7 +1253,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="400052000" />
+    <option name="totallyTimeSpent" value="400594000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1922" height="1153" extended-state="6" />
@@ -1521,14 +1534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="364" column="42" selection-start-line="364" selection-start-column="42" selection-end-line="364" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/org/cy3sbml/gui/SBaseHtmlThreadTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1755,11 +1760,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3492">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="558">
-            <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="54" selection-end-column="77" />
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
             <folding />
           </first_editor>
           <second_editor />

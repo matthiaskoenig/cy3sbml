@@ -20,7 +20,7 @@
 
 	<groupId>org.cysbml</groupId>
 	<artifactId>cy3sbml</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
     <packaging>bundle</packaging>
 
 	<name>cy3sbml</name>

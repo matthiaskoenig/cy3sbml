@@ -8,7 +8,10 @@
 [![License (LGPL version 3)](https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
 [![Dependency Status](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d)
 
-**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is the visualization of SBML information within the network context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling frameworks and workflows.
+**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
+Our mission is the visualization of SBML information within the network context. 
+Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling 
+frameworks and workflows.
 
 **App store**: http://apps.cytoscape.org/apps/cy3sbml  
 **Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest  
@@ -17,11 +20,11 @@
 
 ## Features
 **cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
-visualization of SBML network annotations within the network context, direct import of models from repositories like [biomodels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information and SBML validation.
+visualization of SBML network annotations within the network context, direct import of models from repositories 
+like [BioModels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information and SBML validation.
 
-* Java based SBML parser for Cytoscape based on JSBML (http://sourceforge.net/projects/jsbml/)
-* access to models and annotations via BioModel 
-  (http://www.biomodels.org/), MIRIAM (http://www.ebi.ac.uk/miriam/main/), and Ontology Lookup Service (http://www.ebi.ac.uk/ols/index)
+* Java based SBML parser for Cytoscape based on [JSBML](https://github.com/sbmlteam/jsbml)
+* access to models and annotations via [BioModels](http://www.biomodels.org/), [MIRIAM](http://www.ebi.ac.uk/miriam/main/), and [Ontology Lookup Service](http://www.ebi.ac.uk/ols/index)
 * supports all versions of SBML
 * SBML validation (SBML warnings and errors accessible)
 * Network graph based on the species/reaction model
@@ -58,14 +61,14 @@ After installation cy3sbml is listed in the `Currently Installed` apps tab.
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). This includes recently developed features not yet released. In short
+For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). 
+This includes recently developed features not yet released. In short
 
 Clone the repository and build with `mvn`
 ```
 git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml
 cd cy3sbml
 mvn clean install
-mvn clean install -DskipTests
 ```
 Development is done in `develop` branch
 ```
@@ -73,7 +76,10 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.3.0** []
+
 **v0.2.2** [2016/08/10]
+
 * Complete redesign of information pane (JavaFx instead of Swing with CSS, JS and HTML)
 * HTML export of information
 * Ontology information retrieved via Ontology Lookup Service
@@ -102,9 +108,11 @@ git checkout -b develop --track origin/develop
 * bug fixes (autofocus)
 
 **v0.2.0** [2016/07/01]
+
 * bug fixes
 
 **v0.1.9** [2016/06/28]
+
 * updated test models to BiGG v1.2
 * updated test BioModels to release 30
 * improved unit tests against test models
@@ -113,6 +121,7 @@ git checkout -b develop --track origin/develop
 * updated JSBML dependencies and pom files
 
 **v0.1.8** [2016/06/07]
+
 * visualStyles for new and reopened sessions
 * display of RDF & non-RDF annotation information
 * kineticLaws as first class objects (with annotation display)
@@ -121,6 +130,7 @@ git checkout -b develop --track origin/develop
 * multitude of smaller bugfixes
 
 **v0.1.7** [2016/03/24]
+
 * position saving and restoring ported from cy2sbml (saving & restoring layouts)
 * dark VisualStyle implemented (cy3sbml-dark)
 * improved visual styles & dynamic compartment colors
@@ -131,6 +141,7 @@ git checkout -b develop --track origin/develop
 * tested with Cy3.3 and Cy3.4-milestone-2
 
 **v0.1.6** [2015/08/27]
+
 * Testing, bug fixes and documentation
 * sbml-test-cases models successfully parsed
 * BIGG models successfully parsed
@@ -139,6 +150,7 @@ git checkout -b develop --track origin/develop
 * basic SBML distrib support
 
 **v0.1.5** [2015/07/04]
+
 * SBO Name and definitions for information
 * Parsing of rateRules, InitialAssignments and kineticLaws
 * Display of NamedSBase attributes in information
@@ -150,12 +162,14 @@ git checkout -b develop --track origin/develop
 * SBML validator ported
 
 **v0.1.4** [2015/06/24]
+
 * support of multiple networks, views and subnetworks
 * qualitative model support
 * biomodel webservice search & retrieval
 * redesign & bug fixes
 
 **v0.1.3** [2015/06/14]
+
 * cy3sbml VisualStyles
 * Support of multiple networks and views (subnetworks)
 * Model information is now displayed 
@@ -168,9 +182,11 @@ git checkout -b develop --track origin/develop
 * application of layout after generating views
 
 **v0.1.2** [2015/06/01]
+
 * documentation update (build instructions, installation instructions)
 
 **v0.1** [2015/05]
+
 * first app release (OSGI build with JSBML integration)
 
 ## Third-party software 
