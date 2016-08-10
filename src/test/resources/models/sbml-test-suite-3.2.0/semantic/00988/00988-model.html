@@ -1,0 +1,23 @@
+<p>
+ After B is converted to A by the slow reaction for a while, eventually the two events trigger, setting the reaction rate of the fast reaction to 1*A&#8211;consuming all of A and turning it back into B.  Then it turns back off, and B is once again slowly converted to A.  This would cycle again, but we only test one cycle.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (A, B)</li>
+<li class="u">2 parameters (k1, k2)</li>
+<li class="u">1 compartment (comp)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td><td style="text-align:center;">  <strong>Fast</strong>  </td></tr>
+<tr><td style="text-align:center;"> B &#8594; A </td><td style="text-align:center;"> <dfn>k1</dfn> </td><td style="text-align:center;"> slow </td></tr>
+<tr><td style="text-align:center;"> A &#8594; B </td><td style="text-align:center;"> <dfn>k2 &#183; A</dfn> </td><td style="text-align:center;"> fast </td></tr></table>
+<p>There are 2 events:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>A &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> <dfn>k2 = 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>A &geq; 0.99</dfn> </td><td style="text-align:center;"> <dfn>0.1</dfn> </td><td style="text-align:center;"> <dfn>k2 = 0</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species A </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species B </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k2 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

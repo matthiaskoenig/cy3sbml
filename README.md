@@ -1,14 +1,19 @@
 # ![alt tag](./docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
+[![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
 [![Build Status](https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop)](https://travis-ci.org/matthiaskoenig/cy3sbml)
+[![codecov](https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg)](https://codecov.io/gh/matthiaskoenig/cy3sbml)
+[![GitHub version](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml.svg)](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml)
+[![License (LGPL version 3)](https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
+[![Dependency Status](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d)
 
-**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
-For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml).
+**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  Our mission is the visualization of SBML information within the network context. Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling frameworks and workflows.
 
-[![Download](docs/images/icon-download.png) Download](https://github.com/matthiaskoenig/cy3sbml/releases/latest)  
-**Support & Forum** : https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
-**Bug Tracker** : https://github.com/matthiaskoenig/cy3sbml/issues  
+**App store**: http://apps.cytoscape.org/apps/cy3sbml  
+**Latest release**: https://github.com/matthiaskoenig/cy3sbml/releases/latest  
+**Support & Forum**: https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
+**Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ## Features
 **cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
@@ -24,24 +29,21 @@ visualization of SBML network annotations within the network context, direct imp
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
   the network context (and non-RDF annotations)
-* Tested with SBML.org and Biomodels.org test cases (BioModels_Database-r29)
+* Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.2)
 
-We are currently porting missing features from the Cytoscape 2 plugin to Cytoscape 3. Documentation of most of the features is available from http://matthiaskoenig.github.io/cy2sbml/
+For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
 
 ## License
-* Source Code: [GPLv3](http://opensource.org/licenses/GPL-3.0)
+* Source Code: [LGPLv3.0](http://opensource.org/licenses/LGPL-3.0)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
-
-## Funding
-**cy3sbml** was funded by 
-* [NRNB](http://nrnb.org) (National Resource for Network Biology) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html)
-* Virtual Liver Network (VLN)
-* Systems Medicine of the Liver (LiSyM)
 
 ## Citation
 Matthias König, Andreas Dräger and Hermann-Georg Holzhütter  
 *CySBML: a Cytoscape plugin for SBML*  
 Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946) 
+
+## Funding
+Matthias König is supported by the Federal Ministry of Education and Research (BMBF, Germany) within the research network Systems Medicine of the Liver (**LiSyM**, grant number 031L0054) and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html).
 
 ## Installation
 ### Install
@@ -71,7 +73,10 @@ git checkout -b develop --track origin/develop
 ```
 
 ## Changelog
+**v0.2.2** [?]
+
 **v0.2.1** [2016/07/11]
+
 * bug fixes (autofocus)
 
 **v0.2.0** [2016/07/01]
@@ -146,6 +151,58 @@ git checkout -b develop --track origin/develop
 **v0.1** [2015/05]
 * first app release (OSGI build with JSBML integration)
 
+## Third-party software 
+cy3sbml uses the following third-party software libraries; these
+are distributed along with the bundled cy3sbml app. 
+The license statements for these third-party
+software libraries can be found at the web addresses noted
+below. 
+
+[JSBML](https://github.com/sbmlteam/jsbml) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[Cytoscape](http://www.cytoscape.org/download.php) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[org.osgi.core](https://mvnrepository.com/artifact/org.osgi/org.osgi.core) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Ehcache](https://mvnrepository.com/artifact/net.sf.ehcache/ehcache) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Commons Lang](https://mvnrepository.com/artifact/org.apache.commons/commons-lang3) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Commons IO](https://mvnrepository.com/artifact/commons-io/commons-io) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache Velocity](https://mvnrepository.com/artifact/org.apache.velocity/velocity) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Unirest Java](https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[Apache HttpClient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache HttpAsyncClient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpasyncclient) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Apache HttpClient Mime](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime) [![License (Apache 2)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[JSON in Java](https://mvnrepository.com/artifact/org.json/json) [![License (JSON)](https://img.shields.io/badge/license-JSON-blue.svg?style=flat-square)](http://www.json.org/license.html) [checked 2016-08-03]
+
+[LibFX](https://mvnrepository.com/artifact/org.codefx.libfx/LibFX) [![License (LGPL 3.0)](https://img.shields.io/badge/license-LGPL3.0-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-3.0) [checked 2016-08-03]
+
+[uk.ac.ebi.miriam.registry-lib](https://sourceforge.net/projects/identifiers-org/) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[uk.ac.ebi.miriam.mirian-lib](https://sourceforge.net/projects/identifiers-org/) [![License (LGPL 2.1)](https://img.shields.io/badge/license-LGPL2.1-blue.svg?style=flat-square)](https://opensource.org/licenses/LGPL-2.1) [checked 2016-08-03]
+
+[OLS client](https://github.com/EBISPOT/OLS) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Jackson Databind](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[Uniprot Japi](https://www.ebi.ac.uk/uniprot/japi/license.html) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[chebiWS-client](https://www.ebi.ac.uk/chebi/webServices.do) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-03]
+
+[SLF4J API Module](https://mvnrepository.com/artifact/org.slf4j/slf4j-api) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[SLF4J LOG4J 12 Binding](https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
+
+[Junit](https://mvnrepository.com/artifact/junit/junit) [![License (EPL-1.0)](https://img.shields.io/badge/license-EPL1.0-blue.svg?style=flat-square)](https://opensource.org/licenses/EPL-1.0) [checked 2016-08-03]
+
+[Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-all) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
 
 ----
 &copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.

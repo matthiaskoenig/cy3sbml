@@ -1,0 +1,20 @@
+<p>
+The model contains two varying parameters called S1 and S2 and two constant
+parameters called k1 and k2.  (Note that indeed S1 and S2 are parameters and not 
+species in this model.)</p>
+<p>The model contains two rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S1       </td><td style="text-align:center;"> <dfn>&#8722;k2 &#183; S1 </dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S2       </td><td style="text-align:center;"> <dfn>k2 &#183; S1 </dfn>  </td></tr></table>
+<p>The model contains one initialAssignment:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;"> Variable </td><td style="text-align:center;"> Formula </td></tr>
+<tr><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn>k1 &#183; S2</dfn>  </td></tr></table>
+<p>Note: InitialAssignments override any declared initial values.  In this
+case, the initial value of S1 has not been explicitly declared and must be
+calculated using the initialAssignment.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter S1 </td><td style="text-align:left;"><dfn>   undeclared</dfn> </td><td style="text-align:left;">any </td></tr>
+<tr><td style="text-align:left;">Value of parameter S2 </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;1</sup></dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>         0.75</dfn> </td><td style="text-align:left;">dimensionless </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2 </td><td style="text-align:left;"><dfn>         0.25</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr></table>

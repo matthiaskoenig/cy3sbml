@@ -1,0 +1,21 @@
+<p>
+This model tests conversion factors through a system of three reactions.  There is a conversion factor ('modelconv') on the model of 4, and a second conversion factor ('S1conv') on species S1.  This means that S1 is converted according to S1conv, and S2 is converted according to modelconv.  Together, this changes how S1 and S2 change in time, but not how S1 and S2 are interpreted in the reaction rates.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (S1, S2)</li>
+<li class="u">5 parameters (k1, k2, k3, S1conv, modelconv)</li>
+<li class="u">1 compartment (default_compartment)</li></ul>
+<p>There are 3 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; S1 </td><td style="text-align:center;"> <dfn>k1</dfn> </td></tr>
+<tr><td style="text-align:center;"> 2S1 &#8594; 3S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S1 / S2</dfn> </td></tr>
+<tr><td style="text-align:center;"> S2 &#8594; </td><td style="text-align:center;"> <dfn>k3 &#183; S2</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>0.001</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k2 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k3 </td><td style="text-align:center;"> <dfn>1.4</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter S1conv </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter modelconv </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'default_compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

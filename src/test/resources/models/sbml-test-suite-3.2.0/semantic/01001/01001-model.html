@@ -1,0 +1,17 @@
+<p>
+Note:  This test is a direct copy of test 00060, but with a size-10 compartment, to test the 'hasOnlySubstanceUnits' attribute.  The model should have exactly the same results, as concentration should have never been used to calculate anything.</p>
+<p>The model contains one compartment called "compartment".  There are two
+species named S1 and S2 and one parameter named k1.  The model contains one
+reaction defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>k1 &#183; S1</dfn>  </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>         </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>1.5 &#215; 10<sup class="i">&#8722;3</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn>            0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>          1.5</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Volume of compartment "compartment" </td><td style="text-align:left;"><dfn>           10</dfn> </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species have been declared as having substance units only. Thus, they 
+must be treated as amounts where they appear in expressions.</p>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

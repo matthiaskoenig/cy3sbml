@@ -1,0 +1,25 @@
+<p>
+Note:  This test is the L3 version of model 899.</p>
+<p>The model contains one compartment called C.  There are four
+species named S1, S2, S3 and S4 and four parameters named k1, k2, k3 and p1.
+The model contains three reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; C &#183; time</dfn>  </td></tr>
+<tr><td style="text-align:center;"> (2 * p1)S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k2 &#183; S2 &#183; C &#183; time</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S4 </td><td style="text-align:center;"> <dfn>k3 &#183; S3 &#183; C &#183; time</dfn>  </td></tr></table><p> 
+where the symbol 'time' denotes the current simulation time.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">&#8722;1</sup></dfn>  </td><td style="text-align:left;">mole           </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole           </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole           </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole           </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>0.7</dfn>            </td><td style="text-align:left;">second<sup>-2</sup>     </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2               </td><td style="text-align:left;"><dfn>0.5</dfn>            </td><td style="text-align:left;">second<sup>-2</sup>     </td></tr>
+<tr><td style="text-align:left;">Value of parameter k3               </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">second<sup>-2</sup>     </td></tr>
+<tr><td style="text-align:left;">Value of parameter p1               </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">dimensionless </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">litre          </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

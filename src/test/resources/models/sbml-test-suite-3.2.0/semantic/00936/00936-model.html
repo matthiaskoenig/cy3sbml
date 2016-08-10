@@ -1,0 +1,18 @@
+<p>
+ The model contains one species (S1) that oscillates (from the 'sin' function) for two seconds, then stops.  During that oscillation, the single event is triggered three times with a delay of two seconds each, increasing the value of the second species (S2) by one each time.  As 'useValuesFromTriggerTime' is false, this means that first S1 oscillates, then S2 steps up three times.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (S1, S2)</li>
+<li class="u">1 compartment (default_compartment)</li></ul>
+<p>There is one event:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Use values from:</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> _E0 </td><td style="text-align:center;"> <dfn>S1 &lt; 0</dfn> </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> <dfn>S2 = S2 + 1</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn>piecewise(sin(time &#183; 10), time &lt; 2, 1)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>piecewise(sin(time &#183; 10), time &lt; 2, 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'default_compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

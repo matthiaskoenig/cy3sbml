@@ -1,0 +1,18 @@
+<p>
+In the official MathML spec, plus, times, and, or, and xor may all have 0 arguments.  When they do, they are supposed return identity for that construct, namely:
+<strong>plus:  0
+</strong>times: 1
+<strong>and:   true
+</strong>or:    false
+*xor:   false</p>
+<p>The model contains:</p><ul>
+<li class="u">5 parameters (a, b, c, d, e)
+The initial conditions are as follows:</li></ul>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter a </td><td style="text-align:center;"> <dfn>plus()</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter b </td><td style="text-align:center;"> <dfn>times()</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter c </td><td style="text-align:center;"> <dfn>piecewise(and(), 1, 0)</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter d </td><td style="text-align:center;"> <dfn>piecewise(or(), 1, 0)</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e </td><td style="text-align:center;"> <dfn>piecewise(xor(), 1, 0)</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

@@ -1,137 +1,49 @@
 package org.cy3sbml;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.swing.SwingUtilities;
-
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyTable;
-import org.cytoscape.view.layout.CyLayoutAlgorithm;
-import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
-import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.model.events.NetworkViewAddedEvent;
-import org.cytoscape.view.model.events.NetworkViewAddedListener;
-import org.cytoscape.view.vizmap.VisualMappingManager;
-import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.TaskIterator;
+
+import org.cy3sbml.util.IOUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * SBMLReader class
- * 
- * The class manages the reading of SBMLDocuments within
- * the SBMLReaderTasks and creates networks and views for the given
- * SBMLDocument.
+ * TaskFactory for the SBMLReaderTask.
  */
-public class SBMLReader extends AbstractInputStreamTaskFactory implements NetworkViewAddedListener {
-	private static final Logger logger = LoggerFactory.getLogger(SBMLReader.class);
-	private final ServiceAdapter cyServices;
+public class SBMLReader extends AbstractInputStreamTaskFactory {
+    private static final Logger logger = LoggerFactory.getLogger(SBMLReader.class);
+	private final ServiceAdapter adapter;
+
 
 	/** Constructor. */
-	public SBMLReader(CyFileFilter filter, ServiceAdapter cyServices){
+	public SBMLReader(CyFileFilter filter, ServiceAdapter adapter){
 		super(filter);
-		this.cyServices = cyServices;
+		this.adapter = adapter;
 	}
-	
+
 	@Override
 	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
 		logger.debug("createTaskIterator: input stream name: " + inputName);
+
 		try {
 			return new TaskIterator(
-				new SBMLReaderTask(copy(is), inputName, cyServices.cyNetworkFactory, cyServices.cyNetworkViewFactory,
-						cyServices.cyNetworkViewManager)
+				new SBMLReaderTask(IOUtil.copyInputStream(is), inputName,
+                        adapter.cyNetworkFactory,
+                        adapter.cyNetworkViewFactory,
+						adapter.visualMappingManager,
+                        adapter.cyLayoutAlgorithmManager,
+                        adapter.cy3sbmlProperties)
 			);
 		} catch (IOException e) {
-			throw new SBMLReaderError(e.toString());
+		    logger.error("Error in creating TaskIterator for SBMLReader.", e);
+			e.printStackTrace();
+            return null;
 		}
 	}
-
-	@Override
-	public void handleEvent(NetworkViewAddedEvent e) {
-		logger.debug("NetworkViewAddedEvent in SBMLReader");
-		try {
-			// always apply the style and layout to new BioPAX views;
-			// i.e., not only for the first time when one's created.
-			final CyNetworkView view = e.getNetworkView();
-			final CyNetwork network = view.getModel();	
-			if(isSBMLNetwork(network)) {
-				
-				/*
-				// TODO: Store some kind information for the network & use to switch visual styles
-				String kind = cyNetwork.getRow(cyNetwork).get(SBML.SBML_NETWORK, String.class);
-				if ("DEFAULT".equals(kind))
-					style = visualStyleUtil.getBioPaxVisualStyle();
-				else if ("SIF".equals(kind))
-					style = visualStyleUtil.getBinarySifVisualStyle();
-				*/
-				
-				//apply style and layout			
-				String styleName = (String) cyServices.cy3sbmlProperty("cy3sbml.visualStyle");
-				VisualMappingManager vmm = cyServices.visualMappingManager;
-				VisualStyle style = SBMLStyleManager.getVisualStyleByName(vmm, styleName);
-				VisualStyle currentStyle = vmm.getVisualStyle(view);
-				logger.debug("Current VisualStyle: " + currentStyle.getTitle());
-				logger.debug("VisualStyle to set: " + style.getTitle());
-				
-				if(style != null && !(style.getTitle()).equals(currentStyle.getTitle())){
-					final VisualStyle vs = style;			
-					//apply style and layout			
-					SwingUtilities.invokeLater(new Runnable() {
-							public void run() {			
-								cyServices.visualMappingManager.setVisualStyle(vs, view);
-								vs.apply(view);		
-								layout(view);
-								view.updateView();
-								logger.info("Style set and updated: " + vs.getTitle());
-							}
-					});
-				}
-			}
-		
-		} catch(Throwable t){
-			t.printStackTrace();
-		}		
-	}
-	
-	/** 
-	 * Controls the layout in the created views. 
-	 */
-	private void layout(CyNetworkView view) {
-		// do layout
-		CyLayoutAlgorithm layout = cyServices.cyLayoutAlgorithmManager.getLayout("force-directed");
-		if (layout == null) {
-			layout = cyServices.cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
-			logger.warn("'force-directed' layout not found; will use the default one.");
-		}
-		cyServices.taskManager.execute(layout.createTaskIterator(view, 
-				layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS,""));
-	}	
-	
-	/**
-	 * Check if the network is an SBMLNetwork.
-	 * This uses a attribute in the network table to check the type of the network.
-	 */
-	private boolean isSBMLNetwork(CyNetwork cyNetwork) {
-		//true if the attribute column exists
-		CyTable cyTable = cyNetwork.getDefaultNetworkTable();
-		return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
-	}
-	
-		
-	private InputStream copy(InputStream is) throws IOException {
-		ByteArrayOutputStream copy = new ByteArrayOutputStream();
-		int chunk = 0;
-		byte[] data = new byte[1024*1024];
-		while((-1 != (chunk = is.read(data)))) {
-			copy.write(data, 0, chunk);
-		}
-		is.close();
-		return new ByteArrayInputStream( copy.toByteArray() );
-	}	
 }

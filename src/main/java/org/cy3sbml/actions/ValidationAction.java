@@ -6,12 +6,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.validator.ValidatorDialog;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.ValidationDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,20 +29,16 @@ public class ValidationAction extends AbstractCyAction{
 	
 	/** Constructor. */
 	public ValidationAction(ServiceAdapter adapter){
-		super("ValidationAction");
+		super(ValidationAction.class.getSimpleName());
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/validation.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_VALIDATION));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "SBML validation");
-		setToolbarGravity((float) 100.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_VALIDATION);
+		setToolbarGravity(GUIConstants.GRAVITY_VALIDATION);
 	}
-	
-	public boolean insertSeparatorBefore(){
-		return true;
-	}
-	
+
 	public boolean isInToolBar() {
 		return true;
 	}
@@ -59,7 +56,7 @@ public class ValidationAction extends AbstractCyAction{
 					"Import network from BioModel or load network from file or URL first.");
     	}
     	else{
-    		ValidationDialog validationDialog = new ValidationDialog(adapter);
+    		ValidatorDialog validationDialog = new ValidatorDialog(adapter);
     		validationDialog.runValidation(document);
     		validationDialog.setVisible(true);
     	}

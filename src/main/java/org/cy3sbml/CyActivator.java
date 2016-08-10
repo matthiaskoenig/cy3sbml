@@ -1,5 +1,11 @@
 package org.cy3sbml;
 
+import org.osgi.framework.BundleContext;
+
+import java.io.File;
+import java.util.Properties;
+
+import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -29,25 +35,25 @@ import org.cytoscape.work.swing.DialogTaskManager;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
-import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.util.Properties;
 
-import org.cy3sbml.gui.ResultsPanel;
-import org.cy3sbml.SBMLFileFilter;
-import org.cy3sbml.actions.BioModelAction;
+import org.cy3sbml.actions.BiomodelsAction;
 import org.cy3sbml.actions.ChangeStateAction;
-import org.cy3sbml.actions.CofactorNodesAction;
+import org.cy3sbml.actions.CofactorAction;
 import org.cy3sbml.actions.ExamplesAction;
 import org.cy3sbml.actions.HelpAction;
 import org.cy3sbml.actions.ImportAction;
 import org.cy3sbml.actions.LoadLayoutAction;
 import org.cy3sbml.actions.SaveLayoutAction;
 import org.cy3sbml.actions.ValidationAction;
+
 import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.miriam.RegistryUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Entry point to cy3sbml.
@@ -56,8 +62,8 @@ import org.cy3sbml.cofactors.CofactorManager;
  * used for startup of the app by Cytoscape 3.
  */
 public class CyActivator extends AbstractCyActivator {
+	public static final String PROPERTIES_FILE = "cy3sbml.props";
 	private static Logger logger;
-	private static final String PROPERTIES_FILE = "cy3sbml.props";
 	
 	public CyActivator() {
 		super();
@@ -89,12 +95,13 @@ public class CyActivator extends AbstractCyActivator {
 			logger.info("----------------------------");
 			logger.info("directory = " + appDirectory.getAbsolutePath());
 			logger.info("logfile = " + logFile.getAbsolutePath());
-			
-			// increase the javax.xml: Maximum Element Depth limit (1000), which is
-			// otherwise exceded for genome-scale models 
-			// see https://github.com/matthiaskoenig/cy3sbml/issues/100
-			System.setProperty("jdx.xml.maxElementDepth", "2000");
-			
+
+            // Set baseDir for HTML generation
+            // allows the dynamical generated HTML to resolve the gui resources
+            String baseDir = appDirectory.toURI().toString();
+            baseDir = baseDir.replace("file:/", "file:///");
+			SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
+
 			// cy3sbml properties
 			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
 			Properties propsReaderServiceProps = new Properties();
@@ -115,7 +122,6 @@ public class CyActivator extends AbstractCyActivator {
 			SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
 			@SuppressWarnings("rawtypes")
 			TaskManager taskManager = getService(bc, TaskManager.class);
-			
 			
 			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
 			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
@@ -163,71 +169,86 @@ public class CyActivator extends AbstractCyActivator {
 			SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
 			sbmlStyleManager.loadStyles();
 			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
-			
-			
-			// init SBML manager
-			SBMLManager sbmlManager = SBMLManager.getInstance(adapter);
-			// init Cofactor manager
-			@SuppressWarnings("unused")
+
+			// SBMLManager
+			SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
+            registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
+
+            // Cofactor manager
 			CofactorManager cofactorManager = CofactorManager.getInstance();
-			
-			// init cy3sbml ControlPanel
-			ResultsPanel resultsPanel = ResultsPanel.getInstance(adapter);
-			
-			
-			// init actions
-			ChangeStateAction changeStateAction = new ChangeStateAction(cySwingApplication);
-			ImportAction importAction = new ImportAction(adapter);
-			BioModelAction bioModelAction = new BioModelAction(adapter);
+
+			// init actions [100 - 120]
+            // FIXME: currently not possible to set separators in menu bar
+			// JToolBar toolBar = cySwingApplication.getJToolBar();
+            // toolBar.addSeparator(new Dimension(89.0));
+
+			ChangeStateAction changeStateAction = new ChangeStateAction();
+            registerService(bc, changeStateAction, CyAction.class, new Properties());
+
+            ImportAction importAction = new ImportAction(adapter);
+            registerService(bc, importAction, CyAction.class, new Properties());
+
 			ValidationAction validationAction = new ValidationAction(adapter);
-			ExamplesAction examplesAction = new ExamplesAction(cySwingApplication);
-			HelpAction helpAction = new HelpAction(cySwingApplication);
-			CofactorNodesAction cofactorNodesAction = new CofactorNodesAction(adapter);
-			SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+            registerService(bc, validationAction, CyAction.class, new Properties());
+
+            ExamplesAction examplesAction = new ExamplesAction();
+            registerService(bc, examplesAction, CyAction.class, new Properties());
+
+            CofactorAction cofactorAction = new CofactorAction(adapter);
+            registerService(bc, cofactorAction, CyAction.class, new Properties());
+
+            BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
+            registerService(bc, biomodelsAction, CyAction.class, new Properties());
+
+            HelpAction helpAction = new HelpAction();
+            registerService(bc, helpAction, CyAction.class, new Properties());
+
+            SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+            registerService(bc, saveLayoutAction, CyAction.class, new Properties());
+
 			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
-			
-			// SBML Filter
-			SBMLFileFilter sbmlFilter = new SBMLFileFilter("SBML files (*.xml)", streamUtil);
-			
-			/** Register services */			
+            registerService(bc, loadLayoutAction, CyAction.class, new Properties());
+
+
 			// SBML file reader
+            SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
 			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
-			Properties sbmlReaderProps = new Properties();
-			sbmlReaderProps.setProperty("readerDescription","SBML file reader (cy3sbml)");
-			sbmlReaderProps.setProperty("readerId","cy3sbmlNetworkReader");
+            Properties sbmlReaderProps = new Properties();
+			sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
+			sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
 			registerAllServices(bc, sbmlReader, sbmlReaderProps);
 			
 			// Session loading & saving
-			SessionData sessionData = new SessionData(appDirectory);
+			SessionData sessionData = new SessionData();
 			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
 			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
-			
-			// panels
-			registerService(bc, resultsPanel, CytoPanelComponent.class, new Properties());
-			// actions
-			registerService(bc, helpAction, CyAction.class, new Properties());
-			registerService(bc, changeStateAction, CyAction.class, new Properties());
-			registerService(bc, bioModelAction, CyAction.class, new Properties());
-			registerService(bc, validationAction, CyAction.class, new Properties());
-			registerService(bc, importAction, CyAction.class, new Properties());
-			registerService(bc, examplesAction, CyAction.class, new Properties());
-			registerService(bc, cofactorNodesAction, CyAction.class, new Properties());
-			registerService(bc, saveLayoutAction, CyAction.class, new Properties());
-			registerService(bc, loadLayoutAction, CyAction.class, new Properties());
-			
-			// listeners
-			registerService(bc, resultsPanel, RowsSetListener.class, new Properties());
-			registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
-			registerService(bc, sbmlManager, SetCurrentNetworkListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkAddedListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkViewAddedListener.class, new Properties());
-			registerService(bc, sbmlManager, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-			
-			// register cy3sbml services for other plugins
+
+			// proxy listener
+            registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
+
+            // panels
+            WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
+            registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
+            registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
+            registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
+            // register services for other apps
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
-			
-			// show cy3sbml panel
-			ResultsPanel.getInstance().activate();
+
+            // Extract all resource files for JavaFX (no bundle access)
+            final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
+            resourceHandler.extract();
+
+			// Update and load registry
+			File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+			RegistryUtil.updateMiriamXML(miriamFile);
+			RegistryUtil.loadRegistry(miriamFile);
+
+			// cy3sbml panel
+			webViewPanel.getInstance().activate();
 			logger.info("----------------------------");
 			
 		} catch (Throwable e){

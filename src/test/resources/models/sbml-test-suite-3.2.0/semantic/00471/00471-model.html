@@ -1,0 +1,25 @@
+<p>
+The model contains one compartment called C.  There are two species called 
+S1 and S2 and two parameters called k1 and k2.  The model contains one 
+reaction defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>C &#183; k1 &#183; S1</dfn>  </td></tr></table>
+<p>The model contains one initialAssignment:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;"> Variable </td><td style="text-align:center;"> Formula </td></tr>
+<tr><td style="text-align:center;"> C </td><td style="text-align:center;"> <dfn>k2 / 50</dfn>  </td></tr></table>
+<p>Note: SBML's InitialAssignment construct override any declared initial
+values.  In this case the initial value declared for compartment C is
+inconsistent with the value returned by the InitialAssignment.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width 30em:undefined;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong>  </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1        </td><td style="text-align:left;"><dfn>1</dfn>        </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2        </td><td style="text-align:left;"><dfn>1.5</dfn>      </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1       </td><td style="text-align:left;"><dfn>0.5</dfn>      </td><td style="text-align:left;">second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2       </td><td style="text-align:left;"><dfn>50</dfn>       </td><td style="text-align:left;">litre </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C     </td><td style="text-align:left;"><dfn>5.4</dfn>      </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) they must be treated as concentrations where they appear in
+expressions.</p>
+<p>Note: The test data for this model was generated from an analytical solution
+of the system of equations.</p>

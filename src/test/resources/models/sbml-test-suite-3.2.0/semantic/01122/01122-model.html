@@ -1,0 +1,20 @@
+<p>
+ This model is a further simplification of test 1000/1121 that only test the use of a boundary species, used in the model in terms of concentrations, from a compartment that varies in time, used in a reaction rate, with hasOnlySubstanceUnits = false.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (S1, S3)</li>
+<li class="u">1 compartment (comp)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> _J0: S1 &#8594; </td><td style="text-align:center;"> <dfn>S3 / 10</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> comp </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S3 </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp' </td><td style="text-align:center;"> <dfn>5</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>

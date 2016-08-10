@@ -1,0 +1,33 @@
+<p>
+The model contains one varying compartment called C.  There are three
+species called S1, S2 and S3 and four parameters called k1, k2, p1 and p2.  The
+model contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; C</dfn>  </td></tr></table>
+<p>The model contains two rules. The assignmentRule assigns value to C
+and the rateRule determines the rate at which p2 is varying:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;">  C  </td><td style="text-align:center;"> <dfn>p1 &#183; p2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate       </td><td style="text-align:center;"> p2  </td><td style="text-align:center;"> <dfn>0.1       |]
+
+In this case, the initial value is not declared for compartment
+C and must be calculated by the assignmentRule.  Note that
+since this assignmentRule must always remain true, it should be considered
+during simulation.
+
+The initial conditions are as follows:
+
+[&#8206;width:30em,margin: 1em auto&#8207;|       |&#183;Value&#183;          |&#183;Units&#183;  |
+|Initial amount of S1                |</dfn>         0.1<dfn> |mole                      |
+|Initial amount of S2                |</dfn>          0.2<dfn> |mole                      |
+|Initial amount of S3                |</dfn>          0.1<dfn> |mole                      |
+|Value of parameter k1               |</dfn>         0.75<dfn> |litre mole<sup class="i">&#8722;1</sup>^ second<sup class="i">&#8722;1</sup>^ |
+|Value of parameter k2               |</dfn>         0.25<dfn> |second<sup class="i">&#8722;1</sup>^ |
+|Value of parameter p1               |</dfn>          0.1<dfn> |litre mole<sup class="i">&#8722;1</sup>^ |
+|Value of parameter p2               |</dfn>          1.0<dfn> |mole second<sup class="i">&#8722;1</sup>^ |
+|Volume of compartment C |</dfn>    undeclared$ </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

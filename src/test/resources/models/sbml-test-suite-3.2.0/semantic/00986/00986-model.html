@@ -1,0 +1,17 @@
+<p>
+The 'fast' reaction should go to completion instantly, converting all of A to B.  Then B converts to C normally.</p>
+<p>The model contains:</p><ul>
+<li class="u">3 species (A, B, C)</li>
+<li class="u">1 compartment (default_compartment)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td><td style="text-align:center;">  <strong>Fast</strong>  </td></tr>
+<tr><td style="text-align:center;"> A &#8594; B </td><td style="text-align:center;"> <dfn>1 &#183; A</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> B &#8594; C </td><td style="text-align:center;"> <dfn>1 &#183; B</dfn> </td><td style="text-align:center;"> slow </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species A </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species B </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species C </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'default_compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

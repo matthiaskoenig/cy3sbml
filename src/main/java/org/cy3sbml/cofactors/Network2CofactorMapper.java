@@ -25,9 +25,9 @@ public class Network2CofactorMapper implements Serializable{
 
 	/** Constructor. */
 	public Network2CofactorMapper(){
-		logger.info("Network2CofactorMapper created");
-		cofactor2clone = new HashMap<Long, One2ManyMapping<Long, Long>>();
-		clone2cofactor = new HashMap<Long, One2ManyMapping<Long, Long>>();
+		logger.debug("Network2CofactorMapper created");
+		cofactor2clone = new HashMap<>();
+		clone2cofactor = new HashMap<>();
 	}
 	
 	public boolean containsSUID(Long suid){

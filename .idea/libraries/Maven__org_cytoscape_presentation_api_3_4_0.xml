@@ -8,6 +8,58 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/cytoscape/presentation-api/3.4.0/presentation-api-3.4.0-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/app-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/app-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/application-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/application-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/command-executor-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/core-task-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/core-task-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/datasource-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/datasource-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/equations-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/equations-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/event-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/event-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/filter-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/group-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/group-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/io-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/io-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/layout-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/layout-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/model-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/model-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/presentation-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/presentation-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/property-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/property-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/service-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/service-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/session-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/session-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-app-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-app-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-application-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-application-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-util-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/swing-util-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/taglets/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/taglets/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/viewmodel-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/viewmodel-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/vizmap-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/vizmap-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/vizmap-gui-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/vizmap-gui-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/webservice-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/webservice-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/webservice-swing-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/webservice-swing-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/work-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/work-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/work-swing-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../cytoscape-api/work-swing-api/src/test/java" />
     </SOURCES>
   </library>
 </component>

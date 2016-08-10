@@ -1,0 +1,26 @@
+<p>
+The model contains one compartment called C.  There are three
+species called S1, S2 and S3 and two parameters called k1 and k2.  Species S1 
+is labeled as an SBML boundary species.  The model contains one reaction defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>C &#183; k2 &#183; S</dfn>  </td></tr></table>
+<p>The model contains one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> S3 </td><td style="text-align:center;"> <dfn>multiply(k1, S1)</dfn>  </td></tr></table>
+<p>The model contains one functionDefinition defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> multiply </td><td style="text-align:center;"> x, y </td><td style="text-align:center;"> <dfn>x &#183; y</dfn> </td></tr></table>
+<p>Note that in this case the initial value of the species S3 is not explicitly
+declared and must be calculated by the AssignmentRule. </p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>            1</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn>          0.5</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3                </td><td style="text-align:left;"><dfn>   undeclared</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>          1.5</dfn> </td><td style="text-align:left;">dimensionless </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2               </td><td style="text-align:left;"><dfn>            5</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C             </td><td style="text-align:left;"><dfn>            1</dfn> </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

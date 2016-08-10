@@ -1,0 +1,11 @@
+<p>
+This model contains a submodel with an event with various time-based constructs in it, contained in a model with a time conversion factor.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 parameters (timeconv, t5)</li></ul>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>gt(time / timeconv, 3)</dfn> </td><td style="text-align:center;"> <dfn>timeconv &#183; (1 / (time / timeconv))</dfn> </td><td style="text-align:center;"> <dfn>t5 = time / timeconv</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t5 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

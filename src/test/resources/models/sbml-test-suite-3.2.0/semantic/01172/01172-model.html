@@ -1,0 +1,13 @@
+<p>
+This model contains a submodel with a rate rule in it, contained in a model with a time conversion factor.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 parameters (timeconv, t1)</li></ul>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> t1 </td><td style="text-align:center;"> <dfn>(time / timeconv / t1 + 3) / timeconv</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

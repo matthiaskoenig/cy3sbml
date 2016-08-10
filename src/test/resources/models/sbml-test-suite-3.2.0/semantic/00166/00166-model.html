@@ -1,0 +1,19 @@
+<p>
+The model contains four varying parameters called S1, S2, S3 and S4 and 
+two constant parameters called k1 and k2.  (Note
+that indeed S1, S2, S3 and S4 are parameters and not species in this
+model.)</p>
+<p>The model contains four rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S1       </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; S4&#8722;k1 &#183; S1 &#183; S2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S2       </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; S4&#8722;k1 &#183; S1 &#183; S2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S3       </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2&#8722;k2 &#183; S3 &#183; S4</dfn>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S4       </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2&#8722;k2 &#183; S3 &#183; S4</dfn>  </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter S1 </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">any </td></tr>
+<tr><td style="text-align:left;">Value of parameter S2 </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter S3 </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter S4 </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">same as S1 </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>0.75 &#215; 10<sup class="i">2</sup></dfn> </td><td style="text-align:left;">(units of S1)<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2 </td><td style="text-align:left;"><dfn>0.25 &#215; 10<sup class="i">2</sup></dfn> </td><td style="text-align:left;">(units of S1)<sup>-1</sup> second<sup>-1</sup> </td></tr></table>

@@ -1,0 +1,20 @@
+<p>
+This model has a single constant species x whose InitialAssignment claims that it has been oscillating (the sine function) up until the start of the simulation, at which point it stops changing.  A parameter (y) echoes this species with a 0.5 second delay, meaning that it starts by 'seeing' the oscillations before flattening out.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (x)</li>
+<li class="u">1 parameter (y)</li>
+<li class="u">1 compartment (default_compartment)</li></ul>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> y </td><td style="text-align:center;"> <dfn>2 + delay(x, 0.5)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species x </td><td style="text-align:center;"> <dfn>1 &#183; sin(10 &#183; time)</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter y </td><td style="text-align:center;"> <dfn>2 + delay(x, 0.5)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'default_compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

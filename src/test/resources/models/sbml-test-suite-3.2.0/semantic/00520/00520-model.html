@@ -1,0 +1,30 @@
+<p>
+Note:  earlier versions of the test suite contained a 3.1 version of this test.
+That model was moved to its own test, because it did not have the 'StoichiometryMath'
+component.</p>
+<p>The model contains one compartment called C.  There are three species called 
+S1, S2 and S3 and four parameters called k1, k2, p1 and p2.  The model contains 
+two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; (4 * p2)S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; C</dfn>  </td></tr></table>
+<p>The model contains one initialAssignment:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;"> Variable </td><td style="text-align:center;"> Formula </td></tr>
+<tr><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn>p1 &#183; 2</dfn>  </td></tr></table>
+<p>Note: SBML's InitialAssignment construct override any declared initial
+values.  In this case the initial value declared for species S1 is
+consistent with the value returned by the InitialAssignment.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width 30em:undefined;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong>        </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1        </td><td style="text-align:left;"><dfn>0.25 &#215; 10<sup class="i">&#8722;4</sup></dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2        </td><td style="text-align:left;"><dfn>2.0 &#215; 10<sup class="i">&#8722;4</sup></dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3        </td><td style="text-align:left;"><dfn>1.0 &#215; 10<sup class="i">&#8722;4</sup></dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1       </td><td style="text-align:left;"><dfn>0.75</dfn>           </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2       </td><td style="text-align:left;"><dfn>0.25</dfn>           </td><td style="text-align:left;">second<sup>-1</sup>                </td></tr>
+<tr><td style="text-align:left;">Value of parameter p1       </td><td style="text-align:left;"><dfn>1.25 &#215; 10<sup class="i">&#8722;5</sup></dfn> </td><td style="text-align:left;">mole                </td></tr>
+<tr><td style="text-align:left;">Value of parameter p2       </td><td style="text-align:left;"><dfn>0.5</dfn>            </td><td style="text-align:left;">dimensionless            </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C     </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">litre                  </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) they must be treated as concentrations where they appear in
+expressions.</p>

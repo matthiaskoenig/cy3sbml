@@ -1,0 +1,25 @@
+<p>
+The model contains one compartment called "compartment".  There are three
+species named S1, S2 and S3 and two parameters named k1 and k2.  The model
+contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; compartment</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; compartment</dfn>  </td></tr></table>
+<p>The model contains one rule which assigns value to parameter k2:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> k2 </td><td style="text-align:center;"> <dfn>5</dfn>  </td></tr></table>
+<p>In this case the initial value declared for parameter k2 is inconsistent
+with the value calculated by the assignmentRule.  The calculated value
+should be used.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>   1 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn> 1.5 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3                </td><td style="text-align:left;"><dfn>1.25 &#215; 10<sup class="i">&#8722;2</sup></dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>  1.5 &#215; 10<sup class="i">2</sup></dfn> </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2               </td><td style="text-align:left;"><dfn>        0.005</dfn> </td><td style="text-align:left;">second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Volume of compartment "compartment" </td><td style="text-align:left;"><dfn>            1</dfn> </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

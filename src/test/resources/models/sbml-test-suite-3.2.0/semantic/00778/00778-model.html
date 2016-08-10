@@ -1,0 +1,32 @@
+<p>
+The model contains one compartment called C.  There are four
+species called X0, X1, T and S1 and two parameters called k1 and k2.  The model
+contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> X0 &#8594; T     </td><td style="text-align:center;"> <dfn>C &#183; k1 &#183; X0</dfn>  </td></tr>
+<tr><td style="text-align:center;"> T &#8594; X1     </td><td style="text-align:center;"> <dfn>C &#183; k2 &#183; T</dfn>  </td></tr></table>
+<p>The model contains one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;">   n/a    </td><td style="text-align:center;"> <dfn>X0 + X1 + T &#8722; S1</dfn>  </td></tr></table>
+<p>The model contains one event that assigns value to species X1 defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:center;"> <strong>Trigger</strong>    </td><td style="text-align:center;"> <strong>Delay</strong> </td><td style="text-align:center;"> <strong>Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Event1 </td><td style="text-align:center;"> <dfn>X1 &gt; 2</dfn> </td><td style="text-align:center;"> <dfn>4.3</dfn>   </td><td style="text-align:center;"> <dfn>X1 = 1</dfn>    </td></tr></table>
+<p>The model contains one initialAssignment:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;"> Variable </td><td style="text-align:center;"> Formula </td></tr>
+<tr><td style="text-align:center;"> X0       </td><td style="text-align:center;"> <dfn>X1 &#8722; 0.25</dfn>  </td></tr></table>
+<p>Note: SBML's InitialAssignment construct override any declared initial
+values.  In this model, the initial value for the species X0 is consistent
+with the value calculated using the InitialAssignment.
+The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:left;"><strong>Value</strong> </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of X0          </td><td style="text-align:left;"><dfn>1.25</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of X1          </td><td style="text-align:left;"><dfn>1.5</dfn>   </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of T           </td><td style="text-align:left;"><dfn>1</dfn>     </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1          </td><td style="text-align:left;"><dfn>3.75</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1         </td><td style="text-align:left;"><dfn>0.1</dfn>   </td><td style="text-align:left;">second<sup>-1</sup>            </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2         </td><td style="text-align:left;"><dfn>0.2</dfn>   </td><td style="text-align:left;">second<sup>-1</sup>                </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C       </td><td style="text-align:left;"><dfn>1</dfn>     </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

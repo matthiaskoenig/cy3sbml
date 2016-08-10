@@ -1,0 +1,19 @@
+<p>
+The model contains one compartment called "compartment".  There are four
+species named S1, S2, S3 and S4 and two parameters named k1 and k2.
+Compartment "compartment" is 0-dimensional.  Species S1 is labeled as an
+SBML boundary species.  The model contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 + S4 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 + S4 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; S4</dfn>  </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">      </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1  </td><td style="text-align:left;"><dfn>          1.0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2  </td><td style="text-align:left;"><dfn>          1.5</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3  </td><td style="text-align:left;"><dfn>          2.0</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4  </td><td style="text-align:left;"><dfn>          0.5</dfn> </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1 </td><td style="text-align:left;"><dfn>          0.6</dfn> </td><td style="text-align:left;">mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2 </td><td style="text-align:left;"><dfn>         0.13</dfn> </td><td style="text-align:left;">mole<sup>-1</sup> second<sup>-1</sup> </td></tr></table>
+<p>In this example the compartment has its spatialDimensions attribute set to
+zero; i.e., it represents a point and therefore cannot have size or units.
+The species values must be treated as amounts and not concentrations.</p>

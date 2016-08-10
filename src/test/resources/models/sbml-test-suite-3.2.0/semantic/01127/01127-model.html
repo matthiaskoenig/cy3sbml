@@ -1,0 +1,13 @@
+<p>
+ The parent model contains a parameter that replaces a paramter of the submodel. That submodel has an initial assignment and a rate rule that both affect that replaced parameter, and should continue to affect the replacement parameter.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">2 parameters (param1, submod1__subparam2)</li></ul>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> param1 </td><td style="text-align:center;"> <dfn>8 &#183; submod1_<sub class="i">subparam2</sub> + param1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter submod1__subparam2 </td><td style="text-align:center;"> <dfn>6</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter param1 </td><td style="text-align:center;"> <dfn>submod1_<sub class="i">subparam2</sub> + 6</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

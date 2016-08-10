@@ -62,6 +62,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByName(name);
 		} catch (BioModelsWSException e) {
+			logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -74,6 +75,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByPerson(person);
 		} catch (BioModelsWSException e) {
+			logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -86,6 +88,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByPublication(publication);
 		} catch (BioModelsWSException e) {
+			logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -98,6 +101,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByTaxonomy(taxonomy);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -110,6 +114,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByTaxonomyId(taxonomyId);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -122,6 +127,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByChEBI(chebi);
 		} catch (BioModelsWSException e) {
+			logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -134,6 +140,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByChEBIId(chebiId);
 		} catch (BioModelsWSException e) {
+			logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -146,6 +153,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByUniprot(uniprot);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -158,6 +166,7 @@ public class BioModelWSInterface {
 		try {
 			ids = client.getModelsIdByUniprotId(uniprotId);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		if (ids == null){ return new LinkedList<String>(); }
@@ -170,6 +179,7 @@ public class BioModelWSInterface {
 		try {
 			name = client.getModelNameById(id);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		return name;
@@ -182,6 +192,7 @@ public class BioModelWSInterface {
 			// Date expressed according to ISO 8601
 			date = client.getLastModifiedDateByModelId(id);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		return date;
@@ -205,6 +216,7 @@ public class BioModelWSInterface {
 	    try {
 			encoders = client.getEncodersByModelId(id);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 	    if (encoders == null){ return new LinkedList<String>(); }
@@ -220,6 +232,7 @@ public class BioModelWSInterface {
 				sbml = "";
 			}
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
     	return sbml;
@@ -231,6 +244,7 @@ public class BioModelWSInterface {
 		try {
 			model = client.getSimpleModelById(id);
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		return model;
@@ -246,6 +260,7 @@ public class BioModelWSInterface {
 				simpleModels.put(ids[k], simpleModelsList.get(k));
 			}
 		} catch (BioModelsWSException e) {
+            logger.error("BioModelsWSException", e);
 			e.printStackTrace();
 		}
 		return simpleModels;

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.work.TaskIterator;
@@ -16,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * Importing SBML networks in Cytoscape.
+ * Importing SBML networks..
  */
 public class ImportAction extends AbstractCyAction{
 	private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
@@ -24,13 +25,13 @@ public class ImportAction extends AbstractCyAction{
 	private ServiceAdapter adapter;
 
 	public ImportAction(ServiceAdapter adapter){
-		super("ImportAction");
+		super(ImportAction.class.getSimpleName());
 		this.adapter = adapter;
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/import.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_IMPORT));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "Import SBML");
-		setToolbarGravity((float) 95.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_IMPORT);
+		setToolbarGravity(GUIConstants.GRAVITY_IMPORT);
 	}
 		
 	public boolean isInToolBar() {
@@ -42,15 +43,15 @@ public class ImportAction extends AbstractCyAction{
 		logger.debug("actionPerformed()"); 
 		
 		// open new file open dialog
-		Collection<FileChooserFilter> filters = new HashSet<FileChooserFilter>();
-		filters.add(new FileChooserFilter("SBML files (*.xml)", "xml"));
+		Collection<FileChooserFilter> filters = new HashSet<>();
+		String[] extensions = {"", "xml", "sbml"};
+		filters.add(new FileChooserFilter("SBML files (*, *.xml, *.sbml)", extensions));
 	
 		File[] files = adapter.fileUtil.getFiles(adapter.cySwingApplication.getJFrame(), 
-				"cy3sbml load SBML files", FileDialog.LOAD, filters);
+				GUIConstants.DESCRIPTION_IMPORT, FileDialog.LOAD, filters);
 		
 		if ((files != null) && (files.length != 0)) {
 			for (int i = 0; i < files.length; i++) {
-				// TODO load the network file
 				logger.info("Load: " + files[i].getName());
 				TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(files[i]);
 				adapter.synchronousTaskManager.execute(iterator);

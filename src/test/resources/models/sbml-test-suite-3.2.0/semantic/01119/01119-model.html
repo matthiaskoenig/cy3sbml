@@ -1,0 +1,17 @@
+<p>
+ This test ensures that when two events have the same trigger and same delay, they will still execute in the correct order (by priority).</p>
+<p> There are four models that test basically the same thing twice (for e1 and then e2) to ensure that the order in which the events are discovered within the model will not affect the outcome.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (e1, e2)</li></ul>
+<p>There are 4 events:</p>
+<table style="width:40em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>time &geq; 3</dfn> </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> <dfn>1.5</dfn> </td><td style="text-align:center;"> <dfn>e1 = 3</dfn> </td></tr>
+<tr><td style="text-align:center;"> E2 </td><td style="text-align:center;"> <dfn>time &geq; 3</dfn> </td><td style="text-align:center;"> <dfn>5</dfn> </td><td style="text-align:center;"> <dfn>1.5</dfn> </td><td style="text-align:center;"> <dfn>e1 = 2</dfn> </td></tr>
+<tr><td style="text-align:center;"> E3 </td><td style="text-align:center;"> <dfn>time &geq; 3</dfn> </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> <dfn>1.5</dfn> </td><td style="text-align:center;"> <dfn>e2 = 3</dfn> </td></tr>
+<tr><td style="text-align:center;"> E4 </td><td style="text-align:center;"> <dfn>time &geq; 3</dfn> </td><td style="text-align:center;"> <dfn>9</dfn> </td><td style="text-align:center;"> <dfn>1.5</dfn> </td><td style="text-align:center;"> <dfn>e2 = 2</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e2 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

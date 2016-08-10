@@ -1,0 +1,18 @@
+<p>
+The kinetic law of the reaction in the submodel in this model must be modified by both the time conversion factor and the extent conversion factor of the parent model.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (sub1__s1)</li>
+<li class="u">3 parameters (timeconv, extentconv, t3)</li>
+<li class="u">1 compartment (sub1__C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; sub1__s1 </td><td style="text-align:center;"> <dfn>extentconv / timeconv &#183; sub1_<sub class="i">s1</sub> &#183; t3 &#183; (time / timeconv)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species sub1__s1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter timeconv </td><td style="text-align:center;"> <dfn>60</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentconv </td><td style="text-align:center;"> <dfn>1000</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter t3 </td><td style="text-align:center;"> <dfn>0.2</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'sub1__C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

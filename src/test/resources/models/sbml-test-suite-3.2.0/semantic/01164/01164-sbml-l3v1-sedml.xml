@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="1" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01164-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod1__S_1" name="submod1__S">
+      <listOfVariables>
+        <variable id="submod1__S_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod1__S']" />
+        <variable id="submod1__S_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod1__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod1__S_1_s </ci>
+          <ci> submod1__S_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod1__E_1" name="submod1__E">
+      <listOfVariables>
+        <variable id="submod1__E_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod1__E']" />
+        <variable id="submod1__E_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod1__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod1__E_1_s </ci>
+          <ci> submod1__E_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod1__D_1" name="submod1__D">
+      <listOfVariables>
+        <variable id="submod1__D_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod1__D']" />
+        <variable id="submod1__D_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod1__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod1__D_1_s </ci>
+          <ci> submod1__D_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod1__ES_1" name="submod1__ES">
+      <listOfVariables>
+        <variable id="submod1__ES_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod1__ES']" />
+        <variable id="submod1__ES_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod1__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod1__ES_1_s </ci>
+          <ci> submod1__ES_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod2__S_1" name="submod2__S">
+      <listOfVariables>
+        <variable id="submod2__S_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod2__S']" />
+        <variable id="submod2__S_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod2__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod2__S_1_s </ci>
+          <ci> submod2__S_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod2__E_1" name="submod2__E">
+      <listOfVariables>
+        <variable id="submod2__E_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod2__E']" />
+        <variable id="submod2__E_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod2__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod2__E_1_s </ci>
+          <ci> submod2__E_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod2__D_1" name="submod2__D">
+      <listOfVariables>
+        <variable id="submod2__D_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod2__D']" />
+        <variable id="submod2__D_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod2__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod2__D_1_s </ci>
+          <ci> submod2__D_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="submod2__ES_1" name="submod2__ES">
+      <listOfVariables>
+        <variable id="submod2__ES_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='submod2__ES']" />
+        <variable id="submod2__ES_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='submod2__comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> submod2__ES_1_s </ci>
+          <ci> submod2__ES_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01164">
+      <listOfCurves>
+        <curve id="c_submod1__S_1" name="submod1__S" logX="false" logY="false" xDataReference="time_1" yDataReference="submod1__S_1" />
+        <curve id="c_submod1__E_1" name="submod1__E" logX="false" logY="false" xDataReference="time_1" yDataReference="submod1__E_1" />
+        <curve id="c_submod1__D_1" name="submod1__D" logX="false" logY="false" xDataReference="time_1" yDataReference="submod1__D_1" />
+        <curve id="c_submod1__ES_1" name="submod1__ES" logX="false" logY="false" xDataReference="time_1" yDataReference="submod1__ES_1" />
+        <curve id="c_submod2__S_1" name="submod2__S" logX="false" logY="false" xDataReference="time_1" yDataReference="submod2__S_1" />
+        <curve id="c_submod2__E_1" name="submod2__E" logX="false" logY="false" xDataReference="time_1" yDataReference="submod2__E_1" />
+        <curve id="c_submod2__D_1" name="submod2__D" logX="false" logY="false" xDataReference="time_1" yDataReference="submod2__D_1" />
+        <curve id="c_submod2__ES_1" name="submod2__ES" logX="false" logY="false" xDataReference="time_1" yDataReference="submod2__ES_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01164">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_submod1__S_1" dataReference="submod1__S_1" label="submod1__S" />
+        <dataSet id="ds_submod1__E_1" dataReference="submod1__E_1" label="submod1__E" />
+        <dataSet id="ds_submod1__D_1" dataReference="submod1__D_1" label="submod1__D" />
+        <dataSet id="ds_submod1__ES_1" dataReference="submod1__ES_1" label="submod1__ES" />
+        <dataSet id="ds_submod2__S_1" dataReference="submod2__S_1" label="submod2__S" />
+        <dataSet id="ds_submod2__E_1" dataReference="submod2__E_1" label="submod2__E" />
+        <dataSet id="ds_submod2__D_1" dataReference="submod2__D_1" label="submod2__D" />
+        <dataSet id="ds_submod2__ES_1" dataReference="submod2__ES_1" label="submod2__ES" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

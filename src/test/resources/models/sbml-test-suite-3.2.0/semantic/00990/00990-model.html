@@ -1,0 +1,23 @@
+<p>
+Note:  earlier versions of the test suite contained a 3.1 version of this test.
+That model was moved to its own test, because it did not have the 'StoichiometryMath'
+component.</p>
+<p>The stoichiometry of the reaction '&#8594; nX' is set to be equal to p1, a parameter that starts at 1 and increases at a rate of 1.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (X)</li>
+<li class="u">2 parameters (p1, k1)</li>
+<li class="u">1 compartment (default_compartment)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; Xref X </td><td style="text-align:center;"> <dfn>k1</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  Xref</p>
+<p>There are 2 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> Xref </td><td style="text-align:center;"> <dfn>p1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> p1 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species X </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'default_compartment' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

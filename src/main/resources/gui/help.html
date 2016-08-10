@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cy3sbml</title>
+    <meta name="description" content="cy3sbml: A Cytoscape app for SBML">
+    <meta name="author" content="Matthias Koenig">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="./font-awesome-4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/cy3sbml.css">
+</head>
+
+<body>
+<div class="container">
+    <h1>cy3sbml
+        <small>A Cytoscape App for SBML</small>
+    </h1>
+    <p>
+        The main functions of cy3sbml are accessible from the Cytoscape menu bar above.
+    </p>
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <td><a href="http://cy3sbml-changestate">
+                <span class="fa fa-toggle-on fa-2x fa-fw icon-black" title="Hide|show panel"></span></a>
+            </a></td>
+            <td><b>Hide|show panel</b></td>
+            <td>Changes the visibility of the cy3sbml panel.</td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-import">
+                <span class="fa fa-file-code-o fa-2x fa-fw icon-black" title="Import SBML"></span></a>
+            </td>
+            <td><b>Import SBML</b></td>
+            <td>Load SBML files via the File Import Dialogue. To import multiple files select multiple files.</td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-validation">
+                <span class="fa fa-check-square-o fa-2x fa-fw icon-black" title="Validate SBML"></span></a>
+            </td>
+            <td><b>Validate SBML</b></td>
+            <td>Validate SBML files against the SBML specification. Select the network to validate and click the
+                validation icon.
+            </td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-examples">
+                <span class="fa fa-database fa-2x fa-fw icon-black" title="SBML examples"></span></a>
+            </td>
+            <td><b>SBML Examples</b></td>
+            <td>Load and explore the SBML examples.</td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-biomodels">
+                <img src="images/biomodels.png" title="BioModel import" /></a>
+            </td>
+            <td><b>BioModel Import</b></td>
+            <td>Load SBML files from BioModels.</td>
+        </tr>
+
+        <tr>
+            <td><a href="http://cy3sbml-help">
+                <span class="fa fa-question-circle-o fa-2x fa-fw icon-black" title="Help"></span></a>
+            </td>
+            <td><b>Help</b></td>
+            <td>Display this help information.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-cofactor">
+                <span class="fa fa-sitemap fa-2x fa-fw icon-black" title="Cofactor nodes"></span></a>
+            </td>
+            <td><b>Cofactor nodes</b></td>
+            <td>Manage cofactor nodes in the network.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-layout-save">
+                <span class="fa fa-share-alt fa-2x fa-fw icon-black" title="Save layout"></span></a>
+            </td>
+            <td><b>Save layout</b></td>
+            <td>Save network layout information.</td>
+        </tr>
+        <tr>
+            <td><a href="http://cy3sbml-layout-load">
+                <span class="fa fa-share-alt fa-2x fa-fw fa-rotate-180 icon-black" title="Load layout"></span></a>
+            </td>
+            <td><b>Load layout</b></td>
+            <td>Load network layout information.</td>
+        </tr>
+
+
+
+    </table>
+    <h2>Support</h2>
+    <table class="table table-striped table-condensed table-hover">
+        <tr><td><a href="https://groups.google.com/forum/#!forum/cysbml-cyfluxviz"><span class="fa fa-users fa-2x fa-fw icon-black"></span></a></td>
+            <td><b>Forum</b></td>
+            <td><a href="https://groups.google.com/forum/#!forum/cysbml-cyfluxviz">https://groups.google.com/forum/#!forum/cysbml-cyfluxviz</a></td>
+        </tr>
+        <tr><td><a href="https://github.com/matthiaskoenig/cy3sbml/issues"><span class="fa fa-fire fa-2x fa-fw icon-black"></span></a></td>
+            <td><b>Bug Tracker</b></td>
+            <td><a href="https://github.com/matthiaskoenig/cy3sbml/issues">https://github.com/matthiaskoenig/cy3sbml/issues</a></td>
+        </tr>
+        <tr><td><a href="https://github.com/matthiaskoenig/cy3sbml"><span class="fa fa-github fa-2x fa-fw icon-black"></span></a></td>
+            <td><b>Source code</b></td>
+            <td><a href="https://github.com/matthiaskoenig/cy3sbml">https://github.com/matthiaskoenig/cy3sbml</a></td></tr>
+        <tr><td><a href="mailto:konigmatt@googlemail.com"><span class="fa fa-envelope fa-2x fa-fw icon-black"></span></a></td>
+            <td><b>Email</b></td>
+            <td><a href="mailto:konigmatt@googlemail.com">konigmatt@googlemail.com</a></td></tr>
+    </table>
+
+    <h2>About</h2>
+    <p>
+        Our mission is the visualization of Systems Biology Markup Language (<a href="http://www.sbml.org">SBML</a>) within the network context.
+    </p>
+    <p>
+        Our vision is to create a visualization tool for computational models which seamlessly integrates with computational modeling frameworks and workflows.
+    </p>
+    <p>
+        cy3sbml was developed by <a href="https://livermetabolism.com/contact">Matthias K&ouml;nig</a> in cooperation
+        with Andreas Dr&auml;ger and Nikolas Rodriquez.
+    </p>
+    <p>
+    <a href="https://travis-ci.org/matthiaskoenig/cy3sbml"><img src="https://camo.githubusercontent.com/6729539ed999a5bef32e32e151f695748c7c180d/68747470733a2f2f7472617669732d63692e6f72672f6d617474686961736b6f656e69672f63793373626d6c2e7376673f6272616e63683d646576656c6f70" alt="Build Status" data-canonical-src="https://travis-ci.org/matthiaskoenig/cy3sbml.svg?branch=develop" style="max-width:100%;"></a>
+    <a href="https://codecov.io/gh/matthiaskoenig/cy3sbml"><img src="https://camo.githubusercontent.com/229041fa07b8baf4626e59938b5210faac412d0d/68747470733a2f2f636f6465636f762e696f2f67682f6d617474686961736b6f656e69672f63793373626d6c2f6272616e63682f646576656c6f702f67726170682f62616467652e737667" alt="codecov" data-canonical-src="https://codecov.io/gh/matthiaskoenig/cy3sbml/branch/develop/graph/badge.svg" style="max-width:100%;"></a>
+    <a href="https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml"><img src="https://camo.githubusercontent.com/1102c7b4a2100ecd9d11ef28459841621ef67263/68747470733a2f2f62616467652e667572792e696f2f67682f6d617474686961736b6f656e696725324663793373626d6c2e737667" alt="GitHub version" data-canonical-src="https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml.svg" style="max-width:100%;"></a>
+    <a href="http://opensource.org/licenses/LGPL-3.0"><img src="https://camo.githubusercontent.com/096c6e8c9684d3ec667b409d141d03dfb2193792/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d47504c76332d626c75652e7376673f7374796c653d666c61742d737175617265" alt="License (LGPL version 3)" data-canonical-src="https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square" style="max-width:100%;"></a>
+    </p>
+
+    <h3>How to cite</h3>
+    <p>
+        <a href="https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml"><img src="https://camo.githubusercontent.com/4f7c32f0dbbcb52cc92a0be3432de64396e32ee7/68747470733a2f2f7a656e6f646f2e6f72672f62616467652f353036362f6d617474686961736b6f656e69672f63793373626d6c2e737667" alt="DOI" data-canonical-src="https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg" style="max-width:100%;"></a>
+    </p>
+    <p>
+        <strong>Matthias König, Andreas Dräger and Hermann-Georg Holzhütter</strong><br/>
+        <em>CySBML: a Cytoscape plugin for SBML</em><br/>
+        Bioinformatics. 2012 Jul 5. <a href="http://www.ncbi.nlm.nih.gov/pubmed/22772946">PubMed</a>
+    </p>
+    <h3>Funding & Support</h3>
+    <p>
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://camo.githubusercontent.com/11b2f47d7b4af17ef3a803f57c37de3ac82ac039/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f70617970616c2d646f6e6174652d79656c6c6f772e737667" alt="PayPal donate button" data-canonical-src="https://img.shields.io/badge/paypal-donate-yellow.svg" style="max-width:100%;"></a>
+    </p>
+    <p>
+        This project was supported by the Federal Ministry of Education and Research (BMBF, Germany)
+        within the research network Systems Medicine of the Liver (LiSyM, grant number 031L0054)
+        and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology NRNB
+        within the NRNB Academy Summer Session 2015.
+
+        This project is supported by the Institute for Theoretical Biology (ITB) of the Humboldt University Berlin.
+    </p>
+    <a href="http://www.virtual-liver.de/"><img src="images/logos/logo-vln.png" alt="VLN Logo" height=37></img></a>&nbsp;&nbsp;
+    <a href="http://www.virtual-liver.de/"><img src="images/logos/lisym_logo.png" alt="LiSyM Logo" height=37></img></a>&nbsp;&nbsp;
+    <a href="http://nrnb.org"><img src="images/logos/nrnb_logo.png" alt="NRNB Logo" height=30></img></a>&nbsp;&nbsp;
+    <a href="https://itb.biologie.hu-berlin.de/wiki/"><img src="images/logos/itb_logo.png" alt="ITB Logo" height="40"></img></a>&nbsp;&nbsp;
+    <a href="https://www.hu-berlin.de/en"><img src="images/logos/hu_logo.jpg" alt="HU Logo" border=0 height=40></img></a>&nbsp;&nbsp;
+    <a href="https://www.bmbf.de/"><img src="images/logos/bmbf_logo.png" alt="BMBF Logo" border=0
+                                              height="80"></img></a>&nbsp;&nbsp;
+
+    <h3>Attribution</h3>
+    <p>
+        We thank the SBML, Cytoscape, BioModels, BiGG and OLS community for their support.
+    </p>
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <td>
+                <b>Cytoscape</b><br />
+                <a href="http://www.cytoscape.org"><img src="images/logos/cytoscape_logo.png" alt="Cytoscape Logo" height="40"></img></a></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Shannon P, Markiel A, Ozier O, Baliga NS, Wang JT, Ramage D, Amin N, Schwikowski B, Ideker T.</li>
+                    <li class="ref-title">Cytoscape: a software environment for integrated models of biomolecular interaction networks.</li>
+                    <li class="ref-journal">Genome Res. 2003 Nov;13(11):2498-504. <a href="https://www.ncbi.nlm.nih.gov/pubmed/14597658">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>SBML</b><br />
+                <a href="http://sbml.org"><img src="images/logos/sbml_logo.png" alt="SBML Logo" height="40"></img></a></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Hucka M, Finney A, Sauro HM, Bolouri H, Doyle JC, Kitano H, Arkin AP, Bornstein BJ, Bray D, Cornish-Bowden A, Cuellar AA, Dronov S, Gilles ED, Ginkel M, Gor V, Goryanin II, Hedley WJ, Hodgman TC, Hofmeyr JH, Hunter PJ, Juty NS, Kasberger JL, Kremling A, Kummer U, Le Novère N, Loew LM, Lucio D, Mendes P, Minch E, Mjolsness ED, Nakayama Y, Nelson MR, Nielsen PF, Sakurada T, Schaff JC, Shapiro BE, Shimizu TS, Spence HD, Stelling J, Takahashi K, Tomita M, Wagner J, Wang J; SBML Forum.</li>
+                    <li class="ref-title">The systems biology markup language (SBML): a medium for representation and exchange of biochemical network models.</li>
+                    <li class="ref-journal">Bioinformatics. 2003 Mar 1;19(4):524-31. <a href="http://www.ncbi.nlm.nih.gov/pubmed/12611808">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>JSBML</b><br />
+                <a href="http://sbml.org/Software/JSBML"><img src="images/logos/jsbml_logo.png" alt="JSBML Logo" height=40></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Nicolas Rodriguez, Alex Thomas, Leandro Watanabe, Ibrahim Y. Vazirabad, Victor Kofia, Harold F. Gómez, Florian Mittag, Jakob Matthes, Jan Rudolph, Finja Wrzodek, Eugen Netz, Alexander Diamantikos, Johannes Eichner, Roland Keller, Clemens Wrzodek, Sebastian Fröhlich, Nathan E. Lewis, Chris J. Myers, Nicolas Le Novère, Bernhard Ø. Palsson, Michael Hucka, and Andreas Dräger.</li>
+                    <li class="ref-title">JSBML 1.0: providing a smorgasbord of options to encode systems biology models.</li>
+                    <li class="ref-journal">Bioinformatics, 31(20): 3383–3386. <a href="https://www.ncbi.nlm.nih.gov/pubmed/26079347">PubMed</a></li>
+                </ul>
+                <ul class="ref-item">
+                    <li class="ref-authors">Dräger A, Rodriguez N, Dumousseau M, Dörr A, Wrzodek C, Le Novère N, Zell A, and Hucka M.</li>
+                    <li class="ref-title">JSBML: a flexible Java library for working with SBML.</li>
+                    <li class="ref-journal">Bioinformatics (2011), 27(15):2167–2168. <a href="https://www.ncbi.nlm.nih.gov/pubmed/21697129">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>Biomodels</b><br/>
+                <a href="http://www.biomodels.org"><img src="images/logos/biomodels_logo.png" alt="BioModels Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Juty N, Ali R, Glont M, Keating S, Rodriguez N, Swat MJ, Wimalaratne SM, Hermjakob H, Le Novère N, Laibe C, Chelliah V.</li>
+                    <li class="ref-title">BioModels: Content, Features, Functionality, and Use.</li>
+                    <li class="ref-journal">CPT Pharmacometrics Syst Pharmacol. 2015 Feb;4(2):e3. doi: 10.1002/psp4.3. Epub 2015 Feb 26. <a href="http://www.ncbi.nlm.nih.gov/pubmed/26225232">PubMed</a></li>
+                </ul>
+                <ul class="ref-item">
+                    <li class="ref-authors">Li C, Courtot M, Le Novère N, Laibe C.</li>
+                    <li class="ref-title">BioModels.net Web Services, a free and integrated toolkit for computational modelling software.</li>
+                    <li class="ref-journal">Brief Bioinform. 2010 May;11(3):270-7. doi: 10.1093/bib/bbp056. <a href="http://www.ncbi.nlm.nih.gov/pubmed/19939940">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>BiGG Models</b><br/>
+                <a href="http://bigg.ucsd.edu/"><img src="images/logos/bigg_logo.png" alt="BiGG Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">King ZA, Lu J, Dräger A, Miller P, Federowicz S, Lerman JA, Ebrahim A, Palsson BO, Lewis NE.</li>
+                    <li class="ref-title">BiGG Models: A platform for integrating, standardizing and sharing genome-scale models.</li>
+                    <li class="ref-journal">Nucleic Acids Res. 2016 Jan 4;44(D1):D515-22. doi: 10.1093/nar/gkv1049. Epub 2015 Oct 17. <a href="http://www.ncbi.nlm.nih.gov/pubmed/26476456">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>MIRIAM registry & identifiers.org</b><br />
+                <a href="http://www.ebi.ac.uk/miriam/main/"><img src="images/logos/miriam_logo.png" alt="MIRIAM Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Juty N, Le Novère N, Laibe C.</li>
+                    <li class="ref-title">Identifiers.org and MIRIAM Registry: community resources to provide persistent identification.</li>
+                    <li class="ref-journal">Nucleic Acids Res. 2012 Jan;40(Database issue):D580-6. doi: 10.1093/nar/gkr1097. Epub 2011 Dec 2. <a href="https://www.ncbi.nlm.nih.gov/pubmed/22140103">PubMed</a></li>
+                </ul>
+                <ul class="ref-item">
+                    <li class="ref-authors">Laibe C, Le Novère N.</li>
+                    <li class="ref-title">MIRIAM Resources: tools to generate and resolve robust cross-references in Systems Biology.</li>
+                    <li class="ref-journal">BMC Syst Biol. 2007 Dec 13;1:58. <a href="https://www.ncbi.nlm.nih.gov/pubmed/18078503">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>Ontology Lookup Service (OLS)</b><br />
+                <a href="http://www.ebi.ac.uk/ols/index"><img src="images/logos/ols_logo.jpg" alt="OLS Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Simon Jupp, Tony Burdett, James Malone, Catherine Leroy, Matt Pearce, Julie McMurry, Helen Parkinson.</li>
+                    <li class="ref-title">A New Ontology Lookup Service at EMBL-EBI</li>
+                    <li class="ref-journal">Malone, J. et al. (eds.) Proceedings of SWAT4LS International Conference 2015 </li>
+                </ul>
+                <ul class="ref-item">
+                    <li class="ref-authors">Côté RG, Jones P, Apweiler R, Hermjakob H.</li>
+                    <li class="ref-title">The Ontology Lookup Service, a lightweight cross-platform tool for controlled vocabulary queries.</li>
+                    <li class="ref-journal">BMC Bioinformatics. 2006 Feb 28;7:97. <a href="https://www.ncbi.nlm.nih.gov/pubmed/16507094">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>UniProt</b><br />
+                <a href="http://www.uniprot.org/"><img src="images/logos/uniprot_logo.png" alt="ChEBI Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">UniProt Consortium.</li>
+                    <li class="ref-title">UniProt: a hub for protein information.</li>
+                    <li class="ref-journal">Nucleic Acids Res. 2015 Jan;43(Database issue):D204-12. doi: 10.1093/nar/gku989. Epub 2014 Oct 27. <a href="https://www.ncbi.nlm.nih.gov/pubmed/25348405">PubMed</a></li>
+                </ul>
+                <ul class="ref-item">
+                    <li class="ref-authors">Patient S, Wieser D, Kleen M, Kretschmann E, Jesus Martin M, Apweiler R.</li>
+                    <li class="ref-title">UniProtJAPI: a remote API for accessing UniProt data.</li>
+                    <li class="ref-journal">Bioinformatics. 2008 May 15;24(10):1321-2. doi: 10.1093/bioinformatics/btn122. Epub 2008 Apr 4. <a href="https://www.ncbi.nlm.nih.gov/pubmed/18390879">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>ChEBI</b><br />
+                <a href="http://www.ebi.ac.uk/chebi/"><img src="images/logos/chebi_logo.png" alt="ChEBI Logo" height="40"></img></a>
+            </td>
+            <td>
+                <ul class="ref-item">
+                    <li class="ref-authors">Hastings J, de Matos P, Dekker A, Ennis M, Harsha B, Kale N, Muthukrishnan V, Owen G, Turner S, Williams M, Steinbeck C.</li>
+                    <li class="ref-title">The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013.</li>
+                    <li class="ref-journal">Nucleic Acids Res. 2013 Jan;41(Database issue):D456-63. doi: 10.1093/nar/gks1146. Epub 2012 Nov 24 <a href="https://www.ncbi.nlm.nih.gov/pubmed/23180789">PubMed</a></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

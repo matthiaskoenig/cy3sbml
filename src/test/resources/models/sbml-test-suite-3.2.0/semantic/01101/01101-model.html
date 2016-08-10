@@ -1,0 +1,28 @@
+<p>
+Note:  This test is the L3 version of model 900.</p>
+<p>The model contains one compartment called C.  There are four
+species called S1, S2, S3 and S4 and two parameters called k1 and p1.
+The model contains three reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> (2 * p1)S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C &#183; s</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k1 &#183; S3 &#183; C &#183; s</dfn>     </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S4 </td><td style="text-align:center;"> <dfn>k1 &#183; S3 &#183; C &#183; s</dfn>     </td></tr></table><p>
+where the symbol 's' denotes the current simulation time.</p>
+<p>Both reactions S3 &#8594; S1 + S2 and S3 &#8594; S1 + S4 define a local parameters k1 which has a
+scope local to the defining reaction and are different from each other and the global parameter k1
+used in the reaction S1 + S2 &#8594; S3.</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1                </td><td style="text-align:left;"><dfn>2.0</dfn>  </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2                </td><td style="text-align:left;"><dfn>2.0</dfn>  </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4                </td><td style="text-align:left;"><dfn>0</dfn>              </td><td style="text-align:left;">mole                       </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1               </td><td style="text-align:left;"><dfn>1.0</dfn>   </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-2</sup>  </td></tr>
+<tr><td style="text-align:left;">Value of parameter p1               </td><td style="text-align:left;"><dfn>1.0</dfn>   </td><td style="text-align:left;">dimensionless  </td></tr>
+<tr><td style="text-align:left;">Value of local parameter k1 (R2)               </td><td style="text-align:left;"><dfn>0.9</dfn>            </td><td style="text-align:left;">second<sup>-2</sup>                 </td></tr>
+<tr><td style="text-align:left;">Value of local parameter k1 (R3)               </td><td style="text-align:left;"><dfn>0.7</dfn>            </td><td style="text-align:left;">second<sup>-2</sup>                 </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">litre                      </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

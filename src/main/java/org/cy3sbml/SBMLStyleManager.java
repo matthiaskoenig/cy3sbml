@@ -46,7 +46,7 @@ public class SBMLStyleManager implements SessionLoadedListener{
 	 */
 	public void loadStyles(){
 		for (String styleName: STYLES){
-			logger.info("Loading visual style: " + styleName);
+			logger.info("Load visual style: " + styleName);
 			String resource = String.format("/styles/%s.xml", styleName);
 			InputStream styleStream = getClass().getResourceAsStream(resource);
 			// Check if already existing

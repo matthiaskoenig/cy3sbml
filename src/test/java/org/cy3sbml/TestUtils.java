@@ -4,29 +4,46 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.NetworkTestSupport;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.util.IOUtil;
+import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
+
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.stream.XMLStreamException;
+
+
+/**
+ * Helper functions to test SBML models.
+ */
 public class TestUtils {
 	public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
 	public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.2";
-	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-cases";
-	
+	public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.2.0";
+    public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
+
 	private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);
 	
 	/** Reads the system proxy variables and sets the 
@@ -52,7 +69,12 @@ public class TestUtils {
 		}	
 	}
 	
-	/** Get an iteratable over the resources in the resourcePath. */
+	/**
+	 * Get an iteratable over the resources in the resourcePath.
+	 *
+	 * Resources in the skip set are skipped.
+	 * If a filter string is given only the resources matching the filter are returned.
+	 */
 	public static Iterable<Object[]> findResources(String resourcePath, String extension, String filter, HashSet<String> skip){
 		
 		File currentDir = new File(System.getProperty("user.dir"));
@@ -93,7 +115,7 @@ public class TestUtils {
 	 * and is not in the skip set.
 	 */
 	public static LinkedList<String> findFiles(String path, String extension, String filter, HashSet<String> skip){
-		LinkedList<String> fileList = new LinkedList<String>();
+		LinkedList<String> fileList = new LinkedList<>();
 		
         File root = new File(path);
         File[] list = root.listFiles();
@@ -102,7 +124,7 @@ public class TestUtils {
         	return fileList;
         }
         if (skip == null){
-        	skip = new HashSet<String>();
+        	skip = new HashSet<>();
         }
 
         for (File f : list) {
@@ -119,9 +141,11 @@ public class TestUtils {
                 		fileList.add(fpath);
                 	} else {
                 		// filter matches add
-                		if (fname.contains(filter)){
+                        Pattern pattern = Pattern.compile(filter);
+                        Matcher m = pattern.matcher(fname);
+                		if (m.find()){
                 			fileList.add(fpath);	 
-                   	 	}	
+                   	 	}
                 	}
                 }
             }
@@ -132,11 +156,16 @@ public class TestUtils {
 	public static LinkedList<String> findFiles(String path, String extension){
 		return findFiles(path, extension, null, null);
 	}
-	
-	
-	public static CyNetwork[] readNetwork(String resource) throws Exception {
-		final NetworkTestSupport nts = new NetworkTestSupport();
-		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+
+	/**
+	 * Read the CyNetworks from given SBML file resource.
+     */
+	public CyNetwork[] readNetwork(String resource) throws Exception {
+
+        MockitoAnnotations.initMocks(this);
+        final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+
 		
 		// read SBML	
 		InputStream instream = TestUtils.class.getResourceAsStream(resource);
@@ -145,7 +174,8 @@ public class TestUtils {
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+
 			readerTask.run(null);
 			networks = readerTask.getNetworks();
 		} catch (Throwable t){
@@ -153,44 +183,104 @@ public class TestUtils {
 		}
 		return networks;
 	}
-	
-	/**
-	 * Perform the network test for a given SBML resource.
-	 */
-	public static void testNetwork(String testType, String resource){
-		logger.info("--------------------------------------------------------");
-		logger.info(String.format("%s: %s", testType, resource));
-		logger.info("--------------------------------------------------------");
-				
-		final NetworkTestSupport nts = new NetworkTestSupport();
-		final CyNetworkFactory networkFactory = nts.getNetworkFactory();
-		@SuppressWarnings("unused")
-		final CyNetworkViewFactory viewFactory = null;
-		TaskMonitor taskMonitor = null;
-		
-		// read SBML	
-		String[] tokens = resource.split("/");
-		String fileName = tokens[2];		
-		InputStream instream = TestUtils.class.getResourceAsStream(resource);
-	
-		CyNetwork[] networks;
-		try {
-			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, null, null);
-			readerTask.run(taskMonitor);
-			networks = readerTask.getNetworks();
-			assertFalse(readerTask.getError());
-			// CyNetworkTableManager cyNetworkTableManager = nts.getNetworkTableManager();
-			
-			
-		} catch (Throwable t){
-			networks = null;
-			t.printStackTrace();
+
+
+	public static CyNode findNodeById(String sbmlId, CyNetwork network) {
+		for (CyNode node : network.getNodeList()) {
+			CyRow attributes = network.getRow(node);
+			String id = attributes.get(SBML.ATTR_ID, String.class);
+			if (id != null && id.equals(sbmlId)) {
+				return node;
+			}
 		}
-		// Networks could be read
-		assertNotNull(networks);
-		assertTrue(networks.length >= 1);
-		
+		return null;
 	}
-	
+
+    /**
+     * Perform the network test for a given SBML resource.
+     *
+     * There is a memory leak in the network creation, probably the following issue
+     * 	http://code.cytoscape.org/redmine/issues/3507
+     *
+     * See also:
+     * This aborts the travis build.
+     */
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource){
+        logger.info("--------------------------------------------------------");
+        logger.info(String.format("%s : %s", testType, resource));
+
+        final NetworkTestSupport nts = new NetworkTestSupport();
+        final CyNetworkFactory networkFactory = nts.getNetworkFactory();
+        @SuppressWarnings("unused")
+        final CyNetworkViewFactory viewFactory = null;
+
+        // read SBML
+        String[] tokens = resource.split("/");
+        String fileName = tokens[2];
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+
+        CyNetwork[] networks;
+        try {
+            // Reader can be tested without service adapter
+            // calls networkFactory.createNetwork()
+            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+            readerTask.run(taskMonitor);
+            networks = readerTask.getNetworks();
+            assertFalse(readerTask.getError());
+
+            for (CyNetwork network: networks){
+                network.dispose();
+            }
+
+        } catch (Throwable t){
+            networks = null;
+            t.printStackTrace();
+        }
+        try {
+            instream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        // Networks could be read
+        assertNotNull(networks);
+        assertTrue(networks.length >= 1);
+    }
+
+    /**
+     * Perform the network test for a given SBML resource.
+     *
+     * There is a memory leak in the network creation, probably the following issue
+     * 	http://code.cytoscape.org/redmine/issues/3507
+     *
+     * See also:
+     * This aborts the travis build.
+     */
+    public static void testNetworkSerialization(String testType, String resource) throws IOException, XMLStreamException, ClassNotFoundException {
+        logger.info("--------------------------------------------------------");
+        logger.info(String.format("%s : %s", testType, resource));
+
+        // read SBML
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        String xml = IOUtil.inputStream2String(instream);
+        SBMLDocument doc = JSBML.readSBMLFromString(xml);
+        assertNotNull(doc);
+
+        // Serialize SBMLDocument
+        File tempFile = File.createTempFile("sbml", ".ser");
+
+        FileOutputStream fileOut = new FileOutputStream(tempFile.getAbsolutePath());
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(doc);
+        out.close();
+        fileOut.close();
+
+        // Deserialize
+        InputStream inputStream = new FileInputStream(tempFile.getAbsolutePath());
+        InputStream buffer = new BufferedInputStream(inputStream);
+        ObjectInput input = new ObjectInputStream (buffer);
+
+        SBMLDocument docSerialized = (SBMLDocument)input.readObject();
+        assertNotNull(docSerialized);
+    }
 }

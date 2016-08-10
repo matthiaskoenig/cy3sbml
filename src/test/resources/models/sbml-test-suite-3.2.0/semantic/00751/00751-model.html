@@ -1,0 +1,32 @@
+<p>
+The model contains one compartment called C.  There are four species
+called S1, S2, S3 and S4 and four parameters called k1, k2, k3 and k4.  The
+model contains two reactions defined as:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> S1 + S2 &#8594; S3 </td><td style="text-align:center;"> <dfn>k1 &#183; S1 &#183; S2 &#183; C</dfn>  </td></tr>
+<tr><td style="text-align:center;"> S3 &#8594; S1 + S2 </td><td style="text-align:center;"> <dfn>k2 &#183; S3 &#183; C</dfn>     </td></tr></table>
+<p>The model contains one rule that determines the rate at which species S4 
+is changing:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S4  </td><td style="text-align:center;"> <dfn>k2 &#183; add(S1, S3)</dfn>  </td></tr></table>
+<p>The model contains one event that assigns a value to species S4:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:right;"> </td><td style="text-align:center;"> <strong>Trigger</strong>    </td><td style="text-align:center;"> <strong>Delay</strong> </td><td style="text-align:center;"> <strong>Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> Event1 </td><td style="text-align:center;"> <dfn>S1 &lt; 0.5</dfn> </td><td style="text-align:center;"> <dfn>&#8722;</dfn>   </td><td style="text-align:center;"> <dfn>S2 = add(k3, k4)</dfn>    </td></tr></table>
+<p>Both the rateRule and the eventAssignment uses the functionDefinition defined as:
+</p><table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> add </td><td style="text-align:center;"> x, y      </td><td style="text-align:center;"> <dfn>x + y</dfn>   </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:left;"><strong>Value</strong>          </td><td style="text-align:left;"><strong>Units</strong>  </td></tr>
+<tr><td style="text-align:left;">Initial amount of S1    </td><td style="text-align:left;"><dfn>1.0</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S2    </td><td style="text-align:left;"><dfn>2.0</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S3    </td><td style="text-align:left;"><dfn>1.0</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Initial amount of S4    </td><td style="text-align:left;"><dfn>1.5</dfn>  </td><td style="text-align:left;">mole                      </td></tr>
+<tr><td style="text-align:left;">Value of parameter k1   </td><td style="text-align:left;"><dfn>0.75</dfn>           </td><td style="text-align:left;">litre mole<sup>-1</sup> second<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k2   </td><td style="text-align:left;"><dfn>0.25</dfn>           </td><td style="text-align:left;">second<sup>-1</sup>                </td></tr>
+<tr><td style="text-align:left;">Value of parameter k3   </td><td style="text-align:left;"><dfn>0.8</dfn> </td><td style="text-align:left;">mole litre<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Value of parameter k4   </td><td style="text-align:left;"><dfn>0.2</dfn> </td><td style="text-align:left;">mole litre<sup>-1</sup> </td></tr>
+<tr><td style="text-align:left;">Volume of compartment C </td><td style="text-align:left;"><dfn>1</dfn>              </td><td style="text-align:left;">litre                     </td></tr></table>
+<p>The species values are given as amounts of substance to make it easier to
+use the model in a discrete stochastic simulator, but (as per usual SBML
+principles) their symbols represent their values in concentration units
+where they appear in expressions.</p>

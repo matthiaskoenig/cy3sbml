@@ -36,7 +36,7 @@ public class Validator {
 			errorLog = validateSBML(doc);
 			errorMap = createErrorMapFromErrorLog(errorLog);
 		} catch (Exception e) {
-			logger.warn("SBMLDocument could not be validated.");
+			logger.warn("SBMLDocument could not be validated.", e);
 			e.printStackTrace();
 			reset();
 		}
@@ -77,6 +77,7 @@ public class Validator {
 		    SBMLWriter.write(doc, tempFile, ' ' , (short) 2);
 			eLog = SBMLValidator.checkConsistency(tempFile.getAbsolutePath(), new HashMap<String, String>());
 		} catch (IOException e) {
+			logger.error("Validation failed.", e);
 			e.printStackTrace();
 		}
 		return eLog;

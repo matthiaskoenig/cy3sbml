@@ -19,15 +19,27 @@
 # The maven repository files have to be deleted to 
 # to force the update.
 #
+# !!! NOT USED !!! - This is only the alternative solution
+# to the available SNAPSHOT repository.
+#
+########################################################
+CORE_VERSION=1.2-SNAPSHOT
+QUAL_VERSION=2.1-b1
+LAYOUT_VERSION=1.0-b1
+COMP_VERSION=1.0-b1
+FBC_VERSION=1.0-b1
+GROUPS_VERSION=0.4-b1
+DISTRIB_VERSION=0.5
+TIDY_VERSION=1.2.1
 ########################################################
 
 # JSBML code directory
-: "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code svn directory.}"
+: "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code directory.}"
 
 # lib directory
 LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# update to latest revision
+# update to latest commit
 cd $JSBMLCODE
 git pull 
 
@@ -39,17 +51,6 @@ rm -r $JSBMLCODE/build
 # extensions from $JSBMLCODE/build/
 ant jar 
 cd $LIBDIR
-
-############################
-CORE_VERSION=1.2-SNAPSHOT
-QUAL_VERSION=2.1-b1
-LAYOUT_VERSION=1.0-b1
-COMP_VERSION=1.0-b1
-FBC_VERSION=1.0-b1
-GROUPS_VERSION=0.4-b1
-DISTRIB_VERSION=0.5
-TIDY_VERSION=1.2.1
-############################
 
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml -Dversion=$CORE_VERSION -Dfile=$JSBMLCODE/core/build/jsbml-$CORE_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 

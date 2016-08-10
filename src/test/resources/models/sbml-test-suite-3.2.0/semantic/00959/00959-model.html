@@ -1,0 +1,62 @@
+<p>
+ The model tests the various trigonometrical constructs added in L2v1, as assignment rules with time.  Some functions with weird boundary conditions have been set up with the 'piecewise' function so that the results are never 'inf', or 'nan'.</p>
+<p>The model contains:</p><ul>
+<li class="u">26 parameters (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26)</li></ul>
+<p>There are 26 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>sec(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P2 </td><td style="text-align:center;"> <dfn>sec(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P3 </td><td style="text-align:center;"> <dfn>csc(time + 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P4 </td><td style="text-align:center;"> <dfn>csc(&#8722;time &#8722; 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P5 </td><td style="text-align:center;"> <dfn>cot(time + 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P6 </td><td style="text-align:center;"> <dfn>cot(&#8722;time &#8722; 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P7 </td><td style="text-align:center;"> <dfn>sinh(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P8 </td><td style="text-align:center;"> <dfn>sinh(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P9 </td><td style="text-align:center;"> <dfn>cosh(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P10 </td><td style="text-align:center;"> <dfn>cosh(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P11 </td><td style="text-align:center;"> <dfn>arcsec(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P12 </td><td style="text-align:center;"> <dfn>arcsec(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P13 </td><td style="text-align:center;"> <dfn>arccsc(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P14 </td><td style="text-align:center;"> <dfn>arccsc(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P15 </td><td style="text-align:center;"> <dfn>arccot(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P16 </td><td style="text-align:center;"> <dfn>arccot(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P17 </td><td style="text-align:center;"> <dfn>arcsinh(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P18 </td><td style="text-align:center;"> <dfn>arcsinh(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P19 </td><td style="text-align:center;"> <dfn>arccosh(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P20 </td><td style="text-align:center;"> <dfn>piecewise(arctanh(time), lt(time, 1), 10)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P21 </td><td style="text-align:center;"> <dfn>piecewise(arctanh(&#8722;time), lt(time, 1), &#8722;10)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P22 </td><td style="text-align:center;"> <dfn>piecewise(0, or(leq(time, 0), geq(time, 1)), arcsech(time))</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P23 </td><td style="text-align:center;"> <dfn>arccsch(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P24 </td><td style="text-align:center;"> <dfn>arccsch(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P25 </td><td style="text-align:center;"> <dfn>arccoth(time + 1.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P26 </td><td style="text-align:center;"> <dfn>arccoth(&#8722;time &#8722; 1.001)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>sec(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P2 </td><td style="text-align:center;"> <dfn>sec(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P3 </td><td style="text-align:center;"> <dfn>csc(time + 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P4 </td><td style="text-align:center;"> <dfn>csc(&#8722;time &#8722; 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P5 </td><td style="text-align:center;"> <dfn>cot(time + 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P6 </td><td style="text-align:center;"> <dfn>cot(&#8722;time &#8722; 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P7 </td><td style="text-align:center;"> <dfn>sinh(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P8 </td><td style="text-align:center;"> <dfn>sinh(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P9 </td><td style="text-align:center;"> <dfn>cosh(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P10 </td><td style="text-align:center;"> <dfn>cosh(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P11 </td><td style="text-align:center;"> <dfn>arcsec(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P12 </td><td style="text-align:center;"> <dfn>arcsec(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P13 </td><td style="text-align:center;"> <dfn>arccsc(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P14 </td><td style="text-align:center;"> <dfn>arccsc(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P15 </td><td style="text-align:center;"> <dfn>arccot(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P16 </td><td style="text-align:center;"> <dfn>arccot(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P17 </td><td style="text-align:center;"> <dfn>arcsinh(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P18 </td><td style="text-align:center;"> <dfn>arcsinh(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P19 </td><td style="text-align:center;"> <dfn>arccosh(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P20 </td><td style="text-align:center;"> <dfn>piecewise(arctanh(time), lt(time, 1), 10)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P21 </td><td style="text-align:center;"> <dfn>piecewise(arctanh(&#8722;time), lt(time, 1), &#8722;10)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P22 </td><td style="text-align:center;"> <dfn>piecewise(0, or(leq(time, 0), geq(time, 1)), arcsech(time))</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P23 </td><td style="text-align:center;"> <dfn>arccsch(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P24 </td><td style="text-align:center;"> <dfn>arccsch(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P25 </td><td style="text-align:center;"> <dfn>arccoth(time + 1.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P26 </td><td style="text-align:center;"> <dfn>arccoth(&#8722;time &#8722; 1.001)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

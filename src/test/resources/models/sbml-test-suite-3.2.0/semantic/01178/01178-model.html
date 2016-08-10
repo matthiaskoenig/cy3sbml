@@ -1,0 +1,18 @@
+<p>
+ In the submodel, there is a reference to a reaction's SId in an assignment rule math.  This reference must be modified by the extent conversion factor just as the kinetic law itself is modified by the extent conversion factor.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (sub1__s1)</li>
+<li class="u">2 parameters (extentconv, sub1__p80)</li>
+<li class="u">1 compartment (sub1__C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> &#8594; sub1__s1 </td><td style="text-align:center;"> <dfn>extentconv &#183; 10</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> sub1__p80 </td><td style="text-align:center;"> <dfn>sub1_<sub class="i">J0</sub> / extentconv + 6</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species sub1__s1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentconv </td><td style="text-align:center;"> <dfn>1000</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter sub1__p80 </td><td style="text-align:center;"> <dfn>sub1_<sub class="i">J0</sub> / extentconv + 6</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'sub1__C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
