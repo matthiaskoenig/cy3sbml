@@ -61,7 +61,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 	/** Singleton. */
 	public static synchronized WebViewPanel getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
-			logger.info("WebViewPanel created");
+			logger.debug("WebViewPanel created");
 			uniqueInstance = new WebViewPanel(adapter);
 		}
 		return uniqueInstance;

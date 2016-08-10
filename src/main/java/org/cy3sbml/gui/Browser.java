@@ -52,8 +52,7 @@ public class Browser extends Region {
 
 		this.appDirectory = appDirectory;
         this.openBrowser = openBrowser;
-        logger.info("WebView version: " + webEngine.getUserAgent());
-        logger.info("appDirectory: " + appDirectory);
+        logger.debug("WebView version: " + webEngine.getUserAgent());
 
 		//add the web view to the scene
 		getChildren().add(webView);
@@ -160,7 +159,7 @@ public class Browser extends Region {
     /** Open url in external webView. */
     private void openURLinExternalBrowser(String url){
         if (openBrowser != null){
-            logger.info("Open in external webView <" + url +">");
+            logger.debug("Open in external webView <" + url +">");
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     openBrowser.openURL(url);
@@ -204,7 +203,7 @@ public class Browser extends Region {
 	public void loadPageFromResource(String resource) {
 		File file = new File(appDirectory, resource);
 		URI fileURI = file.toURI();
-		logger.info("resource to load:" + fileURI);
+		logger.debug("Load page:" + fileURI);
 		loadPage(fileURI.toString());
 	}
 

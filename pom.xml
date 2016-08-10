@@ -278,35 +278,6 @@
 			<version>2.5</version>
 		</dependency>
 
-		<!--  UniRest -->
-        <!--
-		<dependency>
-			<groupId>com.mashape.unirest</groupId>
-			<artifactId>unirest-java</artifactId>
-			<version>1.4.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpasyncclient</artifactId>
-			<version>4.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20140107</version>
-		</dependency>
-		-->
-
 		<!-- JavaFX -->
 		<dependency>
 			<groupId>org.codefx.libfx</groupId>
@@ -326,6 +297,12 @@
             <groupId>uk.ac.ebi.miriam</groupId>
             <artifactId>miriam-lib</artifactId>
             <version>1.1.6</version>
+            <exclusions>
+            <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- BioModels (2015-08-09) -->
@@ -365,6 +342,10 @@
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -380,15 +361,27 @@
 			<artifactId>japi</artifactId>
 			<version>1.0.7</version>
 			<exclusions>
-            <!--
-            This does currently not work due to hardwiring of logging.
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
                 </exclusion>
-            -->
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
 			</exclusions>
 		</dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.7</version>
+        </dependency>
 
 		<!-- ChEBI-->
         <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/chebi/webapps/chebiWS/client/chebiWS-client/ -->
@@ -415,18 +408,28 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+        <!--
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+		-->
 
 		<!-- JSBML -->
         <dependency>
             <groupId>org.sbml.jsbml</groupId>
             <artifactId>jsbml</artifactId>
             <version>1.2-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+
   		 <dependency>
 			<groupId>org.biojava</groupId>
 			<artifactId>biojava-ontology</artifactId>

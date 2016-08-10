@@ -29,7 +29,7 @@ public class RegistryUtil {
         if (file != null && file.exists()){
             try {
                 RegistryDatabase.loadFromFile(file);
-                logger.info("Miriam loaded from file:" + file.getAbsolutePath());
+                logger.info("Load MIRIAM: " + file.getAbsolutePath());
                 return;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -61,6 +61,7 @@ public class RegistryUtil {
         try {
             URL miriamURL = new URL(URL_MIRIAM_XML);
             IOUtil.saveURLasFile(miriamURL, file);
+            logger.info("Updated MIRIAM: " + file.getAbsolutePath());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -70,16 +71,8 @@ public class RegistryUtil {
      * Script for updating the MIRIAM XML file in resources.
      */
     public static void main(String[] args){
-
-        // File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
-        // updateMiriamXML(miriamFile);
-
-        /*
-        String uri = "http://identifiers.org/metanetx.chemical/";
-        RegistryUtil.loadRegistry();
-        DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(uri);
-        System.out.println(dataType);
-        */
+        File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
+        updateMiriamXML(miriamFile);
     }
 
 }

@@ -253,7 +253,7 @@ public class SBaseHTMLFactory {
 		}
 		// Not supported
 		else {
-            logger.warn(String.format("No dedicated map support for %s.", item));
+            logger.warn(String.format("No object map support for %s <%s>", SBMLUtil.getUnqualifiedClassName(item), item));
 		    if (item instanceof NamedSBase){
                 map = SBMLUtil.createNamedSBaseMap((NamedSBase) item);
             } else {

@@ -415,7 +415,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param model
 	 */
 	private void readCore(Model model){
-		logger.info("<core>");
+		logger.debug("<core>");
 		// Mark network as SBML
 		AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_SBML, String.class);
 		AttributeUtil.set(network, network, SBML.LEVEL_VERSION, String.format("L%1$s V%2$s", document.getLevel(), document.getVersion()), String.class);
@@ -718,7 +718,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * @param qModel
 	 */
 	private void readQual(Model model, QualModelPlugin qModel){
-		logger.info("<qual>");
+		logger.debug("<qual>");
 		 // QualSpecies 
 		 for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()){	
 			CyNode node = createNamedSBaseNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
@@ -814,7 +814,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	/** Creates network information from fbc model. */
 	private void readFBC(Model model, FBCModelPlugin fbcModel){
-		logger.info("<fbc>");
+		logger.debug("<fbc>");
 
 		// Model attributes
 		if (fbcModel.isSetStrict()){
@@ -995,7 +995,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	/** Create network information from comp model. */
 	private void readComp(Model model, CompModelPlugin compModel){
-		logger.info("<comp>");
+		logger.debug("<comp>");
 
 		// TODO: model ListOfSubmodels
 		//
@@ -1041,8 +1041,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * TODO: implement
 	 */
 	private void readGroups(Model model, GroupsModelPlugin groupsModel){
-		logger.info("<groups>");
-        logger.info("\tgroups model found, but not yet supported");
+		logger.debug("<groups>");
+        logger.debug("\tgroups model found, but not supported");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1053,8 +1053,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	 * TODO: implement
 	 */
 	private void readLayouts(Model model, QualModelPlugin qualModel, LayoutModelPlugin layoutModel){
-		logger.info("<layout>");
-        logger.info("\tlayout model found, but not yet supported");
+		logger.debug("<layout>");
+        logger.info("\tlayout model found, but not supported");
 
 		for (Layout layout : layoutModel.getListOfLayouts()){
 			// layoutNetwork = rootNetwork.addSubNetwork();
