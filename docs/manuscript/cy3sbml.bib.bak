@@ -184,6 +184,14 @@
   pmid =        {12611808}
 }
 
+@Article{Hucka2015,
+  author =  {Hucka, Michael and Smith, Lucian P},
+  title =   {SBML Level 3 Package Specification: Groups, Version 1 Release 1.},
+  journal = {Available from COMBINE >http://identifiers.org/combine.specifications/sbml.level-3.version-1.groups.version-1.release-1>},
+  year =    {2015},
+  file =    {:literature/Hucka2015.pdf:PDF}
+}
+
 @InProceedings{Jupp2015,
   author = {Jupp, Simon and Burdett, Tony and Malone, James and Leroy, Catherine and Pearce, Matt and McMurry, Julie and Parkinson, Helen},
   title =  {A New Ontology Lookup Service at EMBL-EBI},
@@ -322,6 +330,28 @@
   url =         {http://dx.doi.org/10.1186/1752-0509-1-58}
 }
 
+@Article{LeNovere2005,
+  author =        {{Le Nov{\`{e}}re}, Nicolas and Finney, Andrew and Hucka, Michael and Bhalla, Upinder S. and Campagne, Fabien and Collado-Vides, Julio and Crampin, Edmund J. and Halstead, Matt and Klipp, Edda and Mendes, Pedro and Nielsen, Poul and Sauro, Herbert and Shapiro, Bruce and Snoep, Jacky L. and Spence, Hugh D. and Wanner, Barry L.},
+  title =         {Minimum information requested in the annotation of biochemical models (MIRIAM).},
+  journal =       {Nat Biotechnol},
+  year =          {2005},
+  volume =        {23},
+  number =        {12},
+  pages =         {1509--1515},
+  month =         {Dec},
+  __markedentry = {[mkoenig:6]},
+  abstract =      {Most of the published quantitative models in biology are lost for the community because they are either not made available or they are insufficiently characterized to allow them to be reused. The lack of a standard description format, lack of stringent reviewing and authors' carelessness are the main causes for incomplete model descriptions. With today's increased interest in detailed biochemical models, it is necessary to define a minimum quality standard for the encoding of those models. We propose a set of rules for curating quantitative models of biological systems. These rules define procedures for encoding and annotating models represented in machine-readable form. We believe their application will enable users to (i) have confidence that curated models are an accurate reflection of their associated reference descriptions, (ii) search collections of curated models with precision, (iii) quickly identify the biological phenomena that a given curated model or model constituent represents and (iv) facilitate model reuse and composition into large subcellular models.},
+  doi =           {10.1038/nbt1156},
+  file =          {:literature/LeNovere2005.pdf:PDF},
+  institution =   {European Bioinformatics Institute, Hinxton, CB10 1SD, UK. lenov@ebi.ac.uk},
+  keywords =      {Biochemistry, methods/standards; Cell Physiological Phenomena; Databases, Factual; Documentation, methods/standards; Guidelines as Topic; Information Dissemination, methods; Information Storage and Retrieval, methods/standards; Models, Biological; Terminology as Topic},
+  language =      {eng},
+  medline-pst =   {ppublish},
+  pii =           {nbt1156},
+  pmid =          {16333295},
+  url =           {http://dx.doi.org/10.1038/nbt1156}
+}
+
 @Article{LeNovere2006,
   author =      {{Le Nov{\`{e}}re}, Nicolas},
   title =       {Model storage, exchange and integration.},
@@ -384,6 +414,17 @@
   url =         {http://dx.doi.org/10.1093/bib/bbp056}
 }
 
+@Article{Olivier2015,
+  author =  {Olivier, Brett G and Bergmann, Frank T},
+  title =   {The Systems Biology Markup Language (SBML) Level 3 Package: Flux Balance Constraints},
+  journal = {Journal of integrative bioinformatics},
+  year =    {2015},
+  volume =  {12},
+  number =  {2},
+  pages =   {269},
+  file =    {:literature/Olivier2015.pdf:PDF}
+}
+
 @Article{Patient2008,
   author =        {Patient, Samuel and Wieser, Daniela and Kleen, Michael and Kretschmann, Ernst and {Jesus Martin}, Maria and Apweiler, Rolf},
   title =         {UniProtJAPI: a remote API for accessing UniProt data.},
@@ -393,7 +434,7 @@
   number =        {10},
   pages =         {1321--1322},
   month =         {May},
-  __markedentry = {[mkoenig:6]},
+  __markedentry = {[mkoenig:]},
   abstract =      {Programmatic access to the UniProt Knowledgebase (UniProtKB) is essential for many bioinformatics applications dealing with protein data. We have created a Java library named UniProtJAPI, which facilitates the integration of UniProt data into Java-based software applications. The library supports queries and similarity searches that return UniProtKB entries in the form of Java objects. These objects contain functional annotations or sequence information associated with a UniProt entry. Here, we briefly describe the UniProtJAPI and demonstrate its usage.},
   doi =           {10.1093/bioinformatics/btn122},
   file =          {:literature/Patient2008.pdf:PDF},
@@ -450,26 +491,36 @@
   url =         {http://dx.doi.org/10.1101/gr.1239303}
 }
 
+@Article{Smith2015,
+  author =  {Smith, Lucian P and Hucka, Michael and Hoops, Stefan and Finney, Andrew and Ginkel, Martin and Myers, Chris J and Moraru, Ion and Liebermeister, Wolfram},
+  title =   {SBML Level 3 package: Hierarchical Model Composition, Version 1 Release 3},
+  journal = {Journal of integrative bioinformatics},
+  year =    {2015},
+  volume =  {12},
+  number =  {2},
+  pages =   {268},
+  file =    {:literature/Smith2015.pdf:PDF}
+}
+
 @Article{UniProt-Consortium2014,
-  author =        {UniProt-Consortium},
-  title =         {UniProt: a hub for protein information.},
-  journal =       {Nucleic Acids Res},
-  year =          {2014},
-  volume =        {43},
-  number =        {Database issue},
-  pages =         {D204--D212},
-  month =         {Jan},
-  __markedentry = {[mkoenig:]},
-  abstract =      {UniProt is an important collection of protein sequences and their annotations, which has doubled in size to 80 million sequences during the past year. This growth in sequences has prompted an extension of UniProt accession number space from 6 to 10 characters. An increasing fraction of new sequences are identical to a sequence that already exists in the database with the majority of sequences coming from genome sequencing projects. We have created a new proteome identifier that uniquely identifies a particular assembly of a species and strain or subspecies to help users track the provenance of sequences. We present a new website that has been designed using a user-experience design process. We have introduced an annotation score for all entries in UniProt to represent the relative amount of knowledge known about each protein. These scores will be helpful in identifying which proteins are the best characterized and most informative for comparative analysis. All UniProt data is provided freely and is available on the web at http://www.uniprot.org/.},
-  doi =           {10.1093/nar/gku989},
-  file =          {:literature/UniProt-Consortium2015.pdf:PDF},
-  keywords =      {Databases, Protein; Molecular Sequence Annotation; Proteome; Sequence Analysis, Protein},
-  language =      {eng},
-  medline-pst =   {ppublish},
-  pii =           {gku989},
-  pmc =           {PMC4384041},
-  pmid =          {25348405},
-  url =           {http://dx.doi.org/10.1093/nar/gku989}
+  author =      {UniProt-Consortium},
+  title =       {UniProt: a hub for protein information.},
+  journal =     {Nucleic Acids Res},
+  year =        {2014},
+  volume =      {43},
+  number =      {Database issue},
+  pages =       {D204--D212},
+  month =       {Jan},
+  abstract =    {UniProt is an important collection of protein sequences and their annotations, which has doubled in size to 80 million sequences during the past year. This growth in sequences has prompted an extension of UniProt accession number space from 6 to 10 characters. An increasing fraction of new sequences are identical to a sequence that already exists in the database with the majority of sequences coming from genome sequencing projects. We have created a new proteome identifier that uniquely identifies a particular assembly of a species and strain or subspecies to help users track the provenance of sequences. We present a new website that has been designed using a user-experience design process. We have introduced an annotation score for all entries in UniProt to represent the relative amount of knowledge known about each protein. These scores will be helpful in identifying which proteins are the best characterized and most informative for comparative analysis. All UniProt data is provided freely and is available on the web at http://www.uniprot.org/.},
+  doi =         {10.1093/nar/gku989},
+  file =        {:literature/UniProt-Consortium2015.pdf:PDF},
+  keywords =    {Databases, Protein; Molecular Sequence Annotation; Proteome; Sequence Analysis, Protein},
+  language =    {eng},
+  medline-pst = {ppublish},
+  pii =         {gku989},
+  pmc =         {PMC4384041},
+  pmid =        {25348405},
+  url =         {http://dx.doi.org/10.1093/nar/gku989}
 }
 
 @Article{Wittig2012,
@@ -493,3 +544,14 @@
   pmid =        {22102587},
   url =         {http://dx.doi.org/10.1093/nar/gkr1046}
 }
+
+@article{Gauges2015,
+  title={The Systems Biology Markup Language (SBML) Level 3 Package: Layout, Version 1 Core},
+  author={Gauges, Ralph and Rost, Ursula and Sahle, Sven and Wengler, Katja and Bergmann, Frank T},
+  journal={Journal of integrative bioinformatics},
+  volume={12},
+  number={2},
+  pages={267},
+  year={2015}
+}
+
