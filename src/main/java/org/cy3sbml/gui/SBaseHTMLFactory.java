@@ -147,12 +147,8 @@ public class SBaseHTMLFactory {
         html = String.format(HTML_START_TEMPLATE, baseDir, title);
 		html += createHeader(sbase);
         html += createSBase(sbase);
-
+        html += createHistory(sbase);
         html += createCVTerms(sbase);
-
-        // TODO: implement
-        // html += createHistory(sbase);
-
         html += createNonRDFAnnotation(sbase);
         html += createNotes(sbase);
   		html += HTML_STOP_TEMPLATE;
@@ -176,6 +172,39 @@ public class SBaseHTMLFactory {
 		}
 		return header; 
 	}
+
+
+    /**
+     * Create History HTML.
+     * The history encodes information about the creator(s) of the encoding and a
+     * sequence of dates recording the dates of creation and subsequent modifcations of the SBML model encoding.
+     *
+     * @param sbase
+     * @return HTML String of History
+     */
+    private static String createHistory(SBase sbase){
+        String html = "";
+        History h = sbase.getHistory();
+        for (Creator c: h.getListOfCreators()){
+            String givenName = c.isSetGivenName() ? c.getGivenName() : "";
+            String familyName = c.isSetFamilyName() ? c.getFamilyName() : "";
+            String organisation = c.isSetOrganisation() ? String.format("; %s", c.getOrganisation()) : "";
+            String email = "";
+            if (c.isSetEmail()){
+                email = String.format("(<a href=\"mailto:%s\">%s</a>)", c.getEmail(), c.getEmail());
+            }
+            html += String.format("%s %s %s %s</br>\n", givenName, familyName, email, organisation);
+        }
+        if (h.isSetCreatedDate()){
+            html += String.format("created: <code>%s</code></br>\n", h.getCreatedDate());
+        }
+        if (h.isSetListOfModification()){
+            for (Date date: h.getListOfModifiedDates()){
+                html += String.format("modified: <code>%s</code></br>\n", date);
+            }
+        }
+        return html;
+    }
 
     /**
      * Creates the HTML table from map.
