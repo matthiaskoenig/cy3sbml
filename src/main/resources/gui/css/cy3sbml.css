@@ -129,3 +129,8 @@ table {
     margin-right: 4px;
     vertical-align: middle;
 }
+
+.math{
+    color: black;
+    font-family: monospace;
+}

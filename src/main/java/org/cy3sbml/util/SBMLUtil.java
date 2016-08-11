@@ -215,9 +215,9 @@ public class SBMLUtil {
         String math = container.isSetMath() ? container.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
         String units = getDerivedUnitString(container);
         if (variable != null){
-            math = String.format("%s = %s", variable, math);
+            math = String.format("<span class=\"math\">%s = %s</span>", variable, math);
         }
-        map.put(SBML.ATTR_MATH, String.format("%s", math));
+        map.put(SBML.ATTR_MATH, String.format("<span class=\"math\">%s</span>", math));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
         return map;
@@ -247,22 +247,22 @@ public class SBMLUtil {
 
         // optional
         if (model.isSetSubstanceUnits()){
-            map.put(SBML.ATTR_SUBSTANCE_UNITS, model.getSubstanceUnits());
+            map.put(SBML.ATTR_SUBSTANCE_UNITS, String.format(UNIT_TEMPLATE, model.getSubstanceUnits()));
         }
         if (model.isSetTimeUnits()){
-            map.put(SBML.ATTR_TIME_UNITS, model.getTimeUnits());
+            map.put(SBML.ATTR_TIME_UNITS, String.format(UNIT_TEMPLATE, model.getTimeUnits()));
         }
         if (model.isSetVolumeUnits()){
-            map.put(SBML.ATTR_VOLUME_UNITS, model.getVolumeUnits());
+            map.put(SBML.ATTR_VOLUME_UNITS, String.format(UNIT_TEMPLATE, model.getVolumeUnits()));
         }
         if (model.isSetAreaUnits()){
-            map.put(SBML.ATTR_AREA_UNITS, model.getAreaUnits());
+            map.put(SBML.ATTR_AREA_UNITS, String.format(UNIT_TEMPLATE, model.getAreaUnits()));
         }
         if (model.isSetLengthUnits()){
-            map.put(SBML.ATTR_LENGTH_UNITS, model.getLengthUnits());
+            map.put(SBML.ATTR_LENGTH_UNITS, String.format(UNIT_TEMPLATE, model.getLengthUnits()));
         }
         if (model.isSetExtentUnits()){
-            map.put(SBML.ATTR_EXTENT_UNITS, model.getExtentUnits());
+            map.put(SBML.ATTR_EXTENT_UNITS, String.format(UNIT_TEMPLATE, model.getExtentUnits()));
         }
         if (model.isSetConversionFactor()){
             map.put(SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor());
@@ -272,7 +272,8 @@ public class SBMLUtil {
 
     /** FunctionDefinition map. */
     public static LinkedHashMap<String, String> createFunctionDefinitionMap(FunctionDefinition fd) {
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(fd);
+        LinkedHashMap<String, String> map = createNamedSBaseMap(fd);
+        map.putAll(createAbstractMathContainerNodeMap(fd));
         return map;
     }
 
