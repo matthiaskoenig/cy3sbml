@@ -68,6 +68,11 @@ public class SBML {
     public static final String ATTR_MATH = "math";
     public static final String ATTR_INITIAL_ASSIGNMENT = "initialAssignment";
 
+    public static final String ATTR_UNIT_KIND = "kind";
+    public static final String ATTR_UNIT_EXPONENT = "exponent";
+    public static final String ATTR_UNIT_SCALE = "scale";
+    public static final String ATTR_UNIT_MULTIPLIER = "multiplier";
+
     // qual
     public static final String ATTR_QUAL_MAX_LEVEL = "qual_maxLevel";
     public static final String ATTR_QUAL_INITIAL_LEVEL = "qual_initialLevel";
@@ -104,6 +109,8 @@ public class SBML {
     public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
     public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
     public static final String NODETYPE_FUNCTION_DEFINITION = "functionDefinition";
+    public static final String NODETYPE_UNIT_DEFINITION = "unitDefinition";
+    public static final String NODETYPE_UNIT = "unit";
 
 	// qual
     public static final String NODETYPE_QUAL_SPECIES = "qual_species";
@@ -141,6 +148,7 @@ public class SBML {
     public static final String INTERACTION_REFERENCE_KINETICLAW = "reference_kineticLaw";
     public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter_kineticLaw";
     public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference_functionDefinition";
+    public static final String INTERACTION_UNIT_UNITDEFINITION = "reference_functionDefinition";
 	
 	// qual
     public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input_transition";

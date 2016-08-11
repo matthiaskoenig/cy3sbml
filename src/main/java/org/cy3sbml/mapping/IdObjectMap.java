@@ -59,7 +59,14 @@ public class IdObjectMap {
                 return;
             }
 
-
+            // UnitDefinitions
+            addListOf(model.getListOfUnitDefinitions());
+            for (UnitDefinition ud: model.getListOfUnitDefinitions()){
+                for (Unit unit: ud.getListOfUnits()){
+                    String id = SBMLUtil.unitId(ud.getId(), unit);
+                    objectMap.put(id, unit);
+                }
+            }
             // FunctionDefinitions
             addListOf(model.getListOfFunctionDefinitions());
             // UnitDefinitions

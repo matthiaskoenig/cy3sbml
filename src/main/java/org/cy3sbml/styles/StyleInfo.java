@@ -92,6 +92,8 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_QUAL_SPECIES, "40.0");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
         m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
+        m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30.0");
+        m5.put(SBML.NODETYPE_UNIT, "20.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
@@ -112,6 +114,8 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_LOCAL_PARAMTER, "DIAMOND");
         m7.put(SBML.NODETYPE_QUAL_TRANSITION, "RECTANGLE");
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
+        m7.put(SBML.NODETYPE_UNIT_DEFINITION, "PARALLELOGRAM");
+        m7.put(SBML.NODETYPE_UNIT, "PARALLELOGRAM");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
 

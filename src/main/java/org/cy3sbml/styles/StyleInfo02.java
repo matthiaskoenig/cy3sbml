@@ -44,6 +44,8 @@ public class StyleInfo02 extends StyleInfo {
         m3.put(SBML.NODETYPE_QUAL_SPECIES, "#666666");
         m3.put(SBML.NODETYPE_QUAL_TRANSITION, "#999999");
         m3.put(SBML.NODETYPE_FBC_GENEPRODUCT, "#FF9966");
+        m3.put(SBML.NODETYPE_UNIT_DEFINITION, "#CCCCCC");
+        m3.put(SBML.NODETYPE_UNIT, "#000000");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#666666", m3));
 

@@ -99,6 +99,9 @@ public class SBMLUtil {
         return null;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ID HELPER
+    /////////////////////////////////////////////////////////////////////////////////////////
 
     public static String localParameterId(String reactionId, LocalParameter lp){
         return String.format("%s_%s", reactionId, lp.getId());
@@ -115,6 +118,11 @@ public class SBMLUtil {
     public static String ruleId(String variable){
         return String.format("%s_%s", variable, SBML.SUFFIX_RULE);
     }
+
+    public static String unitId(String unitDefinitionId, Unit unit){
+        return String.format("%s_%s", unitDefinitionId, unit.getKind().toString());
+    }
+
 
     /**
      * Get the variable from AssignmentRule and RateRule.

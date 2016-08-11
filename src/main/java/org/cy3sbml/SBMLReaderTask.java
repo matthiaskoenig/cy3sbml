@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
@@ -32,28 +33,7 @@ import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
 
 // SBML CORE
-import org.sbml.jsbml.ASTNode;
-import org.sbml.jsbml.AbstractMathContainer;
-import org.sbml.jsbml.Annotation;
-import org.sbml.jsbml.Compartment;
-import org.sbml.jsbml.FunctionDefinition;
-import org.sbml.jsbml.InitialAssignment;
-import org.sbml.jsbml.JSBML;
-import org.sbml.jsbml.KineticLaw;
-import org.sbml.jsbml.LocalParameter;
-import org.sbml.jsbml.Model;
-import org.sbml.jsbml.ModifierSpeciesReference;
-import org.sbml.jsbml.NamedSBase;
-import org.sbml.jsbml.Parameter;
-import org.sbml.jsbml.QuantityWithUnit;
-import org.sbml.jsbml.Reaction;
-import org.sbml.jsbml.Rule;
-import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBase;
-import org.sbml.jsbml.Species;
-import org.sbml.jsbml.SpeciesReference;
-import org.sbml.jsbml.Symbol;
-import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.CobraUtil;
 import org.sbml.jsbml.xml.XMLNode;
 // SBML QUAL
@@ -452,7 +432,46 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 
         // UnitDefinitions
-		// TODO: implement ListOfUnitDefinitions and UnitDefinitions
+        for (UnitDefinition ud: model.getListOfUnitDefinitions()){
+
+            // TODO: make the ids unique! Clash with model ids, use prefix
+            // TODO: add the edges between units and objects !
+
+
+            CyNode n = createNamedSBaseNode(ud, SBML.NODETYPE_UNIT_DEFINITION);
+            for (Unit unit: ud.getListOfUnits()){
+                if (ud.isSetId() && unit.isSetKind()){
+                    String id = SBMLUtil.unitId(ud.getId(), unit);
+
+                    // create node and add to network
+                    CyNode uNode = network.addNode();
+                    nodeById.put(id, uNode);
+                    setSBaseAttributes(uNode, unit);
+                    AttributeUtil.set(network, uNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_UNIT, String.class);
+
+                    String kind = unit.getKind().toString();
+                    AttributeUtil.set(network, uNode, SBML.ATTR_ID, id, String.class);
+                    AttributeUtil.set(network, uNode, SBML.LABEL, kind, String.class);
+                    AttributeUtil.set(network, uNode, SBML.ATTR_UNIT_KIND, kind, String.class);
+
+                    if (unit.isSetExponent()){
+                        AttributeUtil.set(network, uNode, SBML.ATTR_UNIT_EXPONENT, unit.getExponent(), Double.class);
+                    }
+                    if (unit.isSetScale()){
+                        AttributeUtil.set(network, uNode, SBML.ATTR_UNIT_SCALE, unit.getScale(), Integer.class);
+                    }
+                    if (unit.isSetMultiplier()){
+                        AttributeUtil.set(network, uNode, SBML.ATTR_UNIT_MULTIPLIER, unit.getMultiplier(), Double.class);
+                    }
+
+                    CyEdge edge = network.addEdge(uNode, n, true);
+                    AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_UNIT_UNITDEFINITION, String.class);
+                }else{
+                    logger.warn(String.format("Unit could not be created due to missing " +
+                            "UnitDefinition id or unit kind: ", ud));
+                }
+            }
+        }
 		
 		// FunctionDefinitions
 		for (FunctionDefinition fd : model.getListOfFunctionDefinitions()){
@@ -1274,6 +1293,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private void addSBMLTypesExtended(CyNetwork network, Model model){
         for (CyNode n : network.getNodeList()){
             String type = AttributeUtil.get(network, n, SBML.NODETYPE_ATTR, String.class);
+            if (type == null){
+                logger.error(String.format("SBML.NODETYPE_ATTR not set for SBML node: %s", n));
+            }
             // additional subtypes
             if (type.equals(SBML.NODETYPE_REACTION)){
                 Boolean reversible = AttributeUtil.get(network, n, SBML.ATTR_REVERSIBLE, Boolean.class);
