@@ -433,24 +433,22 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         // UnitDefinitions
         for (UnitDefinition ud: model.getListOfUnitDefinitions()){
+            // TODO: add the edges between units and objects (and make style)!
+            String cyId = SBMLUtil.unitDefinitionId(ud);
+            CyNode n = createNamedSBaseNode(cyId, ud, SBML.NODETYPE_UNIT_DEFINITION);
 
-            // TODO: make the ids unique! Clash with model ids, use prefix
-            // TODO: add the edges between units and objects !
-
-
-            CyNode n = createNamedSBaseNode(ud, SBML.NODETYPE_UNIT_DEFINITION);
             for (Unit unit: ud.getListOfUnits()){
                 if (ud.isSetId() && unit.isSetKind()){
-                    String id = SBMLUtil.unitId(ud.getId(), unit);
+                    String unitId = SBMLUtil.unitId(ud.getId(), unit);
 
                     // create node and add to network
                     CyNode uNode = network.addNode();
-                    nodeById.put(id, uNode);
+                    nodeById.put(unitId, uNode);
                     setSBaseAttributes(uNode, unit);
                     AttributeUtil.set(network, uNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_UNIT, String.class);
 
                     String kind = unit.getKind().toString();
-                    AttributeUtil.set(network, uNode, SBML.ATTR_ID, id, String.class);
+                    AttributeUtil.set(network, uNode, SBML.ATTR_ID, unitId, String.class);
                     AttributeUtil.set(network, uNode, SBML.LABEL, kind, String.class);
                     AttributeUtil.set(network, uNode, SBML.ATTR_UNIT_KIND, kind, String.class);
 
@@ -500,7 +498,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		
 		// Nodes for parameters
 		for (Parameter parameter : model.getListOfParameters()) {
-			@SuppressWarnings("unused")
 			CyNode node = createSymbolNode(parameter, SBML.NODETYPE_PARAMETER);
 		}
 
@@ -1158,26 +1155,55 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
     }
 
-    private CyNode createNamedSBaseNode(NamedSBase sbase, String type){
-        String id = sbase.getId();
-        // create node and add to network
+    /**
+     * Create NamedSBaseNode with id as cyId.
+     *
+     * @param nsb
+     * @param type
+     * @return
+     */
+    private CyNode createNamedSBaseNode(NamedSBase nsb, String type){
+		String cyId = nsb.getId();
+		return createNamedSBaseNode(cyId, nsb, type);
+	}
+
+	/**
+	 * Create network node and set attributes for NamedSBase.
+	 *
+	 * @param cyId id for objectMapping
+	 * @param nsb NamedSBase to create node for
+	 * @param type
+	 * @return
+	 */
+    private CyNode createNamedSBaseNode(String cyId, NamedSBase nsb, String type){
+        // create node & add to network
         CyNode n = network.addNode();
-        nodeById.put(id, n);
-        // set the attributes
-        AttributeUtil.set(network, n, SBML.ATTR_ID, id, String.class);
+        AttributeUtil.set(network, n, SBML.ATTR_CYID, cyId, String.class);
+        nodeById.put(cyId, n);
+
+        // SBML attributes
+        String id = nsb.getId();
+        AttributeUtil.set(network, n, SBML.ATTR_ID, nsb.getId(), String.class);
         AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, type, String.class);
-        setSBaseAttributes(n, sbase);
-        if (sbase.isSetName()){
-            AttributeUtil.set(network, n, SBML.ATTR_NAME, sbase.getName(), String.class);
-            AttributeUtil.set(network, n, SBML.LABEL, sbase.getName(), String.class);
+        setSBaseAttributes(n, nsb);
+        if (nsb.isSetName()){
+            String name = nsb.getName();
+            AttributeUtil.set(network, n, SBML.ATTR_NAME, name, String.class);
+            AttributeUtil.set(network, n, SBML.LABEL, name, String.class);
         } else {
             AttributeUtil.set(network, n, SBML.LABEL, id, String.class);
         }
         return n;
     }
 
-    /* Handle QuantityWithUnit.
-     * Among others localParameters. */
+    /**
+     * Create QuantityWithUnit node.
+     * e.g. LocalParameters.
+     *
+     * @param q
+     * @param type
+     * @return
+     */
     private CyNode createQuantityWithUnitNode(QuantityWithUnit q, String type){
         CyNode n = createNamedSBaseNode(q, type);
         if (q.isSetValue()){
@@ -1185,6 +1211,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
         if (q.isSetUnits()){
             AttributeUtil.set(network, n, SBML.ATTR_UNITS, q.getUnits(), String.class);
+
+            CyNode udNode = nodeById.get(SBMLUtil.unitDefinitionId(q.getUnitsInstance()));
+            if (udNode == null){
+                logger.error(String.format("UnitDefinition node not found for:", q.getId()));
+            }
+            CyEdge edge = network.addEdge(n, udNode, true);
+            AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SBASE_UNITDEFINITION, String.class);
         }
 
         UnitDefinition udef = q.getDerivedUnitDefinition();
@@ -1194,8 +1227,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         return n;
     }
 
-    /* Handle symbol nodes.
-     * Among others species and parameters. */
+    /**
+     * Create Symbol nodes.
+     * e.g. Species or Parameters
+     *
+     * @param symbol
+     * @param type
+     * @return
+     */
     private CyNode createSymbolNode(Symbol symbol, String type){
         CyNode n = createQuantityWithUnitNode(symbol, type);
         if (symbol.isSetConstant()){
@@ -1220,7 +1259,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      *     StoichiometryMath,
      *     Trigger
      */
-    private CyNode createAbstractMathContainerNode(AbstractMathContainer container, String type){
+    private CyNode createAbstractMathContainerNode(String cyId, AbstractMathContainer container, String type){
         CyNode n = network.addNode();
         setAbstractMathContainerNodeAttributes(n, container, type);
         return n;
@@ -1239,8 +1278,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
     }
 
-
-    /** Creates math subgraph for given math container and node. */
+    /**
+     * Creates math subgraph for given math container and node.
+     * The containerNode is provided.
+     * @param container
+     * @param containerNode
+     * @param edgeType
+     */
     private void createMathNetwork(AbstractMathContainer container, CyNode containerNode, String edgeType){
         if (container.isSetMath()){
             ASTNode astNode = container.getMath();
@@ -1258,6 +1302,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds integer compartment codes as node attribute.

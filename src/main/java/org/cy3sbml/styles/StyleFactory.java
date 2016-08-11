@@ -127,6 +127,8 @@ public class StyleFactory {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Create all styles.
      * This creates/updates the styles based on the current settings in SBML.java.
@@ -136,8 +138,8 @@ public class StyleFactory {
 
 
         List<StyleInfo> styleInfos = new LinkedList<>();
-        styleInfos.add(new StyleInfo01());  // cy3sbml
-        styleInfos.add(new StyleInfo02());  // cy3sbml-dark
+        styleInfos.add(new StyleInfo_cy3sbml());  // cy3sbml
+        styleInfos.add(new StyleInfo_cy3sbmlDark());  // cy3sbml-dark
         for (StyleInfo info: styleInfos){
             File file = new File(targetDir, info.getName() + ".xml");
             StyleFactory.createStyle(info, file);

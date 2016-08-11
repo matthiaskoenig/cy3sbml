@@ -6,8 +6,6 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
-
 public class StyleFactoryTest {
 
     @Rule
@@ -16,14 +14,14 @@ public class StyleFactoryTest {
     @Test
     public void createStyle01() throws Exception {
         File tempFile = folder.newFile("test.xml");
-        StyleInfo01 info = new StyleInfo01();
+        StyleInfo_cy3sbml info = new StyleInfo_cy3sbml();
         StyleFactory.createStyle(info, tempFile);
     }
 
     @Test
     public void createStyle02() throws Exception {
         File tempFile = folder.newFile("test.xml");
-        StyleInfo02 info = new StyleInfo02();
+        StyleInfo_cy3sbmlDark info = new StyleInfo_cy3sbmlDark();
         StyleFactory.createStyle(info, tempFile);
     }
 

@@ -120,9 +120,14 @@ public class SBMLUtil {
     }
 
     public static String unitId(String unitDefinitionId, Unit unit){
-        return String.format("%s_%s", unitDefinitionId, unit.getKind().toString());
+        return String.format("UnitSId__%s_%s", unitDefinitionId, unit.getKind().toString());
     }
 
+    public static String unitDefinitionId(UnitDefinition ud){
+        return String.format("UnitSId__%s", ud.getId());
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Get the variable from AssignmentRule and RateRule.
@@ -409,6 +414,22 @@ public class SBMLUtil {
         String variable = ass.isSetVariable() ? ass.getVariable() : SBaseHTMLFactory.ICON_NONE;
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ass, variable);
 
+        return map;
+    }
+
+    /** Unit map. */
+    public static LinkedHashMap<String, String> createUnitMap(Unit u) {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+        String kind = u.isSetKind() ? u.getKind().toString() : SBaseHTMLFactory.ICON_NONE;
+        String exponent = u.isSetExponent() ? ((Double) u.getExponent()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String multiplier = u.isSetMultiplier() ? ((Double) u.getMultiplier()).toString() : SBaseHTMLFactory.ICON_NONE;
+        String scale = u.isSetScale() ? ((Integer) u.getScale()).toString() : SBaseHTMLFactory.ICON_NONE;
+
+        map.put(SBML.ATTR_UNIT_KIND, kind);
+        map.put(SBML.ATTR_UNIT_EXPONENT, exponent);
+        map.put(SBML.ATTR_UNIT_MULTIPLIER, multiplier);
+        map.put(SBML.ATTR_UNIT_SCALE, scale);
         return map;
     }
 

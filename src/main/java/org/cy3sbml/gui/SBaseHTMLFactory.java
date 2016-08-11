@@ -259,63 +259,62 @@ public class SBaseHTMLFactory {
 	private static String createSBase(SBase item){
 	    LinkedHashMap<String, String> map;
 
-        // SBMLDocument //
-        // contains information of Model
+        // core //
 		if (item instanceof SBMLDocument){
 		    map = SBMLUtil.createSBMLDocumentMap((SBMLDocument) item);
 		}
-        // Compartment //
 		else if (item instanceof Compartment){
             map = SBMLUtil.createCompartmentMap((Compartment) item);
 		}
-        // Parameter //
 		else if (item instanceof Parameter){
             map = SBMLUtil.createParameterMap((Parameter) item);
 		}
-		// InitialAssignment //
 		else if (item instanceof InitialAssignment){
             map = SBMLUtil.createInitialAssignmentMap((InitialAssignment) item);
 		}
-		// Rule //
 		else if (item instanceof Rule){
             map = SBMLUtil.createRuleMap((Rule) item);
 		}
-		// LocalParameter //
 		else if (item instanceof LocalParameter){
 			map = SBMLUtil.createLocalParameterMap((LocalParameter) item);
 		}
-		// Species //
 		else if (item instanceof Species){
 			map = SBMLUtil.createSpeciesMap((Species) item);
 		}
-		// Reaction
 		else if (item instanceof Reaction){
 			map = SBMLUtil.createReactionMap((Reaction) item);
 		}
-		// KineticLaw
 		else if (item instanceof KineticLaw){
 			map = SBMLUtil.createKineticLawMap((KineticLaw) item);
 		}
-        // FunctionDefinition //
         else if (item instanceof FunctionDefinition){
             map = SBMLUtil.createFunctionDefinitionMap((FunctionDefinition) item);
         }
-		// qual:QualitativeSpecies
+        else if (item instanceof UnitDefinition){
+            map = SBMLUtil.createNamedSBaseMap((UnitDefinition) item);
+        }
+        else if (item instanceof Unit){
+            map = SBMLUtil.createUnitMap((Unit) item);
+        }
+
+		// qual //
 		else if (item instanceof QualitativeSpecies){
 			map = SBMLUtil.createQualitativeSpeciesMap((QualitativeSpecies) item);
 		}
-		// qual:Transition //
 		else if (item instanceof Transition){
             map = SBMLUtil.createTransitionMap((Transition) item);
 		}
-		// fbc:GeneProduct //
+
+		// fbc //
 		else if (item instanceof GeneProduct){
             map = SBMLUtil.createGeneProductMap((GeneProduct) item);
 		}
-		// comp:Port //
+
+		// comp //
 		else if (item instanceof Port){
 			map = SBMLUtil.createPortMap((Port) item);
 		}
+
 		// Not supported
 		else {
             logger.warn(String.format("No object map support for %s <%s>", SBMLUtil.getUnqualifiedClassName(item), item));

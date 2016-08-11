@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class StyleInfo01Test {
     @Test
     public void createMappings() throws Exception {
-        StyleInfo01 info = new StyleInfo01();
+        StyleInfo_cy3sbml info = new StyleInfo_cy3sbml();
         List<Mapping> mappings = info.createMappings();
         assertNotNull(mappings);
         assertTrue(mappings.size() > 0);

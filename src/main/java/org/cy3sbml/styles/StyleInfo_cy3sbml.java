@@ -12,12 +12,12 @@ import java.util.Map;
  * Uses a template file and than sets the specific mappings in the file.
  * TODO: use colorbrewer for colors
  */
-public class StyleInfo01 extends StyleInfo {
+public class StyleInfo_cy3sbml extends StyleInfo {
 
     public static final String NAME = "cy3sbml";
     public static final String TEMPLATE = "/styles/template_cy3sbml.xml";
 
-    public StyleInfo01(){
+    public StyleInfo_cy3sbml(){
         super(NAME, TEMPLATE);
         setMappings(createMappings());
     }
@@ -54,6 +54,8 @@ public class StyleInfo01 extends StyleInfo {
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#FFFFFF", m3));
 
+        // EDGE //
+
         Map<String, String> m10 = new HashMap<>();
         m10.put(SBML.INTERACTION_REACTION_PRODUCT, "#000000");
         m10.put(SBML.INTERACTION_REACTION_REACTANT, "#000000");
@@ -63,6 +65,7 @@ public class StyleInfo01 extends StyleInfo {
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, "#000000");
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_INPUT, "#000000");
         m10.put(SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES, "#3333FF");
+        m10.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "#FF3333");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
         mappings.add(new MappingDiscrete(Mapping.DataType.string,

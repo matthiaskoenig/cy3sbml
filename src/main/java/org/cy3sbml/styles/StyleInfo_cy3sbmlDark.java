@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /** Dark style.*/
-public class StyleInfo02 extends StyleInfo {
+public class StyleInfo_cy3sbmlDark extends StyleInfo {
     public static final String NAME = "cy3sbml-dark";
     public static final String TEMPLATE = "/styles/template_cy3sbml-dark.xml";
 
     /** Constructor. */
-    public StyleInfo02() {
+    public StyleInfo_cy3sbmlDark() {
         super(NAME, TEMPLATE);
         setMappings(createMappings());
     }
@@ -49,6 +49,7 @@ public class StyleInfo02 extends StyleInfo {
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#666666", m3));
 
+        // EDGE //
 
         Map<String, String> m10 = new HashMap<>();
         m10.put(SBML.INTERACTION_REACTION_PRODUCT, "#FFFFFF");
@@ -59,6 +60,7 @@ public class StyleInfo02 extends StyleInfo {
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, "#FFFFFF");
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_INPUT, "#FFFFFF");
         m10.put(SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES, "#3333FF");
+        m10.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "#FF3333");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
         mappings.add(new MappingDiscrete(Mapping.DataType.string,

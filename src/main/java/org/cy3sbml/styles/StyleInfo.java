@@ -136,6 +136,8 @@ public class StyleInfo {
 
         Map<String, String> m11 = new HashMap<>();
         m11.put(SBML.INTERACTION_REACTION_MODIFIER, "LONG_DASH");
+        m11.put(SBML.INTERACTION_UNIT_UNITDEFINITION, "DOT");
+        m11.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "DOT");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 

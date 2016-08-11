@@ -15,7 +15,7 @@ public class StyleInfoTest {
     private StyleInfo s;
 
     @Before
-    public void setUp(){ s = new StyleInfo01(); }
+    public void setUp(){ s = new StyleInfo_cy3sbml(); }
 
     @After
     public void tearDown(){ s = null; }

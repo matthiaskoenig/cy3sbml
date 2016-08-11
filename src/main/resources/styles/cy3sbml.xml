@@ -169,6 +169,7 @@
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
                     <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
+                    <discreteMappingEntry attributeValue="sbase_unitDefinition" value="#FF3333"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="NONE" name="EDGE_TARGET_ARROW_SHAPE">
@@ -182,7 +183,9 @@
             <visualProperty default="#000000" name="EDGE_TARGET_ARROW_UNSELECTED_PAINT"/>
             <visualProperty default="SOLID" name="EDGE_LINE_TYPE">
                 <discreteMapping attributeName="interaction type" attributeType="string">
+                    <discreteMappingEntry attributeValue="unit_unitDefinition" value="DOT"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
+                    <discreteMappingEntry attributeValue="sbase_unitDefinition" value="DOT"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="" name="EDGE_LABEL"/>
@@ -210,6 +213,7 @@
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
                     <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
+                    <discreteMappingEntry attributeValue="sbase_unitDefinition" value="#FF3333"/>
                 </discreteMapping>
             </visualProperty>
         </edge>

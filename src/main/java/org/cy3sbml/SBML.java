@@ -29,6 +29,9 @@ public class SBML {
 
     public static final String INTERACTION_ATTR = SBMLCore.INTERACTION_TYPE_ATTR;
 
+    // unique id created for SBase objects (used for mapping)
+    public static final String ATTR_CYID = "cyId";
+
     // -----------------------
     // Node & edge attributes
     // -----------------------
@@ -148,7 +151,8 @@ public class SBML {
     public static final String INTERACTION_REFERENCE_KINETICLAW = "reference_kineticLaw";
     public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter_kineticLaw";
     public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference_functionDefinition";
-    public static final String INTERACTION_UNIT_UNITDEFINITION = "reference_functionDefinition";
+    public static final String INTERACTION_UNIT_UNITDEFINITION = "unit_unitDefinition";
+    public static final String INTERACTION_SBASE_UNITDEFINITION = "sbase_unitDefinition";
 	
 	// qual
     public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input_transition";
