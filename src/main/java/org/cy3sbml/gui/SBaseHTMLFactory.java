@@ -373,7 +373,6 @@ public class SBaseHTMLFactory {
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
 
-
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
         if (cvterm.isModelQualifier()){
@@ -398,10 +397,6 @@ public class SBaseHTMLFactory {
             //DataType dataType = RegistryUtilities.getDataType(dataCollection);
             DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
 
-            String identifierHTML = String.format(
-                    "<span class=\"identifier\" title=\"Resource identifier\">%s</span>",
-                    identifier);
-
             // check that identifier is correct for given datatype
             if (dataType != null){
                 String pattern = dataType.getRegexp();
@@ -412,7 +407,30 @@ public class SBaseHTMLFactory {
                 }
             }
 
-            // TODO: link to primary resource via id
+            // link to primary resource via id
+            String resourceLink = null;
+            if (dataType == null){
+                resourceLink = resourceURI;
+            } else {
+                for (PhysicalLocation location: dataType.getPhysicalLocations()) {
+                    if (resourceLink == null){
+                        // take first one
+                        resourceLink = createURL(location, identifier);
+                        continue;
+                    }
+                    // overwrite if primary
+                    if (location.isPrimary()){
+                        resourceLink = createURL(location, identifier);
+                        break;
+                    }
+                }
+            }
+
+            // identifier
+            String identifierHTML = String.format(
+                    "<a href=\"%s\"><span class=\"identifier\" title=\"Resource identifier. Click to open primary resource.\">%s</span></a>",
+                    resourceLink, identifier);
+
 
             // not possible to resolve dataType from MIRIAM registry
             if (dataType == null){
@@ -455,19 +473,25 @@ public class SBaseHTMLFactory {
      * Information for non-OLS location.
      */
     private static String createNonOLSLocation(PhysicalLocation location, String identifier){
-        String text = "";
-        String url = String.format(
-                "%s%s%s",
-                location.getUrlPrefix(), identifier, location.getUrlSuffix());
         Boolean primary = location.isPrimary();
         String info = location.getInfo();
 
-        text += String.format(
+        return String.format(
                 "\t%s <a href=\"%s\"> %s</a><br />\n",
-                (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
-        return text;
+                (primary == true) ? ICON_TRUE : ICON_INVISIBLE,
+                createURL(location, identifier),
+                info);
     }
 
+    /**
+     * Creates the URL for the given location and identifier.
+     * @param identifier
+     * @return
+     */
+    private static String createURL(PhysicalLocation location, String identifier){
+        return String.format("%s%s%s",
+                location.getUrlPrefix(), identifier, location.getUrlSuffix());
+    }
 
     /**
      * Information for an OLS location.
