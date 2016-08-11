@@ -223,6 +223,10 @@ public class SBMLUtil {
         return map;
     }
 
+    /** SBMLDocument map. */
+    public static LinkedHashMap<String, String> createSBMLDocumentMap(SBMLDocument doc){
+        return new LinkedHashMap<>();
+    }
 
     /** Model map. */
     public static LinkedHashMap<String, String> createModelMap(Model model){

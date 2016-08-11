@@ -71,8 +71,8 @@ public class PanelUpdater implements Runnable {
                     panel.setText(TEMPLATE_NO_NODE);
                 }
             } else {
-                // show model information
-                panel.showSBaseInfo(document.getModel());
+                // show document/model information
+                panel.showSBaseInfo(document);
             }
         } else {
             panel.setText(TEMPLATE_NO_SBML);

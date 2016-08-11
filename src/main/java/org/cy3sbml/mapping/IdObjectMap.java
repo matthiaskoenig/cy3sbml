@@ -50,7 +50,7 @@ public class IdObjectMap {
             ////////////////////////////////////////////////////////////////////////////
             // SBML CORE
             ////////////////////////////////////////////////////////////////////////////
-
+            
             Model model;
             if (document.isSetModel()) {
                 model = document.getModel();
@@ -58,6 +58,7 @@ public class IdObjectMap {
                 // nothing to add
                 return;
             }
+
 
             // FunctionDefinitions
             addListOf(model.getListOfFunctionDefinitions());

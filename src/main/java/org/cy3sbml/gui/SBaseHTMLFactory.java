@@ -128,12 +128,39 @@ public class SBaseHTMLFactory {
         return createHTMLText(text, "cy3sbml");
     }
 
-	/** Parse and create information for the current sbmlObject. */
+	/**
+     * Parse and create information for current Sbase.
+     */
 	public void createInfo() {
-		if (sbase == null){
-			return;
-		}
-        // title from class and id
+        String title = getTitle(sbase);
+	    html = String.format(HTML_START_TEMPLATE, baseDir, title);
+
+	    html += createInfoForSBase(sbase);
+        if (sbase instanceof SBMLDocument) {
+            // in case of SBMLDocument add the model information
+            SBMLDocument doc = (SBMLDocument) sbase;
+            if (doc.isSetModel()){
+                html += createInfoForSBase(doc.getModel());
+            }
+        }
+        html += HTML_STOP_TEMPLATE;
+	}
+
+    /**
+     * Create title string for given SBase.
+     * @param sbase
+     * @return
+     */
+	private static String getTitle(SBase sbase){
+	    // handle SBMLDocument case
+        if (sbase instanceof SBMLDocument){
+            SBMLDocument doc = (SBMLDocument) sbase;
+            if (doc.isSetModel()){
+                sbase = doc.getModel();
+            }
+        }
+
+	    // title from class and id
         String id = "";
         if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
             NamedSBase nsb = (NamedSBase) sbase;
@@ -141,18 +168,23 @@ public class SBaseHTMLFactory {
                 id = nsb.getId();
             }
         }
-		String title = String.format(
-		        "%s %s", id, SBMLUtil.getUnqualifiedClassName(sbase));
+        return String.format("%s %s",
+                id, SBMLUtil.getUnqualifiedClassName(sbase));
+    }
 
-        html = String.format(HTML_START_TEMPLATE, baseDir, title);
-		html += createHeader(sbase);
+	private static String createInfoForSBase(SBase sbase){
+        if (sbase == null){
+            return "";
+        }
+        String html = createHeader(sbase);
         html += createSBase(sbase);
         html += createHistory(sbase);
         html += createCVTerms(sbase);
         html += createNonRDFAnnotation(sbase);
         html += createNotes(sbase);
-  		html += HTML_STOP_TEMPLATE;
-	}
+        return html;
+    }
+
 	
 	/**
 	 * Creates header HTML.
@@ -188,19 +220,19 @@ public class SBaseHTMLFactory {
         for (Creator c: h.getListOfCreators()){
             String givenName = c.isSetGivenName() ? c.getGivenName() : "";
             String familyName = c.isSetFamilyName() ? c.getFamilyName() : "";
-            String organisation = c.isSetOrganisation() ? String.format("; %s", c.getOrganisation()) : "";
+            String organisation = c.isSetOrganisation() ? String.format(", %s", c.getOrganisation()) : "";
             String email = "";
             if (c.isSetEmail()){
                 email = String.format("(<a href=\"mailto:%s\">%s</a>)", c.getEmail(), c.getEmail());
             }
-            html += String.format("%s %s %s %s</br>\n", givenName, familyName, email, organisation);
+            html += String.format("%s %s %s%s</br>\n", givenName, familyName, email, organisation);
         }
         if (h.isSetCreatedDate()){
-            html += String.format("created: <code>%s</code></br>\n", h.getCreatedDate());
+            html += String.format("<code>created: %s</code></br>\n", h.getCreatedDate());
         }
         if (h.isSetListOfModification()){
             for (Date date: h.getListOfModifiedDates()){
-                html += String.format("modified: <code>%s</code></br>\n", date);
+                html += String.format("<code>modified: %s</code></br>\n", date);
             }
         }
         return html;
@@ -210,6 +242,9 @@ public class SBaseHTMLFactory {
      * Creates the HTML table from map.
      */
 	private static String createTableFromMap(Map<String, String> map){
+	    if (map == null || map.size() == 0){
+	        return "";
+        }
         String html = TABLE_START;
         for (String key: map.keySet()){
             html += TS + key + TM + map.get(key) + TE;
@@ -224,9 +259,10 @@ public class SBaseHTMLFactory {
 	private static String createSBase(SBase item){
 	    LinkedHashMap<String, String> map;
 
-        // Model //
-		if (item instanceof Model){
-		    map = SBMLUtil.createModelMap((Model) item);
+        // SBMLDocument //
+        // contains information of Model
+		if (item instanceof SBMLDocument){
+		    map = SBMLUtil.createSBMLDocumentMap((SBMLDocument) item);
 		}
         // Compartment //
 		else if (item instanceof Compartment){
