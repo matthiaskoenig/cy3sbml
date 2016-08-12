@@ -73,7 +73,6 @@ import org.sbml.jsbml.ext.layout.SpeciesGlyph;
 
 import org.cy3sbml.util.*;
 import org.cy3sbml.layout.LayoutPreprocessor;
-import org.cy3sbml.mapping.IdNodeMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 
 import org.slf4j.Logger;
@@ -159,9 +158,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         // SBMLManager is only available in the OSGI context
         if (sbmlManager != null) {
+
             // get existing mappings (of read networks)
             One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
-            mapping = IdNodeMap.fromSBMLNetwork(document, network, mapping);
+            mapping = mappingFromNetwork(network, mapping);
 
             // existing mapping is updated
             sbmlManager.addSBMLForNetwork(document, network, mapping);
@@ -202,6 +202,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         // finished
         return view;
+    }
+
+    /**
+     * Create mapping between cyIds and cytoscape nodes.
+     *
+     * The mapping between CyNetwork elements and SBML elements uses
+     * the unique SUIDs of CyNodes and unique cyIds of SBase SBML elements.
+     */
+    public static One2ManyMapping<String, Long> mappingFromNetwork(CyNetwork network, One2ManyMapping<String, Long> mapping){
+        if (mapping == null){
+            mapping = new One2ManyMapping<>();
+        }
+        List<CyNode> nodes = network.getNodeList();
+        for (CyNode node : nodes){
+            CyRow attributes = network.getRow(node);
+            String cyId = attributes.get(SBML.ATTR_CYID, String.class);
+            mapping.put(cyId, node.getSUID());
+        }
+        return mapping;
     }
 
     /** Cancel task. */
@@ -607,7 +626,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// local parameter nodes
 				if (law.isSetListOfLocalParameters()){
 					for (LocalParameter lp: law.getListOfLocalParameters()){
-                        CyNode lpNode = createNode(CyIdSBaseMap.localParameterCyId(reaction, lp), SBML.NODETYPE_LOCAL_PARAMTER);
+					    String cyId = CyIdSBaseMap.localParameterCyId(reaction, lp);
+                        // This changes the SBMLDocument !
+                        // but only reliable way to handle LocalParameters in math networks
+                        lp.setId(cyId);
+
+                        CyNode lpNode = createNode(cyId, SBML.NODETYPE_LOCAL_PARAMTER);
 						setQuantityWithUnitAttributes(lpNode, lp);
 
 						// edge to reaction
@@ -1306,6 +1330,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             // create edge if node exists
             for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)){
                 CyNode nsbNode = nodeByCyId.get(nsb.getId());
+
                 if (nsbNode != null){
                     createEdge(nsbNode, containerNode, edgeType);
                 }else{

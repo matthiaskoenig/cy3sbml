@@ -70,8 +70,9 @@ public class CyIdSBaseMap {
             }
 
             // UnitDefinitions
-            addListOf(model.getListOfUnitDefinitions());
+            // stored with prefix due to different namespace
             for (UnitDefinition ud: model.getListOfUnitDefinitions()){
+                objectMap.put(unitDefinitionCyId(ud), ud);
                 for (Unit unit: ud.getListOfUnits()){
                     String cyId = unitCyId(ud, unit);
                     objectMap.put(cyId, unit);
@@ -226,7 +227,13 @@ public class CyIdSBaseMap {
      * @return
      */
     public static String localParameterCyId(Reaction reaction, LocalParameter lp){
-        return String.format("%s_%s", reaction.getId(), lp.getId());
+        String id = lp.getId();
+        String reactionId = reaction.getId();
+        if (id.startsWith(reactionId)){
+            return id;
+        }else {
+            return String.format("%s_%s", reaction.getId(), lp.getId());
+        }
     }
 
     /**

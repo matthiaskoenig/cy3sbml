@@ -147,6 +147,25 @@ public class SBaseHTMLFactory {
 	}
 
     /**
+     * Creates info for given SBase.
+     *
+     * @param sbase
+     * @return
+     */
+    private static String createInfoForSBase(SBase sbase){
+        if (sbase == null){
+            return "";
+        }
+        String html = createHeader(sbase);
+        html += createSBase(sbase);
+        html += createHistory(sbase);
+        html += createCVTerms(sbase);
+        html += createNonRDFAnnotation(sbase);
+        html += createNotes(sbase);
+        return html;
+    }
+
+    /**
      * Create title string for given SBase.
      * @param sbase
      * @return
@@ -172,20 +191,6 @@ public class SBaseHTMLFactory {
                 id, SBMLUtil.getUnqualifiedClassName(sbase));
     }
 
-	private static String createInfoForSBase(SBase sbase){
-        if (sbase == null){
-            return "";
-        }
-        String html = createHeader(sbase);
-        html += createSBase(sbase);
-        html += createHistory(sbase);
-        html += createCVTerms(sbase);
-        html += createNonRDFAnnotation(sbase);
-        html += createNotes(sbase);
-        return html;
-    }
-
-	
 	/**
 	 * Creates header HTML.
 	 * Displays class information, in addition id and name if existing.
@@ -263,6 +268,9 @@ public class SBaseHTMLFactory {
 		if (item instanceof SBMLDocument){
 		    map = SBMLUtil.createSBMLDocumentMap((SBMLDocument) item);
 		}
+        else if (item instanceof Model){
+            map = SBMLUtil.createModelMap((Model) item);
+        }
 		else if (item instanceof Compartment){
             map = SBMLUtil.createCompartmentMap((Compartment) item);
 		}

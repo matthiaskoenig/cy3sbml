@@ -218,7 +218,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * @param suids list of node suids.
      * @return
      */
-	public List<String> getObjectCyIds(List<Long> suids){
+	public List<String> getCyIdsFromSUIDs(List<Long> suids){
 		One2ManyMapping<Long, String> mapping = getCurrentCyNode2SBaseMapping();
 		return new LinkedList<>(mapping.getValues(suids));
 	}

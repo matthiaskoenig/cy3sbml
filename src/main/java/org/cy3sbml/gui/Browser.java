@@ -73,7 +73,7 @@ public class Browser extends Region {
          * Alternative javascript upcalls could be performed.
          */
         WebViewHyperlinkListener eventProcessingListener = event -> {
-            System.out.println(WebViews.hyperlinkEventToString(event));
+            logger.debug(WebViews.hyperlinkEventToString(event));
 
             // clicked url
             URL url = event.getURL();
