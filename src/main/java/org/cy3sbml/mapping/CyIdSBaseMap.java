@@ -32,6 +32,9 @@ import org.slf4j.LoggerFactory;
  *
  * Objects are stored under the created CyIds.
  *
+ * FIXME: This should be done when the nodes are created, i.e.
+ * with every created node the respective SBase should be saved.
+ *
  */
 public class CyIdSBaseMap {
 	private static final Logger logger = LoggerFactory.getLogger(CyIdSBaseMap.class);
@@ -103,10 +106,6 @@ public class CyIdSBaseMap {
                 objectMap.put(cyId, rule);
             }
 
-            // Constraints
-            // TODO: implement
-            // addListOf(model.getListOfConstraints());
-
             // Reactions
             addListOf(model.getListOfReactions());
 			
@@ -125,8 +124,21 @@ public class CyIdSBaseMap {
 				}
 			}
 
-			// Events
-            addListOf(model.getListOfEvents());
+            // Constraints
+            ListOf<Constraint> constraints = model.getListOfConstraints();
+            for (int k=0; k<constraints.size(); k++) {
+                Constraint constraint = constraints.get(k);
+                String cyId = CyIdSBaseMap.constraintCyId(k);
+                objectMap.put(cyId, constraint);
+            }
+
+            // Events
+            ListOf<Event> events = model.getListOfEvents();
+            for (int k=0; k<events.size(); k++) {
+                Event event = events.get(k);
+                String cyId = CyIdSBaseMap.eventCyId(k);
+                objectMap.put(cyId, event);
+            }
 
             ////////////////////////////////////////////////////////////////////////////
             // SBML QUAL
@@ -219,6 +231,7 @@ public class CyIdSBaseMap {
     public static final String CYID_SEPARATOR = "_";
     public static final String CYID_UNITSID_PREFIX = "UnitSId__";
     public static final String CYID_PREFIX_CONSTRAINT = "constraint_";
+    public static final String CYID_PREFIX_EVENT = "event_";
 
     /**
      * Creates unique cyId for LocalParameter.
@@ -289,4 +302,23 @@ public class CyIdSBaseMap {
         return String.format("%s%s",
                 CYID_PREFIX_CONSTRAINT, counter);
     }
+
+    /**
+     * Creates unique cyId for Constraint.
+     * @param counter
+     * @return
+     */
+    public static String eventCyId(Integer counter){
+        return String.format("%s%s",
+                CYID_PREFIX_EVENT, counter);
+    }
+
+    public static String eventAssignmentCyId(Integer counter){
+        return String.format("%s%s",
+                CYID_PREFIX_EVENT, counter);
+    }
+
+
+
+
 }

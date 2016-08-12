@@ -710,7 +710,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         for (int k=0; k<constraints.size(); k++){
             Constraint constraint = constraints.get(k);
 		    String cyId = CyIdSBaseMap.constraintCyId(k);
-
             CyNode n = createNode(cyId, SBML.NODETYPE_CONSTRAINT);
             setAbstractMathContainerNodeAttributes(n, constraint);
             if (constraint.isSetMessage()){
@@ -724,9 +723,52 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 		
-		// Events (not parsed)
-        // TODO: implement
-		// for (Event event : model.getListOfEvents()){}
+		// Events
+        ListOf<Event> events = model.getListOfEvents();
+		for (int k=0; k<events.size(); k++){
+		    Event event = events.get(k);
+            String cyId = CyIdSBaseMap.eventCyId(k);
+            CyNode n = createNode(cyId, SBML.NODETYPE_EVENT);
+
+            setNamedSBaseWithDerivedUnitAttributes(n, event);
+
+            if (event.isSetUseValuesFromTriggerTime()){
+                AttributeUtil.set(network, n, SBML.ATTR_USE_VALUES_FROM_TRIGGER_TIME,
+                        event.getUseValuesFromTriggerTime(), Boolean.class);
+            }
+
+            // TODO: implement
+            /*
+            for (EventAssignment ea: event.getListOfEventAssignments()){
+                String eaCyId =
+                CyNode eaNode = createNode(cyId, SBML.NODETYPE_EVENT_ASSIGNMENT);
+                setAbstractMathContainerNodeAttributes(eaNode, ea);
+
+                // edge to event
+
+                // edge to variable
+                if (ea.isSetVariable()){
+                    String variable = ea.getVariable();
+                    CyNode variableNode = nodeByCyId.get(variable);
+                    if (variableNode != null) {
+                        createEdge(variableNode, eaNode, SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT);
+                    } else {
+                        //  An assignment rule can refer to the identifier of a Species, SpeciesReference,
+                        //  Compartment, or global Parameter object in the model
+                        //  The case SpeciesReference is not handled !
+
+                        logger.warn(String.format("Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
+                                variable, ea));
+                    }
+                } else {
+                    logger.error("Variable not set in EventAssignment: " + ea);
+                }
+                // referenced nodes in math
+                createMathNetwork(ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
+            }
+            */
+
+        }
 	}
 		
 	////////////////////////////////////////////////////////////////////////////

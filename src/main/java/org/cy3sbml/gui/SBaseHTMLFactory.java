@@ -307,6 +307,9 @@ public class SBaseHTMLFactory {
         else if (item instanceof Constraint){
             map = SBMLUtil.createConstraintMap((Constraint) item);
         }
+        else if (item instanceof Event){
+            map = SBMLUtil.createEventMap((Event) item);
+        }
 
 		// qual //
 		else if (item instanceof QualitativeSpecies){
