@@ -7,8 +7,6 @@ import java.util.*;
 
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cytoscape.model.CyEdge;
-import org.cytoscape.model.CyNode;
 import org.sbml.jsbml.*;
 import org.cy3sbml.SBML;
 import org.sbml.jsbml.ext.SBasePlugin;
@@ -99,36 +97,6 @@ public class SBMLUtil {
         return null;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // ID HELPER
-    /////////////////////////////////////////////////////////////////////////////////////////
-
-    public static String localParameterId(String reactionId, LocalParameter lp){
-        return String.format("%s_%s", reactionId, lp.getId());
-    }
-
-    public static String kineticLawId(String reactionId){
-        return String.format("%s_%s", reactionId, SBML.SUFFIX_KINETIC_LAW);
-    }
-
-    public static String initialAssignmentId(String variable){
-        return String.format("%s_%s", variable, SBML.SUFFIX_INITIAL_ASSIGNMENT);
-    }
-
-    public static String ruleId(String variable){
-        return String.format("%s_%s", variable, SBML.SUFFIX_RULE);
-    }
-
-    public static String unitId(String unitDefinitionId, Unit unit){
-        return String.format("UnitSId__%s_%s", unitDefinitionId, unit.getKind().toString());
-    }
-
-    public static String unitDefinitionId(UnitDefinition ud){
-        return String.format("UnitSId__%s", ud.getId());
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Get the variable from AssignmentRule and RateRule.
      * Returns the variable string if set, returns null if not set or
@@ -164,6 +132,73 @@ public class SBMLUtil {
         name = name.replace('$', '.');
         return name;
     }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ID HELPER
+    /////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Necessary to create unique cyIds for all SBase objects.
+     * For NamedSBases this are directly the ids, for SBases the ids have to be generated.
+     */
+
+    public static final String CYID_SEPARATOR = "_";
+    public static final String CYID_UNITSID_PREFIX = "UnitSId__";
+
+    /**
+     * Creates unique cyId for LocalParameter.
+     *
+     * @param reaction
+     * @param lp
+     * @return
+     */
+    public static String localParameterCyId(Reaction reaction, LocalParameter lp){
+        return String.format("%s_%s", reaction.getId(), lp.getId());
+    }
+
+    /**
+     * Creates unique cyId for KineticLaw.
+     * Uses the reaction id in which the kinetic law is defined.
+     *
+     * @param reaction
+     * @return
+     */
+    public static String kineticLawCyId(Reaction reaction){
+        return String.format("%s_%s", reaction.getId(), SBML.SUFFIX_KINETIC_LAW);
+    }
+
+    public static String initialAssignmentId(String variable){
+        return String.format("%s_%s", variable, SBML.SUFFIX_INITIAL_ASSIGNMENT);
+    }
+
+    public static String ruleId(String variable){
+
+        return String.format("%s_%s", variable, SBML.SUFFIX_RULE);
+    }
+
+    /**
+     * Creates unique cyId for Unit.
+     * A unit is only unique in combination with its UnitDefinition.
+     *
+     * @param unitDefinition
+     * @param unit
+     * @return
+     */
+    public static String unitCyId(UnitDefinition unitDefinition, Unit unit){
+        return String.format("%s%s%s%s",
+                CYID_UNITSID_PREFIX, unitDefinition.getId(), CYID_SEPARATOR, unit.getKind().toString());
+    }
+
+    /**
+     * Creates unique cyId for UnitDefinition.
+     * @param ud
+     * @return
+     */
+    public static String unitDefinitionCyId(UnitDefinition ud){
+        return String.format("%s%s",
+                CYID_UNITSID_PREFIX, ud.getId());
+    }
+
 
     ////////////////////////////////////////////////////////////
     // Attribute maps
@@ -226,7 +261,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, String variable){
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
-        String units = getDerivedUnitString(container);
+        String units = getDerivedUnitHTML(container);
         if (variable != null){
             math = String.format("<span class=\"math\">%s = %s</span>", variable, math);
         }
@@ -379,7 +414,7 @@ public class SBMLUtil {
                 kineticLaw = law.getMath().toFormula();
             }
         }
-        String units = getDerivedUnitString(r);
+        String units = getDerivedUnitHTML(r);
 
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(SBML.ATTR_REVERSIBLE, reversible);
@@ -506,7 +541,7 @@ public class SBMLUtil {
     }
 
     /** Derived unit string. */
-    private static String getDerivedUnitString(SBaseWithDerivedUnit usbase){
+    private static String getDerivedUnitHTML(SBaseWithDerivedUnit usbase){
         String units = SBaseHTMLFactory.ICON_NONE;
         UnitDefinition udef = usbase.getDerivedUnitDefinition();
         if (udef != null){
