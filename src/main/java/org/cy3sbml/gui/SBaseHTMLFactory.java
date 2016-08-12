@@ -304,6 +304,9 @@ public class SBaseHTMLFactory {
         else if (item instanceof Unit){
             map = SBMLUtil.createUnitMap((Unit) item);
         }
+        else if (item instanceof Constraint){
+            map = SBMLUtil.createConstraintMap((Constraint) item);
+        }
 
 		// qual //
 		else if (item instanceof QualitativeSpecies){

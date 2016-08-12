@@ -402,6 +402,22 @@ public class SBMLUtil {
         return map;
     }
 
+    /** Constraint map. */
+    public static LinkedHashMap<String, String> createConstraintMap(Constraint constraint) {
+        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(constraint);
+        String message = SBaseHTMLFactory.ICON_NONE;
+        if (constraint.isSetMessage()){
+            try {
+                message = constraint.getMessageString();
+            } catch (XMLStreamException e) {
+                logger.error("Constraint message could not be created.", e);
+                e.printStackTrace();
+            }
+        }
+        map.put(SBML.ATTR_MESSAGE, message);
+        return map;
+    }
+
     /** Rule map. */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {
         String variable = SBMLUtil.getVariableFromRule(rule);

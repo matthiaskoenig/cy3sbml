@@ -58,6 +58,7 @@ public class SBML {
     public static final String ATTR_KINETIC_LAW = "kineticLaw";
     public static final String ATTR_SIZE = "size";
     public static final String ATTR_SPATIAL_DIMENSIONS = "spatialDimensions";
+    public static final String ATTR_MESSAGE = "message";
 
     public static final String ATTR_UNITS = "units";
     public static final String ATTR_DERIVED_UNITS = "derivedUnits";
@@ -116,6 +117,8 @@ public class SBML {
     public static final String NODETYPE_FUNCTION_DEFINITION = "functionDefinition";
     public static final String NODETYPE_UNIT_DEFINITION = "unitDefinition";
     public static final String NODETYPE_UNIT = "unit";
+    public static final String NODETYPE_EVENT = "event";
+    public static final String NODETYPE_CONSTRAINT = "constraint";
 
 	// qual
     public static final String NODETYPE_QUAL_SPECIES = "qual_species";

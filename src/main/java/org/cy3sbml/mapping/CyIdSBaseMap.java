@@ -218,6 +218,7 @@ public class CyIdSBaseMap {
 
     public static final String CYID_SEPARATOR = "_";
     public static final String CYID_UNITSID_PREFIX = "UnitSId__";
+    public static final String CYID_PREFIX_CONSTRAINT = "constraint_";
 
     /**
      * Creates unique cyId for LocalParameter.
@@ -279,5 +280,13 @@ public class CyIdSBaseMap {
                 CYID_UNITSID_PREFIX, ud.getId());
     }
 
-
+    /**
+     * Creates unique cyId for Constraint.
+     * @param counter
+     * @return
+     */
+    public static String constraintCyId(Integer counter){
+        return String.format("%s%s",
+                CYID_PREFIX_CONSTRAINT, counter);
+    }
 }

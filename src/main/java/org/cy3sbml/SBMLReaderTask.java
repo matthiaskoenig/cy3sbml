@@ -78,6 +78,8 @@ import org.cy3sbml.mapping.One2ManyMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.stream.XMLStreamException;
+
 
 /**
  * The SBMLReaderTask creates CyNetworks from SBMLDocuments.
@@ -306,7 +308,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// Add compartment codes dynamically for colors
 			addCompartmentCodes(network, model);
             addSBMLTypesExtended(network, model);
-            addSBMLInteractionExtended(network, model);
+            addSBMLInteractionExtended(network);
 						
 			//////////////////////////////////////////////////////////////////
 			
@@ -539,15 +541,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (reaction.isSetFast()){
 				AttributeUtil.set(network, n, SBML.ATTR_FAST, reaction.getFast(), Boolean.class);
 			}
-			if (reaction.isSetKineticLaw()){
-				KineticLaw law = reaction.getKineticLaw();
-				if (law.isSetMath()){
-					AttributeUtil.set(network, n, SBML.ATTR_KINETIC_LAW, law.getMath().toFormula(), String.class);	
-				} else {
-					logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
-				}
-			}
-
             if (reaction.isSetCompartment()){
                 AttributeUtil.set(network, n, SBML.ATTR_COMPARTMENT, reaction.getCompartment(), String.class);
                 CyNode comp = nodeByCyId.get(reaction.getCompartment());
@@ -600,12 +593,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 			}
 			
-			// Kinetic law 
+			// Kinetic law
 			if (reaction.isSetKineticLaw()){
 				KineticLaw law = reaction.getKineticLaw();
 				String lawCyId = CyIdSBaseMap.kineticLawCyId(reaction);
                 CyNode lawNode = createNode(lawCyId, SBML.NODETYPE_KINETIC_LAW);
-                setAbstractMathContainerNodeAttributes(n, law);
+                setAbstractMathContainerNodeAttributes(lawNode, law);
 				
 				// edge to reaction
 				CyEdge edge = network.addEdge(n, lawNode, true);
@@ -630,7 +623,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				}
 				
 				// referenced nodes in math
-				createMathNetwork(law, lawNode, SBML.INTERACTION_REFERENCE_KINETICLAW);
+                if (law.isSetMath()){
+                    // set math on reaction
+                    AttributeUtil.set(network, n, SBML.ATTR_KINETIC_LAW, law.getMath().toFormula(), String.class);
+                    createMathNetwork(law, lawNode, SBML.INTERACTION_REFERENCE_KINETICLAW);
+                } else {
+                    logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
+                }
 			}
 		}
 		
@@ -705,9 +704,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
 		}
 
-		// Constraints (not parsed)
-        // TODO: implement
-		// for (Constraint constraint : model.getListOfConstraints()){}
+		// Constraints
+        // No models with constraints exist for testing.
+        ListOf<Constraint> constraints = model.getListOfConstraints();
+        for (int k=0; k<constraints.size(); k++){
+            Constraint constraint = constraints.get(k);
+		    String cyId = CyIdSBaseMap.constraintCyId(k);
+
+            CyNode n = createNode(cyId, SBML.NODETYPE_CONSTRAINT);
+            setAbstractMathContainerNodeAttributes(n, constraint);
+            if (constraint.isSetMessage()){
+                try {
+                    AttributeUtil.set(network, n, SBML.ATTR_MESSAGE,
+                            constraint.getMessageString(), String.class);
+                }catch (XMLStreamException e) {
+                    logger.error("Message string could not be created for constraint.", e);
+                    e.printStackTrace();
+                }
+            }
+        }
 		
 		// Events (not parsed)
         // TODO: implement
@@ -988,7 +1003,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			CyNode orNode = network.addNode();
 			AttributeUtil.set(network, orNode, SBML.LABEL, "OR", String.class);
 			AttributeUtil.set(network, orNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_OR, String.class);
-			CyEdge edge = network.addEdge(orNode, parentNode, true);
 			if (parentType.equals(SBML.NODETYPE_REACTION)){
 			    createEdge(orNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_REACTION);
 			} else {
@@ -1462,19 +1476,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * The extended SBML types can be used in the visual mapping.
      * This allows for instance to distinguish modifiers from activators and inhibitors.
      */
-    private void addSBMLInteractionExtended(CyNetwork network, Model model){
+    private void addSBMLInteractionExtended(CyNetwork network){
         for (CyEdge e : network.getEdgeList()){
             String type = AttributeUtil.get(network, e, SBML.INTERACTION_ATTR, String.class);
-            // additional subtypes
-            if (type.equals(SBML.INTERACTION_REACTION_MODIFIER)){
-                String sboterm = AttributeUtil.get(network, e, SBML.ATTR_SBOTERM, String.class);
-                if (SBML.SBO_INHIBITORS.contains(sboterm)){
-                    type = SBML.INTERACTION_REACTION_INHIBITOR;
-                } else if (SBML.SBO_ACTIVATORS.contains(sboterm)) {
-                    type = SBML.INTERACTION_REACTION_ACTIVATOR;
+
+            if (type != null) {
+                // additional subtypes
+                if (type.equals(SBML.INTERACTION_REACTION_MODIFIER)) {
+                    String sboterm = AttributeUtil.get(network, e, SBML.ATTR_SBOTERM, String.class);
+                    if (SBML.SBO_INHIBITORS.contains(sboterm)) {
+                        type = SBML.INTERACTION_REACTION_INHIBITOR;
+                    } else if (SBML.SBO_ACTIVATORS.contains(sboterm)) {
+                        type = SBML.INTERACTION_REACTION_ACTIVATOR;
+                    }
                 }
+                AttributeUtil.set(network, e, SBML.INTERACTION_ATTR_EXTENDED, type, String.class);
+            } else {
+                logger.error("interaction type not set for edge: " + e);
             }
-            AttributeUtil.set(network, e, SBML.INTERACTION_ATTR_EXTENDED, type, String.class);
         }
     }
 
