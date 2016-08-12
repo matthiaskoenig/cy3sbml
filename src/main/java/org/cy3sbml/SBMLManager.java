@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.util.*;
 
+import org.cy3sbml.mapping.CyIdSBaseMap;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 
@@ -13,7 +14,6 @@ import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
 import org.cy3sbml.mapping.Network2SBMLMapper;
-import org.cy3sbml.mapping.IdObjectMap;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
 
@@ -36,7 +36,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 
     private Long currentSUID;
     private Network2SBMLMapper network2sbml;
-	private HashMap<Long, IdObjectMap> network2objectMap;
+	private HashMap<Long, CyIdSBaseMap> network2objectMap;
 
     /**
      * Get SBMLManager (creates the instance).
@@ -97,7 +97,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 		// document & mapping
 		network2sbml.putDocument(rootNetworkSUID, doc, mapping);
 		// object map
-		network2objectMap.put(rootNetworkSUID, new IdObjectMap(doc));
+		network2objectMap.put(rootNetworkSUID, new CyIdSBaseMap(doc));
 	}
 
     /**
@@ -204,20 +204,21 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      *
      * The object maps are created when the SBMLDocument is stored.
      */
-	public SBase getSBaseById(String key){
-        return getSBaseById(key, currentSUID);
+	public SBase getSBaseByCyId(String key){
+        return getSBaseByCyId(key, currentSUID);
 	}
 
-    public SBase getSBaseById(String key, Long SUID){
-        return network2objectMap.get(SUID).getObject(key);
+    public SBase getSBaseByCyId(String key, Long SUID){
+        return network2objectMap.get(SUID).getObjectByCyId(key);
     }
 
-
     /**
-     * Lookup the list of ObjectIds.
-     * FIXME: not really needed, probably overkill for large selections.
+     * Lookup the list of cyIds of SBase objects for the given suids.
+     *
+     * @param suids list of node suids.
+     * @return
      */
-	public List<String> getObjectIds(List<Long> suids){ 
+	public List<String> getObjectCyIds(List<Long> suids){
 		One2ManyMapping<Long, String> mapping = getCurrentCyNode2SBaseMapping();
 		return new LinkedList<>(mapping.getValues(suids));
 	}
@@ -247,7 +248,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
             SBMLDocument doc = documentMap.get(suid);
 
             // create id<->object mapping
-            IdObjectMap map = new IdObjectMap(doc);
+            CyIdSBaseMap map = new CyIdSBaseMap(doc);
             network2objectMap.put(suid, map);
         }
 

@@ -3,11 +3,9 @@ package org.cy3sbml;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
-import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
-import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -140,7 +138,7 @@ public class SBMLManagerTest {
         Compartment c = model.createCompartment();
         c.setId("c1");
         manager.addSBMLForNetwork(doc, SUID, MAPPING);
-        SBase c2 = manager.getSBaseById("c1", SUID);
+        SBase c2 = manager.getSBaseByCyId("c1", SUID);
         assertNotNull(c2);
         assertEquals(c, c2);
     }

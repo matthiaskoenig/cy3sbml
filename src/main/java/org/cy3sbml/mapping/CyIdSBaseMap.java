@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+import org.cy3sbml.SBML;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.*;
 
@@ -28,19 +29,28 @@ import org.slf4j.LoggerFactory;
  * Probably better to switch to the metaid of the objects which
  * is unique for the objects.
  * This requires to create meta ids for all nodes which are registered.
+ *
+ * Objects are stored under the created CyIds.
+ *
  */
-public class IdObjectMap {
-	private static final Logger logger = LoggerFactory.getLogger(IdObjectMap.class);
+public class CyIdSBaseMap {
+	private static final Logger logger = LoggerFactory.getLogger(CyIdSBaseMap.class);
 	private Map<String, SBase> objectMap;
-	
-	public IdObjectMap(){
-		objectMap = new HashMap<>();
+
+    /** Constructor. */
+	public CyIdSBaseMap(){
+	    objectMap = new HashMap<>();
 	}
 	
-	/** Register SBMLObjects for id lookup from SBMLDocument. */ 
-	public IdObjectMap(SBMLDocument document){
+	/**
+     * Constructor.
+     * Register SBMLObjects for cyId lookup from SBMLDocument.
+     *
+     * @param document SBMLDocument for which the mapping is created.
+     */
+	public CyIdSBaseMap(SBMLDocument document){
 		this();
-		logger.debug("Create IdObjectMap for SBMLDocument");
+		logger.debug("Create CyIdSBaseMap for SBMLDocument");
 		if (document == null){
 			logger.debug("No SBMLDocument");
 			return;
@@ -63,8 +73,8 @@ public class IdObjectMap {
             addListOf(model.getListOfUnitDefinitions());
             for (UnitDefinition ud: model.getListOfUnitDefinitions()){
                 for (Unit unit: ud.getListOfUnits()){
-                    String id = SBMLUtil.unitId(ud.getId(), unit);
-                    objectMap.put(id, unit);
+                    String cyId = unitCyId(ud, unit);
+                    objectMap.put(cyId, unit);
                 }
             }
             // FunctionDefinitions
@@ -81,15 +91,15 @@ public class IdObjectMap {
             // InitialAssignments (no ids)
             for (InitialAssignment assignment: model.getListOfInitialAssignments()){
                 String variable = assignment.getVariable();
-                String id = SBMLUtil.initialAssignmentId(variable);
-                objectMap.put(id, assignment);
+                String cyId = initialAssignmentCyId(variable);
+                objectMap.put(cyId, assignment);
             }
 
             // Rules (no ids)
             for (Rule rule: model.getListOfRules()){
                 String variable = SBMLUtil.getVariableFromRule(rule);
-                String id = SBMLUtil.ruleId(variable);
-                objectMap.put(id, rule);
+                String cyId = ruleCyId(variable);
+                objectMap.put(cyId, rule);
             }
 
             // Constraints
@@ -100,18 +110,16 @@ public class IdObjectMap {
             addListOf(model.getListOfReactions());
 			
 			// LocalParameters & KineticLaws
-			for (Reaction r : model.getListOfReactions()){	
-				if (r.isSetKineticLaw()){
-					KineticLaw law = r.getKineticLaw();
-					
-					// Create law id (analogue to reader)
-					String reactionId = r.getId();
-					String lawId = SBMLUtil.kineticLawId(reactionId);
-					objectMap.put(lawId, law);
+			for (Reaction reaction : model.getListOfReactions()){
+				if (reaction.isSetKineticLaw()){
+					KineticLaw law = reaction.getKineticLaw();
+					String lawCyId = kineticLawCyId(reaction);
+					objectMap.put(lawCyId, law);
 				
 					// this were made unique during reading of SBML
 					for (LocalParameter lp: law.getListOfLocalParameters()){
-						objectMap.put(lp.getId(), lp);	
+					    String lpCyId = localParameterCyId(reaction, lp);
+						objectMap.put(lpCyId, lp);
 					}
 				}
 			}
@@ -164,32 +172,105 @@ public class IdObjectMap {
             // TODO: implement
 
         } catch (Throwable t) {
-			logger.error("IdObjectMap could not be created", t);
+			logger.error("CyIdSBaseMap could not be created", t);
 			t.printStackTrace();
 		}
 	}
-	
+
+    /**
+     * Generic function to add ListOf to the objectMapping.
+     * The NamedSBase can be mapped via their ids.
+     * @param list
+     */
 	private void addListOf(ListOf<? extends NamedSBase> list){
 		for (NamedSBase obj: list ){
 			objectMap.put(obj.getId(), obj);
 		}
 	}
-	
-	/**
-	 * SBMLObject lookup via id key.
-	 */
-	public SBase getObject(String key){
+
+    /**
+     * Get SBase object by cyId.
+     * @param cyId
+     * @return
+     */
+	public SBase getObjectByCyId(String cyId){
 		SBase sbase = null;
-		if (objectMap.containsKey(key)){
-			return objectMap.get(key);
+		if (objectMap.containsKey(cyId)){
+			return objectMap.get(cyId);
 		}
 		return sbase;
 	}
 
 	/** Get SBase Objects in the map. */
 	public Collection<SBase> getObjects(){
-		return objectMap.values();
+	    return objectMap.values();
 	}
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // CYID HELPER
+    /////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Necessary to create unique cyIds for all SBase objects.
+     * For NamedSBases this are directly the ids, for SBases the ids have to be generated.
+     */
+
+    public static final String CYID_SEPARATOR = "_";
+    public static final String CYID_UNITSID_PREFIX = "UnitSId__";
+
+    /**
+     * Creates unique cyId for LocalParameter.
+     *
+     * @param reaction
+     * @param lp
+     * @return
+     */
+    public static String localParameterCyId(Reaction reaction, LocalParameter lp){
+        return String.format("%s_%s", reaction.getId(), lp.getId());
+    }
+
+    /**
+     * Creates unique cyId for KineticLaw.
+     * Uses the reaction id in which the kinetic law is defined.
+     *
+     * @param reaction
+     * @return
+     */
+    public static String kineticLawCyId(Reaction reaction){
+        return String.format("%s_%s", reaction.getId(), SBML.SUFFIX_KINETIC_LAW);
+    }
+
+    public static String initialAssignmentCyId(String variable){
+        return String.format("%s_%s", variable, SBML.SUFFIX_INITIAL_ASSIGNMENT);
+    }
+
+    public static String ruleCyId(String variable){
+
+        return String.format("%s_%s", variable, SBML.SUFFIX_RULE);
+    }
+
+    /**
+     * Creates unique cyId for Unit.
+     * A unit is only unique in combination with its UnitDefinition.
+     *
+     * @param unitDefinition
+     * @param unit
+     * @return
+     */
+    public static String unitCyId(UnitDefinition unitDefinition, Unit unit){
+        return String.format("%s%s%s%s",
+                CYID_UNITSID_PREFIX, unitDefinition.getId(), CYID_SEPARATOR, unit.getKind().toString());
+    }
+
+    /**
+     * Creates unique cyId for UnitDefinition.
+     * @param ud
+     * @return
+     */
+    public static String unitDefinitionCyId(UnitDefinition ud){
+        return String.format("%s%s",
+                CYID_UNITSID_PREFIX, ud.getId());
+    }
 
 
 }

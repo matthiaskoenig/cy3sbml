@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.cy3sbml.*;
-import org.cy3sbml.mapping.IdObjectMap;
+import org.cy3sbml.mapping.CyIdSBaseMap;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -82,7 +82,7 @@ public class SBaseHtmlThreadTest {
         Model model = doc.getModel();
 
         // objects from model
-        IdObjectMap map = new IdObjectMap(doc);
+        CyIdSBaseMap map = new CyIdSBaseMap(doc);
         Collection<SBase> objects = map.getObjects();
         for (SBase sbase : objects){
             Collection<Object> objCollection = new HashSet<>();
