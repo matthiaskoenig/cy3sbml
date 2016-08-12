@@ -73,16 +73,18 @@
             <visualProperty default="#CC6600" name="NODE_SELECTED_PAINT"/>
             <visualProperty default="#666666" name="NODE_FILL_COLOR">
                 <discreteMapping attributeName="sbml type ext" attributeType="string">
-                    <discreteMappingEntry attributeValue="rule" value="66CCFF"/>
+                    <discreteMappingEntry attributeValue="assignmentRule" value="66CCFF"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="#FF6666"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="#999999"/>
+                    <discreteMappingEntry attributeValue="algebraicRule" value="66CCFF"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="#FF9966"/>
                     <discreteMappingEntry attributeValue="reaction irreversible" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="unit" value="#000000"/>
                     <discreteMappingEntry attributeValue="species" value="#666666"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="#CCCCCC"/>
                     <discreteMappingEntry attributeValue="localParameter" value="#0099FF"/>
+                    <discreteMappingEntry attributeValue="rateRule" value="66CCFF"/>
                     <discreteMappingEntry attributeValue="parameter" value="#0099FF"/>
                     <discreteMappingEntry attributeValue="qual_species" value="#666666"/>
                     <discreteMappingEntry attributeValue="compartment" value="#00CC66"/>
@@ -93,14 +95,16 @@
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_3"/>
             <visualProperty default="Liberation Sans,plain,12" name="NODE_LABEL_FONT_FACE">
                 <discreteMapping attributeName="sbml type" attributeType="string">
+                    <discreteMappingEntry attributeValue="assignmentRule" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="reaction" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="localParameter" value="Liberation Sans Bold,plain,12"/>
+                    <discreteMappingEntry attributeValue="rateRule" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="parameter" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="compartment" value="Liberation Sans Bold,plain,12"/>
-                    <discreteMappingEntry attributeValue="rule" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="Liberation Sans Bold,plain,12"/>
+                    <discreteMappingEntry attributeValue="algebraicRule" value="Liberation Sans Bold,plain,12"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="0.0" name="NODE_CUSTOMGRAPHICS_SIZE_8"/>
@@ -108,18 +112,20 @@
             <visualProperty default="0.0" name="NODE_CUSTOMGRAPHICS_SIZE_4"/>
             <visualProperty default="25" name="NODE_SIZE">
                 <discreteMapping attributeName="sbml type" attributeType="string">
-                    <discreteMappingEntry attributeValue="unit" value="20.0"/>
+                    <discreteMappingEntry attributeValue="assignmentRule" value="20.0"/>
                     <discreteMappingEntry attributeValue="reaction" value="15.0"/>
+                    <discreteMappingEntry attributeValue="kineticLaw" value="20.0"/>
+                    <discreteMappingEntry attributeValue="qual_transition" value="15.0"/>
+                    <discreteMappingEntry attributeValue="algebraicRule" value="20.0"/>
+                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="40.0"/>
+                    <discreteMappingEntry attributeValue="unit" value="20.0"/>
                     <discreteMappingEntry attributeValue="species" value="40.0"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="30.0"/>
                     <discreteMappingEntry attributeValue="localParameter" value="30.0"/>
+                    <discreteMappingEntry attributeValue="rateRule" value="20.0"/>
                     <discreteMappingEntry attributeValue="parameter" value="30.0"/>
                     <discreteMappingEntry attributeValue="qual_species" value="40.0"/>
                     <discreteMappingEntry attributeValue="compartment" value="90.0"/>
-                    <discreteMappingEntry attributeValue="rule" value="20.0"/>
-                    <discreteMappingEntry attributeValue="kineticLaw" value="20.0"/>
-                    <discreteMappingEntry attributeValue="qual_transition" value="15.0"/>
-                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="40.0"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_6"/>
@@ -129,12 +135,14 @@
             <visualProperty default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ]," name="NODE_CUSTOMGRAPHICS_2"/>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_LABEL_POSITION">
                 <discreteMapping attributeName="sbml type" attributeType="string">
+                    <discreteMappingEntry attributeValue="assignmentRule" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="reaction" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="localParameter" value="N,S,c,0.00,0.00"/>
+                    <discreteMappingEntry attributeValue="rateRule" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="parameter" value="N,S,c,0.00,0.00"/>
-                    <discreteMappingEntry attributeValue="rule" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="N,S,c,0.00,0.00"/>
+                    <discreteMappingEntry attributeValue="algebraicRule" value="N,S,c,0.00,0.00"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="ELLIPSE" name="NODE_SHAPE">

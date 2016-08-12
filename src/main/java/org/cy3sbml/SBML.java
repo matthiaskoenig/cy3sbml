@@ -107,7 +107,9 @@ public class SBML {
     public static final String NODETYPE_PARAMETER = "parameter";
     public static final String NODETYPE_COMPARTMENT = "compartment";
     public static final String NODETYPE_REACTION = SBMLCore.SBML_TYPE_REACTION;
-    public static final String NODETYPE_RULE = "rule";
+    public static final String NODETYPE_RATE_RULE = "rateRule";
+    public static final String NODETYPE_ASSIGNMENT_RULE = "assignmentRule";
+    public static final String NODETYPE_ALGEBRAIC_RULE = "algebraicRule";
     public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
     public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
     public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";

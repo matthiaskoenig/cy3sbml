@@ -664,28 +664,44 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 		
 		// Rule //
-		for (Rule rule : model.getListOfRules()){
-            String variable = SBMLUtil.getVariableFromRule(rule);
-			if (variable != null){
-                CyNode n = createNode(CyIdSBaseMap.ruleCyId(variable), SBML.NODETYPE_RULE);
-                setAbstractMathContainerNodeAttributes(n, rule);
+        ListOf<Rule> rules = model.getListOfRules();
+		for (int k=0; k<rules.size(); k++){
+		    Rule rule = rules.get(k);
 
-				// edge to variable
-				CyNode variableNode = nodeByCyId.get(variable);
-				if (variableNode != null){
-				    createEdge(variableNode, n, SBML.INTERACTION_VARIABLE_RULE);
-				} else {
-                    // an assignment rule can refer to the identifier of a Species, SpeciesReference,
-                    // Compartment, or global Parameter object in the model
-                    // The case SpeciesReference is not handled !
-					logger.warn(String.format("Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
+            String cyId = null;
+            String ruleType = null;
+            String variable = null;
+
+            if (rule instanceof AlgebraicRule){
+                cyId = "algebraicRule_" + k;
+                ruleType = SBML.NODETYPE_ALGEBRAIC_RULE;
+            } else {
+                variable = SBMLUtil.getVariableFromRule(rule);
+                cyId = CyIdSBaseMap.ruleCyId(variable);
+                if (rule instanceof AssignmentRule){
+                    ruleType = SBML.NODETYPE_ASSIGNMENT_RULE;
+                } else if (rule instanceof RateRule){
+                    ruleType = SBML.NODETYPE_RATE_RULE;
+                }
+            }
+            CyNode n = createNode(cyId, ruleType);
+            setAbstractMathContainerNodeAttributes(n, rule);
+            // referenced nodes in math
+            createMathNetwork(rule, n, SBML.INTERACTION_REFERENCE_RULE);
+
+            // edge to variable for rateRule and assignmentRule
+			if (variable != null) {
+                CyNode variableNode = nodeByCyId.get(variable);
+                if (variableNode != null) {
+                    createEdge(variableNode, n, SBML.INTERACTION_VARIABLE_RULE);
+                } else {
+                    /*  An assignment rule can refer to the identifier of a Species, SpeciesReference,
+                        Compartment, or global Parameter object in the model
+                        The case SpeciesReference is not handled !
+                    */
+                    logger.warn(String.format("Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
                             variable, rule));
-				}
-				
-				// referenced nodes in math
-				createMathNetwork(rule, n, SBML.INTERACTION_REFERENCE_RULE);
-			} else {
-                // TODO: AlgebraicRule
+                }
             }
 		}
 
@@ -1174,7 +1190,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * This is used for all UnitDefinitions in the ListOfUnitDefinitions, but
      * also for the UnitInstances of base units, which are not necessarily part
      * of the ListOfUnits. For instance substanceUnits of species.
-     * 
+     *
      * @param ud
      */
     private void createUnitDefinitionGraph(UnitDefinition ud){

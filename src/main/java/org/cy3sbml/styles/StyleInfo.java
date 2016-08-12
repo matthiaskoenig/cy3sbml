@@ -74,7 +74,9 @@ public class StyleInfo {
         m4.put(SBML.NODETYPE_COMPARTMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_PARAMETER, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_LOCAL_PARAMTER, "Liberation Sans Bold,plain,12");
-        m4.put(SBML.NODETYPE_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_ALGEBRAIC_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_ASSIGNMENT_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_RATE_RULE, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_KINETIC_LAW, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_QUAL_TRANSITION, "Liberation Sans Bold,plain,12");
@@ -87,7 +89,9 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_COMPARTMENT, "90.0");
         m5.put(SBML.NODETYPE_PARAMETER, "30.0");
         m5.put(SBML.NODETYPE_LOCAL_PARAMTER, "30.0");
-        m5.put(SBML.NODETYPE_RULE, "20.0");
+        m5.put(SBML.NODETYPE_ALGEBRAIC_RULE, "20.0");
+        m5.put(SBML.NODETYPE_ASSIGNMENT_RULE, "20.0");
+        m5.put(SBML.NODETYPE_RATE_RULE, "20.0");
         m5.put(SBML.NODETYPE_KINETIC_LAW, "20.0");
         m5.put(SBML.NODETYPE_QUAL_SPECIES, "40.0");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
@@ -101,7 +105,9 @@ public class StyleInfo {
         m6.put(SBML.NODETYPE_REACTION, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_PARAMETER, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_LOCAL_PARAMTER, "N,S,c,0.00,0.00");
-        m6.put(SBML.NODETYPE_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_ALGEBRAIC_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_ASSIGNMENT_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_RATE_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_KINETIC_LAW, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_QUAL_TRANSITION, "N,S,c,0.00,0.00");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,

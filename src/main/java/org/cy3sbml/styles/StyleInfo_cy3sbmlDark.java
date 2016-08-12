@@ -38,7 +38,9 @@ public class StyleInfo_cy3sbmlDark extends StyleInfo {
         m3.put(SBML.NODETYPE_COMPARTMENT, "#00CC66");
         m3.put(SBML.NODETYPE_PARAMETER, "#0099FF");
         m3.put(SBML.NODETYPE_LOCAL_PARAMTER, "#0099FF");
-        m3.put(SBML.NODETYPE_RULE, "66CCFF");
+        m3.put(SBML.NODETYPE_ALGEBRAIC_RULE, "66CCFF");
+        m3.put(SBML.NODETYPE_ASSIGNMENT_RULE, "66CCFF");
+        m3.put(SBML.NODETYPE_RATE_RULE, "66CCFF");
         m3.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "#FF6666");
         m3.put(SBML.NODETYPE_KINETIC_LAW, "#66CCFF");
         m3.put(SBML.NODETYPE_QUAL_SPECIES, "#666666");
