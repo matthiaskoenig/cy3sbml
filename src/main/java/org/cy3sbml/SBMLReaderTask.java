@@ -443,26 +443,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		}
 
         // UnitDefinition //
-        // TODO: add the edges between units and objects (and make style)!
         for (UnitDefinition ud: model.getListOfUnitDefinitions()){
-
-            CyNode n = createNode(CyIdSBaseMap.unitDefinitionCyId(ud),
-                    SBML.NODETYPE_UNIT_DEFINITION);
-            setNamedSBaseAttributes(n, ud);
-
-            for (Unit unit: ud.getListOfUnits()){
-                if (ud.isSetId() && unit.isSetKind()){
-                    CyNode uNode = createNode(CyIdSBaseMap.unitCyId(ud, unit),
-                            SBML.NODETYPE_UNIT);
-                    setUnitAttributes(uNode, unit);
-
-                    // edge to UnitDefinition
-                    createEdge(uNode, n, SBML.INTERACTION_UNIT_UNITDEFINITION);
-                }else{
-                    logger.warn(String.format("Unit could not be created due to missing " +
-                            "UnitDefinition id or unit kind: ", ud));
-                }
-            }
+            createUnitDefinitionGraph(ud);
         }
 		
 		// FunctionDefinition //
@@ -484,6 +466,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		for (Compartment compartment : model.getListOfCompartments()) {
 		    CyNode n = createNode(compartment.getId(), SBML.NODETYPE_COMPARTMENT);
             setSymbolNodeAttributes(n, compartment);
+            // edge to unit
+            createUnitEdge(n, compartment);
 
 			if (compartment.isSetSpatialDimensions()){
 				AttributeUtil.set(network, n, SBML.ATTR_SPATIAL_DIMENSIONS, compartment.getSpatialDimensions(), Double.class);
@@ -497,12 +481,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		for (Parameter parameter : model.getListOfParameters()) {
 		    CyNode n = createNode(parameter.getId(), SBML.NODETYPE_PARAMETER);
             setSymbolNodeAttributes(n, parameter);
+            // edge to unit
+            createUnitEdge(n, parameter);
 		}
 
 		// Species //
 		for (Species species : model.getListOfSpecies()) {
 		    CyNode n = createNode(species.getId(), SBML.NODETYPE_SPECIES);
 			setSymbolNodeAttributes(n, species);
+            // edge to unit
+            createUnitEdge(n, species);
 
             // edge to compartment
 			if (species.isSetCompartment()){
@@ -633,6 +621,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
                         CyNode lpNode = createNode(cyId, SBML.NODETYPE_LOCAL_PARAMTER);
 						setQuantityWithUnitAttributes(lpNode, lp);
+                        // edge to unit
+                        createUnitEdge(lpNode, lp);
 
 						// edge to reaction
                         createEdge(lpNode, lawNode, SBML.INTERACTION_LOCALPARAMETER_KINETICLAW);
@@ -1140,6 +1130,72 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         return e;
     }
 
+    /**
+     * Creates an edge to the unit for the quantity.
+     *
+     * @param q QuantityWithUnit
+     * @return edge if unit is available, null otherwise
+     */
+    private CyEdge createUnitEdge(CyNode n, QuantityWithUnit q){
+        CyEdge e = null;
+
+        // edge to unit
+        if (q.isSetUnits()){
+            UnitDefinition ud = q.getUnitsInstance();
+            CyNode udNode = nodeByCyId.get(CyIdSBaseMap.unitDefinitionCyId(ud));
+            /*
+             The UnitDefinition instance which has the unitsID of this SBaseWithUnit as id.
+             Null if it doesn't exist. In case that the unit of this SBaseWithUnit represents
+             a base Unit, a new UnitDefinition will be created and returned by this method.
+             This new UnitDefinition will only contain the one unit represented by the unit
+             identifier in this SBaseWithUnit. Note that the corresponding model will not
+             contain this UnitDefinition. The identifier of this new UnitDefinition will
+             be set to the same value as the name of the base Unit.
+
+             I.e. in the case of a base unit we have to create the UnitDefinition node first.
+             */
+            if (ud != null && udNode == null){
+                logger.debug(String.format("Base UnitDefinition encountered. Creating UnitDefinition graph.", ud));
+                createUnitDefinitionGraph(ud);
+                udNode = nodeByCyId.get(CyIdSBaseMap.unitDefinitionCyId(ud));
+            }
+            // now the udNode should exist for sure
+            if (udNode != null){
+                e = createEdge(n, udNode, SBML.INTERACTION_SBASE_UNITDEFINITION);
+            } else {
+                logger.error(String.format("UnitDefinition node not found for <%s>:", q, q.getId()));
+            }
+        }
+        return e;
+    }
+
+    /**
+     * Creates the graph for a given UnitDefinition.
+     * This is used for all UnitDefinitions in the ListOfUnitDefinitions, but
+     * also for the UnitInstances of base units, which are not necessarily part
+     * of the ListOfUnits. For instance substanceUnits of species.
+     * 
+     * @param ud
+     */
+    private void createUnitDefinitionGraph(UnitDefinition ud){
+        CyNode n = createNode(CyIdSBaseMap.unitDefinitionCyId(ud),
+                SBML.NODETYPE_UNIT_DEFINITION);
+        setNamedSBaseAttributes(n, ud);
+
+        for (Unit unit: ud.getListOfUnits()){
+            if (ud.isSetId() && unit.isSetKind()){
+                CyNode uNode = createNode(CyIdSBaseMap.unitCyId(ud, unit),
+                        SBML.NODETYPE_UNIT);
+                setUnitAttributes(uNode, unit);
+
+                // edge to UnitDefinition
+                createEdge(uNode, n, SBML.INTERACTION_UNIT_UNITDEFINITION);
+            }else{
+                logger.warn(String.format("Unit could not be created due to missing " +
+                        "UnitDefinition id or unit kind: ", ud));
+            }
+        }
+    }
 
 
     /**
@@ -1231,16 +1287,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
         if (q.isSetUnits()){
             AttributeUtil.set(network, n, SBML.ATTR_UNITS, q.getUnits(), String.class);
-
-            // TODO: refactor, do somewhere else
-            /*
-            CyNode udNode = nodeByCyId.get(SBMLUtil.unitDefinitionCyId(q.getUnitsInstance()));
-            if (udNode == null){
-                logger.error(String.format("UnitDefinition node not found for:", q.getId()));
-            }
-            CyEdge edge = network.addEdge(n, udNode, true);
-            AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_SBASE_UNITDEFINITION, String.class);
-            */
         }
     }
 
