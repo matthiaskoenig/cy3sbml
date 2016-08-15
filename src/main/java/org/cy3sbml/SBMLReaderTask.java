@@ -607,10 +607,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 				// local parameter nodes
 				if (law.isSetListOfLocalParameters()){
 					for (LocalParameter lp: law.getListOfLocalParameters()){
-					    String cyId = MappingUtil.localParameterCyId(reaction, lp);
                         // This changes the SBMLDocument !
                         // but only reliable way to handle LocalParameters in math networks
-                        lp.setId(cyId);
+					    String lpId = MappingUtil.localParameterId(lp);
+                        lp.setId(lpId);
 
                         CyNode lpNode = createNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
 						setQuantityWithUnitAttributes(lpNode, lp);

@@ -420,20 +420,11 @@ public class SBMLUtil {
 
     /** Event map. */
     public static LinkedHashMap<String, String> createEventMap(Event event) {
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(event);
-        String message = SBaseHTMLFactory.ICON_NONE;
-        if (event.isSetMessage()){
-            try {
-                message = event.getMessageString();
-            } catch (XMLStreamException e) {
-                logger.error("Constraint message could not be created.", e);
-                e.printStackTrace();
-            }
-        }
-        map.put(SBML.ATTR_MESSAGE, message);
+        LinkedHashMap<String, String> map = null;
+        // FIXME: implement
+
         return map;
     }
-
 
 
     /** Rule map. */

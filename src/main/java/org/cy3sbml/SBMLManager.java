@@ -210,7 +210,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 
     public SBase getSBaseByCyId(String cyId, Long SUID){
         SBMLDocument doc = network2sbml.getDocument(SUID);
-        return doc.getElementByMetaId(cyId)
+        return doc.getElementByMetaId(cyId);
         // return network2objectMap.get(SUID).getObjectByCyId(cyId);
     }
 
@@ -244,15 +244,17 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         network2sbml = mapper;
         // network2objectMap = new HashMap<>();
 
-        // Create all the trees
+        // Create mapping
+        /*
         Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
         for (Long suid: documentMap.keySet()){
             SBMLDocument doc = documentMap.get(suid);
 
             // create id<->object mapping
-            // MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
-            // network2objectMap.put(suid, map);
+            MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
+            network2objectMap.put(suid, map);
         }
+        */
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();
