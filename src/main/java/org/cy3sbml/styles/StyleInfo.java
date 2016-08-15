@@ -98,6 +98,8 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
         m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30.0");
         m5.put(SBML.NODETYPE_UNIT, "20.0");
+        m5.put(SBML.NODETYPE_EVENT, "40.0");
+        m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
@@ -122,6 +124,9 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
         m7.put(SBML.NODETYPE_UNIT_DEFINITION, "PARALLELOGRAM");
         m7.put(SBML.NODETYPE_UNIT, "PARALLELOGRAM");
+        m7.put(SBML.NODETYPE_EVENT, "HEXAGON");
+        m7.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "HEXAGON");
+
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
 
@@ -144,6 +149,8 @@ public class StyleInfo {
         m11.put(SBML.INTERACTION_REACTION_MODIFIER, "LONG_DASH");
         m11.put(SBML.INTERACTION_UNIT_UNITDEFINITION, "DOT");
         m11.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "DOT");
+        m11.put(SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT, "DASH");
+        m11.put(SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT, "DASH");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 

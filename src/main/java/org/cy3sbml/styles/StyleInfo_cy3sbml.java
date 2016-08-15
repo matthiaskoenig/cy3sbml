@@ -53,6 +53,8 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m3.put(SBML.NODETYPE_FBC_GENEPRODUCT, "#FF9966");
         m3.put(SBML.NODETYPE_UNIT_DEFINITION, "#CCCCCC");
         m3.put(SBML.NODETYPE_UNIT, "#FFFFFF");
+        m3.put(SBML.NODETYPE_EVENT, "#FF6600");
+        m3.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "#999999");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#FFFFFF", m3));
 
@@ -68,6 +70,8 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m10.put(SBML.INTERACTION_QUAL_TRANSITION_INPUT, "#000000");
         m10.put(SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES, "#3333FF");
         m10.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "#FF3333");
+        m10.put(SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT, "#FF6600");
+        m10.put(SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT, "#FF6600");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
         mappings.add(new MappingDiscrete(Mapping.DataType.string,

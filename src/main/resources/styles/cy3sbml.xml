@@ -87,8 +87,10 @@
                     <discreteMappingEntry attributeValue="rateRule" value="#009933"/>
                     <discreteMappingEntry attributeValue="parameter" value="#0099FF"/>
                     <discreteMappingEntry attributeValue="qual_species" value="#F0F0F0"/>
+                    <discreteMappingEntry attributeValue="eventAssignment" value="#999999"/>
                     <discreteMappingEntry attributeValue="compartment" value="#00CC66"/>
                     <discreteMappingEntry attributeValue="reaction reversible" value="#000000"/>
+                    <discreteMappingEntry attributeValue="event" value="#FF6600"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_4"/>
@@ -125,7 +127,9 @@
                     <discreteMappingEntry attributeValue="rateRule" value="20.0"/>
                     <discreteMappingEntry attributeValue="parameter" value="30.0"/>
                     <discreteMappingEntry attributeValue="qual_species" value="40.0"/>
+                    <discreteMappingEntry attributeValue="eventAssignment" value="20.0"/>
                     <discreteMappingEntry attributeValue="compartment" value="90.0"/>
+                    <discreteMappingEntry attributeValue="event" value="40.0"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_6"/>
@@ -152,7 +156,9 @@
                     <discreteMappingEntry attributeValue="unitDefinition" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="localParameter" value="DIAMOND"/>
                     <discreteMappingEntry attributeValue="parameter" value="DIAMOND"/>
+                    <discreteMappingEntry attributeValue="eventAssignment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="compartment" value="HEXAGON"/>
+                    <discreteMappingEntry attributeValue="event" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
                 </discreteMapping>
@@ -169,6 +175,7 @@
             <visualProperty default="2.0" name="EDGE_WIDTH"/>
             <visualProperty default="#CCCCCC" name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT">
                 <discreteMapping attributeName="shared interaction" attributeType="string">
+                    <discreteMappingEntry attributeValue="reference_eventAssignment" value="#FF6600"/>
                     <discreteMappingEntry attributeValue="reaction-product" value="#000000"/>
                     <discreteMappingEntry attributeValue="reaction-reactant" value="#000000"/>
                     <discreteMappingEntry attributeValue="input_transition" value="#000000"/>
@@ -176,6 +183,7 @@
                     <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
+                    <discreteMappingEntry attributeValue="variable_eventAssignment" value="#FF6600"/>
                     <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="#FF3333"/>
                 </discreteMapping>
@@ -191,8 +199,10 @@
             <visualProperty default="#000000" name="EDGE_TARGET_ARROW_UNSELECTED_PAINT"/>
             <visualProperty default="SOLID" name="EDGE_LINE_TYPE">
                 <discreteMapping attributeName="interaction type" attributeType="string">
+                    <discreteMappingEntry attributeValue="reference_eventAssignment" value="DASH"/>
                     <discreteMappingEntry attributeValue="unit_unitDefinition" value="DOT"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
+                    <discreteMappingEntry attributeValue="variable_eventAssignment" value="DASH"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="DOT"/>
                 </discreteMapping>
             </visualProperty>
@@ -213,6 +223,7 @@
             <visualProperty default="10" name="EDGE_LABEL_FONT_SIZE"/>
             <visualProperty default="#CCCCCC" name="EDGE_STROKE_UNSELECTED_PAINT">
                 <discreteMapping attributeName="shared interaction" attributeType="string">
+                    <discreteMappingEntry attributeValue="reference_eventAssignment" value="#FF6600"/>
                     <discreteMappingEntry attributeValue="reaction-product" value="#000000"/>
                     <discreteMappingEntry attributeValue="reaction-reactant" value="#000000"/>
                     <discreteMappingEntry attributeValue="input_transition" value="#000000"/>
@@ -220,6 +231,7 @@
                     <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
+                    <discreteMappingEntry attributeValue="variable_eventAssignment" value="#FF6600"/>
                     <discreteMappingEntry attributeValue="transition_output" value="#000000"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="#FF3333"/>
                 </discreteMapping>
