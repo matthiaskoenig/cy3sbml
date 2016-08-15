@@ -32,6 +32,8 @@ import org.cytoscape.work.TaskMonitor;
 
 // SBML CORE
 import org.sbml.jsbml.*;
+import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.util.CobraUtil;
 import org.sbml.jsbml.xml.XMLNode;
 // SBML QUAL
@@ -1138,12 +1140,28 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Creates groups.
+     * Groups are implemented as group nodes.
+     * For every SBML group a group node must be created.
 	 * TODO: implement
 	 */
 	private void readGroups(Model model, GroupsModelPlugin groupsModel){
 		logger.debug("<groups>");
         logger.debug("\tgroups model found, but not supported");
+
+        for (Group group: groupsModel.getListOfGroups()){
+            String id = group.getId();
+            String name = group.getName();
+            String kind = group.getKind().name();
+
+            for (Member member: group.getListOfMembers()){
+                member.getSBaseInstance();
+
+            }
+
+        }
+
 	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// SBML SBML_LAYOUT
