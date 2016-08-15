@@ -102,19 +102,18 @@ public class SBMLUtil {
      * Returns the variable string if set, returns null if not set or
      * if the rule is an AlgebraicRule.
      */
-    public static String getVariableFromRule(Rule rule){
-        String variable = null;
+    public static Variable getVariableFromRule(Rule rule){
+        Variable variable = null;
         if (rule.isAssignment()){
-            AssignmentRule assignmentRule = (AssignmentRule) rule;
-            if (assignmentRule.isSetVariable()) {
-                variable = assignmentRule.getVariable();
+            AssignmentRule r = (AssignmentRule) rule;
+            if (r.isSetVariable()) {
+                return r.getVariableInstance();
             }
         } else if (rule.isRate()){
-            RateRule rateRule = (RateRule) rule;
-            if (rateRule.isSetVariable()){
-                variable = rateRule.getVariable();
+            RateRule r = (RateRule) rule;
+            if (r.isSetVariable()){
+                return r.getVariableInstance();
             }
-            variable = rateRule.getVariable();
         }
         return variable;
     }
@@ -429,11 +428,14 @@ public class SBMLUtil {
 
     /** Rule map. */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {
-        String variable = SBMLUtil.getVariableFromRule(rule);
+        Variable variable = SBMLUtil.getVariableFromRule(rule);
+        String variableStr;
         if (variable == null){
-            variable = SBaseHTMLFactory.ICON_NONE;
+            variableStr = SBaseHTMLFactory.ICON_NONE;
+        } else {
+            variableStr = variable.toString();
         }
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(rule, variable);
+        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(rule, variableStr);
         return map;
     }
 

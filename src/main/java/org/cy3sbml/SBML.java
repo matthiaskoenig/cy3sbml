@@ -37,6 +37,7 @@ public class SBML {
     // -----------------------
     public static final String LABEL = "label";
     public static final String ATTR_ID = SBMLCore.SBML_ID_ATTR;
+    public static final String ATTR_UNIT_SID = "unitSid";
     // The name must be assigned to "shared name" to make sure it is a NetworkCollection Column.
     // it is available as name for the subnetwork.
     public static final String ATTR_NAME = "shared name"; // SBMLCore.NODE_NAME_ATTR_LABEL;

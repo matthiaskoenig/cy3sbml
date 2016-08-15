@@ -97,7 +97,8 @@ public class MappingUtil {
     /////////////////////////////////////////////////////////////////////////////////////////
 
     public static String localParameterId(LocalParameter lp){
-        Reaction reaction = (Reaction) lp.getParent().getParent();
+        KineticLaw law = (KineticLaw) lp.getParent().getParent();
+        Reaction reaction = law.getParent();
         return String.format("%s%s%s",
                 reaction.getId(), SEPARATOR, lp.getId());
     }
