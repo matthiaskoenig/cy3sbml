@@ -2,7 +2,7 @@ package org.cy3sbml;
 
 import java.util.*;
 
-import org.cy3sbml.mapping.CyIdSBaseMap;
+import org.cy3sbml.mapping.MetaIdSBaseMap;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 
@@ -36,7 +36,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 
     private Long currentSUID;
     private Network2SBMLMapper network2sbml;
-	private HashMap<Long, CyIdSBaseMap> network2objectMap;
+	// private HashMap<Long, MetaIdSBaseMap> network2objectMap;
 
     /**
      * Get SBMLManager (creates the instance).
@@ -70,7 +70,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 	private void reset(){
         currentSUID = null;
 		network2sbml = new Network2SBMLMapper();
-		network2objectMap = new HashMap<>();
+		// network2objectMap = new HashMap<>();
 	}
 
     /**
@@ -97,7 +97,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 		// document & mapping
 		network2sbml.putDocument(rootNetworkSUID, doc, mapping);
 		// object map
-		network2objectMap.put(rootNetworkSUID, new CyIdSBaseMap(doc));
+		// network2objectMap.put(rootNetworkSUID, new MetaIdSBaseMap(doc));
 	}
 
     /**
@@ -204,12 +204,14 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      *
      * The object maps are created when the SBMLDocument is stored.
      */
-	public SBase getSBaseByCyId(String key){
-        return getSBaseByCyId(key, currentSUID);
+	public SBase getSBaseByCyId(String cyId){
+	    return getSBaseByCyId(cyId, currentSUID);
 	}
 
-    public SBase getSBaseByCyId(String key, Long SUID){
-        return network2objectMap.get(SUID).getObjectByCyId(key);
+    public SBase getSBaseByCyId(String cyId, Long SUID){
+        SBMLDocument doc = network2sbml.getDocument(SUID);
+        return doc.getElementByMetaId(cyId)
+        // return network2objectMap.get(SUID).getObjectByCyId(cyId);
     }
 
     /**
@@ -240,7 +242,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         logger.debug("SBMLManager from given mapper");
 
         network2sbml = mapper;
-        network2objectMap = new HashMap<>();
+        // network2objectMap = new HashMap<>();
 
         // Create all the trees
         Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
@@ -248,8 +250,8 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
             SBMLDocument doc = documentMap.get(suid);
 
             // create id<->object mapping
-            CyIdSBaseMap map = new CyIdSBaseMap(doc);
-            network2objectMap.put(suid, map);
+            // MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
+            // network2objectMap.put(suid, map);
         }
 
         // Set current network and tree
