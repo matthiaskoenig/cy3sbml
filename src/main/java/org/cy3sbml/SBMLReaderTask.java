@@ -101,7 +101,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	private CyRootNetwork rootNetwork;
 	private CyNetwork network;       // global network of all SBML information
-	private CyNetwork coreNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
+	private CyNetwork kineticNetwork;
+	private CyNetwork baseNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
+
 
 	private Map<String, CyNode> metaId2Node;  // node dictionary
     private Map<String, CyNode> id2Node;  // node dictionary
@@ -140,10 +142,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     /** Get created networks from the reader. */
     @Override
     public CyNetwork[] getNetworks() {
-        if (coreNetwork == null){
+        if (baseNetwork == null){
             return new CyNetwork[] { network };
         } else {
-            return new CyNetwork[] {coreNetwork, network };
+            return new CyNetwork[] {baseNetwork, kineticNetwork, network };
         }
     }
 
@@ -312,59 +314,39 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             addSBMLInteractionExtended(network);
 						
 			//////////////////////////////////////////////////////////////////
-			
-			// main SBML network consisting of the following nodes and edges
-			String[] nodeTypes = {
-				SBML.NODETYPE_SPECIES,
-				SBML.NODETYPE_REACTION,
-				SBML.NODETYPE_QUAL_SPECIES,
-				SBML.NODETYPE_QUAL_TRANSITION,
-				SBML.NODETYPE_FBC_GENEPRODUCT,
-				SBML.NODETYPE_FBC_AND,
-				SBML.NODETYPE_FBC_OR
-			}; 
-			String[] edgeTypes = {
-				SBML.INTERACTION_REACTION_REACTANT,
-				SBML.INTERACTION_REACTION_PRODUCT,
-				SBML.INTERACTION_REACTION_MODIFIER,
-				SBML.INTERACTION_QUAL_TRANSITION_INPUT,
-				SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
-				SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
-				SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
-				SBML.INTERACTION_FBC_ASSOCIATION_REACTION
-			};
-
-			// O(1) lookup (collect nodes and edges)
-			HashSet<String> nodeTypesSet = new HashSet<>(java.util.Arrays.asList(nodeTypes));
-			HashSet<CyNode> coreNodes = new HashSet<>();
-			for (CyNode n : network.getNodeList()){
-				CyRow row = network.getRow(n, CyNetwork.DEFAULT_ATTRS);
-				String type = row.get(SBML.NODETYPE_ATTR, String.class);
-				if (nodeTypesSet.contains(type)){
-					coreNodes.add(n);
-				}
-			}
-
-            HashSet<String> edgeTypesSet = new HashSet<>(java.util.Arrays.asList(edgeTypes));
-			HashSet<CyEdge> coreEdges = new HashSet<>();
-			for (CyEdge e : network.getEdgeList()){
-				CyRow row = network.getRow(e, CyNetwork.DEFAULT_ATTRS);
-				String type = row.get(SBML.INTERACTION_ATTR, String.class);
-				if (edgeTypesSet.contains(type)){
-					coreEdges.add(e);
-				}
-			}
+            // Base network
+            //////////////////////////////////////////////////////////////////
 
             // Set naming
-			String name = getNetworkName();
+            String name = getNetworkName();
             rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
             network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
 
-			// Create core subnetwork if any node in main network
+            // O(1) lookup (collect nodes and edges)
+            HashSet<CyNode> coreNodes = getNetworkNodes(
+                    new HashSet<>(java.util.Arrays.asList(SBML.coreNodeTypes))
+            );
+            HashSet<CyEdge> coreEdges = getNetworkEdges(
+                    new HashSet<>(java.util.Arrays.asList(SBML.coreEdgeTypes))
+            );
 			if (coreNodes.size() > 0){
-				coreNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
-				coreNetwork.getRow(coreNetwork).set(CyNetwork.NAME, String.format("Core: %s", name));
+				baseNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
+				baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("Base: %s", name));
 			}
+
+            //////////////////////////////////////////////////////////////////
+            // Kinetic network
+            //////////////////////////////////////////////////////////////////
+            HashSet<CyNode> kineticNodes = getNetworkNodes(
+                    new HashSet<>(java.util.Arrays.asList(SBML.kineticNodeTypes))
+            );
+            HashSet<CyEdge> kineticEdges = getNetworkEdges(
+                    new HashSet<>(java.util.Arrays.asList(SBML.kineticEdgeTypes))
+            );
+            if (kineticNodes.size() > 0){
+                kineticNetwork = rootNetwork.addSubNetwork(kineticNodes, kineticEdges);
+                kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
+            }
 
 			if (taskMonitor != null){
 				taskMonitor.setProgress(0.8);
@@ -381,6 +363,40 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues'" + t);
 		}
 	}
+
+    /**
+     * Get network edges with given edge types.
+     * @param edgeTypes
+     * @return
+     */
+	private HashSet<CyEdge> getNetworkEdges(HashSet<String> edgeTypes){
+        HashSet<CyEdge> edges = new HashSet<>();
+        for (CyEdge e : network.getEdgeList()){
+            CyRow row = network.getRow(e, CyNetwork.DEFAULT_ATTRS);
+            String type = row.get(SBML.INTERACTION_ATTR, String.class);
+            if (edgeTypes.contains(type)){
+                edges.add(e);
+            }
+        }
+        return edges;
+    }
+
+    /**
+     * Get network nodes with given edge types.
+     * @param nodeTypes
+     * @return
+     */
+    private HashSet<CyNode> getNetworkNodes(HashSet<String> nodeTypes){
+        HashSet<CyNode> nodes = new HashSet<>();
+        for (CyNode n : network.getNodeList()){
+            CyRow row = network.getRow(n, CyNetwork.DEFAULT_ATTRS);
+            String type = row.get(SBML.NODETYPE_ATTR, String.class);
+            if (nodeTypes.contains(type)){
+                nodes.add(n);
+            }
+        }
+        return nodes;
+    }
 
 	/**
      * Get network name.
@@ -620,7 +636,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 					    String lpId = MappingUtil.localParameterId(lp);
                         lp.setId(lpId);
 
-                        CyNode lpNode = createNode(lp, SBML.NODETYPE_LOCAL_PARAMTER);
+                        CyNode lpNode = createNode(lp, SBML.NODETYPE_LOCAL_PARAMETER);
 						setQuantityWithUnitAttributes(lpNode, lp);
                         // edge to unit
                         createUnitEdge(lpNode, lp);

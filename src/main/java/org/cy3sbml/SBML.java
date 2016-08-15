@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -115,7 +116,7 @@ public class SBML {
     public static final String NODETYPE_ALGEBRAIC_RULE = "algebraicRule";
     public static final String NODETYPE_INITIAL_ASSIGNMENT = "initialAssignment";
     public static final String NODETYPE_KINETIC_LAW = "kineticLaw";
-    public static final String NODETYPE_LOCAL_PARAMTER = "localParameter";
+    public static final String NODETYPE_LOCAL_PARAMETER = "localParameter";
     public static final String NODETYPE_FUNCTION_DEFINITION = "functionDefinition";
     public static final String NODETYPE_UNIT_DEFINITION = "unitDefinition";
     public static final String NODETYPE_UNIT = "unit";
@@ -226,6 +227,83 @@ public class SBML {
         iSet.add("SBO:0000536"); //partial-inhibitor
         SBO_INHIBITORS = Collections.unmodifiableSet(iSet);
     }
+
+    // -------------------------------------------------------------------------
+    // Core Network
+    // -------------------------------------------------------------------------
+    public static final String[] coreNodeTypes = {
+            SBML.NODETYPE_SPECIES,
+            SBML.NODETYPE_REACTION,
+
+            SBML.NODETYPE_QUAL_SPECIES,
+            SBML.NODETYPE_QUAL_TRANSITION,
+
+            SBML.NODETYPE_FBC_GENEPRODUCT,
+            SBML.NODETYPE_FBC_AND,
+            SBML.NODETYPE_FBC_OR
+    };
+
+    public static final String[] coreEdgeTypes = {
+            SBML.INTERACTION_REACTION_REACTANT,
+            SBML.INTERACTION_REACTION_PRODUCT,
+            SBML.INTERACTION_REACTION_MODIFIER,
+            SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+            SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
+            SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
+            SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
+            SBML.INTERACTION_FBC_ASSOCIATION_REACTION
+    };
+
+    // -------------------------------------------------------------------------
+    // Kinetic Network
+    // -------------------------------------------------------------------------
+    public static final String[] kineticNodeTypes = {
+            SBML.NODETYPE_SPECIES,
+            SBML.NODETYPE_PARAMETER,
+            SBML.NODETYPE_COMPARTMENT,
+            SBML.NODETYPE_REACTION,
+            SBML.NODETYPE_RATE_RULE,
+            SBML.NODETYPE_ASSIGNMENT_RULE,
+            SBML.NODETYPE_ALGEBRAIC_RULE,
+            SBML.NODETYPE_INITIAL_ASSIGNMENT,
+            SBML.NODETYPE_KINETIC_LAW,
+            SBML.NODETYPE_LOCAL_PARAMETER,
+            SBML.NODETYPE_FUNCTION_DEFINITION,
+
+            SBML.NODETYPE_QUAL_SPECIES,
+            SBML.NODETYPE_QUAL_TRANSITION,
+
+            SBML.NODETYPE_FBC_GENEPRODUCT,
+            SBML.NODETYPE_FBC_AND,
+            SBML.NODETYPE_FBC_OR,
+
+            SBML.NODETYPE_COMP_PORT,
+    };
+
+    public static final String[] kineticEdgeTypes = {
+            SBML.INTERACTION_REACTION_REACTANT,
+            SBML.INTERACTION_REACTION_PRODUCT,
+            SBML.INTERACTION_REACTION_MODIFIER,
+            SBML.INTERACTION_SPECIES_COMPARTMENT,
+            SBML.INTERACTION_REACTION_COMPARTMENT,
+            SBML.INTERACTION_PARAMETER_REACTION,
+            SBML.INTERACTION_VARIABLE_RULE,
+            SBML.INTERACTION_VARIABLE_INITIAL_ASSIGNMENT,
+            SBML.INTERACTION_REFERENCE_RULE,
+            SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT,
+            SBML.INTERACTION_REFERENCE_KINETICLAW,
+            SBML.INTERACTION_REACTION_KINETICLAW,
+            SBML.INTERACTION_LOCALPARAMETER_KINETICLAW,
+
+            SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+            SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
+
+            SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
+            SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
+            SBML.INTERACTION_FBC_ASSOCIATION_REACTION,
+
+            SBML.INTERACTION_COMP_PORT_ID
+    };
 
     // -------------------------------------------------------------------------
     // Default Layout

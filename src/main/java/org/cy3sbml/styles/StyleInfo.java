@@ -73,7 +73,7 @@ public class StyleInfo {
         m4.put(SBML.NODETYPE_REACTION, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_COMPARTMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_PARAMETER, "Liberation Sans Bold,plain,12");
-        m4.put(SBML.NODETYPE_LOCAL_PARAMTER, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_LOCAL_PARAMETER, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_ALGEBRAIC_RULE, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_ASSIGNMENT_RULE, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_RATE_RULE, "Liberation Sans Bold,plain,12");
@@ -88,7 +88,7 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_REACTION, "15.0");
         m5.put(SBML.NODETYPE_COMPARTMENT, "90.0");
         m5.put(SBML.NODETYPE_PARAMETER, "30.0");
-        m5.put(SBML.NODETYPE_LOCAL_PARAMTER, "30.0");
+        m5.put(SBML.NODETYPE_LOCAL_PARAMETER, "30.0");
         m5.put(SBML.NODETYPE_ALGEBRAIC_RULE, "20.0");
         m5.put(SBML.NODETYPE_ASSIGNMENT_RULE, "20.0");
         m5.put(SBML.NODETYPE_RATE_RULE, "20.0");
@@ -104,7 +104,7 @@ public class StyleInfo {
         Map<String, String> m6 = new HashMap<>();
         m6.put(SBML.NODETYPE_REACTION, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_PARAMETER, "N,S,c,0.00,0.00");
-        m6.put(SBML.NODETYPE_LOCAL_PARAMTER, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_LOCAL_PARAMETER, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_ALGEBRAIC_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_ASSIGNMENT_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_RATE_RULE, "N,S,c,0.00,0.00");
@@ -117,7 +117,7 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_REACTION, "RECTANGLE");
         m7.put(SBML.NODETYPE_COMPARTMENT, "HEXAGON");
         m7.put(SBML.NODETYPE_PARAMETER, "DIAMOND");
-        m7.put(SBML.NODETYPE_LOCAL_PARAMTER, "DIAMOND");
+        m7.put(SBML.NODETYPE_LOCAL_PARAMETER, "DIAMOND");
         m7.put(SBML.NODETYPE_QUAL_TRANSITION, "RECTANGLE");
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
         m7.put(SBML.NODETYPE_UNIT_DEFINITION, "PARALLELOGRAM");
