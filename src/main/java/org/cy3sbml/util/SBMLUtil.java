@@ -461,8 +461,14 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createEventMap(Event event) {
         LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(event);
         Trigger trigger = event.getTrigger();
+        String triggerStr = SBaseHTMLFactory.ICON_NONE;
+        if (trigger.isSetMath()){
+            triggerStr = String.format(MATH_TEMPLATE, trigger.getMath().toFormula());
+        }
+        map.put("trigger", triggerStr);
         map.put("trigger initialValue", SBaseHTMLFactory.booleanHTML(trigger.getInitialValue()));
         map.put("trigger persistent", SBaseHTMLFactory.booleanHTML(trigger.getPersistent()));
+        
         String priorityStr = SBaseHTMLFactory.ICON_NONE;
         if (event.isSetPriority()){
             Priority priority = event.getPriority();

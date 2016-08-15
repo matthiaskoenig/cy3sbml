@@ -76,6 +76,7 @@ import org.cy3sbml.mapping.One2ManyMapping;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Attr;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -663,6 +664,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			if (variable != null){
 			 	CyNode assignmentNode = createNode(assignment, SBML.NODETYPE_INITIAL_ASSIGNMENT);
                 setAbstractMathContainerNodeAttributes(assignmentNode, assignment);
+                AttributeUtil.set(network, assignmentNode, SBML.ATTR_VARIABLE, variable.getId(), String.class);
 
 				// edge to variable 
                 CyNode variableNode = metaId2Node.get(variable.getMetaId());
@@ -706,6 +708,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
             // edge to variable for rateRule and assignmentRule
 			if (variable != null) {
+                AttributeUtil.set(network, n, SBML.ATTR_VARIABLE, variable.getId(), String.class);
 
                 CyNode variableNode = metaId2Node.get(variable.getMetaId());
                 if (variableNode != null) {
@@ -747,6 +750,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                         event.getUseValuesFromTriggerTime(), Boolean.class);
             }
 
+            // edge via trigger math
+            createMathNetwork(event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+            // edge via priority math
+            if (event.isSetPriority()){
+                createMathNetwork(event.getPriority(), n, SBML.INTERACTION_PRIORITY_EVENT);
+            }
+            // edge via delay math
+            if (event.isSetDelay()){
+                createMathNetwork(event.getDelay(), n, SBML.INTERACTION_PRIORITY_EVENT);
+            }
+
             for (EventAssignment ea: event.getListOfEventAssignments()){
                 CyNode eaNode = createNode(ea, SBML.NODETYPE_EVENT_ASSIGNMENT);
                 setAbstractMathContainerNodeAttributes(eaNode, ea);
@@ -758,7 +772,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 if (ea.isSetVariable()){
                     Variable variable = ea.getVariableInstance();
                     CyNode variableNode = metaId2Node.get(variable.getMetaId());
-					AttributeUtil.set(network, eaNode, SBML.LABEL, "", String.class);
+					AttributeUtil.set(network, eaNode, SBML.LABEL, variable.getId(), String.class);
+                    AttributeUtil.set(network, eaNode, SBML.ATTR_VARIABLE, variable.getId(), String.class);
 
                     if (variableNode != null) {
                         createEdge(variableNode, eaNode, SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT);
@@ -773,6 +788,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 } else {
                     logger.error("Variable not set in EventAssignment: " + ea);
                 }
+
                 // referenced nodes in math
                 createMathNetwork(ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
             }

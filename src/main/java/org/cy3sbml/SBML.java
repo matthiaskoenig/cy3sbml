@@ -59,6 +59,7 @@ public class SBML {
     public static final String ATTR_FAST = "fast";
     public static final String ATTR_KINETIC_LAW = "kineticLaw";
     public static final String ATTR_SIZE = "size";
+    public static final String ATTR_VARIABLE = "variable";
     public static final String ATTR_SPATIAL_DIMENSIONS = "spatialDimensions";
     public static final String ATTR_MESSAGE = "message";
     public static final String ATTR_USE_VALUES_FROM_TRIGGER_TIME = "useValuesFromTriggerTime";
@@ -154,21 +155,28 @@ public class SBML {
     public static final String INTERACTION_PARAMETER_REACTION = "parameter_reaction";
     public static final String INTERACTION_VARIABLE_RULE = "variable_rule";
     public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable_initialAssignment";
-    public static final String INTERACTION_VARIABLE_EVENT_ASSIGNMENT = "variable_eventAssignment";
+
 
     public static final String INTERACTION_REFERENCE_RULE = "reference_rule";
     public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference_initialAssignment";
     public static final String INTERACTION_REFERENCE_KINETICLAW = "reference_kineticLaw";
     public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference_functionDefinition";
     public static final String INTERACTION_REFERENCE_EVENT_ASSIGNMENT = "reference_eventAssignment";
-    public static final String INTERACTION_EVENT_EVENT_ASSIGNMENT = "reference_eventAssignment";
+
 
     public static final String INTERACTION_REACTION_KINETICLAW = "reaction_kineticLaw";
     public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter_kineticLaw";
 
     public static final String INTERACTION_UNIT_UNITDEFINITION = "unit_unitDefinition";
     public static final String INTERACTION_SBASE_UNITDEFINITION = "sbase_unitDefinition";
-	
+
+    public static final String INTERACTION_TRIGGER_EVENT = "trigger_event";
+    public static final String INTERACTION_PRIORITY_EVENT = "priority_event";
+    public static final String INTERACTION_DELAY_EVENT = "delay_event";
+
+    public static final String INTERACTION_EVENT_EVENT_ASSIGNMENT = "reference_eventAssignment";
+    public static final String INTERACTION_VARIABLE_EVENT_ASSIGNMENT = "variable_eventAssignment";
+
 	// qual
     public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input_transition";
     public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition_output";
