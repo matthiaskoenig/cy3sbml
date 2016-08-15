@@ -468,7 +468,7 @@ public class SBMLUtil {
         map.put("trigger", triggerStr);
         map.put("trigger initialValue", SBaseHTMLFactory.booleanHTML(trigger.getInitialValue()));
         map.put("trigger persistent", SBaseHTMLFactory.booleanHTML(trigger.getPersistent()));
-        
+
         String priorityStr = SBaseHTMLFactory.ICON_NONE;
         if (event.isSetPriority()){
             Priority priority = event.getPriority();

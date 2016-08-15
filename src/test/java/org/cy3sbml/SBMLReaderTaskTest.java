@@ -51,7 +51,7 @@ public class SBMLReaderTaskTest {
         readerTask.run(taskMonitor);
         CyNetwork [] networks = readerTask.getNetworks();
         assertNotNull(networks);
-        assertEquals(2, networks.length);
+        assertEquals(3, networks.length);
     }
 
     @Test

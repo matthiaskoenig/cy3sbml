@@ -63,7 +63,7 @@ public class SBMLCoreTest {
 	public void testCoreNetwork_01() throws Exception {
 		CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
 		assertNotNull(networks);
-		assertTrue(networks.length == 2);
+		assertTrue(networks.length == 3);
 		
 		// test nodes and edges
         CyNetwork network = networks[0];
@@ -79,14 +79,14 @@ public class SBMLCoreTest {
     public void testCoreNetwork_02() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_02);
         assertNotNull(networks);
-        assertTrue(networks.length == 2);
+        assertTrue(networks.length == 3);
     }
 
     @Test
     public void testCoreNetwork_03() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_03);
         assertNotNull(networks);
-        assertTrue(networks.length == 2);
+        assertTrue(networks.length == 3);
     }
 
     /** Test core edges. */

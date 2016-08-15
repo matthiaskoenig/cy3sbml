@@ -132,13 +132,14 @@ public class SBMLManagerTest {
     }
 
     @Test
-    public void getSBaseById() throws Exception {
+    public void getSBaseByCyId() throws Exception {
         SBMLDocument doc = new SBMLDocument();
         Model model = doc.createModel();
         Compartment c = model.createCompartment();
         c.setId("c1");
+        c.setMetaId("c1_meta");
         manager.addSBMLForNetwork(doc, SUID, MAPPING);
-        SBase c2 = manager.getSBaseByCyId("c1", SUID);
+        SBase c2 = manager.getSBaseByCyId("c1_meta", SUID);
         assertNotNull(c2);
         assertEquals(c, c2);
     }
