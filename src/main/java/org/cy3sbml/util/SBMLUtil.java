@@ -139,17 +139,18 @@ public class SBMLUtil {
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
 
-    public static final String ATTR_ID = "id";
     private static final String ATTR_NAME = "name";
     public static final String ATTR_COMPARTMENT = "compartment";
     public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
     public static final String ATTR_INITIAL_AMOUNT = "amount";
     public static final String ATTR_CHARGE = "charge";
 
-
     private static final String UNIT_TEMPLATE = "<span class=\"unit\">%s</span>";
+    private static final String MATH_TEMPLATE = "<span class=\"math\">%s</span>";
 
-    /** Map for SBase. */
+    /**
+     * Map for SBase.
+     */
     public static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(SBML.ATTR_METAID,
@@ -157,27 +158,41 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Map for NamedSBase. */
+    /**
+     * Map for NamedSBase.
+     */
     public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        // map.put(ATTR_ID,
-        //         (sbase.isSetId()) ? sbase.getId() : ICON_NONE);
         map.put(ATTR_NAME,
                 (nsb.isSetName()) ? nsb.getName() : SBaseHTMLFactory.ICON_NONE);
         map.putAll(createSBaseMap(nsb));
         return map;
     }
 
-    /** Map for QuantityWithUnit .*/
+    /**
+     * Map for NamedSBaseWithDerivedUnit.
+     */
+    public static LinkedHashMap<String, String> createNamedSBaseWithDerivedUnitMap(NamedSBaseWithDerivedUnit nsbu){
+        LinkedHashMap<String, String> map = createNamedSBaseMap(nsbu);
+        String units = getDerivedUnitHTML(nsbu);
+        map.put(SBML.ATTR_DERIVED_UNITS, String.format(UNIT_TEMPLATE, units));
+        return map;
+    }
+
+    /**
+     * Map for QuantityWithUnit.
+     */
     public static LinkedHashMap<String, String> createQuantityWithUnitNodeMap(QuantityWithUnit quantity){
-        LinkedHashMap<String, String> map = createNamedSBaseMap(quantity);
+        LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(quantity);
         String units = quantity.isSetUnits() ? quantity.getUnits() : SBaseHTMLFactory.ICON_NONE;
         String value = quantity.isSetValue() ? ((Double) quantity.getValue()).toString() : SBaseHTMLFactory.ICON_NONE;
         map.put(SBML.ATTR_VALUE, String.format("%s "+UNIT_TEMPLATE, value, units));
         return map;
     }
 
-    /** Map for Symbol. */
+    /**
+     * Map for Symbol.
+     */
     public static LinkedHashMap<String, String> createSymbolMap(Symbol symbol){
         LinkedHashMap<String, String> map = createQuantityWithUnitNodeMap(symbol);
         map.put(SBML.ATTR_CONSTANT,
@@ -190,26 +205,31 @@ public class SBMLUtil {
         return createAbstractMathContainerNodeMap(container, null);
     }
 
-    /** Map for AbstractMathContainer. */
+    /**
+     * Map for AbstractMathContainer.
+     */
     public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, String variable){
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
         String units = getDerivedUnitHTML(container);
         if (variable != null){
-            math = String.format("<span class=\"math\">%s = %s</span>", variable, math);
+            math = String.format("%s = %s", variable, math);
         }
-        map.put(SBML.ATTR_MATH, String.format("<span class=\"math\">%s</span>", math));
+        map.put(SBML.ATTR_MATH, String.format(String.format(MATH_TEMPLATE, math)));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
-
         return map;
     }
 
-    /** SBMLDocument map. */
+    /**
+     * SBMLDocument map.
+     */
     public static LinkedHashMap<String, String> createSBMLDocumentMap(SBMLDocument doc){
         return new LinkedHashMap<>();
     }
 
-    /** Model map. */
+    /**
+     * Model map.
+     */
     public static LinkedHashMap<String, String> createModelMap(Model model){
         // packages
         Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
@@ -259,14 +279,18 @@ public class SBMLUtil {
         return map;
     }
 
-    /** FunctionDefinition map. */
+    /**
+     * FunctionDefinition map.
+     */
     public static LinkedHashMap<String, String> createFunctionDefinitionMap(FunctionDefinition fd) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(fd);
         map.putAll(createAbstractMathContainerNodeMap(fd));
         return map;
     }
 
-    /** Compartment map. */
+    /**
+     * Compartment map.
+     */
     public static LinkedHashMap<String, String> createCompartmentMap(Compartment compartment) {
         LinkedHashMap<String, String> map = createSymbolMap(compartment);
         map.put(SBML.ATTR_SPATIAL_DIMENSIONS,
@@ -278,13 +302,17 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Parameter map. */
+    /**
+     * Parameter map.
+     */
     public static LinkedHashMap<String, String> createParameterMap(Parameter p) {
         LinkedHashMap<String, String> map = createSymbolMap(p);
         return map;
     }
 
-    /** Species map. */
+    /**
+     * Species map.
+     */
     public static LinkedHashMap<String, String> createSpeciesMap(Species s) {
         LinkedHashMap<String, String> map = createSymbolMap(s);
 
@@ -337,7 +365,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Reaction map. */
+    /**
+     * Reaction map.
+     */
     public static LinkedHashMap<String, String> createReactionMap(Reaction r) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(r);
 
@@ -380,7 +410,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** InitialAssignment map. */
+    /**
+     * InitialAssignment map.
+     */
     public static LinkedHashMap<String, String> createInitialAssignmentMap(InitialAssignment ass) {
 
         String variable = ass.isSetVariable() ? ass.getVariable() : SBaseHTMLFactory.ICON_NONE;
@@ -389,7 +421,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Unit map. */
+    /**
+     * Unit map.
+     */
     public static LinkedHashMap<String, String> createUnitMap(Unit u) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
@@ -405,7 +439,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Constraint map. */
+    /**
+     * Constraint map.
+     */
     public static LinkedHashMap<String, String> createConstraintMap(Constraint constraint) {
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(constraint);
         String message = SBaseHTMLFactory.ICON_NONE;
@@ -423,24 +459,35 @@ public class SBMLUtil {
 
     /** Event map. */
     public static LinkedHashMap<String, String> createEventMap(Event event) {
-        LinkedHashMap<String, String> map = createNamedSBaseMap(event);
-
-        // FIXME: implement
-        // TODO: derivedUnit
-
+        LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(event);
+        Trigger trigger = event.getTrigger();
+        map.put("trigger initialValue", SBaseHTMLFactory.booleanHTML(trigger.getInitialValue()));
+        map.put("trigger persistent", SBaseHTMLFactory.booleanHTML(trigger.getPersistent()));
+        String priorityStr = SBaseHTMLFactory.ICON_NONE;
+        if (event.isSetPriority()){
+            Priority priority = event.getPriority();
+            if (priority.isSetMath()){
+                priorityStr = String.format(MATH_TEMPLATE, priority.getMath().toFormula());
+            }
+        }
+        map.put("priority", priorityStr);
+        String delayStr = SBaseHTMLFactory.ICON_NONE;
+        if (event.isSetPriority()){
+            Delay delay = event.getDelay();
+            if (delay.isSetMath()){
+                delayStr = String.format(MATH_TEMPLATE, delay.getMath().toFormula());
+            }
+        }
+        map.put("delay", delayStr);
         return map;
     }
-
 
     /** EventAssignment map. */
     public static LinkedHashMap<String, String> createEventAssignmentMap(EventAssignment ea) {
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ea);
-
-        // FIXME: implement
+        String variable = ea.getVariable();
+        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ea, variable);
         return map;
     }
-
-
 
     /** Rule map. */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {

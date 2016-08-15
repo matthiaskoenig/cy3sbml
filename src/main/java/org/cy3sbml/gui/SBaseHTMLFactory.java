@@ -310,6 +310,9 @@ public class SBaseHTMLFactory {
         else if (item instanceof Event){
             map = SBMLUtil.createEventMap((Event) item);
         }
+        else if (item instanceof EventAssignment){
+            map = SBMLUtil.createEventAssignmentMap((EventAssignment) item);
+        }
 
 		// qual //
 		else if (item instanceof QualitativeSpecies){

@@ -758,7 +758,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 if (ea.isSetVariable()){
                     Variable variable = ea.getVariableInstance();
                     CyNode variableNode = metaId2Node.get(variable.getMetaId());
-					AttributeUtil.set(network, eaNode, SBML.LABEL, variable.toString(), String.class);
+					AttributeUtil.set(network, eaNode, SBML.LABEL, "", String.class);
+
                     if (variableNode != null) {
                         createEdge(variableNode, eaNode, SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT);
                     } else {

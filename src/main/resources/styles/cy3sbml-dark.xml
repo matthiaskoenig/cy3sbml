@@ -200,10 +200,10 @@
             <visualProperty default="#000000" name="EDGE_TARGET_ARROW_UNSELECTED_PAINT"/>
             <visualProperty default="SOLID" name="EDGE_LINE_TYPE">
                 <discreteMapping attributeName="interaction type" attributeType="string">
-                    <discreteMappingEntry attributeValue="reference_eventAssignment" value="DASH"/>
+                    <discreteMappingEntry attributeValue="reference_eventAssignment" value="DOT"/>
                     <discreteMappingEntry attributeValue="unit_unitDefinition" value="DOT"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
-                    <discreteMappingEntry attributeValue="variable_eventAssignment" value="DASH"/>
+                    <discreteMappingEntry attributeValue="variable_eventAssignment" value="DOT"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="DOT"/>
                 </discreteMapping>
             </visualProperty>
