@@ -161,6 +161,7 @@ public class SBML {
     public static final String INTERACTION_REFERENCE_KINETICLAW = "reference_kineticLaw";
     public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference_functionDefinition";
     public static final String INTERACTION_REFERENCE_EVENT_ASSIGNMENT = "reference_eventAssignment";
+    public static final String INTERACTION_EVENT_EVENT_ASSIGNMENT = "reference_eventAssignment";
 
     public static final String INTERACTION_REACTION_KINETICLAW = "reaction_kineticLaw";
     public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter_kineticLaw";

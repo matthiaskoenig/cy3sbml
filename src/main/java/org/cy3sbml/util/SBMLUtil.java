@@ -423,11 +423,23 @@ public class SBMLUtil {
 
     /** Event map. */
     public static LinkedHashMap<String, String> createEventMap(Event event) {
-        LinkedHashMap<String, String> map = null;
+        LinkedHashMap<String, String> map = createNamedSBaseMap(event);
+
         // FIXME: implement
+        // TODO: derivedUnit
 
         return map;
     }
+
+
+    /** EventAssignment map. */
+    public static LinkedHashMap<String, String> createEventAssignmentMap(EventAssignment ea) {
+        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ea);
+
+        // FIXME: implement
+        return map;
+    }
+
 
 
     /** Rule map. */

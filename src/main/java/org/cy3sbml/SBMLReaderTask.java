@@ -747,19 +747,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                         event.getUseValuesFromTriggerTime(), Boolean.class);
             }
 
-            // TODO: implement
-            /*
             for (EventAssignment ea: event.getListOfEventAssignments()){
-                String eaCyId =
-                CyNode eaNode = createNode(cyId, SBML.NODETYPE_EVENT_ASSIGNMENT);
+                CyNode eaNode = createNode(ea, SBML.NODETYPE_EVENT_ASSIGNMENT);
                 setAbstractMathContainerNodeAttributes(eaNode, ea);
 
                 // edge to event
+                createEdge(n, eaNode, SBML.INTERACTION_EVENT_EVENT_ASSIGNMENT);
 
                 // edge to variable
                 if (ea.isSetVariable()){
-                    String variable = ea.getVariable();
-                    CyNode variableNode = metaId2Node.get(variable);
+                    Variable variable = ea.getVariableInstance();
+                    CyNode variableNode = metaId2Node.get(variable.getMetaId());
                     if (variableNode != null) {
                         createEdge(variableNode, eaNode, SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT);
                     } else {
@@ -776,8 +774,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 // referenced nodes in math
                 createMathNetwork(ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
             }
-            */
-
         }
 	}
 		
@@ -1244,6 +1240,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         // edge to unit
         if (q.isSetUnits()){
+            // Every time a new unit instance is created for base units !
             UnitDefinition ud = q.getUnitsInstance();
             CyNode udNode = metaId2Node.get(ud.getMetaId());
             /*

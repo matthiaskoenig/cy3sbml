@@ -89,6 +89,9 @@ public class MetaIdSBaseMap {
 			addListOf(model.getListOfConstraints());
             // Events
             addListOf(model.getListOfEvents());
+			for (Event event: model.getListOfEvents()){
+			    addListOf(event.getListOfEventAssignments());
+            }
 
             ////////////////////////////////////////////////////////////////////////////
             // SBML QUAL
