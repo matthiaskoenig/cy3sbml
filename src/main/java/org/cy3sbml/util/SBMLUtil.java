@@ -214,18 +214,22 @@ public class SBMLUtil {
         // packages
         Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
         String packages = "";
-        if (packageMap.size()>0) {
-            packages = "[";
-            for (String key : packageMap.keySet()) {
-                packages += String.format("%s; ", key);
+        if (packageMap != null) {
+            packages = "";
+            for (SBasePlugin plugin : packageMap.values()) {
+                packages += String.format("; <a href=\"%s\">%s-V%s</a>",
+                        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
+
             }
-            packages += "]";
         }
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        SBMLDocument doc = (SBMLDocument) model.getParent();
+
         // default
         map.put(
-                String.format("L%sV%s %s", model.getLevel(), model.getVersion(), packages),
+                String.format("<a href=\"%s\">L%sV%s</a>%s",
+                        doc.getURI(), model.getLevel(), model.getVersion(), packages),
                 String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", GUIConstants.URL_SBMLFILE)
         );
         map.putAll(createNamedSBaseMap(model));
@@ -441,13 +445,20 @@ public class SBMLUtil {
 
     /** LocalParameter map. */
     public static LinkedHashMap<String, String> createLocalParameterMap(LocalParameter lp) {
-        LinkedHashMap<String, String> map = createQuantityWithUnitNodeMap(lp);
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        KineticLaw law = (KineticLaw) lp.getParent().getParent();
+        Reaction reaction = law.getParent();
+        map.put("reaction", reaction.getId());
+        map.putAll(createQuantityWithUnitNodeMap(lp));
         return map;
     }
 
     /** KineticLaw map. */
     public static LinkedHashMap<String, String> createKineticLawMap(KineticLaw law) {
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(law);
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        Reaction reaction = law.getParent();
+        map.put("reaction", reaction.getId());
+        map.putAll(createAbstractMathContainerNodeMap(law));
         return map;
     }
 
