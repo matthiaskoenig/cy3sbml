@@ -35,6 +35,7 @@ public class SBMLReader extends AbstractInputStreamTaskFactory {
 			return new TaskIterator(
 				new SBMLReaderTask(IOUtil.copyInputStream(is), inputName,
                         adapter.cyNetworkFactory,
+						adapter.cyGroupFactory,
                         adapter.cyNetworkViewFactory,
 						adapter.visualMappingManager,
                         adapter.cyLayoutAlgorithmManager,

@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CySwingApplication;
+import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
@@ -44,9 +45,12 @@ public class ServiceAdapter {
 	public SynchronousTaskManager synchronousTaskManager;
 	@SuppressWarnings("rawtypes")
 	public TaskManager taskManager;
+
 	public CyNetworkFactory cyNetworkFactory;
+    public CyGroupFactory cyGroupFactory;
 	public CyNetworkViewFactory cyNetworkViewFactory;
-	public CyProperty<Properties> cy3sbmlProperties;
+
+    public CyProperty<Properties> cy3sbmlProperties;
 	public File cy3sbmlDirectory;
 	public StreamUtil streamUtil;
 	public OpenBrowser openBrowser;
@@ -65,8 +69,12 @@ public class ServiceAdapter {
 			DialogTaskManager dialogTaskManager,
 			SynchronousTaskManager synchronousTaskManager,
 			TaskManager taskManager,
+
 			CyNetworkFactory cyNetworkFactory,
+            CyGroupFactory cyGroupFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
+
+
 			CyProperty<Properties> cy3sbmlProperties,
 			File cy3sbmlDirectory,
 			StreamUtil streamUtil,
@@ -87,6 +95,7 @@ public class ServiceAdapter {
 					synchronousTaskManager,
 					taskManager,
 					cyNetworkFactory,
+                    cyGroupFactory,
 					cyNetworkViewFactory,
 					cy3sbmlProperties,
 					cy3sbmlDirectory,
@@ -115,6 +124,7 @@ public class ServiceAdapter {
 			SynchronousTaskManager synchronousTaskManager,
 			TaskManager taskManager,
 			CyNetworkFactory cyNetworkFactory,
+            CyGroupFactory cyGroupFactory,
 			CyNetworkViewFactory cyNetworkViewFactory,
 			CyProperty<Properties> cy3sbmlProperties,
 			File cy3sbmlDirectory,
@@ -135,6 +145,7 @@ public class ServiceAdapter {
 		this.synchronousTaskManager = synchronousTaskManager;
 		this.taskManager = taskManager;
 		this.cyNetworkFactory = cyNetworkFactory;
+        this.cyGroupFactory = cyGroupFactory;
 		this.cyNetworkViewFactory = cyNetworkViewFactory;
 		this.cy3sbmlProperties = cy3sbmlProperties;
 		this.cy3sbmlDirectory = cy3sbmlDirectory;

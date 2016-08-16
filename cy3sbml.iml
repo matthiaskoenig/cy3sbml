@@ -51,6 +51,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:core-task-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:layout-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:property-api:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:group-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.osgi:org.osgi.core:4.2.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.2.2.21" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />

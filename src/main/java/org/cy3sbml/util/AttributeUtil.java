@@ -32,6 +32,10 @@ public class AttributeUtil {
 	}
 	
 	private static void set(CyNetwork network, CyIdentifiable entry, String tableName, String name, Object value, Class<?> type) {
+
+	    // user vs. DefaultNodeTable
+        // network.getDefaultNodeTable() ? What is the difference between defaultNodeTable and USER
+
 		CyRow row = network.getRow(entry, tableName);
 		CyTable table = row.getTable();
 		CyColumn column = table.getColumn(name);

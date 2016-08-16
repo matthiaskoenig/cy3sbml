@@ -45,7 +45,7 @@ public class MappingUtil {
             if (nsb.isSetId()){
                 metaId = nsb.getId();
             } else {
-                metaId = "nsb";
+                metaId = SBMLUtil.getUnqualifiedClassName(sbase);
             }
         }
         // Kinetic Law

@@ -100,6 +100,7 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_UNIT, "20.0");
         m5.put(SBML.NODETYPE_EVENT, "40.0");
         m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20.0");
+        m5.put(SBML.NODETYPE_GROUP, "60.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
@@ -126,6 +127,7 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_UNIT, "PARALLELOGRAM");
         m7.put(SBML.NODETYPE_EVENT, "HEXAGON");
         m7.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "HEXAGON");
+        m7.put(SBML.NODETYPE_GROUP, "HEXAGON");
 
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));

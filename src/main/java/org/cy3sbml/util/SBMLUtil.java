@@ -15,6 +15,9 @@ import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
 import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.groups.ListOfMembers;
+import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
@@ -559,6 +562,8 @@ public class SBMLUtil {
         return map;
     }
 
+    /// COMP ///
+
     /** Port map. */
     public static LinkedHashMap<String, String> createPortMap(Port port) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(port);
@@ -576,6 +581,34 @@ public class SBMLUtil {
         );
         return map;
     }
+
+    /// GROUP ///
+
+    /**
+     * Group map.
+     */
+    public static LinkedHashMap<String, String> createGroupMap(Group group) {
+        LinkedHashMap<String, String> map = createNamedSBaseMap(group);
+        map.put("kind", group.getKind().name());
+
+        ListOfMembers members = group.getListOfMembers();
+        if (members.isSetId()){
+            map.put("members id", members.getId());
+        }
+        if (members.isSetName()){
+            map.put("members name", members.getName());
+        }
+        String membersStr = "<ul>";
+        for (Member member: group.getListOfMembers()){
+            // FIXME: more efficient
+            membersStr += String.format("<li>%s</li>", member.getSBaseInstance().toString());
+        }
+        membersStr +="</ul>";
+        map.put("members", membersStr);
+
+        return map;
+    }
+
 
     /** Derived unit string. */
     private static String getDerivedUnitHTML(SBaseWithDerivedUnit usbase){

@@ -130,6 +130,7 @@
                     <discreteMappingEntry attributeValue="eventAssignment" value="20.0"/>
                     <discreteMappingEntry attributeValue="compartment" value="90.0"/>
                     <discreteMappingEntry attributeValue="event" value="40.0"/>
+                    <discreteMappingEntry attributeValue="group" value="60.0"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_6"/>
@@ -161,6 +162,7 @@
                     <discreteMappingEntry attributeValue="event" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
+                    <discreteMappingEntry attributeValue="group" value="HEXAGON"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="0.0" name="NODE_DEPTH"/>

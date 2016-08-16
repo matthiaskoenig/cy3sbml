@@ -141,6 +141,9 @@ public class SBML {
     public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
     public static final String NODETYPE_LAYOUT_REACTIONGLYPH = "layout:reactionGlyph";
 
+    // group
+    public static final String NODETYPE_GROUP = "group";
+
     // ----------------------
     // Edge types
     // ----------------------

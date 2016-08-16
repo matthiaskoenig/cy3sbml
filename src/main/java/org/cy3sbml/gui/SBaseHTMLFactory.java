@@ -19,6 +19,7 @@ import org.identifiers.registry.data.PhysicalLocation;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
@@ -331,6 +332,11 @@ public class SBaseHTMLFactory {
 		else if (item instanceof Port){
 			map = SBMLUtil.createPortMap((Port) item);
 		}
+
+        // group //
+        else if (item instanceof Group){
+            map = SBMLUtil.createGroupMap((Group) item);
+        }
 
 		// Not supported
 		else {

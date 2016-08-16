@@ -2,13 +2,10 @@ package org.cy3sbml;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
+import org.cytoscape.group.CyGroup;
+import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
@@ -32,8 +29,7 @@ import org.cytoscape.work.TaskMonitor;
 
 // SBML CORE
 import org.sbml.jsbml.*;
-import org.sbml.jsbml.ext.groups.Group;
-import org.sbml.jsbml.ext.groups.Member;
+import org.sbml.jsbml.ext.groups.*;
 import org.sbml.jsbml.util.CobraUtil;
 import org.sbml.jsbml.xml.XMLNode;
 // SBML QUAL
@@ -64,8 +60,6 @@ import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.comp.Port;
 // SBML GROUPS
-import org.sbml.jsbml.ext.groups.GroupsConstants;
-import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
 // SBML_LAYOUT
 import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.LayoutConstants;
@@ -95,6 +89,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	private String fileName;
 	private final InputStream stream;
 	private final CyNetworkFactory networkFactory;
+    private final CyGroupFactory groupFactory;
 	private final CyNetworkViewFactory viewFactory;
     private final VisualMappingManager visualMappingManager;
     private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
@@ -109,7 +104,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 
 	private Map<String, CyNode> metaId2Node;  // node dictionary
-    private Map<String, CyNode> id2Node;  // node dictionary
+    private Map<String, CyNode> id2Node;      // node dictionary
+    private Set<CyGroup> cyGroupSet;
     private Boolean error = false;
 
     private TaskMonitor taskMonitor;
@@ -117,6 +113,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	/** Constructor */
 	public SBMLReaderTask(InputStream stream, String fileName,
                           CyNetworkFactory networkFactory,
+                          CyGroupFactory cyGroupFactory,
 						  CyNetworkViewFactory viewFactory,
                           VisualMappingManager visualMappingManager,
                           CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
@@ -125,6 +122,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 		this.stream = stream;
 		this.fileName = fileName;
 		this.networkFactory = networkFactory;
+        this.groupFactory = cyGroupFactory;
 		this.viewFactory = viewFactory;
         this.visualMappingManager = visualMappingManager;
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
@@ -133,7 +131,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	/** Testing constructor. */
 	public SBMLReaderTask (InputStream stream, String fileName, CyNetworkFactory networkFactory){
-	    this(stream, fileName, networkFactory, null, null, null, null);
+	    this(stream, fileName, networkFactory, null, null, null, null, null);
     }
 
 
@@ -221,12 +219,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         if (mapping == null){
             mapping = new One2ManyMapping<>();
         }
-        List<CyNode> nodes = network.getNodeList();
+
+        // necessary to go via the root network so that the group nodes
+        // are included which are only set in the rootNetwork
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+
+        List<CyNode> nodes = rootNetwork.getNodeList();
         for (CyNode node : nodes){
-            CyRow attributes = network.getRow(node);
+            CyRow attributes = rootNetwork.getRow(node);
             String cyId = attributes.get(SBML.ATTR_CYID, String.class);
             mapping.put(cyId, node.getSUID());
         }
+
         return mapping;
     }
 
@@ -266,6 +270,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			network = networkFactory.createNetwork();
 			metaId2Node = new HashMap<>();
             id2Node = new HashMap<>();
+            cyGroupSet = new HashSet<>();
 			
 			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
 			// CySubNetwork and call the CySubNetwork.getRootNetwork() method:
@@ -349,6 +354,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             if (kineticNodes.size() > 0){
                 kineticNetwork = rootNetwork.addSubNetwork(kineticNodes, kineticEdges);
                 kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
+            }
+
+            // add groups to networks
+            CyNetwork[] networks = {baseNetwork, kineticNetwork};
+            for (CyNetwork net: networks){
+                for (CyGroup cyGroup: cyGroupSet){
+                    cyGroup.addGroupToNetwork(net);
+                }
             }
 
 			if (taskMonitor != null){
@@ -1141,23 +1154,62 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	/**
 	 * Creates groups.
      * Groups are implemented as group nodes.
+     *
+     * A CyGroup is created either as an empty group
+     *      CyGroup emptyGroup = groupFactory.createGroup(network, true);
+     * or by turning an existing node into an empty group:
+     *      CyGroup emptyGroup = groupFactory.createGroup(network, node, true);
+     *
      * For every SBML group a group node must be created.
-	 * TODO: implement
+	 *
+     * Groups are created at the end when all objects exist in the network.
 	 */
 	private void readGroups(Model model, GroupsModelPlugin groupsModel){
 		logger.debug("<groups>");
-        logger.debug("\tgroups model found, but not supported");
 
         for (Group group: groupsModel.getListOfGroups()){
-            String id = group.getId();
-            String name = group.getName();
-            String kind = group.getKind().name();
+        	logger.info(String.format("Reading group: <%s>", group));
 
-            for (Member member: group.getListOfMembers()){
-                member.getSBaseInstance();
+            // empty group node & sets attributes
+            CyGroup cyGroup = createGroup(group);
 
+            // collect nodes from members
+            List<CyNode> nodes = new LinkedList<>();
+            ListOfMembers membersList = group.getListOfMembers();
+            for (Member member: membersList){
+
+                // resolve object & node
+                SBase sbase = member.getSBaseInstance();
+                CyNode memberNode = metaId2Node.get(sbase.getMetaId());
+
+                if (memberNode != null){
+                    nodes.add(memberNode);
+                } else {
+                    logger.error(String.format("Member <%s> of group <%s> not found via metaId.", group, member));
+                }
+
+                // Information transfer to members
+
+                // Unlikemost lists of objects in SBML, however, the sboTerm attribute and the Notes
+                // and Annotation children are taken from the ListOfMembers to apply directly to every
+                // SBML element referenced by each child Member of this ListOfMembers,
+                // if that referenced element has no such definition.
+                // Thus, if a referenced element has no defined sboTerm, child Notes, or child Annotation,
+                // that element should be considered to now have the sboTerm, child Notes, or child Annotation of the ListOfMembers.
+
+                // ! this changes the SBMLDocument
+                if (membersList.isSetSBOTerm() && !sbase.isSetSBOTerm()){
+                    sbase.setSBOTerm(membersList.getSBOTerm());
+                }
+                if (membersList.isSetNotes() && !sbase.isSetNotes()){
+                    sbase.setNotes(membersList.getNotes());
+                }
+                if (membersList.isSetAnnotation() && !sbase.isSetAnnotation()){
+                    sbase.setAnnotation(membersList.getAnnotation());
+                }
             }
-
+            logger.info(String.format("Adding %s nodes to cyGroup", nodes.size()));
+            cyGroup.addNodes(nodes);
         }
 
 	}
@@ -1246,6 +1298,38 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
         return n;
+    }
+
+    /**
+     * Creates group node for the given group.
+     *
+     * @param group
+     * @return
+     */
+    private CyGroup createGroup(Group group){
+        // metaId for identification
+        MappingUtil.setSBaseMetaId(document, group);
+
+        CyGroup cyGroup = groupFactory.createGroup(network, true);
+        cyGroupSet.add(cyGroup);
+
+        // set attributes
+        //  cyGroup nodes are registered in the root network, so the corresponding
+        //  attributes must be set on the root network.
+        CyNode n = cyGroup.getGroupNode();
+        String metaId = group.getMetaId();
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+        AttributeUtil.set(rootNetwork, n, SBML.ATTR_CYID, metaId, String.class);
+        AttributeUtil.set(rootNetwork, n, SBML.NODETYPE_ATTR, SBML.NODETYPE_GROUP, String.class);
+        AttributeUtil.set(rootNetwork, n, SBML.LABEL, metaId, String.class);
+        setNamedSBaseAttributes(rootNetwork, n, group);
+
+        // store nodes
+        metaId2Node.put(metaId, n);
+        if (group.isSetId()){
+            id2Node.put(group.getId(), n);
+        }
+        return cyGroup;
     }
 
 
@@ -1343,7 +1427,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param n
      * @param sbase
      */
-    private void setSBaseAttributes(CyIdentifiable n, SBase sbase){
+    private static void setSBaseAttributes(CyNetwork network, CyIdentifiable n, SBase sbase){
         if (sbase.isSetSBOTerm()){
             AttributeUtil.set(network, n, SBML.ATTR_SBOTERM, sbase.getSBOTermID(), String.class);
         }
@@ -1371,16 +1455,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
     }
 
+    private void setSBaseAttributes(CyIdentifiable n, NamedSBase nsb){
+        setSBaseAttributes(network, n, nsb);
+    }
 
-	/**
-	 * Set attributes for NamedSBase.
-	 *
+
+    /**
+     * Set attributes for NamedSBase.
+     *
      * @param n CyIdentifiable to set attributes on
-	 * @param nsb NamedSBase
-	 * @return
-	 */
-    private void setNamedSBaseAttributes(CyIdentifiable n, NamedSBase nsb){
-        setSBaseAttributes(n, nsb);
+     * @param nsb NamedSBase
+     * @return
+     */
+    private static void setNamedSBaseAttributes(CyNetwork network, CyIdentifiable n, NamedSBase nsb){
+        setSBaseAttributes(network, n, nsb);
         if (nsb.isSetId()) {
             String id = nsb.getId();
             if (nsb instanceof UnitDefinition || nsb instanceof Unit){
@@ -1395,6 +1483,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             AttributeUtil.set(network, n, SBML.ATTR_NAME, name, String.class);
             AttributeUtil.set(network, n, SBML.LABEL, name, String.class);
         }
+    }
+
+    private void setNamedSBaseAttributes(CyIdentifiable n, NamedSBase nsb){
+        setNamedSBaseAttributes(network, n, nsb);
     }
 
     /**
@@ -1464,7 +1556,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param container
      */
     private void setAbstractMathContainerNodeAttributes(CyIdentifiable n, AbstractMathContainer container){
-        setSBaseAttributes(n, container);
+        setSBaseAttributes(network, n, container);
 
         String derivedUnits = container.getDerivedUnits();
         AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
@@ -1480,7 +1572,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param u
      */
     private void setUnitAttributes(CyIdentifiable n, Unit u){
-        setSBaseAttributes(n, u);
+        setSBaseAttributes(network, n, u);
 
         String kind = u.getKind().toString();
         AttributeUtil.set(network, n, SBML.LABEL, kind, String.class);

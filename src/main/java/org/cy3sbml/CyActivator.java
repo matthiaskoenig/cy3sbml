@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
 import java.io.File;
@@ -133,7 +134,9 @@ public class CyActivator extends AbstractCyActivator {
 			StreamUtil streamUtil = getService(bc, StreamUtil.class);
 			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
 			FileUtil fileUtil = getService(bc, FileUtil.class);
-			
+
+            CyGroupFactory cyGroupFactory = getService(bc, CyGroupFactory.class);
+
 			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 			
 			// Use Cytoscape properties to set proxy for webservices
@@ -153,6 +156,7 @@ public class CyActivator extends AbstractCyActivator {
 					taskManager,
 					
 					cyNetworkFactory,
+                    cyGroupFactory,
 					cyNetworkViewFactory,
 					
 					appProperties,
