@@ -1,0 +1,131 @@
+package org.cy3sbml.oven;
+
+
+
+import java.net.URI;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.*;
+import java.util.List;
+
+import org.apache.taverna.robundle.Bundle;
+import org.apache.taverna.robundle.Bundles;
+import org.apache.taverna.robundle.manifest.Manifest;
+
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Working with research bundles.
+ */
+public class ROBundle {
+
+
+    public static void roBundleTest() throws IOException {
+        // Create a new (temporary) RO bundle
+        Bundle bundle = Bundles.createBundle();
+
+        // Get the inputs
+        Path inputs = bundle.getRoot().resolve("inputs");
+        Files.createDirectory(inputs);
+
+        // Get an input port:
+        Path in1 = inputs.resolve("in1");
+
+        // Setting a string value for the input port:
+        Bundles.setStringValue(in1, "Hello");
+
+        // And retrieving it
+        if (Bundles.isValue(in1)) {
+            System.out.println(Bundles.getStringValue(in1));
+        }
+
+        // Or just use the regular Files methods:
+        for (String line : Files.readAllLines(in1, Charset.forName("UTF-8"))) {
+            System.out.println(line);
+        }
+
+        // Binaries and large files are done through the Files API
+        try (OutputStream out = Files.newOutputStream(in1,
+                StandardOpenOption.APPEND)) {
+            out.write(32);
+        }
+        // Or Java 7 style
+        Path localFile = Files.createTempFile("", ".txt");
+        Files.copy(in1, localFile, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Written to: " + localFile);
+
+        Files.copy(localFile, bundle.getRoot().resolve("out1"));
+
+        // Representing references
+        URI ref = URI.create("http://example.com/external.txt");
+        Path out3 = bundle.getRoot().resolve("out3");
+        System.out.println(Bundles.setReference(out3, ref));
+        if (Bundles.isReference(out3)) {
+            URI resolved = Bundles.getReference(out3);
+            System.out.println(resolved);
+        }
+
+        // Saving a bundle:
+        Path zip = Files.createTempFile("bundle", ".zip");
+        Bundles.closeAndSaveBundle(bundle, zip);
+        // NOTE: From now "bundle" and its Path's are CLOSED
+        // and can no longer be accessed
+
+        System.out.println("Saved to " + zip);
+
+        // Loading a bundle back from disk
+        try (Bundle bundle2 = Bundles.openBundle(zip)) {
+            assertEquals(zip, bundle2.getSource());
+        }
+    }
+
+    /**
+     * Read the given resource bundle.
+     * @param zipPath path to ro.zip resource.
+     */
+    public static Bundle readBundle(Path zipPath){
+        Bundle bundle = null;
+        try {
+            bundle = Bundles.openBundle(zipPath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bundle;
+    }
+
+
+    /**
+     * First test of Research objects.
+     */
+    public static void main(String[] args) throws URISyntaxException, IOException {
+
+        // roBundleTest();
+
+        String resourceName = "/ro/investigation-96-2.ro.zip";
+        URL url = ROBundle.class.getResource(resourceName);
+        System.out.println(url);
+        Path zip = Paths.get(url.toURI());
+        Bundle bundle = readBundle(zip);
+        System.out.println(bundle);
+
+        // Read information from the manifest file
+        Manifest manifest = bundle.getManifest();
+
+        System.out.println("CreatedBy: " + manifest.getCreatedBy());
+        System.out.println("CreatedOn: " + manifest.getCreatedOn());
+
+        List<Path> pathList = manifest.getManifest();
+        for (Path p: pathList){
+            System.out.println(p);
+        }
+
+
+    }
+
+}

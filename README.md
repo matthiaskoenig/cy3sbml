@@ -242,5 +242,7 @@ below.
 
 [Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-all) [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [checked 2016-08-03]
 
+[Apache Taverna Language](https://github.com/apache/incubator-taverna-language) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-16]
+
 ----
 &copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
