@@ -10,11 +10,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.taverna.robundle.Bundle;
 import org.apache.taverna.robundle.Bundles;
 import org.apache.taverna.robundle.manifest.Manifest;
+import org.apache.taverna.robundle.manifest.PathAnnotation;
+import org.apache.taverna.robundle.manifest.PathMetadata;
 
 
 import static org.junit.Assert.assertEquals;
@@ -116,16 +121,27 @@ public class ROBundle {
 
         // Read information from the manifest file
         Manifest manifest = bundle.getManifest();
+        System.out.println(manifest);
+
 
         System.out.println("CreatedBy: " + manifest.getCreatedBy());
         System.out.println("CreatedOn: " + manifest.getCreatedOn());
 
+        System.out.println("<manifest>");
         List<Path> pathList = manifest.getManifest();
         for (Path p: pathList){
             System.out.println(p);
         }
 
-
+        System.out.println("<aggregates>");
+        List<PathMetadata> aggregates = manifest.getAggregates();
+        for (PathMetadata metaData: aggregates){
+            System.out.println(metaData);
+        }
+        System.out.println("<annotations>");
+        for (PathAnnotation a: manifest.getAnnotations()){
+            System.out.println(a);
+        }
     }
 
 }
