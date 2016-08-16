@@ -105,7 +105,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
 	private Map<String, CyNode> metaId2Node;  // node dictionary
     private Map<String, CyNode> id2Node;      // node dictionary
-    private Set<CyGroup> cyGroupSet;
+    private Set<CyGroup> cyGroupSet;          // storage of groups to create in subnetworks
+    private Map<String, UnitDefinition> baseUnitDefinitions; // base UnitDefinition lookup
     private Boolean error = false;
 
     private TaskMonitor taskMonitor;
@@ -271,6 +272,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			metaId2Node = new HashMap<>();
             id2Node = new HashMap<>();
             cyGroupSet = new HashSet<>();
+            baseUnitDefinitions = new HashMap<>();
 			
 			// To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
 			// CySubNetwork and call the CySubNetwork.getRootNetwork() method:
@@ -307,7 +309,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 			// <groups>
 			GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
 			if (groupsModel != null){
-                readGroups(model, groupsModel);
+                readGroups(groupsModel);
 			}
 
 			// <layout>
@@ -1152,19 +1154,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	// SBML GROUPS
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Creates groups.
+	 * Create groups.
      * Groups are implemented as group nodes.
      *
      * A CyGroup is created either as an empty group
      *      CyGroup emptyGroup = groupFactory.createGroup(network, true);
      * or by turning an existing node into an empty group:
      *      CyGroup emptyGroup = groupFactory.createGroup(network, node, true);
-     *
-     * For every SBML group a group node must be created.
-	 *
-     * Groups are created at the end when all objects exist in the network.
 	 */
-	private void readGroups(Model model, GroupsModelPlugin groupsModel){
+	private void readGroups(GroupsModelPlugin groupsModel){
 		logger.debug("<groups>");
 
         for (Group group: groupsModel.getListOfGroups()){
@@ -1190,7 +1188,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
                 // Information transfer to members
 
-                // Unlikemost lists of objects in SBML, however, the sboTerm attribute and the Notes
+                // Unlike most lists of objects in SBML, the sboTerm attribute and the Notes
                 // and Annotation children are taken from the ListOfMembers to apply directly to every
                 // SBML element referenced by each child Member of this ListOfMembers,
                 // if that referenced element has no such definition.
@@ -1376,7 +1374,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
              */
             if (ud != null && udNode == null){
                 logger.debug(String.format("Base UnitDefinition encountered. Creating UnitDefinition graph.", ud));
-                createUnitDefinitionGraph(ud);
+                String unitSid = ud.getId();
+                if (baseUnitDefinitions.containsKey(unitSid)){
+                    // This base unit was encountered before and the network created
+                    ud = baseUnitDefinitions.get(unitSid);
+                }else {
+                    // The base unit must be stored for later lookup
+                    createUnitDefinitionGraph(ud);
+                    baseUnitDefinitions.put(unitSid, ud);
+                }
+                // get the unique node
                 udNode = metaId2Node.get(ud.getMetaId());
             }
             // now the udNode should exist for sure

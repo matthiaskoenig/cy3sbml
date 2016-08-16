@@ -21,7 +21,9 @@ public class PanelUpdater implements Runnable {
             "<h2>No information</h2>" +
             "<p>No SBML object registered for node in ObjectMapper.</p>" +
             "<p>Some nodes do not have SBase objects associated with them, e.g." +
-            "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>");
+            "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>" +
+            "<p>Other examples are the base units like <code>dimensionless</code>" +
+            "or <code>mole</code> which are not part of the model.</p>");
 
     private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" +
