@@ -98,6 +98,33 @@ public class ROBundle {
         try {
             bundle = Bundles.openBundle(zipPath);
 
+            System.out.println(bundle);
+
+            // Read information from the manifest file
+            Manifest manifest = bundle.getManifest();
+            System.out.println(manifest);
+
+
+            System.out.println("CreatedBy: " + manifest.getCreatedBy());
+            System.out.println("CreatedOn: " + manifest.getCreatedOn());
+
+            System.out.println("<manifest>");
+            List<Path> pathList = manifest.getManifest();
+            for (Path p: pathList){
+                System.out.println(p);
+            }
+
+            System.out.println("<aggregates>");
+            List<PathMetadata> aggregates = manifest.getAggregates();
+            for (PathMetadata metaData: aggregates){
+                System.out.println(metaData);
+            }
+            System.out.println("<annotations>");
+            for (PathAnnotation a: manifest.getAnnotations()){
+                System.out.println(a);
+
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,39 +137,22 @@ public class ROBundle {
      */
     public static void main(String[] args) throws URISyntaxException, IOException {
 
-        // roBundleTest();
+        // research object
+        System.out.println("--------------------------------------");
+        System.out.println("Research Object");
+        System.out.println("--------------------------------------");
+        URL url = ROBundle.class.getResource("/ro/investigation-96-2.ro.zip");
+        Path roPath = Paths.get(url.toURI());
+        readBundle(roPath);
 
-        String resourceName = "/ro/investigation-96-2.ro.zip";
-        URL url = ROBundle.class.getResource(resourceName);
-        System.out.println(url);
-        Path zip = Paths.get(url.toURI());
-        Bundle bundle = readBundle(zip);
-        System.out.println(bundle);
-
-        // Read information from the manifest file
-        Manifest manifest = bundle.getManifest();
-        System.out.println(manifest);
+        // omex Combine archive
+        System.out.println("--------------------------------------");
+        System.out.println("OMEX");
+        System.out.println("--------------------------------------");
+        Path omexPath = Paths.get(ROBundle.class.getResource("/omex/CombineArchiveShowCase.omex").toURI());
+        readBundle(omexPath);
 
 
-        System.out.println("CreatedBy: " + manifest.getCreatedBy());
-        System.out.println("CreatedOn: " + manifest.getCreatedOn());
-
-        System.out.println("<manifest>");
-        List<Path> pathList = manifest.getManifest();
-        for (Path p: pathList){
-            System.out.println(p);
-        }
-
-        System.out.println("<aggregates>");
-        List<PathMetadata> aggregates = manifest.getAggregates();
-        for (PathMetadata metaData: aggregates){
-            System.out.println(metaData);
-        }
-        System.out.println("<annotations>");
-        for (PathAnnotation a: manifest.getAnnotations()){
-            System.out.println(a);
-
-        }
     }
 
 }
