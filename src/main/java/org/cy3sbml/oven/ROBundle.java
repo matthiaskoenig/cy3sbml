@@ -141,6 +141,7 @@ public class ROBundle {
         System.out.println("<annotations>");
         for (PathAnnotation a: manifest.getAnnotations()){
             System.out.println(a);
+
         }
     }
 
