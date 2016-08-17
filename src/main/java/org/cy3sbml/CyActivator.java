@@ -248,7 +248,7 @@ public class CyActivator extends AbstractCyActivator {
 
 			// Update and load registry
 			File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-			RegistryUtil.updateMiriamXML(miriamFile);
+			RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
 			RegistryUtil.loadRegistry(miriamFile);
 
 			// cy3sbml panel

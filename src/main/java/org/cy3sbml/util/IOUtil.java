@@ -1,11 +1,20 @@
 package org.cy3sbml.util;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
+import org.mortbay.util.IO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,13 +91,69 @@ public class IOUtil {
      */
     public static void saveURLasFile(URL url, File file){
         try {
+            // use compression if available
             ReadableByteChannel rbc = Channels.newChannel(url.openStream());
             FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
+            // obtain the connection
+            HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
+
+            //add parameters to the connection
+            sourceConnection.setFollowRedirects(true);
+            //allow both GZip and Deflate (ZLib) encodings
+            sourceConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+
+            //obtain the encoding returned by the server
+            String encoding = sourceConnection.getContentEncoding();
+
+            InputStream inputStream = null;
+            //create the appropriate stream wrapper based on the encoding type
+            if (encoding != null && encoding.equalsIgnoreCase("gzip")) {
+                logger.info("gzip download");
+                inputStream = new GZIPInputStream(sourceConnection.getInputStream());
+            }
+            else if (encoding != null && encoding.equalsIgnoreCase("deflate")) {
+                inputStream = new InflaterInputStream(sourceConnection.getInputStream(), new Inflater(true));
+                logger.info("deflate download");
+            } else {
+                inputStream = sourceConnection.getInputStream();
+            }
+
+            // save InputStream in file
+            Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+
         } catch (IOException e) {
             logger.error("URL could not be saved.", e);
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Returns the Last-Modified Http Response Header field.
+     * @param url
+     * @return
+     */
+    public static String getLastModified(URL url) {
+        return getHttpResonseHeaderField(url, "Last-Modified");
+    }
+
+
+    public static String getHttpResonseHeaderField(URL url, String field){
+        try {
+            //obtain the connection
+            HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
+            //add parameters to the connection
+            sourceConnection.setFollowRedirects(true);
+            //establish connection, get response headers
+            sourceConnection.connect();
+
+            //get the last modified tag
+            return sourceConnection.getHeaderField(field);
+
+        } catch (IOException e) {
+            return null;
+        }
+    }
 }
