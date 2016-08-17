@@ -34,7 +34,7 @@ public class SBMLReaderTaskTest {
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // TODO: 
+        // TODO:
         // mock:  VisualMappingManager visualMappingManager;
         // mock:  CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
 
