@@ -144,6 +144,17 @@
   url =         {http://dx.doi.org/10.1093/bioinformatics/btl195}
 }
 
+@Article{Gauges2015,
+  author =  {Gauges, Ralph and Rost, Ursula and Sahle, Sven and Wengler, Katja and Bergmann, Frank T},
+  title =   {The Systems Biology Markup Language (SBML) Level 3 Package: Layout, Version 1 Core},
+  journal = {Journal of integrative bioinformatics},
+  year =    {2015},
+  volume =  {12},
+  number =  {2},
+  pages =   {267},
+  file =    {:literature/Gauges2015.pdf:PDF}
+}
+
 @Article{Hastings2013,
   author =      {Hastings, Janna and {de Matos}, Paula and Dekker, Adriano and Ennis, Marcus and Harsha, Bhavana and Kale, Namrata and Muthukrishnan, Venkatesh and Owen, Gareth and Turner, Steve and Williams, Mark and Steinbeck, Christoph},
   title =       {The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013.},
@@ -543,15 +554,5 @@
   pmc =         {PMC3245076},
   pmid =        {22102587},
   url =         {http://dx.doi.org/10.1093/nar/gkr1046}
-}
-
-@article{Gauges2015,
-  title={The Systems Biology Markup Language (SBML) Level 3 Package: Layout, Version 1 Core},
-  author={Gauges, Ralph and Rost, Ursula and Sahle, Sven and Wengler, Katja and Bergmann, Frank T},
-  journal={Journal of integrative bioinformatics},
-  volume={12},
-  number={2},
-  pages={267},
-  year={2015}
 }
 
