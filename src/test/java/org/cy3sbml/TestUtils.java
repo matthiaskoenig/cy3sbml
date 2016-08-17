@@ -18,6 +18,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.util.IOUtil;
+
+import org.cytoscape.group.CyGroupFactory;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -165,7 +168,7 @@ public class TestUtils {
         MockitoAnnotations.initMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
-
+        final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 		
 		// read SBML	
 		InputStream instream = TestUtils.class.getResourceAsStream(resource);
@@ -174,7 +177,7 @@ public class TestUtils {
 		CyNetwork[] networks;
 		try {
 			// Reader can be tested without service adapter, 
-			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+			SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
 
 			readerTask.run(null);
 			networks = readerTask.getNetworks();
@@ -209,10 +212,8 @@ public class TestUtils {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
-        final NetworkTestSupport nts = new NetworkTestSupport();
-        final CyNetworkFactory networkFactory = nts.getNetworkFactory();
-        @SuppressWarnings("unused")
-        final CyNetworkViewFactory viewFactory = null;
+        final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
         String[] tokens = resource.split("/");
@@ -223,7 +224,9 @@ public class TestUtils {
         try {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
-            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
+            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
+
+
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());

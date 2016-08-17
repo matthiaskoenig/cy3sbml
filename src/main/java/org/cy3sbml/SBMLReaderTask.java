@@ -131,8 +131,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 	}
 
 	/** Testing constructor. */
-	public SBMLReaderTask (InputStream stream, String fileName, CyNetworkFactory networkFactory){
-	    this(stream, fileName, networkFactory, null, null, null, null, null);
+	public SBMLReaderTask (InputStream stream, String fileName,
+						   CyNetworkFactory networkFactory, CyGroupFactory groupFactory){
+	    this(stream, fileName, networkFactory, groupFactory, null, null, null, null);
     }
 
 

@@ -197,6 +197,9 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:equations-impl:3.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:parallelcolt:0.9.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:model-impl:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:group-impl:test-jar:tests:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.googlecode.guava-osgi:guava-osgi:9.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:group-impl:3.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:ding-presentation-impl:test-jar:tests:3.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:vizmap-gui-api:3.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:jfree-jfreechart:1.0.13" level="project" />

@@ -365,6 +365,10 @@
 		<!-- ResearchObjects & OMEX -->
 		<!-- https://github.com/apache/incubator-taverna-language/tree/master/taverna-robundle -->
         <!--
+        FIXME: Issues with xerces and the other xml libraries
+        FIXME: also multiple loggers again
+        -->
+        <!--
 		<dependency>
 			<groupId>org.apache.taverna.language</groupId>
 			<artifactId>taverna-robundle</artifactId>
@@ -516,6 +520,21 @@
 			<version>${cytoscape.api.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.cytoscape</groupId>
+			<artifactId>group-impl</artifactId>
+			<version>${cytoscape.api.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.cytoscape</groupId>
+            <artifactId>group-impl</artifactId>
+            <version>${cytoscape.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>ding-presentation-impl</artifactId>

@@ -1,6 +1,8 @@
 package org.cy3sbml;
 
 import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.group.CyGroupFactory;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
@@ -30,13 +32,18 @@ public class SBMLReaderTaskTest {
         MockitoAnnotations.initMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+        final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
+
+        // TODO: 
+        // mock:  VisualMappingManager visualMappingManager;
+        // mock:  CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
 
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/");
         String fileName = tokens[tokens.length-1];
-        readerTask = new SBMLReaderTask(instream, fileName, networkFactory);
-        readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, null, networkViewFactory, null, null, null);
+        readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
+        readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
     }
 
     @Test
