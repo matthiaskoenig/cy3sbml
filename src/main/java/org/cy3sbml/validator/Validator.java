@@ -195,6 +195,10 @@ public class Validator {
         html += String.format(
                 "<h2>%s%s</h2>\n",
                 SBaseHTMLFactory.EXPORT_HTML, "SBML Validation");
+
+        // FIXME: valid and invalid
+        html += "<h3 class=\"valid\">This document is valid SBML</h3>\n";
+
         int count = 1;
         html += SBaseHTMLFactory.TABLE_START;
         for (SBMLError e : eList){

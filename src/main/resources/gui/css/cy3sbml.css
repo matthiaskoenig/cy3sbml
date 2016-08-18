@@ -135,6 +135,31 @@ table {
     font-family: monospace;
 }
 
+/********************************
+SBML validation
+*********************************/
+
+h3.valid, h3.invalid, h3.valid-warning {
+    font-size-adjust: 0.4;
+    font-style: normal;
+    letter-spacing: normal;
+    margin: 0;
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    word-spacing: normal;
+}
+.valid {
+    background: #55b05a none repeat scroll 0 0;
+    color: white;
+}
+.invalid {
+    background: #d23d24 none repeat scroll 0 0;
+    color: white;
+}
+
 .errorHead{
     background-color: #ff5327;
     padding:2px;
