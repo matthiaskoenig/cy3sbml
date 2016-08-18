@@ -142,7 +142,6 @@ public class ROBundle {
     public static void main(String[] args) throws URISyntaxException, IOException {
         RegistryUtil.loadRegistry();
 
-
         // research object
         System.out.println("--------------------------------------");
         System.out.println("Research Object");
@@ -157,8 +156,6 @@ public class ROBundle {
         System.out.println("--------------------------------------");
         Path omexPath = Paths.get(ROBundle.class.getResource("/omex/CombineArchiveShowCase.omex").toURI());
         readBundle(omexPath);
-
-
     }
 
 }

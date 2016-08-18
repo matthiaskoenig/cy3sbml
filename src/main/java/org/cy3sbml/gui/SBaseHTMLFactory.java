@@ -12,7 +12,6 @@ import org.cy3sbml.ols.OLSCache;
 import org.cy3sbml.uniprot.UniprotCache;
 import org.cy3sbml.util.XMLUtil;
 import org.identifiers.registry.RegistryDatabase;
-import org.identifiers.registry.RegistryLocalProvider;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -24,15 +23,23 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
 
+// OLS
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
+
 import org.cy3sbml.util.SBMLUtil;
+
+//import uk.ac.ebi.kraken.interfaces.uniprot.*;
+//import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
+//import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
+//import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
+
+
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.ebi.kraken.interfaces.uniprot.*;
-import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
+
+
 
 /** 
  * Creates HTML information for given SBase.
@@ -631,6 +638,9 @@ public class SBaseHTMLFactory {
         // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
+
+            // FIXME
+            /*
             String uniProtId = entry.getUniProtId().toString();
             text += String.format(
                     "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
@@ -701,7 +711,9 @@ public class SBaseHTMLFactory {
                     }
                 }
             }
+            */
         }
+
         return text;
     }
 

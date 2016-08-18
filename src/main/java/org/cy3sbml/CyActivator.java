@@ -1,9 +1,16 @@
 package org.cy3sbml;
 
+
+
+import org.cy3sbml.oven.ROBundle;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
+
 import java.io.File;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -254,6 +261,24 @@ public class CyActivator extends AbstractCyActivator {
 			// cy3sbml panel
 			webViewPanel.getInstance().activate();
 			logger.info("----------------------------");
+
+            // XMLChar c;
+            // FIXME: xerces dependeny nightmare
+
+			// research object
+			System.out.println("--------------------------------------");
+			System.out.println("Research Object");
+			System.out.println("--------------------------------------");
+			// URL url = bc.getBundle().getEntry("/ro/investigation-96-2.ro.zip");
+            // bundle://119.0:0/ro/investigation-96-2.ro.zip
+            URI fileURI = ResourceExtractor.fileURIforResource("/ro/investigation-96-2.ro.zip");
+            System.out.println("uri: " + fileURI);
+
+			Path roPath = Paths.get(fileURI);
+            System.out.println("path: " + roPath);
+            System.out.println("read bundle");
+			ROBundle.readBundle(roPath);
+
 			
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);

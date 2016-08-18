@@ -3,7 +3,6 @@ package org.cy3sbml;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import com.google.common.io.Files;
+import org.apache.jena.ext.com.google.common.io.Files;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;

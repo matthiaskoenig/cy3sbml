@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -67,14 +68,14 @@ public class RegistryUtil {
 
         // Get data-version of current file
         Date fileDate = getDataVersionDate(file);
-        //System.out.println("data-version file: " + fileDate);
+        System.out.println("data-version file: " + fileDate);
 
         // Get data-version of online resource
         Date miriamDate = getLatestDataVersionDate();
-        // System.out.println("data-version miriam: " + miriamDate);
+        System.out.println("data-version miriam: " + miriamDate);
 
         // online version is newer
-        if (miriamDate.compareTo(fileDate)>0){
+        if (miriamDate==null || miriamDate.compareTo(fileDate)>0){
             logger.info("New MIRIAM available: " + miriamDate);
             updateMiriamXML(file);
         }else {
@@ -112,13 +113,16 @@ public class RegistryUtil {
             // System.out.println("lastModified: " + lastModified);
 
             // 2016/08/03 15:21:34
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
+            // Wed, 17 Aug 2016 14:57:52 GMT
+            SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             try {
                 Date date = format.parse(lastModified);
                 return date;
             } catch (ParseException e){
-                logger.error("Last-Modified could not be parsed");
+                logger.error("Last-Modified could not be parsed", e);
+                e.printStackTrace();
                 return null;
             }
         } catch (MalformedURLException e) {
@@ -146,13 +150,18 @@ public class RegistryUtil {
                 String dataVersion = miriamElement.getAttribute("data-version");
 
                 // "2016-08-03T15:21:34+01:00"
-                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-                dataVersion = dataVersion.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
+                // SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                // dataVersion = dataVersion.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
+
+                // Wed, 17 Aug 2016 14:57:52 GMT
+                SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+
                 try {
-                    Date date = format1.parse(dataVersion);
+                    Date date = format.parse(dataVersion);
                     return date;
                 } catch (ParseException e){
-                    logger.error("data-version could not be parsed");
+                    logger.error("file data-version could not be parsed", e);
+                    e.printStackTrace();
                     return null;
                 }
 

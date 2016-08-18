@@ -1,6 +1,5 @@
 package org.cy3sbml;
 
-import org.cy3sbml.gui.GUIConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -23,10 +22,17 @@ public class ResourceExtractor {
 	private static Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
     private static File appDirectory;
 
+	public static final String GUI_RESOURCES = "/gui/";
+	public static final String RO_RESOURCES = "/ro/";
+	public static final String OMEX_RESOURCES = "/omex/";
+
+
     public static final Set<String> RESOURCES;
     static {
         Set<String> set = new HashSet<>();
-        set.add(GUIConstants.GUI_RESOURCES);
+        set.add(GUI_RESOURCES);
+		set.add(RO_RESOURCES);
+		set.add(OMEX_RESOURCES);
         RESOURCES = Collections.unmodifiableSet(set);
     }
 	private final BundleContext bc;
@@ -53,7 +59,8 @@ public class ResourceExtractor {
 	 * which does not work for bundle resources in JavaFX.
 	 */
 	public static String getResource(String resource){
-	    return fileURIforResource(resource);
+	    URI fileURI = fileURIforResource(resource);
+        return fileURI.toString();
 	}
 
     /**
@@ -63,7 +70,7 @@ public class ResourceExtractor {
      * @param resource resource path
      * @return String representation of fileURI or null
      */
-	private static String fileURIforResource(String resource){
+	public static URI fileURIforResource(String resource){
 	    if (appDirectory == null){
 	        logger.error("appDirectory is not set in ResourceExtractor");
             return null;
@@ -75,7 +82,7 @@ public class ResourceExtractor {
             return null;
 		}
 		URI fileURI = file.toURI();
-		return fileURI.toString();
+		return fileURI;
 	}
 	
 	/** 

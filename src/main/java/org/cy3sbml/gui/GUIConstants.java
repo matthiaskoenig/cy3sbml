@@ -6,8 +6,6 @@ import java.util.*;
  * Constants used in GUI.
  */
 public class GUIConstants {
-    public static final String GUI_RESOURCES = "/gui/";
-
     public static final String HTML_HELP_RESOURCE = "/gui/help.html";
     public static final String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
 
