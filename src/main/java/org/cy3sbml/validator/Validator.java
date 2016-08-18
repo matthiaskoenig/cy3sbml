@@ -97,6 +97,7 @@ public class Validator {
 	
 	/* Validate the SBML and get the resulting ErrorLog */
 	public static SBMLErrorLog validateSBML(SBMLDocument doc) throws SBMLException, XMLStreamException{
+
 		SBMLErrorLog eLog = null;
 		try {
 			// create tmp file for validation
