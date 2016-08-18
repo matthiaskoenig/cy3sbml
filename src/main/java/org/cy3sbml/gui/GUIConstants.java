@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class GUIConstants {
     public static final String HTML_HELP_RESOURCE = "/gui/help.html";
+    public static final String HTML_VALIDATION_RESOURCE = "/gui/validation.html";
     public static final String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
 
     public static final String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";

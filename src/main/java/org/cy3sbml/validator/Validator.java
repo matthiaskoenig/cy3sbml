@@ -9,16 +9,28 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBMLError;
-import org.sbml.jsbml.SBMLErrorLog;
-import org.sbml.jsbml.SBMLException;
-import org.sbml.jsbml.SBMLWriter;
+import org.apache.commons.io.FileUtils;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.*;
 import org.sbml.jsbml.validator.SBMLValidator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Class for handling the SBML validation warnings and errors. */
+/**
+ * Validation of SBMLDocuments and creation of
+ * validation reports including errors and warnings.
+ *
+ * This should run the validation and create the HTML
+ * output of the report.
+ * The validation results are stored and can be easily retrieved.
+ * TODO: unittests
+ * TODO: caching of validation
+ * TODO: html report
+ * TODO: implement new version based on JSBML validator
+ */
 public class Validator {
 	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
 	
@@ -53,6 +65,20 @@ public class Validator {
 	
 	public Map<String, List<SBMLError>> getErrorMap() {
 		return errorMap;
+	}
+
+
+	/** Get all errors. */
+	public List<SBMLError> getErrorList(){
+		String[] keys = {
+				SEVERITY_INFO,
+				SEVERITY_WARNING,
+				SEVERITY_ERROR,
+				SEVERITY_FATAL,
+				SEVERITY_ALL
+		};
+		return getErrorListForKeys(keys);
+
 	}
 
 	public List<SBMLError> getErrorListForKeys(String[] keys){
@@ -153,20 +179,49 @@ public class Validator {
 		for (int k=0; k<errorLog.getErrorCount(); ++k){
 			eList.add(errorLog.getError(k));
 		}
-		return getErrorListString(eList);
+		return createHTML(eList);
 	}
-	
-	/* Creates String representation of the error log. */ 
-	public String getErrorListString(List<SBMLError> eList){
-		String text = "";
-		int count = 1;
-		for (SBMLError e : eList){
-			text += String.format("<h3>E%d %s (%s) </h3>", count, e.getCategory(), e.getSeverity());
-			text += e.getShortMessage() + "<br>";
-			text += String.format("<span color=\"red\">Line: %s </span>", e.getLine());
-			text += String.format("<span color=\"blue\">%s</span>", e.getMessage());
-			count++;
-		}
-		return text;
-	}
+
+    /**
+     * Create HTML of validator output.
+     * FIXME: set baseDir and title
+     */
+    public String createHTML(List<SBMLError> eList){
+        String baseDir = "file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/";
+        String title = "title";
+
+        String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, baseDir, title);
+        html += String.format(
+                "<h2>%s%s</h2>\n",
+                SBaseHTMLFactory.EXPORT_HTML, "SBML Validation");
+        int count = 1;
+        html += SBaseHTMLFactory.TABLE_START;
+        for (SBMLError e : eList){
+            html += "\t<tr><td>\n";
+            html += String.format("\t\t<span class=\"errorHead\">E%d %s (%s)</span><br />\n", count, e.getCategory(), e.getSeverity());
+            html += String.format("\t\t<span class=\"errorShortMessage\">%s</span><br />\n", e.getShortMessage());
+            html += String.format("\t\t<span class=\"errorLine\">Line: %s </span>\n", e.getLine());
+            html += String.format("\t\t<span class=\"errorMessage\">%s</span>\n", e.getMessage());
+            html += "\t</td></tr>\n";
+            count++;
+        }
+        html += SBaseHTMLFactory.TABLE_END;
+        html += SBaseHTMLFactory.HTML_STOP_TEMPLATE;
+        return html;
+    }
+
+
+	/**
+     * Create example validation HTML report.
+	 */
+	public static void main(String[] args) throws IOException {
+        String baseDir = "file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/";
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000001.xml");
+        Model model = doc.getModel();
+        System.out.println(model.getId());
+        Validator validator = new Validator(doc);
+        String html = validator.createHTML(validator.getErrorList());
+        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html);
+    }
+
 }

@@ -1,79 +1,71 @@
 package org.cy3sbml.gui;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.awt.*;
-import javax.swing.*;
-
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
-import org.cytoscape.application.swing.*;
+import org.cytoscape.application.swing.CytoPanel;
+import org.cytoscape.application.swing.CytoPanelComponent2;
+import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.application.swing.CytoPanelState;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
-import org.cytoscape.model.events.RowsSetEvent;
-import org.cytoscape.model.events.RowsSetListener;
-import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
-
-import org.cy3sbml.SBMLManager;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
+import java.awt.*;
+
 
 /**
- * cy3sbml WebView panel based on javafx.
- * 
- * The panel is registered as Cytoscape Results Panel.
- * This panel is the main area for displaying SBML information for the 
- * network.
- * 
- * WebViewPanel is a singleton class.
+ * cy3sbml validation panel.
+ * TODO: implement generic WebView CytoPanelComponent.
  */
-public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoPanel,
-        RowsSetListener,
+public class ValidationPanel extends JFXPanel implements CytoPanelComponent2,
         SetCurrentNetworkListener,
         NetworkAddedListener,
         NetworkViewAddedListener,
         NetworkViewAboutToBeDestroyedListener {
-	private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
+	private static final Logger logger = LoggerFactory.getLogger(ValidationPanel.class);
 	private static final long serialVersionUID = 1L;
 
-	private static WebViewPanel uniqueInstance;
+	private static ValidationPanel uniqueInstance;
 
 
     private ServiceAdapter adapter;
     private CytoPanel cytoPanelEast;
 	private Browser browser;
-	private long lastInformationThreadId = -1;
     private String html;
 
 
 	/** Singleton. */
-	public static synchronized WebViewPanel getInstance(ServiceAdapter adapter){
+	public static synchronized ValidationPanel getInstance(ServiceAdapter adapter){
 		if (uniqueInstance == null){
-			logger.debug("WebViewPanel created");
-			uniqueInstance = new WebViewPanel(adapter);
+			logger.debug("ValidationPanel created");
+			uniqueInstance = new ValidationPanel(adapter);
 		}
 		return uniqueInstance;
 	}
-	public static synchronized WebViewPanel getInstance(){
+
+	/**
+	 * Get the unique instance.
+	 */
+	public static synchronized ValidationPanel getInstance(){
 		return uniqueInstance;
 	}
 
 	/** Constructor */
-	private WebViewPanel(ServiceAdapter adapter){
-        this.adapter = adapter;
+	private ValidationPanel(ServiceAdapter adapter){
 		this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
+        this.adapter = adapter;
 
 		setLayout(new BorderLayout());
 
@@ -82,7 +74,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 			@Override
 			public void run() {
 				initFX(fxPanel);
-                setHelp();
+                setEmptyValidation();
 			}
 		});
 	}
@@ -118,17 +110,17 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
 	@Override
     public Icon getIcon() {
-        return new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
+        return new ImageIcon(getClass().getResource(GUIConstants.ICON_VALIDATION));
     }
 
     @Override
     public String getIdentifier() {
-        return "cy3sbml";
+        return "validation";
     }
 
 	@Override
 	public String getTitle() {
-		return "cy3sbml ";
+		return "validation ";
 	}
 
 	public boolean isActive(){
@@ -173,16 +165,11 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
     /////////////////// INFORMATION DISPLAY ///////////////////////////////////
 
-    public void setHelp(){
-        browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE);
-    }
-
-    public void setExamples(){
-        browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
+    public void setEmptyValidation(){
+        browser.loadPageFromResource(GUIConstants.HTML_VALIDATION_RESOURCE);
     }
 
 	/** Set text. */
-	@Override
 	public void setText(String text){
 	    html = text;
 		// Necessary to use invokeLater to handle the Swing GUI update
@@ -194,69 +181,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 		});
 	}
 
-
-	/**
-	 * Update Text in the navigation panel.
-	 * Only updates information if the current thread is the last requested thread
-	 * for updating text.
-	 */
-	@Override
-	public void setText(SBaseHTMLThread infoThread){
-		if (infoThread.getId() == lastInformationThreadId){
-			this.setText(infoThread.getInfo());
-		}
-	}
-
-	/**
-	 * Create information string for SBML Node and display.
-	 */
-	@Override
-	public void showSBaseInfo(Object obj) {
-		Set<Object> objSet = new HashSet<>();
-		objSet.add(obj);
-		showSBaseInfo(objSet);
-	}
-
-	/**
-	 * Display information for set of nodes.
-	 */
-	@Override
-	public void showSBaseInfo(Set<Object> objSet) {
-		// starting threads for webservice calls
-		SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
-		lastInformationThreadId = thread.getId();
-		thread.start();
-	}
-
 	/////////////////// HANDLE EVENTS ///////////////////////////////////
-
-
-	/** 
-	 * Handle node selection events in the table/network. 
-	 * 
-	 * The RowsSet event is quit broad (happens a lot in network generation and layout, so 
-	 * make sure to minimize the unnecessary action here.
-	 * I.e. only act on the Event if everything in the right state.
-	 * 
-	 * RowSetEvent:
-	 * An Event object generated when an event occurs to a RowSet object. A RowSetEvent object is 
-	 * generated when a single row in a rowset is changed, the whole rowset is changed, or the 
-	 * rowset cursor moves.
-	 * When an event occurs on a RowSet object, one of the RowSetListener methods will be sent 
-	 * to all registered listeners to notify them of the event. An Event object is supplied to the 
-	 * RowSetListener method so that the listener can use it to find out which RowSet object is 
-	 * the source of the event.
-	 * 
-	 * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
-	 */
-	public void handleEvent(RowsSetEvent event) {
-		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-		if (!event.getSource().equals(network.getDefaultNodeTable()) ||
-	            !event.containsColumn(CyNetwork.SELECTED)){
-		    return;
-		}
-		updateInformation();
-	}
 
 	/**
 	 * Listening to changes in Networks and NetworkViews.
@@ -293,7 +218,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
 	@Override
 	public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-		setHelp();
+		setEmptyValidation();
 	}
 
 
@@ -308,24 +233,8 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
             return;
         }
 
-        // Only update if current network and view
-		CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-		logger.debug("current view: " + view);
-		logger.debug("current network: " + network);
-		if (network == null || view == null){
-			return;
-		}
-
-        // Update the information in separate thread
-		try {
-			PanelUpdater updater = new PanelUpdater(this, network);
-			Thread t = new Thread(updater);
-			t.start();	
-		} catch (Throwable t){
-			logger.error("Error in handling node selection in CyNetwork", t);
-			t.printStackTrace();
-		}
+        // TODO: set the current validation object.
+        logger.info("TODO: set current validation information");
 	}
 
 }

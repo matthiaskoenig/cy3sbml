@@ -7,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.cy3sbml.gui.GUIConstants;
-import org.cy3sbml.validator.ValidatorDialog;
+import org.cy3sbml.gui.ValidationPanel;
+import org.cy3sbml.validator.ValidatorRunner;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
 
@@ -47,24 +48,26 @@ public class ValidationAction extends AbstractCyAction{
 		return false;
 	}
 	
-    public static void openValidationPanel(ServiceAdapter adapter){
+    public static void runValidation(ServiceAdapter adapter){
     	SBMLDocument document = SBMLManager.getInstance().getCurrentSBMLDocument();
+        // TODO: set information in panel
     	JFrame parentFrame = adapter.cySwingApplication.getJFrame();
     	if (document == null){
     		JOptionPane.showMessageDialog(parentFrame,
-					"<html>SBML network has to be loaded before validation.<br>" +
-					"Import network from BioModel or load network from file or URL first.");
+					"<html>SBML must to loaded before validation.<br />" +
+					"Load network from file or URL, or import network from BioModels.</html>");
     	}
     	else{
-    		ValidatorDialog validationDialog = new ValidatorDialog(adapter);
-    		validationDialog.runValidation(document);
-    		validationDialog.setVisible(true);
+            ValidationPanel.getInstance().activate();
+    		// Validation action
+            ValidatorRunner runner = new ValidatorRunner(adapter);
+    		runner.runValidation(document);
     	}
     }
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-		openValidationPanel(adapter);  
+		runValidation(adapter);
 	}
 }

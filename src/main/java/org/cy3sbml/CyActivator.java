@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 
 
+import org.cy3sbml.gui.ValidationPanel;
 import org.cy3sbml.oven.ROBundle;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
@@ -246,6 +247,14 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
+            ValidationPanel validationPanel = ValidationPanel.getInstance(adapter);
+            registerService(bc, validationPanel, CytoPanelComponent.class, new Properties());
+            registerService(bc, validationPanel, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, validationPanel, NetworkAddedListener.class, new Properties());
+            registerService(bc, validationPanel, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, validationPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
+
             // register services for other apps
 			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
@@ -258,8 +267,10 @@ public class CyActivator extends AbstractCyActivator {
 			RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
 			RegistryUtil.loadRegistry(miriamFile);
 
-			// cy3sbml panel
-			webViewPanel.getInstance().activate();
+			// cy3sbml panels
+            ValidationPanel.getInstance().activate();
+			WebViewPanel.getInstance().activate();
+
 			logger.info("----------------------------");
 
             /*
