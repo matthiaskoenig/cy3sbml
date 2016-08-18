@@ -262,9 +262,9 @@ public class CyActivator extends AbstractCyActivator {
 			webViewPanel.getInstance().activate();
 			logger.info("----------------------------");
 
+            /*
             // XMLChar c;
             // FIXME: xerces dependeny nightmare
-
 			// research object
 			System.out.println("--------------------------------------");
 			System.out.println("Research Object");
@@ -278,7 +278,7 @@ public class CyActivator extends AbstractCyActivator {
             System.out.println("path: " + roPath);
             System.out.println("read bundle");
 			ROBundle.readBundle(roPath);
-
+            */
 			
 		} catch (Throwable e){
 			logger.error("Could not start server!", e);

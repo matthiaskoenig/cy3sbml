@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
-import org.cy3sbml.uniprot.UniprotCache;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.XMLUtil;
 import org.identifiers.registry.RegistryDatabase;
 import org.identifiers.registry.RegistryUtilities;
@@ -27,14 +27,6 @@ import org.sbml.jsbml.xml.XMLNode;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 import org.cy3sbml.util.SBMLUtil;
-
-//import uk.ac.ebi.kraken.interfaces.uniprot.*;
-//import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
-//import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
-//import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
-
-
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -577,7 +569,7 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getNamespace();
 
         if (namespace.equals("uniprot")) {
-            html += uniprotHTML(identifier);
+            html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {
             html += chebiHTML(identifier);
@@ -626,94 +618,6 @@ public class SBaseHTMLFactory {
                 //"<a href=\"http://www.ebi.ac.uk/chebi/init.do\"><img src=\"./images/chebi_logo.png\" title=\"Information from ChEBI\"/></a>" +
                 "<a href=\"%s\"><img src=\"%s\" /></a><br />\n",
                 imageLink, imageSource);
-        return text;
-    }
-
-    /**
-     * Creates additional information for entry.
-     * Identifier of the form "P29218"
-     */
-    private static String uniprotHTML(String accession){
-        String text = "\t<br />\n";
-        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
-        UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
-        if (entry != null) {
-
-            // FIXME
-            /*
-            String uniProtId = entry.getUniProtId().toString();
-            text += String.format(
-                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
-                    "\t<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
-
-            // description
-            ProteinDescription description = entry.getProteinDescription();
-
-            // Names (Full, Short, EC, AltName)
-            Name name = description.getRecommendedName();
-            List<Field> fields = name.getFields();
-            for (Field field: fields){
-                String value = field.getValue();
-                if (field.getType().getValue().equals("Full")){
-                    text += String.format(
-                            "\t<b>%s</b><br />\n",
-                            field.getValue());
-                }else {
-                    text += String.format(
-                            "\t<b>%s</b>: %s<br />\n",
-                            field.getType().getValue(), field.getValue());
-                }
-            }
-
-            // organism
-            Organism organism = entry.getOrganism();
-            String organismStr = organism.getScientificName().toString();
-            if (organism.hasCommonName()){
-                organismStr += String.format(" (%s)", organism.getCommonName());
-            }
-            text += String.format(
-                    "\t<b>Organism</b>: %s<br />\n",
-                    organismStr);
-
-            // genes
-            for (Gene gene : entry.getGenes()){
-                String geneName = gene.getGeneName().getValue();
-                text += String.format("\t<b>Gene</b>: %s<br />\n", geneName);
-            }
-
-            // alternative names
-            text +="\t<span class=\"comment\">Synonyms</span>";
-            for (Name n: description.getAlternativeNames()){
-                text += String.format(
-                        "%s; ", n.getFields().get(0).getValue());
-            }
-            text += "<br />\n";
-
-            // comments
-            for (Comment comment : entry.getComments()){
-                CommentType ctype = comment.getCommentType();
-                if (ctype.equals(CommentType.FUNCTION)){
-                    FunctionComment fComment = (FunctionComment) comment;
-                    for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
-                    }
-                }
-                else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
-                    CatalyticActivityComment caComment = (CatalyticActivityComment) comment;
-                    for (CommentText commentText : caComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", commentText.getValue());
-                    }
-                }
-                else if (ctype.equals(CommentType.PATHWAY)) {
-                    PathwayComment pComment = (PathwayComment) comment;
-                    for (CommentText commentText : pComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());
-                    }
-                }
-            }
-            */
-        }
-
         return text;
     }
 
