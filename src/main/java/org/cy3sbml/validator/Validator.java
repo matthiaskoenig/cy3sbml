@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.SBMLUtil;
@@ -199,9 +200,9 @@ public class Validator {
         for (SBMLError e : eList){
             html += "\t<tr><td>\n";
             html += String.format("\t\t<span class=\"errorHead\">E%d %s (%s)</span><br />\n", count, e.getCategory(), e.getSeverity());
-            html += String.format("\t\t<span class=\"errorShortMessage\">%s</span><br />\n", e.getShortMessage());
+            // html += String.format("\t\t<span class=\"errorShortMessage\">%s</span><br />\n", e.getShortMessage());
             html += String.format("\t\t<span class=\"errorLine\">Line: %s </span>\n", e.getLine());
-            html += String.format("\t\t<span class=\"errorMessage\">%s</span>\n", e.getMessage());
+            html += String.format("\t\t<span class=\"errorMessage\">%s</span>\n", StringEscapeUtils.escapeHtml(e.getMessage()));
             html += "\t</td></tr>\n";
             count++;
         }

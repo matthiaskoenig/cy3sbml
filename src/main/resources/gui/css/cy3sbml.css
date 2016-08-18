@@ -134,3 +134,37 @@ table {
     color: black;
     font-family: monospace;
 }
+
+.errorHead{
+    background-color: #ff5327;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.errorLine{
+    background-color: rgba(200, 200, 200, 0.51);
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    font-family: monospace;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.errorLine{
+    background-color: rgba(200, 200, 200, 0.51);
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    font-family: monospace;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
