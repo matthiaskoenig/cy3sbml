@@ -75,7 +75,7 @@ public class RegistryUtil {
         System.out.println("data-version miriam: " + miriamDate);
 
         // online version is newer
-        if (miriamDate==null || miriamDate.compareTo(fileDate)>0){
+        if (miriamDate==null || fileDate==null || miriamDate.compareTo(fileDate)>0){
             logger.info("New MIRIAM available: " + miriamDate);
             updateMiriamXML(file);
         }else {
