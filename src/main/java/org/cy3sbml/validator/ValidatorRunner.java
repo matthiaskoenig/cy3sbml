@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Runs the Validation Task.
+ * TODO: run this with display in GUI
  */
 public class ValidatorRunner implements TaskObserver {
 	private static final Logger logger = LoggerFactory.getLogger(ValidatorRunner.class);
@@ -28,13 +29,15 @@ public class ValidatorRunner implements TaskObserver {
 	/** Constructor */
 	public ValidatorRunner(ServiceAdapter adapter) {
 		this.adapter = adapter;
-
-		logger.info("ValidatorRunner created");
+		logger.debug("ValidatorRunner created");
 	}
-	
-	public void runValidation(SBMLDocument document){
 
-		// run validation task
+    /**
+     * Run validation task for given SBMLDocument.
+     *
+     * @param document SBMLDocument to validate
+     */
+	public void runValidation(SBMLDocument document){
 		ValidatorTaskFactory validationTaskFactory = new ValidatorTaskFactory(document);
 		TaskIterator iterator = validationTaskFactory.createTaskIterator();
 		logger.info("run validation");
@@ -43,7 +46,7 @@ public class ValidatorRunner implements TaskObserver {
 	
 	@Override
 	public void taskFinished(ObservableTask task) {
-		logger.info("taskFinished in ValidatorDialog");
+		logger.info("taskFinished in ValidatorRunner");
 		
 		// execute task with task observer to be able to get results back
 		Validator validator = task.getResults(Validator.class);
@@ -55,6 +58,9 @@ public class ValidatorRunner implements TaskObserver {
 	public void allFinished(FinishStatus finishStatus) {
 	}
 
+    /**
+     * Display validation results in validation panel.
+     */
 	private void setValidationInformation(){
 		if (validator.getErrorMap() != null) {
 			List<SBMLError> eList = validator.getErrorList();

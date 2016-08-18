@@ -1,25 +1,21 @@
 package org.cy3sbml.validator;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.*;
+import org.sbml.jsbml.validator.SBMLValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-
-import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cy3sbml.util.SBMLUtil;
-
-import org.sbml.jsbml.*;
-import org.sbml.jsbml.validator.SBMLValidator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Validation of SBMLDocuments and creation of
@@ -28,24 +24,27 @@ import org.slf4j.LoggerFactory;
  * This should run the validation and create the HTML
  * output of the report.
  * The validation results are stored and can be easily retrieved.
+ *
+ * Implemented via new JSBML functionality.
+ *
  * TODO: unittests
  * TODO: caching of validation
  * TODO: html report
  * TODO: implement new version based on JSBML validator
  */
-public class Validator {
-	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
-	
+public class ValidatorNew {
+	private static final Logger logger = LoggerFactory.getLogger(ValidatorNew.class);
+
 	public final static String SEVERITY_INFO = "Info";
 	public final static String SEVERITY_WARNING = "Warning";
 	public final static String SEVERITY_ERROR = "Error";
 	public final static String SEVERITY_FATAL = "Fatal";
 	public final static String SEVERITY_ALL = "All";
-	
+
 	private SBMLErrorLog errorLog;
 	private Map<String, List<SBMLError> > errorMap;
-	
-	public Validator(SBMLDocument doc){
+
+	public ValidatorNew(SBMLDocument doc){
 		try {
 			errorLog = validateSBML(doc);
 			errorMap = createErrorMapFromErrorLog(errorLog);
@@ -225,7 +224,7 @@ public class Validator {
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000001.xml");
         Model model = doc.getModel();
         System.out.println(model.getId());
-        Validator validator = new Validator(doc);
+        ValidatorNew validator = new ValidatorNew(doc);
         String html = validator.createHTML(validator.getErrorList());
         FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html);
     }
