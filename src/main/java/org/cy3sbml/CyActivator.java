@@ -1,17 +1,11 @@
 package org.cy3sbml;
 
-
-
 import org.cy3sbml.gui.ValidationPanel;
-import org.cy3sbml.oven.ROBundle;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
 
 import java.io.File;
-import java.net.URI;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -66,141 +60,141 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Entry point to cy3sbml.
- * 
+ * <p>
  * The CyActivator registers the cy3sbml services with OSGI. This is the class
  * used for startup of the app by Cytoscape 3.
  */
 public class CyActivator extends AbstractCyActivator {
-	public static final String PROPERTIES_FILE = "cy3sbml.props";
-	private static Logger logger;
-	
-	public CyActivator() {
-		super();
-	}
-	
-	/**
-	 * Starts the cy3sbml OSGI bundle.
-	 */
-	public void start(BundleContext bc) {
-		try {
-			BundleInformation bundleInfo = new BundleInformation(bc);
-			
-			// Default configuration directory used for all cy3sbml files 
-			// Used for retrieving
-			CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
-			File cyDirectory = configuration.getConfigurationDirectoryLocation();
-			File appDirectory = new File(cyDirectory, bundleInfo.getName());
-			
-			if(appDirectory.exists() == false) {
-				appDirectory.mkdir();
-			}
-			// store bundle information (for display of dependencies, versions, ...)
-			File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
-			System.setProperty("logfile.name", logFile.getAbsolutePath());
-			logger = LoggerFactory.getLogger(CyActivator.class);
-			
-			logger.info("----------------------------");
-			logger.info("Start " + bundleInfo.getInfo());
-			logger.info("----------------------------");
-			logger.info("directory = " + appDirectory.getAbsolutePath());
-			logger.info("logfile = " + logFile.getAbsolutePath());
+    public static final String PROPERTIES_FILE = "cy3sbml.props";
+    private static Logger logger;
+
+    public CyActivator() {
+        super();
+    }
+
+    /**
+     * Starts the cy3sbml OSGI bundle.
+     */
+    public void start(BundleContext bc) {
+        try {
+            BundleInformation bundleInfo = new BundleInformation(bc);
+
+            // Default configuration directory used for all cy3sbml files
+            // Used for retrieving
+            CyApplicationConfiguration configuration = getService(bc, CyApplicationConfiguration.class);
+            File cyDirectory = configuration.getConfigurationDirectoryLocation();
+            File appDirectory = new File(cyDirectory, bundleInfo.getName());
+
+            if (appDirectory.exists() == false) {
+                appDirectory.mkdir();
+            }
+            // store bundle information (for display of dependencies, versions, ...)
+            File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
+            System.setProperty("logfile.name", logFile.getAbsolutePath());
+            logger = LoggerFactory.getLogger(CyActivator.class);
+
+            logger.info("----------------------------");
+            logger.info("Start " + bundleInfo.getInfo());
+            logger.info("----------------------------");
+            logger.info("directory = " + appDirectory.getAbsolutePath());
+            logger.info("logfile = " + logFile.getAbsolutePath());
 
             // Set baseDir for HTML generation
             // allows the dynamical generated HTML to resolve the gui resources
             String baseDir = appDirectory.toURI().toString();
             baseDir = baseDir.replace("file:/", "file:///");
-			SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
+            SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
 
-			// cy3sbml properties
-			PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
-			Properties propsReaderServiceProps = new Properties();
-			propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
-			registerAllServices(bc, propsReader, propsReaderServiceProps);
-			
-			/** Get services */
-			CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
-			
-			CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
-			CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
-			CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
-			VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
-			CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
-			
-			DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
-			@SuppressWarnings("rawtypes")
-			SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
-			@SuppressWarnings("rawtypes")
-			TaskManager taskManager = getService(bc, TaskManager.class);
-			
-			CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
-			CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
-			
-			@SuppressWarnings("unchecked")
-			CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
-			@SuppressWarnings("unchecked")
-			CyProperty<Properties> appProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
-			StreamUtil streamUtil = getService(bc, StreamUtil.class);
-			OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
-			FileUtil fileUtil = getService(bc, FileUtil.class);
+            // cy3sbml properties
+            PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
+            Properties propsReaderServiceProps = new Properties();
+            propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
+            registerAllServices(bc, propsReader, propsReaderServiceProps);
+
+            /** Get services */
+            CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
+
+            CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
+            CyNetworkManager cyNetworkManager = getService(bc, CyNetworkManager.class);
+            CyNetworkViewManager cyNetworkViewManager = getService(bc, CyNetworkViewManager.class);
+            VisualMappingManager visualMappingManager = getService(bc, VisualMappingManager.class);
+            CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
+
+            DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
+            @SuppressWarnings("rawtypes")
+            SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
+            @SuppressWarnings("rawtypes")
+            TaskManager taskManager = getService(bc, TaskManager.class);
+
+            CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
+            CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
+
+            @SuppressWarnings("unchecked")
+            CyProperty<Properties> cyProperties = getService(bc, CyProperty.class, "(cyPropertyName=cytoscape3.props)");
+            @SuppressWarnings("unchecked")
+            CyProperty<Properties> appProperties = getService(bc, CyProperty.class, "(cyPropertyName=cy3sbml.props)");
+            StreamUtil streamUtil = getService(bc, StreamUtil.class);
+            OpenBrowser openBrowser = getService(bc, OpenBrowser.class);
+            FileUtil fileUtil = getService(bc, FileUtil.class);
 
             CyGroupFactory cyGroupFactory = getService(bc, CyGroupFactory.class);
 
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
-			
-			// Use Cytoscape properties to set proxy for webservices
-			ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
-			connectionProxy.setSystemProxyFromCyProperties();
-						
-			/** Create ServiceAdapter */
-			ServiceAdapter adapter = ServiceAdapter.getInstance(
-					cySwingApplication,
-					cyApplicationManager,
-					cyNetworkManager,
-					cyNetworkViewManager,
-					visualMappingManager,
-					cyLayoutAlgorithmManager,
-					dialogTaskManager,
-					synchronousTaskManager,
-					taskManager,
-					
-					cyNetworkFactory,
-                    cyGroupFactory,
-					cyNetworkViewFactory,
-					
-					appProperties,
-					appDirectory,
-					streamUtil,
-					openBrowser,
-					connectionProxy,
-					loadNetworkFileTaskFactory,
-					fileUtil
-			);
-			
-			// load visual styles
-			LoadVizmapFileTaskFactory loadVizmapFileTaskFactory =  getService(bc, LoadVizmapFileTaskFactory.class);
-			SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
-			sbmlStyleManager.loadStyles();
-			registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
+            LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 
-			// SBMLManager
-			SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
+            // Use Cytoscape properties to set proxy for webservices
+            ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
+            connectionProxy.setSystemProxyFromCyProperties();
+
+            /** Create ServiceAdapter */
+            ServiceAdapter adapter = ServiceAdapter.getInstance(
+                    cySwingApplication,
+                    cyApplicationManager,
+                    cyNetworkManager,
+                    cyNetworkViewManager,
+                    visualMappingManager,
+                    cyLayoutAlgorithmManager,
+                    dialogTaskManager,
+                    synchronousTaskManager,
+                    taskManager,
+
+                    cyNetworkFactory,
+                    cyGroupFactory,
+                    cyNetworkViewFactory,
+
+                    appProperties,
+                    appDirectory,
+                    streamUtil,
+                    openBrowser,
+                    connectionProxy,
+                    loadNetworkFileTaskFactory,
+                    fileUtil
+            );
+
+            // load visual styles
+            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
+            SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
+            sbmlStyleManager.loadStyles();
+            registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
+
+            // SBMLManager
+            SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
             registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
             // Cofactor manager
-			CofactorManager cofactorManager = CofactorManager.getInstance();
+            CofactorManager cofactorManager = CofactorManager.getInstance();
 
-			// init actions [100 - 120]
+            // init actions [100 - 120]
             // FIXME: currently not possible to set separators in menu bar
-			// JToolBar toolBar = cySwingApplication.getJToolBar();
+            // JToolBar toolBar = cySwingApplication.getJToolBar();
             // toolBar.addSeparator(new Dimension(89.0));
 
-			ChangeStateAction changeStateAction = new ChangeStateAction();
+            ChangeStateAction changeStateAction = new ChangeStateAction();
             registerService(bc, changeStateAction, CyAction.class, new Properties());
 
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());
 
-			ValidationAction validationAction = new ValidationAction(adapter);
+            ValidationAction validationAction = new ValidationAction(adapter);
             registerService(bc, validationAction, CyAction.class, new Properties());
 
             ExamplesAction examplesAction = new ExamplesAction();
@@ -218,24 +212,24 @@ public class CyActivator extends AbstractCyActivator {
             SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
             registerService(bc, saveLayoutAction, CyAction.class, new Properties());
 
-			LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
+            LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
             registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
 
-			// SBML file reader
+            // SBML file reader
             SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
-			SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
+            SBMLReader sbmlReader = new SBMLReader(sbmlFilter, adapter);
             Properties sbmlReaderProps = new Properties();
-			sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
-			sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
-			registerAllServices(bc, sbmlReader, sbmlReaderProps);
-			
-			// Session loading & saving
-			SessionData sessionData = new SessionData();
-			registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
-			registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
+            sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
+            sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
+            registerAllServices(bc, sbmlReader, sbmlReaderProps);
 
-			// proxy listener
+            // Session loading & saving
+            SessionData sessionData = new SessionData();
+            registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
+            registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
+
+            // proxy listener
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 
             // panels
@@ -256,28 +250,28 @@ public class CyActivator extends AbstractCyActivator {
 
 
             // register services for other apps
-			registerService(bc, sbmlManager, SBMLManager.class, new Properties());
+            registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
             // Extract all resource files for JavaFX (no bundle access)
             final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
             resourceHandler.extract();
 
-			// Update and load registry
-			File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-			RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
-			RegistryUtil.loadRegistry(miriamFile);
+            // Update and load registry
+            File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+            RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
+            RegistryUtil.loadRegistry(miriamFile);
 
-			// cy3sbml panels
+            // cy3sbml panels
             ValidationPanel.getInstance().activate();
-			WebViewPanel.getInstance().activate();
+            WebViewPanel.getInstance().activate();
 
-			logger.info("----------------------------");
+            logger.info("----------------------------");
 
+            // research object not working due to xerces
             /*
-            // XMLChar c;
-            // FIXME: xerces dependeny nightmare
-			// research object
-			System.out.println("--------------------------------------");
+            XMLChar c;
+
+            System.out.println("--------------------------------------");
 			System.out.println("Research Object");
 			System.out.println("--------------------------------------");
 			// URL url = bc.getBundle().getEntry("/ro/investigation-96-2.ro.zip");
@@ -289,12 +283,13 @@ public class CyActivator extends AbstractCyActivator {
             System.out.println("path: " + roPath);
             System.out.println("read bundle");
 			ROBundle.readBundle(roPath);
-            */
-			
-		} catch (Throwable e){
-			logger.error("Could not start server!", e);
-			e.printStackTrace();
-		}
-	}
+			*/
+
+
+        } catch (Throwable e) {
+            logger.error("Could not start server!", e);
+            e.printStackTrace();
+        }
+    }
 }
 

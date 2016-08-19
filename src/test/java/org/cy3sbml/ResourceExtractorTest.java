@@ -10,7 +10,8 @@ public class ResourceExtractorTest {
     public void getResource() throws Exception {
         ResourceExtractor.setAppDirectory(null);
         String resource = ResourceExtractor.getResource("/gui/help.html");
-        assertNotNull(resource);
+        // without appdirectory the resources cannot be resolved
+        assertNull(resource);
     }
 
 }
