@@ -122,7 +122,7 @@ public class Validator {
     /**
      * Create HTML of validator output.
      */
-    public String createHtml(String baseDir){
+    public String createHtml(){
         // title
         String title = "Model";
         if (document.isSetModel()){
@@ -135,7 +135,7 @@ public class Validator {
         }
 
         // html
-        String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, baseDir, title);
+        String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
         html += String.format(
                 "<h2>%s%s</h2>\n",
                 SBaseHTMLFactory.EXPORT_HTML, "SBML Validation");
@@ -211,13 +211,11 @@ public class Validator {
      * Create example validation HTML report.
 	 */
 	public static void main(String[] args) throws IOException {
-
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000001.xml");
         System.out.println("validation");
         Validator validator = new Validator(doc);
-
-        String baseDir = "file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/";
-        String html = validator.createHtml(baseDir);
+        SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
+        String html = validator.createHtml();
         FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html);
     }
 

@@ -20,6 +20,7 @@ import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.util.StringTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -177,7 +178,7 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createNamedSBaseWithDerivedUnitMap(NamedSBaseWithDerivedUnit nsbu){
         LinkedHashMap<String, String> map = createNamedSBaseMap(nsbu);
-        String units = getDerivedUnitHTML(nsbu);
+        String units = getDerivedUnitHtml(nsbu);
         map.put(SBML.ATTR_DERIVED_UNITS, String.format(UNIT_TEMPLATE, units));
         return map;
     }
@@ -214,7 +215,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, String variable){
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
-        String units = getDerivedUnitHTML(container);
+        String units = getDerivedUnitHtml(container);
         if (variable != null){
             math = String.format("%s = %s", variable, math);
         }
@@ -384,7 +385,7 @@ public class SBMLUtil {
                 kineticLaw = law.getMath().toFormula();
             }
         }
-        String units = getDerivedUnitHTML(r);
+        String units = getDerivedUnitHtml(r);
 
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(SBML.ATTR_REVERSIBLE, reversible);
@@ -423,6 +424,21 @@ public class SBMLUtil {
 
         return map;
     }
+
+    /**
+     * UnitDefinition map.
+     */
+    public static LinkedHashMap<String, String> createUnitDefinitionMap(UnitDefinition ud) {
+        LinkedHashMap<String, String> map = createNamedSBaseMap(ud);
+        // Add units
+        String units = "";
+        for (Unit u : ud.getListOfUnits()){
+            units += u.printUnit() + "<br />";
+        }
+        map.put("units", units);
+        return map;
+    }
+
 
     /**
      * Unit map.
@@ -611,11 +627,10 @@ public class SBMLUtil {
 
 
     /** Derived unit string. */
-    private static String getDerivedUnitHTML(SBaseWithDerivedUnit usbase){
-        String units = SBaseHTMLFactory.ICON_NONE;
-        UnitDefinition udef = usbase.getDerivedUnitDefinition();
-        if (udef != null){
-            units = udef.toString();
+    private static String getDerivedUnitHtml(SBaseWithDerivedUnit usbase){
+        String units = usbase.getDerivedUnits();
+        if (units == null || units.length() == 0){
+            units = SBaseHTMLFactory.ICON_NONE;
         }
         return units;
     }

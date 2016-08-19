@@ -61,7 +61,7 @@ public class ValidatorRunner implements TaskObserver {
      * Display validation results in validation panel.
      */
     private void setValidationInformation() {
-        String html = validator.createHtml(adapter.cy3sbmlDirectory.getAbsolutePath());
+        String html = validator.createHtml();
         ValidationPanel.getInstance().setText(html);
     }
 }

@@ -108,6 +108,23 @@ public class SBaseHTMLFactory {
 	    SBaseHTMLFactory.baseDir = baseDir;
     }
 
+    /** Get the html base directory. */
+    public static String getBaseDir(){
+        return baseDir;
+    }
+
+    /**
+     * Sets the baseDir from the application directory.
+     * @param appDir
+     */
+    public static void setBaseDirFromAppDir(File appDir){
+        String baseDir = appDir.toURI().toString();
+        baseDir = baseDir.replace("file:/", "file:///");
+        SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
+    }
+
+
+
     /**
      * Get created information string.
      * No information String created in cache mode.
@@ -299,7 +316,7 @@ public class SBaseHTMLFactory {
             map = SBMLUtil.createFunctionDefinitionMap((FunctionDefinition) item);
         }
         else if (item instanceof UnitDefinition){
-            map = SBMLUtil.createNamedSBaseMap((UnitDefinition) item);
+            map = SBMLUtil.createUnitDefinitionMap((UnitDefinition) item);
         }
         else if (item instanceof Unit){
             map = SBMLUtil.createUnitMap((Unit) item);

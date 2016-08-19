@@ -101,9 +101,7 @@ public class CyActivator extends AbstractCyActivator {
 
             // Set baseDir for HTML generation
             // allows the dynamical generated HTML to resolve the gui resources
-            String baseDir = appDirectory.toURI().toString();
-            baseDir = baseDir.replace("file:/", "file:///");
-            SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
+            SBaseHTMLFactory.setBaseDirFromAppDir(appDirectory);
 
             // cy3sbml properties
             PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);

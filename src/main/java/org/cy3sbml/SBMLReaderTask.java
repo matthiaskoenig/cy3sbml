@@ -1505,10 +1505,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      */
     private void setNamedSBaseWithDerivedUnitAttributes(CyIdentifiable n, NamedSBaseWithDerivedUnit nsbu) {
         setNamedSBaseAttributes(n, nsbu);
-        UnitDefinition udef = nsbu.getDerivedUnitDefinition();
-        if (udef != null){
-            AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, udef.toString(), String.class);
-        }
+		AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, nsbu.getDerivedUnits(), String.class);
     }
 
     /**
@@ -1566,8 +1563,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private void setAbstractMathContainerNodeAttributes(CyIdentifiable n, AbstractMathContainer container){
         setSBaseAttributes(network, n, container);
 
-        String derivedUnits = container.getDerivedUnits();
-        AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, derivedUnits, String.class);
+        AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, container.getDerivedUnits(), String.class);
         if (container.isSetMath()){
             ASTNode astNode = container.getMath();
             AttributeUtil.set(network, n, SBML.ATTR_MATH, astNode.toFormula(), String.class);
