@@ -127,7 +127,6 @@ public class ROBundle {
             System.out.println("<annotations>");
             for (PathAnnotation a: manifest.getAnnotations()){
                 System.out.println(a);
-
             }
 
         } catch (IOException e) {
@@ -142,18 +141,19 @@ public class ROBundle {
      * https://issues.apache.org/jira/browse/JENA-1178
      */
     public static void test(){
-        System.out.println("--------------------------------------");
-        System.out.println("Research Object");
-        System.out.println("--------------------------------------");
-        // URL url = bc.getBundle().getEntry("/ro/investigation-96-2.ro.zip");
-        // bundle://119.0:0/ro/investigation-96-2.ro.zip
-        URI fileURI = ResourceExtractor.fileURIforResource("/ro/investigation-96-2.ro.zip");
-        System.out.println("uri: " + fileURI);
+            System.out.println("--------------------------------------");
+            System.out.println("Research Object");
+            System.out.println("--------------------------------------");
+            // URL url = bc.getBundle().getEntry("/ro/investigation-96-2.ro.zip");
+            // bundle://119.0:0/ro/investigation-96-2.ro.zip
+            URI fileURI = ResourceExtractor.fileURIforResource("/ro/investigation-96-2.ro.zip");
+            System.out.println("uri: " + fileURI);
 
-        Path roPath = Paths.get(fileURI);
-        System.out.println("path: " + roPath);
-        System.out.println("read bundle");
-        ROBundle.readBundle(roPath);
+            Path roPath = Paths.get(fileURI);
+            System.out.println("path: " + roPath);
+            System.out.println("read bundle");
+            ROBundle.readBundle(roPath);
+
     }
 
 

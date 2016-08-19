@@ -9,7 +9,6 @@ import org.cytoscape.work.TaskObserver;
 import org.sbml.jsbml.SBMLDocument;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.ValidationPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

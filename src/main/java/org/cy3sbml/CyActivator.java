@@ -1,15 +1,11 @@
 package org.cy3sbml;
 
-
-import org.apache.xerces.util.XMLChar;
-import org.cy3sbml.gui.ValidationPanel;
-import org.cy3sbml.oven.ROBundle;
+import org.cy3sbml.validator.ValidationPanel;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
 
 import java.io.File;
-import java.net.URI;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -259,9 +255,14 @@ public class CyActivator extends AbstractCyActivator {
             resourceHandler.extract();
 
             // Update and load registry
-            File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-            RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
-            RegistryUtil.loadRegistry(miriamFile);
+            Thread miriamThread = new Thread(new Runnable() {
+                public void run() {
+                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+                    RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
+                    RegistryUtil.loadRegistry(miriamFile);
+                }
+            });
+            miriamThread.run();
 
             // cy3sbml panels
             //ValidationPanel.getInstance().activate();
@@ -270,8 +271,7 @@ public class CyActivator extends AbstractCyActivator {
             logger.info("----------------------------");
 
             // research object not working due to xerces
-            XMLChar c;
-            ROBundle.test();
+            //ROBundle.test();
 
 
         } catch (Throwable e) {

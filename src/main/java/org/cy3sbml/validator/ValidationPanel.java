@@ -1,10 +1,12 @@
-package org.cy3sbml.gui;
+package org.cy3sbml.validator;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.gui.Browser;
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CytoPanel;
