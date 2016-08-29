@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSAccess;
@@ -64,6 +65,7 @@ public class SBaseHTMLFactory {
                     "\t<title>%s</title>\n" +
                     "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
                     "\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
+                    "\t<link rel=\"stylesheet\" href=\"./css/jquery.dataTables.min.css\">\n" +
                     "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
                     "\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
                     "</head>\n\n" +
@@ -71,9 +73,15 @@ public class SBaseHTMLFactory {
                     "<div class=\"container\">\n";
 
     public static final String HTML_STOP_TEMPLATE =
-            "</div>\n" +
-                    "<script src=\"./js/jquery.min.js\"></script>\n" +
-                    "<script src=\"./js/bootstrap.min.js\"></script>\n" +
+                    "</div>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery-1.12.3.js\"></script>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/bootstrap.min.js\"></script>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery.dataTables.min.js\"></script>\n" +
+                    "\t<script type=\"text/javascript\" language=\"javascript\">\n" +
+                    "\t$(document).ready(function() {\n" +
+                    "\t    $('#table').DataTable();\n" +
+                    "\t} );\n" +
+                    "\t</script>\n" +
                     "</body>\n" +
                     "</html>\n";
 
@@ -747,7 +755,7 @@ public class SBaseHTMLFactory {
 
         // Save to tmp file for viewing
         File file = new File(targetDir, "testinfo.html");
-        FileUtils.writeStringToFile(file, html);
+        FileUtils.writeStringToFile(file, html, Charsets.UTF_8);
     }
 
 }

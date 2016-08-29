@@ -1,5 +1,6 @@
 package org.cy3sbml.validator;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.gui.GUIConstants;
@@ -150,7 +151,7 @@ public class Validator {
             // create html for errorMap
             String validStr = (valid) ? VALID : INVALID;
             html += String.format("<h3 class=\"%s\">This document is %s SBML</h3>\n", validStr, validStr);
-            html += SBaseHTMLFactory.TABLE_START;
+            html += "<table id=\"table\" class=\"display\" width=\"100%\" cellspacing=\"0\">";
 
             html += "\t<thead>\n" +
                     "\t\t<tr><th>metaid</th><th>severity</th><th>line</th><th>category</th><th>code</th><th>package</th>" +
@@ -191,6 +192,7 @@ public class Validator {
             html += "\t</tbody>\n";
             html += SBaseHTMLFactory.TABLE_END;
         }
+
         html += SBaseHTMLFactory.HTML_STOP_TEMPLATE;
         return html;
     }
@@ -221,7 +223,7 @@ public class Validator {
         Validator validator = new Validator(doc);
         SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
         String html = validator.createHtml();
-        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html);
+        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html, Charsets.UTF_8);
     }
 
 }
