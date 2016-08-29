@@ -214,16 +214,18 @@ public class SBaseHTMLFactory {
 	 */
 	private static String createHeader(SBase sbase){
 		String className = SBMLUtil.getUnqualifiedClassName(sbase);
-		String header = String.format(
-		        "<h2>%s%s</h2>\n",
-                EXPORT_HTML, className);
-		// if NamedSBase get additional information
-		if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
-			NamedSBase nsb = (NamedSBase) sbase;
-            header = String.format(
-                    "<h2>%s%s <small>%s</small></h2>\n",
-                    EXPORT_HTML, className, nsb.getId());
-		}
+		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
+
+        // if NamedSBase get additional information
+        if (NamedSBase.class.isAssignableFrom(sbase.getClass())) {
+            String exportHTML = EXPORT_HTML;
+            // already added via SBMLDocument
+            if (sbase instanceof Model){
+                exportHTML = "";
+            }
+            NamedSBase nsb = (NamedSBase) sbase;
+            header = String.format("<h2>%s%s <small>%s</small></h2>\n", exportHTML, className, nsb.getId());
+        }
 		return header; 
 	}
 
