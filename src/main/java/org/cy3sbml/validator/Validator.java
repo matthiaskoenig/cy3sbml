@@ -115,7 +115,6 @@ public class Validator {
             List<SBMLError> errors = errorMap.getOrDefault(severity, new LinkedList<>());
             errors.add(error);
             errorMap.put(severity, errors);
-            System.out.println(error);
 		}
 	}
 
@@ -138,7 +137,7 @@ public class Validator {
         String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
         html += String.format(
                 "<h2>%s%s</h2>\n",
-                SBaseHTMLFactory.EXPORT_HTML, "SBML Validation");
+                SBaseHTMLFactory.EXPORT_HTML, "Validation results");
 
         if (errorLog == null){
             html += "SBML Validation failed.";
@@ -156,20 +155,20 @@ public class Validator {
             for (String severity : errorMap.keySet()) {
                 List<SBMLError> errors = errorMap.get(severity);
                 for (SBMLError e : errors) {
-                    String metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
                     String metaId = metaIdFromError(e);
-                    if (metaId != null){
-                        metaIdHtml = String.format("<span class=\"fa fa-dot-circle-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node\"></span> %s",
-                                metaId);
+                    String metaIdHtml;
+                    if (metaId == null){
+                        metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
+                    } else {
+                        metaIdHtml = String.format("<a href=\"%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span>%s</a>", metaId, metaId);
                     }
-
                     html += String.format(
                             "\t<tr><td>%s</td>\n" +
                             "\t\t<td><span class=\"error%s\">%s</span></td>\n" +
                             "\t\t<td><span class=\"errorLine\">%s</span></td>\n" +
                             "\t\t<td>%s</td>\n" +
                             "\t\t<td>%s</td>\n" +
-                            "\t\t<td>%s</td>\n" +
+                            "\t\t<td><span class=\"identifier\">%s</span></td>\n" +
                             "\t\t<td><code>%s</code></td>\n" +
                             "\t\t<td><span class=\"errorMessage\" title=\"%s\">%s</span></td></tr>\n",
                             metaIdHtml,

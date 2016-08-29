@@ -9,9 +9,6 @@ import org.cy3sbml.gui.Browser;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
-import org.cytoscape.application.swing.CytoPanel;
-import org.cytoscape.application.swing.CytoPanelComponent2;
-import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.events.NetworkAddedEvent;
 import org.cytoscape.model.events.NetworkAddedListener;
@@ -27,6 +24,7 @@ import java.awt.*;
 
 /**
  * Validation Dialog.
+ * JavaFX Dialog window showing validation messages.
  */
 public class ValidationDialog extends JDialog implements SetCurrentNetworkListener,
         NetworkAddedListener,
@@ -40,24 +38,6 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
     private Browser browser;
     private String html;
 
-    private ValidationDialog(JFrame parentFrame){
-        super(parentFrame);
-        this.setTitle("SBML validation");
-
-        // use values from Scene Builder
-        int width = 1400;
-        int height = 990;
-
-        final JFXPanel fxPanel = new JFXPanel();
-
-        this.add(fxPanel);
-        this.setSize(width, height);
-        this.setVisible(true);
-        this.setBackground(new Color(255, 255, 255));
-        this.setLocationRelativeTo(parentFrame);
-        this.setResizable(false);
-    }
-
 
     /** Singleton. */
     public static synchronized ValidationDialog getInstance(ServiceAdapter adapter){
@@ -68,25 +48,32 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
         return uniqueInstance;
     }
 
-    /**
-     * Get the unique instance.
-     */
-    public static synchronized ValidationDialog getInstance(){
-        return uniqueInstance;
-    }
-
-    /** Constructor */
-    private ValidationPanel(ServiceAdapter adapter){
+    private ValidationDialog(ServiceAdapter adapter){
+        super(adapter.cySwingApplication.getJFrame());
         this.adapter = adapter;
 
-        setLayout(new BorderLayout());
+        this.setTitle("SBML validation");
+        final JFXPanel fxPanel = new JFXPanel();
+        this.add(fxPanel);
 
-        JFXPanel fxPanel = this;
+        int width = 800;
+        int height = 1000;
+        this.setPreferredSize(new Dimension(width, height));
+        this.setSize(new Dimension(width, height));
+        this.setResizable(true);
+
+        this.setBackground(new Color(255, 255, 255));
+        this.setLocationRelativeTo(adapter.cySwingApplication.getJFrame());
+        this.setAlwaysOnTop(false);
+        this.setModalityType(ModalityType.MODELESS);
+        // this.toFront();
+        //this.setVisible(true);
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 initFX(fxPanel);
-                setEmptyValidation();
+                resetInformation();
             }
         });
     }
@@ -104,11 +91,9 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
         Platform.setImplicitExit(false);
     }
 
-
-
     /////////////////// INFORMATION DISPLAY ///////////////////////////////////
 
-    public void setEmptyValidation(){
+    public void resetInformation(){
         browser.loadPageFromResource(GUIConstants.HTML_VALIDATION_RESOURCE);
     }
 
@@ -161,7 +146,7 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
 
     @Override
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-        setEmptyValidation();
+        resetInformation();
     }
 
 

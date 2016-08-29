@@ -7,7 +7,6 @@ import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskObserver;
 
 import org.sbml.jsbml.SBMLDocument;
-
 import org.cy3sbml.ServiceAdapter;
 
 import org.slf4j.Logger;
@@ -22,9 +21,7 @@ public class ValidatorRunner implements TaskObserver {
     private ServiceAdapter adapter;
     private Validator validator;
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public ValidatorRunner(ServiceAdapter adapter) {
         this.adapter = adapter;
         logger.debug("ValidatorRunner created");
@@ -32,7 +29,6 @@ public class ValidatorRunner implements TaskObserver {
 
     /**
      * Run validation task for given SBMLDocument.
-     *
      * @param document SBMLDocument to validate
      */
     public void runValidation(SBMLDocument document) {
@@ -49,18 +45,11 @@ public class ValidatorRunner implements TaskObserver {
         // execute task with task observer to be able to get results back
         Validator validator = task.getResults(Validator.class);
         this.validator = validator;
-        setValidationInformation();
+        String html = validator.createHtml();
+        ValidationDialog.getInstance(null).setText(html);
     }
 
     @Override
     public void allFinished(FinishStatus finishStatus) {
-    }
-
-    /**
-     * Display validation results in validation panel.
-     */
-    private void setValidationInformation() {
-        String html = validator.createHtml();
-        ValidationPanel.getInstance().setText(html);
     }
 }

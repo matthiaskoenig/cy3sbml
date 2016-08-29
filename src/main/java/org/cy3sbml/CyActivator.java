@@ -1,6 +1,6 @@
 package org.cy3sbml;
 
-import org.cy3sbml.validator.ValidationPanel;
+import org.cy3sbml.validator.ValidationDialog;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
@@ -239,12 +239,13 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
-            ValidationPanel validationPanel = ValidationPanel.getInstance(adapter);
-            registerService(bc, validationPanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, validationPanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, validationPanel, NetworkAddedListener.class, new Properties());
-            registerService(bc, validationPanel, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, validationPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+            // dialogs
+            ValidationDialog validationDialog = ValidationDialog.getInstance(adapter);
+            // registerService(bc, validationPanel, CytoPanelComponent.class, new Properties());
+            registerService(bc, validationDialog, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, validationDialog, NetworkAddedListener.class, new Properties());
+            registerService(bc, validationDialog, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, validationDialog, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
 
             // register services for other apps
