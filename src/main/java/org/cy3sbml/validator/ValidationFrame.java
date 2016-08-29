@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.validation.Valid;
 import java.awt.*;
 import java.io.IOException;
 
@@ -97,7 +98,7 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(adapter.cy3sbmlDirectory, adapter.openBrowser);
+        browser = new Browser(adapter.cy3sbmlDirectory);
         Scene scene = new Scene(browser,300,600);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
@@ -107,8 +108,13 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
     /////////////////// INFORMATION DISPLAY ///////////////////////////////////
 
     public void resetInformation(){
-        html = null;
-        browser.loadPageFromResource(GUIConstants.HTML_VALIDATION_RESOURCE);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                html = null;
+                browser.loadPageFromResource(GUIConstants.HTML_VALIDATION_RESOURCE);
+            }
+        });
     }
 
     /** Set text. */
@@ -119,6 +125,8 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
             @Override
             public void run() {
                 browser.loadText(text);
+                ValidationFrame.super.setVisible(true);
+                ValidationFrame.super.toFront();
             }
         });
     }
@@ -160,7 +168,6 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
 
     @Override
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-        resetInformation();
     }
 
 
@@ -176,7 +183,7 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
         }
 
         // TODO: set the current validation object.
-        logger.info("TODO: set current validation information");
+        logger.warn("Update of validation information not implemented.");
     }
 
 }

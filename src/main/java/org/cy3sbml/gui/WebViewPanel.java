@@ -93,7 +93,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(adapter.cy3sbmlDirectory, adapter.openBrowser);
+        browser = new Browser(adapter.cy3sbmlDirectory);
         Scene scene = new Scene(browser,300,600);
         fxPanel.setScene(scene);
         // necessary to support the detached mode

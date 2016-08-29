@@ -13,7 +13,6 @@ import javafx.scene.web.WebView;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
-import org.cytoscape.util.swing.OpenBrowser;
 import org.cy3sbml.util.GUIUtil;
 
 import org.slf4j.Logger;
@@ -31,15 +30,13 @@ public class Browser extends Region {
 
     private final WebView webView;
 	private final WebEngine webEngine;
-    private final OpenBrowser openBrowser;
 	private final File appDirectory;
 
-	public Browser(File appDirectory, OpenBrowser openBrowser) {
+
+	public Browser(File appDirectory) {
+        this.appDirectory = appDirectory;
 	    webView = new WebView();
         webEngine = webView.getEngine();
-
-		this.appDirectory = appDirectory;
-        this.openBrowser = openBrowser;
         logger.debug("WebView version: " + webEngine.getUserAgent());
 
 		// add WebView to scene
@@ -59,12 +56,18 @@ public class Browser extends Region {
 
             // clicked url
             URL url = event.getURL();
-            Boolean cancel = GUIUtil.processURLEvent(url, openBrowser);
+            Boolean cancel = GUIUtil.processURLEvent(url);
             return cancel;
         };
+        // FIXME: here are issues with the second webview.
+        // The hyperlinklistener is attached to the first browser, but creates problems with the second one
+        // and does not listen to the events
+
         // WebViews.addHyperlinkListener(webView, eventPrintingListener);
         // only listening to the clicks
+        System.out.println("*** Adding HyperlinkLister to WebView ***");
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
+
     }
 
 	/**

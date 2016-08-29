@@ -141,8 +141,8 @@ public class Validator {
         // html
         String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
         html += String.format(
-                "<h2>%s%s</h2>\n",
-                EXPORT_HTML, "Validation results");
+                "<h2>%s Validation %s</h2>\n",
+                EXPORT_HTML, title);
 
         if (errorLog == null){
             html += "SBML Validation failed.";
@@ -165,7 +165,8 @@ public class Validator {
                     if (metaId == null){
                         metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
                     } else {
-                        metaIdHtml = String.format("<a href=\"%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span>%s</a>", metaId, metaId);
+                        metaIdHtml = String.format("<a href=\"%s%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span>%s</a>",
+                                GUIConstants.URL_SELECT_SBASE, metaId, metaId);
                     }
                     html += String.format(
                             "\t<tr><td>%s</td>\n" +

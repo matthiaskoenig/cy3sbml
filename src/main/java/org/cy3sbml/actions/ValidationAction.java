@@ -84,15 +84,6 @@ public class ValidationAction extends AbstractCyAction {
             // Validation action
             ValidatorRunner runner = new ValidatorRunner(adapter);
             runner.runValidation(document);
-
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    dialog.updateInformation();
-                    dialog.setVisible(true);
-                    dialog.toFront();
-                }
-            });
         }
     }
 }

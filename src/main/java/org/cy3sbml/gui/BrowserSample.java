@@ -13,20 +13,25 @@ public class BrowserSample extends Application {
 
     /**
      * Start the application.
+     *
      * @param stage
      */
-	@Override public void start(Stage stage) {
-		// create the scene
-		stage.setTitle("Web View");
-		Browser browser = new Browser(null, null);
-		scene = new Scene(browser,900,600, Color.web("#666970"));
-		stage.setScene(scene);
-		stage.show();
-		browser.loadPage("http://www.google.com");
-	}
+    @Override
+    public void start(Stage stage) {
+        // create the scene
+        stage.setTitle("Web View");
+        Browser browser = new Browser(null);
+        scene = new Scene(browser, 900, 600, Color.web("#666970"));
+        stage.setScene(scene);
+        stage.show();
+        browser.loadPage("http://www.google.com");
 
-	public static void main(String[] args){
-		launch(args);
+        // second browser
+        Browser browser2 = new Browser(null);
+    }
 
-	}
+    public static void main(String[] args) {
+        launch(args);
+
+    }
 }

@@ -181,6 +181,27 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
             CofactorManager cofactorManager = CofactorManager.getInstance();
 
+            /*
+                Create the unique instances of the panels before any access, for instance
+                in the actions
+              */
+            // panels
+            WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
+            registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
+            registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
+            registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
+            // dialogs
+            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
+            registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
+            registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, validationFrame, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
+
             // init actions [100 - 120]
             // FIXME: currently not possible to set separators in menu bar
             // JToolBar toolBar = cySwingApplication.getJToolBar();
@@ -230,22 +251,7 @@ public class CyActivator extends AbstractCyActivator {
             // proxy listener
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
 
-            // panels
-            WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
-            registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
-            registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
-            // dialogs
-            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
-            // registerService(bc, validationPanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
 
             // register services for other apps

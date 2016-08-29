@@ -9,20 +9,22 @@ import java.net.URL;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.cytoscape.application.swing.AbstractCyAction;
+import org.cytoscape.work.TaskIterator;
+
+import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLException;
+import org.sbml.jsbml.TidySBMLWriter;
+
+import org.cy3sbml.SBMLManager;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cy3sbml.validator.Validator;
-import org.cytoscape.application.swing.AbstractCyAction;
-import org.cytoscape.util.swing.OpenBrowser;
-import org.cytoscape.work.TaskIterator;
-import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBMLException;
-import org.sbml.jsbml.TidySBMLWriter;
-import org.cy3sbml.SBMLManager;
-import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cy3sbml.gui.WebViewPanel;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +37,7 @@ public class GUIUtil {
      * Open current SBML in browser.
      * Writes a temporary file of the SBML which can be loaded.
      */
-    public static void openCurrentSBMLInBrowser(OpenBrowser openBrowser){
+    public static void openCurrentSBMLInBrowser(){
         SBMLManager sbmlManager = SBMLManager.getInstance();
         SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
 
@@ -46,7 +48,7 @@ public class GUIUtil {
 
             try {
                 TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
-                openFileInBrowser(temp, openBrowser);
+                openFileInBrowser(temp);
             } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
                 logger.error("SBML opening failed.", e);
                 e.printStackTrace();
@@ -63,11 +65,10 @@ public class GUIUtil {
      * Here the actions are called.
      *
      * @param url
-     * @param openBrowser
      * @return cancel action, i.e. is the WebView event further processed
      */
-    public static Boolean processURLEvent(URL url, OpenBrowser openBrowser){
-        if (url != null) {
+    public static Boolean processURLEvent(URL url){
+        if (url != null && WebViewPanel.getInstance() != null) {
             String s = url.toString();
 
             // Cytoscape Action
@@ -112,6 +113,10 @@ public class GUIUtil {
                 return true;
             }
 
+            if (s.startsWith(GUIConstants.URL_SELECT_SBASE)){
+                System.out.println("Select sbase: " + s);
+            }
+
             // Example networks
             if (GUIConstants.EXAMPLE_SBML.containsKey(s)){
                 String resource = GUIConstants.EXAMPLE_SBML.get(s);
@@ -121,24 +126,24 @@ public class GUIUtil {
 
             // SBML file
             if (s.equals(GUIConstants.URL_SBMLFILE)){
-                GUIUtil.openCurrentSBMLInBrowser(openBrowser);
+                GUIUtil.openCurrentSBMLInBrowser();
                 return true;
             }
 
             // SBase HTML
             if (s.equals(GUIConstants.URL_HTML_SBASE)){
-                GUIUtil.openSBaseHTMLInBrowser(openBrowser);
+                GUIUtil.openSBaseHTMLInBrowser();
                 return true;
             }
 
             // Validation HTML
             if (s.equals(GUIConstants.URL_HTML_SBASE)){
-                GUIUtil.openValidationHTMLInBrowser(openBrowser);
+                GUIUtil.openValidationHTMLInBrowser();
                 return true;
             }
 
             // HTML links
-            openURLinExternalBrowser(s, openBrowser);
+            openURLinExternalBrowser(s);
             return true;
         }
         // This is a link we should load, do not cancel.
@@ -146,17 +151,13 @@ public class GUIUtil {
     }
 
     /** Open url in external webView. */
-    private static void openURLinExternalBrowser(String url, OpenBrowser openBrowser){
-        if (openBrowser != null){
-            logger.debug("Open in external webView <" + url +">");
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    openBrowser.openURL(url);
-                }
-            });
-        } else {
-            logger.error("No external webView available.");
-        }
+    private static void openURLinExternalBrowser(String url){
+        logger.debug("Open in external webView <" + url +">");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                OpenBrowser.openURL(url);
+            }
+        });
     }
 
 
@@ -190,34 +191,34 @@ public class GUIUtil {
     /**
      * Open HTML information in external Browser.
      */
-    public static void openSBaseHTMLInBrowser(OpenBrowser openBrowser){
+    public static void openSBaseHTMLInBrowser(){
         String html = WebViewPanel.getInstance().getHtml();
         // remove export button, exported html cannot be exported
         html = html.replace(SBaseHTMLFactory.EXPORT_HTML, "");
-        openHTMLInBrowser(html, openBrowser);
+        openHTMLInBrowser(html);
     }
 
     /**
      * Open validation HTML in external Browser.
      */
-    public static void openValidationHTMLInBrowser(OpenBrowser openBrowser){
+    public static void openValidationHTMLInBrowser(){
         String html = ValidationFrame.getInstance(null).getHtml();
         // remove export button, exported html cannot be exported
         html = html.replace(Validator.EXPORT_HTML, "");
-        openHTMLInBrowser(html, openBrowser);
+        openHTMLInBrowser(html);
     }
 
     /**
      * Open validation HTML in external Browser.
      */
-    public static void openHTMLInBrowser(String html, OpenBrowser openBrowser){
+    public static void openHTMLInBrowser(String html){
         // write temp file
         try {
             File temp = File.createTempFile("cy3sbml", ".html");
             logger.debug("Temp file : " + temp.getAbsolutePath());
 
             FileUtils.writeStringToFile(temp, html);
-            GUIUtil.openFileInBrowser(temp, openBrowser);
+            GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
             logger.error("File could not be opened.", e);
             e.printStackTrace();
@@ -226,10 +227,10 @@ public class GUIUtil {
 
 
     /** Open a given file in browser. */
-    public static void openFileInBrowser(File temp, OpenBrowser openBrowser){
+    public static void openFileInBrowser(File temp){
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                openBrowser.openURL("file://" + temp.getAbsolutePath());
+                OpenBrowser.openURL("file://" + temp.getAbsolutePath());
             }
         });
 

@@ -57,6 +57,7 @@ public class GUIConstants {
     public static final String URL_SBMLFILE = "http://sbml-file";
     public static final String URL_HTML_SBASE = "http://html-sbase";
     public static final String URL_HTML_VALIDATION = "http://html-validation";
+    public static final String URL_SELECT_SBASE = "http://select-sbase/";
 
 
     public static final Map<String, String> EXAMPLE_SBML;
