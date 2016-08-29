@@ -187,6 +187,11 @@ public class CyActivator extends AbstractCyActivator {
               */
             // panels
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
+
+            // dialogs
+            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
+
+            // dialog listeners
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -194,8 +199,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
-            // dialogs
-            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
             registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
             registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
             registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
@@ -250,9 +253,6 @@ public class CyActivator extends AbstractCyActivator {
 
             // proxy listener
             registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
-
-
-
 
             // register services for other apps
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());

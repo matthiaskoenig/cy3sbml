@@ -10,6 +10,7 @@ import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
@@ -29,30 +30,30 @@ public class Browser extends Region {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
     private final WebView webView;
-	private final WebEngine webEngine;
-	private final File appDirectory;
+    private final WebEngine webEngine;
+    private final File appDirectory;
 
 
-	public Browser(File appDirectory) {
+    public Browser(File appDirectory) {
         this.appDirectory = appDirectory;
-	    webView = new WebView();
+        webView = new WebView();
         webEngine = webView.getEngine();
         logger.debug("WebView version: " + webEngine.getUserAgent());
 
-		// add WebView to scene
-		getChildren().add(webView);
+        // add WebView to scene
+        getChildren().add(webView);
 
-        /**
+        /*
          * Handle hyperlink events in WebView.
          * Either opens browser for given hyperlink or triggers Cytoscape actions
          * for subsets of special hyperlinks.
          *
          * This provides an easy solution for integrating app functionality
-         * with click on hyperlinks.
+         * with clicks on hyperlinks.
          * Alternative javascript upcalls could be performed.
          */
         WebViewHyperlinkListener eventProcessingListener = event -> {
-            logger.debug(WebViews.hyperlinkEventToString(event));
+            logger.info(WebViews.hyperlinkEventToString(event));
 
             // clicked url
             URL url = event.getURL();
@@ -61,27 +62,26 @@ public class Browser extends Region {
         };
         // FIXME: here are issues with the second webview.
         // The hyperlinklistener is attached to the first browser, but creates problems with the second one
-        // and does not listen to the events
+        // and does not listen to the events (probably has to be synchronized somehow)
 
-        // WebViews.addHyperlinkListener(webView, eventPrintingListener);
         // only listening to the clicks
-        System.out.println("*** Adding HyperlinkLister to WebView ***");
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
-
     }
 
-	/**
-	 * Load local resource;
-	 */
-	public void loadPageFromResource(String resource) {
-		File file = new File(appDirectory, resource);
-		URI fileURI = file.toURI();
-		logger.debug("Load page:" + fileURI);
-		loadPage(fileURI.toString());
-	}
+    /**
+     * Load local resource;
+     */
+    public void loadPageFromResource(String resource) {
+        File file = new File(appDirectory, resource);
+        URI fileURI = file.toURI();
+        logger.debug("Load page:" + fileURI);
+        loadPage(fileURI.toString());
+    }
 
-    /** Load page in webView; */
-	public void loadPage(String url) {
+    /**
+     * Load page in webView;
+     */
+    public void loadPage(String url) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -91,9 +91,9 @@ public class Browser extends Region {
     }
 
     /**
-	 * Load HTML text in the webEngine.
-	 */
-    public void loadText(String text){
+     * Load HTML text in the webEngine.
+     */
+    public void loadText(String text) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -101,23 +101,23 @@ public class Browser extends Region {
             }
         });
 
-	}
+    }
 
-	@Override
+    @Override
     protected void layoutChildren() {
-		double w = getWidth();
-		double h = getHeight();
-		layoutInArea(webView,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
-	}
+        double w = getWidth();
+        double h = getHeight();
+        layoutInArea(webView, 0, 0, w, h, 0, HPos.CENTER, VPos.CENTER);
+    }
 
-	@Override
+    @Override
     protected double computePrefWidth(double height) {
-		return 900;
-	}
+        return 900;
+    }
 
-	@Override
+    @Override
     protected double computePrefHeight(double width) {
-		return 600;
-	}
+        return 600;
+    }
 
 }
