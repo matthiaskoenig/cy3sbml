@@ -82,7 +82,9 @@ public class SBaseHTMLFactory {
     public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
     public static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
 
-    public static final String EXPORT_HTML = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
+    public static final String EXPORT_HTML = String.format(
+            "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
+            GUIConstants.URL_HTML_SBASE);
 
     public static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     public static final String TABLE_END = "</table>\n";

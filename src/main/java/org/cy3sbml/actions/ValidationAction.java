@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import javafx.application.Platform;
 import org.cy3sbml.gui.GUIConstants;
-import org.cy3sbml.validator.ValidationDialog;
+import org.cy3sbml.validator.ValidationFrame;
 import org.cy3sbml.validator.ValidatorRunner;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
@@ -29,9 +29,7 @@ public class ValidationAction extends AbstractCyAction {
 
     private ServiceAdapter adapter;
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public ValidationAction(ServiceAdapter adapter) {
         super(ValidationAction.class.getSimpleName());
         this.adapter = adapter;
@@ -51,6 +49,12 @@ public class ValidationAction extends AbstractCyAction {
         return false;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        logger.debug("actionPerformed()");
+        runValidation(adapter);
+    }
+
     /**
      * Run the validation action.
      * This displays the validation dialog and performs the validation.
@@ -67,24 +71,28 @@ public class ValidationAction extends AbstractCyAction {
         } else {
 
             // Open JavaFX Dialog
-            ValidationDialog dialog = ValidationDialog.getInstance(adapter);
+            ValidationFrame dialog = ValidationFrame.getInstance(adapter);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     dialog.updateInformation();
                     dialog.setVisible(true);
+                    dialog.toFront();
                 }
             });
 
             // Validation action
             ValidatorRunner runner = new ValidatorRunner(adapter);
             runner.runValidation(document);
-        }
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        logger.debug("actionPerformed()");
-        runValidation(adapter);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.updateInformation();
+                    dialog.setVisible(true);
+                    dialog.toFront();
+                }
+            });
+        }
     }
 }

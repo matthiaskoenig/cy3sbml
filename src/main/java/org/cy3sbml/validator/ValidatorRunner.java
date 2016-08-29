@@ -46,7 +46,7 @@ public class ValidatorRunner implements TaskObserver {
         Validator validator = task.getResults(Validator.class);
         this.validator = validator;
         String html = validator.createHtml();
-        ValidationDialog.getInstance(null).setText(html);
+        ValidationFrame.getInstance(null).setText(html);
     }
 
     @Override

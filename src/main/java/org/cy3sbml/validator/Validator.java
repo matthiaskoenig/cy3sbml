@@ -2,6 +2,7 @@ package org.cy3sbml.validator;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.*;
@@ -37,6 +38,10 @@ public class Validator {
 
     public static final String VALID = "valid";
     public static final String INVALID = "invalid";
+    public static final String EXPORT_HTML = String.format(
+            "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
+            GUIConstants.URL_HTML_VALIDATION);
+
     public static final List<String> SEVERITIES;
     static {
         List<String> list = new LinkedList<>();
@@ -137,7 +142,7 @@ public class Validator {
         String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
         html += String.format(
                 "<h2>%s%s</h2>\n",
-                SBaseHTMLFactory.EXPORT_HTML, "Validation results");
+                EXPORT_HTML, "Validation results");
 
         if (errorLog == null){
             html += "SBML Validation failed.";
@@ -168,7 +173,7 @@ public class Validator {
                             "\t\t<td><span class=\"errorLine\">%s</span></td>\n" +
                             "\t\t<td>%s</td>\n" +
                             "\t\t<td>%s</td>\n" +
-                            "\t\t<td><span class=\"identifier\">%s</span></td>\n" +
+                            "\t\t<td><span class=\"collection\">%s</span></td>\n" +
                             "\t\t<td><code>%s</code></td>\n" +
                             "\t\t<td><span class=\"errorMessage\" title=\"%s\">%s</span></td></tr>\n",
                             metaIdHtml,

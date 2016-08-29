@@ -31,7 +31,8 @@ public class ValidatorTask implements ObservableTask{
 	}
 
 	@Override
-	public void cancel() {}
+	public void cancel() {
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

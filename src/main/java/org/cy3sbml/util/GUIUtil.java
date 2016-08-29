@@ -12,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.validator.ValidationFrame;
+import org.cy3sbml.validator.Validator;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.work.TaskIterator;
@@ -123,9 +125,15 @@ public class GUIUtil {
                 return true;
             }
 
-            // HTML info
-            if (s.equals(GUIConstants.URL_HTMLFILE)){
-                GUIUtil.openCurrentHTMLInBrowser(openBrowser);
+            // SBase HTML
+            if (s.equals(GUIConstants.URL_HTML_SBASE)){
+                GUIUtil.openSBaseHTMLInBrowser(openBrowser);
+                return true;
+            }
+
+            // Validation HTML
+            if (s.equals(GUIConstants.URL_HTML_SBASE)){
+                GUIUtil.openValidationHTMLInBrowser(openBrowser);
                 return true;
             }
 
@@ -182,12 +190,27 @@ public class GUIUtil {
     /**
      * Open HTML information in external Browser.
      */
-    public static void openCurrentHTMLInBrowser(OpenBrowser openBrowser){
+    public static void openSBaseHTMLInBrowser(OpenBrowser openBrowser){
         String html = WebViewPanel.getInstance().getHtml();
-
-        // remove the export button, exported html cannot be exported
+        // remove export button, exported html cannot be exported
         html = html.replace(SBaseHTMLFactory.EXPORT_HTML, "");
+        openHTMLInBrowser(html, openBrowser);
+    }
 
+    /**
+     * Open validation HTML in external Browser.
+     */
+    public static void openValidationHTMLInBrowser(OpenBrowser openBrowser){
+        String html = ValidationFrame.getInstance(null).getHtml();
+        // remove export button, exported html cannot be exported
+        html = html.replace(Validator.EXPORT_HTML, "");
+        openHTMLInBrowser(html, openBrowser);
+    }
+
+    /**
+     * Open validation HTML in external Browser.
+     */
+    public static void openHTMLInBrowser(String html, OpenBrowser openBrowser){
         // write temp file
         try {
             File temp = File.createTempFile("cy3sbml", ".html");
@@ -200,6 +223,7 @@ public class GUIUtil {
             e.printStackTrace();
         }
     }
+
 
     /** Open a given file in browser. */
     public static void openFileInBrowser(File temp, OpenBrowser openBrowser){

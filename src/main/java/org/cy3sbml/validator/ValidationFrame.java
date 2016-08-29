@@ -19,20 +19,22 @@ import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Validation Dialog.
  * JavaFX Dialog window showing validation messages.
  */
-public class ValidationDialog extends JDialog implements SetCurrentNetworkListener,
+public class ValidationFrame extends JFrame implements SetCurrentNetworkListener,
         NetworkAddedListener,
         NetworkViewAddedListener,
         NetworkViewAboutToBeDestroyedListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(ValidationDialog.class);
-    private static ValidationDialog uniqueInstance;
+    private static final Logger logger = LoggerFactory.getLogger(ValidationFrame.class);
+    private static ValidationFrame uniqueInstance;
 
     private ServiceAdapter adapter;
     private Browser browser;
@@ -40,19 +42,26 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
 
 
     /** Singleton. */
-    public static synchronized ValidationDialog getInstance(ServiceAdapter adapter){
+    public static synchronized ValidationFrame getInstance(ServiceAdapter adapter){
         if (uniqueInstance == null){
-            logger.debug("ValidationDialog created");
-            uniqueInstance = new ValidationDialog(adapter);
+            logger.debug("ValidationFrame created");
+            uniqueInstance = new ValidationFrame(adapter);
         }
         return uniqueInstance;
     }
 
-    private ValidationDialog(ServiceAdapter adapter){
-        super(adapter.cySwingApplication.getJFrame());
+    private ValidationFrame(ServiceAdapter adapter){
+        // super(adapter.cySwingApplication.getJFrame());
+        super();
         this.adapter = adapter;
 
         this.setTitle("SBML validation");
+
+        try {
+            this.setIconImage(ImageIO.read(getClass().getResource(GUIConstants.ICON_VALIDATION)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final JFXPanel fxPanel = new JFXPanel();
         this.add(fxPanel);
 
@@ -65,7 +74,7 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
         this.setBackground(new Color(255, 255, 255));
         this.setLocationRelativeTo(adapter.cySwingApplication.getJFrame());
         this.setAlwaysOnTop(false);
-        this.setModalityType(ModalityType.MODELESS);
+        // this.setModalityType(ModalityType.MODELESS);
         // this.toFront();
         //this.setVisible(true);
 
@@ -76,6 +85,10 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
                 resetInformation();
             }
         });
+    }
+
+    public String getHtml(){
+        return html;
     }
 
     /**
@@ -94,6 +107,7 @@ public class ValidationDialog extends JDialog implements SetCurrentNetworkListen
     /////////////////// INFORMATION DISPLAY ///////////////////////////////////
 
     public void resetInformation(){
+        html = null;
         browser.loadPageFromResource(GUIConstants.HTML_VALIDATION_RESOURCE);
     }
 

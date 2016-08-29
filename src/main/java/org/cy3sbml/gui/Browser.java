@@ -19,6 +19,8 @@ import org.cy3sbml.util.GUIUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.event.HyperlinkEvent;
+
 
 /**
  * Browser for displaying HTML.
@@ -40,7 +42,7 @@ public class Browser extends Region {
         this.openBrowser = openBrowser;
         logger.debug("WebView version: " + webEngine.getUserAgent());
 
-		//add WebView to scene
+		// add WebView to scene
 		getChildren().add(webView);
 
         /**
@@ -60,6 +62,9 @@ public class Browser extends Region {
             Boolean cancel = GUIUtil.processURLEvent(url, openBrowser);
             return cancel;
         };
+        // WebViews.addHyperlinkListener(webView, eventPrintingListener);
+        // only listening to the clicks
+        WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
     }
 
 	/**
