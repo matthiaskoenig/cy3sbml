@@ -66,7 +66,7 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
         final JFXPanel fxPanel = new JFXPanel();
         this.add(fxPanel);
 
-        int width = 800;
+        int width = 1000;
         int height = 1000;
         this.setPreferredSize(new Dimension(width, height));
         this.setSize(new Dimension(width, height));

@@ -142,7 +142,7 @@ public class Validator {
         // html
         String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
         html += String.format(
-                "<h2>%s Validation %s</h2>\n",
+                "<h2>%s %s</h2>\n",
                 EXPORT_HTML, title);
 
         if (errorLog == null){
@@ -151,7 +151,8 @@ public class Validator {
             // create html for errorMap
             String validStr = (valid) ? VALID : INVALID;
             html += String.format("<h3 class=\"%s\">This document is %s SBML</h3>\n", validStr, validStr);
-            html += "<table id=\"table\" class=\"display\" width=\"100%\" cellspacing=\"0\">";
+            // html += "<table id=\"table\" class=\"display\" width=\"100%\" cellspacing=\"0\">";
+            html += "<table id=\"table\" class=\"table table-striped table-condensed table-hover\">";
 
             html += "\t<thead>\n" +
                     "\t\t<tr><th>metaid</th><th>severity</th><th>line</th><th>category</th><th>code</th><th>package</th>" +
@@ -166,7 +167,7 @@ public class Validator {
                     if (metaId == null){
                         metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
                     } else {
-                        metaIdHtml = String.format("<a href=\"%s%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span>%s</a>",
+                        metaIdHtml = String.format("<a href=\"%s%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span> %s</a>",
                                 GUIConstants.URL_SELECT_SBASE, metaId, metaId);
                     }
                     html += String.format(
