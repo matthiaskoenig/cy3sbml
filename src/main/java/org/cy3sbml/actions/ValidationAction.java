@@ -1,38 +1,48 @@
 package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import javafx.application.Platform;
-import org.cy3sbml.gui.GUIConstants;
-import org.cy3sbml.validator.ValidationFrame;
-import org.cy3sbml.validator.ValidationTaskObserver;
+
+import org.cytoscape.application.events.SetCurrentNetworkEvent;
+import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.AbstractCyAction;
+import org.cytoscape.model.CyNetwork;
+
+import org.cytoscape.work.TaskManager;
 import org.sbml.jsbml.SBMLDocument;
 
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.validator.ValidationFrame;
+import org.cy3sbml.validator.ValidationTaskObserver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * Open the BioModel GUI for importing BioModels via search terms.
+ * Validate current SBML file
+ * and display validation HTML report.
  */
-public class ValidationAction extends AbstractCyAction {
+public class ValidationAction extends AbstractCyAction implements SetCurrentNetworkListener {
     private static final Logger logger = LoggerFactory.getLogger(ValidationAction.class);
     private static final long serialVersionUID = 1L;
 
-    private ServiceAdapter adapter;
+    private TaskManager taskManager;
+    private ValidationEnableTaskFactory validationEnableTaskFactory;
 
-    /** Constructor. */
-    public ValidationAction(ServiceAdapter adapter) {
-        super(ValidationAction.class.getSimpleName());
-        this.adapter = adapter;
+    /**
+     * Constructor.
+     */
+    public ValidationAction(Map<String, String> configProps, ServiceAdapter adapter, ValidationEnableTaskFactory validationEnableTaskFactory) {
+        // super(ValidationAction.class.getSimpleName());
+        super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, validationEnableTaskFactory);
+        taskManager = adapter.taskManager;
+        this.validationEnableTaskFactory = validationEnableTaskFactory;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_VALIDATION));
         putValue(LARGE_ICON_KEY, icon);
@@ -52,26 +62,30 @@ public class ValidationAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        runValidation(adapter);
+        runValidation(taskManager);
     }
 
     /**
      * Run the validation action.
      * This displays the validation dialog and performs the validation.
-     * @param adapter
+     *
+     * @param taskManager
      */
-    public static void runValidation(ServiceAdapter adapter) {
+    public static void runValidation(TaskManager taskManager) {
         SBMLDocument document = SBMLManager.getInstance().getCurrentSBMLDocument();
-        JFrame parentFrame = adapter.cySwingApplication.getJFrame();
 
+        /*
+        JFrame parentFrame = adapter.cySwingApplication.getJFrame();
         if (document == null) {
             JOptionPane.showMessageDialog(parentFrame,
                     "<html>SBML must to loaded before validation.<br />" +
                             "Load network from file or URL, or import network from BioModels.</html>");
         } else {
+        */
 
+        if (document != null){
             // Open JavaFX Dialog
-            ValidationFrame dialog = ValidationFrame.getInstance(adapter);
+            ValidationFrame dialog = ValidationFrame.getInstance(null);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -81,8 +95,24 @@ public class ValidationAction extends AbstractCyAction {
             });
 
             // Validator action
-            ValidationTaskObserver runner = new ValidationTaskObserver(adapter.taskManager);
-            runner.runValidation(document);
+            ValidationTaskObserver taskObserver = new ValidationTaskObserver(taskManager);
+            taskObserver.runValidation(document);
         }
+    }
+
+    @Override
+    public void handleEvent(SetCurrentNetworkEvent event) {
+        CyNetwork network = event.getNetwork();
+        if (network == null){
+            validationEnableTaskFactory.setReady(false);
+        } else {
+            SBMLDocument doc = SBMLManager.getInstance().getSBMLDocument(network);
+            if (doc == null){
+                validationEnableTaskFactory.setReady(false);
+            } else {
+                validationEnableTaskFactory.setReady(true);
+            }
+        }
+        updateEnableState();
     }
 }

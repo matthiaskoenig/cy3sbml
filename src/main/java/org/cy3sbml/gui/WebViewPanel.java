@@ -241,7 +241,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
     /////////////////// EVENT HANDLING ///////////////////////////////////
 
-
     /**
      * Handle node selection events in the table/network.
      * <p>

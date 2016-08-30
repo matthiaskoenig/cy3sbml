@@ -1,11 +1,14 @@
 package org.cy3sbml;
 
+import org.cy3sbml.actions.*;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.BundleContext;
 
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -39,16 +42,6 @@ import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 
-
-import org.cy3sbml.actions.BiomodelsAction;
-import org.cy3sbml.actions.ChangeStateAction;
-import org.cy3sbml.actions.CofactorAction;
-import org.cy3sbml.actions.ExamplesAction;
-import org.cy3sbml.actions.HelpAction;
-import org.cy3sbml.actions.ImportAction;
-import org.cy3sbml.actions.LoadLayoutAction;
-import org.cy3sbml.actions.SaveLayoutAction;
-import org.cy3sbml.actions.ValidationAction;
 
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -211,8 +204,11 @@ public class CyActivator extends AbstractCyActivator {
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());
 
-            ValidationAction validationAction = new ValidationAction(adapter);
+
+            ValidationEnableTaskFactory validationEnableTaskFactory = new ValidationEnableTaskFactory();
+            ValidationAction validationAction = new ValidationAction(new HashMap<String, String>(), adapter, validationEnableTaskFactory);
             registerService(bc, validationAction, CyAction.class, new Properties());
+            registerService(bc, validationAction, SetCurrentNetworkListener.class, new Properties());
 
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());

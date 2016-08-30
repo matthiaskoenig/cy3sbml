@@ -111,7 +111,8 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                     action = new ImportAction(adapter);
                 }
                 if (s.equals(URL_VALIDATION)){
-                    action = new ValidationAction(adapter);
+                    // action = new ValidationAction(adapter);
+                    ValidationAction.runValidation(adapter.taskManager);
                 }
                 if (s.equals(URL_EXAMPLES)){
                     action = new ExamplesAction();
