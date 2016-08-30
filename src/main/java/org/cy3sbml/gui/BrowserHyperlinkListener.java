@@ -1,7 +1,9 @@
 package org.cy3sbml.gui;
 
+import javax.swing.event.HyperlinkEvent;
+import java.net.URL;
+import java.util.*;
 
-import com.sun.rowset.internal.Row;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
@@ -13,13 +15,10 @@ import org.cy3sbml.util.GUIUtil;
 
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.*;
-import org.cytoscape.view.model.CyNetworkView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.event.HyperlinkEvent;
-import java.net.URL;
-import java.util.*;
+
 
 /**
  * Handle hyperlink events in WebView.
@@ -167,7 +166,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                         node = network.getNode(row.get(CyTable.SUID, Long.class));
 
                     }
-                    
+
                     if (node == null){
                         logger.info("node not in current network: " + node);
                     } else {
