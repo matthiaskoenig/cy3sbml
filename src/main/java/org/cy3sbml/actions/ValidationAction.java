@@ -33,16 +33,15 @@ public class ValidationAction extends AbstractCyAction implements SetCurrentNetw
     private static final long serialVersionUID = 1L;
 
     private TaskManager taskManager;
-    private ValidationEnableTaskFactory validationEnableTaskFactory;
+    private SBMLEnableTaskFactory sbmlEnableTaskFactory;
 
     /**
      * Constructor.
      */
-    public ValidationAction(Map<String, String> configProps, ServiceAdapter adapter, ValidationEnableTaskFactory validationEnableTaskFactory) {
-        // super(ValidationAction.class.getSimpleName());
-        super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, validationEnableTaskFactory);
+    public ValidationAction(Map<String, String> configProps, ServiceAdapter adapter, SBMLEnableTaskFactory sbmlEnableTaskFactory) {
+        super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, sbmlEnableTaskFactory);
         taskManager = adapter.taskManager;
-        this.validationEnableTaskFactory = validationEnableTaskFactory;
+        this.sbmlEnableTaskFactory = sbmlEnableTaskFactory;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_VALIDATION));
         putValue(LARGE_ICON_KEY, icon);
@@ -73,16 +72,6 @@ public class ValidationAction extends AbstractCyAction implements SetCurrentNetw
      */
     public static void runValidation(TaskManager taskManager) {
         SBMLDocument document = SBMLManager.getInstance().getCurrentSBMLDocument();
-
-        /*
-        JFrame parentFrame = adapter.cySwingApplication.getJFrame();
-        if (document == null) {
-            JOptionPane.showMessageDialog(parentFrame,
-                    "<html>SBML must to loaded before validation.<br />" +
-                            "Load network from file or URL, or import network from BioModels.</html>");
-        } else {
-        */
-
         if (document != null){
             // Open JavaFX Dialog
             ValidationFrame dialog = ValidationFrame.getInstance(null);
@@ -100,19 +89,21 @@ public class ValidationAction extends AbstractCyAction implements SetCurrentNetw
         }
     }
 
+    /**
+     * Updates the ready variable.
+     * @param event
+     */
     @Override
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
-        if (network == null){
-            validationEnableTaskFactory.setReady(false);
-        } else {
+        boolean ready = false;
+        if (network != null){
             SBMLDocument doc = SBMLManager.getInstance().getSBMLDocument(network);
-            if (doc == null){
-                validationEnableTaskFactory.setReady(false);
-            } else {
-                validationEnableTaskFactory.setReady(true);
+            if (doc != null) {
+                ready = true;
             }
         }
+        sbmlEnableTaskFactory.setReady(ready);
         updateEnableState();
     }
 }

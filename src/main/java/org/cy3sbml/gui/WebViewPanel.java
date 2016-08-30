@@ -26,6 +26,7 @@ import org.cytoscape.view.model.events.NetworkViewAddedListener;
 
 import org.cy3sbml.SBMLManager;
 
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

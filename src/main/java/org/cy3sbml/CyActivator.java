@@ -8,7 +8,6 @@ import org.osgi.framework.BundleContext;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -205,16 +204,17 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, importAction, CyAction.class, new Properties());
 
 
-            ValidationEnableTaskFactory validationEnableTaskFactory = new ValidationEnableTaskFactory();
-            ValidationAction validationAction = new ValidationAction(new HashMap<String, String>(), adapter, validationEnableTaskFactory);
+            SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
+            ValidationAction validationAction = new ValidationAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
             registerService(bc, validationAction, CyAction.class, new Properties());
             registerService(bc, validationAction, SetCurrentNetworkListener.class, new Properties());
 
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
-            CofactorAction cofactorAction = new CofactorAction(adapter);
+            CofactorAction cofactorAction = new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
             registerService(bc, cofactorAction, CyAction.class, new Properties());
+            registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
 
             BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());

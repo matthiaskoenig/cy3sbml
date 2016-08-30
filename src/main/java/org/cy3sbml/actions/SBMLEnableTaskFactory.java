@@ -6,11 +6,11 @@ import org.cytoscape.work.TaskIterator;
 /**
  * Use a TaskFactory to set the ready state.
  */
-public class ValidationEnableTaskFactory implements TaskFactory {
+public class SBMLEnableTaskFactory implements TaskFactory {
 
     private boolean ready;
 
-    public ValidationEnableTaskFactory(){
+    public SBMLEnableTaskFactory(){
         ready = false;
     }
 
@@ -27,4 +27,5 @@ public class ValidationEnableTaskFactory implements TaskFactory {
     public boolean isReady() {
         return ready;
     }
+
 }

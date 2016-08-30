@@ -111,7 +111,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                     action = new ImportAction(adapter);
                 }
                 if (s.equals(URL_VALIDATION)){
-                    // action = new ValidationAction(adapter);
                     ValidationAction.runValidation(adapter.taskManager);
                 }
                 if (s.equals(URL_EXAMPLES)){
@@ -124,7 +123,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                     action = new HelpAction();
                 }
                 if (s.equals(URL_COFACTOR_NODES)){
-                    action = new CofactorAction(adapter);
+                    CofactorAction.runCofactorAction(adapter);
                 }
                 if (s.equals(URL_SAVELAYOUT)){
                     action = new SaveLayoutAction(adapter);
