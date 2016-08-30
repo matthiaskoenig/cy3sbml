@@ -46,7 +46,8 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
     public static final String URL_SBMLFILE = "http://sbml-file";
     public static final String URL_HTML_SBASE = "http://html-sbase";
     public static final String URL_HTML_VALIDATION = "http://html-validation";
-    public static final String URL_SELECT_SBASE = "http://select-sbase/";
+    public static final String URL_SELECT_METAID = "http://select-metaid/";
+    public static final String URL_SELECT_ID = "http://select-id/";
 
     public static final Map<String, String> EXAMPLE_SBML;
     public static final Set<String> URLS_ACTION;
@@ -143,42 +144,16 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                     logger.error(String.format("Action not created for <%s>", s));
                 }
             }
-
-            else if (s.startsWith(URL_SELECT_SBASE)){
-
-                String[] tokens = s.split("/");
-                String metaId = tokens[tokens.length-1];
-
-                logger.info(String.format("Select node (%s) for metaId: %s", s, metaId));
-
-                // Only update if current network and view
+            else if (s.startsWith(URL_SELECT_METAID) || (s.startsWith(URL_SELECT_ID))) {
+                // Only select if current network exists
                 CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-                logger.info("current network: " + network);
-
                 if (network != null) {
-                    // Node to select
-                    logger.info("Searching for node in network");
-                    Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(SBML.ATTR_CYID, metaId);
-                    CyNode node = null;
-                    if (rows != null && rows.size()>0){
-                        CyRow row = rows.iterator().next();
-                        System.out.println(row);
-                        node = network.getNode(row.get(CyTable.SUID, Long.class));
-
-                    }
-
-                    if (node == null){
-                        logger.info("node not in current network: " + node);
-                    } else {
-                        logger.info("node in current network: " + node);
-                        // unselect all
-                        List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-                        for (CyNode n : nodes) {
-                            AttributeUtil.set(network, n, CyNetwork.SELECTED, false, Boolean.class);
-                        }
-                        // select node
-                        logger.info("selected node");
-                        AttributeUtil.set(network, node, CyNetwork.SELECTED, true, Boolean.class);
+                    String[] tokens = s.split("/");
+                    String identifier = tokens[tokens.length - 1];
+                    if (s.startsWith(URL_SELECT_ID)) {
+                        selectById(network, identifier);
+                    } else if (s.startsWith(URL_SELECT_METAID)) {
+                        selectByMetaId(network, identifier);
                     }
                 }
             }
@@ -213,4 +188,71 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
         // This is a link we should load, do not cancel.
         return false;
     }
+
+    /**
+     * Select node by metaId.
+     *
+     * @param network
+     * @param metaId
+     */
+    private static void selectByMetaId(CyNetwork network, String metaId){
+        logger.info(String.format("Select node for metaId: %s", metaId));
+
+        CyNode node = getNodeByAttribute(network, SBML.ATTR_CYID, metaId);
+        selectNodeInNetwork(network, node);
+    }
+
+    /**
+     * Select node by id.
+     *
+     * @param network
+     * @param id
+     */
+    private static void selectById(CyNetwork network, String id){
+        logger.info(String.format("Select node for id: %s", id));
+
+        CyNode node = getNodeByAttribute(network, SBML.ATTR_ID, id);
+        selectNodeInNetwork(network, node);
+    }
+
+    /**
+     * Returns the first matching node.
+     * @param network
+     * @param attribute
+     * @param identifier
+     * @return
+     */
+    private static CyNode getNodeByAttribute(CyNetwork network, String attribute, String identifier) {
+        logger.info("Searching for node in network");
+        Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(attribute, identifier);
+        CyNode node = null;
+        if (rows != null && rows.size()>0){
+            // return first matching one
+            CyRow row = rows.iterator().next();
+            node = network.getNode(row.get(CyTable.SUID, Long.class));
+        } else {
+            logger.info(String.format("node not in current network: %s:%s", attribute, identifier));
+        }
+        return node;
+    }
+
+    /**
+     * Selects given node in network.
+     * Unselects all other nodes.
+     * @param network
+     * @param node
+     */
+    private static void selectNodeInNetwork(CyNetwork network, CyNode node){
+        if (node != null) {
+            // unselect all
+            List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
+            for (CyNode n : nodes) {
+                AttributeUtil.set(network, n, CyNetwork.SELECTED, false, Boolean.class);
+            }
+            // select node
+            logger.info("selected node");
+            AttributeUtil.set(network, node, CyNetwork.SELECTED, true, Boolean.class);
+        }
+    }
+
 }

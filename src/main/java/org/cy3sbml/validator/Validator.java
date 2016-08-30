@@ -175,8 +175,8 @@ public class Validator {
                     if (metaId == null) {
                         metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
                     } else {
-                        metaIdHtml = String.format("<a href=\"%s%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span> %s</a>",
-                                BrowserHyperlinkListener.URL_SELECT_SBASE, metaId, metaId);
+                        metaIdHtml = String.format("<a href=\"%s%s\">%s <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>",
+                                BrowserHyperlinkListener.URL_SELECT_METAID, metaId, metaId);
                     }
                     html += String.format(
                             "\t<tr><td>%s</td>\n" +

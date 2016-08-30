@@ -151,6 +151,8 @@ public class SBMLUtil {
     public static final String ATTR_INITIAL_AMOUNT = "amount";
     public static final String ATTR_CHARGE = "charge";
 
+    private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
+    private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
     private static final String UNIT_TEMPLATE = "<span class=\"unit\">%s</span>";
     private static final String MATH_TEMPLATE = "<span class=\"math\">%s</span>";
 
@@ -329,7 +331,7 @@ public class SBMLUtil {
 
         String compartment = SBaseHTMLFactory.ICON_NONE;
         if (s.isSetCompartment()){
-            compartment = s.getCompartment().toString();
+            compartment = s.getCompartment() + String.format(LINK_ID_TEMPLATE, s.getCompartment());
         }
         map.put(ATTR_COMPARTMENT, compartment);
         String boundaryCondition = (s.isSetBoundaryCondition()) ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition()) : SBaseHTMLFactory.ICON_NONE;
@@ -382,14 +384,14 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createReactionMap(Reaction r) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(r);
 
-        String compartment = (r.isSetCompartment()) ? r.getCompartment().toString() : SBaseHTMLFactory.ICON_NONE;
+        String compartment = (r.isSetCompartment()) ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment()) : SBaseHTMLFactory.ICON_NONE;
         String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : SBaseHTMLFactory.ICON_NONE;
         String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : SBaseHTMLFactory.ICON_NONE;
         String kineticLaw = SBaseHTMLFactory.ICON_NONE;
         if (r.isSetKineticLaw()){
             KineticLaw law = r.getKineticLaw();
             if (law.isSetMath()){
-                kineticLaw = law.getMath().toFormula();
+                kineticLaw = law.getMath().toFormula() + String.format(LINK_METAID_TEMPLATE, law.getMetaId());
             }
         }
         String units = getDerivedUnitHtml(r);
@@ -539,7 +541,8 @@ public class SBMLUtil {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
         Reaction reaction = law.getParent();
-        map.put("reaction", reaction.getId());
+        String reactionId = reaction.getId();
+        map.put("reaction", reactionId + String.format(LINK_ID_TEMPLATE, reactionId));
         map.putAll(createQuantityWithUnitNodeMap(lp));
         return map;
     }
@@ -548,7 +551,8 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createKineticLawMap(KineticLaw law) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         Reaction reaction = law.getParent();
-        map.put("reaction", reaction.getId());
+        String reactionId = reaction.getId();
+        map.put("reaction", reactionId + String.format(LINK_ID_TEMPLATE, reactionId));
         map.putAll(createAbstractMathContainerNodeMap(law));
         return map;
     }

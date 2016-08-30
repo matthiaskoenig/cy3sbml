@@ -127,7 +127,8 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
     @Override
     public Icon getIcon() {
-        return new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
+        // return new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
+        return null;
     }
 
     @Override
