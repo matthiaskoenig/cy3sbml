@@ -3,6 +3,7 @@ package org.cy3sbml.validator;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.SBMLUtil;
@@ -41,7 +42,7 @@ public class Validator {
     public static final String INVALID = "invalid";
     public static final String EXPORT_HTML = String.format(
             "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
-            GUIConstants.URL_HTML_VALIDATION);
+            BrowserHyperlinkListener.URL_HTML_VALIDATION);
 
     public static final List<String> SEVERITIES;
     static {
@@ -168,7 +169,7 @@ public class Validator {
                         metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
                     } else {
                         metaIdHtml = String.format("<a href=\"%s%s\"> <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span> %s</a>",
-                                GUIConstants.URL_SELECT_SBASE, metaId, metaId);
+                                BrowserHyperlinkListener.URL_SELECT_SBASE, metaId, metaId);
                     }
                     html += String.format(
                             "\t<tr><td>%s</td>\n" +

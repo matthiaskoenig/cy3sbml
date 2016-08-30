@@ -85,6 +85,7 @@ public class SBaseHTMLFactory {
                     "</body>\n" +
                     "</html>\n";
 
+    public static final String ICON_WARNING = "<span class=\"fa fa-exclamation-circle fa-lg\" title=\"true\" style=\"color:red\"> </span>";
     public static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
     public static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
     public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
@@ -92,7 +93,7 @@ public class SBaseHTMLFactory {
 
     public static final String EXPORT_HTML = String.format(
             "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
-            GUIConstants.URL_HTML_SBASE);
+            BrowserHyperlinkListener.URL_HTML_SBASE);
 
     public static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     public static final String TABLE_END = "</table>\n";
@@ -443,19 +444,8 @@ public class SBaseHTMLFactory {
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-
-            //DataType dataType = RegistryUtilities.getDataType(dataCollection);
             DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
 
-            // check that identifier is correct for given datatype
-            if (dataType != null){
-                String pattern = dataType.getRegexp();
-                if (!RegistryUtilities.checkRegexp(identifier, pattern)){
-                    logger.warn(String.format(
-                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
-                            identifier, pattern, dataType.getId()));
-                }
-            }
 
             // link to primary resource via id
             String resourceLink = null;
@@ -485,7 +475,10 @@ public class SBaseHTMLFactory {
             // not possible to resolve dataType from MIRIAM registry
             if (dataType == null){
                 logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
-                text += qualifierHTML + identifierHTML + "<br />\n";
+                text += String.format(
+                        "\t%s%s<br />\n" +
+                        "\t%s <span class=\"text-danger\">Unknown data collection: <a href=\"%s\">%s</a></span><br />\n",
+                        qualifierHTML, identifierHTML, ICON_WARNING, dataCollection, dataCollection);
                 text += String.format(
                         "\t%s <a href=\"%s\"> %s</a><br />\n",
                         ICON_INVISIBLE, resourceURI, resourceURI);
@@ -493,8 +486,19 @@ public class SBaseHTMLFactory {
             // dataType found
             if (dataType != null){
                 text += qualifierHTML + String.format(
-                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>%s<br/>\n",
+                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM data collection. Click to open on MIRIAM registry.\">%s</span></a>%s<br/>\n",
                         dataType.getURL(), dataType.getName(), identifierHTML);
+
+                // check that identifier is correct for given datatype
+                String pattern = dataType.getRegexp();
+                if (!RegistryUtilities.checkRegexp(identifier, pattern)){
+                    logger.warn(String.format(
+                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
+                            identifier, pattern, dataType.getId()));
+                    text += String.format(
+                            "%s <span class=\"text-danger\">Identifier <%s> does not match pattern '%s'</span><br />\n",
+                            ICON_WARNING, identifier, pattern);
+                }
 
                 // Create OLS resource for location
                 for (PhysicalLocation location: dataType.getPhysicalLocations()) {
@@ -520,6 +524,16 @@ public class SBaseHTMLFactory {
     }
 
     /**
+     * Creates the URL for the given location and identifier.
+     * @param identifier
+     * @return
+     */
+    private static String createURL(PhysicalLocation location, String identifier){
+        return String.format("%s%s%s",
+                location.getUrlPrefix(), identifier, location.getUrlSuffix());
+    }
+
+    /**
      * Information for non-OLS location.
      */
     private static String createNonOLSLocation(PhysicalLocation location, String identifier){
@@ -534,22 +548,18 @@ public class SBaseHTMLFactory {
     }
 
     /**
-     * Creates the URL for the given location and identifier.
-     * @param identifier
-     * @return
-     */
-    private static String createURL(PhysicalLocation location, String identifier){
-        return String.format("%s%s%s",
-                location.getUrlPrefix(), identifier, location.getUrlSuffix());
-    }
-
-    /**
      * Information for an OLS location.
      * Only the identifier needed for the query.
      */
     private static String createOLSLocation(PhysicalLocation location, String identifier){
         String html = "";
-        // Term term = OLSAccess.getTerm(identifier);
+        // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
+        String olsURL = createURL(location, identifier);
+        String[] tokens = olsURL.split("=");
+        if (tokens.length > 1){
+            identifier = tokens[tokens.length-1];
+            identifier = identifier.replace("_", ":");
+        }
         Term term = OLSCache.getTerm(identifier);
         if (term != null) {
 
@@ -570,7 +580,6 @@ public class SBaseHTMLFactory {
                 }
                 html += "<br />\n";
             }
-
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
@@ -578,14 +587,14 @@ public class SBaseHTMLFactory {
                 }
             }
 
-            html += "\t<br />";
-
         } else {
-            createNonOLSLocation(location, identifier);
+            html += String.format(
+                    "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
+                    ICON_WARNING, identifier, olsURL, olsURL);
+            html += createNonOLSLocation(location, identifier);
         }
         return html;
     }
-
 
     /**
      * Resolves secondary resourses and returns the HTML.

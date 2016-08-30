@@ -25,7 +25,7 @@ public class OLSAccess {
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
-     * Gets the OLS term for a given MIRIAM resourceURI.
+     * Gets the OLS term for a given identifier.
      * Example: "GO:0042752"
      *
      * Returns NULL if not an ontology term, or no term.

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.sbml.jsbml.*;
@@ -254,7 +255,7 @@ public class SBMLUtil {
         map.put(
                 String.format("<a href=\"%s\">L%sV%s</a>%s",
                         doc.getURI(), model.getLevel(), model.getVersion(), packages),
-                String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", GUIConstants.URL_SBMLFILE)
+                String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", BrowserHyperlinkListener.URL_SBMLFILE)
         );
         map.putAll(createNamedSBaseMap(model));
 

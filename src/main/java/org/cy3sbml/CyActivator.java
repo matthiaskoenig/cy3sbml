@@ -182,7 +182,7 @@ public class CyActivator extends AbstractCyActivator {
             CofactorManager cofactorManager = CofactorManager.getInstance();
 
             // panels
-            /*
+
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
@@ -190,7 +190,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-            */
+
 
             // GUI frames
             ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
@@ -267,7 +267,7 @@ public class CyActivator extends AbstractCyActivator {
             miriamThread.run();
 
             // cy3sbml panels
-            // WebViewPanel.getInstance().activate();
+            WebViewPanel.getInstance().activate();
 
             logger.info("----------------------------");
 
