@@ -18,7 +18,7 @@
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
-        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java</models.test.excludes>
+        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java</models.test.excludes>
     </properties>
 
     <groupId>org.cysbml</groupId>
