@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.event.HyperlinkEvent;
 import java.net.URL;
+import java.util.*;
 
 /**
  * Handle hyperlink events in WebView.
@@ -26,6 +27,55 @@ import java.net.URL;
  */
 public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
     private static final Logger logger = LoggerFactory.getLogger(BrowserHyperlinkListener.class);
+
+    public static final String URL_CHANGESTATE = "http://cy3sbml-changestate";
+    public static final String URL_IMPORT = "http://cy3sbml-import";
+    public static final String URL_VALIDATION = "http://cy3sbml-validation";
+    public static final String URL_EXAMPLES = "http://cy3sbml-examples";
+    public static final String URL_BIOMODELS = "http://cy3sbml-biomodels";
+    public static final String URL_HELP = "http://cy3sbml-help";
+    public static final String URL_COFACTOR_NODES = "http://cy3sbml-cofactor";
+    public static final String URL_LOADLAYOUT = "http://cy3sbml-layoutload";
+    public static final String URL_SAVELAYOUT = "http://cy3sbml-layoutsave";
+
+
+    public static final String URL_SBMLFILE = "http://sbml-file";
+    public static final String URL_HTML_SBASE = "http://html-sbase";
+    public static final String URL_HTML_VALIDATION = "http://html-validation";
+    public static final String URL_SELECT_SBASE = "http://select-sbase/";
+
+    public static final Map<String, String> EXAMPLE_SBML;
+    public static final Set<String> URLS_ACTION;
+
+    // Set all the URL actions
+    static {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("http://cy3sbml-glucose", "/models/Koenig2014_Glucose_Metabolism.xml");
+        map.put("http://cy3sbml-galactose", "/models/Galactose_v129_Nc1_core.xml");
+        map.put("http://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
+        map.put("http://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
+        map.put("http://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");
+        map.put("http://cy3sbml-iIT341", "/models/iIT341.xml");
+        map.put("http://cy3sbml-RECON1", "/models/RECON1.xml");
+        map.put("http://cy3sbml-BIOMD0000000001", "/models/BIOMD0000000001.xml");
+        map.put("http://cy3sbml-BIOMD0000000016", "/models/BIOMD0000000016.xml");
+        map.put("http://cy3sbml-BIOMD0000000084", "/models/BIOMD0000000084.xml");
+        map.put("http://cy3sbml-hsa04360", "/models/hsa04360.xml");
+        EXAMPLE_SBML = Collections.unmodifiableMap(map);
+
+        Set<String> set = new HashSet<>();
+
+        set.add(URL_CHANGESTATE);
+        set.add(URL_IMPORT);
+        set.add(URL_VALIDATION);
+        set.add(URL_EXAMPLES);
+        set.add(URL_BIOMODELS);
+        set.add(URL_HELP);
+        set.add(URL_COFACTOR_NODES);
+        set.add(URL_SAVELAYOUT);
+        set.add(URL_LOADLAYOUT);
+        URLS_ACTION = Collections.unmodifiableSet(set);
+    }
 
     @Override
     public boolean hyperlinkUpdate(HyperlinkEvent hyperlinkEvent) {
@@ -46,39 +96,39 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
      * @return cancel action, i.e. is the WebView event further processed
      */
     private static Boolean processURLEvent(URL url){
-        if (url != null && WebViewPanel.getInstance() != null) {
+        if (url != null) {
             String s = url.toString();
 
             // Cytoscape Action
-            if (GUIConstants.URLS_ACTION.contains(s)){
+            if (URLS_ACTION.contains(s)){
                 ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
 
                 AbstractCyAction action = null;
-                if (s.equals(GUIConstants.URL_CHANGESTATE)){
+                if (s.equals(URL_CHANGESTATE)){
                     action = new ChangeStateAction();
                 }
-                if (s.equals(GUIConstants.URL_IMPORT)){
+                if (s.equals(URL_IMPORT)){
                     action = new ImportAction(adapter);
                 }
-                if (s.equals(GUIConstants.URL_VALIDATION)){
+                if (s.equals(URL_VALIDATION)){
                     action = new ValidationAction(adapter);
                 }
-                if (s.equals(GUIConstants.URL_EXAMPLES)){
+                if (s.equals(URL_EXAMPLES)){
                     action = new ExamplesAction();
                 }
-                if (s.equals(GUIConstants.URL_BIOMODELS)){
+                if (s.equals(URL_BIOMODELS)){
                     action = new BiomodelsAction(adapter);
                 }
-                if (s.equals(GUIConstants.URL_HELP)){
+                if (s.equals(URL_HELP)){
                     action = new HelpAction();
                 }
-                if (s.equals(GUIConstants.URL_COFACTOR_NODES)){
+                if (s.equals(URL_COFACTOR_NODES)){
                     action = new CofactorAction(adapter);
                 }
-                if (s.equals(GUIConstants.URL_SAVELAYOUT)){
+                if (s.equals(URL_SAVELAYOUT)){
                     action = new SaveLayoutAction(adapter);
                 }
-                if (s.equals(GUIConstants.URL_LOADLAYOUT)){
+                if (s.equals(URL_LOADLAYOUT)){
                     action = new LoadLayoutAction(adapter);
                 }
 
@@ -88,40 +138,37 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                 } else {
                     logger.error(String.format("Action not created for <%s>", s));
                 }
-                return true;
             }
 
-            if (s.startsWith(GUIConstants.URL_SELECT_SBASE)){
-                System.out.println("Select sbase: " + s);
+            else if (s.startsWith(URL_SELECT_SBASE)){
+                logger.info("Select sbase: " + s);
             }
 
             // Example networks
-            if (GUIConstants.EXAMPLE_SBML.containsKey(s)){
-                String resource = GUIConstants.EXAMPLE_SBML.get(s);
+            else if (EXAMPLE_SBML.containsKey(s)){
+                String resource = EXAMPLE_SBML.get(s);
                 GUIUtil.loadExampleFromResource(resource);
-                return true;
             }
 
             // SBML file
-            if (s.equals(GUIConstants.URL_SBMLFILE)){
+            else if (s.equals(URL_SBMLFILE)){
                 GUIUtil.openCurrentSBMLInBrowser();
-                return true;
             }
 
             // SBase HTML
-            if (s.equals(GUIConstants.URL_HTML_SBASE)){
+            else if (s.equals(URL_HTML_SBASE)){
                 GUIUtil.openSBaseHTMLInBrowser();
-                return true;
             }
 
             // Validation HTML
-            if (s.equals(GUIConstants.URL_HTML_SBASE)){
+            else if (s.equals(URL_HTML_VALIDATION)){
                 GUIUtil.openValidationHTMLInBrowser();
-                return true;
             }
 
             // HTML links
-            GUIUtil.openURLinExternalBrowser(s);
+            else {
+                GUIUtil.openURLinExternalBrowser(s);
+            }
             return true;
         }
         // This is a link we should load, do not cancel.
