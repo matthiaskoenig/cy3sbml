@@ -48,7 +48,13 @@ public class ValidationTaskObserver implements TaskObserver {
         Validator validator = task.getResults(Validator.class);
         // Display information
         String html = validator.createHtml();
-        ValidationFrame.getInstance(null).setText(html);
+        ValidationFrame validationFrame = ValidationFrame.getInstance();
+        if (validationFrame != null){
+            validationFrame.setText(html);
+        } else {
+            // for testing support without GUI
+            logger.warn("No ValidationFrame instance.");
+        }
     }
 
     @Override

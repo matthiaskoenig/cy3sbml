@@ -217,5 +217,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:l2fprod-common-shared:7.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: cytoscape-temp:l2fprod-common-fontchooser:7.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:ding-presentation-impl:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.cytoscape:work-impl:3.4.0" level="project" />
   </component>
 </module>

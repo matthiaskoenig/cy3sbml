@@ -60,7 +60,6 @@
             <url>http://repo.maven.apache.org/maven2/</url>
         </repository>
 
-
         <repository>
             <id>ebi-repo</id>
             <name>The EBI internal repository</name>
@@ -626,6 +625,13 @@
         <dependency>
             <groupId>org.cytoscape</groupId>
             <artifactId>ding-presentation-impl</artifactId>
+            <version>${cytoscape.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cytoscape</groupId>
+            <artifactId>work-impl</artifactId>
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>

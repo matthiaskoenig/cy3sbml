@@ -47,6 +47,7 @@ public class Validator {
 
     private SBMLDocument document;
     private Boolean valid;
+
     private SBMLErrorLog errorLog;
     private Map<String, List<SBMLError>> errorMap;
 
@@ -60,6 +61,14 @@ public class Validator {
             e.printStackTrace();
             reset();
         }
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public SBMLErrorLog getErrorLog() {
+        return errorLog;
     }
 
     /**

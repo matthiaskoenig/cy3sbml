@@ -20,7 +20,7 @@ public class ValidationTaskFactory implements TaskFactory {
      * Constructor.
      */
     public ValidationTaskFactory(SBMLDocument document) {
-        logger.info("ValidatorTaskFactory created");
+        logger.debug("ValidationTaskFactory created");
         this.document = document;
     }
 

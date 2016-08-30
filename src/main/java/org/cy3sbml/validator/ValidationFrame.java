@@ -57,6 +57,13 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
     }
 
     /**
+     * Returns null if the unique instance has not been created.
+     */
+    public static ValidationFrame getInstance(){
+        return uniqueInstance;
+    }
+
+    /**
      * Constructor.
      * @param adapter
      */

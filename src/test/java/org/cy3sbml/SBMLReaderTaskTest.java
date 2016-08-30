@@ -34,10 +34,6 @@ public class SBMLReaderTaskTest {
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // TODO:
-        // mock:  VisualMappingManager visualMappingManager;
-        // mock:  CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/");
