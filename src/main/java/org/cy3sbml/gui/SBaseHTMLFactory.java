@@ -89,7 +89,7 @@ public class SBaseHTMLFactory {
     public static final String ICON_WARNING = "<span class=\"fa fa-exclamation-circle fa-lg\" title=\"true\" style=\"color:red\"> </span>";
     public static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
     public static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
-    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
+    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\" style=\"color:grey\"> </span>";
     public static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
 
     public static final String EXPORT_HTML = String.format(
@@ -251,7 +251,11 @@ public class SBaseHTMLFactory {
      * @return HTML String of History
      */
     private static String createHistory(SBase sbase){
-        String html = "";
+        if (!sbase.isSetHistory()){
+            return "";
+        }
+
+        String html = "<p class=\"cvterm\">";
         History h = sbase.getHistory();
         for (Creator c: h.getListOfCreators()){
             String givenName = c.isSetGivenName() ? c.getGivenName() : "";
@@ -264,13 +268,14 @@ public class SBaseHTMLFactory {
             html += String.format("%s %s %s%s</br>\n", givenName, familyName, email, organisation);
         }
         if (h.isSetCreatedDate()){
-            html += String.format("<code>created: %s</code></br>\n", h.getCreatedDate());
+            html += String.format("<span class=\"math\">created: %s</span><br />\n", h.getCreatedDate());
         }
         if (h.isSetListOfModification()){
             for (Date date: h.getListOfModifiedDates()){
-                html += String.format("<code>modified: %s</code></br>\n", date);
+                html += String.format("<span class=\"math\">modified: %s</span><br />\n", date);
             }
         }
+        html += "</p>\n";
         return html;
     }
 

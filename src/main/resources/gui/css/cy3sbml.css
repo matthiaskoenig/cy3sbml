@@ -101,11 +101,16 @@ table {
 }
 
 .cvterm{
-    border-radius: 25px;
+    border-radius: 15px;
     background: #f9f9f9;
-    padding: 10px;
+    padding: 5px;
 }
 
+.history{
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 5px;
+}
 
 .qualifier{
     background-color: #13721c;

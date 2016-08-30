@@ -144,6 +144,7 @@ public class SBMLUtil {
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
 
+    private static final String ATTR_ID = "id";
     private static final String ATTR_NAME = "name";
     public static final String ATTR_COMPARTMENT = "compartment";
     public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
@@ -168,6 +169,8 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put(ATTR_ID,
+                (nsb.isSetId()) ? nsb.getId() : SBaseHTMLFactory.ICON_NONE);
         map.put(ATTR_NAME,
                 (nsb.isSetName()) ? nsb.getName() : SBaseHTMLFactory.ICON_NONE);
         map.putAll(createSBaseMap(nsb));
@@ -242,9 +245,13 @@ public class SBMLUtil {
         if (packageMap != null) {
             packages = "";
             for (SBasePlugin plugin : packageMap.values()) {
-                packages += String.format("; <a href=\"%s\">%s-V%s</a>",
-                        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
 
+                // URI does not lead anywhere
+                // packages += String.format("; <a href=\"%s\">%s-V%s</a>",
+                //        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
+
+                packages += String.format(" <span class=\"collection\">%s-V%s</span>",
+                        plugin.getPackageName(), plugin.getPackageVersion());
             }
         }
 
@@ -253,8 +260,7 @@ public class SBMLUtil {
 
         // default
         map.put(
-                String.format("<a href=\"%s\">L%sV%s</a>%s",
-                        doc.getURI(), model.getLevel(), model.getVersion(), packages),
+                String.format("<span class=\"collection\">L%sV%s</span>%s", model.getLevel(), model.getVersion(), packages),
                 String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", BrowserHyperlinkListener.URL_SBMLFILE)
         );
         map.putAll(createNamedSBaseMap(model));
@@ -391,7 +397,7 @@ public class SBMLUtil {
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(SBML.ATTR_REVERSIBLE, reversible);
         map.put(SBML.ATTR_FAST, fast);
-        map.put(SBML.ATTR_KINETIC_LAW, kineticLaw);
+        map.put(SBML.ATTR_KINETIC_LAW, String.format(MATH_TEMPLATE, kineticLaw));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
         // TODO: create an equation string
