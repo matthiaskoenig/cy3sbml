@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.validator.ValidationFrame;
-import org.cy3sbml.validator.ValidatorRunner;
+import org.cy3sbml.validator.ValidationTaskObserver;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.sbml.jsbml.SBMLDocument;
 
@@ -75,14 +75,13 @@ public class ValidationAction extends AbstractCyAction {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.updateInformation();
                     dialog.setVisible(true);
                     dialog.toFront();
                 }
             });
 
-            // Validation action
-            ValidatorRunner runner = new ValidatorRunner(adapter);
+            // Validator action
+            ValidationTaskObserver runner = new ValidationTaskObserver(adapter.taskManager);
             runner.runValidation(document);
         }
     }

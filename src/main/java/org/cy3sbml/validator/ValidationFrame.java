@@ -26,7 +26,7 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * Validation Dialog.
+ * Validator Dialog.
  * JavaFX Dialog window showing validation messages.
  */
 public class ValidationFrame extends JFrame implements SetCurrentNetworkListener,
@@ -149,7 +149,6 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
         SBMLManager.getInstance().updateCurrent(network);
-        updateInformation();
     }
 
     /** If networks are added check if they are subnetworks
@@ -162,28 +161,10 @@ public class ValidationFrame extends JFrame implements SetCurrentNetworkListener
     public void handleEvent(NetworkAddedEvent event) {}
 
     @Override
-    public void handleEvent(NetworkViewAddedEvent event){
-        updateInformation();
-    }
+    public void handleEvent(NetworkViewAddedEvent event) {}
 
     @Override
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-    }
-
-
-    /**
-     * Updates panel information within a separate thread.
-     */
-    public void updateInformation(){
-        logger.debug("updateInformation()");
-
-        // Only update if active
-        if (!this.isActive()){
-            return;
-        }
-
-        // TODO: set the current validation object.
-        logger.warn("Update of validation information not implemented.");
     }
 
 }

@@ -160,7 +160,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                 GUIUtil.openSBaseHTMLInBrowser();
             }
 
-            // Validation HTML
+            // Validator HTML
             else if (s.equals(URL_HTML_VALIDATION)){
                 GUIUtil.openValidationHTMLInBrowser();
             }

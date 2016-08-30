@@ -4,7 +4,6 @@ import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
-import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.*;
@@ -19,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Validation of SBMLDocuments and creation of
+ * Validator of SBMLDocuments and creation of
  * validation reports including errors and warnings.
  *
  * This should run the validation and create the HTML
@@ -30,10 +29,7 @@ import java.util.regex.Pattern;
  *
  * TODO: add options for filtering (SBMLValidator.CHECK_CATEGORY);
  * TODO: unittests
- * TODO: caching of validation
- * TODO: html report
- * TODO: implement new version based on JSBML validator
- * FIXME: set baseDir and title
+ * TODO: implement new version based on JSBML validator (offline validator)
  */
 public class Validator {
 	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
@@ -147,7 +143,7 @@ public class Validator {
                 EXPORT_HTML, title);
 
         if (errorLog == null){
-            html += "SBML Validation failed.";
+            html += "SBML Validator failed.";
         } else {
             // create html for errorMap
             String validStr = (valid) ? VALID : INVALID;
