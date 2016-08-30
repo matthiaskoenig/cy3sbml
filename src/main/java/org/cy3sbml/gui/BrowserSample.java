@@ -6,13 +6,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * Run the webView example.
+ * Run webView example.
  */
 public class BrowserSample extends Application {
     private Scene scene;
 
     /**
-     * Start the application.
+     * Start application.
      *
      * @param stage
      */
@@ -25,9 +25,6 @@ public class BrowserSample extends Application {
         stage.setScene(scene);
         stage.show();
         browser.loadPage("http://www.google.com");
-
-        // second browser
-        Browser browser2 = new Browser(null);
     }
 
     public static void main(String[] args) {

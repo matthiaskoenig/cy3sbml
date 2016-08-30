@@ -2,7 +2,6 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
-import java.net.URL;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -11,10 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
-
-import org.cy3sbml.util.GUIUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +19,9 @@ import javax.swing.event.HyperlinkEvent;
 
 
 /**
- * Browser for displaying HTML.
+ * Browser for displaying HTML within a JavaFX Webview.
  * This can be embedded in Swing using a JFXPanel.
+ * A HyperlinkListener processes the hyperlinks.
  */
 public class Browser extends Region {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
@@ -32,6 +29,10 @@ public class Browser extends Region {
     private final WebView webView;
     private final WebEngine webEngine;
     private final File appDirectory;
+
+    // single instance for all browsers
+    // avoid concurrency issues
+    private static final BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
 
 
     public Browser(File appDirectory) {
@@ -43,28 +44,8 @@ public class Browser extends Region {
         // add WebView to scene
         getChildren().add(webView);
 
-        /*
-         * Handle hyperlink events in WebView.
-         * Either opens browser for given hyperlink or triggers Cytoscape actions
-         * for subsets of special hyperlinks.
-         *
-         * This provides an easy solution for integrating app functionality
-         * with clicks on hyperlinks.
-         * Alternative javascript upcalls could be performed.
-         */
-        WebViewHyperlinkListener eventProcessingListener = event -> {
-            logger.info(WebViews.hyperlinkEventToString(event));
-
-            // clicked url
-            URL url = event.getURL();
-            Boolean cancel = GUIUtil.processURLEvent(url);
-            return cancel;
-        };
-        // FIXME: here are issues with the second webview.
-        // The hyperlinklistener is attached to the first browser, but creates problems with the second one
-        // and does not listen to the events (probably has to be synchronized somehow)
-
-        // only listening to the clicks
+        // Listening to hyperlink events
+        // BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
     }
 

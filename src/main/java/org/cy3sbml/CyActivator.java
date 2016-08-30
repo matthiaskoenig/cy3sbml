@@ -181,24 +181,19 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
             CofactorManager cofactorManager = CofactorManager.getInstance();
 
-            /*
-                Create the unique instances of the panels before any access, for instance
-                in the actions
-              */
             // panels
+            /*
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
-
-            // dialogs
-            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
-
-            // dialog listeners
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+            */
 
+            // GUI frames
+            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
             registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
             registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
             registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
@@ -272,8 +267,7 @@ public class CyActivator extends AbstractCyActivator {
             miriamThread.run();
 
             // cy3sbml panels
-            //ValidationPanel.getInstance().activate();
-            WebViewPanel.getInstance().activate();
+            // WebViewPanel.getInstance().activate();
 
             logger.info("----------------------------");
 
