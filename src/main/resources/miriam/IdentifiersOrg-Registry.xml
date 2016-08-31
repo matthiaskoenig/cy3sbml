@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Export of Identifiers.org's Registry (full) -->
-<!-- Generated: Wed Aug 17 13:50:34 BST 2016     -->
+<!-- Generated: Wed, 31 Aug 2016 07:16:34 GMT     -->
 <!-- http://identifiers.org/registry/            -->
 
-<miriam xmlns="http://www.biomodels.net/MIRIAM/" date="2016-08-17T13:50:34+01:00" data-version="2016-08-03T15:21:34+01:00">
+<miriam xmlns="http://www.biomodels.net/MIRIAM/" date="Wed, 31 Aug 2016 07:16:34 GMT" data-version="Wed, 24 Aug 2016 10:12:17 GMT">
 	<datatype id="MIR:00000001" pattern="^\d+$" restricted="true" obsolete="true" replacement="MIR:00000010">
 		<comment>BIND doesn&apos;t exist any more and its successor (BOND) is not open-access. Bulk downloads of BIND data (http://bond.unleashedinformatics.com/downloads/data/BIND/data/datasets/taxon/xml/) and a PSI-MI 2.5 translation (http://download.baderlab.org/BINDTranslation/) are available.</comment>
 		<name>BIND</name>
@@ -368,10 +368,10 @@
 			<uri type="URN">urn:miriam:taxonomy</uri>
 			<uri type="URL">http://identifiers.org/taxonomy/</uri>
 			<uri type="URL" deprecated="true">http://bio2rdf.org/taxonomy</uri>
-			<uri type="URL" deprecated="true">http://www.uniprot.org/taxonomy/</uri>
 			<uri type="URL" deprecated="true">http://purl.obolibrary.org/obo/NCBITaxon</uri>
-			<uri type="URL" deprecated="true">http://www.ncbi.nlm.nih.gov/Taxonomy/</uri>
+			<uri type="URL" deprecated="true">http://www.uniprot.org/taxonomy/</uri>
 			<uri type="URL" deprecated="true">http://www.taxonomy.org/</uri>
+			<uri type="URL" deprecated="true">http://www.ncbi.nlm.nih.gov/Taxonomy/</uri>
 		</uris>
 		<namespace>taxonomy</namespace>
 		<documentations>
@@ -418,6 +418,14 @@
 				<dataInstitution>Bio2RDF.org</dataInstitution>
 				<dataLocation></dataLocation>
 			</resource>
+			<resource id="MIR:00100770" state="unknown" reliability="0">
+				<dataResource>http://www.ebi.ac.uk/ols/ontologies/ncbitaxon/</dataResource>
+				<dataEntityExample>9606</dataEntityExample>
+				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/ncbitaxon/terms?short_form=NCBITaxon_$id</dataEntry>
+				<dataInfo>NCBI Taxonomy through OLS</dataInfo>
+				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
+				<dataLocation>UK</dataLocation>
+			</resource>
 		</resources>
 		<tags>
 			<tag>taxonomy</tag>
@@ -462,7 +470,7 @@
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
 			</resource>
-			<resource id="MIR:00100107" state="up" reliability="79">
+			<resource id="MIR:00100107" state="up" reliability="80">
 				<dataResource>http://biomodels.caltech.edu/</dataResource>
 				<dataEntityExample>BIOMD0000000048</dataEntityExample>
 				<dataEntry>http://biomodels.caltech.edu/$id</dataEntry>
@@ -622,7 +630,7 @@
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
 			</resource>
-			<resource id="MIR:00100697" state="down" reliability="45">
+			<resource id="MIR:00100697" state="down" reliability="44">
 				<dataResource>http://interpro.bio2rdf.org/fct/</dataResource>
 				<dataEntityExample>IPR000100</dataEntityExample>
 				<dataEntry>http://interpro.bio2rdf.org/describe/?url=http://bio2rdf.org/interpro:$id</dataEntry>
@@ -967,7 +975,7 @@
 		</annotation>
 	</datatype>
 
-	<datatype id="MIR:00000018" pattern="(^(REACTOME:)?R-[A-Z]{3}-[0-9]+(-[0-9]+)?$)|(^REACT_\d+$)">
+	<datatype id="MIR:00000018" pattern="(^(REACTOME:)?R-[A-Z]{3}-[0-9]+(-[0-9]+)?$)|(^REACT_\d+(\.\d+)?$)">
 		<name>Reactome</name>
 		<synonyms>
 			<synonym>Reactome Stable ID</synonym>
@@ -1200,7 +1208,7 @@
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>United Kingdom</dataLocation>
 			</resource>
-			<resource id="MIR:00100013" state="up" reliability="98" primary="true">
+			<resource id="MIR:00100013" state="up" reliability="99" primary="true">
 				<dataResource>http://amigo.geneontology.org/</dataResource>
 				<dataEntityExample>GO:0006915</dataEntityExample>
 				<dataEntry>http://amigo.geneontology.org/amigo/term/$id</dataEntry>
@@ -1446,7 +1454,7 @@
 			<documentation type="PMID">urn:miriam:pubmed:16014746</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100036" state="up" reliability="99" primary="true">
+			<resource id="MIR:00100036" state="down" reliability="99" primary="true">
 				<dataResource>http://www.genome.jp/kegg/glycan/</dataResource>
 				<dataEntityExample>G00123</dataEntityExample>
 				<dataEntry>http://www.kegg.jp/entry/$id</dataEntry>
@@ -3269,7 +3277,7 @@
 				<dataInstitution>National Center for Biotechnology Information</dataInstitution>
 				<dataLocation>USA</dataLocation>
 			</resource>
-			<resource id="MIR:00100693" state="up" reliability="93">
+			<resource id="MIR:00100693" state="up" reliability="94">
 				<dataResource>http://ncbigene.bio2rdf.org/fct</dataResource>
 				<dataEntityExample>100010</dataEntityExample>
 				<dataEntry>http://ncbigene.bio2rdf.org/describe/?url=http://bio2rdf.org/ncbigene:$id</dataEntry>
@@ -3802,7 +3810,7 @@ All content is under the Creative Commons Attribution 3.0 Unported license.</def
 			<documentation type="URL">http://precedings.nature.com/documents/3214/version/1</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100114" state="down" reliability="92">
+			<resource id="MIR:00100114" state="down" reliability="91">
 				<dataResource>http://www.grenoble.prabi.fr/obiwarehouse/unipathway</dataResource>
 				<dataEntityExample>UPA00206</dataEntityExample>
 				<dataEntry>http://www.grenoble.prabi.fr/obiwarehouse/unipathway/upa?upid=$id</dataEntry>
@@ -4887,7 +4895,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataInstitution>European Bioinformatics Institute, Hinxton, Cambridge</dataInstitution>
 				<dataLocation>UK</dataLocation>
 			</resource>
-			<resource id="MIR:00100233" state="down" reliability="95">
+			<resource id="MIR:00100233" state="up" reliability="95">
 				<dataResource>http://bioportal.bioontology.org/ontologies/BTO</dataResource>
 				<dataEntityExample>BTO:0000146</dataEntityExample>
 				<dataEntry>http://purl.bioontology.org/ontology/BTO/$id</dataEntry>
@@ -5451,7 +5459,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 			<documentation type="PMID">urn:miriam:pubmed:18975148</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100160" state="down" reliability="97" primary="true">
+			<resource id="MIR:00100160" state="up" reliability="97" primary="true">
 				<dataResource>http://www.neurolex.org/wiki/Main_Page</dataResource>
 				<dataEntityExample>Birnlex_721</dataEntityExample>
 				<dataEntry>http://www.neurolex.org/wiki/$id</dataEntry>
@@ -5508,7 +5516,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataInstitution>University of Michigan Medical School (MI), awrence Berkeley National Laboratory (CA) and Science Commons (MA)</dataInstitution>
 				<dataLocation>USA</dataLocation>
 			</resource>
-			<resource id="MIR:00100177" state="down" reliability="69">
+			<resource id="MIR:00100177" state="down" reliability="68">
 				<dataResource>http://bioportal.bioontology.org/ontologies/OBI</dataResource>
 				<dataEntityExample>OBI_0000070</dataEntityExample>
 				<dataEntry>http://bioportal.bioontology.org/ontologies/OBI?p=classes&amp;conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2F$id</dataEntry>
@@ -5601,7 +5609,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 			<documentation type="URL">http://sig.biostr.washington.edu/projects/biosim/opb-intro.html</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100167" state="down" reliability="78">
+			<resource id="MIR:00100167" state="down" reliability="77">
 				<dataResource>http://bioportal.bioontology.org/ontologies/OPB</dataResource>
 				<dataEntityExample>OPB_00573</dataEntityExample>
 				<dataEntry>http://purl.bioontology.org/ontology/OPB?conceptid=http%3A%2F%2Fbhi.washington.edu%2FOPB%23$id</dataEntry>
@@ -5646,7 +5654,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataInstitution>Department of Biochemistry, Stellenbosch University</dataInstitution>
 				<dataLocation>South Africa</dataLocation>
 			</resource>
-			<resource id="MIR:00100169" state="up" reliability="91">
+			<resource id="MIR:00100169" state="down" reliability="91">
 				<dataResource>http://jjj.bio.vu.nl/models/</dataResource>
 				<dataEntityExample>curien</dataEntityExample>
 				<dataEntry>http://jjj.bio.vu.nl/models/$id/</dataEntry>
@@ -5654,7 +5662,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 				<dataInstitution>University of Amsterdam</dataInstitution>
 				<dataLocation>Netherlands</dataLocation>
 			</resource>
-			<resource id="MIR:00100170" state="down" reliability="71">
+			<resource id="MIR:00100170" state="down" reliability="70">
 				<dataResource>http://jjj.mib.ac.uk/index.html</dataResource>
 				<dataEntityExample>curien</dataEntityExample>
 				<dataEntry>http://jjj.mib.ac.uk/webMathematica/DataBaseSelection/processModelSelection.jsp?keytype=authors&amp;keyword=$id</dataEntry>
@@ -6311,7 +6319,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 				<dataInstitution>Europe PubMed Central partners</dataInstitution>
 				<dataLocation>UK</dataLocation>
 			</resource>
-			<resource id="MIR:00100747" state="up" reliability="95">
+			<resource id="MIR:00100747" state="up" reliability="96">
 				<dataResource>http://pubmedcentralcanada.ca/pmcc</dataResource>
 				<dataEntityExample>PMC3084216</dataEntityExample>
 				<dataEntry>http://pubmedcentralcanada.ca/pmcc/articles/$id</dataEntry>
@@ -6849,7 +6857,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="URL">http://www.ncbi.nlm.nih.gov/sites/entrez?db=unists</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100207" state="down" reliability="95">
+			<resource id="MIR:00100207" state="down" reliability="94">
 				<dataResource>http://www.ncbi.nlm.nih.gov/sites/entrez?db=unists</dataResource>
 				<dataEntityExample>456789</dataEntityExample>
 				<dataEntry>http://www.ncbi.nlm.nih.gov/genome/sts/sts.cgi?uid=$id</dataEntry>
@@ -7554,7 +7562,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:21076153</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100228" state="up" reliability="99">
+			<resource id="MIR:00100228" state="down" reliability="98">
 				<dataResource>http://www.gramene.org/</dataResource>
 				<dataEntityExample>GR:0080039</dataEntityExample>
 				<dataEntry>http://www.gramene.org/db/genes/search_gene?acc=$id</dataEntry>
@@ -7655,7 +7663,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:20935049</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100231" state="down" reliability="81">
+			<resource id="MIR:00100231" state="down" reliability="80">
 				<dataResource>http://solgenomics.net/</dataResource>
 				<dataEntityExample>0001</dataEntityExample>
 				<dataEntry>http://solgenomics.net/phenome/locus_display.pl?locus_id=$id</dataEntry>
@@ -7689,7 +7697,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:19884130</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100232" state="down" reliability="98">
+			<resource id="MIR:00100232" state="up" reliability="98">
 				<dataResource>http://www.xenbase.org/</dataResource>
 				<dataEntityExample>922462</dataEntityExample>
 				<dataEntry>http://www.xenbase.org/gene/showgene.do?method=displayGeneSummary&amp;geneId=$id</dataEntry>
@@ -7940,7 +7948,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:21036864</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100250" state="down" reliability="98">
+			<resource id="MIR:00100250" state="down" reliability="97">
 				<dataResource>http://www.arachnoserver.org/</dataResource>
 				<dataEntityExample>AS000060</dataEntityExample>
 				<dataEntry>http://www.arachnoserver.org/toxincard.html?id=$id</dataEntry>
@@ -8136,7 +8144,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:18617148</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100257" state="down" reliability="98">
+			<resource id="MIR:00100257" state="down" reliability="97">
 				<dataResource>http://compluyeast2dpage.dacya.ucm.es/</dataResource>
 				<dataEntityExample>O08709</dataEntityExample>
 				<dataEntry>http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=$id</dataEntry>
@@ -8612,7 +8620,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:15608279</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100270" state="down" reliability="76">
+			<resource id="MIR:00100270" state="down" reliability="75">
 				<dataResource>http://urgi.versailles.inra.fr/Genefarm/</dataResource>
 				<dataEntityExample>4892</dataEntityExample>
 				<dataEntry>https://urgi.versailles.inra.fr/Genefarm/Gene/display_gene.htpl?GENE_ID=$id</dataEntry>
@@ -9397,7 +9405,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:19028744</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100291" state="down" reliability="59" primary="true">
+			<resource id="MIR:00100291" state="down" reliability="58" primary="true">
 				<dataResource>http://www.vectorbase.org/</dataResource>
 				<dataEntityExample>ISCW007415</dataEntityExample>
 				<dataEntry>https://www.vectorbase.org/search/site/$id?&amp;site=&quot;Genome&quot;</dataEntry>
@@ -9490,7 +9498,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:19480664</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100294" state="down" reliability="98">
+			<resource id="MIR:00100294" state="down" reliability="97">
 				<dataResource>http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CCO</dataResource>
 				<dataEntityExample>CCO:P0000023</dataEntityExample>
 				<dataEntry>http://www.ebi.ac.uk/ontology-lookup/?termId=$id</dataEntry>
@@ -9765,7 +9773,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="URL">http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100307" state="down" reliability="90">
+			<resource id="MIR:00100307" state="down" reliability="89">
 				<dataResource>http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp</dataResource>
 				<dataEntityExample>J55.713G</dataEntityExample>
 				<dataEntry>http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp?CONTENT=syosai&amp;SN=$id</dataEntry>
@@ -10235,7 +10243,7 @@ Note: Currently, direct access to RNA products is restricted. This is expected t
 			<documentation type="PMID">urn:miriam:pubmed:22080550</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100324" state="up" reliability="62">
+			<resource id="MIR:00100324" state="up" reliability="63">
 				<dataResource>http://bykdb.ibcp.fr/BYKdb/</dataResource>
 				<dataEntityExample>A0A010GJI9</dataEntityExample>
 				<dataEntry>https://bykdb.ibcp.fr/data/html/annotated/$id.html</dataEntry>
@@ -11250,7 +11258,7 @@ The interactions include direct (physical) and indirect (functional) association
 			<documentation type="PMID">urn:miriam:pubmed:17599932</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100360" state="up" reliability="95">
+			<resource id="MIR:00100360" state="down" reliability="95">
 				<dataResource>http://cdb.ics.uci.edu/</dataResource>
 				<dataEntityExample>3966782</dataEntityExample>
 				<dataEntry>http://cdb.ics.uci.edu/cgibin/ChemicalDetailWeb.py?chemical_id=$id</dataEntry>
@@ -12153,7 +12161,7 @@ The interactions include direct (physical) and indirect (functional) association
 			<documentation type="URL">http://mged.sourceforge.net/ontologies/index.php</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100385" state="up" reliability="95">
+			<resource id="MIR:00100385" state="up" reliability="96">
 				<dataResource>http://bioportal.bioontology.org/</dataResource>
 				<dataEntityExample>ArrayGroup</dataEntityExample>
 				<dataEntry>http://purl.bioontology.org/ontology/MO/$id</dataEntry>
@@ -12511,7 +12519,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="PMID">urn:miriam:pubmed:12801879</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100395" state="down" reliability="82">
+			<resource id="MIR:00100395" state="down" reliability="81">
 				<dataResource>http://treebase.org/</dataResource>
 				<dataEntityExample>TB2:S1000</dataEntityExample>
 				<dataEntry>http://purl.org/phylo/treebase/phylows/study/$id?format=html</dataEntry>
@@ -12908,7 +12916,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="PMID">urn:miriam:pubmed:16404815</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100406" state="down" reliability="71">
+			<resource id="MIR:00100406" state="down" reliability="70">
 				<dataResource>http://masspec.scripps.edu/</dataResource>
 				<dataEntityExample>1455</dataEntityExample>
 				<dataEntry>http://metlin.scripps.edu/metabo_info.php?molid=$id</dataEntry>
@@ -12941,7 +12949,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="PMID">urn:miriam:pubmed:20689021</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100407" state="down" reliability="73" primary="true">
+			<resource id="MIR:00100407" state="down" reliability="72" primary="true">
 				<dataResource>http://www.genecards.org/</dataResource>
 				<dataEntityExample>ABL1</dataEntityExample>
 				<dataEntry>http://www.genecards.org/cgi-bin/carddisp.pl?gene=$id</dataEntry>
@@ -13918,7 +13926,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="PMID">urn:miriam:pubmed:21940398</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100442" state="up" reliability="85">
+			<resource id="MIR:00100442" state="up" reliability="86">
 				<dataResource>http://bitterdb.agri.huji.ac.il/dbbitter.php</dataResource>
 				<dataEntityExample>1</dataEntityExample>
 				<dataEntry>http://bitterdb.agri.huji.ac.il/Receptor.php?id=$id</dataEntry>
@@ -14162,7 +14170,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="URL">http://ncim.nci.nih.gov/ncimbrowser/pages/help.jsf</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100450" state="down" reliability="71">
+			<resource id="MIR:00100450" state="down" reliability="70">
 				<dataResource>http://ncim.nci.nih.gov/</dataResource>
 				<dataEntityExample>C0026339</dataEntityExample>
 				<dataEntry>http://ncim.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=$id</dataEntry>
@@ -15117,7 +15125,7 @@ We recommend usage of the following data collection for pathway related annotati
 			<documentation type="PMID">urn:miriam:pubmed:22064864</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100482" state="up" reliability="83">
+			<resource id="MIR:00100482" state="up" reliability="84">
 				<dataResource>http://www.ebi.ac.uk/gxa/</dataResource>
 				<dataEntityExample>AT4G01080</dataEntityExample>
 				<dataEntry>http://www.ebi.ac.uk/gxa/genes/$id</dataEntry>
@@ -16266,7 +16274,7 @@ Each page contains information about a particular group, with pages linked one t
 			<documentation type="URL">http://variationontology.org/</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100526" state="up" reliability="99">
+			<resource id="MIR:00100526" state="down" reliability="99">
 				<dataResource>http://www.variationontology.org/</dataResource>
 				<dataEntityExample>VariO:0294</dataEntityExample>
 				<dataEntry>http://www.variationontology.org/cgi-bin/amivario/term-details.cgi?term=$id</dataEntry>
@@ -16320,7 +16328,7 @@ Each page contains information about a particular group, with pages linked one t
 			<documentation type="PMID">urn:miriam:pubmed:23202522</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100527" state="down" reliability="97">
+			<resource id="MIR:00100527" state="down" reliability="96">
 				<dataResource>http://www.viprbrc.org/brc/home.do?decorator=vipr</dataResource>
 				<dataEntityExample>BeAn 70563</dataEntityExample>
 				<dataEntry>http://www.viprbrc.org/brc/viprStrainDetails.do?strainName=$id&amp;decorator=arena</dataEntry>
@@ -17607,7 +17615,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="PMID">urn:miriam:pubmed:22064863</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100573" state="up" reliability="97">
+			<resource id="MIR:00100573" state="down" reliability="97">
 				<dataResource>http://ecoliwiki.net/colipedia/</dataResource>
 				<dataEntityExample>aaeA</dataEntityExample>
 				<dataEntry>http://ecoliwiki.net/colipedia/index.php/$id:Gene</dataEntry>
@@ -17856,7 +17864,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="URL">http://vbrc.org/about.asp</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100582" state="down" reliability="59">
+			<resource id="MIR:00100582" state="down" reliability="58">
 				<dataResource>http://vbrc.org/</dataResource>
 				<dataEntityExample>35742</dataEntityExample>
 				<dataEntry>http://vbrc.org/gene_detail.asp?gene_id=$id</dataEntry>
@@ -18014,7 +18022,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="PMID">urn:miriam:pubmed:18988623</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100588" state="down" reliability="39">
+			<resource id="MIR:00100588" state="down" reliability="38">
 				<dataResource>http://csbl1.bmb.uga.edu/OperonDB/DOOR.php</dataResource>
 				<dataEntityExample>60101</dataEntityExample>
 				<dataEntry>http://csbl1.bmb.uga.edu/OperonDB/genedetail.php?id=$id</dataEntry>
@@ -18095,7 +18103,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="PMID">urn:miriam:pubmed:15731212</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100591" state="down" reliability="91">
+			<resource id="MIR:00100591" state="down" reliability="90">
 				<dataResource>http://datf.cbi.pku.edu.cn/</dataResource>
 				<dataEntityExample>AT1G01030.1</dataEntityExample>
 				<dataEntry>http://datf.cbi.pku.edu.cn/entry-display.php?id=$id</dataEntry>
@@ -18141,7 +18149,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="URL">http://www.molbase.com/en/index.php?app=article&amp;act=view&amp;article_id=112</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100593" state="down" reliability="76">
+			<resource id="MIR:00100593" state="up" reliability="76">
 				<dataResource>http://www.molbase.com/</dataResource>
 				<dataEntityExample>128796-39-4</dataEntityExample>
 				<dataEntry>http://www.molbase.com/en/index.php?app=search&amp;search_keyword=$id</dataEntry>
@@ -18725,7 +18733,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="URL">http://jcggdb.jp/seturitu_en.html</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100614" state="down" reliability="83">
+			<resource id="MIR:00100614" state="down" reliability="82">
 				<dataResource>http://jcggdb.jp/index_en.html</dataResource>
 				<dataEntityExample>JCGG-STR008690</dataEntityExample>
 				<dataEntry>http://jcggdb.jp/idb/jcggdb/$id</dataEntry>
@@ -18796,7 +18804,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="PMID">urn:miriam:pubmed:22135294</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100617" state="up" reliability="92">
+			<resource id="MIR:00100617" state="up" reliability="91">
 				<dataResource>http://www.bioinfo.org/NONCODEv4/</dataResource>
 				<dataEntityExample>NONHSAT000001</dataEntityExample>
 				<dataEntry>http://www.bioinfo.org/NONCODEv4/show_rna.php?id=$id</dataEntry>
@@ -19983,7 +19991,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="URL">http://antibodyregistry.org/</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100664" state="up" reliability="96">
+			<resource id="MIR:00100664" state="up" reliability="97">
 				<dataResource>http://antibodyregistry.org/</dataResource>
 				<dataEntityExample>493771</dataEntityExample>
 				<dataEntry>http://antibodyregistry.org/AB_$id</dataEntry>
@@ -20054,7 +20062,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="URL">http://wiki.plantontology.org/index.php/Plant_Environment_Ontology_Wiki</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100667" state="up" reliability="98">
+			<resource id="MIR:00100667" state="down" reliability="98">
 				<dataResource>http://archive.gramene.org/db/ontology/search_term?id=EO:0007359</dataResource>
 				<dataEntityExample>EO:0007404</dataEntityExample>
 				<dataEntry>http://archive.gramene.org/db/ontology/search?query=$id</dataEntry>
@@ -20373,7 +20381,7 @@ SubtiList provides a complete dataset of DNA and protein sequences derived from 
 			<documentation type="PMID">urn:miriam:pubmed:24203711</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100687" state="up" reliability="100">
+			<resource id="MIR:00100687" state="up" reliability="99">
 				<dataResource>http://www.drugbank.ca/targets</dataResource>
 				<dataEntityExample>BE0000048</dataEntityExample>
 				<dataEntry>http://www.drugbank.ca/biodb/bio_entities/$id</dataEntry>
@@ -20543,7 +20551,7 @@ It integrates a nosology (classification of rare diseases), relationships (gene-
 			<documentation type="PMID">urn:miriam:pubmed:19674966</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100709" state="down" reliability="96">
+			<resource id="MIR:00100709" state="down" reliability="95">
 				<dataResource>http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=PAR</dataResource>
 				<dataEntityExample>PAR:0116</dataEntityExample>
 				<dataEntry>http://www.ebi.ac.uk/ontology-lookup/?termId=$id</dataEntry>
@@ -20627,7 +20635,7 @@ It also includes trials conducted outside these areas if they form part of a pae
 			<documentation type="URL">https://www.clinicaltrialsregister.eu/about.html</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100712" state="down" reliability="99">
+			<resource id="MIR:00100712" state="up" reliability="99">
 				<dataResource>https://www.clinicaltrialsregister.eu/</dataResource>
 				<dataEntityExample>2008-005144-16</dataEntityExample>
 				<dataEntry>https://www.clinicaltrialsregister.eu/ctr-search/search?query=$id</dataEntry>
@@ -20990,7 +20998,7 @@ It also includes trials conducted outside these areas if they form part of a pae
 			<documentation type="URL">https://www.wikidata.org/wiki/Help:Contents</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100726" state="up" reliability="57">
+			<resource id="MIR:00100726" state="up" reliability="58">
 				<dataResource>https://www.wikidata.org/</dataResource>
 				<dataEntityExample>Q2207226</dataEntityExample>
 				<dataEntry>https://www.wikidata.org/wiki/$id</dataEntry>
@@ -21043,7 +21051,7 @@ It also includes trials conducted outside these areas if they form part of a pae
 			<documentation type="PMID">urn:miriam:pubmed:22102589</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100728" state="down" reliability="70">
+			<resource id="MIR:00100728" state="down" reliability="69">
 				<dataResource>http://www.grenoble.prabi.fr/obiwarehouse/unipathway</dataResource>
 				<dataEntityExample>UPC04349</dataEntityExample>
 				<dataEntry>http://www.grenoble.prabi.fr/obiwarehouse/unipathway/upc?upid=$id</dataEntry>
@@ -21077,7 +21085,7 @@ It also includes trials conducted outside these areas if they form part of a pae
 			<documentation type="PMID">urn:miriam:pubmed:16214803</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100729" state="down" reliability="80">
+			<resource id="MIR:00100729" state="down" reliability="78">
 				<dataResource>http://seed-viewer.theseed.org/seedviewer.cgi</dataResource>
 				<dataEntityExample>Biotin_biosynthesis</dataEntityExample>
 				<dataEntry>http://seed-viewer.theseed.org/seedviewer.cgi?page=Subsystems&amp;subsystem=$id</dataEntry>
@@ -21103,7 +21111,7 @@ It also includes trials conducted outside these areas if they form part of a pae
 			<documentation type="PMID">urn:miriam:pubmed:16214803</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100730" state="down" reliability="84">
+			<resource id="MIR:00100730" state="down" reliability="82">
 				<dataResource>http://seed-viewer.theseed.org/seedviewer.cgi?page=Home</dataResource>
 				<dataEntityExample>cpd15380</dataEntityExample>
 				<dataEntry>http://seed-viewer.theseed.org/seedviewer.cgi?page=CompoundViewer&amp;compound=$id</dataEntry>
@@ -21263,7 +21271,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="URL">https://scicrunch.org/page/scicrunch</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100735" state="up" reliability="43">
+			<resource id="MIR:00100735" state="up" reliability="44">
 				<dataResource>https://scicrunch.org/resolver</dataResource>
 				<dataEntityExample>RRID:AB_262044</dataEntityExample>
 				<dataEntry>https://scicrunch.org/resolver/$id</dataEntry>
@@ -21328,7 +21336,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="URL">http://www.nlm.nih.gov/pubs/factsheets/mesh.html</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100737" state="probably up" reliability="76">
+			<resource id="MIR:00100737" state="probably up" reliability="77">
 				<dataResource>http://id.nlm.nih.gov/mesh/</dataResource>
 				<dataEntityExample>C000100</dataEntityExample>
 				<dataEntry>http://id.nlm.nih.gov/mesh/$id</dataEntry>
@@ -21354,7 +21362,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="PMID">urn:miriam:pubmed:20935055</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100738" state="down" reliability="99">
+			<resource id="MIR:00100738" state="up" reliability="99">
 				<dataResource>http://www.ebi.ac.uk/pdbe/emdb/</dataResource>
 				<dataEntityExample>EMD-1001</dataEntityExample>
 				<dataEntry>http://www.ebi.ac.uk/pdbe/entry/emdb/$id</dataEntry>
@@ -21497,7 +21505,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="URL">http://splash.fiehnlab.ucdavis.edu/</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100746" state="probably up" reliability="62">
+			<resource id="MIR:00100746" state="probably up" reliability="64">
 				<dataResource>http://mona.fiehnlab.ucdavis.edu/</dataResource>
 				<dataEntityExample>splash10-0zq2000000-77302b0326a418630a84</dataEntityExample>
 				<dataEntry>http://mona.fiehnlab.ucdavis.edu/#/spectra/splash/$id</dataEntry>
@@ -21608,7 +21616,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="PMID">urn:miriam:pubmed:22102589</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100752" state="probably up" reliability="69">
+			<resource id="MIR:00100752" state="probably up" reliability="70">
 				<dataResource>http://www.grenoble.prabi.fr/obiwarehouse/unipathway</dataResource>
 				<dataEntityExample>UCR00226</dataEntityExample>
 				<dataEntry>http://www.grenoble.prabi.fr/obiwarehouse/unipathway/ucr?upid=$id</dataEntry>
@@ -21644,7 +21652,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="PMID">urn:miriam:pubmed:24217912</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100753" state="probably up" reliability="83" primary="true">
+			<resource id="MIR:00100753" state="probably up" reliability="84" primary="true">
 				<dataResource>http://human-phenotype-ontology.github.io/</dataResource>
 				<dataEntityExample>HP:0000118</dataEntityExample>
 				<dataEntry>http://compbio.charite.de/hpoweb/showterm?id=$id</dataEntry>
@@ -21770,7 +21778,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="PMID">urn:miriam:pubmed:27153608</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100768" state="down" reliability="77">
+			<resource id="MIR:00100768" state="down" reliability="68">
 				<dataResource>http://www.ebi.ac.uk/ols/ontologies/probonto</dataResource>
 				<dataEntityExample>0000005</dataEntityExample>
 				<dataEntry>http://www.ebi.ac.uk/ols/ontologies/probonto/terms?short_form=$id</dataEntry>
@@ -21796,7 +21804,7 @@ The initiative works with participating journals to intercept manuscripts in the
 			<documentation type="PMID">urn:miriam:pubmed:27131791</documentation>
 		</documentations>
 		<resources>
-			<resource id="MIR:00100769" state="down" reliability="93">
+			<resource id="MIR:00100769" state="up" reliability="94">
 				<dataResource>http://cicblade.dep.usal.es:8080/APID/</dataResource>
 				<dataEntityExample>P01116</dataEntityExample>
 				<dataEntry>http://cicblade.dep.usal.es:8080/APID/Interactions.action?protein=$id</dataEntry>

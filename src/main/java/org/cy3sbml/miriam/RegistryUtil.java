@@ -234,7 +234,7 @@ public class RegistryUtil {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Script for updating the MIRIAM XML file in resources.
+     * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
     public static void main(String[] args){
         File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);

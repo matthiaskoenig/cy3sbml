@@ -10,7 +10,7 @@
         <osgi.api.version>4.2.0</osgi.api.version>
         <!-- javax.xml.namespace -->
         <org.osgi.framework.system.packages.extra>
-            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,netscape.javascript,org.osgi.framework
+            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,org.osgi.framework
         </org.osgi.framework.system.packages.extra>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cytoscape.api.version>3.4.0</cytoscape.api.version>
@@ -135,6 +135,7 @@
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
                         <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
+                        <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
                         <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
                     </instructions>
                 </configuration>
@@ -449,7 +450,7 @@
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.11.0</version>
-            <!-- <scope>provided</scope> -->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

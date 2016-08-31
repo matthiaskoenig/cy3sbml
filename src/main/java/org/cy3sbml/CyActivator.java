@@ -3,10 +3,13 @@ package org.cy3sbml;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cytoscape.group.CyGroupFactory;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -90,6 +93,19 @@ public class CyActivator extends AbstractCyActivator {
             logger.info("----------------------------");
             logger.info("directory = " + appDirectory.getAbsolutePath());
             logger.info("logfile = " + logFile.getAbsolutePath());
+
+            // Loading extension bundle from resources (netscape.javascript)
+            String extensionBundle = "extension/org.cy3javascript.extension-0.0.1.jar";
+            logger.info("Install extension bundle");
+            Bundle bundle = bc.getBundle();
+            URL jarUrl = bundle.getEntry(extensionBundle);
+            InputStream input = jarUrl.openStream();
+            bc.installBundle(jarUrl.getPath(), input);
+            input.close();
+
+            // Extract all resource files for JavaFX (no bundle access) & Miriam
+            final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
+            resourceHandler.extract();
 
             // Set baseDir for HTML generation
             // allows the dynamical generated HTML to resolve the gui resources
@@ -248,9 +264,7 @@ public class CyActivator extends AbstractCyActivator {
             // register services for other apps
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
-            // Extract all resource files for JavaFX (no bundle access)
-            final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
-            resourceHandler.extract();
+
 
             // Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
