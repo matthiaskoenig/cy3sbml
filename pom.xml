@@ -18,13 +18,15 @@
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
-        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java</models.test.excludes>
+        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java
+        </models.test.excludes>
     </properties>
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
     <version>0.3.0</version>
     <packaging>bundle</packaging>
+    <!-- <packaging>jar</packaging> -->
 
     <name>cy3sbml</name>
     <description>A Cytoscape app for SBML.</description>
@@ -121,12 +123,15 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+
+            <!-- bundle -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <version>${maven-bundle-plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <!-- The BND instructions for the bundle -->
                     <instructions>
                         <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
@@ -140,6 +145,7 @@
                     </instructions>
                 </configuration>
             </plugin>
+
             <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -164,13 +170,23 @@
             </plugin>
             -->
 
-            <!-- Jar installation -->
+            <!-- resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+            <!-- jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>2.5.2</version>
             </plugin>
-
             <!-- testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -441,8 +457,8 @@
             <version>3.1.0</version>
             <exclusions>
                 <exclusion>
-                <groupId>xerces</groupId>
-                <artifactId>xercesImpl</artifactId>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -489,7 +505,6 @@
         </dependency>
 
 
-
         <!-- UniProt -->
         <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
         <dependency>
@@ -517,7 +532,6 @@
             <artifactId>logback-core</artifactId>
             <version>1.1.7</version>
         </dependency>
-
 
 
         <!-- Logging -->

@@ -156,7 +156,6 @@ public class ROBundle {
 
     }
 
-
     /**
      * First test of Research objects.
      */
