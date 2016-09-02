@@ -134,11 +134,11 @@ public class IOUtil {
      * @return
      */
     public static String getLastModified(URL url) {
-        return getHttpResonseHeaderField(url, "Last-Modified");
+        return getHttpResponseHeaderField(url, "Last-Modified");
     }
 
 
-    public static String getHttpResonseHeaderField(URL url, String field){
+    public static String getHttpResponseHeaderField(URL url, String field){
         try {
             //obtain the connection
             HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();

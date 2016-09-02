@@ -295,7 +295,7 @@ public class SBaseHTMLFactory {
 
 	/** 
 	 * Creation of class specific attribute information.
-     * This mimics the SBMLReader
+     * This mimics the SBMLReaderTaskFactory
 	 */
 	private static String createSBase(SBase item){
 	    LinkedHashMap<String, String> map;

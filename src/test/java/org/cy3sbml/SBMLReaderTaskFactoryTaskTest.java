@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 /**
  * Test SBMLReaderTask
  */
-public class SBMLReaderTaskTest {
+public class SBMLReaderTaskFactoryTaskTest {
 
     @Mock
     TaskMonitor taskMonitor;

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * The rootNetwork SUID is accessible via
  *     NetworkUtil.getRootNetworkSUID(CyNetwork network);
  *
- * The SBMLReader creates multiple networks with the mapping between networks
+ * The SBMLReaderTaskFactory creates multiple networks with the mapping between networks
  * and SBMLDocuments managed by the SBMLManager which updates this mapper.
  * The mappings should only be changed via the SBMLManager and not directly.
  */
