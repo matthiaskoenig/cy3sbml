@@ -73,7 +73,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-
         <repository>
             <id>EBI SNAPSHOT</id>
             <name>EBI Snapshot repository</name>
@@ -85,6 +84,14 @@
             <name>The JSBML repository</name>
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
         </repository>
+
+		<!--
+        <repository>
+            <id>EBI-mirror</id>
+            <name>EBI mirror</name>
+            <url>https://github.com/matthiaskoenig/ebi-maven-deps</url>
+        </repository>
+		-->
 
         <repository>
             <id>in-project</id>
