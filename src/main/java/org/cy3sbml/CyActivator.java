@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
-import org.cy3sbml.gui.BundlePanel;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cytoscape.group.CyGroupFactory;
@@ -209,15 +208,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
-            // panels
-            BundlePanel bundlePanel = BundlePanel.getInstance(cySwingApplication, cyApplicationManager, appDirectory);
-            registerService(bc, bundlePanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, bundlePanel, RowsSetListener.class, new Properties());
-            registerService(bc, bundlePanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, bundlePanel, NetworkAddedListener.class, new Properties());
-            registerService(bc, bundlePanel, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, bundlePanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-
             // GUI frames
             ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
             registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
@@ -317,7 +307,6 @@ public class CyActivator extends AbstractCyActivator {
 
             // cy3sbml panels
             webViewPanel.activate();
-            bundlePanel.activate();
 
             logger.info("----------------------------");
 

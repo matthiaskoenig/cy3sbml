@@ -10,6 +10,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.archive.BundleManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * cy3sbml WebView panel based on javafx.
+ * WebView panel based on javafx.
  * <p>
  * The panel is registered as Cytoscape Results Panel.
  * This panel is the main area for displaying SBML information for the
@@ -50,7 +51,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     private static final long serialVersionUID = 1L;
 
     private static WebViewPanel uniqueInstance;
-
 
     private ServiceAdapter adapter;
     private CytoPanel cytoPanelEast;
@@ -285,7 +285,10 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     @Override
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
+        // network changed, update of the current SBMLDocument and bundle
         SBMLManager.getInstance().updateCurrent(network);
+        BundleManager bundleManager = BundleManager.getInstance();
+        bundleManager.updateCurrent(network);
         updateInformation();
     }
 
