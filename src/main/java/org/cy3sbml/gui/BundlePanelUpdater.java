@@ -2,14 +2,16 @@ package org.cy3sbml.gui;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.taverna.robundle.Bundle;
+
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyTableUtil;
+
 import org.cy3sbml.archive.ArchiveReaderTask;
 import org.cy3sbml.archive.BundleAnnotation;
 import org.cy3sbml.archive.BundleManager;
 import org.cy3sbml.util.AttributeUtil;
-import org.cy3sbml.util.SBMLUtil;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyTableUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +57,7 @@ public class BundlePanelUpdater implements Runnable {
 
             // Get annotation for node (default to root)
             String path = "/";
-            // TODO: get root path
-
+            // TODO: get root node
 
             if (nodes != null && nodes.size() > 0) {
                 CyNode n = nodes.get(0);
@@ -66,22 +67,17 @@ public class BundlePanelUpdater implements Runnable {
             // create html
 
             String text = String.format("<h1><small>%s</small></h1>\n", path);
-            // TODO: link to file
+            // TODO: link to file, image, path, mediatype from node attributes
             if (pathAnnotations != null && pathAnnotations.containsKey(path)){
                 for (String s : pathAnnotations.get(path)) {
                     text += String.format("<p><code>%s</code></p>",
                             StringEscapeUtils.escapeHtml(s));
                 }
             }
+
             // add links
-
-            // text = text.replace("\"(http://.*)\"", "<a href=\"$1\">$1</a>");
-            System.out.println(text);
-            text = text.replaceAll("\"(http://.*?)\"", "<a href=\"$1\">$1</a>");
             text = text.replaceAll("&quot;(http://.*?)&quot;", "<a href=\"$1\">$1</a>");
-            System.out.println(text);
-
-
+            // pack in html
             text = SBaseHTMLFactory.createHTMLText(text);
             panel.setText(text);
         }
