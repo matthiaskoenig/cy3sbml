@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
+import org.cy3sbml.styles.StyleManager;
 import org.cytoscape.group.CyGroup;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -72,7 +73,6 @@ import org.cy3sbml.mapping.One2ManyMapping;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Attr;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -185,7 +185,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         // VisualMappingManager only available in OSGI context
         if (visualMappingManager != null) {
             String styleName = (String) cy3sbmlProperties.getProperties().get(SBML.PROPERTY_VISUAL_STYLE);
-            VisualStyle style = SBMLStyleManager.getVisualStyleByName(visualMappingManager, styleName);
+            VisualStyle style = StyleManager.getVisualStyleByName(visualMappingManager, styleName);
             if (style != null) {
                 visualMappingManager.setVisualStyle(style, view);
             }

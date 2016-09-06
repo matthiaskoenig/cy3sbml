@@ -63,23 +63,6 @@
         </repository>
 
         <repository>
-            <id>ebi-repo</id>
-            <name>The EBI internal repository</name>
-            <url>http://www.ebi.ac.uk/~maven/m2repo</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>EBI SNAPSHOT</id>
-            <name>EBI Snapshot repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
-        </repository>
-
-        <repository>
             <id>JSBML SNAPSHOT</id>
             <name>The JSBML repository</name>
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
@@ -94,9 +77,45 @@
 		-->
 
         <repository>
+            <id>sems-maven-repository-releases</id>
+            <name>SEMS Maven Repo</name>
+            <url>http://mvn.sems.uni-rostock.de/releases/</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sems-maven-repository-snapshots</id>
+            <name>SEMS Maven Repo</name>
+            <url>http://mvn.sems.uni-rostock.de/snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+
+        <repository>
             <id>in-project</id>
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
+        </repository>
+
+        <repository>
+            <id>ebi-repo</id>
+            <name>The EBI internal repository</name>
+            <url>http://www.ebi.ac.uk/~maven/m2repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>EBI SNAPSHOT</id>
+            <name>EBI Snapshot repository</name>
+            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
 
         <!--
@@ -425,16 +444,15 @@
             <version>2.8.1</version>
         </dependency>
 
-        <!-- ResearchObjects & OMEX -->
-        <!-- https://github.com/apache/incubator-taverna-language/tree/master/taverna-robundle -->
-        <!--
-        java.lang.ClassCastException: org.apache.xerces.jaxp.DocumentBuilderFactoryImpl cannot be cast to javax.xml.parsers.DocumentBuilderFactory
-        http://stackoverflow.com/questions/19992400/classcastexception-org-apache-xerces-jaxp-documentbuilderfactoryimpl-cannot-be
-        http://stackoverflow.com/questions/11677572/dealing-with-xerces-hell-in-java-maven
-        FIXME: Issues with xerces and the other xml libraries
-        FIXME: also multiple loggers again
-        -->
 
+        <!-- CombineArchive -->
+        <dependency>
+            <groupId>de.unirostock.sems</groupId>
+            <artifactId>CombineArchive</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- ResearchObjects & OMEX -->
         <dependency>
             <groupId>org.apache.taverna.language</groupId>
             <artifactId>taverna-robundle</artifactId>
@@ -448,16 +466,22 @@
                     <groupId>org.slf4j</groupId>
                     <artifactId>jcl-over-slf4j</artifactId>
                 </exclusion>
-                <!-- problems with newer OSGI and necessary to split in components
-                     for exclusion of xerces -->
+                <!--
+                     Problems with newer OSGI and necessary to exclude and include by components
+                     without OSGI. The newer OSGI overwrites the old Cytoscape OSGI causing issues.
+                     jena-osgi is mainly an osgi packaging of
+                     - jena-core (depends on xerces)
+                     - jena-arq
+                     - jena-iri
+                     - jena-tdb
+                     So we exclude the jena-osgi and bring in the components.
+                 -->
                 <exclusion>
                     <groupId>org.apache.jena</groupId>
                     <artifactId>jena-osgi</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- include split components -->
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-core</artifactId>
@@ -470,16 +494,15 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.11.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-arq</artifactId>
             <version>3.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
@@ -490,6 +513,12 @@
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-tdb</artifactId>
             <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
+            <scope>provided</scope>
         </dependency>
         <!--
         Update dependencies to fix:

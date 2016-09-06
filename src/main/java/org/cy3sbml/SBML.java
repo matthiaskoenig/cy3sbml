@@ -322,6 +322,10 @@ public class SBML {
     // -------------------------------------------------------------------------
     public static final String SBML_LAYOUT = "force-directed";
 
+    // Styles
+    public static final String STYLE_CY3SBML = "cy3sbml";
+    public static final String STYLE_CY3SBML_DARK = "cy3sbml-dark";
+
     // -------------------------------------------------------------------------
     // cy3sbml properties
     // -------------------------------------------------------------------------

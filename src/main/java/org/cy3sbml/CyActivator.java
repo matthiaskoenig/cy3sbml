@@ -1,6 +1,9 @@
 package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
+import org.cy3sbml.archive.*;
+import org.cy3sbml.gui.BundlePanel;
+import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.Bundle;
@@ -177,10 +180,14 @@ public class CyActivator extends AbstractCyActivator {
             );
 
             // load visual styles
+            final String[] styles = {
+                    SBML.STYLE_CY3SBML,
+                    SBML.STYLE_CY3SBML_DARK,
+                    ArchiveReaderTask.ARCHIVE_STYLE};
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
-            SBMLStyleManager sbmlStyleManager = SBMLStyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager);
-            sbmlStyleManager.loadStyles();
-            registerService(bc, sbmlStyleManager, SessionLoadedListener.class, new Properties());
+            StyleManager styleManager = StyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager, styles);
+            styleManager.loadStyles();
+            registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
             // SBMLManager
             SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
@@ -189,8 +196,11 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
             CofactorManager cofactorManager = CofactorManager.getInstance();
 
-            // panels
+            // BundleManager
+            BundleManager bundleManager = BundleManager.getInstance(cyApplicationManager);
+            registerService(bc, bundleManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
+            // panels
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
@@ -199,6 +209,14 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
+            // panels
+            BundlePanel bundlePanel = BundlePanel.getInstance(cySwingApplication, cyApplicationManager, appDirectory);
+            registerService(bc, bundlePanel, CytoPanelComponent.class, new Properties());
+            registerService(bc, bundlePanel, RowsSetListener.class, new Properties());
+            registerService(bc, bundlePanel, SetCurrentNetworkListener.class, new Properties());
+            registerService(bc, bundlePanel, NetworkAddedListener.class, new Properties());
+            registerService(bc, bundlePanel, NetworkViewAddedListener.class, new Properties());
+            registerService(bc, bundlePanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
             // GUI frames
             ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
@@ -216,9 +234,13 @@ public class CyActivator extends AbstractCyActivator {
             ChangeStateAction changeStateAction = new ChangeStateAction();
             registerService(bc, changeStateAction, CyAction.class, new Properties());
 
+            ArchiveAction archiveAction = new ArchiveAction(cySwingApplication, fileUtil,
+                    loadNetworkFileTaskFactory, synchronousTaskManager);
+            registerService(bc, archiveAction, CyAction.class, new Properties());
+
+
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());
-
 
             SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
             ValidationAction validationAction = new ValidationAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
@@ -245,13 +267,30 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
 
+            // Archive file reader
+            CyLayoutAlgorithmManager layoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
+            CyNetworkFactory networkFactory = getService(bc, CyNetworkFactory.class);
+            CyNetworkViewFactory networkViewFactory = getService(bc, CyNetworkViewFactory.class);
+
+            ArchiveFileFilter archiveFilter = new ArchiveFileFilter(streamUtil);
+            ArchiveReaderTaskFactory archiveReaderTaskFactory = new ArchiveReaderTaskFactory(
+                    archiveFilter,
+                    networkFactory,
+                    networkViewFactory,
+                    visualMappingManager,
+                    layoutAlgorithmManager);
+            Properties archiveReaderProps = new Properties();
+            archiveReaderProps.setProperty("readerDescription", "Archive file reader (cy3sbml)");
+            archiveReaderProps.setProperty("readerId", "archiveNetworkReader");
+            registerAllServices(bc, archiveReaderTaskFactory, archiveReaderProps);
+
             // SBML file reader
             SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
-            SBMLReaderTaskFactory sbmlReader = new SBMLReaderTaskFactory(sbmlFilter, adapter);
+            SBMLReaderTaskFactory sbmlReaderTaskFactory = new SBMLReaderTaskFactory(sbmlFilter, adapter);
             Properties sbmlReaderProps = new Properties();
             sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
             sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
-            registerAllServices(bc, sbmlReader, sbmlReaderProps);
+            registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
 
             // Session loading & saving
             SessionData sessionData = new SessionData();
@@ -277,7 +316,8 @@ public class CyActivator extends AbstractCyActivator {
             miriamThread.run();
 
             // cy3sbml panels
-            WebViewPanel.getInstance().activate();
+            webViewPanel.activate();
+            bundlePanel.activate();
 
             logger.info("----------------------------");
 
