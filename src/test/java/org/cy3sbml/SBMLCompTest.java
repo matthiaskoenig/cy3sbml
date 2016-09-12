@@ -40,7 +40,7 @@ public class SBMLCompTest {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_03);
         CyNetwork network = networks[0];
         assertNotNull(network);
-        assertEquals(2, network.getNodeCount());
-        assertEquals(1, network.getEdgeCount());
+        assertEquals(1, network.getNodeCount());
+        assertEquals(0, network.getEdgeCount());
     }
 }
