@@ -1,5 +1,7 @@
 package org.cy3sbml.util;
 import org.sbml.jsbml.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper for mapping between Cytoscape and SBML objects.
@@ -9,6 +11,7 @@ import org.sbml.jsbml.*;
  * This is performed via the MetaId.
  */
 public class MappingUtil {
+    private static final Logger logger = LoggerFactory.getLogger(MappingUtil.class);
 
     public static final String SEPARATOR = "_";
     public static final String PREFIX_UNITSID = "UnitSId" + SEPARATOR + SEPARATOR;
@@ -74,7 +77,13 @@ public class MappingUtil {
 
         // create unique and set
         metaId = createUniqueMetaId(doc, metaId);
-        sbase.setMetaId(metaId);
+        try {
+            sbase.setMetaId(metaId);
+        } catch (PropertyNotAvailableException e){
+            // L1V2 models do not support setting metaId on compartments
+            // this is mainly for backwards compatibility
+            logger.warn("Property metaId is not defined");
+        }
     }
 
     /**

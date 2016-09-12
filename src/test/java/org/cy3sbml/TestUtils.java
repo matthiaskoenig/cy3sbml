@@ -226,7 +226,6 @@ public class TestUtils {
             // calls networkFactory.createNetwork()
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
 
-
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());

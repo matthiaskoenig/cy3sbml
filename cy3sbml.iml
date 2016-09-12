@@ -35,10 +35,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: de.unirostock.sems:CombineArchive:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: de.binfalse:BFLog:1.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.jdom:jdom2:2.0.5" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.21" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:model-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:event-api:3.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.cytoscape:swing-application-api:3.4.0" level="project" />

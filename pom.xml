@@ -14,6 +14,7 @@
         </org.osgi.framework.system.packages.extra>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cytoscape.api.version>3.4.0</cytoscape.api.version>
+        <!-- <cytoscape.api.version>3.5.0-SNAPSHOT</cytoscape.api.version> -->
 
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
