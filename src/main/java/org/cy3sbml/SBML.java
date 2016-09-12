@@ -105,6 +105,10 @@ public class SBML {
     public static final String ATTR_COMP_UNITREF = "comp_unitRef";
     public static final String ATTR_COMP_METAIDREF = "comp_metaIdRef";
 
+    public static final String ATTR_COMP_MODELREF = "comp_modelRef";
+    public static final String ATTR_COMP_TIME_CONVERSION_FACTOR = "comp_timeConversionFactor";
+    public static final String ATTR_COMP_EXTENT_CONVERSION_FACTOR = "comp_extentConversionFactor";
+
 	// ----------------------
     // Node types
     // ----------------------
