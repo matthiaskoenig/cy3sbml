@@ -105,6 +105,8 @@ public class SBML {
     public static final String ATTR_COMP_IDREF = "comp_idRef";
     public static final String ATTR_COMP_UNITREF = "comp_unitRef";
     public static final String ATTR_COMP_METAIDREF = "comp_metaIdRef";
+    public static final String ATTR_COMP_SUBMODELREF = "comp_submodelRef";
+
 
     public static final String ATTR_COMP_MODELREF = "comp_modelRef";
     public static final String ATTR_COMP_TIME_CONVERSION_FACTOR = "comp_timeConversionFactor";
@@ -203,6 +205,8 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASEREF_PORT = "sbaseRef-port";
     public static final String INTERACTION_COMP_SBASEREF_UNIT = "sbaseRef-unit";
     public static final String INTERACTION_COMP_SBASEREF_METAID = "sbaseRef-metaId";
+    public static final String INTERACTION_COMP_SBASE_REPLACED_ELEMENT = "sbase-replacedElement";
+    public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
 
 
 

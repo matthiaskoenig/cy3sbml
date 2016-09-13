@@ -1404,26 +1404,40 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
 
         logger.info("<ReplacedElement & ReplacedBy>");
-        List<SBase> sbases = (List<SBase>) document.filter(new SBaseFilter());
+        // only sbases in current model
+        List<SBase> sbases = (List<SBase>) model.filter(new SBaseFilter());
         for (SBase sbase: sbases){
             CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
             if (compSBase != null){
                 logger.info(compSBase.toString());
 
-                // CyNode n = createNode(network, compSBase, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
-                // setNamedSBaseAttributes(network, n, port);
-
+                CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, sbase.getMetaId());
 
                 for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()){
 
                     logger.info(replacedElement.toString());
                     // SBaseRef
-                    // TODO: These can be from other submodels
-                    replacedElement.getSubmodelRef();
+                    // targets can be from other submodels
 
-                    replacedElement.getConversionFactor();
+                    CyNode target = createNode(network, replacedElement, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
+                    setSBaseRefAttributes(network, target, replacedElement);
+                    AttributeUtil.set(network, target, SBML.LABEL,
+                            String.format("%s replacedElement", sbase.getMetaId()), String.class);
 
-                    replacedElement.getDeletion();
+                    // edge to replacing element
+                    createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT);
+
+                    createSBaseRefEdge(network, target, replacedElement);
+
+                    AttributeUtil.set(network, target, SBML.ATTR_COMP_SUBMODELREF, replacedElement.getSubmodelRef(), String.class);
+                    if (replacedElement.isSetConversionFactor()){
+                        // FIXME
+                        // replacedElement.getConversionFactor();
+                    }
+                    if (replacedElement.isSetDeletion()){
+                        // replacedElement.getDeletion();
+                    }
+
                     /*
                     When deletion is set, it means the ReplacedElement object is actually an annotation to indicate that the replacement object
                     replaces something deleted from a submodel. The use of the deletion attribute overrides the use of the attributes
@@ -1434,9 +1448,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
                 }
                 if (compSBase.isSetReplacedBy()){
-                    // TODO
                     ReplacedBy replacedBy = compSBase.getReplacedBy();
                     logger.info(replacedBy.toString());
+                    CyNode target = createNode(network, replacedBy, SBML.NODETYPE_COMP_REPLACED_BY);
+                    setSBaseRefAttributes(network, target, replacedBy);
+
+                    AttributeUtil.set(network, target, SBML.LABEL,
+                            String.format("%s replacedBy", sbase.getMetaId()), String.class);
+
+                    // edge to replacing element
+                    createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_BY);
+                    createSBaseRefEdge(network, target, replacedBy);
                 }
             }
         }
