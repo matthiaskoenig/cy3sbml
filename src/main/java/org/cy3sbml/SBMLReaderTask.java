@@ -285,25 +285,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             */
 
             // TODO: create a SBMLDocument network (containing the ModelDefinitions & External ModelDefinitions, and submodels)
+            CyNetwork sbmlNetwork;
 
-            // TODO: extract model reading code
-
-            // core model
-            // Problem that the nodes in different model definitions can have
-            // the identical ids
-            // lookup maps for all networks
-            metaId2Node = new HashMap<>();
-            id2Node = new HashMap<>();
-            cyGroupSet = new HashSet<>();
-            baseUnitDefinitions = new HashMap<>();
-
-            Model model = null;
             if (document.isSetModel()) {
-                model = document.getModel();
-                CyNetwork network = readModelInNetwork(model);
-                addAllNetworks(network);
+                // TODO: add node sbmlNetwork
+                Model model = document.getModel();
+                createNetworksFromModel(model);
             } else {
-                logger.warn("No model in SBML file. Please check the model definition.");
+                logger.warn("No core model in SBMLDocument! Check model definition.");
             }
 
             // comp ModelDefinitions
@@ -313,7 +302,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 // ExternalModelDefinition
                 logger.info("<ExternalModelDefinition>");
                 for (ExternalModelDefinition emd : compDoc.getListOfExternalModelDefinitions()) {
-                    // TODO: create a node in SBMLDoc graph;
+
+                    // TODO: add node sbmlNetwork
                     logger.info("ExternalModelDefinition: " + emd.toString());
                     emd.getId();
                     emd.getName();
@@ -322,17 +312,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     emd.getModel();
                     emd.getMd5();
 
-
-                    // Create next network with new maps
-                    metaId2Node = new HashMap<>();
-                    id2Node = new HashMap<>();
-                    cyGroupSet = new HashSet<>();
-                    baseUnitDefinitions = new HashMap<>();
-
                     Model emdModel = emd.getModel();
                     if (emdModel != null) {
-                        CyNetwork network = readModelInNetwork(emdModel);
-                        addAllNetworks(network);
+                        // TODO: add node sbmlNetwork
+                        createNetworksFromModel(emdModel);
                     } else {
                         logger.error("Model could not be read from ExternalModelDefinition: " + emd);
                     }
@@ -341,31 +324,29 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 // ModelDefinition //
                 logger.info("<ModelDefinition>");
                 for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
+                    // TODO: add node sbmlNetwork
                     logger.info("ModelDefinition: " + md.toString());
-
-                    // Create next network with new maps
-                    metaId2Node = new HashMap<>();
-                    id2Node = new HashMap<>();
-                    cyGroupSet = new HashSet<>();
-                    baseUnitDefinitions = new HashMap<>();
 
                     Model mdModel = md.getModel();
                     if (mdModel != null) {
-                        CyNetwork network = readModelInNetwork(mdModel);
-                        addAllNetworks(network);
+                        // TODO: add node sbmlNetwork
+                        createNetworksFromModel(mdModel);
                     } else {
                         logger.error("Model could not be read from ModelDefinition: " + md);
                     }
                 }
             }
 
-            // TODO: network of model with instantiated submodels, i.e. the flattend comp model
-            // deletions & replacements
-            // The composite model defined in that case is simply the composed model that results from
-            // following the chain of inclusions.
+            // flattened comp model
+            if (compDoc != null) {
+                // The composite model defined in that case is simply the composed model that results from
+                // following the chain of inclusions.
 
-            // Section 3.9 on page 32 discusses the important topic of identifier scoping (to find the nodes it is
-            // necessary to scope the identifiers)
+                // Section 3.9 on page 32 discusses the important topic of identifier scoping (to find the nodes it is
+                // necessary to scope the identifiers)
+
+                // TODO: network of model with instantiated submodels, i.e. the flattend comp model
+            }
 
 
             if (taskMonitor != null) {
@@ -390,6 +371,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     ////////////////////////////////////////////////////////////////////////////
     // Networks
     ////////////////////////////////////////////////////////////////////////////
+
+    private void createNetworksFromModel(Model model){
+        // Reset lookup maps for given model
+        // different models can have same metaIds and ids.
+        metaId2Node = new HashMap<>();
+        id2Node = new HashMap<>();
+        cyGroupSet = new HashSet<>();
+        baseUnitDefinitions = new HashMap<>();
+
+        CyNetwork network = readModelInNetwork(model);
+        addAllNetworks(network);
+    }
 
     /**
      * Creates the given model into a network.
@@ -1431,6 +1424,39 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 // TODO: add edge
             }
         }
+
+        logger.info("<ReplacedElement & ReplacedBy>");
+        List<SBase> sbases = (List<SBase>) document.filter(new SBaseFilter());
+        for (SBase sbase: sbases){
+            CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
+            if (compSBase != null){
+                logger.info("compSBase: " + compSBase.toString());
+                for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()){
+                    logger.info(replacedElement.toString());
+                    // SBaseRef
+                    // TODO:
+                    replacedElement.getSubmodelRef();
+
+                    replacedElement.getConversionFactor();
+
+                    replacedElement.getDeletion();
+                    /*
+                    When deletion is set, it means the ReplacedElement object is actually an annotation to indicate that the replacement object
+                    replaces something deleted from a submodel. The use of the deletion attribute overrides the use of the attributes
+                    inherited from SBaseRef: instead of using, e.g., portRef or idRef, the ReplacedElement instance sets deletion to
+                    the identifier of the Deletion object. In addition, the referenced Deletion must be a child of the Submodel referenced
+                    by the submodelRef attribute
+                    */
+
+                }
+                if (compSBase.isSetReplacedBy()){
+                    // TODO
+                    ReplacedBy replacedBy = compSBase.getReplacedBy();
+                    logger.info(replacedBy.toString());
+                }
+            }
+        }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////
