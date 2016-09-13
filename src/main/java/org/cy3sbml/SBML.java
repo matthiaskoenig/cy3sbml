@@ -39,6 +39,7 @@ public class SBML {
     public static final String LABEL = "label";
     public static final String ATTR_ID = SBMLCore.SBML_ID_ATTR;
     public static final String ATTR_UNIT_SID = "unitSid";
+    public static final String ATTR_PORT_SID = "portSid";
     // The name must be assigned to "shared name" to make sure it is a NetworkCollection Column.
     // it is available as name for the subnetwork.
     public static final String ATTR_NAME = "shared name"; // SBMLCore.NODE_NAME_ATTR_LABEL;
@@ -142,6 +143,8 @@ public class SBML {
     public static final String NODETYPE_COMP_SUBMODEL = "comp_submodel";
     public static final String NODETYPE_COMP_DELETION = "comp_deletion";
     public static final String NODETYPE_COMP_PORT = "comp_port";
+    public static final String NODETYPE_COMP_REPLACED_BY = "comp_replacedBy";
+    public static final String NODETYPE_COMP_REPLACED_ELEMENT = "comp_replacedElement";
 
     // layout
     public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
@@ -196,7 +199,11 @@ public class SBML {
     public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association_association";
 
     // comp
-    public static final String INTERACTION_COMP_PORT_ID = "port-id";
+    public static final String INTERACTION_COMP_SBASEREF_ID = "sbaseRef-id";
+    public static final String INTERACTION_COMP_SBASEREF_PORT = "sbaseRef-port";
+    public static final String INTERACTION_COMP_SBASEREF_UNIT = "sbaseRef-unit";
+    public static final String INTERACTION_COMP_SBASEREF_METAID = "sbaseRef-metaId";
+
 
 
     // -------------------------------------------------------------------------
@@ -320,7 +327,10 @@ public class SBML {
             SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
             SBML.INTERACTION_FBC_ASSOCIATION_REACTION,
 
-            SBML.INTERACTION_COMP_PORT_ID
+            SBML.INTERACTION_COMP_SBASEREF_ID,
+            SBML.INTERACTION_COMP_SBASEREF_UNIT,
+            SBML.INTERACTION_COMP_SBASEREF_PORT,
+            SBML.INTERACTION_COMP_SBASEREF_METAID,
     };
 
     // -------------------------------------------------------------------------

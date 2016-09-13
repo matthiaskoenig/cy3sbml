@@ -73,7 +73,6 @@ import org.cy3sbml.mapping.One2ManyMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.tree.TreeNode;
 import javax.xml.stream.XMLStreamException;
 
 
@@ -1391,38 +1390,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         // Port //
         logger.info("<Port>");
-        // TODO: store the portIds in different namespace, i.e. lookup via id, unitId or portId
+        // create port nodes
         for (Port port : compModel.getListOfPorts()) {
             logger.info(port.toString());
             CyNode n = createNode(network, port, SBML.NODETYPE_COMP_PORT);
             setNamedSBaseAttributes(network, n, port);
-
-            if (port.isSetPortRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_PORTREF, port.getPortRef(), String.class);
-                // TODO: add edge
-            }
-            if (port.isSetIdRef()) {
-                String idRef = port.getIdRef();
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_IDREF, idRef, String.class);
-                // add edge
-                logger.info("idRef in port:" + idRef);
-                CyNode portNode = id2Node.get(idRef);
-                if (port != null) {
-                    createEdge(network, n, portNode, SBML.INTERACTION_COMP_PORT_ID);
-                } else {
-                    // for instance referring to submodel (not part of master network yet)
-                    logger.warn("No target found for port with idRef: ", idRef);
-                }
-            }
-
-            if (port.isSetUnitRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_UNITREF, port.getUnitRef(), String.class);
-                // TODO: add edge
-            }
-            if (port.isSetMetaIdRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_METAIDREF, port.getMetaIdRef(), String.class);
-                // TODO: add edge
-            }
+            setSBaseRefAttributes(network, n, port);
+        }
+        // create port edges
+        for (Port port : compModel.getListOfPorts()){
+            CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, port.getId());
+            createSBaseRefEdge(network, source, port);
         }
 
         logger.info("<ReplacedElement & ReplacedBy>");
@@ -1430,11 +1408,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         for (SBase sbase: sbases){
             CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
             if (compSBase != null){
-                logger.info("compSBase: " + compSBase.toString());
+                logger.info(compSBase.toString());
+
+                // CyNode n = createNode(network, compSBase, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
+                // setNamedSBaseAttributes(network, n, port);
+
+
                 for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()){
+
                     logger.info(replacedElement.toString());
                     // SBaseRef
-                    // TODO:
+                    // TODO: These can be from other submodels
                     replacedElement.getSubmodelRef();
 
                     replacedElement.getConversionFactor();
@@ -1457,6 +1441,48 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
+    }
+
+    /**
+     * Creates the edge for the given source node and sBaseRef.
+     *
+     * Finds the target of the SbaseRef and adds the edge to it.
+     *  @param network
+     * @param sbaseNode
+     * @param sBaseRef
+     */
+    private void createSBaseRefEdge(CyNetwork network, CyNode sbaseNode, SBaseRef sBaseRef){
+        CyNode target = null;
+        String interaction = null;
+
+        if (sBaseRef.isSetPortRef()) {
+            String portRef = sBaseRef.getPortRef();
+            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, portRef);
+            interaction = SBML.INTERACTION_COMP_SBASEREF_PORT;
+        }
+        else if (sBaseRef.isSetIdRef()) {
+            String idRef = sBaseRef.getIdRef();
+            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, idRef);
+            interaction = SBML.INTERACTION_COMP_SBASEREF_ID;
+        }
+        else if (sBaseRef.isSetUnitRef()) {
+            String unitRef = sBaseRef.getUnitRef();
+            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_UNIT_SID, unitRef);
+            interaction = SBML.INTERACTION_COMP_SBASEREF_UNIT;
+        }
+        else if (sBaseRef.isSetMetaIdRef()) {
+            String metaIdRef = sBaseRef.getMetaIdRef();
+            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_METAID, metaIdRef);
+            interaction = SBML.INTERACTION_COMP_SBASEREF_METAID;
+        }
+
+        // handle the recursive case
+        // FIXME:
+        // if (port.isSetSBaseRef()){
+        //     port.getSBaseRef();
+        // }
+
+        createEdge(network, sbaseNode, target, interaction);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1799,8 +1825,12 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         setSBaseAttributes(network, n, nsb);
         if (nsb.isSetId()) {
             String id = nsb.getId();
+            // set in the correct namespace
             if (nsb instanceof UnitDefinition || nsb instanceof Unit) {
                 AttributeUtil.set(network, n, SBML.ATTR_UNIT_SID, id, String.class);
+            }
+            else if (nsb instanceof Port) {
+                AttributeUtil.set(network, n, SBML.ATTR_PORT_SID, id, String.class);
             } else {
                 AttributeUtil.set(network, n, SBML.ATTR_ID, id, String.class);
             }
@@ -1813,6 +1843,28 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
     }
 
+    /**
+     * Set attributes for SBaseRef.
+     * Attributes are mutually exclusive.
+     *
+     * @param network
+     * @param n
+     * @param sbaseRef
+     */
+    private static void setSBaseRefAttributes(CyNetwork network, CyIdentifiable n, SBaseRef sbaseRef) {
+        if (sbaseRef.isSetPortRef()) {
+            AttributeUtil.set(network, n, SBML.ATTR_COMP_PORTREF, sbaseRef.getPortRef(), String.class);
+        }
+        else if (sbaseRef.isSetIdRef()) {
+            AttributeUtil.set(network, n, SBML.ATTR_COMP_IDREF, sbaseRef.getIdRef(), String.class);
+        }
+        else if (sbaseRef.isSetUnitRef()) {
+            AttributeUtil.set(network, n, SBML.ATTR_COMP_UNITREF, sbaseRef.getUnitRef(), String.class);
+        }
+        else if (sbaseRef.isSetMetaIdRef()) {
+            AttributeUtil.set(network, n, SBML.ATTR_COMP_METAIDREF, sbaseRef.getMetaIdRef(), String.class);
+        }
+    }
 
     /**
      * Set attributes for NamedSBaseWithDerivedUnit.
@@ -1820,7 +1872,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param n
      * @param nsbu
      */
-    private void setNamedSBaseWithDerivedUnitAttributes(CyNetwork network, CyIdentifiable n, NamedSBaseWithDerivedUnit nsbu) {
+    private static void setNamedSBaseWithDerivedUnitAttributes(CyNetwork network, CyIdentifiable n, NamedSBaseWithDerivedUnit nsbu) {
         setNamedSBaseAttributes(network, n, nsbu);
         AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, nsbu.getDerivedUnits(), String.class);
     }
@@ -1832,7 +1884,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param n
      * @param q
      */
-    private void setQuantityWithUnitAttributes(CyNetwork network, CyIdentifiable n, QuantityWithUnit q) {
+    private static void setQuantityWithUnitAttributes(CyNetwork network, CyIdentifiable n, QuantityWithUnit q) {
         setNamedSBaseWithDerivedUnitAttributes(network, n, q);
         if (q.isSetValue()) {
             AttributeUtil.set(network, n, SBML.ATTR_VALUE, q.getValue(), Double.class);
@@ -1849,7 +1901,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param n
      * @param symbol
      */
-    private void setSymbolNodeAttributes(CyNetwork network, CyIdentifiable n, Symbol symbol) {
+    private static void setSymbolNodeAttributes(CyNetwork network, CyIdentifiable n, Symbol symbol) {
         setQuantityWithUnitAttributes(network, n, symbol);
         if (symbol.isSetConstant()) {
             AttributeUtil.set(network, n, SBML.ATTR_CONSTANT, symbol.getConstant(), Boolean.class);
