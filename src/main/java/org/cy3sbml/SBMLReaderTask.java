@@ -97,7 +97,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
     private SBMLDocument document;
 
-    private CyNetwork[] cyNetworks;
+    private LinkedList<CyNetwork> cyNetworks;
     private TaskMonitor taskMonitor;
 
     private Map<String, CyNode> metaId2Node;  // node dictionary
@@ -127,15 +127,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
         this.cy3sbmlProperties = cy3sbmlProperties;
 
-
-        // lookup maps
-        metaId2Node = new HashMap<>();
-        id2Node = new HashMap<>();
-        cyGroupSet = new HashSet<>();
-        baseUnitDefinitions = new HashMap<>();
-
         // networks returned by the reader
-        cyNetworks = new CyNetwork[]{};
+        cyNetworks = new LinkedList<>();
 
     }
 
@@ -153,7 +146,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      */
     @Override
     public CyNetwork[] getNetworks() {
-        return cyNetworks;
+        return cyNetworks.toArray(new CyNetwork[cyNetworks.size()]);
     }
 
     /**
@@ -293,7 +286,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
             // TODO: create a SBMLDocument network (containing the ModelDefinitions & External ModelDefinitions, and submodels)
 
+            // TODO: extract model reading code
+
             // core model
+            // Problem that the nodes in different model definitions can have
+            // the identical ids
+            // lookup maps for all networks
+            metaId2Node = new HashMap<>();
+            id2Node = new HashMap<>();
+            cyGroupSet = new HashSet<>();
+            baseUnitDefinitions = new HashMap<>();
+
             Model model = null;
             if (document.isSetModel()) {
                 model = document.getModel();
@@ -319,6 +322,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     emd.getModel();
                     emd.getMd5();
 
+
+                    // Create next network with new maps
+                    metaId2Node = new HashMap<>();
+                    id2Node = new HashMap<>();
+                    cyGroupSet = new HashSet<>();
+                    baseUnitDefinitions = new HashMap<>();
+
                     Model emdModel = emd.getModel();
                     if (emdModel != null) {
                         CyNetwork network = readModelInNetwork(emdModel);
@@ -332,6 +342,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 logger.info("<ModelDefinition>");
                 for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
                     logger.info("ModelDefinition: " + md.toString());
+
+                    // Create next network with new maps
+                    metaId2Node = new HashMap<>();
+                    id2Node = new HashMap<>();
+                    cyGroupSet = new HashSet<>();
+                    baseUnitDefinitions = new HashMap<>();
+
                     Model mdModel = md.getModel();
                     if (mdModel != null) {
                         CyNetwork network = readModelInNetwork(mdModel);
@@ -431,6 +448,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
 
         // add groups to networks
+        // TODO: check
         CyNetwork[] networks = {baseNetwork, kineticNetwork};
         for (CyNetwork net : networks) {
             for (CyGroup cyGroup : cyGroupSet) {
@@ -438,10 +456,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
-        if (baseNetwork == null) {
-            cyNetworks =  new CyNetwork[]{network};
-        } else {
-            cyNetworks = new CyNetwork[]{baseNetwork, kineticNetwork, network};
+        // add the networks to the created networks
+        cyNetworks.add(network);
+        if (baseNetwork != null) {
+            cyNetworks.add(baseNetwork);
+            cyNetworks.add(kineticNetwork);
         }
     }
 
