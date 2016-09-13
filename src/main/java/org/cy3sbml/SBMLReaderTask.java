@@ -86,7 +86,7 @@ import javax.xml.stream.XMLStreamException;
 public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 
-    private String fileName;
+    private final String fileName;
     private final InputStream stream;
     private final CyNetworkFactory networkFactory;
     private final CyGroupFactory groupFactory;
@@ -97,11 +97,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
     private SBMLDocument document;
 
-    private CyRootNetwork rootNetwork;
-    private CyNetwork network;       // global network of all SBML information
-    private CyNetwork kineticNetwork;
-    private CyNetwork baseNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
-
+    private CyNetwork[] cyNetworks;
+    private TaskMonitor taskMonitor;
 
     private Map<String, CyNode> metaId2Node;  // node dictionary
     private Map<String, CyNode> id2Node;      // node dictionary
@@ -109,7 +106,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private Map<String, UnitDefinition> baseUnitDefinitions; // base UnitDefinition lookup
     private Boolean error = false;
 
-    private TaskMonitor taskMonitor;
 
     /**
      * Constructor
@@ -130,6 +126,17 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         this.visualMappingManager = visualMappingManager;
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
         this.cy3sbmlProperties = cy3sbmlProperties;
+
+
+        // lookup maps
+        metaId2Node = new HashMap<>();
+        id2Node = new HashMap<>();
+        cyGroupSet = new HashSet<>();
+        baseUnitDefinitions = new HashMap<>();
+
+        // networks returned by the reader
+        cyNetworks = new CyNetwork[]{};
+
     }
 
     /**
@@ -140,29 +147,21 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         this(stream, fileName, networkFactory, groupFactory, null, null, null, null);
     }
 
-
-    /**
-     * Returns the error status for unit testing.
-     */
-    public Boolean getError() {
-        return error;
-    }
-
     /**
      * Get created networks from the reader.
+     * Here all the registered networks are returned.
      */
     @Override
     public CyNetwork[] getNetworks() {
-        if (baseNetwork == null) {
-            return new CyNetwork[]{network};
-        } else {
-            return new CyNetwork[]{baseNetwork, kineticNetwork, network};
-        }
+        return cyNetworks;
     }
 
     /**
-     * Builds NetworkViews for given network.
-     * The SBML is registered in the SBMLManager for the network.
+     * Build NetworkViews for given network.
+     *
+     * Here the SBMLDocument is registered in the SBMLManager for the given network,
+     * a VisualStyle is applied,
+     * and a LayoutAlgorithm is applied.
      */
     @Override
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
@@ -240,8 +239,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             String cyId = attributes.get(SBML.ATTR_CYID, String.class);
             mapping.put(cyId, node.getSUID());
         }
-
         return mapping;
+    }
+
+    /**
+     * Returns the error status for unit testing.
+     */
+    public Boolean getError() {
+        return error;
     }
 
     /**
@@ -275,22 +280,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             String xml = IOUtil.inputStream2String(stream);
             document = JSBML.readSBMLFromString(xml);
 
-            //////////////////////////////////////////////////////////////////
-            // Init
-            //////////////////////////////////////////////////////////////////
-            // Create empty root network and node map
-            metaId2Node = new HashMap<>();
-            id2Node = new HashMap<>();
-            cyGroupSet = new HashSet<>();
-            baseUnitDefinitions = new HashMap<>();
-
-            // create network
-            network = networkFactory.createNetwork();
-            // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
-            // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
-            // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-            // CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()).
-            rootNetwork = ((CySubNetwork) network).getRootNetwork();
 
             //////////////////////////////////////////////////////////////////
             // Read ModelDefinitions
@@ -304,25 +293,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
             // TODO: create a SBMLDocument network (containing the ModelDefinitions & External ModelDefinitions, and submodels)
 
-            // TODO: model definition networks
-
             // core model
             Model model = null;
             if (document.isSetModel()) {
                 model = document.getModel();
+                CyNetwork network = readModelInNetwork(model);
+                addAllNetworks(network);
             } else {
                 logger.warn("No model in SBML file. Please check the model definition.");
-                model = document.createModel();
-                model.setId("null_model");
             }
 
-            // comp model definitions
+            // comp ModelDefinitions
             CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.namespaceURI);
             if (compDoc != null) {
+
                 // ExternalModelDefinition
                 logger.info("<ExternalModelDefinition>");
                 for (ExternalModelDefinition emd : compDoc.getListOfExternalModelDefinitions()) {
-                    // TODO: create a node;
+                    // TODO: create a node in SBMLDoc graph;
                     logger.info("ExternalModelDefinition: " + emd.toString());
                     emd.getId();
                     emd.getName();
@@ -330,17 +318,31 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     emd.getModelRef();
                     emd.getModel();
                     emd.getMd5();
+
+                    Model emdModel = emd.getModel();
+                    if (emdModel != null) {
+                        CyNetwork network = readModelInNetwork(emdModel);
+                        addAllNetworks(network);
+                    } else {
+                        logger.error("Model could not be read from ExternalModelDefinition: " + emd);
+                    }
                 }
 
                 // ModelDefinition //
                 logger.info("<ModelDefinition>");
                 for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
                     logger.info("ModelDefinition: " + md.toString());
-                    md.getModel();
+                    Model mdModel = md.getModel();
+                    if (mdModel != null) {
+                        CyNetwork network = readModelInNetwork(mdModel);
+                        addAllNetworks(network);
+                    } else {
+                        logger.error("Model could not be read from ModelDefinition: " + md);
+                    }
                 }
             }
 
-            // TODO: model with instantiated submodels, i.e. the comp model
+            // TODO: network of model with instantiated submodels, i.e. the flattend comp model
             // deletions & replacements
             // The composite model defined in that case is simply the composed model that results from
             // following the chain of inclusions.
@@ -348,90 +350,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             // Section 3.9 on page 32 discusses the important topic of identifier scoping (to find the nodes it is
             // necessary to scope the identifiers)
 
-
-            // <core>
-            readCore(model);
-            if (taskMonitor != null) {
-                taskMonitor.setProgress(0.4);
-            }
-
-            // <qual>
-            QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-            if (qualModel != null) {
-                readQual(model, qualModel);
-            }
-
-            // <fbc>
-            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
-            if (fbcModel != null) {
-                readFBC(model, fbcModel);
-            }
-
-            // <comp>
-            CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
-            if (compModel != null) {
-                readComp(model, compModel);
-            }
-
-            // <groups>
-            GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
-            if (groupsModel != null) {
-                readGroups(groupsModel);
-            }
-
-            // <layout>
-            LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
-            if (layoutModel != null) {
-                readLayouts(model, qualModel, layoutModel);
-            }
-
-            // Add compartment codes dynamically for colors
-            addCompartmentCodes(network, model);
-            addSBMLTypesExtended(network, model);
-            addSBMLInteractionExtended(network);
-
-            //////////////////////////////////////////////////////////////////
-            // Base network
-            //////////////////////////////////////////////////////////////////
-
-            // Set naming
-            String name = getNetworkName();
-            rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
-            network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
-
-            // O(1) lookup (collect nodes and edges)
-            HashSet<CyNode> coreNodes = getNetworkNodes(
-                    new HashSet<>(java.util.Arrays.asList(SBML.coreNodeTypes))
-            );
-            HashSet<CyEdge> coreEdges = getNetworkEdges(
-                    new HashSet<>(java.util.Arrays.asList(SBML.coreEdgeTypes))
-            );
-            if (coreNodes.size() > 0) {
-                baseNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
-                baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("Base: %s", name));
-            }
-
-            //////////////////////////////////////////////////////////////////
-            // Kinetic network
-            //////////////////////////////////////////////////////////////////
-            HashSet<CyNode> kineticNodes = getNetworkNodes(
-                    new HashSet<>(java.util.Arrays.asList(SBML.kineticNodeTypes))
-            );
-            HashSet<CyEdge> kineticEdges = getNetworkEdges(
-                    new HashSet<>(java.util.Arrays.asList(SBML.kineticEdgeTypes))
-            );
-            if (kineticNodes.size() > 0) {
-                kineticNetwork = rootNetwork.addSubNetwork(kineticNodes, kineticEdges);
-                kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
-            }
-
-            // add groups to networks
-            CyNetwork[] networks = {baseNetwork, kineticNetwork};
-            for (CyNetwork net : networks) {
-                for (CyGroup cyGroup : cyGroupSet) {
-                    cyGroup.addGroupToNetwork(net);
-                }
-            }
 
             if (taskMonitor != null) {
                 taskMonitor.setProgress(0.8);
@@ -448,6 +366,143 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues'" + t);
         }
     }
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Networks
+    ////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Creates the given model into a network.
+     * The network is the master network containing all nodes and edges belonging
+     * to the model.
+     *
+     * @param model
+     * @return
+     */
+    private CyNetwork readModelInNetwork(Model model){
+        CyNetwork network = networkFactory.createNetwork();
+
+        // create network
+        /*
+        To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
+        CySubNetwork and call the CySubNetwork.getRootNetwork() method:
+         	CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+        CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()).
+        */
+
+        // rootNetwork = ((CySubNetwork) network).getRootNetwork();
+
+
+        // <core>
+        readCore(network, model);
+        if (taskMonitor != null) {
+            taskMonitor.setProgress(0.4);
+        }
+
+        // <qual>
+        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        if (qualModel != null) {
+            readQual(network, model);
+        }
+
+        // <fbc>
+        FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+        if (fbcModel != null) {
+            readFBC(model, fbcModel);
+        }
+
+        // <comp>
+        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+        if (compModel != null) {
+            readComp(model, compModel);
+        }
+
+        // <groups>
+        GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
+        if (groupsModel != null) {
+            readGroups(groupsModel);
+        }
+
+        // <layout>
+        LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
+        if (layoutModel != null) {
+            readLayouts(model, qualModel, layoutModel);
+        }
+
+        // Add compartment codes dynamically for colors
+        addCompartmentCodes(network, model);
+        addSBMLTypesExtended(network, model);
+        addSBMLInteractionExtended(network);
+        return network;
+    }
+
+    /**
+     * Adds all networks to the list of base networks.
+     */
+    private void addAllNetworks(CyNetwork network){
+
+        /*
+    private CyRootNetwork rootNetwork;
+    private CyNetwork network;       // global network of all SBML information
+    private CyNetwork kineticNetwork;
+    private CyNetwork baseNetwork;   // core reaction, species, (qualSpecies, qualTransitions), fbc network
+    */
+
+        //////////////////////////////////////////////////////////////////
+        // Base network
+        //////////////////////////////////////////////////////////////////
+
+        // Set naming
+        String name = getNetworkName();
+        rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
+        network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
+
+        // O(1) lookup (collect nodes and edges)
+        HashSet<CyNode> coreNodes = getNetworkNodes(
+                new HashSet<>(java.util.Arrays.asList(SBML.coreNodeTypes))
+        );
+        HashSet<CyEdge> coreEdges = getNetworkEdges(
+                new HashSet<>(java.util.Arrays.asList(SBML.coreEdgeTypes))
+        );
+        if (coreNodes.size() > 0) {
+            baseNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
+            baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("Base: %s", name));
+        }
+
+        //////////////////////////////////////////////////////////////////
+        // Kinetic network
+        //////////////////////////////////////////////////////////////////
+        HashSet<CyNode> kineticNodes = getNetworkNodes(
+                new HashSet<>(java.util.Arrays.asList(SBML.kineticNodeTypes))
+        );
+        HashSet<CyEdge> kineticEdges = getNetworkEdges(
+                new HashSet<>(java.util.Arrays.asList(SBML.kineticEdgeTypes))
+        );
+        if (kineticNodes.size() > 0) {
+            kineticNetwork = rootNetwork.addSubNetwork(kineticNodes, kineticEdges);
+            kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
+        }
+
+        // add groups to networks
+        CyNetwork[] networks = {baseNetwork, kineticNetwork};
+        for (CyNetwork net : networks) {
+            for (CyGroup cyGroup : cyGroupSet) {
+                cyGroup.addGroupToNetwork(net);
+            }
+        }
+
+        if (baseNetwork == null) {
+            cyNetworks =  new CyNetwork[]{network};
+        } else {
+            cynetworks = new CyNetwork[]{baseNetwork, kineticNetwork, network};
+        }
+
+
+    }
+
 
     /**
      * Get network edges with given edge types.
@@ -504,7 +559,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         return name;
     }
 
-
     ////////////////////////////////////////////////////////////////////////////
     // SBML CORE
     ////////////////////////////////////////////////////////////////////////////
@@ -516,7 +570,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      *
      * @param model
      */
-    private void readCore(Model model) {
+    private void readCore(CyNetwork network, Model model) {
         logger.debug("<core>");
 
         // SBMLDocument & Model //
@@ -892,11 +946,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      *
      * @param qModel
      */
-    private void readQual(Model model, QualModelPlugin qModel) {
+    private void readQual(CyNetwork network, Model model) {
         logger.debug("<qual>");
 
+        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        if (qualModel == null) {
+            return;
+        }
+
         // QualSpecies //
-        for (QualitativeSpecies qSpecies : qModel.getListOfQualitativeSpecies()) {
+        for (QualitativeSpecies qSpecies : qualModel.getListOfQualitativeSpecies()) {
             CyNode n = createNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
             setNamedSBaseAttributes(n, qSpecies);
 
@@ -918,14 +977,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
         // QualTransitions
-        for (Transition transition : qModel.getListOfTransitions()) {
+        for (Transition transition : qualModel.getListOfTransitions()) {
             CyNode n = createNode(transition, SBML.NODETYPE_QUAL_TRANSITION);
             setNamedSBaseAttributes(n, transition);
 
             // Inputs
             for (Input input : transition.getListOfInputs()) {
                 String qSpeciesId = input.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qModel.getQualitativeSpecies(qSpeciesId);
+                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesId);
 
                 CyNode inNode = metaId2Node.get(qSpecies.getMetaId());
                 CyEdge e = createEdge(n, inNode, SBML.INTERACTION_QUAL_TRANSITION_INPUT);
@@ -958,7 +1017,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             // Outputs
             for (Output output : transition.getListOfOutputs()) {
                 String qSpeciesString = output.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qModel.getQualitativeSpecies(qSpeciesString);
+                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesString);
                 CyNode outNode = metaId2Node.get(qSpecies.getMetaId());
                 CyEdge e = createEdge(n, outNode, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT);
 
@@ -1190,11 +1249,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Instantiates the model with all submodels
+     * This is a flattening routine of the model.
+     *
      * @param model
      */
     private void readCompInstantiate(Model model){
 
+
+
          CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+
+
+        //The Model object referenced by the Submodel object establishes the object names-
+        // paces for the portRef, idRef, unitRef and metaIdRef attributes:
 
         logger.info("<Submodel>");
         for (Submodel submodel: compModel.getListOfSubmodels()){
@@ -1252,6 +1319,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         anything else that referred either to an object identifier (i.e., attributes such as the id attribute whose types inherit 27
         from the SId primitive data type) or the meta identifier (i.e., the metaid attribute or any other attribute that inherits 28
         from the ID primitive data type) must be made to refer to the replacement species object instead.
+
+        1. The replaced element is considered to be removed from the model.
+        2. Attributes having values of type SIdRef that refer to the replaced element are considered to refer to the 4
+            replacement element instead.
+        3. Attributes having values of type UnitSIdRef that refer to the replaced unit are considered to refer to the 6
+            replacement element instead.
+        4. Within mathematical formulas, MathML <cn> elements that refer to a replaced element are considered to
+            refer to the replacement element instead.
+        5. Annotations with attributes having values of type IDREF that refer to the meta identifier of replaced elements
+                are considered to refer to the replacement element. In particular, this rule applies to the rdf:about attribute
          */
 
         logger.info("<ReplacedElement & ReplacedBy>");
@@ -1265,8 +1342,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     // SBaseRef
                     // TODO:
                     replacedElement.getSubmodelRef();
-                    replacedElement.getDeletion();
+
                     replacedElement.getConversionFactor();
+
+                    replacedElement.getDeletion();
+                    /*
+                    When deletion is set, it means the ReplacedElement object is actually an annotation to indicate that the replacement object
+                    replaces something deleted from a submodel. The use of the deletion attribute overrides the use of the attributes
+                    inherited from SBaseRef: instead of using, e.g., portRef or idRef, the ReplacedElement instance sets deletion to
+                    the identifier of the Deletion object. In addition, the referenced Deletion must be a child of the Submodel referenced
+                    by the submodelRef attribute
+                    */
+
                 }
                 if (compSBase.isSetReplacedBy()){
                     // TODO
