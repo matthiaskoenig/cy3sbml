@@ -139,6 +139,8 @@ public class SBML {
     public static final String NODETYPE_FBC_OR = "fbc_or";
 
     // comp
+    public static final String NODETYPE_COMP_SUBMODEL = "comp_submodel";
+    public static final String NODETYPE_COMP_DELETION = "comp_deletion";
     public static final String NODETYPE_COMP_PORT = "comp_port";
 
     // layout

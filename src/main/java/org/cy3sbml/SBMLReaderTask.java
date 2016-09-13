@@ -268,10 +268,45 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 return;
             }
 
-            // Read model
+            //////////////////////////////////////////////////////////////////
+            // Read SBMLDocument
+            //////////////////////////////////////////////////////////////////
             logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
             String xml = IOUtil.inputStream2String(stream);
             document = JSBML.readSBMLFromString(xml);
+
+            //////////////////////////////////////////////////////////////////
+            // Init
+            //////////////////////////////////////////////////////////////////
+            // Create empty root network and node map
+            metaId2Node = new HashMap<>();
+            id2Node = new HashMap<>();
+            cyGroupSet = new HashSet<>();
+            baseUnitDefinitions = new HashMap<>();
+
+            // create network
+            network = networkFactory.createNetwork();
+            // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
+            // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
+            // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+            // CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()).
+            rootNetwork = ((CySubNetwork) network).getRootNetwork();
+
+            //////////////////////////////////////////////////////////////////
+            // Read ModelDefinitions
+            //////////////////////////////////////////////////////////////////
+            /* Models can be defined either as a single core model
+               or as additional ExternalModelDefinitions and ModelDefinitions
+               within the comp package.
+               For every ModelDefinition a separate network is created.
+               Necessary to create networks for given models.
+            */
+
+            // TODO: create a SBMLDocument network (containing the ModelDefinitions & External ModelDefinitions, and submodels)
+
+            // TODO: model definition networks
+
+            // core model
             Model model = null;
             if (document.isSetModel()) {
                 model = document.getModel();
@@ -281,20 +316,38 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 model.setId("null_model");
             }
 
-            // Create empty root network and node map
-            network = networkFactory.createNetwork();
-            metaId2Node = new HashMap<>();
-            id2Node = new HashMap<>();
-            cyGroupSet = new HashSet<>();
-            baseUnitDefinitions = new HashMap<>();
+            // comp model definitions
+            CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.namespaceURI);
+            if (compDoc != null) {
+                // ExternalModelDefinition
+                logger.info("<ExternalModelDefinition>");
+                for (ExternalModelDefinition emd : compDoc.getListOfExternalModelDefinitions()) {
+                    // TODO: create a node;
+                    logger.info("ExternalModelDefinition: " + emd.toString());
+                    emd.getId();
+                    emd.getName();
+                    emd.getSource();
+                    emd.getModelRef();
+                    emd.getModel();
+                    emd.getMd5();
+                }
 
-            // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
-            // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
-            // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-            // CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()).
-            rootNetwork = ((CySubNetwork) network).getRootNetwork();
+                // ModelDefinition //
+                logger.info("<ModelDefinition>");
+                for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
+                    logger.info("ModelDefinition: " + md.toString());
+                    md.getModel();
+                }
+            }
 
-            //////////////////////////////////////////////////////////////////
+            // TODO: model with instantiated submodels, i.e. the comp model
+            // deletions & replacements
+            // The composite model defined in that case is simply the composed model that results from
+            // following the chain of inclusions.
+
+            // Section 3.9 on page 32 discusses the important topic of identifier scoping (to find the nodes it is
+            // necessary to scope the identifiers)
+
 
             // <core>
             readCore(model);
@@ -1136,44 +1189,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     ////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create network information from comp model.
+     * Instantiates the model with all submodels
+     * @param model
      */
-    private void readComp(Model model, CompModelPlugin compModel) {
-        logger.debug("<comp>");
+    private void readCompInstantiate(Model model){
 
+         CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
 
-        // Additional models are defined
-        CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.namespaceURI);
-
-        // ExternalModelDefinition //
-        logger.info("<ExternalModelDefinition>");
-        for (ExternalModelDefinition emd: compDoc.getListOfExternalModelDefinitions()){
-            // TODO: create a node;
-            logger.info("ExternalModelDefinition: " + emd.toString());
-            emd.getId();
-            emd.getName();
-            emd.getSource();
-            emd.getModelRef();
-            emd.getModel();
-            emd.getMd5();
-
-        }
-
-        // ModelDefinition //
-        logger.info("<ModelDefinition>");
-        for (ModelDefinition md: compDoc.getListOfModelDefinitions()){
-
-            logger.info("ModelDefinition: " + md.toString());
-            md.getModel();
-        }
-
-
-        // Submodel //
         logger.info("<Submodel>");
         for (Submodel submodel: compModel.getListOfSubmodels()){
 
             logger.info(submodel.toString());
-            CyNode n = createNode(submodel, SBML.NODETYPE_COMP_PORT);
+            CyNode n = createNode(submodel, SBML.NODETYPE_COMP_SUBMODEL);
             setNamedSBaseAttributes(n, submodel);
 
             AttributeUtil.set(network, n, SBML.ATTR_COMP_MODELREF, submodel.getModelRef(), String.class);
@@ -1183,53 +1210,50 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             if (submodel.isSetExtentConversionFactor()){
                 AttributeUtil.set(network, n, SBML.ATTR_COMP_EXTENT_CONVERSION_FACTOR, submodel.getExtentConversionFactor(), String.class);
             }
+            submodel.getModel()
 
             // Deletion
             for (Deletion deletion: submodel.getListOfDeletions()){
-                // SbaseRef
+                // TODO: add edge
                 logger.info(deletion.toString());
-                deletion.getId();
-                deletion.getName();
+                CyNode nd = createNode(deletion, SBML.NODETYPE_COMP_DELETION);
+                setNamedSBaseAttributes(nd, deletion);
+
                 // SbaseRef
+                // TODO delete the components from network
                 deletion.getIdRef();
+
+                /*
+                1. An object that has been “deleted” is considered inaccessible. Any element that has been deleted (or replaced,
+                as discussed in Section 3.6) may not be referenced by an SBaseRef object.
+                2. If the deleted object has child objects and other structures, the child objects and substructure are also
+                considered to be deleted.
+                3. It is not an error to delete explicitly an object that is already deleted by implication (for example as a result of
+                point number 2 above). The resulting model is the same.
+                */
             }
 
-        }
-
-
-        // Port //
-        logger.info("<Port>");
-        for (Port port : compModel.getListOfPorts()) {
-            logger.info(port.toString());
-            CyNode n = createNode(port, SBML.NODETYPE_COMP_PORT);
-            setNamedSBaseAttributes(n, port);
-
-            if (port.isSetPortRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_PORTREF, port.getPortRef(), String.class);
-            }
-            if (port.isSetIdRef()) {
-                String idRef = port.getIdRef();
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_IDREF, idRef, String.class);
-                // add edge
-                logger.info("idRef in port:" + idRef);
-                CyNode portNode = id2Node.get(idRef);
-                if (port != null) {
-                    createEdge(n, portNode, SBML.INTERACTION_COMP_PORT_ID);
-                } else {
-                    // for instance referring to submodel (not part of master network yet)
-                    logger.warn("No target found for port with idRef: ", idRef);
-                }
-            }
-
-            if (port.isSetUnitRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_UNITREF, port.getUnitRef(), String.class);
-            }
-            if (port.isSetMetaIdRef()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMP_METAIDREF, port.getMetaIdRef(), String.class);
-            }
+            // TODO: generic method for getting node for SbaseRef
+            // SBaseRef provides attributes portRef, idRef, unitRef 12
+            // and metaIdRef, and a recursive subcomponent, sBaseRef
         }
 
         // ReplacedElement & ReplacedBy
+        // Replacements are defined within the submodelRef namespace
+        /*
+        A replacement implies that dependencies involving the replaced object must be updated: all references to the
+        replaced object elsewhere in the model are taken to refer to the replacement object instead. For example, if one
+        species replaces another, then any reference to the original species in mathematical formulas, or lists of reactants
+        or products or modifiers in reactions, or initial assignments, or any other SBML construct, are taken to refer to
+        the replacement species.
+
+        Moreover, any annotations that refer to
+        the replaced species’ metaid value must be made to refer to the replacement species’ metaid value instead; and 26
+        anything else that referred either to an object identifier (i.e., attributes such as the id attribute whose types inherit 27
+        from the SId primitive data type) or the meta identifier (i.e., the metaid attribute or any other attribute that inherits 28
+        from the ID primitive data type) must be made to refer to the replacement species object instead.
+         */
+
         logger.info("<ReplacedElement & ReplacedBy>");
         List<SBase> sbases = (List<SBase>) document.filter(new SBaseFilter());
         for (SBase sbase: sbases){
@@ -1252,7 +1276,89 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
+    }
 
+
+    /**
+     * Create network information from comp model.
+     */
+    private void readComp(Model model, CompModelPlugin compModel) {
+        logger.debug("<comp>");
+
+
+        // Submodel //
+        /*
+            Submodels are instantiations of models contained within other models.
+            A Submodel object must say which Model object it instantiates, and may additionally define how the Model object is
+            to be modified before it is instantiated in the enclosing model.
+         */
+        logger.info("<Submodel>");
+        for (Submodel submodel: compModel.getListOfSubmodels()){
+
+            logger.info(submodel.toString());
+            CyNode n = createNode(submodel, SBML.NODETYPE_COMP_SUBMODEL);
+            setNamedSBaseAttributes(n, submodel);
+
+            AttributeUtil.set(network, n, SBML.ATTR_COMP_MODELREF, submodel.getModelRef(), String.class);
+            if (submodel.isSetTimeConversionFactor()){
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_TIME_CONVERSION_FACTOR, submodel.getTimeConversionFactor(), String.class);
+            }
+            if (submodel.isSetExtentConversionFactor()){
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_EXTENT_CONVERSION_FACTOR, submodel.getExtentConversionFactor(), String.class);
+            }
+
+            // Deletion
+            for (Deletion deletion: submodel.getListOfDeletions()){
+                // TODO: add edge
+                logger.info(deletion.toString());
+                CyNode nd = createNode(deletion, SBML.NODETYPE_COMP_DELETION);
+                setNamedSBaseAttributes(nd, deletion);
+
+                // SbaseRef
+                // TODO
+                deletion.getIdRef();
+            }
+
+            // TODO: generic method for getting node for SbaseRef
+            // SBaseRef provides attributes portRef, idRef, unitRef 12
+            // and metaIdRef, and a recursive subcomponent, sBaseRef
+        }
+
+        // Port //
+        logger.info("<Port>");
+        // TODO: store the portIds in different namespace, i.e. lookup via id, unitId or portId
+        for (Port port : compModel.getListOfPorts()) {
+            logger.info(port.toString());
+            CyNode n = createNode(port, SBML.NODETYPE_COMP_PORT);
+            setNamedSBaseAttributes(n, port);
+
+            if (port.isSetPortRef()) {
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_PORTREF, port.getPortRef(), String.class);
+                // TODO: add edge
+            }
+            if (port.isSetIdRef()) {
+                String idRef = port.getIdRef();
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_IDREF, idRef, String.class);
+                // add edge
+                logger.info("idRef in port:" + idRef);
+                CyNode portNode = id2Node.get(idRef);
+                if (port != null) {
+                    createEdge(n, portNode, SBML.INTERACTION_COMP_PORT_ID);
+                } else {
+                    // for instance referring to submodel (not part of master network yet)
+                    logger.warn("No target found for port with idRef: ", idRef);
+                }
+            }
+
+            if (port.isSetUnitRef()) {
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_UNITREF, port.getUnitRef(), String.class);
+                // TODO: add edge
+            }
+            if (port.isSetMetaIdRef()) {
+                AttributeUtil.set(network, n, SBML.ATTR_COMP_METAIDREF, port.getMetaIdRef(), String.class);
+                // TODO: add edge
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////
