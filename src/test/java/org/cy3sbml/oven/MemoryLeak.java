@@ -40,7 +40,7 @@ public class MemoryLeak {
         // run the reader
         SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTask.run(null);
-        
+
     }
 
     /**
