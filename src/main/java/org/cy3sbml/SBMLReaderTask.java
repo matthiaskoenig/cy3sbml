@@ -28,6 +28,9 @@ import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.Task;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
+import org.cytoscape.work.Tunable;
+import org.cytoscape.work.swing.RequestsUIHelper;
+import org.cytoscape.work.swing.TunableUIHelper;
 
 // SBML CORE
 import org.sbml.jsbml.*;
@@ -82,8 +85,11 @@ import javax.xml.stream.XMLStreamException;
  * The reader creates the master SBML network graph with various subnetworks
  * created from the full graph.
  */
-public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
+public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,RequestsUIHelper{
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
+
+    @Tunable(description="Tick if you want to automatically layout the imported network")
+    public boolean doLayout;
 
     private final String fileName;
     private final InputStream stream;
@@ -191,18 +197,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
 
         // layout
-        if (cyLayoutAlgorithmManager != null) {
-            CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
-            if (layout == null) {
-                layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
-                logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
-            }
-            TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
-            Task nextTask = itr.next();
-            try {
-                nextTask.run(taskMonitor);
-            } catch (Exception e) {
-                throw new RuntimeException("Could not finish layout", e);
+        if(doLayout) {
+            if (cyLayoutAlgorithmManager != null) {
+                CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
+                if (layout == null) {
+                    layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
+                    logger.warn(String.format("'{}' layout not found; will use the default one.", SBML.SBML_LAYOUT));
+                }
+                TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
+                Task nextTask = itr.next();
+                try {
+                    nextTask.run(taskMonitor);
+                } catch (Exception e) {
+                    throw new RuntimeException("Could not finish layout", e);
+                }
             }
         }
 
@@ -2090,5 +2098,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
     }
-
+    @Override
+    public void setUIHelper(TunableUIHelper arg0) {
+        // TODO Auto-generated method stub
+    }
 }
