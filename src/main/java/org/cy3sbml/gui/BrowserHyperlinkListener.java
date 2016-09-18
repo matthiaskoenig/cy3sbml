@@ -64,6 +64,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
         map.put("http://cy3sbml-iIT341", "/models/iIT341.xml");
         map.put("http://cy3sbml-RECON1", "/models/RECON1.xml");
         map.put("http://cy3sbml-BIOMD0000000001", "/models/BIOMD0000000001.xml");
+        map.put("http://cy3sbml-BIOMD0000000012", "/models/BIOMD0000000012.xml");
         map.put("http://cy3sbml-BIOMD0000000016", "/models/BIOMD0000000016.xml");
         map.put("http://cy3sbml-BIOMD0000000084", "/models/BIOMD0000000084.xml");
         map.put("http://cy3sbml-hsa04360", "/models/hsa04360.xml");

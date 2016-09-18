@@ -67,7 +67,7 @@ public class SBMLCoreTest {
 		
 		// test nodes and edges
         CyNetwork network = networks[0];
-        assertEquals(29, network.getNodeCount());
+        assertEquals(91, network.getNodeCount());
         assertEquals(34, network.getEdgeCount());
 
         CyNetwork kineticNetwork = networks[1];
@@ -99,7 +99,7 @@ public class SBMLCoreTest {
         CyNode node = TestUtils.findNodeById("BLL", network);
         List<CyEdge> edgeList = network.getAdjacentEdgeList(node, CyEdge.Type.DIRECTED);
         assertNotNull(edgeList);
-        assertEquals(2, edgeList.size());
+        assertEquals(5, edgeList.size());
 
         // 0 undirected edges
         edgeList = network.getAdjacentEdgeList(node, CyEdge.Type.UNDIRECTED);
