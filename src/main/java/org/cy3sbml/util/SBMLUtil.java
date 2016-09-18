@@ -143,6 +143,9 @@ public class SBMLUtil {
     ////////////////////////////////////////////////////////////
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
+    public static final String TEMPLATE_ALGEBRAIC_RULE = "<~>";
+    public static final String TEMPLATE_ASSIGNMENT_RULE = "<%s>";
+    public static final String TEMPLATE_RATE_RULE =  "<d/dt %s>";
 
     private static final String ATTR_ID = "id";
     private static final String ATTR_NAME = "name";
@@ -218,11 +221,12 @@ public class SBMLUtil {
     /**
      * Map for AbstractMathContainer.
      */
-    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, String variable){
+    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, Variable variable){
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : SBaseHTMLFactory.ICON_NONE;
         String units = getDerivedUnitHtml(container);
         if (variable != null){
+            map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
             math = String.format("%s = %s", variable, math);
         }
         map.put(SBML.ATTR_MATH, String.format(String.format(MATH_TEMPLATE, math)));
@@ -428,7 +432,7 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createInitialAssignmentMap(InitialAssignment ass) {
 
-        String variable = ass.isSetVariable() ? ass.getVariable() : SBaseHTMLFactory.ICON_NONE;
+        Variable variable = ass.getVariableInstance();
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ass, variable);
 
         return map;
@@ -518,7 +522,7 @@ public class SBMLUtil {
 
     /** EventAssignment map. */
     public static LinkedHashMap<String, String> createEventAssignmentMap(EventAssignment ea) {
-        String variable = ea.getVariable();
+        Variable variable = ea.getVariableInstance();
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ea, variable);
         return map;
     }
@@ -526,13 +530,7 @@ public class SBMLUtil {
     /** Rule map. */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {
         Variable variable = SBMLUtil.getVariableFromRule(rule);
-        String variableStr;
-        if (variable == null){
-            variableStr = SBaseHTMLFactory.ICON_NONE;
-        } else {
-            variableStr = variable.toString();
-        }
-        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(rule, variableStr);
+        LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(rule, variable);
         return map;
     }
 

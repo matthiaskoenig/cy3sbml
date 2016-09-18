@@ -827,8 +827,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             // referenced nodes in math
             createMathNetwork(network, rule, n, SBML.INTERACTION_REFERENCE_RULE);
 
+            String label = SBMLUtil.TEMPLATE_ALGEBRAIC_RULE;
             // edge to variable for rateRule and assignmentRule
             if (variable != null) {
+                if (rule instanceof AssignmentRule) {
+                    label = String.format(SBMLUtil.TEMPLATE_ASSIGNMENT_RULE, variable.getId());
+                } else if (rule instanceof RateRule) {
+                    label = String.format(SBMLUtil.TEMPLATE_RATE_RULE, variable.getId());
+                }
                 AttributeUtil.set(network, n, SBML.ATTR_VARIABLE, variable.getId(), String.class);
 
                 CyNode variableNode = metaId2Node.get(variable.getMetaId());
@@ -842,6 +848,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                             variable, rule));
                 }
             }
+            AttributeUtil.set(network, n, SBML.LABEL, label, String.class);
         }
 
         // Constraints
