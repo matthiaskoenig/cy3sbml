@@ -35,15 +35,18 @@ public class XMLUtil {
         String html = null;
         Document doc = XMLUtil.readXMLString(xml);
         if (doc != null){
-            xml = XMLUtil.writeNodeToTidyString(doc);
-
-            // escape the rest, i.e. things like < and >
-            html = StringEscapeUtils.escapeHtml(xml);
-
-            // keep formating in html
-            // Not working due to escaping of the respective tags
-            html = html.replaceAll("\n", "<br />").replaceAll(XML_INDENT, HTML_INDENT);
+            String xmlTidy = XMLUtil.writeNodeToTidyString(doc);
+            if (xmlTidy != null){
+                xml = xmlTidy;
+            }
         }
+        // escape the rest, i.e. things like < and >
+        html = StringEscapeUtils.escapeHtml(xml);
+
+        // keep formating in html
+        // Not working due to escaping of the respective tags
+        html = html.replaceAll("\n", "<br />").replaceAll(XML_INDENT, HTML_INDENT);
+
         return html;
     }
 
