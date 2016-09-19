@@ -1,5 +1,6 @@
 package org.cy3sbml.archive;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.taverna.robundle.Bundle;
 import org.apache.taverna.robundle.Bundles;
@@ -7,6 +8,8 @@ import org.apache.taverna.robundle.manifest.Agent;
 import org.apache.taverna.robundle.manifest.Manifest;
 import org.apache.taverna.robundle.manifest.PathAnnotation;
 import org.apache.taverna.robundle.manifest.PathMetadata;
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -29,12 +32,18 @@ import org.cytoscape.work.TaskMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipError;
 
@@ -145,7 +154,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         }
 
 
-
         // create view
         CyNetworkView view = viewFactory.createNetworkView(network);
 
@@ -174,8 +182,61 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 			}
 		}
 
+		// read SBMLFiles
+        readFilesFromBundle();
+
         return view;
     }
+
+    /**
+     * Reads secondary file form given bundle.
+     */
+    private void readFilesFromBundle(){
+        // Get all SBML files from bundle
+
+        List<Path> paths = new LinkedList<>();
+        Manifest manifest = null;
+        try {
+            manifest = bundle.getManifest();
+            List<PathMetadata> aggregates = manifest.getAggregates();
+            for (PathMetadata metaData: aggregates){
+                String mediatype = metaData.getMediatype();
+                String pathStr = metaData.toString();
+                if ((mediatype != null && mediatype.equals("application/xml")) ||
+                        (pathStr.endsWith(".gml")) || (pathStr.endsWith(".graphml")) ){
+                    Path path = metaData.getFile();
+                    paths.add(path);
+                }
+            }
+        } catch (IOException e) {
+            logger.error("Manifest could not be read from archive.");
+            e.printStackTrace();
+        }
+
+
+        // read the files
+        logger.info("Reading files from bundle");
+        ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
+        for (Path path: paths){
+
+            logger.info("Reading: <" + path + ">");
+            try {
+                File tempFile = File.createTempFile("tmp-file", ".xml");
+                tempFile.deleteOnExit();
+
+                Files.copy(path, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                try {
+                    TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
+                    adapter.synchronousTaskManager.execute(iterator);
+                }catch (java.lang.IllegalStateException e){
+                    logger.warn("No NetworkReader for the given file format");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     /**
      * Cancel task.

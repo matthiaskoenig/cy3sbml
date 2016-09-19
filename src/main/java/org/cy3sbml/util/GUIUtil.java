@@ -35,6 +35,7 @@ public class GUIUtil {
      * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
      *
      * TODO: make this a general function.
+     * See also archive loading of xml.
      *
      * @param resource
      */
@@ -42,7 +43,6 @@ public class GUIUtil {
         InputStream instream = GUIUtil.class.getResourceAsStream(resource);
         File tempFile;
         try {
-            // FIXME: Here seems to be a problem with encoding, does not work with galactose model
             tempFile = File.createTempFile("tmp-example", ".xml");
             tempFile.deleteOnExit();
             FileOutputStream out = new FileOutputStream(tempFile);
