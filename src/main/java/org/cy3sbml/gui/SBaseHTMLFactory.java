@@ -560,19 +560,25 @@ public class SBaseHTMLFactory {
     private static String createOLSLocation(PhysicalLocation location, String identifier){
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
+
         String olsURL = createURL(location, identifier);
+        /*
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1){
             identifier = tokens[tokens.length-1];
             identifier = identifier.replace("_", ":");
         }
+        */
         Term term = OLSCache.getTerm(identifier);
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
+            String ontologyURL = createURL(location, identifier);
+            /*
             String ontologyURL = String.format(
                     "%s%s%s",
                     location.getUrlPrefix(), identifier, location.getUrlSuffix());
+            */
             html += String.format(
                     "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
@@ -750,13 +756,13 @@ public class SBaseHTMLFactory {
         // Create the HTML for selected SBMLDocuments and SBases
 
         // SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/galactose_v31.xml");
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_31.xml");
 
         Model model = doc.getModel();
         Object object = model;
 
-        object = model.getListOfSpecies().get("c__gal");
-        object = model.getListOfReactions().get("c__GALTM2");
+        // object = model.getListOfSpecies().get("c__gal");
+        // object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
