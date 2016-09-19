@@ -7,10 +7,8 @@ import java.util.*;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 
-import org.cy3sbml.SBML;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
-import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.GUIUtil;
 
 import org.cy3sbml.util.NetworkUtil;
@@ -56,8 +54,8 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
     // Set all the URL actions
     static {
         HashMap<String, String> map = new HashMap<>();
-        map.put("http://cy3sbml-glucose", "/models/Koenig2014_Glucose_Metabolism.xml");
-        map.put("http://cy3sbml-galactose", "/models/Galactose_v129_Nc1_core.xml");
+        map.put("http://cy3sbml-glucose", "/models/Koenig_glucose_v1.xml");
+        map.put("http://cy3sbml-galactose", "/models/Koenig_galactose_31.xml");
         map.put("http://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
         map.put("http://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
         map.put("http://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");
@@ -163,6 +161,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
             // Example networks
             else if (EXAMPLE_SBML.containsKey(s)){
                 String resource = EXAMPLE_SBML.get(s);
+                logger.info("Loading: " + s);
                 GUIUtil.loadExampleFromResource(resource);
             }
 

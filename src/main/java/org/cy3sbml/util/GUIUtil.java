@@ -42,12 +42,14 @@ public class GUIUtil {
         InputStream instream = GUIUtil.class.getResourceAsStream(resource);
         File tempFile;
         try {
+            // FIXME: Here seems to be a problem with encoding, does not work with galactose model
             tempFile = File.createTempFile("tmp-example", ".xml");
             tempFile.deleteOnExit();
             FileOutputStream out = new FileOutputStream(tempFile);
             IOUtils.copy(instream, out);
 
             // read the file
+            // FIXME: use observer
             ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);
