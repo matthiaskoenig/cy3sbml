@@ -346,6 +346,11 @@ public class SBML {
     public static final String STYLE_CY3SBML = "cy3sbml";
     public static final String STYLE_CY3SBML_DARK = "cy3sbml-dark";
 
+    // Subnetworks
+    public static final String PREFIX_SUBNETWORK_ALL = "All";
+    public static final String PREFIX_SUBNETWORK_KINETIC = "Kinetic";
+    public static final String PREFIX_SUBNETWORK_BASE = "Base";
+
     // -------------------------------------------------------------------------
     // cy3sbml properties
     // -------------------------------------------------------------------------

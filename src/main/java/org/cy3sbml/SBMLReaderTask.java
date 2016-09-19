@@ -380,6 +380,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         baseUnitDefinitions = new HashMap<>();
 
         CyNetwork network = readModelInNetwork(model);
+        // Create the different subnetworks
         addAllNetworks(network);
     }
 
@@ -429,15 +430,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
 
         // all network
-        network.getRow(network).set(CyNetwork.NAME, String.format("All: %s", name));
-
-        // base network
-        CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
-        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("Base: %s", name));
+        network.getRow(network).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_ALL, name));
 
         // Kinetic network
         CyNetwork kineticNetwork = addSubNetwork(rootNetwork, network, SBML.kineticNodeTypes, SBML.kineticEdgeTypes);
-        kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("Kinetic: %s", name));
+        kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_KINETIC, name));
+
+        // base network
+        CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
+        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_BASE, name));
+
 
         // add groups to networks
         // TODO: check
@@ -472,11 +474,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         HashSet<CyEdge> coreEdges = getNetworkEdges(network,
                 new HashSet<>(java.util.Arrays.asList(edgeTypes))
         );
-        if (coreNodes.size() > 0) {
-            CyNetwork subNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
-            return subNetwork;
-        }
-        return null;
+        CyNetwork subNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
+        return subNetwork;
     }
 
 
@@ -1407,7 +1406,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         // create port edges
         for (Port port : compModel.getListOfPorts()){
             CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, port.getId());
-            createSBaseRefEdge(network, source, port);
+            createSBaseRefEdge(network, source, port, model.getId());
         }
 
         logger.info("<ReplacedElement & ReplacedBy>");
@@ -1434,7 +1433,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     // edge to replacing element
                     createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT);
 
-                    createSBaseRefEdge(network, target, replacedElement);
+                    createSBaseRefEdge(network, target, replacedElement, model.getId());
 
                     AttributeUtil.set(network, target, SBML.ATTR_COMP_SUBMODELREF, replacedElement.getSubmodelRef(), String.class);
                     if (replacedElement.isSetConversionFactor()){
@@ -1465,7 +1464,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
                     // edge to replacing element
                     createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_BY);
-                    createSBaseRefEdge(network, target, replacedBy);
+                    createSBaseRefEdge(network, target, replacedBy, model.getId());
                 }
             }
         }
@@ -1480,38 +1479,57 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      * @param sbaseNode
      * @param sBaseRef
      */
-    private void createSBaseRefEdge(CyNetwork network, CyNode sbaseNode, SBaseRef sBaseRef){
+    private void createSBaseRefEdge(CyNetwork network, CyNode sbaseNode, SBaseRef sBaseRef, String model){
+
+        String submodel = null;
+        // necessary to check if sBaseRef in own model
+        if (sBaseRef instanceof ReplacedElement){
+            ReplacedElement replacedElement = (ReplacedElement) sBaseRef;
+            submodel = replacedElement.getSubmodelRef();
+        } else if (sBaseRef instanceof ReplacedBy){
+            ReplacedBy replacedBy = (ReplacedBy) sBaseRef;
+            submodel = replacedBy.getSubmodelRef();
+        }
+        // empty submodel points to same model
+        if (submodel != null && submodel.length()==0){
+            submodel = model;
+        }
+
+
         CyNode target = null;
         String interaction = null;
 
-        if (sBaseRef.isSetPortRef()) {
-            String portRef = sBaseRef.getPortRef();
-            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, portRef);
-            interaction = SBML.INTERACTION_COMP_SBASEREF_PORT;
-        }
-        else if (sBaseRef.isSetIdRef()) {
-            String idRef = sBaseRef.getIdRef();
-            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, idRef);
-            interaction = SBML.INTERACTION_COMP_SBASEREF_ID;
-        }
-        else if (sBaseRef.isSetUnitRef()) {
-            String unitRef = sBaseRef.getUnitRef();
-            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_UNIT_SID, unitRef);
-            interaction = SBML.INTERACTION_COMP_SBASEREF_UNIT;
-        }
-        else if (sBaseRef.isSetMetaIdRef()) {
-            String metaIdRef = sBaseRef.getMetaIdRef();
-            target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_METAID, metaIdRef);
-            interaction = SBML.INTERACTION_COMP_SBASEREF_METAID;
+        // link to other submodel component
+        if (submodel != null && !submodel.equals(model)){
+            logger.warn("SBaseRef to other submodel. Link not created.");
+        } else {
+            if (sBaseRef.isSetPortRef()) {
+                String portRef = sBaseRef.getPortRef();
+                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, portRef);
+                interaction = SBML.INTERACTION_COMP_SBASEREF_PORT;
+            } else if (sBaseRef.isSetIdRef()) {
+                String idRef = sBaseRef.getIdRef();
+                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, idRef);
+                interaction = SBML.INTERACTION_COMP_SBASEREF_ID;
+            } else if (sBaseRef.isSetUnitRef()) {
+                String unitRef = sBaseRef.getUnitRef();
+                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_UNIT_SID, unitRef);
+                interaction = SBML.INTERACTION_COMP_SBASEREF_UNIT;
+            } else if (sBaseRef.isSetMetaIdRef()) {
+                String metaIdRef = sBaseRef.getMetaIdRef();
+                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_METAID, metaIdRef);
+                interaction = SBML.INTERACTION_COMP_SBASEREF_METAID;
+            }
+
+            // handle the recursive case
+            // FIXME:
+            // if (port.isSetSBaseRef()){
+            //     port.getSBaseRef();
+            // }
+
+            createEdge(network, sbaseNode, target, interaction);
         }
 
-        // handle the recursive case
-        // FIXME:
-        // if (port.isSetSBaseRef()){
-        //     port.getSBaseRef();
-        // }
-
-        createEdge(network, sbaseNode, target, interaction);
     }
 
     ////////////////////////////////////////////////////////////////////////////

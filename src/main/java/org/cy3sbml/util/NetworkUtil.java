@@ -56,6 +56,28 @@ public class NetworkUtil {
         return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
     }
 
+    /**
+     * Returns the network which starts with a given SubNetwork prefix.
+     * Returns null if no such network exists.
+     *
+     * @param networks
+     * @param prefixSubnetwork
+     * @return
+     */
+    public static CyNetwork getNetworkBySubNetworkPrefix(CyNetwork[] networks, String prefixSubnetwork){
+        CyNetwork network = null;
+        for (CyNetwork n: networks){
+            String networkName = AttributeUtil.get(n, n, CyNetwork.NAME, String.class);
+            if (networkName.startsWith(prefixSubnetwork)){
+                network = n;
+                break;
+            }
+        }
+        return network;
+    }
+
+
+
     ////////////////////////////////////////////////////////
     // Selection
     ////////////////////////////////////////////////////////

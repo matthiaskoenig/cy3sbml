@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
@@ -19,7 +20,7 @@ public class SBMLFbcTest {
     @Test
     public void testFbcSpecies() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_FBC);
-        CyNetwork network = networks[0];
+        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
         assertEquals(358, network.getNodeCount());
         assertEquals(588, network.getEdgeCount());
