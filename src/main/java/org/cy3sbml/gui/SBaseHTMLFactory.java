@@ -562,23 +562,20 @@ public class SBaseHTMLFactory {
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
         String olsURL = createURL(location, identifier);
-        /*
+
+        // for some ontologies the OLS term query term is not the identifier
+        String termIdentifier = identifier;
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1){
-            identifier = tokens[tokens.length-1];
-            identifier = identifier.replace("_", ":");
+            termIdentifier = tokens[tokens.length-1];
+            termIdentifier = termIdentifier.replace("_", ":");
         }
-        */
-        Term term = OLSCache.getTerm(identifier);
+        Term term = OLSCache.getTerm(termIdentifier);
+
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
             String ontologyURL = createURL(location, identifier);
-            /*
-            String ontologyURL = String.format(
-                    "%s%s%s",
-                    location.getUrlPrefix(), identifier, location.getUrlSuffix());
-            */
             html += String.format(
                     "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
