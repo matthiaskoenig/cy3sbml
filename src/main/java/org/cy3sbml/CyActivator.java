@@ -293,7 +293,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-
             // Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {

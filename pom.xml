@@ -14,7 +14,7 @@
         </org.osgi.framework.system.packages.extra>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- <cytoscape.api.version>3.4.0</cytoscape.api.version> -->
-        <cytoscape.api.version>3.5.0-SNAPSHOT</cytoscape.api.version>
+        <cytoscape.api.version>3.5.0-RC1</cytoscape.api.version>
 
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
@@ -66,7 +66,10 @@
         <repository>
             <id>JSBML SNAPSHOT</id>
             <name>The JSBML repository</name>
+            <!--
             <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
+            -->
+            <url>http://jsbml.sourceforge.net/m2repo/</url>
         </repository>
 
 		<!--
@@ -349,7 +352,7 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>2.10.2.2.21</version>
+            <version>2.10.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -360,7 +363,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>3.5</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -442,7 +445,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.8.2</version>
+            <version>2.8.5</version>
         </dependency>
 
 
@@ -450,7 +453,7 @@
         <dependency>
             <groupId>de.unirostock.sems</groupId>
             <artifactId>CombineArchive</artifactId>
-            <version>1.1.1</version>
+            <version>1.3.0</version>
         </dependency>
 
         <!-- ResearchObjects & OMEX -->
@@ -486,7 +489,7 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-core</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -497,7 +500,7 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-arq</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -508,12 +511,12 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-iri</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-tdb</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
@@ -547,7 +550,7 @@
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.9</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
@@ -589,7 +592,7 @@
         <dependency>
             <groupId>org.sbml.jsbml</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.2-beta1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -597,7 +600,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
 
         <dependency>
             <groupId>org.biojava</groupId>
@@ -629,7 +631,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <version>2.0.2-beta</version>
             <scope>test</scope>
         </dependency>
         <dependency>
