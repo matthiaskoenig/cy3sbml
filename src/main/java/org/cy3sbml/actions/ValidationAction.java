@@ -48,15 +48,11 @@ public class ValidationAction extends AbstractCyAction implements SetCurrentNetw
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_VALIDATION);
         setToolbarGravity(GUIConstants.GRAVITY_VALIDATION);
+
+        this.inToolBar = true;
+        this.inMenuBar = false;
     }
 
-    public boolean isInToolBar() {
-        return true;
-    }
-
-    public boolean isInMenuBar() {
-        return false;
-    }
 
     @Override
     public void actionPerformed(ActionEvent event) {

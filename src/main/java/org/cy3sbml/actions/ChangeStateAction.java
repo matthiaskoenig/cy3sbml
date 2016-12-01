@@ -28,17 +28,13 @@ public class ChangeStateAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_CHANGESTATE);
 		setToolbarGravity(GUIConstants.GRAVITY_CHANGESTATE);
+
+		this.insertToolbarSeparatorBefore = true;
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 
-	@Override
-	public boolean isInToolBar() {
-		return true;
-	}
-	@Override
-	public boolean isInMenuBar() {
-		return false;
-	}
-		
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed");

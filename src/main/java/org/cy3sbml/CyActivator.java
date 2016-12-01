@@ -9,6 +9,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
+import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -54,6 +55,8 @@ import org.cy3sbml.miriam.RegistryUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
 
 /**
  * Entry point to cy3sbml.
@@ -217,10 +220,6 @@ public class CyActivator extends AbstractCyActivator {
 
 
             // init actions [100 - 120]
-            // FIXME: currently not possible to set separators in menu bar
-            // JToolBar toolBar = cySwingApplication.getJToolBar();
-            // toolBar.addSeparator(new Dimension(89.0));
-
             ChangeStateAction changeStateAction = new ChangeStateAction();
             registerService(bc, changeStateAction, CyAction.class, new Properties());
 

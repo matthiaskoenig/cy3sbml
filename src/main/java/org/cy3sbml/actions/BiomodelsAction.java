@@ -32,13 +32,9 @@ public class BiomodelsAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
 		setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
-	}
 
-	public boolean isInToolBar() {
-		return true;
-	}
-	public boolean isInMenuBar() {
-		return false;
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 	
 	@Override

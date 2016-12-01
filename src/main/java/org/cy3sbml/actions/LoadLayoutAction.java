@@ -38,16 +38,11 @@ public class LoadLayoutAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_LOADLAYOUT);
 		setToolbarGravity(GUIConstants.GRAVITY_LOADLAYOUT);
-		insertSeparatorAfter = true;
+
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 
-	public boolean isInToolBar() {
-		return true;
-	}
-	public boolean isInMenuBar() {
-		return false;
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");

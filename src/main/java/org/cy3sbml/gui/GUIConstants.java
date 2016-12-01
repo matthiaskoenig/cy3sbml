@@ -41,8 +41,8 @@ public class GUIConstants {
     public static final String DESCRIPTION_COFACTOR = "Cofactor nodes";
     public static final String DESCRIPTION_BIOMODELS = "Biomodel Import";
     public static final String DESCRIPTION_HELP = "Help";
-    public static final String DESCRIPTION_LOADLAYOUT = "Save Layout";
-    public static final String DESCRIPTION_SAVELAYOUT = "Load Layout";
+    public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";
+    public static final String DESCRIPTION_SAVELAYOUT = "Save Layout";
 
     private GUIConstants(){}
 

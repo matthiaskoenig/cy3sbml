@@ -48,10 +48,9 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_COFACTOR);
         setToolbarGravity(GUIConstants.GRAVITY_LOCATION);
-    }
 
-    public boolean isInToolBar() {
-        return true;
+        this.inToolBar = true;
+        this.inMenuBar = false;
     }
 
     @Override
