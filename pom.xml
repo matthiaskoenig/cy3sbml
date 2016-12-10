@@ -115,6 +115,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <!-- OLS client -->
         <repository>
             <id>EBI SNAPSHOT</id>
             <name>EBI Snapshot repository</name>
