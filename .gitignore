@@ -1,10 +1,14 @@
+# eclipse
 .classpath
 .project
 .settings
 .metadata
 .recommenders
-cy3sbml.log
+
+# tmp files
 *~
+
+# target 
 /target/classes/
 /target/generated-sources
 /target/generated-test-sources
@@ -12,7 +16,13 @@ cy3sbml.log
 /target/maven-status/
 /target/test-classes
 /target/
+
+# idea
 .idea
 .idea/
 .idea/workspace.xml
+cy3sbml.iml
+
+# logs
+cy3sbml.log
 logs/cy3sbml_build.log

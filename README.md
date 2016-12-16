@@ -57,26 +57,31 @@ cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/app
 
 After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
+Alternatively the latests release jars are available from
+https://github.com/matthiaskoenig/cy3sbml/releases/latest 
+to install manually.
+
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
 
 ### Build instructions
-For working with the latest **development release** follow the [build instructions] (https://goo.gl/4xMgff). 
-This includes recently developed features not yet released. In short
-
-Clone the repository and build with `mvn`
+The develop release contains all features implemented since the latest release.
+To work with the latest **develop release** clone the repository and build with `maven`
 ```
 git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml
 cd cy3sbml
-mvn clean install
+mvn install -DskipTests
 ```
-Development is done in `develop` branch
+The test suite takes some minutes to finish. If you want to build with tests use
 ```
-git checkout -b develop --track origin/develop
+mvn install
 ```
+The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
+
+More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
-**v0.3.0** []
+**v0.2.5** []
 
 **v0.2.2** [2016/08/10]
 
