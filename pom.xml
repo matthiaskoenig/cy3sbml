@@ -62,15 +62,6 @@
             <url>http://repo.maven.apache.org/maven2/</url>
         </repository>
 
-        <repository>
-            <id>JSBML SNAPSHOT</id>
-            <name>The JSBML repository</name>
-            <!--
-            <url>http://jsbml.sourceforge.net/m2repo_snapshots/</url>
-            -->
-            <url>http://jsbml.sourceforge.net/m2repo/</url>
-        </repository>
-
 		<!--
         <repository>
             <id>EBI-mirror</id>
@@ -605,7 +596,7 @@
         <dependency>
             <groupId>org.sbml.jsbml</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.2</version>
+            <version>1.3-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>

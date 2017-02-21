@@ -26,3 +26,4 @@ cy3sbml.iml
 # logs
 cy3sbml.log
 logs/cy3sbml_build.log
+lib/logs/

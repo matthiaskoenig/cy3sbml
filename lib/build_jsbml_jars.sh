@@ -19,11 +19,16 @@
 # The maven repository files have to be deleted to 
 # to force the update.
 #
-# !!! NOT USED !!! - This is only the alternative solution
-# to the available SNAPSHOT repository.
+# This is the alternative solution to the maven central deploys.
+
+# Usage: 
+# 	./build_jsbml_jars.sh 2>&1 | tee ./logs/build_jsbml_jars.log
 #
+echo "*Building jsbml in local repository*"
+date
+
 ########################################################
-CORE_VERSION=1.2-SNAPSHOT
+CORE_VERSION=1.3-SNAPSHOT
 QUAL_VERSION=2.1-b1
 LAYOUT_VERSION=1.0-b1
 COMP_VERSION=1.0-b1
@@ -41,7 +46,10 @@ LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # update to latest commit
 cd $JSBMLCODE
-git pull 
+git pull
+echo "*commit*"
+git rev-parse HEAD
+
 
 # clean old build files
 rm -r $JSBMLCODE/build
@@ -52,6 +60,7 @@ rm -r $JSBMLCODE/build
 ant jar 
 cd $LIBDIR
 
+# install in the local repository
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml -Dversion=$CORE_VERSION -Dfile=$JSBMLCODE/core/build/jsbml-$CORE_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml-qual -Dversion=$QUAL_VERSION -Dfile=$JSBMLCODE/build/jsbml-qual-$QUAL_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true

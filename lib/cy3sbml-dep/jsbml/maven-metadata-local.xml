@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>cy3sbml-dep</groupId>
+  <artifactId>jsbml</artifactId>
+  <versioning>
+    <versions>
+      <version>1.3-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20170221141345</lastUpdated>
+  </versioning>
+</metadata>
