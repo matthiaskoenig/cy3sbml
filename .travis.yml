@@ -10,7 +10,7 @@ branches:
     - develop
 
 
-script: mvn install -Dlogfile.name="cy3sbml.log" -Dmaven.javadoc.skip=true -DXmx1536m
+script: mvn install -Dlogfile.name="cy3sbml.log" -Dmaven.javadoc.skip=true -DskipTests=true
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
