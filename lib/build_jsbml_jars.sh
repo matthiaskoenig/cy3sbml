@@ -24,7 +24,7 @@
 # Usage: 
 # 	./build_jsbml_jars.sh 2>&1 | tee ./logs/build_jsbml_jars.log
 #
-echo "*Building jsbml in local repository*"
+echo "Building jsbml in local repository"
 date
 
 ########################################################
@@ -60,7 +60,12 @@ rm -r $JSBMLCODE/build
 ant jar 
 cd $LIBDIR
 
+# remove old versions from local repository
+echo "Remove old versions from mvn repository"
+rm -r ~/.m2/repository/org/sbml/
+
 # install in the local repository
+echo "Install new versions in mvn repository"
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml -Dversion=$CORE_VERSION -Dfile=$JSBMLCODE/core/build/jsbml-$CORE_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml-qual -Dversion=$QUAL_VERSION -Dfile=$JSBMLCODE/build/jsbml-qual-$QUAL_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
