@@ -10,7 +10,7 @@ branches:
     - develop
 
 before_script:
-  - echo "MAVEN_OPTS='-Xmx2g -XX:MaxPermSize=512m'" > ~/.mavenrc
+  - echo "MAVEN_OPTS='-Xmx1536m'" > ~/.mavenrc
 
 script: mvn install -Dlogfile.name="cy3sbml.log" -Dmaven.javadoc.skip=true
 
