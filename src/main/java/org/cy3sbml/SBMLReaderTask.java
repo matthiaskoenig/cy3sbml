@@ -289,6 +289,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             if (document.isSetModel()) {
                 // TODO: add node sbmlNetwork
                 Model model = document.getModel();
+                // creates the network for the model
                 createNetworksFromModel(model);
             } else {
                 logger.warn("No core model in SBMLDocument! Check model definition.");
@@ -308,16 +309,16 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     emd.getName();
                     emd.getSource();
                     emd.getModelRef();
-                    emd.getModel();
                     emd.getMd5();
 
-                    Model emdModel = emd.getModel();
-                    if (emdModel != null) {
+                    // TODO: fixme
+                    // Model must be loaded from the source (currently not implemented)
+                    // Model emdModel = emd.getReferencedModel();
+                    // if (emdModel != null) {
                         // TODO: add node sbmlNetwork
-                        createNetworksFromModel(emdModel);
-                    } else {
-                        logger.error("Model could not be read from ExternalModelDefinition: " + emd);
-                    }
+                        // createNetworksFromModel(emdModel);
+                    // }
+                    logger.warn("Model reading from ExternalModelDefinition not supported: " + emd);
                 }
 
                 // ModelDefinition //
@@ -374,6 +375,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     // Networks
     ////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Creates network for given model.
+     * This can be the main model or an external model definition.
+     * @param model
+     */
     private void createNetworksFromModel(Model model){
         // Reset lookup maps for given model
         // different models can have same metaIds and ids.
@@ -1617,7 +1623,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
         LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
         QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-
 
         if (layoutModel != null){
             logger.warn("Layouts found, but not yet supported.");
