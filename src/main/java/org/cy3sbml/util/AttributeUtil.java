@@ -136,7 +136,6 @@ public class AttributeUtil {
 	 * @return
 	 */
 	public static CyNode getNodeByAttribute(CyNetwork network, String attribute, String identifier) {
-		logger.info("Searching for node in network");
 		Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(attribute, identifier);
 		CyNode node = null;
 		if (rows != null && rows.size()>0){

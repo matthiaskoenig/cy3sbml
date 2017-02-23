@@ -68,18 +68,18 @@ public class RegistryUtil {
 
         // Get data-version of current file
         Date fileDate = getDataVersionDate(file);
-        System.out.println("data-version file: " + fileDate);
+        logger.debug("data-version file: " + fileDate);
 
         // Get data-version of online resource
         Date miriamDate = getLatestDataVersionDate();
-        System.out.println("data-version miriam: " + miriamDate);
+        logger.debug("data-version miriam: " + miriamDate);
 
         // online version is newer
         if (miriamDate==null || fileDate==null || miriamDate.compareTo(fileDate)>0){
             logger.info("New MIRIAM available: " + miriamDate);
             updateMiriamXML(file);
         }else {
-            logger.info(String.format("MIRIAM is current version (%s)", fileDate));
+            logger.debug(String.format("MIRIAM is current version (%s)", fileDate));
         }
     }
 

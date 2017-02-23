@@ -330,6 +330,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     if (mdModel != null) {
                         // TODO: add node sbmlNetwork
                         createNetworksFromModel(mdModel);
+                        logger.info("creating model for: " + md.getModel().getId());
+
                     } else {
                         logger.error("Model could not be read from ModelDefinition: " + md);
                     }
@@ -345,6 +347,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                 // necessary to scope the identifiers)
 
                 // TODO: network of model with instantiated submodels, i.e. the flattend comp model
+                // currently no flattening routine in JSBML
             }
 
 
@@ -1615,15 +1618,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
         QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
 
+
         if (layoutModel != null){
+            logger.warn("Layouts found, but not yet supported.");
             for (Layout layout : layoutModel.getListOfLayouts()) {
                 // layoutNetwork = rootNetwork.addSubNetwork();
                 // readLayout(model, qualModel, layout);
             }
-        } else {
-            logger.warn("Layouts found, but not yet supported.");
         }
-
     }
 
     /**

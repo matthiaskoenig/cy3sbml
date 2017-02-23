@@ -36,7 +36,7 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
                                     VisualMappingManager visualMappingManager,
                                     CyLayoutAlgorithmManager layoutAlgorithmManager) {
         super(filter);
-        logger.info("new ArchiveReaderTaskFactory");
+        logger.debug("new ArchiveReaderTaskFactory");
         this.networkFactory = networkFactory;
         this.networkViewFactory = networkViewFactory;
         this.visualMappingManager = visualMappingManager;
@@ -52,7 +52,7 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
      */
     @Override
     public TaskIterator createTaskIterator(InputStream inputStream, String inputName) {
-        logger.info("createTaskIterator: input stream name: " + inputName);
+        logger.debug("createTaskIterator: input stream name: " + inputName);
         // BufferedInput stream even for the zip files
 
         ArchiveReaderTask task;
@@ -69,22 +69,5 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
             logger.error("Error copying stream", e);
         }
         return new TaskIterator(task);
-    }
-
-    /**
-     * Copy InputStream.
-     *
-     * @param is
-     * @return
-     */
-    private static InputStream copyInputStream(InputStream is) throws IOException {
-        ByteArrayOutputStream copy = new ByteArrayOutputStream();
-        int chunk = 0;
-        byte[] data = new byte[1024*1024];
-        while((-1 != (chunk = is.read(data)))) {
-            copy.write(data, 0, chunk);
-        }
-        is.close();
-        return new ByteArrayInputStream( copy.toByteArray() );
     }
 }

@@ -30,7 +30,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
                 DataCategory.NETWORK,
                 streamUtil
         );
-        logger.info("new " + getClass() + "()");
+        logger.debug("new " + getClass() + "()");
     }
 
     /**
@@ -43,8 +43,8 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
     @Override
     public boolean accepts(URI uri, DataCategory category) {
         try {
-            logger.info("public boolean accepts(URI uri, DataCategory category)");
-            logger.info(uri.toURL().toString());
+            logger.debug("public boolean accepts(URI uri, DataCategory category)");
+            logger.debug(uri.toURL().toString());
 
             // Not working because streamUtil extracts the zipped content
             // InputStream inputStream = streamUtil.getInputStream(uri.toURL());
@@ -66,7 +66,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
      */
     @Override
     public boolean accepts(InputStream stream, DataCategory category) {
-        logger.info("public boolean accepts(InputStream stream, DataCategory category)");
+        logger.debug("public boolean accepts(InputStream stream, DataCategory category)");
         if (!category.equals(DataCategory.NETWORK)) {
             return false;
         }
