@@ -8,6 +8,7 @@
 # tmp files
 *~
 
+
 # target 
 /target/classes/
 /target/generated-sources
@@ -27,3 +28,5 @@ cy3sbml.iml
 cy3sbml.log
 logs/cy3sbml_build.log
 lib/logs/
+*.log
+logfile.name_IS_UNDEFINED
