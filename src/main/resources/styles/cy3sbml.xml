@@ -74,6 +74,7 @@
             <visualProperty default="#FFFFFF" name="NODE_FILL_COLOR">
                 <discreteMapping attributeName="sbml type ext" attributeType="string">
                     <discreteMappingEntry attributeValue="assignmentRule" value="#009933"/>
+                    <discreteMappingEntry attributeValue="functionDefinition" value="#FFCC66"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="#FF6666"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="#999999"/>
@@ -84,13 +85,14 @@
                     <discreteMappingEntry attributeValue="species" value="#F0F0F0"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="#CCCCCC"/>
                     <discreteMappingEntry attributeValue="localParameter" value="#0099FF"/>
-                    <discreteMappingEntry attributeValue="rateRule" value="#009933"/>
+                    <discreteMappingEntry attributeValue="rateRule" value="#009999"/>
                     <discreteMappingEntry attributeValue="parameter" value="#0099FF"/>
                     <discreteMappingEntry attributeValue="qual_species" value="#F0F0F0"/>
                     <discreteMappingEntry attributeValue="eventAssignment" value="#999999"/>
                     <discreteMappingEntry attributeValue="compartment" value="#00CC66"/>
                     <discreteMappingEntry attributeValue="reaction reversible" value="#000000"/>
                     <discreteMappingEntry attributeValue="event" value="#FF6600"/>
+                    <discreteMappingEntry attributeValue="comp_port" value="#FFFFFF"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_CUSTOMGRAPHICS_POSITION_4"/>

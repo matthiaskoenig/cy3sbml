@@ -33,14 +33,13 @@ public class StyleInfo_cy3sbmlDark extends StyleInfo {
 
         Map<String, String> m3 = new HashMap<>();
         m3.put(SBML.NODETYPE_SPECIES, "#666666");
-        m3.put(SBML.NODETYPE_REACTION_REVERSIBLE, "#FFFFFF");
+        m3.put(SBML.NODETYPE_REACTION_REVERSIBLE, "#000000");
         m3.put(SBML.NODETYPE_REACTION_IRREVERSIBLE, "#FF3333");
         m3.put(SBML.NODETYPE_COMPARTMENT, "#00CC66");
         m3.put(SBML.NODETYPE_PARAMETER, "#0099FF");
         m3.put(SBML.NODETYPE_LOCAL_PARAMETER, "#0099FF");
         m3.put(SBML.NODETYPE_ALGEBRAIC_RULE, "66CCFF");
         m3.put(SBML.NODETYPE_ASSIGNMENT_RULE, "66CCFF");
-        m3.put(SBML.NODETYPE_RATE_RULE, "66CCFF");
         m3.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "#FF6666");
         m3.put(SBML.NODETYPE_KINETIC_LAW, "#66CCFF");
         m3.put(SBML.NODETYPE_QUAL_SPECIES, "#666666");
@@ -50,6 +49,9 @@ public class StyleInfo_cy3sbmlDark extends StyleInfo {
         m3.put(SBML.NODETYPE_UNIT, "#000000");
         m3.put(SBML.NODETYPE_EVENT, "#FF6600");
         m3.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "#999999");
+        m3.put(SBML.NODETYPE_RATE_RULE, "#009999");
+        m3.put(SBML.NODETYPE_FUNCTION_DEFINITION, "#FFCC66");
+        m3.put(SBML.NODETYPE_COMP_PORT, "#000000");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#666666", m3));
 

@@ -45,7 +45,6 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m3.put(SBML.NODETYPE_LOCAL_PARAMETER, "#0099FF");
         m3.put(SBML.NODETYPE_ALGEBRAIC_RULE, "#009933");
         m3.put(SBML.NODETYPE_ASSIGNMENT_RULE, "#009933");
-        m3.put(SBML.NODETYPE_RATE_RULE, "#009933");
         m3.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "#FF6666");
         m3.put(SBML.NODETYPE_KINETIC_LAW, "#66CCFF");
         m3.put(SBML.NODETYPE_QUAL_SPECIES, "#F0F0F0");
@@ -55,6 +54,10 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m3.put(SBML.NODETYPE_UNIT, "#FFFFFF");
         m3.put(SBML.NODETYPE_EVENT, "#FF6600");
         m3.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "#999999");
+        m3.put(SBML.NODETYPE_RATE_RULE, "#009999");
+        m3.put(SBML.NODETYPE_FUNCTION_DEFINITION, "#FFCC66");
+        m3.put(SBML.NODETYPE_COMP_PORT, "#FFFFFF");
+
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#FFFFFF", m3));
 
