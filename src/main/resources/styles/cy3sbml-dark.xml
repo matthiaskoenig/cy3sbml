@@ -154,16 +154,18 @@
             </visualProperty>
             <visualProperty default="ELLIPSE" name="NODE_SHAPE">
                 <discreteMapping attributeName="sbml type" attributeType="string">
-                    <discreteMappingEntry attributeValue="unit" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="reaction" value="RECTANGLE"/>
+                    <discreteMappingEntry attributeValue="qual_transition" value="RECTANGLE"/>
+                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
+                    <discreteMappingEntry attributeValue="comp_replacedBy" value="SQUARE"/>
+                    <discreteMappingEntry attributeValue="unit" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="localParameter" value="DIAMOND"/>
                     <discreteMappingEntry attributeValue="parameter" value="DIAMOND"/>
                     <discreteMappingEntry attributeValue="eventAssignment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="compartment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="event" value="HEXAGON"/>
-                    <discreteMappingEntry attributeValue="qual_transition" value="RECTANGLE"/>
-                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
+                    <discreteMappingEntry attributeValue="comp_replacedElement" value="SQUARE"/>
                     <discreteMappingEntry attributeValue="group" value="HEXAGON"/>
                 </discreteMapping>
             </visualProperty>
@@ -206,6 +208,9 @@
                 <discreteMapping attributeName="interaction type" attributeType="string">
                     <discreteMappingEntry attributeValue="reference_eventAssignment" value="DOT"/>
                     <discreteMappingEntry attributeValue="unit_unitDefinition" value="DOT"/>
+                    <discreteMappingEntry attributeValue="sbase-replacedBy" value="EQUAL_DASH"/>
+                    <discreteMappingEntry attributeValue="sbase-replacedElement" value="EQUAL_DASH"/>
+                    <discreteMappingEntry attributeValue="parameter_reaction" value="SEPARATE_ARROW"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
                     <discreteMappingEntry attributeValue="variable_eventAssignment" value="DOT"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="DOT"/>
