@@ -207,6 +207,7 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASEREF_METAID = "sbaseRef-metaId";
     public static final String INTERACTION_COMP_SBASE_REPLACED_ELEMENT = "sbase-replacedElement";
     public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
+    public static final String INTERACTION_COMP_SBASE_DELETION = "sbase-deletion";
 
 
 
@@ -307,6 +308,9 @@ public class SBML {
             SBML.NODETYPE_FBC_OR,
 
             SBML.NODETYPE_COMP_PORT,
+            SBML.NODETYPE_COMP_DELETION,
+            SBML.NODETYPE_COMP_REPLACED_BY,
+            SBML.NODETYPE_COMP_REPLACED_ELEMENT,
     };
 
     public static final String[] kineticEdgeTypes = {
@@ -333,8 +337,10 @@ public class SBML {
 
             SBML.INTERACTION_COMP_SBASEREF_ID,
             SBML.INTERACTION_COMP_SBASEREF_UNIT,
-            SBML.INTERACTION_COMP_SBASEREF_PORT,
             SBML.INTERACTION_COMP_SBASEREF_METAID,
+            SBML.INTERACTION_COMP_SBASEREF_PORT,
+            SBML.INTERACTION_COMP_SBASE_REPLACED_BY,
+            SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT
     };
 
     // -------------------------------------------------------------------------

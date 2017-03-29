@@ -483,8 +483,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         HashSet<CyEdge> coreEdges = getNetworkEdges(network,
                 new HashSet<>(java.util.Arrays.asList(edgeTypes))
         );
-        CyNetwork subNetwork = rootNetwork.addSubNetwork(coreNodes, coreEdges);
-        return subNetwork;
+        // only add edges with nodes in the nodes list
+        HashSet<CyEdge> filteredEdges = new HashSet<>();
+        for (CyEdge e : coreEdges){
+            if (coreNodes.contains(e.getSource()) && coreNodes.contains(e.getTarget())){
+                filteredEdges.add(e);
+            }
+        }
+        return rootNetwork.addSubNetwork(coreNodes, filteredEdges);
     }
 
 
@@ -2082,17 +2088,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
             String type = AttributeUtil.get(network, n, SBML.NODETYPE_ATTR, String.class);
             if (type == null) {
                 logger.error(String.format("SBML.NODETYPE_ATTR not set for SBML node: %s", n));
-            }
-            // additional subtypes
-            if (type.equals(SBML.NODETYPE_REACTION)) {
-                Boolean reversible = AttributeUtil.get(network, n, SBML.ATTR_REVERSIBLE, Boolean.class);
-                if (reversible == true) {
-                    type = SBML.NODETYPE_REACTION_REVERSIBLE;
-                } else {
-                    type = SBML.NODETYPE_REACTION_IRREVERSIBLE;
+            } else {
+                // additional subtypes
+                if (type.equals(SBML.NODETYPE_REACTION)) {
+                    Boolean reversible = AttributeUtil.get(network, n, SBML.ATTR_REVERSIBLE, Boolean.class);
+                    if (reversible) {
+                        type = SBML.NODETYPE_REACTION_REVERSIBLE;
+                    } else {
+                        type = SBML.NODETYPE_REACTION_IRREVERSIBLE;
+                    }
                 }
+                AttributeUtil.set(network, n, SBML.NODETYPE_ATTR_EXTENDED, type, String.class);
             }
-            AttributeUtil.set(network, n, SBML.NODETYPE_ATTR_EXTENDED, type, String.class);
+
         }
     }
 
@@ -2105,7 +2113,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
     private void addSBMLInteractionExtended(CyNetwork network) {
         for (CyEdge e : network.getEdgeList()) {
             String type = AttributeUtil.get(network, e, SBML.INTERACTION_ATTR, String.class);
-
             if (type != null) {
                 // additional subtypes
                 if (type.equals(SBML.INTERACTION_REACTION_MODIFIER)) {
