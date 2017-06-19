@@ -122,6 +122,7 @@
                     <discreteMappingEntry attributeValue="qual_transition" value="15.0"/>
                     <discreteMappingEntry attributeValue="algebraicRule" value="20.0"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="40.0"/>
+                    <discreteMappingEntry attributeValue="comp_replacedBy" value="20.0"/>
                     <discreteMappingEntry attributeValue="unit" value="20.0"/>
                     <discreteMappingEntry attributeValue="species" value="40.0"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="30.0"/>
@@ -132,6 +133,7 @@
                     <discreteMappingEntry attributeValue="eventAssignment" value="20.0"/>
                     <discreteMappingEntry attributeValue="compartment" value="90.0"/>
                     <discreteMappingEntry attributeValue="event" value="40.0"/>
+                    <discreteMappingEntry attributeValue="comp_replacedElement" value="20.0"/>
                     <discreteMappingEntry attributeValue="group" value="60.0"/>
                 </discreteMapping>
             </visualProperty>
@@ -143,11 +145,13 @@
             <visualProperty default="C,C,c,0.00,0.00" name="NODE_LABEL_POSITION">
                 <discreteMapping attributeName="sbml type" attributeType="string">
                     <discreteMappingEntry attributeValue="assignmentRule" value="N,S,c,0.00,0.00"/>
+                    <discreteMappingEntry attributeValue="comp_replacedBy" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="reaction" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="localParameter" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="rateRule" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="parameter" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="N,S,c,0.00,0.00"/>
+                    <discreteMappingEntry attributeValue="comp_replacedElement" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="algebraicRule" value="N,S,c,0.00,0.00"/>
                 </discreteMapping>
@@ -157,7 +161,7 @@
                     <discreteMappingEntry attributeValue="reaction" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
-                    <discreteMappingEntry attributeValue="comp_replacedBy" value="SQUARE"/>
+                    <discreteMappingEntry attributeValue="comp_replacedBy" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="unit" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="unitDefinition" value="PARALLELOGRAM"/>
                     <discreteMappingEntry attributeValue="localParameter" value="DIAMOND"/>
@@ -165,7 +169,7 @@
                     <discreteMappingEntry attributeValue="eventAssignment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="compartment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="event" value="HEXAGON"/>
-                    <discreteMappingEntry attributeValue="comp_replacedElement" value="SQUARE"/>
+                    <discreteMappingEntry attributeValue="comp_replacedElement" value="RECTANGLE"/>
                     <discreteMappingEntry attributeValue="group" value="HEXAGON"/>
                 </discreteMapping>
             </visualProperty>
