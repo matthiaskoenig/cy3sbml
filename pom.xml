@@ -24,7 +24,7 @@
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
-    <version>0.2.5</version>
+    <version>0.2.6</version>
     <packaging>bundle</packaging>
     <!-- <packaging>jar</packaging> -->
 
