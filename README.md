@@ -81,7 +81,12 @@ The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
-**v0.2.5** []
+**v0.2.5** [2016/06/20]
+* Bug fixes
+* Updated UniProt Information
+* Updated HTML display
+* Updated VisualStyles
+* Tested with latest bigg models (v1.3)
 
 **v0.2.2** [2016/08/10]
 
