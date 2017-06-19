@@ -1,0 +1,7 @@
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: netscape.javascript.extension
+Bundle-Version: 0.0.1
+Fragment-Host: system.bundle; extension:=framework
+Bundle-Name: netscape.javascript Framework Extension
+Bundle-Description: Bundle exporting netscape.javascript for JavaFX
+Export-Package: netscape.javascript

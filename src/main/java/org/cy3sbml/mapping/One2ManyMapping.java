@@ -7,14 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /** 
- * Simple one 2 many mapping class.
+ * One to many mapping class.
  */
 public class One2ManyMapping<T1, T2> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private HashMap<T1, HashSet<T2>> map;
 	
 	public One2ManyMapping(){
-		map = new HashMap<T1, HashSet<T2>> ();
+		map = new HashMap<> ();
 	}
 	
 	public boolean containsKey(T1 key){
@@ -46,13 +46,13 @@ public class One2ManyMapping<T1, T2> implements Serializable{
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new HashSet<T2>();
+			values = new HashSet<>();
 		}
 		return values;
 	}
 	
 	public HashSet<T2> getValues(Collection<T1> keys){
-		HashSet<T2> values = new HashSet<T2>();
+		HashSet<T2> values = new HashSet<>();
 		for (T1 key: keys){
 			if (containsKey(key)){
 				values.addAll(map.get(key));
@@ -66,13 +66,13 @@ public class One2ManyMapping<T1, T2> implements Serializable{
 		if (containsKey(key)){
 			values = map.get(key);
 		} else {
-			values = new HashSet<T2>();
+			values = new HashSet<>();
 		}
 		return values;
 	}
 
 	public One2ManyMapping<T2, T1> createReverseMapping(){
-		One2ManyMapping<T2, T1> reverseMapping = new One2ManyMapping<T2,T1>();
+		One2ManyMapping<T2, T1> reverseMapping = new One2ManyMapping<>();
 		for (T1 key: this.keySet()){
 			for (T2 value : this.getValues(key)){
 				reverseMapping.put(value, key);

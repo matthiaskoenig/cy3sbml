@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.junit.Test;
 
@@ -16,7 +17,8 @@ public class SBMLGroupsTest {
     @Test
     public void testGroups() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_GROUPS);
-        CyNetwork network = networks[0];
+        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+
         assertNotNull(network);
         assertEquals(1294, network.getNodeCount());
         assertEquals(2592, network.getEdgeCount());

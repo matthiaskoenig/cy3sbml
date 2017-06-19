@@ -9,6 +9,8 @@ import org.cytoscape.model.CyTable;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper class for getting and setting attribute.
@@ -18,6 +20,7 @@ import org.cytoscape.model.CyNode;
  */
 
 public class AttributeUtil {
+    private static final Logger logger = LoggerFactory.getLogger(AttributeUtil.class);
 	
 	//////////////////////////////////////////////////////////////////////////
 	// Set Attributes
@@ -32,6 +35,10 @@ public class AttributeUtil {
 	}
 	
 	private static void set(CyNetwork network, CyIdentifiable entry, String tableName, String name, Object value, Class<?> type) {
+
+	    // user vs. DefaultNodeTable
+        // network.getDefaultNodeTable() ? What is the difference between defaultNodeTable and USER
+
 		CyRow row = network.getRow(entry, tableName);
 		CyTable table = row.getTable();
 		CyColumn column = table.getColumn(name);
@@ -69,6 +76,7 @@ public class AttributeUtil {
 		// CyColumn column = table.getColumn(name);
 		return row.get(name, type);
 	}
+
 
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -111,6 +119,33 @@ public class AttributeUtil {
 		 			column.getType());
 		}
 	}
-	
+
+
+    //////////////////////////////////////////////////////////////////////////
+    // Find Nodes
+    //////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Returns the first matching node.
+     * TODO: method for all matchin nodes
+     * Returns first node with attribute==identifier in DefaultNodeTable.
+     *
+	 * @param network network in which the node is searched
+	 * @param attribute attribute column to search
+	 * @param identifier identifier to search
+	 * @return
+	 */
+	public static CyNode getNodeByAttribute(CyNetwork network, String attribute, String identifier) {
+		Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(attribute, identifier);
+		CyNode node = null;
+		if (rows != null && rows.size()>0){
+			// return first matching one
+			CyRow row = rows.iterator().next();
+			node = network.getNode(row.get(CyTable.SUID, Long.class));
+		} else {
+			logger.info(String.format("node not in current network: %s:%s", attribute, identifier));
+		}
+		return node;
+	}
 	
 }

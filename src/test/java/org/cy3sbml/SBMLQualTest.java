@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class SBMLQualTest {
     @Test
     public void testQual() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_QUAL);
-        CyNetwork network = networks[0];
+        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
         assertEquals(54, network.getNodeCount());
         assertEquals(57, network.getEdgeCount());

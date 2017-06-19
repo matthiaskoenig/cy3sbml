@@ -1,9 +1,8 @@
 package org.cy3sbml.util;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.solr.common.util.XML;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -19,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
@@ -34,15 +35,18 @@ public class XMLUtil {
         String html = null;
         Document doc = XMLUtil.readXMLString(xml);
         if (doc != null){
-            xml = XMLUtil.writeNodeToTidyString(doc);
-
-            // escape the rest, i.e. things like < and >
-            html = StringEscapeUtils.escapeHtml(xml);
-
-            // keep formating in html
-            // Not working due to escaping of the respective tags
-            html = html.replaceAll("\n", "<br />").replaceAll(XML_INDENT, HTML_INDENT);
+            String xmlTidy = XMLUtil.writeNodeToTidyString(doc);
+            if (xmlTidy != null){
+                xml = xmlTidy;
+            }
         }
+        // escape the rest, i.e. things like < and >
+        html = StringEscapeUtils.escapeHtml(xml);
+
+        // keep formating in html
+        // Not working due to escaping of the respective tags
+        html = html.replaceAll("\n", "<br />").replaceAll(XML_INDENT, HTML_INDENT);
+
         return html;
     }
 

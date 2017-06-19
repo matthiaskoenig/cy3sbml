@@ -32,10 +32,9 @@ public class ImportAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_IMPORT);
 		setToolbarGravity(GUIConstants.GRAVITY_IMPORT);
-	}
-		
-	public boolean isInToolBar() {
-		return true;
+
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 	
 	@Override
@@ -58,4 +57,7 @@ public class ImportAction extends AbstractCyAction{
 			}
 		}
 	}
+
+
+
 }

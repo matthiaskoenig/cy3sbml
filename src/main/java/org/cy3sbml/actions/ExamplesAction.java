@@ -26,12 +26,9 @@ public class ExamplesAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_EXAMPLES);
 		setToolbarGravity(GUIConstants.GRAVITY_EXAMPLES);
-	}
-	public boolean isInToolBar() {
-		return true;
-	}
-	public boolean isInMenuBar() {
-		return false;
+
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 	
 	@Override

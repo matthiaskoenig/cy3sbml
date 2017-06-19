@@ -26,17 +26,9 @@ public class HelpAction extends AbstractCyAction{
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_HELP);
 		setToolbarGravity(GUIConstants.GRAVITY_HELP);
-	}
-	
-	public boolean insertSeparatorBefore(){
-		return true;
-	}
-	
-	public boolean isInToolBar() {
-		return true;
-	}
-	public boolean isInMenuBar() {
-		return false;
+
+		this.inToolBar = true;
+		this.inMenuBar = false;
 	}
 	
 	@Override

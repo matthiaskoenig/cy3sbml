@@ -30,6 +30,8 @@ import java.util.Map;
  *
  * Template only defines the default values.
  * The additional mappings are added.
+ *
+ * To change the styles change the style information in the StyleInfo classes.
  */
 public class StyleFactory {
     private static final Logger logger = LoggerFactory.getLogger(StyleFactory.class);
@@ -127,17 +129,22 @@ public class StyleFactory {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Create all styles.
      * This creates/updates the styles based on the current settings in SBML.java.
+     *
+     * For the installation
+     *
      */
     public static void main(String[] args){
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
 
 
         List<StyleInfo> styleInfos = new LinkedList<>();
-        styleInfos.add(new StyleInfo01());  // cy3sbml
-        styleInfos.add(new StyleInfo02());  // cy3sbml-dark
+        styleInfos.add(new StyleInfo_cy3sbml());  // cy3sbml
+        styleInfos.add(new StyleInfo_cy3sbmlDark());  // cy3sbml-dark
         for (StyleInfo info: styleInfos){
             File file = new File(targetDir, info.getName() + ".xml");
             StyleFactory.createStyle(info, file);

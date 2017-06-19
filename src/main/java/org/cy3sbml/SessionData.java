@@ -3,7 +3,6 @@ package org.cy3sbml;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import com.google.common.io.Files;
+import org.apache.jena.ext.com.google.common.io.Files;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -236,7 +235,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * Consequently the mappings have to be updated.
 	 * 
 	 * The network, node and edge SUIDs can be updated via:
-	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
+	 * 		Long newSUID = s.getObjectByCyId(oldSUID, CyIdentifiable.class).getSUID();
 	 */
 	private static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m){
 		// mapper with updated SUIDS
@@ -269,7 +268,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 	 * Consequently the mappings have to be updated.
 	 * 
 	 * The network, node and edge SUIDs can be updated via:
-	 * 		Long newSUID = s.getObject(oldSUID, CyIdentifiable.class).getSUID();
+	 * 		Long newSUID = s.getObjectByCyId(oldSUID, CyIdentifiable.class).getSUID();
 	 */
 	private static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m){
 		logger.debug("Update SUIDs in Network2CofactorMapper");

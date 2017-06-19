@@ -101,11 +101,16 @@ table {
 }
 
 .cvterm{
-    border-radius: 25px;
+    border-radius: 15px;
     background: #f9f9f9;
-    padding: 10px;
+    padding: 5px;
 }
 
+.history{
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 5px;
+}
 
 .qualifier{
     background-color: #13721c;
@@ -119,6 +124,104 @@ table {
 }
 
 .unit{
+    background-color: rgba(200, 200, 200, 0.51);
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    font-family: monospace;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.math{
+    color: black;
+    font-family: monospace;
+}
+
+/********************************
+SBML validation
+*********************************/
+
+h3.valid, h3.invalid, h3.valid-warning {
+    font-size-adjust: 0.4;
+    font-style: normal;
+    letter-spacing: normal;
+    margin: 0;
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    word-spacing: normal;
+}
+.valid {
+    background: #55b05a none repeat scroll 0 0;
+    color: white;
+}
+.invalid {
+    background: #d23d24 none repeat scroll 0 0;
+    color: white;
+}
+
+.errorFatal{
+    background-color: #ff081b;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.errorError{
+    background-color: #ff5327;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.errorWarning{
+    background-color: #ffcb13;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.errorInfo{
+    background-color: #3c7bff;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+
+.errorLine{
+    background-color: rgba(200, 200, 200, 0.51);
+    padding:2px;
+    padding-right:4px;
+    color: black;
+    font-family: monospace;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.errorLine{
     background-color: rgba(200, 200, 200, 0.51);
     padding:2px;
     padding-right:4px;

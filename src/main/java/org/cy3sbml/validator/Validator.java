@@ -1,172 +1,239 @@
 package org.cy3sbml.validator;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-
-import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBMLError;
-import org.sbml.jsbml.SBMLErrorLog;
-import org.sbml.jsbml.SBMLException;
-import org.sbml.jsbml.SBMLWriter;
+import org.apache.commons.codec.Charsets;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.cy3sbml.gui.BrowserHyperlinkListener;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.util.SBMLUtil;
+import org.sbml.jsbml.*;
 import org.sbml.jsbml.validator.SBMLValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Class for handling the SBML validation warnings and errors. */
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Validation of SBMLDocuments.
+ * Creates validation report including errors and warnings.
+ * An HTML report is created.
+ * <p>
+ * TODO: unittests
+ * TODO: replace JSBML validator with offline version when ready
+ */
 public class Validator {
-	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
-	
-	public final static String SEVERITY_INFO = "Info";
-	public final static String SEVERITY_WARNING = "Warning";
-	public final static String SEVERITY_ERROR = "Error";
-	public final static String SEVERITY_FATAL = "Fatal";
-	public final static String SEVERITY_ALL = "All";
-	
-	private SBMLErrorLog errorLog;
-	private Map<String, List<SBMLError> > errorMap;
-	
-	public Validator(SBMLDocument doc){
-		try {
-			errorLog = validateSBML(doc);
-			errorMap = createErrorMapFromErrorLog(errorLog);
-		} catch (Exception e) {
-			logger.warn("SBMLDocument could not be validated.", e);
-			e.printStackTrace();
-			reset();
-		}
-	}
-	
-	private void reset(){
-		errorLog = null;
-		errorMap = null;
-	}
-	
-	public SBMLErrorLog getErrorLog() {
-		return errorLog;
-	}
-	
-	public Map<String, List<SBMLError>> getErrorMap() {
-		return errorMap;
-	}
+    private static final Logger logger = LoggerFactory.getLogger(Validator.class);
 
-	public List<SBMLError> getErrorListForKeys(String[] keys){
-		List<SBMLError> eList = new LinkedList<SBMLError>();
-		if (keys != null){
-			for (String key: keys){
-				if (errorMap.containsKey(key)){
-					eList.addAll(errorMap.get(key));
-				}
-			}
-		}
-		return eList;
-	}
-	
-	/* Validate the SBML and get the resulting ErrorLog */
-	public static SBMLErrorLog validateSBML(SBMLDocument doc) throws SBMLException, XMLStreamException{
-		SBMLErrorLog eLog = null;
-		try {
-			// create tmp file for validation
-			final File tempFile = File.createTempFile("validation-tmp", ".xml");
-			tempFile.deleteOnExit();
-		    SBMLWriter.write(doc, tempFile, ' ' , (short) 2);
-			eLog = SBMLValidator.checkConsistency(tempFile.getAbsolutePath(), new HashMap<String, String>());
-		} catch (IOException e) {
-			logger.error("Validation failed.", e);
-			e.printStackTrace();
-		}
-		return eLog;
-	}
-	
-	private static Map<String, List<SBMLError> > createErrorMapFromErrorLog(SBMLErrorLog errorLog){
-		if (errorLog == null){
-			return null;
-		}
-		Map<String, List<SBMLError> > errorMap = new HashMap<String, List<SBMLError> >();
-		for (SBMLError error : errorLog.getValidationErrors()){
-			addErrorToErrorMap(error, errorMap);
-		}
-		return errorMap;
-	}
+    public static final String VALID = "valid";
+    public static final String INVALID = "invalid";
+    public static final String EXPORT_HTML = String.format(
+            "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
+            BrowserHyperlinkListener.URL_HTML_VALIDATION);
 
-	private static void addErrorToErrorMap(SBMLError error, Map<String, List<SBMLError>> errorMap){
-		// store under severity
-		String key = error.getSeverity();		
-		List<SBMLError> eList = getErrorListForKeyFromErrorMap(key, errorMap);
-		eList.add(error);
-		errorMap.put(key,eList);
-		
-		// store under all errors
-		key = SEVERITY_ALL;
-		eList = getErrorListForKeyFromErrorMap(key, errorMap);
-		eList.add(error);
-		errorMap.put(key,eList);
-	}
+    public static final List<String> SEVERITIES;
 
-	private static List<SBMLError> getErrorListForKeyFromErrorMap(String key, 
-									Map<String, List<SBMLError>> emap){
-		List<SBMLError> eList = null;
-		if (emap.containsKey(key)){
-			eList = emap.get(key);
-		} else {
-			eList = new LinkedList<SBMLError>();
-		}
-		return eList;
-	}
+    static {
+        List<String> list = new LinkedList<>();
+        list.add("Fatal");
+        list.add("Error");
+        list.add("Warning");
+        list.add("Info");
+        SEVERITIES = Collections.unmodifiableList(list);
+    }
 
-	
-	/* Get the ErrorLog in Table format. */
-	public Object[][] getErrorTable(){
-		if (errorLog == null){
-			return null;
-		}
-		Object[][] errorData = new Object[5][2];
-		errorData[0][0] = SEVERITY_INFO;
-		errorData[1][0] = SEVERITY_WARNING;
-		errorData[2][0] = SEVERITY_ERROR;
-		errorData[3][0] = SEVERITY_FATAL;
-		errorData[4][0] = SEVERITY_ALL;
-		for (int k=0; k<5; ++k){
-			errorData[k][1] = 0;
-		}
-		for (String key : errorMap.keySet()){
-			for (int k=0; k<5; ++k){
-				if (errorData[k][0].equals(key)){
-					errorData[k][1] = errorMap.get(key).size();
-					continue;
-				}
-			}
-		}
-		return errorData;
-	}
-	
-	/* Create String information for the complete errorList */
-	public String getErrorLogString(){
-		if (errorLog == null)
-			return "SBML could not be validated - no ErrorLog";
-		List<SBMLError> eList = new LinkedList<SBMLError>();
-		for (int k=0; k<errorLog.getErrorCount(); ++k){
-			eList.add(errorLog.getError(k));
-		}
-		return getErrorListString(eList);
-	}
-	
-	/* Creates String representation of the error log. */ 
-	public String getErrorListString(List<SBMLError> eList){
-		String text = "";
-		int count = 1;
-		for (SBMLError e : eList){
-			text += String.format("<h3>E%d %s (%s) </h3>", count, e.getCategory(), e.getSeverity());
-			text += e.getShortMessage() + "<br>";
-			text += String.format("<span color=\"red\">Line: %s </span>", e.getLine());
-			text += String.format("<span color=\"blue\">%s</span>", e.getMessage());
-			count++;
-		}
-		return text;
-	}
+    private SBMLDocument document;
+    private Boolean valid;
+
+    private SBMLErrorLog errorLog;
+    private Map<String, List<SBMLError>> errorMap;
+
+    public Validator(SBMLDocument doc) {
+        this.document = doc;
+        try {
+            errorLog = validateSBML(doc);
+            createErrorMap();
+        } catch (Exception e) {
+            logger.warn("SBMLDocument could not be validated.", e);
+            e.printStackTrace();
+            reset();
+        }
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public SBMLErrorLog getErrorLog() {
+        return errorLog;
+    }
+
+    /**
+     * Reset the validator.
+     */
+    private void reset() {
+        valid = false;
+        errorLog = null;
+        errorMap = null;
+    }
+
+    /**
+     * Full validation of SBMLDocument.
+     *
+     * One can control the consistency checks that are performed when
+     * checkConsistency() is called with the
+     * setConsistencyChecks(SBMLValidator.CHECK_CATEGORY, boolean).
+     */
+    public static SBMLErrorLog validateSBML(SBMLDocument doc) {
+
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.UNITS_CONSISTENCY, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.IDENTIFIER_CONSISTENCY, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.GENERAL_CONSISTENCY, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.SBO_CONSISTENCY, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.MATHML_CONSISTENCY, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.OVERDETERMINED_MODEL, true);
+        doc.setConsistencyChecks(SBMLValidator.CHECK_CATEGORY.MODELING_PRACTICE, true);
+
+        // JSBML offline validator
+        // Integer code = doc.checkConsistencyOffline();
+
+        // Online validator
+        Integer code = doc.checkConsistency();
+
+        if (code < 0) {
+            logger.error("Error in SBML validation");
+        }
+        return doc.getErrorLog();
+    }
+
+    /**
+     * Store the errors in HashMap by severity.
+     */
+    private void createErrorMap() {
+        errorMap = new HashMap<>();
+        if (errorLog == null) {
+            logger.warn("No error log available");
+            return;
+        }
+        System.out.println("Number of errors: " + errorLog.getNumErrors());
+        valid = true;
+        for (SBMLError error : errorLog.getValidationErrors()) {
+            // store under severity
+            String severity = error.getSeverity();
+            if (error.isError() || error.isFatal()) {
+                valid = false;
+            }
+            List<SBMLError> errors = errorMap.getOrDefault(severity, new LinkedList<>());
+            errors.add(error);
+            errorMap.put(severity, errors);
+        }
+    }
+
+    /**
+     * Create HTML of validator output.
+     */
+    public String createHtml() {
+        // title
+        String title = "Model";
+        if (document.isSetModel()) {
+            Model model = document.getModel();
+            if (model.isSetId()) {
+                title = model.getId();
+            } else if (model.isSetName()) {
+                title = model.getName();
+            }
+        }
+
+        // html
+        String html = String.format(SBaseHTMLFactory.HTML_START_TEMPLATE, SBaseHTMLFactory.getBaseDir(), title);
+        html += String.format(
+                "<h2>%s %s</h2>\n",
+                EXPORT_HTML, title);
+
+        if (errorLog == null) {
+            html += "SBML Validator failed.";
+        } else {
+            // create html for errorMap
+            String validStr = (valid) ? VALID : INVALID;
+            html += String.format("<h3 class=\"%s\">This document is %s SBML</h3>\n", validStr, validStr);
+            // html += "<table id=\"table\" class=\"display\" width=\"100%\" cellspacing=\"0\">";
+            html += "<table id=\"table\" class=\"table table-striped table-condensed table-hover\">";
+
+            html += "\t<thead>\n" +
+                    "\t\t<tr><th>metaid</th><th>severity</th><th>line</th><th>category</th><th>code</th><th>package</th>" +
+                    "<th>excerpt</th><th>message</th></tr>\n" +
+                    "\t</thead>" +
+                    "\t<tbody>\n";
+            for (String severity : errorMap.keySet()) {
+                List<SBMLError> errors = errorMap.get(severity);
+                for (SBMLError e : errors) {
+                    String metaId = metaIdFromError(e);
+                    String metaIdHtml;
+                    if (metaId == null) {
+                        metaIdHtml = "<span class=\"fa fa-ban\" aria-hidden=\"true\" style=\"color:black\" title=\"No metaId in excerpt.\"></span>";
+                    } else {
+                        metaIdHtml = String.format("<a href=\"%s%s\">%s <span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>",
+                                BrowserHyperlinkListener.URL_SELECT_METAID, metaId, metaId);
+                    }
+                    html += String.format(
+                            "\t<tr><td>%s</td>\n" +
+                                    "\t\t<td><span class=\"error%s\">%s</span></td>\n" +
+                                    "\t\t<td><span class=\"errorLine\">%s</span></td>\n" +
+                                    "\t\t<td>%s</td>\n" +
+                                    "\t\t<td>%s</td>\n" +
+                                    "\t\t<td><span class=\"collection\">%s</span></td>\n" +
+                                    "\t\t<td><code>%s</code></td>\n" +
+                                    "\t\t<td><span class=\"errorMessage\" title=\"%s\">%s</span></td></tr>\n",
+                            metaIdHtml,
+                            e.getSeverity(), e.getSeverity(),
+                            e.getLine(),
+                            e.getCategory(),
+                            e.getCode(),
+                            e.getPackage(),
+                            StringEscapeUtils.escapeHtml(e.getExcerpt()),
+                            StringEscapeUtils.escapeHtml(e.getMessage()), StringEscapeUtils.escapeHtml(e.getShortMessage().getMessage())
+                    );
+                }
+            }
+            html += "\t</tbody>\n";
+            html += SBaseHTMLFactory.TABLE_END;
+        }
+
+        html += SBaseHTMLFactory.HTML_STOP_TEMPLATE;
+        return html;
+    }
+
+    /**
+     * Returns the metaid for the given error, or null if no
+     * metaid in excerpt.
+     *
+     * @param e
+     */
+    private String metaIdFromError(SBMLError e) {
+        String excerpt = e.getExcerpt();
+        Pattern pattern = Pattern.compile("metaid=\"(.*?)\"");
+        Matcher matcher = pattern.matcher(excerpt);
+        if (!matcher.find()) {
+            return null;
+        } else {
+            return matcher.group(1);
+        }
+    }
+
+
+    /**
+     * Create example validation HTML report.
+     */
+    public static void main(String[] args) throws IOException {
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000001.xml");
+        System.out.println("validation");
+        Validator validator = new Validator(doc);
+        SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
+        String html = validator.createHtml();
+        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html, Charsets.UTF_8);
+    }
+
 }

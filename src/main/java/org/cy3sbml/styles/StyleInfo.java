@@ -73,8 +73,10 @@ public class StyleInfo {
         m4.put(SBML.NODETYPE_REACTION, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_COMPARTMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_PARAMETER, "Liberation Sans Bold,plain,12");
-        m4.put(SBML.NODETYPE_LOCAL_PARAMTER, "Liberation Sans Bold,plain,12");
-        m4.put(SBML.NODETYPE_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_LOCAL_PARAMETER, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_ALGEBRAIC_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_ASSIGNMENT_RULE, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_RATE_RULE, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_KINETIC_LAW, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_QUAL_TRANSITION, "Liberation Sans Bold,plain,12");
@@ -86,22 +88,35 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_REACTION, "15.0");
         m5.put(SBML.NODETYPE_COMPARTMENT, "90.0");
         m5.put(SBML.NODETYPE_PARAMETER, "30.0");
-        m5.put(SBML.NODETYPE_LOCAL_PARAMTER, "30.0");
-        m5.put(SBML.NODETYPE_RULE, "20.0");
+        m5.put(SBML.NODETYPE_LOCAL_PARAMETER, "30.0");
+        m5.put(SBML.NODETYPE_ALGEBRAIC_RULE, "20.0");
+        m5.put(SBML.NODETYPE_ASSIGNMENT_RULE, "20.0");
+        m5.put(SBML.NODETYPE_RATE_RULE, "20.0");
         m5.put(SBML.NODETYPE_KINETIC_LAW, "20.0");
         m5.put(SBML.NODETYPE_QUAL_SPECIES, "40.0");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
         m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
+        m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30.0");
+        m5.put(SBML.NODETYPE_UNIT, "20.0");
+        m5.put(SBML.NODETYPE_EVENT, "40.0");
+        m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20.0");
+        m5.put(SBML.NODETYPE_GROUP, "60.0");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "20.0");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "20.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
         Map<String, String> m6 = new HashMap<>();
         m6.put(SBML.NODETYPE_REACTION, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_PARAMETER, "N,S,c,0.00,0.00");
-        m6.put(SBML.NODETYPE_LOCAL_PARAMTER, "N,S,c,0.00,0.00");
-        m6.put(SBML.NODETYPE_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_LOCAL_PARAMETER, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_ALGEBRAIC_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_ASSIGNMENT_RULE, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_RATE_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_KINETIC_LAW, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_QUAL_TRANSITION, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_COMP_REPLACED_BY, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "N,S,c,0.00,0.00");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_POSITION, SBML.NODETYPE_ATTR, "C,C,c,0.00,0.00", m6));
 
@@ -109,9 +124,17 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_REACTION, "RECTANGLE");
         m7.put(SBML.NODETYPE_COMPARTMENT, "HEXAGON");
         m7.put(SBML.NODETYPE_PARAMETER, "DIAMOND");
-        m7.put(SBML.NODETYPE_LOCAL_PARAMTER, "DIAMOND");
+        m7.put(SBML.NODETYPE_LOCAL_PARAMETER, "DIAMOND");
         m7.put(SBML.NODETYPE_QUAL_TRANSITION, "RECTANGLE");
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
+        m7.put(SBML.NODETYPE_UNIT_DEFINITION, "PARALLELOGRAM");
+        m7.put(SBML.NODETYPE_UNIT, "PARALLELOGRAM");
+        m7.put(SBML.NODETYPE_EVENT, "HEXAGON");
+        m7.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "HEXAGON");
+        m7.put(SBML.NODETYPE_GROUP, "HEXAGON");
+        m7.put(SBML.NODETYPE_COMP_REPLACED_BY, "RECTANGLE");
+        m7.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "RECTANGLE");
+
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
 
@@ -132,6 +155,13 @@ public class StyleInfo {
 
         Map<String, String> m11 = new HashMap<>();
         m11.put(SBML.INTERACTION_REACTION_MODIFIER, "LONG_DASH");
+        m11.put(SBML.INTERACTION_UNIT_UNITDEFINITION, "DOT");
+        m11.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "DOT");
+        m11.put(SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT, "DOT");
+        m11.put(SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT, "DOT");
+        m11.put(SBML.INTERACTION_PARAMETER_REACTION, "SEPARATE_ARROW");
+        m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "EQUAL_DASH");
+        m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "EQUAL_DASH");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 

@@ -6,27 +6,29 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * Run the webView example.
+ * Run webView example.
  */
 public class BrowserSample extends Application {
     private Scene scene;
 
     /**
-     * Start the application.
+     * Start application.
+     *
      * @param stage
      */
-	@Override public void start(Stage stage) {
-		// create the scene
-		stage.setTitle("Web View");
-		Browser browser = new Browser(null, null);
-		scene = new Scene(browser,900,600, Color.web("#666970"));
-		stage.setScene(scene);
-		stage.show();
-		browser.loadPage("http://www.google.com");
-	}
+    @Override
+    public void start(Stage stage) {
+        // create the scene
+        stage.setTitle("Web View");
+        Browser browser = new Browser(null);
+        scene = new Scene(browser, 900, 600, Color.web("#666970"));
+        stage.setScene(scene);
+        stage.show();
+        browser.loadPage("http://www.google.com");
+    }
 
-	public static void main(String[] args){
-		launch(args);
+    public static void main(String[] args) {
+        launch(args);
 
-	}
+    }
 }

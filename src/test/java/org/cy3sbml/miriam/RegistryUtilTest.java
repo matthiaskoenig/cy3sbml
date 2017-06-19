@@ -20,6 +20,15 @@ public class RegistryUtilTest {
     }
 
     @Test
+    public void updateMiriamXMLWithNewer() throws Exception {
+        File f = File.createTempFile("test", ".xml");
+        RegistryUtil.updateMiriamXML(f);
+
+        // identical file
+        RegistryUtil.updateMiriamXMLWithNewer(f);
+    }
+
+    @Test
     public void loadRegistry() throws Exception {
         RegistryUtil.loadRegistry();
     }

@@ -5,33 +5,35 @@ import java.util.*;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
-import org.cy3sbml.uniprot.UniprotCache;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.XMLUtil;
 import org.identifiers.registry.RegistryDatabase;
-import org.identifiers.registry.RegistryLocalProvider;
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
+
+// OLS
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 import org.cy3sbml.util.SBMLUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.ebi.kraken.interfaces.uniprot.*;
-import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
+
+
 
 /** 
  * Creates HTML information for given SBase.
@@ -64,6 +66,7 @@ public class SBaseHTMLFactory {
                     "\t<title>%s</title>\n" +
                     "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
                     "\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
+                    "\t<link rel=\"stylesheet\" href=\"./css/jquery.dataTables.min.css\">\n" +
                     "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
                     "\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
                     "</head>\n\n" +
@@ -71,18 +74,27 @@ public class SBaseHTMLFactory {
                     "<div class=\"container\">\n";
 
     public static final String HTML_STOP_TEMPLATE =
-            "</div>\n" +
-                    "<script src=\"./js/jquery.min.js\"></script>\n" +
-                    "<script src=\"./js/bootstrap.min.js\"></script>\n" +
+                    "</div>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery-1.12.3.js\"></script>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/bootstrap.min.js\"></script>\n" +
+                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery.dataTables.min.js\"></script>\n" +
+                    "\t<script type=\"text/javascript\" language=\"javascript\">\n" +
+                    "\t$(document).ready(function() {\n" +
+                    "\t    $('#table').DataTable();\n" +
+                    "\t} );\n" +
+                    "\t</script>\n" +
                     "</body>\n" +
                     "</html>\n";
 
+    public static final String ICON_WARNING = "<span class=\"fa fa-exclamation-circle fa-lg\" title=\"true\" style=\"color:red\"> </span>";
     public static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
     public static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
-    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\"> </span>";
+    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\" style=\"color:grey\"> </span>";
     public static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
 
-    public static final String EXPORT_HTML = "<small><a href=\"http://html-file\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;";
+    public static final String EXPORT_HTML = String.format(
+            "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
+            BrowserHyperlinkListener.URL_HTML_SBASE);
 
     public static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     public static final String TABLE_END = "</table>\n";
@@ -108,6 +120,23 @@ public class SBaseHTMLFactory {
 	    SBaseHTMLFactory.baseDir = baseDir;
     }
 
+    /** Get the html base directory. */
+    public static String getBaseDir(){
+        return baseDir;
+    }
+
+    /**
+     * Sets the baseDir from the application directory.
+     * @param appDir
+     */
+    public static void setBaseDirFromAppDir(File appDir){
+        String baseDir = appDir.toURI().toString();
+        baseDir = baseDir.replace("file:/", "file:///");
+        SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
+    }
+
+
+
     /**
      * Get created information string.
      * No information String created in cache mode.
@@ -128,12 +157,58 @@ public class SBaseHTMLFactory {
         return createHTMLText(text, "cy3sbml");
     }
 
-	/** Parse and create information for the current sbmlObject. */
+	/**
+     * Parse and create information for current Sbase.
+     */
 	public void createInfo() {
-		if (sbase == null){
-			return;
-		}
-        // title from class and id
+        String title = getTitle(sbase);
+	    html = String.format(HTML_START_TEMPLATE, baseDir, title);
+
+	    html += createInfoForSBase(sbase);
+        if (sbase instanceof SBMLDocument) {
+            // in case of SBMLDocument add the model information
+            SBMLDocument doc = (SBMLDocument) sbase;
+            if (doc.isSetModel()){
+                html += createInfoForSBase(doc.getModel());
+            }
+        }
+        html += HTML_STOP_TEMPLATE;
+	}
+
+    /**
+     * Creates info for given SBase.
+     *
+     * @param sbase
+     * @return
+     */
+    private static String createInfoForSBase(SBase sbase){
+        if (sbase == null){
+            return "";
+        }
+        String html = createHeader(sbase);
+        html += createSBase(sbase);
+        html += createHistory(sbase);
+        html += createCVTerms(sbase);
+        html += createNonRDFAnnotation(sbase);
+        html += createNotes(sbase);
+        return html;
+    }
+
+    /**
+     * Create title string for given SBase.
+     * @param sbase
+     * @return
+     */
+	private static String getTitle(SBase sbase){
+	    // handle SBMLDocument case
+        if (sbase instanceof SBMLDocument){
+            SBMLDocument doc = (SBMLDocument) sbase;
+            if (doc.isSetModel()){
+                sbase = doc.getModel();
+            }
+        }
+
+	    // title from class and id
         String id = "";
         if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
             NamedSBase nsb = (NamedSBase) sbase;
@@ -141,46 +216,76 @@ public class SBaseHTMLFactory {
                 id = nsb.getId();
             }
         }
-		String title = String.format(
-		        "%s %s", id, SBMLUtil.getUnqualifiedClassName(sbase));
+        return String.format("%s %s",
+                id, SBMLUtil.getUnqualifiedClassName(sbase));
+    }
 
-        html = String.format(HTML_START_TEMPLATE, baseDir, title);
-		html += createHeader(sbase);
-        html += createSBase(sbase);
-
-        html += createCVTerms(sbase);
-
-        // TODO: implement
-        // html += createHistory(sbase);
-
-        html += createNonRDFAnnotation(sbase);
-        html += createNotes(sbase);
-  		html += HTML_STOP_TEMPLATE;
-	}
-	
 	/**
 	 * Creates header HTML.
 	 * Displays class information, in addition id and name if existing.
 	 */
 	private static String createHeader(SBase sbase){
 		String className = SBMLUtil.getUnqualifiedClassName(sbase);
-		String header = String.format(
-		        "<h2>%s%s</h2>\n",
-                EXPORT_HTML, className);
-		// if NamedSBase get additional information
-		if (NamedSBase.class.isAssignableFrom(sbase.getClass())){
-			NamedSBase nsb = (NamedSBase) sbase;
-            header = String.format(
-                    "<h2>%s%s <small>%s</small></h2>\n",
-                    EXPORT_HTML, className, nsb.getId());
-		}
+		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
+
+        // if NamedSBase get additional information
+        if (NamedSBase.class.isAssignableFrom(sbase.getClass())) {
+            String exportHTML = EXPORT_HTML;
+            // already added via SBMLDocument
+            if (sbase instanceof Model){
+                exportHTML = "";
+            }
+            NamedSBase nsb = (NamedSBase) sbase;
+            header = String.format("<h2>%s%s <small>%s</small></h2>\n", exportHTML, className, nsb.getId());
+        }
 		return header; 
 	}
+
+
+    /**
+     * Create History HTML.
+     * The history encodes information about the creator(s) of the encoding and a
+     * sequence of dates recording the dates of creation and subsequent modifcations of the SBML model encoding.
+     *
+     * @param sbase
+     * @return HTML String of History
+     */
+    private static String createHistory(SBase sbase){
+        if (!sbase.isSetHistory()){
+            return "";
+        }
+
+        String html = "<p class=\"cvterm\">";
+        History h = sbase.getHistory();
+        for (Creator c: h.getListOfCreators()){
+            String givenName = c.isSetGivenName() ? c.getGivenName() : "";
+            String familyName = c.isSetFamilyName() ? c.getFamilyName() : "";
+            String organisation = c.isSetOrganisation() ? String.format(", %s", c.getOrganisation()) : "";
+            String email = "";
+            if (c.isSetEmail()){
+                email = String.format("(<a href=\"mailto:%s\">%s</a>)", c.getEmail(), c.getEmail());
+            }
+            html += String.format("%s %s %s%s</br>\n", givenName, familyName, email, organisation);
+        }
+        if (h.isSetCreatedDate()){
+            html += String.format("<span class=\"math\">created: %s</span><br />\n", h.getCreatedDate());
+        }
+        if (h.isSetListOfModification()){
+            for (Date date: h.getListOfModifiedDates()){
+                html += String.format("<span class=\"math\">modified: %s</span><br />\n", date);
+            }
+        }
+        html += "</p>\n";
+        return html;
+    }
 
     /**
      * Creates the HTML table from map.
      */
 	private static String createTableFromMap(Map<String, String> map){
+	    if (map == null || map.size() == 0){
+	        return "";
+        }
         String html = TABLE_START;
         for (String key: map.keySet()){
             html += TS + key + TM + map.get(key) + TE;
@@ -190,67 +295,84 @@ public class SBaseHTMLFactory {
 
 	/** 
 	 * Creation of class specific attribute information.
-     * This mimics the SBMLReader
+     * This mimics the SBMLReaderTaskFactory
 	 */
 	private static String createSBase(SBase item){
 	    LinkedHashMap<String, String> map;
 
-        // Model //
-		if (item instanceof Model){
-		    map = SBMLUtil.createModelMap((Model) item);
+        // core //
+		if (item instanceof SBMLDocument){
+		    map = SBMLUtil.createSBMLDocumentMap((SBMLDocument) item);
 		}
-        // Compartment //
+        else if (item instanceof Model){
+            map = SBMLUtil.createModelMap((Model) item);
+        }
 		else if (item instanceof Compartment){
             map = SBMLUtil.createCompartmentMap((Compartment) item);
 		}
-        // Parameter //
 		else if (item instanceof Parameter){
             map = SBMLUtil.createParameterMap((Parameter) item);
 		}
-		// InitialAssignment //
 		else if (item instanceof InitialAssignment){
             map = SBMLUtil.createInitialAssignmentMap((InitialAssignment) item);
 		}
-		// Rule //
 		else if (item instanceof Rule){
             map = SBMLUtil.createRuleMap((Rule) item);
 		}
-		// LocalParameter //
 		else if (item instanceof LocalParameter){
 			map = SBMLUtil.createLocalParameterMap((LocalParameter) item);
 		}
-		// Species //
 		else if (item instanceof Species){
 			map = SBMLUtil.createSpeciesMap((Species) item);
 		}
-		// Reaction
 		else if (item instanceof Reaction){
 			map = SBMLUtil.createReactionMap((Reaction) item);
 		}
-		// KineticLaw
 		else if (item instanceof KineticLaw){
 			map = SBMLUtil.createKineticLawMap((KineticLaw) item);
 		}
-        // FunctionDefinition //
         else if (item instanceof FunctionDefinition){
             map = SBMLUtil.createFunctionDefinitionMap((FunctionDefinition) item);
         }
-		// qual:QualitativeSpecies
+        else if (item instanceof UnitDefinition){
+            map = SBMLUtil.createUnitDefinitionMap((UnitDefinition) item);
+        }
+        else if (item instanceof Unit){
+            map = SBMLUtil.createUnitMap((Unit) item);
+        }
+        else if (item instanceof Constraint){
+            map = SBMLUtil.createConstraintMap((Constraint) item);
+        }
+        else if (item instanceof Event){
+            map = SBMLUtil.createEventMap((Event) item);
+        }
+        else if (item instanceof EventAssignment){
+            map = SBMLUtil.createEventAssignmentMap((EventAssignment) item);
+        }
+
+		// qual //
 		else if (item instanceof QualitativeSpecies){
 			map = SBMLUtil.createQualitativeSpeciesMap((QualitativeSpecies) item);
 		}
-		// qual:Transition //
 		else if (item instanceof Transition){
             map = SBMLUtil.createTransitionMap((Transition) item);
 		}
-		// fbc:GeneProduct //
+
+		// fbc //
 		else if (item instanceof GeneProduct){
             map = SBMLUtil.createGeneProductMap((GeneProduct) item);
 		}
-		// comp:Port //
+
+		// comp //
 		else if (item instanceof Port){
 			map = SBMLUtil.createPortMap((Port) item);
 		}
+
+        // group //
+        else if (item instanceof Group){
+            map = SBMLUtil.createGroupMap((Group) item);
+        }
+
 		// Not supported
 		else {
             logger.warn(String.format("No object map support for %s <%s>", SBMLUtil.getUnqualifiedClassName(item), item));
@@ -286,7 +408,7 @@ public class SBaseHTMLFactory {
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()){
             String sboTermId = sbase.getSBOTermID();
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/sbo/" + sboTermId);
             // createCVTerm(term) + "<hr />\n";
 
             Boolean termExists = false;
@@ -308,7 +430,6 @@ public class SBaseHTMLFactory {
     /** Creates HTML for single CVTerm. */
     private static String createCVTerm(CVTerm cvterm){
 
-
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
         if (cvterm.isModelQualifier()){
@@ -329,30 +450,41 @@ public class SBaseHTMLFactory {
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-
-            //DataType dataType = RegistryUtilities.getDataType(dataCollection);
             DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
 
-            String identifierHTML = String.format(
-                    "<span class=\"identifier\" title=\"Resource identifier\">%s</span>",
-                    identifier);
 
-            // check that identifier is correct for given datatype
-            if (dataType != null){
-                String pattern = dataType.getRegexp();
-                if (!RegistryUtilities.checkRegexp(identifier, pattern)){
-                    logger.warn(String.format(
-                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
-                            identifier, pattern, dataType.getId()));
+            // link to primary resource via id
+            String resourceLink = null;
+            if (dataType == null){
+                resourceLink = resourceURI;
+            } else {
+                for (PhysicalLocation location: dataType.getPhysicalLocations()) {
+                    if (resourceLink == null){
+                        // take first one
+                        resourceLink = createURL(location, identifier);
+                        continue;
+                    }
+                    // overwrite if primary
+                    if (location.isPrimary()){
+                        resourceLink = createURL(location, identifier);
+                        break;
+                    }
                 }
             }
 
-            // TODO: link to primary resource via id
+            // identifier
+            String identifierHTML = String.format(
+                    "<a href=\"%s\"><span class=\"identifier\" title=\"Resource identifier. Click to open primary resource.\">%s</span></a>",
+                    resourceLink, identifier);
+
 
             // not possible to resolve dataType from MIRIAM registry
             if (dataType == null){
                 logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
-                text += qualifierHTML + identifierHTML + "<br />\n";
+                text += String.format(
+                        "\t%s%s<br />\n" +
+                        "\t%s <span class=\"text-danger\">Unknown data collection: <a href=\"%s\">%s</a></span><br />\n",
+                        qualifierHTML, identifierHTML, ICON_WARNING, dataCollection, dataCollection);
                 text += String.format(
                         "\t%s <a href=\"%s\"> %s</a><br />\n",
                         ICON_INVISIBLE, resourceURI, resourceURI);
@@ -360,8 +492,19 @@ public class SBaseHTMLFactory {
             // dataType found
             if (dataType != null){
                 text += qualifierHTML + String.format(
-                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM registry data collection\">%s</span></a>%s<br/>\n",
+                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM data collection. Click to open on MIRIAM registry.\">%s</span></a>%s<br/>\n",
                         dataType.getURL(), dataType.getName(), identifierHTML);
+
+                // check that identifier is correct for given datatype
+                String pattern = dataType.getRegexp();
+                if (!RegistryUtilities.checkRegexp(identifier, pattern)){
+                    logger.warn(String.format(
+                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
+                            identifier, pattern, dataType.getId()));
+                    text += String.format(
+                            "%s <span class=\"text-danger\">Identifier <%s> does not match pattern '%s'</span><br />\n",
+                            ICON_WARNING, identifier, pattern);
+                }
 
                 // Create OLS resource for location
                 for (PhysicalLocation location: dataType.getPhysicalLocations()) {
@@ -387,22 +530,28 @@ public class SBaseHTMLFactory {
     }
 
     /**
+     * Creates the URL for the given location and identifier.
+     * @param identifier
+     * @return
+     */
+    private static String createURL(PhysicalLocation location, String identifier){
+        return String.format("%s%s%s",
+                location.getUrlPrefix(), identifier, location.getUrlSuffix());
+    }
+
+    /**
      * Information for non-OLS location.
      */
     private static String createNonOLSLocation(PhysicalLocation location, String identifier){
-        String text = "";
-        String url = String.format(
-                "%s%s%s",
-                location.getUrlPrefix(), identifier, location.getUrlSuffix());
         Boolean primary = location.isPrimary();
         String info = location.getInfo();
 
-        text += String.format(
+        return String.format(
                 "\t%s <a href=\"%s\"> %s</a><br />\n",
-                (primary == true) ? ICON_TRUE : ICON_INVISIBLE, url, info);
-        return text;
+                (primary == true) ? ICON_TRUE : ICON_INVISIBLE,
+                createURL(location, identifier),
+                info);
     }
-
 
     /**
      * Information for an OLS location.
@@ -410,14 +559,23 @@ public class SBaseHTMLFactory {
      */
     private static String createOLSLocation(PhysicalLocation location, String identifier){
         String html = "";
-        // Term term = OLSAccess.getTerm(identifier);
-        Term term = OLSCache.getTerm(identifier);
+        // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
+
+        String olsURL = createURL(location, identifier);
+
+        // for some ontologies the OLS term query term is not the identifier
+        String termIdentifier = identifier;
+        String[] tokens = olsURL.split("=");
+        if (tokens.length > 1){
+            termIdentifier = tokens[tokens.length-1];
+            termIdentifier = termIdentifier.replace("_", ":");
+        }
+        Term term = OLSCache.getTerm(termIdentifier);
+
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = String.format(
-                    "%s%s%s",
-                    location.getUrlPrefix(), identifier, location.getUrlSuffix());
+            String ontologyURL = createURL(location, identifier);
             html += String.format(
                     "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
@@ -431,22 +589,21 @@ public class SBaseHTMLFactory {
                 }
                 html += "<br />\n";
             }
-
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
-                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", description);
+                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml(description));
                 }
             }
 
-            html += "\t<br />";
-
         } else {
-            createNonOLSLocation(location, identifier);
+            html += String.format(
+                    "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
+                    ICON_WARNING, identifier, olsURL, olsURL);
+            html += createNonOLSLocation(location, identifier);
         }
         return html;
     }
-
 
     /**
      * Resolves secondary resourses and returns the HTML.
@@ -459,7 +616,7 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getNamespace();
 
         if (namespace.equals("uniprot")) {
-            html += uniprotHTML(identifier);
+            html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {
             html += chebiHTML(identifier);
@@ -508,89 +665,6 @@ public class SBaseHTMLFactory {
                 //"<a href=\"http://www.ebi.ac.uk/chebi/init.do\"><img src=\"./images/chebi_logo.png\" title=\"Information from ChEBI\"/></a>" +
                 "<a href=\"%s\"><img src=\"%s\" /></a><br />\n",
                 imageLink, imageSource);
-        return text;
-    }
-
-    /**
-     * Creates additional information for entry.
-     * Identifier of the form "P29218"
-     */
-    private static String uniprotHTML(String accession){
-        String text = "\t<br />\n";
-        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
-        UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
-        if (entry != null) {
-            String uniProtId = entry.getUniProtId().toString();
-            text += String.format(
-                    "\t<a href=\"http://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
-                    "\t<a href=\"http://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
-
-            // description
-            ProteinDescription description = entry.getProteinDescription();
-
-            // Names (Full, Short, EC, AltName)
-            Name name = description.getRecommendedName();
-            List<Field> fields = name.getFields();
-            for (Field field: fields){
-                String value = field.getValue();
-                if (field.getType().getValue().equals("Full")){
-                    text += String.format(
-                            "\t<b>%s</b><br />\n",
-                            field.getValue());
-                }else {
-                    text += String.format(
-                            "\t<b>%s</b>: %s<br />\n",
-                            field.getType().getValue(), field.getValue());
-                }
-            }
-
-            // organism
-            Organism organism = entry.getOrganism();
-            String organismStr = organism.getScientificName().toString();
-            if (organism.hasCommonName()){
-                organismStr += String.format(" (%s)", organism.getCommonName());
-            }
-            text += String.format(
-                    "\t<b>Organism</b>: %s<br />\n",
-                    organismStr);
-
-            // genes
-            for (Gene gene : entry.getGenes()){
-                String geneName = gene.getGeneName().getValue();
-                text += String.format("\t<b>Gene</b>: %s<br />\n", geneName);
-            }
-
-            // alternative names
-            text +="\t<span class=\"comment\">Synonyms</span>";
-            for (Name n: description.getAlternativeNames()){
-                text += String.format(
-                        "%s; ", n.getFields().get(0).getValue());
-            }
-            text += "<br />\n";
-
-            // comments
-            for (Comment comment : entry.getComments()){
-                CommentType ctype = comment.getCommentType();
-                if (ctype.equals(CommentType.FUNCTION)){
-                    FunctionComment fComment = (FunctionComment) comment;
-                    for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
-                    }
-                }
-                else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
-                    CatalyticActivityComment caComment = (CatalyticActivityComment) comment;
-                    for (CommentText commentText : caComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", commentText.getValue());
-                    }
-                }
-                else if (ctype.equals(CommentType.PATHWAY)) {
-                    PathwayComment pComment = (PathwayComment) comment;
-                    for (CommentText commentText : pComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());
-                    }
-                }
-            }
-        }
         return text;
     }
 
@@ -679,13 +753,13 @@ public class SBaseHTMLFactory {
         // Create the HTML for selected SBMLDocuments and SBases
 
         // SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_v31.xml");
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_31.xml");
 
         Model model = doc.getModel();
         Object object = model;
 
-        object = model.getListOfSpecies().get("c__gal");
-        object = model.getListOfReactions().get("c__GALTM2");
+        // object = model.getListOfSpecies().get("c__gal");
+        // object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
@@ -699,7 +773,7 @@ public class SBaseHTMLFactory {
 
         // Save to tmp file for viewing
         File file = new File(targetDir, "testinfo.html");
-        FileUtils.writeStringToFile(file, html);
+        FileUtils.writeStringToFile(file, html, Charsets.UTF_8);
     }
 
 }
