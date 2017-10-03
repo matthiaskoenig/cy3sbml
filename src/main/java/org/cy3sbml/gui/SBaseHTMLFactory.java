@@ -589,13 +589,20 @@ public class SBaseHTMLFactory {
                 }
                 html += "<br />\n";
             }
+            Map<String, String> oboSynonyms = term.getOboSynonyms();
+            if (oboSynonyms != null && oboSynonyms.size() > 0) {
+                html += "\t<span class=\"comment\">OBO Synonyms</span> ";
+                for (String name: oboSynonyms.keySet()) {
+                    html += String.format("%s; ", name);
+                }
+                html += "<br />\n";
+            }
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
                     html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml(description));
                 }
             }
-
         } else {
             html += String.format(
                     "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",

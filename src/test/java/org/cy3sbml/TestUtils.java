@@ -42,7 +42,7 @@ import javax.xml.stream.XMLStreamException;
  * Helper functions to test SBML models.
  */
 public class TestUtils {
-    public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r30_curated";
+    public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r31_curated";
     public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.3";
     public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.2.0";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";

@@ -1,4 +1,4 @@
-# ![alt tag](./docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
+# ![alt tag](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
@@ -32,7 +32,7 @@ like [BioModels](http://www.biomodels.org) and one-click access to annotation re
 * Support of qual, comp and fbc extensions
 * Provides access to RDF based annotation information within
   the network context (and non-RDF annotations)
-* Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.2)
+* Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.3)
 
 For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
 
@@ -51,7 +51,8 @@ Matthias König is supported by the Federal Ministry of Education and Research (
 ## Installation
 ### Install
 cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
-* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.4) 
+* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.5.1) 
+
 * In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
 * Select `cy3sbml` and click install.
 
@@ -81,7 +82,10 @@ The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
-**v0.2.5** [2016/06/20]
+**v0.2.6** [?]
+
+**v0.2.5** [2016/06/19]
+
 * Bug fixes
 * Updated UniProt Information
 * Updated HTML display
@@ -255,4 +259,4 @@ below.
 [Apache Taverna Language](https://github.com/apache/incubator-taverna-language) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-16]
 
 ----
-&copy; 2016 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
+&copy; 2017 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.

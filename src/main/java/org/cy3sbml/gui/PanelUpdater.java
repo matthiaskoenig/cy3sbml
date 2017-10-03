@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.taverna.robundle.Bundle;
 import org.cy3sbml.archive.ArchiveReaderTask;
-import org.cy3sbml.archive.BundleAnnotation;
-import org.cy3sbml.archive.BundleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -46,9 +43,9 @@ public class PanelUpdater implements Runnable {
             "Loading information from WebServices ...</p>");
 
 
-    private static final String TEMPLATE_NO_SBML_OR_BUNDLE = SBaseHTMLFactory.createHTMLText(
+    private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" +
-            "<p>No SBMLDocument or Archive Bundle associated with the current network.</p>");
+            "<p>No SBMLDocument associated with the current network.</p>");
 
 
     private InfoPanel panel;
@@ -70,17 +67,13 @@ public class PanelUpdater implements Runnable {
         SBMLManager sbmlManager = SBMLManager.getInstance();
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 
-        // associated bundle
-        BundleManager bundleManager = BundleManager.getInstance();
-        Bundle bundle = bundleManager.getCurrentBundle();
+
 
         if (document != null) {
             updateSBMLPanel(document);
-        } else if (bundle != null) {
-            updateBundlePanel(bundle);
         } else {
-            logger.debug("No SBMLDocument or Bundle for current network: " + network);
-            panel.setText(TEMPLATE_NO_SBML_OR_BUNDLE);
+            logger.debug("No SBMLDocument for current network: " + network);
+            panel.setText(TEMPLATE_NO_SBML);
         }
     }
 
@@ -116,46 +109,4 @@ public class PanelUpdater implements Runnable {
                 panel.showSBaseInfo(document);
             }
     }
-
-    /**
-     * Updates the panel information for a Bundle.
-     */
-    private void updateBundlePanel(Bundle bundle){
-        BundleManager bundleManager = BundleManager.getInstance();
-
-        // selected nodes
-        List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-
-        // information for selected node(s)
-
-        BundleAnnotation bundleAnnotation = bundleManager.getCurrentBundleAnnotation();
-        Map<String, List<String>> pathAnnotations = bundleAnnotation.getPathAnnotations();
-
-        // Get annotation for node (default to root)
-        String path = "/";
-        // TODO: get root node
-
-        if (nodes != null && nodes.size() > 0) {
-            CyNode n = nodes.get(0);
-            path = AttributeUtil.get(network, n, ArchiveReaderTask.NODE_ATTR_PATH, String.class);
-        }
-
-        // create html
-
-        String text = String.format("<h1><small>%s</small></h1>\n", path);
-        // TODO: link to file, image, path, mediatype from node attributes
-        if (pathAnnotations != null && pathAnnotations.containsKey(path)){
-            for (String s : pathAnnotations.get(path)) {
-                text += String.format("<p><code>%s</code></p>",
-                        StringEscapeUtils.escapeHtml(s));
-            }
-        }
-
-        // add links
-        text = text.replaceAll("&quot;(http://.*?)&quot;", "<a href=\"$1\">$1</a>");
-        // pack in html
-        text = SBaseHTMLFactory.createHTMLText(text);
-        panel.setText(text);
-    }
-
 }

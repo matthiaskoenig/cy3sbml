@@ -29,7 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class RegistryUtil {
     private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
-    public static final String URL_MIRIAM_XML = "http://www.ebi.ac.uk/miriam/main/export/xml";
+    public static final String URL_MIRIAM_XML = "https://www.ebi.ac.uk/miriam/main/export/xml";
     public static final String FILENAME_MIRIAM = "IdentifiersOrg-Registry.xml";
 
     /**
@@ -66,9 +66,16 @@ public class RegistryUtil {
      */
     public static void updateMiriamXMLWithNewer(File file){
 
-        // Get data-version of current file
-        Date fileDate = getDataVersionDate(file);
-        logger.debug("data-version file: " + fileDate);
+        Date fileDate = null;
+
+        // check if file exists on harddisk and get date
+        if (file!=null && file.exists()){
+            // Get data-version of current file
+            fileDate = getDataVersionDate(file);
+            logger.debug("data-version file: " + fileDate);
+        } else {
+            logger.warn("MIRIAM registry file does not exist locally");
+        }
 
         // Get data-version of online resource
         Date miriamDate = getLatestDataVersionDate();
@@ -236,7 +243,7 @@ public class RegistryUtil {
     /**
      * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException{
         File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
         //updateMiriamXML(miriamFile);
         updateMiriamXMLWithNewer(miriamFile);
