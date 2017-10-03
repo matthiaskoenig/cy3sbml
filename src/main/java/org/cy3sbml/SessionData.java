@@ -15,7 +15,7 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.apache.jena.ext.com.google.common.io.Files;
+import com.google.common.io.Files;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -73,6 +73,8 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
      */
     public static void saveSessionData(SessionAboutToBeSavedEvent event){
 		logger.info("SessionAboutToBeSaved: save cy3sbml session state");
+
+		// FIXME: not sure if this is the write file import
         File directory = Files.createTempDir();
 
 		// Files to save

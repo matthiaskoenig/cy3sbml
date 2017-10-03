@@ -10,7 +10,6 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.archive.BundleManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -27,7 +26,6 @@ import org.cytoscape.view.model.events.NetworkViewAddedListener;
 
 import org.cy3sbml.SBMLManager;
 
-import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -287,8 +285,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
         CyNetwork network = event.getNetwork();
         // network changed, update of the current SBMLDocument and bundle
         SBMLManager.getInstance().updateCurrent(network);
-        BundleManager bundleManager = BundleManager.getInstance();
-        bundleManager.updateCurrent(network);
         updateInformation();
     }
 

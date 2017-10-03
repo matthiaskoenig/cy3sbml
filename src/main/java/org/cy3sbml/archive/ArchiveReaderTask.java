@@ -2,12 +2,6 @@ package org.cy3sbml.archive;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.taverna.robundle.Bundle;
-import org.apache.taverna.robundle.Bundles;
-import org.apache.taverna.robundle.manifest.Agent;
-import org.apache.taverna.robundle.manifest.Manifest;
-import org.apache.taverna.robundle.manifest.PathAnnotation;
-import org.apache.taverna.robundle.manifest.PathMetadata;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.styles.StyleManager;
@@ -33,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -95,7 +88,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 	private CyRootNetwork rootNetwork;
 	private CyNetwork network;       // global network of all SBML information
 
-    private Bundle bundle;
     private HashMap<String, CyNode> path2node;
     private HashMap<CyNode, String> node2path;
 
@@ -139,20 +131,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         logger.debug("buildCyNetworkView");
 
-        // set bundle in BundleManager
-        BundleManager bundleManager = BundleManager.getInstance();
-
-        // BundleManager is only available in the OSGI context
-        if (bundleManager != null) {
-
-            bundleManager.addBundleForNetwork(bundle, network);
-            // update current network
-            bundleManager.updateCurrent(network);
-            System.out.println(bundleManager.toString());
-        } else {
-            logger.warn("No mapping found for SBML network.");
-        }
-
 
         // create view
         CyNetworkView view = viewFactory.createNetworkView(network);
@@ -195,24 +173,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         // Get all SBML files from bundle
 
         List<Path> paths = new LinkedList<>();
-        Manifest manifest = null;
-        try {
-            manifest = bundle.getManifest();
-            List<PathMetadata> aggregates = manifest.getAggregates();
-            for (PathMetadata metaData: aggregates){
-                String mediatype = metaData.getMediatype();
-                String pathStr = metaData.toString();
-                if ((mediatype != null && mediatype.equals("application/xml")) ||
-                        (pathStr.endsWith(".gml")) || (pathStr.endsWith(".graphml")) ){
-                    Path path = metaData.getFile();
-                    paths.add(path);
-                }
-            }
-        } catch (IOException e) {
-            logger.error("Manifest could not be read from archive.");
-            e.printStackTrace();
-        }
-
+        // TODO: implement
 
         // read the files
         logger.info("Reading files from bundle");
@@ -333,43 +294,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
             // Read archive
             try {
-                bundle = Bundles.openBundle(stream);
-                System.out.println(bundle);
-
-                Manifest manifest = bundle.getManifest();
                 System.out.println("------------------------");
-                System.out.println(manifest);
-                System.out.println("CreatedBy: " + manifest.getCreatedBy());
-                System.out.println("CreatedOn: " + manifest.getCreatedOn());
+                // TODO: implement
 
-                System.out.println("\n<manifest>");
-                List<Path> pathList = manifest.getManifest();
-                for (Path p: pathList){
-                    System.out.println(p);
-                }
-
-                // locations & aggregates (either files or uris)
-                System.out.println("\n<aggregates>");
-                List<PathMetadata> aggregates = manifest.getAggregates();
-                for (PathMetadata metaData: aggregates){
-                    System.out.println(metaData);
-                    // create aggregate node
-                    CyNode n = createNodeForPath(metaData);
-                }
-
-                // create archive tree
-                for (PathMetadata metaData: aggregates){
-                    createTreeForPath(metaData);
-                }
-
-                System.out.println("\n<annotations>");
-                for (PathAnnotation a: manifest.getAnnotations()){
-                    System.out.println(a);
-                    // createEdgesForAnnotation(a);
-                }
-                if (taskMonitor != null){
-                    taskMonitor.setProgress(0.4);
-                }
                 System.out.println("------------------------");
             }catch(ZipError e){
                 logger.error("Could not read the zip file.");
@@ -408,93 +335,15 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Creates the node for the given aggregate.
-     * @param md
      * @return
      */
-	private CyNode createNodeForPath(PathMetadata md){
+	private CyNode createNodeForPath(){
+
 	    // Create single node
 	    CyNode n = network.addNode();
-        String path = md.toString();
-        AttributeUtil.set(network, n, NODE_ATTR_PATH, path, String.class);
-        path2node.put(path, n);
-        node2path.put(n, path);
 
         // Set attributes
-        String name = getNameFromPath(path);
-        AttributeUtil.set(network, n, NODE_ATTR_NAME, name, String.class);
-        if (md.getUri() != null) {
-            AttributeUtil.set(network, n, NODE_ATTR_AGGREGATE_TYPE, AGGREGATE_TYPE_URI, String.class);
-            AttributeUtil.set(network, n, NODE_ATTR_TYPE, TYPE_AGGREGATE, String.class);
-        }
-        if (md.getFile() != null) {
-            AttributeUtil.set(network, n, NODE_ATTR_TYPE, TYPE_AGGREGATE, String.class);
-            AttributeUtil.set(network, n, NODE_ATTR_AGGREGATE_TYPE, AGGREGATE_TYPE_FILE, String.class);
-        }
-
-        // handle the root node
-        if (name.equals("/")) {
-            AttributeUtil.set(network, n, NODE_ATTR_AGGREGATE_TYPE, AGGREGATE_TYPE_ROOT, String.class);
-        }
-
-        if (md.getConformsTo() != null){
-            AttributeUtil.set(network, n, NODE_ATTR_FORMAT, md.getConformsTo().toString(), String.class);
-        }
-
-        if (md.getMediatype() != null) {
-            AttributeUtil.set(network, n, NODE_ATTR_MEDIATYPE, md.getMediatype(), String.class);
-        }
-
-        if (md.getAuthoredBy() != null){
-            String text = getAgentsString(md.getAuthoredBy());
-            AttributeUtil.set(network, n, NODE_ATTR_AUTHORED_BY, text, String.class);
-        }
-        if (md.getAuthoredOn() != null){
-            FileTime time = md.getAuthoredOn();
-            AttributeUtil.set(network, n, NODE_ATTR_AUTHORED_ON, time.toString(), String.class);
-        }
-        if (md.getCreatedBy() != null){
-            String text = getAgentString(md.getCreatedBy());
-            AttributeUtil.set(network, n, NODE_ATTR_CREATED_BY, text, String.class);
-        }
-        if (md.getCreatedOn() != null){
-            FileTime time = md.getCreatedOn();
-            AttributeUtil.set(network, n, NODE_ATTR_CREATED_ON, time.toString(), String.class);
-        }
         return n;
-    }
-
-    /**
-     * Add annotation edges to the network.
-     */
-    @Deprecated
-    private void createEdgesForAnnotation(PathAnnotation a){
-        logger.info("createEdgesForAnnotation :" + a);
-        List<URI> aboutURIs = a.getAboutList();
-        URI contentURI = a.getContent();
-
-        String content = contentURI.toString();
-        CyNode nContent = path2node.get(content);
-        // wrong prefix in content
-        String fixedContent = content;
-        if (nContent == null && content.startsWith("/.ro/")){
-            fixedContent = content.replace("/.ro", "");
-            nContent = path2node.get(fixedContent);
-        }
-
-        if (nContent != null){
-            for (URI uri: aboutURIs){
-                CyNode nAbout = path2node.get(uri.toString());
-                if (nAbout != null){
-                    // add edge
-                    logger.info("Edge added for annotation.");
-                    network.addEdge(nContent, nAbout, true);
-                } else {
-                    logger.error("About node not found for: " + uri);
-                }
-            }
-        } else {
-            logger.error("Content node not found for: " + contentURI);
-        }
     }
 
 
@@ -511,14 +360,10 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Creates the Tree leading to root for given path.
-     * @param md
      * @return
      */
-    private void createTreeForPath(PathMetadata md) {
-        // Create single node
-        String path = md.toString();
-        CyNode n = path2node.get(path);
-        createParentForNode(n);
+    private void createTreeForPath() {
+
     }
 
 
@@ -657,33 +502,5 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         }
         return extension;
     }
-
-    /**
-     * Agents string representation.
-     *
-     * @param agents
-     * @return
-     */
-    private String getAgentsString(List<Agent> agents){
-        String text = "";
-        for (Agent a: agents){
-            text += getAgentString(a) + "; ";
-        }
-        return text;
-    }
-
-    /**
-     * Create String for agent.
-     *
-     * @param agent
-     * @return
-     */
-    private String getAgentString(Agent agent){
-        String text = String.format(
-                "%s (uri=%s, orcid=%s)",
-                agent.getName(), agent.getUri(), agent.getOrcid());
-        return text;
-    }
-
 
 }

@@ -200,10 +200,6 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
             CofactorManager cofactorManager = CofactorManager.getInstance();
 
-            // BundleManager
-            BundleManager bundleManager = BundleManager.getInstance(cyApplicationManager);
-            registerService(bc, bundleManager, NetworkAboutToBeDestroyedListener.class, new Properties());
-
             // panels
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
@@ -310,9 +306,6 @@ public class CyActivator extends AbstractCyActivator {
             webViewPanel.activate();
 
             logger.info("----------------------------");
-
-            // research object not working due to xerces
-            //ROBundle.test();
 
 
         } catch (Throwable e) {

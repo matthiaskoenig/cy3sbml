@@ -250,6 +250,12 @@
         </dependency>
         <dependency>
             <groupId>org.cytoscape</groupId>
+            <artifactId>application-api</artifactId>
+            <version>${cytoscape.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.cytoscape</groupId>
             <artifactId>swing-application-api</artifactId>
             <version>${cytoscape.api.version}</version>
             <scope>provided</scope>
@@ -429,116 +435,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>uk.ac.ebi.pride.architectural</groupId>
-            <artifactId>pride-core</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
-        </dependency>
-        -->
 
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.1</version>
-        </dependency>
 
         <!-- CombineArchive -->
+        <!--
         <dependency>
             <groupId>de.unirostock.sems</groupId>
             <artifactId>CombineArchive</artifactId>
             <version>1.3.0</version>
         </dependency>
-
-        <!-- ResearchObjects & OMEX -->
-        <dependency>
-            <groupId>org.apache.taverna.language</groupId>
-            <artifactId>taverna-robundle</artifactId>
-            <version>0.15.1-incubating</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <!--
-                     Problems with newer OSGI and necessary to exclude and include by components
-                     without OSGI. The newer OSGI overwrites the old Cytoscape OSGI causing issues.
-                     jena-osgi is mainly an osgi packaging of
-                     - jena-core (depends on xerces)
-                     - jena-arq
-                     - jena-iri
-                     - jena-tdb
-                     So we exclude the jena-osgi and bring in the components.
-                 -->
-                <exclusion>
-                    <groupId>org.apache.jena</groupId>
-                    <artifactId>jena-osgi</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-core</artifactId>
-            <version>3.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-arq</artifactId>
-            <version>3.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-iri</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-tdb</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.11.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--
-        Update dependencies to fix:
-        https://issues.apache.org/jira/browse/JENA-1178
         -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient-cache</artifactId>
-            <version>4.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jsonld-java</groupId>
-            <artifactId>jsonld-java</artifactId>
-            <version>0.9.0</version>
-        </dependency>
-
 
         <!-- UniProt -->
         <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
@@ -557,17 +463,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.1.8</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.1.7</version>
-        </dependency>
-
 
         <!-- Logging -->
         <dependency>
@@ -575,13 +470,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.21</version>
         </dependency>
-        <!--
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-		-->
 
         <!-- JSBML -->
         <dependency>
@@ -595,7 +483,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.biojava</groupId>
             <artifactId>biojava-ontology</artifactId>
@@ -649,7 +536,6 @@
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.cytoscape</groupId>
             <artifactId>group-impl</artifactId>
@@ -663,7 +549,6 @@
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.cytoscape</groupId>
             <artifactId>ding-presentation-impl</artifactId>
@@ -677,13 +562,11 @@
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.cytoscape</groupId>
             <artifactId>work-impl</artifactId>
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>
