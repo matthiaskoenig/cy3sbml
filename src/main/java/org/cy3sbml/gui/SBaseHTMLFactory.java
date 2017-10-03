@@ -593,7 +593,7 @@ public class SBaseHTMLFactory {
             if (oboSynonyms != null && oboSynonyms.size() > 0) {
                 html += "\t<span class=\"comment\">OBO Synonyms</span> ";
                 for (String name: oboSynonyms.keySet()) {
-                    html += String.format("%s (%s); ", name, oboSynonyms.get(name));
+                    html += String.format("%s; ", name);
                 }
                 html += "<br />\n";
             }
