@@ -11,6 +11,7 @@ import org.osgi.framework.BundleContext;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -88,6 +89,7 @@ public class CyActivator extends AbstractCyActivator {
             if (appDirectory.exists() == false) {
                 appDirectory.mkdir();
             }
+
             // store bundle information (for display of dependencies, versions, ...)
             File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
             System.setProperty("logfile.name", logFile.getAbsolutePath());
@@ -297,6 +299,7 @@ public class CyActivator extends AbstractCyActivator {
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
                     File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+
                     RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
                     RegistryUtil.loadRegistry(miriamFile);
                 }
