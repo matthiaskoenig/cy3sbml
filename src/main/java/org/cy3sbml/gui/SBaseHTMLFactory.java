@@ -603,7 +603,6 @@ public class SBaseHTMLFactory {
                     html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml(description));
                 }
             }
-
         } else {
             html += String.format(
                     "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
