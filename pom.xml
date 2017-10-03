@@ -98,12 +98,14 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
         <!-- OLS client -->
         <repository>
             <id>EBI SNAPSHOT</id>
             <name>EBI Snapshot repository</name>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
+
         <!-- EBI repo -->
         <repository>
             <id>nexus-ebi-release-repo</id>
@@ -333,7 +335,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- OSGi core dependency -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -354,6 +355,8 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Misc -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -435,6 +438,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.1</version>
+        </dependency>
 
 
         <!-- CombineArchive -->
@@ -469,6 +477,18 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.21</version>
+        </dependency>
+
+        <!-- Needed for uniprot -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.7</version>
         </dependency>
 
         <!-- JSBML -->
