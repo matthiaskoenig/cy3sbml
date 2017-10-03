@@ -589,6 +589,14 @@ public class SBaseHTMLFactory {
                 }
                 html += "<br />\n";
             }
+            Map<String, String> oboSynonyms = term.getOboSynonyms();
+            if (oboSynonyms != null && oboSynonyms.size() > 0) {
+                html += "\t<span class=\"comment\">OBO Synonyms</span> ";
+                for (String name: oboSynonyms.keySet()) {
+                    html += String.format("%s (%s); ", name, oboSynonyms.get(name));
+                }
+                html += "<br />\n";
+            }
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {

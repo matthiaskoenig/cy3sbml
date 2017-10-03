@@ -15,10 +15,12 @@ import org.mockito.MockitoAnnotations;
 /**
  * Test cases for biomodels.
  * 
- * 30th BioModels Release, 2016-05-10
- * http://www.ebi.ac.uk/biomodels-main/static-pages.do?page=release_20160510
- * Retrieved on 2016-06-22, 611 curated models
+ * 31th BioModels Release, 2017-06-26
+ * ftp://ftp.ebi.ac.uk/pub/databases/biomodels/releases/2017-06-26/
+ * https://www.ebi.ac.uk/biomodels-main/static-pages.do?page=release_20170626
+ * Retrieved on 2017-10-03, 640 curated models
  */
+
 @RunWith(value = Parameterized.class)
 public class BioModelsTest {
 	private String resource;

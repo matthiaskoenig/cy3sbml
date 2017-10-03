@@ -32,7 +32,7 @@ public class OLSClientTest {
     @Test
     public void testGetTermById() throws Exception {
         Term term = olsClient.getTermById(new Identifier("MS:1001767", Identifier.IdentifierType.OBO), "MS");
-        Assert.assertTrue(term.getLabel().equalsIgnoreCase("nanoACQUITY UPLC System with Technology"));
+        Assert.assertTrue(term.getLabel().equalsIgnoreCase("nanoACQUITY UPLC System with 1D Technology"));
     }
 
 
@@ -90,8 +90,8 @@ public class OLSClientTest {
     public void testGetTermsByAnnotationData() throws Exception {
 
         List<Term> annotations = olsClient.getTermsByAnnotationData("mod","DiffAvg", 30, 140);
-
-        Assert.assertTrue(annotations.size() == 303);
+        System.out.println(annotations.size());
+        Assert.assertTrue(annotations.size() == 424);
 
     }
 
@@ -116,40 +116,28 @@ public class OLSClientTest {
     }
 
     @Test
-    public void testGetSynonyms() throws Exception {
+    public void testGetOBOSynonyms() throws Exception {
         Identifier identifier = new Identifier("MI:0018", Identifier.IdentifierType.OBO);
-        Set<String> synonyms = olsClient.getSynonyms(identifier, "mi");
-        assertEquals(synonyms.size(), 9);
-        Assert.assertTrue(synonyms.contains("classical two hybrid"));
-        Assert.assertTrue(synonyms.contains("Gal4 transcription regeneration"));
-        Assert.assertTrue(synonyms.contains("yeast two hybrid"));
-        Assert.assertTrue(synonyms.contains("Y2H"));
-        Assert.assertTrue(synonyms.contains("two-hybrid"));
-        Assert.assertTrue(synonyms.contains("2 hybrid"));
-        Assert.assertTrue(synonyms.contains("2-hybrid"));
-        Assert.assertTrue(synonyms.contains("2h"));
-        Assert.assertTrue(synonyms.contains("2H"));
+        Map<String, String> synonyms = olsClient.getOBOSynonyms(identifier, "mi");
+
+        // https://www.ebi.ac.uk/ols/api/ontologies/mi/terms?iri=http://purl.obolibrary.org/obo/MI_0018
+        assertEquals(8, synonyms.size());
+        Assert.assertTrue(synonyms.containsKey("2h"));
+        Assert.assertTrue(synonyms.containsKey("yeast two hybrid"));
+        Assert.assertTrue(synonyms.containsKey("2H"));
+        Assert.assertTrue(synonyms.containsKey("classical two hybrid"));
+        Assert.assertTrue(synonyms.containsKey("Gal4 transcription regeneration"));
+        Assert.assertTrue(synonyms.containsKey("two-hybrid"));
+        Assert.assertTrue(synonyms.containsKey("2 hybrid"));
+        Assert.assertTrue(synonyms.containsKey("2-hybrid"));
+
     }
 
     @Test
-    public void testGetMetaData() throws Exception {
-        Identifier identifier1 = new Identifier("MI:0446", Identifier.IdentifierType.OBO);
-        Map metadata1 = olsClient.getMetaData(identifier1, "mi");
-        assertEquals(1, metadata1.size());
-        Assert.assertNotNull(metadata1.get("definition"));
-        assertEquals("PubMed is designed to provide access to citations from biomedical literature. The data can be found at both NCBI PubMed and Europe PubMed Central. \n" +
-                "http://www.ncbi.nlm.nih.gov/pubmed\n" +
-                "http://europepmc.org", metadata1.get("definition"));
-
-        Identifier identifier2 = new Identifier("MOD:01161", Identifier.IdentifierType.OBO);
-        Map metadata2 = olsClient.getMetaData(identifier2, "mod");
-        Map synonyms = (Map) metadata2.get("synonym");
-        assertEquals(2, metadata2.size());
-        Assert.assertNotNull(metadata2.get("synonym"));
-        Assert.assertNotNull(metadata2.get("definition"));
-        Assert.assertNull(metadata2.get("comment"));
-        assertEquals(3, synonyms.size());
-        assertEquals("A protein modification that effectively removes oxygen atoms from a residue without the removal of hydrogen atoms.", metadata2.get("definition"));
+    public void testGetSynonyms() throws Exception {
+        Identifier identifier = new Identifier("MI:0018", Identifier.IdentifierType.OBO);
+        Set<String> synonyms = olsClient.getSynonyms(identifier, "mi");
+        assertEquals(synonyms.size(), 0);
     }
 
     @Test
