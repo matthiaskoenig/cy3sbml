@@ -1569,7 +1569,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         }
 
         for (Group group : groupsModel.getListOfGroups()) {
-            logger.info(String.format("Reading group: <%s>", group));
+            logger.debug(String.format("Reading group: <%s>", group));
 
             // empty group node & sets attributes
             CyGroup cyGroup = createGroup(network, group);
@@ -1609,7 +1609,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     sbase.setAnnotation(membersList.getAnnotation());
                 }
             }
-            logger.info(String.format("Adding %s nodes to cyGroup", nodes.size()));
+            logger.debug(String.format("Adding %s nodes to cyGroup", nodes.size()));
             cyGroup.addNodes(nodes);
         }
 
