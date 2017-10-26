@@ -8,7 +8,6 @@
 # tmp files
 *~
 
-
 # target 
 /target/classes/
 /target/generated-sources
