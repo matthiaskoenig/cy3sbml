@@ -459,7 +459,7 @@
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.15</version>
+            <version>1.0.16</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
