@@ -1434,16 +1434,24 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
 
                 CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, sbase.getMetaId());
 
+                // replacedElements (SBaseRef)
                 for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()){
 
                     logger.info(replacedElement.toString());
-                    // SBaseRef
+                    //
                     // targets can be from other submodels
-
                     CyNode target = createNode(network, replacedElement, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
                     setSBaseRefAttributes(network, target, replacedElement);
+
+                    String ref = getRefFromSBaseRef(replacedElement);
+                    String submodel = "";
+                    if (replacedElement.isSetSubmodelRef()){
+                        submodel = replacedElement.getSubmodelRef();
+                    }
+
                     AttributeUtil.set(network, target, SBML.LABEL,
-                            String.format("%s replacedElement", sbase.getMetaId()), String.class);
+                            String.format("replaces <%s:%s>", submodel, ref), String.class);
+
 
                     // edge to replacing element
                     createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT);
@@ -1456,6 +1464,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                         // replacedElement.getConversionFactor();
                     }
                     if (replacedElement.isSetDeletion()){
+                        // FIXME
                         // replacedElement.getDeletion();
                     }
 
@@ -1468,22 +1477,56 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     */
 
                 }
+
+                // replacedBy
                 if (compSBase.isSetReplacedBy()){
                     ReplacedBy replacedBy = compSBase.getReplacedBy();
                     logger.info(replacedBy.toString());
                     CyNode target = createNode(network, replacedBy, SBML.NODETYPE_COMP_REPLACED_BY);
                     setSBaseRefAttributes(network, target, replacedBy);
 
+                    String ref = getRefFromSBaseRef(replacedBy);
+                    String submodel = "";
+                    if (replacedBy.isSetSubmodelRef()){
+                        submodel = replacedBy.getSubmodelRef();
+                    }
+
                     AttributeUtil.set(network, target, SBML.LABEL,
-                            String.format("%s replacedBy", sbase.getMetaId()), String.class);
+                            String.format("replacedBy <%s:%s>", submodel, ref), String.class);
 
                     // edge to replacing element
                     createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_BY);
                     createSBaseRefEdge(network, target, replacedBy, model.getId());
                 }
+
+                // deletion
             }
         }
 
+    }
+
+    /**
+     * Get String of referenced element from port.
+     *
+     * @param sbaseRef
+     * @return String
+     */
+    private String getRefFromSBaseRef(SBaseRef sbaseRef){
+
+        String ref = "";
+        if (sbaseRef.isSetPortRef()) {
+            ref = sbaseRef.getPortRef();
+        }
+        else if (sbaseRef.isSetIdRef()) {
+            ref = sbaseRef.getIdRef();
+        }
+        else if (sbaseRef.isSetUnitRef()) {
+            ref = sbaseRef.getUnitRef();
+        }
+        else if (sbaseRef.isSetMetaIdRef()) {
+            ref = sbaseRef.getMetaIdRef();
+        }
+        return ref;
     }
 
     /**

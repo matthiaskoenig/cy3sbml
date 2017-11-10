@@ -306,11 +306,6 @@ public class SBML {
             SBML.NODETYPE_FBC_GENEPRODUCT,
             SBML.NODETYPE_FBC_AND,
             SBML.NODETYPE_FBC_OR,
-
-            SBML.NODETYPE_COMP_PORT,
-            SBML.NODETYPE_COMP_DELETION,
-            SBML.NODETYPE_COMP_REPLACED_BY,
-            SBML.NODETYPE_COMP_REPLACED_ELEMENT,
     };
 
     public static final String[] kineticEdgeTypes = {
@@ -340,7 +335,8 @@ public class SBML {
             SBML.INTERACTION_COMP_SBASEREF_METAID,
             SBML.INTERACTION_COMP_SBASEREF_PORT,
             SBML.INTERACTION_COMP_SBASE_REPLACED_BY,
-            SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT
+            SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT,
+            SBML.INTERACTION_COMP_SBASE_DELETION
     };
 
     // -------------------------------------------------------------------------
