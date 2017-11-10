@@ -1450,7 +1450,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     }
 
                     AttributeUtil.set(network, target, SBML.LABEL,
-                            String.format("replaces <%s:%s>", submodel, ref), String.class);
+                            String.format("<%s:%s>", submodel, ref), String.class);
 
 
                     // edge to replacing element
@@ -1492,7 +1492,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
                     }
 
                     AttributeUtil.set(network, target, SBML.LABEL,
-                            String.format("replacedBy <%s:%s>", submodel, ref), String.class);
+                            String.format("<%s:%s>", submodel, ref), String.class);
 
                     // edge to replacing element
                     createEdge(network, source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_BY);
