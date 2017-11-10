@@ -101,8 +101,10 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_EVENT, "40.0");
         m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20.0");
         m5.put(SBML.NODETYPE_GROUP, "60.0");
-        m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "20.0");
-        m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "20.0");
+        m5.put(SBML.NODETYPE_COMP_PORT, "10.0");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "10.0");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "10.0");
+        m5.put(SBML.NODETYPE_COMP_DELETION, "10.0");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
@@ -115,8 +117,11 @@ public class StyleInfo {
         m6.put(SBML.NODETYPE_RATE_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_KINETIC_LAW, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_QUAL_TRANSITION, "N,S,c,0.00,0.00");
+
+        m6.put(SBML.NODETYPE_COMP_PORT, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_COMP_REPLACED_BY, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_COMP_DELETION, "N,S,c,0.00,0.00");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_POSITION, SBML.NODETYPE_ATTR, "C,C,c,0.00,0.00", m6));
 
@@ -143,6 +148,7 @@ public class StyleInfo {
         Map<String, String> m8 = new HashMap<>();
         m8.put(SBML.INTERACTION_REACTION_PRODUCT, "DELTA");
         m8.put(SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, "DELTA");
+        m8.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "DELTA_SHORT_2");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_TARGET_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m8));
 
@@ -150,6 +156,9 @@ public class StyleInfo {
         m9.put(SBML.INTERACTION_REACTION_MODIFIER, "CIRCLE");
         m9.put(SBML.INTERACTION_REACTION_ACTIVATOR, "DIAMOND");
         m9.put(SBML.INTERACTION_REACTION_INHIBITOR, "T");
+        m9.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "DELTA_SHORT_2");
+        m9.put(SBML.INTERACTION_COMP_SBASE_DELETION, "DELTA_SHORT_2");
+
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE, SBML.INTERACTION_ATTR_EXTENDED, "NONE", m9));
 
@@ -160,8 +169,10 @@ public class StyleInfo {
         m11.put(SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT, "DOT");
         m11.put(SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT, "DOT");
         m11.put(SBML.INTERACTION_PARAMETER_REACTION, "SEPARATE_ARROW");
+        m11.put(SBML.INTERACTION_COMP_SBASEREF_PORT, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "EQUAL_DASH");
+        m11.put(SBML.INTERACTION_COMP_SBASE_DELETION, "EQUAL_DASH");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 

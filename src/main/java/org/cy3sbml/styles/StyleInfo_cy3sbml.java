@@ -78,8 +78,9 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_SOURCE_ARROW_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
-
+                VisualPropertyKey.EDGE_SOURCE_ARROW_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#000000", m10));
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
+                VisualPropertyKey.EDGE_TARGET_ARROW_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#000000", m10));
         return mappings;
     }
 
