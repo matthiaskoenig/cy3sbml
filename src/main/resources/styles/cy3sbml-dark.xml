@@ -73,12 +73,12 @@
             <visualProperty default="#CC6600" name="NODE_SELECTED_PAINT"/>
             <visualProperty default="#666666" name="NODE_FILL_COLOR">
                 <discreteMapping attributeName="sbml type ext" attributeType="string">
-                    <discreteMappingEntry attributeValue="assignmentRule" value="66CCFF"/>
+                    <discreteMappingEntry attributeValue="assignmentRule" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="functionDefinition" value="#FFCC66"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="#FF6666"/>
                     <discreteMappingEntry attributeValue="qual_transition" value="#999999"/>
-                    <discreteMappingEntry attributeValue="algebraicRule" value="66CCFF"/>
+                    <discreteMappingEntry attributeValue="algebraicRule" value="#66CCFF"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="#FF9966"/>
                     <discreteMappingEntry attributeValue="reaction irreversible" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="unit" value="#000000"/>
