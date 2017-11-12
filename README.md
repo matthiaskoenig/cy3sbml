@@ -82,6 +82,8 @@ The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
+**v0.2.8** [?]
+
 **v0.2.7** [2017/11/12]
 
 Bugfix and dependency release
