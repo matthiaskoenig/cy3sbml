@@ -227,7 +227,7 @@ public class SBMLUtil {
         String units = getDerivedUnitHtml(container);
         if (variable != null){
             map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
-            math = String.format("%s = %s", variable, math);
+            math = String.format("%s = %s", variable.getId(), math);
         }
         map.put(SBML.ATTR_MATH, String.format(String.format(MATH_TEMPLATE, math)));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));

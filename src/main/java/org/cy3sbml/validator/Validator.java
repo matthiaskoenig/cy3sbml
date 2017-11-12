@@ -1,6 +1,12 @@
 package org.cy3sbml.validator;
 
-import org.apache.commons.codec.Charsets;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
@@ -10,12 +16,6 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.validator.SBMLValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Validation of SBMLDocuments.
@@ -233,7 +233,7 @@ public class Validator {
         Validator validator = new Validator(doc);
         SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
         String html = validator.createHtml();
-        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html, Charsets.UTF_8);
+        FileUtils.writeStringToFile(new File("/home/mkoenig/tmp/validation.html"), html, StandardCharsets.UTF_8);
     }
 
 }

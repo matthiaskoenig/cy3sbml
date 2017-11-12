@@ -14,9 +14,9 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for the BIGG models.
- * bigg_models v1.3 (https://github.com/SBRG/bigg_models/releases)
+ * bigg_models v1.4 (https://github.com/SBRG/bigg_models/releases)
  * 
- * Models were retrieved on 2016-12-16 from the available database dumps on
+ * Models were retrieved on 2017-10-10 from the available database dumps on
  * dropbox.
  */
 @RunWith(value = Parameterized.class)

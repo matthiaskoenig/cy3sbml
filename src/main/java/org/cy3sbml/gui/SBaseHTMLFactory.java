@@ -2,10 +2,10 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.util.*;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.cy3sbml.miriam.RegistryUtil;
@@ -780,7 +780,7 @@ public class SBaseHTMLFactory {
 
         // Save to tmp file for viewing
         File file = new File(targetDir, "testinfo.html");
-        FileUtils.writeStringToFile(file, html, Charsets.UTF_8);
+        FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
 
 }

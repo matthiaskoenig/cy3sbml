@@ -82,9 +82,20 @@ The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
-**v0.2.6** [?]
+**v0.2.7** [2017/11/12]
 
-**v0.2.5** [2016/06/19]
+Bugfix and dependency release
+* bugfixes
+* updated dependencies
+
+**v0.2.6** [2017/10/03]
+
+Major bugfix release to handle EBI https and Uniprot https.
+* bugfixes
+* updated dependencies
+* cleanup of unused functionality and dependencies
+
+**v0.2.5** [2017/06/19]
 
 * Bug fixes
 * Updated UniProt Information
