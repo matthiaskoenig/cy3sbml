@@ -1,0 +1,126 @@
+0D-Compartment AlgebraicRule Amount AssignedConstantStoichiometry AssignedVariableStoichiometry AssignmentRule BoolNumericSwap BoundaryCondition CSymbolAvogadro CSymbolDelay CSymbolRateOf CSymbolTime Compartment Concentration ConstantSpecies ConversionFactors EventIsNotPersistent EventIsPersistent EventNoDelay EventPriority EventT0Firing EventUsesAssignmentTimeValues EventUsesTriggerTimeValues EventWithDelay FastReaction FunctionDefinition HasOnlySubstanceUnits InitialAssignment InitialValueReassigned L3v2MathML LocalParameters MultiCompartment NoMathML NonConstantCompartment NonConstantParameter NonUnityCompartment NonUnityStoichiometry Parameter RandomEventExecution RateRule Reaction ReversibleReaction Species SpeciesReferenceInMath StoichiometryMath UncommonMathML VolumeConcentrationRates comp:ConversionFactor comp:Deletion comp:ExtentConversionFactor comp:ExternalModelDefinition comp:ModelDefinition comp:Port comp:ReplacedBy comp:ReplacedElement comp:SBaseRef comp:Submodel comp:SubmodelOutput comp:TimeConversionFactor fbc:BoundEqual fbc:BoundGreaterEqual fbc:BoundLessEqual fbc:FluxBound fbc:FluxObjective fbc:MaximizeObjective fbc:MinimizeObjective fbc:NonStrict fbc:Objective
+00001 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00002 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00003 Compartment Species Reaction Parameter Amount NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00004 Compartment Species Reaction Parameter Amount NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00005 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00006 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00007 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00008 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00009 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00010 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00011 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00012 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00013 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00014 Compartment Species Reaction Parameter Amount NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00015 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00016 Compartment Species Reaction Parameter Amount BoundaryCondition 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00017 Compartment Species Reaction Parameter Amount NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00018 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00019 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00020 Compartment Species Reaction Parameter Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00021 Compartment Species Reaction Parameter Amount NonUnityCompartment NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00022 Compartment Species Reaction Parameter Amount NonUnityCompartment NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00023 Compartment Species Reaction Parameter Amount ConstantSpecies BoundaryCondition 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00024 Compartment Species Reaction Parameter Amount ConstantSpecies BoundaryCondition 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00025 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00026 Compartment Species Reaction Parameter EventNoDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00027 Compartment Species Reaction InitialAssignment Amount NonUnityCompartment LocalParameters InitialValueReassigned 2.2 2.3 2.4 2.5 3.1 3.2 
+00028 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00029 Compartment Species AssignmentRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00030 Compartment Species AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00031 Compartment Species RateRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00032 Compartment Species Parameter RateRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00033 Compartment Species Reaction Parameter RateRule Amount NonConstantParameter 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00034 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00035 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00036 Compartment Species Reaction Parameter InitialAssignment Amount InitialValueReassigned 2.2 2.3 2.4 2.5 3.1 3.2 
+00037 Compartment Species Reaction Parameter InitialAssignment Amount InitialValueReassigned 2.2 2.3 2.4 2.5 3.1 3.2 
+00038 Compartment Species Reaction Parameter AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00039 Compartment Species Reaction Parameter AlgebraicRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00040 Compartment Species Parameter AlgebraicRule RateRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00041 Compartment Species Reaction Parameter EventNoDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00042 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00043 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00044 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00045 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00046 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00047 Compartment Species Reaction Parameter Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00048 Compartment Species Reaction Parameter Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00049 Compartment Species Reaction Parameter Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00050 Compartment Species Reaction Parameter Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00051 Compartment Species Reaction Parameter RateRule Amount NonConstantCompartment NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00052 Compartment Species Reaction Parameter RateRule Amount NonConstantCompartment NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00053 Compartment Species Reaction Parameter RateRule Amount NonConstantCompartment NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00054 Compartment Parameter Reaction Species Amount MultiCompartment NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00055 Compartment Parameter Reaction Species Amount MultiCompartment NonUnityStoichiometry 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00056 Compartment Parameter Reaction Species Amount MultiCompartment ReversibleReaction 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00057 Compartment Species Reaction Amount LocalParameters 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00058 Compartment Species Reaction Parameter Amount LocalParameters 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00059 Compartment Species Reaction Parameter Amount LocalParameters 1.2 2.1 2.2 2.3 2.4 2.5 3.1 
+00060 Compartment Species Reaction Parameter Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00061 Compartment Species Reaction Parameter Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00062 Compartment Species Reaction Parameter Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00063 Compartment Species Reaction Parameter Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00064 Compartment Species Reaction Parameter Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00065 Compartment Species Reaction Parameter Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00066 Compartment Species Reaction Parameter RateRule Amount NonConstantParameter 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00067 Compartment Species Reaction Parameter RateRule Amount NonConstantParameter 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00068 StoichiometryMath Compartment Species Reaction Parameter Amount AssignedConstantStoichiometry NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 
+00069 StoichiometryMath Compartment Species Reaction Parameter Amount AssignedConstantStoichiometry NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 
+00070 StoichiometryMath Compartment Species Reaction Parameter Amount AssignedConstantStoichiometry NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 
+00071 Compartment Species Reaction Parameter EventWithDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00072 Compartment Species Reaction Parameter EventWithDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00073 Compartment Species Reaction Parameter EventWithDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00074 Compartment Species Reaction Parameter EventNoDelay Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00075 Compartment Species Reaction Parameter Amount NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00076 Compartment Species Reaction Parameter Amount NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00077 Compartment Species Reaction Parameter Amount NonUnityCompartment 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00078 Compartment Species Reaction Parameter FunctionDefinition AssignmentRule Amount InitialValueReassigned 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00079 Compartment Species Reaction Parameter FunctionDefinition AssignmentRule Amount InitialValueReassigned 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00080 Compartment Species Reaction Parameter FunctionDefinition AssignmentRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00081 Compartment Species Reaction Parameter RateRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00082 Compartment Species Reaction Parameter RateRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00083 Compartment Species Reaction Parameter RateRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00084 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00085 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00086 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00087 Compartment Species Reaction Parameter AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00088 Compartment Species Reaction Parameter AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00089 Compartment Species Reaction Parameter AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00090 Compartment Species Reaction Parameter AssignmentRule Amount 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00091 Compartment Species Reaction Parameter AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00092 Compartment Species Reaction Parameter RateRule AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00093 Compartment Species Reaction Parameter RateRule AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00094 Compartment Species Reaction Parameter RateRule AssignmentRule Amount InitialValueReassigned 1.2 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00095 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00096 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00097 Compartment Species Reaction Parameter FunctionDefinition Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00098 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00099 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00100 Compartment Species Reaction Parameter FunctionDefinition Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00101 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00102 Compartment Species Reaction Parameter FunctionDefinition Amount 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00103 Compartment Species Reaction Parameter FunctionDefinition Amount 0D-Compartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00104 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantCompartment NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00105 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantCompartment NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00106 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantCompartment NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00107 Compartment Species Reaction Parameter FunctionDefinition Amount NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00108 Compartment Species Reaction Parameter FunctionDefinition Amount NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00109 Compartment Species Reaction Parameter FunctionDefinition Amount NonUnityCompartment 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00110 Compartment FunctionDefinition Parameter Reaction Species Amount MultiCompartment NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00111 Compartment FunctionDefinition Parameter Reaction Species Amount MultiCompartment NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00112 Compartment FunctionDefinition Parameter Reaction Species Amount MultiCompartment ReversibleReaction 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00113 Compartment Species Reaction Parameter FunctionDefinition Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00114 Compartment Species Reaction Parameter FunctionDefinition Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00115 Compartment Species Reaction Parameter FunctionDefinition Amount HasOnlySubstanceUnits 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00116 Compartment Species Reaction Parameter FunctionDefinition Amount BoundaryCondition 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00117 Compartment Species Reaction Parameter FunctionDefinition Amount BoundaryCondition 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00118 Compartment Species Reaction Parameter FunctionDefinition Amount BoundaryCondition 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00119 Compartment Species Reaction Parameter FunctionDefinition Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00120 Compartment Species Reaction Parameter FunctionDefinition Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00121 Compartment Species Reaction Parameter FunctionDefinition Amount ConstantSpecies 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00122 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantParameter 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00123 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantParameter 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00124 Compartment Species Reaction Parameter FunctionDefinition RateRule Amount NonConstantParameter 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
+00125 Compartment Species Reaction Parameter FunctionDefinition Amount NonUnityStoichiometry 2.1 2.2 2.3 2.4 2.5 3.1 3.2 
