@@ -19,7 +19,7 @@ public class ValidatorTest {
         assertEquals(true, validator.getValid());
         SBMLErrorLog errorLog = validator.getErrorLog();
         assertNotNull(errorLog);
-        assertEquals(60, errorLog.getErrorCount());
+        assertEquals(61, errorLog.getErrorCount());
     }
 
     @Test

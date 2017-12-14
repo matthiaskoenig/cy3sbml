@@ -28,14 +28,15 @@ echo "Building jsbml in local repository"
 date
 
 ########################################################
-CORE_VERSION=1.3-SNAPSHOT
+CORE_VERSION=1.3
 QUAL_VERSION=2.1-b1
 LAYOUT_VERSION=1.0-b1
 COMP_VERSION=1.0-b1
 FBC_VERSION=1.0-b1
 GROUPS_VERSION=0.4-b1
 DISTRIB_VERSION=0.5
-TIDY_VERSION=1.2.1
+TIDY_VERSION=1.3
+JTIDY_VERSION=r938
 ########################################################
 
 # JSBML code directory
@@ -81,3 +82,5 @@ mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml-groups -Dversi
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml-distrib -Dversion=$DISTRIB_VERSION -Dfile=$JSBMLCODE/build/jsbml-distrib-$DISTRIB_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
 
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml-tidy -Dversion=$TIDY_VERSION -Dfile=$JSBMLCODE/build/jsbml-tidy-$TIDY_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
+
+mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jtidy -Dversion=$JTIDY_VERSION -Dfile=$JSBMLCODE/build/jtidy-$JTIDY_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true
