@@ -436,6 +436,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         // root network
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
         String name = getNetworkName(network);
+        //String name = AttributeUtil.get(network, network, SBML.ATTR_ID, String.class);
         rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
 
         // all network
@@ -538,15 +539,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
      */
     private String getNetworkName(CyNetwork network) {
         // name of root network
-        String name = network.getRow(network).get(SBML.ATTR_NAME, String.class);
+        String name = network.getRow(network).get(SBML.ATTR_ID, String.class);
         if (name == null) {
-            // name not set, try backup name via id
-            name = network.getRow(network).get(SBML.ATTR_ID, String.class);
-            // still not set, use the file name
-            if (name == null) {
-                String[] tokens = fileName.split(File.separator);
-                name = tokens[tokens.length - 1];
-            }
+            String[] tokens = fileName.split(File.separator);
+            name = tokens[tokens.length - 1];
         }
         return name;
     }
