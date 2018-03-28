@@ -566,9 +566,11 @@ public class SBaseHTMLFactory {
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
         String[] tokens = olsURL.split("=");
+
+
         if (tokens.length > 1){
             termIdentifier = tokens[tokens.length-1];
-            termIdentifier = termIdentifier.replace("_", ":");
+            // termIdentifier = termIdentifier.replace("_", ":");
         }
         Term term = OLSCache.getTerm(termIdentifier);
 
