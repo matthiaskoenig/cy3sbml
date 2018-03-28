@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public final static String OLS_BASE_URL = "http://www.ebi.ac.uk/ols/ontologies/";
+    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols/ontologies/";
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
@@ -78,7 +78,7 @@ public class OLSAccess {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().startsWith(OLS_BASE_URL);
+        return location.getUrlRoot().contains(OLS_BASE_URL);
     }
 
     public static void main(String[] args){
