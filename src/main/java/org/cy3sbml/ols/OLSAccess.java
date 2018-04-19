@@ -33,14 +33,24 @@ public class OLSAccess {
     public static Term getTerm(String identifier){
         try {
             String[] tokens = identifier.split(":");
-            if (tokens.length != 2) {
-                logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
-                return null;
+            if (tokens.length == 2) {
+                String ontologyId = tokens[0];
+                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
+                Term term = olsClient.getTermById(id, ontologyId);
+                return term;
             }
-            String ontologyId = tokens[0];
-            Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
-            Term term = olsClient.getTermById(id, ontologyId);
-            return term;
+            tokens = identifier.split("_");
+            if (tokens.length == 2) {
+                String ontologyId = tokens[0];
+                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OWL);
+                Term term = olsClient.getTermById(id, ontologyId);
+                return term;
+            }
+
+            // non of the strategies worked
+            logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
+            return null;
+
         } catch (HttpClientErrorException e) {
             logger.warn(String.format("OLS term not found <%s>", identifier));
             return null;

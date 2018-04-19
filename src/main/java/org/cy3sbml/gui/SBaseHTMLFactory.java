@@ -566,11 +566,8 @@ public class SBaseHTMLFactory {
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
         String[] tokens = olsURL.split("=");
-
-
         if (tokens.length > 1){
             termIdentifier = tokens[tokens.length-1];
-            // termIdentifier = termIdentifier.replace("_", ":");
         }
         Term term = OLSCache.getTerm(termIdentifier);
 
@@ -608,7 +605,7 @@ public class SBaseHTMLFactory {
         } else {
             html += String.format(
                     "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
-                    ICON_WARNING, identifier, olsURL, olsURL);
+                    ICON_WARNING, termIdentifier, olsURL, olsURL);
             html += createNonOLSLocation(location, identifier);
         }
         return html;
