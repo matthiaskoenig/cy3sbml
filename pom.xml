@@ -350,7 +350,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 3rd party dependency -->
+        <!-- caching -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -363,7 +363,7 @@
             </exclusions>
         </dependency>
 
-        <!-- Misc -->
+        <!-- misc -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -381,6 +381,13 @@
             <artifactId>LibFX</artifactId>
             <version>0.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.codefx.libfx</groupId>
+            <artifactId>LibFX</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+
+
 
         <!-- MIRIAM Registry -->
         <!-- manually registered from repo -->
