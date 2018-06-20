@@ -4,9 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>cy3sabiork</title>
+    <title>BioModels Importer</title>
     <meta name="description"
-          content="cy3sabiork: A Cytoscape app for visualization of kinetic information from SABIO-RK">
+          content="cy3sbml: BioModels Importer">
     <meta name="author" content="Matthias Koenig">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -14,13 +14,43 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Custom css -->
-    <link rel="stylesheet" href="css/cy3sabiork.css">
+    <link rel="stylesheet" href="css/biomodels.css">
 </head>
 
 <body>
 <div class="container">
-    <h1>cy3sabiork</h1>
-    <p>A Cytoscape app for visualizing kinetic data from <a href="http://sabiork.h-its.org">SABIO-RK</a>.</p>
+    <h1><img src="images/biomodels_logo.png"/> BioModels Importer</h1>
+    <p>
+        Load SBML models from <a href=\"http://www.biomodels.org/\">BioModels.net</a> by
+        (1) searching the repository or (2) via providing a set of BioModel identifiers.
+    </p>
+    <p>
+        (1) BioModels can be searched by
+    <ul>
+        <li>Name</li>
+        <li>Person</li>
+        <li>Publication (PMID or Abstract)</li>
+        <li>ChEBI (name or identifier)</li>
+        <li>UniProt (name or identifier)</li>
+    </ul>
+
+    Search terms can be connected via AND or OR.
+    </p>
+
+    <p>
+        Search results are shown in list format. To load one or multiple models select the
+        model ids in the list and click <span color=\"gray\"><b>Load Selected</b></span>.
+    </p>
+    <p>
+        (2) For direct access to specific models type the BioModel Ids in the text field.<br />
+        Click <span color=\"gray\"><b>Parse Ids</b></span>
+        to get information about the models or <span color=\"gray\"><b>Load Ids</b></span> to load
+        the models for the given ids.<br />
+        Arbitrary text containing BioModel Ids can be used as input for the parsing and loading.
+    </p>
+    <p>
+        The access via the BioModel WebService can take a few seconds depending on the search query.
+    </p>
 
         <table class="table table-striped table-condensed table-hover">
             <colgroup>
@@ -28,301 +58,13 @@
                 <col span="1" style="width: 75%;">
             </colgroup>
             <tbody>
+            <tr>
+                <td><strong>BioModels Database</strong></td>
+                <td><a href="https://wwwdev.ebi.ac.uk/biomodels/">https://wwwdev.ebi.ac.uk/biomodels/</a></td>
+            </tr>
             <tr>
                 <td><strong>Web services</strong></td>
-                <td><a href="http://sabiork.h-its.org/layouts/content/webservices.gsp">http://sabiork.h-its.org/layouts/content/webservices.gsp</a></td>
-            </tr>
-            <tr>
-                <td><strong>Homepage</strong></td>
-                <td><a href="https://github.com/matthiaskoenig/cy3sabiork">https://github.com/matthiaskoenig/cy3sabiork</a></td>
-            </tr>
-            <tr>
-                <td><strong>Forum</strong></td>
-                <td><a href="https://groups.google.com/forum/#!forum/cysbml-cyfluxviz">https://groups.google.com/forum/#!forum/cysbml-cyfluxviz</a>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Issues</strong></td>
-                <td><a href="https://github.com/matthiaskoenig/cy3sabiork/issues">https://github.com/matthiaskoenig/cy3sabiork/issues</a></td>
-            </tr>
-            <tr>
-                <td><strong>Email</strong></td>
-                <td><a href="mailto:konigmatt@googlemail.com">konigmatt@googlemail.com</a></td>
-            </tr>
-            <tr>
-                <td><strong>Developer</strong></td>
-                <td><a href="https://www.livermetabolism.com/contact.html">Matthias K&ouml;nig</a></td>
-            </tr>
-            </tbody>
-        </table>
-
-    <h2>Introduction</h2>
-    <p><strong>cy3sabiork</strong> provides access to SABIO-RK information via their web services. The typical workflow consists hereby of:
-    <ol>
-        <li><strong>Searching entries in SABIO-RK</strong><br/>
-            Kinetic entries are retrieved from SABIO-RK via either calls to the RESTful web service or searching the
-            <a href="http://sabiork.h-its.org/newSearch/index">web
-            interface</a> and exporting entries as SBML. In cy3sabiork queries can be created via the Query Builder or by search
-            via Kinetic Law Ids (tabs on the left). After building and running the query the entries are retrieved and displayed in the
-            results table. Clicking on the entries on the table provides detailed information about the Kinetic Law.
-        </li>
-        <li><strong>Loading entries</strong><br/>
-            After running the query the query results can be loaded into Cytoscape. Two graphs are generated per query,
-            one for the species-reaction network, a second one for the Kinetic Information.
-        </li>
-        <li><strong>Visual exploration of results</strong><br/>
-            The kinetic graphs for the imported entries allow the exploration of the kinetic information and
-            annotations.
-        </li>
-    </ol>
-    </p>
-
-    <p>
-        <img src="images/cy3sabiork-workflow.png" width="700"/>
-    </p>
-
-    <p>An overview of the available kinetic information for a single SABIO-RK Kinetic Law is given below. The
-        entry 14792 for galactokinase (EC:2.7.1.6, UniProtKB:P51570) was retrieved via the web service query <code><a class="query">kineticLaws/14792</a></code>
-        (<a href="http://sabiork.h-its.org/sabioRestWebServices/kineticLaws/14792">http://sabiork.h-its.org/sabioRestWebServices/kineticLaws/14792</a>).
-    </p>
-    <p>
-        <img src="images/cy3sabiork-kineticEntry.png" width="700"/><br/>
-    <ol>
-        <li>Resulting species-reaction-modifier graph for kinetic law 14792. The galacokinase enzyme catalyzes the
-            conversion of D-Galactose + ATP → α-D-Galactose 1-phosphate + ADP (see also Substrates, Products and
-            Modifiers in A)
-        </li>
-        <li>kinetic graph with additional nodes for kinetic law, parameters and localization</li>
-        <li>Selecting nodes in the graphs provides access to the annotation information and links to databases. In the
-            example the kinetic law information is displayed in the Results Panel.
-        </li>
-        <li>MIRIAM annotations with respective links to databases are available via the Results Panel</li>
-        <li>Additional SABIO-RK annotations in XML for the experimental conditions are displayed in this section.</li>
-    </ol>
-    </p>
-
-    <h2>Kinetic Law Entries</h2>
-    <p>
-        Entries for given Kinetic Law Ids can be retrieved via the Kinetic Law Entries tab. Copy and paste or type kinetic law ids in the text box and click add to add them to the query. Click run to run the query and load to load the entries in Cytoscape.
-    </p>
-    <p>For instance retrieving a single entry via
-        <code><a class="query">kineticLaws/14792</a></code> or multiple entries via
-        <code><a class="query">kineticLaws?kinlawids=48020,49160,44091,48027</a></code>.
-    </p>
-
-    <h2>Query Builder</span></h2>
-    <p>SABIO-RK entries can be searched based on combinations of keyword:term searches. The keywords are identical to
-        those used in the web interface for forming queries. Multiple keyword:term fields may be combined using the AND
-        operator to form complex queries. After creating the query it is executed by clicking run. The resulting entries
-        are loaded in Cytoscape by clicking load.
-    </p>
-    <p>For instance find all Kinetic Law Entries for spleen in Homo sapiens: <code><a class="query">searchKineticLaws/sbml?q=Tissue:"spleen" AND
-        Organism:"Homo sapiens"</a></code>
-    </p>
-
-    <h3>Keywords</h3>
-    <p>
-        The following keywords may be used to form queries to search for entries:
-    </p>
-
-        <table class="table table-striped table-condensed table-hover">
-            <colgroup>
-                <col span="1" style="width: 25%;">
-                <col span="1" style="width: 75%;">
-            </colgroup>
-            <tbody>
-            <tr>
-                <td><strong>Entry</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>EntryID</code></td>
-                <td>SABIO-RK entry ID (e.g. <code><a class="query">searchKineticLaws/sbml?q=EntryID:"123"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><strong>Reaction/Pathway </strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>Pathway</code></td>
-                <td>The name of the reaction pathway (e.g. <code><a class="query">searchKineticLaws/sbml?q=Pathway:"urea cycle"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><code>KeggReactionID</code></td>
-                <td>KEGG ID for the reaction (e.g. <code><a class="query">searchKineticLaws/sbml?q=KeggReactionID:"R00782"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><code>SabioReactionID</code></td>
-                <td>SABIO-RK ID for the reaction (e.g. <code><a class="query">searchKineticLaws/sbml?q=SabioReactionID:"14"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><strong>Compound</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>AnyRole</code></td>
-                <td>Compound found in any role in a reaction (e.g. <code><a class="query">searchKineticLaws/sbml?q=AnyRole:"oxygen"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><code>Substrate</code></td>
-                <td>Compound acting as a substrate in a reaction (e.g. <code><a class="query">searchKineticLaws/sbml?q=Substrate:"ATP"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><code>Product</code></td>
-                <td>Compound acting as a product in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>Inhibitor</code></td>
-                <td>Compound acting as an inhibitor modifier in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>Catalyst</code></td>
-                <td>Compound acting as a catalyst modifier in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>Cofactor</code></td>
-                <td>Compound acting as a cofactor in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>Activator</code></td>
-                <td>Compound acting as an activator in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>OtherModifier</code></td>
-                <td>Compound acting as a modifier not specified above, in a reaction</td>
-            </tr>
-            <tr>
-                <td><code>PubChemID</code></td>
-                <td>PubChem ID of a compound</td>
-            </tr>
-            <tr>
-                <td><code>KeggID</code></td>
-                <td>KEGG ID of a compound</td>
-            </tr>
-            <tr>
-                <td><code>ChebiID</code></td>
-                <td>Chebi ID of a compound</td>
-            </tr>
-            <tr>
-                <td><code>SabioCompoundID</code></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><strong>Enzyme</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>Enzymename</code></td>
-                <td>An enzyme may included in the search parameters by name (e.g.
-                    <code><a class="query">searchKineticLaws/sbml?q=Enzymename:"galactokinase"</a></code>)
-                </td>
-            </tr>
-            <tr>
-                <td><code>ECNumber</code></td>
-                <td>An enzyme may included in the search parameters by EC Class number (e.g.
-                    <code><a class="query">searchKineticLaws/sbml?q=ECNumber:"1.1.1.2"</a></code>)
-                </td>
-            </tr>
-            <tr>
-                <td><code>UniProtKB_AC</code></td>
-                <td>Protein as listed in UniProtKB (e.g. <code><a class="query">searchKineticLaws/sbml?q=UniProtKB_AC:"A1VCV2"</a></code>)</td>
-            </tr>
-            <tr>
-                <td><code>EnzymeType</code></td>
-                <td>Type of the enzyme, only valid queries are <code>EnzymeType:"mutant"</code> or <code>EnzymeType:"wildtype"</code>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Biological Source</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>Tissue</code></td>
-                <td>The name of the tissue (e.g. <code>Tissue:"liver"</code>)</td>
-            </tr>
-            <tr>
-                <td><code>Organism</code></td>
-                <td>The name of the organism (e.g. <code>Organism:"homo sapiens"</code>)</td>
-            </tr>
-            <tr>
-                <td><code>CellularLocation</code></td>
-                <td>Location within the cell that a kinetic reaction takes place (e.g. <code>CellularLocation:"leucoplast"</code>)
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Kinetic Data</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>Parametertype</code></td>
-                <td>Experimental parameter specified in the kinetic law entry (e.g. <code>Parametertype:"Vmax"</code>)
-                </td>
-            </tr>
-            <tr>
-                <td><code>KineticMechanismType</code></td>
-                <td>Mechanism for the kinetic data (e.g. <code>KineticMechanismType:"rapid equilibrium"</code>)</td>
-            </tr>
-            <tr>
-                <td><code>AssociatedSpecies</code></td>
-                <td>Species which is associated with a parameter (e.g. <code>AssociatedSpecies:"ATP"</code></td>
-            </tr>
-
-            <tr>
-                <td><strong>Publication</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>Title</code></td>
-                <td>Publication within which the kinetic law data is published, by title</td>
-            </tr>
-            <tr>
-                <td><code>Author</code></td>
-                <td>Publication within which the kinetic law data is published, by author (e.g. <code>Author:"Shelton
-                    E"</code>)
-                </td>
-            </tr>
-            <tr>
-                <td><code>Year</code></td>
-                <td>Year of publication (e.g. <code>Year:"2010")</code></td>
-            </tr>
-            <tr>
-                <td><code>PubMedID</code></td>
-                <td>Publication within which the kinetic law data is published, by PubMed ID (e.g. <code>PubMedID:"13538975"</code>)
-                </td>
-            </tr>
-            <tr>
-                <td><code>InfosourceType</code></td>
-                <td>Source of the data, valid queries are <code>InfosourceType:"Journal"</code> or <code>InfosourceType:"direct
-                    submission"</code></td>
-            </tr>
-            <tr>
-                <td><code>DateSubmitted</code></td>
-                <td>Earliest possible date from which the entry exists in SABIO-RK (e.g. <code>DateSubmitted:"27/10/2010"</code>)
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Range options</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>TemperatureRange</code></td>
-                <td>Range of temperatures (e.g. <code>TemperatureRange:"[36.9 TO 37.1]"</code>)</td>
-            </tr>
-            <tr>
-                <td><code>pHValueRange</code></td>
-                <td>Range of pH values (e.g. <code>pHValueRange:"[6.9 TO 7.1]"</code>)</td>
-            </tr>
-            <tr>
-                <td><strong>Boolean options</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><code>hasKineticData</code></td>
-                <td>Entry specifies a rate equation (e.g. <code>hasKineticData:"true"</code>)</td>
-            </tr>
-            <tr>
-                <td><code>IsRecombinant</code></td>
-                <td>Entry has recombinant data (e.g. <code>IsRecombinant:"false"</code>)</td>
+                <td><a href="https://wwwdev.ebi.ac.uk/biomodels/docs/">https://wwwdev.ebi.ac.uk/biomodels/docs/</a></td>
             </tr>
             </tbody>
         </table>

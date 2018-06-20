@@ -1,5 +1,6 @@
 package org.cy3sbml.biomodelrest.rest;
 
+import com.mashape.unirest.http.Unirest;
 import org.cy3sbml.ResourceExtractor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -30,7 +31,7 @@ import java.util.TreeSet;
  */
 public class QuerySuggestions implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String RESOURCE = "biomodels/gui/suggestions.ser";
+	public static final String RESOURCE = "/biomodels/gui/suggestions.ser";
 	private static final Map<String, String> KEYWORD_MAP;
 	// private static final Set<String> ENZYMETYPE_SUGGESTIONS;
 	
@@ -144,8 +145,13 @@ public class QuerySuggestions implements Serializable {
 		suggestions = new HashMap<String, TreeSet<String>>();
 		
 		for (String key: retrieveSuggestionFields()){
-			
-			TreeSet<String> values = retrieveSuggestionsForField(key);
+			// FIXME: workaround for timeout
+			TreeSet<String> values;
+			if (!key.equals("Compounds")) {
+				values = retrieveSuggestionsForField(key);
+			} else {
+				values = new TreeSet<>();
+			}
 			String tagName = key.substring(0, (key.length()-1));
 			
 			// store suggestions under original id
@@ -291,10 +297,12 @@ public class QuerySuggestions implements Serializable {
 
 		/////////////////////////////////////////////////////////////////////////
 		// Change mode for loading or saving
-		// Mode mode = Mode.SAVE;
+		//Mode mode = Mode.SAVE;
 		Mode mode = Mode.LOAD;
-		String target = "/home/mkoenig/git/cy3sabiork/src/main/resources";
+		String target = "/home/mkoenig/git/cy3sbml/src/main/resources";
 		/////////////////////////////////////////////////////////////////////////
+
+		Unirest.setTimeouts(60000, 120000);
 
 		File appDirectory = new File("src/main/resources");
     	ResourceExtractor.setAppDirectory(appDirectory);
