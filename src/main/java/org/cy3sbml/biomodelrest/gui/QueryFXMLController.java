@@ -25,8 +25,13 @@ import org.codefx.libfx.control.webview.WebViews;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import org.cy3sbml.ResourceExtractor;
+import org.cy3sbml.biomodelrest.SabioKineticLaw;
+import org.cy3sbml.biomodelrest.SabioQueryHistory;
+import org.cy3sbml.biomodelrest.SabioQueryResult;
 import org.cy3sbml.biomodelrest.rest.QuerySuggestions;
 import org.cy3sbml.biomodelrest.rest.SabioQuery;
+import org.cy3sbml.biomodelrest.rest.SabioQueryUniRest;
 import org.cy3sbml.util.OpenBrowser;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
@@ -38,6 +43,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -207,7 +213,7 @@ public class QueryFXMLController implements Initializable{
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
         		logger.info("... waiting for SABIO-RK response ...");
-        		queryResult = new SabioQueryUniRest().performQuery(queryString);
+        		queryResult = (new SabioQueryUniRest()).performQuery(queryString);
         		Integer restReturnStatus = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
@@ -355,8 +361,8 @@ public class QueryFXMLController implements Initializable{
     // --------------------------------------------------------------------
     /** Set help information. */
     private void setHelp(){
-		String infoURI = ResourceExtractor.fileURIforResource("/gui/info.html");
-		webView.getEngine().load(infoURI);
+        URI infoURI = ResourceExtractor.fileURIforResource("/biomodels/gui/info.html");
+		webView.getEngine().load(infoURI.toString());
     }
     
     /** Get information for KineticLaw in WebView. */
@@ -449,24 +455,24 @@ public class QueryFXMLController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		logger = new Logger(this.log);
 		
-		String fileURI = ResourceExtractor.fileURIforResource(QuerySuggestions.RESOURCE);
+		String fileURI = ResourceExtractor.fileURIforResource(QuerySuggestions.RESOURCE).toString();
 		suggestions = QuerySuggestions.loadFromResource(fileURI);
 		queryHistory = new SabioQueryHistory();
 		
 		// ---------------------------
 		// Images
 		// ---------------------------
-		imageSabioLogo.setImage(new Image(ResourceExtractor.fileURIforResource("/gui/images/header-sabiork.png")));
+		imageSabioLogo.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/header-sabiork.png").toString()));
 		imageSabioLogo.setOnMousePressed(me -> {
 			openURLinExternalBrowser("http://sabiork.h-its.org/");
 	    });
 		
-		imageHelp.setImage(new Image(ResourceExtractor.fileURIforResource("/gui/images/icon-help.png")));
+		imageHelp.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/icon-help.png").toString()));
 		imageHelp.setOnMousePressed(me -> {
             setHelp();
 	    });
 
-		imageSBML.setImage(new Image(ResourceExtractor.fileURIforResource("/gui/images/logo-sbml.png")));
+		imageSBML.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/logo-sbml.png").toString()));
         imageSBML.setOnMousePressed(me -> {
             logger.info("Open SBML for query");
             SBMLDocument doc = queryResult.getSBMLDocument();
@@ -485,7 +491,7 @@ public class QueryFXMLController implements Initializable{
             }
         });
 
-		imageSabioSearch.setImage(new Image(ResourceExtractor.fileURIforResource("/gui/images/search-sabiork.png")));
+		imageSabioSearch.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/search-sabiork.png").toString()));
 
 		// ---------------------------
 		// Table for SabioKineticLaws

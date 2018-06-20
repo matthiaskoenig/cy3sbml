@@ -2,6 +2,8 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
+import org.cy3sbml.biomodelrest.BiomodelsRestAction;
+import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.validator.ValidationFrame;
 import org.cytoscape.group.CyGroupFactory;
@@ -225,7 +227,6 @@ public class CyActivator extends AbstractCyActivator {
                     loadNetworkFileTaskFactory, synchronousTaskManager);
             registerService(bc, archiveAction, CyAction.class, new Properties());
 
-
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());
 
@@ -244,6 +245,14 @@ public class CyActivator extends AbstractCyActivator {
             BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
+            // init actions
+            System.out.println("BiomodelsSBMLReader");
+            BiomodelsSBMLReader sbmlReader = new BiomodelsSBMLReader(loadNetworkFileTaskFactory, taskManager);
+            System.out.println("BiomodelsRestAction");
+            BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
+            System.out.println("BiomodelsRestAction register");
+            registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
+
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());
 
@@ -252,7 +261,6 @@ public class CyActivator extends AbstractCyActivator {
 
             LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
             registerService(bc, loadLayoutAction, CyAction.class, new Properties());
-
 
             // Archive file reader
             CyLayoutAlgorithmManager layoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);

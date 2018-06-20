@@ -1,6 +1,6 @@
 package org.cy3sbml.biomodelrest.rest;
 
-import org.cy3sabiork.ResourceExtractor;
+import org.cy3sbml.ResourceExtractor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -30,7 +30,7 @@ import java.util.TreeSet;
  */
 public class QuerySuggestions implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String RESOURCE = "/gui/suggestions.ser";
+	public static final String RESOURCE = "biomodels/gui/suggestions.ser";
 	private static final Map<String, String> KEYWORD_MAP;
 	// private static final Set<String> ENZYMETYPE_SUGGESTIONS;
 	
@@ -299,7 +299,7 @@ public class QuerySuggestions implements Serializable {
 		File appDirectory = new File("src/main/resources");
     	ResourceExtractor.setAppDirectory(appDirectory);
     	
-    	String fileURI = ResourceExtractor.fileURIforResource(RESOURCE);
+    	String fileURI = ResourceExtractor.fileURIforResource(RESOURCE).toString();
     	System.out.println(fileURI);
 
 		System.out.println("-------------------------------------------------");
@@ -311,7 +311,7 @@ public class QuerySuggestions implements Serializable {
 			suggestions = new QuerySuggestions();
 			suggestions.saveToFile(target + RESOURCE);
 		} else if (mode == Mode.LOAD){
-			suggestions = QuerySuggestions.loadFromResource(fileURI);	
+			suggestions = QuerySuggestions.loadFromResource(fileURI);
 		}
 		suggestions.print();
 	}

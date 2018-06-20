@@ -31,8 +31,7 @@ public class TestUniRest {
 			
 			URI uri = SabioQuery.uriFromQuery(query);
 			System.out.println(uri.toString());
-			HttpResponse<String> response = Unirest.get(uri.toString())
-										.asString();
+			HttpResponse<String> response = Unirest.get(uri.toString()).asString();
 			System.out.println(response.getStatus());
 			String output = response.getBody();
 			System.out.println("--------------------------------------------");
@@ -40,8 +39,7 @@ public class TestUniRest {
 			System.out.println("--------------------------------------------");
 			
 			
-			HttpResponse<InputStream> ioResponse = Unirest.get(uri.toString())
-														.asBinary();
+			HttpResponse<InputStream> ioResponse = Unirest.get(uri.toString()).asBinary();
 			InputStream inputStream = ioResponse.getRawBody();
 			
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));

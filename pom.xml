@@ -10,8 +10,9 @@
         <osgi.api.version>4.2.0</osgi.api.version>
         <!-- javax.xml.namespace -->
         <org.osgi.framework.system.packages.extra>
-            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,org.osgi.framework
+            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,netscape.javascript,org.osgi.framework
         </org.osgi.framework.system.packages.extra>
+        <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cytoscape.api.version>3.5.0-RC2</cytoscape.api.version>
 
@@ -377,9 +378,9 @@
 
         <!-- JavaFX -->
         <dependency>
-            <groupId>org.codefx.libfx</groupId>
-            <artifactId>LibFX</artifactId>
-            <version>0.3.0</version>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
         </dependency>
         <dependency>
             <groupId>org.codefx.libfx</groupId>
@@ -387,7 +388,32 @@
             <version>0.3.0</version>
         </dependency>
 
-
+        <!--  UniRest -->
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpasyncclient</artifactId>
+            <version>4.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20170516</version>
+        </dependency>
 
         <!-- MIRIAM Registry -->
         <!-- manually registered from repo -->

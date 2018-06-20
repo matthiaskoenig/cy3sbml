@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="958.0" prefWidth="1400.0" style="-fx-background-color: white;" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cy3sabiork.gui.QueryFXMLController">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="958.0" prefWidth="1400.0" style="-fx-background-color: white;" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cy3sbml.biomodelrest.gui.QueryFXMLController">
    <content>
             <AnchorPane prefHeight="958.0" prefWidth="1400.0" style="-fx-background-color: white;">
                <children>

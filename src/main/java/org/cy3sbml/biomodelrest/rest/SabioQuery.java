@@ -1,6 +1,6 @@
 package org.cy3sbml.biomodelrest.rest;
 
-import org.cy3sabiork.SabioQueryResult;
+import org.cy3sbml.biomodelrest.SabioQueryResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

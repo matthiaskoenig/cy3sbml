@@ -1,6 +1,7 @@
 package org.cy3sbml.biomodelrest;
 
-import org.cy3sabiork.gui.WebViewSwing;
+import org.cy3sbml.biomodelrest.gui.WebViewSwing;
+import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -13,9 +14,9 @@ import java.awt.event.ActionEvent;
 /**
  * Test access to the cy3sbml instance information.
  */
-public class SabioAction extends AbstractCyAction{
+public class BiomodelsRestAction extends AbstractCyAction{
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = LoggerFactory.getLogger(SabioAction.class);
+	private static final Logger logger = LoggerFactory.getLogger(BiomodelsRestAction.class);
 	private CySwingApplication cySwingApplication;
 	private OpenBrowser openBrowser;
 	private BiomodelsSBMLReader sbmlReader;
@@ -25,23 +26,19 @@ public class SabioAction extends AbstractCyAction{
 	 * Requires functionality for open links in external browser and
 	 * for reading SBML into networks.
 	 */
-	public SabioAction(CySwingApplication cySwingApplication, OpenBrowser openBrowser, BiomodelsSBMLReader sbmlReader){
-		super("SabioRKAction");
+	public BiomodelsRestAction(CySwingApplication cySwingApplication, OpenBrowser openBrowser, BiomodelsSBMLReader sbmlReader){
+		super("BiomodelsRestAction");
 		this.cySwingApplication = cySwingApplication;
 		this.openBrowser = openBrowser;
 		this.sbmlReader = sbmlReader;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("/gui/images/icon-cy3sabiork.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
 		putValue(LARGE_ICON_KEY, icon);
 		
-		this.putValue(SHORT_DESCRIPTION, "SABIO-RK web services");
-		setToolbarGravity((float) 80.0);
+		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
+		setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
 	}
-	
-	public boolean insertSeparatorBefore(){
-		return true;
-	}
-	
+
 	public boolean isInToolBar() {
 		return true;
 	}
@@ -55,17 +52,11 @@ public class SabioAction extends AbstractCyAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		logger.debug("SabioAction performed.");
+		logger.debug("BiomodelsRestAction performed.");
 		JFrame frame = this.cySwingApplication.getJFrame();
 		
 		// Open JavaFX GUI
 		WebViewSwing.launch(frame, openBrowser, sbmlReader);
-		
-		// Open old JPanel based Dialog
-		// SabioDialog.launch(frame, sbmlReader);
-
-
-
 	}
 	
 }

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import org.cy3sbml.ResourceExtractor;
 import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
+
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class WebViewSwing {
 		}
 		
         dialog = new JDialog(parentFrame);
-        dialog.setTitle("SABIO-RK Web Services");
+        dialog.setTitle("Biomodels Web Services");
         
         // use values from Scene Builder
         int width = 1400;
