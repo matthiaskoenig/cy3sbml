@@ -145,13 +145,7 @@ public class QuerySuggestions implements Serializable {
 		suggestions = new HashMap<String, TreeSet<String>>();
 		
 		for (String key: retrieveSuggestionFields()){
-			// FIXME: workaround for timeout
-			TreeSet<String> values;
-			if (!key.equals("Compounds")) {
-				values = retrieveSuggestionsForField(key);
-			} else {
-				values = new TreeSet<>();
-			}
+			TreeSet<String> values = retrieveSuggestionsForField(key);
 			String tagName = key.substring(0, (key.length()-1));
 			
 			// store suggestions under original id
