@@ -28,10 +28,9 @@ import org.controlsfx.control.textfield.TextFields;
 import org.cy3sbml.ResourceExtractor;
 import org.cy3sbml.biomodelrest.SabioKineticLaw;
 import org.cy3sbml.biomodelrest.SabioQueryHistory;
-import org.cy3sbml.biomodelrest.SabioQueryResult;
+import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
 import org.cy3sbml.biomodelrest.rest.QuerySuggestions;
-import org.cy3sbml.biomodelrest.rest.SabioQuery;
-import org.cy3sbml.biomodelrest.rest.SabioQueryUniRest;
+import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
 import org.cy3sbml.util.OpenBrowser;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
@@ -118,7 +117,7 @@ public class QueryFXMLController implements Initializable{
     @FXML private Button loadButton;
 
     private static SabioQueryHistory queryHistory;
-    private SabioQueryResult queryResult;
+    private BiomodelsQueryResult queryResult;
     Thread queryThread = null;
     
     
@@ -146,10 +145,10 @@ public class QueryFXMLController implements Initializable{
     		return;
     	}
     	
-    	if (query.startsWith(SabioQuery.PREFIX_QUERY)){
-    		queryText.setText(query + SabioQuery.CONNECTOR_AND + addition);
+    	if (query.startsWith("")){
+    		queryText.setText(query + BiomodelsQuery.CONNECTOR_AND + addition);
     	} else {
-    		queryText.setText(SabioQuery.PREFIX_QUERY + addition);
+    		queryText.setText(addition);
     	}
     	logger.info("<" + addition +"> added to query.");
     }
@@ -172,7 +171,7 @@ public class QueryFXMLController implements Initializable{
     	}
     	
     	// query for ids
-    	queryText.setText(SabioQuery.queryStringFromIds(ids));
+    	queryText.setText("");
     }
     
     /**
@@ -202,9 +201,9 @@ public class QueryFXMLController implements Initializable{
         		
         		// query number of entries in case of q-Query to give
         		// information about long running full queries
-        		if (queryString.startsWith(SabioQuery.PREFIX_QUERY)){
+        		if (queryString.startsWith("")){
         			logger.info("GET COUNT <"+ queryString + ">");
-                	Integer count = new SabioQueryUniRest().performCountQuery(queryString);
+                	Integer count = 0;
                 	setEntryCount(count);
                 	logger.info("<" + count + "> Kinetic Law Entries for query in SABIO-RK.");
         		}
@@ -213,7 +212,7 @@ public class QueryFXMLController implements Initializable{
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
         		logger.info("... waiting for SABIO-RK response ...");
-        		queryResult = (new SabioQueryUniRest()).performQuery(queryString);
+        		queryResult = (new BiomodelsQuery()).performQuery(queryString);
         		Integer restReturnStatus = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
@@ -238,7 +237,7 @@ public class QueryFXMLController implements Initializable{
                 			if (queryString == null || queryString.length() == 0){
                 				 data = FXCollections.observableArrayList();
                 			} else {
-                				data = FXCollections.observableArrayList(queryResult.getKineticLaws());	
+                				data = FXCollections.observableArrayList();
                 			}
                 			if (! data.isEmpty()){
                 				entryTable.setItems(data);
@@ -290,7 +289,7 @@ public class QueryFXMLController implements Initializable{
     	keywordList.getSelectionModel().clearSelection();
 
         setProgress(-1);
-        String status = new SabioQueryUniRest().getSabioStatus();
+        String status = "UP";
         if (status.equals("UP")){
             setProgress(1.0);
         }
@@ -323,7 +322,7 @@ public class QueryFXMLController implements Initializable{
     @FXML protected void handleLoadAction(ActionEvent event) {
     	logger.info("Loading Kinetic Laws in Cytoscape ...");
     	if (WebViewSwing.sbmlReader != null){
-    	    SBMLDocument doc = queryResult.getSBMLDocument();
+    	    SBMLDocument doc = null;
             String sbml = null;
             try {
                 sbml = JSBML.writeSBMLToString(doc);
@@ -367,7 +366,7 @@ public class QueryFXMLController implements Initializable{
     
     /** Get information for KineticLaw in WebView. */
 	private void setInfoForKineticLaw(Integer kid){
-		String lawURI = SabioQuery.PREFIX_KINETIC_LAW_INFO + kid.toString();
+		String lawURI =  kid.toString();
 		logger.info("Load information for KineticLaw<" + kid + ">");
 		webView.getEngine().load(lawURI);
 	}
@@ -475,7 +474,7 @@ public class QueryFXMLController implements Initializable{
 		imageSBML.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/logo-sbml.png").toString()));
         imageSBML.setOnMousePressed(me -> {
             logger.info("Open SBML for query");
-            SBMLDocument doc = queryResult.getSBMLDocument();
+            SBMLDocument doc = null;
             try {
                 // write to tmp file and open in browser
                 File temp = File.createTempFile("cy3sabiork", ".xml");

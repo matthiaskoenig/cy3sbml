@@ -29,7 +29,7 @@ public class TestUniRest {
 			String output = json.toString();
 			*/
 			
-			URI uri = SabioQuery.uriFromQuery(query);
+			URI uri = BiomodelsQuery.uriFromQuery(query);
 			System.out.println(uri.toString());
 			HttpResponse<String> response = Unirest.get(uri.toString()).asString();
 			System.out.println(response.getStatus());
@@ -59,7 +59,7 @@ public class TestUniRest {
 
 	/* Test the Restful API. */
 	public static void main(String[] args){				
-		newQuery("kineticLaws/123");
+		newQuery("/BIOMD0000000012?format=json");
 		// newQuery("searchKineticLaws/sbml?q=Tissue:spleen AND Organism:\"Homo sapiens\"");
 		// newQuery("searchKineticLaws/sbml?q=Tissue:spleen%20AND%20Organism:%22homo%20sapiens%22");
 	}
