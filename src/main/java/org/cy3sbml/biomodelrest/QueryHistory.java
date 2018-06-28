@@ -4,13 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * History of the last SABIO-RK queries.
+ * History of the last queries.
  */
 @SuppressWarnings("restriction")
-public class SabioQueryHistory {
+public class QueryHistory {
 	private ObservableList<String> items;
 	
-	public SabioQueryHistory(){
+	public QueryHistory(){
 		items = FXCollections.observableArrayList(
 				"kineticLaws/14792",
                 "kineticLaws?kinlawids=48020,49160,44091,48027",

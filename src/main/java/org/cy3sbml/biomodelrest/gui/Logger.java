@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/* 
+/**
  * Minimal logger for the GUI. 
  * Writes information in the given TextArea.
  */

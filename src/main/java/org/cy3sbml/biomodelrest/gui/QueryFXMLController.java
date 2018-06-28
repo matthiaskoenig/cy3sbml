@@ -26,11 +26,13 @@ import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import org.cy3sbml.ResourceExtractor;
-import org.cy3sbml.biomodelrest.SabioKineticLaw;
-import org.cy3sbml.biomodelrest.SabioQueryHistory;
+
+import org.cy3sbml.biomodelrest.QueryHistory;
 import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
+import org.cy3sbml.biomodelrest.rest.Biomodel;
 import org.cy3sbml.biomodelrest.rest.QuerySuggestions;
 import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
+
 import org.cy3sbml.util.OpenBrowser;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
@@ -107,7 +109,7 @@ public class QueryFXMLController implements Initializable{
     
     // -- REST Results --
     @FXML private Text entryLabel;
-    @FXML private TableView entryTable;
+    @FXML private TableView biomodelsTable;
     
     @FXML private TableColumn countCol;
     @FXML private TableColumn idCol;
@@ -116,7 +118,7 @@ public class QueryFXMLController implements Initializable{
     @FXML private TableColumn reactionCol;
     @FXML private Button loadButton;
 
-    private static SabioQueryHistory queryHistory;
+    private static QueryHistory queryHistory;
     private BiomodelsQueryResult queryResult;
     Thread queryThread = null;
     
@@ -154,26 +156,56 @@ public class QueryFXMLController implements Initializable{
     }
     
     /**
-     * Add kinetic law entries to the query.
+     * Add biomodel ids to the query.
      */
     @FXML protected void handleAddEntryAction(ActionEvent event) {
     	String text = entry.getText();
     	if (text == null || text.length() == 0){
-    		logger.warn("A list of Kinetic Law Ids is required.");
+    		logger.warn("A list of Biomodel Ids is required.");
     		return;
     	}
   
     	// parse ids
-    	HashSet<Integer> ids = SabioKineticLaw.parseIds(text);
+    	HashSet<String> ids = parseIds(text);
     	if (ids.isEmpty()){
-    		logger.error("No Kinetic Law Ids could be parsed from input: <" + entry.getText() + ">. Ids should be separated by ' ', ',', or ';'.");
+    		logger.error("No Biomodel Ids could be parsed from input: <" + entry.getText() + ">. Ids should be separated by ' ', ',', or ';'.");
     		return;
     	}
     	
     	// query for ids
     	queryText.setText("");
     }
-    
+
+
+    /**
+     * Parses Biomodel Ids from given text string.
+     *
+     * The ids can be separated by different separators, i.e.
+     * 	'\n', '\t', ' ', ';' or','
+     */
+    private static HashSet<String> parseIds(String text){
+        HashSet<String> ids = new HashSet<>();
+
+        // unify separators
+        text = text.replace("\n", ",");
+        text = text.replace("\t", ",");
+        text = text.replace(" ", ",");
+        text = text.replace(";", ",");
+
+        String[] tokens = text.split(",");
+        for (String t : tokens){
+            // single entry parsing
+            if (t.length() == 0){
+                continue;
+            }
+
+            // FIXME: check against regular expression
+            ids.add(t);
+        }
+        return ids;
+    }
+
+
     /**
      * Run SABIO-RK web service query.
      */
@@ -204,7 +236,7 @@ public class QueryFXMLController implements Initializable{
         		if (queryString.startsWith("")){
         			logger.info("GET COUNT <"+ queryString + ">");
                 	Integer count = 0;
-                	setEntryCount(count);
+                	setBiomodelCount(count);
                 	logger.info("<" + count + "> Kinetic Law Entries for query in SABIO-RK.");
         		}
             	
@@ -233,17 +265,17 @@ public class QueryFXMLController implements Initializable{
                 			logger.info("SABIO-RK returned status <" + restReturnStatus + "> after " + duration + " [ms]");
                 			
                 			// handle empty test call
-                			final ObservableList<SabioKineticLaw> data;
+                			final ObservableList<Biomodel> data;
                 			if (queryString == null || queryString.length() == 0){
                 				 data = FXCollections.observableArrayList();
                 			} else {
                 				data = FXCollections.observableArrayList();
                 			}
                 			if (! data.isEmpty()){
-                				entryTable.setItems(data);
-                				entryTable.setDisable(false);
+                				biomodelsTable.setItems(data);
+                				biomodelsTable.setDisable(false);
                     	    	loadButton.setDisable(false);
-                                entryTable.getSelectionModel().select(0);
+                                biomodelsTable.getSelectionModel().select(0);
                                 imageSBML.setVisible(true);
                             }
                 		}
@@ -280,8 +312,8 @@ public class QueryFXMLController implements Initializable{
     	progressIndicator.setStyle("-fx-progress-color: dodgerblue;");
     	
     	// clear table
-    	entryTable.setItems(FXCollections.observableArrayList());
-    	entryTable.setDisable(true);
+    	biomodelsTable.setItems(FXCollections.observableArrayList());
+    	biomodelsTable.setDisable(true);
     	loadButton.setDisable(true);
     	cancelButton.setDisable(true);
         queryButton.setDisable(false);
@@ -294,7 +326,7 @@ public class QueryFXMLController implements Initializable{
             setProgress(1.0);
         }
 
-        setEntryCount(null);
+        setBiomodelCount(null);
     	setHelp();
     }
 
@@ -364,11 +396,13 @@ public class QueryFXMLController implements Initializable{
 		webView.getEngine().load(infoURI.toString());
     }
     
-    /** Get information for KineticLaw in WebView. */
-	private void setInfoForKineticLaw(Integer kid){
-		String lawURI =  kid.toString();
-		logger.info("Load information for KineticLaw<" + kid + ">");
-		webView.getEngine().load(lawURI);
+    /**
+     * Set information for biomodel in WebView.
+     */
+	private void setInfoForBiomodel(String biomodelId){
+		String biomodelURI =  biomodelId;
+		logger.info("Load information for Biomodel<" + biomodelId + ">");
+		webView.getEngine().load(biomodelURI);
 	}
     
     /** Focus given scene Node. */
@@ -382,11 +416,11 @@ public class QueryFXMLController implements Initializable{
     }
     
     /** Set number of entries in the query. */
-    private void setEntryCount(Integer count){
+    private void setBiomodelCount(Integer count){
     	Platform.runLater(new Runnable() {
             @Override
             public void run() {
-            	String text = "SABIO-RK Entries";
+            	String text = "Biomodels";
             	if (count != null && count != 0){
             		text += " (" + count.toString() + ")";
             	} 
@@ -456,7 +490,7 @@ public class QueryFXMLController implements Initializable{
 		
 		String fileURI = ResourceExtractor.fileURIforResource(QuerySuggestions.RESOURCE).toString();
 		suggestions = QuerySuggestions.loadFromResource(fileURI);
-		queryHistory = new SabioQueryHistory();
+		queryHistory = new QueryHistory();
 		
 		// ---------------------------
 		// Images
@@ -493,33 +527,33 @@ public class QueryFXMLController implements Initializable{
 		imageSabioSearch.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/search-sabiork.png").toString()));
 
 		// ---------------------------
-		// Table for SabioKineticLaws
+		// Table for Biomodels
 		// ---------------------------
-		entryTable.setEditable(false);
+		biomodelsTable.setEditable(false);
 		
-		countCol.setCellValueFactory(new PropertyValueFactory<SabioKineticLaw,Integer>("count"));
-		idCol.setCellValueFactory(new PropertyValueFactory<SabioKineticLaw,Integer>("id"));
-		organismCol.setCellValueFactory(new PropertyValueFactory<SabioKineticLaw,String>("organism"));
-		tissueCol.setCellValueFactory(new PropertyValueFactory<SabioKineticLaw,String>("tissue"));
-		reactionCol.setCellValueFactory(new PropertyValueFactory<SabioKineticLaw,String>("reaction"));
+		countCol.setCellValueFactory(new PropertyValueFactory<Biomodel, Integer>("count"));
+		idCol.setCellValueFactory(new PropertyValueFactory<Biomodel, Integer>("id"));
+		organismCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("organism"));
+		tissueCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("tissue"));
+		reactionCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("reaction"));
 		
-		entryTable.setOnMousePressed(me -> {
+		biomodelsTable.setOnMousePressed(me -> {
 	        if (me.isPrimaryButtonDown() && me.getClickCount() == 1) {
-	        	Object selected = entryTable.getSelectionModel().getSelectedItem();
+	        	Object selected = biomodelsTable.getSelectionModel().getSelectedItem();
 	        	if (selected != null){
-	        		Integer kid = ((SabioKineticLaw) selected).getId();
-	        		setInfoForKineticLaw(kid);
+	        		String biomodelId = ((Biomodel) selected).getPublicationIdentifier();
+	        		setInfoForBiomodel(biomodelId);
 	        	}                   
 	        }
 		});
 		
 		// SelectionChange Listener (Important if selection via error keys change)
-		entryTable.getSelectionModel().selectedItemProperty().addListener(
-	            new ChangeListener<SabioKineticLaw>() {
-	                public void changed(ObservableValue<? extends SabioKineticLaw> ov, 
-	                    SabioKineticLaw oldValue, SabioKineticLaw newValue) {
-	                		Integer kid = newValue.getId();
-	                		setInfoForKineticLaw(kid);
+		biomodelsTable.getSelectionModel().selectedItemProperty().addListener(
+	            new ChangeListener<Biomodel>() {
+	                public void changed(ObservableValue<? extends Biomodel> ov,
+	                    Biomodel oldValue, Biomodel newValue) {
+	                		String biomodelId = newValue.getPublicationIdentifier();
+	                		setInfoForBiomodel(biomodelId);
 	            }
 	        });
 		
