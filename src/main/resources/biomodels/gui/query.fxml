@@ -56,7 +56,6 @@
                                        </font>
                                     </Text>
                                     <Text layoutX="271.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                    <ImageView fx:id="imageSabioSearch" fitHeight="170.0" fitWidth="350.0" layoutX="250.0" layoutY="98.0" opacity="0.66" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -68,7 +67,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="338.0" prefWidth="372.0">
                                  <children>
-                                    <Button fx:id="addEntryButton" layoutX="243.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleAddEntryAction" prefHeight="26.0" prefWidth="70.0" text="Add">
+                                    <Button fx:id="addEntryButton" layoutX="243.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleAddBiomodelsAction" prefHeight="26.0" prefWidth="70.0" text="Add">
                                        <tooltip>
                                           <Tooltip text="Add entry ids to the query." />
                                        </tooltip>
@@ -110,7 +109,7 @@
                         <Tooltip text="Execute web service query." />
                      </tooltip>
                   </Button>
-                  <ImageView fx:id="imageSabioLogo" fitHeight="40.0" fitWidth="315.0" layoutX="36.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageBiomodelLogo" fitHeight="48.0" fitWidth="47.0" layoutX="36.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="cancelButton" cancelButton="true" disable="true" layoutX="441.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleCancelAction" prefWidth="70.0" text="Cancel">
                      <tooltip>
                         <Tooltip text="Cancel web service query." />

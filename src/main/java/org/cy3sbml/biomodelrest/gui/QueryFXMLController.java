@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
@@ -67,8 +68,7 @@ public class QueryFXMLController implements Initializable{
 	private QuerySuggestions suggestions;
 	
 	// browser
-	@FXML private ImageView imageSabioLogo;
-	@FXML private ImageView imageSabioSearch;
+	@FXML private ImageView imageBiomodelLogo;
 	@FXML private ImageView imageHelp;
 	@FXML private ImageView imageSBML;
 	@FXML private WebView webView;
@@ -120,6 +120,9 @@ public class QueryFXMLController implements Initializable{
 
     private static QueryHistory queryHistory;
     private BiomodelsQueryResult queryResult;
+    private HashMap<String, Biomodel> biomodelsMap;
+
+
     Thread queryThread = null;
     
     
@@ -130,35 +133,38 @@ public class QueryFXMLController implements Initializable{
     	// String selectedItem = (String) keywordList.getSelectionModel().getSelectedItem();
     	String selectedItem = keyword.getText();
     	String searchTerm = term.getText();
-    	
-    	if (selectedItem == null || selectedItem.length()==0){
-    		logger.warn("No keyword selected. Select keyword and search term in the Query Builder.");
-    		return;
-    	}
 
-    	String addition = selectedItem + ":\"" + searchTerm + "\"";
-    	String query = queryText.getText();
-    	if (searchTerm.length() == 0){
-    		logger.warn("No search term provided. Select keyword and search term in the Query Builder.");
-    		return;
-    	}
-    	if (query.contains(addition)){
-    		logger.info("<" + selectedItem + ":" + searchTerm + "> already in query.");
-    		return;
-    	}
-    	
-    	if (query.startsWith("")){
-    		queryText.setText(query + BiomodelsQuery.CONNECTOR_AND + addition);
+
+    	if (selectedItem == null || selectedItem.length()==0){
+            // main search term
+    	    queryText.setText("/search?query=" + searchTerm + "&format=json");
     	} else {
-    		queryText.setText(addition);
-    	}
-    	logger.info("<" + addition +"> added to query.");
+    	    // handle the facet options
+            // TODO: implement
+            String addition = selectedItem + ":\"" + searchTerm + "\"";
+            String query = queryText.getText();
+            if (searchTerm.length() == 0){
+                logger.warn("No search term provided. Select keyword and search term in the Query Builder.");
+                return;
+            }
+            if (query.contains(addition)){
+                logger.info("<" + selectedItem + ":" + searchTerm + "> already in query.");
+                return;
+            }
+
+            if (query.startsWith("")){
+                queryText.setText(query + BiomodelsQuery.CONNECTOR_AND + addition);
+            } else {
+                queryText.setText(addition);
+            }
+            logger.info("<" + addition +"> added to query.");
+        }
     }
     
     /**
      * Add biomodel ids to the query.
      */
-    @FXML protected void handleAddEntryAction(ActionEvent event) {
+    @FXML protected void handleAddBiomodelsAction(ActionEvent event) {
     	String text = entry.getText();
     	if (text == null || text.length() == 0){
     		logger.warn("A list of Biomodel Ids is required.");
@@ -172,7 +178,7 @@ public class QueryFXMLController implements Initializable{
     		return;
     	}
     	
-    	// query for ids
+    	// TODO: query the information for the biomodel entries and add to table
     	queryText.setText("");
     }
 
@@ -231,19 +237,11 @@ public class QueryFXMLController implements Initializable{
                 });
         		setProgress(-1);
         		
-        		// query number of entries in case of q-Query to give
-        		// information about long running full queries
-        		if (queryString.startsWith("")){
-        			logger.info("GET COUNT <"+ queryString + ">");
-                	Integer count = 0;
-                	setBiomodelCount(count);
-                	logger.info("<" + count + "> Kinetic Law Entries for query in SABIO-RK.");
-        		}
-            	
-            	// do real query
+
+            	// perform search query
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
-        		logger.info("... waiting for SABIO-RK response ...");
+        		logger.info("... waiting for BioModels response ...");
         		queryResult = (new BiomodelsQuery()).performQuery(queryString);
         		Integer restReturnStatus = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
@@ -269,6 +267,9 @@ public class QueryFXMLController implements Initializable{
                 			if (queryString == null || queryString.length() == 0){
                 				 data = FXCollections.observableArrayList();
                 			} else {
+                			    // TODO: get the biomodel information from the query
+
+
                 				data = FXCollections.observableArrayList();
                 			}
                 			if (! data.isEmpty()){
@@ -286,7 +287,6 @@ public class QueryFXMLController implements Initializable{
                         // add query to history
                         queryHistory.add(queryString);
                         // update the history view
-
                         logger.info("query added to history: <" + queryString +">");
                         queryHistory.print();
                     }
@@ -493,8 +493,8 @@ public class QueryFXMLController implements Initializable{
 		// ---------------------------
 		// Images
 		// ---------------------------
-		imageSabioLogo.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/header-sabiork.png").toString()));
-		imageSabioLogo.setOnMousePressed(me -> {
+		imageBiomodelLogo.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/biomodels_logo.png").toString()));
+		imageBiomodelLogo.setOnMousePressed(me -> {
 			openURLinExternalBrowser("http://sabiork.h-its.org/");
 	    });
 		
@@ -521,8 +521,6 @@ public class QueryFXMLController implements Initializable{
                 e.printStackTrace();
             }
         });
-
-		imageSabioSearch.setImage(new Image(ResourceExtractor.fileURIforResource("/biomodels/gui/images/search-sabiork.png").toString()));
 
 		// ---------------------------
 		// Table for Biomodels
