@@ -99,8 +99,6 @@ public class QueryFXMLController implements Initializable{
 	@FXML private Button cancelButton;
     @FXML private Button resetButton;
 
-    // @FXML private TextField history;
-    
     @FXML private ProgressIndicator progressIndicator;
     @FXML private Text statusCode;
     @FXML private Text statusCodeLabel;
@@ -110,12 +108,8 @@ public class QueryFXMLController implements Initializable{
     // -- REST Results --
     @FXML private Text entryLabel;
     @FXML private TableView biomodelsTable;
-    
-    @FXML private TableColumn countCol;
     @FXML private TableColumn idCol;
-    @FXML private TableColumn organismCol;
-    @FXML private TableColumn tissueCol;
-    @FXML private TableColumn reactionCol;
+    @FXML private TableColumn nameCol;
     @FXML private Button loadButton;
 
     private static QueryHistory queryHistory;
@@ -242,10 +236,15 @@ public class QueryFXMLController implements Initializable{
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
         		logger.info("... waiting for BioModels response ...");
-        		queryResult = (new BiomodelsQuery()).performQuery(queryString);
+        		queryResult = (new BiomodelsQuery()).performSearchQuery(queryString);
         		Integer restReturnStatus = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
+
+        		// get biomodel ids from search query
+
+
+
         		
             	Platform.runLater(new Runnable() {
                     @Override
@@ -526,12 +525,9 @@ public class QueryFXMLController implements Initializable{
 		// Table for Biomodels
 		// ---------------------------
 		biomodelsTable.setEditable(false);
-		
-		countCol.setCellValueFactory(new PropertyValueFactory<Biomodel, Integer>("count"));
-		idCol.setCellValueFactory(new PropertyValueFactory<Biomodel, Integer>("id"));
-		organismCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("organism"));
-		tissueCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("tissue"));
-		reactionCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("reaction"));
+
+		idCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("publicationId"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<Biomodel, String>("name"));
 		
 		biomodelsTable.setOnMousePressed(me -> {
 	        if (me.isPrimaryButtonDown() && me.getClickCount() == 1) {

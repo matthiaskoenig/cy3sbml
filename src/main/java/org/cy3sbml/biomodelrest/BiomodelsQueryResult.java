@@ -1,7 +1,5 @@
 package org.cy3sbml.biomodelrest;
 
-import org.sbml.jsbml.SBMLDocument;
-import java.util.ArrayList;
 import org.json.*;
 
 /**
@@ -41,8 +39,7 @@ public class BiomodelsQueryResult {
 	        return null;
         } else {
             JSONObject obj = new JSONObject(json);
-
-            System.out.println(obj.toString(2));
+            // System.out.println(obj.toString(2));
             return obj;
         }
     }

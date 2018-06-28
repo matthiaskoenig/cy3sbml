@@ -147,11 +147,8 @@
             </TextArea>
             <TableView fx:id="biomodelsTable" disable="true" layoutX="28.0" layoutY="597.0" prefHeight="138.0" prefWidth="568.0">
               <columns>
-                <TableColumn fx:id="countCol" prefWidth="49.999969482421875" text="#" />
-                <TableColumn fx:id="idCol" prefWidth="90.0" text="Id" />
-                  <TableColumn fx:id="organismCol" prefWidth="144.0" text="Organism" />
-                  <TableColumn fx:id="tissueCol" prefWidth="141.0" text="Tissue" />
-                  <TableColumn fx:id="reactionCol" prefWidth="142.0" text="Reaction" />
+                <TableColumn fx:id="idCol" prefWidth="171.0" text="Id" />
+                  <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="396.0" text="Name" />
               </columns>
                <tooltip>
                   <Tooltip text="Kinetic Law Entries of last query. Click on entry to load details." />
