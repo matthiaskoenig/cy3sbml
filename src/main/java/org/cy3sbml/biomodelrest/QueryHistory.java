@@ -12,10 +12,8 @@ public class QueryHistory {
 	
 	public QueryHistory(){
 		items = FXCollections.observableArrayList(
-				"kineticLaws/14792",
-                "kineticLaws?kinlawids=48020,49160,44091,48027",
-				"searchKineticLaws/sbml?q=Organism:\"Homo sapiens\" AND Pathway:\"galactose metabolism\"",
-                "searchKineticLaws/sbml?q=Tissue:\"spleen\" AND Organism:\"Homo sapiens\""
+				"/search?query=repressilator",
+                "/search?query=glucose"
 		);
 	}
 	

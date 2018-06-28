@@ -487,9 +487,7 @@ public class QueryFXMLController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		logger = new Logger(this.log);
-		
-		String fileURI = ResourceExtractor.fileURIforResource(QuerySuggestions.RESOURCE).toString();
-		suggestions = QuerySuggestions.loadFromResource(fileURI);
+		suggestions = QuerySuggestions.fromStaticData();
 		queryHistory = new QueryHistory();
 		
 		// ---------------------------
