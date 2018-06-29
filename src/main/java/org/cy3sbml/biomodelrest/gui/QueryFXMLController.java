@@ -240,14 +240,20 @@ public class QueryFXMLController implements Initializable{
      * Run SABIO-RK web service query.
      */
     @FXML protected void handleQueryAction(ActionEvent event) {
+        String queryString = queryText.getText();
+
+        if (queryString == null || queryString.length() == 0){
+            logger.warn("Query is empty. No web service call performed.");
+            return;
+        }
+
     	// necessary to run long running request in separate 
     	// thread to allow GUI updates.
     	// GUI updates have to be passed to the JavaFX Thread using runLater()
     	queryThread = new Thread(){
             public void run() {
             	// query to perform
-            	String queryString = queryText.getText();
-            	
+
             	// update initial GUI
             	showQueryStatus(true);
             	Platform.runLater(new Runnable() {
@@ -260,36 +266,28 @@ public class QueryFXMLController implements Initializable{
                     }
                 });
         		setProgress(-1);
-        		
 
             	// perform search query
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
         		logger.info("... waiting for BioModels response ...");
         		queryResult = (new BiomodelsQuery()).performSearchQuery(queryString);
-        		Integer restReturnStatus = queryResult.getStatus();
+        		Integer returnCode = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
-
-        		// get biomodel ids from search query
-
-
 
         		
             	Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                    	statusCode.setText(restReturnStatus.toString());
-                		if (restReturnStatus != 200){
-                			if (restReturnStatus == 404){
-                				logger.warn("No kinetic laws found for query in SABIO-RK.");
-                			}
-                			logger.warn("SABIO-RK returned status <" + restReturnStatus + ">");
+                    	statusCode.setText(returnCode.toString());
+                		if (returnCode != 200){
+                			logger.warn("BioModels returned status <" + returnCode + ">");
                 			statusCode.setStyle("-fx-fill: red;");
                 			progressIndicator.setStyle("-fx-progress-color: red;");
                 		}else {
                 			// successful
-                			logger.info("SABIO-RK returned status <" + restReturnStatus + "> after " + duration + " [ms]");
+                			logger.info("BioModels returned status <" + returnCode + "> after " + duration + " [ms]");
                 			
                 			// handle empty test call
                 			final ObservableList<Biomodel> data;
@@ -297,6 +295,7 @@ public class QueryFXMLController implements Initializable{
                 				 data = FXCollections.observableArrayList();
                 			} else {
                 			    // TODO: get the biomodel information from the query
+
 
 
                 				data = FXCollections.observableArrayList();
@@ -317,7 +316,6 @@ public class QueryFXMLController implements Initializable{
                         queryHistory.add(queryString);
                         // update the history view
                         logger.info("query added to history: <" + queryString +">");
-                        queryHistory.print();
                     }
                 });
         		setProgress(1);
