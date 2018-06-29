@@ -3,33 +3,27 @@ package org.cy3sbml.biomodelrest.rest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
 import org.json.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
+
 
 /**
- * UniRest based Sabio Queries.
- *
- * FIXME: pagination - &offset=0&numResults=10
- *
+ * UniRest based REST queries for biomodels.
  */
 public class BiomodelsQuery {
 	private static Logger logger = LoggerFactory.getLogger(BiomodelsQuery.class);
 	public static final String BIOMODELS_RESTFUL_URL = "https://wwwdev.ebi.ac.uk/biomodels";
-	public static final String CONNECTOR_AND = " AND ";
 
 	/**
 	 * Create URI from query String.
@@ -38,44 +32,56 @@ public class BiomodelsQuery {
 	 */
 	public static URI uriFromQuery(String query) throws URISyntaxException {
 		URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
+
+		// FIXME: Necessary to url escape
+        // https://stackoverflow.com/questions/724043/http-url-address-encoding-in-java#724764
+
 		return uri;
 	}
 
-
-    /*
-     * TODO:
-     * Separate functionality into searching models (which will return number of biomodel ids.
-     * And lookup of models which requires single query for every model.
+    /**
+     * Run a biomodels query.
+     * @param query
+     * @return
      */
-
-
 	public static BiomodelsQueryResult performSearchQuery(String query){
+	    // TODO: handle the more complex cases, i.e. if there is pagination, than
+        // FIXME: pagination - &offset=0&numResults=10
+        // perform all the individual queries and combine the results.
+
 		HttpResponse<InputStream> response = executeQuery(query);
 		if (response != null){
 			Integer status = response.getStatus();
 			String json = null;
 			if (status == 200){
 				json = getStringBody(response);
+
 			}
 			return new BiomodelsQueryResult(query, status, json);
 		}
 		return null;
 	}
 
-    public static BiomodelsQueryResult performModelQuery(String query){
+
+    /**
+     * Get information for given biomodel.
+     * @param biomodelId
+     * @return
+     */
+    public static Biomodel performBiomodelQuery(String biomodelId){
+	    String query = "/" + biomodelId + "?format=json";
         HttpResponse<InputStream> response = executeQuery(query);
         if (response != null){
             Integer status = response.getStatus();
             String json = null;
             if (status == 200){
                 json = getStringBody(response);
+                JSONObject jsonObject = new JSONObject(json);
+                return new Biomodel(jsonObject);
             }
-            return new BiomodelsQueryResult(query, status, json);
         }
         return null;
     }
-
-
 
 
 	private static HttpResponse<InputStream> executeQuery(String query){
@@ -93,10 +99,10 @@ public class BiomodelsQuery {
 			return null;
 		}
 	}
-	
+
+
 	private static String getStringBody(HttpResponse<InputStream> ioResponse){
 		InputStream inputStream = ioResponse.getRawBody();
-
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 		String content = bufferedReader.lines().collect(Collectors.joining("\n"));
 		
@@ -104,33 +110,16 @@ public class BiomodelsQuery {
 	}
 
 
-    /**
-     * Web service queries.
-     */
-    public List<String> getBioModelIdsFromSearch(String name) {
-        // TODO: implement
-        String[] ids = null;
-        return Arrays.asList(ids);
-    }
-
-    /**
-     * Returns biomodel information for given biomodel ids
-     * @return
-     */
-    public List<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds){
-        //TODO: implement
-        LinkedList<Biomodel> biomodels = new LinkedList<>();
-        return biomodels;
-    }
-
-
     /* Test the Restful API. */
     public static void main(String[] args) throws URISyntaxException {
 
         BiomodelsQueryResult result = BiomodelsQuery.performSearchQuery("/BIOMD0000000012?format=json");
-        JSONObject json = result.getJSONObject();
-        Biomodel model = new Biomodel(json);
-        System.out.println(model);
+        System.out.println(result.getJSON());
+
+        Biomodel biomodel = BiomodelsQuery.performBiomodelQuery("BIOMD0000000012");
+        System.out.println(biomodel.getInfo());
+        System.out.println(biomodel);
+
 
 
         // Download the OMEX archive

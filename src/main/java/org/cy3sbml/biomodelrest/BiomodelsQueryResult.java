@@ -1,6 +1,10 @@
 package org.cy3sbml.biomodelrest;
 
 import org.json.*;
+import java.util.*;
+
+import org.cy3sbml.biomodelrest.rest.Biomodel;
+import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
 
 /**
  * Result of the given web service query.
@@ -34,7 +38,7 @@ public class BiomodelsQueryResult {
 	    return json;
     }
 
-    public JSONObject getJSONObject(){
+    private JSONObject getJSONObject(){
 	    if (json == null){
 	        return null;
         } else {
@@ -43,5 +47,44 @@ public class BiomodelsQueryResult {
             return obj;
         }
     }
+
+
+    /**
+     * Parses the Biomodel information from a search query.
+     * @return
+     */
+    public HashSet<String> getBiomodelIdsFromSearch(){
+        JSONObject jsonObject = getJSONObject();
+        HashSet<String> biomodelIds = new HashSet<String>();
+        if (jsonObject != null){
+
+            // get biomodel identifiers
+            JSONArray array = jsonObject.getJSONArray("models");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject model = (JSONObject) array.get(i);
+                String biomodelId = (String) model.get("id");
+                biomodelIds.add(biomodelId);
+            }
+        }
+        return biomodelIds;
+    }
+
+
+    /**
+     * Returns biomodel information for given biomodel ids
+     * @return
+     */
+    public ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds){
+
+        ArrayList<Biomodel> biomodels = new ArrayList<>();
+        for (String biomodelId: biomodelIds){
+            Biomodel biomodel = BiomodelsQuery.performBiomodelQuery(biomodelId);
+            biomodels.add(biomodel);
+        }
+        return biomodels;
+    }
+
+
+
 
 }

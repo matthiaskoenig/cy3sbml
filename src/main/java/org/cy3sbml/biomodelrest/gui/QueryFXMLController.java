@@ -276,6 +276,11 @@ public class QueryFXMLController implements Initializable{
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
 
+
+                // TODO: get the biomodel information from the query
+                HashSet<String> biomodelIds = queryResult.getBiomodelIdsFromSearch();
+                ArrayList<Biomodel> biomodels = queryResult.getBiomodelsFromIds(biomodelIds);
+
         		
             	Platform.runLater(new Runnable() {
                     @Override
@@ -290,16 +295,8 @@ public class QueryFXMLController implements Initializable{
                 			logger.info("BioModels returned status <" + returnCode + "> after " + duration + " [ms]");
                 			
                 			// handle empty test call
-                			final ObservableList<Biomodel> data;
-                			if (queryString == null || queryString.length() == 0){
-                				 data = FXCollections.observableArrayList();
-                			} else {
-                			    // TODO: get the biomodel information from the query
+                			final ObservableList<Biomodel> data = FXCollections.observableArrayList(biomodels);
 
-
-
-                				data = FXCollections.observableArrayList();
-                			}
                 			if (! data.isEmpty()){
                 				biomodelsTable.setItems(data);
                 				biomodelsTable.setDisable(false);

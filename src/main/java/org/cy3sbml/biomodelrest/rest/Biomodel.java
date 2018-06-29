@@ -42,6 +42,11 @@ public class Biomodel {
         return description;
     }
 
+    public String getInfo(){
+        String text = getPublicationIdentifier();
+        return text;
+    }
+
     // TODO: handle format, files, history
 
 
