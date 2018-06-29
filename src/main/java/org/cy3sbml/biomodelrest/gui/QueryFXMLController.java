@@ -327,6 +327,9 @@ public class QueryFXMLController implements Initializable{
      */
     @FXML protected void handleResetAction(ActionEvent event) {
     	logger.info("Reset GUI.");
+    	filters = new HashMap<>();
+    	searchTerms = new HashSet<>();
+
     	queryText.clear();
     	keyword.clear();
     	keywordTerm.clear();

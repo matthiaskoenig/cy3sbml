@@ -31,11 +31,14 @@ public class BiomodelsQuery {
 	 * Performs necessary replacements and sanitation of query.
 	 */
 	public static URI uriFromQuery(String query) throws URISyntaxException {
-		URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
-
-		// FIXME: Necessary to url escape
+        // FIXME: Necessary to url escape
         // https://stackoverflow.com/questions/724043/http-url-address-encoding-in-java#724764
-
+	    query = query.replace(":", "%3A");
+        query = query.replace(" ", "%20");
+        query = query.replace("\"", "%22");
+        query = query.replace(">", "%3E");
+        query = query.replace("<", "%3C");
+		URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
 		return uri;
 	}
 

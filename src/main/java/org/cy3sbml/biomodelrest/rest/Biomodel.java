@@ -1,5 +1,6 @@
 package org.cy3sbml.biomodelrest.rest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
@@ -12,6 +13,7 @@ public class Biomodel {
     // Fetch information about a given model at a particular revision.
 
     private JSONObject json;
+    private String id;
     private String submissionIdentifier;
     private String publicationIdentifier;
     private String name;
@@ -21,9 +23,30 @@ public class Biomodel {
 
         json = jsonObject;
         submissionIdentifier = json.getString("submissionIdentifier");
-        publicationIdentifier = json.getString("publicationIdentifier");
-        name = json.getString("name");
-        description = json.getString("description");
+
+        // not all fields exist
+        try {
+            name = json.getString("name");
+        } catch (JSONException e) {
+            name = "";
+        }
+        try {
+            publicationIdentifier = json.getString("publicationIdentifier");
+        } catch (JSONException e){
+            publicationIdentifier = "";
+        }
+        try{
+            description = json.getString("description");
+        }catch (JSONException e) {
+            description = "";
+        }
+
+        // id
+        if (publicationIdentifier.length()>0){
+            id = publicationIdentifier;
+        } else {
+            id = submissionIdentifier;
+        }
     }
 
     public String getSubmissionIdentifier() {

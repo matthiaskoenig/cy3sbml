@@ -12,8 +12,8 @@ public class QueryHistory {
 	
 	public QueryHistory(){
 		items = FXCollections.observableArrayList(
-				"/search?query=repressilator",
-                "/search?query=glucose"
+				"/search?query=repressilator&format=json",
+                "/search?query=glucose&format=json"
 		);
 	}
 	
