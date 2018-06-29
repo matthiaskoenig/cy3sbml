@@ -194,6 +194,8 @@ public class QueryFXMLController implements Initializable{
     		return;
     	}
 
+    	//TODO: create biomodels from ids
+
     }
 
     /**
@@ -333,6 +335,7 @@ public class QueryFXMLController implements Initializable{
     	queryText.clear();
     	keyword.clear();
     	keywordTerm.clear();
+    	searchTerm.clear();
     	entry.clear();
     	statusCode.setText("?");
     	showQueryStatus(false);
@@ -515,6 +518,9 @@ public class QueryFXMLController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		logger = new Logger(this.log);
 		suggestions = QuerySuggestions.fromStaticData();
+		searchTerms = new HashSet<>();
+		filters = new HashMap<>();
+
 		queryHistory = new QueryHistory();
 		
 		// ---------------------------

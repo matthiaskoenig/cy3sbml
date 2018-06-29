@@ -43,7 +43,5 @@ public class BiomodelsQueryResult {
             return obj;
         }
     }
-	
-
 
 }

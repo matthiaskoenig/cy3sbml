@@ -62,7 +62,7 @@ public class BiomodelsQuery {
 		return null;
 	}
 
-    public static BiomodelsQueryResult performModelQuery(String biomodelId){
+    public static BiomodelsQueryResult performModelQuery(String query){
         HttpResponse<InputStream> response = executeQuery(query);
         if (response != null){
             Integer status = response.getStatus();
@@ -113,7 +113,11 @@ public class BiomodelsQuery {
         return Arrays.asList(ids);
     }
 
-    public List<Biomodel> getBiomodelsFromIds(){
+    /**
+     * Returns biomodel information for given biomodel ids
+     * @return
+     */
+    public List<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds){
         //TODO: implement
         LinkedList<Biomodel> biomodels = new LinkedList<>();
         return biomodels;
