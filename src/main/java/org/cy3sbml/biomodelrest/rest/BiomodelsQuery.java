@@ -22,6 +22,9 @@ import org.json.*;
 
 /**
  * UniRest based Sabio Queries.
+ *
+ * FIXME: pagination - &offset=0&numResults=10
+ *
  */
 public class BiomodelsQuery {
 	private static Logger logger = LoggerFactory.getLogger(BiomodelsQuery.class);

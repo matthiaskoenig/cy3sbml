@@ -46,10 +46,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.TreeSet;
+import java.util.*;
 
 
 /** 
@@ -78,10 +75,15 @@ public class QueryFXMLController implements Initializable{
 	private Logger logger;
 	
 	// --- Query Builder ---
+    @FXML private TextField searchTerm;
     @FXML private TextField keyword;
+    @FXML private TextField keywordTerm;
     @FXML private ListView<String> keywordList;
-    @FXML private TextField term;
-    @FXML private Text termDescription;
+
+    HashSet<String> searchTerms;
+    HashMap<String, String> filters;
+
+    @FXML private Button addSearchTermButton;
     @FXML private Button addKeywordButton;
     private AutoCompletionBinding<String> termBinding;
     private AutoCompletionBinding<String> keywordBinding;
@@ -118,41 +120,61 @@ public class QueryFXMLController implements Initializable{
 
 
     Thread queryThread = null;
-    
-    
+
     /** 
-     * Adds keyword:searchTerm to the query.
+     * Adds keyword:keywordTerm filter to the query.
      */
     @FXML protected void handleAddKeywordAction(ActionEvent event) {
-    	// String selectedItem = (String) keywordList.getSelectionModel().getSelectedItem();
-    	String selectedItem = keyword.getText();
-    	String searchTerm = term.getText();
+    	String key = keyword.getText();
+    	String value = keywordTerm.getText();
 
-
-    	if (selectedItem == null || selectedItem.length()==0){
-            // main search term
-    	    queryText.setText("/search?query=" + searchTerm + "&format=json");
+    	if (key == null || key.length()==0 || value.length() == 0) {
+            logger.warn("No search filter provided. Select keyword and search keywordTerm in the Query Builder.");
     	} else {
-    	    // handle the facet options
-            // TODO: implement
-            String addition = selectedItem + ":\"" + searchTerm + "\"";
-            String query = queryText.getText();
-            if (searchTerm.length() == 0){
-                logger.warn("No search term provided. Select keyword and search term in the Query Builder.");
-                return;
-            }
-            if (query.contains(addition)){
-                logger.info("<" + selectedItem + ":" + searchTerm + "> already in query.");
-                return;
+    	    if (filters.containsKey(key)){
+                logger.warn("Existing filter is overwritten for key: %s.".format(key));
             }
 
-            if (query.startsWith("")){
-                queryText.setText(query + BiomodelsQuery.CONNECTOR_AND + addition);
-            } else {
-                queryText.setText(addition);
-            }
-            logger.info("<" + addition +"> added to query.");
+            filters.put(key, value);
+            logger.info("<" + key + "|" + value + "> added to query.");
+            updateQueryText();
         }
+    }
+
+    @FXML protected void handleAddSearchTermAction(ActionEvent event){
+        String term = searchTerm.getText();
+        if (term == null || term.length()==0) {
+            logger.warn("No search term provided.");
+        } else {
+            if (searchTerms.contains(term)){
+                logger.warn("Search term already in query.");
+            }
+            searchTerms.add(term);
+            updateQueryText();
+        }
+
+    }
+
+    /**
+     * Sets query text based on last query.
+     */
+    private void updateQueryText(){
+
+        // search terms
+        String text = "/search?query=";
+        if (searchTerms.size() == 0){
+            text += "*:*";
+        } else {
+            text += String.join("+", searchTerms);
+        }
+
+        // filters
+        for (String key : filters.keySet()){
+            String value = filters.get(key);
+            text += " AND " + key + ":" + value;
+        }
+        text += "&format=json";
+        queryText.setText(text);
     }
     
     /**
@@ -171,9 +193,15 @@ public class QueryFXMLController implements Initializable{
     		logger.error("No Biomodel Ids could be parsed from input: <" + entry.getText() + ">. Ids should be separated by ' ', ',', or ';'.");
     		return;
     	}
-    	
-    	// TODO: query the information for the biomodel entries and add to table
-    	queryText.setText("");
+
+    }
+
+    /**
+     * Update set of biomodels from given list of biomodel identifiers.
+     * @param biomodelIds
+     */
+    private void updateBiomodels(HashSet<String> biomodelIds){
+
     }
 
 
@@ -304,7 +332,7 @@ public class QueryFXMLController implements Initializable{
     	logger.info("Reset GUI.");
     	queryText.clear();
     	keyword.clear();
-    	term.clear();
+    	keywordTerm.clear();
     	entry.clear();
     	statusCode.setText("?");
     	showQueryStatus(false);
@@ -409,7 +437,7 @@ public class QueryFXMLController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                term.requestFocus();
+                keywordTerm.requestFocus();
             }
         });
     }
@@ -605,8 +633,8 @@ public class QueryFXMLController implements Initializable{
                 		logger.info("Keyword <" + newValue + "> selected.");
                 		// set keyword in field
                         keyword.setText(newValue);
-                        // focus term field
-                        focusNode(term);
+                        // focus keywordTerm field
+                        focusNode(keywordTerm);
             }
         });
 		
@@ -624,7 +652,7 @@ public class QueryFXMLController implements Initializable{
 			if (suggestions.getKeywords().contains(keyword.getText()) ){
 				keywordList.getSelectionModel().select(key);
 			} else if (ke.getCode() == KeyCode.ENTER){
-				focusNode(term);
+				focusNode(keywordTerm);
 			}
         });
 		
@@ -632,7 +660,7 @@ public class QueryFXMLController implements Initializable{
 		// Term
 		// ---------------------------
 		// dynamical autocomplete
-		term.focusedProperty().addListener(new ChangeListener<Boolean>(){
+		keywordTerm.focusedProperty().addListener(new ChangeListener<Boolean>(){
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean ov, Boolean nv){
 		        // textfield focused
@@ -643,7 +671,7 @@ public class QueryFXMLController implements Initializable{
                     	if (termBinding != null){
                     		termBinding.dispose();
                     	}
-                    	termBinding = TextFields.bindAutoCompletion(term, termSet);
+                    	termBinding = TextFields.bindAutoCompletion(keywordTerm, termSet);
     					termBinding.setOnAutoCompleted(e -> {
     						// add entry on autocomplete
     						focusNode(addKeywordButton);
@@ -658,7 +686,7 @@ public class QueryFXMLController implements Initializable{
 		    }
 		});
 		
-		term.setOnKeyPressed(ke -> {
+		keywordTerm.setOnKeyPressed(ke -> {
 			if (ke.getCode() == KeyCode.ENTER){
 				addKeywordButton.fire();
 			}
@@ -669,7 +697,7 @@ public class QueryFXMLController implements Initializable{
         // ---------------------------
         historyList.setItems(queryHistory.getAll());
 
-        // on selection update the query term
+        // on selection update the query keywordTerm
         historyList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> ov,

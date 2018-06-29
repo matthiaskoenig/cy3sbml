@@ -27,35 +27,50 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="565.0">
                                  <children>
-                                    <ListView fx:id="keywordList" layoutX="33.0" layoutY="84.0" prefHeight="183.0" prefWidth="200.0">
+                                    <ListView fx:id="keywordList" layoutX="33.0" layoutY="130.0" prefHeight="137.0" prefWidth="200.0">
                                        <tooltip>
                                           <Tooltip text="List of available search keywords." />
                                        </tooltip>
                                     </ListView>
-                                    <TextField fx:id="term" layoutX="243.0" layoutY="44.0" prefHeight="26.0" prefWidth="242.0">
+                                    <TextField fx:id="keywordTerm" layoutX="243.0" layoutY="94.0" prefHeight="26.0" prefWidth="242.0">
                                  <tooltip>
                                     <Tooltip text="Search Term for given Keyword." />
                                  </tooltip></TextField>
-                                    <Button fx:id="addKeywordButton" layoutX="495.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleAddKeywordAction" prefHeight="26.0" prefWidth="70.0" text="Add">
+                                    <Button fx:id="addKeywordButton" layoutX="495.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleAddKeywordAction" prefHeight="26.0" prefWidth="70.0" text="Add">
                                        <tooltip>
                                           <Tooltip text="Add keyword:searchTerm to the web service query." />
                                        </tooltip>
                                     </Button>
-                                    <TextField fx:id="keyword" layoutX="33.0" layoutY="44.0" prefHeight="25.0" prefWidth="200.0">
+                                    <TextField fx:id="keyword" layoutX="33.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0">
                                  <tooltip>
                                     <Tooltip text="Search keywords for SABIO-RK." />
                                  </tooltip></TextField>
-                                    <Text layoutX="33.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keyword">
+                                    <Text layoutX="33.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="243.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Term">
+                                    <Text layoutX="243.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Term">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
                                     <Text layoutX="271.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <TextField fx:id="searchTerm" layoutX="32.0" layoutY="40.0" prefHeight="26.0" prefWidth="445.0">
+                                 <tooltip>
+                                    <Tooltip text="Search keywords for SABIO-RK." />
+                                 </tooltip>
+                              </TextField>
+                              <Text layoutX="32.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Term">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="addSearchTermButton" layoutX="486.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleAddSearchTermAction" prefHeight="26.0" prefWidth="70.0" text="Add">
+                                 <tooltip>
+                                    <Tooltip text="Add keyword:searchTerm to the web service query." />
+                                 </tooltip>
+                              </Button>
                                  </children>
                               </AnchorPane>
                         </content>
