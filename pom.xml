@@ -499,7 +499,7 @@
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.22</version>
+            <version>1.0.23</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
