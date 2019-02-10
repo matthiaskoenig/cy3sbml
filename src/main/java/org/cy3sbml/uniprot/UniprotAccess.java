@@ -126,6 +126,7 @@ public class UniprotAccess {
             // comments
             for (Comment comment : entry.getComments()){
                 CommentType ctype = comment.getCommentType();
+
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
