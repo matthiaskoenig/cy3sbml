@@ -134,9 +134,10 @@ public class UniprotAccess {
                     }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
-                    CatalyticActivityComment caComment = (CatalyticActivityComment) comment;
-                    for (CommentText commentText : caComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", commentText.getValue());
+                    CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
+                    Reaction reaction = caComment.getReaction();
+                    if (reaction != null){
+                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", reaction.getName());
                     }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
