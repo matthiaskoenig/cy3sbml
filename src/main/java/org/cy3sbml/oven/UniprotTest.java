@@ -18,7 +18,7 @@ public class UniprotTest {
         uniProtService.start();
 
         // fetch entry
-        entry = uniProtService.getEntry("P19367");
+        entry = uniProtService.getEntry("P35557");
 
         // comments
         String text = "";
