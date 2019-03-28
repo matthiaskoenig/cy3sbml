@@ -66,7 +66,6 @@ public class DistribReader {
         }
 
         // XML node
-        uc.getUncertStatistics();
 
         //XMLParser ucParser = new XMLParser();
 
