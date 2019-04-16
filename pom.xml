@@ -457,11 +457,11 @@
         </dependency>
 
         <!-- OLS -->
-        <!-- http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
+        <!-- https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
         <dependency>
             <groupId>uk.ac.ebi.pride.utilities</groupId>
             <artifactId>ols-client</artifactId>
-            <version>2.11</version>
+            <version>2.12</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
