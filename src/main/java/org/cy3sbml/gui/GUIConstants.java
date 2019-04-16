@@ -18,6 +18,7 @@ public class GUIConstants {
     public static final String ICON_EXAMPLES = "/gui/images/examples.png";
     public static final String ICON_COFACTOR = "/gui/images/cofactor.png";
     public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
+    public static final String ICON_BIOMODELS_DEPRECATED = "/gui/images/biomodels_deprecated.png";
     public static final String ICON_HELP = "/gui/images/help.png";
     public static final String ICON_LOADLAYOUT = "/gui/images/loadlayout.png";
     public static final String ICON_SAVELAYOUT = "/gui/images/savelayout.png";

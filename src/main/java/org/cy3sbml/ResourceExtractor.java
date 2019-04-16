@@ -25,6 +25,7 @@ public class ResourceExtractor {
     public static final String GUI_RESOURCES = "/gui/";
     public static final String RO_RESOURCES = "/ro/";
     public static final String OMEX_RESOURCES = "/omex/";
+    public static final String BIOMODELS_RESOURCES = "/biomodels/";
 
 
     public static final Set<String> RESOURCES;
@@ -34,6 +35,7 @@ public class ResourceExtractor {
         set.add(GUI_RESOURCES);
         set.add(RO_RESOURCES);
         set.add(OMEX_RESOURCES);
+        set.add(BIOMODELS_RESOURCES);
         RESOURCES = Collections.unmodifiableSet(set);
     }
 
@@ -96,6 +98,8 @@ public class ResourceExtractor {
         URI fileURI = file.toURI();
         return fileURI;
     }
+
+
 
     /**
      * Extracts the bundle resources from the BundleContext in the

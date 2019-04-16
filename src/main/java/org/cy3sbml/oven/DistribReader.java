@@ -47,9 +47,6 @@ public class DistribReader {
             DistribSBasePlugin dSBase = (DistribSBasePlugin) sbase.getExtension(DistribConstants.namespaceURI);
             if (dSBase != null && dSBase.isSetUncertainty()){
                 Uncertainty uc = dSBase.getUncertainty();
-                if (uc.isSetUncertML()){
-                    readUncertainty(sbase, uc);
-                }
             }
         }
     }
@@ -69,7 +66,7 @@ public class DistribReader {
         }
 
         // XML node
-        XMLNode uncertML = uc.getUncertML();
+
         //XMLParser ucParser = new XMLParser();
 
         // TODO: parse the uncertainty XML
@@ -78,11 +75,6 @@ public class DistribReader {
         // IUncertainty iuc = ucParser.parse(xmlString);
         // logger.info(iuc.toString());
 
-        if (sbase instanceof NamedSBase){
-            logger.info(String.format("UncertML <%s|%s> for %s: %s", name, id, ((NamedSBase) sbase).getId(), uncertML.toString()));
-        } else {
-            logger.info(String.format("UncertML <%s|%s>: %s", name, id, uncertML.toString()));
-        }
     }
 
 }

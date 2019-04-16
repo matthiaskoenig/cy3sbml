@@ -1,0 +1,116 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BioModels Importer</title>
+    <meta name="description"
+          content="cy3sbml: BioModels Importer">
+    <meta name="author" content="Matthias Koenig">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/biomodels.css">
+</head>
+
+<body>
+<div class="container">
+    <h1><img src="images/biomodels_logo.png"/> BioModels Importer</h1>
+    <p>
+        Load SBML models from <a href=\"http://www.biomodels.org/\">BioModels.net</a> by
+        (1) searching the repository or (2) via providing a set of BioModel identifiers.
+    </p>
+    <p>
+        (1) BioModels can be searched by
+    <ul>
+        <li>Name</li>
+        <li>Person</li>
+        <li>Publication (PMID or Abstract)</li>
+        <li>ChEBI (name or identifier)</li>
+        <li>UniProt (name or identifier)</li>
+    </ul>
+
+    Search terms can be connected via AND or OR.
+    </p>
+
+    <p>
+        Search results are shown in list format. To load one or multiple models select the
+        model ids in the list and click <span color=\"gray\"><b>Load Selected</b></span>.
+    </p>
+    <p>
+        (2) For direct access to specific models type the BioModel Ids in the text field.<br />
+        Click <span color=\"gray\"><b>Parse Ids</b></span>
+        to get information about the models or <span color=\"gray\"><b>Load Ids</b></span> to load
+        the models for the given ids.<br />
+        Arbitrary text containing BioModel Ids can be used as input for the parsing and loading.
+    </p>
+    <p>
+        The access via the BioModel WebService can take a few seconds depending on the search query.
+    </p>
+
+        <table class="table table-striped table-condensed table-hover">
+            <colgroup>
+                <col span="1" style="width: 25%;">
+                <col span="1" style="width: 75%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td><strong>BioModels Database</strong></td>
+                <td><a href="https://wwwdev.ebi.ac.uk/biomodels/">https://wwwdev.ebi.ac.uk/biomodels/</a></td>
+            </tr>
+            <tr>
+                <td><strong>Web services</strong></td>
+                <td><a href="https://wwwdev.ebi.ac.uk/biomodels/docs/">https://wwwdev.ebi.ac.uk/biomodels/docs/</a></td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+
+
+<!-- START CUSTOM CODE -->
+<script>
+    window.onload = function () {
+
+        // Register onclick function for elements of class 'query'.
+        // The textContent is processed and send to java.
+
+        // cy3sabiork example queries defined in class query
+        var items = document.getElementsByClassName("query");
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+
+            // The function which creates the query from the given link text
+            item.onclick = function fun() {
+
+                // get the text from a element
+                var text = this.innerText || this.textContent;
+
+                // escape '"'
+                // var text = text.replace(/"/g, '&quot;');
+                // attach the q-prefix
+                // var text = 'searchKineticLaws/sbml?q=' + text;
+                // debug
+                // alert(text);
+
+                // call Java code
+                app.query = text;
+                app.setQuery();
+            };
+        }
+    }
+</script>
+<!-- END CUSTOM CODE -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
