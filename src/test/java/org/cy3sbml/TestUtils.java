@@ -43,7 +43,7 @@ import javax.xml.stream.XMLStreamException;
  */
 public class TestUtils {
     public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r31_curated";
-    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.4";
+    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.5";
     public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.3.0";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
 
