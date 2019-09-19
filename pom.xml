@@ -570,6 +570,7 @@
             <artifactId>jtidy</artifactId>
             <version>r938</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.fasterxml.woodstox</groupId>
             <artifactId>woodstox-core</artifactId>
@@ -592,6 +593,7 @@
             <artifactId>staxmate</artifactId>
             <version>2.3.1</version>
         </dependency>
+        -->
 
         <dependency>
             <groupId>org.biojava</groupId>
