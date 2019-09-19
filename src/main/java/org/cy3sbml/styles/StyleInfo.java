@@ -66,7 +66,7 @@ public class StyleInfo {
         m2.put(SBML.NODETYPE_SPECIES, "20");
         m2.put(SBML.NODETYPE_QUAL_SPECIES, "20");
         m2.put(SBML.NODETYPE_FBC_GENEPRODUCT, "20");
-        mappings.add(new MappingDiscrete(Mapping.DataType.integer,
+        mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_FONT_SIZE, SBML.NODETYPE_ATTR, "16", m2));
 
         Map<String, String> m4 = new HashMap<>();
@@ -84,27 +84,27 @@ public class StyleInfo {
                 VisualPropertyKey.NODE_LABEL_FONT_FACE, SBML.NODETYPE_ATTR, "Liberation Sans,plain,12", m4));
 
         Map<String, String> m5 = new HashMap<>();
-        m5.put(SBML.NODETYPE_SPECIES, "40.0");
-        m5.put(SBML.NODETYPE_REACTION, "15.0");
-        m5.put(SBML.NODETYPE_COMPARTMENT, "90.0");
-        m5.put(SBML.NODETYPE_PARAMETER, "30.0");
-        m5.put(SBML.NODETYPE_LOCAL_PARAMETER, "30.0");
-        m5.put(SBML.NODETYPE_ALGEBRAIC_RULE, "20.0");
-        m5.put(SBML.NODETYPE_ASSIGNMENT_RULE, "20.0");
-        m5.put(SBML.NODETYPE_RATE_RULE, "20.0");
-        m5.put(SBML.NODETYPE_KINETIC_LAW, "20.0");
-        m5.put(SBML.NODETYPE_QUAL_SPECIES, "40.0");
-        m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15.0");
-        m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40.0");
-        m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30.0");
-        m5.put(SBML.NODETYPE_UNIT, "20.0");
-        m5.put(SBML.NODETYPE_EVENT, "40.0");
-        m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20.0");
-        m5.put(SBML.NODETYPE_GROUP, "60.0");
-        m5.put(SBML.NODETYPE_COMP_PORT, "10.0");
-        m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "10.0");
-        m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "10.0");
-        m5.put(SBML.NODETYPE_COMP_DELETION, "10.0");
+        m5.put(SBML.NODETYPE_SPECIES, "40");
+        m5.put(SBML.NODETYPE_REACTION, "15");
+        m5.put(SBML.NODETYPE_COMPARTMENT, "90");
+        m5.put(SBML.NODETYPE_PARAMETER, "30");
+        m5.put(SBML.NODETYPE_LOCAL_PARAMETER, "30");
+        m5.put(SBML.NODETYPE_ALGEBRAIC_RULE, "20");
+        m5.put(SBML.NODETYPE_ASSIGNMENT_RULE, "20");
+        m5.put(SBML.NODETYPE_RATE_RULE, "20");
+        m5.put(SBML.NODETYPE_KINETIC_LAW, "20");
+        m5.put(SBML.NODETYPE_QUAL_SPECIES, "40");
+        m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15");
+        m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40");
+        m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30");
+        m5.put(SBML.NODETYPE_UNIT, "20");
+        m5.put(SBML.NODETYPE_EVENT, "40");
+        m5.put(SBML.NODETYPE_EVENT_ASSIGNMENT, "20");
+        m5.put(SBML.NODETYPE_GROUP, "60");
+        m5.put(SBML.NODETYPE_COMP_PORT, "10");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "10");
+        m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "10");
+        m5.put(SBML.NODETYPE_COMP_DELETION, "10");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 

@@ -62,7 +62,6 @@ public class StyleInfo_cy3sbml extends StyleInfo {
                 VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#FFFFFF", m3));
 
         // EDGE //
-
         Map<String, String> m10 = new HashMap<>();
         m10.put(SBML.INTERACTION_REACTION_PRODUCT, "#000000");
         m10.put(SBML.INTERACTION_REACTION_REACTANT, "#000000");
