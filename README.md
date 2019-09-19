@@ -9,15 +9,14 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d)
 
 * [Overview](https://github.com/matthiaskoenig/annotatedb#overview)
+* [Overview](https://github.com/matthiaskoenig/annotatedb#citation)
+* [Overview](https://github.com/matthiaskoenig/annotatedb#funding)
 * [Installation](https://github.com/matthiaskoenig/annotatedb#installation)
 * [Changelog](https://github.com/matthiaskoenig/annotatedb#changelog)
-* [Postgres database](https://github.com/matthiaskoenig/annotatedb#postgres-database)
-* [Data sources](https://github.com/matthiaskoenig/annotatedb#data-sources)
-* [Release notes](https://github.com/matthiaskoenig/annotatedb#release-notes)
-* [Acknowledgements](https://github.com/matthiaskoenig/annotatedb#acknowledgements)
+
 
 ## Overview
-[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml)
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 **cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
 Our mission is the visualization of SBML information within the network context. 
 Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling 
@@ -56,16 +55,18 @@ For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with do
 * Source Code: [LGPLv3.0](http://opensource.org/licenses/LGPL-3.0)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
-### Citation
+## Citation
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 Matthias König, Andreas Dräger and Hermann-Georg Holzhütter  
 *CySBML: a Cytoscape plugin for SBML*  
 Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946) 
 
-### Funding
+## Funding
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 Matthias König is supported by the Federal Ministry of Education and Research (BMBF, Germany) within the research network Systems Medicine of the Liver (**LiSyM**, grant number 031L0054) and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html).
 
 ## Installation
-[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml)
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 ### Install
 cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
 * install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.5.1) 
@@ -99,7 +100,7 @@ The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 More detailed build instructions are available from https://goo.gl/4xMgff.
 
 ## Changelog
-[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml)
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 **v0.3.0** [2019-09-19]
 * major bugfix release
 * updated dependencies
@@ -237,7 +238,7 @@ Major bugfix release to handle EBI https and Uniprot https.
 * first app release (OSGI build with JSBML integration)
 
 ## Third-party software 
-[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml)
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 cy3sbml uses the following third-party software libraries; these
 are distributed along with the bundled cy3sbml app. 
 The license statements for these third-party
