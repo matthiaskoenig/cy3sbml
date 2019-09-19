@@ -14,7 +14,7 @@
         </org.osgi.framework.system.packages.extra>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cytoscape.api.version>3.5.0-RC2</cytoscape.api.version>
+        <cytoscape.api.version>3.7.0</cytoscape.api.version>
 
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
@@ -25,7 +25,7 @@
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
-    <version>0.2.8</version>
+    <version>0.3.0</version>
     <packaging>bundle</packaging>
     <!-- <packaging>jar</packaging> -->
 
