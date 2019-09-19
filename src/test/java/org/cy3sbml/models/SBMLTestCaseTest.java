@@ -15,9 +15,9 @@ import org.mockito.MockitoAnnotations;
 /**
  * Test all SBML files of the SBML TestCases.
  * 
- * sbml-test-suite-v3.2 (stochastic and syntactic branch)
- * https://sourceforge.net/projects/sbml/files/test-suite/
- * Retrieved on 2016-08-09.
+ * sbml-test-suite-v3.3.0 (stochastic and semantic branch)
+ * https://github.com/sbmlteam/sbml-test-suite/releases/tag/3.3.0
+ * Retrieved on 2017-12-14.
  */
 @RunWith(value = Parameterized.class)
 public class SBMLTestCaseTest{

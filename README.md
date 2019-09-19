@@ -1,4 +1,4 @@
-# ![alt tag](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
+# ![cy3sbml logo](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
 
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
@@ -8,8 +8,17 @@
 [![License (LGPL version 3)](https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
 [![Dependency Status](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d)
 
-**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
-Our mission is the visualization of SBML information within the network context. 
+* [Overview](https://github.com/matthiaskoenig/cy3sbml#overview)
+* [Citation](https://github.com/matthiaskoenig/cy3sbml#citation)
+* [Funding](https://github.com/matthiaskoenig/cy3sbml#funding)
+* [Installation](https://github.com/matthiaskoenig/cy3sbml#installation)
+* [Changelog](https://github.com/matthiaskoenig/cy3sbml#changelog)
+
+
+## Overview
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
+`cy3sbml` is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
+Our mission is the visualization of SBML information within the network context.  
 Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling 
 frameworks and workflows.
 
@@ -18,8 +27,8 @@ frameworks and workflows.
 **Support & Forum**: https://groups.google.com/forum/#!forum/cysbml-cyfluxviz  
 **Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
-## Features
-**cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
+### Features
+`cy3sbml` provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
 visualization of SBML network annotations within the network context, direct import of models from repositories 
 like [BioModels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information and SBML validation.
 
@@ -34,33 +43,46 @@ like [BioModels](http://www.biomodels.org) and one-click access to annotation re
   the network context (and non-RDF annotations)
 * Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.3)
 
-For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
+For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/.
 
-## License
+### Screenshots
+![cy3sbml screenshot](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshot-cy3sbml-0.1.7_01.png)
+
+### Documentation
+* [Build instructions](./docs/build.md)
+
+### License
 * Source Code: [LGPLv3.0](http://opensource.org/licenses/LGPL-3.0)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Citation
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 Matthias König, Andreas Dräger and Hermann-Georg Holzhütter  
 *CySBML: a Cytoscape plugin for SBML*  
 Bioinformatics. 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946) 
 
 ## Funding
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 Matthias König is supported by the Federal Ministry of Education and Research (BMBF, Germany) within the research network Systems Medicine of the Liver (**LiSyM**, grant number 031L0054) and Virtual Liver Network (VLN, grant number 0315756), and by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html).
 
 ## Installation
-### Install
-cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
-* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.5.1) 
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
+The following gives an overview how to install, uninstall and build `cy3sbml`
 
+### Install
+`cy3sbml` is available from the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
+* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.7.2) 
+* open cytoscape, open http://apps.cytoscape.org/apps/cy3sbml in a browser, click install
+
+Alternatively one can install via
 * In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
 * Select `cy3sbml` and click install.
 
 After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
-Alternatively the latests release jars are available from
+In addition the latest release jars are available from
 https://github.com/matthiaskoenig/cy3sbml/releases/latest 
-to install manually.
+and can be installed manually.
 
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
@@ -79,9 +101,15 @@ mvn install
 ```
 The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 
-More detailed build instructions are available from https://goo.gl/4xMgff.
+More detailed build instructions are available [here](./docs/build.md).
 
 ## Changelog
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
+
+**v0.3.0** [2019-09-19]
+* major bugfix release
+* updated dependencies
+
 **v0.2.7** [2017/11/12]
 
 Bugfix and dependency release
@@ -215,6 +243,7 @@ Major bugfix release to handle EBI https and Uniprot https.
 * first app release (OSGI build with JSBML integration)
 
 ## Third-party software 
+[[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 cy3sbml uses the following third-party software libraries; these
 are distributed along with the bundled cy3sbml app. 
 The license statements for these third-party
@@ -270,4 +299,4 @@ below.
 [Apache Taverna Language](https://github.com/apache/incubator-taverna-language) [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0) [checked 2016-08-16]
 
 ----
-&copy; 2017 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.
+&copy; 2012-2019 Matthias König. Developed and maintained by Matthias König, Andreas Dräger and Nicolas Rodriguez.

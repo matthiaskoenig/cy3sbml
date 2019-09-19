@@ -3,10 +3,10 @@
   <groupId>cy3sbml-dep</groupId>
   <artifactId>jsbml-tidy</artifactId>
   <versioning>
-    <release>1.2.1</release>
     <versions>
-      <version>1.2.1</version>
+      <version>1.4-SNAPSHOT</version>
+      <version>1.5-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20171004154835</lastUpdated>
+    <lastUpdated>20190919122352</lastUpdated>
   </versioning>
 </metadata>

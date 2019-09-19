@@ -10,10 +10,11 @@
         <osgi.api.version>4.2.0</osgi.api.version>
         <!-- javax.xml.namespace -->
         <org.osgi.framework.system.packages.extra>
-            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,org.osgi.framework
+            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,netscape.javascript,org.osgi.framework
         </org.osgi.framework.system.packages.extra>
+        <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cytoscape.api.version>3.5.0-RC2</cytoscape.api.version>
+        <cytoscape.api.version>3.7.0</cytoscape.api.version>
 
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
@@ -24,15 +25,20 @@
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
-    <version>0.2.7</version>
+    <version>0.3.0</version>
     <packaging>bundle</packaging>
-    <!-- <packaging>jar</packaging> -->
-
     <name>cy3sbml</name>
     <description>A Cytoscape app for SBML.</description>
     <url>https://github.com/matthiaskoenig/cy3sbml</url>
 
     <repositories>
+
+        <repository>
+            <id>in-project</id>
+            <name>In project repository</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+
         <repository>
             <id>cytoscape_snapshots</id>
             <name>Cytoscape Snapshots</name>
@@ -54,12 +60,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-
-        <repository>
-            <id>in-project</id>
-            <name>In project repository</name>
-            <url>file:${project.basedir}/lib</url>
         </repository>
 
         <repository>
@@ -88,6 +88,12 @@
         </repository>
 
         <repository>
+            <id>JSBML-SNAPSHOT</id>
+            <name>The JSBML Snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
             <id>ebi-repo</id>
             <name>The EBI internal repository</name>
             <url>http://www.ebi.ac.uk/~maven/m2repo</url>
@@ -106,16 +112,13 @@
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
 
+
         <!-- EBI repo -->
         <repository>
             <id>nexus-ebi-release-repo</id>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
 
-        <!--
-		resolves javax.jms:jms:jar:1.1
-		see http://stackoverflow.com/questions/3622773/java-net-maven-repo-jms-artifact-missing
-        -->
         <repository>
             <id>repository.jboss.org-public</id>
             <name>JBoss.org Maven repository</name>
@@ -165,30 +168,6 @@
                     </instructions>
                 </configuration>
             </plugin>
-
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.apache.xerces</pattern>
-                                    <shadedPattern>org.shaded.apache.xerces</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
 
             <!-- resources -->
             <plugin>
@@ -343,11 +322,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 3rd party dependency -->
+        <!-- caching -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>2.10.4</version>
+            <version>2.10.6</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -356,11 +335,11 @@
             </exclusions>
         </dependency>
 
-        <!-- Misc -->
+        <!-- misc -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>3.9</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -370,15 +349,47 @@
 
         <!-- JavaFX -->
         <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
+        </dependency>
+        <dependency>
             <groupId>org.codefx.libfx</groupId>
             <artifactId>LibFX</artifactId>
             <version>0.3.0</version>
         </dependency>
 
+        <!--  UniRest -->
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpasyncclient</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
+        </dependency>
+
         <!-- MIRIAM Registry -->
         <!-- manually registered from repo -->
         <dependency>
-            <groupId>org.identifiers</groupId>
+            <groupId>org.identifiers.registry</groupId>
             <artifactId>registry-lib</artifactId>
             <version>1.1.1</version>
         </dependency>
@@ -410,11 +421,11 @@
         </dependency>
 
         <!-- OLS -->
-        <!-- http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
+        <!-- https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
         <dependency>
             <groupId>uk.ac.ebi.pride.utilities</groupId>
             <artifactId>ols-client</artifactId>
-            <version>2.11</version>
+            <version>2.13-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -436,12 +447,16 @@
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>uk.ac.ebi.pride.architectural</groupId>
+                    <artifactId>pride-logging</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.2</version>
+            <version>2.9.9.3</version>
         </dependency>
 
 
@@ -459,7 +474,7 @@
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.16</version>
+            <version>1.0.28</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
@@ -468,6 +483,14 @@
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.platform</groupId>
+                    <artifactId>junit-platform-commons</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -492,10 +515,18 @@
         </dependency>
 
         <!-- JSBML -->
+        <!--
         <dependency>
-            <groupId>org.sbml.jsbml</groupId>
+            <groupId>com.github.sbmlteam.jsbml</groupId>
+            <artifactId>ext</artifactId>
+            <version>f630b9b62a</version>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>1.4-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -503,6 +534,69 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-qual</artifactId>
+            <version>2.1-b1</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-layout</artifactId>
+            <version>1.0-b1</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-comp</artifactId>
+            <version>1.0-b1</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-fbc</artifactId>
+            <version>1.0-b1</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-groups</artifactId>
+            <version>0.4-b1</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-distrib</artifactId>
+            <version>0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jsbml-tidy</artifactId>
+            <version>1.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cy3sbml-dep</groupId>
+            <artifactId>jtidy</artifactId>
+            <version>r938</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.woodstox</groupId>
+            <artifactId>woodstox-core</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.w3c.jigsaw</groupId>
+            <artifactId>jigsaw</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.9</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.staxmate</groupId>
+            <artifactId>staxmate</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.biojava</groupId>
             <artifactId>biojava-ontology</artifactId>

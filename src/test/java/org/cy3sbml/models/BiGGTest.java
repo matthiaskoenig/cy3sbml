@@ -14,10 +14,10 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for the BIGG models.
- * bigg_models v1.4 (https://github.com/SBRG/bigg_models/releases)
+ * bigg_models v1.5 (https://github.com/SBRG/bigg_models/releases)
  * 
- * Models were retrieved on 2017-10-10 from the available database dumps on
- * dropbox.
+ * Models were retrieved on 2019-04-17 from the available database dumps on
+ * dropbox: https://www.dropbox.com/sh/yayfmcrsrtrcypw/AACDoew92pCYlSJa8vCs5rSMa?dl=0
  */
 @RunWith(value = Parameterized.class)
 public class BiGGTest {

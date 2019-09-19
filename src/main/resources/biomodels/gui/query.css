@@ -1,0 +1,51 @@
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #ffffff;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #757575;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #0181d8;
+}
+
+
+.table-view .table-cell{
+    -fx-font-size: 10;
+}
+
+#log {
+  // -fx-font-family: Consolas;
+  -fx-highlight-fill: #ffffff;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: #ffffff;
+  -fx-background-color: #000000;
+}
+
+#log .content{
+  -fx-background-color: #000000;
+}

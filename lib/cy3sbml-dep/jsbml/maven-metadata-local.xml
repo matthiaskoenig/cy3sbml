@@ -4,8 +4,9 @@
   <artifactId>jsbml</artifactId>
   <versioning>
     <versions>
-      <version>1.3-SNAPSHOT</version>
+      <version>1.4-SNAPSHOT</version>
+      <version>1.5-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20171004154827</lastUpdated>
+    <lastUpdated>20190919122344</lastUpdated>
   </versioning>
 </metadata>

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public final static String OLS_BASE_URL = "http://www.ebi.ac.uk/ols/ontologies/";
+    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols/ontologies/";
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
@@ -33,14 +33,24 @@ public class OLSAccess {
     public static Term getTerm(String identifier){
         try {
             String[] tokens = identifier.split(":");
-            if (tokens.length != 2) {
-                logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
-                return null;
+            if (tokens.length == 2) {
+                String ontologyId = tokens[0];
+                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
+                Term term = olsClient.getTermById(id, ontologyId);
+                return term;
             }
-            String ontologyId = tokens[0];
-            Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
-            Term term = olsClient.getTermById(id, ontologyId);
-            return term;
+            tokens = identifier.split("_");
+            if (tokens.length == 2) {
+                String ontologyId = tokens[0];
+                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OWL);
+                Term term = olsClient.getTermById(id, ontologyId);
+                return term;
+            }
+
+            // non of the strategies worked
+            logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
+            return null;
+
         } catch (HttpClientErrorException e) {
             logger.warn(String.format("OLS term not found <%s>", identifier));
             return null;
@@ -78,7 +88,7 @@ public class OLSAccess {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().startsWith(OLS_BASE_URL);
+        return location.getUrlRoot().contains(OLS_BASE_URL);
     }
 
     public static void main(String[] args){
