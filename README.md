@@ -17,8 +17,8 @@
 
 ## Overview
 [[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
-**cy3sbml** is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
-Our mission is the visualization of SBML information within the network context. 
+`cy3sbml` is a [Cytoscape 3](http://www.cytoscape.org) app for the Systems Biology Markup Language [SBML](http://www.sbml.org).  
+Our mission is the visualization of SBML information within the network context.  
 Our vision is a visualization tool for computational models and simulations which seamlessly integrates with computational modeling 
 frameworks and workflows.
 
@@ -28,7 +28,7 @@ frameworks and workflows.
 **Bug Tracker**: https://github.com/matthiaskoenig/cy3sbml/issues  
 
 ### Features
-**cy3sbml** provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
+`cy3sbml` provides advanced functionality for the import and work with models encoded in SBML, amongst others the 
 visualization of SBML network annotations within the network context, direct import of models from repositories 
 like [BioModels](http://www.biomodels.org) and one-click access to annotation resources and SBML model information and SBML validation.
 
@@ -43,7 +43,7 @@ like [BioModels](http://www.biomodels.org) and one-click access to annotation re
   the network context (and non-RDF annotations)
 * Tested with all models from sbml-test-suite (3.2.0), Biomodels (release 30) and BiGG models (v1.3)
 
-For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/
+For Cytoscape 2 use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml) with documentation available from http://matthiaskoenig.github.io/cy2sbml/.
 
 ### Screenshots
 ![cy3sbml screenshot](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshot-cy3sbml-0.1.7_01.png)
@@ -105,6 +105,7 @@ More detailed build instructions are available [here](./docs/build.md).
 
 ## Changelog
 [[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
+
 **v0.3.0** [2019-09-19]
 * major bugfix release
 * updated dependencies
