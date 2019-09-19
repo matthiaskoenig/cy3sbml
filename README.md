@@ -1,4 +1,4 @@
-# ![cy3sbml logo](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/logo100.png) cy3sbml - SBML for Cytoscape 3
+# ![cy3sbml logo](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/logo100.png) cy3sbml - SBML for Cytoscape
 
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RYHNRJFBMWD5N" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a>
@@ -91,9 +91,9 @@ To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Man
 The develop release contains all features implemented since the latest release.
 To work with the latest **develop release** clone the repository and build with `maven`
 ```
-git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml
-cd cy3sbml
-mvn install -DskipTests
+git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml  
+cd cy3sbml  
+mvn install -DskipTests  
 ```
 The test suite takes some minutes to finish. If you want to build with tests use
 ```
@@ -107,6 +107,7 @@ More detailed build instructions are available [here](./docs/build.md).
 [[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
 
 **v0.3.0** [2019-09-19]
+
 * major bugfix release
 * updated dependencies
 

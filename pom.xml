@@ -25,7 +25,7 @@
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <packaging>bundle</packaging>
     <name>cy3sbml</name>
     <description>A Cytoscape app for SBML.</description>
