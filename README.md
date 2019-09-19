@@ -8,11 +8,11 @@
 [![License (LGPL version 3)](https://img.shields.io/badge/license-LGPLv3.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
 [![Dependency Status](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a9a0cdf27cc2004c87e56d)
 
-* [Overview](https://github.com/matthiaskoenig/annotatedb#overview)
-* [Overview](https://github.com/matthiaskoenig/annotatedb#citation)
-* [Overview](https://github.com/matthiaskoenig/annotatedb#funding)
-* [Installation](https://github.com/matthiaskoenig/annotatedb#installation)
-* [Changelog](https://github.com/matthiaskoenig/annotatedb#changelog)
+* [Overview](https://github.com/matthiaskoenig/cy3sbml#overview)
+* [Citation](https://github.com/matthiaskoenig/cy3sbml#citation)
+* [Funding](https://github.com/matthiaskoenig/cy3sbml#funding)
+* [Installation](https://github.com/matthiaskoenig/cy3sbml#installation)
+* [Changelog](https://github.com/matthiaskoenig/cy3sbml#changelog)
 
 
 ## Overview
