@@ -45,8 +45,11 @@ public class DistribReader {
     private void readUncertainties(ListOf<?> listOfSBase){
         for (SBase sbase: listOfSBase){
             DistribSBasePlugin dSBase = (DistribSBasePlugin) sbase.getExtension(DistribConstants.namespaceURI);
-            if (dSBase != null && dSBase.isSetUncertainty()){
-                Uncertainty uc = dSBase.getUncertainty();
+            if (dSBase != null && dSBase.isSetListOfUncertainties()){
+                ListOf<Uncertainty> listOfUncertainties = dSBase.getListOfUncertainties();
+                for (Uncertainty uc: listOfUncertainties){
+                    System.out.println(uc);
+                }
             }
         }
     }
