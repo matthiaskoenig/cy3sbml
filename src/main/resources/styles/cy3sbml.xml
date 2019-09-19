@@ -39,9 +39,9 @@
             <visualProperty default="org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ]," name="NODE_CUSTOMGRAPHICS_4"/>
             <visualProperty default="16" name="NODE_LABEL_FONT_SIZE">
                 <discreteMapping attributeName="sbml type" attributeType="string">
-                    <discreteMappingEntry attributeValue="species" value="20"/>
-                    <discreteMappingEntry attributeValue="qual_species" value="20"/>
-                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="20"/>
+                    <discreteMappingEntry attributeValue="species" value="16"/>
+                    <discreteMappingEntry attributeValue="qual_species" value="16"/>
+                    <discreteMappingEntry attributeValue="fbc_geneProduct" value="16"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="false" name="NODE_SELECTED"/>

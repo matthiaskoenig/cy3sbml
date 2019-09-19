@@ -247,8 +247,9 @@ public class CyActivator extends AbstractCyActivator {
 
             // init actions
             BiomodelsSBMLReader sbmlReader = new BiomodelsSBMLReader(loadNetworkFileTaskFactory, taskManager);
-            BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
-            registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
+            // FIXME: finish implementation
+            // BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
+            // registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
 
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());

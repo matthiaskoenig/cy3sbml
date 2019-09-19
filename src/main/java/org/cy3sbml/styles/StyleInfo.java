@@ -63,9 +63,9 @@ public class StyleInfo {
                 VisualPropertyKey.NODE_BORDER_PAINT, SBML.ATTR_COMPARTMENT_CODE, "#000000", m1));
 
         Map<String, String> m2 = new HashMap<>();
-        m2.put(SBML.NODETYPE_SPECIES, "20");
-        m2.put(SBML.NODETYPE_QUAL_SPECIES, "20");
-        m2.put(SBML.NODETYPE_FBC_GENEPRODUCT, "20");
+        m2.put(SBML.NODETYPE_SPECIES, "16");
+        m2.put(SBML.NODETYPE_QUAL_SPECIES, "16");
+        m2.put(SBML.NODETYPE_FBC_GENEPRODUCT, "16");
         mappings.add(new MappingDiscrete(Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_FONT_SIZE, SBML.NODETYPE_ATTR, "16", m2));
 
