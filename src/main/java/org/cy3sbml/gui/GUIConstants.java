@@ -20,8 +20,8 @@ public class GUIConstants {
     public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
     public static final String ICON_BIOMODELS_DEPRECATED = "/gui/images/biomodels_deprecated.png";
     public static final String ICON_HELP = "/gui/images/help.png";
-    public static final String ICON_LOADLAYOUT = "/gui/images/loadlayout.png";
-    public static final String ICON_SAVELAYOUT = "/gui/images/savelayout.png";
+    public static final String ICON_LOADLAYOUT = "/gui/images/layout.png";
+    public static final String ICON_SAVELAYOUT = "/gui/images/layout.png";
 
     public static float GRAVITY_CHANGESTATE = (float) 100.0;
     public static float GRAVITY_ARCHIVE = (float) 101.0;
