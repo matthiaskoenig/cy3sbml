@@ -587,7 +587,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.9</version>
+            <version>1.4.11.1</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
