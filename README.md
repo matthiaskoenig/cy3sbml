@@ -67,18 +67,22 @@ Matthias König is supported by the Federal Ministry of Education and Research (
 
 ## Installation
 [[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
-### Install
-cy3sbml is available via the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
-* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.5.1) 
+The following gives an overview how to install, uninstall and build `cy3sbml`
 
+### Install
+`cy3sbml` is available from the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
+* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.7.2) 
+* open cytoscape, open http://apps.cytoscape.org/apps/cy3sbml in a browser, click install
+
+Alternatively one can install via
 * In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
 * Select `cy3sbml` and click install.
 
 After installation cy3sbml is listed in the `Currently Installed` apps tab.  
 
-Alternatively the latests release jars are available from
+In addition the latest release jars are available from
 https://github.com/matthiaskoenig/cy3sbml/releases/latest 
-to install manually.
+and can be installed manually.
 
 ### Uninstall
 To uninstall or disable cy3sbml, go to the menu bar and choose `Apps → App Manager → Currently Installed`. Select cy3sbml and click `Uninstall` or `Disable`.
@@ -97,7 +101,7 @@ mvn install
 ```
 The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
 
-More detailed build instructions are available from https://goo.gl/4xMgff.
+More detailed build instructions are available [here](./docs/build.md).
 
 ## Changelog
 [[^]](https://github.com/matthiaskoenig/cy3sbml#-cy3sbml---sbml-for-cytoscape-3)
