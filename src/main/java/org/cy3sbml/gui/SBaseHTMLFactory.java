@@ -448,6 +448,9 @@ public class SBaseHTMLFactory {
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
 
+            // bugfix to handle https://identifier.org/ resources
+            resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
+
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
