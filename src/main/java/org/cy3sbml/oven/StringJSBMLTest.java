@@ -6,7 +6,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 
-public class UnitJSBMLTest {
+public class StringJSBMLTest {
 
 
     public static void main(String[] args) throws IOException, XMLStreamException {
