@@ -71,8 +71,8 @@ The following gives an overview how to install, uninstall and build `cy3sbml`
 
 ### Install
 `cy3sbml` is available from the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml).  
-* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.7.2) 
-* open cytoscape, open http://apps.cytoscape.org/apps/cy3sbml in a browser, click install
+* install the latest version of [Cytoscape](http://www.cytoscape.org/) (>=3.7.2) or  
+* open Cytoscape, open http://apps.cytoscape.org/apps/cy3sbml in a browser, click install
 
 Alternatively one can install via
 * In Cytoscape open `Apps → App Manager → Install Apps` and search for `cy3sbml`. 
