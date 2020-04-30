@@ -30,15 +30,15 @@ public class One2ManyMappingTest {
 	
 	@Test
 	public void testContainsKey() {
-		map.put("id1", new Long(10));
+		map.put("id1", Long.valueOf(10));
 		assertTrue(map.containsKey("id1"));
 		assertFalse(map.containsKey("id2"));
 	}
 
 	@Test
 	public void testKeySet() {
-		map.put("id1", new Long(10));
-		map.put("id2", new Long(20));
+		map.put("id1", Long.valueOf(10));
+		map.put("id2", Long.valueOf(20));
 		Set<String> keys = map.keySet();
 		assertEquals(keys.size(), 2);
 		assertTrue(keys.contains("id1"));
@@ -47,14 +47,14 @@ public class One2ManyMappingTest {
 
 	@Test
 	public void testPut() {
-		map.put("id1", new Long(10));
+		map.put("id1", Long.valueOf(10));
 		assertTrue(map.containsKey("id1"));
 		assertEquals(map.keySet().size(), 1);
 	}
 
 	@Test
 	public void testRemove() {
-		map.put("id1", new Long(10));
+		map.put("id1", Long.valueOf(10));
 		assertTrue(map.containsKey("id1"));
 		map.remove("id1");
 		assertFalse(map.containsKey("id1"));
@@ -63,9 +63,9 @@ public class One2ManyMappingTest {
 
 	@Test
 	public void testGetValues() {
-		map.put("id1", new Long(10));
-		map.put("id1", new Long(20));
-		map.put("id1", new Long(30));
+		map.put("id1", Long.valueOf(10));
+		map.put("id1", Long.valueOf(20));
+		map.put("id1", Long.valueOf(30));
 		HashSet<Long> values = map.getValues("id1");
 		assertEquals(values.size(), 3);
 		values = map.getValues("id2");
@@ -74,12 +74,12 @@ public class One2ManyMappingTest {
 
 	@Test
 	public void testGetValuesListOf() {
-		map.put("id1", new Long(10));
-		map.put("id1", new Long(20));
-		map.put("id1", new Long(30));
-		map.put("id2", new Long(-10));
-		map.put("id2", new Long(-20));
-		map.put("id2", new Long(-30));
+		map.put("id1", Long.valueOf(10));
+		map.put("id1", Long.valueOf(20));
+		map.put("id1", Long.valueOf(30));
+		map.put("id2", Long.valueOf(-10));
+		map.put("id2", Long.valueOf(-20));
+		map.put("id2", Long.valueOf(-30));
 		
 		List<String> keys = new LinkedList<String>();
 		keys.add("id1");
@@ -91,11 +91,11 @@ public class One2ManyMappingTest {
 
 	@Test
 	public void testCreateReverseMapping() {
-		map.put("id1", new Long(10));
-		map.put("id1", new Long(20));
+		map.put("id1", Long.valueOf(10));
+		map.put("id1", Long.valueOf(20));
 		One2ManyMapping<Long, String> revMap = map.createReverseMapping();
-		assertTrue(revMap.containsKey(new Long(10)));
-		assertTrue(revMap.containsKey(new Long(20)));
+		assertTrue(revMap.containsKey(Long.valueOf(10)));
+		assertTrue(revMap.containsKey(Long.valueOf(20)));
 	}
 
 }
