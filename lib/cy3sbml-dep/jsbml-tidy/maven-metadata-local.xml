@@ -4,9 +4,8 @@
   <artifactId>jsbml-tidy</artifactId>
   <versioning>
     <versions>
-      <version>1.4-SNAPSHOT</version>
-      <version>1.5-SNAPSHOT</version>
+      <version>1.6-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20190919122352</lastUpdated>
+    <lastUpdated>20200430215958</lastUpdated>
   </versioning>
 </metadata>

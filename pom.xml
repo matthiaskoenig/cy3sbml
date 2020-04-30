@@ -171,7 +171,7 @@
         <repository>
             <id>maven-central</id>
             <name>Maven central repository</name>
-            <url>http://repo.maven.apache.org/maven2/</url>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
 
         <repository>
@@ -202,7 +202,7 @@
         <repository>
             <id>ebi-repo</id>
             <name>The EBI internal repository</name>
-            <url>http://www.ebi.ac.uk/~maven/m2repo</url>
+            <url>https://www.ebi.ac.uk/~maven/m2repo</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -215,14 +215,14 @@
         <repository>
             <id>EBI SNAPSHOT</id>
             <name>EBI Snapshot repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
 
 
         <!-- EBI repo -->
         <repository>
             <id>nexus-ebi-release-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
 
         <repository>

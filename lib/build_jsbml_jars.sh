@@ -22,20 +22,20 @@
 # This is the alternative solution to the maven central deploys.
 
 # Usage: 
-# 	./build_jsbml_jars.sh 2>&1 | tee ./logs/build_jsbml_jars.log
+# 	./build_jsbml_jars.sh 2>&1 | tee ./build_jsbml_jars.log
 #
 echo "Building jsbml in local repository"
 date
 
 ########################################################
-CORE_VERSION=1.5-SNAPSHOT
+CORE_VERSION=1.6-SNAPSHOT
 QUAL_VERSION=2.1-b1
 LAYOUT_VERSION=1.0-b1
 COMP_VERSION=1.0-b1
 FBC_VERSION=1.0-b1
 GROUPS_VERSION=0.4-b1
 DISTRIB_VERSION=0.5
-TIDY_VERSION=1.5-SNAPSHOT
+TIDY_VERSION=1.6-SNAPSHOT
 JTIDY_VERSION=r938
 ########################################################
 
