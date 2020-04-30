@@ -572,19 +572,10 @@
             <version>1.2.3</version>
         </dependency>
 
-        <!-- JSBML -->
-        <!--
-        <dependency>
-            <groupId>com.github.sbmlteam.jsbml</groupId>
-            <artifactId>ext</artifactId>
-            <version>f630b9b62a</version>
-        </dependency>
-        -->
-
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.4-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -625,7 +616,7 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-tidy</artifactId>
-            <version>1.4-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
