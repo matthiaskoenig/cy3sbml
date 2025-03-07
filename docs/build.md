@@ -2,6 +2,23 @@
 This document describes how to setup the requirements for cy3sbml and build the cy3sbml app from source code. Information and documentation for cy3sbml is available from the project page
 https://github.com/matthiaskoenig/cy3sbml/
 
+### Build instructions
+The develop release contains all features implemented since the latest release.
+To work with the latest **develop release** clone the repository and build with `maven`
+```
+git clone https://github.com/matthiaskoenig/cy3sbml.git cy3sbml  
+cd cy3sbml  
+mvn install -DskipTests  
+```
+The test suite takes some minutes to finish. If you want to build with tests use
+```
+mvn install
+```
+The `cy3sbml-vx.x.x.jar` if available in the `target` folder.
+
+More detailed build instructions are available [here](./docs/build.md).
+
+
 ## Build Requirements
 To build cy3sbml git, Java™ and Maven have to be available. 
 To use the app Cytoscape 3 has to be installed. 
