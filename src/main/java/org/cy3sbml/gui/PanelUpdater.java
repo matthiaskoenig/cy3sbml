@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.cy3sbml.archive.ArchiveReaderTask;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyNetwork;

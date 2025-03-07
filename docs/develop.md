@@ -1,40 +1,79 @@
-# cy3sbml Build Instructions
-This document describes how to setup the requirements for cy3sbml and build the cy3sbml app from source code. cy3sbml is a an app for cytoscape and typical information for the development of apps in cytoscape applies.
+# cy3sbml Development Instructions
 
-Please see the links for developers for more information: https://cytoscape.org/documentation_developers.html
-A good introduction for the development of Cytoscape apps is available from https://github.com/cytoscape/cytoscape/wiki//Cytoscape-App-Ladder
+This document provides instructions for setting up the development environment, building the `cy3sbml` app, and contributing to its development.
 
-## Build Requirements
-To build cy3sbml git, Java™ and Maven and Cytoscape have to be installed. 
-To use the app Cytoscape 3 has to be installed.
+`cy3sbml` is a Cytoscape app, and standard development practices for Cytoscape apps apply.  
+For more details, refer to the official Cytoscape developer documentation:  
 
-### Cytoscape
-Download and install the latest Cytoscape 3 version (>=3.10.3) from http://www.cytoscape.org.
+- [Cytoscape Developer Documentation](https://cytoscape.org/documentation_developers.html)  
+- [Cytoscape App Development Guide](https://github.com/cytoscape/cytoscape/wiki/Cytoscape-App-Ladder)  
 
-### Maven
-Cytoscape apps are build with maven version 3 or higher. Follow the instructions for your platform to install maven (https://maven.apache.org/). The version information is available via
+## Requirements  
+
+To develop `cy3sbml`, the following dependencies must be installed:  
+
+- **Git** (for source code versioning)  
+- **Java JDK 17** (required for compilation) 
+- **JavaFX**
+- **Maven (version 3 or higher)** (build automation tool)  
+- **Cytoscape 3 (≥ 3.10.3)** (required for testing and usage)  
+
+## Installation Steps  
+
+### 1. Install Cytoscape  
+
+Download and install the latest **Cytoscape 3** version (≥ 3.10.3) from:  
+[http://www.cytoscape.org](http://www.cytoscape.org)  
+
+### 2. Install Maven  
+
+Cytoscape apps are built using **Maven (version 3 or higher)**. Follow the installation guide for your platform:  
+[Apache Maven Installation Guide](https://maven.apache.org/install.html)  
+
+To verify the installation, check the Maven version:  
 ```bash
 mvn -v
 ```
 
-### Java JDK
-Cytoscape apps are build with JDK 17. Follow the instructions for your platform.
+### 3. Install Java JDK 17
 
-#### Ubuntu
-Install Java OpenJDK 17
+Cytoscape apps require **Java JDK 17**. Follow the installation instructions based on your operating system.
+
+#### **Ubuntu (Debian-based systems)**
+Install **OpenJDK 17** with:
 ```bash
 sudo apt install openjdk-17-jdk
 ```
 
-# set JAVA_HOME environment variable
-```
+Set the `JAVA_HOME` environment variable:
+```bash
 sudo gedit /etc/bash.bashrc
+```
+Add the following line at the end of the file:
+```bash
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ```
-You can check your java version via
+Save and close the file, then apply the changes:
+```bash
+source /etc/bash.bashrc
+```
+
+Verify the Java installation:
 ```bash
 java -version
 ```
+
+### JavaFx
+JavaFx is no longer included in the JDK.
+```bash
+sudo apt-get install openjfx
+```
+This has to be setup correctly:
+https://stackoverflow.com/questions/27178895/cannot-resolve-symbol-javafx-application-in-intellij-idea-ide
+After doing that, open your project in Intellij and go to Project-Structure -> SDKs -> 1.8 -> Classpath and try removing the old JDK you had and clicking on the directory for the new JDK that will now contain jfxrt.jar.
+
+
+With these dependencies installed, you are ready to start developing `cy3sbml`.
 
 
 ## Build cy3sbml
@@ -61,19 +100,15 @@ To build the development version, checkout the develop branch
 git checkout develop
 ```
 
-### cy3sbml Build
+### maven build
 The clean build can be run via
 ```bash
-mvn clean install
-```
-A normal build via
-```bash
-mvn install
+mvn clean install -DskipTests
 ```
 
-To skip the tests (which take a long time and performed in continuous integration) use
+To run the tests (which take a long time and performed in continuous integration) use
 ```bash
-mvn clean install -DskipTests
+mvn clean install
 ```
 The target jar is located in
 ```

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.SBMLUtil;
@@ -193,8 +193,8 @@ public class Validator {
                             e.getCategory(),
                             e.getCode(),
                             e.getPackage(),
-                            StringEscapeUtils.escapeHtml(e.getExcerpt()),
-                            StringEscapeUtils.escapeHtml(e.getMessage()), StringEscapeUtils.escapeHtml(e.getShortMessage().getMessage())
+                            StringEscapeUtils.escapeHtml4(e.getExcerpt()),
+                            StringEscapeUtils.escapeHtml4(e.getMessage()), StringEscapeUtils.escapeHtml4(e.getShortMessage().getMessage())
                     );
                 }
             }

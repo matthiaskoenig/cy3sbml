@@ -1,6 +1,6 @@
 package org.cy3sbml.util;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 
 import org.w3c.dom.Document;
@@ -41,7 +41,7 @@ public class XMLUtil {
             }
         }
         // escape the rest, i.e. things like < and >
-        html = StringEscapeUtils.escapeHtml(xml);
+        html = StringEscapeUtils.escapeHtml4(xml);
 
         // keep formating in html
         // Not working due to escaping of the respective tags
