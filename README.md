@@ -4,8 +4,6 @@
 [![GitHub version](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml.svg)](https://badge.fury.io/gh/matthiaskoenig%2Fcy3sbml)
 [![MIT License](https://img.shields.io/pypi/l/pymetadata.svg)](https://opensource.org/licenses/MIT)
 
-# cy3sbml: SBML Integration for Cytoscape
-
 `cy3sbml` is a [Cytoscape 3](http://www.cytoscape.org) app designed for seamless integration with the Systems Biology Markup Language ([SBML](http://www.sbml.org)).
 
 ### Mission
