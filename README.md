@@ -97,4 +97,7 @@ To uninstall or disable `cy3sbml`:
 3. Locate `cy3sbml` in the list.
 4. Click **Uninstall** to remove the app or **Disable** to deactivate it without uninstalling.
 
+# Documentation
+Documentation is available in the [`./docs/`](./docs/) folder. Information on how to contribute can be found here [`contributing.md`](./docs/contributing.md), information for developers can be found here: [`develo.md`](./docs/develop.md)
+
 &copy; 2012-2025 Matthias König, [Systems Medicine of the Liver](https://livermetabolism.com)
