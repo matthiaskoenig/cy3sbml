@@ -64,13 +64,16 @@ java -version
 ```
 
 ### JavaFx
-JavaFx is no longer included in the JDK.
+JavaFx (https://openjfx.io/index.html) is no longer included in the JDK. Therefor it must be installed separately and 
+the idea must be made aware of the installation
+
+For instance on linux
 ```bash
 sudo apt-get install openjfx
 ```
 This has to be setup correctly:
 https://stackoverflow.com/questions/27178895/cannot-resolve-symbol-javafx-application-in-intellij-idea-ide
-After doing that, open your project in Intellij and go to Project-Structure -> SDKs -> 1.8 -> Classpath and try removing the old JDK you had and clicking on the directory for the new JDK that will now contain jfxrt.jar.
+In idea add the `/usr/share/openjfx/lib/` to the project via `File -> Project Structure -> Project Settings -> Libraries`.
 
 
 With these dependencies installed, you are ready to start developing `cy3sbml`.
