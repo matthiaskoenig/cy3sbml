@@ -625,7 +625,8 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getNamespace();
 
         if (namespace.equals("uniprot")) {
-            html += UniprotAccess.uniprotHTML(identifier);
+            html = html + "FIXME: BROKEN UNIPROT NOW";
+            // FIXME: html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {
             html += chebiHTML(identifier);
