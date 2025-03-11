@@ -344,7 +344,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>13</version>
+            <version>17.0.10</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
