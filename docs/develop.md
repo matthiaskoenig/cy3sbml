@@ -20,12 +20,12 @@ To develop `cy3sbml`, the following dependencies must be installed:
 
 ## Installation Steps  
 
-### 1. Install Cytoscape  
+### Install Cytoscape  
 
 Download and install the latest **Cytoscape 3** version (≥ 3.10.3) from:  
 [http://www.cytoscape.org](http://www.cytoscape.org)  
 
-### 2. Install Maven  
+### Install Maven  
 
 Cytoscape apps are built using **Maven (version 3 or higher)**. Follow the installation guide for your platform:  
 [Apache Maven Installation Guide](https://maven.apache.org/install.html)  
@@ -35,7 +35,7 @@ To verify the installation, check the Maven version:
 mvn -v
 ```
 
-### 3. Install Java JDK 17
+### Install Java JDK 17
 
 Cytoscape apps require **Java JDK 17**. Follow the installation instructions based on your operating system.
 
@@ -63,77 +63,75 @@ Verify the Java installation:
 java -version
 ```
 
-### JavaFx
-JavaFx (https://openjfx.io/index.html) is no longer included in the JDK. Therefor it must be installed separately and 
-the idea must be made aware of the installation
+### JavaFX Setup
 
-For instance on linux
+[JavaFX](https://openjfx.io/index.html) is no longer bundled with the JDK, so it must be installed separately and configured in your IDE.
+
+#### **1. Installing JavaFX**
+On Linux, install JavaFX using the package manager:
 ```bash
 sudo apt-get install openjfx
 ```
-This has to be setup correctly:
-https://stackoverflow.com/questions/27178895/cannot-resolve-symbol-javafx-application-in-intellij-idea-ide
-In idea add the `/usr/share/openjfx/lib/` to the project via `File -> Project Structure -> Project Settings -> Libraries`.
 
+#### **2. Configuring JavaFX in IntelliJ IDEA**
+To resolve missing JavaFX symbols in IntelliJ IDEA, add the JavaFX library manually:
+1. Open **IntelliJ IDEA**.
+2. Navigate to **File → Project Structure → Project Settings → Libraries**.
+3. Click **+ (Add Library)** and select **Java**.
+4. Add the JavaFX library path:
+   ```
+   /usr/share/openjfx/lib/
+   ```
+5. Apply and save the changes.
 
-With these dependencies installed, you are ready to start developing `cy3sbml`.
+For further troubleshooting, refer to this [Stack Overflow discussion](https://stackoverflow.com/questions/27178895/cannot-resolve-symbol-javafx-application-in-intellij-idea-ide).
 
 
 ## Build cy3sbml
-### git Repository
-Clone the repository from github
-```
+
+### Setup repository
+
+Clone the `cy3sbml` repository from GitHub:
+
+```bash
 git clone https://github.com/matthiaskoenig/cy3sbml.git
 ```
-If the repository exists pull the latest code via
-```
-cd cy3sbml
-git pull
-```
-An overview over the available branches is available via
-```
-git branch -a
-```
-The master branch contains the stable releases, with development code in the develop branch. All development work is done in the development branch. To work with the development branch, you'll need to create a local tracking branch:
-```
-git checkout -b develop origin/develop
-```
-To build the development version, checkout the develop branch
-```
+The latest development branch is `develop`. Switch to it using:
+
+```bash
 git checkout develop
 ```
 
-### maven build
-The clean build can be run via
+### Build with Maven
+
+To build `cy3sbml` without running tests:
+
 ```bash
 mvn clean install -DskipTests
 ```
 
-To run the tests (which take a long time and performed in continuous integration) use
+To build and run tests (note: this may take a long time):
+
 ```bash
 mvn clean install
 ```
-The target jar is located in
+
+The built `.jar` file will be located in:
+
+```bash
+./target/cy3sbml-0.*.*.jar
 ```
-./target/
-```
+
+With these steps completed, `cy3sbml` is ready for development and testing.
 
 ### cy3sbml Install
-The last step is installing the app. You can install cy3sbml as app with the created jar file directly within Cytoscape
-```
-Apps → App Manager → Install Apps
-```
-Select `Install from File` and use the `cy3sbml-*.jar` located in the `cy3sbml/target/` folder of the git repository.
-
-To manually install the cy3sbml jar remove all old cy3sbml jars from
-``` 
-$HOME/CytoscapeConfiguration/3/apps/installed/
-```
-and copy the new jar in the respective folder.
-
-To update the app cy3sbml automatically after every build, set a symbolic link of the to the build cy3sbml jar in the Cytoscape installed apps folder
-```
+The last step is installing the app. To update the app cy3sbml automatically after every build, set a symbolic link of the to the build cy3sbml jar in the Cytoscape installed apps folder.
+```bash
 ln -s $CY3SBML/target/cy3sbml-0.*.*.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
+```
+e.g. 
+```bash
+ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.4.0.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
 ```
 The link has to be updated with increasing versions.
 
@@ -144,61 +142,103 @@ Open the GitHub Repository with Intellij
 - In Intellij, go to the File menu and choose Open.
 - Navigate to the cloned git repository and open it.
 
-https://github.com/cytoscape/cytoscape/wiki/Launch-and-Debug-from-Intellij
+### Launch Cytoscape
+The cy3sbml app should now be installed via a symlink (see above).
+Cytoscape can be launched from the command line in either **normal mode** or **debug mode**.
 
+#### Windows
+Open a command prompt and run:
+```bash
+cytoscape.bat         # Normal mode
+cytoscape.bat debug   # Debug mode
+```
 
-### Launch and debug app
-I presume you have installed your App using a symlink.
-
-Launch Cytoscape from the commandline in either normal mode or debug mode
-In Windows:
-```
-cytoscape.bat
-cytoscape.bat debug
-```
-In Linux/Mac:
-```
+#### Linux / macOS
+Run the following command:
+```bash
 cytoscape.sh debug
 ```
 
-...from the Intellij IDE
+#### Configuring Cytoscape Debug Mode in IntelliJ IDEA
+You can set up a debug start configuration in **IntelliJ IDEA** to streamline the development process.
 
-    From the main menu select Run and Edit Configurations...
-    In the upper left corner select '+', you will be prompted to Add a New Configuration, select Bash (This requires the BashSupport plugin)
-    You will be provided with a dialog for the configuration.
-        Set the name to something appropriate: Cytoscape 3
-        Script: navigate to location of cytoscape.sh
-        Interpreter path: /bin/bash
-        Program arguments: debug or leave blank if you are not debugging your App
-        Apply and Close
-    From the main menu select Run and Cytoscape 3
+##### 1. Create a New Run Configuration
+1. Open **IntelliJ IDEA**.
+2. From the main menu, navigate to **Run → Edit Configurations...**.
+3. In the upper-left corner, click **+** to add a new configuration.
+4. Select **Shell Script** as the configuration type.
 
-Cytoscape should launch and you should see the console output in the Run panel.
+##### 2. Configure the Debug Start Script
+In the **Run/Debug Configuration** dialog:
+- **Name**: Set to an appropriate label (e.g., **Cytoscape 3 Debug**).
+- **Script**: Navigate to the location of `cytoscape.sh` (e.g., `/path/to/cytoscape.sh`).
+- **Interpreter Path**: Set to `/bin/bash` (or the appropriate shell for your system).
+- **Program Arguments**: Set to `debug` if debugging, or leave blank for normal mode.
 
-Debugging your App
-...from the Intellij IDE
+Click **Apply** and **Close**.
 
-We will be defining a configuration for debugging our App.
+##### 3. Run Cytoscape in Debug Mode
+1. Open **Run → Cytoscape 3 Debug** from the main menu.
+2. Cytoscape will launch, and the **Run panel** will display debug output, including:
 
-    From the main menu select Run and Edit Configurations...
-    In the upper left corner select '+', you will be prompted to Add a New Configuration, select Remote
-    You will be provided with a dialog for the configuration.
-        Set the name to something appropriate: Cytoscape 3: Create Network View
-        Debugger mode: Attach to remote JVM
-        Host: localhost, Port: 12345
-        Command line args: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=12345
-        Use module classpath: <no module>
-        Before launch: +
-            Run Maven Goal
-            Working directory: .../cytoscape-app-samples/sample-create-network-view
-            Command line: compile
-    From the main menu select Run and Debug Cytoscape 3
+The output after starting Cytoscape in debug mode should be one of the following:
+```bash
+Listening for transport dt_socket at address: 12345
+```
+You are now ready to debug and develop `cy3sbml` within Cytoscape.
 
-The Intellij Debugger
 
-Here is a nice tutorial on how to use the Intellij debugger: Java Debugging with Intellij
+### Debugging cy3sbml
+#### Debugging in IntelliJ IDEA
 
-## Advanced topics (core developers)
+To debug `cy3sbml`, we will configure **IntelliJ IDEA** to attach to Cytoscape's remote JVM for debugging.
+
+#### 1. Create a Remote Debugging Configuration
+1. Open **IntelliJ IDEA**.
+2. From the main menu, navigate to **Run → Edit Configurations...**.
+3. Click **+** to add a new configuration.
+4. Select **Remote JVM Debug**.
+
+#### 2. Configure the Debugging Session
+In the **Run/Debug Configuration** dialog:
+- **Name**: Set an appropriate name, e.g., **Cytoscape 3: cy3sbml**.
+- **Debugger Mode**: Select **Attach to Remote JVM**.
+- **Host**: `localhost`
+- **Port**: `12345`
+- **Command Line Args**:
+  ```bash
+  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=12345
+  ```
+- **Use module classpath**: Select `<no module>`.
+- **Before launch**: Click **+**, then select **Run Maven Goal**.
+   - **Working directory**: `/home/mkoenig/git/cy3sbml`
+   - **Command line**: `compile`
+
+#### 3. Start Debugging
+1. From the main menu, go to **Run → Cytoscape 3: cy3sbml**.
+2. Cytoscape should now be running with debugging enabled.
+3. Set breakpoints in your code, and IntelliJ IDEA will pause execution when those breakpoints are hit.
+
+#### **4. IntelliJ Debugger Guide**
+For a detailed guide on using the IntelliJ debugger, refer to:  
+[Java Debugging with IntelliJ IDEA](https://www.jetbrains.com/help/idea/debugging-code.html).
+
+### **Hotswap: Live App Updates**
+Java, along with Cytoscape, supports a feature called **Hotswap**, which allows automatic updates to your App without restarting Cytoscape.
+
+- When the `cy3sbml` JAR file is placed in the following directory:
+  ```bash
+  ~/CytoscapeConfiguration/3/apps/installed/
+  ```
+- Cytoscape will detect the change and automatically reload the updated App.
+- This allows for **faster testing and debugging** without restarting Cytoscape.
+- The howswap can be triggered via `mvn install -DskipTests`
+
+For more details, see the official documentation:  
+[Cytoscape Java Hotswap](https://github.com/cytoscape/cytoscape/wiki/Java-Hotswap).
+
+
+## Advanced topics
 
 ### Update JSBML dependencies
 For installation one can setup an environment variable referring to the cy3sbml source folder. This will simplify the subsequent steps

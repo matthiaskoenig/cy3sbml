@@ -47,7 +47,7 @@ public class UniprotAccess {
                 logger.debug("Querying any accession: " + accession);
                 Query query = UniProtQueryBuilder.anyAccession(accession);
                 QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
-                entry = result.getFirstResult();
+                entry = result.next();
             }
             if (entry == null) {
                 logger.warn("UniProt Entry " + accession + " could not be retrieved");

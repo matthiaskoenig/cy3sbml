@@ -11,10 +11,7 @@
         <osgi.api.version>7.0.0</osgi.api.version>
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
-
-
         <!-- Exclude the long running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
@@ -87,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>4.0.0-beta-1</version>
+                <version>3.4.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -136,7 +133,18 @@
         <repository>
             <id>cytoscape_releases</id>
             <name>Cytoscape Releases</name>
-            <url>https://code.cytoscape.org/nexus/content/repositories/releases/</url>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>cytoscape_thirdparty</id>
+            <name>Cytoscape Thirdparty</name>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -147,7 +155,7 @@
         <repository>
             <id>cytoscape_snapshots</id>
             <name>Cytoscape Snapshots</name>
-            <url>https://code.cytoscape.org/nexus/content/repositories/snapshots/</url>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -162,26 +170,6 @@
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
-
-<!--        <repository>-->
-<!--            <id>sems-maven-repository-releases</id>-->
-<!--            <name>SEMS Maven Repo</name>-->
-<!--            <url>https://mvn.sems.uni-rostock.de/releases/</url>-->
-<!--            <layout>default</layout>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--        <repository>-->
-<!--            <id>sems-maven-repository-snapshots</id>-->
-<!--            <name>SEMS Maven Repo</name>-->
-<!--            <url>https://mvn.sems.uni-rostock.de/snapshots/</url>-->
-<!--            <layout>default</layout>-->
-<!--            <releases>-->
-<!--                <enabled>false</enabled>-->
-<!--            </releases>-->
-<!--        </repository>-->
-
         <repository>
             <id>JSBML-SNAPSHOT</id>
             <name>The JSBML Snapshot repository</name>
@@ -223,7 +211,6 @@
 
 
     <dependencies>
-
         <!-- Cytoscape 3 dependency -->
         <dependency>
             <groupId>org.cytoscape</groupId>
@@ -320,43 +307,43 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>13</version>
+            <version>17</version>
             <scope>provided</scope>
         </dependency>
 
@@ -401,14 +388,13 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>2.17.0</version>
         </dependency>
 
         <!-- JavaFX -->
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <!--<version>8.40.14</version>-->
             <version>11.0.1</version>
         </dependency>
         <dependency>
@@ -518,15 +504,6 @@
         </dependency>
 
 
-        <!-- CombineArchive -->
-        <!--
-        <dependency>
-            <groupId>de.unirostock.sems</groupId>
-            <artifactId>CombineArchive</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        -->
-
         <!-- UniProt -->
         <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
         <dependency>
@@ -564,12 +541,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>1.5.11</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
+            <version>1.5.8</version>
         </dependency>
 
         <dependency>
