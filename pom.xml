@@ -23,7 +23,7 @@
     <artifactId>cy3sbml</artifactId>
     <packaging>bundle</packaging>
     <name>${bundle.symbolicName}</name>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
     <description>A Cytoscape app for SBML.</description>
     <url>https://github.com/matthiaskoenig/cy3sbml</url>
 

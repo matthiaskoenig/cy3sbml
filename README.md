@@ -17,8 +17,6 @@ We aim to create a powerful visualization tool for computational models and simu
 - **Latest Release**: [GitHub Releases](https://github.com/matthiaskoenig/cy3sbml/releases/latest)
 - **Bug Tracker**: [GitHub Issues](https://github.com/matthiaskoenig/cy3sbml/issues)
 
----
-
 ## Features
 
 `cy3sbml` provides advanced functionalities for working with SBML models, including direct imports, network visualization, and annotation access. Key features include:
@@ -37,18 +35,11 @@ We aim to create a powerful visualization tool for computational models and simu
 - **Robust Testing**:
   - Validated using SBML models from the [SBML Test Suite](https://github.com/sbmlteam/sbml-test-suite) (3.2.0), [BioModels](https://www.ebi.ac.uk/biomodels/) (Release 30), and [BiGG Models](http://bigg.ucsd.edu) (v1.3).
 
-### Compatibility
-For **Cytoscape 2**, use [cy2sbml](https://github.com/matthiaskoenig/cy2sbml). Documentation is available [here](http://matthiaskoenig.github.io/cy2sbml/).
-
----
-
 ## Screenshots
 ![cy3sbml screenshot](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshot-cy3sbml-0.1.7_01.png)
 
----
 
-## Citation
-
+# Citation
 If you use `cy3sbml`, please cite the following publication:
 
 **Matthias König, Andreas Dräger, and Hermann-Georg Holzhütter**  
@@ -57,7 +48,6 @@ Bioinformatics, 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 
-
 # License
 * Source Code: [MIT](https://opensource.org/license/MIT)
 * Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
@@ -65,21 +55,20 @@ Bioinformatics, 2012 Jul 5. [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22772946
 # Funding
 Matthias König was supported by the Federal Ministry of Education and Research (BMBF, Germany) within LiSyM by grant number 031L0054 and ATLAS by grant number 031L0304B and by the German Research Foundation (DFG) within the Research Unit Program FOR 5151 QuaLiPerF (Quantifying Liver Perfusion-Function Relationship in Complex Resection - A Systems Medicine Approach) by grant number 436883643 and by grant number 465194077 (Priority Programme SPP 2311, Subproject SimLivA). This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B). MK was supported by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html). The project received support from [Google Summer of Code](https://summerofcode.withgoogle.com/).
 
-## Installation
-
+# Installation
 This section provides an overview of how to install, uninstall, and build `cy3sbml`.
 
-### Installation
+## Installation
 
 `cy3sbml` is available from the [Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml) and can be installed using one of the following methods after installing the latest version of Install the latest version of [Cytoscape](http://www.cytoscape.org/).
 
-#### Method 1: Installing via the Cytoscape App Store
+### Method 1: Installing via the Cytoscape App Store
 
 1. Open Cytoscape.
 2. Visit [cy3sbml in the Cytoscape App Store](http://apps.cytoscape.org/apps/cy3sbml) using a web browser.
 3. Click **Install**.
 
-#### Method 2: Installing via the App Manager in Cytoscape
+### Method 2: Installing via the App Manager in Cytoscape
 
 1. Open Cytoscape.
 2. Navigate to `Apps → App Manager → Install Apps`.
@@ -88,7 +77,7 @@ This section provides an overview of how to install, uninstall, and build `cy3sb
 
 Once installed, `cy3sbml` will appear under the **Currently Installed** apps tab.
 
-### Uninstallation
+## Uninstallation
 
 To uninstall or disable `cy3sbml`:
 

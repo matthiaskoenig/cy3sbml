@@ -131,7 +131,7 @@ ln -s $CY3SBML/target/cy3sbml-0.*.*.jar $HOME/CytoscapeConfiguration/3/apps/inst
 ```
 e.g. 
 ```bash
-ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.4.0.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
+ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.4.1.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
 ```
 The link has to be updated with increasing versions.
 
