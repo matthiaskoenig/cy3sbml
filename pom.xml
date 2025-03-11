@@ -1,22 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
         <bundle.symbolicName>cy3sbml</bundle.symbolicName>
         <bundle.namespace>org.cy3sbml</bundle.namespace>
-        <cytoscape.api.version>3.8.0</cytoscape.api.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-bundle-plugin.version>4.1.0</maven-bundle-plugin.version>
-        <osgi.api.version>6.0.0</osgi.api.version>
+        <cytoscape.api.version>3.10.0</cytoscape.api.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
+        <osgi.api.version>7.0.0</osgi.api.version>
+        <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- javax.xml.namespace -->
-        <!--
-        <org.osgi.framework.system.packages.extra>
-            javafx.animation,javafx.application,javafx.collections,javafx.embed.swing,javafx.geometry,javafx.scene,javafx.scene.layout,javafx.scene.transform,javax.swing,javax.swing.border,javafx.fxml,netscape.javascript,org.osgi.framework
-        </org.osgi.framework.system.packages.extra>
-        -->
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
 
 
@@ -92,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>4.0.0-beta-1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -136,62 +131,56 @@
         </plugins>
     </build>
 
-
     <repositories>
+        <!-- Cytoscape -->
+        <repository>
+            <id>cytoscape_releases</id>
+            <name>Cytoscape Releases</name>
+            <url>https://code.cytoscape.org/nexus/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>cytoscape_snapshots</id>
+            <name>Cytoscape Snapshots</name>
+            <url>https://code.cytoscape.org/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 
+        <!-- JSBML  -->
         <repository>
             <id>in-project</id>
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
 
-        <repository>
-            <id>cytoscape_snapshots</id>
-            <name>Cytoscape Snapshots</name>
-            <url>http://code.cytoscape.org/nexus/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>cytoscape_releases</id>
-            <name>Cytoscape Releases</name>
-            <url>http://code.cytoscape.org/nexus/content/repositories/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>maven-central</id>
-            <name>Maven central repository</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-
-        <repository>
-            <id>sems-maven-repository-releases</id>
-            <name>SEMS Maven Repo</name>
-            <url>http://mvn.sems.uni-rostock.de/releases/</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>sems-maven-repository-snapshots</id>
-            <name>SEMS Maven Repo</name>
-            <url>http://mvn.sems.uni-rostock.de/snapshots/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
+<!--        <repository>-->
+<!--            <id>sems-maven-repository-releases</id>-->
+<!--            <name>SEMS Maven Repo</name>-->
+<!--            <url>https://mvn.sems.uni-rostock.de/releases/</url>-->
+<!--            <layout>default</layout>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>sems-maven-repository-snapshots</id>-->
+<!--            <name>SEMS Maven Repo</name>-->
+<!--            <url>https://mvn.sems.uni-rostock.de/snapshots/</url>-->
+<!--            <layout>default</layout>-->
+<!--            <releases>-->
+<!--                <enabled>false</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
 
         <repository>
             <id>JSBML-SNAPSHOT</id>
@@ -199,16 +188,11 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
 
+        <!-- uniprot -->
         <repository>
-            <id>ebi-repo</id>
-            <name>The EBI internal repository</name>
-            <url>https://www.ebi.ac.uk/~maven/m2repo</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>ebiUniprotPublic</id>
+            <name>ebi-uniprot-public</name>
+            <url>https://www.ebi.ac.uk/uniprot/artifactory/public</url>
         </repository>
 
         <!-- OLS client -->
@@ -217,7 +201,6 @@
             <name>EBI Snapshot repository</name>
             <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
-
 
         <!-- EBI repo -->
         <repository>
@@ -229,6 +212,12 @@
             <id>repository.jboss.org-public</id>
             <name>JBoss.org Maven repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+
+        <repository>
+            <id>maven-central</id>
+            <name>Maven central repository</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
@@ -371,12 +360,17 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- OSGi core dependency -->
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+            <artifactId>osgi.core</artifactId>
             <version>${osgi.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+            <version>${osgi.compendium.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -398,6 +392,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -452,7 +451,7 @@
             <artifactId>registry-lib</artifactId>
             <version>1.1.1</version>
         </dependency>
-        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/miriam/miriam-lib/ -->
+        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/miriam/miriam-lib/ -->
         <dependency>
             <groupId>uk.ac.ebi.miriam</groupId>
             <artifactId>miriam-lib</artifactId>
@@ -466,7 +465,7 @@
         </dependency>
 
         <!-- BioModels (2015-08-09) -->
-        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/biomodels/biomodels-wslib/ -->
+        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/biomodels/biomodels-wslib/ -->
         <dependency>
             <groupId>uk.ac.ebi.biomodels</groupId>
             <artifactId>biomodels-wslib</artifactId>
@@ -529,29 +528,29 @@
         -->
 
         <!-- UniProt -->
-        <!-- http://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
+        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.31</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.junit.platform</groupId>
-                    <artifactId>junit-platform-commons</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>1.3.3</version>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>ch.qos.logback</groupId>-->
+<!--                    <artifactId>logback-classic</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>ch.qos.logback</groupId>-->
+<!--                    <artifactId>logback-core</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>javax.xml.bind</groupId>-->
+<!--                    <artifactId>jaxb-api</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.junit.platform</groupId>-->
+<!--                    <artifactId>junit-platform-commons</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
         <!-- Logging -->

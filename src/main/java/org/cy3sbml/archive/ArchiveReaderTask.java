@@ -1,7 +1,7 @@
 package org.cy3sbml.archive;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.styles.StyleManager;
