@@ -1,6 +1,6 @@
 package org.cy3sbml.util;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 
 import org.w3c.dom.Document;
