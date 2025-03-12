@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
@@ -408,7 +408,7 @@ public class SBaseHTMLFactory {
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()){
             String sboTermId = sbase.getSBOTermID();
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/sbo/" + sboTermId);
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "https://identifiers.org/" + sboTermId);
             // createCVTerm(term) + "<hr />\n";
 
             Boolean termExists = false;
@@ -447,6 +447,9 @@ public class SBaseHTMLFactory {
 
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
+
+            // bugfix to handle https://identifier.org/ resources
+            resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
@@ -599,7 +602,7 @@ public class SBaseHTMLFactory {
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
-                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml(description));
+                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml4(description));
                 }
             }
         } else {
@@ -622,7 +625,8 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getNamespace();
 
         if (namespace.equals("uniprot")) {
-            html += UniprotAccess.uniprotHTML(identifier);
+            html = html + "FIXME: BROKEN UNIPROT NOW";
+            // FIXME: html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {
             html += chebiHTML(identifier);

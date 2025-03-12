@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class Network2SBMLMapperTest {
 
     private Network2SBMLMapper mapper;
-    private static final Long SUID = new Long(123);
+    private static final Long SUID = Long.valueOf(123);
     private static final One2ManyMapping<String, Long> MAPPING = new One2ManyMapping<>();
     private static final SBMLDocument DOC = new SBMLDocument();
 
