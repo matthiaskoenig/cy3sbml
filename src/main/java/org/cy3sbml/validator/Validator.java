@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.util.SBMLUtil;
