@@ -440,15 +440,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
 
         // all network
-        network.getRow(network).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_ALL, name));
+        network.getRow(network).set(CyNetwork.NAME, String.format("%s__%s", SBML.PREFIX_SUBNETWORK_ALL, name));
 
         // Kinetic network
         CyNetwork kineticNetwork = addSubNetwork(rootNetwork, network, SBML.kineticNodeTypes, SBML.kineticEdgeTypes);
-        kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_KINETIC, name));
+        kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, String.format("%s__%s", SBML.PREFIX_SUBNETWORK_KINETIC, name));
 
         // base network
         CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
-        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, String.format("%s: %s", SBML.PREFIX_SUBNETWORK_BASE, name));
+        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, name);
 
 
         // add groups to networks
@@ -463,8 +463,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader {
         // add the networks to the created networks
         cyNetworks.add(network);
         if (baseNetwork != null) {
-            cyNetworks.add(baseNetwork);
             cyNetworks.add(kineticNetwork);
+            cyNetworks.add(baseNetwork);
         }
     }
 

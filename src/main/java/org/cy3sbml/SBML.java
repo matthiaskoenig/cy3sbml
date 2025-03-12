@@ -356,7 +356,7 @@ public class SBML {
     // Subnetworks
     public static final String PREFIX_SUBNETWORK_ALL = "All";
     public static final String PREFIX_SUBNETWORK_KINETIC = "Kinetic";
-    public static final String PREFIX_SUBNETWORK_BASE = "Base";
+    public static final String PREFIX_SUBNETWORK_BASE = "";
 
     // -------------------------------------------------------------------------
     // cy3sbml properties
