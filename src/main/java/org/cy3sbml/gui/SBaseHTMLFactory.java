@@ -26,6 +26,7 @@ import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.xml.XMLNode;
 
 // OLS
+import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 import org.cy3sbml.util.SBMLUtil;
@@ -625,7 +626,9 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getNamespace();
 
         if (namespace.equals("uniprot")) {
-            html = html + "FIXME: BROKEN UNIPROT NOW";
+           //html = html + "FIXME: BROKEN UNIPROT NOW";
+            System.out.println("identifier: "+identifier);
+           html = UniprotAccess.uniprotHTML(identifier);
             // FIXME: html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {

@@ -31,7 +31,9 @@ public class UniprotCache {
         config.setEternal(true);
 
         cache = new Cache(config);
+
         cacheManager.addCache(cache);
+
     }
 
     /**
@@ -43,8 +45,11 @@ public class UniprotCache {
         UniProtEntry entry;
 
         // check in cache
+
         Element element = cache.get(accession);
+        //System.out.println(element.getObjectValue().toString());
         if (element != null){
+            System.out.println("UniProtEntry in cache: " + accession);
             logger.debug("UniProtEntry in cache: " + accession);
             entry = (UniProtEntry) element.getObjectValue();
         }

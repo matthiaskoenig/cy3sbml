@@ -1,9 +1,6 @@
 package org.cy3sbml.uniprot;
 
-import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
-import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
-import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
+import uk.ac.ebi.kraken.interfaces.uniprot.*;
 import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
 import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
 import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
@@ -12,6 +9,7 @@ import uk.ac.ebi.uniprot.dataservice.client.QueryResult;
 import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
+import uk.ac.ebi.uniprot.dataservice.client.uniprot.impl.UniProtXMLEntryIterator;
 import uk.ac.ebi.uniprot.dataservice.query.Query;
 
 import org.slf4j.Logger;
@@ -23,6 +21,7 @@ import java.util.List;
  * Access UniProt information.
  */
 public class UniprotAccess {
+    public static UniProtEntry entry;
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
 
     /**
@@ -32,34 +31,36 @@ public class UniprotAccess {
      * @return
      */
     public static UniProtEntry getUniProtEntry(String accession){
-        UniProtEntry entry = null;
+
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
+
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
+
         try {
             // start the service
-            uniProtService.start();
-
             // fetch entry
-            entry = uniProtService.getEntry(accession);
 
-            if (entry == null){
-                // is secondary accession, get first result
-                logger.debug("Querying any accession: " + accession);
-                Query query = UniProtQueryBuilder.anyAccession(accession);
-                QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
-                entry = result.next();
-            }
-            if (entry == null) {
-                logger.warn("UniProt Entry " + accession + " could not be retrieved");
-            } else {
-                logger.debug("Retrieved UniProtEntry " + accession);
-            }
+                entry = uniProtService.getEntry(accession);
+
+                if (entry == null) {
+                    // is secondary accession, get first result
+                    logger.debug("Querying any accession: " + accession);
+                    Query query = UniProtQueryBuilder.anyAccession(accession);
+                    QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
+                    entry = result.next();
+                }
+                if (entry == null) {
+                    logger.warn("UniProt Entry " + accession + " could not be retrieved");
+                } else {
+                    logger.debug("Retrieved UniProtEntry " + accession);
+                }
+
         } catch (Exception e) {
             logger.error("Problems retrieving uniprot entry.", e);
             e.printStackTrace();
         } finally {
             // always remember to stop service
-            uniProtService.stop();
+
         }
         return entry;
     }
@@ -71,7 +72,7 @@ public class UniprotAccess {
      */
     public static String uniprotHTML(String accession){
         String text = "\t<br />\n";
-        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
+        // UniProtEntry entry = getUniProtEntry(accession);
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
