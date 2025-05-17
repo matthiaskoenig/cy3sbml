@@ -40,10 +40,10 @@ date
 
 # JSBML code directory
 : "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code directory.}"
-
+echo $JSBMLCODE
 # lib directory
-LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
+LIBDIR=C:/Users/27608/IdeaProjects/cy3sbml
+DIR=lib
 # update to latest commit
 cd $JSBMLCODE
 git pull

@@ -5,10 +5,9 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 
 /**
  * Cache UniProtEntry for accessions.
@@ -38,6 +37,7 @@ public class UniprotCache {
 
     /**
      * Get UniProtEntry with cache support.
+     *
      * @param accession uniprot accession id, e.g. "P10415"
      * @return
      */

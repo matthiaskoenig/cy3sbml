@@ -4097,7 +4097,7 @@ All content is under the Creative Commons Attribution 3.0 Unported license.</def
 
 	<datatype id="MIR:00000089" pattern="^PA\d+$" restricted="true">
 		<name>PharmGKB Pathways</name>
-		<definition>The PharmGKB database is a central repository for genetic, genomic, molecular and cellular phenotype data and clinical information about people who have participated in pharmacogenomics research studies. The data includes, but is not limited to, clinical and basic pharmacokinetic and pharmacogenomic research in the cardiovascular, pulmonary, cancer, pathways, metabolic and transporter domains. 
+		<definition>The PharmGKB database is a central repository for genetic, genomic, molecular and cellular phenotype data and clinical information about people who have participated in pharmacogenomics research studies. The data includes, but is not limited to, clinical and basic pharmacokinetic and pharmacogenomic research in the cardiovascular, pulmonary, cancer, pathways, metabolic and transporter domains.
 PharmGKB Pathways are drug centric, gene based, interactive pathways which focus on candidate genes and gene groups and associated genotype and phenotype data of relevance for pharmacogenetic and pharmacogenomic studies.</definition>
 		<uris>
 			<uri type="URN">urn:miriam:pharmgkb.pathways</uri>
@@ -4515,7 +4515,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 
 	<datatype id="MIR:00000101" pattern="^\d+$">
 		<name>BioNumbers</name>
-		<definition>BioNumbers is a database of key numberical information that may be used in molecular biology. Along with the numbers, it contains references to the original literature, useful comments, and related numeric data. 
+		<definition>BioNumbers is a database of key numberical information that may be used in molecular biology. Along with the numbers, it contains references to the original literature, useful comments, and related numeric data.
 </definition>
 		<uris>
 			<uri type="URN">urn:miriam:bionumbers</uri>
@@ -5763,7 +5763,7 @@ PharmGKB Pathways are drug centric, gene based, interactive pathways which focus
 
 	<datatype id="MIR:00000132" pattern="^BSU\d{5}$">
 		<name>SubtiWiki</name>
-		<definition>SubtiWiki is a scientific wiki for the model bacterium Bacillus subtilis. It provides comprehensive information on all genes and their proteins and RNA products, as well as information related to the current investigation of the gene/protein. 
+		<definition>SubtiWiki is a scientific wiki for the model bacterium Bacillus subtilis. It provides comprehensive information on all genes and their proteins and RNA products, as well as information related to the current investigation of the gene/protein.
 Note: Currently, direct access to RNA products is restricted. This is expected to be rectified soon.</definition>
 		<uris>
 			<uri type="URN">urn:miriam:subtiwiki</uri>
@@ -16311,7 +16311,7 @@ We recommend usage of the following data collection for pathway related annotati
 
 	<datatype id="MIR:00000405" pattern="^\d+$">
 		<name>Tree of Life</name>
-		<definition>The Tree of Life Web Project (ToL) is a collaborative effort of biologists and nature enthusiasts from around the world. On more than 10,000 World Wide Web pages, the project provides information about biodiversity, the characteristics of different groups of organisms, and their evolutionary history (phylogeny). 
+		<definition>The Tree of Life Web Project (ToL) is a collaborative effort of biologists and nature enthusiasts from around the world. On more than 10,000 World Wide Web pages, the project provides information about biodiversity, the characteristics of different groups of organisms, and their evolutionary history (phylogeny).
 
 Each page contains information about a particular group, with pages linked one to another hierarchically, in the form of the evolutionary tree of life. Starting with the root of all Life on Earth and moving out along diverging branches to individual species, the structure of the ToL project thus illustrates the genetic connections between all living things.</definition>
 		<uris>

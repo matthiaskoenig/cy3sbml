@@ -26,6 +26,7 @@ public class OLSAccessTest {
 
         Term term = OLSAccess.getTerm(identifier);
         String text = OLSAccess.termToString(term);
+        System.out.println(text);
         assertNotNull(text);
         assertTrue(text.contains("regulation of circadian rhythm"));
         assertTrue(text.contains("go\n"));
