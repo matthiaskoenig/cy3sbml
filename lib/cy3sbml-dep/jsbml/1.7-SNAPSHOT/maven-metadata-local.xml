@@ -2,22 +2,22 @@
 <metadata modelVersion="1.1.0">
   <groupId>cy3sbml-dep</groupId>
   <artifactId>jsbml</artifactId>
-  <version>1.6-SNAPSHOT</version>
+  <version>1.7-SNAPSHOT</version>
   <versioning>
     <snapshot>
       <localCopy>true</localCopy>
     </snapshot>
-    <lastUpdated>20200430215949</lastUpdated>
+    <lastUpdated>20250520115447</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>1.6-SNAPSHOT</value>
-        <updated>20200430215949</updated>
+        <value>1.7-SNAPSHOT</value>
+        <updated>20250520115447</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>1.6-SNAPSHOT</value>
-        <updated>20200430215949</updated>
+        <value>1.7-SNAPSHOT</value>
+        <updated>20250520115447</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

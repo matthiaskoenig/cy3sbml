@@ -559,7 +559,7 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.6-SNAPSHOT</version>
+            <version>1.7-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -600,7 +600,7 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-tidy</artifactId>
-            <version>1.6-SNAPSHOT</version>
+            <version>1.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
