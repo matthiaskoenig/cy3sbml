@@ -51,7 +51,7 @@ date
 : "${CY3SBMLCODE:?The CY3SBLCODE environment variable must be set to the cy3sbml-code directory.}"
 
 # lib directory
-LIBDIR=$CY3SBMLCODE/lib/cy3sbml-dep/
+LIBDIR=$CY3SBMLCODE/lib/
 
 # update to latest commit
 cd $JSBMLCODE
