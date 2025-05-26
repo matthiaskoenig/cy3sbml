@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols/ontologies/";
+    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols4/ontologies/";
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
