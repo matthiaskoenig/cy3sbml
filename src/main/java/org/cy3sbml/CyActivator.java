@@ -5,7 +5,7 @@ import org.cy3sbml.archive.*;
 import org.cy3sbml.biomodelrest.BiomodelsRestAction;
 import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
 import org.cy3sbml.styles.StyleManager;
-import org.cy3sbml.validator.ValidationFrame;
+
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -212,11 +212,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
             // GUI frames
-            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
-            registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+
 
 
             // init actions [100 - 120]
@@ -231,10 +227,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, importAction, CyAction.class, new Properties());
 
             SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
-            ValidationAction validationAction = new ValidationAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
-            registerService(bc, validationAction, CyAction.class, new Properties());
-            registerService(bc, validationAction, SetCurrentNetworkListener.class, new Properties());
-
+           
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
