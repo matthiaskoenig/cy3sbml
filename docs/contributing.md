@@ -6,21 +6,19 @@ get things working in your environment. There are a few guidelines that we
 need contributors to follow so that we can have a chance of keeping on
 top of things.
 
-Always use the latest released versions of Cytoscape and cy3sbml. 
+Always use the latest released versions of Cytoscape and cy3sbml. We only provide support to the latest versions.
 
 ## Report an issue
-If you have questions, are unsure how things work just [ask us](https://groups.google.com/forum/#!forum/cysbml-cyfluxviz).
-
 If you found a bug, problem or issue than [submit the issue on github](https://github.com/matthiaskoenig/cy3sbml/issues), assuming one does not already exist.
 * Clearly describe the issue including steps to reproduce when it is a bug.
 * Make sure you fill in the earliest version that you know has the issue.
-* Provide information about your operating systems and the version of Java and Cytoscape of the form
+* Provide information about your operating systems and the version of Java and Cytoscape which is available from `Help -> About...`
 ```
-Operating System: Linux, Ubuntu 14.04 LTS
-Cytoscape: v3.4.0
-Java: 1.8.0_101
+Version: 3.10.3
+Java: 17.0.15 by Ubuntu 
+Java Home: /usr/lib/jvm/java-17-openjdk-amd64 
+OS: Linux 5.15.0-139-generic - amd64
 ```
-The Cytoscape and java version can be seen in Cytoscape via  `Help -> About...`
 
 
 ## Contribute Code
