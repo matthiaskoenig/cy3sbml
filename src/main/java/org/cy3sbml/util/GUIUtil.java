@@ -8,7 +8,7 @@ import java.io.*;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.io.IOUtils;
-import org.cy3sbml.validator.Validator;
+
 import org.cytoscape.work.TaskIterator;
 
 import org.sbml.jsbml.SBMLDocument;
@@ -20,7 +20,7 @@ import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.validator.ValidationFrame;
+
 
 
 import org.slf4j.Logger;
@@ -106,15 +106,7 @@ public class GUIUtil {
         openHTMLInBrowser(html);
     }
 
-    /**
-     * Open validation HTML in external Browser.
-     */
-    public static void openValidationHTMLInBrowser(){
-        String html = ValidationFrame.getInstance(null).getHtml();
-        // remove export button, exported html cannot be exported
-        html = html.replace(Validator.EXPORT_HTML, "");
-        openHTMLInBrowser(html);
-    }
+
 
     /**
      * Open validation HTML in external Browser.

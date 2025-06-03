@@ -33,7 +33,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
 
     public static final String URL_CHANGESTATE = "http://cy3sbml-changestate";
     public static final String URL_IMPORT = "http://cy3sbml-import";
-    public static final String URL_VALIDATION = "http://cy3sbml-validation";
+
     public static final String URL_EXAMPLES = "http://cy3sbml-examples";
     public static final String URL_BIOMODELS = "http://cy3sbml-biomodels";
     public static final String URL_HELP = "http://cy3sbml-help";
@@ -44,7 +44,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
 
     public static final String URL_SBMLFILE = "http://sbml-file";
     public static final String URL_HTML_SBASE = "http://html-sbase";
-    public static final String URL_HTML_VALIDATION = "http://html-validation";
+
     public static final String URL_SELECT_METAID = "http://select-metaid/";
     public static final String URL_SELECT_ID = "http://select-id/";
 
@@ -72,7 +72,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
 
         set.add(URL_CHANGESTATE);
         set.add(URL_IMPORT);
-        set.add(URL_VALIDATION);
         set.add(URL_EXAMPLES);
         set.add(URL_BIOMODELS);
         set.add(URL_HELP);
@@ -115,9 +114,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                 if (s.equals(URL_IMPORT)){
                     action = new ImportAction(adapter);
                 }
-                if (s.equals(URL_VALIDATION)){
-                    ValidationAction.runValidation(adapter.taskManager);
-                }
+
                 if (s.equals(URL_EXAMPLES)){
                     action = new ExamplesAction();
                 }
@@ -175,10 +172,8 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
                 GUIUtil.openSBaseHTMLInBrowser();
             }
 
-            // Validator HTML
-            else if (s.equals(URL_HTML_VALIDATION)){
-                GUIUtil.openValidationHTMLInBrowser();
-            }
+
+
 
             // HTML links
             else {
