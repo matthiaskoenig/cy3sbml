@@ -408,7 +408,7 @@ public class SBaseHTMLFactory {
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()){
             String sboTermId = sbase.getSBOTermID();
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "https://identifiers.org/" + sboTermId);
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
             // createCVTerm(term) + "<hr />\n";
 
             Boolean termExists = false;
