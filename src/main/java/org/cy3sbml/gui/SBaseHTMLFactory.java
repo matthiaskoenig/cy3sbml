@@ -1,6 +1,9 @@
 package org.cy3sbml.gui;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
@@ -8,12 +11,14 @@ import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.cy3sbml.miriam.RegistryDatabase;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
 import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
-import org.identifiers.registry.RegistryDatabase;
+
 import org.identifiers.registry.RegistryUtilities;
 import org.identifiers.registry.data.DataType;
 import org.identifiers.registry.data.PhysicalLocation;
@@ -23,6 +28,7 @@ import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
+import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 
 // OLS
@@ -35,7 +41,7 @@ import org.slf4j.LoggerFactory;
 
 
 
-/** 
+/**
  * Creates HTML information for given SBase.
  * Core information is parsed from the NamedSBase object,
  * with additional information like resources retrieved via
@@ -50,7 +56,9 @@ import org.slf4j.LoggerFactory;
 public class SBaseHTMLFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
     private static String baseDir;
-
+    public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
+    public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
+    public static String delim = "/";
     ///////////////////////////////////////////////
     // HTML template strings
     ///////////////////////////////////////////////
@@ -407,8 +415,10 @@ public class SBaseHTMLFactory {
 
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()){
+            String nameSpace = getPrefixValue("SBO");
             String sboTermId = sbase.getSBOTermID();
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "http://identifiers.org/biomodels.sbo/" + sboTermId);
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE,nameSpace,delim,sboTermId)));
+           // CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "https://identifiers.org/biomodels.sbo/" + sboTermId);
             // createCVTerm(term) + "<hr />\n";
 
             Boolean termExists = false;
@@ -644,10 +654,10 @@ public class SBaseHTMLFactory {
         String text = "";
         String[] tokens = identifier.split(":");
         String imageSource = String.format(
-                "http://www.ebi.ac.uk/chebi/displayImage.do;?defaultImage=true&imageIndex=0&chebiId=%s&dimensions=200",
+                "https://www.ebi.ac.uk/chebi/displayImage.do;?defaultImage=true&imageIndex=0&chebiId=%s&dimensions=200",
                 tokens[1]);
         String imageLink = String.format(
-                "http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:%s",
+                "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:%s",
                 tokens[1]);
 
         // Resolve additional webservice information
@@ -756,9 +766,9 @@ public class SBaseHTMLFactory {
         // resources for HTML
         SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
         // where to write the tmp HTML
-        String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/tmp";
+        String targetDir = "C:/Users/27608/IdeaProjects/cy3sbml/src/main/resources/miriam/";
         // prepare miriam registry support
-        RegistryUtil.loadRegistry();
+        RegistryUtil.loadRegistry(new File(targetDir+RegistryUtil.FILENAME_MIRIAM));
 
         // Create the HTML for selected SBMLDocuments and SBases
 
@@ -785,5 +795,27 @@ public class SBaseHTMLFactory {
         File file = new File(targetDir, "testinfo.html");
         FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
+    public static String getPrefixValue(String keyToFind) {
+        try {
+            InputStream inputStream = IOUtil.readResource("/gui/"+FILENAME_NAMESPACE);
+            if (inputStream == null) {
+                throw new IllegalArgumentException("File not found in resources");
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Unescape the line for readability
+                String cleanLine = line.replaceAll("\\\\", "");
+                if (cleanLine.startsWith(keyToFind + "=")) {
+                    return cleanLine.split("=", 2)[1]; // Extract value after '='
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

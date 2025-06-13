@@ -1,5 +1,6 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -36,7 +37,8 @@ public class SBaseHtmlThreadTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         // Setup with local registry
-        RegistryUtil.loadRegistry();
+        File f = File.createTempFile("test", ".json");
+        RegistryUtil.loadRegistry(f);
     }
 
     @Test

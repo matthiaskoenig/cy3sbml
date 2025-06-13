@@ -1,26 +1,33 @@
 package org.cy3sbml.miriam;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import org.identifiers.registry.RegistryDatabase;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
+import org.identifiers.registry.RegistryUtilities.*;
 import org.cy3sbml.util.IOUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+//import org.xml.sax.SAXException;
+//
+//import javax.xml.parsers.DocumentBuilder;
+//import javax.xml.parsers.DocumentBuilderFactory;
+//import javax.xml.parsers.ParserConfigurationException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONParserConfiguration;
 
 /**
  * Tools for working with Miriam registry.
@@ -29,76 +36,72 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class RegistryUtil {
     private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
-    public static final String URL_MIRIAM_XML = "https://www.ebi.ac.uk/miriam/main/export/xml";
-    public static final String FILENAME_MIRIAM = "IdentifiersOrg-Registry.xml";
+    public static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
+    public static final String FILENAME_MIRIAM = "getResolverDataset.json";
 
     /**
      * Load the registry from the resources.
-     * @param file MIRIAM xml file
+     * @param file MIRIAM json file
      */
     public static void loadRegistry(File file) {
         if (file != null && file.exists()){
             try {
+
                 RegistryDatabase.loadFromFile(file);
                 logger.info("Load MIRIAM: " + file.getAbsolutePath());
                 return;
             } catch (FileNotFoundException e) {
-                logger.error("Problems loading the downloaded MIRIAM XML.", e);
+                logger.error("Problems loading the downloaded MIRIAM JSON.", e);
                 e.printStackTrace();
 
             }
         }
-        // something went wrong, using fallback, i.e. the packed MIRIAM xml
-        loadRegistry();
+
+
     }
 
     /**
      * Load the registry from the resources.
      */
-    public static void loadRegistry() {
-        InputStream miriamStream = IOUtil.readResource("/miriam/" + FILENAME_MIRIAM);
-        RegistryDatabase.loadFromInputStream(miriamStream);
-    }
 
     /**
      * Only update MIRIAM if newer version is available.
      * Check last modified and use for update.
      */
-    public static void updateMiriamXMLWithNewer(File file){
+    public static void updateMiriamJSONWithNewer(File file) throws MalformedURLException {
 
         Date fileDate = null;
 
         // check if file exists on harddisk and get date
         if (file!=null && file.exists()){
             // Get data-version of current file
-            fileDate = getDataVersionDate(file);
+            List<String> fileDates = getModifiedTimestampsFromFile(FILENAME_MIRIAM);
             logger.debug("data-version file: " + fileDate);
         } else {
             logger.warn("MIRIAM registry file does not exist locally");
         }
 
         // Get data-version of online resource
-        Date miriamDate = getLatestDataVersionDate();
-        logger.debug("data-version miriam: " + miriamDate);
+        List<String> urlDates = getURLModifiedTimestamps(new URL(URL_MIRIAM_JSON));
+
 
         // online version is newer
-        if (miriamDate==null || fileDate==null || miriamDate.compareTo(fileDate)>0){
-            logger.info("New MIRIAM available: " + miriamDate);
-            updateMiriamXML(file);
-        }else {
-            logger.debug(String.format("MIRIAM is current version (%s)", fileDate));
+        for (int i = 0; i < urlDates.size(); i++) {
+            if (urlDates.get(i).equals(fileDate.toString()) == false){
+                updateMiriamJSON(file);
+            }
         }
     }
 
     /**
      * Updates the MIRIAM registry file.
-     * Downloads xml from MIRIAM and saves in file.
+     * Downloads json from MIRIAM and saves in file.
      *
-     * @param file MIRIAM xml file
+     * @param file MIRIAM json file
      */
-    public static void updateMiriamXML(File file){
+    public static void updateMiriamJSON(File file){
         try {
-            URL miriamURL = new URL(URL_MIRIAM_XML);
+            URL miriamURL = new URL(URL_MIRIAM_JSON);
             IOUtil.saveURLasFile(miriamURL, file);
             logger.info("Updated MIRIAM: " + file.getAbsolutePath());
         } catch (MalformedURLException e) {
@@ -112,141 +115,79 @@ public class RegistryUtil {
      *
      * @return
      */
-    private static Date getLatestDataVersionDate(){
+    public static List<String> getURLModifiedTimestamps(URL url) {
+        List<String> modifiedList = new ArrayList<>();
         try {
-            // Get data-version of online file
-            URL miriamURL = new URL(URL_MIRIAM_XML);
-            String lastModified = IOUtil.getLastModified(miriamURL);
-            // System.out.println("lastModified: " + lastModified);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Accept", "application/json");
+            conn.connect();
 
-            // 2016/08/03 15:21:34
-            // SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            InputStream input = conn.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(input);
 
-            // Wed, 17 Aug 2016 14:57:52 GMT
-            SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-            try {
-                Date date = format.parse(lastModified);
-                return date;
-            } catch (ParseException e){
-                logger.error("Last-Modified could not be parsed", e);
-                e.printStackTrace();
-                return null;
+            if (root.isArray()) {
+                for (JsonNode entry : root) {
+                    JsonNode modified = entry.get("modified");
+                    if (modified != null) {
+                        modifiedList.add(modified.asText());
+                    }
+                }
             }
-        } catch (MalformedURLException e) {
-            logger.error("MalformedURLException", e);
-            return null;
+
+            input.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return modifiedList;
     }
 
     /**
      * Retrieve the MIRIAM data-version from the given file.
      */
-    private static Date getDataVersionDate(File file){
+    public static List<String> getModifiedTimestampsFromFile(String fileName) {
+        List<String> modifiedList = new ArrayList<>();
         try {
-            InputStream inputStream = new FileInputStream(file);
-            BufferedInputStream stream = new BufferedInputStream(inputStream);
+            // Load file from resources
+            InputStream input = IOUtil.readResource("/miriam/" + fileName);
+            if (input == null) {
+                throw new IllegalArgumentException("File not found: " + fileName);
+            }
 
-            try {
-                Document document = create(stream, false);
-                NodeList miriamNodes = document.getElementsByTagName("miriam");
-                if (miriamNodes.getLength() != 1){
-                    logger.error("More than one, or zero <miriam> elements in MIRIAM xml.");
-                    return null;
-                }
-                Element miriamElement = (Element) miriamNodes.item(0);
-                String dataVersion = miriamElement.getAttribute("data-version");
+            // Parse JSON
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(input);
 
-                // "2016-08-03T15:21:34+01:00"
-                // SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-                // dataVersion = dataVersion.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
-
-                // Wed, 17 Aug 2016 14:57:52 GMT
-                SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-
-                try {
-                    Date date = format.parse(dataVersion);
-                    return date;
-                } catch (ParseException e){
-                    logger.error("file data-version could not be parsed", e);
-                    e.printStackTrace();
-                    return null;
-                }
-
-            } catch (RuntimeException e) {
-                throw e;
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
+            // Extract "modified" fields
+            if (root.isArray()) {
+                for (JsonNode entry : root) {
+                    JsonNode modified = entry.get("modified");
+                    if (modified != null) {
+                        modifiedList.add(modified.asText());
                     }
                 }
             }
-        } catch (FileNotFoundException e){
+
+            input.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return modifiedList;
     }
 
 
-    /**
-     *
-     * Creates an XML DOM document by parsing the content of the specified byte
-     * stream as XML, using a <i>nonvalidating</i> parser.
-     *
-     * @param byteStream The byte stream which content is parsed as XML to
-     * create the XML DOM document.
-     * @param namespaceAware A flag to indicate whether the parser should know
-     * about namespaces or not.
-     * @return The <code>org.w3c.dom.Document</code> instance representing
-     * the XML DOM document created from the <code>byteStream</code>
-     * XML content.
-     * @throws NullPointerException If <code>byteStream</code> is
-     * <code>null</code>.
-     * @throws RuntimeException If any error occurs (parser configuration
-     * errors, I/O errors, SAX parsing errors).
-     *
-     */
-    private static Document create(InputStream byteStream,
-                                   boolean namespaceAware) {
-        if (byteStream == null) {
-            throw new NullPointerException();
-        }
 
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(namespaceAware);
 
-            factory.setValidating(false);
-
-            try {
-                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-            } catch (AbstractMethodError e) {
-                // do nothing
-            } catch (ParserConfigurationException e) {
-                // do nothing
-            }
-
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            return builder.parse(byteStream);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
-    public static void main(String[] args) throws FileNotFoundException{
+    public static void main(String[] args) throws FileNotFoundException, MalformedURLException {
         File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
         //updateMiriamXML(miriamFile);
-        updateMiriamXMLWithNewer(miriamFile);
+        updateMiriamJSONWithNewer(miriamFile);
     }
 
 }

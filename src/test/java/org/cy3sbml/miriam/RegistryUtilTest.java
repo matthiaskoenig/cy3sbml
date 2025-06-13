@@ -12,25 +12,23 @@ import static org.junit.Assert.*;
 public class RegistryUtilTest {
 
     @Test
-    public void updateMiriamXML() throws Exception {
-        File f = File.createTempFile("test", ".xml");
-        RegistryUtil.updateMiriamXML(f);
+    public void updateMiriamJSON() throws Exception {
+        File f = File.createTempFile("test", ".json");
+        RegistryUtil.updateMiriamJSON(f);
         assertNotNull(f);
         RegistryUtil.loadRegistry(f);
     }
 
     @Test
-    public void updateMiriamXMLWithNewer() throws Exception {
-        File f = File.createTempFile("test", ".xml");
-        RegistryUtil.updateMiriamXML(f);
+    public void updateMiriamJSONWithNewer() throws Exception {
+        File f = File.createTempFile("test", ".json");
+        RegistryUtil.updateMiriamJSON(f);
 
         // identical file
-        RegistryUtil.updateMiriamXMLWithNewer(f);
+        RegistryUtil.updateMiriamJSONWithNewer(f);
     }
 
-    @Test
-    public void loadRegistry() throws Exception {
-        RegistryUtil.loadRegistry();
-    }
+
+
 
 }

@@ -4,7 +4,7 @@
 <!-- Generated: Wed, 28 Mar 2018 11:16:44 GMT     -->
 <!-- http://identifiers.org/registry/            -->
 
-<miriam xmlns="http://www.biomodels.net/MIRIAM/" date="Wed, 28 Mar 2018 11:16:44 GMT" data-version="Wed, 28 Mar 2018 09:45:23 GMT">
+<miriam xmlns="https://www.biomodels.net/MIRIAM/" date="Wed, 28 Mar 2018 11:16:44 GMT" data-version="Wed, 28 Mar 2018 09:45:23 GMT">
 	<datatype id="MIR:00000001" pattern="^\d+$" restricted="true" obsolete="true" replacement="MIR:00000010">
 		<comment>BIND doesn&apos;t exist any more and its successor (BOND) is not open-access. Bulk downloads of BIND data (http://bond.unleashedinformatics.com/downloads/data/BIND/data/datasets/taxon/xml/) and a PSI-MI 2.5 translation (http://download.baderlab.org/BINDTranslation/) are available.</comment>
 		<name>BIND</name>

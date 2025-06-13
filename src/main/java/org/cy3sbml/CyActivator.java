@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
@@ -294,8 +295,12 @@ public class CyActivator extends AbstractCyActivator {
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
                     File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-
-                    RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
+                    System.out.println("Miriam file: " + miriamFile.getAbsolutePath());
+                    try {
+                        RegistryUtil.updateMiriamJSONWithNewer(miriamFile);
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
                     RegistryUtil.loadRegistry(miriamFile);
                 }
             });
