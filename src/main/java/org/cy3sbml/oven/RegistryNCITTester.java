@@ -7,11 +7,12 @@ import org.identifiers.registry.data.DataType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class RegistryNCITTester {
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/IdentifiersOrg-Registry.xml");
         //updateMiriamXML(miriamFile);
         RegistryUtil.loadRegistry(miriamFile);

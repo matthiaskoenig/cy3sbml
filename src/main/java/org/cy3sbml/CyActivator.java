@@ -14,6 +14,7 @@ import org.osgi.framework.BundleContext;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -296,12 +297,12 @@ public class CyActivator extends AbstractCyActivator {
                 public void run() {
                     File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
                     System.out.println("Miriam file: " + miriamFile.getAbsolutePath());
+                    RegistryUtil.updateMiriamJSON(miriamFile);
                     try {
-                        RegistryUtil.updateMiriamJSONWithNewer(miriamFile);
-                    } catch (MalformedURLException e) {
+                        RegistryUtil.loadRegistry(miriamFile);
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    RegistryUtil.loadRegistry(miriamFile);
                 }
             });
             miriamThread.run();
