@@ -96,7 +96,7 @@ public class RegistryUtil {
                     String mirId = resourcesNode.get(j).get("mirId").asText();
                     Map<Object, Object> rsData = mapper.convertValue(resourcesNode.get(j),
                             new TypeReference<Map<Object, Object>>() {});
-                    resourceResult.put(mirId, new Resource(rsData));
+                    resourceResult.put(mirId, new Resource());
                 }
                 //System.out.println("DEBUG: Added " + prefix);  // Verify each addition
             } catch (Exception e) {

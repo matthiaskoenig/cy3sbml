@@ -26,7 +26,7 @@ public class RegistryUtilTest {
 
         testNamespaceContents(result, "chebi");
         testNamespaceContents(result, "uniprot");
-        //testResourcesOutput(result, "chebi");
+        testResourcesOutput(result, "chebi");
        // testResourcesOutput(result, "uniprot");
 
         // Edge case: Namespace with no resources
@@ -77,13 +77,13 @@ public class RegistryUtilTest {
 
         // Detailed output
         if (ns.getResources() != null) {
-            List<Resource> resources = ns.getResources();
             System.out.println("\nResources Content:");
-            for (Resource resource: ns.getResources()){
-                System.out.println("URL: " + resource.getId());
-                System.out.println("Type: " + resource.toString());
-            }};
+
+            ns.getResources().forEach(res ->
+                    System.out.println("  " + res.getResourceHomeUrl() + ", "+res.getDescription())
+
+            );
+            }}
         }
 
 
-}

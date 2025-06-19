@@ -1,65 +1,63 @@
 package org.cy3sbml.miriam;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
     public class Resource {
-        @Getter
-        private final int id;
-        private final String providerCode;
-        private final String name;
-        private final String urlPattern;
-        private final String mirId;
-        private final String description;
-        private final boolean official;
-        private final String sampleId;
-        private final String resourceHomeUrl;
-        private final LinkedHashMap institution;
-        private final LinkedHashMap location;
-        private final boolean deprecated;
-        private final String deprecationDate;
-        private final String deprecationOfflineDate;
-        private final String renderDeprecatedLanding;
-        private final String deprecationStatetement;
-        private final boolean protectedUrls;
-        private final boolean renderProtectedLanding;
-        private final String authHelpUrl;
-        private final String authHelpDescription;
 
-        public Resource(Map<Object, Object> value) {
+        private  int id;
+        private  String providerCode;
+        private  String name;
+        private  String urlPattern;
+        private  String mirId;
+        private  String description;
+        private  boolean official;
+        private  String sampleId;
+        private  String resourceHomeUrl;
+        private  LinkedHashMap institution;
+        private  LinkedHashMap location;
+        private  boolean deprecated;
+        private  String deprecationDate;
+        private  String deprecationOfflineDate;
+        private  String renderDeprecatedLanding;
+        private  String deprecationStatetement;
+        private  boolean protectedUrls;
+        private  boolean renderProtectedLanding;
+        private  String authHelpUrl;
+        private  String authHelpDescription;
 
-            this.id = (int) value.get("id");
-            this.providerCode = value.get("providerCode").toString();
-            this.name = value.get("name").toString();
-            this.urlPattern = value.get("urlPattern").toString();
-            this.mirId = (String) value.get("mirId");
-            this.description = value.get("description").toString();
-            this.official = value.get("official").toString().equals("true");
-            this.sampleId = (String) value.get("sampleId");
-            this.resourceHomeUrl = (String) value.get("resourceHomeUrl");
-            this.institution = (LinkedHashMap) value.get("institution");
-            this.location = (LinkedHashMap) value.get("location");
-            this.deprecated = value.get("deprecated").toString().equals("true");
-            this.deprecationDate = (String) Optional.ofNullable(value.get("deprecationDate"))
+        public static Resource fromMap(Map<String, Object> value) {
+            Resource resource = new Resource();
+            resource.id = (int) value.get("id");
+            resource.providerCode = value.get("providerCode").toString();
+            resource.name = value.get("name").toString();
+            resource.urlPattern = value.get("urlPattern").toString();
+            resource.mirId = (String) value.get("mirId");
+            resource.description = value.get("description").toString();
+            resource.official = value.get("official").toString().equals("true");
+            resource.sampleId = (String) value.get("sampleId");
+            resource.resourceHomeUrl = (String) value.get("resourceHomeUrl");
+            resource.institution = (LinkedHashMap) value.get("institution");
+            resource.location = (LinkedHashMap) value.get("location");
+            resource.deprecated = value.get("deprecated").toString().equals("true");
+            resource.deprecationDate = (String) Optional.ofNullable(value.get("deprecationDate"))
                     .orElse("No description available");
-            this.deprecationOfflineDate = (String) Optional.ofNullable(value.get("deprecationOfflineDate"))
+            resource.deprecationOfflineDate = (String) Optional.ofNullable(value.get("deprecationOfflineDate"))
                     .orElse("No description available");
-            this.renderDeprecatedLanding = value.get("renderDeprecatedLanding").toString();
-            this.deprecationStatetement =(String) Optional.ofNullable(value.get("deprecationStatement"))
+            resource.renderDeprecatedLanding = value.get("renderDeprecatedLanding").toString();
+            resource.deprecationStatetement =(String) Optional.ofNullable(value.get("deprecationStatement"))
                     .orElse("No description available");
-            this.protectedUrls = value.get("protectedUrls").toString().equals("true");
-            this.renderProtectedLanding = value.get("renderProtectedLanding").toString().equals("true");
-            this.authHelpUrl = (String) Optional.ofNullable(value.get("authHelpUrl"))
+            resource.protectedUrls = value.get("protectedUrls").toString().equals("true");
+            resource.renderProtectedLanding = value.get("renderProtectedLanding").toString().equals("true");
+            resource.authHelpUrl = (String) Optional.ofNullable(value.get("authHelpUrl"))
                     .orElse("No description available");
-            this.authHelpDescription = (String) Optional.ofNullable(value.get("authHelpDescription"))
+            resource.authHelpDescription = (String) Optional.ofNullable(value.get("authHelpDescription"))
                     .orElse("No description available");
+            return resource;
         }
 
 
@@ -106,6 +104,27 @@ import java.util.Optional;
         public String getCountryCode() { return countryCode; }
         public String getCountryName() { return countryName; }
     }
+    public int getId() { return id; }
+        public String getName() { return name; }
+        public String getProviderCode() { return providerCode; }
+        public String getUrlPattern() { return urlPattern; }
+        public String getMirId() { return mirId; }
+        public String getDescription() { return description; }
+        public boolean isOfficial() { return official; }
+        public String getSampleId() { return sampleId; }
+        public String getResourceHomeUrl() { return resourceHomeUrl; }
+        public LinkedHashMap getInstitution() { return institution; }
+        public LinkedHashMap getLocation() { return location; }
+        public boolean isDeprecated() { return deprecated; }
+        public String getDeprecationDate() { return deprecationDate; }
+        public String getDeprecationOfflineDate() { return deprecationOfflineDate; }
+        public String getRenderDeprecatedLanding() { return renderDeprecatedLanding; }
+        public String getDeprecationStatetement() { return deprecationStatetement; }
+        public boolean isProtectedUrls() { return protectedUrls; }
+        public boolean isRenderProtectedLanding() { return renderProtectedLanding; }
+        public String getAuthHelpUrl() { return authHelpUrl; }
+        public String getAuthHelpDescription() { return authHelpDescription; }
+
 
 }
 
