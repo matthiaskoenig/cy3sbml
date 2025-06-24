@@ -1,27 +1,23 @@
 package org.cy3sbml.gui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.cy3sbml.miriam.RegistryDatabase;
+import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
-import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 
 import org.identifiers.registry.RegistryUtilities;
-import org.identifiers.registry.data.DataType;
-import org.identifiers.registry.data.PhysicalLocation;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
@@ -39,6 +35,7 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -168,7 +165,7 @@ public class SBaseHTMLFactory {
 	/**
      * Parse and create information for current Sbase.
      */
-	public void createInfo() {
+	public void createInfo() throws IOException {
         String title = getTitle(sbase);
 	    html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
@@ -189,7 +186,7 @@ public class SBaseHTMLFactory {
      * @param sbase
      * @return
      */
-    private static String createInfoForSBase(SBase sbase){
+    private static String createInfoForSBase(SBase sbase) throws IOException {
         if (sbase == null){
             return "";
         }
@@ -394,7 +391,7 @@ public class SBaseHTMLFactory {
 	}
 
     /** Create HTML for CVTerms. */
-    private static String createCVTerms(SBase sbase){
+    private static String createCVTerms(SBase sbase) throws IOException {
         List<CVTerm> cvterms = sbase.getCVTerms();
         // Handle SBO
         addCVTermForSBO(sbase);
@@ -438,7 +435,7 @@ public class SBaseHTMLFactory {
     }
 
     /** Creates HTML for single CVTerm. */
-    private static String createCVTerm(CVTerm cvterm){
+    private static String createCVTerm(CVTerm cvterm) throws IOException {
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -454,7 +451,11 @@ public class SBaseHTMLFactory {
                 "<p class=\"cvterm\">\n" +
                 "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
                 cvterm.getQualifierType(), bmQualifierType);
-
+        File f = File.createTempFile("test", ".json");
+        RegistryUtil.updateMiriamJSON(f);
+        assertNotNull(f);
+        Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
+        Namespace dataType = null;
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
 
@@ -462,8 +463,17 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+            System.out.println("identifier: " + identifier);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-            DataType dataType = RegistryDatabase.getInstance().getDataTypeByURI(dataCollection);
+            System.out.println("dataCollection: " + dataCollection);
+            String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
+            if (result.get(prefix) != null){
+                dataType = result.get(prefix);
+            } else {
+                dataType = result.get(StringUtils.substringAfter(prefix, "."));
+            }
+
+
 
 
             // link to primary resource via id
@@ -471,17 +481,13 @@ public class SBaseHTMLFactory {
             if (dataType == null){
                 resourceLink = resourceURI;
             } else {
-                for (PhysicalLocation location: dataType.getPhysicalLocations()) {
+                for (Resource resource: dataType.getResources()) {
                     if (resourceLink == null){
                         // take first one
-                        resourceLink = createURL(location, identifier);
+                        resourceLink = createURL(resource, identifier);
                         continue;
                     }
-                    // overwrite if primary
-                    if (location.isPrimary()){
-                        resourceLink = createURL(location, identifier);
-                        break;
-                    }
+
                 }
             }
 
@@ -506,10 +512,10 @@ public class SBaseHTMLFactory {
             if (dataType != null){
                 text += qualifierHTML + String.format(
                         "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM data collection. Click to open on MIRIAM registry.\">%s</span></a>%s<br/>\n",
-                        dataType.getURL(), dataType.getName(), identifierHTML);
+                        dataType.getResources().get(0).getResourceHomeUrl(), dataType.getName(), identifierHTML);
 
                 // check that identifier is correct for given datatype
-                String pattern = dataType.getRegexp();
+                String pattern = dataType.getPattern();
                 if (!RegistryUtilities.checkRegexp(identifier, pattern)){
                     logger.warn(String.format(
                             "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
@@ -520,17 +526,17 @@ public class SBaseHTMLFactory {
                 }
 
                 // Create OLS resource for location
-                for (PhysicalLocation location: dataType.getPhysicalLocations()) {
-                    if (location.isObsolete()) { continue; }
-                    if (OLSAccess.isPhysicalLocationOLS(location)){
-                        text += createOLSLocation(location, identifier);
+                for (Resource resource: dataType.getResources()) {
+                    if (resource.isDeprecated()) { continue; }
+                    if (OLSAccess.isPhysicalLocationOLS(resource)){
+                        text += createOLSLocation(resource, identifier);
                     }
                 }
                 // Create other locations
-                for (PhysicalLocation location: dataType.getPhysicalLocations()){
-                    if (location.isObsolete()){ continue; }
-                    if (! OLSAccess.isPhysicalLocationOLS(location)) {
-                        text += createNonOLSLocation(location, identifier);
+                for (Resource resource: dataType.getResources()){
+                    if (resource.isDeprecated()){ continue; }
+                    if (! OLSAccess.isPhysicalLocationOLS(resource)) {
+                        text += createNonOLSLocation(resource, identifier);
                     }
                 }
 
@@ -547,22 +553,21 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return
      */
-    private static String createURL(PhysicalLocation location, String identifier){
-        return String.format("%s%s%s",
-                location.getUrlPrefix(), identifier, location.getUrlSuffix());
+    private static String createURL(Resource resource, String identifier){
+        return String.format("%s%s%s%s",
+                resource.getResourceHomeUrl(), identifier,"/", StringUtils.substringAfter(resource.getUrlPattern(),resource.getResourceHomeUrl()));
     }
 
     /**
      * Information for non-OLS location.
      */
-    private static String createNonOLSLocation(PhysicalLocation location, String identifier){
-        Boolean primary = location.isPrimary();
-        String info = location.getInfo();
+    private static String createNonOLSLocation(Resource resource, String identifier){
+
+        String info = resource.getDescription();
 
         return String.format(
-                "\t%s <a href=\"%s\"> %s</a><br />\n",
-                (primary == true) ? ICON_TRUE : ICON_INVISIBLE,
-                createURL(location, identifier),
+                "\t<a href=\"%s\"> %s</a><br />\n",
+                createURL(resource, identifier),
                 info);
     }
 
@@ -570,24 +575,25 @@ public class SBaseHTMLFactory {
      * Information for an OLS location.
      * Only the identifier needed for the query.
      */
-    private static String createOLSLocation(PhysicalLocation location, String identifier){
+    private static String createOLSLocation(Resource resource, String identifier){
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
-        String olsURL = createURL(location, identifier);
-
+        String olsURL = createURL(resource, identifier);
+        System.out.println("olsURL: " + olsURL);
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1){
             termIdentifier = tokens[tokens.length-1];
         }
+        System.out.println("Term Identifier: " + termIdentifier);
         Term term = OLSCache.getTerm(termIdentifier);
 
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = createURL(location, identifier);
+            String ontologyURL = createURL(resource, identifier);
             html += String.format(
                     "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
@@ -619,7 +625,7 @@ public class SBaseHTMLFactory {
             html += String.format(
                     "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
                     ICON_WARNING, termIdentifier, olsURL, olsURL);
-            html += createNonOLSLocation(location, identifier);
+            html += createNonOLSLocation(resource, identifier);
         }
         return html;
     }
@@ -630,9 +636,9 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return html string
      */
-    public static String createSecondaryInformation(DataType dataType, String identifier){
+    public static String createSecondaryInformation(Namespace dataType, String identifier){
         String html = "";
-        String namespace = dataType.getNamespace();
+        String namespace = dataType.getName();
 
         if (namespace.equals("uniprot")) {
             html = html + "FIXME: BROKEN UNIPROT NOW";

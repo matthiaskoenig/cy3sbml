@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
-import org.cy3sbml.biomodelrest.BiomodelsRestAction;
 import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
 import org.cy3sbml.styles.StyleManager;
 
@@ -11,12 +10,9 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
@@ -60,8 +56,6 @@ import org.cy3sbml.miriam.RegistryUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
 
 /**
  * Entry point to cy3sbml.

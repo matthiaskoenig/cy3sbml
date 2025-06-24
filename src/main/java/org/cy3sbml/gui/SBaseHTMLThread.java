@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 
+import java.io.IOException;
 import java.util.Collection;
 
 import org.slf4j.Logger;
@@ -30,7 +31,11 @@ public class SBaseHTMLThread extends Thread{
     public void run() {
         for (Object obj : objSet){
             SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
-            infoFac.createInfo();
+            try {
+                infoFac.createInfo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             String html = infoFac.getHtml();
             if (info == null) {
                 info = html;
