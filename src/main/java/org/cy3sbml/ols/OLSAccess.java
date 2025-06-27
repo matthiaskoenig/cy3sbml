@@ -89,6 +89,8 @@ public class OLSAccess {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(Resource resource){
+        System.out.println("OLS Base Url:"+IdentifiersConstants.OLS_BASE_URL);
+        System.out.println("ResourceHomeUrl: "+resource.getResourceHomeUrl());
         return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 

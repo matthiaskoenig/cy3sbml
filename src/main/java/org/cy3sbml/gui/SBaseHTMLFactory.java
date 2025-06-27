@@ -463,9 +463,9 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-            System.out.println("identifier: " + identifier);
+
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-            System.out.println("dataCollection: " + dataCollection);
+
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
             if (result.get(prefix) != null){
                 dataType = result.get(prefix);
@@ -484,7 +484,7 @@ public class SBaseHTMLFactory {
                 for (Resource resource: dataType.getResources()) {
                     if (resourceLink == null){
                         // take first one
-                        resourceLink = createURL(resource, identifier);
+                        resourceLink = createNonOLSURL(resource, identifier);
                         continue;
                     }
 
@@ -529,13 +529,15 @@ public class SBaseHTMLFactory {
                 for (Resource resource: dataType.getResources()) {
                     if (resource.isDeprecated()) { continue; }
                     if (OLSAccess.isPhysicalLocationOLS(resource)){
-                        text += createOLSLocation(resource, identifier);
+                        System.out.println("OLS");
+                        text += createOLSLocation(dataType,resource, identifier);
                     }
                 }
                 // Create other locations
                 for (Resource resource: dataType.getResources()){
                     if (resource.isDeprecated()){ continue; }
                     if (! OLSAccess.isPhysicalLocationOLS(resource)) {
+                        System.out.println("not OLS");
                         text += createNonOLSLocation(resource, identifier);
                     }
                 }
@@ -553,11 +555,20 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return
      */
-    private static String createURL(Resource resource, String identifier){
-        return String.format("%s%s%s%s",
-                resource.getResourceHomeUrl(), identifier,"/", StringUtils.substringAfter(resource.getUrlPattern(),resource.getResourceHomeUrl()));
+    private static String createNonOLSURL(Resource resource, String identifier){
+        return String.format("%s%s%s%s%s",
+                resource.getResourceHomeUrl(),"/", identifier,"/", StringUtils.substringAfter(resource.getUrlPattern(),resource.getResourceHomeUrl()));
     }
 
+    private static String createOLSURL(Namespace namespace, Resource resource, String identifier) {
+        String olsURL = null;
+        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix()) == false) {
+            olsURL= resource.getUrlPattern().replace("{$id}", identifier);
+        } else{
+            olsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(),"obo_id="), identifier);
+        }
+        return olsURL;
+    }
     /**
      * Information for non-OLS location.
      */
@@ -567,7 +578,7 @@ public class SBaseHTMLFactory {
 
         return String.format(
                 "\t<a href=\"%s\"> %s</a><br />\n",
-                createURL(resource, identifier),
+                createNonOLSURL(resource, identifier),
                 info);
     }
 
@@ -575,14 +586,16 @@ public class SBaseHTMLFactory {
      * Information for an OLS location.
      * Only the identifier needed for the query.
      */
-    private static String createOLSLocation(Resource resource, String identifier){
+    private static String createOLSLocation(Namespace namespace, Resource resource, String identifier){
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
-        String olsURL = createURL(resource, identifier);
+        String olsURL = createOLSURL(namespace, resource, identifier);
         System.out.println("olsURL: " + olsURL);
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
+        System.out.println("Term Identifier before split: " + termIdentifier);
+
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1){
             termIdentifier = tokens[tokens.length-1];
@@ -593,7 +606,7 @@ public class SBaseHTMLFactory {
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = createURL(resource, identifier);
+            String ontologyURL = createOLSURL(namespace, resource, identifier);
             html += String.format(
                     "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
                     ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
@@ -618,6 +631,7 @@ public class SBaseHTMLFactory {
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
+                    System.out.println("description: " + description);
                     html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml4(description));
                 }
             }

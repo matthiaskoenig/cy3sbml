@@ -9,6 +9,7 @@ import java.util.Map;
 public class Namespace {
     @Getter
     private  int id;
+    private String prefix;
     private  String name;
     private  String pattern;
     private  Boolean namespaceEmbeddedInLui;
@@ -23,6 +24,7 @@ public class Namespace {
 
     public Namespace(Map<Object, Object> value) {
         this.id = (int) value.get("id");
+        this.prefix = (String) value.get("prefix");
         this.name = (String) value.get("name");
         this.pattern = (String) value.get("pattern");
         this.namespaceEmbeddedInLui = (Boolean) value.get("namespaceEmbeddedInLui");
@@ -56,6 +58,7 @@ public class Namespace {
     }
 
     public int getId() { return id; }
+    public String getPrefix() { return prefix; }
     public String getName() { return name; }
     public String getPattern() { return pattern; }
     public Boolean getNamespaceEmbeddedInLui() { return namespaceEmbeddedInLui; }
