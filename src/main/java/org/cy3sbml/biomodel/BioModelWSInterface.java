@@ -1,10 +1,21 @@
 package org.cy3sbml.biomodel;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cy3sbml.ConnectionProxy;
 
 import org.slf4j.Logger;
@@ -19,7 +30,7 @@ import uk.ac.ebi.biomodels.ws.SimpleModel;
  */
 public class BioModelWSInterface {
     private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterface.class);
-
+    private static final String BIOMODEL_BASE= "https://www.ebi.ac.uk/biomodels/";
     private String proxyHost;
     private String proxyPort;
 
@@ -28,9 +39,6 @@ public class BioModelWSInterface {
         proxyPort = pPort;
     }
 
-    public BioModelWSInterface() {
-        this(null, null);
-    }
 
     public BioModelWSInterface(ConnectionProxy connectionProxy) {
         this(null, null);
@@ -55,144 +63,52 @@ public class BioModelWSInterface {
         }
     }
 
+
     /**
      * Web service queries.
      */
-    public List<String> getBioModelIdsByName(String name) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByName(name);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
+    public List<String> getBioModelIdsByName(String name) throws IOException, InterruptedException {
+
+        HttpResponse<String> response = getResultUrl(BIOMODEL_BASE,"search", name);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(response.body());
+        JsonNode modelsList = rootNode.findValue("models");
+
+        List<String> modelIds = new LinkedList<>();
+        for (int i = 0; i < modelsList.size(); i++) {
+            JsonNode model = modelsList.get(i);
+            String modelId = model.get("id").asText();
+            assert false;
+            modelIds.add(modelId);
         }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
+        return modelIds;
     }
 
-    public List<String> getBioModelIdsByPerson(String person) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByPerson(person);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
+    public HttpResponse<String> getResultUrl(String base, String operation, String name) throws IOException, InterruptedException {
+        String url = String.format("%s?query=%s&format=json",
+                base+operation,
+                URLEncoder.encode(name, StandardCharsets.UTF_8));
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public List<String> getBioModelIdsByPublication(String publication) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByPublication(publication);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
+    public HttpResponse<String> getSBMLResponse(String base, String operation, String id) throws IOException, InterruptedException {
+        String downloadUrl = base + operation + id + "?filename=" + id + "_url.xml";
+        System.out.println("downloadUrl: " + downloadUrl);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(downloadUrl))
+                .GET()
+                .build();
 
-    public List<String> getBioModelIdsByTaxonomy(String taxonomy) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByTaxonomy(taxonomy);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
-
-    public List<String> getBioModelIdsByTaxonomyId(String taxonomyId) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByTaxonomyId(taxonomyId);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
-
-    public List<String> getBioModelIdsByChebi(String chebi) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByChEBI(chebi);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
-
-    public List<String> getBioModelIdsByChebiId(String chebiId) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByChEBIId(chebiId);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
-
-    public List<String> getBioModelIdsByUniprot(String uniprot) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByUniprot(uniprot);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
-
-    public List<String> getBioModelIdsByUniprotId(String uniprotId) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] ids = null;
-        try {
-            ids = client.getModelsIdByUniprotId(uniprotId);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (ids == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(ids);
-    }
-
     public String getBioModelNameById(String id) {
         BioModelsWSClient client = createBioModelsWSClient();
         String name = "";
@@ -247,18 +163,21 @@ public class BioModelWSInterface {
         return Arrays.asList(encoders);
     }
 
-    public String getBioModelSBMLById(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
+    public String getBioModelSBMLById(String id) throws IOException, InterruptedException {
+
         String sbml = "";
-        try {
-            sbml = client.getModelSBMLById(id);
-            if (sbml == null) {
-                sbml = "";
-            }
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
+        HttpResponse<String> sbmlResponse = getSBMLResponse(BIOMODEL_BASE,"model/download/",id);
+        if (sbmlResponse.statusCode() == 200) {
+            // The response body contains the SBML XML content
+            sbml = sbmlResponse.body();
+
+
+            // You can save it to a file if needed
+            // Files.writeString(Path.of(modelId + ".xml"), sbmlContent);
+        } else {
+            System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
         }
+
         return sbml;
     }
 

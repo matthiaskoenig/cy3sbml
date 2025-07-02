@@ -34,40 +34,16 @@ public class SearchBioModelTask implements ObservableTask{
 		}
 		taskMonitor.setProgress(0.2);
 		taskMonitor.setTitle("Searching by Person ...");
-		if (searchContent.hasPersons()){
-			for (String person : searchContent.getPersons()){
-				ids = bmInterface.getBioModelIdsByPerson(person);
-				SearchBioModel.addIdsToResultIds(ids, resultIds, mode);
-			}
-		}
+
 		taskMonitor.setProgress(0.4);
 		taskMonitor.setTitle("Searching by Publication ...");
-		if (searchContent.hasPublications()){
-			for (String publication: searchContent.getPublications()){
-				ids = bmInterface.getBioModelIdsByPublication(publication);
-				SearchBioModel.addIdsToResultIds(ids, resultIds, mode);
-			}
-		}
+
 		taskMonitor.setProgress(0.6);
 		taskMonitor.setTitle("Searching by ChEBI ...");
-		if (searchContent.hasChebis()){
-			for (String chebi: searchContent.getChebis()){
-				ids = bmInterface.getBioModelIdsByChebi(chebi);
-				ids2 = bmInterface.getBioModelIdsByChebiId(chebi);
-				ids.addAll(ids2);
-				SearchBioModel.addIdsToResultIds(ids, resultIds, mode);
-			}	
-		}
+
 		taskMonitor.setProgress(0.8);
 		taskMonitor.setTitle("Searching by UniProt ...");
-		if (searchContent.hasUniprots()){
-			for (String uniprot: searchContent.getUniprots()){
-				ids = bmInterface.getBioModelIdsByUniprot(uniprot);
-				ids2 = bmInterface.getBioModelIdsByUniprotId(uniprot);
-				ids.addAll(ids2);
-				SearchBioModel.addIdsToResultIds(ids, resultIds, mode);
-			}	
-		}	
+
 		taskMonitor.setProgress(1.0);
 		searchResultIds = resultIds;
 	}
