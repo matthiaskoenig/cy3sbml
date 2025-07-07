@@ -463,6 +463,7 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+            System.out.println("identifier1:"+"https://www.probonto.org/ontology#PROB_c0000025");
 
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
 
@@ -529,7 +530,7 @@ public class SBaseHTMLFactory {
                 for (Resource resource: dataType.getResources()) {
                     if (resource.isDeprecated()) { continue; }
                     if (OLSAccess.isPhysicalLocationOLS(resource)){
-                        System.out.println("OLS");
+
                         text += createOLSLocation(dataType,resource, identifier);
                     }
                 }
@@ -537,7 +538,7 @@ public class SBaseHTMLFactory {
                 for (Resource resource: dataType.getResources()){
                     if (resource.isDeprecated()){ continue; }
                     if (! OLSAccess.isPhysicalLocationOLS(resource)) {
-                        System.out.println("not OLS");
+
                         text += createNonOLSLocation(resource, identifier);
                     }
                 }
@@ -565,9 +566,21 @@ public class SBaseHTMLFactory {
         if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix()) == false) {
             olsURL= resource.getUrlPattern().replace("{$id}", identifier);
         } else{
-            olsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(),"obo_id="), identifier);
+            String replacementTerm = getReplacement(resource.getUrlPattern());
+            olsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(),replacementTerm), identifier);
         }
         return olsURL;
+    }
+    private static String getReplacement(String pattern){
+        String replacementTerm = "";
+        if (pattern.contains("obo_id=")) {
+            replacementTerm = "obo_id=";
+        }else if (pattern.contains("short_form=")) {
+            replacementTerm = "short_form=";
+        }else if (pattern.contains("curie=")) {
+            replacementTerm = "curie=";
+        }
+        return replacementTerm;
     }
     /**
      * Information for non-OLS location.
@@ -591,16 +604,16 @@ public class SBaseHTMLFactory {
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
         String olsURL = createOLSURL(namespace, resource, identifier);
-        System.out.println("olsURL: " + olsURL);
+
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
-        System.out.println("Term Identifier before split: " + termIdentifier);
+
 
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1){
             termIdentifier = tokens[tokens.length-1];
         }
-        System.out.println("Term Identifier: " + termIdentifier);
+
         Term term = OLSCache.getTerm(termIdentifier);
 
         if (term != null) {
@@ -631,7 +644,7 @@ public class SBaseHTMLFactory {
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
-                    System.out.println("description: " + description);
+
                     html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml4(description));
                 }
             }
@@ -807,9 +820,6 @@ public class SBaseHTMLFactory {
         f.createInfo();
         String html = f.getHtml();
 
-        System.out.println("------------------------------------");
-        System.out.println(html);
-        System.out.println("------------------------------------");
 
         // Save to tmp file for viewing
         File file = new File(targetDir, "testinfo.html");

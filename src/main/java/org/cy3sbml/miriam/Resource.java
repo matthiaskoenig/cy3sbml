@@ -6,8 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.cy3sbml.miriam.Fields.*;
 
-    public class Resource {
+
+public class Resource {
+
 
         private  int id;
         private  String providerCode;
@@ -32,31 +35,31 @@ import java.util.Optional;
 
         public static Resource fromMap(Map<String, Object> value) {
             Resource resource = new Resource();
-            resource.id = (int) value.get("id");
-            resource.providerCode = value.get("providerCode").toString();
-            resource.name = value.get("name").toString();
-            resource.urlPattern = value.get("urlPattern").toString();
-            resource.mirId = (String) value.get("mirId");
-            resource.description = value.get("description").toString();
-            resource.official = value.get("official").toString().equals("true");
-            resource.sampleId = (String) value.get("sampleId");
-            resource.resourceHomeUrl = (String) value.get("resourceHomeUrl");
-            resource.institution = (LinkedHashMap) value.get("institution");
-            resource.location = (LinkedHashMap) value.get("location");
-            resource.deprecated = value.get("deprecated").toString().equals("true");
-            resource.deprecationDate = (String) Optional.ofNullable(value.get("deprecationDate"))
-                    .orElse("No description available");
-            resource.deprecationOfflineDate = (String) Optional.ofNullable(value.get("deprecationOfflineDate"))
-                    .orElse("No description available");
-            resource.renderDeprecatedLanding = value.get("renderDeprecatedLanding").toString();
-            resource.deprecationStatetement =(String) Optional.ofNullable(value.get("deprecationStatement"))
-                    .orElse("No description available");
-            resource.protectedUrls = value.get("protectedUrls").toString().equals("true");
-            resource.renderProtectedLanding = value.get("renderProtectedLanding").toString().equals("true");
-            resource.authHelpUrl = (String) Optional.ofNullable(value.get("authHelpUrl"))
-                    .orElse("No description available");
-            resource.authHelpDescription = (String) Optional.ofNullable(value.get("authHelpDescription"))
-                    .orElse("No description available");
+            resource.id = (int) value.get(ID);
+            resource.providerCode = value.get(PROVIDER_CODE).toString();
+            resource.name = value.get(NAME).toString();
+            resource.urlPattern = value.get(URL_PATTERN).toString();
+            resource.mirId = (String) value.get(ID1);
+            resource.description = value.get(DESCRIPTION).toString();
+            resource.official = value.get(OFFICIAL).toString().equals(TRUE);
+            resource.sampleId = (String) value.get(ID2);
+            resource.resourceHomeUrl = (String) value.get(RESOURCE_HOME_URL);
+            resource.institution = (LinkedHashMap) value.get(INSTITUTION);
+            resource.location = (LinkedHashMap) value.get(LOCATION);
+            resource.deprecated = value.get(DEPRECATED).toString().equals(TRUE);
+            resource.deprecationDate = (String) Optional.ofNullable(value.get(DEPRECATION_DATE))
+                    .orElse(NO_DESCRIPTION_AVAILABLE);
+            resource.deprecationOfflineDate = (String) Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE))
+                    .orElse(NO_DESCRIPTION_AVAILABLE);
+            resource.renderDeprecatedLanding = value.get(RENDER_DEPRECATED_LANDING).toString();
+            resource.deprecationStatetement =(String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT))
+                    .orElse(NO_DESCRIPTION_AVAILABLE);
+            resource.protectedUrls = value.get(PROTECTED_URLS).toString().equals(TRUE);
+            resource.renderProtectedLanding = value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
+            resource.authHelpUrl = (String) Optional.ofNullable(value.get(AUTH_HELP_URL))
+                    .orElse(NO_DESCRIPTION_AVAILABLE);
+            resource.authHelpDescription = (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION))
+                    .orElse(NO_DESCRIPTION_AVAILABLE);
             return resource;
         }
 
@@ -70,12 +73,12 @@ import java.util.Optional;
         private Location location;
         @JsonCreator
         public Institution(
-                @JsonProperty("id") Integer id,
-                @JsonProperty("name") String name,
+                @JsonProperty(ID) Integer id,
+                @JsonProperty(NAME) String name,
                 @JsonProperty("homeUrl") String homeUrl,
-                @JsonProperty("description") String description,
+                @JsonProperty(DESCRIPTION) String description,
                 @JsonProperty("rorId") String rorId,
-                @JsonProperty("location") Location location) {
+                @JsonProperty(LOCATION) Location location) {
             this.id = id;
             this.name = name;
             this.homeUrl = homeUrl;

@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONParserConfiguration;
 
+import static org.cy3sbml.miriam.Fields.*;
+
 /**
  * Tools for working with Miriam registry.
  * Here the MIRIAM xml file is loaded or updated.
@@ -42,6 +44,8 @@ public class RegistryUtil {
     public static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
     public static final String FILENAME_MIRIAM = "getResolverDataset.json";
     private static final ObjectMapper mapper = new ObjectMapper();
+
+
     /**
      * Load the registry from the resources.
      * @param file MIRIAM json file
@@ -71,7 +75,7 @@ public class RegistryUtil {
         }
 
 
-        JsonNode namespacesData = mapper.readTree(file).findValue("namespaces");
+        JsonNode namespacesData = mapper.readTree(file).findValue(NAMESPACES);
 
         mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
         mapper.configOverride(String.class)
@@ -84,16 +88,16 @@ public class RegistryUtil {
         Map<String, Resource> resourceResult = new HashMap<>();
         for (JsonNode nsNode : namespacesData) {
             try {
-                String prefix = nsNode.path("prefix").asText();
+                String prefix = nsNode.path(PREFIX).asText();
                 if (prefix.isEmpty()) continue;
 
                 Map<Object, Object> nsData = mapper.convertValue(nsNode,
                         new TypeReference<Map<Object, Object>>() {});
 
                 result.put(prefix, new Namespace(nsData));
-                JsonNode resourcesNode = nsNode.findValue("resources");
+                JsonNode resourcesNode = nsNode.findValue(RESOURCES);
                 for (int j=0; j<resourcesNode.size(); j++) {
-                    String mirId = resourcesNode.get(j).get("mirId").asText();
+                    String mirId = resourcesNode.get(j).get(MIR_ID).asText();
                     Map<Object, Object> rsData = mapper.convertValue(resourcesNode.get(j),
                             new TypeReference<Map<Object, Object>>() {});
                     resourceResult.put(mirId, new Resource());
