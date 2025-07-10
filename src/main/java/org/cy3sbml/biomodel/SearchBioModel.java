@@ -58,12 +58,8 @@ public class SearchBioModel implements TaskObserver {
 		return modelIds.get(index);
 	}
 	
-	public LinkedHashMap<String, SimpleModel> getSimpleModels(){
-		return simpleModels;
-	}
-	public SimpleModel getSimpleModel(int index){
-		return simpleModels.get(index);
-	}
+
+
 	
 	public int getSize(){
 		return modelIds.size();

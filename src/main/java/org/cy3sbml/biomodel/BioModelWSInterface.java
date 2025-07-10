@@ -7,22 +7,18 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cy3sbml.ConnectionProxy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.ebi.biomodels.ws.BioModelsWSClient;
-import uk.ac.ebi.biomodels.ws.BioModelsWSException;
-import uk.ac.ebi.biomodels.ws.SimpleModel;
+import org.cy3sbml.biomodel.SimpleModel;
 
 
 /**
@@ -30,7 +26,7 @@ import uk.ac.ebi.biomodels.ws.SimpleModel;
  */
 public class BioModelWSInterface {
     private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterface.class);
-    private static final String BIOMODEL_BASE= "https://www.ebi.ac.uk/biomodels/";
+    private static final String BIOMODEL_BASE = "https://www.ebi.ac.uk/biomodels/";
     private String proxyHost;
     private String proxyPort;
 
@@ -48,32 +44,12 @@ public class BioModelWSInterface {
         }
     }
 
-    private BioModelsWSClient createBioModelsWSClient() {
-        BioModelsWSClient client = new BioModelsWSClient();
-        setProxyForClient(client);
-        return client;
-    }
-
-    private void setProxyForClient(BioModelsWSClient client) {
-        if (proxyHost != null && proxyPort != null) {
-            client.setProperty("http.proxyHost", proxyHost);
-            client.setProperty("http.proxyPort", proxyPort);
-            client.setProperty("socks.proxyHost", proxyHost);
-            client.setProperty("socks.proxyPort", proxyPort);
-        }
-    }
-
 
     /**
      * Web service queries.
      */
     public List<String> getBioModelIdsByName(String name) throws IOException, InterruptedException {
-
-        HttpResponse<String> response = getResultUrl(BIOMODEL_BASE,"search", name);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readTree(response.body());
-        JsonNode modelsList = rootNode.findValue("models");
-
+        JsonNode modelsList = getModelsfromJson(name);
         List<String> modelIds = new LinkedList<>();
         for (int i = 0; i < modelsList.size(); i++) {
             JsonNode model = modelsList.get(i);
@@ -82,6 +58,21 @@ public class BioModelWSInterface {
             modelIds.add(modelId);
         }
         return modelIds;
+    }
+
+    public Map<String, SimpleModel> getModelsfromJson(String name) throws IOException, InterruptedException {
+        HttpResponse<String> response = getResultUrl(BIOMODEL_BASE, "search", name);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode modelsNode = mapper.readTree(response.body()).findValue("models");
+        Map<String, SimpleModel> simpleModels = new HashMap<>();
+        for (JsonNode modelNode : modelsNode) {
+            String modelId = modelNode.get("id").asText();
+            if (modelId.isEmpty()) continue;
+            Map<String, String> simpleModelData = mapper.convertValue(modelNode, new TypeReference<Map<String, String>>() {
+            });
+            simpleModels.put(modelId, new SimpleModel(simpleModelData));
+        }
+        return simpleModels;
     }
 
     public HttpResponse<String> getResultUrl(String base, String operation, String name) throws IOException, InterruptedException {
@@ -101,7 +92,9 @@ public class BioModelWSInterface {
     public HttpResponse<String> getSBMLResponse(String base, String operation, String id) throws IOException, InterruptedException {
         String downloadUrl = base + operation + id + "?filename=" + id + "_url.xml";
         System.out.println("downloadUrl: " + downloadUrl);
-        HttpClient client = HttpClient.newHttpClient();
+        HttpClient client = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(downloadUrl))
                 .GET()
@@ -186,6 +179,7 @@ public class BioModelWSInterface {
         SimpleModel model = null;
         try {
             model = client.getSimpleModelById(id);
+            model.
         } catch (BioModelsWSException e) {
             logger.error("BioModelsWSException", e);
             e.printStackTrace();
@@ -194,7 +188,7 @@ public class BioModelWSInterface {
     }
 
     public LinkedHashMap<String, SimpleModel> getSimpleModelsByIds(String[] ids) {
-        BioModelsWSClient client = createBioModelsWSClient();
+
         LinkedHashMap<String, SimpleModel> simpleModels = null;
         try {
             List<SimpleModel> simpleModelsList = client.getSimpleModelsByIds(ids);

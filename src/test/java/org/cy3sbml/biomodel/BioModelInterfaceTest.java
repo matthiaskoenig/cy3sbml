@@ -123,12 +123,14 @@ public class BioModelInterfaceTest {
     @Test
     public void testGetBioModelSBMLById() throws BioModelsWSException, IOException, InterruptedException {
         String sbml = bmInterface.getBioModelSBMLById(VALID_BIOMODEL_ID);
+        System.out.println(sbml);
         assertNotNull("SBML has to exist.", sbml);
     }
 
     @Test
     public void testGetBioModelSBMLById2() throws BioModelsWSException, IOException, InterruptedException {
         String sbml = bmInterface.getBioModelSBMLById(INVALID_STRING);
+        System.out.println(sbml);
         assertNotNull("If invalid id, null is returned.", sbml);
     }
 

@@ -1,6 +1,8 @@
 package org.cy3sbml.biomodel;
 
-public class Model {
+import java.util.Map;
+
+public class SimpleModel {
     private String id;
     private String name;
     private String format;
@@ -8,6 +10,10 @@ public class Model {
     private String submissionDate;
     private String submitter;
     private String url;
+
+    public SimpleModel(Map<String, String> simpleModelData) {
+
+    }
 
     // Getters and setters
     public String getId() {
