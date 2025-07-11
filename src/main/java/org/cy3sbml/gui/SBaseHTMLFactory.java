@@ -463,7 +463,7 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-            System.out.println("identifier1:"+"https://www.probonto.org/ontology#PROB_c0000025");
+
 
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
 

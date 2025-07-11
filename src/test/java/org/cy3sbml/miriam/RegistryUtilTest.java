@@ -1,6 +1,8 @@
 package org.cy3sbml.miriam;
 
 import org.junit.Test;
+
+import java.text.MessageFormat;
 import java.util.logging.Logger;
 import java.io.File;
 import java.util.List;
@@ -36,36 +38,36 @@ public class RegistryUtilTest {
     }
 
     public static void testNamespaceContents(Map<String, Namespace> registry, String targetPrefix) {
-        logger.info("\n=== Testing Namespace: " + targetPrefix + " ===");
+        logger.info(MessageFormat.format("\n=== Testing Namespace: {0} ===", targetPrefix));
 
         Namespace ns = registry.get(targetPrefix);
         if (ns == null) {
-            logger.info("Namespace '" + targetPrefix + "' not found!");
-            logger.info("Available prefixes: " + registry.keySet());
+            logger.info(MessageFormat.format("Namespace ''{0}'' not found!", targetPrefix));
+            logger.info(MessageFormat.format("Available prefixes: {0}", registry.keySet()));
             return;
         }
 
         // Print all fields in a readable format
-        logger.info("ID: " + ns.getId());
-        logger.info("Name: " + ns.getName());
-        logger.info("Pattern: " + ns.getPattern());
-        logger.info("Description: " + ns.getDescription());
-        logger.info("Deprecated: " + ns.getDeprecated());
-        logger.info("Resources: " + ns.getResources());
+        logger.info(MessageFormat.format("ID: {0}", ns.getId()));
+        logger.info(MessageFormat.format("Name: {0}", ns.getName()));
+        logger.info(MessageFormat.format("Pattern: {0}", ns.getPattern()));
+        logger.info(MessageFormat.format("Description: {0}", ns.getDescription()));
+        logger.info(MessageFormat.format("Deprecated: {0}", ns.getDeprecated()));
+        logger.info(MessageFormat.format("Resources: {0}", ns.getResources()));
 
         // Print additional fields if they exist
         if (ns.getMirId() != null && !ns.getMirId().isEmpty()) {
-            logger.info("MIR ID: " + ns.getMirId());
+            logger.info(MessageFormat.format("MIR ID: {0}", ns.getMirId()));
         }
         if (ns.getSampleId() != null && !ns.getSampleId().isEmpty()) {
-            logger.info("Sample ID: " + ns.getSampleId());
+            logger.info(MessageFormat.format("Sample ID: {0}", ns.getSampleId()));
         }
 
-        logger.info("Class: " + ns.getClass().getSimpleName());
+        logger.info(MessageFormat.format("Class: {0}", ns.getClass().getSimpleName()));
     }
 
     public static void testResourcesOutput(Map<String, Namespace> registry, String targetPrefix) {
-        logger.info("\n=== RESOURCES TEST FOR: " + targetPrefix + " ===");
+        logger.info(MessageFormat.format("\n=== RESOURCES TEST FOR: {0} ===", targetPrefix));
 
         Namespace ns = registry.get(targetPrefix);
         if (ns == null) {
@@ -74,16 +76,19 @@ public class RegistryUtilTest {
         }
 
         // Print the namespace's resources
-        logger.info("Resources Type: " + (ns.getResources() == null ? "NULL" : ns.getResources().getClass().getSimpleName()));
-        logger.info("Resources Count: " + (ns.getResources() == null ? 0 : ns.getResources().size()));
+        logger.info(MessageFormat.format("Resources Type: {0}",
+                ns.getResources() == null ? "NULL" : ns.getResources().getClass().getSimpleName()));
+        logger.info(MessageFormat.format("Resources Count: {0}",
+                ns.getResources() == null ? 0 : ns.getResources().size()));
 
         // Detailed output
         if (ns.getResources() != null) {
             logger.info("\nResources Content:");
 
             ns.getResources().forEach(res ->
-                    logger.info("  " + res.getResourceHomeUrl() + ", "+res.getDescription())
-
+                    logger.info(MessageFormat.format("  {0}, {1}",
+                            res.getResourceHomeUrl(),
+                            res.getDescription()))
             );
         }}
 }

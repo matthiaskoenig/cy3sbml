@@ -128,7 +128,7 @@ public class IOUtil {
             // save InputStream in file
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
-            System.out.println("JSON written to: " + file.getAbsolutePath());
+
 
         } catch (IOException e) {
             logger.error("URL could not be saved.", e);
@@ -142,42 +142,9 @@ public class IOUtil {
      * @param url
      * @return
      */
-    public static String getLastModified(URL url) {
-        printAllResponseHeaders(url);
-        return getHttpResponseHeaderField(url, "Modified");
-    }
-
-    public static void printAllResponseHeaders(URL url) {
-        try {
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setFollowRedirects(true);
-            conn.connect();
-
-            Map<String, List<String>> headers = conn.getHeaderFields();
-            for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    public static String getHttpResponseHeaderField(URL url, String field){
-        try {
-            //obtain the connection
-            HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
-            //add parameters to the connection
-            sourceConnection.setFollowRedirects(true);
-            //establish connection, get response headers
-            sourceConnection.connect();
 
-            //get the last modified tag
-            return sourceConnection.getHeaderField(field);
 
-        } catch (IOException e) {
-            return null;
-        }
-    }
+
 }

@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.text.MessageFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -104,7 +105,7 @@ public class RegistryUtil {
                 }
                 //System.out.println("DEBUG: Added " + prefix);  // Verify each addition
             } catch (Exception e) {
-                System.err.println("Failed to parse namespace: " + e.getMessage());
+                logger.error("Failed to parse namespace: {}", e.getMessage(), e);
                 e.printStackTrace();
             }
         }

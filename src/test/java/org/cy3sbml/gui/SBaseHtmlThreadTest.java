@@ -3,6 +3,7 @@ package org.cy3sbml.gui;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
@@ -31,7 +32,7 @@ import org.sbml.jsbml.SBase;
 public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
-
+    static Logger logger = Logger.getLogger("SBaseHTMThreadTest");
     @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @BeforeClass
