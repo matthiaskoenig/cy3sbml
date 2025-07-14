@@ -12,7 +12,7 @@ public class SearchBioModelTaskFactory implements TaskFactory {
 	private SearchContent searchContent;
 	private BioModelWSInterface bmInterface;
 	
-	public SearchBioModelTaskFactory(SearchContent searchContent, BioModelWSInterface bmInterface) {
+	public SearchBioModelTaskFactory(SearchContent searchContent) {
 		logger.info("SearchBioModelTaskFactory created");
 		this.searchContent = searchContent;
 		this.bmInterface = bmInterface;
@@ -21,7 +21,7 @@ public class SearchBioModelTaskFactory implements TaskFactory {
 	@Override
 	public TaskIterator createTaskIterator() {
 		
-		SearchBioModelTask searchTask = new SearchBioModelTask(searchContent, bmInterface);
+		SearchBioModelTask searchTask = new SearchBioModelTask(searchContent);
 		return new TaskIterator(searchTask);		
 	}
 

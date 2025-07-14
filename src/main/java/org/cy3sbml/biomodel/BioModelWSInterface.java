@@ -48,32 +48,32 @@ public class BioModelWSInterface {
     /**
      * Web service queries.
      */
-    public List<String> getBioModelIdsByName(String name) throws IOException, InterruptedException {
-        JsonNode modelsList = getModelsfromJson(name);
-        List<String> modelIds = new LinkedList<>();
-        for (int i = 0; i < modelsList.size(); i++) {
-            JsonNode model = modelsList.get(i);
-            String modelId = model.get("id").asText();
-            assert false;
-            modelIds.add(modelId);
-        }
-        return modelIds;
-    }
+//    public List<String> getBioModelIdsByName(String name) throws IOException, InterruptedException {
+//        JsonNode modelsList = getModelsfromJson(name);
+//        List<String> modelIds = new LinkedList<>();
+//        for (int i = 0; i < modelsList.size(); i++) {
+//            JsonNode model = modelsList.get(i);
+//            String modelId = model.get("id").asText();
+//            assert false;
+//            modelIds.add(modelId);
+//        }
+//        return modelIds;
+//    }
 
-    public Map<String, SimpleModel> getModelsfromJson(String name) throws IOException, InterruptedException {
-        HttpResponse<String> response = getResultUrl(BIOMODEL_BASE, "search", name);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode modelsNode = mapper.readTree(response.body()).findValue("models");
-        Map<String, SimpleModel> simpleModels = new HashMap<>();
-        for (JsonNode modelNode : modelsNode) {
-            String modelId = modelNode.get("id").asText();
-            if (modelId.isEmpty()) continue;
-            Map<String, String> simpleModelData = mapper.convertValue(modelNode, new TypeReference<Map<String, String>>() {
-            });
-            simpleModels.put(modelId, new SimpleModel(simpleModelData));
-        }
-        return simpleModels;
-    }
+//    public Map<String, SimpleModel> getModelsfromJson(String name) throws IOException, InterruptedException {
+//        HttpResponse<String> response = getResultUrl(BIOMODEL_BASE, "search", name);
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode modelsNode = mapper.readTree(response.body()).findValue("models");
+//        Map<String, SimpleModel> simpleModels = new HashMap<>();
+//        for (JsonNode modelNode : modelsNode) {
+//            String modelId = modelNode.get("id").asText();
+//            if (modelId.isEmpty()) continue;
+//            Map<String, String> simpleModelData = mapper.convertValue(modelNode, new TypeReference<Map<String, String>>() {
+//            });
+//            simpleModels.put(modelId, new SimpleModel(simpleModelData));
+//        }
+//        return simpleModels;
+//    }
 
     public HttpResponse<String> getResultUrl(String base, String operation, String name) throws IOException, InterruptedException {
         String url = String.format("%s?query=%s&format=json",
@@ -102,59 +102,59 @@ public class BioModelWSInterface {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
-    public String getBioModelNameById(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String name = "";
-        try {
-            name = client.getModelNameById(id);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        return name;
-    }
+//    public String getBioModelNameById(String id) {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        String name = "";
+//        try {
+//            name = client.getModelNameById(id);
+//        } catch (BioModelsWSException e) {
+//            logger.error("BioModelsWSException", e);
+//            e.printStackTrace();
+//        }
+//        return name;
+//    }
 
-    public String getDateLastModifiedByModelId(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String date = "";
-        try {
-            // Date expressed according to ISO 8601
-            date = client.getLastModifiedDateByModelId(id);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        return date;
-    }
+//    public String getDateLastModifiedByModelId(String id) {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        String date = "";
+//        try {
+//            // Date expressed according to ISO 8601
+//            date = client.getLastModifiedDateByModelId(id);
+//        } catch (BioModelsWSException e) {
+//            logger.error("BioModelsWSException", e);
+//            e.printStackTrace();
+//        }
+//        return date;
+//    }
 
-    public List<String> getAuthorsByModelId(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] authors = null;
-        try {
-            authors = client.getAuthorsByModelId(id);
-        } catch (BioModelsWSException e) {
-            e.printStackTrace();
-        }
-        if (authors == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(authors);
-    }
-
-    public List<String> getEncodersByModelId(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String[] encoders = null;
-        try {
-            encoders = client.getEncodersByModelId(id);
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        if (encoders == null) {
-            return new LinkedList<String>();
-        }
-        return Arrays.asList(encoders);
-    }
+//    public List<String> getAuthorsByModelId(String id) {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        String[] authors = null;
+//        try {
+//            authors = client.getAuthorsByModelId(id);
+//        } catch (BioModelsWSException e) {
+//            e.printStackTrace();
+//        }
+//        if (authors == null) {
+//            return new LinkedList<String>();
+//        }
+//        return Arrays.asList(authors);
+//    }
+//
+//    public List<String> getEncodersByModelId(String id) {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        String[] encoders = null;
+//        try {
+//            encoders = client.getEncodersByModelId(id);
+//        } catch (BioModelsWSException e) {
+//            logger.error("BioModelsWSException", e);
+//            e.printStackTrace();
+//        }
+//        if (encoders == null) {
+//            return new LinkedList<String>();
+//        }
+//        return Arrays.asList(encoders);
+//    }
 
     public String getBioModelSBMLById(String id) throws IOException, InterruptedException {
 
@@ -174,53 +174,53 @@ public class BioModelWSInterface {
         return sbml;
     }
 
-    public SimpleModel getSimpleModelById(String id) {
-        BioModelsWSClient client = createBioModelsWSClient();
-        SimpleModel model = null;
-        try {
-            model = client.getSimpleModelById(id);
-            model.
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        return model;
-    }
+//    public SimpleModel getSimpleModelById(String id) {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        SimpleModel model = null;
+//        try {
+//            model = client.getSimpleModelById(id);
+//            model.
+//        } catch (BioModelsWSException e) {
+//            logger.error("BioModelsWSException", e);
+//            e.printStackTrace();
+//        }
+//        return model;
+//    }
 
-    public LinkedHashMap<String, SimpleModel> getSimpleModelsByIds(String[] ids) {
-
-        LinkedHashMap<String, SimpleModel> simpleModels = null;
-        try {
-            List<SimpleModel> simpleModelsList = client.getSimpleModelsByIds(ids);
-            simpleModels = new LinkedHashMap<String, SimpleModel>();
-            for (int k = 0; k < simpleModelsList.size(); ++k) {
-                simpleModels.put(ids[k], simpleModelsList.get(k));
-            }
-        } catch (BioModelsWSException e) {
-            logger.error("BioModelsWSException", e);
-            e.printStackTrace();
-        }
-        return simpleModels;
-    }
+//    public LinkedHashMap<String, SimpleModel> getSimpleModelsByIds(String[] ids) {
+//
+//        LinkedHashMap<String, SimpleModel> simpleModels = null;
+//        try {
+//            List<SimpleModel> simpleModelsList = client.getSimpleModelsByIds(ids);
+//            simpleModels = new LinkedHashMap<String, SimpleModel>();
+//            for (int k = 0; k < simpleModelsList.size(); ++k) {
+//                simpleModels.put(ids[k], simpleModelsList.get(k));
+//            }
+//        } catch (BioModelsWSException e) {
+//            logger.error("BioModelsWSException", e);
+//            e.printStackTrace();
+//        }
+//        return simpleModels;
+//    }
 
     /**
      * Connection test.
      */
-    public static boolean testBioModelConnection(String proxyHost, String proxyPort) {
-        BioModelWSInterface gbm = new BioModelWSInterface(proxyHost, proxyPort);
-        boolean connected = gbm.testBioModel();
-        return connected;
-    }
+//    public static boolean testBioModelConnection(String proxyHost, String proxyPort) {
+//        BioModelWSInterface gbm = new BioModelWSInterface(proxyHost, proxyPort);
+//        boolean connected = gbm.testBioModel();
+//        return connected;
+//    }
 
-    private boolean testBioModel() {
-        BioModelsWSClient client = createBioModelsWSClient();
-        String test = null;
-        try {
-            test = client.getModelNameById("BIOMD0000000070");
-        } catch (BioModelsWSException e) {
-            logger.warn("BioModelsWSException accessing BioModels");
-            return false;
-        }
-        return (test != null);
-    }
+//    private boolean testBioModel() {
+//        BioModelsWSClient client = createBioModelsWSClient();
+//        String test = null;
+//        try {
+//            test = client.getModelNameById("BIOMD0000000070");
+//        } catch (BioModelsWSException e) {
+//            logger.warn("BioModelsWSException accessing BioModels");
+//            return false;
+//        }
+//        return (test != null);
+//    }
 }

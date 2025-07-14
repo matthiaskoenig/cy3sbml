@@ -1,8 +1,11 @@
 package org.cy3sbml.biomodel;
 
-import java.util.LinkedHashMap;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
+import org.cy3sbml.biomodelrest.rest.Biomodel;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 /**
@@ -12,14 +15,15 @@ public class BioModelWSInterfaceTools {
 	// private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterfaceTools.class);
 	
 	// string and html representations
-	public static String getHTMLInformationForSimpleModels(LinkedHashMap<String, SimpleModel> simpleModels, 
-														   List<String> selectedSimpleModels){
+	public static String getHTMLInformationForSimpleModels(List<String>modelIds,
+                                                           List<String> selectedSimpleModels) throws IOException, InterruptedException {
 		String info = "";
-		for (String modelId : simpleModels.keySet()){
-			SimpleModel model = simpleModels.get(modelId);
+		for (int i =0; i<modelIds.size(); i++){
+			String modelId = modelIds.get(i);
+			Biomodel model = BiomodelsQueryResult.getBiomodelsFromIds(modelIds).get(i);
 			boolean modelIsSelected = false;
-			for (int i=0; i<selectedSimpleModels.size(); ++i){
-				String selectedId = selectedSimpleModels.get(i);
+			for (int j=0; j<selectedSimpleModels.size(); ++j){
+				String selectedId = selectedSimpleModels.get(j);
 				if (modelId.equals(selectedId)){
 					modelIsSelected = true;
 				}
@@ -30,18 +34,18 @@ public class BioModelWSInterfaceTools {
 		return info;
 	}
 	
-	public static String getHTMLInformationForSimpleModel(SimpleModel simpleModel){
+	public static String getHTMLInformationForSimpleModel(Biomodel simpleModel){
 		boolean selected = false;
 		return getHTMLInformationForSimpleModel(simpleModel, selected);
 	}
 	
-	public static String getHTMLInformationForSimpleModel(SimpleModel simpleModel, boolean selected){
-		String id = simpleModel.getId();
+	public static String getHTMLInformationForSimpleModel(Biomodel simpleModel, boolean selected){
+
 		String name = simpleModel.getName();
-		String publicationId = simpleModel.getPublicationId();
+		String publicationId = simpleModel.getPublicationIdentifier();
 		//String dateModified = simpleModel.getLastModificationDateStr();
-		List<String> authors = simpleModel.getAuthors();
-		List<String> encoders = simpleModel.getEncoders();
+		String description = simpleModel.getDescription();
+
 		String info;
 		if (selected){
 			info = "<table><tr><td bgcolor=\"#339933\">&nbsp;&nbsp;&nbsp;<td><td>";
@@ -49,12 +53,12 @@ public class BioModelWSInterfaceTools {
 			info = "<table><tr><td>&nbsp;&nbsp;&nbsp;<td><td>";
 		}
 		info += createHTMLTableHeader(selected)+
-					createHTMLTableRow("id", createBioModelHTMLLink(id)) +
+
 					createHTMLTableRow("name", name) +
-					createHTMLTableRow("authors", authors.toString()) +
+					createHTMLTableRow("description", description.toString()) +
 					createHTMLTableRow("pubmed", createPubmedHTMLLink(publicationId)) +
 					//createHTMLTableRow("modified", dateModified) +
-					createHTMLTableRow("encoders", encoders.toString()) +
+
 				"</table>" +
 				"</td></tr></table>";
 		return info;

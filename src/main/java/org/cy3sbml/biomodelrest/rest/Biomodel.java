@@ -22,7 +22,7 @@ public class Biomodel {
     public Biomodel(JSONObject jsonObject){
 
         json = jsonObject;
-        submissionIdentifier = json.getString("submissionIdentifier");
+        submissionIdentifier = json.getString("submissionId");
 
         // not all fields exist
         try {
@@ -31,7 +31,7 @@ public class Biomodel {
             name = "";
         }
         try {
-            publicationIdentifier = json.getString("publicationIdentifier");
+            publicationIdentifier = json.getString("publicationId");
         } catch (JSONException e){
             publicationIdentifier = "";
         }
@@ -147,6 +147,7 @@ public class Biomodel {
         );
         return info;
     }
+
 
 
 }

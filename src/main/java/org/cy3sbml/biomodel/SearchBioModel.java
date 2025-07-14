@@ -1,11 +1,10 @@
 package org.cy3sbml.biomodel;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
+import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
+import org.cy3sbml.biomodelrest.rest.Biomodel;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 import org.cytoscape.work.FinishStatus;
@@ -25,21 +24,21 @@ import org.slf4j.LoggerFactory;
  */
 public class SearchBioModel implements TaskObserver {
 	private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
-	
+	BioModelWSInterface bmInterface;
 	DialogTaskManager dialogTaskManager;
 	@SuppressWarnings("rawtypes")
 	SynchronousTaskManager synchronousTaskManager;
 	
-	private BioModelWSInterface bmInterface;
+
 	private SearchContent searchContent;
 	private List<String> modelIds;
-	private LinkedHashMap<String, SimpleModel> simpleModels;
+	private ArrayList<Biomodel> simpleModels;
 	
 	
 	public SearchBioModel(ServiceAdapter adapter){
 		dialogTaskManager = adapter.dialogTaskManager;
 		synchronousTaskManager = adapter.synchronousTaskManager;
-		bmInterface = new BioModelWSInterface(adapter.connectionProxy);
+
 		
 		resetSearch();
 	}
@@ -47,7 +46,7 @@ public class SearchBioModel implements TaskObserver {
 	private void resetSearch(){
 		searchContent = null;
 		modelIds = new LinkedList<String>();
-		simpleModels = new LinkedHashMap<String, SimpleModel>();
+		simpleModels = new ArrayList<>();
 	}
 		
 	public List<String> getModelIds() {
@@ -73,36 +72,36 @@ public class SearchBioModel implements TaskObserver {
 		searchModelIdsForSearchContent(searchContent);
 	}
 	
-	public void getBioModelsByParsedIds(Set<String> parsedIds){
+	public void getBioModelsByParsedIds(Set<String> parsedIds) throws IOException, InterruptedException {
 		resetSearch();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
 		// set search content
 		searchContent = new SearchContent(map);
-		
+
 		modelIds = new LinkedList<String>(parsedIds);
 		logger.info("modelIds:" + modelIds.toString());
 		for (String id: modelIds){
 			logger.info(id);
 		}
 		// webservice request to get the simpleModels
-		simpleModels = getSimpleModelsForSearchResult(modelIds);
+		simpleModels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
 	}
 	
-	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
-		// convert to array
-		String[] ids = new String[idsList.size()];
-		for (int k=0; k<idsList.size(); k++){
-			ids[k] = idsList.get(k);
-		}
-		return bmInterface.getSimpleModelsByIds(ids);
-	}
+//	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
+//		// convert to array
+//		String[] ids = new String[idsList.size()];
+//		for (int k=0; k<idsList.size(); k++){
+//			ids[k] = idsList.get(k);
+//		}
+//		return bmInterface.getSimpleModelsByIds(ids);
+//	}
 	
 	private void searchModelIdsForSearchContent(SearchContent content){
 		// Run the biomodel task with a taskManger
 		
 		// Necessary to init the tasks with different contents
-		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content, bmInterface);
+		SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content);
 		TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator();
 	
 		// execute the iterator with dialog
@@ -121,7 +120,7 @@ public class SearchBioModel implements TaskObserver {
 			logger.info(id);
 		}
 		
-		simpleModels = getSimpleModelsForSearchResult(modelIds);
+		//simpleModels = getSimpleModelsForSearchResult(modelIds);
 		// TODO: somehow notify that this is finished & update the content
 		// do synchronous
 	}
@@ -146,9 +145,9 @@ public class SearchBioModel implements TaskObserver {
 		}
 	}
 	
-	public String getHTMLInformation(final List<String> selectedModelIds){
+	public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException {
 		String info = getHTMLHeaderForModelSearch();
-		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(simpleModels, selectedModelIds);
+		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(getModelIds(), selectedModelIds);
 		return BioModelDialogText.getString(info);
 	}
 	
@@ -161,9 +160,9 @@ public class SearchBioModel implements TaskObserver {
 		return info;
 	}
 		
-	public String getHTMLInformationForModel(int modelIndex){
-		SimpleModel simpleModel = getSimpleModel(modelIndex);
-		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
-	}
+//	public String getHTMLInformationForModel(int modelIndex){
+//		SimpleModel simpleModel = getSimpleModel(modelIndex);
+//		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
+//	}
 
 }

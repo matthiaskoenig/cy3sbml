@@ -271,18 +271,32 @@ public class QueryFXMLController implements Initializable{
         		long startTime = System.currentTimeMillis();
         		logger.info("GET <"+ queryString + ">");
         		logger.info("... waiting for BioModels response ...");
-        		queryResult = (new BiomodelsQuery()).performSearchQuery(queryString);
-        		Integer returnCode = queryResult.getStatus();
+                try {
+                    queryResult = (new BiomodelsQuery()).performSearchQuery(queryString);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                Integer returnCode = queryResult.getStatus();
         		long endTime = System.currentTimeMillis();
         		long duration = (endTime - startTime);
 
 
                 // TODO: get the biomodel information from the query
-                HashSet<String> biomodelIds = queryResult.getBiomodelIdsFromSearch();
-                ArrayList<Biomodel> biomodels = queryResult.getBiomodelsFromIds(biomodelIds);
+                List<String> biomodelIds = queryResult.getBiomodelIdsFromSearch();
+                ArrayList<Biomodel> biomodels = null;
+                try {
+                    biomodels = queryResult.getBiomodelsFromIds(biomodelIds);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-        		
-            	Platform.runLater(new Runnable() {
+
+                ArrayList<Biomodel> finalBiomodels = biomodels;
+                Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                     	statusCode.setText(returnCode.toString());
@@ -295,7 +309,7 @@ public class QueryFXMLController implements Initializable{
                 			logger.info("BioModels returned status <" + returnCode + "> after " + duration + " [ms]");
                 			
                 			// handle empty test call
-                			final ObservableList<Biomodel> data = FXCollections.observableArrayList(biomodels);
+                			final ObservableList<Biomodel> data = FXCollections.observableArrayList(finalBiomodels);
 
                 			if (! data.isEmpty()){
                 				biomodelsTable.setItems(data);

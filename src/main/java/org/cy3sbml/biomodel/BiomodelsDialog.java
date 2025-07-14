@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -180,8 +181,14 @@ public class BiomodelsDialog extends JDialog {
 		panel.add(parseIdsButton);
 		parseIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				parseBioModelByIds();
-			}
+                try {
+                    parseBioModelByIds();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 		});
 				
 		// Search Button
@@ -191,8 +198,14 @@ public class BiomodelsDialog extends JDialog {
 		panel.add(searchButton);
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				searchBioModels();
-			}
+                try {
+                    searchBioModels();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 		});
 		// Reset Button
 		JButton resetButton = new JButton("Reset");
@@ -234,8 +247,14 @@ public class BiomodelsDialog extends JDialog {
 				else{
 					loadSelectedButton.setEnabled(true);
 				}
-				handleModelSelectionInModelList();
-			}});
+                try {
+                    handleModelSelectionInModelList();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }});
 	
 		listScrollPane.setViewportView(biomodelsList);	
 		
@@ -310,8 +329,14 @@ public class BiomodelsDialog extends JDialog {
 		public void keyPressed(KeyEvent keyE) {
 			int key = keyE.getKeyCode();
 		     if (key == KeyEvent.VK_ENTER) {
-		    	 searchBioModels();
-		     }
+                 try {
+                     searchBioModels();
+                 } catch (IOException e) {
+                     throw new RuntimeException(e);
+                 } catch (InterruptedException e) {
+                     throw new RuntimeException(e);
+                 }
+             }
 		}
 	}
 	
@@ -339,7 +364,7 @@ public class BiomodelsDialog extends JDialog {
 	}
 	
 	///////// SEARCH MODELS ////////////
-	public void searchBioModels(){
+	public void searchBioModels() throws IOException, InterruptedException {
 		logger.info("search BioModels");
 		infoPane.setText(BioModelDialogText.performBioModelSearch());
 		
@@ -358,18 +383,14 @@ public class BiomodelsDialog extends JDialog {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put(SearchContent.CONTENT_NAME, nameField.getText());
-		map.put(SearchContent.CONTENT_PERSON, personField.getText());
-		map.put(SearchContent.CONTENT_PUBLICATION, publicationField.getText());
-		//map.put(SearchContent.CONTENT_TAXONOMY, taxonomyField.getText());
-		map.put(SearchContent.CONTENT_CHEBI, chebiField.getText());
-		map.put(SearchContent.CONTENT_UNIPROT, uniprotField.getText());
+
 		map.put(SearchContent.CONTENT_MODE, mode);
 		
 		return (new SearchContent(map));
 	}
 	
 	///////// UPDATE GUI ////////////
-	private void updateBioModelListAndInformationAfterSearch(List<String> ids){
+	private void updateBioModelListAndInformationAfterSearch(List<String> ids) throws IOException, InterruptedException {
 		updateModelListInDialog(ids);
 		updateBioModelInformation(getListOfSelectedModelIds());
 		
@@ -394,7 +415,7 @@ public class BiomodelsDialog extends JDialog {
 		});
 	}
 		
-	public void updateBioModelInformation(List<String> selectedModelIds){
+	public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException {
 		final int caretPosition = infoPane.getCaretPosition();
 		final int scrollPosition = infoScrollPane.getVerticalScrollBar().getValue();
 		Point location = infoScrollPane.getViewport().getLocation();
@@ -417,7 +438,7 @@ public class BiomodelsDialog extends JDialog {
 	
 	
 	///////// SELECT MODELS ////////////
-	private void handleModelSelectionInModelList(){
+	private void handleModelSelectionInModelList() throws IOException, InterruptedException {
 		List<String> selectedModelIds = getListOfSelectedModelIds();
 		updateBioModelInformation(selectedModelIds);
 	}
@@ -447,7 +468,7 @@ public class BiomodelsDialog extends JDialog {
 		}
 	}
 
-	public void parseBioModelByIds(){
+	public void parseBioModelByIds() throws IOException, InterruptedException {
 		String text = idTextArea.getText();
 		Set<String> ids = parseBioModelIdsFromString(text);
 		

@@ -3,8 +3,11 @@ package org.cy3sbml.biomodel;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
+import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
+import org.sbml.jsbml.util.StringTools;
 
 
 public class SearchBioModelTask implements ObservableTask{
@@ -12,9 +15,9 @@ public class SearchBioModelTask implements ObservableTask{
 	private BioModelWSInterface bmInterface;
 	private List<String> searchResultIds;
 
-	public SearchBioModelTask(SearchContent searchContent, BioModelWSInterface bmInterface) {
+	public SearchBioModelTask(SearchContent searchContent) {
 		this.searchContent = searchContent;
-		this.bmInterface = bmInterface;
+
 	}
 	
 	public void run(final TaskMonitor taskMonitor) throws Exception {
@@ -27,10 +30,16 @@ public class SearchBioModelTask implements ObservableTask{
 		taskMonitor.setProgress(0.0);
 		taskMonitor.setTitle("Searching by Name ...");
 		if (searchContent.hasNames()){
-			for (String name: searchContent.getNames()){
-				ids = bmInterface.getBioModelIdsByName(name);
-				SearchBioModel.addIdsToResultIds(ids, resultIds, mode);
-			}
+			String fullName = "";
+			List<String> names = searchContent.getNames();
+			fullName = String.join(" ",names);
+
+			BiomodelsQueryResult searchQueryResult = BiomodelsQuery.performSearchQuery(fullName);
+			assert searchQueryResult != null;
+			List<String> modelIds = searchQueryResult.getBiomodelIdsFromSearch();
+			// Has to be done in task
+
+			SearchBioModel.addIdsToResultIds(modelIds, resultIds, mode);
 		}
 		taskMonitor.setProgress(0.2);
 		taskMonitor.setTitle("Searching by Person ...");

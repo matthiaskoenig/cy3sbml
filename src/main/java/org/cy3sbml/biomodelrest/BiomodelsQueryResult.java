@@ -1,6 +1,8 @@
 package org.cy3sbml.biomodelrest;
 
 import org.json.*;
+
+import java.io.IOException;
 import java.util.*;
 
 import org.cy3sbml.biomodelrest.rest.Biomodel;
@@ -53,9 +55,9 @@ public class BiomodelsQueryResult {
      * Parses the Biomodel information from a search query.
      * @return
      */
-    public HashSet<String> getBiomodelIdsFromSearch(){
+    public List<String> getBiomodelIdsFromSearch(){
         JSONObject jsonObject = getJSONObject();
-        HashSet<String> biomodelIds = new HashSet<String>();
+        List<String> biomodelIds = new ArrayList<>();
         if (jsonObject != null){
 
             // get biomodel identifiers
@@ -74,7 +76,7 @@ public class BiomodelsQueryResult {
      * Returns biomodel information for given biomodel ids
      * @return
      */
-    public ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds){
+    public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException {
 
         ArrayList<Biomodel> biomodels = new ArrayList<>();
         for (String biomodelId: biomodelIds){
