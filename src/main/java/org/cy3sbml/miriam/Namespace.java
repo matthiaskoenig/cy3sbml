@@ -46,9 +46,9 @@ public class Namespace {
         if (resourcesRaw instanceof List) {
             this.resources = new ArrayList<>();
             for (Object item : (List<?>) resourcesRaw) {
-                if (item instanceof Map) {
+
                     this.resources.add(Resource.fromMap((Map<String, Object>) item));
-                }
+
             }
         } else {
             this.resources = Collections.emptyList();

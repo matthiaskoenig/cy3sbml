@@ -8,30 +8,15 @@ import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
 
 
-
-import org.identifiers.registry.RegistryUtilities.*;
 import org.cy3sbml.util.IOUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-
-//import org.xml.sax.SAXException;
-//
-//import javax.xml.parsers.DocumentBuilder;
-//import javax.xml.parsers.DocumentBuilderFactory;
-//import javax.xml.parsers.ParserConfigurationException;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONParserConfiguration;
 
 import static org.cy3sbml.miriam.Fields.*;
 
@@ -41,74 +26,41 @@ import static org.cy3sbml.miriam.Fields.*;
  * http://www.ebi.ac.uk/miriam/main/export/
  */
 public class RegistryUtil {
+    public static final String PAYLOAD = "payload";
+    public static final String NAMESPACES = "namespaces";
+    public static final String PREFIX = "prefix";
     private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
     public static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
-    public static final String FILENAME_MIRIAM = "getResolverDataset.json";
-    private static final ObjectMapper mapper = new ObjectMapper();
+
 
 
     /**
      * Load the registry from the resources.
      * @param file MIRIAM json file
      */
+
     public static Map<String, Namespace> loadRegistry(File file) throws IOException {
 
-        Map<String, Map<String, String>> data = null;
-        if (file != null && file.exists()) {
-            updateMiriamJSON(file);
-            try {
-
-                data = readJsonCache(file);
-
-                logger.info("Load MIRIAM: " + file.getAbsolutePath());
-                if (data == null) {
-                    throw new IllegalArgumentException("Registry could not be loaded from cache");
-                }
-
-
-            } catch (FileNotFoundException e) {
-                logger.error("Problems loading the downloaded MIRIAM JSON.", e);
-                e.printStackTrace();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        byte[] jsonBytes = Files.readAllBytes(file.toPath());
+        JSONObject root = JSON.parseObject(jsonBytes);
+        JSONObject payload = root.getJSONObject(PAYLOAD);
+        if (payload == null) {
+            throw new IllegalArgumentException("Missing 'payload' object");
         }
-
-
-        JsonNode namespacesData = mapper.readTree(file).findValue(NAMESPACES);
-
-        mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
-        mapper.configOverride(String.class)
-                .setSetterInfo(JsonSetter.Value.forValueNulls(Nulls.SKIP));
-        // 3. Log raw input (debug level)
-        logger.info("Raw registry data loaded: " + namespacesData);
-
-        // 4. Convert to Namespace objects
+        JSONArray namespaces = payload.getJSONArray(NAMESPACES);
+        if (namespaces == null) {
+            throw new IllegalArgumentException("Missing 'namespaces' array");
+        }
         Map<String, Namespace> result = new HashMap<>();
-        Map<String, Resource> resourceResult = new HashMap<>();
-        for (JsonNode nsNode : namespacesData) {
-            try {
-                String prefix = nsNode.path(PREFIX).asText();
-                if (prefix.isEmpty()) continue;
+        for (int i = 0; i < namespaces.size(); i++) {
+            JSONObject nsNode = namespaces.getJSONObject(i);
+            String prefix = nsNode.getString(PREFIX);
+            if (prefix == null || prefix.isEmpty()) continue;
+            Map<Object, Object> nsData = new LinkedHashMap<>(nsNode);
 
-                Map<Object, Object> nsData = mapper.convertValue(nsNode,
-                        new TypeReference<Map<Object, Object>>() {});
-
-                result.put(prefix, new Namespace(nsData));
-                JsonNode resourcesNode = nsNode.findValue(RESOURCES);
-                for (int j=0; j<resourcesNode.size(); j++) {
-                    String mirId = resourcesNode.get(j).get(MIR_ID).asText();
-                    Map<Object, Object> rsData = mapper.convertValue(resourcesNode.get(j),
-                            new TypeReference<Map<Object, Object>>() {});
-                    resourceResult.put(mirId, new Resource());
-                }
-                //System.out.println("DEBUG: Added " + prefix);  // Verify each addition
-            } catch (Exception e) {
-                logger.error("Failed to parse namespace: {}", e.getMessage(), e);
-                e.printStackTrace();
-            }
+            result.put(prefix, new Namespace(nsData));
         }
+
         return result;
     }
 
@@ -141,32 +93,13 @@ public class RegistryUtil {
 
 
 
-    @SuppressWarnings("unchecked")
-    public static Map<String, Map<String, String>> readJsonCache(File cacheFile) throws IOException {
-        try {
-            if (cacheFile.length() == 0) {
-                return null;
-            }
-            return mapper.readValue(cacheFile, Map.class);
-
-        } catch (IOException e) {
-            // Handle file read or JSON parse errors
-            return null;
-        }
-    }
-
-
-
-
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
     public static void main(String[] args) throws FileNotFoundException, MalformedURLException {
-        File miriamFile = new File("/home/mkoenig/git/cy3sbml/src/main/resources/miriam/" + FILENAME_MIRIAM);
-        //updateMiriamXML(miriamFile);
+
 
     }
 

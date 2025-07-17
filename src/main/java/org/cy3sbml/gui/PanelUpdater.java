@@ -1,7 +1,13 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.cy3sbml.miriam.Namespace;
+import org.cy3sbml.miriam.RegistryUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;

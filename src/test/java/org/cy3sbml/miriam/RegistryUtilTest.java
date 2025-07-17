@@ -22,19 +22,16 @@ public class RegistryUtilTest {
         
         File f = File.createTempFile("test", ".json");
         RegistryUtil.updateMiriamJSON(f);
-        assertNotNull(f);
+        
         Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
         logger.info("=== Registry Contents ===");
         logger.info(String.valueOf(result.size()));
-        result.forEach((k, v) -> logger.info(k + " -> " + v));
+        //result.forEach((k, v) -> logger.info(k + " -> " + v));
 
         testNamespaceContents(result, "chebi");
         testNamespaceContents(result, "uniprot");
         testResourcesOutput(result, "chebi");
-        // testResourcesOutput(result, "uniprot");
 
-        // Edge case: Namespace with no resources
-        //testResourcesOutput(result, "pubmed");
     }
 
     public static void testNamespaceContents(Map<String, Namespace> registry, String targetPrefix) {

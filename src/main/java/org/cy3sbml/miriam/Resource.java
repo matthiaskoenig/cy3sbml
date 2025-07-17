@@ -97,7 +97,7 @@ public class Resource {
     public static class Location {
         private String countryCode;
         private String countryName;
-        @JsonCreator // For Jackson deserialization
+        @JsonCreator
         public Location(
                 @JsonProperty("countryCode") String countryCode,
                 @JsonProperty("countryName") String countryName) {

@@ -3,7 +3,6 @@ package org.cy3sbml.ols;
 
 import org.cy3sbml.IdentifiersConstants;
 import org.cy3sbml.miriam.Resource;
-import org.identifiers.registry.data.PhysicalLocation;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;

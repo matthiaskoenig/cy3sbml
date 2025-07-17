@@ -1,6 +1,9 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.awt.*;
 import javax.swing.*;
@@ -9,7 +12,10 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 
+import org.cy3sbml.CyActivator;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.miriam.Namespace;
+import org.cy3sbml.miriam.RegistryUtil;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -26,6 +32,7 @@ import org.cytoscape.view.model.events.NetworkViewAddedListener;
 
 import org.cy3sbml.SBMLManager;
 
+import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +62,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     private Browser browser;
     private long lastInformationThreadId = -1;
     private String html;
+    private Map<String, Namespace> result = CyActivator.getMiriamContent();
 
 
     /**
@@ -233,10 +241,14 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     @Override
     public void showSBaseInfo(Set<Object> objSet) {
         // starting threads for webservice calls
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
+
+        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this, result);
         lastInformationThreadId = thread.getId();
         thread.start();
     }
+
+    @Override
+
 
 
     /////////////////// EVENT HANDLING ///////////////////////////////////

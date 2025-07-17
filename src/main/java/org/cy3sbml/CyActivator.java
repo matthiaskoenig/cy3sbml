@@ -3,6 +3,7 @@ package org.cy3sbml;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
 import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
+import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.styles.StyleManager;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -287,19 +289,19 @@ public class CyActivator extends AbstractCyActivator {
 
 
             // Update and load registry
-            Thread miriamThread = new Thread(new Runnable() {
-                public void run() {
-                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-                    System.out.println("Miriam file: " + miriamFile.getAbsolutePath());
-                    RegistryUtil.updateMiriamJSON(miriamFile);
-                    try {
-                        RegistryUtil.loadRegistry(miriamFile);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-            miriamThread.run();
+//            Thread miriamThread = new Thread(new Runnable() {
+//               public void run() {
+//                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
+////
+//                    RegistryUtil.updateMiriamJSON(miriamFile);
+////                    try {
+////                        Map<String, Namespace> result = RegistryUtil.loadRegistry(miriamFile);
+////                    } catch (IOException e) {
+////
+////                    }
+//                }
+//         });
+//         miriamThread.run();
 
             // cy3sbml panels
             webViewPanel.activate();
@@ -311,6 +313,20 @@ public class CyActivator extends AbstractCyActivator {
             logger.error("Could not start server!", e);
             e.printStackTrace();
         }
+    }
+    public static Map<String, Namespace> getMiriamContent() {
+        File f = null;
+        Map<String, Namespace> result = null;
+        try {
+            f = File.createTempFile("MiriamRegistry", ".json");
+            RegistryUtil.updateMiriamJSON(f);
+
+
+            result = RegistryUtil.loadRegistry(f);
+        } catch (IOException e) {
+
+        }
+        return result;
     }
 }
 

@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import java.io.*;
+import java.text.MessageFormat;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
@@ -35,7 +36,6 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -51,6 +51,7 @@ import static org.junit.Assert.assertNotNull;
  * TODO: more compact layout, i.e remove empty rows
  */
 public class SBaseHTMLFactory {
+    public static final String SBO = "SBO";
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
     private static String baseDir;
     public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
@@ -165,16 +166,16 @@ public class SBaseHTMLFactory {
 	/**
      * Parse and create information for current Sbase.
      */
-	public void createInfo() throws IOException {
+	public void createInfo(Map<String, Namespace> result) throws IOException {
         String title = getTitle(sbase);
 	    html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
-	    html += createInfoForSBase(sbase);
+	    html += createInfoForSBase(sbase,result);
         if (sbase instanceof SBMLDocument) {
             // in case of SBMLDocument add the model information
             SBMLDocument doc = (SBMLDocument) sbase;
             if (doc.isSetModel()){
-                html += createInfoForSBase(doc.getModel());
+                html += createInfoForSBase(doc.getModel(), result);
             }
         }
         html += HTML_STOP_TEMPLATE;
@@ -186,14 +187,15 @@ public class SBaseHTMLFactory {
      * @param sbase
      * @return
      */
-    private static String createInfoForSBase(SBase sbase) throws IOException {
+    private static String createInfoForSBase(SBase sbase, Map<String, Namespace> result) throws IOException {
         if (sbase == null){
             return "";
         }
+
         String html = createHeader(sbase);
         html += createSBase(sbase);
         html += createHistory(sbase);
-        html += createCVTerms(sbase);
+        html += createCVTerms(sbase,result);
         html += createNonRDFAnnotation(sbase);
         html += createNotes(sbase);
         return html;
@@ -243,7 +245,7 @@ public class SBaseHTMLFactory {
             NamedSBase nsb = (NamedSBase) sbase;
             header = String.format("<h2>%s%s <small>%s</small></h2>\n", exportHTML, className, nsb.getId());
         }
-		return header; 
+		return header;
 	}
 
 
@@ -391,7 +393,7 @@ public class SBaseHTMLFactory {
 	}
 
     /** Create HTML for CVTerms. */
-    private static String createCVTerms(SBase sbase) throws IOException {
+    private static String createCVTerms(SBase sbase, Map<String, Namespace> result) throws IOException {
         List<CVTerm> cvterms = sbase.getCVTerms();
         // Handle SBO
         addCVTermForSBO(sbase);
@@ -400,7 +402,7 @@ public class SBaseHTMLFactory {
         String text = "";
         if (cvterms.size() > 0){
             for (CVTerm term : cvterms){
-                text += createCVTerm(term);
+                text += createCVTerm(term, result);
             }
         }
         return text;
@@ -412,11 +414,12 @@ public class SBaseHTMLFactory {
 
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()){
-            String nameSpace = getPrefixValue("SBO");
+            String nameSpace = getPrefixValue(SBO);
+
             String sboTermId = sbase.getSBOTermID();
+
             CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE,nameSpace,delim,sboTermId)));
-           // CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, "https://identifiers.org/biomodels.sbo/" + sboTermId);
-            // createCVTerm(term) + "<hr />\n";
+
 
             Boolean termExists = false;
             outerloop:
@@ -435,7 +438,7 @@ public class SBaseHTMLFactory {
     }
 
     /** Creates HTML for single CVTerm. */
-    private static String createCVTerm(CVTerm cvterm) throws IOException {
+    private static String createCVTerm(CVTerm cvterm, Map<String, Namespace> result) throws IOException {
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -451,10 +454,10 @@ public class SBaseHTMLFactory {
                 "<p class=\"cvterm\">\n" +
                 "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
                 cvterm.getQualifierType(), bmQualifierType);
-        File f = File.createTempFile("test", ".json");
-        RegistryUtil.updateMiriamJSON(f);
-        assertNotNull(f);
-        Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
+
+
+
+
         Namespace dataType = null;
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
@@ -468,11 +471,9 @@ public class SBaseHTMLFactory {
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
 
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
-            if (result.get(prefix) != null){
-                dataType = result.get(prefix);
-            } else {
-                dataType = result.get(StringUtils.substringAfter(prefix, "."));
-            }
+            dataType = (result.get(prefix) == null)
+                    ? result.get(StringUtils.substringAfter(prefix, "."))
+                    : result.get(prefix);
 
 
 
@@ -485,7 +486,8 @@ public class SBaseHTMLFactory {
                 for (Resource resource: dataType.getResources()) {
                     if (resourceLink == null){
                         // take first one
-                        resourceLink = createNonOLSURL(resource, identifier);
+                        resourceLink = createURL(dataType, resource, identifier);
+
                         continue;
                     }
 
@@ -539,7 +541,7 @@ public class SBaseHTMLFactory {
                     if (resource.isDeprecated()){ continue; }
                     if (! OLSAccess.isPhysicalLocationOLS(resource)) {
 
-                        text += createNonOLSLocation(resource, identifier);
+                        text += createNonOLSLocation(dataType, resource, identifier);
                     }
                 }
 
@@ -556,42 +558,39 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return
      */
-    private static String createNonOLSURL(Resource resource, String identifier){
-        return String.format("%s%s%s%s%s",
-                resource.getResourceHomeUrl(),"/", identifier,"/", StringUtils.substringAfter(resource.getUrlPattern(),resource.getResourceHomeUrl()));
+    private static String createURL(Namespace namespace, Resource resource, String identifier){
+        String nonOlsURL = null;
+        String identifier2 = "";
+        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
+            /*if(resource.getUrlPattern().contains("=")) {
+                nonOlsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(), "="), identifier);
+            } else {
+                nonOlsURL = resource.getUrlPattern().replace("{$id}", identifier);
+            }*/
+            identifier2 = StringUtils.substringAfter(identifier, ":");
+
+        } else{
+            identifier2 = identifier;
+
+        }
+        nonOlsURL= resource.getUrlPattern().replace("{$id}", identifier2);
+        return nonOlsURL;
+
     }
 
-    private static String createOLSURL(Namespace namespace, Resource resource, String identifier) {
-        String olsURL = null;
-        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix()) == false) {
-            olsURL= resource.getUrlPattern().replace("{$id}", identifier);
-        } else{
-            String replacementTerm = getReplacement(resource.getUrlPattern());
-            olsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(),replacementTerm), identifier);
-        }
-        return olsURL;
-    }
-    private static String getReplacement(String pattern){
-        String replacementTerm = "";
-        if (pattern.contains("obo_id=")) {
-            replacementTerm = "obo_id=";
-        }else if (pattern.contains("short_form=")) {
-            replacementTerm = "short_form=";
-        }else if (pattern.contains("curie=")) {
-            replacementTerm = "curie=";
-        }
-        return replacementTerm;
-    }
+
+    // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
+
     /**
      * Information for non-OLS location.
      */
-    private static String createNonOLSLocation(Resource resource, String identifier){
+    private static String createNonOLSLocation(Namespace namespace, Resource resource, String identifier){
 
         String info = resource.getDescription();
 
         return String.format(
                 "\t<a href=\"%s\"> %s</a><br />\n",
-                createNonOLSURL(resource, identifier),
+                createURL(namespace, resource, identifier),
                 info);
     }
 
@@ -603,7 +602,7 @@ public class SBaseHTMLFactory {
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
-        String olsURL = createOLSURL(namespace, resource, identifier);
+        String olsURL = createURL(namespace, resource, identifier);
 
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
@@ -619,11 +618,14 @@ public class SBaseHTMLFactory {
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = createOLSURL(namespace, resource, identifier);
-            html += String.format(
-                    "\t<a href=\"%s\"><span class=\"ontology\" title=\"Ontology\">%s</span></a> <b>%s</b> <a href=%s class=\"text-muted\">%s</a><br />\n",
-                    ontologyURL, term.getOntologyName().toUpperCase(), term.getLabel(),
-                    purlURL, purlURL);
+            String ontologyURL = createURL(namespace, resource, identifier);
+            html += MessageFormat.format(
+                    "\t<a href=\"{0}\"><span class=\"ontology\" title=\"Ontology\">{1}</span></a> <b>{2}</b> <a href={3} class=\"text-muted\">{4}</a><br />\n",
+                    ontologyURL,
+                    term.getOntologyName().toUpperCase(),
+                    term.getLabel(),
+                    purlURL,
+                    purlURL);
 
             String [] synonyms = term.getSynonyms();
             if (synonyms != null && synonyms.length > 0) {
@@ -652,7 +654,7 @@ public class SBaseHTMLFactory {
             html += String.format(
                     "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
                     ICON_WARNING, termIdentifier, olsURL, olsURL);
-            html += createNonOLSLocation(resource, identifier);
+            html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;
     }
@@ -797,11 +799,9 @@ public class SBaseHTMLFactory {
      */
     public static void main(String[] args) throws Exception{
         // resources for HTML
-        SBaseHTMLFactory.setBaseDir("file:///home/mkoenig/git/cy3sbml/src/main/resources/gui/");
-        // where to write the tmp HTML
-        String targetDir = "C:/Users/27608/IdeaProjects/cy3sbml/src/main/resources/miriam/";
+        File f = File.createTempFile("MiriamRegistry", ".json");
         // prepare miriam registry support
-        RegistryUtil.loadRegistry(new File(targetDir+RegistryUtil.FILENAME_MIRIAM));
+        Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
 
         // Create the HTML for selected SBMLDocuments and SBases
 
@@ -816,31 +816,34 @@ public class SBaseHTMLFactory {
 
 
         // retrieve info for object
-        SBaseHTMLFactory f = new SBaseHTMLFactory(object);
-        f.createInfo();
-        String html = f.getHtml();
+        SBaseHTMLFactory fac = new SBaseHTMLFactory(object);
+        fac.createInfo(result);
+        String html = fac.getHtml();
 
 
         // Save to tmp file for viewing
-        File file = new File(targetDir, "testinfo.html");
+        File file = new File( "src/main/resources/tmp","htmlCreationTest.html");
         FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
     public static String getPrefixValue(String keyToFind) {
         try {
+            Properties namespaces = new Properties();
             InputStream inputStream = IOUtil.readResource("/gui/"+FILENAME_NAMESPACE);
             if (inputStream == null) {
                 throw new IllegalArgumentException("File not found in resources");
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
+            namespaces.load(reader);
+            return namespaces.getProperty(keyToFind);
+           /* String line;
             while ((line = reader.readLine()) != null) {
                 // Unescape the line for readability
                 String cleanLine = line.replaceAll("\\\\", "");
                 if (cleanLine.startsWith(keyToFind + "=")) {
                     return cleanLine.split("=", 2)[1]; // Extract value after '='
                 }
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
