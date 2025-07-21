@@ -2,6 +2,7 @@ package org.cy3sbml.biomodel;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
 import org.cy3sbml.biomodelrest.rest.Biomodel;
@@ -72,7 +73,7 @@ public class SearchBioModel implements TaskObserver {
 		searchModelIdsForSearchContent(searchContent);
 	}
 	
-	public void getBioModelsByParsedIds(Set<String> parsedIds) throws IOException, InterruptedException {
+	public void getBioModelsByParsedIds(Set<String> parsedIds) throws IOException, InterruptedException, ExecutionException {
 		resetSearch();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
@@ -145,9 +146,10 @@ public class SearchBioModel implements TaskObserver {
 		}
 	}
 	
-	public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException {
+	public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException, ExecutionException {
 		String info = getHTMLHeaderForModelSearch();
-		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(getModelIds(), selectedModelIds);
+		ArrayList<Biomodel> biomodelArrayList= BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
+		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(getModelIds(), selectedModelIds, biomodelArrayList);
 		return BioModelDialogText.getString(info);
 	}
 	

@@ -16,11 +16,11 @@ public class BioModelWSInterfaceTools {
 	
 	// string and html representations
 	public static String getHTMLInformationForSimpleModels(List<String>modelIds,
-                                                           List<String> selectedSimpleModels) throws IOException, InterruptedException {
+                                                           List<String> selectedSimpleModels, ArrayList<Biomodel> biomodelArrayList) throws IOException, InterruptedException {
 		String info = "";
 		for (int i =0; i<modelIds.size(); i++){
 			String modelId = modelIds.get(i);
-			Biomodel model = BiomodelsQueryResult.getBiomodelsFromIds(modelIds).get(i);
+			Biomodel model = biomodelArrayList.get(i);
 			boolean modelIsSelected = false;
 			for (int j=0; j<selectedSimpleModels.size(); ++j){
 				String selectedId = selectedSimpleModels.get(j);

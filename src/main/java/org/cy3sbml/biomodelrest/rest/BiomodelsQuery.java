@@ -13,6 +13,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import org.json.*;
 
@@ -58,8 +59,18 @@ public class BiomodelsQuery {
 	    // TODO: handle the more complex cases, i.e. if there is pagination, than
         // FIXME: pagination - &offset=0&numResults=10
         // perform all the individual queries and combine the results.
-		System.out.println("query: " + query);
-		HttpResponse<InputStream> response = executeQuery(query,BIOMODELS_SEARCH);
+		long start = System.currentTimeMillis();
+		String url = String.format("%s?query=%s&format=json",
+				BIOMODELS_RESTFUL_URL + BIOMODELS_SEARCH,
+				URLEncoder.encode(query, StandardCharsets.UTF_8));
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(url))
+				.header("Accept", "application/json")
+				.GET()
+				.build();
+		HttpResponse<InputStream> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofInputStream());
+
 		if (response != null){
 			Integer status = response.statusCode();
 			String json = null;
@@ -69,6 +80,9 @@ public class BiomodelsQuery {
 			}
 			return new BiomodelsQueryResult(query, status, json);
 		}
+		long duration = System.currentTimeMillis() - start;
+		System.out.println("Request took: " + duration + "ms");
+		System.out.println("Response length: " + response.body().toString().length());
 		return null;
 	}
 
@@ -78,19 +92,31 @@ public class BiomodelsQuery {
      * @param biomodelId
      * @return
      */
-    public static Biomodel performBiomodelQuery(String biomodelId) throws IOException, InterruptedException {
+    public static CompletableFuture<Biomodel> performBiomodelQuery(String biomodelId) throws IOException, InterruptedException {
 	    String query = biomodelId + "?format=json";
-        HttpResponse<InputStream> response = executeQuery(query,BIOMODELS_BIOMODEL);
-        if (response != null){
-            Integer status = response.statusCode();
-            String json = null;
-            if (status == 200){
-                json = getStringBody(response);
-                JSONObject jsonObject = new JSONObject(json);
-                return new Biomodel(jsonObject);
-            }
-        }
-        return null;
+		String url = BIOMODELS_RESTFUL_URL + query;
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(url))
+				.header("Accept", "application/json")
+				.GET()
+				.build();
+		CompletableFuture<Biomodel> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
+				.thenApply(response -> {
+					if (response.statusCode() == 200) {
+						try {
+							String json = getStringBody(response); // Reuse your method
+							JSONObject jsonObject = new JSONObject(json);
+							return new Biomodel(jsonObject);
+						} catch (Exception e) {
+							throw new RuntimeException("Failed to parse biomodel: " + biomodelId, e);
+						}
+					} else {
+						throw new RuntimeException("HTTP error for " + biomodelId + ": " + response.statusCode());
+					}
+				});
+
+       return future;
     }
 
 
@@ -111,6 +137,7 @@ public class BiomodelsQuery {
 				.header("Accept", "application/json")
 				.GET()
 				.build();
+
 		return client.send(request, java.net.http.HttpResponse.BodyHandlers.ofInputStream());
 	}
 
@@ -130,8 +157,8 @@ public class BiomodelsQuery {
         BiomodelsQueryResult result = BiomodelsQuery.performSearchQuery("/BIOMD0000000012?format=json");
         System.out.println(result.getJSON());
 
-        Biomodel biomodel = BiomodelsQuery.performBiomodelQuery("BIOMD0000000012");
-        System.out.println(biomodel.getInfo());
+        CompletableFuture<Biomodel> biomodel = BiomodelsQuery.performBiomodelQuery("BIOMD0000000012");
+
         System.out.println(biomodel);
 
 

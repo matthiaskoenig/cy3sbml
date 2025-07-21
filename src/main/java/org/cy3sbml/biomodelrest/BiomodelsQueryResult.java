@@ -3,7 +3,11 @@ package org.cy3sbml.biomodelrest;
 import org.json.*;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import org.cy3sbml.biomodelrest.rest.Biomodel;
 import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
@@ -76,13 +80,31 @@ public class BiomodelsQueryResult {
      * Returns biomodel information for given biomodel ids
      * @return
      */
-    public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException {
+    public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException, ExecutionException {
 
         ArrayList<Biomodel> biomodels = new ArrayList<>();
+        List<CompletableFuture<Biomodel>> futures = new ArrayList<>();
         for (String biomodelId: biomodelIds){
-            Biomodel biomodel = BiomodelsQuery.performBiomodelQuery(biomodelId);
-            biomodels.add(biomodel);
+            CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);
+            futures.add(future);
+
         }
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                futures.toArray(new CompletableFuture[0])
+        );
+        biomodels= allFutures.thenApply(v ->
+                futures.stream()
+                        .map(future -> {
+                            try {
+                                return future.join(); // Get each Biomodel
+                            } catch (Exception e) {
+                                System.err.println("Skipping failed model: " + e.getMessage());
+                                return null; // or handle errors differently
+                            }
+                        })
+                        .filter(Objects::nonNull) // Remove nulls (failed requests)
+                        .collect(Collectors.toCollection(ArrayList::new))
+        ).get();
         return biomodels;
     }
 

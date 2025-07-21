@@ -7,10 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +38,7 @@ import java.awt.event.KeyAdapter;
 import javax.swing.JTextArea;
 
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.biomodelrest.rest.Biomodel;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,7 +167,7 @@ public class BiomodelsDialog extends JDialog {
 		loadIdsButton.setToolTipText("Parse BioModel Ids and load the models.");
 		loadIdsButton.setBounds(170, 821, 102, 25);
 		panel.add(loadIdsButton);
-		
+
 		loadIdsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				loadBioModelByIdsAndDisposeDialog();
@@ -187,10 +186,12 @@ public class BiomodelsDialog extends JDialog {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
                 }
             }
 		});
-				
+
 		// Search Button
 		JButton searchButton = new JButton("Search");
 		searchButton.setToolTipText("Search Biomodels");
@@ -203,6 +204,8 @@ public class BiomodelsDialog extends JDialog {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (ExecutionException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -217,7 +220,7 @@ public class BiomodelsDialog extends JDialog {
 				resetFields();
 			}
 		});
-		
+		searchBioModel = new SearchBioModel(adapter);
 		// Load Selected Models
 		loadSelectedButton = new JButton("Load Selected");
 		loadSelectedButton.setToolTipText("Load selected BioModels from the List");
@@ -238,6 +241,7 @@ public class BiomodelsDialog extends JDialog {
 		// Set the empty Lists
 		biomodelsList = new JList();
 		biomodelsList.setToolTipText("Search results, select for information.");
+
 		biomodelsList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				// activate load button & get information for selection
@@ -253,9 +257,11 @@ public class BiomodelsDialog extends JDialog {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
                 }
             }});
-	
+
 		listScrollPane.setViewportView(biomodelsList);	
 		
 		// information area
@@ -321,7 +327,6 @@ public class BiomodelsDialog extends JDialog {
 		idTextArea.setTabSize(4);
 		idTextArea.setText("BIOMD0000000070, BIOMD0000000071");
 		
-		searchBioModel = new SearchBioModel(adapter);
 	}
     
 	class EnterKeyAdapter extends KeyAdapter{
@@ -335,11 +340,13 @@ public class BiomodelsDialog extends JDialog {
                      throw new RuntimeException(e);
                  } catch (InterruptedException e) {
                      throw new RuntimeException(e);
+                 } catch (ExecutionException e) {
+                     throw new RuntimeException(e);
                  }
              }
 		}
 	}
-	
+
 	public void showBioModelsPanel() {
         
 		JFrame frame = new JFrame("CySBML BioModel Import");
@@ -364,13 +371,13 @@ public class BiomodelsDialog extends JDialog {
 	}
 	
 	///////// SEARCH MODELS ////////////
-	public void searchBioModels() throws IOException, InterruptedException {
+	public void searchBioModels() throws IOException, InterruptedException, ExecutionException {
 		logger.info("search BioModels");
 		infoPane.setText(BioModelDialogText.performBioModelSearch());
 		
 		SearchContent searchContent = getSearchContent();
 		searchBioModel.searchBioModels(searchContent);
-		
+
 		// Has to be done in task
 		updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
 	}
@@ -390,7 +397,7 @@ public class BiomodelsDialog extends JDialog {
 	}
 	
 	///////// UPDATE GUI ////////////
-	private void updateBioModelListAndInformationAfterSearch(List<String> ids) throws IOException, InterruptedException {
+	private void updateBioModelListAndInformationAfterSearch(List<String> ids) throws IOException, InterruptedException, ExecutionException {
 		updateModelListInDialog(ids);
 		updateBioModelInformation(getListOfSelectedModelIds());
 		
@@ -415,11 +422,11 @@ public class BiomodelsDialog extends JDialog {
 		});
 	}
 		
-	public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException {
+	public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException, ExecutionException {
 		final int caretPosition = infoPane.getCaretPosition();
 		final int scrollPosition = infoScrollPane.getVerticalScrollBar().getValue();
 		Point location = infoScrollPane.getViewport().getLocation();
-		
+
 		String searchInfo = searchBioModel.getHTMLInformation(selectedModelIds);
 		infoPane.setText(searchInfo);
 		// TODO: cursor position not handled correctly
@@ -438,7 +445,7 @@ public class BiomodelsDialog extends JDialog {
 	
 	
 	///////// SELECT MODELS ////////////
-	private void handleModelSelectionInModelList() throws IOException, InterruptedException {
+	private void handleModelSelectionInModelList() throws IOException, InterruptedException, ExecutionException {
 		List<String> selectedModelIds = getListOfSelectedModelIds();
 		updateBioModelInformation(selectedModelIds);
 	}
@@ -468,7 +475,7 @@ public class BiomodelsDialog extends JDialog {
 		}
 	}
 
-	public void parseBioModelByIds() throws IOException, InterruptedException {
+	public void parseBioModelByIds() throws IOException, InterruptedException, ExecutionException {
 		String text = idTextArea.getText();
 		Set<String> ids = parseBioModelIdsFromString(text);
 		

@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 
 /** 
@@ -291,6 +292,8 @@ public class QueryFXMLController implements Initializable{
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (ExecutionException e) {
                     throw new RuntimeException(e);
                 }
 
