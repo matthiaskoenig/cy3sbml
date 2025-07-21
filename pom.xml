@@ -456,7 +456,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>

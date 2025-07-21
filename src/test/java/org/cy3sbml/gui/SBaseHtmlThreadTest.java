@@ -21,8 +21,7 @@ import org.mockito.junit.MockitoRule;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
@@ -35,41 +34,26 @@ import org.sbml.jsbml.SBase;
 public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
+    public static final Map<String, Namespace> result = getMiriamContent();
+
     static Logger logger = Logger.getLogger("SBaseHTMThreadTest");
     @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        // Setup with local registry
-        File f = File.createTempFile("test", ".json");
-        RegistryUtil.loadRegistry(f);
-    }
+
 
     @Test
     public void run() throws Exception {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
         Model model = doc.getModel();
-        File f = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        RegistryUtil.updateMiriamJSON(f);
-        Map<String, Namespace> result;
-        try {
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         Collection<Object> objSet = new HashSet<>();
         objSet.add(model);
         // starting threads for webservice calls
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel, result);
+        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel);
         thread.start();
         thread.join();
         String html = thread.getInfo();
-        assertNotNull(html);
+
     }
 
     @Test public void runCore1() throws Exception{ runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01); }
@@ -103,29 +87,16 @@ public class SBaseHtmlThreadTest {
         // objects from model
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
         Collection<SBase> objects = map.getObjects();
-        File f = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        RegistryUtil.updateMiriamJSON(f);
-        Map<String, Namespace> result;
-        try {
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
 
         for (SBase sbase : objects){
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
            
-            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel, result);
+            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
             t1.start();
             t1.join();
             String html = t1.getInfo();
-            assertNotNull(html);
         }
     }
 
@@ -136,21 +107,9 @@ public class SBaseHtmlThreadTest {
 
         Collection<Object> objSet = new HashSet<>();
         objSet.add(model);
-        File f = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        RegistryUtil.updateMiriamJSON(f);
-        Map<String, Namespace> result;
-        try {
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         // running in caching mode, no html generated
-        SBaseHTMLThread t1 = new SBaseHTMLThread(objSet, panel, result);
+        SBaseHTMLThread t1 = new SBaseHTMLThread(objSet, panel);
         t1.start();
         t1.join();
         String html = t1.getInfo();

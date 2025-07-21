@@ -36,6 +36,7 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
 
 /**
@@ -52,11 +53,13 @@ import org.slf4j.LoggerFactory;
  */
 public class SBaseHTMLFactory {
     public static final String SBO = "SBO";
+    public static final String CY3SBML = "cy3sbml";
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
     private static String baseDir;
     public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
     public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
     public static String delim = "/";
+    public static final Map<String, Namespace> result = getMiriamContent();
     ///////////////////////////////////////////////
     // HTML template strings
     ///////////////////////////////////////////////
@@ -160,22 +163,22 @@ public class SBaseHTMLFactory {
 
     /** Creates HTML text. */
     public static String createHTMLText(String text){
-        return createHTMLText(text, "cy3sbml");
+        return createHTMLText(text, CY3SBML);
     }
 
 	/**
      * Parse and create information for current Sbase.
      */
-	public void createInfo(Map<String, Namespace> result) throws IOException {
+	public void createInfo() throws IOException {
         String title = getTitle(sbase);
 	    html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
-	    html += createInfoForSBase(sbase,result);
+	    html += createInfoForSBase(sbase);
         if (sbase instanceof SBMLDocument) {
             // in case of SBMLDocument add the model information
             SBMLDocument doc = (SBMLDocument) sbase;
             if (doc.isSetModel()){
-                html += createInfoForSBase(doc.getModel(), result);
+                html += createInfoForSBase(doc.getModel());
             }
         }
         html += HTML_STOP_TEMPLATE;
@@ -187,7 +190,7 @@ public class SBaseHTMLFactory {
      * @param sbase
      * @return
      */
-    private static String createInfoForSBase(SBase sbase, Map<String, Namespace> result) throws IOException {
+    private static String createInfoForSBase(SBase sbase) throws IOException {
         if (sbase == null){
             return "";
         }
@@ -195,7 +198,7 @@ public class SBaseHTMLFactory {
         String html = createHeader(sbase);
         html += createSBase(sbase);
         html += createHistory(sbase);
-        html += createCVTerms(sbase,result);
+        html += createCVTerms(sbase);
         html += createNonRDFAnnotation(sbase);
         html += createNotes(sbase);
         return html;
@@ -393,7 +396,7 @@ public class SBaseHTMLFactory {
 	}
 
     /** Create HTML for CVTerms. */
-    private static String createCVTerms(SBase sbase, Map<String, Namespace> result) throws IOException {
+    private static String createCVTerms(SBase sbase) throws IOException {
         List<CVTerm> cvterms = sbase.getCVTerms();
         // Handle SBO
         addCVTermForSBO(sbase);
@@ -402,7 +405,7 @@ public class SBaseHTMLFactory {
         String text = "";
         if (cvterms.size() > 0){
             for (CVTerm term : cvterms){
-                text += createCVTerm(term, result);
+                text += createCVTerm(term);
             }
         }
         return text;
@@ -438,7 +441,7 @@ public class SBaseHTMLFactory {
     }
 
     /** Creates HTML for single CVTerm. */
-    private static String createCVTerm(CVTerm cvterm, Map<String, Namespace> result) throws IOException {
+    private static String createCVTerm(CVTerm cvterm) throws IOException {
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -817,7 +820,7 @@ public class SBaseHTMLFactory {
 
         // retrieve info for object
         SBaseHTMLFactory fac = new SBaseHTMLFactory(object);
-        fac.createInfo(result);
+        fac.createInfo();
         String html = fac.getHtml();
 
 

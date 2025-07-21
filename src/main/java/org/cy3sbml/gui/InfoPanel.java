@@ -1,9 +1,5 @@
 package org.cy3sbml.gui;
 
-import org.cy3sbml.miriam.Namespace;
-import org.sbml.jsbml.SBase;
-
-import java.util.Map;
 import java.util.Set;
 
 

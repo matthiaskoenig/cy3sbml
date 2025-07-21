@@ -36,6 +36,8 @@ import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
+
 
 /**
  * WebView panel based on javafx.
@@ -62,7 +64,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     private Browser browser;
     private long lastInformationThreadId = -1;
     private String html;
-    private Map<String, Namespace> result = CyActivator.getMiriamContent();
 
 
     /**
@@ -242,7 +243,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     public void showSBaseInfo(Set<Object> objSet) {
         // starting threads for webservice calls
 
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this, result);
+        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
         lastInformationThreadId = thread.getId();
         thread.start();
     }

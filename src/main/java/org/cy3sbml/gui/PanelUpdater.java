@@ -1,13 +1,9 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.cy3sbml.miriam.Namespace;
-import org.cy3sbml.miriam.RegistryUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
@@ -33,10 +29,6 @@ public class PanelUpdater implements Runnable {
             "<p>Other examples are the base units like <code>dimensionless</code>" +
             "or <code>mole</code> which are not part of the model.</p>");
 
-    private static final String TEMPLATE_NO_BUNDLE_NODE = SBaseHTMLFactory.createHTMLText(
-            "<h2>No information</h2>" +
-            "<p>No Bundle object registered for node in ObjectMapper.</p>" +
-            "<p>Some nodes do not have annotation information associated.");
 
     private static final String TEMPLATE_LOAD_WEBSERVICE = SBaseHTMLFactory.createHTMLText(
             "<h2>Web Services</h2>" +

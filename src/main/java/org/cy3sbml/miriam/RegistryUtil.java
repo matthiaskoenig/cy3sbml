@@ -98,6 +98,20 @@ public class RegistryUtil {
     /**
      * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
+    public static Map<String, Namespace> getMiriamContent() {
+        File f = null;
+        Map<String, Namespace> result = null;
+        try {
+            f = File.createTempFile("MiriamRegistry", ".json");
+            RegistryUtil.updateMiriamJSON(f);
+
+
+            result = RegistryUtil.loadRegistry(f);
+        } catch (IOException e) {
+
+        }
+        return result;
+    }
     public static void main(String[] args) throws FileNotFoundException, MalformedURLException {
 
 

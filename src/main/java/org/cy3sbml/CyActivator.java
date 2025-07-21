@@ -12,11 +12,9 @@ import org.osgi.framework.BundleContext;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -288,20 +286,13 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-            // Update and load registry
-//            Thread miriamThread = new Thread(new Runnable() {
-//               public void run() {
-//                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-////
-//                    RegistryUtil.updateMiriamJSON(miriamFile);
-////                    try {
-////                        Map<String, Namespace> result = RegistryUtil.loadRegistry(miriamFile);
-////                    } catch (IOException e) {
-////
-////                    }
-//                }
-//         });
-//         miriamThread.run();
+           //  Update and load registry
+            Thread miriamThread = new Thread(new Runnable() {
+               public void run() {
+                    RegistryUtil.getMiriamContent();
+                }
+         });
+         miriamThread.run();
 
             // cy3sbml panels
             webViewPanel.activate();
@@ -314,19 +305,6 @@ public class CyActivator extends AbstractCyActivator {
             e.printStackTrace();
         }
     }
-    public static Map<String, Namespace> getMiriamContent() {
-        File f = null;
-        Map<String, Namespace> result = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-            RegistryUtil.updateMiriamJSON(f);
 
-
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-
-        }
-        return result;
-    }
 }
 
