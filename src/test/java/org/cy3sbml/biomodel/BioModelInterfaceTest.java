@@ -3,16 +3,12 @@ package org.cy3sbml.biomodel;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.cy3sbml.TestUtils;
-import org.cy3sbml.biomodel.BioModelWSInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import uk.ac.ebi.biomodels.ws.BioModelsWSException;
 
 /**
  * Test biomodels access.
@@ -23,7 +19,7 @@ public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_NAME = "glycolysis";
     static final String INVALID_STRING = "xcvsfsfasdfa1323452342";
 
-    BioModelWSInterface bmInterface;
+   BiomodelsQuery bmQuery;
 
     @BeforeClass
     public static void onlyOnce() {
@@ -32,12 +28,12 @@ public class BioModelInterfaceTest {
 
     @Before
     public void setUp() {
-        bmInterface = new BioModelWSInterface(null, null);
+        bmQuery = new BiomodelsQuery();
     }
 
     @After
     public void tearDown() {
-        bmInterface = null;
+        bmQuery = null;
     }
 
 
@@ -121,15 +117,15 @@ public class BioModelInterfaceTest {
     }*/
 
     @Test
-    public void testGetBioModelSBMLById() throws BioModelsWSException, IOException, InterruptedException {
-        String sbml = bmInterface.getBioModelSBMLById(VALID_BIOMODEL_ID);
+    public void testGetBioModelSBMLById() throws IOException, InterruptedException {
+        String sbml = BiomodelsQuery.getBioModelSBMLById(VALID_BIOMODEL_ID);
         System.out.println(sbml);
         assertNotNull("SBML has to exist.", sbml);
     }
 
     @Test
-    public void testGetBioModelSBMLById2() throws BioModelsWSException, IOException, InterruptedException {
-        String sbml = bmInterface.getBioModelSBMLById(INVALID_STRING);
+    public void testGetBioModelSBMLById2() throws IOException, InterruptedException {
+        String sbml = BiomodelsQuery.getBioModelSBMLById(INVALID_STRING);
         System.out.println(sbml);
         assertNotNull("If invalid id, null is returned.", sbml);
     }

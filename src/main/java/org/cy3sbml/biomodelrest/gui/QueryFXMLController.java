@@ -28,10 +28,10 @@ import org.controlsfx.control.textfield.TextFields;
 import org.cy3sbml.ResourceExtractor;
 
 import org.cy3sbml.biomodelrest.QueryHistory;
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
-import org.cy3sbml.biomodelrest.rest.Biomodel;
+import org.cy3sbml.biomodel.BiomodelsQueryResult;
+import org.cy3sbml.biomodel.Biomodel;
 import org.cy3sbml.biomodelrest.rest.QuerySuggestions;
-import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
+import org.cy3sbml.biomodel.BiomodelsQuery;
 
 import org.cy3sbml.util.OpenBrowser;
 import org.sbml.jsbml.JSBML;

@@ -27,10 +27,10 @@ public class LoadBioModelTaskFactory implements TaskFactory{
 		this.adapter = adapter;
 		
 		// TODO: reading SBML & creating the temp file should be in a separate task
-		BioModelWSInterface bmInterface = new BioModelWSInterface(adapter.connectionProxy);
+
 		InputStream instream = null;
 		try {	
-			String sbml = bmInterface.getBioModelSBMLById(id);
+			String sbml = BiomodelsQuery.getBioModelSBMLById(id);
 
 			if (sbml == null || sbml.equals("") || sbml.startsWith(id)){
 				JOptionPane.showMessageDialog(adapter.cySwingApplication.getJFrame(),

@@ -3,16 +3,12 @@ package org.cy3sbml.biomodel;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
-import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
-import org.sbml.jsbml.util.StringTools;
 
 
 public class SearchBioModelTask implements ObservableTask{
 	private SearchContent searchContent;
-	private BioModelWSInterface bmInterface;
 	private List<String> searchResultIds;
 
 	public SearchBioModelTask(SearchContent searchContent) {

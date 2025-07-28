@@ -1,4 +1,4 @@
-package org.cy3sbml.biomodelrest.rest;
+package org.cy3sbml.biomodel;
 
 import java.net.http.HttpResponse;
 
@@ -15,12 +15,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+
 import org.json.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
 
 
 /**
@@ -120,27 +119,39 @@ public class BiomodelsQuery {
     }
 
 
-	private static HttpResponse<InputStream> executeQuery(String query, String operation) throws IOException, InterruptedException {
-		String url = "";
-		if(Objects.equals(operation, BIOMODELS_SEARCH)) {
-			url = String.format("%s?query=%s&format=json",
-					BIOMODELS_RESTFUL_URL + operation,
-					URLEncoder.encode(query, StandardCharsets.UTF_8));
-			System.out.println("url:"+url);
-		}else if (Objects.equals(operation, BIOMODELS_BIOMODEL)) {
-			url = BIOMODELS_RESTFUL_URL + query;
-			System.out.println("url:"+url);
+	public static String getBioModelSBMLById(String id) throws IOException, InterruptedException {
+
+		String sbml = "";
+		long start = System.currentTimeMillis();
+		HttpResponse<String> sbmlResponse = getSBMLResponse(BIOMODELS_RESTFUL_URL,"model/download/",id);
+		if (sbmlResponse.statusCode() == 200) {
+			// The response body contains the SBML XML content
+			sbml = sbmlResponse.body();
+
+
+			// You can save it to a file if needed
+			// Files.writeString(Path.of(modelId + ".xml"), sbmlContent);
+		} else {
+			System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
 		}
-		HttpClient client = HttpClient.newHttpClient();
+		long duration = System.currentTimeMillis() - start;
+		System.out.println("Request took: " + duration + "ms");
+
+		return sbml;
+	}
+	public static HttpResponse<String> getSBMLResponse(String base, String operation, String id) throws IOException, InterruptedException {
+		String downloadUrl = base + operation + id + "?filename=" + id + "_url.xml";
+		System.out.println("downloadUrl: " + downloadUrl);
+		HttpClient client = HttpClient.newBuilder()
+				.followRedirects(HttpClient.Redirect.NORMAL)
+				.build();
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(url))
-				.header("Accept", "application/json")
+				.uri(URI.create(downloadUrl))
 				.GET()
 				.build();
 
-		return client.send(request, java.net.http.HttpResponse.BodyHandlers.ofInputStream());
+		return client.send(request, HttpResponse.BodyHandlers.ofString());
 	}
-
 
 	private static String getStringBody(HttpResponse<InputStream> ioResponse){
 		InputStream inputStream = ioResponse.body();

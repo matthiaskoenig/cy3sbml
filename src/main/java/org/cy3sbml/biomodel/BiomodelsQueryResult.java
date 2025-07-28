@@ -1,16 +1,12 @@
-package org.cy3sbml.biomodelrest;
+package org.cy3sbml.biomodel;
 
 import org.json.*;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
-import org.cy3sbml.biomodelrest.rest.Biomodel;
-import org.cy3sbml.biomodelrest.rest.BiomodelsQuery;
 
 /**
  * Result of the given web service query.
@@ -82,7 +78,7 @@ public class BiomodelsQueryResult {
      */
     public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException, ExecutionException {
 
-        ArrayList<Biomodel> biomodels = new ArrayList<>();
+        ArrayList<Biomodel> biomodels;
         List<CompletableFuture<Biomodel>> futures = new ArrayList<>();
         for (String biomodelId: biomodelIds){
             CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);

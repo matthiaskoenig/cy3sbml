@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
-import org.cy3sbml.biomodelrest.rest.Biomodel;
-import uk.ac.ebi.biomodels.ws.SimpleModel;
-
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.SynchronousTaskManager;
@@ -25,14 +21,13 @@ import org.slf4j.LoggerFactory;
  */
 public class SearchBioModel implements TaskObserver {
 	private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
-	BioModelWSInterface bmInterface;
 	DialogTaskManager dialogTaskManager;
 	@SuppressWarnings("rawtypes")
 	SynchronousTaskManager synchronousTaskManager;
 	
 
 	private SearchContent searchContent;
-	private List<String> modelIds;
+	private static List<String> modelIds;
 	private ArrayList<Biomodel> simpleModels;
 	
 	
@@ -50,15 +45,15 @@ public class SearchBioModel implements TaskObserver {
 		simpleModels = new ArrayList<>();
 	}
 		
-	public List<String> getModelIds() {
+	public static List<String> getModelIds() {
 		return modelIds;
 	}
+
+
 
 	public String getModelId(int index){
 		return modelIds.get(index);
 	}
-	
-
 
 	
 	public int getSize(){
@@ -146,10 +141,10 @@ public class SearchBioModel implements TaskObserver {
 		}
 	}
 	
-	public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException, ExecutionException {
+	public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, ExecutionException, InterruptedException {
 		String info = getHTMLHeaderForModelSearch();
-		ArrayList<Biomodel> biomodelArrayList= BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
-		info += BioModelWSInterfaceTools.getHTMLInformationForSimpleModels(getModelIds(), selectedModelIds, biomodelArrayList);
+		
+		info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(modelIds, selectedModelIds);
 		return BioModelDialogText.getString(info);
 	}
 	

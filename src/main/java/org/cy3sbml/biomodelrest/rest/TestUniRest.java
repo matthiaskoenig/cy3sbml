@@ -3,6 +3,7 @@ package org.cy3sbml.biomodelrest.rest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.cy3sbml.biomodel.BiomodelsQuery;
 
 import java.io.BufferedReader;
 import java.io.IOException;

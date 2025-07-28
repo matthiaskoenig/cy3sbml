@@ -3,23 +3,26 @@ package org.cy3sbml.biomodel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import org.cy3sbml.biomodelrest.BiomodelsQueryResult;
-import org.cy3sbml.biomodelrest.rest.Biomodel;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 /**
  * Tools to interact with BioModels.
  */
-public class BioModelWSInterfaceTools {
+public class BioModelInterfaceTools {
 	// private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterfaceTools.class);
-	
+
 	// string and html representations
+
+
 	public static String getHTMLInformationForSimpleModels(List<String>modelIds,
-                                                           List<String> selectedSimpleModels, ArrayList<Biomodel> biomodelArrayList) throws IOException, InterruptedException {
+                                                           List<String> selectedSimpleModels) throws IOException, ExecutionException, InterruptedException {
 		String info = "";
+		ArrayList<Biomodel> biomodelArrayList = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);;
 		for (int i =0; i<modelIds.size(); i++){
 			String modelId = modelIds.get(i);
+
 			Biomodel model = biomodelArrayList.get(i);
 			boolean modelIsSelected = false;
 			for (int j=0; j<selectedSimpleModels.size(); ++j){
@@ -33,19 +36,16 @@ public class BioModelWSInterfaceTools {
 		}
 		return info;
 	}
-	
-	public static String getHTMLInformationForSimpleModel(Biomodel simpleModel){
-		boolean selected = false;
-		return getHTMLInformationForSimpleModel(simpleModel, selected);
-	}
+
 	
 	public static String getHTMLInformationForSimpleModel(Biomodel simpleModel, boolean selected){
-
+		String id = simpleModel.getId();
 		String name = simpleModel.getName();
 		String publicationId = simpleModel.getPublicationIdentifier();
+		String submissionIdentifier = simpleModel.getSubmissionIdentifier();
 		//String dateModified = simpleModel.getLastModificationDateStr();
 		String description = simpleModel.getDescription();
-
+		String authors = simpleModel.getAuthors();
 		String info;
 		if (selected){
 			info = "<table><tr><td bgcolor=\"#339933\">&nbsp;&nbsp;&nbsp;<td><td>";
@@ -53,11 +53,14 @@ public class BioModelWSInterfaceTools {
 			info = "<table><tr><td>&nbsp;&nbsp;&nbsp;<td><td>";
 		}
 		info += createHTMLTableHeader(selected)+
-
-					createHTMLTableRow("name", name) +
-					createHTMLTableRow("description", description.toString()) +
-					createHTMLTableRow("pubmed", createPubmedHTMLLink(publicationId)) +
+					createHTMLTableRow("ID", id)+
+					createHTMLTableRow("Submission ID", submissionIdentifier)+
+					createHTMLTableRow("Name", name) +
+					createHTMLTableRow("Description", description.toString()) +
+					createHTMLTableRow("Authors", authors) +
+					createHTMLTableRow("Pubmed", createPubmedHTMLLink(publicationId)) +
 					//createHTMLTableRow("modified", dateModified) +
+					//FIXME: modified date info is not available in the response body
 
 				"</table>" +
 				"</td></tr></table>";
@@ -89,19 +92,5 @@ public class BioModelWSInterfaceTools {
 				"<a href=\"http://www.ncbi.nlm.nih.gov/pubmed?term=%s\" target=\"_blank\">%s</a>",
 				pubmedId, pubmedId);
 	}
-	
-	public static String getTextInformationForSimpleModel(SimpleModel simpleModel){
-		String smId = simpleModel.getId();
-		String smName = simpleModel.getName();
-		String smPublicationId = simpleModel.getPublicationId();
-		String smDateModified = simpleModel.getLastModificationDateStr();
-		String info = String.format(
-					"ID:\t %s \n" +
-					"NAME:\t %s \n" +
-					"PUBID:\t %s \n" +
-					"MODIFIED:\t %s \n",
-						smId, smName, smPublicationId, smDateModified
-				);
-		return info;
-	}
+
 }
