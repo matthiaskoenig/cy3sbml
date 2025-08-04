@@ -17,6 +17,7 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class UniprotAccess {
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
+    public static final String UNIPROT_URL = "https://www.uniprot.org/uniprot";
 
     /**
      * Retrieve UniProt Entry by accession id.
@@ -37,7 +39,7 @@ public class UniprotAccess {
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
             // start the service
-            uniProtService.start();
+
 
             // fetch entry
             entry = uniProtService.getEntry(accession);
@@ -59,7 +61,7 @@ public class UniprotAccess {
             e.printStackTrace();
         } finally {
             // always remember to stop service
-            uniProtService.stop();
+
         }
         return entry;
     }
@@ -75,10 +77,13 @@ public class UniprotAccess {
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
-            text += String.format(
-                    "\t<a href=\"https://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
-                            "\t<a href=\"https://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
-
+            text += MessageFormat.format(
+                    "\t<a href=\"" + UNIPROT_URL + "\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
+                            "\t<a href=\"" + UNIPROT_URL + "/{0}\"><span class=\"identifier\">{1}</span></a> ({2})<br />\n",
+                    accession,
+                    accession,
+                    uniProtId
+            );
             // description
             ProteinDescription description = entry.getProteinDescription();
 
@@ -86,15 +91,18 @@ public class UniprotAccess {
             Name name = description.getRecommendedName();
             List<Field> fields = name.getFields();
             for (Field field: fields){
-                String value = field.getValue();
+
                 if (field.getType().getValue().equals("Full")){
-                    text += String.format(
-                            "\t<b>%s</b><br />\n",
-                            field.getValue());
+                    text += MessageFormat.format(
+                            "\t<b>{0}</b><br />\n",
+                            field.getValue()
+                    );
                 }else {
-                    text += String.format(
-                            "\t<b>%s</b>: %s<br />\n",
-                            field.getType().getValue(), field.getValue());
+                    text += MessageFormat.format(
+                            "\t<b>{0}</b>: {1}<br />\n",
+                            field.getType().getValue(),
+                            field.getValue()
+                    );
                 }
             }
 
@@ -102,23 +110,27 @@ public class UniprotAccess {
             Organism organism = entry.getOrganism();
             String organismStr = organism.getScientificName().toString();
             if (organism.hasCommonName()){
-                organismStr += String.format(" (%s)", organism.getCommonName());
+                organismStr += MessageFormat.format(" ({0})", organism.getCommonName());
+
             }
-            text += String.format(
-                    "\t<b>Organism</b>: %s<br />\n",
+            text += MessageFormat.format(
+                    "\t<b>Organism</b>: {0}<br />\n",
                     organismStr);
 
             // genes
             for (Gene gene : entry.getGenes()){
                 String geneName = gene.getGeneName().getValue();
-                text += String.format("\t<b>Gene</b>: %s<br />\n", geneName);
+                text += MessageFormat.format("\t<b>Gene</b>: {0}<br />\n", geneName);
+
             }
 
             // alternative names
             text +="\t<span class=\"comment\">Synonyms</span>";
             for (Name n: description.getAlternativeNames()){
-                text += String.format(
-                        "%s; ", n.getFields().get(0).getValue());
+                text += MessageFormat.format(
+                        "{0}; ",
+                        n.getFields().get(0).getValue()
+                );
             }
             text += "<br />\n";
 
@@ -129,20 +141,27 @@ public class UniprotAccess {
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
-                    }
+                        text += MessageFormat.format(
+                                "\t<span class=\"comment\">Function</span> <span class=\"text-success\">{0}</span><br />\n",
+                                commentText.getValue()
+                        );                    }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                     Reaction reaction = caComment.getReaction();
                     if (reaction != null){
-                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", reaction.getName());
-                    }
+                        text += MessageFormat.format(
+                                "\t<span class=\"comment\">Catalytic Activity</span>{0}<br />\n",
+                                reaction.getName()
+                        );                    }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());
+                        text += MessageFormat.format(
+                                "\t<span class=\"comment\">Pathway</span>{0}<br />\n",
+                                commentText.getValue()
+                        );
                     }
                 }
             }
