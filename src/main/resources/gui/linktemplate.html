@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- UNIPROT_LINK -->
+<a href="{BASE_URL}"><img src="./images/logos/uniprot_icon.png" title="UniProt"/></a>&nbsp;&nbsp;
+<a href="{BASE_URL}/{ACCESSION}"><span class="identifier">{ACCESSION}</span></a> ({UNIPROT_ID})<br />
+<!-- /UNIPROT_LINK -->
+
+<!-- FUNCTION_COMMENT -->
+<span class="comment">Function</span> <span class="text-success">{COMMENT_TEXT}</span><br />
+<!-- /FUNCTION_COMMENT -->
+
+<!-- CATALYTIC_ACTIVITY -->
+<span class="comment">Catalytic Activity</span>{REACTION_NAME}<br />
+<!-- /CATALYTIC_ACTIVITY -->
+
+<!-- PATHWAY -->
+<span class="comment">Pathway</span>{PATHWAY_NAME}<br />
+<!-- /PATHWAY -->
+</body>
+</html>

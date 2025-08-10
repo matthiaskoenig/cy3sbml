@@ -1,5 +1,7 @@
 package org.cy3sbml.uniprot;
 
+import org.cy3sbml.TemplateBuilder;
+import org.cy3sbml.TemplateLoader;
 import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
 import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
 import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
@@ -18,14 +20,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
  * Access UniProt information.
  */
 public class UniprotAccess {
+
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
-    public static final String UNIPROT_URL = "https://www.uniprot.org/uniprot";
+
 
     /**
      * Retrieve UniProt Entry by accession id.
@@ -38,9 +45,6 @@ public class UniprotAccess {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
-            // start the service
-
-
             // fetch entry
             entry = uniProtService.getEntry(accession);
 
@@ -59,9 +63,6 @@ public class UniprotAccess {
         } catch (Exception e) {
             logger.error("Problems retrieving uniprot entry.", e);
             e.printStackTrace();
-        } finally {
-            // always remember to stop service
-
         }
         return entry;
     }
@@ -72,18 +73,18 @@ public class UniprotAccess {
      * Identifier of the form "P29218"
      */
     public static String uniprotHTML(String accession){
+        String template = TemplateLoader.load(UNIPROT_LINK_HTML);
         String text = "\t<br />\n";
-        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
-            text += MessageFormat.format(
-                    "\t<a href=\"" + UNIPROT_URL + "\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
-                            "\t<a href=\"" + UNIPROT_URL + "/{0}\"><span class=\"identifier\">{1}</span></a> ({2})<br />\n",
-                    accession,
-                    accession,
-                    uniProtId
-            );
+
+            text += TemplateBuilder.create(template, UNIPROT_LINK)
+                    .with(BASE_URL, UNIPROT_URL)
+                    .with(ACCESSION, accession)
+                    .with(UNIPROT_ID, uniProtId)
+                    .render();
+
             // description
             ProteinDescription description = entry.getProteinDescription();
 
@@ -137,31 +138,30 @@ public class UniprotAccess {
             // comments
             for (Comment comment : entry.getComments()){
                 CommentType ctype = comment.getCommentType();
-
+                Map<String, String> commentReplacements = new HashMap<>();
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += MessageFormat.format(
-                                "\t<span class=\"comment\">Function</span> <span class=\"text-success\">{0}</span><br />\n",
-                                commentText.getValue()
-                        );                    }
+                        text += TemplateBuilder.create(template, FUNCTION_COMMENT)
+                                .with(COMMENT_TEXT, commentText.getValue())
+                                .render();
+                    }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                     Reaction reaction = caComment.getReaction();
                     if (reaction != null){
-                        text += MessageFormat.format(
-                                "\t<span class=\"comment\">Catalytic Activity</span>{0}<br />\n",
-                                reaction.getName()
-                        );                    }
+                        text += TemplateBuilder.create(template, CATALYTIC_ACTIVITY)
+                                .with(REACTION_NAME, reaction.getName())
+                                .render();
+                                         }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
-                        text += MessageFormat.format(
-                                "\t<span class=\"comment\">Pathway</span>{0}<br />\n",
-                                commentText.getValue()
-                        );
+                        text += TemplateBuilder.create(template, PATHWAY)
+                                .with(PATHWAY_NAME, commentText.getValue())
+                                .render();
                     }
                 }
             }
