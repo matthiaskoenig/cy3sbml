@@ -1,7 +1,6 @@
 package org.cy3sbml.uniprot;
 
-import org.cy3sbml.TemplateBuilder;
-import org.cy3sbml.TemplateLoader;
+import org.cy3sbml.gui.SBaseHTMLFactory;
 import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
 import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
 import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
@@ -24,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
 import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
@@ -32,7 +32,7 @@ import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 public class UniprotAccess {
 
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
-
+    public static Map<String,String> htmlFragments = SBaseHTMLFactory.htmlFragments;
 
     /**
      * Retrieve UniProt Entry by accession id.
@@ -73,17 +73,16 @@ public class UniprotAccess {
      * Identifier of the form "P29218"
      */
     public static String uniprotHTML(String accession){
-        String template = TemplateLoader.load(UNIPROT_LINK_HTML);
+
         String text = "\t<br />\n";
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
+            text+= htmlFragments.get(UNIPROT_LINK)
+                    .replace(BASE_URL, UNIPROT_URL)
+                    .replace(ACCESSION, accession)
+                    .replace(UNIPROT_ID, uniProtId);
 
-            text += TemplateBuilder.create(template, UNIPROT_LINK)
-                    .with(BASE_URL, UNIPROT_URL)
-                    .with(ACCESSION, accession)
-                    .with(UNIPROT_ID, uniProtId)
-                    .render();
 
             // description
             ProteinDescription description = entry.getProteinDescription();
@@ -142,26 +141,25 @@ public class UniprotAccess {
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += TemplateBuilder.create(template, FUNCTION_COMMENT)
-                                .with(COMMENT_TEXT, commentText.getValue())
-                                .render();
+                        text += htmlFragments.get(FUNCTION_COMMENT)
+                                .replace(COMMENT_TEXT, commentText.getValue());
+
                     }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                     Reaction reaction = caComment.getReaction();
                     if (reaction != null){
-                        text += TemplateBuilder.create(template, CATALYTIC_ACTIVITY)
-                                .with(REACTION_NAME, reaction.getName())
-                                .render();
+                        text += htmlFragments.get(CATALYTIC_ACTIVITY)
+                                .replace(REACTION_NAME, reaction.getName());
+
                                          }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
-                        text += TemplateBuilder.create(template, PATHWAY)
-                                .with(PATHWAY_NAME, commentText.getValue())
-                                .render();
+                        text += htmlFragments.get(PATHWAY)
+                                .replace(PATHWAY_NAME, commentText.getValue());
                     }
                 }
             }

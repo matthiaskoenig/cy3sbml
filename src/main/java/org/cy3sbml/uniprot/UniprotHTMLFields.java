@@ -1,7 +1,7 @@
 package org.cy3sbml.uniprot;
 
 public interface UniprotHTMLFields {
-    String UNIPROT_LINK_HTML = "linktemplate.html";
+
     String COMMENT_TEXT = "COMMENT_TEXT";
     String FUNCTION_COMMENT = "FUNCTION_COMMENT";
     String REACTION_NAME = "REACTION_NAME";
