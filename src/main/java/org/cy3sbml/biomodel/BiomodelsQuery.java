@@ -58,7 +58,7 @@ public class BiomodelsQuery {
 	    // TODO: handle the more complex cases, i.e. if there is pagination, than
         // FIXME: pagination - &offset=0&numResults=10
         // perform all the individual queries and combine the results.
-		long start = System.currentTimeMillis();
+
 		String url = String.format("%s?query=%s&format=json",
 				BIOMODELS_RESTFUL_URL + BIOMODELS_SEARCH,
 				URLEncoder.encode(query, StandardCharsets.UTF_8));
@@ -79,9 +79,8 @@ public class BiomodelsQuery {
 			}
 			return new BiomodelsQueryResult(query, status, json);
 		}
-		long duration = System.currentTimeMillis() - start;
-		System.out.println("Request took: " + duration + "ms");
-		System.out.println("Response length: " + response.body().toString().length());
+
+
 		return null;
 	}
 
@@ -134,14 +133,13 @@ public class BiomodelsQuery {
 		} else {
 			System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
 		}
-		long duration = System.currentTimeMillis() - start;
-		System.out.println("Request took: " + duration + "ms");
+
 
 		return sbml;
 	}
 	public static HttpResponse<String> getSBMLResponse(String base, String operation, String id) throws IOException, InterruptedException {
 		String downloadUrl = base + operation + id + "?filename=" + id + "_url.xml";
-		System.out.println("downloadUrl: " + downloadUrl);
+
 		HttpClient client = HttpClient.newBuilder()
 				.followRedirects(HttpClient.Redirect.NORMAL)
 				.build();

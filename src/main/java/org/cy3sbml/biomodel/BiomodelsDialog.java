@@ -34,11 +34,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import java.awt.event.KeyAdapter;
-
 import javax.swing.JTextArea;
-
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.biomodelrest.QueryHistory;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +51,7 @@ public class BiomodelsDialog extends JDialog {
 	private static BiomodelsDialog uniqueInstance;
 	private final ServiceAdapter adapter;
 	private final SearchBioModel searchBioModel;
-	private static QueryHistory queryHistory;
+
 
 	private final JTextArea idTextArea;
 	private final JTextField nameField;
@@ -187,16 +184,7 @@ public class BiomodelsDialog extends JDialog {
 		searchButton.setToolTipText("Search Biomodels");
 		searchButton.setBounds(33, 203, 102, 25);
 		panel.add(searchButton);
-		searchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-                try {
-                    searchBioModels();
-					queryHistory.add(nameField.getText());
-                } catch (IOException | InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-		});
+
 		// Reset Button
 		JButton resetButton = new JButton("Reset");
 		resetButton.setToolTipText("Reset Search Fields");

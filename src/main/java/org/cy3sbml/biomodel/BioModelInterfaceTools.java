@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 /**
  * Tools to interact with BioModels.
  */
 public class BioModelInterfaceTools {
-	// private static final Logger logger = LoggerFactory.getLogger(BioModelWSInterfaceTools.class);
 
 	// string and html representations
-
 
 	public static String getHTMLInformationForSimpleModels(List<String>modelIds,
                                                            List<String> selectedSimpleModels) throws IOException, ExecutionException, InterruptedException {

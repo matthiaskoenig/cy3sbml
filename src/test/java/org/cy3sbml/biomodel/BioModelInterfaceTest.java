@@ -3,6 +3,7 @@ package org.cy3sbml.biomodel;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.cy3sbml.TestUtils;
 import org.junit.After;
@@ -51,11 +52,7 @@ public class BioModelInterfaceTest {
     }
 
 
-    public void testGetBioModelIdsByPerson() throws BioModelsWSException {
-        List<String> modelIds = bmInterface.getBioModelIdsByPerson(VALID_BIOMODEL_PERSON);
-        assertNotNull("Models have to exist.", modelIds);
-        assertTrue("More than 0 models have to exist.", modelIds.size() > 0);
-    }
+
 
 
     public void testGetBioModelIdsByPerson2() throws BioModelsWSException {
@@ -130,4 +127,23 @@ public class BioModelInterfaceTest {
         assertNotNull("If invalid id, null is returned.", sbml);
     }
 
+    @Test
+    public void testGetBioModelIdsByPerson() throws IOException, InterruptedException {
+        List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
+        assertNotNull("Models have to exist.", modelIds);
+        assertTrue("More than 0 models have to exist.", modelIds.size() > 0);
+        for (String modelId: modelIds){
+            System.out.println(modelId);
+        }
+    }
+
+    @Test
+    public void testGetBioModelIdsByName() throws IOException, InterruptedException {
+        List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
+        assertNotNull("Models have to exist.", modelIds);
+        assertTrue("More than 0 models have to exist.", modelIds.size() > 0);
+        for (String modelId: modelIds){
+            System.out.println(modelId);
+        }
+    }
 }
