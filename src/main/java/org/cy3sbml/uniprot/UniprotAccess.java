@@ -1,5 +1,6 @@
 package org.cy3sbml.uniprot;
 
+import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
 import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
@@ -32,7 +33,7 @@ import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 public class UniprotAccess {
 
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
-    public static Map<String,String> htmlFragments = SBaseHTMLFactory.htmlFragments;
+    public static Map<String,String> htmlFragments = GUIConstants.htmlFragments;
 
     /**
      * Retrieve UniProt Entry by accession id.

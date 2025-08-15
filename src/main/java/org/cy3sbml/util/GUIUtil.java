@@ -26,6 +26,8 @@ import org.cy3sbml.ServiceAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
+
 
 public class GUIUtil {
     private static final Logger logger = LoggerFactory.getLogger(GUIUtil.class);
@@ -102,7 +104,7 @@ public class GUIUtil {
     public static void openSBaseHTMLInBrowser(){
         String html = WebViewPanel.getInstance().getHtml();
         // remove export button, exported html cannot be exported
-        html = html.replace(SBaseHTMLFactory.EXPORT_HTML, "");
+        html = html.replace(EXPORT_HTML, "");
         openHTMLInBrowser(html);
     }
 
