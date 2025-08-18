@@ -25,4 +25,5 @@ public interface InfoPanel {
      */
     void showSBaseInfo(Set<Object> objSet);
 
+
 }

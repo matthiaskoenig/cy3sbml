@@ -281,16 +281,13 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-            // Update and load registry
+           //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
-                public void run() {
-                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-
-                    RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
-                    RegistryUtil.loadRegistry(miriamFile);
+               public void run() {
+                    RegistryUtil.getMiriamContent();
                 }
-            });
-            miriamThread.run();
+         });
+         miriamThread.run();
 
             // cy3sbml panels
             webViewPanel.activate();
@@ -303,5 +300,6 @@ public class CyActivator extends AbstractCyActivator {
             e.printStackTrace();
         }
     }
+
 }
 

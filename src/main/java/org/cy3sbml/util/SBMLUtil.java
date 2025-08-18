@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.*;
 
 import org.cy3sbml.gui.BrowserHyperlinkListener;
-import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.sbml.jsbml.*;
 import org.cy3sbml.SBML;
@@ -21,7 +20,6 @@ import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.util.StringTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
