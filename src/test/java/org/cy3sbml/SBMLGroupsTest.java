@@ -2,10 +2,10 @@ package org.cy3sbml;
 
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testing groups models.

@@ -1,10 +1,12 @@
 package org.cy3sbml.ols;
 
 import org.identifiers.registry.RegistryUtilities;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Test OLS Access.

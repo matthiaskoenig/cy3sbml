@@ -1,6 +1,5 @@
 package org.cy3sbml.uniprot;
 
-import org.junit.Test;
 
 import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 import uk.ac.ebi.uniprot.dataservice.client.Client;
@@ -11,8 +10,9 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
 
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test access to UniProt via JAPI.

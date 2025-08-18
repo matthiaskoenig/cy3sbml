@@ -5,6 +5,7 @@ import org.cy3sbml.IdentifiersConstants;
 import org.identifiers.registry.data.PhysicalLocation;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
+import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfig;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
+    public static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
      * Gets the OLS term for a given identifier.

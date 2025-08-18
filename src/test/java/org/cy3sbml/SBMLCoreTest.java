@@ -1,12 +1,12 @@
 package org.cy3sbml;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
 
 import org.cy3sbml.util.NetworkUtil;
-import org.junit.Test;
+
 import org.cytoscape.model.*;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
@@ -16,6 +16,8 @@ import org.cy3sbml.util.IOUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test reading of SBML core model.
