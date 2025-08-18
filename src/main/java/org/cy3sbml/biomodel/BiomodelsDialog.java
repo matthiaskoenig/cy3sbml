@@ -184,6 +184,15 @@ public class BiomodelsDialog extends JDialog {
 		searchButton.setToolTipText("Search Biomodels");
 		searchButton.setBounds(33, 203, 102, 25);
 		panel.add(searchButton);
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+                try {
+                    searchBioModels();
+                } catch (IOException | InterruptedException | ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+		});
 
 		// Reset Button
 		JButton resetButton = new JButton("Reset");
