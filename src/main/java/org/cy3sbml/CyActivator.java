@@ -2,8 +2,6 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
-import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
-import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.styles.StyleManager;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -235,10 +233,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
             // init actions
-            BiomodelsSBMLReader sbmlReader = new BiomodelsSBMLReader(loadNetworkFileTaskFactory, taskManager);
-            // FIXME: finish implementation
-            // BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
-            // registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
+
 
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());

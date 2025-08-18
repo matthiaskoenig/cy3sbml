@@ -274,12 +274,9 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
      */
     public void handleEvent(RowsSetEvent event) {
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-        if (network!=null) {
-            if (!event.getSource().equals(network.getDefaultNodeTable()) ||
-                    !event.containsColumn(CyNetwork.SELECTED)) {
-                return;
-            }
-            updateInformation();
+        if (network!=null&&!event.getSource().equals(network.getDefaultNodeTable()) ||
+                !event.containsColumn(CyNetwork.SELECTED)) {
+            return;
         }
     }
 
