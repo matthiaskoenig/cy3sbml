@@ -1,6 +1,7 @@
 package org.cy3sbml.ols;
 
 
+import org.cy3sbml.IdentifiersConstants;
 import org.identifiers.registry.data.PhysicalLocation;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
@@ -21,7 +22,6 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols/ontologies/";
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
 
     /**
@@ -88,12 +88,12 @@ public class OLSAccess {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().contains(OLS_BASE_URL);
+        return location.getUrlRoot().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 
     public static void main(String[] args){
         // Exists on OLS
-        String resourceURI = "http://identifiers.org/go/GO:0042752";
+        String resourceURI = "https://identifiers.org/go/GO:0042752";
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
 
         Term term = OLSAccess.getTerm(identifier);
