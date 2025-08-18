@@ -2,8 +2,6 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
-import org.cy3sbml.biomodelrest.BiomodelsRestAction;
-import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
 import org.cy3sbml.styles.StyleManager;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -11,9 +9,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -58,8 +54,6 @@ import org.cy3sbml.miriam.RegistryUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
 
 /**
  * Entry point to cy3sbml.
@@ -239,10 +233,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
             // init actions
-            BiomodelsSBMLReader sbmlReader = new BiomodelsSBMLReader(loadNetworkFileTaskFactory, taskManager);
-            // FIXME: finish implementation
-            // BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
-            // registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
+
 
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());
@@ -290,16 +281,13 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-            // Update and load registry
+           //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
-                public void run() {
-                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-
-                    RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
-                    RegistryUtil.loadRegistry(miriamFile);
+               public void run() {
+                    RegistryUtil.getMiriamContent();
                 }
-            });
-            miriamThread.run();
+         });
+         miriamThread.run();
 
             // cy3sbml panels
             webViewPanel.activate();
@@ -312,5 +300,6 @@ public class CyActivator extends AbstractCyActivator {
             e.printStackTrace();
         }
     }
+
 }
 

@@ -9,10 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,7 +99,7 @@ public class IOUtil {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
             // obtain the connection
-            HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
+         /*   HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
 
             //add parameters to the connection
             sourceConnection.setFollowRedirects(true);
@@ -116,10 +120,15 @@ public class IOUtil {
                 logger.info("deflate download");
             } else {
                 inputStream = sourceConnection.getInputStream();
-            }
+
+            }*/
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(url);
 
             // save InputStream in file
-            Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
+
 
         } catch (IOException e) {
             logger.error("URL could not be saved.", e);
@@ -133,25 +142,9 @@ public class IOUtil {
      * @param url
      * @return
      */
-    public static String getLastModified(URL url) {
-        return getHttpResponseHeaderField(url, "Last-Modified");
-    }
 
 
-    public static String getHttpResponseHeaderField(URL url, String field){
-        try {
-            //obtain the connection
-            HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
-            //add parameters to the connection
-            sourceConnection.setFollowRedirects(true);
-            //establish connection, get response headers
-            sourceConnection.connect();
 
-            //get the last modified tag
-            return sourceConnection.getHeaderField(field);
 
-        } catch (IOException e) {
-            return null;
-        }
-    }
+
 }

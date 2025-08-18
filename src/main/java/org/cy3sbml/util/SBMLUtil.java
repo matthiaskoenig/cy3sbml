@@ -29,9 +29,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import static org.cy3sbml.gui.SBaseHTMLFactory.ICON_NONE;
-
-
 /**
  * Some utils to work with SBML and SBML naming.
  */
@@ -168,7 +165,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(SBML.ATTR_METAID,
-                (sbase.isSetMetaId()) ? sbase.getMetaId() : ICON_NONE);
+                (sbase.isSetMetaId()) ? sbase.getMetaId() : GUIConstants.ICON_NONE);
         return map;
     }
 
@@ -178,9 +175,9 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(ATTR_ID,
-                (nsb.isSetId()) ? nsb.getId() : ICON_NONE);
+                (nsb.isSetId()) ? nsb.getId() : GUIConstants.ICON_NONE);
         map.put(ATTR_NAME,
-                (nsb.isSetName()) ? nsb.getName() : ICON_NONE);
+                (nsb.isSetName()) ? nsb.getName() : GUIConstants.ICON_NONE);
         map.putAll(createSBaseMap(nsb));
         return map;
     }
@@ -200,8 +197,8 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createQuantityWithUnitNodeMap(QuantityWithUnit quantity){
         LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(quantity);
-        String units = quantity.isSetUnits() ? quantity.getUnits() : ICON_NONE;
-        String value = quantity.isSetValue() ? ((Double) quantity.getValue()).toString() : ICON_NONE;
+        String units = quantity.isSetUnits() ? quantity.getUnits() : GUIConstants.ICON_NONE;
+        String value = quantity.isSetValue() ? ((Double) quantity.getValue()).toString() : GUIConstants.ICON_NONE;
         map.put(SBML.ATTR_VALUE, String.format("%s "+UNIT_TEMPLATE, value, units));
         return map;
     }
@@ -212,7 +209,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createSymbolMap(Symbol symbol){
         LinkedHashMap<String, String> map = createQuantityWithUnitNodeMap(symbol);
         map.put(SBML.ATTR_CONSTANT,
-                symbol.isSetConstant() ? SBaseHTMLFactory.booleanHTML(symbol.getConstant()) : ICON_NONE
+                symbol.isSetConstant() ? SBaseHTMLFactory.booleanHTML(symbol.getConstant()) : GUIConstants.ICON_NONE
         );
         return map;
     }
@@ -226,7 +223,7 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, Variable variable){
         LinkedHashMap<String, String> map = createSBaseMap(container);
-        String math = container.isSetMath() ? container.getMath().toFormula() : ICON_NONE;
+        String math = container.isSetMath() ? container.getMath().toFormula() : GUIConstants.ICON_NONE;
         String units = getDerivedUnitHtml(container);
         if (variable != null){
             map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
@@ -314,10 +311,10 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createCompartmentMap(Compartment compartment) {
         LinkedHashMap<String, String> map = createSymbolMap(compartment);
         map.put(SBML.ATTR_SPATIAL_DIMENSIONS,
-                compartment.isSetSpatialDimensions() ? ((Double) compartment.getSpatialDimensions()).toString() : ICON_NONE
+                compartment.isSetSpatialDimensions() ? ((Double) compartment.getSpatialDimensions()).toString() : GUIConstants.ICON_NONE
         );
         map.put(SBML.ATTR_SIZE,
-                compartment.isSetSize() ? ((Double)compartment.getSize()).toString() : ICON_NONE
+                compartment.isSetSize() ? ((Double)compartment.getSize()).toString() : GUIConstants.ICON_NONE
         );
         return map;
     }
@@ -336,21 +333,21 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createSpeciesMap(Species s) {
         LinkedHashMap<String, String> map = createSymbolMap(s);
 
-        String compartment = ICON_NONE;
+        String compartment = GUIConstants.ICON_NONE;
         if (s.isSetCompartment()){
             compartment = s.getCompartment() + String.format(LINK_ID_TEMPLATE, s.getCompartment());
         }
         map.put(ATTR_COMPARTMENT, compartment);
-        String boundaryCondition = (s.isSetBoundaryCondition()) ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition()) : ICON_NONE;
+        String boundaryCondition = (s.isSetBoundaryCondition()) ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition()) : GUIConstants.ICON_NONE;
         map.put(SBML.ATTR_BOUNDARY_CONDITION, boundaryCondition);
-        String initialAmount = s.isSetInitialAmount() ? ((Double) s.getInitialAmount()).toString() : ICON_NONE;
+        String initialAmount = s.isSetInitialAmount() ? ((Double) s.getInitialAmount()).toString() : GUIConstants.ICON_NONE;
         map.put(ATTR_INITIAL_AMOUNT, initialAmount);
-        String initialConcentration = ICON_NONE;
+        String initialConcentration = GUIConstants.ICON_NONE;
         if (s.isSetInitialConcentration()) {
             initialConcentration = ((Double) s.getInitialConcentration()).toString();
         }
         map.put(ATTR_INITIAL_CONCENTRATION, initialConcentration);
-        String hasOnlySubstanceUnits = ICON_NONE;
+        String hasOnlySubstanceUnits = GUIConstants.ICON_NONE;
         if (s.isSetHasOnlySubstanceUnits()) {
             hasOnlySubstanceUnits = SBaseHTMLFactory.booleanHTML(s.getHasOnlySubstanceUnits());
         }
@@ -370,13 +367,13 @@ public class SBMLUtil {
         // fbc
         FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.namespaceURI);
         if (fbcSpecies != null){
-            String charge = ICON_NONE;
+            String charge = GUIConstants.ICON_NONE;
             if (fbcSpecies.isSetCharge()){
                 charge = ((Integer) fbcSpecies.getCharge()).toString();
             }
             map.put(SBML.ATTR_FBC_CHARGE, charge);
 
-            String chemicalFormula = ICON_NONE;
+            String chemicalFormula = GUIConstants.ICON_NONE;
             if (fbcSpecies.isSetChemicalFormula()){
                 chemicalFormula = fbcSpecies.getChemicalFormula();
             }
@@ -391,10 +388,10 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createReactionMap(Reaction r) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(r);
 
-        String compartment = (r.isSetCompartment()) ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment()) : ICON_NONE;
-        String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : ICON_NONE;
-        String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : ICON_NONE;
-        String kineticLaw = ICON_NONE;
+        String compartment = (r.isSetCompartment()) ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment()) : GUIConstants.ICON_NONE;
+        String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : GUIConstants.ICON_NONE;
+        String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : GUIConstants.ICON_NONE;
+        String kineticLaw = GUIConstants.ICON_NONE;
         if (r.isSetKineticLaw()){
             KineticLaw law = r.getKineticLaw();
             if (law.isSetMath()){
@@ -415,13 +412,13 @@ public class SBMLUtil {
         // fbc
         FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.namespaceURI);
         if (fbcReaction != null){
-            String lowerFluxBound = ICON_NONE;
+            String lowerFluxBound = GUIConstants.ICON_NONE;
             if (fbcReaction.isSetLowerFluxBound()){
                 lowerFluxBound = fbcReaction.getLowerFluxBound();
             }
             map.put(SBML.ATTR_FBC_LOWER_FLUX_BOUND, lowerFluxBound);
 
-            String upperFluxBound = ICON_NONE;
+            String upperFluxBound = GUIConstants.ICON_NONE;
             if (fbcReaction.isSetUpperFluxBound()){
                 upperFluxBound = fbcReaction.getUpperFluxBound();
             }
@@ -462,10 +459,10 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createUnitMap(Unit u) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
-        String kind = u.isSetKind() ? u.getKind().toString() : ICON_NONE;
-        String exponent = u.isSetExponent() ? ((Double) u.getExponent()).toString() : ICON_NONE;
-        String multiplier = u.isSetMultiplier() ? ((Double) u.getMultiplier()).toString() : ICON_NONE;
-        String scale = u.isSetScale() ? ((Integer) u.getScale()).toString() : ICON_NONE;
+        String kind = u.isSetKind() ? u.getKind().toString() : GUIConstants.ICON_NONE;
+        String exponent = u.isSetExponent() ? ((Double) u.getExponent()).toString() : GUIConstants.ICON_NONE;
+        String multiplier = u.isSetMultiplier() ? ((Double) u.getMultiplier()).toString() : GUIConstants.ICON_NONE;
+        String scale = u.isSetScale() ? ((Integer) u.getScale()).toString() : GUIConstants.ICON_NONE;
 
         map.put(SBML.ATTR_UNIT_KIND, kind);
         map.put(SBML.ATTR_UNIT_EXPONENT, exponent);
@@ -479,7 +476,7 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createConstraintMap(Constraint constraint) {
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(constraint);
-        String message = ICON_NONE;
+        String message = GUIConstants.ICON_NONE;
         if (constraint.isSetMessage()){
             try {
                 message = constraint.getMessageString();
@@ -496,7 +493,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createEventMap(Event event) {
         LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(event);
         Trigger trigger = event.getTrigger();
-        String triggerStr = ICON_NONE;
+        String triggerStr = GUIConstants.ICON_NONE;
         if (trigger.isSetMath()){
             triggerStr = String.format(MATH_TEMPLATE, trigger.getMath().toFormula());
         }
@@ -504,7 +501,7 @@ public class SBMLUtil {
         map.put("trigger initialValue", SBaseHTMLFactory.booleanHTML(trigger.getInitialValue()));
         map.put("trigger persistent", SBaseHTMLFactory.booleanHTML(trigger.getPersistent()));
 
-        String priorityStr = ICON_NONE;
+        String priorityStr = GUIConstants.ICON_NONE;
         if (event.isSetPriority()){
             Priority priority = event.getPriority();
             if (priority.isSetMath()){
@@ -512,7 +509,7 @@ public class SBMLUtil {
             }
         }
         map.put("priority", priorityStr);
-        String delayStr = ICON_NONE;
+        String delayStr = GUIConstants.ICON_NONE;
         if (event.isSetPriority()){
             Delay delay = event.getDelay();
             if (delay.isSetMath()){
@@ -564,10 +561,10 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(qs);
 
-        String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : ICON_NONE;
-        String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : ICON_NONE;
-        String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : ICON_NONE;
-        String constant = (qs.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : ICON_NONE;
+        String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : GUIConstants.ICON_NONE;
+        String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : GUIConstants.ICON_NONE;
+        String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : GUIConstants.ICON_NONE;
+        String constant = (qs.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : GUIConstants.ICON_NONE;
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
                 String.format("%s/%s", initialLevel, maxLevel)
@@ -596,16 +593,16 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createPortMap(Port port) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(port);
         map.put(SBML.ATTR_COMP_PORTREF,
-                port.isSetPortRef() ? port.getPortRef() : ICON_NONE
+                port.isSetPortRef() ? port.getPortRef() : GUIConstants.ICON_NONE
         );
         map.put(SBML.ATTR_COMP_IDREF,
-                port.isSetIdRef() ? port.getIdRef() : ICON_NONE
+                port.isSetIdRef() ? port.getIdRef() : GUIConstants.ICON_NONE
         );
         map.put(SBML.ATTR_COMP_UNITREF,
-                port.isSetUnitRef() ? port.getUnitRef() : ICON_NONE
+                port.isSetUnitRef() ? port.getUnitRef() : GUIConstants.ICON_NONE
         );
         map.put(SBML.ATTR_COMP_METAIDREF,
-                port.isSetMetaIdRef() ? port.getMetaIdRef() : ICON_NONE
+                port.isSetMetaIdRef() ? port.getMetaIdRef() : GUIConstants.ICON_NONE
         );
         return map;
     }
@@ -642,7 +639,7 @@ public class SBMLUtil {
     private static String getDerivedUnitHtml(SBaseWithDerivedUnit usbase){
         String units = usbase.getDerivedUnits();
         if (units == null || units.length() == 0){
-            units = ICON_NONE;
+            units = GUIConstants.ICON_NONE;
         }
         return units;
     }

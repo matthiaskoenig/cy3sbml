@@ -21,10 +21,10 @@ public class UniprotAccessTest {
 
     @Test
     public void getUniProtEntry(){
-        String accession = "P10415";
+        String accession = "P04483";
         UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         assertNotNull(entry);
-        assertEquals("BCL2_HUMAN", entry.getUniProtId().toString());
+        assertEquals("TETR2_ECOLX", entry.getUniProtId().toString());
     }
 
     @Test
@@ -33,10 +33,10 @@ public class UniprotAccessTest {
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
             // start the service
-            uniProtService.start();
+
 
             // the accession we're interested in
-            String accession = "P10415";
+            String accession = "P04483";
 
             // use the service directly to fetch the UniProtEntry
             accessSingleFullUniProtEntry(uniProtService, accession);
@@ -76,7 +76,7 @@ public class UniprotAccessTest {
             e.printStackTrace();
         } finally {
             // always remember to stop the service
-            uniProtService.stop();
+
             System.out.println("service now stopped.");
         }
     }

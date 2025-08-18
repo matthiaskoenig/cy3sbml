@@ -41,7 +41,6 @@ public class BioModelInterfaceTest {
     @Test
     public void testGetBioModelIdsByName() throws BioModelsWSException {
         List<String> modelIds = bmInterface.getBioModelIdsByName(VALID_BIOMODEL_NAME);
-        assertNotNull((Object) "Models have to exist.", (Supplier<String>) modelIds);
         assertTrue(modelIds.size() > 0, "More than 0 models have to exist.");
     }
 
@@ -102,8 +101,8 @@ public class BioModelInterfaceTest {
     @Test
     public void testGetEncodersByModelId2() throws BioModelsWSException {
         List<String> encoders = bmInterface.getEncodersByModelId(INVALID_STRING);
-        assertNotNull((Object) "Empty list for invalid search term.", (Supplier<String>) encoders);
-        assertTrue(encoders.size() == 0, "Empty list for invalid search term,");
+        assertNotNull("Empty list for invalid search term.", encoders);
+        assertTrue("Empty list for invalid search term,", encoders.size() == 0);
     }
 
     @Test

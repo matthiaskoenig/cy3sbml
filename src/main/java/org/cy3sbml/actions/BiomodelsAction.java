@@ -1,6 +1,8 @@
 package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.ImageIcon;
 
@@ -40,7 +42,8 @@ public class BiomodelsAction extends AbstractCyAction{
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		logger.debug("actionPerformed()");
-	    BiomodelsDialog bioModelsDialog = BiomodelsDialog.getInstance(adapter);
-	    bioModelsDialog.setVisible(true);   
+        BiomodelsDialog bioModelsDialog = null;
+        bioModelsDialog = BiomodelsDialog.getInstance(adapter);
+        bioModelsDialog.setVisible(true);
 	}
 }

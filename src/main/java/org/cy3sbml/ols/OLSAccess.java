@@ -2,7 +2,7 @@ package org.cy3sbml.ols;
 
 
 import org.cy3sbml.IdentifiersConstants;
-import org.identifiers.registry.data.PhysicalLocation;
+import org.cy3sbml.miriam.Resource;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfig;
@@ -88,8 +88,9 @@ public class OLSAccess {
     /**
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
-    public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().contains(IdentifiersConstants.OLS_BASE_URL);
+    public static boolean isPhysicalLocationOLS(Resource resource){
+
+        return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 
     public static void main(String[] args){
@@ -98,7 +99,7 @@ public class OLSAccess {
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
 
         Term term = OLSAccess.getTerm(identifier);
-        System.out.println(OLSAccess.termToString(term));
+
     }
 
 }
