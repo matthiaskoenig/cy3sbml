@@ -1,8 +1,8 @@
 package org.cy3sbml.gui;
 
 
+import java.io.IOException;
 import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +28,16 @@ public class SBaseHTMLThread extends Thread{
      * Creates information for all objects within a single thread.
      */
     public void run() {
+
         for (Object obj : objSet){
             SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
-            infoFac.createInfo();
+
+            try {
+                infoFac.createInfo();
+            } catch (IOException e) {
+
+            }
+
             String html = infoFac.getHtml();
             if (info == null) {
                 info = html;

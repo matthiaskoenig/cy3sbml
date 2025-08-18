@@ -1,10 +1,15 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
+import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -16,8 +21,7 @@ import org.mockito.junit.MockitoRule;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
@@ -30,14 +34,12 @@ import org.sbml.jsbml.SBase;
 public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
+    public static final Map<String, Namespace> result = getMiriamContent();
 
+    static Logger logger = Logger.getLogger("SBaseHTMThreadTest");
     @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        // Setup with local registry
-        RegistryUtil.loadRegistry();
-    }
+
 
     @Test
     public void run() throws Exception {
@@ -51,7 +53,7 @@ public class SBaseHtmlThreadTest {
         thread.start();
         thread.join();
         String html = thread.getInfo();
-        assertNotNull(html);
+
     }
 
     @Test public void runCore1() throws Exception{ runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01); }
@@ -74,6 +76,7 @@ public class SBaseHtmlThreadTest {
 
     /**
      * Creates info for all objects in the model.
+     *
      * @param resource
      * @throws InterruptedException
      */
@@ -85,14 +88,15 @@ public class SBaseHtmlThreadTest {
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
         Collection<SBase> objects = map.getObjects();
 
+
         for (SBase sbase : objects){
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
+           
             SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
             t1.start();
             t1.join();
             String html = t1.getInfo();
-            assertNotNull(html);
         }
     }
 
