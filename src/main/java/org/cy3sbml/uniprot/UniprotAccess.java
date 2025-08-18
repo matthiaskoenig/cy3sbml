@@ -1,5 +1,7 @@
 package org.cy3sbml.uniprot;
 
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.gui.SBaseHTMLFactory;
 import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
 import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
 import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
@@ -17,13 +19,21 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
+import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
  * Access UniProt information.
  */
 public class UniprotAccess {
+
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
+    public static Map<String,String> htmlFragments = GUIConstants.htmlFragments;
 
     /**
      * Retrieve UniProt Entry by accession id.
@@ -36,9 +46,6 @@ public class UniprotAccess {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
-            // start the service
-            uniProtService.start();
-
             // fetch entry
             entry = uniProtService.getEntry(accession);
 
@@ -57,9 +64,6 @@ public class UniprotAccess {
         } catch (Exception e) {
             logger.error("Problems retrieving uniprot entry.", e);
             e.printStackTrace();
-        } finally {
-            // always remember to stop service
-            uniProtService.stop();
         }
         return entry;
     }
@@ -70,14 +74,16 @@ public class UniprotAccess {
      * Identifier of the form "P29218"
      */
     public static String uniprotHTML(String accession){
+
         String text = "\t<br />\n";
-        // UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
-            text += String.format(
-                    "\t<a href=\"https://www.uniprot.org/uniprot\"><img src=\"./images/logos/uniprot_icon.png\" title=\"Information from UniProt\"/></a>&nbsp;&nbsp;\n" +
-                            "\t<a href=\"https://www.uniprot.org/uniprot/%s\"><span class=\"identifier\">%s</span></a> (%s)<br />\n", accession, accession, uniProtId);
+            text+= htmlFragments.get(UNIPROT_LINK)
+                    .replace(BASE_URL, UNIPROT_URL)
+                    .replace(ACCESSION, accession)
+                    .replace(UNIPROT_ID, uniProtId);
+
 
             // description
             ProteinDescription description = entry.getProteinDescription();
@@ -86,15 +92,18 @@ public class UniprotAccess {
             Name name = description.getRecommendedName();
             List<Field> fields = name.getFields();
             for (Field field: fields){
-                String value = field.getValue();
+
                 if (field.getType().getValue().equals("Full")){
-                    text += String.format(
-                            "\t<b>%s</b><br />\n",
-                            field.getValue());
+                    text += MessageFormat.format(
+                            "\t<b>{0}</b><br />\n",
+                            field.getValue()
+                    );
                 }else {
-                    text += String.format(
-                            "\t<b>%s</b>: %s<br />\n",
-                            field.getType().getValue(), field.getValue());
+                    text += MessageFormat.format(
+                            "\t<b>{0}</b>: {1}<br />\n",
+                            field.getType().getValue(),
+                            field.getValue()
+                    );
                 }
             }
 
@@ -102,47 +111,56 @@ public class UniprotAccess {
             Organism organism = entry.getOrganism();
             String organismStr = organism.getScientificName().toString();
             if (organism.hasCommonName()){
-                organismStr += String.format(" (%s)", organism.getCommonName());
+                organismStr += MessageFormat.format(" ({0})", organism.getCommonName());
+
             }
-            text += String.format(
-                    "\t<b>Organism</b>: %s<br />\n",
+            text += MessageFormat.format(
+                    "\t<b>Organism</b>: {0}<br />\n",
                     organismStr);
 
             // genes
             for (Gene gene : entry.getGenes()){
                 String geneName = gene.getGeneName().getValue();
-                text += String.format("\t<b>Gene</b>: %s<br />\n", geneName);
+                text += MessageFormat.format("\t<b>Gene</b>: {0}<br />\n", geneName);
+
             }
 
             // alternative names
             text +="\t<span class=\"comment\">Synonyms</span>";
             for (Name n: description.getAlternativeNames()){
-                text += String.format(
-                        "%s; ", n.getFields().get(0).getValue());
+                text += MessageFormat.format(
+                        "{0}; ",
+                        n.getFields().get(0).getValue()
+                );
             }
             text += "<br />\n";
 
             // comments
             for (Comment comment : entry.getComments()){
                 CommentType ctype = comment.getCommentType();
-
+                Map<String, String> commentReplacements = new HashMap<>();
                 if (ctype.equals(CommentType.FUNCTION)){
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
+                        text += htmlFragments.get(FUNCTION_COMMENT)
+                                .replace(COMMENT_TEXT, commentText.getValue());
+
                     }
                 }
                 else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                     Reaction reaction = caComment.getReaction();
                     if (reaction != null){
-                        text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", reaction.getName());
-                    }
+                        text += htmlFragments.get(CATALYTIC_ACTIVITY)
+                                .replace(REACTION_NAME, reaction.getName());
+
+                                         }
                 }
                 else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
-                        text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());
+                        text += htmlFragments.get(PATHWAY)
+                                .replace(PATHWAY_NAME, commentText.getValue());
                     }
                 }
             }

@@ -1,6 +1,6 @@
 package org.cy3sbml.gui;
 
-import java.io.*;
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
@@ -36,7 +36,9 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
+import static org.cy3sbml.HtmlTemplateParser.load;
+import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
+import static org.cy3sbml.gui.GUIConstants.*;
 
 
 /**
@@ -64,57 +66,13 @@ public class SBaseHTMLFactory {
     // HTML template strings
     ///////////////////////////////////////////////
 
-    public static final String HTML_START_TEMPLATE =
-            "<!DOCTYPE html>\n" +
-                    "<html>\n" +
-                    "<head>\n" +
-                    "\t<base href=\"%s\" />\n" +
-                    "\t<meta charset=\"utf-8\">\n" +
-                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                    "\t<title>%s</title>\n" +
-                    "\t<link rel=\"shortcut icon\" href=\"./images/favicon.ico\" />\n" +
-                    "\t<link rel=\"stylesheet\" href=\"./css/bootstrap.min.css\">\n" +
-                    "\t<link rel=\"stylesheet\" href=\"./css/jquery.dataTables.min.css\">\n" +
-                    "\t<link rel=\"stylesheet\" href=\"./font-awesome-4.6.3/css/font-awesome.min.css\">\n" +
-                    "\t<link rel=\"stylesheet\" href=\"./css/cy3sbml.css\">\n" +
-                    "</head>\n\n" +
-                    "<body>\n" +
-                    "<div class=\"container\">\n";
 
-    public static final String HTML_STOP_TEMPLATE =
-                    "</div>\n" +
-                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery-1.12.3.js\"></script>\n" +
-                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/bootstrap.min.js\"></script>\n" +
-                    "<script type=\"text/javascript\" language=\"javascript\" src=\"./js/jquery.dataTables.min.js\"></script>\n" +
-                    "\t<script type=\"text/javascript\" language=\"javascript\">\n" +
-                    "\t$(document).ready(function() {\n" +
-                    "\t    $('#table').DataTable();\n" +
-                    "\t} );\n" +
-                    "\t</script>\n" +
-                    "</body>\n" +
-                    "</html>\n";
-
-    public static final String ICON_WARNING = "<span class=\"fa fa-exclamation-circle fa-lg\" title=\"true\" style=\"color:red\"> </span>";
-    public static final String ICON_TRUE = "<span class=\"fa fa-check-circle fa-lg\" title=\"true\" style=\"color:green\"> </span>";
-    public static final String ICON_FALSE = "<span class=\"fa fa-times-circle fa-lg\" title=\"false\" style=\"color:red\"> </span>";
-    public static final String ICON_NONE = "<span class=\"fa fa-circle-o fa-lg\" title=\"none\" style=\"color:grey\"> </span>";
-    public static final String ICON_INVISIBLE = "<span class=\"fa fa-circle-o fa-lg icon-invisible\" title=\"none\"> </span>";
-
-    public static final String EXPORT_HTML = String.format(
-            "<small><a href=\"%s\"><span class=\"fa fa-share-square-o\" aria-hidden=\"true\" style=\"color:black\" title=\"Export HTML information\"></span></a></small>&nbsp;&nbsp;",
-            BrowserHyperlinkListener.URL_HTML_SBASE);
-
-    public static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
-    public static final String TABLE_END = "</table>\n";
-    public static final String TS = "\t<tr>\n\t\t<td><b>";
-    public static final String TM = "</b></td>\n\t\t<td>";
-    public static final String TE = "<td/>\n\t</tr>\n";
 
     ///////////////////////////////////////////////
 
 	private SBase sbase;
 	private String html;
+
 
     /** Constructor. */
 	public SBaseHTMLFactory(Object obj){
@@ -158,7 +116,9 @@ public class SBaseHTMLFactory {
      * Creates HTML for given text String.
      */
     public static String createHTMLText(String text, String title){
-        return String.format(HTML_START_TEMPLATE, baseDir, title) + text + HTML_STOP_TEMPLATE;
+        return HTML_START_TEMPLATE.replace("{baseHref}", baseDir)
+                .replace("pageTitle", title) + text + HTML_STOP_TEMPLATE;
+
     }
 
     /** Creates HTML text. */
@@ -236,7 +196,7 @@ public class SBaseHTMLFactory {
 	 */
 	private static String createHeader(SBase sbase){
 		String className = SBMLUtil.getUnqualifiedClassName(sbase);
-		String header = String.format("<h2>%s%s</h2>\n", EXPORT_HTML, className);
+		String header = MessageFormat.format("<h2>{0}{1}</h2>\n", EXPORT_HTML, className);
 
         // if NamedSBase get additional information
         if (NamedSBase.class.isAssignableFrom(sbase.getClass())) {
@@ -246,7 +206,8 @@ public class SBaseHTMLFactory {
                 exportHTML = "";
             }
             NamedSBase nsb = (NamedSBase) sbase;
-            header = String.format("<h2>%s%s <small>%s</small></h2>\n", exportHTML, className, nsb.getId());
+            header = MessageFormat.format("<h2>{0}{1} <small>{2}</small></h2>\n",
+                    exportHTML, className, nsb.getId());
         }
 		return header;
 	}
@@ -273,16 +234,20 @@ public class SBaseHTMLFactory {
             String organisation = c.isSetOrganisation() ? String.format(", %s", c.getOrganisation()) : "";
             String email = "";
             if (c.isSetEmail()){
-                email = String.format("(<a href=\"mailto:%s\">%s</a>)", c.getEmail(), c.getEmail());
+                email = EMAIL_LINK.replace("{email}", c.getEmail());
             }
-            html += String.format("%s %s %s%s</br>\n", givenName, familyName, email, organisation);
+            html += MessageFormat.format("{0} {1} {2}{3}</br>\n",
+                    givenName,
+                    familyName,
+                    email,
+                    organisation);
         }
         if (h.isSetCreatedDate()){
-            html += String.format("<span class=\"math\">created: %s</span><br />\n", h.getCreatedDate());
+            html += CREATED_DATE1.replace("{date}", h.getCreatedDate().toString());
         }
         if (h.isSetListOfModification()){
             for (Date date: h.getListOfModifiedDates()){
-                html += String.format("<span class=\"math\">modified: %s</span><br />\n", date);
+                html += MODIFIED_DATE.replace("{date}", date.toString());
             }
         }
         html += "</p>\n";
@@ -385,7 +350,9 @@ public class SBaseHTMLFactory {
 
 		// Not supported
 		else {
-            logger.warn(String.format("No object map support for %s <%s>", SBMLUtil.getUnqualifiedClassName(item), item));
+            logger.warn(MessageFormat.format(
+                    "No object map support for {0} <{1}>",
+                    SBMLUtil.getUnqualifiedClassName(item)));
 		    if (item instanceof NamedSBase){
                 map = SBMLUtil.createNamedSBaseMap((NamedSBase) item);
             } else {
@@ -498,37 +465,46 @@ public class SBaseHTMLFactory {
             }
 
             // identifier
-            String identifierHTML = String.format(
-                    "<a href=\"%s\"><span class=\"identifier\" title=\"Resource identifier. Click to open primary resource.\">%s</span></a>",
-                    resourceLink, identifier);
+            String identifierHTML = IDENTIFIER_LINK
+                    .replace("{resourceLink}", resourceLink)
+                    .replace("{identifier}", identifier);
 
 
             // not possible to resolve dataType from MIRIAM registry
             if (dataType == null){
-                logger.warn(String.format("DataType could not be retrieved for data collection part: <%s>", dataCollection));
-                text += String.format(
-                        "\t%s%s<br />\n" +
-                        "\t%s <span class=\"text-danger\">Unknown data collection: <a href=\"%s\">%s</a></span><br />\n",
-                        qualifierHTML, identifierHTML, ICON_WARNING, dataCollection, dataCollection);
-                text += String.format(
-                        "\t%s <a href=\"%s\"> %s</a><br />\n",
-                        ICON_INVISIBLE, resourceURI, resourceURI);
+                logger.warn(MessageFormat.format(
+                        "DataType could not be retrieved for data collection part: <{0}>",
+                        dataCollection));
+                text += UNKNOWN_DATA_COLLECTION.replace("{qualifierHTML}", qualifierHTML)
+                        .replace("{identifierHTML}", identifierHTML)
+                        .replace("{ICON_WARNING}", ICON_WARNING)
+                        .replace("{dataCollectionURL}", dataCollection)
+                        .replace("{dataCollectionID}", dataCollection);
+
+
+                text += INVISIBLE_RESOURCE_LINK.replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
+                        .replace("{resourceURI}", resourceURI);
             }
             // dataType found
             if (dataType != null){
-                text += qualifierHTML + String.format(
-                        "\t<a href=\"%s\"><span class=\"collection\" title=\"MIRIAM data collection. Click to open on MIRIAM registry.\">%s</span></a>%s<br/>\n",
-                        dataType.getResources().get(0).getResourceHomeUrl(), dataType.getName(), identifierHTML);
+                text += qualifierHTML + MIRIAM_COLLECTION_LINK
+                        .replace("{dataTypeURL}", dataType.getURL())
+                        .replace("{dataTypeName}", dataType.getName())
+                        .replace("{identifierHTML}", identifierHTML);
 
                 // check that identifier is correct for given datatype
                 String pattern = dataType.getPattern();
                 if (!RegistryUtilities.checkRegexp(identifier, pattern)){
-                    logger.warn(String.format(
-                            "Identifier <%s> does not match pattern <%s> of data collection: <%s>",
-                            identifier, pattern, dataType.getId()));
-                    text += String.format(
-                            "%s <span class=\"text-danger\">Identifier <%s> does not match pattern '%s'</span><br />\n",
-                            ICON_WARNING, identifier, pattern);
+                    logger.warn(MessageFormat.format(
+                            "Identifier <{0}> does not match pattern <{1}> of data collection: <{2}>",
+                            identifier,
+                            pattern,
+                            dataType.getId()
+                    ));
+                    text += IDENTIFIER_PATTERN_MISMATCH
+                            .replace("{ICON_WARNING}", ICON_WARNING)
+                            .replace("{identifier}", identifier)
+                            .replace("{pattern}", pattern);
                 }
 
                 // Create OLS resource for location
@@ -561,24 +537,13 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return
      */
-    private static String createURL(Namespace namespace, Resource resource, String identifier){
-        String nonOlsURL = null;
-        String identifier2 = "";
-        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
-            /*if(resource.getUrlPattern().contains("=")) {
-                nonOlsURL = resource.getUrlPattern().replace(StringUtils.substringAfter(resource.getUrlPattern(), "="), identifier);
-            } else {
-                nonOlsURL = resource.getUrlPattern().replace("{$id}", identifier);
-            }*/
-            identifier2 = StringUtils.substringAfter(identifier, ":");
-
-        } else{
-            identifier2 = identifier;
-
-        }
-        nonOlsURL= resource.getUrlPattern().replace("{$id}", identifier2);
-        return nonOlsURL;
-
+    private static String createURL(PhysicalLocation location, String identifier){
+        return MessageFormat.format(
+                "{0}{1}{2}",
+                location.getUrlPrefix(),
+                identifier,
+                location.getUrlSuffix()
+        );
     }
 
 
@@ -591,10 +556,10 @@ public class SBaseHTMLFactory {
 
         String info = resource.getDescription();
 
-        return String.format(
-                "\t<a href=\"%s\"> %s</a><br />\n",
-                createURL(namespace, resource, identifier),
-                info);
+        return CONDITIONAL_LINK
+                .replace("{ICON}",  (primary == true) ? ICON_TRUE : ICON_INVISIBLE)
+                .replace("{URL}",  createURL(location, identifier))
+                .replace("{INFO}", info);
     }
 
     /**
@@ -621,18 +586,16 @@ public class SBaseHTMLFactory {
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = createURL(namespace, resource, identifier);
-            html += MessageFormat.format(
-                    "\t<a href=\"{0}\"><span class=\"ontology\" title=\"Ontology\">{1}</span></a> <b>{2}</b> <a href={3} class=\"text-muted\">{4}</a><br />\n",
-                    ontologyURL,
-                    term.getOntologyName().toUpperCase(),
-                    term.getLabel(),
-                    purlURL,
-                    purlURL);
+            String ontologyURL = createURL(location, identifier);
+            html += ONTOLOGY_TERM_LINK.replace("{ontologyURL}", ontologyURL)
+                    .replace("{ontologyName}",  term.getOntologyName().toUpperCase())
+                    .replace("{termLabel}", term.getLabel())
+                    .replace("{purlURL}", purlURL)
+                    .replace("{purlDisplay}", purlURL);
 
             String [] synonyms = term.getSynonyms();
             if (synonyms != null && synonyms.length > 0) {
-                html += "\t<span class=\"comment\">Synonyms</span> ";
+                html += SYNONYMS_LABEL;
                 for (String syn: synonyms) {
                     html += String.format("%s; ", syn);
                 }
@@ -640,7 +603,7 @@ public class SBaseHTMLFactory {
             }
             Map<String, String> oboSynonyms = term.getOboSynonyms();
             if (oboSynonyms != null && oboSynonyms.size() > 0) {
-                html += "\t<span class=\"comment\">OBO Synonyms</span> ";
+                html += OBO_SYNONYMS_LABEL;
                 for (String name: oboSynonyms.keySet()) {
                     html += String.format("%s; ", name);
                 }
@@ -649,15 +612,15 @@ public class SBaseHTMLFactory {
             String [] descriptions = term.getDescription();
             if (descriptions != null && descriptions.length > 0) {
                 for (String description : descriptions) {
-
-                    html += String.format("\t<span class=\"text-success\">%s</span><br />\n", StringEscapeUtils.escapeHtml4(description));
+                    html += DESCRIPTION_LABEL
+                            .replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));
                 }
             }
         } else {
-            html += String.format(
-                    "\t%s <span class=\"text-danger\">Unknown identifier: Term '%s' could not be retrieved from <a href=\"%s\">OLS</a></span><br />\n",
-                    ICON_WARNING, termIdentifier, olsURL, olsURL);
-            html += createNonOLSLocation(namespace, resource, identifier);
+            html += OLS_TERM_ERROR.replace("{ICON_WARNING}", ICON_WARNING)
+                    .replace("{TERM_ID}", termIdentifier)
+                    .replace("{OLS_URL}", olsURL);;
+            html += createNonOLSLocation(location, identifier);
         }
         return html;
     }
@@ -673,8 +636,8 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getName();
 
         if (namespace.equals("uniprot")) {
-            html = html + "FIXME: BROKEN UNIPROT NOW";
-            // FIXME: html += UniprotAccess.uniprotHTML(identifier);
+
+            html += UniprotAccess.uniprotHTML(identifier);
         }
         else if (namespace.equals("chebi")) {
             html += chebiHTML(identifier);
@@ -789,7 +752,7 @@ public class SBaseHTMLFactory {
 
     /** Creates true or false HTML depending on boolean. */
     public static String booleanHTML(boolean b){
-        return (b) ? SBaseHTMLFactory.ICON_TRUE : SBaseHTMLFactory.ICON_FALSE;
+        return (b) ? ICON_TRUE : ICON_FALSE;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
