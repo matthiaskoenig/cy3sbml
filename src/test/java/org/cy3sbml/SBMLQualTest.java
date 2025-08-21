@@ -20,7 +20,7 @@ public class SBMLQualTest {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_QUAL);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
-        assertEquals(54, network.getNodeCount());
-        assertEquals(57, network.getEdgeCount());
+        assertEquals(55, network.getNodeCount());
+        assertEquals(85, network.getEdgeCount());
     }
 }

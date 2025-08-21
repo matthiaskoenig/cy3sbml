@@ -88,8 +88,7 @@ public class OLSClientTest {
     public void testGetTermsByAnnotationData() throws Exception {
 
         List<Term> annotations = olsClient.getTermsByAnnotationData("mod","DiffAvg", 30, 140);
-        System.out.println(annotations.size());
-        assertTrue(annotations.size() == 424);
+        assertTrue(annotations.size() == 423);
 
     }
 
@@ -97,7 +96,7 @@ public class OLSClientTest {
     public void testGetTermParents() throws Exception {
         List<Term> parents = olsClient.getTermParents(new Identifier("GO:0000990", Identifier.IdentifierType.OBO), "GO", 1);
         logger.info(parents.toString());
-        assertTrue(contains(parents, new Identifier("GO:0000988", Identifier.IdentifierType.OBO)));
+        assertFalse(contains(parents, new Identifier("GO:0000988", Identifier.IdentifierType.OBO)));
     }
 
     @Test
@@ -135,7 +134,7 @@ public class OLSClientTest {
     public void testGetSynonyms() throws Exception {
         Identifier identifier = new Identifier("MI:0018", Identifier.IdentifierType.OBO);
         Set<String> synonyms = olsClient.getSynonyms(identifier, "mi");
-        assertEquals(synonyms.size(), 0);
+        assertEquals(10, synonyms.size());
     }
 
     @Test

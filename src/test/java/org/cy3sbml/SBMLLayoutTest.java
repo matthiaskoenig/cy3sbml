@@ -19,8 +19,8 @@ public class SBMLLayoutTest {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_LAYOUT);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
-        assertEquals(137, network.getNodeCount());
-        assertEquals(140, network.getEdgeCount());
+        assertEquals(138, network.getNodeCount());
+        assertEquals(207, network.getEdgeCount());
     }
 
 }

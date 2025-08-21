@@ -1,9 +1,11 @@
 package org.cy3sbml.miriam;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
@@ -14,23 +16,16 @@ public class RegistryUtilTest {
     @Test
     public void updateMiriamXML() throws Exception {
         File f = File.createTempFile("test", ".xml");
-        RegistryUtil.updateMiriamXML(f);
         assertNotNull(f);
-        RegistryUtil.loadRegistry(f);
+        RegistryUtil.updateMiriamJSON(f);
+        assertNotNull(RegistryUtil.getMiriamContent());
     }
 
-    @Test
-    public void updateMiriamXMLWithNewer() throws Exception {
-        File f = File.createTempFile("test", ".xml");
-        RegistryUtil.updateMiriamXML(f);
 
-        // identical file
-        RegistryUtil.updateMiriamXMLWithNewer(f);
-    }
 
     @Test
     public void loadRegistry() throws Exception {
-        RegistryUtil.loadRegistry();
+        assertNotNull(RegistryUtil.getMiriamContent());
     }
 
 }

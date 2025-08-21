@@ -215,23 +215,26 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
-
+        System.out.println("resource:" + resource);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
-        String[] tokens = resource.split("/");
-        String fileName = tokens[2];
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
-
+        String[] tokens = resource.split("[/\\\\]");
+        for (String token : tokens) {
+            System.out.println("token:" + token);
+        }
+        String fileName = tokens[tokens.length-1];
+        InputStream instream = new FileInputStream(resource);
+        System.out.println("instream:" + instream);
         CyNetwork[] networks;
         try {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
-            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
+            SBMLReaderTask readerTask = new SBMLReaderTask(instream, resource, networkFactory, groupFactory);
 
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
@@ -273,9 +276,9 @@ public class TestUtils {
         logger.info(String.format("%s : %s", testType, resource));
 
         // read SBML
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        InputStream instream = new FileInputStream(resource);
         String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument doc = JSBML.readSBMLFromString(xml);
+        SBMLDocument doc = JSBML.readSBMLFromFile(resource);
         assertNotNull(doc);
 
         // Serialize SBMLDocument

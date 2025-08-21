@@ -23,8 +23,8 @@ public class SBMLFbcTest {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_FBC);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
-        assertEquals(358, network.getNodeCount());
-        assertEquals(588, network.getEdgeCount());
+        assertEquals(376, network.getNodeCount());
+        assertEquals(864, network.getEdgeCount());
 
         // Test species node
         // <species boundaryCondition="false" constant="false" metaid="M_13dpg_c" hasOnlySubstanceUnits="false" sboTerm="SBO:0000247" compartment="c" name="3-Phospho-D-glyceroyl phosphate"

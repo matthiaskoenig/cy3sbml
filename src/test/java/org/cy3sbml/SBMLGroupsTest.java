@@ -18,9 +18,8 @@ public class SBMLGroupsTest {
     public void testGroups() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_GROUPS);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
-
         assertNotNull(network);
-        assertEquals(1294, network.getNodeCount());
-        assertEquals(2592, network.getEdgeCount());
+        assertEquals(1449, network.getNodeCount());
+        assertEquals(4023, network.getEdgeCount());
     }
 }

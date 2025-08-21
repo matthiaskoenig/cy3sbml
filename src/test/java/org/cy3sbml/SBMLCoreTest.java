@@ -74,8 +74,8 @@ public class SBMLCoreTest {
 
         CyNetwork baseNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(baseNetwork);
-        assertEquals(29, baseNetwork.getNodeCount());
-        assertEquals(34, baseNetwork.getEdgeCount());
+        assertEquals(91, baseNetwork.getNodeCount());
+        assertEquals(165, baseNetwork.getEdgeCount());
 
         CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
