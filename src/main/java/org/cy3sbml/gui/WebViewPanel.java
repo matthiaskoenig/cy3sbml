@@ -278,6 +278,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
                 !event.containsColumn(CyNetwork.SELECTED)) {
             return;
         }
+        updateInformation();
     }
 
     /**

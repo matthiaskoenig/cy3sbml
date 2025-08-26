@@ -37,8 +37,6 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.cy3sbml.HtmlTemplateParser.load;
-import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
 import static org.cy3sbml.gui.GUIConstants.*;
 import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
@@ -270,7 +268,7 @@ public class SBaseHTMLFactory {
         return html + TABLE_END;
     }
 
-	/** 
+	/**
 	 * Creation of class specific attribute information.
      * This mimics the SBMLReaderTaskFactory
 	 */
@@ -540,8 +538,8 @@ public class SBaseHTMLFactory {
      * @return
      */
     private static String createURL(Namespace namespace, Resource resource, String identifier){
-        String nonOlsURL = null;
-        String identifier2 = "";
+        String nonOlsURL;
+        String identifier2;
         if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
 
             identifier2 = StringUtils.substringAfter(identifier, ":");
@@ -643,7 +641,7 @@ public class SBaseHTMLFactory {
      */
     public static String createSecondaryInformation(Namespace dataType, String identifier){
         String html = "";
-        String namespace = dataType.getName();
+        String namespace = dataType.getPrefix();
 
         if (namespace.equals("uniprot")) {
 

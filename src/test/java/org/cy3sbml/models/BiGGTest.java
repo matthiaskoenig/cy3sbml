@@ -21,32 +21,32 @@ import org.mockito.MockitoAnnotations;
  */
 public class BiGGTest {
 
-//	@Mock
-//	TaskMonitor taskMonitor;
-//
-//	@BeforeEach
-//	public void setUp() {
-//		MockitoAnnotations.openMocks(this);
-//	}
-//
-//	static Stream<String> biggModelResources() {
-//		HashSet<String> skip = null;
-//		String filter = null;
-//		return StreamSupport.stream(
-//				TestUtils.findResources(TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
-//				false
-//		).map(arr -> arr[0].toString());
-//	}
-//
-//	@ParameterizedTest(name = "{index}: {0}")
-//	@MethodSource("biggModelResources")
-//	void testSingle(String resource) throws Exception {
-//		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
-//	}
-//
-//	@ParameterizedTest(name = "{index}: {0}")
-//	@MethodSource("biggModelResources")
-//	void testSerialization(String resource) throws Exception {
-//		TestUtils.testNetworkSerialization(getClass().getName(), resource);
-//	}
+	@Mock
+	TaskMonitor taskMonitor;
+
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
+
+	static Stream<String> biggModelResources() {
+		HashSet<String> skip = null;
+		String filter = null;
+		return StreamSupport.stream(
+				TestUtils.findResources(TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+				false
+		).map(arr -> arr[0].toString());
+	}
+
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("biggModelResources")
+	void testSingle(String resource) throws Exception {
+		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
+	}
+
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("biggModelResources")
+	void testSerialization(String resource) throws Exception {
+		TestUtils.testNetworkSerialization(getClass().getName(), resource);
+	}
 }

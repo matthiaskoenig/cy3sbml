@@ -22,7 +22,7 @@ import org.mockito.MockitoAnnotations;
  */
 public class BioModelsTest {
 
-	/*@Mock
+	@Mock
 	TaskMonitor taskMonitor;
 
 	@BeforeEach
@@ -33,7 +33,6 @@ public class BioModelsTest {
 	static Stream<String> biomodelsResources() {
 		HashSet<String> skip = null;
 		String filter = null;
-		System.out.println(TestUtils.findResources(TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip));
 		return StreamSupport.stream(
 						TestUtils.findResources(TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
 						false)
@@ -50,5 +49,5 @@ public class BioModelsTest {
 	@MethodSource("biomodelsResources")
 	void testSerialization(String resource) throws Exception {
 		TestUtils.testNetworkSerialization(getClass().getName(), resource);
-	}*/
+	}
 }

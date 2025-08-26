@@ -197,7 +197,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         }
 
         // layout
-        if(doLayout) {
+
             if (cyLayoutAlgorithmManager != null) {
                 CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
                 if (layout == null) {
@@ -212,7 +212,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                     throw new RuntimeException("Could not finish layout", e);
                 }
             }
-        }
+
 
         // finished
         return view;
@@ -549,7 +549,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         // name of root network
         String name = network.getRow(network).get(SBML.ATTR_ID, String.class);
         if (name == null) {
-            String[] tokens = fileName.split("[/\\\\]");
+            String[] tokens = fileName.split(File.separator);
             name = tokens[tokens.length - 1];
         }
         return name;

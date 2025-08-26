@@ -21,33 +21,33 @@ import org.mockito.MockitoAnnotations;
  */
 public class SBMLTestCaseTest {
 
-//	@Mock
-//	TaskMonitor taskMonitor;
-//
-//	@BeforeEach
-//	public void setUp() {
-//		MockitoAnnotations.openMocks(this);
-//	}
-//
-//	static Stream<String> sbmlTestCases() {
-//		HashSet<String> skip = new HashSet<>();
-//		String filter = "-sbml-l\\dv\\d.xml";
-//
-//		return StreamSupport.stream(
-//				TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
-//				false
-//		).map(arr -> arr[0].toString());
-//	}
-//
-//	@ParameterizedTest(name = "{index}: {0}")
-//	@MethodSource("sbmlTestCases")
-//	void testSingle(String resource) throws Exception {
-//		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
-//	}
-//
-//	@ParameterizedTest(name = "{index}: {0}")
-//	@MethodSource("sbmlTestCases")
-//	void testSerialization(String resource) throws Exception {
-//		TestUtils.testNetworkSerialization(getClass().getName(), resource);
-//	}
+	@Mock
+	TaskMonitor taskMonitor;
+
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
+
+	static Stream<String> sbmlTestCases() {
+		HashSet<String> skip = new HashSet<>();
+		String filter = "-sbml-l\\dv\\d.xml";
+
+		return StreamSupport.stream(
+				TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+				false
+		).map(arr -> arr[0].toString());
+	}
+
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("sbmlTestCases")
+	void testSingle(String resource) throws Exception {
+		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
+	}
+
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("sbmlTestCases")
+	void testSerialization(String resource) throws Exception {
+		TestUtils.testNetworkSerialization(getClass().getName(), resource);
+	}
 }

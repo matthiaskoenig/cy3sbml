@@ -32,8 +32,6 @@ public class UniprotAccessTest {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
-            // start the service
-
 
             // the accession we're interested in
             String accession = "P04483";
@@ -74,10 +72,6 @@ public class UniprotAccessTest {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // always remember to stop the service
-
-            System.out.println("service now stopped.");
         }
     }
 }

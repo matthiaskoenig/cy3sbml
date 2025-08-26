@@ -218,18 +218,14 @@ public class TestUtils {
     public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
-        System.out.println("resource:" + resource);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
         String[] tokens = resource.split("[/\\\\]");
-        for (String token : tokens) {
-            System.out.println("token:" + token);
-        }
+
         String fileName = tokens[tokens.length-1];
         InputStream instream = new FileInputStream(resource);
-        System.out.println("instream:" + instream);
         CyNetwork[] networks;
         try {
             // Reader can be tested without service adapter
