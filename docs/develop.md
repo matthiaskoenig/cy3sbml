@@ -70,7 +70,7 @@ java -version
 #### **1. Installing JavaFX**
 On Linux, install JavaFX using the package manager:
 ```bash
-sudo apt-get install openjfx
+sudo apt -y install openjfx
 ```
 
 #### **2. Configuring JavaFX in IntelliJ IDEA**
