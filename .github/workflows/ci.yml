@@ -1,0 +1,28 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven (Skip Tests)
+        run: mvn --batch-mode -DskipTests package
+
+      - name: Test with Maven
+        run: mvn --batch-mode test
+
+      - name: Publish Surefire Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1

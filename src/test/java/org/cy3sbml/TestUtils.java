@@ -215,8 +215,6 @@ public class TestUtils {
      * There is a memory leak in the network creation, probably the following issue
      * http://code.cytoscape.org/redmine/issues/3507
      * <p>
-     * See also:
-     * This aborts the travis build.
      */
     public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws IOException {
         logger.info("--------------------------------------------------------");
@@ -275,8 +273,6 @@ public class TestUtils {
      * There is a memory leak in the network creation, probably the following issue
      * http://code.cytoscape.org/redmine/issues/3507
      * <p>
-     * See also:
-     * This aborts the travis build.
      */
     public static void testNetworkSerialization(String testType, String resource) throws IOException, XMLStreamException, ClassNotFoundException {
         logger.info("--------------------------------------------------------");
