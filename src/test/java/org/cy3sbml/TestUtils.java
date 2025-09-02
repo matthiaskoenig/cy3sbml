@@ -2,6 +2,9 @@ package org.cy3sbml;
 
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -215,40 +218,48 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws IOException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
-        final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
-        final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
+         CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+         CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
         String[] tokens = resource.split("[/\\\\]");
 
-        String fileName = tokens[tokens.length-1];
-        InputStream instream = new FileInputStream(resource);
+        String fileName = tokens[tokens.length - 1];
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")
+                && resource.matches("^/\\p{Alpha}:.*")) {
+            resource = resource.substring(1);
+        }
+
+        Path path = Paths.get(resource).normalize();
+
         CyNetwork[] networks;
-        try {
+        SBMLReaderTask readerTask = null;
+        try(InputStream instream = Files.newInputStream(path)) {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
-            SBMLReaderTask readerTask = new SBMLReaderTask(instream, resource, networkFactory, groupFactory);
+            readerTask = new SBMLReaderTask(instream, resource, networkFactory, groupFactory);
 
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
-            assertFalse(readerTask.getError());
 
             for (CyNetwork network : networks) {
                 network.dispose();
+                network =null;
             }
+            assertFalse(readerTask.getError());
+            readerTask.cancel();
+
+            networkFactory =null;
+            groupFactory =null;
 
         } catch (Throwable t) {
             networks = null;
             t.printStackTrace();
         }
-        try {
-            instream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         // Display memory usage
         logMemory(fileName);
@@ -274,7 +285,7 @@ public class TestUtils {
         // read SBML
         InputStream instream = new FileInputStream(resource);
         String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument doc = JSBML.readSBMLFromFile(resource);
+        SBMLDocument doc = JSBML.readSBMLFromString(xml);
         assertNotNull(doc);
 
         // Serialize SBMLDocument

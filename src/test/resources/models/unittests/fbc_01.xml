@@ -3084,7 +3084,7 @@ xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" sboTerm=
                 <rdf:Description rdf:about="#bd0b6683-956f-4f8e-b756-3dcf24439a36">
                   <bqbiol:isVersionOf>
                     <rdf:Bag>
-                      <rdf:li rdf:resource="UO:0000021" />
+                      <rdf:li rdf:resource="http://identifiers.org/unit/UO:0000021" />
                     </rdf:Bag>
                   </bqbiol:isVersionOf>
                 </rdf:Description>
@@ -3127,7 +3127,7 @@ xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" sboTerm=
                 <rdf:Description rdf:about="#f99b5cc2-c708-4d9a-a019-25fbda5f8917">
                   <bqbiol:isVersionOf>
                     <rdf:Bag>
-                      <rdf:li rdf:resource="UO:0000021" />
+                      <rdf:li rdf:resource="http://identifiers.org/unit/UO:0000021" />
                     </rdf:Bag>
                   </bqbiol:isVersionOf>
                 </rdf:Description>

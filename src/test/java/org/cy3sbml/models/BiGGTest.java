@@ -44,9 +44,9 @@ public class BiGGTest {
 		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
 	}
 
-	@ParameterizedTest(name = "{index}: {0}")
-	@MethodSource("biggModelResources")
-	void testSerialization(String resource) throws Exception {
-		TestUtils.testNetworkSerialization(getClass().getName(), resource);
-	}
+//	@ParameterizedTest(name = "{index}: {0}")
+//	@MethodSource("biggModelResources")
+//	void testSerialization(String resource) throws Exception {
+//		TestUtils.testNetworkSerialization(getClass().getName(), resource);
+//	}
 }

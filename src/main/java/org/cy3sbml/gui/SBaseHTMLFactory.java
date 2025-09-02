@@ -439,7 +439,6 @@ public class SBaseHTMLFactory {
 
 
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
             dataType = (result.get(prefix) == null)
                     ? result.get(StringUtils.substringAfter(prefix, "."))
@@ -450,6 +449,7 @@ public class SBaseHTMLFactory {
 
             // link to primary resource via id
             String resourceLink = null;
+
             if (dataType == null){
                 resourceLink = resourceURI;
             } else {
@@ -549,6 +549,7 @@ public class SBaseHTMLFactory {
 
         }
         nonOlsURL= resource.getUrlPattern().replace("{$id}", identifier2);
+
         return nonOlsURL;
 
     }
