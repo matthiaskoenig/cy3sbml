@@ -218,7 +218,7 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
@@ -226,9 +226,14 @@ public class TestUtils {
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
-        String[] tokens = resource.split("/");
-        String fileName = tokens[2];
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        String[] tokens = resource.split("/\\\\");
+        String fileName = tokens[tokens.length - 1];
+        InputStream instream;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            instream = new FileInputStream(resource);
+        } else {
+            instream = TestUtils.class.getResourceAsStream(resource);
+        }
 
         CyNetwork[] networks;
         try {
