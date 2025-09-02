@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
-import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.filter.SBaseFilter;
 import org.cytoscape.group.CyGroup;
@@ -95,7 +94,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
     private final String fileName;
     private final InputStream stream;
     private final CyNetworkFactory networkFactory;
-    private CyGroupFactory groupFactory;
+    private final CyGroupFactory groupFactory;
     private final CyNetworkViewFactory viewFactory;
     private final VisualMappingManager visualMappingManager;
     private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
@@ -165,7 +164,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
     @Override
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         logger.debug("buildCyNetworkView");
-        One2ManyMapping<String, Long> mapping;
+
         // Set SBML in SBMLManager
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
@@ -173,14 +172,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         if (sbmlManager != null) {
 
             // get existing mappings (of read networks)
-            mapping = sbmlManager.getMapping(network);
+            One2ManyMapping<String, Long> mapping = sbmlManager.getMapping(network);
             mapping = mappingFromNetwork(network, mapping);
 
             // existing mapping is updated
             sbmlManager.addSBMLForNetwork(document, network, mapping);
             // update the current network
             sbmlManager.updateCurrent(network);
-
         } else {
             logger.warn("No mapping found for SBML network.");
         }
@@ -199,7 +197,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         }
 
         // layout
-
+        if(doLayout) {
             if (cyLayoutAlgorithmManager != null) {
                 CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
                 if (layout == null) {
@@ -214,7 +212,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                     throw new RuntimeException("Could not finish layout", e);
                 }
             }
-
+        }
 
         // finished
         return view;
@@ -236,13 +234,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
 
         List<CyNode> nodes = rootNetwork.getNodeList();
-
         for (CyNode node : nodes) {
-
             CyRow attributes = rootNetwork.getRow(node);
             String cyId = attributes.get(SBML.ATTR_CYID, String.class);
             mapping.put(cyId, node.getSUID());
-
         }
         return mapping;
     }
@@ -282,8 +277,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             // Read SBMLDocument
             //////////////////////////////////////////////////////////////////
             logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
-            //String xml = IOUtil.inputStream2String(stream);
-            document = JSBML.readSBMLFromFile(fileName);
+            String xml = IOUtil.inputStream2String(stream);
+            document = JSBML.readSBMLFromString(xml);
 
 
             //////////////////////////////////////////////////////////////////
@@ -328,8 +323,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                     // Model must be loaded from the source (currently not implemented)
                     // Model emdModel = emd.getReferencedModel();
                     // if (emdModel != null) {
-                        // TODO: add node sbmlNetwork
-                        // createNetworksFromModel(emdModel);
+                    // TODO: add node sbmlNetwork
+                    // createNetworksFromModel(emdModel);
                     // }
                     logger.warn("Model reading from ExternalModelDefinition not supported: " + emd);
                 }
@@ -378,8 +373,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             throw new SBMLReaderError("cy3sbml reader failed to build a SBML model. " +
                     "Please validate the file in the online SBML validator at 'http://www.sbml.org/validator/'" +
                     "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues'" + t);
-        } finally{
-            document = null;
         }
     }
 
@@ -406,11 +399,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         CyNetwork network = readModelInNetwork(model);
         // Create the different subnetworks
         addAllNetworks(network);
-        network.dispose();
-        metaId2Node.clear();
-        id2Node.clear();
-        cyGroupSet.clear();
-        baseUnitDefinitions.clear();
     }
 
     /**
@@ -427,7 +415,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
 
         // <core>
         readCore(network, model);
-
         if (taskMonitor != null) {
             taskMonitor.setProgress(0.4);
         }
@@ -446,7 +433,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         addCompartmentCodes(network, model);
         addSBMLTypesExtended(network, model);
         addSBMLInteractionExtended(network);
-
         return network;
     }
 
@@ -506,29 +492,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         HashSet<CyEdge> coreEdges = getNetworkEdges(network,
                 new HashSet<>(java.util.Arrays.asList(edgeTypes))
         );
-        List<CyNode> nodeList = new ArrayList<>(coreNodes);
-        int totalNodes = nodeList.size();
-
-        Set<CyNode> mergedNodes = new HashSet<>();
-        Set<CyEdge> mergedEdges = new HashSet<>();
-
-        for (int start = 0; start < totalNodes; start += 500) {
-            int end = Math.min(start + 500, totalNodes);
-            Set<CyNode> batchNodes = new HashSet<>(nodeList.subList(start, end));
-
-            Set<CyEdge> batchEdges = new HashSet<>();
-            for (CyEdge e : coreEdges) {
-                if (batchNodes.contains(e.getSource()) && batchNodes.contains(e.getTarget())) {
-                    batchEdges.add(e);
-                }
-            }
-            // Merge nodes and edges from batch
-            mergedNodes.addAll(batchNodes);
-            mergedEdges.addAll(batchEdges);
-        }
         // only add edges with nodes in the nodes list
-        return rootNetwork.addSubNetwork(mergedNodes, mergedEdges);
-
+        HashSet<CyEdge> filteredEdges = new HashSet<>();
+        for (CyEdge e : coreEdges){
+            if (coreNodes.contains(e.getSource()) && coreNodes.contains(e.getTarget())){
+                filteredEdges.add(e);
+            }
+        }
+        return rootNetwork.addSubNetwork(coreNodes, filteredEdges);
     }
 
 
@@ -715,7 +686,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         }
 
         // Reaction //
-        System.out.println("Number of reactions:"+model.getListOfReactions().size());
         for (Reaction reaction : model.getListOfReactions()) {
             CyNode n = createNode(network, reaction, SBML.NODETYPE_REACTION);
             setNamedSBaseWithDerivedUnitAttributes(network, n, reaction);
@@ -760,6 +730,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             // Products
             for (SpeciesReference speciesRef : reaction.getListOfProducts()) {
                 Species species = speciesRef.getSpeciesInstance();
+
                 if (species != null) {
                     CyNode productNode = metaId2Node.get(species.getMetaId());
                     CyEdge edge = createEdge(network, n, productNode, SBML.INTERACTION_REACTION_PRODUCT);
@@ -767,8 +738,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
 
                     Double stoichiometry = (speciesRef.isSetStoichiometry()) ? speciesRef.getStoichiometry() : 1.0;
                     AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
-                    stoichiometry = null;
-                    speciesRef.clearUserObjects();
                 } else {
                     logger.error(String.format("Product does not exist for reaction: %s for %s",
                             speciesRef.getSpecies(), reaction.getId()));
@@ -826,7 +795,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                     logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
                 }
             }
-
         }
 
         // InitialAssignment //
@@ -971,7 +939,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                 createMathNetwork(network, ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
             }
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1298,7 +1265,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
      */
     private void readFlattenedModel(Model model){
 
-         CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
         if (compModel == null){
             // no model to flatten
             return;
@@ -1648,18 +1615,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             return;
         }
 
-        ListOfMembers membersList = null;
-        List<CyNode> nodes = null;
         for (Group group : groupsModel.getListOfGroups()) {
             logger.debug(String.format("Reading group: <%s>", group));
-            cyGroupSet.clear();
-            metaId2Node.clear();
-            id2Node.clear();
+
             // empty group node & sets attributes
             CyGroup cyGroup = createGroup(network, group);
+
             // collect nodes from members
-            nodes = new LinkedList<>();
-            membersList = group.getListOfMembers();
+            List<CyNode> nodes = new LinkedList<>();
+            ListOfMembers membersList = group.getListOfMembers();
             for (Member member : membersList) {
 
                 // resolve object & node
@@ -1694,11 +1658,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             }
             logger.debug(String.format("Adding %s nodes to cyGroup", nodes.size()));
             cyGroup.addNodes(nodes);
-
         }
-        nodes.clear();
-        membersList.clear();
-        groupsModel=null;
 
     }
 
@@ -1793,7 +1753,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                 id2Node.put(nsb.getId(), n);
             }
         }
-
         return n;
     }
 
@@ -1806,8 +1765,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
     private CyGroup createGroup(CyNetwork network, Group group) {
         // metaId for identification
         MappingUtil.setSBaseMetaId(document, group);
+
         CyGroup cyGroup = groupFactory.createGroup(network, true);
         cyGroupSet.add(cyGroup);
+
         // set attributes
         //  cyGroup nodes are registered in the root network, so the corresponding
         //  attributes must be set on the root network.
@@ -1957,7 +1918,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
             String valueString = props.getProperty((String) key);
             AttributeUtil.set(network, n, keyString, valueString, String.class);
         }
-        props.clear();
     }
 
 
