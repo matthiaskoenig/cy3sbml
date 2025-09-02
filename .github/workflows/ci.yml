@@ -17,6 +17,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Build with Maven (Skip Tests)
         run: mvn --batch-mode -DskipTests package
 
