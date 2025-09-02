@@ -431,7 +431,6 @@ public class SBaseHTMLFactory {
         Namespace dataType = null;
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
-            System.out.println("resourceURI: " + resourceURI);
             // bugfix to handle https://identifier.org/ resources
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 

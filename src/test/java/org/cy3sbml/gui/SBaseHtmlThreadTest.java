@@ -48,6 +48,7 @@ public class SBaseHtmlThreadTest {
         objSet.add(model);
         // starting threads for webservice calls
         SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel);
+
         thread.start();
         thread.join();
         String html = thread.getInfo();

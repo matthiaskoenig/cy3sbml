@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
+    public static OLSClient olsClient = new OLSClient(new OLSWsConfig());
 
     /**
      * Gets the OLS term for a given identifier.
@@ -89,7 +89,6 @@ public class OLSAccess {
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
     public static boolean isPhysicalLocationOLS(Resource resource){
-
         return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 
