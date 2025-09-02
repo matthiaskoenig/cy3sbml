@@ -230,12 +230,12 @@ public class TestUtils {
                 && resource.matches("^/\\p{Alpha}:.*")) {
             resource = resource.substring(1);
         }
+        System.out.println("Testing " + " " + resource);
 
-        Path path = Paths.get(resource).normalize();
 
         CyNetwork[] networks;
         SBMLReaderTask readerTask = null;
-        try(InputStream instream = Files.newInputStream(path)) {
+        try(InputStream instream = TestUtils.class.getResourceAsStream(resource)) {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
             readerTask = new SBMLReaderTask(instream, resource, networkFactory, groupFactory);
