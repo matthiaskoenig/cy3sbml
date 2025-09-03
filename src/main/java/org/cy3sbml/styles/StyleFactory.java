@@ -44,8 +44,7 @@ public class StyleFactory {
         // read template
         String template = info.getTemplate();
         String name = info.getName();
-        System.out.println(String.format("Create style: <%s> with template <%s>",
-                name, template));
+
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
         try {
@@ -80,7 +79,7 @@ public class StyleFactory {
 
                             // set mapping
                             if (m.getMappingType() == Mapping.MappingType.PASSTHROUGH){
-                                System.out.println(Mapping.MappingType.PASSTHROUGH);
+
                                 // create mapping node
                                 Element eMap = doc.createElement("passthroughMapping");
                                 eMap.setAttribute("attributeType", m.getDataType().toString());
@@ -88,7 +87,7 @@ public class StyleFactory {
                                 nvp.appendChild(eMap);
 
                             }else if (m.getMappingType() == Mapping.MappingType.DISCRETE){
-                                System.out.println(Mapping.MappingType.DISCRETE);
+
                                 // create mapping node
                                 Element eMap = doc.createElement("discreteMapping");
                                 eMap.setAttribute("attributeType", m.getDataType().toString());
@@ -111,7 +110,7 @@ public class StyleFactory {
                                 System.out.println("Continous mapping not supported.");
                             }
 
-                            System.out.println("visualProperty set: " + vpName);
+
                         } else {
                             continue;
                         }

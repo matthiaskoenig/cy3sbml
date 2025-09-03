@@ -103,6 +103,7 @@
                         <exclude>${models.test.excludes}</exclude>
                     </excludes>
                 </configuration>
+
             </plugin>
 
             <!-- coverage -->

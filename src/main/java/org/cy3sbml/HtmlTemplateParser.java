@@ -55,10 +55,10 @@ public class HtmlTemplateParser {
 
         Map<String, String> templateMap = parseTemplateSections(htmlTemplate);
 
-        templateMap.forEach((key, value) -> {
-            System.out.println("[" + key + "]");
-            System.out.println(value);
-            System.out.println();
-        });
+//        templateMap.forEach((key, value) -> {
+//            System.out.println("[" + key + "]");
+//            System.out.println(value);
+//            System.out.println();
+//        });
     }
 }

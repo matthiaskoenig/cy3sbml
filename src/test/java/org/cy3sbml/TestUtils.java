@@ -3,7 +3,6 @@ package org.cy3sbml;
 
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,7 +13,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.util.IOUtil;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -24,11 +22,9 @@ import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import org.sbml.jsbml.JSBML;
-import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -235,29 +231,29 @@ public class TestUtils {
             instream = TestUtils.class.getResourceAsStream(resource);
         }
 
-        CyNetwork[] networks;
+        CyNetwork[] networks = new CyNetwork[0];
         try {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-
+            for (CyNetwork network : networks) {
+                network.dispose();
+            }
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());
 
-            for (CyNetwork network : networks) {
-                network.dispose();
+            try {
+                instream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         } catch (Throwable t) {
             networks = null;
             t.printStackTrace();
         }
-        try {
-            instream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         // Display memory usage
         logMemory(fileName);
@@ -281,7 +277,12 @@ public class TestUtils {
         logger.info(String.format("%s : %s", testType, resource));
 
         // read SBML
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        InputStream instream;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            instream = new FileInputStream(resource);
+        } else {
+            instream = TestUtils.class.getResourceAsStream(resource);
+        }
         String xml = IOUtil.inputStream2String(instream);
         SBMLDocument doc = JSBML.readSBMLFromString(xml);
         assertNotNull(doc);

@@ -213,7 +213,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                         // set updated mapper
                         cofactorManager.setNetwork2CofactorMapper(updatedMapper);
 
-                        System.out.println(cofactorManager.toString());
 
 
                     } catch (IOException|ClassNotFoundException e) {

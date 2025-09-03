@@ -85,7 +85,6 @@ public class SBaseHtmlThreadTest {
             t1.start();
             t1.join();
             String html = t1.getInfo();
-            System.out.println(html);
             assertNotNull(html);
         }
     }
@@ -116,6 +115,6 @@ public class SBaseHtmlThreadTest {
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         SBaseHtmlThreadTest test = new SBaseHtmlThreadTest();
         String html = test.createHTMLOutput(resource);
-        System.out.println(html);
+        assertNotNull(html);
     }
 }
