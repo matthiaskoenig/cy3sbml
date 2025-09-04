@@ -323,8 +323,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
                     // Model must be loaded from the source (currently not implemented)
                     // Model emdModel = emd.getReferencedModel();
                     // if (emdModel != null) {
-                        // TODO: add node sbmlNetwork
-                        // createNetworksFromModel(emdModel);
+                    // TODO: add node sbmlNetwork
+                    // createNetworksFromModel(emdModel);
                     // }
                     logger.warn("Model reading from ExternalModelDefinition not supported: " + emd);
                 }
@@ -1265,7 +1265,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
      */
     private void readFlattenedModel(Model model){
 
-         CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
         if (compModel == null){
             // no model to flatten
             return;

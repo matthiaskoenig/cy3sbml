@@ -1,15 +1,21 @@
+
 package org.cy3sbml.biomodel;
 
-import static org.junit.Assert.*;
+
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.cy3sbml.TestUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Test biomodels access.
@@ -20,19 +26,19 @@ public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_NAME = "glycolysis";
     static final String INVALID_STRING = "xcvsfsfasdfa1323452342";
 
-   BiomodelsQuery bmQuery;
+    BiomodelsQuery bmQuery;
 
-    @BeforeClass
+    @BeforeAll
     public static void onlyOnce() {
         TestUtils.setSystemProxyForTests();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         bmQuery = new BiomodelsQuery();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         bmQuery = null;
     }
@@ -116,22 +122,22 @@ public class BioModelInterfaceTest {
     @Test
     public void testGetBioModelSBMLById() throws IOException, InterruptedException {
         String sbml = BiomodelsQuery.getBioModelSBMLById(VALID_BIOMODEL_ID);
-        System.out.println(sbml);
+
         assertNotNull("SBML has to exist.", sbml);
     }
 
     @Test
     public void testGetBioModelSBMLById2() throws IOException, InterruptedException {
         String sbml = BiomodelsQuery.getBioModelSBMLById(INVALID_STRING);
-        System.out.println(sbml);
+
         assertNotNull("If invalid id, null is returned.", sbml);
     }
 
     @Test
     public void testGetBioModelIdsByPerson() throws IOException, InterruptedException {
         List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
-        assertNotNull("Models have to exist.", modelIds);
-        assertTrue("More than 0 models have to exist.", modelIds.size() > 0);
+        assertNotNull(modelIds, () -> "Models have to exist.");
+        assertTrue(modelIds.size() > 0, "More than 0 models have to exist.");
         for (String modelId: modelIds){
             System.out.println(modelId);
         }
@@ -140,8 +146,8 @@ public class BioModelInterfaceTest {
     @Test
     public void testGetBioModelIdsByName() throws IOException, InterruptedException {
         List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
-        assertNotNull("Models have to exist.", modelIds);
-        assertTrue("More than 0 models have to exist.", modelIds.size() > 0);
+        assertNotNull(modelIds, () -> "Models have to exist.");
+        assertTrue(modelIds.size() > 0, "More than 0 models have to exist.");
         for (String modelId: modelIds){
             System.out.println(modelId);
         }

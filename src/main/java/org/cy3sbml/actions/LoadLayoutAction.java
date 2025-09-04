@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 
 import org.cytoscape.application.swing.AbstractCyAction;
@@ -33,7 +34,7 @@ public class LoadLayoutAction extends AbstractCyAction{
 		super(LoadLayoutAction.class.getSimpleName());
 		this.adapter = adapter;
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_LOADLAYOUT));
+		ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(GUIConstants.ICON_LOADLAYOUT)));
 		putValue(LARGE_ICON_KEY, icon);
 		
 		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_LOADLAYOUT);

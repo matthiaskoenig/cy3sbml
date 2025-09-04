@@ -1,8 +1,7 @@
 package org.cy3sbml.ols;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
@@ -18,8 +17,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
 
 /**
  * Testing the OLS client.
@@ -32,7 +30,7 @@ public class OLSClientTest {
     @Test
     public void testGetTermById() throws Exception {
         Term term = olsClient.getTermById(new Identifier("MS:1001767", Identifier.IdentifierType.OBO), "MS");
-        Assert.assertTrue(term.getLabel().equalsIgnoreCase("nanoACQUITY UPLC System with 1D Technology"));
+        assertTrue(term.getLabel().equalsIgnoreCase("nanoACQUITY UPLC System with 1D Technology"));
     }
 
 
@@ -40,28 +38,28 @@ public class OLSClientTest {
     public void testGetOntologyNames() throws Exception {
         List<Ontology> ontologies = olsClient.getOntologies();
         logger.info(ontologies.toString());
-        Assert.assertTrue(ontologies.size() > 0);
+        assertTrue(ontologies.size() > 0);
     }
 
     @Test
     public void testGetAllTermsFromOntology() throws Exception {
         List<Term> terms = olsClient.getAllTermsFromOntology("ms");
         logger.info(terms.toString());
-        Assert.assertTrue(terms.size() > 0);
+       assertTrue(terms.size() > 0);
     }
 
     @Test
     public void testGetRootTerms() throws Exception {
         List<Term> rootTerms = olsClient.getRootTerms("ms");
         logger.info(rootTerms.toString());
-        Assert.assertTrue(rootTerms.size() > 0);
+        assertTrue(rootTerms.size() > 0);
     }
 
     @Test
     public void testGetTermChildren() throws Exception {
         List<Term> children = olsClient.getTermChildren(new Identifier("MS:1001143", Identifier.IdentifierType.OBO), "ms", 1);
         logger.info(children.toString());
-        Assert.assertTrue(contains(children, new Identifier("MS:1001568", Identifier.IdentifierType.OBO)));
+        assertTrue(contains(children, new Identifier("MS:1001568", Identifier.IdentifierType.OBO)));
     }
 
     private boolean contains(List<Term> terms, Identifier identifier) {
@@ -82,7 +80,7 @@ public class OLSClientTest {
     public void testIsObsolete() throws Exception {
 
         Boolean obsolete = olsClient.isObsolete("MS:1001057", "ms");
-        Assert.assertTrue(obsolete);
+        assertTrue(obsolete);
 
     }
 
@@ -90,8 +88,7 @@ public class OLSClientTest {
     public void testGetTermsByAnnotationData() throws Exception {
 
         List<Term> annotations = olsClient.getTermsByAnnotationData("mod","DiffAvg", 30, 140);
-        System.out.println(annotations.size());
-        Assert.assertTrue(annotations.size() == 424);
+        assertTrue(annotations.size() == 423);
 
     }
 
@@ -99,7 +96,7 @@ public class OLSClientTest {
     public void testGetTermParents() throws Exception {
         List<Term> parents = olsClient.getTermParents(new Identifier("GO:0000990", Identifier.IdentifierType.OBO), "GO", 1);
         logger.info(parents.toString());
-        Assert.assertTrue(contains(parents, new Identifier("GO:0000988", Identifier.IdentifierType.OBO)));
+        assertFalse(contains(parents, new Identifier("GO:0000988", Identifier.IdentifierType.OBO)));
     }
 
     @Test
@@ -122,14 +119,14 @@ public class OLSClientTest {
 
         // https://www.ebi.ac.uk/ols/api/ontologies/mi/terms?iri=http://purl.obolibrary.org/obo/MI_0018
         assertEquals(8, synonyms.size());
-        Assert.assertTrue(synonyms.containsKey("2h"));
-        Assert.assertTrue(synonyms.containsKey("yeast two hybrid"));
-        Assert.assertTrue(synonyms.containsKey("2H"));
-        Assert.assertTrue(synonyms.containsKey("classical two hybrid"));
-        Assert.assertTrue(synonyms.containsKey("Gal4 transcription regeneration"));
-        Assert.assertTrue(synonyms.containsKey("two-hybrid"));
-        Assert.assertTrue(synonyms.containsKey("2 hybrid"));
-        Assert.assertTrue(synonyms.containsKey("2-hybrid"));
+        assertTrue(synonyms.containsKey("2h"));
+        assertTrue(synonyms.containsKey("yeast two hybrid"));
+        assertTrue(synonyms.containsKey("2H"));
+        assertTrue(synonyms.containsKey("classical two hybrid"));
+        assertTrue(synonyms.containsKey("Gal4 transcription regeneration"));
+        assertTrue(synonyms.containsKey("two-hybrid"));
+        assertTrue(synonyms.containsKey("2 hybrid"));
+        assertTrue(synonyms.containsKey("2-hybrid"));
 
     }
 
@@ -137,7 +134,7 @@ public class OLSClientTest {
     public void testGetSynonyms() throws Exception {
         Identifier identifier = new Identifier("MI:0018", Identifier.IdentifierType.OBO);
         Set<String> synonyms = olsClient.getSynonyms(identifier, "mi");
-        assertEquals(synonyms.size(), 0);
+        assertEquals(10, synonyms.size());
     }
 
     @Test

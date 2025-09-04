@@ -1,27 +1,23 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.logging.Logger;
 
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
-import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
@@ -31,15 +27,17 @@ import org.sbml.jsbml.SBase;
  * A mock for the panel is created to simplify testing.
  * http://www.vogella.com/tutorials/Mockito/article.html
  */
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
-    public static final Map<String, Namespace> result = getMiriamContent();
 
-    static Logger logger = Logger.getLogger("SBaseHTMThreadTest");
-    @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
-
-
+    @BeforeAll
+    public static void setUpBeforeClass() throws Exception {
+        // Setup with local registry
+        RegistryUtil.getMiriamContent();
+    }
 
     @Test
     public void run() throws Exception {
@@ -50,33 +48,25 @@ public class SBaseHtmlThreadTest {
         objSet.add(model);
         // starting threads for webservice calls
         SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel);
+
         thread.start();
         thread.join();
         String html = thread.getInfo();
-
+        assertNotNull(html);
     }
 
-    @Test public void runCore1() throws Exception{ runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01); }
-
-    @Test public void runCore2() throws Exception{ runModelTest(SBMLCoreTest.TEST_MODEL_CORE_02); }
-
-    @Test public void runCore3() throws Exception{ runModelTest(SBMLCoreTest.TEST_MODEL_CORE_03); }
-
-    @Test public void runComp1() throws Exception{ runModelTest(SBMLCompTest.TEST_MODEL_COMP_01); }
-
-    @Test public void runComp2() throws Exception{ runModelTest(SBMLCompTest.TEST_MODEL_COMP_02); }
-
-    @Test public void runFbc1() throws Exception{ runModelTest(SBMLFbcTest.TEST_MODEL_FBC); }
-
-    @Test public void runGroups1() throws Exception{ runModelTest(SBMLGroupsTest.TEST_MODEL_GROUPS); }
-
-    @Test public void runLayouts1() throws Exception{ runModelTest(SBMLLayoutTest.TEST_MODEL_LAYOUT); }
-
-    @Test public void runQual1() throws Exception{ runModelTest(SBMLQualTest.TEST_MODEL_QUAL); }
+    @Test public void runCore1() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01); }
+    @Test public void runCore2() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_02); }
+    @Test public void runCore3() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_03); }
+    @Test public void runComp1() throws Exception { runModelTest(SBMLCompTest.TEST_MODEL_COMP_01); }
+    @Test public void runComp2() throws Exception { runModelTest(SBMLCompTest.TEST_MODEL_COMP_02); }
+    @Test public void runFbc1() throws Exception { runModelTest(SBMLFbcTest.TEST_MODEL_FBC); }
+    @Test public void runGroups1() throws Exception { runModelTest(SBMLGroupsTest.TEST_MODEL_GROUPS); }
+    @Test public void runLayouts1() throws Exception { runModelTest(SBMLLayoutTest.TEST_MODEL_LAYOUT); }
+    @Test public void runQual1() throws Exception { runModelTest(SBMLQualTest.TEST_MODEL_QUAL); }
 
     /**
      * Creates info for all objects in the model.
-     *
      * @param resource
      * @throws InterruptedException
      */
@@ -88,20 +78,18 @@ public class SBaseHtmlThreadTest {
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
         Collection<SBase> objects = map.getObjects();
 
-
-        for (SBase sbase : objects){
+        for (SBase sbase : objects) {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
-           
             SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
             t1.start();
             t1.join();
             String html = t1.getInfo();
+            assertNotNull(html);
         }
     }
 
-
-    private String createHTMLOutput(String resource) throws Exception{
+    private String createHTMLOutput(String resource) throws Exception {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
         Model model = doc.getModel();
 
@@ -123,10 +111,10 @@ public class SBaseHtmlThreadTest {
      * This allows faster development cycle of the information HTML than
      * packing it in the Cytoscape app.
      */
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         SBaseHtmlThreadTest test = new SBaseHtmlThreadTest();
         String html = test.createHTMLOutput(resource);
-        System.out.println(html);
+        assertNotNull(html);
     }
 }

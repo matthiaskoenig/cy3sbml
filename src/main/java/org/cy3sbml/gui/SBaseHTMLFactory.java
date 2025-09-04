@@ -1,6 +1,6 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +15,7 @@ import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 
@@ -36,9 +37,8 @@ import org.cy3sbml.util.SBMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.cy3sbml.HtmlTemplateParser.load;
-import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
 import static org.cy3sbml.gui.GUIConstants.*;
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
 
 /**
@@ -268,7 +268,7 @@ public class SBaseHTMLFactory {
         return html + TABLE_END;
     }
 
-	/** 
+	/**
 	 * Creation of class specific attribute information.
      * This mimics the SBMLReaderTaskFactory
 	 */
@@ -431,7 +431,6 @@ public class SBaseHTMLFactory {
         Namespace dataType = null;
         // List of Resource URIs
         for (String resourceURI : cvterm.getResources()){
-
             // bugfix to handle https://identifier.org/ resources
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
@@ -439,7 +438,6 @@ public class SBaseHTMLFactory {
 
 
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
             dataType = (result.get(prefix) == null)
                     ? result.get(StringUtils.substringAfter(prefix, "."))
@@ -450,6 +448,7 @@ public class SBaseHTMLFactory {
 
             // link to primary resource via id
             String resourceLink = null;
+
             if (dataType == null){
                 resourceLink = resourceURI;
             } else {
@@ -488,7 +487,7 @@ public class SBaseHTMLFactory {
             // dataType found
             if (dataType != null){
                 text += qualifierHTML + MIRIAM_COLLECTION_LINK
-                        .replace("{dataTypeURL}", dataType.getURL())
+                        .replace("{dataTypeURL}", dataType.getResources().get(0).getResourceHomeUrl())
                         .replace("{dataTypeName}", dataType.getName())
                         .replace("{identifierHTML}", identifierHTML);
 
@@ -537,14 +536,23 @@ public class SBaseHTMLFactory {
      * @param identifier
      * @return
      */
-    private static String createURL(PhysicalLocation location, String identifier){
-        return MessageFormat.format(
-                "{0}{1}{2}",
-                location.getUrlPrefix(),
-                identifier,
-                location.getUrlSuffix()
-        );
+    private static String createURL(Namespace namespace, Resource resource, String identifier){
+        String nonOlsURL;
+        String identifier2;
+        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
+
+            identifier2 = StringUtils.substringAfter(identifier, ":");
+
+        } else{
+            identifier2 = identifier;
+
+        }
+        nonOlsURL= resource.getUrlPattern().replace("{$id}", identifier2);
+
+        return nonOlsURL;
+
     }
+
 
 
     // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
@@ -556,10 +564,10 @@ public class SBaseHTMLFactory {
 
         String info = resource.getDescription();
 
-        return CONDITIONAL_LINK
-                .replace("{ICON}",  (primary == true) ? ICON_TRUE : ICON_INVISIBLE)
-                .replace("{URL}",  createURL(location, identifier))
-                .replace("{INFO}", info);
+        return String.format(
+                "\t<a href=\"%s\"> %s</a><br />\n",
+                createURL(namespace, resource, identifier),
+                info);
     }
 
     /**
@@ -586,7 +594,7 @@ public class SBaseHTMLFactory {
         if (term != null) {
 
             String purlURL = term.getIri().getIdentifier();
-            String ontologyURL = createURL(location, identifier);
+            String ontologyURL = createURL(namespace, resource, identifier);
             html += ONTOLOGY_TERM_LINK.replace("{ontologyURL}", ontologyURL)
                     .replace("{ontologyName}",  term.getOntologyName().toUpperCase())
                     .replace("{termLabel}", term.getLabel())
@@ -620,7 +628,7 @@ public class SBaseHTMLFactory {
             html += OLS_TERM_ERROR.replace("{ICON_WARNING}", ICON_WARNING)
                     .replace("{TERM_ID}", termIdentifier)
                     .replace("{OLS_URL}", olsURL);;
-            html += createNonOLSLocation(location, identifier);
+            html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;
     }
@@ -633,7 +641,7 @@ public class SBaseHTMLFactory {
      */
     public static String createSecondaryInformation(Namespace dataType, String identifier){
         String html = "";
-        String namespace = dataType.getName();
+        String namespace = dataType.getPrefix();
 
         if (namespace.equals("uniprot")) {
 

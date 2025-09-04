@@ -34,19 +34,15 @@ public class IOUtil {
 
     /** Read String from InputStream. */
     public static String inputStream2String(InputStream source) throws IOException {
-        StringWriter writer = new StringWriter();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(source));
-        try {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(source));
+             StringWriter writer = new StringWriter()) {
             char[] buffer = new char[BUFFER_SIZE];
-            int charactersRead = reader.read(buffer, 0, buffer.length);
-            while (charactersRead != -1) {
+            int charactersRead;
+            while ((charactersRead = reader.read(buffer)) != -1) {
                 writer.write(buffer, 0, charactersRead);
-                charactersRead = reader.read(buffer, 0, buffer.length);
             }
-        } finally {
-            reader.close();
+            return writer.toString();
         }
-        return writer.toString();
     }
 
     /** Create InputStream from String. */
@@ -91,50 +87,45 @@ public class IOUtil {
      * Use to download files
      * @param file
      */
-    public static void saveURLasFile(URL url, File file){
+    public static void saveURLasFile(URL url, File file) {
+        HttpURLConnection sourceConnection = null;
         try {
-            // use compression if available
-            ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-            FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
-            // obtain the connection
-         /*   HttpURLConnection sourceConnection = (HttpURLConnection) url.openConnection();
-
-            //add parameters to the connection
+            sourceConnection = (HttpURLConnection) url.openConnection();
             sourceConnection.setFollowRedirects(true);
-            //allow both GZip and Deflate (ZLib) encodings
             sourceConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
 
-            //obtain the encoding returned by the server
             String encoding = sourceConnection.getContentEncoding();
+            InputStream rawInputStream = sourceConnection.getInputStream();
 
-            InputStream inputStream = null;
-            //create the appropriate stream wrapper based on the encoding type
-            if (encoding != null && encoding.equalsIgnoreCase("gzip")) {
-                logger.info("gzip download");
-                inputStream = new GZIPInputStream(sourceConnection.getInputStream());
-            }
-            else if (encoding != null && encoding.equalsIgnoreCase("deflate")) {
-                inputStream = new InflaterInputStream(sourceConnection.getInputStream(), new Inflater(true));
-                logger.info("deflate download");
+            InputStream inputStream;
+            if ("gzip".equalsIgnoreCase(encoding)) {
+                inputStream = new GZIPInputStream(rawInputStream);
+            } else if ("deflate".equalsIgnoreCase(encoding)) {
+                inputStream = new InflaterInputStream(rawInputStream, new Inflater(true));
             } else {
-                inputStream = sourceConnection.getInputStream();
+                inputStream = rawInputStream;
+            }
 
-            }*/
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(url);
-
-            // save InputStream in file
-
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
-
+            // Copy decompressed input stream directly to file
+            try (InputStream in = inputStream;
+                 FileOutputStream fos = new FileOutputStream(file)) {
+                byte[] buffer = new byte[8192];
+                int len;
+                while ((len = in.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
+                }
+            }
 
         } catch (IOException e) {
             logger.error("URL could not be saved.", e);
             e.printStackTrace();
+        } finally {
+            if (sourceConnection != null) {
+                sourceConnection.disconnect();
+            }
         }
     }
+
 
 
     /**

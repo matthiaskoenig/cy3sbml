@@ -1,12 +1,13 @@
 package org.cy3sbml.styles;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 /**
  * Test StyleInfo.
@@ -14,10 +15,10 @@ import static org.junit.Assert.*;
 public class StyleInfoTest {
     private StyleInfo s;
 
-    @Before
+    @BeforeEach
     public void setUp(){ s = new StyleInfo_cy3sbml(); }
 
-    @After
+    @AfterEach
     public void tearDown(){ s = null; }
 
     @Test

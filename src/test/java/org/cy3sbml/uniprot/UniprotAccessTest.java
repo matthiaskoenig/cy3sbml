@@ -1,6 +1,5 @@
 package org.cy3sbml.uniprot;
 
-import org.junit.Test;
 
 import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 import uk.ac.ebi.uniprot.dataservice.client.Client;
@@ -11,8 +10,9 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
 
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test access to UniProt via JAPI.
@@ -32,8 +32,6 @@ public class UniprotAccessTest {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
-            // start the service
-
 
             // the accession we're interested in
             String accession = "P04483";
@@ -74,10 +72,6 @@ public class UniprotAccessTest {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // always remember to stop the service
-
-            System.out.println("service now stopped.");
         }
     }
 }

@@ -45,7 +45,7 @@ public class BiomodelsQueryResult {
 	        return null;
         } else {
             JSONObject obj = new JSONObject(json);
-            // System.out.println(obj.toString(2));
+
             return obj;
         }
     }

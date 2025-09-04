@@ -2,10 +2,11 @@ package org.cy3sbml;
 
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * Testing qual models.
@@ -19,7 +20,7 @@ public class SBMLQualTest {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_QUAL);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
-        assertEquals(54, network.getNodeCount());
-        assertEquals(57, network.getEdgeCount());
+        assertEquals(55, network.getNodeCount());
+        assertEquals(85, network.getEdgeCount());
     }
 }

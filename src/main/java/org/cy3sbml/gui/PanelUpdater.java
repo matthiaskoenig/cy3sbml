@@ -87,10 +87,12 @@ public class PanelUpdater implements Runnable {
         // information for selected node(s)
 
             List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
+
             if (cyIds.size() > 0){
                 // use first SBase
                 String cyId = cyIds.get(0);
                 SBase sbase = sbmlManager.getSBaseByCyId(cyId);
+
                 if (sbase != null){
                     panel.setText(TEMPLATE_LOAD_WEBSERVICE);
                     panel.showSBaseInfo(sbase);

@@ -1,62 +1,53 @@
 package org.cy3sbml.models;
 
 import java.util.HashSet;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 /**
  * Test all SBML files of the SBML TestCases.
- * 
+ *
  * sbml-test-suite-v3.3.0 (stochastic and semantic branch)
  * https://github.com/sbmlteam/sbml-test-suite/releases/tag/3.3.0
  * Retrieved on 2017-12-14.
  */
-@RunWith(value = Parameterized.class)
-public class SBMLTestCaseTest{
-	private String resource;
+public class SBMLTestCaseTest {
 
-    @Mock
-    TaskMonitor taskMonitor;
+	@Mock
+	TaskMonitor taskMonitor;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-	public SBMLTestCaseTest(String resource) {
-		this.resource = resource;
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
 	}
-	
-	@Parameters(name= "{index}: {0}")
-	public static Iterable<Object[]> data(){
-	    /*
-		HashSet<String> skip = new HashSet<>(Arrays.asList(new String[]{
-				"99220-pass-00-01-sev1-l2v1.xml",
-				"99220-pass-00-02-sev1-l2v2.xml",
-				"99220-pass-00-03-sev1-l2v3.xml",
-		}));
-		*/
 
-        HashSet<String> skip = new HashSet<>();
+	static Stream<String> sbmlTestCases() {
+		HashSet<String> skip = new HashSet<>();
 		String filter = "-sbml-l\\dv\\d.xml";
-		return TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip);
+
+		return StreamSupport.stream(
+				TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+				false
+		).map(arr -> arr[0].toString());
 	}
-	
-	@Test
-	public void testSingle() throws Exception {
+
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("sbmlTestCases")
+	void testSingle(String resource) throws Exception {
 		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
 	}
 
-    @Test
-    public void testSerialization() throws Exception {
-        TestUtils.testNetworkSerialization(getClass().getName(), resource);
-    }
+	@ParameterizedTest(name = "{index}: {0}")
+	@MethodSource("sbmlTestCases")
+	void testSerialization(String resource) throws Exception {
+		TestUtils.testNetworkSerialization(getClass().getName(), resource);
+	}
 }

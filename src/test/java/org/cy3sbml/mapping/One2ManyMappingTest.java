@@ -1,15 +1,17 @@
 package org.cy3sbml.mapping;
 
-import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Testing One2ManyMapping.
@@ -18,12 +20,12 @@ public class One2ManyMappingTest {
 
 	One2ManyMapping<String, Long> map;
 	
-	@Before
+	@BeforeEach
 	public void setUp(){
 		map = new One2ManyMapping<String, Long>();
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown(){
 		map = null;
 	}

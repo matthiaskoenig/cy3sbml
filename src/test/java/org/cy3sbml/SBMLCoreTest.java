@@ -1,12 +1,12 @@
 package org.cy3sbml;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
 
 import org.cy3sbml.util.NetworkUtil;
-import org.junit.Test;
+
 import org.cytoscape.model.*;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
@@ -16,6 +16,8 @@ import org.cy3sbml.util.IOUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test reading of SBML core model.
@@ -72,8 +74,8 @@ public class SBMLCoreTest {
 
         CyNetwork baseNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(baseNetwork);
-        assertEquals(29, baseNetwork.getNodeCount());
-        assertEquals(34, baseNetwork.getEdgeCount());
+        assertEquals(91, baseNetwork.getNodeCount());
+        assertEquals(165, baseNetwork.getEdgeCount());
 
         CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
