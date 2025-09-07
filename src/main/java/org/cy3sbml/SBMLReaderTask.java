@@ -549,7 +549,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader,Requ
         // name of root network
         String name = network.getRow(network).get(SBML.ATTR_ID, String.class);
         if (name == null) {
-            String[] tokens = fileName.split(File.separator);
+            String[] tokens = fileName.split("/\\\\");
             name = tokens[tokens.length - 1];
         }
         return name;

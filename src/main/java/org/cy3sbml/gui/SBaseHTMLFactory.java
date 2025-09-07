@@ -537,7 +537,7 @@ public class SBaseHTMLFactory {
      * @return
      */
     private static String createURL(Namespace namespace, Resource resource, String identifier){
-        String nonOlsURL;
+        String url;
         String identifier2;
         if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
 
@@ -547,9 +547,9 @@ public class SBaseHTMLFactory {
             identifier2 = identifier;
 
         }
-        nonOlsURL= resource.getUrlPattern().replace("{$id}", identifier2);
+        url = resource.getUrlPattern().replace("{$id}", identifier2);
 
-        return nonOlsURL;
+        return url;
 
     }
 
