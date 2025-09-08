@@ -102,6 +102,15 @@ The latest development branch is `develop`. Switch to it using:
 git checkout develop
 ```
 
+### Setup code formatting hook
+Add the following file `.git/hooks/pre-commit` linking to your idea installation
+```bash
+#!/bin/sh
+CHANGED_JAVA_SRC_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.java$')
+/home/mkoenig/Programs/idea-IU-252.25557.131/bin/format $CHANGED_JAVA_SRC_FILES
+git add $CHANGED_JAVA_SRC_FILES
+```
+
 ### Build with Maven
 
 To build `cy3sbml` without running tests:
