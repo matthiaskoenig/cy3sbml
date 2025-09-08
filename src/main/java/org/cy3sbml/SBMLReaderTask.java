@@ -2031,7 +2031,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
      */
     private void setAbstractMathContainerNodeAttributes(CyNetwork network, CyIdentifiable n, AbstractMathContainer container) {
         setSBaseAttributes(network, n, container);
-
         AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, container.getDerivedUnits(), String.class);
         if (container.isSetMath()) {
             ASTNode astNode = container.getMath();

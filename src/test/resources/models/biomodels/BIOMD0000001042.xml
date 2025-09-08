@@ -1,0 +1,1788 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="Makhlouf2020___No_treatment_model_of_the_role_of_CD4_T_cells_in_tumor_immune_interactions" metaid="COPASI0" name="Makhlouf2020 - No treatment model of the role of CD4 T cells in tumor-immune interactions">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <pre>This ordinary differential equation model simulating the interactions between tumor and immune cells is detailed in the publication:
+Ahmed M. Makhlouf, Lamiaa El-Shennawy, Hesham A. Elkaranshawy, "Mathematical Modelling for the Role of CD4+T Cells in Tumor-Immune Interactions", Comput Math Methods Med. 2020 Feb 19;2020:7187602.
+doi: 10.1155/2020/7187602
+
+Comment:
+This no treatment model is described by equations 1-7 of the publication manuscript. 
+
+Abstract:
+Mathematical modelling has been used to study tumor-immune cell interaction. Some models were proposed to examine the effect of circulating lymphocytes, natural killer cells, and CD8+T cells, but they neglected the role of CD4+T cells. Other models were constructed to study the role of CD4+T cells but did not consider the role of other immune cells. In this study, we propose a mathematical model, in the form of a system of nonlinear ordinary differential equations, that predicts the interaction between tumor cells and natural killer cells, CD4+T cells, CD8+T cells, and circulating lymphocytes with or without immunotherapy and/or chemotherapy. This system is stiff, and the Runge–Kutta method failed to solve it. Consequently, the “Adams predictor-corrector” method is used. The results reveal that the patient’s immune system can overcome small tumors; however, if the tumor is large, adoptive therapy with CD4+T cells can be an alternative to both CD8+T cell therapy and cytokines in some cases. Moreover, CD4+T cell therapy could replace chemotherapy depending upon tumor size. Even if a combination of chemotherapy and immunotherapy is necessary, using CD4+T cell therapy can better reduce the dose of the associated chemotherapy compared to using combined CD8+T cells and cytokine therapy. Stability analysis is performed for the studied patients. It has been found that all equilibrium points are unstable, and a condition for preventing tumor recurrence after treatment has been deduced. Finally, a bifurcation analysis is performed to study the effect of varying system parameters on the stability, and bifurcation points are specified. New equilibrium points are created or demolished at some bifurcation points, and stability is changed at some others. Hence, for systems turning to be stable, tumors can be eradicated without the possibility of recurrence. The proposed mathematical model provides a valuable tool for designing patients’ treatment intervention strategies.</pre>
+      </body>
+    </notes>
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#COPASI0">
+	<dc:creator>
+	<rdf:Bag>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Tiwari</vCard:Family>
+	<vCard:Given>Krishna</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>ktiwari@ebi.ac.uk</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>EMBL-EBI</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Chen</vCard:Family>
+	<vCard:Given>Emilia</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>eblc2@cam.ac.uk</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>University of Cambridge</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	</rdf:Bag>
+	</dc:creator>
+	<dcterms:created rdf:parseType="Resource">
+	<dcterms:W3CDTF>2021-07-21T11:01:47Z</dcterms:W3CDTF>
+	</dcterms:created>
+	<dcterms:modified rdf:parseType="Resource">
+	<dcterms:W3CDTF>2021-07-21T11:01:47Z</dcterms:W3CDTF>
+	</dcterms:modified>
+	<bqbiol:isPropertyOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0002418"/>
+	</rdf:Bag>
+	</bqbiol:isPropertyOf>
+	<bqbiol:isPropertyOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/doid/DOID:162"/>
+	</rdf:Bag>
+	</bqbiol:isPropertyOf>
+	<bqbiol:isPropertyOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ncit/C18670"/>
+	</rdf:Bag>
+	</bqbiol:isPropertyOf>
+	<bqbiol:hasTaxon>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
+	</rdf:Bag>
+	</bqbiol:hasTaxon>
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubmed/32148558"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/mamo/MAMO_0000046"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL2109060001"/>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/BIOMD0000001042"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	</rdf:Description>
+	
+	
+	
+	
+      </rdf:RDF>
+      <COPASI xmlns="http://www.copasi.org/static/sbml">
+        <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+          <rdf:Description rdf:about="#COPASI0">
+            <bqbiol:hasProperty rdf:resource="urn:miriam:mamo:MAMO_0000046"/>
+            <bqbiol:hasTaxon rdf:resource="urn:miriam:taxonomy:9606"/>
+            <bqbiol:isPropertyOf rdf:resource="urn:miriam:doid:DOID:162"/>
+            <bqbiol:isPropertyOf rdf:resource="urn:miriam:go:GO:0002418"/>
+            <bqbiol:isPropertyOf rdf:resource="urn:miriam:ncit:C18670"/>
+            <dcterms:bibliographicCitation>
+              <rdf:Description>
+                <CopasiMT:isDescribedBy rdf:resource="urn:miriam:pubmed:32148558"/>
+              </rdf:Description>
+            </dcterms:bibliographicCitation>
+            <dcterms:created>
+              <rdf:Description>
+                <dcterms:W3CDTF>2021-07-21T11:01:47Z</dcterms:W3CDTF>
+              </rdf:Description>
+            </dcterms:created>
+            <dcterms:creator>
+              <rdf:Description>
+                <vCard:EMAIL>eblc2@cam.ac.uk</vCard:EMAIL>
+                <vCard:N>
+                  <rdf:Description>
+                    <vCard:Family>Chen</vCard:Family>
+                    <vCard:Given>Emilia</vCard:Given>
+                  </rdf:Description>
+                </vCard:N>
+                <vCard:ORG>
+                  <rdf:Description>
+                    <vCard:Orgname>University of Cambridge</vCard:Orgname>
+                  </rdf:Description>
+                </vCard:ORG>
+              </rdf:Description>
+            </dcterms:creator>
+            <dcterms:creator>
+              <rdf:Description>
+                <vCard:EMAIL>ktiwari@ebi.ac.uk</vCard:EMAIL>
+                <vCard:N>
+                  <rdf:Description>
+                    <vCard:Family>Tiwari</vCard:Family>
+                    <vCard:Given>Krishna</vCard:Given>
+                  </rdf:Description>
+                </vCard:N>
+                <vCard:ORG>
+                  <rdf:Description>
+                    <vCard:Orgname>EMBL-EBI</vCard:Orgname>
+                  </rdf:Description>
+                </vCard:ORG>
+              </rdf:Description>
+            </dcterms:creator>
+          </rdf:Description>
+        </rdf:RDF>
+      </COPASI>
+    </annotation>
+      <listOfFunctionDefinitions>
+      <functionDefinition id="Constant_flux__irreversible" metaid="COPASI52" name="Constant flux (irreversible)">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> v </ci>
+            </bvar>
+            <ci> v </ci>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_Tumour_growth" metaid="COPASI53" name="Rate Law for Tumour_growth">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> a </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> b </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> a </ci>
+              <ci> T </ci>
+              <apply>
+                <minus/>
+                <cn> 1 </cn>
+                <apply>
+                  <times/>
+                  <ci> b </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_CD4_T_cell_production" metaid="COPASI54" name="Rate Law for CD4_T_cell_production">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> beta_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> alpha_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> I </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_1 </ci>
+                  <ci> T </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> alpha_1 </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+              <ci> I </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_NK_cell_production" metaid="COPASI55" name="Rate Law for NK_cell_production">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> e </ci>
+            </bvar>
+            <bvar>
+              <ci> C </ci>
+            </bvar>
+            <bvar>
+              <ci> g </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> h </ci>
+            </bvar>
+            <bvar>
+              <ci> N </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> e </ci>
+                <ci> C </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> g </ci>
+                    <apply>
+                      <power/>
+                      <ci> T </ci>
+                      <cn> 2 </cn>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> h </ci>
+                    <apply>
+                      <power/>
+                      <ci> T </ci>
+                      <cn> 2 </cn>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> N </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_IL_2_production" metaid="COPASI56" name="Rate Law for IL-2_production">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> beta_2 </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> alpha_2 </ci>
+            </bvar>
+            <bvar>
+              <ci> Y </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_2 </ci>
+                  <ci> T </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> alpha_2 </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+              <ci> Y </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_CD8_T_cell_production" metaid="COPASI57" name="Rate Law for CD8_T_cell_production">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> j </ci>
+            </bvar>
+            <bvar>
+              <ci> D </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> k </ci>
+            </bvar>
+            <bvar>
+              <ci> L </ci>
+            </bvar>
+            <bvar>
+              <ci> r_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> N </ci>
+            </bvar>
+            <bvar>
+              <ci> r_2 </ci>
+            </bvar>
+            <bvar>
+              <ci> C </ci>
+            </bvar>
+            <bvar>
+              <ci> p_i </ci>
+            </bvar>
+            <bvar>
+              <ci> I </ci>
+            </bvar>
+            <bvar>
+              <ci> g_i </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> j </ci>
+                    <apply>
+                      <power/>
+                      <ci> D </ci>
+                      <cn> 2 </cn>
+                    </apply>
+                    <apply>
+                      <power/>
+                      <ci> T </ci>
+                      <cn> 2 </cn>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> k </ci>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <power/>
+                        <ci> D </ci>
+                        <cn> 2 </cn>
+                      </apply>
+                      <apply>
+                        <power/>
+                        <ci> T </ci>
+                        <cn> 2 </cn>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> L </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> r_1 </ci>
+                    <ci> N </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> r_2 </ci>
+                    <ci> C </ci>
+                  </apply>
+                </apply>
+                <ci> T </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> p_i </ci>
+                    <ci> I </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> g_i </ci>
+                    <ci> I </ci>
+                  </apply>
+                </apply>
+                <ci> L </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_NK_cell_depletion" metaid="COPASI58" name="Rate Law for NK_cell_depletion">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> f </ci>
+            </bvar>
+            <bvar>
+              <ci> N </ci>
+            </bvar>
+            <bvar>
+              <ci> p </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> f </ci>
+                <ci> N </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> p </ci>
+                <ci> N </ci>
+                <ci> T </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_CD4_T_cell_depletion" metaid="COPASI59" name="Rate Law for CD4_T_cell_depletion">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> mu_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> Y </ci>
+            </bvar>
+            <bvar>
+              <ci> delta_2 </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> mu_1 </ci>
+                <ci> Y </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> delta_2 </ci>
+                <ci> T </ci>
+                <ci> Y </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_CD8_T_cell_depletion" metaid="COPASI60" name="Rate Law for CD8_T_cell_depletion">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> m </ci>
+            </bvar>
+            <bvar>
+              <ci> L </ci>
+            </bvar>
+            <bvar>
+              <ci> q </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> u </ci>
+            </bvar>
+            <bvar>
+              <ci> N </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> m </ci>
+                <ci> L </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> q </ci>
+                <ci> L </ci>
+                <ci> T </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> u </ci>
+                <ci> N </ci>
+                <apply>
+                  <power/>
+                  <ci> L </ci>
+                  <cn> 2 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_Tumour_death" metaid="COPASI61" name="Rate Law for Tumour_death">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> c </ci>
+            </bvar>
+            <bvar>
+              <ci> N </ci>
+            </bvar>
+            <bvar>
+              <ci> T </ci>
+            </bvar>
+            <bvar>
+              <ci> D </ci>
+            </bvar>
+            <bvar>
+              <ci> c_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> a_1 </ci>
+            </bvar>
+            <bvar>
+              <ci> I </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> c </ci>
+                <ci> N </ci>
+                <ci> T </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> D </ci>
+                <ci> T </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> c_1 </ci>
+                    <ci> T </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> a_1 </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+                <ci> I </ci>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="length" name="length">
+        <listOfUnits>
+          <unit exponent="1" kind="metre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area" name="area">
+        <listOfUnits>
+          <unit exponent="2" kind="metre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit exponent="1" kind="litre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="time">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="86400" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit exponent="1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_0" name="1/d">
+        <listOfUnits>
+          <unit exponent="-1" kind="second" multiplier="86400" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_1" name="#">
+        <listOfUnits>
+          <unit exponent="1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_2" name="1/#">
+        <listOfUnits>
+          <unit exponent="-1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_3" name="1/d*#">
+        <listOfUnits>
+          <unit exponent="-1" kind="second" multiplier="86400" scale="0"/>
+          <unit exponent="1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_4" name="#/d">
+        <listOfUnits>
+          <unit exponent="-1" kind="second" multiplier="86400" scale="0"/>
+          <unit exponent="1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_5" name="#^2">
+        <listOfUnits>
+          <unit exponent="2" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_6" name="1/#*d">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="86400" scale="0"/>
+          <unit exponent="-1" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_7" name="1/#^2*d">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="86400" scale="0"/>
+          <unit exponent="-2" kind="item" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment constant="true" id="Tumor_microenvironment" metaid="COPASI1" name="Tumor_microenvironment" size="1" spatialDimensions="3">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI1">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ncit/C94498"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI1">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:ncit:C94498"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="Tumor_cells" initialConcentration="10000000" metaid="COPASI2" name="Tumor_cells">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI2">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0001063"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI2">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0001063"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="NK_cells" initialConcentration="1000" metaid="COPASI3" name="NK_cells">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI3">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0000623"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI3">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0000623"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="CD8_T_cells" initialConcentration="100" metaid="COPASI4" name="CD8_T_cells">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI4">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0000625"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI4">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0000625"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="CD4_T_cells" initialConcentration="1000000" metaid="COPASI5" name="CD4_T_cells">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI5">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0000492"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI5">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0000492"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="Circulating_lymphocytes" initialConcentration="6E10" metaid="COPASI6" name="Circulating_lymphocytes">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI6">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0000542"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/cl/CL:0000080"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI6">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0000080"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:cl:CL:0000542"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="Tumor_microenvironment" constant="false" id="IL_2" initialConcentration="100000" metaid="COPASI7" name="IL-2">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI7">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pr/PR:000001379"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI7">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:pr:PR:000001379"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter constant="true" id="a" metaid="COPASI8" name="a" units="unit_0" value="0.431">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="a_1" metaid="COPASI9" name="a_1" units="unit_1" value="100000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="b" metaid="COPASI10" name="b" units="unit_2" value="1.02E-9">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="c" metaid="COPASI11" name="c" units="unit_3" value="6.41E-11">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="c_1" metaid="COPASI12" name="c_1" units="unit_4" value="0.2">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="d" metaid="COPASI13" name="d" units="unit_0" value="2.34">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="e" metaid="COPASI14" name="e" units="unit_0" value="2.08E-7">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="f" metaid="COPASI15" name="f" units="unit_0" value="0.0412">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="g" metaid="COPASI16" name="g" units="unit_0" value="0.0125">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="g_i" metaid="COPASI17" name="g_i" units="unit_5" value="20000000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="h" metaid="COPASI18" name="h" units="unit_5" value="20200000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="j" metaid="COPASI19" name="j" units="unit_0" value="0.0249">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="k" metaid="COPASI20" name="k" units="unit_5" value="36600000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="l" metaid="COPASI21" name="l" value="2.09">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI21"/>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="m" metaid="COPASI22" name="m" units="unit_0" value="0.204">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="p" metaid="COPASI23" name="p" units="unit_6" value="3.42E-6">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="p_i" metaid="COPASI24" name="p_i" units="unit_0" value="0.125">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="q" metaid="COPASI25" name="q" units="unit_3" value="1.42E-6">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="r_1" metaid="COPASI26" name="r_1" units="unit_3" value="1.1E-7">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="r_2" metaid="COPASI27" name="r_2" units="unit_6" value="6.5E-11">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="s" metaid="COPASI28" name="s" value="0.0839">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="u" metaid="COPASI29" name="u" units="unit_7" value="3E-10">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="alpha" metaid="COPASI30" name="alpha" units="unit_4" value="750000000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="alpha_1" metaid="COPASI31" name="alpha_1" units="unit_1" value="1000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="alpha_2" metaid="COPASI32" name="alpha_2" units="unit_1" value="1000">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="beta" metaid="COPASI33" name="beta" units="unit_0" value="0.012">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="beta_1" metaid="COPASI34" name="beta_1" units="unit_4" value="0.835">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="beta_2" metaid="COPASI35" name="beta_2" units="unit_6" value="5.4">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="mu_1" metaid="COPASI36" name="mu_1" units="unit_0" value="0.1">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="mu_i" metaid="COPASI37" name="mu_i" units="unit_0" value="10">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="delta_2" metaid="COPASI38" name="delta_2" units="unit_6" value="1E-7">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="false" id="D" metaid="COPASI39" name="D" value="9.89586806263944E-10">
+        <annotation>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          </COPASI>
+        </annotation>
+            </parameter>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="D">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> d </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> CD8_T_cells </ci>
+                  <apply>
+                    <plus/>
+                    <ci> Tumor_cells </ci>
+                    <cn type="e-notation">1 <sep/> -10 </cn>
+                  </apply>
+                </apply>
+                <ci> l </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> s </ci>
+                <apply>
+                  <power/>
+                  <apply>
+                    <divide/>
+                    <ci> CD8_T_cells </ci>
+                    <apply>
+                      <plus/>
+                      <ci> Tumor_cells </ci>
+                      <cn type="e-notation">1 <sep/> -10 </cn>
+                    </apply>
+                  </apply>
+                  <ci> l </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="Tumour_growth" metaid="COPASI40" name="Tumour_growth" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI40">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008283"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI40">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008283"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="Tumor_cells" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_Tumour_growth </ci>
+                <ci> a </ci>
+                <ci> Tumor_cells </ci>
+                <ci> b </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Tumour_death" metaid="COPASI41" name="Tumour_death" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI41">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008219"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0001906"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI41">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0001906"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008219"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="Tumor_cells" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="NK_cells"/>
+          <modifierSpeciesReference species="IL_2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_Tumour_death </ci>
+                <ci> c </ci>
+                <ci> NK_cells </ci>
+                <ci> Tumor_cells </ci>
+                <ci> D </ci>
+                <ci> c_1 </ci>
+                <ci> a_1 </ci>
+                <ci> IL_2 </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="NK_cell_production" metaid="COPASI42" name="NK_cell_production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI42">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008283"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI42">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008283"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="NK_cells" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Circulating_lymphocytes"/>
+          <modifierSpeciesReference species="Tumor_cells"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_NK_cell_production </ci>
+                <ci> e </ci>
+                <ci> Circulating_lymphocytes </ci>
+                <ci> g </ci>
+                <ci> Tumor_cells </ci>
+                <ci> h </ci>
+                <ci> NK_cells </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="NK_cell_depletion" metaid="COPASI43" name="NK_cell_depletion" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI43">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008219"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI43">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008219"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="NK_cells" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_NK_cell_depletion </ci>
+                <ci> f </ci>
+                <ci> NK_cells </ci>
+                <ci> p </ci>
+                <ci> Tumor_cells </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="CD8_T_cell_production" metaid="COPASI44" name="CD8_T_cell_production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI44">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0042098"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI44">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0042098"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="CD8_T_cells" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+          <modifierSpeciesReference species="NK_cells"/>
+          <modifierSpeciesReference species="Circulating_lymphocytes"/>
+          <modifierSpeciesReference species="IL_2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_CD8_T_cell_production </ci>
+                <ci> j </ci>
+                <ci> D </ci>
+                <ci> Tumor_cells </ci>
+                <ci> k </ci>
+                <ci> CD8_T_cells </ci>
+                <ci> r_1 </ci>
+                <ci> NK_cells </ci>
+                <ci> r_2 </ci>
+                <ci> Circulating_lymphocytes </ci>
+                <ci> p_i </ci>
+                <ci> IL_2 </ci>
+                <ci> g_i </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="CD8_T_cell_depletion" metaid="COPASI45" name="CD8_T_cell_depletion" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI45">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008219"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI45">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008219"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="CD8_T_cells" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+          <modifierSpeciesReference species="NK_cells"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_CD8_T_cell_depletion </ci>
+                <ci> m </ci>
+                <ci> CD8_T_cells </ci>
+                <ci> q </ci>
+                <ci> Tumor_cells </ci>
+                <ci> u </ci>
+                <ci> NK_cells </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="CD4_T_cell_production" metaid="COPASI46" name="CD4_T_cell_production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI46">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0042098"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI46">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0042098"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="CD4_T_cells" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+          <modifierSpeciesReference species="IL_2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_CD4_T_cell_production </ci>
+                <ci> beta_1 </ci>
+                <ci> Tumor_cells </ci>
+                <ci> alpha_1 </ci>
+                <ci> IL_2 </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="CD4_T_cell_depletion" metaid="COPASI47" name="CD4_T_cell_depletion" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI47">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008219"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI47">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008219"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="CD4_T_cells" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_CD4_T_cell_depletion </ci>
+                <ci> mu_1 </ci>
+                <ci> CD4_T_cells </ci>
+                <ci> delta_2 </ci>
+                <ci> Tumor_cells </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Circulating_lymphocyte_production" metaid="COPASI48" name="Circulating_lymphocyte_production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI48">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008283"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI48">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008283"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="Circulating_lymphocytes" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Constant_flux__irreversible </ci>
+                <ci> alpha </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Circulating_lymphocyte_depletion" metaid="COPASI49" name="Circulating_lymphocyte_depletion" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI49">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/go/GO:0008219"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI49">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go:GO:0008219"/>
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="Circulating_lymphocytes" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <ci> beta </ci>
+              <ci> Circulating_lymphocytes </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="IL_2_production" metaid="COPASI50" name="IL-2_production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI50">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI50">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000393"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="IL_2" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Tumor_cells"/>
+          <modifierSpeciesReference species="CD4_T_cells"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <apply>
+                <ci> Rate_Law_for_IL_2_production </ci>
+                <ci> beta_2 </ci>
+                <ci> Tumor_cells </ci>
+                <ci> alpha_2 </ci>
+                <ci> CD4_T_cells </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="IL_2_depletion" metaid="COPASI51" name="IL-2_depletion" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI51">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/sbo/SBO:0000394"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+	
+	
+          </rdf:RDF>
+          <COPASI xmlns="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI51">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:sbo:SBO:0000394"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="IL_2" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> Tumor_microenvironment </ci>
+              <ci> mu_i </ci>
+              <ci> IL_2 </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
