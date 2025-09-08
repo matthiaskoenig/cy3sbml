@@ -26,7 +26,7 @@ public class Mapping {
                    DataType dataType,
                    VisualPropertyKey property,
                    String attributeName,
-                   String defaultValue){
+                   String defaultValue) {
         this.mappingType = mappingType;
         this.dataType = dataType;
         this.property = property;
@@ -35,23 +35,23 @@ public class Mapping {
     }
 
 
-    public MappingType getMappingType(){
+    public MappingType getMappingType() {
         return mappingType;
     }
 
-    public DataType getDataType(){
+    public DataType getDataType() {
         return dataType;
     }
 
-    public VisualPropertyKey getVisualProperty(){
+    public VisualPropertyKey getVisualProperty() {
         return property;
     }
 
-    public String getAttributeName(){
+    public String getAttributeName() {
         return attributeName;
     }
 
-    public String getDefaultValue(){
+    public String getDefaultValue() {
         return defaultValue;
     }
 }

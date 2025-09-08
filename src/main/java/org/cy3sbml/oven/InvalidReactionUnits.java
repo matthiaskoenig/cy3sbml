@@ -16,7 +16,7 @@ public class InvalidReactionUnits {
 
         SBMLDocument doc = JSBML.readSBMLFromFile("/home/mkoenig/Desktop/limax_pkpd_39.xml");
         Model model = doc.getModel();
-        for (Reaction reaction: model.getListOfReactions()){
+        for (Reaction reaction : model.getListOfReactions()) {
             System.out.println(reaction + " " + reaction.getKineticLaw().getDerivedUnits());
         }
     }

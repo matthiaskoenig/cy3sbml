@@ -7,11 +7,11 @@ import java.util.Set;
 
 /**
  * Definition of cy3sbml constants.
- *
+ * <p>
  * Here the attribute names for nodes, edges and networks are defined.
  * All code depending on cy3sbml attributes should access these via the
  * SBML constants.
- *
+ * <p>
  * There is no guarantee that the Strings will remain identical, but the
  * SBML fields will remain the same.
  */
@@ -112,7 +112,7 @@ public class SBML {
     public static final String ATTR_COMP_TIME_CONVERSION_FACTOR = "comp_timeConversionFactor";
     public static final String ATTR_COMP_EXTENT_CONVERSION_FACTOR = "comp_extentConversionFactor";
 
-	// ----------------------
+    // ----------------------
     // Node types
     // ----------------------
     public static final String NODETYPE_SPECIES = SBMLCore.SBML_TYPE_SPECIES;
@@ -132,7 +132,7 @@ public class SBML {
     public static final String NODETYPE_EVENT_ASSIGNMENT = "eventAssignment";
     public static final String NODETYPE_CONSTRAINT = "constraint";
 
-	// qual
+    // qual
     public static final String NODETYPE_QUAL_SPECIES = "qual_species";
     public static final String NODETYPE_QUAL_TRANSITION = "qual_transition";
 
@@ -191,7 +191,7 @@ public class SBML {
     public static final String INTERACTION_EVENT_EVENT_ASSIGNMENT = "reference_eventAssignment";
     public static final String INTERACTION_VARIABLE_EVENT_ASSIGNMENT = "variable_eventAssignment";
 
-	// qual
+    // qual
     public static final String INTERACTION_QUAL_TRANSITION_INPUT = "input_transition";
     public static final String INTERACTION_QUAL_TRANSITION_OUTPUT = "transition_output";
 
@@ -208,7 +208,6 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASE_REPLACED_ELEMENT = "sbase-replacedElement";
     public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
     public static final String INTERACTION_COMP_SBASE_DELETION = "sbase-deletion";
-
 
 
     // -------------------------------------------------------------------------
@@ -367,6 +366,9 @@ public class SBML {
     // cy3sbml folder
     // -------------------------------------------------------------------------
 
-    private SBML() {};
+    private SBML() {
+    }
+
+    ;
 
 }

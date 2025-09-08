@@ -15,7 +15,7 @@ public class StringJSBMLTest {
         System.out.println(doc);
 
         Model model = doc.getModel();
-        for (Reaction r: model.getListOfReactions()){
+        for (Reaction r : model.getListOfReactions()) {
             System.out.println(r);
             String units = r.getDerivedUnits();
             System.out.println(units);

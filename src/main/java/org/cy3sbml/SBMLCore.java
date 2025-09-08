@@ -3,7 +3,7 @@ package org.cy3sbml;
 /**
  * Use identical fields to the SBMLCore.
  * As long as these are not exported, they have to be redefined here.
- *
+ * <p>
  * https://github.com/matthiaskoenig/cy3sbml/issues/106
  * http://code.cytoscape.org/redmine/issues/3638
  */
@@ -25,5 +25,6 @@ public class SBMLCore {
     public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
     public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units"; //$NON-NLS-1$
 
-    private SBMLCore(){}
+    private SBMLCore() {
+    }
 }

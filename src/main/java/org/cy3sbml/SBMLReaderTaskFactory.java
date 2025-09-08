@@ -18,33 +18,35 @@ import org.slf4j.LoggerFactory;
  */
 public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTaskFactory.class);
-	private final ServiceAdapter adapter;
+    private final ServiceAdapter adapter;
 
 
-	/** Constructor. */
-	public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter){
-		super(filter);
-		this.adapter = adapter;
-	}
+    /**
+     * Constructor.
+     */
+    public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter) {
+        super(filter);
+        this.adapter = adapter;
+    }
 
-	@Override
-	public TaskIterator createTaskIterator(InputStream is, String inputName) {		
-		logger.debug("createTaskIterator: input stream name: " + inputName);
+    @Override
+    public TaskIterator createTaskIterator(InputStream is, String inputName) {
+        logger.debug("createTaskIterator: input stream name: " + inputName);
 
-		try {
-			return new TaskIterator(
-				new SBMLReaderTask(IOUtil.copyInputStream(is), inputName,
-                        adapter.cyNetworkFactory,
-						adapter.cyGroupFactory,
-                        adapter.cyNetworkViewFactory,
-						adapter.visualMappingManager,
-                        adapter.cyLayoutAlgorithmManager,
-                        adapter.cy3sbmlProperties)
-			);
-		} catch (IOException e) {
-		    logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
-			e.printStackTrace();
+        try {
+            return new TaskIterator(
+                    new SBMLReaderTask(IOUtil.copyInputStream(is), inputName,
+                            adapter.cyNetworkFactory,
+                            adapter.cyGroupFactory,
+                            adapter.cyNetworkViewFactory,
+                            adapter.visualMappingManager,
+                            adapter.cyLayoutAlgorithmManager,
+                            adapter.cy3sbmlProperties)
+            );
+        } catch (IOException e) {
+            logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
+            e.printStackTrace();
             return null;
-		}
-	}
+        }
+    }
 }

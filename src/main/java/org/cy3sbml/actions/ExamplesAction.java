@@ -13,30 +13,32 @@ import org.slf4j.LoggerFactory;
 /**
  * Loads the example HTML page.
  */
-public class ExamplesAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
-	private static final long serialVersionUID = 1L;
-	
-	/** Constructor. */
-	public ExamplesAction(){
-		super(ExamplesAction.class.getSimpleName());
-		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_EXAMPLES));
-		putValue(LARGE_ICON_KEY, icon);
-		
-		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_EXAMPLES);
-		setToolbarGravity(GUIConstants.GRAVITY_EXAMPLES);
+public class ExamplesAction extends AbstractCyAction {
+    private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
+    private static final long serialVersionUID = 1L;
 
-		this.inToolBar = true;
-		this.inMenuBar = false;
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		logger.debug("actionPerformed()");
-		WebViewPanel vwPanel = WebViewPanel.getInstance();
-		vwPanel.activate();
-		vwPanel.setExamples();
-	}
+    /**
+     * Constructor.
+     */
+    public ExamplesAction() {
+        super(ExamplesAction.class.getSimpleName());
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_EXAMPLES));
+        putValue(LARGE_ICON_KEY, icon);
+
+        this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_EXAMPLES);
+        setToolbarGravity(GUIConstants.GRAVITY_EXAMPLES);
+
+        this.inToolBar = true;
+        this.inMenuBar = false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        logger.debug("actionPerformed()");
+        WebViewPanel vwPanel = WebViewPanel.getInstance();
+        vwPanel.activate();
+        vwPanel.setExamples();
+    }
 }
 

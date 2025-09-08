@@ -208,7 +208,6 @@ public class CyActivator extends AbstractCyActivator {
             // GUI frames
 
 
-
             // init actions [100 - 120]
             ChangeStateAction changeStateAction = new ChangeStateAction();
             registerService(bc, changeStateAction, CyAction.class, new Properties());
@@ -221,7 +220,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, importAction, CyAction.class, new Properties());
 
             SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
-           
+
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
@@ -281,13 +280,13 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-           //  Update and load registry
+            //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
-               public void run() {
+                public void run() {
                     RegistryUtil.getMiriamContent();
                 }
-         });
-         miriamThread.run();
+            });
+            miriamThread.run();
 
             // cy3sbml panels
             webViewPanel.activate();

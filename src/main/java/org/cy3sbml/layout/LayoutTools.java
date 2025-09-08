@@ -19,92 +19,97 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Utilities for working with layouts.
- * 
+ * <p>
  * Saving and storing node positions to file.
  * Applying layouts from files to network views, ...
  */
 public class LayoutTools {
-	private static final Logger logger = LoggerFactory.getLogger(LayoutTools.class);
-	
-	private ServiceAdapter adapter; 
-	
-	public LayoutTools(ServiceAdapter adapter){
-		this.adapter = adapter;
-	}
-	
-	///////////////////////////////////////////////////////////////////////////
-	// SAVE LAYOUTS
-	///////////////////////////////////////////////////////////////////////////
+    private static final Logger logger = LoggerFactory.getLogger(LayoutTools.class);
 
-	/** Save layout of current view in file. */
-	public void saveLayoutOfCurrentViewInFile(File file){
-		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-		if (view != null){
-			saveLayoutOfViewInFile(view, file);
-		}
-	}
-	
-	/** Save layout of given view in file. */
-	public void saveLayoutOfViewInFile(CyNetworkView view, File file){
-		CyNetwork network = view.getModel();
-		
-		List<CyNode> nodes = network.getNodeList();
-	    List<CyBoundingBox> boxes = new LinkedList<CyBoundingBox>(); 
-	    for (CyNode node : nodes){
-	    	View<CyNode> nodeView = view.getNodeView(node);
-	    	// id column is used for mapping positions 
-	    	String nodeId = AttributeUtil.get(network, node, SBML.ATTR_ID, String.class);
-	    	Double x = nodeView.getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION);
-	    	Double y = nodeView.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION);
-	    	Double height = nodeView.getVisualProperty(BasicVisualLexicon.NODE_HEIGHT);
-	    	Double width = nodeView.getVisualProperty(BasicVisualLexicon.NODE_WIDTH);
-			CyBoundingBox box = new CyBoundingBox(nodeId, x, y, height, width);
-			boxes.add(box);
-	    }
-	    // Creates the XML file
-	    XMLInterface.writeXMLFileForLayout(file, boxes);
-	}
+    private ServiceAdapter adapter;
 
-	///////////////////////////////////////////////////////////////////////////
-	// LOAD LAYOUTS
-	///////////////////////////////////////////////////////////////////////////
-	public void loadLayoutOfCurrentViewFromFile(File file){
-		CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-		if (view != null){
-			loadLayoutForViewFromFile(view, file);
-		}
-	}
-	
-	public void loadLayoutForViewFromFile(CyNetworkView view, File file){
-		CyNetwork network = view.getModel();
-	    
-	    HashMap<String, CyBoundingBox> boxesMap = XMLInterface.readLayoutFromXML(file);
-	    if (boxesMap != null){
-	    
-	    	
-	    	List<CyNode> nodes = network.getNodeList();
-	    	for (CyNode node : nodes){
-	    		// if position is stored
-	    		String nodeId = AttributeUtil.get(network, node, SBML.ATTR_ID, String.class);
-	    		if (boxesMap.containsKey(nodeId)){
-	    			CyBoundingBox box = boxesMap.get(nodeId);
-	    			View<CyNode> nodeView = view.getNodeView(node);
-	    			nodeView.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, box.getXpos());
-	    			nodeView.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, box.getYpos());
-	    			// nodeView.setVisualProperty(VisualPropertyKey.NODE_HEIGHT, box.getHeight());
-	    			// nodeView.setVisualProperty(VisualPropertyKey.NODE_WIDTH, box.getWidth());
-	    		}
-	    	}
-	    	view.updateView();
-	    } else {
-	    	logger.warn("Layout information could not be loaded from file.");
-	    }
-	}
+    public LayoutTools(ServiceAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SAVE LAYOUTS
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Save layout of current view in file.
+     */
+    public void saveLayoutOfCurrentViewInFile(File file) {
+        CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+        if (view != null) {
+            saveLayoutOfViewInFile(view, file);
+        }
+    }
+
+    /**
+     * Save layout of given view in file.
+     */
+    public void saveLayoutOfViewInFile(CyNetworkView view, File file) {
+        CyNetwork network = view.getModel();
+
+        List<CyNode> nodes = network.getNodeList();
+        List<CyBoundingBox> boxes = new LinkedList<CyBoundingBox>();
+        for (CyNode node : nodes) {
+            View<CyNode> nodeView = view.getNodeView(node);
+            // id column is used for mapping positions
+            String nodeId = AttributeUtil.get(network, node, SBML.ATTR_ID, String.class);
+            Double x = nodeView.getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION);
+            Double y = nodeView.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION);
+            Double height = nodeView.getVisualProperty(BasicVisualLexicon.NODE_HEIGHT);
+            Double width = nodeView.getVisualProperty(BasicVisualLexicon.NODE_WIDTH);
+            CyBoundingBox box = new CyBoundingBox(nodeId, x, y, height, width);
+            boxes.add(box);
+        }
+        // Creates the XML file
+        XMLInterface.writeXMLFileForLayout(file, boxes);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // LOAD LAYOUTS
+
+    /// ////////////////////////////////////////////////////////////////////////
+    public void loadLayoutOfCurrentViewFromFile(File file) {
+        CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
+        if (view != null) {
+            loadLayoutForViewFromFile(view, file);
+        }
+    }
+
+    public void loadLayoutForViewFromFile(CyNetworkView view, File file) {
+        CyNetwork network = view.getModel();
+
+        HashMap<String, CyBoundingBox> boxesMap = XMLInterface.readLayoutFromXML(file);
+        if (boxesMap != null) {
+
+
+            List<CyNode> nodes = network.getNodeList();
+            for (CyNode node : nodes) {
+                // if position is stored
+                String nodeId = AttributeUtil.get(network, node, SBML.ATTR_ID, String.class);
+                if (boxesMap.containsKey(nodeId)) {
+                    CyBoundingBox box = boxesMap.get(nodeId);
+                    View<CyNode> nodeView = view.getNodeView(node);
+                    nodeView.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, box.getXpos());
+                    nodeView.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, box.getYpos());
+                    // nodeView.setVisualProperty(VisualPropertyKey.NODE_HEIGHT, box.getHeight());
+                    // nodeView.setVisualProperty(VisualPropertyKey.NODE_WIDTH, box.getWidth());
+                }
+            }
+            view.updateView();
+        } else {
+            logger.warn("Layout information could not be loaded from file.");
+        }
+    }
 }
 
-	///////////////////////////////////////////////////////////////////////////
-	// SBML Layout extension
-	///////////////////////////////////////////////////////////////////////////
+/// ////////////////////////////////////////////////////////////////////////
+// SBML Layout extension
+///////////////////////////////////////////////////////////////////////////
 	
 	/*
 	public static void saveLayoutOfCurrentViewInSBMLFile(File file){

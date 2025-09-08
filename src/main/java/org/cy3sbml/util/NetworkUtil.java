@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 /**
  * Utils for working with networks.
  */
@@ -25,10 +24,10 @@ public class NetworkUtil {
      * Get SUID of root network.
      * Returns null if the network is null.
      */
-    public static Long getRootNetworkSUID(CyNetwork network){
+    public static Long getRootNetworkSUID(CyNetwork network) {
         Long suid = null;
-        if (network != null){
-            CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
+        if (network != null) {
+            CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
             suid = rootNetwork.getSUID();
         }
         return suid;
@@ -37,10 +36,10 @@ public class NetworkUtil {
     /**
      * Get rootNetwork for given network.
      */
-    public static CyNetwork getRootNetwork(CyNetwork network){
+    public static CyNetwork getRootNetwork(CyNetwork network) {
         CyNetwork rootNetwork = null;
-        if (network != null){
-            rootNetwork = ((CySubNetwork)network).getRootNetwork();
+        if (network != null) {
+            rootNetwork = ((CySubNetwork) network).getRootNetwork();
         }
         return rootNetwork;
     }
@@ -64,18 +63,17 @@ public class NetworkUtil {
      * @param prefixSubnetwork
      * @return
      */
-    public static CyNetwork getNetworkBySubNetworkPrefix(CyNetwork[] networks, String prefixSubnetwork){
+    public static CyNetwork getNetworkBySubNetworkPrefix(CyNetwork[] networks, String prefixSubnetwork) {
         CyNetwork network = null;
-        for (CyNetwork n: networks){
+        for (CyNetwork n : networks) {
             String networkName = AttributeUtil.get(n, n, CyNetwork.NAME, String.class);
-            if (networkName.startsWith(prefixSubnetwork)){
+            if (networkName.startsWith(prefixSubnetwork)) {
                 network = n;
                 break;
             }
         }
         return network;
     }
-
 
 
     ////////////////////////////////////////////////////////
@@ -88,7 +86,7 @@ public class NetworkUtil {
      * @param network
      * @param metaId
      */
-    public static void selectByMetaId(CyNetwork network, String metaId){
+    public static void selectByMetaId(CyNetwork network, String metaId) {
         logger.info(String.format("Select node for metaId: %s", metaId));
 
         CyNode node = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, metaId);
@@ -101,21 +99,21 @@ public class NetworkUtil {
      * @param network
      * @param id
      */
-    public static void selectById(CyNetwork network, String id){
+    public static void selectById(CyNetwork network, String id) {
         logger.info(String.format("Select node for id: %s", id));
         CyNode node = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, id);
         selectNodeInNetwork(network, node);
     }
 
 
-
     /**
      * Selects given node in network.
      * Unselects all other nodes.
+     *
      * @param network
      * @param node
      */
-    public static void selectNodeInNetwork(CyNetwork network, CyNode node){
+    public static void selectNodeInNetwork(CyNetwork network, CyNode node) {
         if (node != null) {
             // unselect all
             List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);

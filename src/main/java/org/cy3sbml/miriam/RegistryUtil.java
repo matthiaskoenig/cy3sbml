@@ -33,9 +33,9 @@ public class RegistryUtil {
     public static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
 
 
-
     /**
      * Load the registry from the resources.
+     *
      * @param file MIRIAM json file
      */
 
@@ -80,7 +80,7 @@ public class RegistryUtil {
      *
      * @param file MIRIAM json file
      */
-    public static void updateMiriamJSON(File file){
+    public static void updateMiriamJSON(File file) {
         try {
             URL miriamURL = new URL(URL_MIRIAM_JSON);
             IOUtil.saveURLasFile(miriamURL, file);
@@ -90,7 +90,6 @@ public class RegistryUtil {
             e.printStackTrace();
         }
     }
-
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +111,7 @@ public class RegistryUtil {
         }
         return result;
     }
+
     public static void main(String[] args) throws FileNotFoundException, MalformedURLException {
 
 

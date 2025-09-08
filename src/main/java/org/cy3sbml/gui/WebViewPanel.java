@@ -152,7 +152,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
         return (cytoPanelEast.getState() != CytoPanelState.HIDE);
     }
 
-    /////////////////// ACTIVATION HANDLING ///////////////////////////////////
+    /// //////////////// ACTIVATION HANDLING ///////////////////////////////////
 
     public void activate() {
         // If the state of the cytoPanelWest is HIDE, show it
@@ -188,7 +188,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
         }
     }
 
-    /////////////////// INFORMATION DISPLAY ///////////////////////////////////
+    /// //////////////// INFORMATION DISPLAY ///////////////////////////////////
 
     public void setHelp() {
         browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE);
@@ -251,7 +251,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     @Override
 
 
-
     /////////////////// EVENT HANDLING ///////////////////////////////////
 
     /**
@@ -274,7 +273,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
      */
     public void handleEvent(RowsSetEvent event) {
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-        if (network!=null&&!event.getSource().equals(network.getDefaultNodeTable()) ||
+        if (network != null && !event.getSource().equals(network.getDefaultNodeTable()) ||
                 !event.containsColumn(CyNetwork.SELECTED)) {
             return;
         }

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Information storage for DiscreteMapping
  */
-public class MappingDiscrete extends Mapping{
+public class MappingDiscrete extends Mapping {
 
     private Map map;
 
@@ -13,7 +13,7 @@ public class MappingDiscrete extends Mapping{
                            VisualPropertyKey property,
                            String attributeName,
                            String defaultValue,
-                           Map map){
+                           Map map) {
         super(MappingType.DISCRETE, dataType, property, attributeName, defaultValue);
         this.map = map;
     }

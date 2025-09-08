@@ -28,10 +28,10 @@ public class OLSAccess {
     /**
      * Gets the OLS term for a given identifier.
      * Example: "GO:0042752"
-     *
+     * <p>
      * Returns NULL if not an ontology term, or no term.
      */
-    public static Term getTerm(String identifier){
+    public static Term getTerm(String identifier) {
         try {
             String[] tokens = identifier.split(":");
             if (tokens.length == 2) {
@@ -55,26 +55,28 @@ public class OLSAccess {
         } catch (HttpClientErrorException e) {
             logger.warn(String.format("OLS term not found <%s>", identifier));
             return null;
-        } catch (Throwable e){
+        } catch (Throwable e) {
             logger.error(String.format("Error retrieving OLS term for: %s", identifier), e);
             e.printStackTrace();
             return null;
         }
     }
 
-    /** Create string representation of term. */
-    public static String termToString(Term term){
-        if (term == null){
+    /**
+     * Create string representation of term.
+     */
+    public static String termToString(Term term) {
+        if (term == null) {
             return term.toString();
         }
         return String.format(
-            "iri:           %s\n" +
-            "label:         %s\n" +
-            "description:   %s\n" +
-            "shortForm:     %s\n" +
-            "oboId:         %s\n" +
-            "ontologyName:  %s\n" +
-            "oboDefinitionCitations:  %s\n",
+                "iri:           %s\n" +
+                        "label:         %s\n" +
+                        "description:   %s\n" +
+                        "shortForm:     %s\n" +
+                        "oboId:         %s\n" +
+                        "ontologyName:  %s\n" +
+                        "oboDefinitionCitations:  %s\n",
                 term.getIri(),
                 term.getLabel(),
                 term.getDescription(),
@@ -88,11 +90,11 @@ public class OLSAccess {
     /**
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
-    public static boolean isPhysicalLocationOLS(Resource resource){
+    public static boolean isPhysicalLocationOLS(Resource resource) {
         return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Exists on OLS
         String resourceURI = "https://identifiers.org/go/GO:0042752";
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);

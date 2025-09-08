@@ -1,4 +1,5 @@
 package org.cy3sbml.miriam;
+
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -11,19 +12,19 @@ import static org.cy3sbml.miriam.Fields.*;
 public class Namespace {
 
     @Getter
-    private  int id;
+    private int id;
     private String prefix;
-    private  String name;
-    private  String pattern;
-    private  Boolean namespaceEmbeddedInLui;
-    private  String description;
-    private  String mirId;
-    private  List<Resource> resources;
-    private  String created;
-    private  String modified;
-    private  String sampleId;
+    private String name;
+    private String pattern;
+    private Boolean namespaceEmbeddedInLui;
+    private String description;
+    private String mirId;
+    private List<Resource> resources;
+    private String created;
+    private String modified;
+    private String sampleId;
     private Boolean deprecated = false;
-    private  String deprecationDate;
+    private String deprecationDate;
 
     public Namespace(Map<Object, Object> value) {
         this.id = (int) value.get(ID);
@@ -39,7 +40,7 @@ public class Namespace {
         this.sampleId = (String) value.get(SAMPLE_ID);
         this.deprecated = (Boolean) value.get(DEPRECATED);
         this.deprecationDate = (String) value.get(DEPRECATION_DATE);
-        if (this.name == null){
+        if (this.name == null) {
             throw new IllegalArgumentException("Namespace name cannot be null");
         }
         Object resourcesRaw = value.get(RESOURCES);
@@ -47,7 +48,7 @@ public class Namespace {
             this.resources = new ArrayList<>();
             for (Object item : (List<?>) resourcesRaw) {
 
-                    this.resources.add(Resource.fromMap((Map<String, Object>) item));
+                this.resources.add(Resource.fromMap((Map<String, Object>) item));
 
             }
         } else {
@@ -60,20 +61,57 @@ public class Namespace {
         this.resources = resources;
     }
 
-    public int getId() { return id; }
-    public String getPrefix() { return prefix; }
-    public String getName() { return name; }
-    public String getPattern() { return pattern; }
-    public Boolean getNamespaceEmbeddedInLui() { return namespaceEmbeddedInLui; }
-    public String getDescription() { return description; }
-    public String getMirId() { return mirId; }
+    public int getId() {
+        return id;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public Boolean getNamespaceEmbeddedInLui() {
+        return namespaceEmbeddedInLui;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getMirId() {
+        return mirId;
+    }
+
     public List<Resource> getResources() {
 
-        return resources; }
-    public String getCreated() { return created; }
-    public String getModified() { return modified; }
-    public String getSampleId() { return sampleId; }
-    public Boolean getDeprecated() { return deprecated; }
-    public String getDeprecationDate() { return deprecationDate; }
+        return resources;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public String getSampleId() {
+        return sampleId;
+    }
+
+    public Boolean getDeprecated() {
+        return deprecated;
+    }
+
+    public String getDeprecationDate() {
+        return deprecationDate;
+    }
 
 }

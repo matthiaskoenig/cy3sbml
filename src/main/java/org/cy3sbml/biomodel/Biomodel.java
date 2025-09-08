@@ -28,14 +28,14 @@ public class Biomodel {
     private String description;
     private String authors;
 
-    public Biomodel(JSONObject jsonObject){
+    public Biomodel(JSONObject jsonObject) {
 
         submissionIdentifier = jsonObject.getString(SUBMISSION_ID);
         JSONObject publicationObject = jsonObject.getJSONObject(PUBLICATION);
         // not all fields exist
         try {
             id = jsonObject.getString(PUBLICATION_ID);
-        } catch (JSONException e){
+        } catch (JSONException e) {
             id = "";
         }
         try {
@@ -46,27 +46,27 @@ public class Biomodel {
         try {
 
             publicationIdentifier = publicationObject.getString(ACCESSION);
-        } catch (JSONException e){
+        } catch (JSONException e) {
             publicationIdentifier = "";
         }
-        try{
+        try {
             description = jsonObject.getString(DESCRIPTION);
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             description = "";
         }
 
-       try {
-           List<String> authorsList = new ArrayList<String>();
-           JSONArray authorsArray = publicationObject.getJSONArray(AUTHORS);
-           for (int i = 0; i < authorsArray.length(); i++) {
-               JSONObject author = authorsArray.getJSONObject(i);
-               String name = author.getString(NAME);
-               authorsList.add(name);
-           }
-           authors = String.join(", ", authorsList);
-       }catch (JSONException e) {
-           authors = "";
-       }
+        try {
+            List<String> authorsList = new ArrayList<String>();
+            JSONArray authorsArray = publicationObject.getJSONArray(AUTHORS);
+            for (int i = 0; i < authorsArray.length(); i++) {
+                JSONObject author = authorsArray.getJSONObject(i);
+                String name = author.getString(NAME);
+                authorsList.add(name);
+            }
+            authors = String.join(", ", authorsList);
+        } catch (JSONException e) {
+            authors = "";
+        }
     }
 
     public String getId() {
@@ -84,11 +84,12 @@ public class Biomodel {
     public String getDescription() {
         return description;
     }
+
     public String getAuthors() {
         return authors;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         String text = getPublicationIdentifier();
         return text;
     }

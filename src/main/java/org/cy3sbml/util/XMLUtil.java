@@ -31,12 +31,12 @@ public class XMLUtil {
     /**
      * Convert XML String to html string.
      */
-    public static String xml2Html(String xml){
+    public static String xml2Html(String xml) {
         String html = null;
         Document doc = XMLUtil.readXMLString(xml);
-        if (doc != null){
+        if (doc != null) {
             String xmlTidy = XMLUtil.writeNodeToTidyString(doc);
-            if (xmlTidy != null){
+            if (xmlTidy != null) {
                 xml = xmlTidy;
             }
         }
@@ -53,10 +53,10 @@ public class XMLUtil {
     /**
      * Create tidy xml string from xml string.
      */
-    public static String xml2xml(String xml){
+    public static String xml2xml(String xml) {
         String html = null;
         Document doc = XMLUtil.readXMLString(xml);
-        if (doc != null){
+        if (doc != null) {
             html = XMLUtil.writeNodeToTidyString(doc);
         }
         return html;
@@ -65,14 +65,14 @@ public class XMLUtil {
     /**
      * Read XML Document from String.
      */
-    public static Document readXMLString(String xml){
+    public static Document readXMLString(String xml) {
         InputStream xmlStream = IOUtil.string2InputStream(xml);
         Document doc = null;
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(xmlStream);
-        } catch (SAXException|ParserConfigurationException|IOException e) {
+        } catch (SAXException | ParserConfigurationException | IOException e) {
             logger.error("Reading xml string failed.", e);
             e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class XMLUtil {
     /**
      * Write XML Document to file.
      */
-    public static void writeNodeToTidyFile(Node node, File file){
+    public static void writeNodeToTidyFile(Node node, File file) {
         XMLUtil.cleanEmptyTextNodes(node);
         Transformer transformer;
         try {
@@ -103,7 +103,7 @@ public class XMLUtil {
      * Write XML Document to string.
      * See: http://stackoverflow.com/questions/5456680/xml-document-to-string
      */
-    public static String writeNodeToTidyString(Node node){
+    public static String writeNodeToTidyString(Node node) {
         XMLUtil.cleanEmptyTextNodes(node);
 
         String output = null;
@@ -129,7 +129,7 @@ public class XMLUtil {
      * parent node has at least one child of any of the following types, all
      * whitespace-only text-node children will be removed: - ELEMENT child -
      * CDATA child - COMMENT child
-     *
+     * <p>
      * The purpose of this is to make the format() method (that use a
      * Transformer for formatting) more consistent regarding indenting and line
      * breaks.

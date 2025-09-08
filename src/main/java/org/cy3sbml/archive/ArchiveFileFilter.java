@@ -17,7 +17,7 @@ import java.net.URI;
  */
 public class ArchiveFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(ArchiveFileFilter.class);
-    public static byte[] MAGIC = { 'P', 'K', 0x3, 0x4 };
+    public static byte[] MAGIC = {'P', 'K', 0x3, 0x4};
 
     /**
      * Constructor.
@@ -36,7 +36,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
     /**
      * Indicates which URI the FileFilter accepts.
      *
-     * @param uri URI to check
+     * @param uri      URI to check
      * @param category
      * @return
      */
@@ -75,27 +75,27 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
 
     /**
      * Method to test if a input stream is a zip archive.
-     *
+     * <p>
      * This method is based on the MAGIC bytes of the zip archive,
      * but not very reliable.
-     *
+     * <p>
      * The better way for testing is
-     *      boolean isZipped = new ZipInputStream(stream).getNextEntry() != null;
-     *
+     * boolean isZipped = new ZipInputStream(stream).getNextEntry() != null;
+     * <p>
      * But does not work in the Cytoscape reader context because
      * only first kbs of stream are send for validation
      * from GenericReaderManager.getReader()
-     *
+     * <p>
      * Because we don't know who will provide the file filter or
      * what they might do with the InputStream, we provide a copy
      * of the first 2KB rather than the stream itself.
+     * <p>
+     * if (cff.accepts(CopyInputStream.copyKBytes(stream, 1), category)) {
+     * // logger.debug("successfully matched READER " + factory);
+     * return (R) factory.createTaskIterator(stream, inputName).next();
+     * }
      *
-     *  if (cff.accepts(CopyInputStream.copyKBytes(stream, 1), category)) {
-     *      // logger.debug("successfully matched READER " + factory);
-     *      return (R) factory.createTaskIterator(stream, inputName).next();
-     *  }
-     *
-     * @param in    the input stream to test.
+     * @param in the input stream to test.
      * @return
      */
     public static boolean isZipStream(InputStream in) {
@@ -120,7 +120,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
             in.mark(MAGIC.length);
             for (int i = 0; i < MAGIC.length; i++) {
                 byte b = (byte) in.read();
-                logger.debug("byte[" + i + "]: '" + b +"'");
+                logger.debug("byte[" + i + "]: '" + b + "'");
                 if (MAGIC[i] != b) {
                     isZip = false;
                     break;

@@ -22,23 +22,21 @@ public class UniprotTest {
 
         // comments
         String text = "";
-        for (Comment comment : entry.getComments()){
+        for (Comment comment : entry.getComments()) {
             CommentType ctype = comment.getCommentType();
-            if (ctype.equals(CommentType.FUNCTION)){
+            if (ctype.equals(CommentType.FUNCTION)) {
                 FunctionComment fComment = (FunctionComment) comment;
                 for (CommentText commentText : fComment.getTexts()) {
                     text += String.format("\t<span class=\"comment\">Function</span> <span class=\"text-success\">%s</span><br />\n", commentText.getValue());
                 }
-            }
-            else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
+            } else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                 CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                 Reaction reaction = caComment.getReaction();
-                if (reaction != null){
+                if (reaction != null) {
                     text += String.format("\t<span class=\"comment\">Catalytic Activity</span>%s<br />\n", reaction.getName());
                 }
 
-            }
-            else if (ctype.equals(CommentType.PATHWAY)) {
+            } else if (ctype.equals(CommentType.PATHWAY)) {
                 PathwayComment pComment = (PathwayComment) comment;
                 for (CommentText commentText : pComment.getTexts()) {
                     text += String.format("\t<span class=\"comment\">Pathway</span>%s<br />\n", commentText.getValue());

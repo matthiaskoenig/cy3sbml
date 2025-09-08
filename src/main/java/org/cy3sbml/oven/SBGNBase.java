@@ -19,7 +19,7 @@ public class SBGNBase extends AbstractSBase {
         return role;
     }
 
-    public boolean isSetRole(){
+    public boolean isSetRole() {
         return role != null;
     }
 }

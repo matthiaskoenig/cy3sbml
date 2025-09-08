@@ -26,7 +26,7 @@ public class DistribReader {
     /**
      * Create uncertainty information from distrib package.
      */
-    private void readDistrib(Model model){
+    private void readDistrib(Model model) {
         // TODO: necessary to display for all the SBase elements
         // TODO: write the string as attribute to the respective node
 
@@ -42,12 +42,12 @@ public class DistribReader {
 
     }
 
-    private void readUncertainties(ListOf<?> listOfSBase){
-        for (SBase sbase: listOfSBase){
+    private void readUncertainties(ListOf<?> listOfSBase) {
+        for (SBase sbase : listOfSBase) {
             DistribSBasePlugin dSBase = (DistribSBasePlugin) sbase.getExtension(DistribConstants.namespaceURI);
-            if (dSBase != null && dSBase.isSetListOfUncertainties()){
+            if (dSBase != null && dSBase.isSetListOfUncertainties()) {
                 ListOf<Uncertainty> listOfUncertainties = dSBase.getListOfUncertainties();
-                for (Uncertainty uc: listOfUncertainties){
+                for (Uncertainty uc : listOfUncertainties) {
                     System.out.println(uc);
                 }
             }
@@ -58,13 +58,13 @@ public class DistribReader {
      * Use the respective Java API.
      * https://github.com/52North/uncertml-api.git
      */
-    private void readUncertainty(SBase sbase, Uncertainty uc){
+    private void readUncertainty(SBase sbase, Uncertainty uc) {
         String id = null;
         String name = null;
-        if (uc.isSetId()){
+        if (uc.isSetId()) {
             id = uc.getId();
         }
-        if (uc.isSetName()){
+        if (uc.isSetName()) {
             name = uc.getName();
         }
 
