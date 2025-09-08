@@ -34,6 +34,7 @@ import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.cy3sbml.util.SBMLUtil;
+
 import static org.cy3sbml.gui.GUIConstants.*;
 import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
