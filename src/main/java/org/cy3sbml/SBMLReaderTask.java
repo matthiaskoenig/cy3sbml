@@ -89,7 +89,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 
     @Tunable(description = "Tick if you want to automatically layout the imported network")
-    public boolean doLayout;
+    public boolean doLayout = true;
 
     private final String fileName;
     private final InputStream stream;
