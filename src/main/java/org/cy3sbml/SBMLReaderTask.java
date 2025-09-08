@@ -894,9 +894,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 AttributeUtil.set(network, n, SBML.ATTR_USE_VALUES_FROM_TRIGGER_TIME,
                         event.getUseValuesFromTriggerTime(), Boolean.class);
             }
-
             // edge via trigger math
-            createMathNetwork(network, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+            if (event.isSetTrigger()) {
+                createMathNetwork(network, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+            }
             // edge via priority math
             if (event.isSetPriority()) {
                 createMathNetwork(network, event.getPriority(), n, SBML.INTERACTION_PRIORITY_EVENT);
