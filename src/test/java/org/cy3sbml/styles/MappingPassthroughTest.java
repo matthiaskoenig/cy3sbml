@@ -15,7 +15,7 @@ public class MappingPassthroughTest {
     private static final String DEFAULT_VALUE = "default";
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         m = new MappingPassthrough(Mapping.DataType.integer,
                 VisualPropertyKey.NODE_LABEL,
                 SBML.NODETYPE_ATTR,
@@ -23,12 +23,12 @@ public class MappingPassthroughTest {
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         m = null;
     }
 
     @Test
-    public void mappingTest(){
+    public void mappingTest() {
         assertEquals(Mapping.DataType.integer, m.getDataType());
         assertEquals(SBML.NODETYPE_ATTR, m.getAttributeName());
         assertEquals(VisualPropertyKey.NODE_LABEL, m.getVisualProperty());

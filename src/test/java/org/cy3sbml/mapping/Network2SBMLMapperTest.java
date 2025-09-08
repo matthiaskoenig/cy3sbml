@@ -23,12 +23,12 @@ public class Network2SBMLMapperTest {
     private static final SBMLDocument DOC = new SBMLDocument();
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         mapper = new Network2SBMLMapper();
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         mapper = null;
     }
 

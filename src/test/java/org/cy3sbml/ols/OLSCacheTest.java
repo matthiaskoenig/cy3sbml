@@ -3,6 +3,7 @@ package org.cy3sbml.ols;
 
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 

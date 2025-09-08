@@ -52,7 +52,7 @@ public class GUIConstants {
 
     //HTML FRAGMENTS
     public static final String htmlTemplate = load();
-    public static final Map<String,String> htmlFragments = parseTemplateSections(htmlTemplate);
+    public static final Map<String, String> htmlFragments = parseTemplateSections(htmlTemplate);
 
     public static final String HTML_START_TEMPLATE = htmlFragments.get("HTML_START");
     public static final String HTML_STOP_TEMPLATE = htmlFragments.get("HTML_STOP");
@@ -61,7 +61,8 @@ public class GUIConstants {
     public static final String ICON_FALSE = htmlFragments.get("FALSE");
     public static final String ICON_NONE = htmlFragments.get("NONE");
     public static final String ICON_INVISIBLE = htmlFragments.get("INVISIBLE");
-    public static final String EXPORT_HTML = htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);;
+    public static final String EXPORT_HTML = htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);
+    ;
     public static final String TABLE_START = htmlFragments.get("TABLE_START");
     public static final String TABLE_END = htmlFragments.get("TABLE_END");
     public static final String TS = htmlFragments.get("TABLE_ROW_START");
@@ -82,6 +83,7 @@ public class GUIConstants {
     public static final String MODIFIED_DATE = htmlFragments.get("MODIFIED_DATE");
     public static final String CREATED_DATE1 = htmlFragments.get("CREATED_DATE");
 
-    private GUIConstants(){}
+    private GUIConstants() {
+    }
 
 }

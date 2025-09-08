@@ -23,26 +23,26 @@ public class PanelUpdater implements Runnable {
 
     private static final String TEMPLATE_NO_SBML_NODE = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" +
-            "<p>No SBML object registered for node in ObjectMapper.</p>" +
-            "<p>Some nodes do not have SBase objects associated, e.g." +
-            "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>" +
-            "<p>Other examples are the base units like <code>dimensionless</code>" +
-            "or <code>mole</code> which are not part of the model.</p>");
+                    "<p>No SBML object registered for node in ObjectMapper.</p>" +
+                    "<p>Some nodes do not have SBase objects associated, e.g." +
+                    "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>" +
+                    "<p>Other examples are the base units like <code>dimensionless</code>" +
+                    "or <code>mole</code> which are not part of the model.</p>");
 
 
     private static final String TEMPLATE_LOAD_WEBSERVICE = SBaseHTMLFactory.createHTMLText(
             "<h2>Web Services</h2>" +
-            "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n" +
-            "Loading information from WebServices ...</p>");
+                    "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n" +
+                    "Loading information from WebServices ...</p>");
 
 
     private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" +
-            "<p>No SBMLDocument associated with the current network.</p>");
+                    "<p>No SBMLDocument associated with the current network.</p>");
 
 
     private InfoPanel panel;
-	private CyNetwork network;
+    private CyNetwork network;
 
     public PanelUpdater(InfoPanel panel, CyNetwork network) {
         this.panel = panel;
@@ -61,7 +61,6 @@ public class PanelUpdater implements Runnable {
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 
 
-
         if (document != null) {
             updateSBMLPanel(document);
         } else {
@@ -73,35 +72,36 @@ public class PanelUpdater implements Runnable {
 
     /**
      * Updates the panel information for an SBMLDocument.
+     *
      * @param document
      */
-    private void updateSBMLPanel(SBMLDocument document){
+    private void updateSBMLPanel(SBMLDocument document) {
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
         // selected node SUIDs
         LinkedList<Long> suids = new LinkedList<>();
         List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-        for (CyNode n : nodes){
+        for (CyNode n : nodes) {
             suids.add(n.getSUID());
         }
         // information for selected node(s)
 
-            List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
+        List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
 
-            if (cyIds.size() > 0){
-                // use first SBase
-                String cyId = cyIds.get(0);
-                SBase sbase = sbmlManager.getSBaseByCyId(cyId);
+        if (cyIds.size() > 0) {
+            // use first SBase
+            String cyId = cyIds.get(0);
+            SBase sbase = sbmlManager.getSBaseByCyId(cyId);
 
-                if (sbase != null){
-                    panel.setText(TEMPLATE_LOAD_WEBSERVICE);
-                    panel.showSBaseInfo(sbase);
-                } else {
-                    panel.setText(TEMPLATE_NO_SBML_NODE);
-                }
+            if (sbase != null) {
+                panel.setText(TEMPLATE_LOAD_WEBSERVICE);
+                panel.showSBaseInfo(sbase);
             } else {
-                // show document/model information
-                panel.showSBaseInfo(document);
+                panel.setText(TEMPLATE_NO_SBML_NODE);
             }
+        } else {
+            // show document/model information
+            panel.showSBaseInfo(document);
+        }
     }
 }

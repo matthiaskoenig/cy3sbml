@@ -23,38 +23,40 @@ import org.slf4j.LoggerFactory;
 /**
  * Load node positions from file.
  */
-public class LoadLayoutAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(LoadLayoutAction.class);
-	private static final long serialVersionUID = 1L;
-	
-	private ServiceAdapter adapter;
+public class LoadLayoutAction extends AbstractCyAction {
+    private static final Logger logger = LoggerFactory.getLogger(LoadLayoutAction.class);
+    private static final long serialVersionUID = 1L;
 
-    /** Constructor. */
-	public LoadLayoutAction(ServiceAdapter adapter){
-		super(LoadLayoutAction.class.getSimpleName());
-		this.adapter = adapter;
-		
-		ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(GUIConstants.ICON_LOADLAYOUT)));
-		putValue(LARGE_ICON_KEY, icon);
-		
-		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_LOADLAYOUT);
-		setToolbarGravity(GUIConstants.GRAVITY_LOADLAYOUT);
+    private ServiceAdapter adapter;
 
-		this.inToolBar = true;
-		this.inMenuBar = false;
-	}
+    /**
+     * Constructor.
+     */
+    public LoadLayoutAction(ServiceAdapter adapter) {
+        super(LoadLayoutAction.class.getSimpleName());
+        this.adapter = adapter;
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		logger.debug("actionPerformed()");
-		Component frame = adapter.cySwingApplication.getJFrame();
-		HashSet<FileChooserFilter> filters = new HashSet<>();
-		FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
-		filters.add(filter);
-	    org.cytoscape.util.swing.FileUtil fileUtil = adapter.fileUtil;
-		File xmlFile = fileUtil.getFile(frame, "Load Layout for current CyNetworkView", FileUtil.LOAD, filters);
-		
-		LayoutTools layoutTools = new LayoutTools(adapter);
-		layoutTools.loadLayoutOfCurrentViewFromFile(xmlFile);
-	}
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(GUIConstants.ICON_LOADLAYOUT)));
+        putValue(LARGE_ICON_KEY, icon);
+
+        this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_LOADLAYOUT);
+        setToolbarGravity(GUIConstants.GRAVITY_LOADLAYOUT);
+
+        this.inToolBar = true;
+        this.inMenuBar = false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        logger.debug("actionPerformed()");
+        Component frame = adapter.cySwingApplication.getJFrame();
+        HashSet<FileChooserFilter> filters = new HashSet<>();
+        FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
+        filters.add(filter);
+        org.cytoscape.util.swing.FileUtil fileUtil = adapter.fileUtil;
+        File xmlFile = fileUtil.getFile(frame, "Load Layout for current CyNetworkView", FileUtil.LOAD, filters);
+
+        LayoutTools layoutTools = new LayoutTools(adapter);
+        layoutTools.loadLayoutOfCurrentViewFromFile(xmlFile);
+    }
 }

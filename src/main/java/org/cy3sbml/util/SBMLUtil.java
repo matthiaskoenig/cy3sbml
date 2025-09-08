@@ -56,9 +56,9 @@ public class SBMLUtil {
      * Removes enclosing <body> elements if existing.
      * Returns null if error occurred.
      */
-    public static String parseNotes(SBase sbase){
+    public static String parseNotes(SBase sbase) {
         String text = "";
-        if (sbase.isSetNotes()){
+        if (sbase.isSetNotes()) {
             try {
                 String notes = sbase.getNotesString();
                 Document doc = XMLUtil.readXMLString(notes);
@@ -72,20 +72,20 @@ public class SBMLUtil {
                 nodeList = nodeList.item(0).getChildNodes();
 
                 // filter for body
-                for (int k=0; k<nodeList.getLength(); k++){
+                for (int k = 0; k < nodeList.getLength(); k++) {
                     Element e = (Element) nodeList.item(k);
-                    if (e.getTagName().equals("body")){
+                    if (e.getTagName().equals("body")) {
                         NodeList children = e.getChildNodes();
-                        for (int i=0; i<children.getLength(); i++){
+                        for (int i = 0; i < children.getLength(); i++) {
                             nodes.add(children.item(i));
                         }
-                    }else{
+                    } else {
                         nodes.add(e);
                     }
                 }
 
                 // create xml string
-                for (Node n: nodes){
+                for (Node n : nodes) {
                     String nText = XMLUtil.writeNodeToTidyString(n);
                     nText = nText.trim();
                     if (nText != null && !nText.equals("")) {
@@ -93,7 +93,7 @@ public class SBMLUtil {
                     }
                 }
                 return text;
-            } catch (XMLStreamException e){
+            } catch (XMLStreamException e) {
                 logger.error("Error parsing notes xml.", e);
                 e.printStackTrace();
             }
@@ -107,16 +107,16 @@ public class SBMLUtil {
      * Returns the variable string if set, returns null if not set or
      * if the rule is an AlgebraicRule.
      */
-    public static Variable getVariableFromRule(Rule rule){
+    public static Variable getVariableFromRule(Rule rule) {
         Variable variable = null;
-        if (rule.isAssignment()){
+        if (rule.isAssignment()) {
             AssignmentRule r = (AssignmentRule) rule;
             if (r.isSetVariable()) {
                 return r.getVariableInstance();
             }
-        } else if (rule.isRate()){
+        } else if (rule.isRate()) {
             RateRule r = (RateRule) rule;
-            if (r.isSetVariable()){
+            if (r.isSetVariable()) {
                 return r.getVariableInstance();
             }
         }
@@ -127,10 +127,10 @@ public class SBMLUtil {
     /**
      * Returns unqualified class name of a given object.
      */
-    public static String getUnqualifiedClassName(Object obj){
+    public static String getUnqualifiedClassName(Object obj) {
         String name = obj.getClass().getName();
         if (name.lastIndexOf('.') > 0) {
-            name = name.substring(name.lastIndexOf('.')+1);
+            name = name.substring(name.lastIndexOf('.') + 1);
         }
         // The $ can be converted to a .
         name = name.replace('$', '.');
@@ -140,12 +140,12 @@ public class SBMLUtil {
 
     ////////////////////////////////////////////////////////////
     // Attribute maps
-    ////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
     public static final String TEMPLATE_ALGEBRAIC_RULE = "<~>";
     public static final String TEMPLATE_ASSIGNMENT_RULE = "<%s>";
-    public static final String TEMPLATE_RATE_RULE =  "<d/dt %s>";
+    public static final String TEMPLATE_RATE_RULE = "<d/dt %s>";
 
     private static final String ATTR_ID = "id";
     private static final String ATTR_NAME = "name";
@@ -162,7 +162,7 @@ public class SBMLUtil {
     /**
      * Map for SBase.
      */
-    public static LinkedHashMap<String, String> createSBaseMap(SBase sbase){
+    public static LinkedHashMap<String, String> createSBaseMap(SBase sbase) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(SBML.ATTR_METAID,
                 (sbase.isSetMetaId()) ? sbase.getMetaId() : GUIConstants.ICON_NONE);
@@ -172,7 +172,7 @@ public class SBMLUtil {
     /**
      * Map for NamedSBase.
      */
-    public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb){
+    public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(ATTR_ID,
                 (nsb.isSetId()) ? nsb.getId() : GUIConstants.ICON_NONE);
@@ -185,7 +185,7 @@ public class SBMLUtil {
     /**
      * Map for NamedSBaseWithDerivedUnit.
      */
-    public static LinkedHashMap<String, String> createNamedSBaseWithDerivedUnitMap(NamedSBaseWithDerivedUnit nsbu){
+    public static LinkedHashMap<String, String> createNamedSBaseWithDerivedUnitMap(NamedSBaseWithDerivedUnit nsbu) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(nsbu);
         String units = getDerivedUnitHtml(nsbu);
         map.put(SBML.ATTR_DERIVED_UNITS, String.format(UNIT_TEMPLATE, units));
@@ -195,18 +195,18 @@ public class SBMLUtil {
     /**
      * Map for QuantityWithUnit.
      */
-    public static LinkedHashMap<String, String> createQuantityWithUnitNodeMap(QuantityWithUnit quantity){
+    public static LinkedHashMap<String, String> createQuantityWithUnitNodeMap(QuantityWithUnit quantity) {
         LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(quantity);
         String units = quantity.isSetUnits() ? quantity.getUnits() : GUIConstants.ICON_NONE;
         String value = quantity.isSetValue() ? ((Double) quantity.getValue()).toString() : GUIConstants.ICON_NONE;
-        map.put(SBML.ATTR_VALUE, String.format("%s "+UNIT_TEMPLATE, value, units));
+        map.put(SBML.ATTR_VALUE, String.format("%s " + UNIT_TEMPLATE, value, units));
         return map;
     }
 
     /**
      * Map for Symbol.
      */
-    public static LinkedHashMap<String, String> createSymbolMap(Symbol symbol){
+    public static LinkedHashMap<String, String> createSymbolMap(Symbol symbol) {
         LinkedHashMap<String, String> map = createQuantityWithUnitNodeMap(symbol);
         map.put(SBML.ATTR_CONSTANT,
                 symbol.isSetConstant() ? SBaseHTMLFactory.booleanHTML(symbol.getConstant()) : GUIConstants.ICON_NONE
@@ -214,18 +214,18 @@ public class SBMLUtil {
         return map;
     }
 
-    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container){
+    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container) {
         return createAbstractMathContainerNodeMap(container, null);
     }
 
     /**
      * Map for AbstractMathContainer.
      */
-    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, Variable variable){
+    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, Variable variable) {
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : GUIConstants.ICON_NONE;
         String units = getDerivedUnitHtml(container);
-        if (variable != null){
+        if (variable != null) {
             map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
             math = String.format("%s = %s", variable.getId(), math);
         }
@@ -237,14 +237,14 @@ public class SBMLUtil {
     /**
      * SBMLDocument map.
      */
-    public static LinkedHashMap<String, String> createSBMLDocumentMap(SBMLDocument doc){
+    public static LinkedHashMap<String, String> createSBMLDocumentMap(SBMLDocument doc) {
         return new LinkedHashMap<>();
     }
 
     /**
      * Model map.
      */
-    public static LinkedHashMap<String, String> createModelMap(Model model){
+    public static LinkedHashMap<String, String> createModelMap(Model model) {
         // packages
         Map<String, SBasePlugin> packageMap = model.getExtensionPackages();
         String packages = "";
@@ -272,25 +272,25 @@ public class SBMLUtil {
         map.putAll(createNamedSBaseMap(model));
 
         // optional
-        if (model.isSetSubstanceUnits()){
+        if (model.isSetSubstanceUnits()) {
             map.put(SBML.ATTR_SUBSTANCE_UNITS, String.format(UNIT_TEMPLATE, model.getSubstanceUnits()));
         }
-        if (model.isSetTimeUnits()){
+        if (model.isSetTimeUnits()) {
             map.put(SBML.ATTR_TIME_UNITS, String.format(UNIT_TEMPLATE, model.getTimeUnits()));
         }
-        if (model.isSetVolumeUnits()){
+        if (model.isSetVolumeUnits()) {
             map.put(SBML.ATTR_VOLUME_UNITS, String.format(UNIT_TEMPLATE, model.getVolumeUnits()));
         }
-        if (model.isSetAreaUnits()){
+        if (model.isSetAreaUnits()) {
             map.put(SBML.ATTR_AREA_UNITS, String.format(UNIT_TEMPLATE, model.getAreaUnits()));
         }
-        if (model.isSetLengthUnits()){
+        if (model.isSetLengthUnits()) {
             map.put(SBML.ATTR_LENGTH_UNITS, String.format(UNIT_TEMPLATE, model.getLengthUnits()));
         }
-        if (model.isSetExtentUnits()){
+        if (model.isSetExtentUnits()) {
             map.put(SBML.ATTR_EXTENT_UNITS, String.format(UNIT_TEMPLATE, model.getExtentUnits()));
         }
-        if (model.isSetConversionFactor()){
+        if (model.isSetConversionFactor()) {
             map.put(SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor());
         }
         return map;
@@ -314,7 +314,7 @@ public class SBMLUtil {
                 compartment.isSetSpatialDimensions() ? ((Double) compartment.getSpatialDimensions()).toString() : GUIConstants.ICON_NONE
         );
         map.put(SBML.ATTR_SIZE,
-                compartment.isSetSize() ? ((Double)compartment.getSize()).toString() : GUIConstants.ICON_NONE
+                compartment.isSetSize() ? ((Double) compartment.getSize()).toString() : GUIConstants.ICON_NONE
         );
         return map;
     }
@@ -334,7 +334,7 @@ public class SBMLUtil {
         LinkedHashMap<String, String> map = createSymbolMap(s);
 
         String compartment = GUIConstants.ICON_NONE;
-        if (s.isSetCompartment()){
+        if (s.isSetCompartment()) {
             compartment = s.getCompartment() + String.format(LINK_ID_TEMPLATE, s.getCompartment());
         }
         map.put(ATTR_COMPARTMENT, compartment);
@@ -354,27 +354,27 @@ public class SBMLUtil {
         map.put(SBML.ATTR_HAS_ONLY_SUBSTANCE_UNITS, hasOnlySubstanceUnits);
 
         // optional
-        if (s.isSetCharge()){
+        if (s.isSetCharge()) {
             map.put(ATTR_CHARGE, ((Integer) s.getCharge()).toString());
         }
-        if (s.isSetConversionFactor()){
+        if (s.isSetConversionFactor()) {
             map.put(SBML.ATTR_CONVERSION_FACTOR, s.getConversionFactor());
         }
-        if (s.isSetSubstanceUnits()){
+        if (s.isSetSubstanceUnits()) {
             map.put(SBML.ATTR_SUBSTANCE_UNITS, s.getSubstanceUnits());
         }
 
         // fbc
         FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.namespaceURI);
-        if (fbcSpecies != null){
+        if (fbcSpecies != null) {
             String charge = GUIConstants.ICON_NONE;
-            if (fbcSpecies.isSetCharge()){
+            if (fbcSpecies.isSetCharge()) {
                 charge = ((Integer) fbcSpecies.getCharge()).toString();
             }
             map.put(SBML.ATTR_FBC_CHARGE, charge);
 
             String chemicalFormula = GUIConstants.ICON_NONE;
-            if (fbcSpecies.isSetChemicalFormula()){
+            if (fbcSpecies.isSetChemicalFormula()) {
                 chemicalFormula = fbcSpecies.getChemicalFormula();
             }
             map.put(SBML.ATTR_FBC_CHEMICAL_FORMULA, chemicalFormula);
@@ -392,9 +392,9 @@ public class SBMLUtil {
         String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : GUIConstants.ICON_NONE;
         String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : GUIConstants.ICON_NONE;
         String kineticLaw = GUIConstants.ICON_NONE;
-        if (r.isSetKineticLaw()){
+        if (r.isSetKineticLaw()) {
             KineticLaw law = r.getKineticLaw();
-            if (law.isSetMath()){
+            if (law.isSetMath()) {
                 kineticLaw = law.getMath().toFormula() + String.format(LINK_METAID_TEMPLATE, law.getMetaId());
             }
         }
@@ -411,15 +411,15 @@ public class SBMLUtil {
 
         // fbc
         FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.namespaceURI);
-        if (fbcReaction != null){
+        if (fbcReaction != null) {
             String lowerFluxBound = GUIConstants.ICON_NONE;
-            if (fbcReaction.isSetLowerFluxBound()){
+            if (fbcReaction.isSetLowerFluxBound()) {
                 lowerFluxBound = fbcReaction.getLowerFluxBound();
             }
             map.put(SBML.ATTR_FBC_LOWER_FLUX_BOUND, lowerFluxBound);
 
             String upperFluxBound = GUIConstants.ICON_NONE;
-            if (fbcReaction.isSetUpperFluxBound()){
+            if (fbcReaction.isSetUpperFluxBound()) {
                 upperFluxBound = fbcReaction.getUpperFluxBound();
             }
             map.put(SBML.ATTR_FBC_UPPER_FLUX_BOUND, upperFluxBound);
@@ -445,7 +445,7 @@ public class SBMLUtil {
         LinkedHashMap<String, String> map = createNamedSBaseMap(ud);
         // Add units
         String units = "";
-        for (Unit u : ud.getListOfUnits()){
+        for (Unit u : ud.getListOfUnits()) {
             units += u.printUnit() + "<br />";
         }
         map.put("units", units);
@@ -477,7 +477,7 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createConstraintMap(Constraint constraint) {
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(constraint);
         String message = GUIConstants.ICON_NONE;
-        if (constraint.isSetMessage()){
+        if (constraint.isSetMessage()) {
             try {
                 message = constraint.getMessageString();
             } catch (XMLStreamException e) {
@@ -489,12 +489,14 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Event map. */
+    /**
+     * Event map.
+     */
     public static LinkedHashMap<String, String> createEventMap(Event event) {
         LinkedHashMap<String, String> map = createNamedSBaseWithDerivedUnitMap(event);
         Trigger trigger = event.getTrigger();
         String triggerStr = GUIConstants.ICON_NONE;
-        if (trigger.isSetMath()){
+        if (trigger.isSetMath()) {
             triggerStr = String.format(MATH_TEMPLATE, trigger.getMath().toFormula());
         }
         map.put("trigger", triggerStr);
@@ -502,17 +504,17 @@ public class SBMLUtil {
         map.put("trigger persistent", SBaseHTMLFactory.booleanHTML(trigger.getPersistent()));
 
         String priorityStr = GUIConstants.ICON_NONE;
-        if (event.isSetPriority()){
+        if (event.isSetPriority()) {
             Priority priority = event.getPriority();
-            if (priority.isSetMath()){
+            if (priority.isSetMath()) {
                 priorityStr = String.format(MATH_TEMPLATE, priority.getMath().toFormula());
             }
         }
         map.put("priority", priorityStr);
         String delayStr = GUIConstants.ICON_NONE;
-        if (event.isSetPriority()){
+        if (event.isSetPriority()) {
             Delay delay = event.getDelay();
-            if (delay.isSetMath()){
+            if (delay.isSetMath()) {
                 delayStr = String.format(MATH_TEMPLATE, delay.getMath().toFormula());
             }
         }
@@ -520,21 +522,27 @@ public class SBMLUtil {
         return map;
     }
 
-    /** EventAssignment map. */
+    /**
+     * EventAssignment map.
+     */
     public static LinkedHashMap<String, String> createEventAssignmentMap(EventAssignment ea) {
         Variable variable = ea.getVariableInstance();
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(ea, variable);
         return map;
     }
 
-    /** Rule map. */
+    /**
+     * Rule map.
+     */
     public static LinkedHashMap<String, String> createRuleMap(Rule rule) {
         Variable variable = SBMLUtil.getVariableFromRule(rule);
         LinkedHashMap<String, String> map = createAbstractMathContainerNodeMap(rule, variable);
         return map;
     }
 
-    /** LocalParameter map. */
+    /**
+     * LocalParameter map.
+     */
     public static LinkedHashMap<String, String> createLocalParameterMap(LocalParameter lp) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
@@ -545,7 +553,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** KineticLaw map. */
+    /**
+     * KineticLaw map.
+     */
     public static LinkedHashMap<String, String> createKineticLawMap(KineticLaw law) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         Reaction reaction = law.getParent();
@@ -557,7 +567,9 @@ public class SBMLUtil {
 
     /// QUAL ///
 
-    /** QualitativeSpecies map. */
+    /**
+     * QualitativeSpecies map.
+     */
     public static LinkedHashMap<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(qs);
 
@@ -573,7 +585,9 @@ public class SBMLUtil {
         return map;
     }
 
-    /** Transition map. */
+    /**
+     * Transition map.
+     */
     public static LinkedHashMap<String, String> createTransitionMap(Transition transition) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(transition);
         return map;
@@ -581,7 +595,9 @@ public class SBMLUtil {
 
     /// FBC ///
 
-    /** GeneProduct map. */
+    /**
+     * GeneProduct map.
+     */
     public static LinkedHashMap<String, String> createGeneProductMap(GeneProduct gp) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(gp);
         return map;
@@ -589,7 +605,9 @@ public class SBMLUtil {
 
     /// COMP ///
 
-    /** Port map. */
+    /**
+     * Port map.
+     */
     public static LinkedHashMap<String, String> createPortMap(Port port) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(port);
         map.put(SBML.ATTR_COMP_PORTREF,
@@ -617,28 +635,30 @@ public class SBMLUtil {
         map.put("kind", group.getKind().name());
 
         ListOfMembers members = group.getListOfMembers();
-        if (members.isSetId()){
+        if (members.isSetId()) {
             map.put("members id", members.getId());
         }
-        if (members.isSetName()){
+        if (members.isSetName()) {
             map.put("members name", members.getName());
         }
         String membersStr = "<ul>";
-        for (Member member: group.getListOfMembers()){
+        for (Member member : group.getListOfMembers()) {
             // FIXME: more efficient
             membersStr += String.format("<li>%s</li>", member.getSBaseInstance().toString());
         }
-        membersStr +="</ul>";
+        membersStr += "</ul>";
         map.put("members", membersStr);
 
         return map;
     }
 
 
-    /** Derived unit string. */
-    private static String getDerivedUnitHtml(SBaseWithDerivedUnit usbase){
+    /**
+     * Derived unit string.
+     */
+    private static String getDerivedUnitHtml(SBaseWithDerivedUnit usbase) {
         String units = usbase.getDerivedUnits();
-        if (units == null || units.length() == 0){
+        if (units == null || units.length() == 0) {
             units = GUIConstants.ICON_NONE;
         }
         return units;

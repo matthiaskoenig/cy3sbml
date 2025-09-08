@@ -30,12 +30,12 @@ public class SBMLManagerTest {
     private static final One2ManyMapping<String, Long> MAPPING = new One2ManyMapping<>();
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         manager = SBMLManager.getInstance(null);
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         manager = null;
     }
 

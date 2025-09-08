@@ -22,7 +22,6 @@ public class RegistryUtilTest {
     }
 
 
-
     @Test
     public void loadRegistry() throws Exception {
         assertNotNull(RegistryUtil.getMiriamContent());

@@ -11,10 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 /**
  * Caching OLS information.
- *
+ * <p>
  * The data is cached in memory cache using ehcache.
  * Provides fast access to webservice information in combination with preloading of resources
  * during loading of files. The created information objects are cached to reduce load on the
@@ -49,12 +48,12 @@ public class OLSCache {
      * Get OLS object for given URI.
      * Unique URI is used for caching.
      */
-    public static Term getTerm(String identifier){
+    public static Term getTerm(String identifier) {
         Term term;
 
         // check in cache
         Element element = cache.get(identifier);
-        if (element != null){
+        if (element != null) {
             logger.debug("Term found in cache: " + identifier);
             term = (Term) element.getObjectValue();
         }
@@ -62,7 +61,7 @@ public class OLSCache {
         else {
             term = OLSAccess.getTerm(identifier);
             // update the cache
-            if (term != null){
+            if (term != null) {
                 element = new Element(identifier, term);
                 cache.put(element);
                 logger.debug("Put term in cache: " + identifier);

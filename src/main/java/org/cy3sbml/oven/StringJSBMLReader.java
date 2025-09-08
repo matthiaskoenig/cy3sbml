@@ -28,7 +28,7 @@ public class StringJSBMLReader {
         System.out.println(doc);
 
         Model model = doc.getModel();
-        for (Species s: model.getListOfSpecies()){
+        for (Species s : model.getListOfSpecies()) {
             System.out.println(s);
             System.out.println("id: " + s.getId() + ", name: " + s.getName());
         }

@@ -6,18 +6,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Dark style.*/
+/**
+ * Dark style.
+ */
 public class StyleInfo_cy3sbmlDark extends StyleInfo {
     public static final String NAME = "cy3sbml-dark";
     public static final String TEMPLATE = "/styles/template_cy3sbml-dark.xml";
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     */
     public StyleInfo_cy3sbmlDark() {
         super(NAME, TEMPLATE);
         setMappings(createMappings());
     }
 
-    /** Create the mappings for the given style. */
+    /**
+     * Create the mappings for the given style.
+     */
     @Override
     public List<Mapping> createMappings() {
 

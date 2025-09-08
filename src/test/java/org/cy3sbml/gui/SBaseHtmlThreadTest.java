@@ -18,12 +18,13 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
 /**
  * Testing the HTML information generation.
- *
+ * <p>
  * A mock for the panel is created to simplify testing.
  * http://www.vogella.com/tutorials/Mockito/article.html
  */
@@ -55,18 +56,54 @@ public class SBaseHtmlThreadTest {
         assertNotNull(html);
     }
 
-    @Test public void runCore1() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01); }
-    @Test public void runCore2() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_02); }
-    @Test public void runCore3() throws Exception { runModelTest(SBMLCoreTest.TEST_MODEL_CORE_03); }
-    @Test public void runComp1() throws Exception { runModelTest(SBMLCompTest.TEST_MODEL_COMP_01); }
-    @Test public void runComp2() throws Exception { runModelTest(SBMLCompTest.TEST_MODEL_COMP_02); }
-    @Test public void runFbc1() throws Exception { runModelTest(SBMLFbcTest.TEST_MODEL_FBC); }
-    @Test public void runGroups1() throws Exception { runModelTest(SBMLGroupsTest.TEST_MODEL_GROUPS); }
-    @Test public void runLayouts1() throws Exception { runModelTest(SBMLLayoutTest.TEST_MODEL_LAYOUT); }
-    @Test public void runQual1() throws Exception { runModelTest(SBMLQualTest.TEST_MODEL_QUAL); }
+    @Test
+    public void runCore1() throws Exception {
+        runModelTest(SBMLCoreTest.TEST_MODEL_CORE_01);
+    }
+
+    @Test
+    public void runCore2() throws Exception {
+        runModelTest(SBMLCoreTest.TEST_MODEL_CORE_02);
+    }
+
+    @Test
+    public void runCore3() throws Exception {
+        runModelTest(SBMLCoreTest.TEST_MODEL_CORE_03);
+    }
+
+    @Test
+    public void runComp1() throws Exception {
+        runModelTest(SBMLCompTest.TEST_MODEL_COMP_01);
+    }
+
+    @Test
+    public void runComp2() throws Exception {
+        runModelTest(SBMLCompTest.TEST_MODEL_COMP_02);
+    }
+
+    @Test
+    public void runFbc1() throws Exception {
+        runModelTest(SBMLFbcTest.TEST_MODEL_FBC);
+    }
+
+    @Test
+    public void runGroups1() throws Exception {
+        runModelTest(SBMLGroupsTest.TEST_MODEL_GROUPS);
+    }
+
+    @Test
+    public void runLayouts1() throws Exception {
+        runModelTest(SBMLLayoutTest.TEST_MODEL_LAYOUT);
+    }
+
+    @Test
+    public void runQual1() throws Exception {
+        runModelTest(SBMLQualTest.TEST_MODEL_QUAL);
+    }
 
     /**
      * Creates info for all objects in the model.
+     *
      * @param resource
      * @throws InterruptedException
      */

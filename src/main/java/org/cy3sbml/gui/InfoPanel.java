@@ -4,7 +4,9 @@ import java.util.Set;
 
 
 public interface InfoPanel {
-    /** Set text. */
+    /**
+     * Set text.
+     */
     void setText(String text);
 
     /**

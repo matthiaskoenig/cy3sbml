@@ -23,140 +23,140 @@ import org.cytoscape.work.swing.DialogTaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
+/**
  * Adapter for working with services.
- * 
+ * <p>
  * Avoids to have to pass around the services to everywhere, but provides
  * a one-stop shop for getting the necessary things.
  */
 public class ServiceAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(ServiceAdapter.class);
-	
-	private static ServiceAdapter uniqueInstance;
-		
-	public CySwingApplication cySwingApplication;
-	public CyApplicationManager cyApplicationManager;
-	public CyNetworkManager cyNetworkManager;
-	public CyNetworkViewManager cyNetworkViewManager;
-	public VisualMappingManager visualMappingManager;
-	public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
-	public DialogTaskManager dialogTaskManager;
-	@SuppressWarnings("rawtypes")
-	public SynchronousTaskManager synchronousTaskManager;
-	@SuppressWarnings("rawtypes")
-	public TaskManager taskManager;
+    private static final Logger logger = LoggerFactory.getLogger(ServiceAdapter.class);
 
-	public CyNetworkFactory cyNetworkFactory;
+    private static ServiceAdapter uniqueInstance;
+
+    public CySwingApplication cySwingApplication;
+    public CyApplicationManager cyApplicationManager;
+    public CyNetworkManager cyNetworkManager;
+    public CyNetworkViewManager cyNetworkViewManager;
+    public VisualMappingManager visualMappingManager;
+    public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
+    public DialogTaskManager dialogTaskManager;
+    @SuppressWarnings("rawtypes")
+    public SynchronousTaskManager synchronousTaskManager;
+    @SuppressWarnings("rawtypes")
+    public TaskManager taskManager;
+
+    public CyNetworkFactory cyNetworkFactory;
     public CyGroupFactory cyGroupFactory;
-	public CyNetworkViewFactory cyNetworkViewFactory;
+    public CyNetworkViewFactory cyNetworkViewFactory;
 
     public CyProperty<Properties> cy3sbmlProperties;
-	public File cy3sbmlDirectory;
-	public StreamUtil streamUtil;
-	public OpenBrowser openBrowser;
-	public ConnectionProxy connectionProxy;
-	public LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
-	public FileUtil fileUtil;
-	
-	@SuppressWarnings("rawtypes")
-	public static synchronized ServiceAdapter getInstance(
-			CySwingApplication cySwingApplication,
-			CyApplicationManager cyApplicationManager,
-			CyNetworkManager cyNetworkManager,
-			CyNetworkViewManager cyNetworkViewManager,
-			VisualMappingManager visualMappingManager,
-			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
-			DialogTaskManager dialogTaskManager,
-			SynchronousTaskManager synchronousTaskManager,
-			TaskManager taskManager,
+    public File cy3sbmlDirectory;
+    public StreamUtil streamUtil;
+    public OpenBrowser openBrowser;
+    public ConnectionProxy connectionProxy;
+    public LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
+    public FileUtil fileUtil;
 
-			CyNetworkFactory cyNetworkFactory,
+    @SuppressWarnings("rawtypes")
+    public static synchronized ServiceAdapter getInstance(
+            CySwingApplication cySwingApplication,
+            CyApplicationManager cyApplicationManager,
+            CyNetworkManager cyNetworkManager,
+            CyNetworkViewManager cyNetworkViewManager,
+            VisualMappingManager visualMappingManager,
+            CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
+            DialogTaskManager dialogTaskManager,
+            SynchronousTaskManager synchronousTaskManager,
+            TaskManager taskManager,
+
+            CyNetworkFactory cyNetworkFactory,
             CyGroupFactory cyGroupFactory,
-			CyNetworkViewFactory cyNetworkViewFactory,
+            CyNetworkViewFactory cyNetworkViewFactory,
 
 
-			CyProperty<Properties> cy3sbmlProperties,
-			File cy3sbmlDirectory,
-			StreamUtil streamUtil,
-			OpenBrowser openBrowser,
-			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-			FileUtil fileUtil
-			){
-		if (uniqueInstance == null){
-			uniqueInstance = new ServiceAdapter(
-					cySwingApplication,
-					cyApplicationManager,
-					cyNetworkManager,
-					cyNetworkViewManager,
-					visualMappingManager,
-					cyLayoutAlgorithmManager,
-					dialogTaskManager,
-					synchronousTaskManager,
-					taskManager,
-					cyNetworkFactory,
+            CyProperty<Properties> cy3sbmlProperties,
+            File cy3sbmlDirectory,
+            StreamUtil streamUtil,
+            OpenBrowser openBrowser,
+            ConnectionProxy connectionProxy,
+            LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+            FileUtil fileUtil
+    ) {
+        if (uniqueInstance == null) {
+            uniqueInstance = new ServiceAdapter(
+                    cySwingApplication,
+                    cyApplicationManager,
+                    cyNetworkManager,
+                    cyNetworkViewManager,
+                    visualMappingManager,
+                    cyLayoutAlgorithmManager,
+                    dialogTaskManager,
+                    synchronousTaskManager,
+                    taskManager,
+                    cyNetworkFactory,
                     cyGroupFactory,
-					cyNetworkViewFactory,
-					cy3sbmlProperties,
-					cy3sbmlDirectory,
-					streamUtil,
-					openBrowser,
-					connectionProxy,
-					loadNetworkFileTaskFactory,
-					fileUtil);
-		}
-		return uniqueInstance;
-	}
-	
-	public static ServiceAdapter getInstance(){
-		return uniqueInstance;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private ServiceAdapter(
-			CySwingApplication cySwingApplication,
-			CyApplicationManager cyApplicationManager,
-			CyNetworkManager cyNetworkManager,
-			CyNetworkViewManager cyNetworkViewManager,
-			VisualMappingManager visualMappingManager,
-			CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
-			DialogTaskManager dialogTaskManager,
-			SynchronousTaskManager synchronousTaskManager,
-			TaskManager taskManager,
-			CyNetworkFactory cyNetworkFactory,
-            CyGroupFactory cyGroupFactory,
-			CyNetworkViewFactory cyNetworkViewFactory,
-			CyProperty<Properties> cy3sbmlProperties,
-			File cy3sbmlDirectory,
-			StreamUtil streamUtil,
-			OpenBrowser openBrowser,
-			ConnectionProxy connectionProxy,
-			LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-			FileUtil fileUtil
-			){
-		logger.debug("ServiceAdapter created");
-		this.cySwingApplication = cySwingApplication;
-		this.cyApplicationManager = cyApplicationManager;
-		this.cyNetworkManager = cyNetworkManager;
-		this.cyNetworkViewManager = cyNetworkViewManager;
-		this.visualMappingManager = visualMappingManager;
-		this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
-		this.dialogTaskManager = dialogTaskManager;
-		this.synchronousTaskManager = synchronousTaskManager;
-		this.taskManager = taskManager;
-		this.cyNetworkFactory = cyNetworkFactory;
-        this.cyGroupFactory = cyGroupFactory;
-		this.cyNetworkViewFactory = cyNetworkViewFactory;
-		this.cy3sbmlProperties = cy3sbmlProperties;
-		this.cy3sbmlDirectory = cy3sbmlDirectory;
-		this.streamUtil = streamUtil;
-		this.openBrowser = openBrowser;
-		this.connectionProxy = connectionProxy;
-		this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
-		this.fileUtil = fileUtil;
-	}
+                    cyNetworkViewFactory,
+                    cy3sbmlProperties,
+                    cy3sbmlDirectory,
+                    streamUtil,
+                    openBrowser,
+                    connectionProxy,
+                    loadNetworkFileTaskFactory,
+                    fileUtil);
+        }
+        return uniqueInstance;
+    }
 
-	public Object cy3sbmlProperty(String s){
-		return cy3sbmlProperties.getProperties().get(s);
-	}
+    public static ServiceAdapter getInstance() {
+        return uniqueInstance;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private ServiceAdapter(
+            CySwingApplication cySwingApplication,
+            CyApplicationManager cyApplicationManager,
+            CyNetworkManager cyNetworkManager,
+            CyNetworkViewManager cyNetworkViewManager,
+            VisualMappingManager visualMappingManager,
+            CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
+            DialogTaskManager dialogTaskManager,
+            SynchronousTaskManager synchronousTaskManager,
+            TaskManager taskManager,
+            CyNetworkFactory cyNetworkFactory,
+            CyGroupFactory cyGroupFactory,
+            CyNetworkViewFactory cyNetworkViewFactory,
+            CyProperty<Properties> cy3sbmlProperties,
+            File cy3sbmlDirectory,
+            StreamUtil streamUtil,
+            OpenBrowser openBrowser,
+            ConnectionProxy connectionProxy,
+            LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+            FileUtil fileUtil
+    ) {
+        logger.debug("ServiceAdapter created");
+        this.cySwingApplication = cySwingApplication;
+        this.cyApplicationManager = cyApplicationManager;
+        this.cyNetworkManager = cyNetworkManager;
+        this.cyNetworkViewManager = cyNetworkViewManager;
+        this.visualMappingManager = visualMappingManager;
+        this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
+        this.dialogTaskManager = dialogTaskManager;
+        this.synchronousTaskManager = synchronousTaskManager;
+        this.taskManager = taskManager;
+        this.cyNetworkFactory = cyNetworkFactory;
+        this.cyGroupFactory = cyGroupFactory;
+        this.cyNetworkViewFactory = cyNetworkViewFactory;
+        this.cy3sbmlProperties = cy3sbmlProperties;
+        this.cy3sbmlDirectory = cy3sbmlDirectory;
+        this.streamUtil = streamUtil;
+        this.openBrowser = openBrowser;
+        this.connectionProxy = connectionProxy;
+        this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
+        this.fileUtil = fileUtil;
+    }
+
+    public Object cy3sbmlProperty(String s) {
+        return cy3sbmlProperties.getProperties().get(s);
+    }
 }

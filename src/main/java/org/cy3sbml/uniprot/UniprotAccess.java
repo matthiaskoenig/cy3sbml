@@ -33,7 +33,7 @@ import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 public class UniprotAccess {
 
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
-    public static Map<String,String> htmlFragments = GUIConstants.htmlFragments;
+    public static Map<String, String> htmlFragments = GUIConstants.htmlFragments;
 
     /**
      * Retrieve UniProt Entry by accession id.
@@ -41,7 +41,7 @@ public class UniprotAccess {
      * @param accession UniProt accession id, e.g. "P10415"
      * @return
      */
-    public static UniProtEntry getUniProtEntry(String accession){
+    public static UniProtEntry getUniProtEntry(String accession) {
         UniProtEntry entry = null;
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
@@ -49,7 +49,7 @@ public class UniprotAccess {
             // fetch entry
             entry = uniProtService.getEntry(accession);
 
-            if (entry == null){
+            if (entry == null) {
                 // is secondary accession, get first result
                 logger.debug("Querying any accession: " + accession);
                 Query query = UniProtQueryBuilder.anyAccession(accession);
@@ -73,13 +73,13 @@ public class UniprotAccess {
      * Creates additional information for entry.
      * Identifier of the form "P29218"
      */
-    public static String uniprotHTML(String accession){
+    public static String uniprotHTML(String accession) {
 
         String text = "\t<br />\n";
         UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
         if (entry != null) {
             String uniProtId = entry.getUniProtId().toString();
-            text+= htmlFragments.get(UNIPROT_LINK)
+            text += htmlFragments.get(UNIPROT_LINK)
                     .replace(BASE_URL, UNIPROT_URL)
                     .replace(ACCESSION, accession)
                     .replace(UNIPROT_ID, uniProtId);
@@ -91,14 +91,14 @@ public class UniprotAccess {
             // Names (Full, Short, EC, AltName)
             Name name = description.getRecommendedName();
             List<Field> fields = name.getFields();
-            for (Field field: fields){
+            for (Field field : fields) {
 
-                if (field.getType().getValue().equals("Full")){
+                if (field.getType().getValue().equals("Full")) {
                     text += MessageFormat.format(
                             "\t<b>{0}</b><br />\n",
                             field.getValue()
                     );
-                }else {
+                } else {
                     text += MessageFormat.format(
                             "\t<b>{0}</b>: {1}<br />\n",
                             field.getType().getValue(),
@@ -110,7 +110,7 @@ public class UniprotAccess {
             // organism
             Organism organism = entry.getOrganism();
             String organismStr = organism.getScientificName().toString();
-            if (organism.hasCommonName()){
+            if (organism.hasCommonName()) {
                 organismStr += MessageFormat.format(" ({0})", organism.getCommonName());
 
             }
@@ -119,15 +119,15 @@ public class UniprotAccess {
                     organismStr);
 
             // genes
-            for (Gene gene : entry.getGenes()){
+            for (Gene gene : entry.getGenes()) {
                 String geneName = gene.getGeneName().getValue();
                 text += MessageFormat.format("\t<b>Gene</b>: {0}<br />\n", geneName);
 
             }
 
             // alternative names
-            text +="\t<span class=\"comment\">Synonyms</span>";
-            for (Name n: description.getAlternativeNames()){
+            text += "\t<span class=\"comment\">Synonyms</span>";
+            for (Name n : description.getAlternativeNames()) {
                 text += MessageFormat.format(
                         "{0}; ",
                         n.getFields().get(0).getValue()
@@ -136,27 +136,25 @@ public class UniprotAccess {
             text += "<br />\n";
 
             // comments
-            for (Comment comment : entry.getComments()){
+            for (Comment comment : entry.getComments()) {
                 CommentType ctype = comment.getCommentType();
                 Map<String, String> commentReplacements = new HashMap<>();
-                if (ctype.equals(CommentType.FUNCTION)){
+                if (ctype.equals(CommentType.FUNCTION)) {
                     FunctionComment fComment = (FunctionComment) comment;
                     for (CommentText commentText : fComment.getTexts()) {
                         text += htmlFragments.get(FUNCTION_COMMENT)
                                 .replace(COMMENT_TEXT, commentText.getValue());
 
                     }
-                }
-                else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
+                } else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
                     CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
                     Reaction reaction = caComment.getReaction();
-                    if (reaction != null){
+                    if (reaction != null) {
                         text += htmlFragments.get(CATALYTIC_ACTIVITY)
                                 .replace(REACTION_NAME, reaction.getName());
 
-                                         }
-                }
-                else if (ctype.equals(CommentType.PATHWAY)) {
+                    }
+                } else if (ctype.equals(CommentType.PATHWAY)) {
                     PathwayComment pComment = (PathwayComment) comment;
                     for (CommentText commentText : pComment.getTexts()) {
                         text += htmlFragments.get(PATHWAY)
@@ -168,7 +166,6 @@ public class UniprotAccess {
 
         return text;
     }
-
 
 
 }

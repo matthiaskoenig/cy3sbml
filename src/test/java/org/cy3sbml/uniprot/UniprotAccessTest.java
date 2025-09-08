@@ -7,6 +7,7 @@ import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
 import uk.ac.ebi.uniprot.dataservice.query.Query;
+
 import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
 
 
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UniprotAccessTest {
 
     @Test
-    public void getUniProtEntry(){
+    public void getUniProtEntry() {
         String accession = "P04483";
         UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         assertNotNull(entry);
@@ -28,7 +29,7 @@ public class UniprotAccessTest {
     }
 
     @Test
-    public void uniprotAccess(){
+    public void uniprotAccess() {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {

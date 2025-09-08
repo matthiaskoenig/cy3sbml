@@ -13,36 +13,38 @@ import java.util.stream.Collectors;
  */
 public class BiomodelsQueryResult {
 
-	final private String query;
-	final private Integer status;
-	final private String json;
-	
-	public BiomodelsQueryResult(final String query, Integer status, String json){
-		this.query = query;
-		this.status = status;
-		this.json = json;
-	}
-	
-	/** Returns true if the request was successful. */
-	public boolean success(){
-		return (status == 200);
-	}
-	
-	public String getQuery(){
-		return query;
-	}
+    final private String query;
+    final private Integer status;
+    final private String json;
 
-	public Integer getStatus(){
-		return status;
-	}
-
-	public String getJSON(){
-	    return json;
+    public BiomodelsQueryResult(final String query, Integer status, String json) {
+        this.query = query;
+        this.status = status;
+        this.json = json;
     }
 
-    private JSONObject getJSONObject(){
-	    if (json == null){
-	        return null;
+    /**
+     * Returns true if the request was successful.
+     */
+    public boolean success() {
+        return (status == 200);
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public String getJSON() {
+        return json;
+    }
+
+    private JSONObject getJSONObject() {
+        if (json == null) {
+            return null;
         } else {
             JSONObject obj = new JSONObject(json);
 
@@ -53,12 +55,13 @@ public class BiomodelsQueryResult {
 
     /**
      * Parses the Biomodel information from a search query.
+     *
      * @return
      */
-    public List<String> getBiomodelIdsFromSearch(){
+    public List<String> getBiomodelIdsFromSearch() {
         JSONObject jsonObject = getJSONObject();
         List<String> biomodelIds = new ArrayList<>();
-        if (jsonObject != null){
+        if (jsonObject != null) {
 
             // get biomodel identifiers
             JSONArray array = jsonObject.getJSONArray("models");
@@ -74,13 +77,14 @@ public class BiomodelsQueryResult {
 
     /**
      * Returns biomodel information for given biomodel ids
+     *
      * @return
      */
     public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException, ExecutionException {
 
         ArrayList<Biomodel> biomodels;
         List<CompletableFuture<Biomodel>> futures = new ArrayList<>();
-        for (String biomodelId: biomodelIds){
+        for (String biomodelId : biomodelIds) {
             CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);
             futures.add(future);
 
@@ -88,7 +92,7 @@ public class BiomodelsQueryResult {
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(
                 futures.toArray(new CompletableFuture[0])
         );
-        biomodels= allFutures.thenApply(v ->
+        biomodels = allFutures.thenApply(v ->
                 futures.stream()
                         .map(future -> {
                             try {
@@ -103,8 +107,6 @@ public class BiomodelsQueryResult {
         ).get();
         return biomodels;
     }
-
-
 
 
 }

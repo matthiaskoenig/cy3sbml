@@ -3,6 +3,7 @@ package org.cy3sbml.gui;
 
 import java.io.IOException;
 import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,13 +12,15 @@ import org.slf4j.LoggerFactory;
  * Creates SBase HTML information in separate thread.
  * Provides some helper functions to preload information for given SBMLDocuments.
  */
-public class SBaseHTMLThread extends Thread{
-	private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
-	private Collection<Object> objSet;
-	private InfoPanel panel;
+public class SBaseHTMLThread extends Thread {
+    private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
+    private Collection<Object> objSet;
+    private InfoPanel panel;
     private String info;
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     */
     public SBaseHTMLThread(Collection<Object> objSet, InfoPanel panel) {
         this.objSet = objSet;
         this.panel = panel;
@@ -29,7 +32,7 @@ public class SBaseHTMLThread extends Thread{
      */
     public void run() {
 
-        for (Object obj : objSet){
+        for (Object obj : objSet) {
             SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
 
             try {
@@ -42,13 +45,13 @@ public class SBaseHTMLThread extends Thread{
             if (info == null) {
                 info = html;
             } else {
-                info +=html;
+                info += html;
             }
         }
         // Display if a panel is provided
-    	if (panel != null){
-			panel.setText(this);
-		}
+        if (panel != null) {
+            panel.setText(this);
+        }
     }
 
     /**

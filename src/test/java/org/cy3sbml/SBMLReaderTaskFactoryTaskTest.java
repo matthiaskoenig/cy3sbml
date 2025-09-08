@@ -29,7 +29,7 @@ public class SBMLReaderTaskFactoryTaskTest {
     private SBMLReaderTask readerTaskWithViewSupport;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
@@ -38,7 +38,7 @@ public class SBMLReaderTaskFactoryTaskTest {
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/");
-        String fileName = tokens[tokens.length-1];
+        String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
     }
@@ -53,7 +53,7 @@ public class SBMLReaderTaskFactoryTaskTest {
     @Test
     public void getNetworks() throws Exception {
         readerTask.run(taskMonitor);
-        CyNetwork [] networks = readerTask.getNetworks();
+        CyNetwork[] networks = readerTask.getNetworks();
         assertNotNull(networks);
         assertEquals(3, networks.length);
     }
@@ -62,7 +62,7 @@ public class SBMLReaderTaskFactoryTaskTest {
     public void buildCyNetworkView() throws Exception {
         // create the network view from the factory
         readerTaskWithViewSupport.run(taskMonitor);
-        CyNetwork [] networks = readerTaskWithViewSupport.getNetworks();
+        CyNetwork[] networks = readerTaskWithViewSupport.getNetworks();
         CyNetwork network = networks[0];
         readerTaskWithViewSupport.buildCyNetworkView(network);
     }

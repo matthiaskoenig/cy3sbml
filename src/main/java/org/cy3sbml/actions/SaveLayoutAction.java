@@ -16,44 +16,46 @@ import org.cy3sbml.layout.LayoutTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
- * Save node positions to file. 
+/**
+ * Save node positions to file.
  */
-public class SaveLayoutAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(SaveLayoutAction.class);
-	private static final long serialVersionUID = 1L;
-	
-	private ServiceAdapter adapter;
-	
-	/** Constructor. */
-	public SaveLayoutAction(ServiceAdapter adapter){
-		super(SaveLayoutAction.class.getSimpleName());
-		this.adapter = adapter;
-		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_SAVELAYOUT));
-		putValue(LARGE_ICON_KEY, icon);
-		
-		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_SAVELAYOUT);
-		setToolbarGravity(GUIConstants.GRAVITY_SAVELAYOUT);
+public class SaveLayoutAction extends AbstractCyAction {
+    private static final Logger logger = LoggerFactory.getLogger(SaveLayoutAction.class);
+    private static final long serialVersionUID = 1L;
 
-		// FIXME in Cy3.5
+    private ServiceAdapter adapter;
+
+    /**
+     * Constructor.
+     */
+    public SaveLayoutAction(ServiceAdapter adapter) {
+        super(SaveLayoutAction.class.getSimpleName());
+        this.adapter = adapter;
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_SAVELAYOUT));
+        putValue(LARGE_ICON_KEY, icon);
+
+        this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_SAVELAYOUT);
+        setToolbarGravity(GUIConstants.GRAVITY_SAVELAYOUT);
+
+        // FIXME in Cy3.5
         // this.insertToolbarSeparatorAfter = true;
-		this.inToolBar = true;
-		this.inMenuBar = false;
-	}
+        this.inToolBar = true;
+        this.inMenuBar = false;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		logger.debug("actionPerformed()");
-		
-		Component frame = adapter.cySwingApplication.getJFrame();
-		HashSet<FileChooserFilter> filters = new HashSet<>();
-		FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
-		filters.add(filter);
-	    FileUtil fileUtil = adapter.fileUtil;
-	    File xmlFile = fileUtil.getFile(frame, "Save Layout in XML", FileUtil.SAVE, filters);
-	    
-		LayoutTools layoutTools = new LayoutTools(adapter);
-		layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
-	}
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        logger.debug("actionPerformed()");
+
+        Component frame = adapter.cySwingApplication.getJFrame();
+        HashSet<FileChooserFilter> filters = new HashSet<>();
+        FileChooserFilter filter = new FileChooserFilter("Layout File", "xml");
+        filters.add(filter);
+        FileUtil fileUtil = adapter.fileUtil;
+        File xmlFile = fileUtil.getFile(frame, "Save Layout in XML", FileUtil.SAVE, filters);
+
+        LayoutTools layoutTools = new LayoutTools(adapter);
+        layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
+    }
 }

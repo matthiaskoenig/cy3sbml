@@ -21,8 +21,10 @@ public class HtmlTemplateParser {
             throw new RuntimeException("Failed to load template: " + "linktemplate.html", e);
         }
     }
+
     /**
      * Extracts template sections from HTML into a map preserving insertion order
+     *
      * @param htmlTemplate read from the .html file
      * @return Map of template sections (key = section name, value = template content)
      */

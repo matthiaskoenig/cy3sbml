@@ -18,17 +18,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 /**
  * Handle hyperlink events in WebView.
  * Either opens browser for given hyperlink or triggers Cytoscape actions
  * for subsets of special hyperlinks.
- *
+ * <p>
  * This provides an easy solution for integrating app functionality
  * with click on hyperlinks.
  * Alternative javascript upcalls could be performed.
  */
-public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
+public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     private static final Logger logger = LoggerFactory.getLogger(BrowserHyperlinkListener.class);
 
     public static final String URL_CHANGESTATE = "https://cy3sbml-changestate";
@@ -99,49 +98,48 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
      * @param url
      * @return cancel action, i.e. is the WebView event further processed
      */
-    private static Boolean processURLEvent(URL url){
+    private static Boolean processURLEvent(URL url) {
         if (url != null) {
             String s = url.toString();
 
             ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
 
             // Cytoscape Action
-            if (URLS_ACTION.contains(s)){
+            if (URLS_ACTION.contains(s)) {
                 AbstractCyAction action = null;
-                if (s.equals(URL_CHANGESTATE)){
+                if (s.equals(URL_CHANGESTATE)) {
                     action = new ChangeStateAction();
                 }
-                if (s.equals(URL_IMPORT)){
+                if (s.equals(URL_IMPORT)) {
                     action = new ImportAction(adapter);
                 }
 
-                if (s.equals(URL_EXAMPLES)){
+                if (s.equals(URL_EXAMPLES)) {
                     action = new ExamplesAction();
                 }
-                if (s.equals(URL_BIOMODELS)){
+                if (s.equals(URL_BIOMODELS)) {
                     action = new BiomodelsAction(adapter);
                 }
-                if (s.equals(URL_HELP)){
+                if (s.equals(URL_HELP)) {
                     action = new HelpAction();
                 }
-                if (s.equals(URL_COFACTOR_NODES)){
+                if (s.equals(URL_COFACTOR_NODES)) {
                     CofactorAction.runCofactorAction(adapter);
                 }
-                if (s.equals(URL_SAVELAYOUT)){
+                if (s.equals(URL_SAVELAYOUT)) {
                     action = new SaveLayoutAction(adapter);
                 }
-                if (s.equals(URL_LOADLAYOUT)){
+                if (s.equals(URL_LOADLAYOUT)) {
                     action = new LoadLayoutAction(adapter);
                 }
 
                 // execute action
-                if (action != null){
+                if (action != null) {
                     action.actionPerformed(null);
                 } else {
                     logger.error(String.format("Action not created for <%s>", s));
                 }
-            }
-            else if (s.startsWith(URL_SELECT_METAID) || (s.startsWith(URL_SELECT_ID))) {
+            } else if (s.startsWith(URL_SELECT_METAID) || (s.startsWith(URL_SELECT_ID))) {
                 // Only select if current network exists
                 CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
                 if (network != null) {
@@ -156,23 +154,21 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener{
             }
 
             // Example networks
-            else if (EXAMPLE_SBML.containsKey(s)){
+            else if (EXAMPLE_SBML.containsKey(s)) {
                 String resource = EXAMPLE_SBML.get(s);
                 logger.info("Loading: " + s);
                 GUIUtil.loadExampleFromResource(resource);
             }
 
             // SBML file
-            else if (s.equals(URL_SBMLFILE)){
+            else if (s.equals(URL_SBMLFILE)) {
                 GUIUtil.openCurrentSBMLInBrowser();
             }
 
             // SBase HTML
-            else if (s.equals(URL_HTML_SBASE)){
+            else if (s.equals(URL_HTML_SBASE)) {
                 GUIUtil.openSBaseHTMLInBrowser();
             }
-
-
 
 
             // HTML links

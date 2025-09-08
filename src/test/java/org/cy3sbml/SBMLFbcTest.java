@@ -17,7 +17,9 @@ public class SBMLFbcTest {
     public static final String TEST_MODEL_FBC = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "fbc_01.xml";
 
 
-    /** Test fbc species attributes. */
+    /**
+     * Test fbc species attributes.
+     */
     @Test
     public void testFbcSpecies() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_FBC);

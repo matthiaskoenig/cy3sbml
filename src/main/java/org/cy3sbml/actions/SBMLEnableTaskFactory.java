@@ -10,11 +10,11 @@ public class SBMLEnableTaskFactory implements TaskFactory {
 
     private boolean ready;
 
-    public SBMLEnableTaskFactory(){
+    public SBMLEnableTaskFactory() {
         ready = false;
     }
 
-    public void setReady(boolean ready){
+    public void setReady(boolean ready) {
         this.ready = ready;
     }
 

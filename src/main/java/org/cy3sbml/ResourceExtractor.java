@@ -100,7 +100,6 @@ public class ResourceExtractor {
     }
 
 
-
     /**
      * Extracts the bundle resources from the BundleContext in the
      * application directory.

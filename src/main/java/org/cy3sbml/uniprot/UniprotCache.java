@@ -36,15 +36,16 @@ public class UniprotCache {
 
     /**
      * Get UniProtEntry with cache support.
+     *
      * @param accession uniprot accession id, e.g. "P10415"
      * @return
      */
-    public static UniProtEntry getUniProtEntry(String accession){
+    public static UniProtEntry getUniProtEntry(String accession) {
         UniProtEntry entry;
 
         // check in cache
         Element element = cache.get(accession);
-        if (element != null){
+        if (element != null) {
             logger.debug("UniProtEntry in cache: " + accession);
             entry = (UniProtEntry) element.getObjectValue();
         }
@@ -52,7 +53,7 @@ public class UniprotCache {
         else {
             entry = UniprotAccess.getUniProtEntry(accession);
             // update the cache
-            if (entry != null){
+            if (entry != null) {
                 element = new Element(accession, entry);
                 cache.put(element);
                 logger.debug("Put in cache: " + accession);

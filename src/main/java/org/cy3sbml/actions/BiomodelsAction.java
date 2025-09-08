@@ -15,35 +15,37 @@ import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
- * Open the BioModel GUI for importing BioModels via search terms. 
+/**
+ * Open the BioModel GUI for importing BioModels via search terms.
  */
-public class BiomodelsAction extends AbstractCyAction{
-	private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
-	private static final long serialVersionUID = 1L;
-	
-	private ServiceAdapter adapter;
+public class BiomodelsAction extends AbstractCyAction {
+    private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
+    private static final long serialVersionUID = 1L;
 
-	/** Constructor. */
-	public BiomodelsAction(ServiceAdapter adapter){
-		super(BiomodelsAction.class.getSimpleName());
-		this.adapter = adapter;
-		
-		ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
-		putValue(LARGE_ICON_KEY, icon);
-		
-		this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
-		setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
+    private ServiceAdapter adapter;
 
-		this.inToolBar = true;
-		this.inMenuBar = false;
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		logger.debug("actionPerformed()");
+    /**
+     * Constructor.
+     */
+    public BiomodelsAction(ServiceAdapter adapter) {
+        super(BiomodelsAction.class.getSimpleName());
+        this.adapter = adapter;
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
+        putValue(LARGE_ICON_KEY, icon);
+
+        this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
+        setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
+
+        this.inToolBar = true;
+        this.inMenuBar = false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        logger.debug("actionPerformed()");
         BiomodelsDialog bioModelsDialog = null;
         bioModelsDialog = BiomodelsDialog.getInstance(adapter);
         bioModelsDialog.setVisible(true);
-	}
+    }
 }
