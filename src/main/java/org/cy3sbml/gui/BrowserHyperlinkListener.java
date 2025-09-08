@@ -55,6 +55,8 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         HashMap<String, String> map = new HashMap<>();
         map.put("https://cy3sbml-glucose", "/models/Koenig_glucose_v1.xml");
         map.put("https://cy3sbml-galactose", "/models/Koenig_galactose_31.xml");
+        map.put("https://cy3sbml-glimepiride", "/models/glimepiride_body_flat.xml");
+        map.put("https://cy3sbml-rivaroxaban", "/models/rivaroxaban_body_flat.xml");
         map.put("https://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
         map.put("https://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
         map.put("https://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");
