@@ -9,5 +9,5 @@
 - update symlink: 
 - create empty release notes for next version
 ```bash
-ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.4.1.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
+ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.5.0.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
 ```
