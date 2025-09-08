@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 /**
  * Test all SBML files of the SBML TestCases.
  * <p>
- * sbml-test-suite-v3.3.0 (stochastic and semantic branch)
+ * sbml-test-suite-v3.5.0 (stochastic and semantic branch)
  * https://github.com/sbmlteam/sbml-test-suite/releases/tag/3.5.0
  * Retrieved on 2025-09-08.
  */
