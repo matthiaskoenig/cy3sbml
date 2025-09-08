@@ -4,20 +4,11 @@ import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
-
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.cy3sbml.miriam.Namespace;
-import org.cy3sbml.miriam.RegistryUtil;
-import org.cy3sbml.miriam.Resource;
-import org.cy3sbml.ols.OLSAccess;
-import org.cy3sbml.ols.OLSCache;
-import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.util.IOUtil;
-import org.cy3sbml.util.XMLUtil;
 
 import org.identifiers.registry.RegistryUtilities;
 import org.sbml.jsbml.*;
@@ -29,14 +20,20 @@ import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 
-// OLS
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
-
-import org.cy3sbml.util.SBMLUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.cy3sbml.miriam.Namespace;
+import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.miriam.Resource;
+import org.cy3sbml.ols.OLSAccess;
+import org.cy3sbml.ols.OLSCache;
+import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.XMLUtil;
+import org.cy3sbml.util.SBMLUtil;
 import static org.cy3sbml.gui.GUIConstants.*;
 import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
@@ -50,8 +47,6 @@ import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
  * <p>
- * <p>
- * TODO: more compact layout, i.e remove empty rows
  */
 public class SBaseHTMLFactory {
     public static final String SBO = "SBO";
@@ -62,12 +57,6 @@ public class SBaseHTMLFactory {
     public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
     public static String delim = "/";
     public static final Map<String, Namespace> result = getMiriamContent();
-    ///////////////////////////////////////////////
-    // HTML template strings
-    ///////////////////////////////////////////////
-
-
-    /// ////////////////////////////////////////////
 
     private SBase sbase;
     private String html;
@@ -448,8 +437,7 @@ public class SBaseHTMLFactory {
                     if (resourceLink == null) {
                         // take first one
                         resourceLink = createURL(dataType, resource, identifier);
-
-                        continue;
+                        break;
                     }
 
                 }
@@ -537,17 +525,13 @@ public class SBaseHTMLFactory {
         String url;
         String identifier2;
         if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
-
             identifier2 = StringUtils.substringAfter(identifier, ":");
-
         } else {
             identifier2 = identifier;
-
         }
         url = resource.getUrlPattern().replace("{$id}", identifier2);
 
         return url;
-
     }
 
 
