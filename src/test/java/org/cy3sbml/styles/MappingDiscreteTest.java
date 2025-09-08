@@ -21,7 +21,7 @@ public class MappingDiscreteTest {
     private static final String VALUE = "value1";
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         Map<String, String> map = new HashMap<>();
         map.put(KEY, VALUE);
         m = new MappingDiscrete(Mapping.DataType.integer,
@@ -31,12 +31,12 @@ public class MappingDiscreteTest {
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         m = null;
     }
 
     @Test
-    public void mappingTest(){
+    public void mappingTest() {
         Map<String, String> map = m.getMap();
         assertNotNull(map);
         assertEquals(Mapping.DataType.integer, m.getDataType());

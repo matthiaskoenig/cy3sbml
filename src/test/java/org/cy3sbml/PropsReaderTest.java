@@ -15,7 +15,7 @@ public class PropsReaderTest {
 
 
     @Test
-    public void test(){
+    public void test() {
         PropsReader reader = new PropsReader(NAME, FILENAME);
         assertNotNull(reader);
         assertEquals(reader.getName(), NAME);

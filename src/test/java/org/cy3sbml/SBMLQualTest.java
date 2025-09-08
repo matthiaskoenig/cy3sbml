@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class SBMLQualTest {
     public static final String TEST_MODEL_QUAL = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "qual_01.xml";
 
-    /** Test qual model reading. */
+    /**
+     * Test qual model reading.
+     */
     @Test
     public void testQual() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_QUAL);

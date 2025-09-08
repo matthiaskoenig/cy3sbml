@@ -1,7 +1,6 @@
 package org.cy3sbml;
 
 
-
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;

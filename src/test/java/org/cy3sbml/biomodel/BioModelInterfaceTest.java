@@ -2,7 +2,6 @@
 package org.cy3sbml.biomodel;
 
 
-
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Supplier;
@@ -138,7 +137,7 @@ public class BioModelInterfaceTest {
         List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
         assertNotNull(modelIds, () -> "Models have to exist.");
         assertTrue(modelIds.size() > 0, "More than 0 models have to exist.");
-        for (String modelId: modelIds){
+        for (String modelId : modelIds) {
             System.out.println(modelId);
         }
     }
@@ -148,7 +147,7 @@ public class BioModelInterfaceTest {
         List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
         assertNotNull(modelIds, () -> "Models have to exist.");
         assertTrue(modelIds.size() > 0, "More than 0 models have to exist.");
-        for (String modelId: modelIds){
+        for (String modelId : modelIds) {
             System.out.println(modelId);
         }
     }

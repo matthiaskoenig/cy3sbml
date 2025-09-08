@@ -15,7 +15,9 @@ public class SBMLCompTest {
     public static final String TEST_MODEL_COMP_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "toy_top_level.xml";
     public static final String TEST_MODEL_COMP_03 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "01134-sbml-l3v1.xml";
 
-    /** Test comp model reading. */
+    /**
+     * Test comp model reading.
+     */
     @Test
     public void testComp_01() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_01);
@@ -24,7 +26,9 @@ public class SBMLCompTest {
         assertEquals(1, network.getEdgeCount());
     }
 
-    /** Test comp model reading. */
+    /**
+     * Test comp model reading.
+     */
     @Test
     public void testComp_02() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_02);
@@ -35,7 +39,9 @@ public class SBMLCompTest {
         assertEquals(70, network.getEdgeCount());
     }
 
-    /** Test comp model reading. */
+    /**
+     * Test comp model reading.
+     */
     @Test
     public void testComp_03() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_03);

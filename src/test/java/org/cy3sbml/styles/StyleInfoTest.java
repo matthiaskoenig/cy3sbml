@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
 
@@ -16,10 +17,14 @@ public class StyleInfoTest {
     private StyleInfo s;
 
     @BeforeEach
-    public void setUp(){ s = new StyleInfo_cy3sbml(); }
+    public void setUp() {
+        s = new StyleInfo_cy3sbml();
+    }
 
     @AfterEach
-    public void tearDown(){ s = null; }
+    public void tearDown() {
+        s = null;
+    }
 
     @Test
     public void getTemplate() throws Exception {
@@ -32,7 +37,7 @@ public class StyleInfoTest {
     public void getMappings() throws Exception {
         List<Mapping> mappings = s.getMappings();
         assertNotNull(mappings);
-        assertTrue(mappings.size()>0);
+        assertTrue(mappings.size() > 0);
     }
 
     @Test
@@ -52,7 +57,7 @@ public class StyleInfoTest {
     public void createMappings() throws Exception {
         List<Mapping> mappings = s.createMappings();
         assertNotNull(mappings);
-        assertTrue(mappings.size()>0);
+        assertTrue(mappings.size() > 0);
     }
 
 }

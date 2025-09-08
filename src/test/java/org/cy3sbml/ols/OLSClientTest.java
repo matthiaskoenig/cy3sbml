@@ -1,6 +1,7 @@
 package org.cy3sbml.ols;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
@@ -16,7 +17,6 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 
 /**
@@ -45,7 +45,7 @@ public class OLSClientTest {
     public void testGetAllTermsFromOntology() throws Exception {
         List<Term> terms = olsClient.getAllTermsFromOntology("ms");
         logger.info(terms.toString());
-       assertTrue(terms.size() > 0);
+        assertTrue(terms.size() > 0);
     }
 
     @Test
@@ -63,16 +63,16 @@ public class OLSClientTest {
     }
 
     private boolean contains(List<Term> terms, Identifier identifier) {
-        for(Term term: terms)
-           if(identifier.getType() == Identifier.IdentifierType.OBO &&
-                   identifier.getIdentifier().equalsIgnoreCase(term.getTermOBOId().getIdentifier()))
-               return true;
-           else if(identifier.getType() == Identifier.IdentifierType.IRI &&
-                   identifier.getIdentifier().equalsIgnoreCase(term.getIri().getIdentifier()))
-               return true;
-           else if(identifier.getType() == Identifier.IdentifierType.OWL &&
-                   identifier.getIdentifier().equalsIgnoreCase(term.getShortForm().getIdentifier()))
-               return true;
+        for (Term term : terms)
+            if (identifier.getType() == Identifier.IdentifierType.OBO &&
+                    identifier.getIdentifier().equalsIgnoreCase(term.getTermOBOId().getIdentifier()))
+                return true;
+            else if (identifier.getType() == Identifier.IdentifierType.IRI &&
+                    identifier.getIdentifier().equalsIgnoreCase(term.getIri().getIdentifier()))
+                return true;
+            else if (identifier.getType() == Identifier.IdentifierType.OWL &&
+                    identifier.getIdentifier().equalsIgnoreCase(term.getShortForm().getIdentifier()))
+                return true;
         return false;
     }
 
@@ -87,7 +87,7 @@ public class OLSClientTest {
     @Test
     public void testGetTermsByAnnotationData() throws Exception {
 
-        List<Term> annotations = olsClient.getTermsByAnnotationData("mod","DiffAvg", 30, 140);
+        List<Term> annotations = olsClient.getTermsByAnnotationData("mod", "DiffAvg", 30, 140);
         assertTrue(annotations.size() == 423);
 
     }
