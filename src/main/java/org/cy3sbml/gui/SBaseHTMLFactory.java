@@ -419,8 +419,9 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-
-
+            if (identifier == null) {
+                identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
+            }
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
             dataType = (result.get(prefix) == null)
@@ -433,18 +434,20 @@ public class SBaseHTMLFactory {
 
             if (dataType == null) {
                 resourceLink = resourceURI;
+
             } else {
                 for (Resource resource : dataType.getResources()) {
-                    if (resourceLink == null) {
-                        // take first one
-                        resourceLink = createURL(dataType, resource, identifier);
-                        break;
-                    }
+                    // take first one
+                    resourceLink = createURL(dataType, resource, identifier);
+
+                    break;
 
                 }
             }
 
             // identifier
+
+
             String identifierHTML = IDENTIFIER_LINK
                     .replace("{resourceLink}", resourceLink)
                     .replace("{identifier}", identifier);

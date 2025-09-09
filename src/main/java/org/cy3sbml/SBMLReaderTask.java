@@ -213,7 +213,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 }
             }
         }
-
         // finished
         return view;
     }
