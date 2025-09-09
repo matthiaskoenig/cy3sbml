@@ -89,7 +89,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTask.class);
 
     @Tunable(description = "Tick if you want to automatically layout the imported network")
-    public boolean doLayout;
+    public boolean doLayout = true;
 
     private final String fileName;
     private final InputStream stream;
@@ -891,9 +891,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 AttributeUtil.set(network, n, SBML.ATTR_USE_VALUES_FROM_TRIGGER_TIME,
                         event.getUseValuesFromTriggerTime(), Boolean.class);
             }
-
             // edge via trigger math
-            createMathNetwork(network, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+            if (event.isSetTrigger()) {
+                createMathNetwork(network, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+            }
             // edge via priority math
             if (event.isSetPriority()) {
                 createMathNetwork(network, event.getPriority(), n, SBML.INTERACTION_PRIORITY_EVENT);
@@ -2027,7 +2028,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
      */
     private void setAbstractMathContainerNodeAttributes(CyNetwork network, CyIdentifiable n, AbstractMathContainer container) {
         setSBaseAttributes(network, n, container);
-
         AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, container.getDerivedUnits(), String.class);
         if (container.isSetMath()) {
             ASTNode astNode = container.getMath();

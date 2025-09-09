@@ -37,9 +37,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * Helper functions to test SBML models.
  */
 public class TestUtils {
-    public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r31_curated";
+    public static String BIOMODELS_RESOURCE_PATH = "/models/biomodels";
     public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.5";
-    public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.3.0";
+    public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
 
     private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);

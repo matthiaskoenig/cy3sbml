@@ -1,0 +1,1917 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="Phillips2013___physiologically_based_modeling_explaining_Mammalian_rest_activity_patterns" metaid="COPASI0" name="Phillips2013 - physiologically based modeling explaining Mammalian rest/activity patterns">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#COPASI0">
+	<dc:creator>
+	<rdf:Bag>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Bujtár</vCard:Family>
+	<vCard:Given>Zsófia</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>Zsofia.Bujtar@mdc-berlin.de</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>Max-Delbrück-Centrum für Molekulare Medizin in der Helmholtz-Gemeinschaft</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	</rdf:Bag>
+	</dc:creator>
+	<dcterms:created rdf:parseType="Resource">
+	<dcterms:W3CDTF>2023-01-02T12:34:17Z</dcterms:W3CDTF>
+	</dcterms:created>
+	<dcterms:modified rdf:parseType="Resource">
+	<dcterms:W3CDTF>2023-01-02T12:34:17Z</dcterms:W3CDTF>
+	</dcterms:modified>
+	<bqbiol:hasTaxon>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/taxonomy/40674"/>
+	</rdf:Bag>
+	</bqbiol:hasTaxon>
+	<bqbiol:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubmed/24039566"/>
+	</rdf:Bag>
+	</bqbiol:isDescribedBy>
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0042745"/>
+	<rdf:li rdf:resource="http://identifiers.org/mamo/MAMO_0000046"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL2003080001"/>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/BIOMD0000001072"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	</rdf:Description>
+	
+	
+      </rdf:RDF>
+      <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+        <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+          <rdf:Description rdf:about="#COPASI0">
+            <bqbiol:hasProperty>
+              <rdf:Bag>
+                <rdf:li rdf:resource="http://identifiers.org/mamo/MAMO_0000046"/>
+              </rdf:Bag>
+            </bqbiol:hasProperty>
+            <bqbiol:hasProperty>
+              <rdf:Bag>
+                <rdf:li rdf:resource="http://identifiers.org/GO:0042745"/>
+              </rdf:Bag>
+            </bqbiol:hasProperty>
+            <bqbiol:hasTaxon>
+              <rdf:Bag>
+                <rdf:li rdf:resource="http://identifiers.org/taxonomy/40674"/>
+              </rdf:Bag>
+            </bqbiol:hasTaxon>
+            <dcterms:bibliographicCitation>
+              <rdf:Bag>
+                <rdf:li>
+                  <rdf:Description>
+                    <CopasiMT:isDescribedBy rdf:resource="urn:miriam:pubmed:24039566"/>
+                  </rdf:Description>
+                </rdf:li>
+              </rdf:Bag>
+            </dcterms:bibliographicCitation>
+            <dcterms:created>
+              <rdf:Description>
+                <dcterms:W3CDTF>2023-01-02T12:34:17Z</dcterms:W3CDTF>
+              </rdf:Description>
+            </dcterms:created>
+            <dcterms:creator>
+              <rdf:Bag>
+                <rdf:li>
+                  <rdf:Description>
+                    <vCard:EMAIL>Zsofia.Bujtar@mdc-berlin.de</vCard:EMAIL>
+                    <vCard:N>
+                      <rdf:Description>
+                        <vCard:Family>Bujtár</vCard:Family>
+                        <vCard:Given>Zsófia</vCard:Given>
+                      </rdf:Description>
+                    </vCard:N>
+                    <vCard:ORG>
+                      <rdf:Description>
+                        <vCard:Orgname>Max-Delbrück-Centrum für Molekulare Medizin in der Helmholtz-Gemeinschaft</vCard:Orgname>
+                      </rdf:Description>
+                    </vCard:ORG>
+                  </rdf:Description>
+                </rdf:li>
+              </rdf:Bag>
+            </dcterms:creator>
+            <dcterms:modified>
+              <rdf:Description>
+                <dcterms:W3CDTF>2023-01-02T12:34:17Z</dcterms:W3CDTF>
+              </rdf:Description>
+            </dcterms:modified>
+          </rdf:Description>
+        </rdf:RDF>
+      </copasi:COPASI>
+    </annotation>
+      <listOfFunctionDefinitions>
+      <functionDefinition id="Fy_syn" name="Fy_prod">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> B </ci>
+            </bvar>
+            <bvar>
+              <ci> Y </ci>
+            </bvar>
+            <bvar>
+              <ci> kappa </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> B </ci>
+                  <ci> Y </ci>
+                </apply>
+                <cn> 3 </cn>
+              </apply>
+              <ci> kappa </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="FV_v_reg" name="FV_v_reg">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> B </ci>
+            </bvar>
+            <bvar>
+              <ci> D_null </ci>
+            </bvar>
+            <bvar>
+              <ci> H </ci>
+            </bvar>
+            <bvar>
+              <ci> Q_max </ci>
+            </bvar>
+            <bvar>
+              <ci> V_m </ci>
+            </bvar>
+            <bvar>
+              <ci> X </ci>
+            </bvar>
+            <bvar>
+              <ci> a </ci>
+            </bvar>
+            <bvar>
+              <ci> b </ci>
+            </bvar>
+            <bvar>
+              <ci> delta </ci>
+            </bvar>
+            <bvar>
+              <ci> eta </ci>
+            </bvar>
+            <bvar>
+              <ci> k </ci>
+            </bvar>
+            <bvar>
+              <ci> sigma_comma </ci>
+            </bvar>
+            <bvar>
+              <ci> tau_v </ci>
+            </bvar>
+            <bvar>
+              <ci> theta </ci>
+            </bvar>
+            <bvar>
+              <ci> v_vb </ci>
+            </bvar>
+            <bvar>
+              <ci> v_vd </ci>
+            </bvar>
+            <bvar>
+              <ci> v_vh </ci>
+            </bvar>
+            <bvar>
+              <ci> v_vm </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> v_vm </ci>
+                    <ci> Q_max </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn> 1 </cn>
+                    <apply>
+                      <exp/>
+                      <apply>
+                        <divide/>
+                        <apply>
+                          <minus/>
+                          <ci> theta </ci>
+                          <ci> V_m </ci>
+                        </apply>
+                        <ci> sigma_comma </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> v_vd </ci>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <ci> a </ci>
+                      <ci> k </ci>
+                      <apply>
+                        <plus/>
+                        <ci> X </ci>
+                        <ci> delta </ci>
+                      </apply>
+                    </apply>
+                    <ci> b </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> v_vh </ci>
+                  <ci> eta </ci>
+                  <ci> H </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> v_vb </ci>
+                  <ci> eta </ci>
+                  <ci> B </ci>
+                </apply>
+                <ci> D_null </ci>
+              </apply>
+              <ci> tau_v </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_H_degradation" name="Rate Law for H degradation">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> H </ci>
+            </bvar>
+            <bvar>
+              <ci> chi </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <cn> 1 </cn>
+                <ci> chi </ci>
+              </apply>
+              <ci> H </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Fx_reg_y" name="Fx_reg_y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> Y </ci>
+            </bvar>
+            <bvar>
+              <ci> kappa </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> Y </ci>
+              <ci> kappa </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_V_m_degradation" name="Rate Law for V_m degradation">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> V_m </ci>
+            </bvar>
+            <bvar>
+              <ci> tau_m </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <cn> 1 </cn>
+                <ci> tau_m </ci>
+              </apply>
+              <ci> V_m </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Fn_deg" name="Fn_deg">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> alpha </ci>
+            </bvar>
+            <bvar>
+              <ci> beta </ci>
+            </bvar>
+            <bvar>
+              <ci> n </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <cn> 60 </cn>
+              <apply>
+                <plus/>
+                <ci> alpha </ci>
+                <ci> beta </ci>
+              </apply>
+              <ci> n </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="FH_reg_V_m" name="FH_reg_V_m">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> Q_max </ci>
+            </bvar>
+            <bvar>
+              <ci> V_m </ci>
+            </bvar>
+            <bvar>
+              <ci> chi </ci>
+            </bvar>
+            <bvar>
+              <ci> mu </ci>
+            </bvar>
+            <bvar>
+              <ci> sigma_comma </ci>
+            </bvar>
+            <bvar>
+              <ci> theta </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> mu </ci>
+                  <ci> Q_max </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> theta </ci>
+                        <ci> V_m </ci>
+                      </apply>
+                      <ci> sigma_comma </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> chi </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Fn_syn" name="Fn_prod">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> alpha </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <cn> 60 </cn>
+              <ci> alpha </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="FV_m_reg" name="FV_m_reg">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> A_null </ci>
+            </bvar>
+            <bvar>
+              <ci> Q_max </ci>
+            </bvar>
+            <bvar>
+              <ci> V_v </ci>
+            </bvar>
+            <bvar>
+              <ci> X </ci>
+            </bvar>
+            <bvar>
+              <ci> a </ci>
+            </bvar>
+            <bvar>
+              <ci> b </ci>
+            </bvar>
+            <bvar>
+              <ci> delta </ci>
+            </bvar>
+            <bvar>
+              <ci> k </ci>
+            </bvar>
+            <bvar>
+              <ci> sigma_comma </ci>
+            </bvar>
+            <bvar>
+              <ci> tau_m </ci>
+            </bvar>
+            <bvar>
+              <ci> theta </ci>
+            </bvar>
+            <bvar>
+              <ci> v_md </ci>
+            </bvar>
+            <bvar>
+              <ci> v_mv </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> v_mv </ci>
+                    <ci> Q_max </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn> 1 </cn>
+                    <apply>
+                      <exp/>
+                      <apply>
+                        <divide/>
+                        <apply>
+                          <minus/>
+                          <ci> theta </ci>
+                          <ci> V_v </ci>
+                        </apply>
+                        <ci> sigma_comma </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> v_md </ci>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <ci> a </ci>
+                      <ci> k </ci>
+                      <apply>
+                        <plus/>
+                        <ci> X </ci>
+                        <ci> delta </ci>
+                      </apply>
+                    </apply>
+                    <ci> b </ci>
+                  </apply>
+                </apply>
+                <ci> A_null </ci>
+              </apply>
+              <ci> tau_m </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Fx_prod" name="Fx_prod">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> B </ci>
+            </bvar>
+            <bvar>
+              <ci> Theta </ci>
+            </bvar>
+            <bvar>
+              <ci> X </ci>
+            </bvar>
+            <bvar>
+              <ci> gamma </ci>
+            </bvar>
+            <bvar>
+              <ci> kappa </ci>
+            </bvar>
+            <bvar>
+              <ci> q </ci>
+            </bvar>
+            <bvar>
+              <ci> rho </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> gamma </ci>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <divide/>
+                        <ci> X </ci>
+                        <cn> 3 </cn>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <divide/>
+                          <cn> 4 </cn>
+                          <cn> 3 </cn>
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> X </ci>
+                          <cn> 3 </cn>
+                        </apply>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <divide/>
+                        <cn> 256 </cn>
+                        <cn> 105 </cn>
+                      </apply>
+                      <apply>
+                        <power/>
+                        <ci> X </ci>
+                        <cn> 7 </cn>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <ci> B </ci>
+                <apply>
+                  <times/>
+                  <ci> rho </ci>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <divide/>
+                      <cn> 1 </cn>
+                      <cn> 3 </cn>
+                    </apply>
+                    <ci> Theta </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <apply>
+                      <tanh/>
+                      <apply>
+                        <times/>
+                        <ci> q </ci>
+                        <ci> X </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> kappa </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Fy_reg_x" name="Fy_reg_x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> B </ci>
+            </bvar>
+            <bvar>
+              <ci> X </ci>
+            </bvar>
+            <bvar>
+              <ci> day </ci>
+            </bvar>
+            <bvar>
+              <ci> f </ci>
+            </bvar>
+            <bvar>
+              <ci> h </ci>
+            </bvar>
+            <bvar>
+              <ci> kappa </ci>
+            </bvar>
+            <bvar>
+              <ci> tau_c </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> X </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> day </ci>
+                      <apply>
+                        <times/>
+                        <ci> f </ci>
+                        <ci> tau_c </ci>
+                      </apply>
+                    </apply>
+                    <cn> 2 </cn>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> h </ci>
+                    <ci> B </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> kappa </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+      <functionDefinition id="Rate_Law_for_V_v_degradation" name="Rate Law for V_v degradation">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <lambda>
+            <bvar>
+              <ci> V_v </ci>
+            </bvar>
+            <bvar>
+              <ci> tau_v </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <cn> 1 </cn>
+                <ci> tau_v </ci>
+              </apply>
+              <ci> V_v </ci>
+            </apply>
+          </lambda>
+        </math>
+            </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="length" name="length">
+        <listOfUnits>
+          <unit exponent="1" kind="metre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area" name="area">
+        <listOfUnits>
+          <unit exponent="2" kind="metre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit exponent="1" kind="litre" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="time">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit exponent="0" kind="dimensionless" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_0" name="1/s">
+        <listOfUnits>
+          <unit exponent="-1" kind="second" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_1" name="mV">
+        <listOfUnits>
+          <unit exponent="1" kind="volt" multiplier="1" scale="-3"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_2" name="s">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_3" name="h">
+        <listOfUnits>
+          <unit exponent="1" kind="second" multiplier="3600" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_4" name="mV*s">
+        <listOfUnits>
+          <unit exponent="1" kind="volt" multiplier="1" scale="-3"/>
+          <unit exponent="1" kind="second" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="unit_5" name="lx">
+        <listOfUnits>
+          <unit exponent="1" kind="lux" multiplier="1" scale="0"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment constant="true" id="individual" name="Default" size="1" spatialDimensions="3"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="V_v" initialConcentration="3.82007920893978" metaid="COPASI1" name="V_v(mean_cell_body_potential_VLPO)">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI1">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/UBERON:8440014"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI1">
+                <bqbiol:hasProperty rdf:resource="urn:miriam:uberon:UBERON:8440014"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="V_m" initialConcentration="-17.5981186613022" name="V_m(mean_cell_body_potential_MA)"/>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="H" initialConcentration="5.57377096632541" metaid="COPASI2" name="H(sleep_homeostatic_drive)">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI2">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0160060"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI2">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0160060"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="n" initialConcentration="0" metaid="COPASI3" name="n(fraction_of_photoreceptors_that_are_activated)">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI3">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ncit/C32954"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI3">
+                <bqbiol:hasProperty rdf:resource="urn:miriam:ncit:C32954"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="X" initialConcentration="-0.644229940134898" metaid="COPASI4" name="x(SCN_activity)">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI4">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ncit/C74537"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI4">
+                <bqbiol:hasProperty rdf:resource="urn:miriam:ncit:C74537"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+            </species>
+      <species boundaryCondition="false" compartment="individual" constant="false" id="Y" initialConcentration="-0.803527836803535" name="y(complement_of_x)"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter constant="false" id="Theta" name="Theta" value="0"/>
+      <parameter constant="true" id="Q_max" name="Q_max" units="unit_0" value="100"/>
+      <parameter constant="true" id="theta" name="theta" units="unit_1" value="10"/>
+      <parameter constant="true" id="sigma_comma" name="sigma_comma" units="unit_1" value="3"/>
+      <parameter constant="true" id="G" name="G" value="37"/>
+      <parameter constant="true" id="r" name="r" value="0.4"/>
+      <parameter constant="true" id="h" name="h" value="0.55"/>
+      <parameter constant="true" id="q" name="q" value="10"/>
+      <parameter constant="true" id="rho" name="rho" value="0.032"/>
+      <parameter constant="true" id="kappa" name="kappa" units="unit_2" value="1.37509870831398E4"/>
+      <parameter constant="true" id="f" name="f" value="0.99729"/>
+      <parameter constant="true" id="tau_c" name="tau_c" units="unit_3" value="24.2"/>
+      <parameter constant="true" id="gamma" name="gamma" value="0.13"/>
+      <parameter constant="true" id="delta" name="delta" value="-0.7"/>
+      <parameter constant="true" id="a" name="a" value="1"/>
+      <parameter constant="true" id="k" name="k" units="unit_0" value="17"/>
+      <parameter constant="true" id="b" name="b" units="unit_0" value="4.8"/>
+      <parameter constant="true" id="v_vd" name="v_vd" units="unit_4" value="-0.17"/>
+      <parameter constant="true" id="v_md" name="v_md" units="unit_4" value="-0.08"/>
+      <parameter constant="true" id="v_vb" name="v_vb" units="unit_4" value="0"/>
+      <parameter constant="true" id="eta" name="eta" units="unit_0" value="1"/>
+      <parameter constant="true" id="A_null" name="A_null" units="unit_1" value="1.3"/>
+      <parameter constant="true" id="D_null" name="D_null" units="unit_1" value="-4.8"/>
+      <parameter constant="true" id="chi" name="chi" units="unit_2" value="79200"/>
+      <parameter constant="true" id="mu" name="mu" units="unit_2" value="4.4"/>
+      <parameter constant="true" id="v_vh" name="v_vh" units="unit_4" value="1"/>
+      <parameter constant="true" id="v_vm" name="v_vm" units="unit_4" value="-2.1"/>
+      <parameter constant="true" id="v_mv" name="v_mv" units="unit_4" value="-1.8"/>
+      <parameter constant="true" id="tau_v" name="tau_v" units="unit_2" value="10"/>
+      <parameter constant="true" id="tau_m" name="tau_m" units="unit_2" value="10"/>
+      <parameter constant="false" id="B" name="B" units="unit_0" value="0"/>
+      <parameter constant="false" id="alpha" metaid="COPASI5" name="alpha" units="unit_0" value="0">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI5">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000656"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI5">
+                <bqbiol:hasProperty>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000656"/>
+                  </rdf:Bag>
+                </bqbiol:hasProperty>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+            </parameter>
+      <parameter constant="true" id="beta" name="beta" units="unit_0" value="0.000111111111111111"/>
+      <parameter constant="true" id="day" name="day" units="unit_3" value="24"/>
+      <parameter constant="false" id="Qm" name="Qm" units="unit_0" value="0.0101092564081633"/>
+      <parameter constant="false" id="B_circumflex" name="B_circumflex" units="unit_0" value="0"/>
+      <parameter constant="false" id="Omega" name="Omega" value="0"/>
+      <parameter constant="true" id="I_on" name="I_on" units="unit_5" value="0"/>
+      <parameter constant="false" id="I_tilded" name="I_tilded" units="unit_5" value="0"/>
+      <parameter constant="false" id="I" name="I" value="0"/>
+      <parameter constant="true" id="alpha_null" name="alpha_null" units="unit_0" value="0.00166666666666667"/>
+      <parameter constant="true" id="I_null" name="I_null" units="unit_5" value="9500"/>
+      <parameter constant="true" id="p" name="p" value="0.5"/>
+      <parameter constant="true" id="I_one" name="I_one" units="unit_5" value="10"/>
+      <parameter id="ModelValue_4" name="Initial for G" value="37">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="G" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_41" name="Initial for I_null" value="9500">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="I_null" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_37" name="Initial for I_on" value="0">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="I_on" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_1" name="Initial for Q_max" value="100">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="Q_max" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_40" name="Initial for alpha_null" value="0.00166666666666667">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="alpha_null" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_42" name="Initial for p" value="0.5">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="p" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_5" name="Initial for r" value="0.4">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="r" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_3" name="Initial for sigma_comma" value="3">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="sigma_comma" type="InitialValue"/>
+        </annotation>
+            </parameter>
+      <parameter id="ModelValue_2" name="Initial for theta" value="10">
+        <annotation>
+          <initialValue xmlns="http://copasi.org/initialValue" parent="theta" type="InitialValue"/>
+        </annotation>
+            </parameter>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="kappa">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn> 12 </cn>
+              <pi/>
+            </apply>
+            <cn> 3600 </cn>
+          </apply>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="chi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <cn> 22 </cn>
+            <cn> 3600 </cn>
+          </apply>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="beta">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <divide/>
+            <cn> 0.4 </cn>
+            <cn> 3600 </cn>
+          </apply>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="alpha_null">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <divide/>
+            <cn> 6 </cn>
+            <cn> 3600 </cn>
+          </apply>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> G </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_41">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> I_null </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_37">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> I_on </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> Q_max </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_40">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> alpha_null </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_42">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> p </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> r </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> sigma_comma </ci>
+        </math>
+            </initialAssignment>
+      <initialAssignment symbol="ModelValue_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> theta </ci>
+        </math>
+            </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="Qm">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <divide/>
+            <ci> ModelValue_1 </ci>
+            <apply>
+              <plus/>
+              <cn> 1 </cn>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <minus/>
+                    <ci> ModelValue_2 </ci>
+                    <ci> V_m </ci>
+                  </apply>
+                  <ci> ModelValue_3 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule variable="I_tilded">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> Omega </ci>
+            <ci> ModelValue_37 </ci>
+            <piecewise>
+              <piece>
+                <apply>
+                  <minus/>
+                  <ci> I </ci>
+                  <apply>
+                    <times/>
+                    <cn> 24 </cn>
+                    <cn> 3600 </cn>
+                    <apply>
+                      <ceiling/>
+                      <apply>
+                        <divide/>
+                        <ci> I </ci>
+                        <apply>
+                          <times/>
+                          <cn> 24 </cn>
+                          <cn> 3600 </cn>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <xor/>
+                  <apply>
+                    <lt/>
+                    <ci> I </ci>
+                    <cn> 0 </cn>
+                  </apply>
+                  <apply>
+                    <lt/>
+                    <apply>
+                      <times/>
+                      <cn> 24 </cn>
+                      <cn> 3600 </cn>
+                    </apply>
+                    <cn> 0 </cn>
+                  </apply>
+                </apply>
+              </piece>
+              <otherwise>
+                <apply>
+                  <minus/>
+                  <ci> I </ci>
+                  <apply>
+                    <times/>
+                    <cn> 24 </cn>
+                    <cn> 3600 </cn>
+                    <apply>
+                      <floor/>
+                      <apply>
+                        <divide/>
+                        <ci> I </ci>
+                        <apply>
+                          <times/>
+                          <cn> 24 </cn>
+                          <cn> 3600 </cn>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </otherwise>
+            </piecewise>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule variable="alpha">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> ModelValue_40 </ci>
+            <apply>
+              <power/>
+              <apply>
+                <divide/>
+                <ci> I_tilded </ci>
+                <ci> ModelValue_41 </ci>
+              </apply>
+              <ci> ModelValue_42 </ci>
+            </apply>
+            <apply>
+              <divide/>
+              <ci> I_tilded </ci>
+              <apply>
+                <plus/>
+                <ci> I_tilded </ci>
+                <ci> I_one </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule variable="B_circumflex">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <ci> ModelValue_4 </ci>
+            <ci> alpha </ci>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+              <ci> n </ci>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+      <assignmentRule variable="B">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+              <apply>
+                <times/>
+                <ci> ModelValue_5 </ci>
+                <ci> X </ci>
+              </apply>
+            </apply>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+              <apply>
+                <times/>
+                <ci> ModelValue_5 </ci>
+                <ci> Y </ci>
+              </apply>
+            </apply>
+            <ci> B_circumflex </ci>
+          </apply>
+        </math>
+            </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="Vm_deg" metaid="COPASI6" name="V_m_Degradation" reversible="false" sboTerm="SBO:0000179">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI6">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI6">
+                <CopasiMT:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+                  </rdf:Bag>
+                </CopasiMT:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="V_m" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Rate_Law_for_V_m_degradation </ci>
+                <ci> V_m </ci>
+                <ci> tau_m </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Vv_deg" metaid="COPASI7" name="V_v_Degradation" reversible="false" sboTerm="SBO:0000179">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI7">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI7">
+                <CopasiMT:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+                  </rdf:Bag>
+                </CopasiMT:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="V_v" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Rate_Law_for_V_v_degradation </ci>
+                <ci> V_v </ci>
+                <ci> tau_v </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Vm_Vv" metaid="COPASI8" name="V_v_Regulation" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI8">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0009966"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI8">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0009966"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="V_v" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="V_m"/>
+          <modifierSpeciesReference species="H"/>
+          <modifierSpeciesReference species="X"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> FV_v_reg </ci>
+                <ci> B </ci>
+                <ci> D_null </ci>
+                <ci> H </ci>
+                <ci> Q_max </ci>
+                <ci> V_m </ci>
+                <ci> X </ci>
+                <ci> a </ci>
+                <ci> b </ci>
+                <ci> delta </ci>
+                <ci> eta </ci>
+                <ci> k </ci>
+                <ci> sigma_comma </ci>
+                <ci> tau_v </ci>
+                <ci> theta </ci>
+                <ci> v_vb </ci>
+                <ci> v_vd </ci>
+                <ci> v_vh </ci>
+                <ci> v_vm </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Vv_Vm" metaid="COPASI9" name="V_m_Regulation" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI9">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0009966"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI9">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0009966"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="V_m" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="V_v"/>
+          <modifierSpeciesReference species="X"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> FV_m_reg </ci>
+                <ci> A_null </ci>
+                <ci> Q_max </ci>
+                <ci> V_v </ci>
+                <ci> X </ci>
+                <ci> a </ci>
+                <ci> b </ci>
+                <ci> delta </ci>
+                <ci> k </ci>
+                <ci> sigma_comma </ci>
+                <ci> tau_m </ci>
+                <ci> theta </ci>
+                <ci> v_md </ci>
+                <ci> v_mv </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Vm_H" metaid="COPASI10" name="H_Regulation_by_V_m" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI10">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0009966"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI10">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0009966"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="H" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="V_m"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> FH_reg_V_m </ci>
+                <ci> Q_max </ci>
+                <ci> V_m </ci>
+                <ci> chi </ci>
+                <ci> mu </ci>
+                <ci> sigma_comma </ci>
+                <ci> theta </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="H_deg" metaid="COPASI11" name="H_Degradation" reversible="false" sboTerm="SBO:0000179">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI11">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI11">
+                <CopasiMT:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+                  </rdf:Bag>
+                </CopasiMT:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="H" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Rate_Law_for_H_degradation </ci>
+                <ci> H </ci>
+                <ci> chi </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="X_syn" metaid="COPASI12" name="x_Production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI12">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI12">
+                <bqbiol:hasProperty>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+                  </rdf:Bag>
+                </bqbiol:hasProperty>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="X" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="X"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fx_prod </ci>
+                <ci> B </ci>
+                <ci> Theta </ci>
+                <ci> X </ci>
+                <ci> gamma </ci>
+                <ci> kappa </ci>
+                <ci> q </ci>
+                <ci> rho </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Y_syn" metaid="COPASI13" name="y_Production" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI13">
+	<bqbiol:hasProperty>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:hasProperty>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI13">
+                <bqbiol:hasProperty>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+                  </rdf:Bag>
+                </bqbiol:hasProperty>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="Y" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Y"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fy_syn </ci>
+                <ci> B </ci>
+                <ci> Y </ci>
+                <ci> kappa </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="n_deg" metaid="COPASI14" name="n_Degradation" reversible="false" sboTerm="SBO:0000179">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI14">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI14">
+                <CopasiMT:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000179"/>
+                  </rdf:Bag>
+                </CopasiMT:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfReactants>
+          <speciesReference species="n" stoichiometry="1"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fn_deg </ci>
+                <ci> alpha </ci>
+                <ci> beta </ci>
+                <ci> n </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="n_syn" metaid="COPASI15" name="n_Production" reversible="false" sboTerm="SBO:0000393">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI15">
+	<bqbiol:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+	</rdf:Bag>
+	</bqbiol:is>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI15">
+                <CopasiMT:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://identifiers.org/SBO:0000393"/>
+                  </rdf:Bag>
+                </CopasiMT:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="n" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fn_syn </ci>
+                <ci> alpha </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="Y_X" metaid="COPASI16" name="x_Regulation_by_y" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI16">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0009966"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI16">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0009966"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="X" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Y"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fx_reg_y </ci>
+                <ci> Y </ci>
+                <ci> kappa </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="X_Y" metaid="COPASI17" name="y_Regulation_by_x" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#COPASI17">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/GO:0009966"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+	
+          </rdf:RDF>
+          <copasi:COPASI xmlns:copasi="http://www.copasi.org/static/sbml">
+            <rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+              <rdf:Description rdf:about="#COPASI17">
+                <CopasiMT:isVersionOf rdf:resource="urn:miriam:go.ref:GO:0009966"/>
+              </rdf:Description>
+            </rdf:RDF>
+          </copasi:COPASI>
+        </annotation>
+              <listOfProducts>
+          <speciesReference species="Y" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="X"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> individual </ci>
+              <apply>
+                <ci> Fy_reg_x </ci>
+                <ci> B </ci>
+                <ci> X </ci>
+                <ci> day </ci>
+                <ci> f </ci>
+                <ci> h </ci>
+                <ci> kappa </ci>
+                <ci> tau_c </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="asleep" name="asleep" useValuesFromTriggerTime="true">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <leq/>
+              <apply>
+                <divide/>
+                <ci> ModelValue_1 </ci>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <minus/>
+                      <ci> ModelValue_2 </ci>
+                      <apply>
+                        <divide/>
+                        <ci> V_m </ci>
+                        <ci> ModelValue_3 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <cn> 1 </cn>
+            </apply>
+          </math>
+                </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <cn> 0 </cn>
+          </math>
+                </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="Theta">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 1 </cn>
+            </math>
+                    </eventAssignment>
+          <eventAssignment variable="Omega">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 0.03 </cn>
+            </math>
+                    </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="awake" name="awake" useValuesFromTriggerTime="true">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <gt/>
+              <apply>
+                <divide/>
+                <ci> ModelValue_1 </ci>
+                <apply>
+                  <plus/>
+                  <cn> 1 </cn>
+                  <apply>
+                    <exp/>
+                    <apply>
+                      <minus/>
+                      <ci> ModelValue_2 </ci>
+                      <apply>
+                        <divide/>
+                        <ci> V_m </ci>
+                        <ci> ModelValue_3 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <cn> 1 </cn>
+            </apply>
+          </math>
+                </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <cn> 0 </cn>
+          </math>
+                </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="Theta">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 0 </cn>
+            </math>
+                    </eventAssignment>
+          <eventAssignment variable="Omega">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 1 </cn>
+            </math>
+                    </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="day_0" name="day" useValuesFromTriggerTime="true">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <lt/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <apply>
+                <times/>
+                <cn> 12 </cn>
+                <cn> 3600 </cn>
+              </apply>
+            </apply>
+          </math>
+                </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <cn> 0 </cn>
+          </math>
+                </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="I">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 1 </cn>
+            </math>
+                    </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="night" name="night" useValuesFromTriggerTime="true">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <apply>
+                <times/>
+                <cn> 12 </cn>
+                <cn> 3600 </cn>
+              </apply>
+            </apply>
+          </math>
+                </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <cn> 0 </cn>
+          </math>
+                </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="I">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <cn> 0 </cn>
+            </math>
+                    </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>
