@@ -148,6 +148,7 @@ public class SBaseHTMLFactory {
         if (sbase == null) {
             return "";
         }
+        System.out.println("sbase: " + sbase.getName()+"\n"+sbase.getNamespace());
 
         String html = createHeader(sbase);
         html += createSBase(sbase);
@@ -394,6 +395,7 @@ public class SBaseHTMLFactory {
      * Creates HTML for single CVTerm.
      */
     private static String createCVTerm(CVTerm cvterm) throws IOException {
+        System.out.println("cvterm: " + cvterm.printCVTerm());
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -418,8 +420,10 @@ public class SBaseHTMLFactory {
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-
-
+            if (identifier == null) {
+                identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
+            }
+            System.out.println("identifier"+ identifier);
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
             dataType = (result.get(prefix) == null)
@@ -431,19 +435,22 @@ public class SBaseHTMLFactory {
             String resourceLink = null;
 
             if (dataType == null) {
+                System.out.println("data type null");
                 resourceLink = resourceURI;
+
             } else {
                 for (Resource resource : dataType.getResources()) {
-                    if (resourceLink == null) {
-                        // take first one
-                        resourceLink = createURL(dataType, resource, identifier);
-                        break;
-                    }
+                    // take first one
+                    resourceLink = createURL(dataType, resource, identifier);
+
+                    break;
 
                 }
             }
-
+            System.out.println("resource link:"+resourceLink);
             // identifier
+            System.out.println("identifier link:"+IDENTIFIER_LINK);
+            assert resourceLink != null;
             String identifierHTML = IDENTIFIER_LINK
                     .replace("{resourceLink}", resourceLink)
                     .replace("{identifier}", identifier);
