@@ -197,6 +197,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         }
 
         // layout
+        if (doLayout) {
             if (cyLayoutAlgorithmManager != null) {
                 CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
                 if (layout == null) {
@@ -211,6 +212,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                     throw new RuntimeException("Could not finish layout", e);
                 }
             }
+        }
         // finished
         return view;
     }
