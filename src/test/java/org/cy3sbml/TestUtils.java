@@ -80,9 +80,6 @@ public class TestUtils {
         // String rootPath = new File(currentDir, resourcePath).getPath();
         String rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
 
-        System.out.println("curDir:" + currentDir);
-        System.out.println("rootPath:" + rootPath);
-
         // Get SBML files for passed tests
         LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
         Collections.sort(sbmlPaths);

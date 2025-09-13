@@ -424,6 +424,9 @@ public class SBaseHTMLFactory {
             }
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
+            System.out.println("resourceURI: " + resourceURI);
+            System.out.println("identifier: " + identifier);
+            System.out.println("dataCollection: " + dataCollection);
             dataType = (result.get(prefix) == null)
                     ? result.get(StringUtils.substringAfter(prefix, "."))
                     : result.get(prefix);
@@ -772,14 +775,13 @@ public class SBaseHTMLFactory {
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_31.xml");
 
         Model model = doc.getModel();
-        Object object = model;
 
         // object = model.getListOfSpecies().get("c__gal");
         // object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
-        SBaseHTMLFactory fac = new SBaseHTMLFactory(object);
+        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
         fac.createInfo();
         String html = fac.getHtml();
 
