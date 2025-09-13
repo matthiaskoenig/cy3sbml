@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TestUtils {
     public static String BIOMODELS_RESOURCE_PATH = "/models/biomodels";
-    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.5";
+    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models";
     public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
 

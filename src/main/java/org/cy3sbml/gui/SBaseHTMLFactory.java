@@ -771,8 +771,7 @@ public class SBaseHTMLFactory {
 
         // Create the HTML for selected SBMLDocuments and SBases
 
-        // SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/Koenig_galactose_31.xml");
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
 
         Model model = doc.getModel();
 
