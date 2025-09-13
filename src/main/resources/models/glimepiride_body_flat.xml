@@ -13,32 +13,28 @@
         <h1>Glimepiride body model</h1>
         <ul>
           <li>gli can be applied po and iv, bioavailability 100% =&gt; fraction absorbed ~100% [Badian1994]</li>
-          <li>gli (glimeperide), m1, m2 are circulating in plasma</li>
+          <li>gli (glimepiride), m1, m2 are circulating in plasma</li>
           <li>m1 and m2 are excreted in urine (m1+m2 ~ 54% [Badian1994]; ~50% [Malerczyk1994] m1 ~38% [Badian1994], m2 ~16% [Badian1994]); CL is affected by CLcr [Rosenkranz1996]</li>
           <li>CYP2C9 has strong effect on gli pharmacokinetics =&gt; likely metabolism gli - <a href="liver">cyp2c9</a> -&gt; m1</li>
           <li>m1 -&gt; m2 conversion, after application of m1 [Badian1996]</li>
         </ul>
+        <p>The content of this model has been carefully created in a manual research effort.</p>
         <h2>Terms of use</h2>
-        <p>The content of this model has been carefully created in a manual research effort.
-This file has been created by <a href="https://livermetabolism.com">Matthias König</a>
-using <a href="https://github.com/matthiaskoenig/sbmlutils">sbmlutils</a>.
-For questions contact <a href="mailto:koenigmx@hu-berlin.de">koenigmx@hu-berlin.de</a>. Copyright © 2025 Matthias König.</p>
+        <p>Copyright © 2025 <a href="https://livermetabolism.com" title="Matthias König" target="_blank">Matthias König</a>.</p>
         <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
           <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
         </a>
         <br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-<p>Redistribution and use of any part of this model, with or without modification,
-are permitted provided that the following conditions are met:</p>
-        <ol>
-          <li>Redistributions of this SBML file must retain the above copyright notice, this
-list of conditions and the following disclaimer.</li>
-          <li>Redistributions in a different form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.</li>
-        </ol>
-        <p>This model is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.</p></body>
+<p>Redistribution and use of any part of this model, with or without modification, are permitted provided
+that the following conditions are met:</p>
+        <ul>
+          <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+          <li>Redistributions in a different form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials provided
+with the distribution.</li>
+        </ul>
+        <p>This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></body>
       </notes>
     <annotation>
       <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -73,7 +69,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
               <rdf:li rdf:resource="http://identifiers.org/VTO:0011993"/>
-              <rdf:li rdf:resource="http://identifiers.org/snomed/337915000"/>
+              <rdf:li rdf:resource="http://identifiers.org/snomedct/337915000"/>
             </rdf:Bag>
           </bqbiol:hasTaxon>
           <bqbiol:isDescribedBy>
@@ -1060,7 +1056,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1078,7 +1074,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1096,7 +1092,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1114,7 +1110,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1132,7 +1128,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1150,7 +1146,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1168,7 +1164,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1186,7 +1182,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1204,7 +1200,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1222,7 +1218,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1240,7 +1236,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1258,7 +1254,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1718,7 +1714,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1767,7 +1763,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -1785,7 +1781,7 @@ FOR A PARTICULAR PURPOSE.</p></body>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
                   <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/386966003"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
                 </rdf:Bag>
@@ -5251,7 +5247,7 @@ injection rate.</p>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction metaid="LI__meta_GLI2M1" sboTerm="SBO:0000176" id="LI__GLI2M1" name="glimepiride -&gt; M1 (CYP2C9)" reversible="false" compartment="Vli_tissue">
+      <reaction metaid="LI__meta_GLI2M1" sboTerm="SBO:0000176" id="LI__GLI2M1" name="glimepiride → M1 (CYP2C9)" reversible="false" compartment="Vli_tissue">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
             <rdf:Description rdf:about="#LI__meta_GLI2M1">
@@ -5322,7 +5318,7 @@ injection rate.</p>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction metaid="LI__meta_M12M2" sboTerm="SBO:0000176" id="LI__M12M2" name="M1 -&gt; M2" reversible="false" compartment="Vli_tissue">
+      <reaction metaid="LI__meta_M12M2" sboTerm="SBO:0000176" id="LI__M12M2" name="M1 → M2" reversible="false" compartment="Vli_tissue">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
             <rdf:Description rdf:about="#LI__meta_M12M2">

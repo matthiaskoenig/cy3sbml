@@ -14,10 +14,9 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for the BIGG models.
- * bigg_models v1.5 (https://github.com/SBRG/bigg_models/releases)
+ * bigg_models v1.6 (https://github.com/SBRG/bigg_models/releases)
  * <p>
- * Models were retrieved on 2019-04-17 from the available database dumps on
- * dropbox: https://www.dropbox.com/sh/yayfmcrsrtrcypw/AACDoew92pCYlSJa8vCs5rSMa?dl=0
+ * Models were retrieved on 2025-09-13 via the webservice.
  */
 public class BiGGTest {
 

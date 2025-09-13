@@ -62,7 +62,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
               <rdf:li rdf:resource="http://identifiers.org/VTO:0011993"/>
-              <rdf:li rdf:resource="http://identifiers.org/snomed/337915000"/>
+              <rdf:li rdf:resource="http://identifiers.org/snomedct/337915000"/>
             </rdf:Bag>
           </bqbiol:hasTaxon>
           <bqbiol:isDescribedBy>
@@ -1111,7 +1111,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1129,7 +1129,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1147,7 +1147,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1165,7 +1165,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1183,7 +1183,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1201,7 +1201,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1219,7 +1219,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1237,7 +1237,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1255,7 +1255,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1273,7 +1273,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1291,7 +1291,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1504,7 +1504,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1548,7 +1548,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1566,7 +1566,7 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
                   <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/9875401"/>
                   <rdf:li rdf:resource="http://identifiers.org/inchikey/KGFYHTZWPPHNLQ-AWEZNQCLSA-N"/>
                   <rdf:li rdf:resource="http://identifiers.org/ncit/C77995"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomed/442031002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/snomedct/442031002"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
