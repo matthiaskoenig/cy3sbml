@@ -458,7 +458,7 @@ public class SBaseHTMLFactory {
 
 
             // not possible to resolve dataType from MIRIAM registry
-            if (dataType == null) {
+            if (dataType == null && resourceURI.contains("identifiers.org")) {
                 logger.warn(MessageFormat.format(
                         "DataType could not be retrieved for data collection part: <{0}>",
                         dataCollection));
