@@ -74,12 +74,18 @@ public class TestUtils {
      * Resources in the skip set are skipped.
      * If a filter string is given only the resources matching the filter are returned.
      */
-    public static Iterable<Object[]> findResources(String resourcePath, String extension, String filter, HashSet<String> skip) {
+    public static Iterable<Object[]> findResources(String where, String resourcePath, String extension, String filter, HashSet<String> skip) {
 
         File currentDir = new File(System.getProperty("user.dir"));
         // String rootPath = new File(currentDir, resourcePath).getPath();
-        String rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
+        String rootPath;
+        if (where.equals("main")){
+            rootPath = currentDir.getAbsolutePath() + "/src/main/resources" + resourcePath;
 
+        }else {
+            rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
+        }
+        System.out.println("rootPath"+rootPath);
         // Get SBML files for passed tests
         LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
         Collections.sort(sbmlPaths);
