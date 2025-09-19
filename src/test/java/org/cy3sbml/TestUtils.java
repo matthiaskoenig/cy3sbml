@@ -85,13 +85,12 @@ public class TestUtils {
         }else {
             rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
         }
-        System.out.println("rootPath"+rootPath);
         // Get SBML files for passed tests
         LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
         Collections.sort(sbmlPaths);
 
         int N = sbmlPaths.size();
-        System.out.println("Number of resources: " + N);
+
         Object[][] resources = new String[N][1];
         for (int k = 0; k < N; k++) {
             String path = sbmlPaths.get(k);
