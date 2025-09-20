@@ -414,15 +414,17 @@ public class SBaseHTMLFactory {
 
         Namespace dataType = null;
         // List of Resource URIs
+
         for (String resourceURI : cvterm.getResources()) {
             // bugfix to handle https://identifier.org/ resources
+            if (resourceURI.contains("identifiers.org")){
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
             String[] tokens = resourceURI.split("/");
             String compactIdentifier = getCompactId(tokens);
 
             String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
             String prefix = StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
-            if (result.get(prefix) == null) {
+            if (result.get(prefix) == null && tokens.length > 3) {
                 prefix = tokens[3].toLowerCase();
             }
             dataType = (result.get(prefix) == null)
@@ -458,7 +460,7 @@ public class SBaseHTMLFactory {
 
 
             // not possible to resolve dataType from MIRIAM registry
-            if (dataType == null && resourceURI.contains("identifiers.org")) {
+            if (dataType == null) {
                 logger.warn(MessageFormat.format(
                         "DataType could not be retrieved for data collection part: <{0}>",
                         dataCollection));
@@ -519,6 +521,7 @@ public class SBaseHTMLFactory {
                 text += createSecondaryInformation(dataType, identifier);
             }
             text += "</p>\n";
+        }
         }
         return text;
     }
