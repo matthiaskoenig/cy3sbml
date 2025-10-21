@@ -148,10 +148,5 @@ public class SBaseHtmlThreadTest {
      * This allows faster development cycle of the information HTML than
      * packing it in the Cytoscape app.
      */
-    public static void main(String[] args) throws Exception {
-        String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
-        SBaseHtmlThreadTest test = new SBaseHtmlThreadTest();
-        String html = test.createHTMLOutput(resource);
-        assertNotNull(html);
-    }
+
 }

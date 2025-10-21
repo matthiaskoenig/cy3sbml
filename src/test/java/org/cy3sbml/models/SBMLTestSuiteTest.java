@@ -34,7 +34,7 @@ public class SBMLTestSuiteTest {
         String filter = "-sbml-l\\dv\\d.xml";
 
         return StreamSupport.stream(
-                TestUtils.findResources(TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+                TestUtils.findResources("test", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
                 false
         ).map(arr -> arr[0].toString());
     }

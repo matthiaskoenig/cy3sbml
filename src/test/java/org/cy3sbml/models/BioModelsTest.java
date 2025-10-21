@@ -31,7 +31,7 @@ public class BioModelsTest {
         HashSet<String> skip = null;
         String filter = null;
         return StreamSupport.stream(
-                        TestUtils.findResources(TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+                        TestUtils.findResources("test",TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
                         false)
                 .map(arr -> arr[0].toString());
     }

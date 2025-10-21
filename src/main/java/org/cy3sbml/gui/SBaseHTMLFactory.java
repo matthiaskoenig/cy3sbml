@@ -414,21 +414,27 @@ public class SBaseHTMLFactory {
 
         Namespace dataType = null;
         // List of Resource URIs
+
         for (String resourceURI : cvterm.getResources()) {
             // bugfix to handle https://identifier.org/ resources
+            if (resourceURI.contains("identifiers.org")){
             resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
+            String[] tokens = resourceURI.split("/");
+            String compactIdentifier = getCompactId(tokens);
+
+            String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
+            String prefix = StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
+            if (result.get(prefix) == null && tokens.length > 3) {
+                prefix = tokens[3].toLowerCase();
+            }
+            dataType = (result.get(prefix) == null)
+                    ? result.get(StringUtils.substringAfter(prefix, "."))
+                    : result.get(prefix);
 
             String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
             if (identifier == null) {
                 identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
             }
-            String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-            String prefix = StringUtils.substringBetween(dataCollection, "org/", "/");
-            dataType = (result.get(prefix) == null)
-                    ? result.get(StringUtils.substringAfter(prefix, "."))
-                    : result.get(prefix);
-
-
             // link to primary resource via id
             String resourceLink = null;
 
@@ -515,6 +521,7 @@ public class SBaseHTMLFactory {
                 text += createSecondaryInformation(dataType, identifier);
             }
             text += "</p>\n";
+        }
         }
         return text;
     }
@@ -643,6 +650,21 @@ public class SBaseHTMLFactory {
      * Creates additional chebi information for the entry.
      * Identifier is of form "CHEBI:28061"
      */
+    public static String getCompactId(String[] tokens){
+
+        String identifier;
+        if (tokens[tokens.length - 1].contains(":")){ //format : identifiers.org/[namespace prefix]:[accession]
+            identifier = tokens[tokens.length - 1];
+        } else if (tokens[tokens.length - 1].contains("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]")){
+            identifier = tokens[tokens.length - 1].replace("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]",":");
+        }
+        else {
+            identifier = tokens[tokens.length - 2]+":"+tokens[tokens.length - 1];
+        }
+
+        identifier = identifier.toUpperCase();
+        return identifier;
+    }
     private static String chebiHTML(String identifier) {
         // Image
         String text = "";
@@ -771,14 +793,13 @@ public class SBaseHTMLFactory {
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
 
         Model model = doc.getModel();
-        Object object = model;
 
         // object = model.getListOfSpecies().get("c__gal");
         // object = model.getListOfReactions().get("c__GALTM2");
 
 
         // retrieve info for object
-        SBaseHTMLFactory fac = new SBaseHTMLFactory(object);
+        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
         fac.createInfo();
         String html = fac.getHtml();
 
