@@ -75,29 +75,30 @@ public class ChebiAccess {
         //    "mass": "18.015",
         //    "monoisotopic_mass": "18.01056"
         //  },
-        String formula = null;
-        String charge = null;
-        String mass = null;
+        String text = "";
+        String formula;
+        String charge;
+        String mass;
 
         JSONObject obj = JSON.parseObject(json);
         if (obj != null) {
             try {
                 JSONObject chemical_data = obj.getJSONObject("chemical_data");
-                formula = chemical_data.getString("formula");
-                charge = chemical_data.getString("charge");
-                mass = chemical_data.getString("mass");
+                if (chemical_data != null) {
+                    formula = chemical_data.getString("formula");
+                    charge = chemical_data.getString("charge");
+                    mass = chemical_data.getString("mass");
+                    text += String.format(
+                            TABLE_START +
+                                    TS + "Formula" + TM + "%s" + TE +
+                                    TS + "Charge" + TM + "%s" + TE +
+                                    TS + "Mass" + TM + "%s" + TE +
+                                    TABLE_END,
+                            formula, charge, mass
+                    );
+                }
             } catch (JSONException ignored) {}
         }
-
-        String text = String.format(
-                TABLE_START +
-                        TS + "Formula" + TM + "%s" + TE +
-                        TS + "Charge" + TM + "%s" + TE +
-                        TS + "Mass" + TM + "%s" + TE +
-                        TABLE_END,
-                formula, charge, mass
-        );
-
         // add image
         if (svg != null) {
             text += String.format(

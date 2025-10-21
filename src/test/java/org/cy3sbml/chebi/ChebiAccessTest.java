@@ -16,7 +16,23 @@ public class ChebiAccessTest {
         String html = ChebiAccess.getChebiHTML(accession);
         assertNotNull(html);
         assertTrue(html.contains("CHEBI:15377"));
+
+        assertTrue(html.contains("Formula"));
+        assertTrue(html.contains("Mass"));
+        assertTrue(html.contains("Charge"));
         assertTrue(html.contains("<svg"));
+    }
+
+    @Test
+    public void getChebiHTMLNoImageNoChemicalData() {
+        String accession = "CHEBI:20855";
+        String html = ChebiAccess.getChebiHTML(accession);
+        assertNotNull(html);
+        assertTrue(html.contains("CHEBI:20855"));
+        assertFalse(html.contains("<svg"));
+        assertFalse(html.contains("Mass"));
+        assertFalse(html.contains("Charge"));
+        assertFalse(html.contains("<svg"));
     }
 
 }
