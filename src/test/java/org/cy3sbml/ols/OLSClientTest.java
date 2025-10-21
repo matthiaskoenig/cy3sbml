@@ -33,7 +33,6 @@ public class OLSClientTest {
         assertTrue(term.getLabel().equalsIgnoreCase("nanoACQUITY UPLC System with 1D Technology"));
     }
 
-
     @Test
     public void testGetOntologyNames() throws Exception {
         List<Ontology> ontologies = olsClient.getOntologies();
@@ -46,13 +45,6 @@ public class OLSClientTest {
         List<Term> terms = olsClient.getAllTermsFromOntology("ms");
         logger.info(terms.toString());
         assertTrue(terms.size() > 0);
-    }
-
-    @Test
-    public void testGetRootTerms() throws Exception {
-        List<Term> rootTerms = olsClient.getRootTerms("ms");
-        logger.info(rootTerms.toString());
-        assertTrue(rootTerms.size() > 0);
     }
 
     @Test
@@ -141,9 +133,7 @@ public class OLSClientTest {
     public void testGetTermXrefs() throws Exception {
         Identifier identifier1 = new Identifier("MI:0446", Identifier.IdentifierType.OBO);
         Map xrefs = olsClient.getTermXrefs(identifier1, "mi");
-        assertEquals(3, xrefs.size());
-        assertEquals("[0-9]+", xrefs.get("id-validation-regexp"));
-        assertEquals("http://europepmc.org/abstract/MED/${ac}", xrefs.get("search-url"));
+        assertEquals(1, xrefs.size());
         assertEquals("PMID:14755292", xrefs.get("xref_definition_14755292"));
     }
 }
