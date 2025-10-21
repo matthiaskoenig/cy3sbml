@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
+import org.cy3sbml.chebi.ChebiCache;
 import org.identifiers.registry.RegistryUtilities;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
@@ -31,6 +32,7 @@ import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
 import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.chebi.ChebiCache;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.cy3sbml.util.SBMLUtil;
@@ -635,18 +637,16 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getPrefix();
 
         if (namespace.equals("uniprot")) {
-
             html += UniprotAccess.uniprotHTML(identifier);
         } else if (namespace.equals("chebi")) {
-            html += chebiHTML(identifier);
+            html += ChebiCache.getChebiHTML(identifier);
         }
 
         return html;
     }
 
     /**
-     * Creates additional chebi information for the entry.
-     * Identifier is of form "CHEBI:28061"
+     * Creates compact identifier."
      */
     public static String getCompactId(String[] tokens){
 
@@ -663,46 +663,6 @@ public class SBaseHTMLFactory {
         identifier = identifier.toUpperCase();
         return identifier;
     }
-
-    private static String chebiHTML(String identifier) {
-        // Image
-        String text = "";
-        String[] tokens = identifier.split(":");
-        String imageSource = String.format(
-                "https://www.ebi.ac.uk/chebi/displayImage.do;?defaultImage=true&imageIndex=0&chebiId=%s&dimensions=200",
-                tokens[1]);
-        String imageLink = String.format(
-                "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:%s",
-                tokens[1]);
-
-        // Resolve additional webservice information
-        // FIXME: this is not working in OSGI bundle
-        /*
-        Entity entity = ChebiAccess.getEntityByAccession(identifier);
-        String info = "";
-        if (entity != null){
-            String formula = "";
-            List<DataItem> items = entity.getFormulae();
-            if (items != null && items.size() > 0){
-                formula = items.get(0).getData();
-            }
-            info = String.format(
-                    TABLE_START +
-                    TS + "Formula" + TM + "%s" + TE +
-                    TS + "Charge" + TM + "%s" + TE +
-                    TS + "Mass" + TM + "%s" + TE +
-                    TABLE_END,
-                    formula, entity.getCharge(), entity.getMass());
-        }
-        */
-
-        text += String.format(
-                //"<a href=\"http://www.ebi.ac.uk/chebi/init.do\"><img src=\"./images/chebi_logo.png\" title=\"Information from ChEBI\"/></a>" +
-                "<a href=\"%s\"><img src=\"%s\" /></a><br />\n",
-                imageLink, imageSource);
-        return text;
-    }
-
 
     /**
      * Create non-RDF annotation XML.

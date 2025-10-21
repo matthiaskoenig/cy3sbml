@@ -1,7 +1,6 @@
 package org.cy3sbml.uniprot;
 
 import org.cy3sbml.gui.GUIConstants;
-import org.cy3sbml.gui.SBaseHTMLFactory;
 import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
 import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
 import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
@@ -24,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
 import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
@@ -39,7 +37,7 @@ public class UniprotAccess {
      * Retrieve UniProt Entry by accession id.
      *
      * @param accession UniProt accession id, e.g. "P10415"
-     * @return
+     * @return uniprot entry
      */
     public static UniProtEntry getUniProtEntry(String accession) {
         UniProtEntry entry = null;
@@ -51,15 +49,15 @@ public class UniprotAccess {
 
             if (entry == null) {
                 // is secondary accession, get first result
-                logger.debug("Querying any accession: " + accession);
+                logger.debug("Querying any accession: {}", accession);
                 Query query = UniProtQueryBuilder.anyAccession(accession);
                 QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
                 entry = result.next();
             }
             if (entry == null) {
-                logger.warn("UniProt Entry " + accession + " could not be retrieved");
+                logger.warn("UniProt Entry {} could not be retrieved", accession);
             } else {
-                logger.debug("Retrieved UniProtEntry " + accession);
+                logger.debug("Retrieved UniProtEntry {}", accession);
             }
         } catch (Exception e) {
             logger.error("Problems retrieving uniprot entry.", e);

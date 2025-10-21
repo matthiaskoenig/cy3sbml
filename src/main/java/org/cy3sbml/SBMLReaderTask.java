@@ -1944,10 +1944,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             AttributeUtil.set(network, n, keyString, valueString, String.class);
         }
         // COBRA attributes (only for fbc models)
-        FBCModelPlugin fbcModel = (FBCModelPlugin) sbase.getModel().getExtension(FBCConstants.namespaceURI);
-        if (fbcModel != null) {
-            if ((sbase instanceof Reaction) || (sbase instanceof Species) || (sbase instanceof GeneProduct)) {
-                props.putAll(parseCobraNotes(sbase));
+        Model model = sbase.getModel();
+        if (model  != null) {
+            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+            if (fbcModel != null) {
+                if ((sbase instanceof Reaction) || (sbase instanceof Species) || (sbase instanceof GeneProduct)) {
+                    props.putAll(parseCobraNotes(sbase));
+                }
             }
         }
 
