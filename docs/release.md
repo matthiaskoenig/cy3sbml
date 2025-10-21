@@ -6,8 +6,8 @@
 - make new github release, create new tag, add release notes, attach `./target/cy3sbml-0.*.*.jar`
 - upload the app to the app store (https://apps.cytoscape.org/apps/cy3sbml), update markdown with readme, upload jar, update release notes
 - increase version in pom.xml
-- update symlink: 
+- update symlink:
+    ```bash
+    ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.5.1.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
+    ```
 - create empty release notes for next version
-```bash
-ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.5.0.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
-```
