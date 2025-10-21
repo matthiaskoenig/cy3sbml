@@ -1,9 +1,9 @@
 package org.cy3sbml;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.filter.SBaseFilter;
 import org.cytoscape.group.CyGroup;
@@ -36,7 +36,6 @@ import org.cytoscape.work.swing.TunableUIHelper;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.*;
 import org.sbml.jsbml.ext.groups.*;
-import org.sbml.jsbml.util.CobraUtil;
 import org.sbml.jsbml.xml.XMLNode;
 // SBML QUAL
 import org.sbml.jsbml.ext.qual.FunctionTerm;
@@ -1877,6 +1876,46 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         }
     }
 
+    /**
+     * Parsing of COBRA properties
+     * @param sbase
+     * @return
+     */
+    private static Properties parseCobraNotes(SBase sbase) {
+        Properties props = new Properties();
+        if (sbase.isSetNotes()) {
+            XMLNode notes = sbase.getNotes();
+            XMLNode parent = notes;
+            XMLNode body = notes.getChildElement("body", (String)null);
+            if (body == null) {
+                body = notes.getChildElement("p", (String)null);
+            }
+            if (body == null) {
+                body = notes.getChildElement("html", (String)null);
+            }
+            if (body != null) {
+                parent = body;
+            }
+            for(XMLNode pNode : parent.getChildElements("p", (String)null)) {
+                if (pNode.getChildCount() > 0) {
+                    String content = pNode.getChild(0).getCharacters();
+                    int colonCount = StringUtils.countMatches(content, ":");
+                    if (colonCount == 1){
+                        int firstColonIndex = content.indexOf(":");
+                        String key = content.substring(0, firstColonIndex).trim();
+                        String value = content.substring(firstColonIndex + 1).trim();
+                        // no whitespaces in key
+                        if (!key.contains(" ")){
+                            props.setProperty(key, value);
+                        }
+                    }
+                }
+            }
+        }
+
+        return props;
+    }
+
 
     /**
      * Sets metaId and SBOTerm.
@@ -1904,11 +1943,14 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             String valueString = props.getProperty((String) key);
             AttributeUtil.set(network, n, keyString, valueString, String.class);
         }
-        // COBRA attributes
-        if ((sbase instanceof Reaction) || (sbase instanceof Species)) {
-            Properties cobraProps = CobraUtil.parseCobraNotes(sbase);
-            props.putAll(cobraProps);
+        // COBRA attributes (only for fbc models)
+        FBCModelPlugin fbcModel = (FBCModelPlugin) sbase.getModel().getExtension(FBCConstants.namespaceURI);
+        if (fbcModel != null) {
+            if ((sbase instanceof Reaction) || (sbase instanceof Species) || (sbase instanceof GeneProduct)) {
+                props.putAll(parseCobraNotes(sbase));
+            }
         }
+
         // create attributes for properties
         for (Object key : props.keySet()) {
             String keyString = key.toString();
