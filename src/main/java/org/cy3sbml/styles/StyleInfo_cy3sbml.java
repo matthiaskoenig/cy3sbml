@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Definition of mappings for style.
- *
+ * <p>
  * Uses a template file and than sets the specific mappings in the file.
  * TODO: use colorbrewer for colors
  */
@@ -17,14 +17,16 @@ public class StyleInfo_cy3sbml extends StyleInfo {
     public static final String NAME = "cy3sbml";
     public static final String TEMPLATE = "/styles/template_cy3sbml.xml";
 
-    public StyleInfo_cy3sbml(){
+    public StyleInfo_cy3sbml() {
         super(NAME, TEMPLATE);
         setMappings(createMappings());
     }
 
-    /** Create the mappings for the given style. */
+    /**
+     * Create the mappings for the given style.
+     */
     @Override
-    public List<Mapping> createMappings(){
+    public List<Mapping> createMappings() {
         List<Mapping> mappings = super.createMappings();
 
         ////////////////////////////////

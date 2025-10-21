@@ -1,14 +1,16 @@
 package org.cy3sbml.mapping;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+
 import org.sbml.jsbml.SBMLDocument;
 
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Testing Network2SBMLMapper.
@@ -20,13 +22,13 @@ public class Network2SBMLMapperTest {
     private static final One2ManyMapping<String, Long> MAPPING = new One2ManyMapping<>();
     private static final SBMLDocument DOC = new SBMLDocument();
 
-    @Before
-    public void setUp(){
+    @BeforeEach
+    public void setUp() {
         mapper = new Network2SBMLMapper();
     }
 
-    @After
-    public void tearDown(){
+    @AfterEach
+    public void tearDown() {
         mapper = null;
     }
 

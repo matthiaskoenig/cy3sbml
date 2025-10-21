@@ -24,13 +24,13 @@ import java.util.Map;
  * Factory for creating visual styles depending on the current
  * SBML attributes and values.
  * This allows simple update of the styles with changed attributes.
- *
+ * <p>
  * A template engine is used to fill in the styles with the given
  * information.
- *
+ * <p>
  * Template only defines the default values.
  * The additional mappings are added.
- *
+ * <p>
  * To change the styles change the style information in the StyleInfo classes.
  */
 public class StyleFactory {
@@ -39,13 +39,12 @@ public class StyleFactory {
     /**
      * Creates VisualStyle from StyleInfo
      */
-    public static void createStyle(StyleInfo info, File file){
+    public static void createStyle(StyleInfo info, File file) {
 
         // read template
         String template = info.getTemplate();
         String name = info.getName();
-        System.out.println(String.format("Create style: <%s> with template <%s>",
-                name, template));
+
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
         try {
@@ -57,38 +56,38 @@ public class StyleFactory {
             // - set name
             NodeList nList = doc.getElementsByTagName("visualStyle");
             Node n = nList.item(0);
-            if (n.getNodeType() == Node.ELEMENT_NODE){
+            if (n.getNodeType() == Node.ELEMENT_NODE) {
                 Element e = (Element) n;
                 e.setAttribute("name", name);
             }
 
             // - add mappings
-            for (Mapping m: info.getMappings()){
+            for (Mapping m : info.getMappings()) {
                 // find the correct visualProperty for the mapping
                 NodeList vpList = doc.getElementsByTagName("visualProperty");
-                for (int k=0; k<vpList.getLength(); k++){
+                for (int k = 0; k < vpList.getLength(); k++) {
                     Node nvp = vpList.item(k);
-                    if (nvp.getNodeType() == Node.ELEMENT_NODE){
+                    if (nvp.getNodeType() == Node.ELEMENT_NODE) {
                         Element evp = (Element) nvp;
                         String vpName = evp.getAttribute("name");
                         // found correct property
                         String propertyName = m.getVisualProperty().toString();
 
-                        if (vpName.equals(m.getVisualProperty().toString())){
+                        if (vpName.equals(m.getVisualProperty().toString())) {
                             // set default
                             evp.setAttribute("default", m.getDefaultValue());
 
                             // set mapping
-                            if (m.getMappingType() == Mapping.MappingType.PASSTHROUGH){
-                                System.out.println(Mapping.MappingType.PASSTHROUGH);
+                            if (m.getMappingType() == Mapping.MappingType.PASSTHROUGH) {
+
                                 // create mapping node
                                 Element eMap = doc.createElement("passthroughMapping");
                                 eMap.setAttribute("attributeType", m.getDataType().toString());
                                 eMap.setAttribute("attributeName", m.getAttributeName());
                                 nvp.appendChild(eMap);
 
-                            }else if (m.getMappingType() == Mapping.MappingType.DISCRETE){
-                                System.out.println(Mapping.MappingType.DISCRETE);
+                            } else if (m.getMappingType() == Mapping.MappingType.DISCRETE) {
+
                                 // create mapping node
                                 Element eMap = doc.createElement("discreteMapping");
                                 eMap.setAttribute("attributeType", m.getDataType().toString());
@@ -97,7 +96,7 @@ public class StyleFactory {
 
                                 // create mapping entries
                                 Map<String, String> map = ((MappingDiscrete) m).getMap();
-                                for (String attributeValue: map.keySet()){
+                                for (String attributeValue : map.keySet()) {
                                     String value = map.get(attributeValue);
                                     Element eEntry = doc.createElement("discreteMappingEntry");
                                     eEntry.setAttribute("attributeValue", attributeValue);
@@ -106,12 +105,12 @@ public class StyleFactory {
                                     eMap.appendChild(eEntry);
                                 }
 
-                            }else if (m.getMappingType() == Mapping.MappingType.CONTINOUS){
+                            } else if (m.getMappingType() == Mapping.MappingType.CONTINOUS) {
                                 // TODO: implement
                                 System.out.println("Continous mapping not supported.");
                             }
 
-                            System.out.println("visualProperty set: " + vpName);
+
                         } else {
                             continue;
                         }
@@ -123,7 +122,7 @@ public class StyleFactory {
             System.out.println(file.getAbsolutePath());
             XMLUtil.writeNodeToTidyFile(doc, file);
 
-        }catch (ParserConfigurationException | IOException | SAXException e){
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             logger.error("Style could not be created.", e);
             e.printStackTrace();
         }
@@ -134,18 +133,18 @@ public class StyleFactory {
     /**
      * Create all styles.
      * This creates/updates the styles based on the current settings in SBML.java.
-     *
+     * <p>
      * For the installation
      *
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
 
 
         List<StyleInfo> styleInfos = new LinkedList<>();
         styleInfos.add(new StyleInfo_cy3sbml());  // cy3sbml
         styleInfos.add(new StyleInfo_cy3sbmlDark());  // cy3sbml-dark
-        for (StyleInfo info: styleInfos){
+        for (StyleInfo info : styleInfos) {
             File file = new File(targetDir, info.getName() + ".xml");
             StyleFactory.createStyle(info, file);
         }

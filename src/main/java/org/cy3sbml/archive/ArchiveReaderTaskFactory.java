@@ -64,7 +64,7 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
                     networkViewFactory,
                     visualMappingManager,
                     layoutAlgorithmManager);
-        } catch (Exception e){
+        } catch (Exception e) {
             task = null;
             logger.error("Error copying stream", e);
         }

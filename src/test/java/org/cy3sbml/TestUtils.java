@@ -1,11 +1,7 @@
 package org.cy3sbml;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,7 +12,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.util.IOUtil;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -26,25 +21,25 @@ import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import org.sbml.jsbml.JSBML;
-import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Helper functions to test SBML models.
  */
 public class TestUtils {
-    public static String BIOMODELS_RESOURCE_PATH = "/models/BioModels-r31_curated";
-    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models-v1.5";
-    public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite-3.3.0";
+    public static String BIOMODELS_RESOURCE_PATH = "/models/biomodels";
+    public static String BIGGMODELS_RESOURCE_PATH = "/models/bigg_models";
+    public static String SBMLTESTCASES_RESOURCE_PATH = "/models/sbml-test-suite";
     public static String UNITTESTS_RESOURCE_PATH = "/models/unittests";
 
     private static final Logger logger = LoggerFactory.getLogger(TestUtils.class);
@@ -79,21 +74,23 @@ public class TestUtils {
      * Resources in the skip set are skipped.
      * If a filter string is given only the resources matching the filter are returned.
      */
-    public static Iterable<Object[]> findResources(String resourcePath, String extension, String filter, HashSet<String> skip) {
+    public static Iterable<Object[]> findResources(String where, String resourcePath, String extension, String filter, HashSet<String> skip) {
 
         File currentDir = new File(System.getProperty("user.dir"));
         // String rootPath = new File(currentDir, resourcePath).getPath();
-        String rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
+        String rootPath;
+        if (where.equals("main")){
+            rootPath = currentDir.getAbsolutePath() + "/src/main/resources" + resourcePath;
 
-        System.out.println("curDir:" + currentDir);
-        System.out.println("rootPath:" + rootPath);
-
+        }else {
+            rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
+        }
         // Get SBML files for passed tests
         LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
         Collections.sort(sbmlPaths);
 
         int N = sbmlPaths.size();
-        System.out.println("Number of resources: " + N);
+
         Object[][] resources = new String[N][1];
         for (int k = 0; k < N; k++) {
             String path = sbmlPaths.get(k);
@@ -218,7 +215,7 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
@@ -226,33 +223,38 @@ public class TestUtils {
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
-        String[] tokens = resource.split("/");
-        String fileName = tokens[2];
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        String[] tokens = resource.split("/\\\\");
+        String fileName = tokens[tokens.length - 1];
+        InputStream instream;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            instream = new FileInputStream(resource);
+        } else {
+            instream = TestUtils.class.getResourceAsStream(resource);
+        }
 
-        CyNetwork[] networks;
+        CyNetwork[] networks = new CyNetwork[0];
         try {
             // Reader can be tested without service adapter
             // calls networkFactory.createNetwork()
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-
+            for (CyNetwork network : networks) {
+                network.dispose();
+            }
             readerTask.run(taskMonitor);
             networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());
 
-            for (CyNetwork network : networks) {
-                network.dispose();
+            try {
+                instream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         } catch (Throwable t) {
             networks = null;
             t.printStackTrace();
         }
-        try {
-            instream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         // Display memory usage
         logMemory(fileName);
@@ -276,7 +278,12 @@ public class TestUtils {
         logger.info(String.format("%s : %s", testType, resource));
 
         // read SBML
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        InputStream instream;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            instream = new FileInputStream(resource);
+        } else {
+            instream = TestUtils.class.getResourceAsStream(resource);
+        }
         String xml = IOUtil.inputStream2String(instream);
         SBMLDocument doc = JSBML.readSBMLFromString(xml);
         assertNotNull(doc);

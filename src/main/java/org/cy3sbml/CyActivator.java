@@ -2,18 +2,14 @@ package org.cy3sbml;
 
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
-import org.cy3sbml.biomodelrest.BiomodelsRestAction;
-import org.cy3sbml.biomodelrest.BiomodelsSBMLReader;
 import org.cy3sbml.styles.StyleManager;
-import org.cy3sbml.validator.ValidationFrame;
+
 import org.cytoscape.group.CyGroupFactory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -58,8 +54,6 @@ import org.cy3sbml.miriam.RegistryUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
 
 /**
  * Entry point to cy3sbml.
@@ -212,11 +206,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
             // GUI frames
-            ValidationFrame validationFrame = ValidationFrame.getInstance(adapter);
-            registerService(bc, validationFrame, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, validationFrame, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 
 
             // init actions [100 - 120]
@@ -231,9 +220,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, importAction, CyAction.class, new Properties());
 
             SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
-            ValidationAction validationAction = new ValidationAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
-            registerService(bc, validationAction, CyAction.class, new Properties());
-            registerService(bc, validationAction, SetCurrentNetworkListener.class, new Properties());
 
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());
@@ -246,10 +232,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
             // init actions
-            BiomodelsSBMLReader sbmlReader = new BiomodelsSBMLReader(loadNetworkFileTaskFactory, taskManager);
-            // FIXME: finish implementation
-            // BiomodelsRestAction biomodelsRestAction = new BiomodelsRestAction(cySwingApplication, openBrowser, sbmlReader);
-            // registerService(bc, biomodelsRestAction, CyAction.class, new Properties());
+
 
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());
@@ -297,13 +280,10 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
 
-            // Update and load registry
+            //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
-                    File miriamFile = new File(appDirectory + File.separator + RegistryUtil.FILENAME_MIRIAM);
-
-                    RegistryUtil.updateMiriamXMLWithNewer(miriamFile);
-                    RegistryUtil.loadRegistry(miriamFile);
+                    RegistryUtil.getMiriamContent();
                 }
             });
             miriamThread.run();
@@ -319,5 +299,6 @@ public class CyActivator extends AbstractCyActivator {
             e.printStackTrace();
         }
     }
+
 }
 

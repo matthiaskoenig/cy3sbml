@@ -1,6 +1,5 @@
 package org.cy3sbml.uniprot;
 
-import org.junit.Test;
 
 import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 import uk.ac.ebi.uniprot.dataservice.client.Client;
@@ -8,11 +7,13 @@ import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
 import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
 import uk.ac.ebi.uniprot.dataservice.query.Query;
+
 import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
 
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test access to UniProt via JAPI.
@@ -20,23 +21,21 @@ import static org.junit.Assert.*;
 public class UniprotAccessTest {
 
     @Test
-    public void getUniProtEntry(){
-        String accession = "P10415";
+    public void getUniProtEntry() {
+        String accession = "P04483";
         UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
         assertNotNull(entry);
-        assertEquals("BCL2_HUMAN", entry.getUniProtId().toString());
+        assertEquals("TETR2_ECOLX", entry.getUniProtId().toString());
     }
 
     @Test
-    public void uniprotAccess(){
+    public void uniprotAccess() {
         ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
         UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
         try {
-            // start the service
-            uniProtService.start();
 
             // the accession we're interested in
-            String accession = "P10415";
+            String accession = "P04483";
 
             // use the service directly to fetch the UniProtEntry
             accessSingleFullUniProtEntry(uniProtService, accession);
@@ -74,10 +73,6 @@ public class UniprotAccessTest {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // always remember to stop the service
-            uniProtService.stop();
-            System.out.println("service now stopped.");
         }
     }
 }

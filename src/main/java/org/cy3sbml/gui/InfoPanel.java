@@ -4,7 +4,9 @@ import java.util.Set;
 
 
 public interface InfoPanel {
-    /** Set text. */
+    /**
+     * Set text.
+     */
     void setText(String text);
 
     /**
@@ -24,5 +26,6 @@ public interface InfoPanel {
      * Display information for set of nodes.
      */
     void showSBaseInfo(Set<Object> objSet);
+
 
 }

@@ -1,9 +1,10 @@
 package org.cy3sbml;
 
 import org.cytoscape.property.CyProperty;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testing the property reader.
@@ -14,7 +15,7 @@ public class PropsReaderTest {
 
 
     @Test
-    public void test(){
+    public void test() {
         PropsReader reader = new PropsReader(NAME, FILENAME);
         assertNotNull(reader);
         assertEquals(reader.getName(), NAME);

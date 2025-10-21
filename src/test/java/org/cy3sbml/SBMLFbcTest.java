@@ -4,10 +4,11 @@ import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * Testing fbc models.
@@ -16,14 +17,16 @@ public class SBMLFbcTest {
     public static final String TEST_MODEL_FBC = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "fbc_01.xml";
 
 
-    /** Test fbc species attributes. */
+    /**
+     * Test fbc species attributes.
+     */
     @Test
     public void testFbcSpecies() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_FBC);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
-        assertEquals(358, network.getNodeCount());
-        assertEquals(588, network.getEdgeCount());
+        assertEquals(376, network.getNodeCount());
+        assertEquals(864, network.getEdgeCount());
 
         // Test species node
         // <species boundaryCondition="false" constant="false" metaid="M_13dpg_c" hasOnlySubstanceUnits="false" sboTerm="SBO:0000247" compartment="c" name="3-Phospho-D-glyceroyl phosphate"

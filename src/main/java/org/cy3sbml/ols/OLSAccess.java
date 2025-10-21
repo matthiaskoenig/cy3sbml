@@ -1,9 +1,11 @@
 package org.cy3sbml.ols;
 
 
-import org.identifiers.registry.data.PhysicalLocation;
+import org.cy3sbml.IdentifiersConstants;
+import org.cy3sbml.miriam.Resource;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
+import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfig;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
@@ -21,16 +23,15 @@ import org.slf4j.LoggerFactory;
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
-    public final static String OLS_BASE_URL = "www.ebi.ac.uk/ols/ontologies/";
-    private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());
+    public static OLSClient olsClient = new OLSClient(new OLSWsConfig());
 
     /**
      * Gets the OLS term for a given identifier.
      * Example: "GO:0042752"
-     *
+     * <p>
      * Returns NULL if not an ontology term, or no term.
      */
-    public static Term getTerm(String identifier){
+    public static Term getTerm(String identifier) {
         try {
             String[] tokens = identifier.split(":");
             if (tokens.length == 2) {
@@ -54,26 +55,28 @@ public class OLSAccess {
         } catch (HttpClientErrorException e) {
             logger.warn(String.format("OLS term not found <%s>", identifier));
             return null;
-        } catch (Throwable e){
+        } catch (Throwable e) {
             logger.error(String.format("Error retrieving OLS term for: %s", identifier), e);
             e.printStackTrace();
             return null;
         }
     }
 
-    /** Create string representation of term. */
-    public static String termToString(Term term){
-        if (term == null){
+    /**
+     * Create string representation of term.
+     */
+    public static String termToString(Term term) {
+        if (term == null) {
             return term.toString();
         }
         return String.format(
-            "iri:           %s\n" +
-            "label:         %s\n" +
-            "description:   %s\n" +
-            "shortForm:     %s\n" +
-            "oboId:         %s\n" +
-            "ontologyName:  %s\n" +
-            "oboDefinitionCitations:  %s\n",
+                "iri:           %s\n" +
+                        "label:         %s\n" +
+                        "description:   %s\n" +
+                        "shortForm:     %s\n" +
+                        "oboId:         %s\n" +
+                        "ontologyName:  %s\n" +
+                        "oboDefinitionCitations:  %s\n",
                 term.getIri(),
                 term.getLabel(),
                 term.getDescription(),
@@ -87,17 +90,17 @@ public class OLSAccess {
     /**
      * Is a given location a OLS location, i.e. an ontology in OLS.
      */
-    public static boolean isPhysicalLocationOLS(PhysicalLocation location){
-        return location.getUrlRoot().contains(OLS_BASE_URL);
+    public static boolean isPhysicalLocationOLS(Resource resource) {
+        return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Exists on OLS
-        String resourceURI = "http://identifiers.org/go/GO:0042752";
+        String resourceURI = "https://identifiers.org/go/GO:0042752";
         String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
 
         Term term = OLSAccess.getTerm(identifier);
-        System.out.println(OLSAccess.termToString(term));
+
     }
 
 }

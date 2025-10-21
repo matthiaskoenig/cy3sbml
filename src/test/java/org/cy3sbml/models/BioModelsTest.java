@@ -1,56 +1,50 @@
 package org.cy3sbml.models;
 
 import java.util.HashSet;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 /**
  * Test cases for biomodels.
- * 
- * 31th BioModels Release, 2017-06-26
- * ftp://ftp.ebi.ac.uk/pub/databases/biomodels/releases/2017-06-26/
- * https://www.ebi.ac.uk/biomodels-main/static-pages.do?page=release_20170626
- * Retrieved on 2017-10-03, 640 curated models
+ * <p>
+ * Retrieved on 2024-01-16, 1072 curated models
  */
-
-@RunWith(value = Parameterized.class)
 public class BioModelsTest {
-	private String resource;
 
-	@Mock
-	TaskMonitor taskMonitor;
+    @Mock
+    TaskMonitor taskMonitor;
 
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
-	public BioModelsTest(String resource) {
-		this.resource = resource;
-	}
-	
-	@Parameters(name= "{index}: {0}")
-	public static Iterable<Object[]> data(){
-		HashSet<String> skip = null;
-		String filter = null;
-		return TestUtils.findResources(TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip);
-	}
-	
-	@Test
-	public void testSingle() throws Exception {
-		TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
-	}
+    static Stream<String> biomodelsResources() {
+        HashSet<String> skip = null;
+        String filter = null;
+        return StreamSupport.stream(
+                        TestUtils.findResources("test",TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+                        false)
+                .map(arr -> arr[0].toString());
+    }
 
-    @Test
-    public void testSerialization() throws Exception {
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("biomodelsResources")
+    void testSingle(String resource) throws Exception {
+        TestUtils.testNetwork(taskMonitor, getClass().getName(), resource);
+    }
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("biomodelsResources")
+    void testSerialization(String resource) throws Exception {
         TestUtils.testNetworkSerialization(getClass().getName(), resource);
     }
 }

@@ -33,7 +33,7 @@ We aim to create a powerful visualization tool for computational models and simu
   - Supports all versions of SBML.
   - Includes support for `qual`, `comp`, and `fbc` SBML extensions.
 - **Robust Testing**:
-  - Validated using SBML models from the [SBML Test Suite](https://github.com/sbmlteam/sbml-test-suite) (3.2.0), [BioModels](https://www.ebi.ac.uk/biomodels/) (Release 30), and [BiGG Models](http://bigg.ucsd.edu) (v1.3).
+  - Validated using SBML models from the [SBML Test Suite](https://github.com/sbmlteam/sbml-test-suite) (3.5.0), [BioModels](https://www.ebi.ac.uk/biomodels/) (2024-01-16), and [BiGG Models](http://bigg.ucsd.edu) (v1.5).
 
 ## Screenshots
 ![cy3sbml screenshot](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshot-cy3sbml-0.1.7_01.png)
@@ -87,6 +87,7 @@ To uninstall or disable `cy3sbml`:
 4. Click **Uninstall** to remove the app or **Disable** to deactivate it without uninstalling.
 
 # Documentation
-Documentation is available in the [`./docs/`](./docs/) folder. Information on how to contribute can be found here [`contributing.md`](./docs/contributing.md), information for developers can be found here: [`develo.md`](./docs/develop.md)
+Documentation is available in the [`./docs/`](./docs/) folder. 
+Information on how to contribute can be found here [`contributing.md`](./docs/contributing.md), information for developers can be found here: [`develop.md`](./docs/develop.md)
 
 &copy; 2012-2025 Matthias König, [Systems Medicine of the Liver](https://livermetabolism.com)

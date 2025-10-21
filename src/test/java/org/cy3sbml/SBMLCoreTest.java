@@ -1,12 +1,12 @@
 package org.cy3sbml;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
 
 import org.cy3sbml.util.NetworkUtil;
-import org.junit.Test;
+
 import org.cytoscape.model.*;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
@@ -17,18 +17,22 @@ import org.cy3sbml.util.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Test reading of SBML core model.
  */
 public class SBMLCoreTest {
     private static final Logger logger = LoggerFactory.getLogger(SBMLCoreTest.class);
 
-	public static final String TEST_MODEL_CORE_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
+    public static final String TEST_MODEL_CORE_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
     public static final String TEST_MODEL_CORE_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "galactose.xml";
     public static final String TEST_MODEL_CORE_03 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "yeast_glycolysis.xml";
 
-    /** Load the given model resource. */
-    private void loadModel(String resource){
+    /**
+     * Load the given model resource.
+     */
+    private void loadModel(String resource) {
         InputStream instream = getClass().getResourceAsStream(resource);
         try {
             String xml = IOUtil.inputStream2String(instream);
@@ -41,50 +45,56 @@ public class SBMLCoreTest {
         }
     }
 
-	/** Test if model can be read with JSBML. */
-	@Test 
-	public void testModelLoading_01(){
-	    loadModel(TEST_MODEL_CORE_01);
-	}
+    /**
+     * Test if model can be read with JSBML.
+     */
+    @Test
+    public void testModelLoading_01() {
+        loadModel(TEST_MODEL_CORE_01);
+    }
 
-    /** Test if model can be read with JSBML.
+    /**
+     * Test if model can be read with JSBML.
      * Tests for InitialAssignments and Rules.
      */
     @Test
-    public void testModelLoading_02(){
+    public void testModelLoading_02() {
         loadModel(TEST_MODEL_CORE_02);
     }
 
-    /** Test if model can be read with JSBML.
+    /**
+     * Test if model can be read with JSBML.
      * Tests for LocalParameters.
      */
     @Test
-    public void testModelLoading_03(){
+    public void testModelLoading_03() {
         loadModel(TEST_MODEL_CORE_03);
     }
 
-	/** Test that networks are created by reader. */
-	@Test
-	public void testCoreNetwork_01() throws Exception {
-		CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
-		assertNotNull(networks);
-		assertTrue(networks.length >= 1);
+    /**
+     * Test that networks are created by reader.
+     */
+    @Test
+    public void testCoreNetwork_01() throws Exception {
+        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        assertNotNull(networks);
+        assertTrue(networks.length >= 1);
 
         CyNetwork baseNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(baseNetwork);
-        assertEquals(29, baseNetwork.getNodeCount());
-        assertEquals(34, baseNetwork.getEdgeCount());
+        assertEquals(91, baseNetwork.getNodeCount());
+        assertEquals(165, baseNetwork.getEdgeCount());
 
         CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
-		assertEquals(82, kineticNetwork.getNodeCount());
-		assertEquals(148, kineticNetwork.getEdgeCount());
+        assertEquals(82, kineticNetwork.getNodeCount());
+        assertEquals(148, kineticNetwork.getEdgeCount());
 
         CyNetwork allNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertNotNull(allNetwork);
         assertEquals(91, allNetwork.getNodeCount());
         assertEquals(165, allNetwork.getEdgeCount());
-	}
+    }
 
     @Test
     public void testCoreNetwork_02() throws Exception {
@@ -100,7 +110,9 @@ public class SBMLCoreTest {
         assertTrue(networks.length >= 1);
     }
 
-    /** Test core edges. */
+    /**
+     * Test core edges.
+     */
     @Test
     public void testCoreEdges() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
@@ -127,7 +139,7 @@ public class SBMLCoreTest {
         CyEdge e2 = edgeList.get(0);
         CyNode n1 = e1.getSource();
         String n1Id = network.getRow(n1).get(SBML.ATTR_ID, String.class);
-        if (n1Id.equals("React2")){
+        if (n1Id.equals("React2")) {
             assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
             assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
         } else {
@@ -141,7 +153,9 @@ public class SBMLCoreTest {
         assertEquals(3, edgeList.size());
     }
 
-    /** Test species attributes. */
+    /**
+     * Test species attributes.
+     */
     @Test
     public void testCoreSpecies() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
@@ -161,7 +175,9 @@ public class SBMLCoreTest {
         assertEquals("comp1", attributes.get(SBML.ATTR_COMPARTMENT, String.class));
     }
 
-    /** Test compartment attributes. */
+    /**
+     * Test compartment attributes.
+     */
     @Test
     public void testCoreCompartment() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
@@ -201,7 +217,9 @@ public class SBMLCoreTest {
         assertEquals("SBO:0000035", attributes.get(SBML.ATTR_SBOTERM, String.class));
     }
 
-    /** Test reaction attributes. */
+    /**
+     * Test reaction attributes.
+     */
     @Test
     public void testCoreReaction() throws Exception {
         CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
@@ -239,7 +257,7 @@ public class SBMLCoreTest {
     /**
      * Test if name attribute is accessible in all subnetworks.
      * This tests the issue:
-     *      https://github.com/matthiaskoenig/cy3sbml/issues/115
+     * https://github.com/matthiaskoenig/cy3sbml/issues/115
      */
     @Test
     public void testCoreNameSharing() throws Exception {

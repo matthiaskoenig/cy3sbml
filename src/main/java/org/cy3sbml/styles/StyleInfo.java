@@ -15,20 +15,28 @@ public class StyleInfo {
     private String template;
     private List<Mapping> mappings;
 
-    /** Constructor. */
-    public StyleInfo(String name, String template){
+    /**
+     * Constructor.
+     */
+    public StyleInfo(String name, String template) {
         this.name = name;
         this.template = template;
         this.mappings = new LinkedList<>();
     }
 
-    public String getTemplate() { return template; }
+    public String getTemplate() {
+        return template;
+    }
 
-    public List<Mapping> getMappings() { return mappings; }
+    public List<Mapping> getMappings() {
+        return mappings;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setMappings(List<Mapping> mappings){
+    public void setMappings(List<Mapping> mappings) {
         this.mappings = mappings;
     }
 
@@ -36,7 +44,7 @@ public class StyleInfo {
      * Creates the mappings for all styles.
      * Style specific mappings are defined in the subclasses.
      */
-    public List<Mapping> createMappings(){
+    public List<Mapping> createMappings() {
         List<Mapping> mappings = new LinkedList<>();
 
         ////////////////////////////////

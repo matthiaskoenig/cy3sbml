@@ -70,7 +70,7 @@ java -version
 #### **1. Installing JavaFX**
 On Linux, install JavaFX using the package manager:
 ```bash
-sudo apt-get install openjfx
+sudo apt -y install openjfx
 ```
 
 #### **2. Configuring JavaFX in IntelliJ IDEA**
@@ -102,6 +102,15 @@ The latest development branch is `develop`. Switch to it using:
 git checkout develop
 ```
 
+### Setup code formatting hook
+Add the following file `.git/hooks/pre-commit` linking to your idea installation
+```bash
+#!/bin/sh
+CHANGED_JAVA_SRC_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.java$')
+/home/mkoenig/Programs/idea-IU-252.25557.131/bin/format $CHANGED_JAVA_SRC_FILES
+git add $CHANGED_JAVA_SRC_FILES
+```
+
 ### Build with Maven
 
 To build `cy3sbml` without running tests:
@@ -131,7 +140,7 @@ ln -s $CY3SBML/target/cy3sbml-0.*.*.jar $HOME/CytoscapeConfiguration/3/apps/inst
 ```
 e.g. 
 ```bash
-ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.4.1.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
+ln -s /home/mkoenig/git/cy3sbml/target/cy3sbml-0.5.0.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-0.5.0.jar
 ```
 The link has to be updated with increasing versions.
 

@@ -23,73 +23,73 @@ import org.slf4j.LoggerFactory;
  */
 public class SBMLFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(SBMLFileFilter.class);
-	private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
-	private static final int DEFAULT_LINES_TO_CHECK = 20;
+    private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
+    private static final int DEFAULT_LINES_TO_CHECK = 20;
 
 
-	/**
-	 * Constructor.
-	 */
-	public SBMLFileFilter(StreamUtil streamUtil) {
-		super(
-				new String[] { "xml", "sbml", ""},
-				new String[] { "text/xml", "application/rdf+xml", "application/xml", "text/plain", "text/sbml", "text/sbml+xml" },
-				"SBML network reader (cy3sbml)",
-				DataCategory.NETWORK,
-				streamUtil
-		);
-	}
+    /**
+     * Constructor.
+     */
+    public SBMLFileFilter(StreamUtil streamUtil) {
+        super(
+                new String[]{"xml", "sbml", ""},
+                new String[]{"text/xml", "application/rdf+xml", "application/xml", "text/plain", "text/sbml", "text/sbml+xml"},
+                "SBML network reader (cy3sbml)",
+                DataCategory.NETWORK,
+                streamUtil
+        );
+    }
 
-	/**
-	 * Indicates which URI the SBMLFileFilter accepts.
-	 */
-	@Override
-	public boolean accepts(URI uri, DataCategory category) {
-		if (!category.equals(DataCategory.NETWORK)) {
-			return false;
-		}
+    /**
+     * Indicates which URI the SBMLFileFilter accepts.
+     */
+    @Override
+    public boolean accepts(URI uri, DataCategory category) {
+        if (!category.equals(DataCategory.NETWORK)) {
+            return false;
+        }
 
-		try {
-			// check for extension
-			// String ext = FilenameUtils.getExtension(uri.toString());
-			// extensions.contains(ext)
-			return accepts(streamUtil.getInputStream(uri.toURL()), category);
-		} catch (IOException e){
+        try {
+            // check for extension
+            // String ext = FilenameUtils.getExtension(uri.toString());
+            // extensions.contains(ext)
+            return accepts(streamUtil.getInputStream(uri.toURL()), category);
+        } catch (IOException e) {
             logger.error("Error while creating stream from uri", e);
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
     /**
      * Indicates which streams the SBMLFileFilter accepts.
      */
-	@Override
-	public boolean accepts(InputStream stream, DataCategory category) {
-		if (!category.equals(DataCategory.NETWORK)) {
-			return false;
-		}
-		try {
-			return checkHeader(stream);
-		} catch (IOException e) {
-			logger.error("Error while checking header", e);
-			return false;
-		}
-	}
+    @Override
+    public boolean accepts(InputStream stream, DataCategory category) {
+        if (!category.equals(DataCategory.NETWORK)) {
+            return false;
+        }
+        try {
+            return checkHeader(stream);
+        } catch (IOException e) {
+            logger.error("Error while checking header", e);
+            return false;
+        }
+    }
 
-	/**
-	 * Checks if the header contains the SBML namespace definition.
+    /**
+     * Checks if the header contains the SBML namespace definition.
      */
-	private boolean checkHeader(InputStream stream) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		int linesToCheck = DEFAULT_LINES_TO_CHECK;
-		while (linesToCheck > 0) {
-			String line = reader.readLine();
-			if (line != null && line.contains(SBML_XML_NAMESPACE)) {
-				return true;
-			}
-			linesToCheck--;
-		}
-		return false;
-	}
+    private boolean checkHeader(InputStream stream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        int linesToCheck = DEFAULT_LINES_TO_CHECK;
+        while (linesToCheck > 0) {
+            String line = reader.readLine();
+            if (line != null && line.contains(SBML_XML_NAMESPACE)) {
+                return true;
+            }
+            linesToCheck--;
+        }
+        return false;
+    }
 
 }

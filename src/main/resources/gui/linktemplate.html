@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- UNIPROT_LINK -->
+<a href="{BASE_URL}"><img src="./images/logos/uniprot_icon.png" title="UniProt"/></a>&nbsp;&nbsp;
+<a href="{BASE_URL}/{ACCESSION}"><span class="identifier">{ACCESSION}</span></a> ({UNIPROT_ID})<br />
+<!-- /UNIPROT_LINK -->
+
+<!-- FUNCTION_COMMENT -->
+<span class="comment">Function</span> <span class="text-success">{COMMENT_TEXT}</span><br />
+<!-- /FUNCTION_COMMENT -->
+
+<!-- CATALYTIC_ACTIVITY -->
+<span class="comment">Catalytic Activity</span>{REACTION_NAME}<br />
+<!-- /CATALYTIC_ACTIVITY -->
+
+<!-- PATHWAY -->
+<span class="comment">Pathway</span>{PATHWAY_NAME}<br />
+<!-- /PATHWAY -->
+
+<!-- HTML_START -->
+<!DOCTYPE html>
+<head>
+    <base href="%s" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>%s</title>
+    <link rel="shortcut icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="./css/cy3sbml.css" />
+</head>
+<!-- /HTML_START -->
+
+<!-- HTML_STOP -->
+</div>
+<script type="text/javascript" language="javascript" src="./js/jquery-1.12.3.js"></script>
+<script type="text/javascript" language="javascript" src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="./js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        $('#table').DataTable();
+    } );
+</script>
+</body>
+</html>
+<!-- /HTML_STOP -->
+<!-- WARNING --><span class="fas fa-circle-exclamation fa-lg" title="true" style="color:red"> </span> <!-- /WARNING -->
+<!-- TRUE --><span class="fas fa-circle-check fa-lg" title="true" style="color:green"> </span><!-- /TRUE -->
+<!-- FALSE --><span class="fas fa-circle-xmark fa-lg" title="false" style="color:red"> </span><!-- /FALSE -->
+<!-- NONE --><span class="fas fa-circle fa-lg" title="none" style="color:grey"> </span><!-- /NONE -->
+<!-- INVISIBLE --><span class="fas fa-circle fa-lg icon-invisible" title="none"> </span><!-- /INVISIBLE -->
+
+
+<!-- EXPORT_HTML -->
+<small><a href="{URL}"><span class="fa fa-share-square-o" aria-hidden="true" style="color:black" title="Export HTML information"></span></a></small>&nbsp;&nbsp;
+<!-- /EXPORT_HTML -->
+
+<!-- TABLE_START -->
+<table class="table table-striped table-condensed table-hover">
+    <!-- /TABLE_START -->
+
+    <!-- TABLE_END -->
+</table>
+<!-- /TABLE_END -->
+
+<!-- TABLE_ROW_START  -->
+<tr>
+    <td><b>
+        <!-- /TABLE_ROW_START -->
+
+        <!-- TABLE_ROW_MIDDLE -->
+    </b></td>
+    <td>
+        <!-- /TABLE_ROW_MIDDLE -->
+
+        <!-- TABLE_ROW_END -->
+    <td/>
+</tr>
+<!-- /TABLE_ROW_END -->
+
+
+<!-- HEADER_TEMPLATE -->
+<h2>{exportHtml}{className}</h2>
+<!-- /HEADER_TEMPLATE -->
+
+<!-- NSB_HEADER -->
+<h2>{exportHTML}{className} <small>{nsbId}</small></h2>
+<!-- /NSB_HEADER -->
+
+<!-- EMAIL_LINK -->
+(<a href="mailto:{email}">{email}</a>)
+<!-- /EMAIL_LINK -->
+
+<!-- CREATED_DATE -->
+<span class="math">created: {date}</span><br />
+<!-- /CREATED_DATE -->
+
+<!-- MODIFIED_DATE -->
+<span class="math">modified: {date}</span><br />
+<!-- /MODIFIED_DATE -->
+
+<!-- IDENTIFIER_LINK -->
+<a href="{resourceLink}"><span class="identifier" title="Resource identifier. Click to open primary resource.">{identifier}</span></a>
+<!-- /IDENTIFIER_LINK -->
+
+<!-- UNKNOWN_DATA_COLLECTION -->
+{qualifierHTML}{identifierHTML}<br />
+{ICON_WARNING} <span class="text-danger">Unknown data collection: <a href="{dataCollectionURL}">{dataCollectionID}</a></span><br />
+<!-- /UNKNOWN_DATA_COLLECTION -->
+
+<!-- INVISIBLE_RESOURCE_LINK -->
+{ICON_INVISIBLE} <a href="{resourceURI}"> {resourceURI}</a><br />
+<!-- /INVISIBLE_RESOURCE_LINK -->
+
+<!-- MIRIAM_COLLECTION_LINK -->
+<a href="{dataTypeURL}"><span class="collection" title="MIRIAM data collection. Click to open on MIRIAM registry.">{dataTypeName}</span></a>{identifierHTML}<br/>
+<!-- /MIRIAM_COLLECTION_LINK -->
+
+<!-- IDENTIFIER_PATTERN_MISMATCH -->
+{ICON_WARNING} <span class="text-danger">Identifier &lt;{identifier}&gt; does not match pattern '{pattern}'</span><br />
+<!-- /IDENTIFIER_PATTERN_MISMATCH -->
+
+<!-- CONDITIONAL_LINK -->
+{ICON} <a href="{URL}"> {INFO}</a><br />
+<!-- /CONDITIONAL_LINK -->
+
+<!-- ONTOLOGY_TERM_LINK -->
+<a href="{ontologyURL}"><span class="ontology" title="Ontology">{ontologyName}</span></a> <b>{termLabel}</b> <a href="{purlURL}" class="text-muted">{purlDisplay}</a><br />
+<!-- /ONTOLOGY_TERM_LINK -->
+
+<!-- SYNONYMS_LABEL -->
+<span class="comment">Synonyms</span>
+<!-- /SYNONYMS_LABEL -->
+
+<!-- OBO_SYNONYMS_LABEL -->
+<span class="comment">OBO Synonyms</span>
+<!-- /OBO_SYNONYMS_LABEL -->
+
+<!-- DESCRIPTION_LABEL -->
+<span class="text-success">{DESCRIPTION}</span><br />
+<!-- /DESCRIPTION_LABEL -->
+
+<!-- OLS_TERM_ERROR -->
+{ICON_WARNING} <span class="text-danger">Unknown identifier: Term '{TERM_ID}' could not be retrieved from <a href="{OLS_URL}">OLS</a></span><br />
+<!-- /OLS_TERM_ERROR -->
+</body>
+</html>

@@ -2,10 +2,10 @@ package org.cy3sbml.mapping;
 
 import org.cy3sbml.*;
 import org.cy3sbml.util.SBMLUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.SBMLDocument;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test the different models.

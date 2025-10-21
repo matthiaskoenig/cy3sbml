@@ -6,15 +6,17 @@ import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Testing the SBMLManager.
@@ -27,13 +29,13 @@ public class SBMLManagerTest {
     private static final SBMLDocument DOC = new SBMLDocument();
     private static final One2ManyMapping<String, Long> MAPPING = new One2ManyMapping<>();
 
-    @Before
-    public void setUp(){
+    @BeforeEach
+    public void setUp() {
         manager = SBMLManager.getInstance(null);
     }
 
-    @After
-    public void tearDown(){
+    @AfterEach
+    public void tearDown() {
         manager = null;
     }
 

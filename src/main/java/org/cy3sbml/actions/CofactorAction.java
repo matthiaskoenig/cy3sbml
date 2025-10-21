@@ -61,9 +61,10 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
 
     /**
      * Performs the cofactor action.
+     *
      * @param adapter
      */
-    public static void runCofactorAction(ServiceAdapter adapter){
+    public static void runCofactorAction(ServiceAdapter adapter) {
         // Get the current network via the service adapter
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
         CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
@@ -86,7 +87,7 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
         boolean ready = false;
-        if (network != null){
+        if (network != null) {
             SBMLDocument doc = SBMLManager.getInstance().getSBMLDocument(network);
             if (doc != null) {
                 ready = true;

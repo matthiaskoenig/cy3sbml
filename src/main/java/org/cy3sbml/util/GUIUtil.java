@@ -8,7 +8,7 @@ import java.io.*;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.io.IOUtils;
-import org.cy3sbml.validator.Validator;
+
 import org.cytoscape.work.TaskIterator;
 
 import org.sbml.jsbml.SBMLDocument;
@@ -20,11 +20,12 @@ import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.validator.ValidationFrame;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 
 
 public class GUIUtil {
@@ -33,13 +34,13 @@ public class GUIUtil {
     /**
      * Loads an SBML example file from the given resource.
      * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
-     *
+     * <p>
      * TODO: make this a general function.
      * See also archive loading of xml.
      *
      * @param resource
      */
-    public static void loadExampleFromResource(String resource){
+    public static void loadExampleFromResource(String resource) {
         InputStream instream = GUIUtil.class.getResourceAsStream(resource);
         File tempFile;
         try {
@@ -64,7 +65,7 @@ public class GUIUtil {
      * Open current SBML in browser.
      * Writes a temporary file of the SBML which can be loaded.
      */
-    public static void openCurrentSBMLInBrowser(){
+    public static void openCurrentSBMLInBrowser() {
         SBMLManager sbmlManager = SBMLManager.getInstance();
         SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
 
@@ -86,9 +87,11 @@ public class GUIUtil {
         }
     }
 
-    /** Open url in external webView. */
-    public static void openURLinExternalBrowser(String url){
-        logger.debug("Open in external webView <" + url +">");
+    /**
+     * Open url in external webView.
+     */
+    public static void openURLinExternalBrowser(String url) {
+        logger.debug("Open in external webView <" + url + ">");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 OpenBrowser.openURL(url);
@@ -99,27 +102,18 @@ public class GUIUtil {
     /**
      * Open HTML information in external Browser.
      */
-    public static void openSBaseHTMLInBrowser(){
+    public static void openSBaseHTMLInBrowser() {
         String html = WebViewPanel.getInstance().getHtml();
         // remove export button, exported html cannot be exported
-        html = html.replace(SBaseHTMLFactory.EXPORT_HTML, "");
+        html = html.replace(EXPORT_HTML, "");
         openHTMLInBrowser(html);
     }
+
 
     /**
      * Open validation HTML in external Browser.
      */
-    public static void openValidationHTMLInBrowser(){
-        String html = ValidationFrame.getInstance(null).getHtml();
-        // remove export button, exported html cannot be exported
-        html = html.replace(Validator.EXPORT_HTML, "");
-        openHTMLInBrowser(html);
-    }
-
-    /**
-     * Open validation HTML in external Browser.
-     */
-    public static void openHTMLInBrowser(String html){
+    public static void openHTMLInBrowser(String html) {
         // write temp file
         try {
             File temp = File.createTempFile("cy3sbml", ".html");
@@ -134,8 +128,10 @@ public class GUIUtil {
     }
 
 
-    /** Open a given file in browser. */
-    public static void openFileInBrowser(File temp){
+    /**
+     * Open a given file in browser.
+     */
+    public static void openFileInBrowser(File temp) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 OpenBrowser.openURL("file://" + temp.getAbsolutePath());

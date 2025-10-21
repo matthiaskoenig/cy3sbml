@@ -1,6 +1,7 @@
 package org.cy3sbml.oven;
 
 import java.io.InputStream;
+
 import org.mockito.MockitoAnnotations;
 
 import org.cytoscape.group.CyGroupFactory;
@@ -13,11 +14,11 @@ import org.cy3sbml.SBMLReaderTask;
 
 /**
  * Testing the memory leak which occurs when creating multiple networks.
- *
+ * <p>
  * This is related to
  * https://code.cytoscape.org/redmine/issues/3507#change-12785
  * and should be fixed in Cytoscape 3.5.
- *
+ * <p>
  * No memory increase in the process.
  */
 public class MemoryLeak {
@@ -35,7 +36,7 @@ public class MemoryLeak {
         // read SBML
         InputStream instream = MemoryLeak.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/");
-        String fileName = tokens[tokens.length-1];
+        String fileName = tokens[tokens.length - 1];
 
         // run the reader
         SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
@@ -46,7 +47,7 @@ public class MemoryLeak {
     /**
      * Log the memory usage.
      */
-    private static void logMemory(String info){
+    private static void logMemory(String info) {
         System.gc();
         Runtime rt = Runtime.getRuntime();
         long usedMB = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024;
@@ -57,7 +58,7 @@ public class MemoryLeak {
         System.out.println("*** Memory Testing on NetworkReader ***");
         Integer N = 1000;
         MemoryLeak memLeak = new MemoryLeak();
-        for (int k=0; k<N; k++){
+        for (int k = 0; k < N; k++) {
             memLeak.readNetwork(TEST_MODEL);
             String info = String.format("R %s", k);
             logMemory(info);

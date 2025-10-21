@@ -2,14 +2,20 @@
 ########################################################
 # Script for building JSBML (core & packages) from 
 # the repository and install as local dependency.
+# This requires ant on the system
 #
-# 1. Get the repository code
+# 1. Get the JSBML repository code
 #	cd $HOME/git 
 #	git clone https://github.com/sbmlteam/jsbml.git
+# git checkout master
 #	
-# 2. Export environment variable
+# 2. Export environment variables
 # 	export JSBMLCODE=$HOME/git/jsbml
+# 	export CY3SBMLCODE=$HOME/git/cy3sbml
 #
+# 3. Change to the lib/cy3sbml-dep direct
+# 	cd $HOME/git/cy3sbml/lib
+
 # After the build of the latest JSBML jars these are updated
 # within the code location.
 # 
@@ -25,24 +31,27 @@
 # 	./build_jsbml_jars.sh 2>&1 | tee ./build_jsbml_jars.log
 #
 ########################################################
-CORE_VERSION=1.6-SNAPSHOT
+CORE_VERSION=1.7-SNAPSHOT
 QUAL_VERSION=2.1-b1
 LAYOUT_VERSION=1.0-b1
 COMP_VERSION=1.0-b1
 FBC_VERSION=1.0-b1
 GROUPS_VERSION=0.4-b1
 DISTRIB_VERSION=0.5
-TIDY_VERSION=1.6-SNAPSHOT
+TIDY_VERSION=1.7-SNAPSHOT
 JTIDY_VERSION=r938
 ########################################################
 echo "Building jsbml in local repository"
 date
 
 # JSBML code directory
-: "${JSBMLCODE:?The JSBML environment variable must be set to the jsbml-code directory.}"
+: "${JSBMLCODE:?The JSBMLCODE environment variable must be set to the jsbml-code directory.}"
+
+# CY3SBML code directory
+: "${CY3SBMLCODE:?The CY3SBLCODE environment variable must be set to the cy3sbml-code directory.}"
 
 # lib directory
-LIBDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+LIBDIR=$CY3SBMLCODE/lib/
 
 # update to latest commit
 cd $JSBMLCODE
@@ -67,6 +76,8 @@ rm -r ~/.m2/repository/org/sbml/
 ########################################################
 # install in the local repository
 echo "Install JSBML in mvn repository"
+echo $LIBDIR
+echo $DIR
 cd $LIBDIR
 # TIMESTAMP=$(date +%Y%m%d.%H%M%S)
 mvn install:install-file -DgroupId=cy3sbml-dep -DartifactId=jsbml -Dversion=$CORE_VERSION -Dfile=$JSBMLCODE/core/build/jsbml-$CORE_VERSION.jar -Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=$DIR -DcreateChecksum=true

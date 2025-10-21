@@ -1,9 +1,10 @@
 package org.cy3sbml.uniprot;
 
-import org.junit.Test;
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
 
-import static org.junit.Assert.*;
+import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UniprotCacheTest {
     @Test

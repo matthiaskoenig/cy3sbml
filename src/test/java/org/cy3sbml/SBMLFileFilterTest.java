@@ -1,14 +1,17 @@
 package org.cy3sbml;
 
 import org.cytoscape.io.DataCategory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.io.InputStream;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Testing the SBML file filter.
@@ -16,12 +19,12 @@ import static org.junit.Assert.*;
 public class SBMLFileFilterTest {
     private SBMLFileFilter filter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         filter = new SBMLFileFilter(null);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         filter = null;
     }

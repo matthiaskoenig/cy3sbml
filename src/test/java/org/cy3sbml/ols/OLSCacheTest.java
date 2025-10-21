@@ -1,9 +1,10 @@
 package org.cy3sbml.ols;
 
-import org.junit.Test;
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
-import static org.junit.Assert.*;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class OLSCacheTest {

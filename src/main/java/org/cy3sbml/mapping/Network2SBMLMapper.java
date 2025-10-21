@@ -15,40 +15,40 @@ import org.slf4j.LoggerFactory;
  * Mapping between CyNetworks and SBMLDocuments.
  * The mapping is defined for the CyRootNetwork. All subnetworks use the same
  * mapping and can access it via the rootNetwork SUID.
- *
+ * <p>
  * The rootNetwork SUID is accessible via
- *     NetworkUtil.getRootNetworkSUID(CyNetwork network);
- *
+ * NetworkUtil.getRootNetworkSUID(CyNetwork network);
+ * <p>
  * The SBMLReaderTaskFactory creates multiple networks with the mapping between networks
  * and SBMLDocuments managed by the SBMLManager which updates this mapper.
  * The mappings should only be changed via the SBMLManager and not directly.
  */
-public class Network2SBMLMapper implements Serializable{
-	private static final Logger logger = LoggerFactory.getLogger(Network2SBMLMapper.class);
-	private static final long serialVersionUID = 1L;
+public class Network2SBMLMapper implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(Network2SBMLMapper.class);
+    private static final long serialVersionUID = 1L;
 
-	private Map<Long, SBMLDocument> documentMap;
-	private Map<Long, One2ManyMapping<String, Long>> sbase2nodeMappingMap;
-	private Map<Long, One2ManyMapping<Long, String>> node2sbaseMappingMap;
-	
-	public Network2SBMLMapper(){
-		logger.debug("Network2SBMLMapper created");
-		initMaps();
+    private Map<Long, SBMLDocument> documentMap;
+    private Map<Long, One2ManyMapping<String, Long>> sbase2nodeMappingMap;
+    private Map<Long, One2ManyMapping<Long, String>> node2sbaseMappingMap;
+
+    public Network2SBMLMapper() {
+        logger.debug("Network2SBMLMapper created");
+        initMaps();
     }
 
-	private void initMaps(){
-		documentMap = new HashMap<>();
-		sbase2nodeMappingMap = new HashMap<>();
-		node2sbaseMappingMap = new HashMap<>();
-	}
+    private void initMaps() {
+        documentMap = new HashMap<>();
+        sbase2nodeMappingMap = new HashMap<>();
+        node2sbaseMappingMap = new HashMap<>();
+    }
 
     /**
      * The SBMLDocument is stored with the SBML id to SUID (CyNode) mapping.
      * A reverse mapping from SUIDs to SBML ids is created in the process.
      */
-    public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping){
+    public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping) {
         logger.debug("Network put: " + rootSUID.toString());
-        documentMap.put(rootSUID,  doc);
+        documentMap.put(rootSUID, doc);
         sbase2nodeMappingMap.put(rootSUID, mapping);
         node2sbaseMappingMap.put(rootSUID, mapping.createReverseMapping());
     }
@@ -59,7 +59,7 @@ public class Network2SBMLMapper implements Serializable{
      *
      * @param rootSUID root network SUID
      */
-    public void removeDocument(Long rootSUID){
+    public void removeDocument(Long rootSUID) {
         logger.debug("Network remove:" + rootSUID.toString());
         documentMap.remove(rootSUID);
         sbase2nodeMappingMap.remove(rootSUID);
@@ -72,13 +72,13 @@ public class Network2SBMLMapper implements Serializable{
      * @param rootSUID root network SUID
      * @return SBMLDocument or null
      */
-    public SBMLDocument getDocument(Long rootSUID){
+    public SBMLDocument getDocument(Long rootSUID) {
         SBMLDocument doc = null;
         if (rootSUID == null) {
             logger.debug("No SUID set. No SBMLDocument can be retrieved !");
             return null;
         }
-        if (documentMap.containsKey(rootSUID)){
+        if (documentMap.containsKey(rootSUID)) {
             doc = documentMap.get(rootSUID);
         }
         return doc;
@@ -86,12 +86,13 @@ public class Network2SBMLMapper implements Serializable{
 
     /**
      * Exists a SBMLDocument for the given rootNetwork.
+     *
      * @param rootSUID root network SUID
      * @return
      */
-	public boolean containsDocument(Long rootSUID){
-	    return (documentMap.containsKey(rootSUID));
-	}
+    public boolean containsDocument(Long rootSUID) {
+        return (documentMap.containsKey(rootSUID));
+    }
 
 
     /**
@@ -99,9 +100,9 @@ public class Network2SBMLMapper implements Serializable{
      *
      * @return Set of root network SUIDs
      */
-	public Set<Long> keySet(){
-	    return documentMap.keySet();
-	}
+    public Set<Long> keySet() {
+        return documentMap.keySet();
+    }
 
 
     /**
@@ -109,7 +110,7 @@ public class Network2SBMLMapper implements Serializable{
      *
      * @return
      */
-    public Map<Long, SBMLDocument> getDocumentMap(){
+    public Map<Long, SBMLDocument> getDocumentMap() {
         return documentMap;
     }
 
@@ -119,7 +120,7 @@ public class Network2SBMLMapper implements Serializable{
      * @param rootSUID root network SUID
      * @return
      */
-    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID){
+    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID) {
         if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
@@ -133,8 +134,8 @@ public class Network2SBMLMapper implements Serializable{
      * @param rootSUID root network SUID
      * @return
      */
-    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID){
-        if (rootSUID == null){
+    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID) {
+        if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
         }
@@ -143,14 +144,15 @@ public class Network2SBMLMapper implements Serializable{
 
     /**
      * Creates information string.
+     *
      * @return
      */
-	public String toString(){
-		String info = "\n--- SBML2NetworkMapping ---\n";
-		for (Long key: documentMap.keySet()){
-			info += String.format("%s -> %s\n", key.toString(), documentMap.get(key).toString());
-		}
-		info += "-------------------------------";
-		return info;
-	}
+    public String toString() {
+        String info = "\n--- SBML2NetworkMapping ---\n";
+        for (Long key : documentMap.keySet()) {
+            info += String.format("%s -> %s\n", key.toString(), documentMap.get(key).toString());
+        }
+        info += "-------------------------------";
+        return info;
+    }
 }
