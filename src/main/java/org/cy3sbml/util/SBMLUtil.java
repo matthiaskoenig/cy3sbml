@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -177,7 +178,7 @@ public class SBMLUtil {
         map.put(ATTR_ID,
                 (nsb.isSetId()) ? nsb.getId() : GUIConstants.ICON_NONE);
         map.put(ATTR_NAME,
-                (nsb.isSetName()) ? nsb.getName() : GUIConstants.ICON_NONE);
+                (nsb.isSetName()) ? StringEscapeUtils.escapeHtml4(nsb.getName()): GUIConstants.ICON_NONE);
         map.putAll(createSBaseMap(nsb));
         return map;
     }

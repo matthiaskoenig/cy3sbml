@@ -10,7 +10,37 @@
   <model metaid="meta_glimepiride_body" id="glimepiride_body" name="Glimepiride body model" substanceUnits="mmole" timeUnits="min" volumeUnits="litre" areaUnits="m2" lengthUnits="metre" extentUnits="mmole">
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
-        <h1>Glimepiride body model</h1>
+        <h1>Physiologically based pharmacokinetic (PBPK) model glimepiride (body model)</h1>
+        <p>A digital twin in the form of a whole-body physiologically based pharmacokinetic (PBPK) model of glimepiride was developed to systematically evaluate the influence of patient-specific factors on drug disposition. Based on curated data from 20 clinical studies, the model simulates the absorption, distribution, metabolism and excretion (ADME) of the drug while accounting for variability in renal and hepatic function, CYP2C9 genetic variants and bodyweight. The model is implemented in the Systems Biology Markup Language (SBML) standard and simulations are performed using scripts that utilise the libRoadRunner library to run simulations and generate results. Here, we demonstrate the computational reproducibility of the key findings from the primary publication, thereby verifying the consistency and reproducibility of the model implementation with the published results.</p>
+        <h2>How to cite</h2>
+        <p>To cite the model repository</p>
+        <blockquote>
+          <p>Elias, M., &amp; König, M. (2025).
+<em>Physiologically based pharmacokinetic (PBPK) model of glimepiride.</em>
+          <br/>
+Zenodo. <a href="https://doi.org/10.5281/zenodo.14628700">https://doi.org/10.5281/zenodo.14628700</a></p>
+        </blockquote>
+        <p>To cite the main publication</p>
+        <blockquote>
+          <p>Elias, M., &amp; König, M. (2025).
+<em>A Digital Twin of Glimepiride for Personalized and Stratified Diabetes Treatment.</em>
+          <br/>
+Front. Pharmacol. 16:1686415. <a href="https://doi.org/10.3389/fphar.2025.1686415">doi:10.3389/fphar.2025.1686415</a></p>
+        </blockquote>
+        <p>To cite the reproducibility publication</p>
+        <blockquote>
+          <p>Elias, M., &amp; König, M. (2025).
+<em>Reproducibility of a Digital Twin of Glimepiride for Personalized and Stratified Diabetes Treatment</em>
+          <br/>
+Physiome. 2025 October (accepted) <a href="https://doi.org/10.36903/physiome.28379193">doi:10.36903/physiome.28379193</a></p>
+        </blockquote>
+        <h2>License</h2>
+        <ul>
+          <li>Source Code: <a href="https://opensource.org/license/MIT">MIT</a></li>
+          <li>Documentation: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+          <li>Models: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+        </ul>
+        <h2>Comments</h2>
         <ul>
           <li>gli can be applied po and iv, bioavailability 100% =&gt; fraction absorbed ~100% [Badian1994]</li>
           <li>gli (glimepiride), m1, m2 are circulating in plasma</li>
@@ -65,16 +95,42 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
           <dcterms:modified rdf:parseType="Resource">
             <dcterms:W3CDTF>1900-01-01T00:00:00Z</dcterms:W3CDTF>
           </dcterms:modified>
+          <bqbiol:occursIn>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/BTO:0001489"/>
+              <rdf:li rdf:resource="http://identifiers.org/FMA:256135"/>
+            </rdf:Bag>
+          </bqbiol:occursIn>
+          <bqbiol:hasProperty>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C79369"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C79371"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C79372"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C79370"/>
+              <rdf:li rdf:resource="http://identifiers.org/mamo/MAMO_0000046"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C97936"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C15299"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C2985"/>
+              <rdf:li rdf:resource="http://identifiers.org/ncit/C99532"/>
+            </rdf:Bag>
+          </bqbiol:hasProperty>
+          <bqmodel:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL2510140001"/>
+            </rdf:Bag>
+          </bqmodel:is>
           <bqbiol:hasTaxon>
             <rdf:Bag>
               <rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
-              <rdf:li rdf:resource="http://identifiers.org/VTO:0011993"/>
               <rdf:li rdf:resource="http://identifiers.org/snomedct/337915000"/>
             </rdf:Bag>
           </bqbiol:hasTaxon>
           <bqbiol:isDescribedBy>
             <rdf:Bag>
-              <rdf:li rdf:resource="https://doi.org/10.5281/zenodo.14628700"/>
+              <rdf:li rdf:resource="http://identifiers.org/doi/10.3389/fphar.2025.1686415"/>
+              <rdf:li rdf:resource="http://identifiers.org/doi/10.5281/physiome.28379193"/>
+              <rdf:li rdf:resource="http://identifiers.org/doi/10.5281/zenodo.14628700"/>
             </rdf:Bag>
           </bqbiol:isDescribedBy>
         </rdf:Description>

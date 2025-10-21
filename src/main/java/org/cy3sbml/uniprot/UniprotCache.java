@@ -14,17 +14,14 @@ import org.slf4j.LoggerFactory;
  * Cache UniProtEntry for accessions.
  */
 public class UniprotCache {
-    private static final Logger logger = LoggerFactory.getLogger(org.cy3sbml.ols.OLSCache.class);
+    private static final Logger logger = LoggerFactory.getLogger(UniprotCache.class);
 
-    private static CacheManager cacheManager;
-    private static Cache cache;
+    private static final CacheManager cacheManager;
+    private static final Cache cache;
 
     static {
         // Create singleton CacheManager using defaults
         cacheManager = CacheManager.create();
-
-        // Cache configuration
-        // memory cache with overflow to disk (java.io.tmpdir)
         CacheConfiguration config = new CacheConfiguration();
         config.setName("UniprotCache");
         config.setMaxEntriesLocalHeap(5000);
@@ -38,7 +35,7 @@ public class UniprotCache {
      * Get UniProtEntry with cache support.
      *
      * @param accession uniprot accession id, e.g. "P10415"
-     * @return
+     * @return uniprot entry
      */
     public static UniProtEntry getUniProtEntry(String accession) {
         UniProtEntry entry;
@@ -56,9 +53,9 @@ public class UniprotCache {
             if (entry != null) {
                 element = new Element(accession, entry);
                 cache.put(element);
-                logger.debug("Put in cache: " + accession);
+                logger.debug("Put in cache: {}", accession);
             } else {
-                logger.debug(String.format("Object could not be retrieved: ", accession));
+                logger.debug("Object could not be retrieved: {}", accession);
             }
         }
         return entry;
