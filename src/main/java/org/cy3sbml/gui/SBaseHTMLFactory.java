@@ -452,24 +452,22 @@ public class SBaseHTMLFactory {
             }
 
             // identifier
-
-
             String identifierHTML = IDENTIFIER_LINK
                     .replace("{resourceLink}", resourceLink)
                     .replace("{identifier}", identifier);
 
-
             // not possible to resolve dataType from MIRIAM registry
             if (dataType == null) {
-                logger.warn(MessageFormat.format(
+                logger.warn(
+                        MessageFormat.format(
                         "DataType could not be retrieved for data collection part: <{0}>",
-                        dataCollection));
+                        dataCollection)
+                );
                 text += UNKNOWN_DATA_COLLECTION.replace("{qualifierHTML}", qualifierHTML)
                         .replace("{identifierHTML}", identifierHTML)
                         .replace("{ICON_WARNING}", ICON_WARNING)
                         .replace("{dataCollectionURL}", dataCollection)
                         .replace("{dataCollectionID}", dataCollection);
-
 
                 text += INVISIBLE_RESOURCE_LINK.replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
                         .replace("{resourceURI}", resourceURI);
@@ -665,6 +663,7 @@ public class SBaseHTMLFactory {
         identifier = identifier.toUpperCase();
         return identifier;
     }
+
     private static String chebiHTML(String identifier) {
         // Image
         String text = "";
