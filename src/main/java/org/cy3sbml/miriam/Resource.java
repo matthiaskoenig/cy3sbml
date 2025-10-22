@@ -2,6 +2,7 @@ package org.cy3sbml.miriam;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,9 +11,8 @@ import java.util.Optional;
 import static org.cy3sbml.miriam.Fields.*;
 
 
+@Getter
 public class Resource {
-
-
     private int id;
     private String providerCode;
     private String name;
@@ -64,7 +64,7 @@ public class Resource {
         return resource;
     }
 
-
+    @Getter
     public static class Institution {
         private int id;
         private String name;
@@ -88,33 +88,9 @@ public class Resource {
             this.rorId = rorId;
             this.location = location;
         }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getHomeUrl() {
-            return homeUrl;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public String getRorId() {
-            return rorId;
-        }
-
-        public Location getLocation() {
-            return location;
-        }
-
     }
 
+    @Getter
     public static class Location {
         private String countryCode;
         private String countryName;
@@ -126,96 +102,6 @@ public class Resource {
             this.countryCode = countryCode;
             this.countryName = countryName;
         }
-
-        public String getCountryCode() {
-            return countryCode;
-        }
-
-        public String getCountryName() {
-            return countryName;
-        }
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getProviderCode() {
-        return providerCode;
-    }
-
-    public String getUrlPattern() {
-        return urlPattern;
-    }
-
-    public String getMirId() {
-        return mirId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isOfficial() {
-        return official;
-    }
-
-    public String getSampleId() {
-        return sampleId;
-    }
-
-    public String getResourceHomeUrl() {
-        return resourceHomeUrl;
-    }
-
-    public LinkedHashMap getInstitution() {
-        return institution;
-    }
-
-    public LinkedHashMap getLocation() {
-        return location;
-    }
-
-    public boolean isDeprecated() {
-        return deprecated;
-    }
-
-    public String getDeprecationDate() {
-        return deprecationDate;
-    }
-
-    public String getDeprecationOfflineDate() {
-        return deprecationOfflineDate;
-    }
-
-    public String getRenderDeprecatedLanding() {
-        return renderDeprecatedLanding;
-    }
-
-    public String getDeprecationStatetement() {
-        return deprecationStatetement;
-    }
-
-    public boolean isProtectedUrls() {
-        return protectedUrls;
-    }
-
-    public boolean isRenderProtectedLanding() {
-        return renderProtectedLanding;
-    }
-
-    public String getAuthHelpUrl() {
-        return authHelpUrl;
-    }
-
-    public String getAuthHelpDescription() {
-        return authHelpDescription;
-    }
-
-
 }
 

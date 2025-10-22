@@ -9,9 +9,9 @@ import java.util.Map;
 
 import static org.cy3sbml.miriam.Fields.*;
 
+@Getter
 public class Namespace {
 
-    @Getter
     private int id;
     private String prefix;
     private String name;
@@ -47,71 +47,15 @@ public class Namespace {
         if (resourcesRaw instanceof List) {
             this.resources = new ArrayList<>();
             for (Object item : (List<?>) resourcesRaw) {
-
                 this.resources.add(Resource.fromMap((Map<String, Object>) item));
-
             }
         } else {
             this.resources = Collections.emptyList();
         }
-
     }
 
     public Namespace(List<Resource> resources) {
         this.resources = resources;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public Boolean getNamespaceEmbeddedInLui() {
-        return namespaceEmbeddedInLui;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getMirId() {
-        return mirId;
-    }
-
-    public List<Resource> getResources() {
-
-        return resources;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public String getModified() {
-        return modified;
-    }
-
-    public String getSampleId() {
-        return sampleId;
-    }
-
-    public Boolean getDeprecated() {
-        return deprecated;
-    }
-
-    public String getDeprecationDate() {
-        return deprecationDate;
     }
 
 }

@@ -6,12 +6,15 @@ import java.util.*;
 import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLStreamException;
 
+import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
-import org.cy3sbml.chebi.ChebiCache;
+import org.cy3sbml.miriam.RegistryUtil;
 import org.identifiers.registry.RegistryUtilities;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
+
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
@@ -21,24 +24,19 @@ import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.cy3sbml.miriam.Namespace;
-import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.ols.OLSCache;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.chebi.ChebiCache;
-import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.cy3sbml.util.SBMLUtil;
 
 import static org.cy3sbml.gui.GUIConstants.*;
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
 
 /**
@@ -54,14 +52,21 @@ import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 public class SBaseHTMLFactory {
     public static final String SBO = "SBO";
     public static final String CY3SBML = "cy3sbml";
+
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
+
+    @Getter
     private static String baseDir;
-    public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
-    public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
+    public static final String IDENTIFIERS_BASE = "https://identifiers.org/";
     public static String delim = "/";
-    public static final Map<String, Namespace> result = getMiriamContent();
 
     private SBase sbase;
+    /**
+     * -- GETTER --
+     *  Get created information string.
+     *  No information String created in cache mode.
+     */
+    @Getter
     private String html;
 
 
@@ -81,13 +86,6 @@ public class SBaseHTMLFactory {
     }
 
     /**
-     * Get the html base directory.
-     */
-    public static String getBaseDir() {
-        return baseDir;
-    }
-
-    /**
      * Sets the baseDir from the application directory.
      *
      * @param appDir
@@ -98,22 +96,12 @@ public class SBaseHTMLFactory {
         SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
     }
 
-
-    /**
-     * Get created information string.
-     * No information String created in cache mode.
-     */
-    public String getHtml() {
-        return html;
-    }
-
     /**
      * Creates HTML for given text String.
      */
     public static String createHTMLText(String text, String title) {
         return HTML_START_TEMPLATE.replace("{baseHref}", baseDir)
                 .replace("pageTitle", title) + text + HTML_STOP_TEMPLATE;
-
     }
 
     /**
@@ -370,11 +358,10 @@ public class SBaseHTMLFactory {
 
         // add the SBO term to the annotations if not existing already
         if (sbase.isSetSBOTerm()) {
-            String nameSpace = getPrefixValue(SBO);
-
+            String namespace = (SBO);
             String sboTermId = sbase.getSBOTermID();
 
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId)));
+            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE, namespace, delim, sboTermId)));
 
 
             Boolean termExists = false;
@@ -409,119 +396,91 @@ public class SBaseHTMLFactory {
         String text = "";
 
         String qualifierHTML = String.format(
-                "<p class=\"cvterm\">\n" +
-                        "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
-                cvterm.getQualifierType(), bmQualifierType);
+            """
+            <p class="cvterm">
+            \t<span class="qualifier" title="%s">%s</span>
+            """, cvterm.getQualifierType(), bmQualifierType
+        );
 
-
-        Namespace dataType = null;
-        // List of Resource URIs
 
         for (String resourceURI : cvterm.getResources()) {
-            // bugfix to handle https://identifier.org/ resources
+
+            // handle identifiers.org information
             if (resourceURI.contains("identifiers.org")){
-            resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
-            String[] tokens = resourceURI.split("/");
-            String compactIdentifier = getCompactId(tokens);
+                String dataCollection = RegistryUtil.prefixFromResourceURI(resourceURI);
+                String compactId = RegistryUtil.compactIdFromResourceURI(resourceURI);
+                Namespace namespace = RegistryUtil.namespaceFromCompactId(compactId);
+                String id = RegistryUtil.idFromCompactId(compactId);
 
-            String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
-            String prefix = StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
-            if (result.get(prefix) == null && tokens.length > 3) {
-                prefix = tokens[3].toLowerCase();
-            }
-            dataType = (result.get(prefix) == null)
-                    ? result.get(StringUtils.substringAfter(prefix, "."))
-                    : result.get(prefix);
-
-            String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-            if (identifier == null) {
-                identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
-            }
-            // link to primary resource via id
-            String resourceLink = null;
-
-            if (dataType == null) {
-                resourceLink = resourceURI;
-
-            } else {
-                for (Resource resource : dataType.getResources()) {
-                    // take first one
-                    resourceLink = createURL(dataType, resource, identifier);
-
-                    break;
-
+                // link
+                String resourceLink = null;
+                if (namespace != null) {
+                    for (Resource resource : namespace.getResources()) {
+                        // take first one
+                        resourceLink = createURL(namespace, resource, id);
+                        break;
+                    }
+                } else {
+                    resourceLink = resourceURI;
                 }
-            }
 
-            // identifier
-            String identifierHTML = IDENTIFIER_LINK
-                    .replace("{resourceLink}", resourceLink)
-                    .replace("{identifier}", identifier);
+                // identifier
+                String identifierHTML = IDENTIFIER_LINK
+                        .replace("{resourceLink}", resourceLink)
+                        .replace("{identifier}", id);
 
-            // not possible to resolve dataType from MIRIAM registry
-            if (dataType == null) {
-                logger.warn(
-                        MessageFormat.format(
-                        "DataType could not be retrieved for data collection part: <{0}>",
-                        dataCollection)
-                );
-                text += UNKNOWN_DATA_COLLECTION.replace("{qualifierHTML}", qualifierHTML)
-                        .replace("{identifierHTML}", identifierHTML)
-                        .replace("{ICON_WARNING}", ICON_WARNING)
-                        .replace("{dataCollectionURL}", dataCollection)
-                        .replace("{dataCollectionID}", dataCollection);
-
-                text += INVISIBLE_RESOURCE_LINK.replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
-                        .replace("{resourceURI}", resourceURI);
-            }
-            // dataType found
-            if (dataType != null) {
-                text += qualifierHTML + MIRIAM_COLLECTION_LINK
-                        .replace("{dataTypeURL}", dataType.getResources().get(0).getResourceHomeUrl())
-                        .replace("{dataTypeName}", dataType.getName())
-                        .replace("{identifierHTML}", identifierHTML);
-
-                // check that identifier is correct for given datatype
-                String pattern = dataType.getPattern();
-                if (!RegistryUtilities.checkRegexp(identifier, pattern)) {
-                    logger.warn(MessageFormat.format(
-                            "Identifier <{0}> does not match pattern <{1}> of data collection: <{2}>",
-                            identifier,
-                            pattern,
-                            dataType.getId()
-                    ));
-                    text += IDENTIFIER_PATTERN_MISMATCH
+                // not possible to resolve dataType from MIRIAM registry
+                if (namespace == null) {
+                    logger.warn("Namespace could not be retrieved for data collection part: <{}>", dataCollection);
+                    text += UNKNOWN_DATA_COLLECTION.replace("{qualifierHTML}", qualifierHTML)
+                            .replace("{identifierHTML}", identifierHTML)
                             .replace("{ICON_WARNING}", ICON_WARNING)
-                            .replace("{identifier}", identifier)
-                            .replace("{pattern}", pattern);
+                            .replace("{dataCollectionURL}", dataCollection)
+                            .replace("{dataCollectionID}", dataCollection);
+
+                    text += INVISIBLE_RESOURCE_LINK.replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
+                            .replace("{resourceURI}", resourceURI);
                 }
+                // dataType found
+                if (namespace != null) {
+                    text += qualifierHTML + MIRIAM_COLLECTION_LINK
+                            .replace("{dataTypeURL}", namespace.getResources().get(0).getResourceHomeUrl())
+                            .replace("{dataTypeName}", namespace.getName())
+                            .replace("{identifierHTML}", identifierHTML);
 
-                // Create OLS resource for location
-                for (Resource resource : dataType.getResources()) {
-                    if (resource.isDeprecated()) {
-                        continue;
+                    // check that identifier is correct for given datatype
+                    String pattern = namespace.getPattern();
+                    if (!RegistryUtilities.checkRegexp(id, pattern)) {
+                        logger.warn("Identifier <{}> does not match pattern <{}> of data collection: <{}>", id, pattern, namespace.getId());
+                        text += IDENTIFIER_PATTERN_MISMATCH
+                                .replace("{ICON_WARNING}", ICON_WARNING)
+                                .replace("{identifier}", id)
+                                .replace("{pattern}", pattern);
                     }
-                    if (OLSAccess.isPhysicalLocationOLS(resource)) {
 
-                        text += createOLSLocation(dataType, resource, identifier);
+                    // Create OLS resource for location
+                    for (Resource resource : namespace.getResources()) {
+                        if (!resource.isDeprecated() && OLSAccess.isPhysicalLocationOLS(resource)) {
+                            text += createOLSLocation(namespace, resource, id);
+                        }
+                    }
+                    // Create other locations
+                    for (Resource resource : namespace.getResources()) {
+                        if (!resource.isDeprecated() && !OLSAccess.isPhysicalLocationOLS(resource)) {
+                            text += createNonOLSLocation(namespace, resource, id);
+                        }
+                    }
+
+                    // add secondary information
+                    String prefix = namespace.getPrefix();
+                    if (prefix.equals("uniprot")) {
+                        text += UniprotAccess.uniprotHTML(id);
+                    } else if (prefix.equals("chebi")) {
+                        text += ChebiCache.getChebiHTML(id);
                     }
                 }
-                // Create other locations
-                for (Resource resource : dataType.getResources()) {
-                    if (resource.isDeprecated()) {
-                        continue;
-                    }
-                    if (!OLSAccess.isPhysicalLocationOLS(resource)) {
-
-                        text += createNonOLSLocation(dataType, resource, identifier);
-                    }
-                }
-
-                // add secondary information
-                text += createSecondaryInformation(dataType, identifier);
+                text += "</p>\n";
             }
-            text += "</p>\n";
-        }
         }
         return text;
     }
@@ -545,16 +504,11 @@ public class SBaseHTMLFactory {
         return url;
     }
 
-
-    // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
-
     /**
      * Information for non-OLS location.
      */
     private static String createNonOLSLocation(Namespace namespace, Resource resource, String identifier) {
-
         String info = resource.getDescription();
-
         return String.format(
                 "\t<a href=\"%s\"> %s</a><br />\n",
                 createURL(namespace, resource, identifier),
@@ -568,12 +522,10 @@ public class SBaseHTMLFactory {
     private static String createOLSLocation(Namespace namespace, Resource resource, String identifier) {
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
-
         String olsURL = createURL(namespace, resource, identifier);
 
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
-
 
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1) {
@@ -581,9 +533,7 @@ public class SBaseHTMLFactory {
         }
 
         Term term = OLSCache.getTerm(termIdentifier);
-
         if (term != null) {
-
             String purlURL = term.getIri().getIdentifier();
             String ontologyURL = createURL(namespace, resource, identifier);
             html += ONTOLOGY_TERM_LINK.replace("{ontologyURL}", ontologyURL)
@@ -625,44 +575,6 @@ public class SBaseHTMLFactory {
         return html;
     }
 
-    /**
-     * Resolves secondary resourses and returns the HTML.
-     *
-     * @param dataType
-     * @param identifier
-     * @return html string
-     */
-    public static String createSecondaryInformation(Namespace dataType, String identifier) {
-        String html = "";
-        String namespace = dataType.getPrefix();
-
-        if (namespace.equals("uniprot")) {
-            html += UniprotAccess.uniprotHTML(identifier);
-        } else if (namespace.equals("chebi")) {
-            html += ChebiCache.getChebiHTML(identifier);
-        }
-
-        return html;
-    }
-
-    /**
-     * Creates compact identifier."
-     */
-    public static String getCompactId(String[] tokens){
-
-        String identifier;
-        if (tokens[tokens.length - 1].contains(":")){ //format : identifiers.org/[namespace prefix]:[accession]
-            identifier = tokens[tokens.length - 1];
-        } else if (tokens[tokens.length - 1].contains("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]")){
-            identifier = tokens[tokens.length - 1].replace("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]",":");
-        }
-        else {
-            identifier = tokens[tokens.length - 2]+":"+tokens[tokens.length - 1];
-        }
-
-        identifier = identifier.toUpperCase();
-        return identifier;
-    }
 
     /**
      * Create non-RDF annotation XML.
@@ -680,29 +592,24 @@ public class SBaseHTMLFactory {
                 for (int i = 0; i < xmlNode.getChildCount(); i++) {
                     XMLNode child = xmlNode.getChildAt(i);
                     String name = child.getName();
-                    if (name != "RDF") {
+                    if (!name.equals("RDF")) {
                         try {
                             String xml = XMLNode.convertXMLNodeToString(child);
                             // Handle special case of whitespaces/empty text nodes
                             xml = xml.trim();
-                            if (xml.length() > 0) {
+                            if (!xml.isEmpty()) {
                                 xml = XMLUtil.xml2Html(xml);
-                                if (xml != null) {
-                                    text += xml;
-                                } else {
-                                    logger.error("Annotation XML could not be parsed.");
-                                }
+                                text += xml;
                             }
                         } catch (XMLStreamException e) {
                             logger.error("Error parsing annotation xml", e);
-                            e.printStackTrace();
                         }
                     }
                 }
             }
 
             // move into <code> tag for display
-            if (text.length() > 0) {
+            if (!text.isEmpty()) {
                 html = String.format("<code>%s</code>", text);
             }
         }
@@ -716,14 +623,15 @@ public class SBaseHTMLFactory {
         String notes = SBMLUtil.parseNotes(sbase);
         if (notes != null) {
             return String.format(
-                    "<hr />\n" +
-                            "<div id=\"notes\">\n" +
-                            "%s\n" +
-                            "</div>\n",
-                    notes);
+                """
+                <hr />
+                <div id="notes">
+                %s
+                </div>
+                """, notes
+            );
         }
         return "";
-
     }
 
     /**
@@ -732,6 +640,9 @@ public class SBaseHTMLFactory {
     public static String booleanHTML(boolean b) {
         return (b) ? ICON_TRUE : ICON_FALSE;
     }
+
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -744,54 +655,19 @@ public class SBaseHTMLFactory {
     public static void main(String[] args) throws Exception {
         // resources for HTML
         File f = File.createTempFile("MiriamRegistry", ".json");
-        // prepare miriam registry support
-        Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
 
         // Create the HTML for selected SBMLDocuments and SBases
-
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-
         Model model = doc.getModel();
-
-        // object = model.getListOfSpecies().get("c__gal");
-        // object = model.getListOfReactions().get("c__GALTM2");
-
 
         // retrieve info for object
         SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
         fac.createInfo();
         String html = fac.getHtml();
 
-
         // Save to tmp file for viewing
         File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
         FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
-
-    public static String getPrefixValue(String keyToFind) {
-        try {
-            Properties namespaces = new Properties();
-            InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found in resources");
-            }
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            namespaces.load(reader);
-            return namespaces.getProperty(keyToFind);
-           /* String line;
-            while ((line = reader.readLine()) != null) {
-                // Unescape the line for readability
-                String cleanLine = line.replaceAll("\\\\", "");
-                if (cleanLine.startsWith(keyToFind + "=")) {
-                    return cleanLine.split("=", 2)[1]; // Extract value after '='
-                }
-            }*/
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
 }

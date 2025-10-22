@@ -232,8 +232,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
             // init actions
-
-
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());
 
@@ -283,7 +281,7 @@ public class CyActivator extends AbstractCyActivator {
             //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
-                    RegistryUtil.getMiriamContent();
+                    RegistryUtil.loadMiriamNamespaceMap();
                 }
             });
             miriamThread.run();

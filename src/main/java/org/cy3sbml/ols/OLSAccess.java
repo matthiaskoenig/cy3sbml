@@ -1,16 +1,13 @@
 package org.cy3sbml.ols;
 
-
-import org.cy3sbml.IdentifiersConstants;
-import org.cy3sbml.miriam.Resource;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
 import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfig;
-import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
-import org.identifiers.registry.RegistryUtilities;
+import org.cy3sbml.IdentifiersConstants;
+import org.cy3sbml.miriam.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +15,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Information for given OLSAccess.
- * This represent the information for a term.
- * FIXME: probably not a good idea to have one static client (multi-threading)
+ * This represents the information for a term.
  */
 public class OLSAccess {
     private static final Logger logger = LoggerFactory.getLogger(OLSAccess.class);
@@ -35,28 +31,25 @@ public class OLSAccess {
         try {
             String[] tokens = identifier.split(":");
             if (tokens.length == 2) {
-                String ontologyId = tokens[0];
                 Identifier id = new Identifier(identifier, Identifier.IdentifierType.OBO);
-                Term term = olsClient.getTermById(id, ontologyId);
-                return term;
-            }
-            tokens = identifier.split("_");
-            if (tokens.length == 2) {
-                String ontologyId = tokens[0];
-                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OWL);
-                Term term = olsClient.getTermById(id, ontologyId);
-                return term;
+                return olsClient.getTermById(id, tokens[0]);
             }
 
-            // non of the strategies worked
-            logger.warn(String.format("Identifier is not an ontology identifier: %s", identifier));
+            tokens = identifier.split("_");
+            if (tokens.length == 2) {
+                Identifier id = new Identifier(identifier, Identifier.IdentifierType.OWL);
+                return olsClient.getTermById(id, tokens[0]);
+            }
+
+            // none of the strategies worked
+            logger.warn("Identifier is not an ontology identifier: {}", identifier);
             return null;
 
         } catch (HttpClientErrorException e) {
-            logger.warn(String.format("OLS term not found <%s>", identifier));
+            logger.warn("OLS term not found <{}>", identifier);
             return null;
         } catch (Throwable e) {
-            logger.error(String.format("Error retrieving OLS term for: %s", identifier), e);
+            logger.error("Error retrieving OLS term for: {}", identifier, e);
             e.printStackTrace();
             return null;
         }
@@ -67,16 +60,16 @@ public class OLSAccess {
      */
     public static String termToString(Term term) {
         if (term == null) {
-            return term.toString();
+            return null;
         }
         return String.format(
                 "iri:           %s\n" +
-                        "label:         %s\n" +
-                        "description:   %s\n" +
-                        "shortForm:     %s\n" +
-                        "oboId:         %s\n" +
-                        "ontologyName:  %s\n" +
-                        "oboDefinitionCitations:  %s\n",
+                "label:         %s\n" +
+                "description:   %s\n" +
+                "shortForm:     %s\n" +
+                "oboId:         %s\n" +
+                "ontologyName:  %s\n" +
+                "oboDefinitionCitations:  %s\n",
                 term.getIri(),
                 term.getLabel(),
                 term.getDescription(),
@@ -95,12 +88,8 @@ public class OLSAccess {
     }
 
     public static void main(String[] args) {
-        // Exists on OLS
-        String resourceURI = "https://identifiers.org/go/GO:0042752";
-        String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
-
-        Term term = OLSAccess.getTerm(identifier);
-
+        Term term = OLSAccess.getTerm("GO:0042752");
+        System.out.println(termToString(term));
     }
 
 }

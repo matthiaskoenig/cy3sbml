@@ -37,7 +37,7 @@ public class SBaseHtmlThreadTest {
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         // Setup with local registry
-        RegistryUtil.getMiriamContent();
+        RegistryUtil.loadMiriamNamespaceMap();
     }
 
     @Test
