@@ -363,7 +363,6 @@ public class SBaseHTMLFactory {
 
             CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE, namespace, delim, sboTermId)));
 
-
             Boolean termExists = false;
             outerloop:
             for (CVTerm t : cvterms) {
@@ -410,14 +409,13 @@ public class SBaseHTMLFactory {
                 String dataCollection = RegistryUtil.prefixFromResourceURI(resourceURI);
                 String compactId = RegistryUtil.compactIdFromResourceURI(resourceURI);
                 Namespace namespace = RegistryUtil.namespaceFromCompactId(compactId);
-                String id = RegistryUtil.idFromCompactId(compactId);
 
                 // link
                 String resourceLink = null;
                 if (namespace != null) {
                     for (Resource resource : namespace.getResources()) {
                         // take first one
-                        resourceLink = createURL(namespace, resource, id);
+                        resourceLink = createURL(namespace, resource, compactId);
                         break;
                     }
                 } else {
@@ -427,7 +425,7 @@ public class SBaseHTMLFactory {
                 // identifier
                 String identifierHTML = IDENTIFIER_LINK
                         .replace("{resourceLink}", resourceLink)
-                        .replace("{identifier}", id);
+                        .replace("{identifier}", compactId);
 
                 // not possible to resolve dataType from MIRIAM registry
                 if (namespace == null) {
@@ -450,33 +448,33 @@ public class SBaseHTMLFactory {
 
                     // check that identifier is correct for given datatype
                     String pattern = namespace.getPattern();
-                    if (!RegistryUtilities.checkRegexp(id, pattern)) {
-                        logger.warn("Identifier <{}> does not match pattern <{}> of data collection: <{}>", id, pattern, namespace.getId());
+                    if (!RegistryUtilities.checkRegexp(compactId, pattern)) {
+                        logger.warn("Identifier <{}> does not match pattern <{}> of data collection: <{}>", compactId, pattern, namespace.getId());
                         text += IDENTIFIER_PATTERN_MISMATCH
                                 .replace("{ICON_WARNING}", ICON_WARNING)
-                                .replace("{identifier}", id)
+                                .replace("{identifier}", compactId)
                                 .replace("{pattern}", pattern);
                     }
 
                     // Create OLS resource for location
                     for (Resource resource : namespace.getResources()) {
                         if (!resource.isDeprecated() && OLSAccess.isPhysicalLocationOLS(resource)) {
-                            text += createOLSLocation(namespace, resource, id);
+                            text += createOLSLocation(namespace, resource, compactId);
                         }
                     }
                     // Create other locations
                     for (Resource resource : namespace.getResources()) {
                         if (!resource.isDeprecated() && !OLSAccess.isPhysicalLocationOLS(resource)) {
-                            text += createNonOLSLocation(namespace, resource, id);
+                            text += createNonOLSLocation(namespace, resource, compactId);
                         }
                     }
 
                     // add secondary information
                     String prefix = namespace.getPrefix();
                     if (prefix.equals("uniprot")) {
-                        text += UniprotAccess.uniprotHTML(id);
+                        text += UniprotAccess.uniprotHTML(compactId);
                     } else if (prefix.equals("chebi")) {
-                        text += ChebiCache.getChebiHTML(id);
+                        text += ChebiCache.getChebiHTML(compactId);
                     }
                 }
                 text += "</p>\n";
