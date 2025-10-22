@@ -1379,10 +1379,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             A Submodel object must say which Model object it instantiates, and may additionally define how the Model object is
             to be modified before it is instantiated in the enclosing model.
          */
-        logger.info("<Submodel>");
+        logger.debug("<Submodel>");
         for (Submodel submodel : compModel.getListOfSubmodels()) {
 
-            logger.info(submodel.toString());
+            logger.debug(submodel.toString());
             CyNode n = createNode(network, submodel, SBML.NODETYPE_COMP_SUBMODEL);
             setNamedSBaseAttributes(network, n, submodel);
 
@@ -1397,7 +1397,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             // Deletion
             for (Deletion deletion : submodel.getListOfDeletions()) {
                 // TODO: add edge
-                logger.info(deletion.toString());
+                logger.debug(deletion.toString());
                 CyNode nd = createNode(network, deletion, SBML.NODETYPE_COMP_DELETION);
                 setNamedSBaseAttributes(network, nd, deletion);
 
@@ -1412,10 +1412,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         }
 
         // Port //
-        logger.info("<Port>");
+        logger.debug("<Port>");
         // create port nodes
         for (Port port : compModel.getListOfPorts()) {
-            logger.info(port.toString());
+            logger.debug(port.toString());
             CyNode n = createNode(network, port, SBML.NODETYPE_COMP_PORT);
             setNamedSBaseAttributes(network, n, port);
             setSBaseRefAttributes(network, n, port);
@@ -1426,20 +1426,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             createSBaseRefEdge(network, source, port, model.getId());
         }
 
-        logger.info("<ReplacedElement & ReplacedBy>");
+        logger.debug("<ReplacedElement & ReplacedBy>");
         // only sbases in current model
         List<SBase> sbases = (List<SBase>) model.filter(new SBaseFilter());
         for (SBase sbase : sbases) {
             CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
             if (compSBase != null) {
-                logger.info(compSBase.toString());
+                logger.debug(compSBase.toString());
 
                 CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, sbase.getMetaId());
 
                 // replacedElements (SBaseRef)
                 for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()) {
 
-                    logger.info(replacedElement.toString());
+                    logger.debug(replacedElement.toString());
                     //
                     // targets can be from other submodels
                     CyNode target = createNode(network, replacedElement, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
@@ -1483,7 +1483,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 // replacedBy
                 if (compSBase.isSetReplacedBy()) {
                     ReplacedBy replacedBy = compSBase.getReplacedBy();
-                    logger.info(replacedBy.toString());
+                    logger.debug(replacedBy.toString());
                     CyNode target = createNode(network, replacedBy, SBML.NODETYPE_COMP_REPLACED_BY);
                     setSBaseRefAttributes(network, target, replacedBy);
 

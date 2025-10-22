@@ -3,7 +3,6 @@ package org.cy3sbml.biomodel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import uk.ac.ebi.biomodels.ws.SimpleModel;
 
 import java.util.ArrayList;
 import java.util.List;

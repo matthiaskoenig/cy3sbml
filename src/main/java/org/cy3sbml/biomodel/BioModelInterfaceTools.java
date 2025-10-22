@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.ac.ebi.biomodels.ws.SimpleModel;
-
 /**
  * Tools to interact with BioModels.
  */
