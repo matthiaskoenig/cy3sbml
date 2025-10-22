@@ -49,6 +49,18 @@ table {
 .icon-black {
     color: black;
 }
+.icon-blue {
+    color: #1f77b4;
+}
+.icon-orange {
+    color: #ff7f0e;
+}
+.icon-green {
+    color: #2ca02c;
+}
+.icon-red {
+    color: #d62728;
+}
 
 /* References */
 .ref-item {

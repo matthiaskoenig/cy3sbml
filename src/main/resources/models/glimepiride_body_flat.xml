@@ -5310,6 +5310,8 @@ injection rate.</p>
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000176"/>
+                  <rdf:li rdf:resource="http://identifiers.org/uniprot/P11712"/>
+                  <rdf:li rdf:resource="http://identifiers.org/brenda/1.14.99.38"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>

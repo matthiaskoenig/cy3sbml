@@ -55,8 +55,15 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         HashMap<String, String> map = new HashMap<>();
         map.put("https://cy3sbml-glucose", "/models/Koenig_glucose_v1.xml");
         map.put("https://cy3sbml-glimepiride", "/models/glimepiride_body_flat.xml");
+        map.put("https://cy3sbml-glimepiride-liver", "/models/glimepiride_liver.xml");
+        map.put("https://cy3sbml-glimepiride-kidney", "/models/glimepiride_kidney.xml");
+        map.put("https://cy3sbml-glimepiride-intestine", "/models/glimepiride_intestine.xml");
+        map.put("https://cy3sbml-Faure2006", "/models/Faure2006_MammalianCellCycle.sbml");
         map.put("https://cy3sbml-pancreas", "/models/Maheshvare2023_pancreas_glucose.xml");
         map.put("https://cy3sbml-rivaroxaban", "/models/rivaroxaban_body_flat.xml");
+        map.put("https://cy3sbml-rivaroxaban-liver", "/models/rivaroxaban_liver.xml");
+        map.put("https://cy3sbml-rivaroxaban-kidney", "/models/rivaroxaban_kidney.xml");
+        map.put("https://cy3sbml-rivaroxaban-intestine", "/models/rivaroxaban_intestine.xml");
         map.put("https://cy3sbml-HepatoNet1", "/models/HepatoNet1.xml");
         map.put("https://cy3sbml-e_coli_core", "/models/e_coli_core.xml");
         map.put("https://cy3sbml-iAB_RBC_283", "/models/iAB_RBC_283.xml");

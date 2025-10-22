@@ -12,7 +12,7 @@
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
-        <!-- Exclude the long running model tests. For all tests run
+        <!-- Exclude the long-running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
         <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java
