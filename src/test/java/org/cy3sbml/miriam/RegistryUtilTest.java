@@ -34,7 +34,9 @@ public class RegistryUtilTest {
                 Arguments.of("http://identifiers.org/CHEBI:68579", "chebi"),
                 Arguments.of("http://identifiers.org/chebi/CHEBI:68579", "chebi"),
                 Arguments.of("https://identifiers.org/GO:0042752", "go"),
-                Arguments.of("https://identifiers.org/CHEBI:68579", "chebi")
+                Arguments.of("https://identifiers.org/CHEBI:68579", "chebi"),
+                Arguments.of("https://identifiers.org/pubmed/68579", "pubmed"),
+                Arguments.of("https://identifiers.org/PUBMED:68579", "pubmed")
         );
     }
 
@@ -54,7 +56,9 @@ public class RegistryUtilTest {
                 Arguments.of("http://identifiers.org/CHEBI:68579", "CHEBI:68579"),
                 Arguments.of("http://identifiers.org/chebi/CHEBI:68579", "CHEBI:68579"),
                 Arguments.of("https://identifiers.org/GO:0042752", "GO:0042752"),
-                Arguments.of("https://identifiers.org/CHEBI:68579", "CHEBI:68579")
+                Arguments.of("https://identifiers.org/CHEBI:68579", "CHEBI:68579"),
+                Arguments.of("https://identifiers.org/pubmed/68579", "PUBMED:68579"),
+                Arguments.of("https://identifiers.org/PUBMED:68579", "PUBMED:68579")
         );
     }
 

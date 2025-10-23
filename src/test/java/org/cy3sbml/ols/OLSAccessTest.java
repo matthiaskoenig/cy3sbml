@@ -20,6 +20,7 @@ public class OLSAccessTest {
     @ValueSource(strings = {
             "GO:0042752",
             "CHEBI:68579",
+            "PUBMED:68579",
     })
     public void getTermFromIdentifier(String identifier) throws Exception {
         Term term = OLSAccess.getTerm(identifier);
@@ -29,15 +30,12 @@ public class OLSAccessTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            // compact
             "http://identifiers.org/GO:0042752",
             "http://identifiers.org/CHEBI:68579",
-            // https compact
             "https://identifiers.org/GO:0042752",
             "https://identifiers.org/CHEBI:68579",
-            // old style
-
-            // urn
+            "https://identifiers.org/pubmed/68579",
+            "https://identifiers.org/PUBMED:68579",
     })
     public void getTermFromURI(String resourceURI) {
         String compactId = RegistryUtil.compactIdFromResourceURI(resourceURI);
