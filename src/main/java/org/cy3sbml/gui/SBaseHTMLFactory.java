@@ -3,11 +3,9 @@ package org.cy3sbml.gui;
 import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
-import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLStreamException;
 
 import lombok.Getter;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -657,14 +655,21 @@ public class SBaseHTMLFactory {
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
         Model model = doc.getModel();
 
-        // retrieve info for object
-        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
-        fac.createInfo();
-        String html = fac.getHtml();
+        // Check creators
+        History h = model.getHistory();
+        for (Creator c : h.getListOfCreators()) {
+            System.out.println("Creator:" + c.toString());
+        }
 
-        // Save to tmp file for viewing
-        File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
-        FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
+
+//        // retrieve info for object
+//        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
+//        fac.createInfo();
+//        String html = fac.getHtml();
+//
+//        // Save to tmp file for viewing
+//        File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
+//        FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
 
 }

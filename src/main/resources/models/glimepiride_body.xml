@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="2" comp:required="true">
   <notes>
     <body xmlns="http://www.w3.org/1999/xhtml">
       <p>Created with <a href="https://github.com/matthiaskoenig/sbmlutils">https://github.com/matthiaskoenig/sbmlutils</a>.
@@ -379,264 +379,6 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
           <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
         </listOfUnits>
       </unitDefinition>
-      <unitDefinition id="KI__g_per_mole" name="g/mole">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__l_per_min" name="l/min">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__m2" name="meter^2">
-        <listOfUnits>
-          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mM" name="mmole/liter">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mg" name="mg">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mg_per_g" name="mg/g">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="gram" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mg_per_s_l" name="mg/s/l">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__min" name="min">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__min_per_hr" name="min/hour">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__ml_per_l" name="ml/l">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__ml_per_min" name="ml/min">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__ml_per_min_bsa" name="ml/min/(1.73 * m^2)">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="0.000578034682080925"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-          <unit kind="metre" exponent="-2" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mmole" name="mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mmole_per_min" name="mmole/min">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__mmole_per_min_l" name="mmole/min/l">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__per_min" name="1/min">
-        <listOfUnits>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="KI__per_mmole" name="1/mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__g_per_mole" name="g/mole">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__l_per_min" name="l/min">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__m2" name="meter^2">
-        <listOfUnits>
-          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mM" name="mmole/liter">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mg" name="mg">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mg_per_s_l" name="mg/s/l">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__min" name="min">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__min_per_hr" name="min/hour">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mmole" name="mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mmole_per_min" name="mmole/min">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__mmole_per_min_l" name="mmole/min/l">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__per_min" name="1/min">
-        <listOfUnits>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="LI__per_mmole" name="1/mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__g_per_mole" name="g/mole">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__l_per_min" name="l/min">
-        <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__m2" name="meter^2">
-        <listOfUnits>
-          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mM" name="mmole/liter">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mg" name="mg">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mg_per_min" name="mg/min">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mg_per_s_l" name="mg/s/l">
-        <listOfUnits>
-          <unit kind="gram" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__min" name="min">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__min_per_hr" name="min/hour">
-        <listOfUnits>
-          <unit kind="second" exponent="1" scale="0" multiplier="60"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mmole" name="mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mmole_per_min" name="mmole/min">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__mmole_per_min_l" name="mmole/min/l">
-        <listOfUnits>
-          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__per_hr" name="1/hr">
-        <listOfUnits>
-          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__per_min" name="1/min">
-        <listOfUnits>
-          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
-        </listOfUnits>
-      </unitDefinition>
-      <unitDefinition id="GU__per_mmole" name="1/mmole">
-        <listOfUnits>
-          <unit kind="mole" exponent="-1" scale="0" multiplier="0.001"/>
-        </listOfUnits>
-      </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
       <compartment metaid="meta_Vre" sboTerm="SBO:0000290" id="Vre" name="rest of body" spatialDimensions="3" size="1" units="litre" constant="false">
@@ -679,6 +421,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vgu_RE" comp:portRef="Vlumen_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vki" sboTerm="SBO:0000290" id="Vki" name="kidney" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -783,6 +528,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vurine_RE" comp:portRef="Vurine_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vfeces" sboTerm="SBO:0000290" id="Vfeces" name="feces" spatialDimensions="3" size="1" units="litre" constant="true">
         <annotation>
@@ -799,6 +547,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vfeces_RE" comp:portRef="Vfeces_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vstomach" sboTerm="SBO:0000290" id="Vstomach" name="stomach" spatialDimensions="3" size="1" units="litre" constant="true">
         <annotation>
@@ -879,6 +630,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vki_tissue_RE" comp:portRef="Vki_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vki_plasma" sboTerm="SBO:0000290" id="Vki_plasma" name="ki plasma" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -901,6 +655,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vki_plasma_RE" comp:portRef="Vext_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vli_tissue" sboTerm="SBO:0000290" id="Vli_tissue" name="li tissue" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -924,6 +681,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vli_tissue_RE" comp:portRef="Vli_port" comp:submodelRef="LI"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vli_plasma" sboTerm="SBO:0000290" id="Vli_plasma" name="li plasma" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -946,6 +706,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vli_plasma_RE" comp:portRef="Vext_port" comp:submodelRef="LI"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vlu_tissue" sboTerm="SBO:0000290" id="Vlu_tissue" name="lu tissue" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -1040,6 +803,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Vgu_plasma_RE" comp:portRef="Vext_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </compartment>
       <compartment metaid="meta_Vre_tissue" sboTerm="SBO:0000290" id="Vre_tissue" name="re tissue" spatialDimensions="3" size="1" units="litre" constant="false">
         <annotation>
@@ -1084,23 +850,6 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
           </rdf:RDF>
         </annotation>
       </compartment>
-      <compartment metaid="GU__meta_Vstomach" sboTerm="SBO:0000290" id="GU__Vstomach" name="stomach" spatialDimensions="3" size="1" units="litre" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_Vstomach">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000290"/>
-                  <rdf:li rdf:resource="http://identifiers.org/FMA:7148"/>
-                  <rdf:li rdf:resource="http://identifiers.org/ncit/C12391"/>
-                  <rdf:li rdf:resource="http://identifiers.org/UBERON:0000945"/>
-                  <rdf:li rdf:resource="http://identifiers.org/BTO:0001307"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </compartment>
     </listOfCompartments>
     <listOfSpecies>
       <species metaid="meta_Cki_plasma_gli" sboTerm="SBO:0000247" id="Cki_plasma_gli" name="glimepiride (kidney plasma)" compartment="Vki_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
@@ -1138,6 +887,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cli_plasma_gli_RE" comp:portRef="gli_ext_port" comp:submodelRef="LI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Clu_plasma_gli" sboTerm="SBO:0000247" id="Clu_plasma_gli" name="glimepiride (lung plasma)" compartment="Vlu_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1174,6 +926,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cgu_plasma_gli_RE" comp:portRef="gli_ext_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cre_plasma_gli" sboTerm="SBO:0000247" id="Cre_plasma_gli" name="glimepiride (rest plasma)" compartment="Vre_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1334,6 +1089,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cki_plasma_m1_RE" comp:portRef="m1_ext_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cli_plasma_m1" sboTerm="SBO:0000247" id="Cli_plasma_m1" name="M1 (liver plasma)" compartment="Vli_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1350,6 +1108,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cli_plasma_m1_RE" comp:portRef="m1_ext_port" comp:submodelRef="LI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Clu_plasma_m1" sboTerm="SBO:0000247" id="Clu_plasma_m1" name="M1 (lung plasma)" compartment="Vlu_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1382,6 +1143,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cgu_plasma_m1_RE" comp:portRef="m1_ext_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cre_plasma_m1" sboTerm="SBO:0000247" id="Cre_plasma_m1" name="M1 (rest plasma)" compartment="Vre_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1510,6 +1274,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Aurine_m1_RE" comp:portRef="m1_urine_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Afeces_m1" sboTerm="SBO:0000247" id="Afeces_m1" name="M1 (feces)" compartment="Vfeces" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
         <annotation>
@@ -1526,6 +1293,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Afeces_m1_RE" comp:portRef="m1_feces_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cki_plasma_m2" sboTerm="SBO:0000247" id="Cki_plasma_m2" name="M2 (kidney plasma)" compartment="Vki_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1541,6 +1311,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cki_plasma_m2_RE" comp:portRef="m2_ext_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cli_plasma_m2" sboTerm="SBO:0000247" id="Cli_plasma_m2" name="M2 (liver plasma)" compartment="Vli_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1556,6 +1329,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cli_plasma_m2_RE" comp:portRef="m2_ext_port" comp:submodelRef="LI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Clu_plasma_m2" sboTerm="SBO:0000247" id="Clu_plasma_m2" name="M2 (lung plasma)" compartment="Vlu_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1586,6 +1362,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Cgu_plasma_m2_RE" comp:portRef="m2_ext_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cre_plasma_m2" sboTerm="SBO:0000247" id="Cre_plasma_m2" name="M2 (rest plasma)" compartment="Vre_plasma" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1706,6 +1485,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Aurine_m2_RE" comp:portRef="m2_urine_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Afeces_m2" sboTerm="SBO:0000247" id="Afeces_m2" name="M2 (feces)" compartment="Vfeces" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
         <annotation>
@@ -1721,6 +1503,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="Afeces_m2_RE" comp:portRef="m2_feces_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </species>
       <species metaid="meta_Cve_m1_m2" sboTerm="SBO:0000247" id="Cve_m1_m2" name="M1 + M2 (plasma)" compartment="Vve" initialConcentration="0" substanceUnits="mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <annotation>
@@ -1755,122 +1540,6 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="LI__meta_gli" sboTerm="SBO:0000247" id="LI__gli" name="glimepiride (liver)" compartment="Vli_tissue" initialConcentration="0" substanceUnits="LI__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_gli">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
-                  <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="LI__meta_m1" sboTerm="SBO:0000247" id="LI__m1" name="M1 (liver)" compartment="Vli_tissue" initialConcentration="0" substanceUnits="LI__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_m1">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CHEBI:180533"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/130939"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/YUNQMQLWOOVHKI-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="LI__meta_m2" sboTerm="SBO:0000247" id="LI__m2" name="M2 (liver)" compartment="Vli_tissue" initialConcentration="0" substanceUnits="LI__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_m2">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/10075365"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/MMZLACCSCMGVHL-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="GU__meta_gli_stomach" sboTerm="SBO:0000247" id="GU__gli_stomach" name="glimepiride (stomach)" compartment="GU__Vstomach" initialConcentration="0" substanceUnits="GU__mmole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_gli_stomach">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
-                  <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="GU__meta_gli_lumen" sboTerm="SBO:0000247" id="GU__gli_lumen" name="glimepiride (intestines)" compartment="Vgu" initialConcentration="0" substanceUnits="GU__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_gli_lumen">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CHEBI:5383"/>
-                  <rdf:li rdf:resource="http://identifiers.org/ncit/C29073"/>
-                  <rdf:li rdf:resource="http://identifiers.org/snomedct/386966003"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3476"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/WIGIZIANZCJQQY-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="GU__meta_m1_lumen" sboTerm="SBO:0000247" id="GU__m1_lumen" name="M1 (intestines)" compartment="Vgu" initialConcentration="0" substanceUnits="GU__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_m1_lumen">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CHEBI:180533"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/130939"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/YUNQMQLWOOVHKI-UHFFFAOYSA-N"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="GU__meta_m2_lumen" sboTerm="SBO:0000247" id="GU__m2_lumen" name="M2 (intestines)" compartment="Vgu" initialConcentration="0" substanceUnits="GU__mmole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_m2_lumen">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000247"/>
-                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/10075365"/>
-                  <rdf:li rdf:resource="http://identifiers.org/inchikey/MMZLACCSCMGVHL-UHFFFAOYSA-N"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -1943,6 +1612,9 @@ implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p></bo
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="BSA_ki_RE" comp:portRef="BSA_port" comp:submodelRef="KI"/>
+        </comp:listOfReplacedElements>
       </parameter>
       <parameter metaid="meta_COBW" sboTerm="SBO:0000002" id="COBW" name="cardiac output per bodyweight [ml/s/kg]" value="1.548" units="ml_per_s_kg" constant="true">
         <annotation>
@@ -2283,6 +1955,9 @@ with FQgu=0.146, FQsp=0.017, FQpa=0.017</p>
             </rdf:Description>
           </rdf:RDF>
         </annotation>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement metaid="PODOSE_gli_RE" comp:portRef="PODOSE_gli_port" comp:submodelRef="GU"/>
+        </comp:listOfReplacedElements>
       </parameter>
       <parameter metaid="meta_Mr_gli" sboTerm="SBO:0000647" id="Mr_gli" name="Molecular weight gli [g/mole]" value="490.616" units="g_per_mole" constant="true">
         <annotation>
@@ -2603,332 +2278,6 @@ with FQgu=0.146, FQsp=0.017, FQpa=0.017</p>
       <parameter id="Qlu" name="lung blood flow" value="NaN" units="l_per_min" constant="false"/>
       <parameter id="Qre" name="rest of body blood flow" value="NaN" units="l_per_min" constant="false"/>
       <parameter id="Qpo" name="portal blood flow" value="NaN" units="l_per_min" constant="false"/>
-      <parameter metaid="KI__meta_f_renal_function" sboTerm="SBO:0000009" id="KI__f_renal_function" name="parameter for renal function" value="1" units="dimensionless" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>scaling factor for renal function. 1.0: normal renal function;
-&lt;1.0: reduced renal function</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_f_renal_function">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="KI__meta_egfr" sboTerm="SBO:0000002" id="KI__egfr" name="estimated GFR [ml/min/(1.73 m^2)]" value="NaN" units="KI__ml_per_min_bsa" constant="false">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>A laboratory test that estimates kidney function. It is calculated using an individual&apos;s
-serum creatinine measurement, age, gender, and race.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_egfr">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                  <rdf:li rdf:resource="http://identifiers.org/ncit/C110935"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="KI__meta_crcl" sboTerm="SBO:0000002" id="KI__crcl" name="creatinine clearance [ml/min]" value="NaN" units="KI__ml_per_min" constant="false">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>The clearance rate of creatinine, that is, the volume of plasma that is cleared of creatinine
-by the kidneys per unit time. Creatinine clearance is calculated using the level of creatinine in a
-sample of urine, usually one collected over a period of 24 hours, the corresponding plasma creatinine
-level, and the volume of urine excreted. It is used as an approximation of the glomerular
-filtration rate (GFR).</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_crcl">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                  <rdf:li rdf:resource="http://identifiers.org/CMO:0000765"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="KI__meta_egfr_healthy" sboTerm="SBO:0000002" id="KI__egfr_healthy" name="estimated glomerular filtration (eGFR) rate healthy" value="100" units="KI__ml_per_min_bsa" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>eGFR is often estimated via creatinine clearance, creatinine urinary amount,
-or creatinine plasma amounts.</p>
-            <pre>
-              <code>    CKD-EPI Creatinine Equation (2021): This is the most recent and recommended equation for 
-    estimating GFR35. It is more accurate than previous formulas and does not include 
-    race as a variable.
-
-    MDRD (Modification of Diet in Renal Disease) Study Equation
-</code>
-            </pre>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_egfr_healthy">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="KI__meta_M1EX_k" sboTerm="SBO:0000009" id="KI__M1EX_k" name="rate of M1 urinary excretion" value="0.148009816248971" units="KI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_M1EX_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="KI__meta_M2EX_k" sboTerm="SBO:0000009" id="KI__M2EX_k" name="rate of M2 urinary excretion" value="0.0984926326381094" units="KI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_M2EX_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_GLIIM_k" sboTerm="SBO:0000186" id="LI__GLIIM_k" name="rate glimepiride import" value="100" units="LI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_GLIIM_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000186"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_GLI2M1_Vmax" sboTerm="SBO:0000186" id="LI__GLI2M1_Vmax" name="rate glimepiride conversion" value="5.36203611928566e-05" units="LI__mmole_per_min_l" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_GLI2M1_Vmax">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000186"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_GLI2M1_Km_gli" sboTerm="SBO:0000027" id="LI__GLI2M1_Km_gli" name="Km gli" value="0.00225" units="LI__mM" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>0.18 +- 0.03 µM [Maekawa2009]
-2.25 +- 0.80 µM [Zhang2023]
-4.1 +- 0.4 µM [Suzuki2006]</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_GLI2M1_Km_gli">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000027"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_f_cyp2c9" sboTerm="SBO:0000002" id="LI__f_cyp2c9" name="scaling factor CYP2C9 activity" value="1" units="dimensionless" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Scaling factor to vary CYP2C9 activity.
-1.0: unchanged activity; &lt; 1.0 decreased activity; &gt;1.0 increased activity.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_f_cyp2c9">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_M1EX_k" sboTerm="SBO:0000186" id="LI__M1EX_k" name="rate M1 export" value="0.0777434597719034" units="LI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M1EX_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000186"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_M12M2_k" sboTerm="SBO:0000186" id="LI__M12M2_k" name="rate m1 -&gt; m2 conversion" value="0.014851987496533" units="LI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M12M2_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000186"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="LI__meta_M2EX_k" sboTerm="SBO:0000186" id="LI__M2EX_k" name="rate M2 export" value="99.9981744786616" units="LI__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M2EX_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000186"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_GLIABS_k" sboTerm="SBO:0000009" id="GU__GLIABS_k" name="rate of glimepiride absorption" value="0.015900835518328" units="GU__per_min" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_GLIABS_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_f_absorption" sboTerm="SBO:0000009" id="GU__f_absorption" name="scaling factor for absorption rate" value="1" units="dimensionless" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>1.0: normal absorption corresponding to tablet under fasting conditions;
-food decreases the absorption rate, i.e. &lt; 1.0.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_f_absorption">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_MREABS_k" sboTerm="SBO:0000009" id="GU__MREABS_k" name="rate constant for M1 and M2 reabsorption from plasma to intestine" value="0.0159201837887391" units="GU__per_min" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Assumption: same rate for M1 and M2.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_MREABS_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_MEXC_k" sboTerm="SBO:0000009" id="GU__MEXC_k" name="rate feces excretion of M1 and M2" value="0.000171930078446119" units="GU__per_min" constant="true">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Assumption: same rate for M1 and M2.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_MEXC_k">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000009"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_Ka_dis_gli" sboTerm="SBO:0000002" id="GU__Ka_dis_gli" name="Ka_dis [1/hr] dissolution glimepiride" value="2" units="GU__per_hr" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_Ka_dis_gli">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_Mr_gli" sboTerm="SBO:0000647" id="GU__Mr_gli" name="Molecular weight glimepiride [g/mole]" value="490.616" units="GU__g_per_mole" constant="true">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_Mr_gli">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000647"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
-      <parameter metaid="GU__meta_mtot_feces" sboTerm="SBO:0000002" id="GU__mtot_feces" name="total fecal metabolites (M1 + M2)" value="NaN" units="GU__mmole" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_mtot_feces">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000002"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </parameter>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="f_shunts">
@@ -3609,58 +2958,6 @@ injection rate.</p>
       <rateRule variable="cum_dose_m2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <ci> Ri_m2 </ci>
-        </math>
-      </rateRule>
-      <assignmentRule name="estimated eGFR" variable="KI__egfr">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <times/>
-            <ci> KI__f_renal_function </ci>
-            <ci> KI__egfr_healthy </ci>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule name="creatinine clearance" variable="KI__crcl">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>CrCl typically overestimates GFR by 10-20% due to the active secretionof creatinine in the proximal tubules.Using a 10 % overestimation in the model.</p>
-          </body>
-        </notes>
-        <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version2/core">
-          <apply>
-            <times/>
-            <apply>
-              <divide/>
-              <apply>
-                <times/>
-                <ci> KI__egfr </ci>
-                <ci> BSA </ci>
-              </apply>
-              <cn sbml:units="dimensionless"> 1.73 </cn>
-            </apply>
-            <cn sbml:units="dimensionless"> 1.1 </cn>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule name="total fecal metabolites (M1 + M2)" variable="GU__mtot_feces">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <ci> Afeces_m1 </ci>
-            <ci> Afeces_m2 </ci>
-          </apply>
-        </math>
-      </assignmentRule>
-      <rateRule name="rate of dose dissolution" variable="PODOSE_gli">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <times/>
-            <apply>
-              <minus/>
-              <ci> GU__dissolution_gli </ci>
-            </apply>
-            <ci> GU__Mr_gli </ci>
-          </apply>
         </math>
       </rateRule>
     </listOfRules>
@@ -5210,437 +4507,62 @@ injection rate.</p>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction metaid="KI__meta_M1EX" sboTerm="SBO:0000655" id="KI__M1EX" name="M1 excretion (M1EX)" reversible="false" compartment="Vki_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_M1EX">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="Cki_plasma_m1" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Aurine_m1" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> KI__f_renal_function </ci>
-              <ci> Vki_tissue </ci>
-              <ci> KI__M1EX_k </ci>
-              <ci> Cki_plasma_m1 </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="KI__meta_M2EX" sboTerm="SBO:0000655" id="KI__M2EX" name="M2 excretion (M2EX)" reversible="false" compartment="Vki_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#KI__meta_M2EX">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="Cki_plasma_m2" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Aurine_m2" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> KI__f_renal_function </ci>
-              <ci> Vki_tissue </ci>
-              <ci> KI__M2EX_k </ci>
-              <ci> Cki_plasma_m2 </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="LI__meta_GLIIM" sboTerm="SBO:0000655" id="LI__GLIIM" name="glimepiride import" reversible="true" compartment="Vli_plasma">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_GLIIM">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="Cli_plasma_gli" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="LI__gli" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> LI__GLIIM_k </ci>
-              <ci> Vli_tissue </ci>
-              <apply>
-                <minus/>
-                <ci> Cli_plasma_gli </ci>
-                <ci> LI__gli </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="LI__meta_GLI2M1" sboTerm="SBO:0000176" id="LI__GLI2M1" name="glimepiride → M1 (CYP2C9)" reversible="false" compartment="Vli_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_GLI2M1">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000176"/>
-                  <rdf:li rdf:resource="http://identifiers.org/uniprot/P11712"/>
-                  <rdf:li rdf:resource="http://identifiers.org/brenda/1.14.99.38"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="LI__gli" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="LI__m1" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <divide/>
-              <apply>
-                <times/>
-                <ci> LI__f_cyp2c9 </ci>
-                <ci> LI__GLI2M1_Vmax </ci>
-                <ci> Vli_tissue </ci>
-                <ci> LI__gli </ci>
-              </apply>
-              <apply>
-                <plus/>
-                <ci> LI__gli </ci>
-                <ci> LI__GLI2M1_Km_gli </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="LI__meta_M1EX" sboTerm="SBO:0000655" id="LI__M1EX" name="M1 export" reversible="true" compartment="Vli_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M1EX">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="LI__m1" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Cli_plasma_m1" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> LI__M1EX_k </ci>
-              <ci> Vli_tissue </ci>
-              <apply>
-                <minus/>
-                <ci> LI__m1 </ci>
-                <ci> Cli_plasma_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="LI__meta_M12M2" sboTerm="SBO:0000176" id="LI__M12M2" name="M1 → M2" reversible="false" compartment="Vli_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M12M2">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000176"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="LI__m1" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="LI__m2" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> LI__M12M2_k </ci>
-              <ci> Vli_tissue </ci>
-              <ci> LI__m1 </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="LI__meta_M2EX" sboTerm="SBO:0000655" id="LI__M2EX" name="M2 export" reversible="true" compartment="Vli_tissue">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#LI__meta_M2EX">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="LI__m2" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Cli_plasma_m2" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> LI__M2EX_k </ci>
-              <ci> Vli_tissue </ci>
-              <apply>
-                <minus/>
-                <ci> LI__m2 </ci>
-                <ci> Cli_plasma_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_GLIABS" sboTerm="SBO:0000655" id="GU__GLIABS" name="absorption glimepiride" reversible="false" compartment="Vgu">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Due to 100% fraction absorbed no process for excretion of gli in feces is added.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_GLIABS">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="GU__gli_lumen" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Cgu_plasma_gli" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> GU__f_absorption </ci>
-              <ci> GU__GLIABS_k </ci>
-              <ci> Vgu </ci>
-              <ci> GU__gli_lumen </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_M1REABS" sboTerm="SBO:0000655" id="GU__M1REABS" name="reabsorption M1" reversible="false" compartment="Vgu">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_M1REABS">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="Cgu_plasma_m1" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="GU__m1_lumen" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> GU__MREABS_k </ci>
-              <ci> Cgu_plasma_m1 </ci>
-              <ci> Vgu </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_M2REABS" sboTerm="SBO:0000655" id="GU__M2REABS" name="reabsorption M2" reversible="false" compartment="Vgu">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_M2REABS">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="Cgu_plasma_m2" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="GU__m2_lumen" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> GU__MREABS_k </ci>
-              <ci> Cgu_plasma_m2 </ci>
-              <ci> Vgu </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_M1EXC" sboTerm="SBO:0000655" id="GU__M1EXC" name="excretion M1" reversible="false" compartment="Vgu">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Assumption: same rate for M1 and M2.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_M1EXC">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="GU__m1_lumen" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Afeces_m1" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> GU__MEXC_k </ci>
-              <ci> GU__m1_lumen </ci>
-              <ci> Vgu </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_M2EXC" sboTerm="SBO:0000655" id="GU__M2EXC" name="excretion M2" reversible="false" compartment="Vgu">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Assumption: same rate for M1 and M2.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_M2EXC">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000655"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="GU__m2_lumen" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Afeces_m2" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> GU__MEXC_k </ci>
-              <ci> GU__m2_lumen </ci>
-              <ci> Vgu </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction metaid="GU__meta_dissolution_gli" sboTerm="SBO:0000176" id="GU__dissolution_gli" name="dissolution glimepiride" reversible="false" compartment="Vgu">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Swallowing, dissolution of tablet, and transport into intestine.
-Overall process describing the rates of this processes.</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#GU__meta_dissolution_gli">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="http://identifiers.org/SBO:0000176"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="GU__gli_stomach" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="GU__gli_lumen" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version2/core">
-            <apply>
-              <divide/>
-              <apply>
-                <times/>
-                <apply>
-                  <divide/>
-                  <ci> GU__Ka_dis_gli </ci>
-                  <cn sbml:units="GU__min_per_hr" type="integer"> 60 </cn>
-                </apply>
-                <ci> PODOSE_gli </ci>
-              </apply>
-              <ci> GU__Mr_gli </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
     </listOfReactions>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="KI" comp:name="kidney submodel" comp:modelRef="kidney"/>
+      <comp:submodel comp:id="LI" comp:name="liver submodel" comp:modelRef="liver"/>
+      <comp:submodel comp:id="GU" comp:name="gut submodel" comp:modelRef="gut"/>
+    </comp:listOfSubmodels>
+    <comp:listOfPorts>
+      <comp:port metaid="BSA_port" sboTerm="SBO:0000599" comp:idRef="BSA" comp:id="BSA_port" comp:name="Port of BSA"/>
+      <comp:port metaid="Vki_tissue_port" sboTerm="SBO:0000599" comp:idRef="Vki_tissue" comp:id="Vki_tissue_port" comp:name="Port of Vki_tissue"/>
+      <comp:port metaid="Vki_plasma_port" sboTerm="SBO:0000599" comp:idRef="Vki_plasma" comp:id="Vki_plasma_port" comp:name="Port of Vki_plasma"/>
+      <comp:port metaid="Vli_tissue_port" sboTerm="SBO:0000599" comp:idRef="Vli_tissue" comp:id="Vli_tissue_port" comp:name="Port of Vli_tissue"/>
+      <comp:port metaid="Vli_plasma_port" sboTerm="SBO:0000599" comp:idRef="Vli_plasma" comp:id="Vli_plasma_port" comp:name="Port of Vli_plasma"/>
+      <comp:port metaid="Vlu_tissue_port" sboTerm="SBO:0000599" comp:idRef="Vlu_tissue" comp:id="Vlu_tissue_port" comp:name="Port of Vlu_tissue"/>
+      <comp:port metaid="Vlu_plasma_port" sboTerm="SBO:0000599" comp:idRef="Vlu_plasma" comp:id="Vlu_plasma_port" comp:name="Port of Vlu_plasma"/>
+      <comp:port metaid="Vgu_tissue_port" sboTerm="SBO:0000599" comp:idRef="Vgu_tissue" comp:id="Vgu_tissue_port" comp:name="Port of Vgu_tissue"/>
+      <comp:port metaid="Vgu_plasma_port" sboTerm="SBO:0000599" comp:idRef="Vgu_plasma" comp:id="Vgu_plasma_port" comp:name="Port of Vgu_plasma"/>
+      <comp:port metaid="Vre_tissue_port" sboTerm="SBO:0000599" comp:idRef="Vre_tissue" comp:id="Vre_tissue_port" comp:name="Port of Vre_tissue"/>
+      <comp:port metaid="Vre_plasma_port" sboTerm="SBO:0000599" comp:idRef="Vre_plasma" comp:id="Vre_plasma_port" comp:name="Port of Vre_plasma"/>
+      <comp:port metaid="Cki_plasma_gli_port" sboTerm="SBO:0000599" comp:idRef="Cki_plasma_gli" comp:id="Cki_plasma_gli_port" comp:name="Port of Cki_plasma_gli"/>
+      <comp:port metaid="Cli_plasma_gli_port" sboTerm="SBO:0000599" comp:idRef="Cli_plasma_gli" comp:id="Cli_plasma_gli_port" comp:name="Port of Cli_plasma_gli"/>
+      <comp:port metaid="Clu_plasma_gli_port" sboTerm="SBO:0000599" comp:idRef="Clu_plasma_gli" comp:id="Clu_plasma_gli_port" comp:name="Port of Clu_plasma_gli"/>
+      <comp:port metaid="Cgu_plasma_gli_port" sboTerm="SBO:0000599" comp:idRef="Cgu_plasma_gli" comp:id="Cgu_plasma_gli_port" comp:name="Port of Cgu_plasma_gli"/>
+      <comp:port metaid="Cre_plasma_gli_port" sboTerm="SBO:0000599" comp:idRef="Cre_plasma_gli" comp:id="Cre_plasma_gli_port" comp:name="Port of Cre_plasma_gli"/>
+      <comp:port metaid="Car_gli_port" sboTerm="SBO:0000599" comp:idRef="Car_gli" comp:id="Car_gli_port" comp:name="Port of Car_gli"/>
+      <comp:port metaid="Cve_gli_port" sboTerm="SBO:0000599" comp:idRef="Cve_gli" comp:id="Cve_gli_port" comp:name="Port of Cve_gli"/>
+      <comp:port metaid="Cpo_gli_port" sboTerm="SBO:0000599" comp:idRef="Cpo_gli" comp:id="Cpo_gli_port" comp:name="Port of Cpo_gli"/>
+      <comp:port metaid="Chv_gli_port" sboTerm="SBO:0000599" comp:idRef="Chv_gli" comp:id="Chv_gli_port" comp:name="Port of Chv_gli"/>
+      <comp:port metaid="Clu_gli_port" sboTerm="SBO:0000599" comp:idRef="Clu_gli" comp:id="Clu_gli_port" comp:name="Port of Clu_gli"/>
+      <comp:port metaid="Cre_gli_port" sboTerm="SBO:0000599" comp:idRef="Cre_gli" comp:id="Cre_gli_port" comp:name="Port of Cre_gli"/>
+      <comp:port metaid="Cki_plasma_m1_port" sboTerm="SBO:0000599" comp:idRef="Cki_plasma_m1" comp:id="Cki_plasma_m1_port" comp:name="Port of Cki_plasma_m1"/>
+      <comp:port metaid="Cli_plasma_m1_port" sboTerm="SBO:0000599" comp:idRef="Cli_plasma_m1" comp:id="Cli_plasma_m1_port" comp:name="Port of Cli_plasma_m1"/>
+      <comp:port metaid="Clu_plasma_m1_port" sboTerm="SBO:0000599" comp:idRef="Clu_plasma_m1" comp:id="Clu_plasma_m1_port" comp:name="Port of Clu_plasma_m1"/>
+      <comp:port metaid="Cgu_plasma_m1_port" sboTerm="SBO:0000599" comp:idRef="Cgu_plasma_m1" comp:id="Cgu_plasma_m1_port" comp:name="Port of Cgu_plasma_m1"/>
+      <comp:port metaid="Cre_plasma_m1_port" sboTerm="SBO:0000599" comp:idRef="Cre_plasma_m1" comp:id="Cre_plasma_m1_port" comp:name="Port of Cre_plasma_m1"/>
+      <comp:port metaid="Car_m1_port" sboTerm="SBO:0000599" comp:idRef="Car_m1" comp:id="Car_m1_port" comp:name="Port of Car_m1"/>
+      <comp:port metaid="Cve_m1_port" sboTerm="SBO:0000599" comp:idRef="Cve_m1" comp:id="Cve_m1_port" comp:name="Port of Cve_m1"/>
+      <comp:port metaid="Cpo_m1_port" sboTerm="SBO:0000599" comp:idRef="Cpo_m1" comp:id="Cpo_m1_port" comp:name="Port of Cpo_m1"/>
+      <comp:port metaid="Chv_m1_port" sboTerm="SBO:0000599" comp:idRef="Chv_m1" comp:id="Chv_m1_port" comp:name="Port of Chv_m1"/>
+      <comp:port metaid="Clu_m1_port" sboTerm="SBO:0000599" comp:idRef="Clu_m1" comp:id="Clu_m1_port" comp:name="Port of Clu_m1"/>
+      <comp:port metaid="Cre_m1_port" sboTerm="SBO:0000599" comp:idRef="Cre_m1" comp:id="Cre_m1_port" comp:name="Port of Cre_m1"/>
+      <comp:port metaid="Cki_plasma_m2_port" sboTerm="SBO:0000599" comp:idRef="Cki_plasma_m2" comp:id="Cki_plasma_m2_port" comp:name="Port of Cki_plasma_m2"/>
+      <comp:port metaid="Cli_plasma_m2_port" sboTerm="SBO:0000599" comp:idRef="Cli_plasma_m2" comp:id="Cli_plasma_m2_port" comp:name="Port of Cli_plasma_m2"/>
+      <comp:port metaid="Clu_plasma_m2_port" sboTerm="SBO:0000599" comp:idRef="Clu_plasma_m2" comp:id="Clu_plasma_m2_port" comp:name="Port of Clu_plasma_m2"/>
+      <comp:port metaid="Cgu_plasma_m2_port" sboTerm="SBO:0000599" comp:idRef="Cgu_plasma_m2" comp:id="Cgu_plasma_m2_port" comp:name="Port of Cgu_plasma_m2"/>
+      <comp:port metaid="Cre_plasma_m2_port" sboTerm="SBO:0000599" comp:idRef="Cre_plasma_m2" comp:id="Cre_plasma_m2_port" comp:name="Port of Cre_plasma_m2"/>
+      <comp:port metaid="Car_m2_port" sboTerm="SBO:0000599" comp:idRef="Car_m2" comp:id="Car_m2_port" comp:name="Port of Car_m2"/>
+      <comp:port metaid="Cve_m2_port" sboTerm="SBO:0000599" comp:idRef="Cve_m2" comp:id="Cve_m2_port" comp:name="Port of Cve_m2"/>
+      <comp:port metaid="Cpo_m2_port" sboTerm="SBO:0000599" comp:idRef="Cpo_m2" comp:id="Cpo_m2_port" comp:name="Port of Cpo_m2"/>
+      <comp:port metaid="Chv_m2_port" sboTerm="SBO:0000599" comp:idRef="Chv_m2" comp:id="Chv_m2_port" comp:name="Port of Chv_m2"/>
+      <comp:port metaid="Clu_m2_port" sboTerm="SBO:0000599" comp:idRef="Clu_m2" comp:id="Clu_m2_port" comp:name="Port of Clu_m2"/>
+      <comp:port metaid="Cre_m2_port" sboTerm="SBO:0000599" comp:idRef="Cre_m2" comp:id="Cre_m2_port" comp:name="Port of Cre_m2"/>
+    </comp:listOfPorts>
   </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="kidney" comp:name="kidney model definition" comp:source="glimepiride_kidney.xml" comp:modelRef="glimepiride_kidney"/>
+    <comp:externalModelDefinition comp:id="liver" comp:name="liver model definition" comp:source="glimepiride_liver.xml" comp:modelRef="glimepiride_liver"/>
+    <comp:externalModelDefinition comp:id="gut" comp:name="gut model definition" comp:source="glimepiride_intestine.xml" comp:modelRef="glimepiride_intestine"/>
+  </comp:listOfExternalModelDefinitions>
 </sbml>
