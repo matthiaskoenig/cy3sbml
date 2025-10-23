@@ -15,40 +15,33 @@ public class GUIConstants {
 
     public static final String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
     public static final String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
-
-    public static final String ICON_CHANGESTATE = "/gui/images/changestate.png";
     public static final String ICON_ARCHIVE = "/gui/images/archive.png";
     public static final String ICON_IMPORT = "/gui/images/import.png";
-
     public static final String ICON_EXAMPLES = "/gui/images/examples.png";
-    public static final String ICON_COFACTOR = "/gui/images/cofactor.png";
     public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
-    public static final String ICON_BIOMODELS_DEPRECATED = "/gui/images/biomodels_deprecated.png";
-    public static final String ICON_HELP = "/gui/images/help.png";
+    public static final String ICON_HELP = "/gui/images/cy3sbml.png";
     public static final String ICON_LOADLAYOUT = "/gui/images/layout-load.png";
     public static final String ICON_SAVELAYOUT = "/gui/images/layout-save.png";
+    public static final String ICON_COFACTOR = "/gui/images/cofactor.png";
 
-    public static float GRAVITY_CHANGESTATE = (float) 100.0;
-    public static float GRAVITY_IMPORT = (float) 101.0;
-    public static float GRAVITY_ARCHIVE = (float) 102.0;
-
+    public static float GRAVITY_HELP = (float) 101.0;
+    public static float GRAVITY_IMPORT = (float) 102.0;
+    public static float GRAVITY_ARCHIVE = (float) 103.0;
     public static float GRAVITY_EXAMPLES = (float) 106.0;
     public static float GRAVITY_BIOMODELS = (float) 110.0;
-    public static float GRAVITY_HELP = (float) 112.0;
 
-    public static float GRAVITY_LOCATION = (float) 113.0;
     public static float GRAVITY_LOADLAYOUT = (float) 114.0;
-    public static float GRAVITY_SAVELAYOUT = (float) 120.0;
+    public static float GRAVITY_SAVELAYOUT = (float) 115.0;
+    public static float GRAVITY_COFACTOR = (float) 120.0;
 
-    public static final String DESCRIPTION_CHANGESTATE = "Hide|show panel";
-    public static final String DESCRIPTION_ARCHIVE = "Import Archive (COMBINE & ResearchObjects)";
-    public static final String DESCRIPTION_IMPORT = "Import SBML";
-    public static final String DESCRIPTION_EXAMPLES = "SBML examples";
-    public static final String DESCRIPTION_COFACTOR = "Cofactor nodes";
-    public static final String DESCRIPTION_BIOMODELS = "Biomodel Import";
-    public static final String DESCRIPTION_HELP = "Help";
-    public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";
-    public static final String DESCRIPTION_SAVELAYOUT = "Save Layout";
+    public static final String DESCRIPTION_ARCHIVE = "cy3sbml: Import Archive (COMBINE & ResearchObjects)";
+    public static final String DESCRIPTION_IMPORT = "cy3sbml: Import SBML";
+    public static final String DESCRIPTION_EXAMPLES = "cy3sbml: SBML examples";
+    public static final String DESCRIPTION_COFACTOR = "cy3sbml: Cofactor nodes";
+    public static final String DESCRIPTION_BIOMODELS = "cy3sbml: Biomodel Import";
+    public static final String DESCRIPTION_HELP = "cy3sbml: Help";
+    public static final String DESCRIPTION_LOADLAYOUT = "cy3sbml: Load Layout";
+    public static final String DESCRIPTION_SAVELAYOUT = "cy3sbml: Save Layout";
 
     //HTML FRAGMENTS
     public static final String htmlTemplate = load();

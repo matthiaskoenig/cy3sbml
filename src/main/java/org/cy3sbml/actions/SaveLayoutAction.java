@@ -36,12 +36,12 @@ public class SaveLayoutAction extends AbstractCyAction {
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_SAVELAYOUT);
+        this.putValue(LONG_DESCRIPTION, "Save network layout information.");
         setToolbarGravity(GUIConstants.GRAVITY_SAVELAYOUT);
 
-        // FIXME in Cy3.5
-        // this.insertToolbarSeparatorAfter = true;
         this.inToolBar = true;
         this.inMenuBar = false;
+        this.insertToolbarSeparatorAfter = true;
     }
 
     @Override

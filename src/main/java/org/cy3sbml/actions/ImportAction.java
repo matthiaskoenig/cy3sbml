@@ -31,6 +31,7 @@ public class ImportAction extends AbstractCyAction {
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_IMPORT);
+        this.putValue(LONG_DESCRIPTION, "Use the File Import dialog to load SBML files. Select multiple files to import them at once, or drag and drop files onto the network pane.");
         setToolbarGravity(GUIConstants.GRAVITY_IMPORT);
 
         this.inToolBar = true;

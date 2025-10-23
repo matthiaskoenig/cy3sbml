@@ -47,7 +47,7 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_COFACTOR);
-        setToolbarGravity(GUIConstants.GRAVITY_LOCATION);
+        setToolbarGravity(GUIConstants.GRAVITY_COFACTOR);
 
         this.inToolBar = true;
         this.inMenuBar = false;

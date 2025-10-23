@@ -40,6 +40,7 @@ public class LoadLayoutAction extends AbstractCyAction {
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_LOADLAYOUT);
+        this.putValue(LONG_DESCRIPTION, "Load network layout information.");
         setToolbarGravity(GUIConstants.GRAVITY_LOADLAYOUT);
 
         this.inToolBar = true;

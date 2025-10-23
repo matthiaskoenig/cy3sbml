@@ -27,6 +27,7 @@ public class ExamplesAction extends AbstractCyAction {
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_EXAMPLES);
+        this.putValue(LONG_DESCRIPTION, "Load SBML examples models.");
         setToolbarGravity(GUIConstants.GRAVITY_EXAMPLES);
 
         this.inToolBar = true;

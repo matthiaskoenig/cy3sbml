@@ -23,14 +23,17 @@ public class HelpAction extends AbstractCyAction {
     public HelpAction() {
         super(HelpAction.class.getSimpleName());
 
+
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
-        putValue(LARGE_ICON_KEY, icon);
+        this.putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_HELP);
+        this.putValue(LONG_DESCRIPTION, "Display help information for quick access to main functions.");
         setToolbarGravity(GUIConstants.GRAVITY_HELP);
 
         this.inToolBar = true;
         this.inMenuBar = false;
+        this.insertSeparatorBefore = true;
     }
 
     @Override

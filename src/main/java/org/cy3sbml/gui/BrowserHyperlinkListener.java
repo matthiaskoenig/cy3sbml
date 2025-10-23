@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     private static final Logger logger = LoggerFactory.getLogger(BrowserHyperlinkListener.class);
 
-    public static final String URL_CHANGESTATE = "https://cy3sbml-changestate";
     public static final String URL_IMPORT = "https://cy3sbml-import";
 
     public static final String URL_EXAMPLES = "https://cy3sbml-examples";
@@ -77,8 +76,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         EXAMPLE_SBML = Collections.unmodifiableMap(map);
 
         Set<String> set = new HashSet<>();
-
-        set.add(URL_CHANGESTATE);
         set.add(URL_IMPORT);
         set.add(URL_EXAMPLES);
         set.add(URL_BIOMODELS);
@@ -116,9 +113,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
             // Cytoscape Action
             if (URLS_ACTION.contains(s)) {
                 AbstractCyAction action = null;
-                if (s.equals(URL_CHANGESTATE)) {
-                    action = new ChangeStateAction();
-                }
                 if (s.equals(URL_IMPORT)) {
                     action = new ImportAction(adapter);
                 }
@@ -132,9 +126,9 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                 if (s.equals(URL_HELP)) {
                     action = new HelpAction();
                 }
-                if (s.equals(URL_COFACTOR_NODES)) {
-                    CofactorAction.runCofactorAction(adapter);
-                }
+                //if (s.equals(URL_COFACTOR_NODES)) {
+                //    CofactorAction.runCofactorAction(adapter);
+                //}
                 if (s.equals(URL_SAVELAYOUT)) {
                     action = new SaveLayoutAction(adapter);
                 }

@@ -35,6 +35,7 @@ public class BiomodelsAction extends AbstractCyAction {
         putValue(LARGE_ICON_KEY, icon);
 
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_BIOMODELS);
+        this.putValue(LONG_DESCRIPTION, "Load SBML files from BioModels.");
         setToolbarGravity(GUIConstants.GRAVITY_BIOMODELS);
 
         this.inToolBar = true;

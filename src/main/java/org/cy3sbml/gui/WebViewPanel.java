@@ -161,14 +161,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
         }
     }
 
-    public void changeState() {
-        if (isActive()) {
-            deactivate();
-        } else {
-            activate();
-        }
-    }
-
     public void select() {
         int index = cytoPanelEast.indexOfComponent(this);
         if (index == -1) {

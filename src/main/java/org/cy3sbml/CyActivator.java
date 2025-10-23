@@ -209,9 +209,6 @@ public class CyActivator extends AbstractCyActivator {
 
 
             // init actions [100 - 120]
-            // ChangeStateAction changeStateAction = new ChangeStateAction();
-            // registerService(bc, changeStateAction, CyAction.class, new Properties());
-
             ArchiveAction archiveAction = new ArchiveAction(cySwingApplication, fileUtil,
                     loadNetworkFileTaskFactory, synchronousTaskManager);
             registerService(bc, archiveAction, CyAction.class, new Properties());
@@ -224,9 +221,9 @@ public class CyActivator extends AbstractCyActivator {
             ExamplesAction examplesAction = new ExamplesAction();
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
-            CofactorAction cofactorAction = new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
-            registerService(bc, cofactorAction, CyAction.class, new Properties());
-            registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
+            // CofactorAction cofactorAction = new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
+            // registerService(bc, cofactorAction, CyAction.class, new Properties());
+            //registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
 
             BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
