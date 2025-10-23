@@ -42,15 +42,14 @@ public class OLSAccess {
             }
 
             // none of the strategies worked
-            logger.warn("Identifier is not an ontology identifier: {}", identifier);
+            logger.warn("Identifier is not an ontology identifier: '{}'", identifier);
             return null;
 
         } catch (HttpClientErrorException e) {
-            logger.warn("OLS term not found <{}>", identifier);
+            logger.warn("OLS term not found: '{}'", identifier);
             return null;
         } catch (Throwable e) {
-            logger.error("Error retrieving OLS term for: {}", identifier, e);
-            e.printStackTrace();
+            logger.error("Error retrieving OLS term for: '{}'", identifier, e);
             return null;
         }
     }

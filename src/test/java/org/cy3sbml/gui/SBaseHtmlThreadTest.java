@@ -5,8 +5,6 @@ import java.util.HashSet;
 
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
-import org.cy3sbml.miriam.RegistryUtil;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -34,11 +32,6 @@ public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
 
-    @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
-        // Setup with local registry
-        RegistryUtil.loadMiriamNamespaceMap();
-    }
 
     @Test
     public void run() throws Exception {
@@ -109,9 +102,6 @@ public class SBaseHtmlThreadTest {
      */
     private void runModelTest(String resource) throws InterruptedException {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
-        Model model = doc.getModel();
-
-        // objects from model
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
         Collection<SBase> objects = map.getObjects();
 
@@ -125,28 +115,5 @@ public class SBaseHtmlThreadTest {
             assertNotNull(html);
         }
     }
-
-    private String createHTMLOutput(String resource) throws Exception {
-        SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
-        Model model = doc.getModel();
-
-        Collection<Object> objSet = new HashSet<>();
-        objSet.add(model);
-
-        // running in caching mode, no html generated
-        SBaseHTMLThread t1 = new SBaseHTMLThread(objSet, panel);
-        t1.start();
-        t1.join();
-        String html = t1.getInfo();
-        return html;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Writing HTML information to file for development.
-     * This allows faster development cycle of the information HTML than
-     * packing it in the Cytoscape app.
-     */
 
 }

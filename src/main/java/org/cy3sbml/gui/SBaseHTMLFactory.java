@@ -215,6 +215,7 @@ public class SBaseHTMLFactory {
         String html = "<p class=\"cvterm\">";
         History h = sbase.getHistory();
         for (Creator c : h.getListOfCreators()) {
+            System.out.println("Creator:" + c.toString());
             String givenName = c.isSetGivenName() ? c.getGivenName() : "";
             String familyName = c.isSetFamilyName() ? c.getFamilyName() : "";
             String organisation = c.isSetOrganisation() ? String.format(", %s", c.getOrganisation()) : "";
@@ -449,7 +450,7 @@ public class SBaseHTMLFactory {
                     // check that identifier is correct for given datatype
                     String pattern = namespace.getPattern();
                     if (!RegistryUtilities.checkRegexp(compactId, pattern)) {
-                        logger.warn("Identifier <{}> does not match pattern <{}> of data collection: <{}>", compactId, pattern, namespace.getId());
+                        logger.warn("'{}>' does not match '{}' pattern '{}'", compactId, dataCollection, pattern);
                         text += IDENTIFIER_PATTERN_MISMATCH
                                 .replace("{ICON_WARNING}", ICON_WARNING)
                                 .replace("{identifier}", compactId)
@@ -651,8 +652,6 @@ public class SBaseHTMLFactory {
      * development iterations.
      */
     public static void main(String[] args) throws Exception {
-        // resources for HTML
-        File f = File.createTempFile("MiriamRegistry", ".json");
 
         // Create the HTML for selected SBMLDocuments and SBases
         SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");

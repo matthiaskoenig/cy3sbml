@@ -24,12 +24,28 @@ public class RegistryUtil {
 
     private static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
     private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
-    private static final Map<String, Namespace> namespaceMap = loadMiriamNamespaceMap();
+    private static Map<String, Namespace> namespaceMap = null;
+
+
+    public static Map<String, Namespace> getNamespaceMap() {
+        if (namespaceMap == null) {
+            namespaceMap = loadMiriamNamespaceMap();
+        }
+        return namespaceMap;
+    }
+
+    public static Namespace getNamespace(String prefix) {
+        if (namespaceMap == null) {
+            namespaceMap = loadMiriamNamespaceMap();
+        }
+        return namespaceMap.get(prefix);
+    }
+
 
     /**
      * Script for updating the packaged MIRIAM XML file in src/main/resources.
      */
-    public static Map<String, Namespace> loadMiriamNamespaceMap() {
+    private static Map<String, Namespace> loadMiriamNamespaceMap() {
         Map<String, Namespace> namespaceMap = null;
         try {
             File f = File.createTempFile("MiriamRegistry", ".json");
@@ -39,9 +55,10 @@ public class RegistryUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        logger.info("Loaded MIRIAM registry");
         return namespaceMap;
     }
+
 
     /**
      * Updates the MIRIAM registry file.
@@ -53,7 +70,7 @@ public class RegistryUtil {
         try {
             URL miriamURL = new URL(URL_MIRIAM_JSON);
             IOUtil.saveURLasFile(miriamURL, file);
-            logger.info("Updated MIRIAM: {}", file.getAbsolutePath());
+            logger.debug("Updated MIRIAM: {}", file.getAbsolutePath());
         } catch (MalformedURLException e) {
             logger.error("MalformedURLException", e);
         }

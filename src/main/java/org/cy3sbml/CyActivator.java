@@ -82,7 +82,7 @@ public class CyActivator extends AbstractCyActivator {
             File cyDirectory = configuration.getConfigurationDirectoryLocation();
             File appDirectory = new File(cyDirectory, bundleInfo.getName());
 
-            if (appDirectory.exists() == false) {
+            if (!appDirectory.exists()) {
                 appDirectory.mkdir();
             }
 
@@ -92,14 +92,14 @@ public class CyActivator extends AbstractCyActivator {
             logger = LoggerFactory.getLogger(CyActivator.class);
 
             logger.info("----------------------------");
-            logger.info("Start " + bundleInfo.getInfo());
+            logger.info("Start {}", bundleInfo.getInfo());
             logger.info("----------------------------");
-            logger.info("directory = " + appDirectory.getAbsolutePath());
-            logger.info("logfile = " + logFile.getAbsolutePath());
+            logger.info("directory = {}", appDirectory.getAbsolutePath());
+            logger.info("logfile = {}", logFile.getAbsolutePath());
 
             // Loading extension bundle from resources (netscape.javascript)
             String extensionBundle = "extension/org.cy3javascript.extension-0.0.1.jar";
-            logger.info("Install extension bundle");
+            logger.debug("Install extension bundle");
             Bundle bundle = bc.getBundle();
             URL jarUrl = bundle.getEntry(extensionBundle);
             InputStream input = jarUrl.openStream();
@@ -120,7 +120,7 @@ public class CyActivator extends AbstractCyActivator {
             propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
             registerAllServices(bc, propsReader, propsReaderServiceProps);
 
-            /** Get services */
+            // Get services
             CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 
             CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
@@ -154,7 +154,7 @@ public class CyActivator extends AbstractCyActivator {
             ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
             connectionProxy.setSystemProxyFromCyProperties();
 
-            /** Create ServiceAdapter */
+            // Create ServiceAdapter
             ServiceAdapter adapter = ServiceAdapter.getInstance(
                     cySwingApplication,
                     cyApplicationManager,
@@ -209,8 +209,8 @@ public class CyActivator extends AbstractCyActivator {
 
 
             // init actions [100 - 120]
-            ChangeStateAction changeStateAction = new ChangeStateAction();
-            registerService(bc, changeStateAction, CyAction.class, new Properties());
+            // ChangeStateAction changeStateAction = new ChangeStateAction();
+            // registerService(bc, changeStateAction, CyAction.class, new Properties());
 
             ArchiveAction archiveAction = new ArchiveAction(cySwingApplication, fileUtil,
                     loadNetworkFileTaskFactory, synchronousTaskManager);
@@ -281,10 +281,11 @@ public class CyActivator extends AbstractCyActivator {
             //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
-                    RegistryUtil.loadMiriamNamespaceMap();
+                    // initialize the namespace map from miriam
+                    RegistryUtil.getNamespaceMap();
                 }
             });
-            miriamThread.run();
+            miriamThread.start();
 
             // cy3sbml panels
             webViewPanel.activate();

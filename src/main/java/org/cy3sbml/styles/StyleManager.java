@@ -48,7 +48,7 @@ public class StyleManager implements SessionLoadedListener {
      */
     public void loadStyles() {
         for (String styleName : styles) {
-            logger.info("Load visual style: " + styleName);
+            logger.debug("Load visual style: " + styleName);
             String resource = String.format("/styles/%s.xml", styleName);
             InputStream styleStream = getClass().getResourceAsStream(resource);
             // Check if already existing
