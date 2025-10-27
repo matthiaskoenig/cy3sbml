@@ -6,8 +6,8 @@
         <bundle.symbolicName>cy3sbml</bundle.symbolicName>
         <bundle.namespace>org.cy3sbml</bundle.namespace>
         <cytoscape.api.version>3.10.0</cytoscape.api.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
         <osgi.api.version>7.0.0</osgi.api.version>
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -59,10 +59,10 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.14.1</version>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
+                    <source>17</source>
+                    <target>17</target>
                     <encoding>UTF-8</encoding>
                     <optimize>true</optimize>
                     <showWarnings>true</showWarnings>
@@ -78,7 +78,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.3.1</version>
             </plugin>
             <!-- jar -->
             <plugin>
@@ -89,27 +89,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>3.1.4</version>
             </plugin>
 
             <!-- testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.5.4</version>
                 <configuration>
                     <excludes>
                         <exclude>${models.test.excludes}</exclude>
                     </excludes>
                 </configuration>
-
             </plugin>
 
             <!-- coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
+                <version>0.8.14</version>
                 <executions>
                     <execution>
                         <goals>
@@ -386,54 +385,24 @@
             <artifactId>commons-text</artifactId>
             <version>1.14.0</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.20.0</version>
-        </dependency>
 
         <!-- JavaFX -->
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.2.2</version>
-        </dependency>
         <dependency>
             <groupId>org.codefx.libfx</groupId>
             <artifactId>LibFX</artifactId>
             <version>0.3.0</version>
         </dependency>
 
-        <!--  UniRest -->
+        <!-- JSON -->
         <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpasyncclient</artifactId>
-            <version>4.1.5</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.20.0</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20250517</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.59</version>
         </dependency>
 
         <!-- manually registered from repo -->
@@ -449,90 +418,21 @@
             <groupId>uk.ac.ebi.pride.utilities</groupId>
             <artifactId>ols-client</artifactId>
             <version>2.15-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>uk.ac.ebi.pride.architectural</groupId>
-                    <artifactId>pride-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.20.0</version>
-        </dependency>
-
 
         <!-- UniProt -->
-        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
+        <!-- https://www.ebi.ac.uk/uniprot/japi/ -->
+        <!-- https://www.ebi.ac.uk/uniprot/artifactory/public/uk/ac/ebi/uniprot/japi/ -->
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.3.6</version>
+            <version>1.3.7</version>
         </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.17</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-log4j12</artifactId>-->
-<!--            <version>2.0.17</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.logging.log4j</groupId>-->
-<!--            <artifactId>log4j-core</artifactId>-->
-<!--            <version>2.24.1</version>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.20</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.5.20</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.fusesource.jansi</groupId>-->
-<!--            <artifactId>jansi</artifactId>-->
-<!--            <version>2.4.2</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
             <version>1.7-SNAPSHOT</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.logging.log4j</groupId>-->
-<!--                    <artifactId>log4j-core</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
@@ -601,20 +501,6 @@
             <groupId>org.biojava</groupId>
             <artifactId>biojava-ontology</artifactId>
             <version>4.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-slf4j-impl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -622,9 +508,47 @@
             <version>5.19.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Logging -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.logging.log4j</groupId>-->
+<!--            <artifactId>log4j-to-slf4j</artifactId>-->
+<!--            <version>2.8.2</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-api</artifactId>-->
+<!--            <version>2.0.17</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.5.20</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-core</artifactId>-->
+<!--            <version>1.5.20</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.fusesource.jansi</groupId>-->
+<!--            <artifactId>jansi</artifactId>-->
+<!--            <version>2.4.2</version>-->
+<!--        </dependency>-->
+
         <!-- Testing -->
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
-
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

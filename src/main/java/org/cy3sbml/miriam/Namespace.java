@@ -39,7 +39,6 @@ public class Namespace {
         this.modified = (String) value.get(MODIFIED);
         this.sampleId = (String) value.get(SAMPLE_ID);
         this.deprecated = (Boolean) value.get(DEPRECATED);
-        this.deprecationDate = (String) value.get(DEPRECATION_DATE);
         if (this.name == null) {
             throw new IllegalArgumentException("Namespace name cannot be null");
         }

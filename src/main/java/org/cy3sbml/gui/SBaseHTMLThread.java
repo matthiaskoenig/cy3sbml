@@ -4,18 +4,17 @@ package org.cy3sbml.gui;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.Getter;
 
 /**
  * Creates SBase HTML information in separate thread.
  * Provides some helper functions to preload information for given SBMLDocuments.
  */
 public class SBaseHTMLThread extends Thread {
-    private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
     private Collection<Object> objSet;
     private InfoPanel panel;
+
+    @Getter
     private String info;
 
     /**
@@ -53,12 +52,4 @@ public class SBaseHTMLThread extends Thread {
             panel.setText(this);
         }
     }
-
-    /**
-     * Get the created information.
-     */
-    public String getInfo() {
-        return info;
-    }
-
 }

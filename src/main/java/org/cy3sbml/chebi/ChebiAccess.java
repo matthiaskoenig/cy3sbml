@@ -1,8 +1,8 @@
 package org.cy3sbml.chebi;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONException;
-import com.alibaba.fastjson2.JSONObject;
+import org.json.JSONObject;
+import org.json.JSONException;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +80,7 @@ public class ChebiAccess {
         String charge;
         String mass;
 
-        JSONObject obj = JSON.parseObject(json);
+        JSONObject obj = new JSONObject(json);
         if (obj != null) {
             try {
                 JSONObject chemical_data = obj.getJSONObject("chemical_data");

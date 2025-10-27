@@ -5,15 +5,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.JSONArray;
+import org.cy3sbml.util.SBMLUtil;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import org.cy3sbml.util.IOUtil;
 
+import org.sbml.jsbml.Creator;
+import org.sbml.jsbml.History;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +60,7 @@ public class RegistryUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("Loaded MIRIAM registry");
+        logger.warn("Loaded MIRIAM registry");
         return namespaceMap;
     }
 
@@ -70,9 +75,9 @@ public class RegistryUtil {
         try {
             URL miriamURL = new URL(URL_MIRIAM_JSON);
             IOUtil.saveURLasFile(miriamURL, file);
-            logger.debug("Updated MIRIAM: {}", file.getAbsolutePath());
+            logger.info("Updated MIRIAM: {}", file.getAbsolutePath());
         } catch (MalformedURLException e) {
-            logger.error("MalformedURLException", e);
+            logger.warn("MalformedURLException", e);
         }
     }
 
@@ -83,8 +88,10 @@ public class RegistryUtil {
      */
     public static Map<String, Namespace> loadRegistry(File fJSON) throws IOException {
 
-        byte[] jsonBytes = Files.readAllBytes(fJSON.toPath());
-        JSONObject root = JSON.parseObject(jsonBytes);
+        // Read the content of the file into a String
+        String content = new String(Files.readAllBytes(fJSON.toPath()));
+        JSONObject root = new JSONObject(content);
+
         JSONObject payload = root.getJSONObject("payload");
         if (payload == null) {
             throw new IllegalArgumentException("Missing 'payload' object");
@@ -94,11 +101,19 @@ public class RegistryUtil {
             throw new IllegalArgumentException("Missing 'namespaces' array");
         }
         Map<String, Namespace> map = new HashMap<>();
-        for (int i = 0; i < namespaces.size(); i++) {
+        for (int i = 0; i < namespaces.length(); i++) {
             JSONObject nsNode = namespaces.getJSONObject(i);
             String prefix = nsNode.getString("prefix");
-            if (prefix == null || prefix.isEmpty()) continue;
-            Map<Object, Object> nsData = new LinkedHashMap<>(nsNode);
+            if (prefix == null || prefix.isEmpty()){
+                continue;
+            }
+            Map<Object, Object> nsData = new LinkedHashMap<>();
+            Iterator<String> keysItr = nsNode.keys();
+            while(keysItr.hasNext()) {
+                String key = keysItr.next();
+                Object value = nsNode.get(key);
+                nsData.put(key, value);
+            }
             map.put(prefix, new Namespace(nsData));
         }
 
@@ -175,6 +190,12 @@ public class RegistryUtil {
             id = compactId.replace(prefix + ":", "");
         }
         return id;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        Map<String, Namespace> namespaceMap = getNamespaceMap();
+
     }
 
 }

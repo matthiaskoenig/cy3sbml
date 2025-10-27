@@ -401,6 +401,7 @@ public class SBaseHTMLFactory {
         );
 
 
+
         for (String resourceURI : cvterm.getResources()) {
 
             // handle identifiers.org information
@@ -638,10 +639,6 @@ public class SBaseHTMLFactory {
         return (b) ? ICON_TRUE : ICON_FALSE;
     }
 
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * <main> : Testing the HTML creation
