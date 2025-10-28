@@ -40,8 +40,7 @@
                     <instructions>
                         <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
-					org.sbml.jsbml.*</Export-Package>
+                        <Export-Package>${bundle.namespace}.*;version="${project.version}", org.sbml.jsbml.*</Export-Package>
                         <Private-Package>${bundle.namespace}.*</Private-Package>
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
                         <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
@@ -129,6 +128,12 @@
     </build>
 
     <repositories>
+        <repository>
+            <id>maven-central</id>
+            <name>Maven central repository</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+
         <!-- Cytoscape -->
         <repository>
             <id>cytoscape_releases</id>
@@ -170,11 +175,6 @@
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
-<!--        <repository>-->
-<!--            <id>JSBML-SNAPSHOT</id>-->
-<!--            <name>The JSBML Snapshot repository</name>-->
-<!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-<!--        </repository>-->
 
         <!-- uniprot -->
         <repository>
@@ -195,17 +195,7 @@
             <id>nexus-ebi-release-repo</id>
             <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
-<!--        <repository>-->
-<!--            <id>repository.jboss.org-public</id>-->
-<!--            <name>JBoss.org Maven repository</name>-->
-<!--            <url>https://repository.jboss.org/nexus/content/groups/public</url>-->
-<!--        </repository>-->
 
-        <repository>
-            <id>maven-central</id>
-            <name>Maven central repository</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
     </repositories>
 
 
@@ -526,6 +516,16 @@
         </dependency>
 
         <!-- logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.2</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

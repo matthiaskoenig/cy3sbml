@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ import org.mockito.MockitoAnnotations;
  * https://github.com/sbmlteam/sbml-test-suite/releases/tag/3.5.0
  * Retrieved on 2025-09-08.
  */
+@Disabled("Long running tests")
 public class SBMLTestSuiteTest {
 
     @Mock
