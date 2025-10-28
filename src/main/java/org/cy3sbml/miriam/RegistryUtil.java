@@ -160,6 +160,8 @@ public class RegistryUtil {
             return null;
         }
 
+
+
         // remove prefix
         String token = resourceURI.replace("https://identifiers.org/", "");
         token = token.replace("http://identifiers.org/", "");

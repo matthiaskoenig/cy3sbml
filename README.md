@@ -39,6 +39,21 @@ We aim to create a powerful visualization tool for computational models and simu
 ![cy3sbml screenshot](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshot-cy3sbml-0.1.7_01.png)
 
 
+## Python
+Models can be loaded programmatically via python
+```bash
+uv venv
+uv pip install sbmlutils
+```
+Example
+```python
+from sbmlutils.cytoscape import visualize_sbml
+sbml_path = "./src/main/resources/models/glimepiride_body_flat.xml"
+visualize_sbml(sbml_path)
+```
+
+
+
 # Citation
 If you use `cy3sbml`, please cite the following publication:
 

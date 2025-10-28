@@ -648,21 +648,26 @@ public class SBaseHTMLFactory {
      */
     public static void main(String[] args) throws Exception {
 
+        RegistryUtil.getNamespaceMap();
+
         // Create the HTML for selected SBMLDocuments and SBases
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
+        // SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
+        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/glimepiride_liver.xml");
         Model model = doc.getModel();
 
         // Check creators
-        History h = model.getHistory();
-        for (Creator c : h.getListOfCreators()) {
-            System.out.println("Creator:" + c.toString());
-        }
+//        History h = model.getHistory();
+//        System.out.println(h);
+//        for (Creator c : h.getListOfCreators()) {
+//            System.out.println("Creator:" + c.toString());
+//        }
 
 
 //        // retrieve info for object
-//        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
-//        fac.createInfo();
-//        String html = fac.getHtml();
+        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
+        fac.createInfo();
+        String html = fac.getHtml();
+        System.out.println(html);
 //
 //        // Save to tmp file for viewing
 //        File file = new File("src/main/resources/tmp", "htmlCreationTest.html");

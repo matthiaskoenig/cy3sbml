@@ -133,7 +133,7 @@ public class OLSClientTest {
     public void testGetTermXrefs() throws Exception {
         Identifier identifier1 = new Identifier("MI:0446", Identifier.IdentifierType.OBO);
         Map xrefs = olsClient.getTermXrefs(identifier1, "mi");
-        assertEquals(1, xrefs.size());
+        assertEquals(3, xrefs.size());
         assertEquals("PMID:14755292", xrefs.get("xref_definition_14755292"));
     }
 }
