@@ -1,7 +1,6 @@
 package org.cy3sbml.reader;
 
 import java.util.Properties;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.SBML;
 import org.cy3sbml.util.AnnotationUtil;
 import org.cy3sbml.util.AttributeUtil;
@@ -24,7 +23,6 @@ import org.sbml.jsbml.ext.comp.SBaseRef;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
-import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * Writes the attributes of SBML objects into the node, edge and network tables.
@@ -32,44 +30,6 @@ import org.sbml.jsbml.xml.XMLNode;
 final class AttributeWriter {
 
     private AttributeWriter() {}
-
-    /**
-     * Parsing of COBRA properties
-     */
-    private static Properties parseCobraNotes(SBase sbase) {
-        Properties props = new Properties();
-        if (sbase.isSetNotes()) {
-            XMLNode notes = sbase.getNotes();
-            XMLNode parent = notes;
-            XMLNode body = notes.getChildElement("body", (String) null);
-            if (body == null) {
-                body = notes.getChildElement("p", (String) null);
-            }
-            if (body == null) {
-                body = notes.getChildElement("html", (String) null);
-            }
-            if (body != null) {
-                parent = body;
-            }
-            for (XMLNode pNode : parent.getChildElements("p", (String) null)) {
-                if (pNode.getChildCount() > 0) {
-                    String content = pNode.getChild(0).getCharacters();
-                    int colonCount = StringUtils.countMatches(content, ":");
-                    if (colonCount == 1) {
-                        int firstColonIndex = content.indexOf(":");
-                        String key = content.substring(0, firstColonIndex).trim();
-                        String value = content.substring(firstColonIndex + 1).trim();
-                        // no whitespaces in key
-                        if (!key.contains(" ")) {
-                            props.setProperty(key, value);
-                        }
-                    }
-                }
-            }
-        }
-
-        return props;
-    }
 
     /**
      * Set attributes for SBase.
@@ -96,7 +56,7 @@ final class AttributeWriter {
             FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
             if (fbcModel != null) {
                 if ((sbase instanceof Reaction) || (sbase instanceof Species) || (sbase instanceof GeneProduct)) {
-                    props.putAll(parseCobraNotes(sbase));
+                    props.putAll(CobraNotesParser.parse(sbase));
                 }
             }
         }
