@@ -97,7 +97,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 new FbcReader(),
                 new CompReader(),
                 new GroupsReader(),
-                new LayoutReader());
+                new LayoutReader(),
+                // attributes derived from the complete network, must be last
+                new DerivedAttributes());
         subnetworkBuilder = new SubnetworkBuilder(fileName);
 
         cyNetworks = new ArrayList<>();
@@ -279,8 +281,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         for (PackageReader reader : readers) {
             reader.read(context, model);
         }
-        // compartment codes and extended types for the visual mappings
-        CoreReader.addDerivedAttributes(network, model);
         if (taskMonitor != null) {
             taskMonitor.setProgress(0.4);
         }

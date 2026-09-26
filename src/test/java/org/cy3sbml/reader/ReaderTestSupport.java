@@ -38,6 +38,17 @@ final class ReaderTestSupport {
             assertNotNull(stream, "Resource not found: " + resource);
             document = new SBMLReader().readSBMLFromStream(stream);
         }
+        return read(document, readers);
+    }
+
+    /**
+     * Reads the given SBML string with the readers in the given order.
+     */
+    static ConversionContext readString(String sbml, PackageReader... readers) throws Exception {
+        return read(new SBMLReader().readSBMLFromString(sbml), readers);
+    }
+
+    private static ConversionContext read(SBMLDocument document, PackageReader... readers) {
         CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
         ConversionContext context = new ConversionContext(document, network, new GroupTestSupport().getGroupFactory());
         Model model = document.getModel();
