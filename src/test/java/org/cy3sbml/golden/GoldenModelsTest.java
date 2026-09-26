@@ -28,9 +28,8 @@ import org.junit.jupiter.params.provider.FieldSource;
  * described in {@link NetworkSnapshot}.
  * <p>
  * Models left out on purpose: {@code unittests/groups_01.xml} (snapshot above 6 MB, groups
- * are covered by {@code unittests/fbc_01.xml}), {@code comp/Watanabe2014/test_replacement_4.xml}
- * (the reader fails with "target node is not a member of this network") and COMBINE archives
- * (read by {@code ArchiveReaderTask}, not by {@code SBMLReaderTask}).
+ * are covered by {@code unittests/fbc_01.xml}) and COMBINE archives (read by
+ * {@code ArchiveReaderTask}, not by {@code SBMLReaderTask}).
  * <p>
  * Regenerate the snapshots after an intended change of the import with
  * <pre>
@@ -64,6 +63,7 @@ public class GoldenModelsTest {
             // comp: models with submodels, replacements and deletions
             "comp/Watanabe2014/test_replacement_9.xml",
             "comp/Watanabe2014/test_replacement_1.xml",
+            "comp/Watanabe2014/test_replacement_4.xml",
             // fbc: v1 and v2
             "fbc/JSBML_testcase_L3V1_fbcV1.xml",
             "fbc/Mini_textbook_L3V1_fbcV2.xml",

@@ -231,6 +231,10 @@ final class CompReader implements PackageReader {
 
             // the recursive sBaseRef is not followed yet (#401)
 
+            if (target == null) {
+                logger.warn("Target of SBaseRef not found in model '{}', link not created: {}", model, sBaseRef);
+                return;
+            }
             context.createEdge(sbaseNode, target, interaction);
         }
     }

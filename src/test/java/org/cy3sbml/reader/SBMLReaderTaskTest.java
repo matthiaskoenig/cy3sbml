@@ -1,6 +1,7 @@
 package org.cy3sbml.reader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -68,5 +69,23 @@ class SBMLReaderTaskTest {
         CyNetwork network = task.getNetworks()[0];
         CyNode species = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, "s1");
         assertEquals("M\u00e4hren \u00b5M", network.getRow(species).get(SBML.ATTR_NAME, String.class));
+    }
+
+    @Test
+    void readerReadsCompModelWithReplacementsInSubmodels() throws Exception {
+        String resource = "/models/comp/Watanabe2014/test_replacement_4.xml";
+        TaskMonitor taskMonitor = mock(TaskMonitor.class);
+        SBMLReaderTask task;
+        try (InputStream stream = getClass().getResourceAsStream(resource)) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "test_replacement_4.xml",
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory());
+            task.run(taskMonitor);
+        }
+
+        assertFalse(task.getError());
+        assertTrue(task.getNetworks().length > 0);
     }
 }
