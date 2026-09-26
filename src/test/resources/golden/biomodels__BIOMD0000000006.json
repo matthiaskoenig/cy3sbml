@@ -252,6 +252,7 @@
         {
           "source" : "EmptySet",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -261,6 +262,7 @@
         {
           "source" : "Reaction1",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -272,6 +274,7 @@
         {
           "source" : "Reaction1",
           "target" : "_372768",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -281,6 +284,7 @@
         {
           "source" : "Reaction1",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -292,6 +296,7 @@
         {
           "source" : "Reaction2",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -303,6 +308,7 @@
         {
           "source" : "Reaction2",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -312,6 +318,7 @@
         {
           "source" : "Reaction2",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -323,6 +330,7 @@
         {
           "source" : "Reaction3",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -332,6 +340,7 @@
         {
           "source" : "Reaction3",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -343,6 +352,7 @@
         {
           "source" : "Reaction3",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -354,6 +364,7 @@
         {
           "source" : "alpha",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -363,6 +374,7 @@
         {
           "source" : "alpha",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -372,6 +384,7 @@
         {
           "source" : "k4",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -381,6 +394,7 @@
         {
           "source" : "k4",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -390,6 +404,7 @@
         {
           "source" : "k4",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -399,6 +414,7 @@
         {
           "source" : "k4prime",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -408,6 +424,7 @@
         {
           "source" : "k4prime",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -417,6 +434,7 @@
         {
           "source" : "k6",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -426,6 +444,7 @@
         {
           "source" : "k6",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -435,6 +454,7 @@
         {
           "source" : "k6",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -444,6 +464,7 @@
         {
           "source" : "kappa",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -453,6 +474,7 @@
         {
           "source" : "kappa",
           "target" : "_372768",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -462,6 +484,7 @@
         {
           "source" : "u",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -471,6 +494,7 @@
         {
           "source" : "u",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -480,6 +504,7 @@
         {
           "source" : "u",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -489,6 +514,7 @@
         {
           "source" : "u",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -498,6 +524,7 @@
         {
           "source" : "u",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -507,6 +534,7 @@
         {
           "source" : "u",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -516,6 +544,7 @@
         {
           "source" : "u",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -525,6 +554,7 @@
         {
           "source" : "v",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -534,6 +564,7 @@
         {
           "source" : "v",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -543,6 +574,7 @@
         {
           "source" : "v",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -552,6 +584,7 @@
         {
           "source" : "v",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -561,6 +594,7 @@
         {
           "source" : "z",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -570,6 +604,7 @@
         {
           "source" : "z",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -579,6 +614,7 @@
         {
           "source" : "z",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -702,6 +738,7 @@
         {
           "source" : "Reaction1",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -714,6 +751,7 @@
         {
           "source" : "Reaction1",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -726,6 +764,7 @@
         {
           "source" : "Reaction2",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -738,6 +777,7 @@
         {
           "source" : "Reaction2",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -750,6 +790,7 @@
         {
           "source" : "Reaction3",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -762,6 +803,7 @@
         {
           "source" : "Reaction3",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1013,6 +1055,7 @@
         {
           "source" : "EmptySet",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1023,6 +1066,7 @@
         {
           "source" : "Reaction1",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1035,6 +1079,7 @@
         {
           "source" : "Reaction1",
           "target" : "_372768",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1045,6 +1090,7 @@
         {
           "source" : "Reaction1",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1057,6 +1103,7 @@
         {
           "source" : "Reaction2",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1069,6 +1116,7 @@
         {
           "source" : "Reaction2",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1079,6 +1127,7 @@
         {
           "source" : "Reaction2",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1091,6 +1140,7 @@
         {
           "source" : "Reaction3",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1101,6 +1151,7 @@
         {
           "source" : "Reaction3",
           "target" : "u",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1113,6 +1164,7 @@
         {
           "source" : "Reaction3",
           "target" : "z",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1125,6 +1177,7 @@
         {
           "source" : "alpha",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1135,6 +1188,7 @@
         {
           "source" : "alpha",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -1145,6 +1199,7 @@
         {
           "source" : "k4",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1155,6 +1210,7 @@
         {
           "source" : "k4",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1165,6 +1221,7 @@
         {
           "source" : "k4",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1175,6 +1232,7 @@
         {
           "source" : "k4prime",
           "target" : "_175132",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1185,6 +1243,7 @@
         {
           "source" : "k4prime",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1195,6 +1254,7 @@
         {
           "source" : "k6",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1205,6 +1265,7 @@
         {
           "source" : "k6",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1215,6 +1276,7 @@
         {
           "source" : "k6",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1225,6 +1287,7 @@
         {
           "source" : "kappa",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1235,6 +1298,7 @@
         {
           "source" : "kappa",
           "target" : "_372768",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1245,6 +1309,7 @@
         {
           "source" : "u",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1255,6 +1320,7 @@
         {
           "source" : "u",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -1265,6 +1331,7 @@
         {
           "source" : "u",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1275,6 +1342,7 @@
         {
           "source" : "u",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1285,6 +1353,7 @@
         {
           "source" : "u",
           "target" : "_372804",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1295,6 +1364,7 @@
         {
           "source" : "u",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1305,6 +1375,7 @@
         {
           "source" : "u",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1315,6 +1386,7 @@
         {
           "source" : "v",
           "target" : "_175128",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1325,6 +1397,7 @@
         {
           "source" : "v",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1335,6 +1408,7 @@
         {
           "source" : "v",
           "target" : "_175131",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -1345,6 +1419,7 @@
         {
           "source" : "v",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1355,6 +1430,7 @@
         {
           "source" : "z",
           "target" : "_175129",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -1365,6 +1441,7 @@
         {
           "source" : "z",
           "target" : "_372840",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1375,6 +1452,7 @@
         {
           "source" : "z",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",

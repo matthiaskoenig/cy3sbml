@@ -264,6 +264,7 @@
         {
           "source" : "EmptySet",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -273,6 +274,7 @@
         {
           "source" : "M",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -282,6 +284,7 @@
         {
           "source" : "M",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -291,6 +294,7 @@
         {
           "source" : "M",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -300,6 +304,7 @@
         {
           "source" : "Md",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -311,6 +316,7 @@
         {
           "source" : "Md",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -322,6 +328,7 @@
         {
           "source" : "Md",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -331,6 +338,7 @@
         {
           "source" : "Md_qM",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -340,6 +348,7 @@
         {
           "source" : "Md_qM",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -349,6 +358,7 @@
         {
           "source" : "P",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -358,6 +368,7 @@
         {
           "source" : "P",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -367,6 +378,7 @@
         {
           "source" : "P",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -376,6 +388,7 @@
         {
           "source" : "Pd",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -387,6 +400,7 @@
         {
           "source" : "Pd",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -398,6 +412,7 @@
         {
           "source" : "Pd",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -407,6 +422,7 @@
         {
           "source" : "Pd_qP",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -416,6 +432,7 @@
         {
           "source" : "Pd_qP",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -425,6 +442,7 @@
         {
           "source" : "TC",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -436,6 +454,7 @@
         {
           "source" : "TC",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -447,6 +466,7 @@
         {
           "source" : "TC",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -457,6 +477,7 @@
         {
           "source" : "TC",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -466,6 +487,7 @@
         {
           "source" : "TC_k",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -475,6 +497,7 @@
         {
           "source" : "TC_k",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -484,6 +507,7 @@
         {
           "source" : "TC_n",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -493,6 +517,7 @@
         {
           "source" : "TC_n",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -502,6 +527,7 @@
         {
           "source" : "TC_rM",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -511,6 +537,7 @@
         {
           "source" : "TC_rM",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -520,6 +547,7 @@
         {
           "source" : "TL",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -531,6 +559,7 @@
         {
           "source" : "TL",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -541,6 +570,7 @@
         {
           "source" : "TL",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -552,6 +582,7 @@
         {
           "source" : "TL",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -561,6 +592,7 @@
         {
           "source" : "TL_m",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -570,6 +602,7 @@
         {
           "source" : "TL_m",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -579,6 +612,7 @@
         {
           "source" : "TL_parameter_0000009",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -588,6 +622,7 @@
         {
           "source" : "TL_parameter_0000009",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -597,6 +632,7 @@
         {
           "source" : "TL_rP",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -606,6 +642,7 @@
         {
           "source" : "TL_rP",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -615,6 +652,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -624,6 +662,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -633,6 +672,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -642,6 +682,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -651,6 +692,7 @@
         {
           "source" : "eae948a9-0be1-4f64-bb6d-c71b308bb390",
           "target" : "metaid_0000015",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -903,6 +945,7 @@
         {
           "source" : "EmptySet",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -913,6 +956,7 @@
         {
           "source" : "M",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -923,6 +967,7 @@
         {
           "source" : "M",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -933,6 +978,7 @@
         {
           "source" : "M",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -943,6 +989,7 @@
         {
           "source" : "Md",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -955,6 +1002,7 @@
         {
           "source" : "Md",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -967,6 +1015,7 @@
         {
           "source" : "Md",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -977,6 +1026,7 @@
         {
           "source" : "Md_qM",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -987,6 +1037,7 @@
         {
           "source" : "Md_qM",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -997,6 +1048,7 @@
         {
           "source" : "P",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1007,6 +1059,7 @@
         {
           "source" : "P",
           "target" : "compartment_0000004",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1017,6 +1070,7 @@
         {
           "source" : "P",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1027,6 +1081,7 @@
         {
           "source" : "Pd",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1039,6 +1094,7 @@
         {
           "source" : "Pd",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1051,6 +1107,7 @@
         {
           "source" : "Pd",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1061,6 +1118,7 @@
         {
           "source" : "Pd_qP",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1071,6 +1129,7 @@
         {
           "source" : "Pd_qP",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1081,6 +1140,7 @@
         {
           "source" : "TC",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1093,6 +1153,7 @@
         {
           "source" : "TC",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1105,6 +1166,7 @@
         {
           "source" : "TC",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1116,6 +1178,7 @@
         {
           "source" : "TC",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1126,6 +1189,7 @@
         {
           "source" : "TC_k",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1136,6 +1200,7 @@
         {
           "source" : "TC_k",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1146,6 +1211,7 @@
         {
           "source" : "TC_n",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1156,6 +1222,7 @@
         {
           "source" : "TC_n",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1166,6 +1233,7 @@
         {
           "source" : "TC_rM",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1176,6 +1244,7 @@
         {
           "source" : "TC_rM",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1186,6 +1255,7 @@
         {
           "source" : "TL",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1198,6 +1268,7 @@
         {
           "source" : "TL",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1209,6 +1280,7 @@
         {
           "source" : "TL",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1221,6 +1293,7 @@
         {
           "source" : "TL",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1231,6 +1304,7 @@
         {
           "source" : "TL_m",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1241,6 +1315,7 @@
         {
           "source" : "TL_m",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1251,6 +1326,7 @@
         {
           "source" : "TL_parameter_0000009",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1261,6 +1337,7 @@
         {
           "source" : "TL_parameter_0000009",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1271,6 +1348,7 @@
         {
           "source" : "TL_rP",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1281,6 +1359,7 @@
         {
           "source" : "TL_rP",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1291,6 +1370,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1301,6 +1381,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1311,6 +1392,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1321,6 +1403,7 @@
         {
           "source" : "compartment_0000004",
           "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1445,6 +1528,7 @@
         {
           "source" : "Md",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1457,6 +1541,7 @@
         {
           "source" : "Md",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1469,6 +1554,7 @@
         {
           "source" : "Pd",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1481,6 +1567,7 @@
         {
           "source" : "Pd",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1493,6 +1580,7 @@
         {
           "source" : "TC",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1505,6 +1593,7 @@
         {
           "source" : "TC",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1517,6 +1606,7 @@
         {
           "source" : "TC",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1528,6 +1618,7 @@
         {
           "source" : "TL",
           "target" : "EmptySet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1540,6 +1631,7 @@
         {
           "source" : "TL",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1551,6 +1643,7 @@
         {
           "source" : "TL",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

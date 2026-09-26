@@ -1535,6 +1535,7 @@
         {
           "source" : "ADP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1544,6 +1545,7 @@
         {
           "source" : "AH2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1553,6 +1555,7 @@
         {
           "source" : "AMP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1562,6 +1565,7 @@
         {
           "source" : "ATP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1571,6 +1575,7 @@
         {
           "source" : "Acceptor",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1580,6 +1585,7 @@
         {
           "source" : "Adenylylselenate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1589,6 +1595,7 @@
         {
           "source" : "CCBL",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1598,6 +1605,7 @@
         {
           "source" : "CTH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1607,6 +1615,7 @@
         {
           "source" : "Dimethyl_selenide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1616,6 +1625,7 @@
         {
           "source" : "EC261",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1625,6 +1635,7 @@
         {
           "source" : "GSSeH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1634,6 +1645,7 @@
         {
           "source" : "GSSeSG",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1643,6 +1655,7 @@
         {
           "source" : "H",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1652,6 +1665,7 @@
         {
           "source" : "H2O",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1661,6 +1675,7 @@
         {
           "source" : "INMT",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1670,6 +1685,7 @@
         {
           "source" : "LAlanine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1679,6 +1695,7 @@
         {
           "source" : "LSelenocystathionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1688,6 +1705,7 @@
         {
           "source" : "LSelenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1697,6 +1715,7 @@
         {
           "source" : "LSelenocysteinyltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1706,6 +1725,7 @@
         {
           "source" : "LSelenomethionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1715,6 +1735,7 @@
         {
           "source" : "LSeryltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1724,6 +1745,7 @@
         {
           "source" : "MARS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1733,6 +1755,7 @@
         {
           "source" : "MTR",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1742,6 +1765,7 @@
         {
           "source" : "Methionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1751,6 +1775,7 @@
         {
           "source" : "Methylseleninate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1760,6 +1785,7 @@
         {
           "source" : "Methylselenocysteine_Seoxide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1769,6 +1795,7 @@
         {
           "source" : "Methylselenol",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1778,6 +1805,7 @@
         {
           "source" : "Methylselenopyruvate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1787,6 +1815,7 @@
         {
           "source" : "NH3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1796,6 +1825,7 @@
         {
           "source" : "OPhosphoseryltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1805,6 +1835,7 @@
         {
           "source" : "PAPSS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1814,6 +1845,7 @@
         {
           "source" : "PPi",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1823,6 +1855,7 @@
         {
           "source" : "PSTK",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1832,6 +1865,7 @@
         {
           "source" : "Phosphate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1841,6 +1875,7 @@
         {
           "source" : "Protein",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1850,6 +1885,7 @@
         {
           "source" : "Pyruvate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1859,6 +1895,7 @@
         {
           "source" : "SAM",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1868,6 +1905,7 @@
         {
           "source" : "SAdenosylhomocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1877,6 +1915,7 @@
         {
           "source" : "SCLY",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1886,6 +1925,7 @@
         {
           "source" : "SEPHS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1895,6 +1935,7 @@
         {
           "source" : "SEPSECS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1904,6 +1945,7 @@
         {
           "source" : "SId_LGlutamylSemethylselenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1913,6 +1955,7 @@
         {
           "source" : "SId_MethylselenoNacetylDgalactosamine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1922,6 +1965,7 @@
         {
           "source" : "SId_MethyltetrahydropteroyltriLglutamate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1931,6 +1975,7 @@
         {
           "source" : "SId_Methylthio2oxobutanoate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1940,6 +1985,7 @@
         {
           "source" : "SId_Oxobutyrate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1949,6 +1995,7 @@
         {
           "source" : "SId_methyltetrahydropteroyltriglutamatehomocysteine_Smethyltransferase",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1958,6 +2005,7 @@
         {
           "source" : "SeMethylLselenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1967,6 +2015,7 @@
         {
           "source" : "SeMethylselenomethionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1976,6 +2025,7 @@
         {
           "source" : "Selenate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1985,6 +2035,7 @@
         {
           "source" : "Selenide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1994,6 +2045,7 @@
         {
           "source" : "Selenite",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2003,6 +2055,7 @@
         {
           "source" : "Selenohomocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2012,6 +2065,7 @@
         {
           "source" : "SelenomethionyltRNAMet",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2021,6 +2075,7 @@
         {
           "source" : "Selenophosphate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2030,6 +2085,7 @@
         {
           "source" : "TPN",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2039,6 +2095,7 @@
         {
           "source" : "TPNH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2048,6 +2105,7 @@
         {
           "source" : "TXNRD",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2057,6 +2115,7 @@
         {
           "source" : "TetrahydropteroyltriLglutamate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2066,6 +2125,7 @@
         {
           "source" : "Trimethylselenonium",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2075,6 +2135,7 @@
         {
           "source" : "_10231c39-6071-4f5a-ba23-dfde7ced2eaf",
           "target" : "UnitSId__volume",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2084,6 +2145,7 @@
         {
           "source" : "_1e07bfc0-41f4-462f-b8b2-4eca05ae9f8c",
           "target" : "UnitSId__time",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2093,6 +2155,7 @@
         {
           "source" : "_7f5adbe2-46d8-45e7-bdb8-3e00885deee3",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2102,6 +2165,7 @@
         {
           "source" : "rnR03595",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2114,6 +2178,7 @@
         {
           "source" : "rnR03595",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2126,6 +2191,7 @@
         {
           "source" : "rnR03595",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2138,6 +2204,7 @@
         {
           "source" : "rnR03595",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2150,6 +2217,7 @@
         {
           "source" : "rnR03595",
           "target" : "SEPHS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2161,6 +2229,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2173,6 +2242,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2185,6 +2255,7 @@
         {
           "source" : "rnR03595",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2194,6 +2265,7 @@
         {
           "source" : "rnR03596",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2206,6 +2278,7 @@
         {
           "source" : "rnR03596",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2218,6 +2291,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2230,6 +2304,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenite",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2242,6 +2317,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2254,6 +2330,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2266,6 +2343,7 @@
         {
           "source" : "rnR03596",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2277,6 +2355,7 @@
         {
           "source" : "rnR03596",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2286,6 +2365,7 @@
         {
           "source" : "rnR03599",
           "target" : "AH2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2298,6 +2378,7 @@
         {
           "source" : "rnR03599",
           "target" : "Acceptor",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2310,6 +2391,7 @@
         {
           "source" : "rnR03599",
           "target" : "LAlanine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2322,6 +2404,7 @@
         {
           "source" : "rnR03599",
           "target" : "LSelenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2334,6 +2417,7 @@
         {
           "source" : "rnR03599",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2345,6 +2429,7 @@
         {
           "source" : "rnR03599",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2357,6 +2442,7 @@
         {
           "source" : "rnR03599",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2366,6 +2452,7 @@
         {
           "source" : "rnR04770",
           "target" : "CTH",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2377,6 +2464,7 @@
         {
           "source" : "rnR04770",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2389,6 +2477,7 @@
         {
           "source" : "rnR04770",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2401,6 +2490,7 @@
         {
           "source" : "rnR04770",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2413,6 +2503,7 @@
         {
           "source" : "rnR04770",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2425,6 +2516,7 @@
         {
           "source" : "rnR04770",
           "target" : "SId_Oxobutyrate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2437,6 +2529,7 @@
         {
           "source" : "rnR04770",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2446,6 +2539,7 @@
         {
           "source" : "rnR04773",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2458,6 +2552,7 @@
         {
           "source" : "rnR04773",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2470,6 +2565,7 @@
         {
           "source" : "rnR04773",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2482,6 +2578,7 @@
         {
           "source" : "rnR04773",
           "target" : "MARS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2493,6 +2590,7 @@
         {
           "source" : "rnR04773",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2505,6 +2603,7 @@
         {
           "source" : "rnR04773",
           "target" : "SelenomethionyltRNAMet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2517,6 +2616,7 @@
         {
           "source" : "rnR04773",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2526,6 +2626,7 @@
         {
           "source" : "rnR04773",
           "target" : "tRNAMet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2538,6 +2639,7 @@
         {
           "source" : "rnR04929",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2550,6 +2652,7 @@
         {
           "source" : "rnR04929",
           "target" : "Adenylylselenate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2562,6 +2665,7 @@
         {
           "source" : "rnR04929",
           "target" : "PAPSS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2573,6 +2677,7 @@
         {
           "source" : "rnR04929",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2585,6 +2690,7 @@
         {
           "source" : "rnR04929",
           "target" : "Selenate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2597,6 +2703,7 @@
         {
           "source" : "rnR04929",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2606,6 +2713,7 @@
         {
           "source" : "rnR08223",
           "target" : "ADP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2618,6 +2726,7 @@
         {
           "source" : "rnR08223",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2630,6 +2739,7 @@
         {
           "source" : "rnR08223",
           "target" : "LSeryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2642,6 +2752,7 @@
         {
           "source" : "rnR08223",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2654,6 +2765,7 @@
         {
           "source" : "rnR08223",
           "target" : "PSTK",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2665,6 +2777,7 @@
         {
           "source" : "rnR08223",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2674,6 +2787,7 @@
         {
           "source" : "rnR08224",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2686,6 +2800,7 @@
         {
           "source" : "rnR08224",
           "target" : "LSelenocysteinyltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2698,6 +2813,7 @@
         {
           "source" : "rnR08224",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2710,6 +2826,7 @@
         {
           "source" : "rnR08224",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2722,6 +2839,7 @@
         {
           "source" : "rnR08224",
           "target" : "SEPSECS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2733,6 +2851,7 @@
         {
           "source" : "rnR08224",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2745,6 +2864,7 @@
         {
           "source" : "rnR08224",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2754,6 +2874,7 @@
         {
           "source" : "rnR09365",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2766,6 +2887,7 @@
         {
           "source" : "rnR09365",
           "target" : "MTR",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2777,6 +2899,7 @@
         {
           "source" : "rnR09365",
           "target" : "SId_MethyltetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2789,6 +2912,7 @@
         {
           "source" : "rnR09365",
           "target" : "Selenohomocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2801,6 +2925,7 @@
         {
           "source" : "rnR09365",
           "target" : "TetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2813,6 +2938,7 @@
         {
           "source" : "rnR09365",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2822,6 +2948,7 @@
         {
           "source" : "rnR09366",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2834,6 +2961,7 @@
         {
           "source" : "rnR09366",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2846,6 +2974,7 @@
         {
           "source" : "rnR09366",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2858,6 +2987,7 @@
         {
           "source" : "rnR09366",
           "target" : "Pyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2870,6 +3000,7 @@
         {
           "source" : "rnR09366",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2881,6 +3012,7 @@
         {
           "source" : "rnR09366",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2893,6 +3025,7 @@
         {
           "source" : "rnR09366",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2902,6 +3035,7 @@
         {
           "source" : "rnR09370",
           "target" : "Dimethyl_selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2914,6 +3048,7 @@
         {
           "source" : "rnR09370",
           "target" : "INMT",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -2925,6 +3060,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAM",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2937,6 +3073,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAdenosylhomocysteine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2949,6 +3086,7 @@
         {
           "source" : "rnR09370",
           "target" : "Trimethylselenonium",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2961,6 +3099,7 @@
         {
           "source" : "rnR09370",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -2970,6 +3109,7 @@
         {
           "source" : "rnR09372",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2982,6 +3122,7 @@
         {
           "source" : "rnR09372",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2994,6 +3135,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylseleninate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -3006,6 +3148,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -3018,6 +3161,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -3030,6 +3174,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -3042,6 +3187,7 @@
         {
           "source" : "rnR09372",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -3053,6 +3199,7 @@
         {
           "source" : "rnR09372",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -3062,6 +3209,7 @@
         {
           "source" : "rnR09373",
           "target" : "CCBL",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -3073,6 +3221,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -3085,6 +3234,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methylselenopyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -3097,6 +3247,7 @@
         {
           "source" : "rnR09373",
           "target" : "SId_Methylthio2oxobutanoate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -3109,6 +3260,7 @@
         {
           "source" : "rnR09373",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -3121,6 +3273,7 @@
         {
           "source" : "rnR09373",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -3130,6 +3283,7 @@
         {
           "source" : "tRNAMet",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -4683,6 +4837,7 @@
         {
           "source" : "ADP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4693,6 +4848,7 @@
         {
           "source" : "AH2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4703,6 +4859,7 @@
         {
           "source" : "AMP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4713,6 +4870,7 @@
         {
           "source" : "ATP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4723,6 +4881,7 @@
         {
           "source" : "Acceptor",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4733,6 +4892,7 @@
         {
           "source" : "Adenylylselenate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4743,6 +4903,7 @@
         {
           "source" : "CCBL",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4753,6 +4914,7 @@
         {
           "source" : "CTH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4763,6 +4925,7 @@
         {
           "source" : "Dimethyl_selenide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4773,6 +4936,7 @@
         {
           "source" : "EC261",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4783,6 +4947,7 @@
         {
           "source" : "GSSeH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4793,6 +4958,7 @@
         {
           "source" : "GSSeSG",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4803,6 +4969,7 @@
         {
           "source" : "H",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4813,6 +4980,7 @@
         {
           "source" : "H2O",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4823,6 +4991,7 @@
         {
           "source" : "INMT",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4833,6 +5002,7 @@
         {
           "source" : "LAlanine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4843,6 +5013,7 @@
         {
           "source" : "LSelenocystathionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4853,6 +5024,7 @@
         {
           "source" : "LSelenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4863,6 +5035,7 @@
         {
           "source" : "LSelenocysteinyltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4873,6 +5046,7 @@
         {
           "source" : "LSelenomethionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4883,6 +5057,7 @@
         {
           "source" : "LSeryltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4893,6 +5068,7 @@
         {
           "source" : "MARS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4903,6 +5079,7 @@
         {
           "source" : "MTR",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4913,6 +5090,7 @@
         {
           "source" : "Methionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4923,6 +5101,7 @@
         {
           "source" : "Methylseleninate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4933,6 +5112,7 @@
         {
           "source" : "Methylselenocysteine_Seoxide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4943,6 +5123,7 @@
         {
           "source" : "Methylselenol",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4953,6 +5134,7 @@
         {
           "source" : "Methylselenopyruvate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4963,6 +5145,7 @@
         {
           "source" : "NH3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4973,6 +5156,7 @@
         {
           "source" : "OPhosphoseryltRNASec",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4983,6 +5167,7 @@
         {
           "source" : "PAPSS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4993,6 +5178,7 @@
         {
           "source" : "PPi",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5003,6 +5189,7 @@
         {
           "source" : "PSTK",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5013,6 +5200,7 @@
         {
           "source" : "Phosphate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5023,6 +5211,7 @@
         {
           "source" : "Protein",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5033,6 +5222,7 @@
         {
           "source" : "Pyruvate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5043,6 +5233,7 @@
         {
           "source" : "SAM",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5053,6 +5244,7 @@
         {
           "source" : "SAdenosylhomocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5063,6 +5255,7 @@
         {
           "source" : "SCLY",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5073,6 +5266,7 @@
         {
           "source" : "SEPHS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5083,6 +5277,7 @@
         {
           "source" : "SEPSECS",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5093,6 +5288,7 @@
         {
           "source" : "SId_LGlutamylSemethylselenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5103,6 +5299,7 @@
         {
           "source" : "SId_MethylselenoNacetylDgalactosamine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5113,6 +5310,7 @@
         {
           "source" : "SId_MethyltetrahydropteroyltriLglutamate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5123,6 +5321,7 @@
         {
           "source" : "SId_Methylthio2oxobutanoate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5133,6 +5332,7 @@
         {
           "source" : "SId_Oxobutyrate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5143,6 +5343,7 @@
         {
           "source" : "SId_methyltetrahydropteroyltriglutamatehomocysteine_Smethyltransferase",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5153,6 +5354,7 @@
         {
           "source" : "SeMethylLselenocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5163,6 +5365,7 @@
         {
           "source" : "SeMethylselenomethionine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5173,6 +5376,7 @@
         {
           "source" : "Selenate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5183,6 +5387,7 @@
         {
           "source" : "Selenide",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5193,6 +5398,7 @@
         {
           "source" : "Selenite",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5203,6 +5409,7 @@
         {
           "source" : "Selenohomocysteine",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5213,6 +5420,7 @@
         {
           "source" : "SelenomethionyltRNAMet",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5223,6 +5431,7 @@
         {
           "source" : "Selenophosphate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5233,6 +5442,7 @@
         {
           "source" : "TPN",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5243,6 +5453,7 @@
         {
           "source" : "TPNH",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5253,6 +5464,7 @@
         {
           "source" : "TXNRD",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5263,6 +5475,7 @@
         {
           "source" : "TetrahydropteroyltriLglutamate",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5273,6 +5486,7 @@
         {
           "source" : "Trimethylselenonium",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -5283,6 +5497,7 @@
         {
           "source" : "rnR03595",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5296,6 +5511,7 @@
         {
           "source" : "rnR03595",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5309,6 +5525,7 @@
         {
           "source" : "rnR03595",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5322,6 +5539,7 @@
         {
           "source" : "rnR03595",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5335,6 +5553,7 @@
         {
           "source" : "rnR03595",
           "target" : "SEPHS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5347,6 +5566,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5360,6 +5580,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5373,6 +5594,7 @@
         {
           "source" : "rnR03595",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5383,6 +5605,7 @@
         {
           "source" : "rnR03596",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5396,6 +5619,7 @@
         {
           "source" : "rnR03596",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5409,6 +5633,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5422,6 +5647,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenite",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5435,6 +5661,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5448,6 +5675,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5461,6 +5689,7 @@
         {
           "source" : "rnR03596",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5473,6 +5702,7 @@
         {
           "source" : "rnR03596",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5483,6 +5713,7 @@
         {
           "source" : "rnR03599",
           "target" : "AH2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5496,6 +5727,7 @@
         {
           "source" : "rnR03599",
           "target" : "Acceptor",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5509,6 +5741,7 @@
         {
           "source" : "rnR03599",
           "target" : "LAlanine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5522,6 +5755,7 @@
         {
           "source" : "rnR03599",
           "target" : "LSelenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5535,6 +5769,7 @@
         {
           "source" : "rnR03599",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5547,6 +5782,7 @@
         {
           "source" : "rnR03599",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5560,6 +5796,7 @@
         {
           "source" : "rnR03599",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5570,6 +5807,7 @@
         {
           "source" : "rnR04770",
           "target" : "CTH",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5582,6 +5820,7 @@
         {
           "source" : "rnR04770",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5595,6 +5834,7 @@
         {
           "source" : "rnR04770",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5608,6 +5848,7 @@
         {
           "source" : "rnR04770",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5621,6 +5862,7 @@
         {
           "source" : "rnR04770",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5634,6 +5876,7 @@
         {
           "source" : "rnR04770",
           "target" : "SId_Oxobutyrate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5647,6 +5890,7 @@
         {
           "source" : "rnR04770",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5657,6 +5901,7 @@
         {
           "source" : "rnR04773",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5670,6 +5915,7 @@
         {
           "source" : "rnR04773",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5683,6 +5929,7 @@
         {
           "source" : "rnR04773",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5696,6 +5943,7 @@
         {
           "source" : "rnR04773",
           "target" : "MARS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5708,6 +5956,7 @@
         {
           "source" : "rnR04773",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5721,6 +5970,7 @@
         {
           "source" : "rnR04773",
           "target" : "SelenomethionyltRNAMet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5734,6 +5984,7 @@
         {
           "source" : "rnR04773",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5744,6 +5995,7 @@
         {
           "source" : "rnR04773",
           "target" : "tRNAMet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5757,6 +6009,7 @@
         {
           "source" : "rnR04929",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5770,6 +6023,7 @@
         {
           "source" : "rnR04929",
           "target" : "Adenylylselenate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5783,6 +6037,7 @@
         {
           "source" : "rnR04929",
           "target" : "PAPSS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5795,6 +6050,7 @@
         {
           "source" : "rnR04929",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5808,6 +6064,7 @@
         {
           "source" : "rnR04929",
           "target" : "Selenate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5821,6 +6078,7 @@
         {
           "source" : "rnR04929",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5831,6 +6089,7 @@
         {
           "source" : "rnR08223",
           "target" : "ADP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5844,6 +6103,7 @@
         {
           "source" : "rnR08223",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5857,6 +6117,7 @@
         {
           "source" : "rnR08223",
           "target" : "LSeryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5870,6 +6131,7 @@
         {
           "source" : "rnR08223",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5883,6 +6145,7 @@
         {
           "source" : "rnR08223",
           "target" : "PSTK",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5895,6 +6158,7 @@
         {
           "source" : "rnR08223",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5905,6 +6169,7 @@
         {
           "source" : "rnR08224",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5918,6 +6183,7 @@
         {
           "source" : "rnR08224",
           "target" : "LSelenocysteinyltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5931,6 +6197,7 @@
         {
           "source" : "rnR08224",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5944,6 +6211,7 @@
         {
           "source" : "rnR08224",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5957,6 +6225,7 @@
         {
           "source" : "rnR08224",
           "target" : "SEPSECS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -5969,6 +6238,7 @@
         {
           "source" : "rnR08224",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5982,6 +6252,7 @@
         {
           "source" : "rnR08224",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -5992,6 +6263,7 @@
         {
           "source" : "rnR09365",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6005,6 +6277,7 @@
         {
           "source" : "rnR09365",
           "target" : "MTR",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -6017,6 +6290,7 @@
         {
           "source" : "rnR09365",
           "target" : "SId_MethyltetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6030,6 +6304,7 @@
         {
           "source" : "rnR09365",
           "target" : "Selenohomocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6043,6 +6318,7 @@
         {
           "source" : "rnR09365",
           "target" : "TetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6056,6 +6332,7 @@
         {
           "source" : "rnR09365",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -6066,6 +6343,7 @@
         {
           "source" : "rnR09366",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6079,6 +6357,7 @@
         {
           "source" : "rnR09366",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6092,6 +6371,7 @@
         {
           "source" : "rnR09366",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6105,6 +6385,7 @@
         {
           "source" : "rnR09366",
           "target" : "Pyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6118,6 +6399,7 @@
         {
           "source" : "rnR09366",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -6130,6 +6412,7 @@
         {
           "source" : "rnR09366",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6143,6 +6426,7 @@
         {
           "source" : "rnR09366",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -6153,6 +6437,7 @@
         {
           "source" : "rnR09370",
           "target" : "Dimethyl_selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6166,6 +6451,7 @@
         {
           "source" : "rnR09370",
           "target" : "INMT",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -6178,6 +6464,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAM",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6191,6 +6478,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAdenosylhomocysteine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6204,6 +6492,7 @@
         {
           "source" : "rnR09370",
           "target" : "Trimethylselenonium",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6217,6 +6506,7 @@
         {
           "source" : "rnR09370",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -6227,6 +6517,7 @@
         {
           "source" : "rnR09372",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6240,6 +6531,7 @@
         {
           "source" : "rnR09372",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6253,6 +6545,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylseleninate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6266,6 +6559,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6279,6 +6573,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6292,6 +6587,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6305,6 +6601,7 @@
         {
           "source" : "rnR09372",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -6317,6 +6614,7 @@
         {
           "source" : "rnR09372",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -6327,6 +6625,7 @@
         {
           "source" : "rnR09373",
           "target" : "CCBL",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -6339,6 +6638,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6352,6 +6652,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methylselenopyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6365,6 +6666,7 @@
         {
           "source" : "rnR09373",
           "target" : "SId_Methylthio2oxobutanoate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6378,6 +6680,7 @@
         {
           "source" : "rnR09373",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6391,6 +6694,7 @@
         {
           "source" : "rnR09373",
           "target" : "default",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -6401,6 +6705,7 @@
         {
           "source" : "tRNAMet",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -7943,6 +8248,7 @@
         {
           "source" : "rnR03595",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7956,6 +8262,7 @@
         {
           "source" : "rnR03595",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7969,6 +8276,7 @@
         {
           "source" : "rnR03595",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7982,6 +8290,7 @@
         {
           "source" : "rnR03595",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7995,6 +8304,7 @@
         {
           "source" : "rnR03595",
           "target" : "SEPHS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8007,6 +8317,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8020,6 +8331,7 @@
         {
           "source" : "rnR03595",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8033,6 +8345,7 @@
         {
           "source" : "rnR03596",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8046,6 +8359,7 @@
         {
           "source" : "rnR03596",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8059,6 +8373,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8072,6 +8387,7 @@
         {
           "source" : "rnR03596",
           "target" : "Selenite",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8085,6 +8401,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8098,6 +8415,7 @@
         {
           "source" : "rnR03596",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8111,6 +8429,7 @@
         {
           "source" : "rnR03596",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8123,6 +8442,7 @@
         {
           "source" : "rnR03599",
           "target" : "AH2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8136,6 +8456,7 @@
         {
           "source" : "rnR03599",
           "target" : "Acceptor",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8149,6 +8470,7 @@
         {
           "source" : "rnR03599",
           "target" : "LAlanine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8162,6 +8484,7 @@
         {
           "source" : "rnR03599",
           "target" : "LSelenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8175,6 +8498,7 @@
         {
           "source" : "rnR03599",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8187,6 +8511,7 @@
         {
           "source" : "rnR03599",
           "target" : "Selenide",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8200,6 +8525,7 @@
         {
           "source" : "rnR04770",
           "target" : "CTH",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8212,6 +8538,7 @@
         {
           "source" : "rnR04770",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8225,6 +8552,7 @@
         {
           "source" : "rnR04770",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8238,6 +8566,7 @@
         {
           "source" : "rnR04770",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8251,6 +8580,7 @@
         {
           "source" : "rnR04770",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8264,6 +8594,7 @@
         {
           "source" : "rnR04770",
           "target" : "SId_Oxobutyrate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8277,6 +8608,7 @@
         {
           "source" : "rnR04773",
           "target" : "AMP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8290,6 +8622,7 @@
         {
           "source" : "rnR04773",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8303,6 +8636,7 @@
         {
           "source" : "rnR04773",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8316,6 +8650,7 @@
         {
           "source" : "rnR04773",
           "target" : "MARS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8328,6 +8663,7 @@
         {
           "source" : "rnR04773",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8341,6 +8677,7 @@
         {
           "source" : "rnR04773",
           "target" : "SelenomethionyltRNAMet",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8354,6 +8691,7 @@
         {
           "source" : "rnR04773",
           "target" : "tRNAMet",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8367,6 +8705,7 @@
         {
           "source" : "rnR04929",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8380,6 +8719,7 @@
         {
           "source" : "rnR04929",
           "target" : "Adenylylselenate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8393,6 +8733,7 @@
         {
           "source" : "rnR04929",
           "target" : "PAPSS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8405,6 +8746,7 @@
         {
           "source" : "rnR04929",
           "target" : "PPi",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8418,6 +8760,7 @@
         {
           "source" : "rnR04929",
           "target" : "Selenate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8431,6 +8774,7 @@
         {
           "source" : "rnR08223",
           "target" : "ADP",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8444,6 +8788,7 @@
         {
           "source" : "rnR08223",
           "target" : "ATP",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8457,6 +8802,7 @@
         {
           "source" : "rnR08223",
           "target" : "LSeryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8470,6 +8816,7 @@
         {
           "source" : "rnR08223",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8483,6 +8830,7 @@
         {
           "source" : "rnR08223",
           "target" : "PSTK",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8495,6 +8843,7 @@
         {
           "source" : "rnR08224",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8508,6 +8857,7 @@
         {
           "source" : "rnR08224",
           "target" : "LSelenocysteinyltRNASec",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8521,6 +8871,7 @@
         {
           "source" : "rnR08224",
           "target" : "OPhosphoseryltRNASec",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8534,6 +8885,7 @@
         {
           "source" : "rnR08224",
           "target" : "Phosphate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8547,6 +8899,7 @@
         {
           "source" : "rnR08224",
           "target" : "SEPSECS",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8559,6 +8912,7 @@
         {
           "source" : "rnR08224",
           "target" : "Selenophosphate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8572,6 +8926,7 @@
         {
           "source" : "rnR09365",
           "target" : "LSelenomethionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8585,6 +8940,7 @@
         {
           "source" : "rnR09365",
           "target" : "MTR",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8597,6 +8953,7 @@
         {
           "source" : "rnR09365",
           "target" : "SId_MethyltetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8610,6 +8967,7 @@
         {
           "source" : "rnR09365",
           "target" : "Selenohomocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8623,6 +8981,7 @@
         {
           "source" : "rnR09365",
           "target" : "TetrahydropteroyltriLglutamate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8636,6 +8995,7 @@
         {
           "source" : "rnR09366",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8649,6 +9009,7 @@
         {
           "source" : "rnR09366",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8662,6 +9023,7 @@
         {
           "source" : "rnR09366",
           "target" : "NH3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8675,6 +9037,7 @@
         {
           "source" : "rnR09366",
           "target" : "Pyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8688,6 +9051,7 @@
         {
           "source" : "rnR09366",
           "target" : "SCLY",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8700,6 +9064,7 @@
         {
           "source" : "rnR09366",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8713,6 +9078,7 @@
         {
           "source" : "rnR09370",
           "target" : "Dimethyl_selenide",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8726,6 +9092,7 @@
         {
           "source" : "rnR09370",
           "target" : "INMT",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8738,6 +9105,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAM",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8751,6 +9119,7 @@
         {
           "source" : "rnR09370",
           "target" : "SAdenosylhomocysteine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8764,6 +9133,7 @@
         {
           "source" : "rnR09370",
           "target" : "Trimethylselenonium",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8777,6 +9147,7 @@
         {
           "source" : "rnR09372",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8790,6 +9161,7 @@
         {
           "source" : "rnR09372",
           "target" : "H2O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8803,6 +9175,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylseleninate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8816,6 +9189,7 @@
         {
           "source" : "rnR09372",
           "target" : "Methylselenol",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8829,6 +9203,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPN",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8842,6 +9217,7 @@
         {
           "source" : "rnR09372",
           "target" : "TPNH",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8855,6 +9231,7 @@
         {
           "source" : "rnR09372",
           "target" : "TXNRD",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8867,6 +9244,7 @@
         {
           "source" : "rnR09373",
           "target" : "CCBL",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-activator",
@@ -8879,6 +9257,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methionine",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8892,6 +9271,7 @@
         {
           "source" : "rnR09373",
           "target" : "Methylselenopyruvate",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -8905,6 +9285,7 @@
         {
           "source" : "rnR09373",
           "target" : "SId_Methylthio2oxobutanoate",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -8918,6 +9299,7 @@
         {
           "source" : "rnR09373",
           "target" : "SeMethylLselenocysteine",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",

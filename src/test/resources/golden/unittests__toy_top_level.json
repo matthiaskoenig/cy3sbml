@@ -762,6 +762,7 @@
         {
           "source" : "C",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -771,6 +772,7 @@
         {
           "source" : "C",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -780,6 +782,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -789,6 +792,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -798,6 +802,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -807,6 +812,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -817,6 +823,7 @@
         {
           "source" : "R3",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -826,6 +833,7 @@
         {
           "source" : "R3",
           "target" : "rule__vR3",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -835,6 +843,7 @@
         {
           "source" : "R3",
           "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
             "interaction type" : "sbase-replacedBy",
@@ -844,6 +853,7 @@
         {
           "source" : "UnitSId__ITEM",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -853,6 +863,7 @@
         {
           "source" : "UnitSId__ITEM0",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -862,6 +873,7 @@
         {
           "source" : "UnitSId__ITEM01",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -871,6 +883,7 @@
         {
           "source" : "UnitSId__KILOGRAM",
           "target" : "UnitSId__kg",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -880,6 +893,7 @@
         {
           "source" : "UnitSId__METRE",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -889,6 +903,7 @@
         {
           "source" : "UnitSId__METRE0",
           "target" : "UnitSId__m2",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -898,6 +913,7 @@
         {
           "source" : "UnitSId__METRE01",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -907,6 +923,7 @@
         {
           "source" : "UnitSId__METRE012",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -916,6 +933,7 @@
         {
           "source" : "UnitSId__METRE0123",
           "target" : "UnitSId__m",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -925,6 +943,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -934,6 +953,7 @@
         {
           "source" : "UnitSId__SECOND",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -943,6 +963,7 @@
         {
           "source" : "UnitSId__SECOND0",
           "target" : "UnitSId__s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -952,6 +973,7 @@
         {
           "source" : "UnitSId__SECOND01",
           "target" : "UnitSId__per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -961,6 +983,7 @@
         {
           "source" : "UnitSId__item_per_m3",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<bounds:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -970,6 +993,7 @@
         {
           "source" : "UnitSId__item_per_m3",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<fba:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -979,6 +1003,7 @@
         {
           "source" : "UnitSId__item_per_m3",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<model:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -988,6 +1013,7 @@
         {
           "source" : "UnitSId__item_per_m3",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<update:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -997,6 +1023,7 @@
         {
           "source" : "UnitSId__item_per_s",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<bounds:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1006,6 +1033,7 @@
         {
           "source" : "UnitSId__item_per_s",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<fba:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1015,6 +1043,7 @@
         {
           "source" : "UnitSId__item_per_s",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<model:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1024,6 +1053,7 @@
         {
           "source" : "UnitSId__item_per_s",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<update:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1033,6 +1063,7 @@
         {
           "source" : "UnitSId__kg",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<bounds:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1042,6 +1073,7 @@
         {
           "source" : "UnitSId__kg",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<fba:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1051,6 +1083,7 @@
         {
           "source" : "UnitSId__kg",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<model:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1060,6 +1093,7 @@
         {
           "source" : "UnitSId__kg",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<update:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1069,6 +1103,7 @@
         {
           "source" : "UnitSId__m",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<bounds:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1078,6 +1113,7 @@
         {
           "source" : "UnitSId__m",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<fba:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1087,6 +1123,7 @@
         {
           "source" : "UnitSId__m",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<model:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1096,6 +1133,7 @@
         {
           "source" : "UnitSId__m",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<update:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1105,6 +1143,7 @@
         {
           "source" : "UnitSId__m2",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<bounds:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1114,6 +1153,7 @@
         {
           "source" : "UnitSId__m2",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<fba:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1123,6 +1163,7 @@
         {
           "source" : "UnitSId__m2",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<model:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1132,6 +1173,7 @@
         {
           "source" : "UnitSId__m2",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<update:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1141,6 +1183,7 @@
         {
           "source" : "UnitSId__m3",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<bounds:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1150,6 +1193,7 @@
         {
           "source" : "UnitSId__m3",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<fba:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1159,6 +1203,7 @@
         {
           "source" : "UnitSId__m3",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<model:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1168,6 +1213,7 @@
         {
           "source" : "UnitSId__m3",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<update:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1177,6 +1223,7 @@
         {
           "source" : "UnitSId__mM",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<bounds:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1186,6 +1233,7 @@
         {
           "source" : "UnitSId__mM",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<fba:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1195,6 +1243,7 @@
         {
           "source" : "UnitSId__mM",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<model:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1204,6 +1253,7 @@
         {
           "source" : "UnitSId__mM",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<update:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1213,6 +1263,7 @@
         {
           "source" : "UnitSId__per_s",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<bounds:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1222,6 +1273,7 @@
         {
           "source" : "UnitSId__per_s",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<fba:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1231,6 +1283,7 @@
         {
           "source" : "UnitSId__per_s",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<model:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1240,6 +1293,7 @@
         {
           "source" : "UnitSId__per_s",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<update:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1249,6 +1303,7 @@
         {
           "source" : "UnitSId__s",
           "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<bounds:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1258,6 +1313,7 @@
         {
           "source" : "UnitSId__s",
           "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<fba:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1267,6 +1323,7 @@
         {
           "source" : "UnitSId__s",
           "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<model:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1276,6 +1333,7 @@
         {
           "source" : "UnitSId__s",
           "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<update:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1285,6 +1343,7 @@
         {
           "source" : "cell",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1294,6 +1353,7 @@
         {
           "source" : "cell",
           "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1303,6 +1363,7 @@
         {
           "source" : "extern",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1312,6 +1373,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1321,6 +1383,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1330,6 +1393,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1339,6 +1403,7 @@
         {
           "source" : "ub_R1",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1348,6 +1413,7 @@
         {
           "source" : "ub_R1",
           "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1357,6 +1423,7 @@
         {
           "source" : "ub_R1",
           "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1366,6 +1433,7 @@
         {
           "source" : "vR3",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1375,6 +1443,7 @@
         {
           "source" : "vR3",
           "target" : "rule__vR3",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -1384,6 +1453,7 @@
         {
           "source" : "vR3",
           "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -1884,6 +1954,7 @@
         {
           "source" : "C",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1894,6 +1965,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1904,6 +1976,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1914,6 +1987,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1924,6 +1998,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1935,6 +2010,7 @@
         {
           "source" : "R3",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -1945,6 +2021,7 @@
         {
           "source" : "R3",
           "target" : "rule__vR3",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -1955,6 +2032,7 @@
         {
           "source" : "R3",
           "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
             "interaction" : "sbase-replacedBy",
@@ -1965,6 +2043,7 @@
         {
           "source" : "cell",
           "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1975,6 +2054,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1985,6 +2065,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -1995,6 +2076,7 @@
         {
           "source" : "extern",
           "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -2005,6 +2087,7 @@
         {
           "source" : "ub_R1",
           "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -2015,6 +2098,7 @@
         {
           "source" : "ub_R1",
           "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -2025,6 +2109,7 @@
         {
           "source" : "vR3",
           "target" : "rule__vR3",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -2035,6 +2120,7 @@
         {
           "source" : "vR3",
           "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -2091,6 +2177,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

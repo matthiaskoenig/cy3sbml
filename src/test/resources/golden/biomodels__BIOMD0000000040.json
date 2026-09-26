@@ -268,6 +268,7 @@
         {
           "source" : "BZ",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -277,6 +278,7 @@
         {
           "source" : "BZ",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -286,6 +288,7 @@
         {
           "source" : "BZ",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -295,6 +298,7 @@
         {
           "source" : "BZ",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -304,6 +308,7 @@
         {
           "source" : "BZ",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -313,6 +318,7 @@
         {
           "source" : "Br",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -322,6 +328,7 @@
         {
           "source" : "Br",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -331,6 +338,7 @@
         {
           "source" : "Br",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -340,6 +348,7 @@
         {
           "source" : "BrO3",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -349,6 +358,7 @@
         {
           "source" : "BrO3",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -358,6 +368,7 @@
         {
           "source" : "BrO3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -367,6 +378,7 @@
         {
           "source" : "Ce",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -376,6 +388,7 @@
         {
           "source" : "Ce",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -385,6 +398,7 @@
         {
           "source" : "HBrO2",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -394,6 +408,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -403,6 +418,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -412,6 +428,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -421,6 +438,7 @@
         {
           "source" : "HOBr",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -430,6 +448,7 @@
         {
           "source" : "Reaction1",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -441,6 +460,7 @@
         {
           "source" : "Reaction1",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -452,6 +472,7 @@
         {
           "source" : "Reaction1",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -463,6 +484,7 @@
         {
           "source" : "Reaction1",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -474,6 +496,7 @@
         {
           "source" : "Reaction1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -483,6 +506,7 @@
         {
           "source" : "Reaction1_k1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -492,6 +516,7 @@
         {
           "source" : "Reaction1_k1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -501,6 +526,7 @@
         {
           "source" : "Reaction2",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -512,6 +538,7 @@
         {
           "source" : "Reaction2",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -523,6 +550,7 @@
         {
           "source" : "Reaction2",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -534,6 +562,7 @@
         {
           "source" : "Reaction2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -543,6 +572,7 @@
         {
           "source" : "Reaction2_k2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -552,6 +582,7 @@
         {
           "source" : "Reaction2_k2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -561,6 +592,7 @@
         {
           "source" : "Reaction3",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -572,6 +604,7 @@
         {
           "source" : "Reaction3",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -583,6 +616,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -594,6 +628,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -605,6 +640,7 @@
         {
           "source" : "Reaction3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -614,6 +650,7 @@
         {
           "source" : "Reaction3_k3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -623,6 +660,7 @@
         {
           "source" : "Reaction3_k3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -632,6 +670,7 @@
         {
           "source" : "Reaction4",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -643,6 +682,7 @@
         {
           "source" : "Reaction4",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -654,6 +694,7 @@
         {
           "source" : "Reaction4",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -665,6 +706,7 @@
         {
           "source" : "Reaction4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -674,6 +716,7 @@
         {
           "source" : "Reaction4_k4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -683,6 +726,7 @@
         {
           "source" : "Reaction4_k4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -692,6 +736,7 @@
         {
           "source" : "Reaction5",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -703,6 +748,7 @@
         {
           "source" : "Reaction5",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -714,6 +760,7 @@
         {
           "source" : "Reaction5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -723,6 +770,7 @@
         {
           "source" : "Reaction5_k5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -732,6 +780,7 @@
         {
           "source" : "Reaction5_k5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -890,6 +939,7 @@
         {
           "source" : "Reaction1",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -902,6 +952,7 @@
         {
           "source" : "Reaction1",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -914,6 +965,7 @@
         {
           "source" : "Reaction1",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -926,6 +978,7 @@
         {
           "source" : "Reaction1",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -938,6 +991,7 @@
         {
           "source" : "Reaction2",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -950,6 +1004,7 @@
         {
           "source" : "Reaction2",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -962,6 +1017,7 @@
         {
           "source" : "Reaction2",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -974,6 +1030,7 @@
         {
           "source" : "Reaction3",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -986,6 +1043,7 @@
         {
           "source" : "Reaction3",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -998,6 +1056,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1010,6 +1069,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1022,6 +1082,7 @@
         {
           "source" : "Reaction4",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1034,6 +1095,7 @@
         {
           "source" : "Reaction4",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1046,6 +1108,7 @@
         {
           "source" : "Reaction4",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1058,6 +1121,7 @@
         {
           "source" : "Reaction5",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1070,6 +1134,7 @@
         {
           "source" : "Reaction5",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1352,6 +1417,7 @@
         {
           "source" : "BZ",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1362,6 +1428,7 @@
         {
           "source" : "BZ",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1372,6 +1439,7 @@
         {
           "source" : "BZ",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1382,6 +1450,7 @@
         {
           "source" : "BZ",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1392,6 +1461,7 @@
         {
           "source" : "BZ",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1402,6 +1472,7 @@
         {
           "source" : "Br",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1412,6 +1483,7 @@
         {
           "source" : "Br",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1422,6 +1494,7 @@
         {
           "source" : "Br",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1432,6 +1505,7 @@
         {
           "source" : "BrO3",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1442,6 +1516,7 @@
         {
           "source" : "BrO3",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1452,6 +1527,7 @@
         {
           "source" : "BrO3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1462,6 +1538,7 @@
         {
           "source" : "Ce",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1472,6 +1549,7 @@
         {
           "source" : "Ce",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1482,6 +1560,7 @@
         {
           "source" : "HBrO2",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1492,6 +1571,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1502,6 +1582,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1512,6 +1593,7 @@
         {
           "source" : "HBrO2",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1522,6 +1604,7 @@
         {
           "source" : "HOBr",
           "target" : "BZ",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1532,6 +1615,7 @@
         {
           "source" : "Reaction1",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1544,6 +1628,7 @@
         {
           "source" : "Reaction1",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1556,6 +1641,7 @@
         {
           "source" : "Reaction1",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1568,6 +1654,7 @@
         {
           "source" : "Reaction1",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1580,6 +1667,7 @@
         {
           "source" : "Reaction1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1590,6 +1678,7 @@
         {
           "source" : "Reaction1_k1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1600,6 +1689,7 @@
         {
           "source" : "Reaction1_k1",
           "target" : "_106558",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1610,6 +1700,7 @@
         {
           "source" : "Reaction2",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1622,6 +1713,7 @@
         {
           "source" : "Reaction2",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1634,6 +1726,7 @@
         {
           "source" : "Reaction2",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1646,6 +1739,7 @@
         {
           "source" : "Reaction2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1656,6 +1750,7 @@
         {
           "source" : "Reaction2_k2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1666,6 +1761,7 @@
         {
           "source" : "Reaction2_k2",
           "target" : "_106619",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1676,6 +1772,7 @@
         {
           "source" : "Reaction3",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1688,6 +1785,7 @@
         {
           "source" : "Reaction3",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1700,6 +1798,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1712,6 +1811,7 @@
         {
           "source" : "Reaction3",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1724,6 +1824,7 @@
         {
           "source" : "Reaction3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1734,6 +1835,7 @@
         {
           "source" : "Reaction3_k3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1744,6 +1846,7 @@
         {
           "source" : "Reaction3_k3",
           "target" : "_106693",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1754,6 +1857,7 @@
         {
           "source" : "Reaction4",
           "target" : "BrO3",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1766,6 +1870,7 @@
         {
           "source" : "Reaction4",
           "target" : "HBrO2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1778,6 +1883,7 @@
         {
           "source" : "Reaction4",
           "target" : "HOBr",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1790,6 +1896,7 @@
         {
           "source" : "Reaction4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1800,6 +1907,7 @@
         {
           "source" : "Reaction4_k4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1810,6 +1918,7 @@
         {
           "source" : "Reaction4_k4",
           "target" : "_106753",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1820,6 +1929,7 @@
         {
           "source" : "Reaction5",
           "target" : "Br",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1832,6 +1942,7 @@
         {
           "source" : "Reaction5",
           "target" : "Ce",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1844,6 +1955,7 @@
         {
           "source" : "Reaction5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1854,6 +1966,7 @@
         {
           "source" : "Reaction5_k5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1864,6 +1977,7 @@
         {
           "source" : "Reaction5_k5",
           "target" : "_106814",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",

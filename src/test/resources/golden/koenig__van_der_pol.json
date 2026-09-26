@@ -110,6 +110,7 @@
         {
           "source" : "J1",
           "target" : "law__J1",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -119,6 +120,7 @@
         {
           "source" : "J1",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -129,6 +131,7 @@
         {
           "source" : "J1",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -138,6 +141,7 @@
         {
           "source" : "J2",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -147,6 +151,7 @@
         {
           "source" : "J2",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -156,6 +161,7 @@
         {
           "source" : "J2",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -166,6 +172,7 @@
         {
           "source" : "mu",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -175,6 +182,7 @@
         {
           "source" : "x",
           "target" : "default_compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -184,6 +192,7 @@
         {
           "source" : "x",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -193,6 +202,7 @@
         {
           "source" : "y",
           "target" : "default_compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -202,6 +212,7 @@
         {
           "source" : "y",
           "target" : "law__J1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -211,6 +222,7 @@
         {
           "source" : "y",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -324,6 +336,7 @@
         {
           "source" : "J1",
           "target" : "law__J1",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -334,6 +347,7 @@
         {
           "source" : "J1",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -345,6 +359,7 @@
         {
           "source" : "J1",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -355,6 +370,7 @@
         {
           "source" : "J2",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -365,6 +381,7 @@
         {
           "source" : "J2",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -375,6 +392,7 @@
         {
           "source" : "J2",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -386,6 +404,7 @@
         {
           "source" : "mu",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -396,6 +415,7 @@
         {
           "source" : "x",
           "target" : "default_compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -406,6 +426,7 @@
         {
           "source" : "x",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -416,6 +437,7 @@
         {
           "source" : "y",
           "target" : "default_compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -426,6 +448,7 @@
         {
           "source" : "y",
           "target" : "law__J1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -436,6 +459,7 @@
         {
           "source" : "y",
           "target" : "law__J2",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -508,6 +532,7 @@
         {
           "source" : "J1",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -519,6 +544,7 @@
         {
           "source" : "J1",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -529,6 +555,7 @@
         {
           "source" : "J2",
           "target" : "x",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -539,6 +566,7 @@
         {
           "source" : "J2",
           "target" : "y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

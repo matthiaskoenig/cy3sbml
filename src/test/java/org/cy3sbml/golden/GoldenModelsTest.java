@@ -61,8 +61,8 @@ public class GoldenModelsTest {
             "unittests/toy_ode_update.xml",
             "unittests/toy_top_level.xml",
             "unittests/yeast_glycolysis.xml",
-            // comp: flattened model and model with submodels and replacements
-            "comp/koenig-toymodel/flattened.xml",
+            // comp: models with submodels, replacements and deletions
+            "comp/Watanabe2014/test_replacement_9.xml",
             "comp/Watanabe2014/test_replacement_1.xml",
             // fbc: v1 and v2
             "fbc/JSBML_testcase_L3V1_fbcV1.xml",

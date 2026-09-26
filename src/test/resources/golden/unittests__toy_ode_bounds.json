@@ -275,6 +275,7 @@
         {
           "source" : "UnitSId__ITEM",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -284,6 +285,7 @@
         {
           "source" : "UnitSId__ITEM0",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -293,6 +295,7 @@
         {
           "source" : "UnitSId__KILOGRAM",
           "target" : "UnitSId__kg",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -302,6 +305,7 @@
         {
           "source" : "UnitSId__METRE",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -311,6 +315,7 @@
         {
           "source" : "UnitSId__METRE0",
           "target" : "UnitSId__m2",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -320,6 +325,7 @@
         {
           "source" : "UnitSId__METRE01",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -329,6 +335,7 @@
         {
           "source" : "UnitSId__METRE012",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -338,6 +345,7 @@
         {
           "source" : "UnitSId__METRE0123",
           "target" : "UnitSId__m",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -347,6 +355,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -356,6 +365,7 @@
         {
           "source" : "UnitSId__SECOND",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -365,6 +375,7 @@
         {
           "source" : "UnitSId__SECOND0",
           "target" : "UnitSId__s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -374,6 +385,7 @@
         {
           "source" : "UnitSId__SECOND01",
           "target" : "UnitSId__per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -383,6 +395,7 @@
         {
           "source" : "k1",
           "target" : "UnitSId__per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -392,6 +405,7 @@
         {
           "source" : "k1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -401,6 +415,7 @@
         {
           "source" : "ub_R1",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -410,6 +425,7 @@
         {
           "source" : "ub_R1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -419,6 +435,7 @@
         {
           "source" : "ub_R1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -428,6 +445,7 @@
         {
           "source" : "ub_R1_port",
           "target" : "ub_R1",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -496,6 +514,7 @@
         {
           "source" : "k1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -506,6 +525,7 @@
         {
           "source" : "ub_R1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -516,6 +536,7 @@
         {
           "source" : "ub_R1",
           "target" : "rule__ub_R1",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -526,6 +547,7 @@
         {
           "source" : "ub_R1_port",
           "target" : "ub_R1",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",

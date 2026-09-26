@@ -86,6 +86,7 @@
         {
           "source" : "S1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -95,6 +96,7 @@
         {
           "source" : "S1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -104,6 +106,7 @@
         {
           "source" : "S2",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -113,6 +116,7 @@
         {
           "source" : "S2",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -122,6 +126,7 @@
         {
           "source" : "compartment",
           "target" : "compartment",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -131,6 +136,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -140,6 +146,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -149,6 +156,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -158,6 +166,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -167,6 +176,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -176,6 +186,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -269,6 +280,7 @@
         {
           "source" : "S1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -279,6 +291,7 @@
         {
           "source" : "S2",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -289,6 +302,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -299,6 +313,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -309,6 +324,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -319,6 +335,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -329,6 +346,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -339,6 +357,7 @@
         {
           "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
           "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",

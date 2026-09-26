@@ -114,6 +114,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -123,6 +124,7 @@
         {
           "source" : "C2_port",
           "target" : "sub3",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -132,6 +134,7 @@
         {
           "source" : "C_port",
           "target" : "C",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -141,6 +144,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -150,6 +154,7 @@
         {
           "source" : "S1",
           "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
             "interaction type" : "sbase-replacedBy",
@@ -159,6 +164,7 @@
         {
           "source" : "S1",
           "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -212,6 +218,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -274,6 +281,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -345,6 +353,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -435,6 +444,7 @@
         {
           "source" : "C",
           "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -445,6 +455,7 @@
         {
           "source" : "C_port",
           "target" : "C",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -455,6 +466,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -465,6 +477,7 @@
         {
           "source" : "S1",
           "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
             "interaction" : "sbase-replacedBy",
@@ -475,6 +488,7 @@
         {
           "source" : "S1",
           "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -525,6 +539,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -575,6 +590,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -625,6 +641,7 @@
         {
           "source" : "S1",
           "target" : "C",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",

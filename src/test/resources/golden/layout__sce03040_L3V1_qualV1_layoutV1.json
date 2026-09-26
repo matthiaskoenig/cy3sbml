@@ -836,6 +836,7 @@
         {
           "source" : "qual_BRR2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -845,6 +846,7 @@
         {
           "source" : "qual_BUD31",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -854,6 +856,7 @@
         {
           "source" : "qual_CBC2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -863,6 +866,7 @@
         {
           "source" : "qual_CDC40",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -872,6 +876,7 @@
         {
           "source" : "qual_CEF1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -881,6 +886,7 @@
         {
           "source" : "qual_CLF1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -890,6 +896,7 @@
         {
           "source" : "qual_CWC15",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -899,6 +906,7 @@
         {
           "source" : "qual_DBP2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -908,6 +916,7 @@
         {
           "source" : "qual_DIB1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -917,6 +926,7 @@
         {
           "source" : "qual_ECM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -926,6 +936,7 @@
         {
           "source" : "qual_FAL1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -935,6 +946,7 @@
         {
           "source" : "qual_ISY1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -944,6 +956,7 @@
         {
           "source" : "qual_LEA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -953,6 +966,7 @@
         {
           "source" : "qual_LSM",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -962,6 +976,7 @@
         {
           "source" : "qual_LSR1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -971,6 +986,7 @@
         {
           "source" : "qual_PRP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -980,6 +996,7 @@
         {
           "source" : "qual_PRP16",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -989,6 +1006,7 @@
         {
           "source" : "qual_PRP18",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -998,6 +1016,7 @@
         {
           "source" : "qual_PRP19",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1007,6 +1026,7 @@
         {
           "source" : "qual_PRP2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1016,6 +1036,7 @@
         {
           "source" : "qual_PRP22",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1025,6 +1046,7 @@
         {
           "source" : "qual_PRP28",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1034,6 +1056,7 @@
         {
           "source" : "qual_PRP3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1043,6 +1066,7 @@
         {
           "source" : "qual_PRP31",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1052,6 +1076,7 @@
         {
           "source" : "qual_PRP38",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1061,6 +1086,7 @@
         {
           "source" : "qual_PRP4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1070,6 +1096,7 @@
         {
           "source" : "qual_PRP40",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1079,6 +1106,7 @@
         {
           "source" : "qual_PRP43",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1088,6 +1116,7 @@
         {
           "source" : "qual_PRP45",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1097,6 +1126,7 @@
         {
           "source" : "qual_PRP46",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1106,6 +1136,7 @@
         {
           "source" : "qual_PRP5",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1115,6 +1146,7 @@
         {
           "source" : "qual_PRP6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1124,6 +1156,7 @@
         {
           "source" : "qual_PRP8",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1133,6 +1166,7 @@
         {
           "source" : "qual_RSE1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1142,6 +1176,7 @@
         {
           "source" : "qual_SAD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1151,6 +1186,7 @@
         {
           "source" : "qual_SLU7",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1160,6 +1196,7 @@
         {
           "source" : "qual_SMD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1169,6 +1206,7 @@
         {
           "source" : "qual_SNP1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1178,6 +1216,7 @@
         {
           "source" : "qual_SNU114",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1187,6 +1226,7 @@
         {
           "source" : "qual_SNU13",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1196,6 +1236,7 @@
         {
           "source" : "qual_SNU23",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1205,6 +1246,7 @@
         {
           "source" : "qual_SNU66",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1214,6 +1256,7 @@
         {
           "source" : "qual_SSA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1223,6 +1266,7 @@
         {
           "source" : "qual_SUB2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1232,6 +1276,7 @@
         {
           "source" : "qual_TEX1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1241,6 +1286,7 @@
         {
           "source" : "qual_YHC1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1250,6 +1296,7 @@
         {
           "source" : "qual_snR14",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1259,6 +1306,7 @@
         {
           "source" : "qual_snR19",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1268,6 +1316,7 @@
         {
           "source" : "qual_snR6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1277,6 +1326,7 @@
         {
           "source" : "qual_snR7L",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2163,6 +2213,7 @@
         {
           "source" : "qual_BRR2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2173,6 +2224,7 @@
         {
           "source" : "qual_BUD31",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2183,6 +2235,7 @@
         {
           "source" : "qual_CBC2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2193,6 +2246,7 @@
         {
           "source" : "qual_CDC40",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2203,6 +2257,7 @@
         {
           "source" : "qual_CEF1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2213,6 +2268,7 @@
         {
           "source" : "qual_CLF1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2223,6 +2279,7 @@
         {
           "source" : "qual_CWC15",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2233,6 +2290,7 @@
         {
           "source" : "qual_DBP2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2243,6 +2301,7 @@
         {
           "source" : "qual_DIB1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2253,6 +2312,7 @@
         {
           "source" : "qual_ECM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2263,6 +2323,7 @@
         {
           "source" : "qual_FAL1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2273,6 +2334,7 @@
         {
           "source" : "qual_ISY1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2283,6 +2345,7 @@
         {
           "source" : "qual_LEA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2293,6 +2356,7 @@
         {
           "source" : "qual_LSM",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2303,6 +2367,7 @@
         {
           "source" : "qual_LSR1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2313,6 +2378,7 @@
         {
           "source" : "qual_PRP",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2323,6 +2389,7 @@
         {
           "source" : "qual_PRP16",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2333,6 +2400,7 @@
         {
           "source" : "qual_PRP18",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2343,6 +2411,7 @@
         {
           "source" : "qual_PRP19",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2353,6 +2422,7 @@
         {
           "source" : "qual_PRP2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2363,6 +2433,7 @@
         {
           "source" : "qual_PRP22",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2373,6 +2444,7 @@
         {
           "source" : "qual_PRP28",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2383,6 +2455,7 @@
         {
           "source" : "qual_PRP3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2393,6 +2466,7 @@
         {
           "source" : "qual_PRP31",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2403,6 +2477,7 @@
         {
           "source" : "qual_PRP38",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2413,6 +2488,7 @@
         {
           "source" : "qual_PRP4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2423,6 +2499,7 @@
         {
           "source" : "qual_PRP40",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2433,6 +2510,7 @@
         {
           "source" : "qual_PRP43",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2443,6 +2521,7 @@
         {
           "source" : "qual_PRP45",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2453,6 +2532,7 @@
         {
           "source" : "qual_PRP46",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2463,6 +2543,7 @@
         {
           "source" : "qual_PRP5",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2473,6 +2554,7 @@
         {
           "source" : "qual_PRP6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2483,6 +2565,7 @@
         {
           "source" : "qual_PRP8",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2493,6 +2576,7 @@
         {
           "source" : "qual_RSE1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2503,6 +2587,7 @@
         {
           "source" : "qual_SAD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2513,6 +2598,7 @@
         {
           "source" : "qual_SLU7",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2523,6 +2609,7 @@
         {
           "source" : "qual_SMD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2533,6 +2620,7 @@
         {
           "source" : "qual_SNP1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2543,6 +2631,7 @@
         {
           "source" : "qual_SNU114",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2553,6 +2642,7 @@
         {
           "source" : "qual_SNU13",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2563,6 +2653,7 @@
         {
           "source" : "qual_SNU23",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2573,6 +2664,7 @@
         {
           "source" : "qual_SNU66",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2583,6 +2675,7 @@
         {
           "source" : "qual_SSA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2593,6 +2686,7 @@
         {
           "source" : "qual_SUB2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2603,6 +2697,7 @@
         {
           "source" : "qual_TEX1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2613,6 +2708,7 @@
         {
           "source" : "qual_YHC1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2623,6 +2719,7 @@
         {
           "source" : "qual_snR14",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2633,6 +2730,7 @@
         {
           "source" : "qual_snR19",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2643,6 +2741,7 @@
         {
           "source" : "qual_snR6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2653,6 +2752,7 @@
         {
           "source" : "qual_snR7L",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",

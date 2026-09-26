@@ -365,6 +365,7 @@
         {
           "source" : "compartment__Cell",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -409,6 +410,7 @@
         {
           "source" : "compartment__Cell",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",

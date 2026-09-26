@@ -405,6 +405,7 @@
         {
           "source" : "P",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -414,6 +415,7 @@
         {
           "source" : "Q",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -423,6 +425,7 @@
         {
           "source" : "Q",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -432,6 +435,7 @@
         {
           "source" : "R",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -441,6 +445,7 @@
         {
           "source" : "_199999",
           "target" : "metaid_0000021",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -450,6 +455,7 @@
         {
           "source" : "_200011",
           "target" : "metaid_0000022",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -459,6 +465,7 @@
         {
           "source" : "body",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -468,6 +475,7 @@
         {
           "source" : "function_1",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -477,6 +485,7 @@
         {
           "source" : "function_1",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -486,6 +495,7 @@
         {
           "source" : "function_2",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -495,6 +505,7 @@
         {
           "source" : "function_3",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -504,6 +515,7 @@
         {
           "source" : "function_4",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -513,6 +525,7 @@
         {
           "source" : "reaction_0",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -524,6 +537,7 @@
         {
           "source" : "reaction_0",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -534,6 +548,7 @@
         {
           "source" : "reaction_0",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -543,6 +558,7 @@
         {
           "source" : "reaction_0_a",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -552,6 +568,7 @@
         {
           "source" : "reaction_0_a",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -561,6 +578,7 @@
         {
           "source" : "reaction_1",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -572,6 +590,7 @@
         {
           "source" : "reaction_1",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -581,6 +600,7 @@
         {
           "source" : "reaction_1_Km",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -590,6 +610,7 @@
         {
           "source" : "reaction_1_V",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -599,6 +620,7 @@
         {
           "source" : "reaction_2",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -610,6 +632,7 @@
         {
           "source" : "reaction_2",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -619,6 +642,7 @@
         {
           "source" : "reaction_2_K1",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -628,6 +652,7 @@
         {
           "source" : "reaction_2_V1",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -637,6 +662,7 @@
         {
           "source" : "reaction_3",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -648,6 +674,7 @@
         {
           "source" : "reaction_3",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -658,6 +685,7 @@
         {
           "source" : "reaction_3",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -667,6 +695,7 @@
         {
           "source" : "reaction_3_K2",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -676,6 +705,7 @@
         {
           "source" : "reaction_3_V2",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -685,6 +715,7 @@
         {
           "source" : "reaction_4",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
@@ -695,6 +726,7 @@
         {
           "source" : "reaction_4",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -706,6 +738,7 @@
         {
           "source" : "reaction_4",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -715,6 +748,7 @@
         {
           "source" : "reaction_4_V3",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -724,6 +758,7 @@
         {
           "source" : "reaction_4_k3",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -733,6 +768,7 @@
         {
           "source" : "reaction_5",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -744,6 +780,7 @@
         {
           "source" : "reaction_5",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -753,6 +790,7 @@
         {
           "source" : "reaction_5_Km",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -762,6 +800,7 @@
         {
           "source" : "reaction_5_V",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -1140,6 +1179,7 @@
         {
           "source" : "P",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1150,6 +1190,7 @@
         {
           "source" : "Q",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1160,6 +1201,7 @@
         {
           "source" : "Q",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1170,6 +1212,7 @@
         {
           "source" : "R",
           "target" : "body",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1180,6 +1223,7 @@
         {
           "source" : "body",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1190,6 +1234,7 @@
         {
           "source" : "function_1",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1200,6 +1245,7 @@
         {
           "source" : "function_1",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1210,6 +1256,7 @@
         {
           "source" : "function_2",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1220,6 +1267,7 @@
         {
           "source" : "function_3",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1230,6 +1278,7 @@
         {
           "source" : "function_4",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1240,6 +1289,7 @@
         {
           "source" : "reaction_0",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1252,6 +1302,7 @@
         {
           "source" : "reaction_0",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1263,6 +1314,7 @@
         {
           "source" : "reaction_0",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1273,6 +1325,7 @@
         {
           "source" : "reaction_0_a",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1283,6 +1336,7 @@
         {
           "source" : "reaction_0_a",
           "target" : "_200048",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -1293,6 +1347,7 @@
         {
           "source" : "reaction_1",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1305,6 +1360,7 @@
         {
           "source" : "reaction_1",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1315,6 +1371,7 @@
         {
           "source" : "reaction_1_Km",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1325,6 +1382,7 @@
         {
           "source" : "reaction_1_V",
           "target" : "_200072",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1335,6 +1393,7 @@
         {
           "source" : "reaction_2",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1347,6 +1406,7 @@
         {
           "source" : "reaction_2",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1357,6 +1417,7 @@
         {
           "source" : "reaction_2_K1",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1367,6 +1428,7 @@
         {
           "source" : "reaction_2_V1",
           "target" : "_200096",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1377,6 +1439,7 @@
         {
           "source" : "reaction_3",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1389,6 +1452,7 @@
         {
           "source" : "reaction_3",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1400,6 +1464,7 @@
         {
           "source" : "reaction_3",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1410,6 +1475,7 @@
         {
           "source" : "reaction_3_K2",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1420,6 +1486,7 @@
         {
           "source" : "reaction_3_V2",
           "target" : "_200134",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1430,6 +1497,7 @@
         {
           "source" : "reaction_4",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1441,6 +1509,7 @@
         {
           "source" : "reaction_4",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1453,6 +1522,7 @@
         {
           "source" : "reaction_4",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1463,6 +1533,7 @@
         {
           "source" : "reaction_4_V3",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1473,6 +1544,7 @@
         {
           "source" : "reaction_4_k3",
           "target" : "_200170",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1483,6 +1555,7 @@
         {
           "source" : "reaction_5",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1495,6 +1568,7 @@
         {
           "source" : "reaction_5",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -1505,6 +1579,7 @@
         {
           "source" : "reaction_5_Km",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1515,6 +1590,7 @@
         {
           "source" : "reaction_5_V",
           "target" : "_200194",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -1668,6 +1744,7 @@
         {
           "source" : "reaction_0",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1680,6 +1757,7 @@
         {
           "source" : "reaction_0",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1691,6 +1769,7 @@
         {
           "source" : "reaction_1",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1703,6 +1782,7 @@
         {
           "source" : "reaction_2",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1715,6 +1795,7 @@
         {
           "source" : "reaction_3",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1727,6 +1808,7 @@
         {
           "source" : "reaction_3",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1738,6 +1820,7 @@
         {
           "source" : "reaction_4",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction" : "reaction-modifier",
@@ -1749,6 +1832,7 @@
         {
           "source" : "reaction_4",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1761,6 +1845,7 @@
         {
           "source" : "reaction_5",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",

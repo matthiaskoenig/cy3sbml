@@ -102,6 +102,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -111,6 +112,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "GFP_Total",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -121,6 +123,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -130,6 +133,7 @@
         {
           "source" : "GFP_Degradation_kd",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction type" : "localParameter_kineticLaw",
@@ -139,6 +143,7 @@
         {
           "source" : "GFP_Degradation_kd",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -148,6 +153,7 @@
         {
           "source" : "GFP_Total",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -157,6 +163,7 @@
         {
           "source" : "GFP_Total",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -166,6 +173,7 @@
         {
           "source" : "GFP_Total",
           "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
@@ -262,6 +270,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -272,6 +281,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "GFP_Total",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -283,6 +293,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -293,6 +304,7 @@
         {
           "source" : "GFP_Degradation_kd",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "localParameter_kineticLaw",
           "attributes" : {
             "interaction" : "localParameter_kineticLaw",
@@ -303,6 +315,7 @@
         {
           "source" : "GFP_Degradation_kd",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -313,6 +326,7 @@
         {
           "source" : "GFP_Total",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -323,6 +337,7 @@
         {
           "source" : "GFP_Total",
           "target" : "law__GFP_Degradation",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -333,6 +348,7 @@
         {
           "source" : "GFP_Total",
           "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction" : "sbase-replacedElement",
@@ -384,6 +400,7 @@
         {
           "source" : "GFP_Degradation",
           "target" : "GFP_Total",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",

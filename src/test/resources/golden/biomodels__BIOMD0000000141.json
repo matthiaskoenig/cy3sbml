@@ -177,6 +177,7 @@
         {
           "source" : "Vthresh",
           "target" : "event_0000001",
+          "directed" : true,
           "interaction" : "trigger_event",
           "attributes" : {
             "interaction type" : "trigger_event",
@@ -186,6 +187,7 @@
         {
           "source" : "a",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -195,6 +197,7 @@
         {
           "source" : "b",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -204,6 +207,7 @@
         {
           "source" : "c",
           "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -213,6 +217,7 @@
         {
           "source" : "d",
           "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -222,6 +227,7 @@
         {
           "source" : "event_0000001",
           "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -231,6 +237,7 @@
         {
           "source" : "event_0000001",
           "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -240,6 +247,7 @@
         {
           "source" : "i",
           "target" : "metaid_0000021",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -249,6 +257,7 @@
         {
           "source" : "i",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -258,6 +267,7 @@
         {
           "source" : "u",
           "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -267,6 +277,7 @@
         {
           "source" : "u",
           "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "directed" : true,
           "interaction" : "variable_eventAssignment",
           "attributes" : {
             "interaction type" : "variable_eventAssignment",
@@ -276,6 +287,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -285,6 +297,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -294,6 +307,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -303,6 +317,7 @@
         {
           "source" : "v",
           "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "directed" : true,
           "interaction" : "variable_eventAssignment",
           "attributes" : {
             "interaction type" : "variable_eventAssignment",
@@ -312,6 +327,7 @@
         {
           "source" : "v",
           "target" : "event_0000001",
+          "directed" : true,
           "interaction" : "trigger_event",
           "attributes" : {
             "interaction type" : "trigger_event",
@@ -321,6 +337,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -330,6 +347,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction type" : "variable_rule",
@@ -339,6 +357,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction type" : "reference_rule",
@@ -484,6 +503,7 @@
         {
           "source" : "a",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -494,6 +514,7 @@
         {
           "source" : "b",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -504,6 +525,7 @@
         {
           "source" : "i",
           "target" : "metaid_0000021",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -514,6 +536,7 @@
         {
           "source" : "i",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -524,6 +547,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -534,6 +558,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -544,6 +569,7 @@
         {
           "source" : "u",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -554,6 +580,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",
@@ -564,6 +591,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000024",
+          "directed" : true,
           "interaction" : "variable_rule",
           "attributes" : {
             "interaction" : "variable_rule",
@@ -574,6 +602,7 @@
         {
           "source" : "v",
           "target" : "metaid_0000025",
+          "directed" : true,
           "interaction" : "reference_rule",
           "attributes" : {
             "interaction" : "reference_rule",

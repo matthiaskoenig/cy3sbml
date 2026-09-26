@@ -158,6 +158,7 @@
         {
           "source" : "S1",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -167,6 +168,7 @@
         {
           "source" : "S1",
           "target" : "compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -176,6 +178,7 @@
         {
           "source" : "S1",
           "target" : "event1",
+          "directed" : true,
           "interaction" : "trigger_event",
           "attributes" : {
             "interaction type" : "trigger_event",
@@ -185,6 +188,7 @@
         {
           "source" : "S1",
           "target" : "event_",
+          "directed" : true,
           "interaction" : "variable_eventAssignment",
           "attributes" : {
             "interaction type" : "variable_eventAssignment",
@@ -194,6 +198,7 @@
         {
           "source" : "S1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -203,6 +208,7 @@
         {
           "source" : "S2",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -212,6 +218,7 @@
         {
           "source" : "S2",
           "target" : "compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -221,6 +228,7 @@
         {
           "source" : "UnitSId__LITRE",
           "target" : "UnitSId__volume",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -230,6 +238,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -239,6 +248,7 @@
         {
           "source" : "compartment",
           "target" : "UnitSId__volume",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -248,6 +258,7 @@
         {
           "source" : "compartment",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -257,6 +268,7 @@
         {
           "source" : "event1",
           "target" : "event_",
+          "directed" : true,
           "interaction" : "reference_eventAssignment",
           "attributes" : {
             "interaction type" : "reference_eventAssignment",
@@ -266,6 +278,7 @@
         {
           "source" : "k1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction type" : "reference_kineticLaw",
@@ -275,6 +288,7 @@
         {
           "source" : "reaction1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -285,6 +299,7 @@
         {
           "source" : "reaction1",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -295,6 +310,7 @@
         {
           "source" : "reaction1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction type" : "reaction_kineticLaw",
@@ -397,6 +413,7 @@
         {
           "source" : "S1",
           "target" : "compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -407,6 +424,7 @@
         {
           "source" : "S1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -417,6 +435,7 @@
         {
           "source" : "S2",
           "target" : "compartment",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -427,6 +446,7 @@
         {
           "source" : "compartment",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -437,6 +457,7 @@
         {
           "source" : "k1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reference_kineticLaw",
           "attributes" : {
             "interaction" : "reference_kineticLaw",
@@ -447,6 +468,7 @@
         {
           "source" : "reaction1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -458,6 +480,7 @@
         {
           "source" : "reaction1",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -469,6 +492,7 @@
         {
           "source" : "reaction1",
           "target" : "law__reaction1",
+          "directed" : true,
           "interaction" : "reaction_kineticLaw",
           "attributes" : {
             "interaction" : "reaction_kineticLaw",
@@ -538,6 +562,7 @@
         {
           "source" : "reaction1",
           "target" : "S1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -549,6 +574,7 @@
         {
           "source" : "reaction1",
           "target" : "S2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

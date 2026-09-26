@@ -846,6 +846,7 @@
         {
           "source" : "_1dd4c37e_ca1c_4a30_b3cc_21257d013f95",
           "target" : "UnitSId__time",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -855,6 +856,7 @@
         {
           "source" : "ae281ad9_b763_42d4_b4b2_caf5b58a4445",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -864,6 +866,7 @@
         {
           "source" : "cdfb42f9_10ca_457d_8eaf_6e39f9800380",
           "target" : "UnitSId__volume",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -873,6 +876,7 @@
         {
           "source" : "qual_DNA2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -882,6 +886,7 @@
         {
           "source" : "qual_FEN1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -891,6 +896,7 @@
         {
           "source" : "qual_LIG1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -900,6 +906,7 @@
         {
           "source" : "qual_MCM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -909,6 +916,7 @@
         {
           "source" : "qual_MCM3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -918,6 +926,7 @@
         {
           "source" : "qual_MCM4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -927,6 +936,7 @@
         {
           "source" : "qual_MCM5",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -936,6 +946,7 @@
         {
           "source" : "qual_MCM6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -945,6 +956,7 @@
         {
           "source" : "qual_MCM7",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -954,6 +966,7 @@
         {
           "source" : "qual_PCNA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -963,6 +976,7 @@
         {
           "source" : "qual_POLA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -972,6 +986,7 @@
         {
           "source" : "qual_POLA2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -981,6 +996,7 @@
         {
           "source" : "qual_POLD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -990,6 +1006,7 @@
         {
           "source" : "qual_POLD2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -999,6 +1016,7 @@
         {
           "source" : "qual_POLD3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1008,6 +1026,7 @@
         {
           "source" : "qual_POLD4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1017,6 +1036,7 @@
         {
           "source" : "qual_POLE",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1026,6 +1046,7 @@
         {
           "source" : "qual_POLE2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1035,6 +1056,7 @@
         {
           "source" : "qual_POLE3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1044,6 +1066,7 @@
         {
           "source" : "qual_POLE4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1053,6 +1076,7 @@
         {
           "source" : "qual_PRIM1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1062,6 +1086,7 @@
         {
           "source" : "qual_PRIM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1071,6 +1096,7 @@
         {
           "source" : "qual_RFC",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1080,6 +1106,7 @@
         {
           "source" : "qual_RFC1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1089,6 +1116,7 @@
         {
           "source" : "qual_RFC_1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1098,6 +1126,7 @@
         {
           "source" : "qual_RNASEH1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1107,6 +1136,7 @@
         {
           "source" : "qual_RNASEH2A",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1116,6 +1146,7 @@
         {
           "source" : "qual_RNASEH2B",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1125,6 +1156,7 @@
         {
           "source" : "qual_RNASEH2C",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1134,6 +1166,7 @@
         {
           "source" : "qual_RPA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1143,6 +1176,7 @@
         {
           "source" : "qual_RPA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1152,6 +1186,7 @@
         {
           "source" : "qual_RPA3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1161,6 +1196,7 @@
         {
           "source" : "qual_SSBP1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1170,6 +1206,7 @@
         {
           "source" : "tr",
           "target" : "qual_RFC",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1185,6 +1222,7 @@
         {
           "source" : "tr",
           "target" : "qual_RNASEH2C",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1197,6 +1235,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_MCM5",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1209,6 +1248,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_RPA3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1224,6 +1264,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_POLE3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1239,6 +1280,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_SSBP1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1251,6 +1293,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1266,6 +1309,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1278,6 +1322,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1293,6 +1338,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1305,6 +1351,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1317,6 +1364,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -2120,6 +2168,7 @@
         {
           "source" : "tr",
           "target" : "qual_RFC",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2136,6 +2185,7 @@
         {
           "source" : "tr",
           "target" : "qual_RNASEH2C",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2149,6 +2199,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_MCM5",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2162,6 +2213,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_RPA3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2178,6 +2230,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_POLE3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2194,6 +2247,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_SSBP1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2207,6 +2261,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2223,6 +2278,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2236,6 +2292,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2252,6 +2309,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2265,6 +2323,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2278,6 +2337,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3098,6 +3158,7 @@
         {
           "source" : "qual_DNA2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3108,6 +3169,7 @@
         {
           "source" : "qual_FEN1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3118,6 +3180,7 @@
         {
           "source" : "qual_LIG1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3128,6 +3191,7 @@
         {
           "source" : "qual_MCM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3138,6 +3202,7 @@
         {
           "source" : "qual_MCM3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3148,6 +3213,7 @@
         {
           "source" : "qual_MCM4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3158,6 +3224,7 @@
         {
           "source" : "qual_MCM5",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3168,6 +3235,7 @@
         {
           "source" : "qual_MCM6",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3178,6 +3246,7 @@
         {
           "source" : "qual_MCM7",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3188,6 +3257,7 @@
         {
           "source" : "qual_PCNA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3198,6 +3268,7 @@
         {
           "source" : "qual_POLA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3208,6 +3279,7 @@
         {
           "source" : "qual_POLA2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3218,6 +3290,7 @@
         {
           "source" : "qual_POLD1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3228,6 +3301,7 @@
         {
           "source" : "qual_POLD2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3238,6 +3312,7 @@
         {
           "source" : "qual_POLD3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3248,6 +3323,7 @@
         {
           "source" : "qual_POLD4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3258,6 +3334,7 @@
         {
           "source" : "qual_POLE",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3268,6 +3345,7 @@
         {
           "source" : "qual_POLE2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3278,6 +3356,7 @@
         {
           "source" : "qual_POLE3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3288,6 +3367,7 @@
         {
           "source" : "qual_POLE4",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3298,6 +3378,7 @@
         {
           "source" : "qual_PRIM1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3308,6 +3389,7 @@
         {
           "source" : "qual_PRIM2",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3318,6 +3400,7 @@
         {
           "source" : "qual_RFC",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3328,6 +3411,7 @@
         {
           "source" : "qual_RFC1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3338,6 +3422,7 @@
         {
           "source" : "qual_RFC_1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3348,6 +3433,7 @@
         {
           "source" : "qual_RNASEH1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3358,6 +3444,7 @@
         {
           "source" : "qual_RNASEH2A",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3368,6 +3455,7 @@
         {
           "source" : "qual_RNASEH2B",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3378,6 +3466,7 @@
         {
           "source" : "qual_RNASEH2C",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3388,6 +3477,7 @@
         {
           "source" : "qual_RPA",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3398,6 +3488,7 @@
         {
           "source" : "qual_RPA1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3408,6 +3499,7 @@
         {
           "source" : "qual_RPA3",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3418,6 +3510,7 @@
         {
           "source" : "qual_SSBP1",
           "target" : "default",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3428,6 +3521,7 @@
         {
           "source" : "tr",
           "target" : "qual_RFC",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3444,6 +3538,7 @@
         {
           "source" : "tr",
           "target" : "qual_RNASEH2C",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3457,6 +3552,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_MCM5",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3470,6 +3566,7 @@
         {
           "source" : "tr_1",
           "target" : "qual_RPA3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3486,6 +3583,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_POLE3",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3502,6 +3600,7 @@
         {
           "source" : "tr_2",
           "target" : "qual_SSBP1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3515,6 +3614,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3531,6 +3631,7 @@
         {
           "source" : "tr_3",
           "target" : "qual_PRIM2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3544,6 +3645,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3560,6 +3662,7 @@
         {
           "source" : "tr_4",
           "target" : "qual_POLE2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3573,6 +3676,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3586,6 +3690,7 @@
         {
           "source" : "tr_5",
           "target" : "qual_RPA1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",

@@ -36,6 +36,9 @@ import org.cytoscape.model.subnetwork.CySubNetwork;
  * <ul>
  * <li>{@code SUID}: the Cytoscape session unique id of the row.</li>
  * <li>{@code selected}: the selection state.</li>
+ * <li>every {@code Long} column whose name ends with {@code SUID}, the Cytoscape naming of
+ * SUID reference columns such as {@code __parentNetwork.SUID}. None of the reference models
+ * creates such a column in the default tables, the rule guards against future ones.</li>
  * </ul>
  * <p>
  * The snapshot is independent of SUIDs, hash ordering and the platform:
@@ -143,6 +146,7 @@ public final class NetworkSnapshot {
             ObjectNode edgeNode = FACTORY.objectNode();
             edgeNode.put("source", nodeKeys.get(edge.getSource()));
             edgeNode.put("target", nodeKeys.get(edge.getTarget()));
+            edgeNode.put("directed", edge.isDirected());
             edgeNode.set("interaction", attributes.get(SBML.INTERACTION_ATTR));
             edgeNode.set("attributes", attributes);
             edges.add(edgeNode);
@@ -173,13 +177,24 @@ public final class NetworkSnapshot {
         for (CyColumn column : table.getColumns()) {
             String name = column.getName();
             Object value = row.getRaw(name);
-            if (value != null && !EXCLUDED_COLUMNS.contains(name)) {
+            if (value != null && !isExcluded(column)) {
                 values.put(name, toJson(value));
             }
         }
         ObjectNode result = FACTORY.objectNode();
         result.setAll(values);
         return result;
+    }
+
+    /**
+     * Excluded are the {@link #EXCLUDED_COLUMNS} and every {@code Long} column whose name ends
+     * with {@code SUID}, which is how Cytoscape names SUID reference columns
+     * (e.g. {@code __parentNetwork.SUID}).
+     */
+    private static boolean isExcluded(CyColumn column) {
+        String name = column.getName();
+        return EXCLUDED_COLUMNS.contains(name)
+                || (column.getType() == Long.class && name.endsWith(CyIdentifiable.SUID));
     }
 
     private static JsonNode toJson(Object value) {

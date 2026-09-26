@@ -506,6 +506,7 @@
         {
           "source" : "A",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -515,6 +516,7 @@
         {
           "source" : "A",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -524,6 +526,7 @@
         {
           "source" : "B1",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -533,6 +536,7 @@
         {
           "source" : "B1",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -542,6 +546,7 @@
         {
           "source" : "B2",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -551,6 +556,7 @@
         {
           "source" : "B2",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -560,6 +566,7 @@
         {
           "source" : "C",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -569,6 +576,7 @@
         {
           "source" : "C",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -578,6 +586,7 @@
         {
           "source" : "C_port",
           "target" : "C",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -587,6 +596,7 @@
         {
           "source" : "R1",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -597,6 +607,7 @@
         {
           "source" : "R1",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -607,6 +618,7 @@
         {
           "source" : "R1",
           "target" : "membrane",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -616,6 +628,7 @@
         {
           "source" : "R2",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -626,6 +639,7 @@
         {
           "source" : "R2",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -636,6 +650,7 @@
         {
           "source" : "R2",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -645,6 +660,7 @@
         {
           "source" : "R3",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -655,6 +671,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -665,6 +682,7 @@
         {
           "source" : "R3",
           "target" : "membrane",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction type" : "reaction_compartment",
@@ -674,6 +692,7 @@
         {
           "source" : "R3_port",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -683,6 +702,7 @@
         {
           "source" : "UnitSId__ITEM",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -692,6 +712,7 @@
         {
           "source" : "UnitSId__ITEM0",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -701,6 +722,7 @@
         {
           "source" : "UnitSId__ITEM01",
           "target" : "UnitSId__item_base",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -710,6 +732,7 @@
         {
           "source" : "UnitSId__KILOGRAM",
           "target" : "UnitSId__kg",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -719,6 +742,7 @@
         {
           "source" : "UnitSId__METRE",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -728,6 +752,7 @@
         {
           "source" : "UnitSId__METRE0",
           "target" : "UnitSId__m2",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -737,6 +762,7 @@
         {
           "source" : "UnitSId__METRE01",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -746,6 +772,7 @@
         {
           "source" : "UnitSId__METRE012",
           "target" : "UnitSId__item_per_m3",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -755,6 +782,7 @@
         {
           "source" : "UnitSId__METRE0123",
           "target" : "UnitSId__m",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -764,6 +792,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__mM",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -773,6 +802,7 @@
         {
           "source" : "UnitSId__SECOND",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -782,6 +812,7 @@
         {
           "source" : "UnitSId__SECOND0",
           "target" : "UnitSId__s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -791,6 +822,7 @@
         {
           "source" : "UnitSId__SECOND01",
           "target" : "UnitSId__per_s",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -800,6 +832,7 @@
         {
           "source" : "cell",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -809,6 +842,7 @@
         {
           "source" : "cell_port",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -818,6 +852,7 @@
         {
           "source" : "extern",
           "target" : "UnitSId__m3",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -827,6 +862,7 @@
         {
           "source" : "extern_port",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -836,6 +872,7 @@
         {
           "source" : "lb",
           "target" : "R1",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -845,6 +882,7 @@
         {
           "source" : "lb",
           "target" : "R2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -854,6 +892,7 @@
         {
           "source" : "lb",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -863,6 +902,7 @@
         {
           "source" : "lb",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -872,6 +912,7 @@
         {
           "source" : "membrane",
           "target" : "UnitSId__m2",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -881,6 +922,7 @@
         {
           "source" : "ub",
           "target" : "R2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -890,6 +932,7 @@
         {
           "source" : "ub",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -899,6 +942,7 @@
         {
           "source" : "ub",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -908,6 +952,7 @@
         {
           "source" : "ub_R1",
           "target" : "R1",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -917,6 +962,7 @@
         {
           "source" : "ub_R1",
           "target" : "UnitSId__item_per_s",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -926,6 +972,7 @@
         {
           "source" : "ub_R1_port",
           "target" : "ub_R1",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction type" : "sbaseRef-id",
@@ -1216,6 +1263,7 @@
         {
           "source" : "A",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1226,6 +1274,7 @@
         {
           "source" : "B1",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1236,6 +1285,7 @@
         {
           "source" : "B2",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1246,6 +1296,7 @@
         {
           "source" : "C",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -1256,6 +1307,7 @@
         {
           "source" : "C_port",
           "target" : "C",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -1266,6 +1318,7 @@
         {
           "source" : "R1",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1277,6 +1330,7 @@
         {
           "source" : "R1",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1288,6 +1342,7 @@
         {
           "source" : "R1",
           "target" : "membrane",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -1298,6 +1353,7 @@
         {
           "source" : "R2",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1309,6 +1365,7 @@
         {
           "source" : "R2",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1320,6 +1377,7 @@
         {
           "source" : "R2",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -1330,6 +1388,7 @@
         {
           "source" : "R3",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1341,6 +1400,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1352,6 +1412,7 @@
         {
           "source" : "R3",
           "target" : "membrane",
+          "directed" : true,
           "interaction" : "reaction_compartment",
           "attributes" : {
             "interaction" : "reaction_compartment",
@@ -1362,6 +1423,7 @@
         {
           "source" : "R3_port",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -1372,6 +1434,7 @@
         {
           "source" : "cell_port",
           "target" : "cell",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -1382,6 +1445,7 @@
         {
           "source" : "extern_port",
           "target" : "extern",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -1392,6 +1456,7 @@
         {
           "source" : "lb",
           "target" : "R1",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1402,6 +1467,7 @@
         {
           "source" : "lb",
           "target" : "R2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1412,6 +1478,7 @@
         {
           "source" : "lb",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1422,6 +1489,7 @@
         {
           "source" : "ub",
           "target" : "R2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1432,6 +1500,7 @@
         {
           "source" : "ub",
           "target" : "R3",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1442,6 +1511,7 @@
         {
           "source" : "ub_R1",
           "target" : "R1",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -1452,6 +1522,7 @@
         {
           "source" : "ub_R1_port",
           "target" : "ub_R1",
+          "directed" : true,
           "interaction" : "sbaseRef-id",
           "attributes" : {
             "interaction" : "sbaseRef-id",
@@ -1603,6 +1674,7 @@
         {
           "source" : "R1",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1614,6 +1686,7 @@
         {
           "source" : "R1",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1625,6 +1698,7 @@
         {
           "source" : "R2",
           "target" : "B1",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1636,6 +1710,7 @@
         {
           "source" : "R2",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -1647,6 +1722,7 @@
         {
           "source" : "R3",
           "target" : "B2",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -1658,6 +1734,7 @@
         {
           "source" : "R3",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

@@ -1,0 +1,889 @@
+{
+  "networks" : [
+    {
+      "name" : "All__testHier",
+      "nodeCount" : 32,
+      "edgeCount" : 16,
+      "attributes" : {
+        "label" : "testHier",
+        "metaId" : "iBioSim1",
+        "name" : "All__testHier",
+        "sbml id" : "testHier",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim2",
+          "label" : "C1",
+          "metaId" : "iBioSim2",
+          "sbml id" : "C1",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim3",
+          "label" : "C2",
+          "metaId" : "iBioSim3",
+          "sbml id" : "C2",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim4",
+          "label" : "C3",
+          "metaId" : "iBioSim4",
+          "sbml id" : "C3",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim5",
+          "label" : "C4",
+          "metaId" : "iBioSim5",
+          "sbml id" : "C4",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim6",
+          "label" : "C5",
+          "metaId" : "iBioSim6",
+          "sbml id" : "C5",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim7",
+          "label" : "C6",
+          "metaId" : "iBioSim7",
+          "sbml id" : "C6",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim8",
+          "label" : "C7",
+          "metaId" : "iBioSim8",
+          "sbml id" : "C7",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim9",
+          "label" : "C8",
+          "metaId" : "iBioSim9",
+          "sbml id" : "C8",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim10",
+          "label" : "C9",
+          "metaId" : "iBioSim10",
+          "sbml id" : "C9",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "constant" : true,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "Deletion",
+          "label" : "Deletion",
+          "metaId" : "Deletion",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0",
+          "label" : "Deletion0",
+          "metaId" : "Deletion0",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01",
+          "label" : "Deletion01",
+          "metaId" : "Deletion01",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion012",
+          "label" : "Deletion012",
+          "metaId" : "Deletion012",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0123",
+          "label" : "Deletion0123",
+          "metaId" : "Deletion0123",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01234",
+          "label" : "Deletion01234",
+          "metaId" : "Deletion01234",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion012345",
+          "label" : "Deletion012345",
+          "metaId" : "Deletion012345",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0123456",
+          "label" : "Deletion0123456",
+          "metaId" : "Deletion0123456",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01234567",
+          "label" : "Deletion01234567",
+          "metaId" : "Deletion01234567",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim28",
+          "fast" : false,
+          "kineticLaw" : "GFP_Degradation_kd*GFP_Total",
+          "label" : "GFP_Degradation",
+          "metaId" : "iBioSim28",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Degradation",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "GFP_Degradation___kd",
+          "derivedUnits" : "",
+          "label" : "GFP_Degradation_kd",
+          "metaId" : "GFP_Degradation___kd",
+          "sbml id" : "GFP_Degradation_kd",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.0075
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim27",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "GFP_Total",
+          "metaId" : "iBioSim27",
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Total",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "comp_idRef" : "C5",
+          "cyId" : "input__GFP__C5",
+          "label" : "input__GFP__C5",
+          "metaId" : "input__GFP__C5",
+          "portSid" : "input__GFP__C5",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000600"
+        },
+        {
+          "cyId" : "law__GFP_Degradation",
+          "label" : "GFP_Degradation",
+          "math" : "GFP_Degradation_kd*GFP_Total",
+          "metaId" : "law__GFP_Degradation",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C1",
+          "cyId" : "",
+          "label" : "<C1:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C2",
+          "cyId" : "",
+          "label" : "<C2:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C3",
+          "cyId" : "",
+          "label" : "<C3:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C4",
+          "cyId" : "",
+          "label" : "<C4:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C6",
+          "cyId" : "",
+          "label" : "<C6:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C7",
+          "cyId" : "",
+          "label" : "<C7:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C8",
+          "cyId" : "",
+          "label" : "<C8:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C9",
+          "cyId" : "",
+          "label" : "<C9:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "GFP_Degradation",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "GFP_Degradation",
+          "target" : "GFP_Total",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GFP_Degradation",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Degradation_kd",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Degradation_kd",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C6\",\"cyId\":\"\",\"label\":\"<C6:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C7\",\"cyId\":\"\",\"label\":\"<C7:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C8\",\"cyId\":\"\",\"label\":\"<C8:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C9\",\"cyId\":\"\",\"label\":\"<C9:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "input__GFP__C5",
+          "target" : "C5",
+          "directed" : true,
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__testHier",
+      "nodeCount" : 23,
+      "edgeCount" : 15,
+      "attributes" : {
+        "name" : "Kinetic__testHier"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "Deletion",
+          "label" : "Deletion",
+          "metaId" : "Deletion",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0",
+          "label" : "Deletion0",
+          "metaId" : "Deletion0",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01",
+          "label" : "Deletion01",
+          "metaId" : "Deletion01",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion012",
+          "label" : "Deletion012",
+          "metaId" : "Deletion012",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0123",
+          "label" : "Deletion0123",
+          "metaId" : "Deletion0123",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01234",
+          "label" : "Deletion01234",
+          "metaId" : "Deletion01234",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion012345",
+          "label" : "Deletion012345",
+          "metaId" : "Deletion012345",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion0123456",
+          "label" : "Deletion0123456",
+          "metaId" : "Deletion0123456",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "cyId" : "Deletion01234567",
+          "label" : "Deletion01234567",
+          "metaId" : "Deletion01234567",
+          "sbml type" : "comp_deletion",
+          "sbml type ext" : "comp_deletion"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim28",
+          "fast" : false,
+          "kineticLaw" : "GFP_Degradation_kd*GFP_Total",
+          "label" : "GFP_Degradation",
+          "metaId" : "iBioSim28",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Degradation",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "GFP_Degradation___kd",
+          "derivedUnits" : "",
+          "label" : "GFP_Degradation_kd",
+          "metaId" : "GFP_Degradation___kd",
+          "sbml id" : "GFP_Degradation_kd",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.0075
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim27",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "GFP_Total",
+          "metaId" : "iBioSim27",
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Total",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "comp_idRef" : "C5",
+          "cyId" : "input__GFP__C5",
+          "label" : "input__GFP__C5",
+          "metaId" : "input__GFP__C5",
+          "portSid" : "input__GFP__C5",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000600"
+        },
+        {
+          "cyId" : "law__GFP_Degradation",
+          "label" : "GFP_Degradation",
+          "math" : "GFP_Degradation_kd*GFP_Total",
+          "metaId" : "law__GFP_Degradation",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C1",
+          "cyId" : "",
+          "label" : "<C1:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C2",
+          "cyId" : "",
+          "label" : "<C2:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C3",
+          "cyId" : "",
+          "label" : "<C3:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C4",
+          "cyId" : "",
+          "label" : "<C4:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C6",
+          "cyId" : "",
+          "label" : "<C6:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C7",
+          "cyId" : "",
+          "label" : "<C7:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C8",
+          "cyId" : "",
+          "label" : "<C8:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "input__GFP",
+          "comp_submodelRef" : "C9",
+          "cyId" : "",
+          "label" : "<C9:input__GFP>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "GFP_Degradation",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "GFP_Degradation",
+          "target" : "GFP_Total",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GFP_Degradation",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Degradation_kd",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Degradation_kd",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "law__GFP_Degradation",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C6\",\"cyId\":\"\",\"label\":\"<C6:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C7\",\"cyId\":\"\",\"label\":\"<C7:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C8\",\"cyId\":\"\",\"label\":\"<C8:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "GFP_Total",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C9\",\"cyId\":\"\",\"label\":\"<C9:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "testHier",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "testHier"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim28",
+          "fast" : false,
+          "kineticLaw" : "GFP_Degradation_kd*GFP_Total",
+          "label" : "GFP_Degradation",
+          "metaId" : "iBioSim28",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Degradation",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim27",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "GFP_Total",
+          "metaId" : "iBioSim27",
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP_Total",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "GFP_Degradation",
+          "target" : "GFP_Total",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

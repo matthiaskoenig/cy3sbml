@@ -654,6 +654,7 @@
         {
           "source" : "akt",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -663,6 +664,7 @@
         {
           "source" : "ap1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -672,6 +674,7 @@
         {
           "source" : "ask1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -681,6 +684,7 @@
         {
           "source" : "cjun",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -690,6 +694,7 @@
         {
           "source" : "egf",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -699,6 +704,7 @@
         {
           "source" : "egfr",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -708,6 +714,7 @@
         {
           "source" : "erk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -717,6 +724,7 @@
         {
           "source" : "ex",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -726,6 +734,7 @@
         {
           "source" : "gsk3",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -735,6 +744,7 @@
         {
           "source" : "ikb",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -744,6 +754,7 @@
         {
           "source" : "ikk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -753,6 +764,7 @@
         {
           "source" : "jnk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -762,6 +774,7 @@
         {
           "source" : "map3k1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -771,6 +784,7 @@
         {
           "source" : "map3k7",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -780,6 +794,7 @@
         {
           "source" : "mek",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -789,6 +804,7 @@
         {
           "source" : "mkk4",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -798,6 +814,7 @@
         {
           "source" : "mkk7",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -807,6 +824,7 @@
         {
           "source" : "nfkb",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -816,6 +834,7 @@
         {
           "source" : "nik",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -825,6 +844,7 @@
         {
           "source" : "p38",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -834,6 +854,7 @@
         {
           "source" : "ph",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -843,6 +864,7 @@
         {
           "source" : "pi3k",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -852,6 +874,7 @@
         {
           "source" : "raf1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -861,6 +884,7 @@
         {
           "source" : "ras",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -870,6 +894,7 @@
         {
           "source" : "sos",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -879,6 +904,7 @@
         {
           "source" : "t1",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -891,6 +917,7 @@
         {
           "source" : "t1",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -906,6 +933,7 @@
         {
           "source" : "t10",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -918,6 +946,7 @@
         {
           "source" : "t10",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -933,6 +962,7 @@
         {
           "source" : "t11",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -945,6 +975,7 @@
         {
           "source" : "t11",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -960,6 +991,7 @@
         {
           "source" : "t12",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -972,6 +1004,7 @@
         {
           "source" : "t12",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -987,6 +1020,7 @@
         {
           "source" : "t13",
           "target" : "tnfa",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1002,6 +1036,7 @@
         {
           "source" : "t13",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1014,6 +1049,7 @@
         {
           "source" : "t14",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1026,6 +1062,7 @@
         {
           "source" : "t14",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1041,6 +1078,7 @@
         {
           "source" : "t15",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1053,6 +1091,7 @@
         {
           "source" : "t15",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1068,6 +1107,7 @@
         {
           "source" : "t16",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1083,6 +1123,7 @@
         {
           "source" : "t16",
           "target" : "gsk3",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1095,6 +1136,7 @@
         {
           "source" : "t17",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1107,6 +1149,7 @@
         {
           "source" : "t17",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1122,6 +1165,7 @@
         {
           "source" : "t18",
           "target" : "egf",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1137,6 +1181,7 @@
         {
           "source" : "t18",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1149,6 +1194,7 @@
         {
           "source" : "t19",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1164,6 +1210,7 @@
         {
           "source" : "t19",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1176,6 +1223,7 @@
         {
           "source" : "t2",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1191,6 +1239,7 @@
         {
           "source" : "t2",
           "target" : "p38",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1203,6 +1252,7 @@
         {
           "source" : "t20",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1215,6 +1265,7 @@
         {
           "source" : "t20",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1230,6 +1281,7 @@
         {
           "source" : "t21",
           "target" : "ap1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1242,6 +1294,7 @@
         {
           "source" : "t21",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1257,6 +1310,7 @@
         {
           "source" : "t22",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1269,6 +1323,7 @@
         {
           "source" : "t22",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1284,6 +1339,7 @@
         {
           "source" : "t23",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1299,6 +1355,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1314,6 +1371,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1326,6 +1384,7 @@
         {
           "source" : "t24",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1338,6 +1397,7 @@
         {
           "source" : "t24",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1353,6 +1413,7 @@
         {
           "source" : "t25",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1365,6 +1426,7 @@
         {
           "source" : "t25",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1380,6 +1442,7 @@
         {
           "source" : "t26",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1395,6 +1458,7 @@
         {
           "source" : "t26",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1410,6 +1474,7 @@
         {
           "source" : "t26",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1422,6 +1487,7 @@
         {
           "source" : "t3",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1437,6 +1503,7 @@
         {
           "source" : "t3",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1452,6 +1519,7 @@
         {
           "source" : "t3",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1464,6 +1532,7 @@
         {
           "source" : "t4",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1479,6 +1548,7 @@
         {
           "source" : "t4",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1494,6 +1564,7 @@
         {
           "source" : "t4",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1506,6 +1577,7 @@
         {
           "source" : "t5",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1521,6 +1593,7 @@
         {
           "source" : "t5",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1533,6 +1606,7 @@
         {
           "source" : "t6",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1545,6 +1619,7 @@
         {
           "source" : "t6",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1560,6 +1635,7 @@
         {
           "source" : "t7",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1575,6 +1651,7 @@
         {
           "source" : "t7",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1587,6 +1664,7 @@
         {
           "source" : "t8",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1602,6 +1680,7 @@
         {
           "source" : "t8",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1614,6 +1693,7 @@
         {
           "source" : "t9",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1629,6 +1709,7 @@
         {
           "source" : "t9",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -1641,6 +1722,7 @@
         {
           "source" : "t9",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction type" : "input_transition",
@@ -1656,6 +1738,7 @@
         {
           "source" : "tnfa",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1665,6 +1748,7 @@
         {
           "source" : "tnfr",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1674,6 +1758,7 @@
         {
           "source" : "traf2",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2325,6 +2410,7 @@
         {
           "source" : "akt",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2335,6 +2421,7 @@
         {
           "source" : "ap1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2345,6 +2432,7 @@
         {
           "source" : "ask1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2355,6 +2443,7 @@
         {
           "source" : "cjun",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2365,6 +2454,7 @@
         {
           "source" : "egf",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2375,6 +2465,7 @@
         {
           "source" : "egfr",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2385,6 +2476,7 @@
         {
           "source" : "erk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2395,6 +2487,7 @@
         {
           "source" : "ex",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2405,6 +2498,7 @@
         {
           "source" : "gsk3",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2415,6 +2509,7 @@
         {
           "source" : "ikb",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2425,6 +2520,7 @@
         {
           "source" : "ikk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2435,6 +2531,7 @@
         {
           "source" : "jnk",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2445,6 +2542,7 @@
         {
           "source" : "map3k1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2455,6 +2553,7 @@
         {
           "source" : "map3k7",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2465,6 +2564,7 @@
         {
           "source" : "mek",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2475,6 +2575,7 @@
         {
           "source" : "mkk4",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2485,6 +2586,7 @@
         {
           "source" : "mkk7",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2495,6 +2597,7 @@
         {
           "source" : "nfkb",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2505,6 +2608,7 @@
         {
           "source" : "nik",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2515,6 +2619,7 @@
         {
           "source" : "p38",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2525,6 +2630,7 @@
         {
           "source" : "ph",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2535,6 +2641,7 @@
         {
           "source" : "pi3k",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2545,6 +2652,7 @@
         {
           "source" : "raf1",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2555,6 +2663,7 @@
         {
           "source" : "ras",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2565,6 +2674,7 @@
         {
           "source" : "sos",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2575,6 +2685,7 @@
         {
           "source" : "t1",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2588,6 +2699,7 @@
         {
           "source" : "t1",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2604,6 +2716,7 @@
         {
           "source" : "t10",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2617,6 +2730,7 @@
         {
           "source" : "t10",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2633,6 +2747,7 @@
         {
           "source" : "t11",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2646,6 +2761,7 @@
         {
           "source" : "t11",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2662,6 +2778,7 @@
         {
           "source" : "t12",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2675,6 +2792,7 @@
         {
           "source" : "t12",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2691,6 +2809,7 @@
         {
           "source" : "t13",
           "target" : "tnfa",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2707,6 +2826,7 @@
         {
           "source" : "t13",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2720,6 +2840,7 @@
         {
           "source" : "t14",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2733,6 +2854,7 @@
         {
           "source" : "t14",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2749,6 +2871,7 @@
         {
           "source" : "t15",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2762,6 +2885,7 @@
         {
           "source" : "t15",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2778,6 +2902,7 @@
         {
           "source" : "t16",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2794,6 +2919,7 @@
         {
           "source" : "t16",
           "target" : "gsk3",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2807,6 +2933,7 @@
         {
           "source" : "t17",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2820,6 +2947,7 @@
         {
           "source" : "t17",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2836,6 +2964,7 @@
         {
           "source" : "t18",
           "target" : "egf",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2852,6 +2981,7 @@
         {
           "source" : "t18",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2865,6 +2995,7 @@
         {
           "source" : "t19",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2881,6 +3012,7 @@
         {
           "source" : "t19",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2894,6 +3026,7 @@
         {
           "source" : "t2",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2910,6 +3043,7 @@
         {
           "source" : "t2",
           "target" : "p38",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2923,6 +3057,7 @@
         {
           "source" : "t20",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2936,6 +3071,7 @@
         {
           "source" : "t20",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2952,6 +3088,7 @@
         {
           "source" : "t21",
           "target" : "ap1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2965,6 +3102,7 @@
         {
           "source" : "t21",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -2981,6 +3119,7 @@
         {
           "source" : "t22",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -2994,6 +3133,7 @@
         {
           "source" : "t22",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3010,6 +3150,7 @@
         {
           "source" : "t23",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3026,6 +3167,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3042,6 +3184,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3055,6 +3198,7 @@
         {
           "source" : "t24",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3068,6 +3212,7 @@
         {
           "source" : "t24",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3084,6 +3229,7 @@
         {
           "source" : "t25",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3097,6 +3243,7 @@
         {
           "source" : "t25",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3113,6 +3260,7 @@
         {
           "source" : "t26",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3129,6 +3277,7 @@
         {
           "source" : "t26",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3145,6 +3294,7 @@
         {
           "source" : "t26",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3158,6 +3308,7 @@
         {
           "source" : "t3",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3174,6 +3325,7 @@
         {
           "source" : "t3",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3190,6 +3342,7 @@
         {
           "source" : "t3",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3203,6 +3356,7 @@
         {
           "source" : "t4",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3219,6 +3373,7 @@
         {
           "source" : "t4",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3235,6 +3390,7 @@
         {
           "source" : "t4",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3248,6 +3404,7 @@
         {
           "source" : "t5",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3264,6 +3421,7 @@
         {
           "source" : "t5",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3277,6 +3435,7 @@
         {
           "source" : "t6",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3290,6 +3449,7 @@
         {
           "source" : "t6",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3306,6 +3466,7 @@
         {
           "source" : "t7",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3322,6 +3483,7 @@
         {
           "source" : "t7",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3335,6 +3497,7 @@
         {
           "source" : "t8",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3351,6 +3514,7 @@
         {
           "source" : "t8",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3364,6 +3528,7 @@
         {
           "source" : "t9",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3380,6 +3545,7 @@
         {
           "source" : "t9",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -3393,6 +3559,7 @@
         {
           "source" : "t9",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -3409,6 +3576,7 @@
         {
           "source" : "tnfa",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3419,6 +3587,7 @@
         {
           "source" : "tnfr",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3429,6 +3598,7 @@
         {
           "source" : "traf2",
           "target" : "main",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4071,6 +4241,7 @@
         {
           "source" : "t1",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4084,6 +4255,7 @@
         {
           "source" : "t1",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4100,6 +4272,7 @@
         {
           "source" : "t10",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4113,6 +4286,7 @@
         {
           "source" : "t10",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4129,6 +4303,7 @@
         {
           "source" : "t11",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4142,6 +4317,7 @@
         {
           "source" : "t11",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4158,6 +4334,7 @@
         {
           "source" : "t12",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4171,6 +4348,7 @@
         {
           "source" : "t12",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4187,6 +4365,7 @@
         {
           "source" : "t13",
           "target" : "tnfa",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4203,6 +4382,7 @@
         {
           "source" : "t13",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4216,6 +4396,7 @@
         {
           "source" : "t14",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4229,6 +4410,7 @@
         {
           "source" : "t14",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4245,6 +4427,7 @@
         {
           "source" : "t15",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4258,6 +4441,7 @@
         {
           "source" : "t15",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4274,6 +4458,7 @@
         {
           "source" : "t16",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4290,6 +4475,7 @@
         {
           "source" : "t16",
           "target" : "gsk3",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4303,6 +4489,7 @@
         {
           "source" : "t17",
           "target" : "akt",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4316,6 +4503,7 @@
         {
           "source" : "t17",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4332,6 +4520,7 @@
         {
           "source" : "t18",
           "target" : "egf",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4348,6 +4537,7 @@
         {
           "source" : "t18",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4361,6 +4551,7 @@
         {
           "source" : "t19",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4377,6 +4568,7 @@
         {
           "source" : "t19",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4390,6 +4582,7 @@
         {
           "source" : "t2",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4406,6 +4599,7 @@
         {
           "source" : "t2",
           "target" : "p38",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4419,6 +4613,7 @@
         {
           "source" : "t20",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4432,6 +4627,7 @@
         {
           "source" : "t20",
           "target" : "nfkb",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4448,6 +4644,7 @@
         {
           "source" : "t21",
           "target" : "ap1",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4461,6 +4658,7 @@
         {
           "source" : "t21",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4477,6 +4675,7 @@
         {
           "source" : "t22",
           "target" : "cjun",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4490,6 +4689,7 @@
         {
           "source" : "t22",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4506,6 +4706,7 @@
         {
           "source" : "t23",
           "target" : "erk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4522,6 +4723,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4538,6 +4740,7 @@
         {
           "source" : "t23",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4551,6 +4754,7 @@
         {
           "source" : "t24",
           "target" : "mek",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4564,6 +4768,7 @@
         {
           "source" : "t24",
           "target" : "raf1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4580,6 +4785,7 @@
         {
           "source" : "t25",
           "target" : "ras",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4593,6 +4799,7 @@
         {
           "source" : "t25",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4609,6 +4816,7 @@
         {
           "source" : "t26",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4625,6 +4833,7 @@
         {
           "source" : "t26",
           "target" : "ph",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4641,6 +4850,7 @@
         {
           "source" : "t26",
           "target" : "sos",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4654,6 +4864,7 @@
         {
           "source" : "t3",
           "target" : "ask1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4670,6 +4881,7 @@
         {
           "source" : "t3",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4686,6 +4898,7 @@
         {
           "source" : "t3",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4699,6 +4912,7 @@
         {
           "source" : "t4",
           "target" : "map3k1",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4715,6 +4929,7 @@
         {
           "source" : "t4",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4731,6 +4946,7 @@
         {
           "source" : "t4",
           "target" : "mkk4",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4744,6 +4960,7 @@
         {
           "source" : "t5",
           "target" : "map3k7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4760,6 +4977,7 @@
         {
           "source" : "t5",
           "target" : "nik",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4773,6 +4991,7 @@
         {
           "source" : "t6",
           "target" : "jnk",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4786,6 +5005,7 @@
         {
           "source" : "t6",
           "target" : "mkk7",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4802,6 +5022,7 @@
         {
           "source" : "t7",
           "target" : "tnfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4818,6 +5039,7 @@
         {
           "source" : "t7",
           "target" : "traf2",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4831,6 +5053,7 @@
         {
           "source" : "t8",
           "target" : "egfr",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4847,6 +5070,7 @@
         {
           "source" : "t8",
           "target" : "pi3k",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4860,6 +5084,7 @@
         {
           "source" : "t9",
           "target" : "ex",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",
@@ -4876,6 +5101,7 @@
         {
           "source" : "t9",
           "target" : "ikb",
+          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction" : "transition_output",
@@ -4889,6 +5115,7 @@
         {
           "source" : "t9",
           "target" : "ikk",
+          "directed" : true,
           "interaction" : "input_transition",
           "attributes" : {
             "interaction" : "input_transition",

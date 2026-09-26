@@ -874,6 +874,7 @@
         {
           "source" : "A",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -883,6 +884,7 @@
         {
           "source" : "B",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -892,6 +894,7 @@
         {
           "source" : "C",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -901,6 +904,7 @@
         {
           "source" : "D",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -910,6 +914,7 @@
         {
           "source" : "E",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -919,6 +924,7 @@
         {
           "source" : "F",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -928,6 +934,7 @@
         {
           "source" : "G",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -937,6 +944,7 @@
         {
           "source" : "H",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -946,6 +954,7 @@
         {
           "source" : "I",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -955,6 +964,7 @@
         {
           "source" : "J",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -964,6 +974,7 @@
         {
           "source" : "K",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -973,6 +984,7 @@
         {
           "source" : "L",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -982,6 +994,7 @@
         {
           "source" : "M",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -991,6 +1004,7 @@
         {
           "source" : "N",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1000,6 +1014,7 @@
         {
           "source" : "O",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1009,6 +1024,7 @@
         {
           "source" : "P",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1018,6 +1034,7 @@
         {
           "source" : "Q",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1027,6 +1044,7 @@
         {
           "source" : "R",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1036,6 +1054,7 @@
         {
           "source" : "R01",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1046,6 +1065,7 @@
         {
           "source" : "R01",
           "target" : "X",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1056,6 +1076,7 @@
         {
           "source" : "R02",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1066,6 +1087,7 @@
         {
           "source" : "R02",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1076,6 +1098,7 @@
         {
           "source" : "R03",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1086,6 +1109,7 @@
         {
           "source" : "R03",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1096,6 +1120,7 @@
         {
           "source" : "R04",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1106,6 +1131,7 @@
         {
           "source" : "R04",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1116,6 +1142,7 @@
         {
           "source" : "R05",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1126,6 +1153,7 @@
         {
           "source" : "R05",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1136,6 +1164,7 @@
         {
           "source" : "R06",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1146,6 +1175,7 @@
         {
           "source" : "R06",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1156,6 +1186,7 @@
         {
           "source" : "R07",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1166,6 +1197,7 @@
         {
           "source" : "R07",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1176,6 +1208,7 @@
         {
           "source" : "R08",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1186,6 +1219,7 @@
         {
           "source" : "R08",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1196,6 +1230,7 @@
         {
           "source" : "R09",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1206,6 +1241,7 @@
         {
           "source" : "R09",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1216,6 +1252,7 @@
         {
           "source" : "R10",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1226,6 +1263,7 @@
         {
           "source" : "R10",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1236,6 +1274,7 @@
         {
           "source" : "R11",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1246,6 +1285,7 @@
         {
           "source" : "R11",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1256,6 +1296,7 @@
         {
           "source" : "R12",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1266,6 +1307,7 @@
         {
           "source" : "R12",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1276,6 +1318,7 @@
         {
           "source" : "R13",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1286,6 +1329,7 @@
         {
           "source" : "R13",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1296,6 +1340,7 @@
         {
           "source" : "R14",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1306,6 +1351,7 @@
         {
           "source" : "R14",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1316,6 +1362,7 @@
         {
           "source" : "R15",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1326,6 +1373,7 @@
         {
           "source" : "R15",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1336,6 +1384,7 @@
         {
           "source" : "R16",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1346,6 +1395,7 @@
         {
           "source" : "R16",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1356,6 +1406,7 @@
         {
           "source" : "R17",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1366,6 +1417,7 @@
         {
           "source" : "R17",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1376,6 +1428,7 @@
         {
           "source" : "R18",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1386,6 +1439,7 @@
         {
           "source" : "R18",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1396,6 +1450,7 @@
         {
           "source" : "R19",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1406,6 +1461,7 @@
         {
           "source" : "R19",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1416,6 +1472,7 @@
         {
           "source" : "R20",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1426,6 +1483,7 @@
         {
           "source" : "R20",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1436,6 +1494,7 @@
         {
           "source" : "R21",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1446,6 +1505,7 @@
         {
           "source" : "R21",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1456,6 +1516,7 @@
         {
           "source" : "R22",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1466,6 +1527,7 @@
         {
           "source" : "R22",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1476,6 +1538,7 @@
         {
           "source" : "R23",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1486,6 +1549,7 @@
         {
           "source" : "R23",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1496,6 +1560,7 @@
         {
           "source" : "R24",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1506,6 +1571,7 @@
         {
           "source" : "R24",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1516,6 +1582,7 @@
         {
           "source" : "R25",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1526,6 +1593,7 @@
         {
           "source" : "R25",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1536,6 +1604,7 @@
         {
           "source" : "R25",
           "target" : "T",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1546,6 +1615,7 @@
         {
           "source" : "R25",
           "target" : "U",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1556,6 +1626,7 @@
         {
           "source" : "R26",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1566,6 +1637,7 @@
         {
           "source" : "R26",
           "target" : "Y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1576,6 +1648,7 @@
         {
           "source" : "S",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1585,6 +1658,7 @@
         {
           "source" : "T",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1594,6 +1668,7 @@
         {
           "source" : "U",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1603,6 +1678,7 @@
         {
           "source" : "UnitSId__GRAM",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1612,6 +1688,7 @@
         {
           "source" : "UnitSId__LITRE",
           "target" : "UnitSId__volume",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1621,6 +1698,7 @@
         {
           "source" : "UnitSId__METRE",
           "target" : "UnitSId__area",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1630,6 +1708,7 @@
         {
           "source" : "UnitSId__METRE0",
           "target" : "UnitSId__length",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1639,6 +1718,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__substance",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1648,6 +1728,7 @@
         {
           "source" : "UnitSId__MOLE0",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1657,6 +1738,7 @@
         {
           "source" : "UnitSId__SECOND",
           "target" : "UnitSId__time",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1666,6 +1748,7 @@
         {
           "source" : "UnitSId__SECOND0",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -1675,6 +1758,7 @@
         {
           "source" : "X",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1684,6 +1768,7 @@
         {
           "source" : "Y",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -2469,6 +2554,7 @@
         {
           "source" : "A",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2479,6 +2565,7 @@
         {
           "source" : "B",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2489,6 +2576,7 @@
         {
           "source" : "C",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2499,6 +2587,7 @@
         {
           "source" : "D",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2509,6 +2598,7 @@
         {
           "source" : "E",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2519,6 +2609,7 @@
         {
           "source" : "F",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2529,6 +2620,7 @@
         {
           "source" : "G",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2539,6 +2631,7 @@
         {
           "source" : "H",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2549,6 +2642,7 @@
         {
           "source" : "I",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2559,6 +2653,7 @@
         {
           "source" : "J",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2569,6 +2664,7 @@
         {
           "source" : "K",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2579,6 +2675,7 @@
         {
           "source" : "L",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2589,6 +2686,7 @@
         {
           "source" : "M",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2599,6 +2697,7 @@
         {
           "source" : "N",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2609,6 +2708,7 @@
         {
           "source" : "O",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2619,6 +2719,7 @@
         {
           "source" : "P",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2629,6 +2730,7 @@
         {
           "source" : "Q",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2639,6 +2741,7 @@
         {
           "source" : "R",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -2649,6 +2752,7 @@
         {
           "source" : "R01",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2660,6 +2764,7 @@
         {
           "source" : "R01",
           "target" : "X",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2671,6 +2776,7 @@
         {
           "source" : "R02",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2682,6 +2788,7 @@
         {
           "source" : "R02",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2693,6 +2800,7 @@
         {
           "source" : "R03",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2704,6 +2812,7 @@
         {
           "source" : "R03",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2715,6 +2824,7 @@
         {
           "source" : "R04",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2726,6 +2836,7 @@
         {
           "source" : "R04",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2737,6 +2848,7 @@
         {
           "source" : "R05",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2748,6 +2860,7 @@
         {
           "source" : "R05",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2759,6 +2872,7 @@
         {
           "source" : "R06",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2770,6 +2884,7 @@
         {
           "source" : "R06",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2781,6 +2896,7 @@
         {
           "source" : "R07",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2792,6 +2908,7 @@
         {
           "source" : "R07",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2803,6 +2920,7 @@
         {
           "source" : "R08",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2814,6 +2932,7 @@
         {
           "source" : "R08",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2825,6 +2944,7 @@
         {
           "source" : "R09",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2836,6 +2956,7 @@
         {
           "source" : "R09",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2847,6 +2968,7 @@
         {
           "source" : "R10",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2858,6 +2980,7 @@
         {
           "source" : "R10",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2869,6 +2992,7 @@
         {
           "source" : "R11",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2880,6 +3004,7 @@
         {
           "source" : "R11",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2891,6 +3016,7 @@
         {
           "source" : "R12",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2902,6 +3028,7 @@
         {
           "source" : "R12",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2913,6 +3040,7 @@
         {
           "source" : "R13",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2924,6 +3052,7 @@
         {
           "source" : "R13",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2935,6 +3064,7 @@
         {
           "source" : "R14",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2946,6 +3076,7 @@
         {
           "source" : "R14",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2957,6 +3088,7 @@
         {
           "source" : "R15",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2968,6 +3100,7 @@
         {
           "source" : "R15",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -2979,6 +3112,7 @@
         {
           "source" : "R16",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -2990,6 +3124,7 @@
         {
           "source" : "R16",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3001,6 +3136,7 @@
         {
           "source" : "R17",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3012,6 +3148,7 @@
         {
           "source" : "R17",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3023,6 +3160,7 @@
         {
           "source" : "R18",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3034,6 +3172,7 @@
         {
           "source" : "R18",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3045,6 +3184,7 @@
         {
           "source" : "R19",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3056,6 +3196,7 @@
         {
           "source" : "R19",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3067,6 +3208,7 @@
         {
           "source" : "R20",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3078,6 +3220,7 @@
         {
           "source" : "R20",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3089,6 +3232,7 @@
         {
           "source" : "R21",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3100,6 +3244,7 @@
         {
           "source" : "R21",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3111,6 +3256,7 @@
         {
           "source" : "R22",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3122,6 +3268,7 @@
         {
           "source" : "R22",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3133,6 +3280,7 @@
         {
           "source" : "R23",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3144,6 +3292,7 @@
         {
           "source" : "R23",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3155,6 +3304,7 @@
         {
           "source" : "R24",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3166,6 +3316,7 @@
         {
           "source" : "R24",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3177,6 +3328,7 @@
         {
           "source" : "R25",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3188,6 +3340,7 @@
         {
           "source" : "R25",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3199,6 +3352,7 @@
         {
           "source" : "R25",
           "target" : "T",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3210,6 +3364,7 @@
         {
           "source" : "R25",
           "target" : "U",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3221,6 +3376,7 @@
         {
           "source" : "R26",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -3232,6 +3388,7 @@
         {
           "source" : "R26",
           "target" : "Y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -3243,6 +3400,7 @@
         {
           "source" : "S",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3253,6 +3411,7 @@
         {
           "source" : "T",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3263,6 +3422,7 @@
         {
           "source" : "U",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3273,6 +3433,7 @@
         {
           "source" : "X",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -3283,6 +3444,7 @@
         {
           "source" : "Y",
           "target" : "Cell",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4055,6 +4217,7 @@
         {
           "source" : "R01",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4066,6 +4229,7 @@
         {
           "source" : "R01",
           "target" : "X",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4077,6 +4241,7 @@
         {
           "source" : "R02",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4088,6 +4253,7 @@
         {
           "source" : "R02",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4099,6 +4265,7 @@
         {
           "source" : "R03",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4110,6 +4277,7 @@
         {
           "source" : "R03",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4121,6 +4289,7 @@
         {
           "source" : "R04",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4132,6 +4301,7 @@
         {
           "source" : "R04",
           "target" : "C",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4143,6 +4313,7 @@
         {
           "source" : "R05",
           "target" : "B",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4154,6 +4325,7 @@
         {
           "source" : "R05",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4165,6 +4337,7 @@
         {
           "source" : "R06",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4176,6 +4349,7 @@
         {
           "source" : "R06",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4187,6 +4361,7 @@
         {
           "source" : "R07",
           "target" : "E",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4198,6 +4373,7 @@
         {
           "source" : "R07",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4209,6 +4385,7 @@
         {
           "source" : "R08",
           "target" : "F",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4220,6 +4397,7 @@
         {
           "source" : "R08",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4231,6 +4409,7 @@
         {
           "source" : "R09",
           "target" : "D",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4242,6 +4421,7 @@
         {
           "source" : "R09",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4253,6 +4433,7 @@
         {
           "source" : "R10",
           "target" : "G",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4264,6 +4445,7 @@
         {
           "source" : "R10",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4275,6 +4457,7 @@
         {
           "source" : "R11",
           "target" : "H",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4286,6 +4469,7 @@
         {
           "source" : "R11",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4297,6 +4481,7 @@
         {
           "source" : "R12",
           "target" : "I",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4308,6 +4493,7 @@
         {
           "source" : "R12",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4319,6 +4505,7 @@
         {
           "source" : "R13",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4330,6 +4517,7 @@
         {
           "source" : "R13",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4341,6 +4529,7 @@
         {
           "source" : "R14",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4352,6 +4541,7 @@
         {
           "source" : "R14",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4363,6 +4553,7 @@
         {
           "source" : "R15",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4374,6 +4565,7 @@
         {
           "source" : "R15",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4385,6 +4577,7 @@
         {
           "source" : "R16",
           "target" : "J",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4396,6 +4589,7 @@
         {
           "source" : "R16",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4407,6 +4601,7 @@
         {
           "source" : "R17",
           "target" : "M",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4418,6 +4613,7 @@
         {
           "source" : "R17",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4429,6 +4625,7 @@
         {
           "source" : "R18",
           "target" : "N",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4440,6 +4637,7 @@
         {
           "source" : "R18",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4451,6 +4649,7 @@
         {
           "source" : "R19",
           "target" : "K",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4462,6 +4661,7 @@
         {
           "source" : "R19",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4473,6 +4673,7 @@
         {
           "source" : "R20",
           "target" : "O",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4484,6 +4685,7 @@
         {
           "source" : "R20",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4495,6 +4697,7 @@
         {
           "source" : "R21",
           "target" : "L",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4506,6 +4709,7 @@
         {
           "source" : "R21",
           "target" : "P",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4517,6 +4721,7 @@
         {
           "source" : "R22",
           "target" : "Q",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4528,6 +4733,7 @@
         {
           "source" : "R22",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4539,6 +4745,7 @@
         {
           "source" : "R23",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4550,6 +4757,7 @@
         {
           "source" : "R23",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4561,6 +4769,7 @@
         {
           "source" : "R24",
           "target" : "R",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4572,6 +4781,7 @@
         {
           "source" : "R24",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4583,6 +4793,7 @@
         {
           "source" : "R25",
           "target" : "A",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4594,6 +4805,7 @@
         {
           "source" : "R25",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4605,6 +4817,7 @@
         {
           "source" : "R25",
           "target" : "T",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4616,6 +4829,7 @@
         {
           "source" : "R25",
           "target" : "U",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4627,6 +4841,7 @@
         {
           "source" : "R26",
           "target" : "S",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4638,6 +4853,7 @@
         {
           "source" : "R26",
           "target" : "Y",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",

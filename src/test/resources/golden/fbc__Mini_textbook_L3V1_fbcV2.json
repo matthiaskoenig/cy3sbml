@@ -1074,6 +1074,7 @@
         {
           "source" : "G_b0755",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1083,6 +1084,7 @@
         {
           "source" : "G_b0875",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1092,6 +1094,7 @@
         {
           "source" : "G_b1101",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1101,6 +1104,7 @@
         {
           "source" : "G_b1380",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1110,6 +1114,7 @@
         {
           "source" : "G_b1621",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1119,6 +1124,7 @@
         {
           "source" : "G_b1676",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1128,6 +1134,7 @@
         {
           "source" : "G_b1723",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1137,6 +1144,7 @@
         {
           "source" : "G_b1773",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1146,6 +1154,7 @@
         {
           "source" : "G_b1779",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1155,6 +1164,7 @@
         {
           "source" : "G_b1817",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1164,6 +1174,7 @@
         {
           "source" : "G_b1818",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1173,6 +1184,7 @@
         {
           "source" : "G_b1819",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1182,6 +1194,7 @@
         {
           "source" : "G_b1854",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1191,6 +1204,7 @@
         {
           "source" : "G_b2097",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1200,6 +1214,7 @@
         {
           "source" : "G_b2133",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1209,6 +1224,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1218,6 +1234,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1227,6 +1244,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1236,6 +1254,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1245,6 +1264,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1254,6 +1274,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1263,6 +1284,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1272,6 +1294,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1281,6 +1304,7 @@
         {
           "source" : "G_b2779",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1290,6 +1314,7 @@
         {
           "source" : "G_b2925",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1299,6 +1324,7 @@
         {
           "source" : "G_b2926",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1308,6 +1334,7 @@
         {
           "source" : "G_b2975",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1317,6 +1344,7 @@
         {
           "source" : "G_b2987",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1326,6 +1354,7 @@
         {
           "source" : "G_b3493",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1335,6 +1364,7 @@
         {
           "source" : "G_b3603",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1344,6 +1374,7 @@
         {
           "source" : "G_b3612",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1353,6 +1384,7 @@
         {
           "source" : "G_b3916",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1362,6 +1394,7 @@
         {
           "source" : "G_b3919",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1371,6 +1404,7 @@
         {
           "source" : "G_b4025",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -1380,6 +1414,7 @@
         {
           "source" : "G_b4395",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -1389,6 +1424,7 @@
         {
           "source" : "M_13dpg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1398,6 +1434,7 @@
         {
           "source" : "M_2pg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1407,6 +1444,7 @@
         {
           "source" : "M_3pg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1416,6 +1454,7 @@
         {
           "source" : "M_adp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1425,6 +1464,7 @@
         {
           "source" : "M_atp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1434,6 +1474,7 @@
         {
           "source" : "M_dhap_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1443,6 +1484,7 @@
         {
           "source" : "M_f6p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1452,6 +1494,7 @@
         {
           "source" : "M_fdp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1461,6 +1504,7 @@
         {
           "source" : "M_g3p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1470,6 +1514,7 @@
         {
           "source" : "M_g6p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1479,6 +1524,7 @@
         {
           "source" : "M_glc__D_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1488,6 +1534,7 @@
         {
           "source" : "M_h2o_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1497,6 +1544,7 @@
         {
           "source" : "M_h2o_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1506,6 +1554,7 @@
         {
           "source" : "M_h_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1515,6 +1564,7 @@
         {
           "source" : "M_h_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1524,6 +1574,7 @@
         {
           "source" : "M_lac__D_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1533,6 +1584,7 @@
         {
           "source" : "M_lac__D_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1542,6 +1594,7 @@
         {
           "source" : "M_nad_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1551,6 +1604,7 @@
         {
           "source" : "M_nadh_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1560,6 +1614,7 @@
         {
           "source" : "M_pep_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1569,6 +1624,7 @@
         {
           "source" : "M_pi_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1578,6 +1634,7 @@
         {
           "source" : "M_pi_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1587,6 +1644,7 @@
         {
           "source" : "M_pyr_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction type" : "species_compartment",
@@ -1596,6 +1654,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1606,6 +1665,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1616,6 +1676,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1626,6 +1687,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1636,6 +1698,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1646,6 +1709,7 @@
         {
           "source" : "R_ATPM_lower_bound",
           "target" : "R_ATPM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -1655,6 +1719,7 @@
         {
           "source" : "R_ATPM_lower_bound",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1664,6 +1729,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1674,6 +1740,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1684,6 +1751,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1694,6 +1762,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1704,6 +1773,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1714,6 +1784,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1724,6 +1795,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1734,6 +1806,7 @@
         {
           "source" : "R_EX_glc__D_e",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1744,6 +1817,7 @@
         {
           "source" : "R_EX_glc__D_e_lower_bound",
           "target" : "R_EX_glc__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -1753,6 +1827,7 @@
         {
           "source" : "R_EX_glc__D_e_lower_bound",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -1762,6 +1837,7 @@
         {
           "source" : "R_EX_h_e",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1772,6 +1848,7 @@
         {
           "source" : "R_EX_lac__D_e",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1782,6 +1859,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1792,6 +1870,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1802,6 +1881,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1812,6 +1892,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1822,6 +1903,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1832,6 +1914,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1842,6 +1925,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1852,6 +1936,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1862,6 +1947,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1872,6 +1958,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1882,6 +1969,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1892,6 +1980,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1902,6 +1991,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1912,6 +2002,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1922,6 +2013,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1932,6 +2024,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1942,6 +2035,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1952,6 +2046,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -1962,6 +2057,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1972,6 +2068,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1982,6 +2079,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -1992,6 +2090,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2002,6 +2101,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2012,6 +2112,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2022,6 +2123,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2032,6 +2134,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2042,6 +2145,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2052,6 +2156,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2062,6 +2167,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2072,6 +2178,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2082,6 +2189,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2092,6 +2200,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2102,6 +2211,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2112,6 +2222,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2122,6 +2233,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2132,6 +2244,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2142,6 +2255,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2152,6 +2266,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2162,6 +2277,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2172,6 +2288,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2182,6 +2299,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2192,6 +2310,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2202,6 +2321,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
@@ -2212,6 +2332,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
@@ -2222,6 +2343,7 @@
         {
           "source" : "UnitSId__GRAM",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2231,6 +2353,7 @@
         {
           "source" : "UnitSId__MOLE",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2240,6 +2363,7 @@
         {
           "source" : "UnitSId__SECOND",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "unit_unitDefinition",
           "attributes" : {
             "interaction type" : "unit_unitDefinition",
@@ -2249,6 +2373,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_EX_lac__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2258,6 +2383,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2267,6 +2393,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2276,6 +2403,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2285,6 +2413,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -2294,6 +2423,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2303,6 +2433,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2312,6 +2443,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_EX_h_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2321,6 +2453,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2330,6 +2463,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2339,6 +2473,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2348,6 +2483,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2357,6 +2493,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2366,6 +2503,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2375,6 +2513,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2384,6 +2523,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2393,6 +2533,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2402,6 +2543,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -2411,6 +2553,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_ATPM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2420,6 +2563,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2429,6 +2573,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2438,6 +2583,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_glc__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2447,6 +2593,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_h_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2456,6 +2603,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_lac__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2465,6 +2613,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2474,6 +2623,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2483,6 +2633,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2492,6 +2643,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2501,6 +2653,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2510,6 +2663,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2519,6 +2673,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2528,6 +2683,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2537,6 +2693,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2546,6 +2703,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2555,6 +2713,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2564,6 +2723,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction type" : "parameter_reaction",
@@ -2573,6 +2733,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
           "interaction" : "sbase_unitDefinition",
           "attributes" : {
             "interaction type" : "sbase_unitDefinition",
@@ -2582,6 +2743,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -2591,6 +2753,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -2600,6 +2763,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction type" : "association_association",
@@ -2609,6 +2773,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2618,6 +2783,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2627,6 +2793,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2636,6 +2803,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2645,6 +2813,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2654,6 +2823,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2663,6 +2833,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -2672,6 +2843,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction type" : "association_reaction",
@@ -3781,6 +3953,7 @@
         {
           "source" : "G_b0755",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3791,6 +3964,7 @@
         {
           "source" : "G_b0875",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -3801,6 +3975,7 @@
         {
           "source" : "G_b1101",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3811,6 +3986,7 @@
         {
           "source" : "G_b1380",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3821,6 +3997,7 @@
         {
           "source" : "G_b1621",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3831,6 +4008,7 @@
         {
           "source" : "G_b1676",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3841,6 +4019,7 @@
         {
           "source" : "G_b1723",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3851,6 +4030,7 @@
         {
           "source" : "G_b1773",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3861,6 +4041,7 @@
         {
           "source" : "G_b1779",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -3871,6 +4052,7 @@
         {
           "source" : "G_b1817",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3881,6 +4063,7 @@
         {
           "source" : "G_b1818",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3891,6 +4074,7 @@
         {
           "source" : "G_b1819",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3901,6 +4085,7 @@
         {
           "source" : "G_b1854",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3911,6 +4096,7 @@
         {
           "source" : "G_b2097",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3921,6 +4107,7 @@
         {
           "source" : "G_b2133",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3931,6 +4118,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3941,6 +4129,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3951,6 +4140,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3961,6 +4151,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3971,6 +4162,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3981,6 +4173,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -3991,6 +4184,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4001,6 +4195,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4011,6 +4206,7 @@
         {
           "source" : "G_b2779",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -4021,6 +4217,7 @@
         {
           "source" : "G_b2925",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4031,6 +4228,7 @@
         {
           "source" : "G_b2926",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -4041,6 +4239,7 @@
         {
           "source" : "G_b2975",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4051,6 +4250,7 @@
         {
           "source" : "G_b2987",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4061,6 +4261,7 @@
         {
           "source" : "G_b3493",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4071,6 +4272,7 @@
         {
           "source" : "G_b3603",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4081,6 +4283,7 @@
         {
           "source" : "G_b3612",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4091,6 +4294,7 @@
         {
           "source" : "G_b3916",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4101,6 +4305,7 @@
         {
           "source" : "G_b3919",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -4111,6 +4316,7 @@
         {
           "source" : "G_b4025",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -4121,6 +4327,7 @@
         {
           "source" : "G_b4395",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -4131,6 +4338,7 @@
         {
           "source" : "M_13dpg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4141,6 +4349,7 @@
         {
           "source" : "M_2pg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4151,6 +4360,7 @@
         {
           "source" : "M_3pg_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4161,6 +4371,7 @@
         {
           "source" : "M_adp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4171,6 +4382,7 @@
         {
           "source" : "M_atp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4181,6 +4393,7 @@
         {
           "source" : "M_dhap_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4191,6 +4404,7 @@
         {
           "source" : "M_f6p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4201,6 +4415,7 @@
         {
           "source" : "M_fdp_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4211,6 +4426,7 @@
         {
           "source" : "M_g3p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4221,6 +4437,7 @@
         {
           "source" : "M_g6p_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4231,6 +4448,7 @@
         {
           "source" : "M_glc__D_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4241,6 +4459,7 @@
         {
           "source" : "M_h2o_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4251,6 +4470,7 @@
         {
           "source" : "M_h2o_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4261,6 +4481,7 @@
         {
           "source" : "M_h_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4271,6 +4492,7 @@
         {
           "source" : "M_h_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4281,6 +4503,7 @@
         {
           "source" : "M_lac__D_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4291,6 +4514,7 @@
         {
           "source" : "M_lac__D_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4301,6 +4525,7 @@
         {
           "source" : "M_nad_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4311,6 +4536,7 @@
         {
           "source" : "M_nadh_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4321,6 +4547,7 @@
         {
           "source" : "M_pep_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4331,6 +4558,7 @@
         {
           "source" : "M_pi_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4341,6 +4569,7 @@
         {
           "source" : "M_pi_e",
           "target" : "e",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4351,6 +4580,7 @@
         {
           "source" : "M_pyr_c",
           "target" : "c",
+          "directed" : true,
           "interaction" : "species_compartment",
           "attributes" : {
             "interaction" : "species_compartment",
@@ -4361,6 +4591,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4372,6 +4603,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4383,6 +4615,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4394,6 +4627,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4405,6 +4639,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4416,6 +4651,7 @@
         {
           "source" : "R_ATPM_lower_bound",
           "target" : "R_ATPM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -4426,6 +4662,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4437,6 +4674,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4448,6 +4686,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4459,6 +4698,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4470,6 +4710,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4481,6 +4722,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4492,6 +4734,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4503,6 +4746,7 @@
         {
           "source" : "R_EX_glc__D_e",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4514,6 +4758,7 @@
         {
           "source" : "R_EX_glc__D_e_lower_bound",
           "target" : "R_EX_glc__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -4524,6 +4769,7 @@
         {
           "source" : "R_EX_h_e",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4535,6 +4781,7 @@
         {
           "source" : "R_EX_lac__D_e",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4546,6 +4793,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4557,6 +4805,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4568,6 +4817,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4579,6 +4829,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4590,6 +4841,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4601,6 +4853,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4612,6 +4865,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4623,6 +4877,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4634,6 +4889,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4645,6 +4901,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4656,6 +4913,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4667,6 +4925,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4678,6 +4937,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4689,6 +4949,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4700,6 +4961,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4711,6 +4973,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4722,6 +4985,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4733,6 +4997,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4744,6 +5009,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4755,6 +5021,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4766,6 +5033,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4777,6 +5045,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4788,6 +5057,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4799,6 +5069,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4810,6 +5081,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4821,6 +5093,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4832,6 +5105,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4843,6 +5117,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4854,6 +5129,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4865,6 +5141,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4876,6 +5153,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4887,6 +5165,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4898,6 +5177,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4909,6 +5189,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4920,6 +5201,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4931,6 +5213,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4942,6 +5225,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4953,6 +5237,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4964,6 +5249,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -4975,6 +5261,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4986,6 +5273,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -4997,6 +5285,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5008,6 +5297,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -5019,6 +5309,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -5030,6 +5321,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_EX_lac__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5040,6 +5332,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5050,6 +5343,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5060,6 +5354,7 @@
         {
           "source" : "cobra_0_bound",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5070,6 +5365,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5080,6 +5376,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5090,6 +5387,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_EX_h_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5100,6 +5398,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5110,6 +5409,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5120,6 +5420,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5130,6 +5431,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5140,6 +5442,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5150,6 +5453,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5160,6 +5464,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5170,6 +5475,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5180,6 +5486,7 @@
         {
           "source" : "cobra_default_lb",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5190,6 +5497,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_ATPM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5200,6 +5508,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5210,6 +5519,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5220,6 +5530,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_glc__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5230,6 +5541,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_h_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5240,6 +5552,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_EX_lac__D_e",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5250,6 +5563,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5260,6 +5574,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5270,6 +5585,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5280,6 +5596,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5290,6 +5607,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5300,6 +5618,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5310,6 +5629,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5320,6 +5640,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5330,6 +5651,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5340,6 +5662,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5350,6 +5673,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5360,6 +5684,7 @@
         {
           "source" : "cobra_default_ub",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "parameter_reaction",
           "attributes" : {
             "interaction" : "parameter_reaction",
@@ -5370,6 +5695,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -5380,6 +5706,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -5390,6 +5717,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -5400,6 +5728,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5410,6 +5739,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5420,6 +5750,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5430,6 +5761,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5440,6 +5772,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5450,6 +5783,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5460,6 +5794,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -5470,6 +5805,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6491,6 +6827,7 @@
         {
           "source" : "G_b0755",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6501,6 +6838,7 @@
         {
           "source" : "G_b0875",
           "target" : "R_H2Ot",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6511,6 +6849,7 @@
         {
           "source" : "G_b1101",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6521,6 +6860,7 @@
         {
           "source" : "G_b1380",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6531,6 +6871,7 @@
         {
           "source" : "G_b1621",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6541,6 +6882,7 @@
         {
           "source" : "G_b1676",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6551,6 +6893,7 @@
         {
           "source" : "G_b1723",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6561,6 +6904,7 @@
         {
           "source" : "G_b1773",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6571,6 +6915,7 @@
         {
           "source" : "G_b1779",
           "target" : "R_GAPD",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6581,6 +6926,7 @@
         {
           "source" : "G_b1817",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6591,6 +6937,7 @@
         {
           "source" : "G_b1818",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6601,6 +6948,7 @@
         {
           "source" : "G_b1819",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6611,6 +6959,7 @@
         {
           "source" : "G_b1854",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6621,6 +6970,7 @@
         {
           "source" : "G_b2097",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6631,6 +6981,7 @@
         {
           "source" : "G_b2133",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6641,6 +6992,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6651,6 +7003,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6661,6 +7014,7 @@
         {
           "source" : "G_b2415",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6671,6 +7025,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6681,6 +7036,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6691,6 +7047,7 @@
         {
           "source" : "G_b2416",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6701,6 +7058,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6711,6 +7069,7 @@
         {
           "source" : "G_b2417",
           "target" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6721,6 +7080,7 @@
         {
           "source" : "G_b2779",
           "target" : "R_ENO",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6731,6 +7091,7 @@
         {
           "source" : "G_b2925",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6741,6 +7102,7 @@
         {
           "source" : "G_b2926",
           "target" : "R_PGK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6751,6 +7113,7 @@
         {
           "source" : "G_b2975",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6761,6 +7124,7 @@
         {
           "source" : "G_b2987",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6771,6 +7135,7 @@
         {
           "source" : "G_b3493",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6781,6 +7146,7 @@
         {
           "source" : "G_b3603",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6791,6 +7157,7 @@
         {
           "source" : "G_b3612",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6801,6 +7168,7 @@
         {
           "source" : "G_b3916",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6811,6 +7179,7 @@
         {
           "source" : "G_b3919",
           "target" : "R_TPI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6821,6 +7190,7 @@
         {
           "source" : "G_b4025",
           "target" : "R_PGI",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -6831,6 +7201,7 @@
         {
           "source" : "G_b4395",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -6841,6 +7212,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6852,6 +7224,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6863,6 +7236,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6874,6 +7248,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6885,6 +7260,7 @@
         {
           "source" : "R_ATPM",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6896,6 +7272,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6907,6 +7284,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6918,6 +7296,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6929,6 +7308,7 @@
         {
           "source" : "R_D_LACt2",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6940,6 +7320,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6951,6 +7332,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6962,6 +7344,7 @@
         {
           "source" : "R_ENO",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -6973,6 +7356,7 @@
         {
           "source" : "R_EX_glc__D_e",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6984,6 +7368,7 @@
         {
           "source" : "R_EX_h_e",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -6995,6 +7380,7 @@
         {
           "source" : "R_EX_lac__D_e",
           "target" : "M_lac__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7006,6 +7392,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7017,6 +7404,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7028,6 +7416,7 @@
         {
           "source" : "R_FBA",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7039,6 +7428,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7050,6 +7440,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7061,6 +7452,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7072,6 +7464,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7083,6 +7476,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7094,6 +7488,7 @@
         {
           "source" : "R_GAPD",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7105,6 +7500,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7116,6 +7512,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_glc__D_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7127,6 +7524,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7138,6 +7536,7 @@
         {
           "source" : "R_GLCpts",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7149,6 +7548,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7160,6 +7560,7 @@
         {
           "source" : "R_H2Ot",
           "target" : "M_h2o_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7171,6 +7572,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7182,6 +7584,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_lac__D_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7193,6 +7596,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nad_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7204,6 +7608,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_nadh_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7215,6 +7620,7 @@
         {
           "source" : "R_LDH_D",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7226,6 +7632,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7237,6 +7644,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7248,6 +7656,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7259,6 +7668,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_fdp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7270,6 +7680,7 @@
         {
           "source" : "R_PFK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7281,6 +7692,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_f6p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7292,6 +7704,7 @@
         {
           "source" : "R_PGI",
           "target" : "M_g6p_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7303,6 +7716,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_13dpg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7314,6 +7728,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7325,6 +7740,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7336,6 +7752,7 @@
         {
           "source" : "R_PGK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7347,6 +7764,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_2pg_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7358,6 +7776,7 @@
         {
           "source" : "R_PGM",
           "target" : "M_3pg_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7369,6 +7788,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7380,6 +7800,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_h_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7391,6 +7812,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7402,6 +7824,7 @@
         {
           "source" : "R_PIt2r",
           "target" : "M_pi_e",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7413,6 +7836,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_adp_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7424,6 +7848,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_atp_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7435,6 +7860,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_h_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7446,6 +7872,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pep_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7457,6 +7884,7 @@
         {
           "source" : "R_PYK",
           "target" : "M_pyr_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7468,6 +7896,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_dhap_c",
+          "directed" : true,
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction" : "reaction-reactant",
@@ -7479,6 +7908,7 @@
         {
           "source" : "R_TPI",
           "target" : "M_g3p_c",
+          "directed" : true,
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction" : "reaction-product",
@@ -7490,6 +7920,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -7500,6 +7931,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -7510,6 +7942,7 @@
         {
           "source" : "{\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
           "target" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
           "interaction" : "association_association",
           "attributes" : {
             "interaction" : "association_association",
@@ -7520,6 +7953,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_D_LACt2",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7530,6 +7964,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_FBA",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7540,6 +7975,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_GLCpts",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7550,6 +7986,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_LDH_D",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7560,6 +7997,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PFK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7570,6 +8008,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PGM",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7580,6 +8019,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PIt2r",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
@@ -7590,6 +8030,7 @@
         {
           "source" : "{\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "target" : "R_PYK",
+          "directed" : true,
           "interaction" : "association_reaction",
           "attributes" : {
             "interaction" : "association_reaction",
