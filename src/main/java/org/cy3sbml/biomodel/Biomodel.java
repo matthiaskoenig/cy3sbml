@@ -1,7 +1,6 @@
 package org.cy3sbml.biomodel;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,6 +107,4 @@ public class Biomodel {
     public String getSubmissionIdentifier() {
         return submissionIdentifier;
     }
-
-
 }

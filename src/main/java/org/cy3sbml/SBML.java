@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,7 +14,6 @@ import java.util.Set;
  * There is no guarantee that the Strings will remain identical, but the
  * SBML fields will remain the same.
  */
-
 public class SBML {
 
     // -------------------------------------------------------------------------
@@ -107,7 +105,6 @@ public class SBML {
     public static final String ATTR_COMP_METAIDREF = "comp_metaIdRef";
     public static final String ATTR_COMP_SUBMODELREF = "comp_submodelRef";
 
-
     public static final String ATTR_COMP_MODELREF = "comp_modelRef";
     public static final String ATTR_COMP_TIME_CONVERSION_FACTOR = "comp_timeConversionFactor";
     public static final String ATTR_COMP_EXTENT_CONVERSION_FACTOR = "comp_extentConversionFactor";
@@ -158,9 +155,12 @@ public class SBML {
     // ----------------------
     // Edge types
     // ----------------------
-    public static final String INTERACTION_REACTION_REACTANT = SBMLCore.INTERACTION_TYPE_REACTION_REACTANT; // "reactant_reaction";
-    public static final String INTERACTION_REACTION_PRODUCT = SBMLCore.INTERACTION_TYPE_REACTION_PRODUCT;   // "reaction_product";
-    public static final String INTERACTION_REACTION_MODIFIER = SBMLCore.INTERACTION_TYPE_REACTION_MODIFIER; // "modifier_reaction";
+    public static final String INTERACTION_REACTION_REACTANT =
+            SBMLCore.INTERACTION_TYPE_REACTION_REACTANT; // "reactant_reaction";
+    public static final String INTERACTION_REACTION_PRODUCT =
+            SBMLCore.INTERACTION_TYPE_REACTION_PRODUCT; // "reaction_product";
+    public static final String INTERACTION_REACTION_MODIFIER =
+            SBMLCore.INTERACTION_TYPE_REACTION_MODIFIER; // "modifier_reaction";
     public static final String INTERACTION_REACTION_ACTIVATOR = "reaction-activator";
     public static final String INTERACTION_REACTION_INHIBITOR = "reaction-inhibitor";
 
@@ -170,13 +170,11 @@ public class SBML {
     public static final String INTERACTION_VARIABLE_RULE = "variable_rule";
     public static final String INTERACTION_VARIABLE_INITIAL_ASSIGNMENT = "variable_initialAssignment";
 
-
     public static final String INTERACTION_REFERENCE_RULE = "reference_rule";
     public static final String INTERACTION_REFERENCE_INITIAL_ASSIGNMENT = "reference_initialAssignment";
     public static final String INTERACTION_REFERENCE_KINETICLAW = "reference_kineticLaw";
     public static final String INTERACTION_REFERENCE_FUNCTIONDEFINITION = "reference_functionDefinition";
     public static final String INTERACTION_REFERENCE_EVENT_ASSIGNMENT = "reference_eventAssignment";
-
 
     public static final String INTERACTION_REACTION_KINETICLAW = "reaction_kineticLaw";
     public static final String INTERACTION_LOCALPARAMETER_KINETICLAW = "localParameter_kineticLaw";
@@ -208,7 +206,6 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASE_REPLACED_ELEMENT = "sbase-replacedElement";
     public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
     public static final String INTERACTION_COMP_SBASE_DELETION = "sbase-deletion";
-
 
     // -------------------------------------------------------------------------
     // Visualization attributes
@@ -248,12 +245,12 @@ public class SBML {
         SBO_ACTIVATORS = Collections.unmodifiableSet(aSet);
 
         Set<String> iSet = new HashSet<String>();
-        iSet.add("SBO:0000020"); //inhibitor
-        iSet.add("SBO:0000206"); //competitive inhibitor
-        iSet.add("SBO:0000597"); //silencer
-        iSet.add("SBO:0000207"); //non-competitive inhibitor
-        iSet.add("SBO:0000537"); //complete-inhibitor
-        iSet.add("SBO:0000536"); //partial-inhibitor
+        iSet.add("SBO:0000020"); // inhibitor
+        iSet.add("SBO:0000206"); // competitive inhibitor
+        iSet.add("SBO:0000597"); // silencer
+        iSet.add("SBO:0000207"); // non-competitive inhibitor
+        iSet.add("SBO:0000537"); // complete-inhibitor
+        iSet.add("SBO:0000536"); // partial-inhibitor
         SBO_INHIBITORS = Collections.unmodifiableSet(iSet);
     }
 
@@ -261,86 +258,78 @@ public class SBML {
     // Core Network
     // -------------------------------------------------------------------------
     public static final String[] coreNodeTypes = {
-            SBML.NODETYPE_SPECIES,
-            SBML.NODETYPE_REACTION,
-
-            SBML.NODETYPE_QUAL_SPECIES,
-            SBML.NODETYPE_QUAL_TRANSITION,
-
-            SBML.NODETYPE_FBC_GENEPRODUCT,
-            SBML.NODETYPE_FBC_AND,
-            SBML.NODETYPE_FBC_OR
+        SBML.NODETYPE_SPECIES,
+        SBML.NODETYPE_REACTION,
+        SBML.NODETYPE_QUAL_SPECIES,
+        SBML.NODETYPE_QUAL_TRANSITION,
+        SBML.NODETYPE_FBC_GENEPRODUCT,
+        SBML.NODETYPE_FBC_AND,
+        SBML.NODETYPE_FBC_OR
     };
 
     public static final String[] coreEdgeTypes = {
-            SBML.INTERACTION_REACTION_REACTANT,
-            SBML.INTERACTION_REACTION_PRODUCT,
-            SBML.INTERACTION_REACTION_MODIFIER,
-            SBML.INTERACTION_QUAL_TRANSITION_INPUT,
-            SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
-            SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
-            SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
-            SBML.INTERACTION_FBC_ASSOCIATION_REACTION
+        SBML.INTERACTION_REACTION_REACTANT,
+        SBML.INTERACTION_REACTION_PRODUCT,
+        SBML.INTERACTION_REACTION_MODIFIER,
+        SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+        SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
+        SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
+        SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
+        SBML.INTERACTION_FBC_ASSOCIATION_REACTION
     };
 
     // -------------------------------------------------------------------------
     // Kinetic Network
     // -------------------------------------------------------------------------
     public static final String[] kineticNodeTypes = {
-            SBML.NODETYPE_SPECIES,
-            SBML.NODETYPE_PARAMETER,
-            SBML.NODETYPE_COMPARTMENT,
-            SBML.NODETYPE_REACTION,
-            SBML.NODETYPE_RATE_RULE,
-            SBML.NODETYPE_ASSIGNMENT_RULE,
-            SBML.NODETYPE_ALGEBRAIC_RULE,
-            SBML.NODETYPE_INITIAL_ASSIGNMENT,
-            SBML.NODETYPE_KINETIC_LAW,
-            SBML.NODETYPE_LOCAL_PARAMETER,
-            SBML.NODETYPE_FUNCTION_DEFINITION,
-
-            SBML.NODETYPE_QUAL_SPECIES,
-            SBML.NODETYPE_QUAL_TRANSITION,
-
-            SBML.NODETYPE_FBC_GENEPRODUCT,
-            SBML.NODETYPE_FBC_AND,
-            SBML.NODETYPE_FBC_OR,
-
-            SBML.NODETYPE_COMP_PORT,
-            SBML.NODETYPE_COMP_REPLACED_BY,
-            SBML.NODETYPE_COMP_REPLACED_ELEMENT,
-            SBML.NODETYPE_COMP_DELETION
+        SBML.NODETYPE_SPECIES,
+        SBML.NODETYPE_PARAMETER,
+        SBML.NODETYPE_COMPARTMENT,
+        SBML.NODETYPE_REACTION,
+        SBML.NODETYPE_RATE_RULE,
+        SBML.NODETYPE_ASSIGNMENT_RULE,
+        SBML.NODETYPE_ALGEBRAIC_RULE,
+        SBML.NODETYPE_INITIAL_ASSIGNMENT,
+        SBML.NODETYPE_KINETIC_LAW,
+        SBML.NODETYPE_LOCAL_PARAMETER,
+        SBML.NODETYPE_FUNCTION_DEFINITION,
+        SBML.NODETYPE_QUAL_SPECIES,
+        SBML.NODETYPE_QUAL_TRANSITION,
+        SBML.NODETYPE_FBC_GENEPRODUCT,
+        SBML.NODETYPE_FBC_AND,
+        SBML.NODETYPE_FBC_OR,
+        SBML.NODETYPE_COMP_PORT,
+        SBML.NODETYPE_COMP_REPLACED_BY,
+        SBML.NODETYPE_COMP_REPLACED_ELEMENT,
+        SBML.NODETYPE_COMP_DELETION
     };
 
     public static final String[] kineticEdgeTypes = {
-            SBML.INTERACTION_REACTION_REACTANT,
-            SBML.INTERACTION_REACTION_PRODUCT,
-            SBML.INTERACTION_REACTION_MODIFIER,
-            SBML.INTERACTION_SPECIES_COMPARTMENT,
-            SBML.INTERACTION_REACTION_COMPARTMENT,
-            SBML.INTERACTION_PARAMETER_REACTION,
-            SBML.INTERACTION_VARIABLE_RULE,
-            SBML.INTERACTION_VARIABLE_INITIAL_ASSIGNMENT,
-            SBML.INTERACTION_REFERENCE_RULE,
-            SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT,
-            SBML.INTERACTION_REFERENCE_KINETICLAW,
-            SBML.INTERACTION_REACTION_KINETICLAW,
-            SBML.INTERACTION_LOCALPARAMETER_KINETICLAW,
-
-            SBML.INTERACTION_QUAL_TRANSITION_INPUT,
-            SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
-
-            SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
-            SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
-            SBML.INTERACTION_FBC_ASSOCIATION_REACTION,
-
-            SBML.INTERACTION_COMP_SBASEREF_ID,
-            SBML.INTERACTION_COMP_SBASEREF_UNIT,
-            SBML.INTERACTION_COMP_SBASEREF_METAID,
-            SBML.INTERACTION_COMP_SBASEREF_PORT,
-            SBML.INTERACTION_COMP_SBASE_REPLACED_BY,
-            SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT,
-            SBML.INTERACTION_COMP_SBASE_DELETION
+        SBML.INTERACTION_REACTION_REACTANT,
+        SBML.INTERACTION_REACTION_PRODUCT,
+        SBML.INTERACTION_REACTION_MODIFIER,
+        SBML.INTERACTION_SPECIES_COMPARTMENT,
+        SBML.INTERACTION_REACTION_COMPARTMENT,
+        SBML.INTERACTION_PARAMETER_REACTION,
+        SBML.INTERACTION_VARIABLE_RULE,
+        SBML.INTERACTION_VARIABLE_INITIAL_ASSIGNMENT,
+        SBML.INTERACTION_REFERENCE_RULE,
+        SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT,
+        SBML.INTERACTION_REFERENCE_KINETICLAW,
+        SBML.INTERACTION_REACTION_KINETICLAW,
+        SBML.INTERACTION_LOCALPARAMETER_KINETICLAW,
+        SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+        SBML.INTERACTION_QUAL_TRANSITION_OUTPUT,
+        SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
+        SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
+        SBML.INTERACTION_FBC_ASSOCIATION_REACTION,
+        SBML.INTERACTION_COMP_SBASEREF_ID,
+        SBML.INTERACTION_COMP_SBASEREF_UNIT,
+        SBML.INTERACTION_COMP_SBASEREF_METAID,
+        SBML.INTERACTION_COMP_SBASEREF_PORT,
+        SBML.INTERACTION_COMP_SBASE_REPLACED_BY,
+        SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT,
+        SBML.INTERACTION_COMP_SBASE_DELETION
     };
 
     // -------------------------------------------------------------------------
@@ -366,9 +355,6 @@ public class SBML {
     // cy3sbml folder
     // -------------------------------------------------------------------------
 
-    private SBML() {
-    }
-
+    private SBML() {}
     ;
-
 }

@@ -1,16 +1,12 @@
 package org.cy3sbml.oven;
 
 import java.io.InputStream;
-
-import org.mockito.MockitoAnnotations;
-
+import org.cy3sbml.SBMLReaderTask;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
-
-import org.cy3sbml.SBMLReaderTask;
-
+import org.mockito.MockitoAnnotations;
 
 /**
  * Testing the memory leak which occurs when creating multiple networks.
@@ -41,7 +37,6 @@ public class MemoryLeak {
         // run the reader
         SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTask.run(null);
-
     }
 
     /**
@@ -64,5 +59,4 @@ public class MemoryLeak {
             logMemory(info);
         }
     }
-
 }

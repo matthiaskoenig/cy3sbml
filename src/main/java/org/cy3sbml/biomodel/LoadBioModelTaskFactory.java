@@ -4,14 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
 import javax.swing.JOptionPane;
-
 import org.apache.commons.io.IOUtils;
+import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
-
-import org.cy3sbml.ServiceAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +18,6 @@ public class LoadBioModelTaskFactory implements TaskFactory {
 
     private ServiceAdapter adapter;
     private File file;
-
 
     // TODO: create taskIterator for list of ids
     public LoadBioModelTaskFactory(String id, ServiceAdapter adapter) {
@@ -34,7 +30,8 @@ public class LoadBioModelTaskFactory implements TaskFactory {
             String sbml = BiomodelsQuery.getBioModelSBMLById(id);
 
             if (sbml == null || sbml.equals("") || sbml.startsWith(id)) {
-                JOptionPane.showMessageDialog(adapter.cySwingApplication.getJFrame(),
+                JOptionPane.showMessageDialog(
+                        adapter.cySwingApplication.getJFrame(),
                         String.format("<html>No SBML for BioModel Id : <b>%s</b></html>", id));
             } else {
                 instream = new ByteArrayInputStream(sbml.getBytes("UTF-8"));
@@ -44,7 +41,7 @@ public class LoadBioModelTaskFactory implements TaskFactory {
             tempFile.deleteOnExit();
 
             // TODO: create file for storage in cy3sbml folder
-            //adapter.cy3sbmlDirectory
+            // adapter.cy3sbmlDirectory
 
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
                 IOUtils.copy(instream, out);
@@ -65,5 +62,4 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     public boolean isReady() {
         return false;
     }
-
 }

@@ -156,7 +156,6 @@ public class SearchContent {
         return getListToString(uniprots, separator);
     }
 
-
     // Search Mode
     public String getSearchMode() {
         return searchMode;
@@ -183,7 +182,8 @@ public class SearchContent {
     // Printing
     public String toHTML() {
         String sep = " ";
-        String info = String.format("<table bgcolor=\"#C0C0C0\">"
+        String info = String.format(
+                "<table bgcolor=\"#C0C0C0\">"
                         + createHTMLTableRow("Name")
                         + createHTMLTableRow("Person")
                         + createHTMLTableRow("Publication")
@@ -201,14 +201,13 @@ public class SearchContent {
     }
 
     private String createHTMLTableRow(String att) {
-        return "<tr><td><font size=\"-1\"><b>" +
-                att +
-                "</b></font></td></td><font size=\"-1\">%s</font></td></tr>";
+        return "<tr><td><font size=\"-1\"><b>" + att + "</b></font></td></td><font size=\"-1\">%s</font></td></tr>";
     }
 
     public String toString() {
         String sep = " ";
-        String info = String.format("Name : %s\n"
+        String info = String.format(
+                "Name : %s\n"
                         + "Person : %s\n"
                         + "Publication : %s\n"
                         + "ChEBI : %s\n"

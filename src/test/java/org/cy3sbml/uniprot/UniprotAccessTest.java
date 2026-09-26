@@ -26,7 +26,9 @@ class UniprotAccessTest {
 
     @Test
     void parsesEntry() {
-        var entry = new UniprotAccess(fixture("/uniprot/P10415.json")).entry("P10415").orElseThrow();
+        var entry = new UniprotAccess(fixture("/uniprot/P10415.json"))
+                .entry("P10415")
+                .orElseThrow();
         assertEquals("BCL2_HUMAN", entry.uniProtId());
         assertEquals("Apoptosis regulator Bcl-2", entry.fullName());
         assertEquals("Homo sapiens", entry.scientificName());
@@ -47,15 +49,16 @@ class UniprotAccessTest {
      */
     @Test
     void parsesEntryWithAllFields() {
-        var entry = new UniprotAccess(fixture("/uniprot/P04406.json")).entry("P04406").orElseThrow();
+        var entry = new UniprotAccess(fixture("/uniprot/P04406.json"))
+                .entry("P04406")
+                .orElseThrow();
         assertEquals("G3P_HUMAN", entry.uniProtId());
         assertEquals("Glyceraldehyde-3-phosphate dehydrogenase", entry.fullName());
         assertEquals(List.of("1.2.1.12"), entry.ecNumbers());
         assertEquals(List.of("Peptidyl-cysteine S-nitrosylase GAPDH"), entry.alternativeNames());
         assertFalse(entry.functionComments().isEmpty());
         assertEquals(2, entry.catalyticActivities().size());
-        assertTrue(entry.catalyticActivities().get(0)
-                .contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
+        assertTrue(entry.catalyticActivities().get(0).contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
         assertEquals(
                 List.of("Carbohydrate degradation; glycolysis; pyruvate from D-glyceraldehyde"
                         + " 3-phosphate: step 1/5"),
@@ -74,7 +77,9 @@ class UniprotAccessTest {
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(new UniprotAccess(fixture("/uniprot/missing.json")).entry("P10415").isEmpty());
+        assertTrue(new UniprotAccess(fixture("/uniprot/missing.json"))
+                .entry("P10415")
+                .isEmpty());
     }
 
     @Test

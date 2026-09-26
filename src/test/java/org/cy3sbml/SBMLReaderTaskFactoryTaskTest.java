@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.InputStream;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
@@ -13,11 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.InputStream;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-
 /**
  * Test SBMLReaderTask
  */
@@ -25,6 +23,7 @@ public class SBMLReaderTaskFactoryTaskTest {
 
     @Mock
     TaskMonitor taskMonitor;
+
     private SBMLReaderTask readerTask;
     private SBMLReaderTask readerTaskWithViewSupport;
 
@@ -40,7 +39,8 @@ public class SBMLReaderTaskFactoryTaskTest {
         String[] tokens = resource.split("/");
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-        readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
+        readerTaskWithViewSupport = new SBMLReaderTask(
+                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
     }
 
     @Test
@@ -77,5 +77,4 @@ public class SBMLReaderTaskFactoryTaskTest {
     public void run() throws Exception {
         readerTask.run(taskMonitor);
     }
-
 }

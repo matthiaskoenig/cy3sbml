@@ -1,11 +1,11 @@
 package org.cy3sbml.styles;
 
-import org.cy3sbml.SBML;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.cy3sbml.SBML;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test MappingPasstrough.
@@ -16,10 +16,8 @@ public class MappingPassthroughTest {
 
     @BeforeEach
     public void setUp() {
-        m = new MappingPassthrough(Mapping.DataType.integer,
-                VisualPropertyKey.NODE_LABEL,
-                SBML.NODETYPE_ATTR,
-                DEFAULT_VALUE);
+        m = new MappingPassthrough(
+                Mapping.DataType.integer, VisualPropertyKey.NODE_LABEL, SBML.NODETYPE_ATTR, DEFAULT_VALUE);
     }
 
     @AfterEach
@@ -35,5 +33,4 @@ public class MappingPassthroughTest {
         assertEquals(DEFAULT_VALUE, m.getDefaultValue());
         assertEquals(Mapping.MappingType.PASSTHROUGH, m.getMappingType());
     }
-
 }

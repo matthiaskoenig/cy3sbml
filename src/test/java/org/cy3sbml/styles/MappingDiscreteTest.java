@@ -1,15 +1,13 @@
 package org.cy3sbml.styles;
 
-import org.cy3sbml.SBML;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import org.cy3sbml.SBML;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test MappingDiscrete.
@@ -24,10 +22,8 @@ public class MappingDiscreteTest {
     public void setUp() {
         Map<String, String> map = new HashMap<>();
         map.put(KEY, VALUE);
-        m = new MappingDiscrete(Mapping.DataType.integer,
-                VisualPropertyKey.NODE_LABEL,
-                SBML.NODETYPE_ATTR,
-                DEFAULT_VALUE, map);
+        m = new MappingDiscrete(
+                Mapping.DataType.integer, VisualPropertyKey.NODE_LABEL, SBML.NODETYPE_ATTR, DEFAULT_VALUE, map);
     }
 
     @AfterEach
@@ -54,5 +50,4 @@ public class MappingDiscreteTest {
         assertTrue(map.containsValue(VALUE));
         assertEquals(1, map.size());
     }
-
 }

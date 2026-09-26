@@ -1,17 +1,14 @@
 package org.cy3sbml.mapping;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Testing One2ManyMapping.
@@ -99,5 +96,4 @@ public class One2ManyMappingTest {
         assertTrue(revMap.containsKey(Long.valueOf(10)));
         assertTrue(revMap.containsKey(Long.valueOf(20)));
     }
-
 }

@@ -1,16 +1,26 @@
 package org.cy3sbml.gui;
 
+import static org.cy3sbml.gui.GUIConstants.*;
+import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
-import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLStreamException;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-
 import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.miriam.Namespace;
+import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.miriam.Resource;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.ols.OlsTerm;
+import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.util.SBMLUtil;
+import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
@@ -19,23 +29,8 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.cy3sbml.miriam.Namespace;
-import org.cy3sbml.miriam.RegistryUtil;
-import org.cy3sbml.miriam.Resource;
-import org.cy3sbml.ols.OlsClient;
-import org.cy3sbml.ols.OlsTerm;
-import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.util.IOUtil;
-import org.cy3sbml.util.XMLUtil;
-import org.cy3sbml.util.SBMLUtil;
-
-import static org.cy3sbml.gui.GUIConstants.*;
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
-
 
 /**
  * Creates HTML information for given SBase.
@@ -80,7 +75,6 @@ public class SBaseHTMLFactory {
 
     private SBase sbase;
     private String html;
-
 
     /**
      * Constructor.
@@ -172,7 +166,6 @@ public class SBaseHTMLFactory {
         SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
     }
 
-
     /**
      * Get created information string.
      * No information String created in cache mode.
@@ -185,9 +178,9 @@ public class SBaseHTMLFactory {
      * Creates HTML for given text String.
      */
     public static String createHTMLText(String text, String title) {
-        return HTML_START_TEMPLATE.replace("{baseHref}", baseDir)
-                .replace("pageTitle", title) + text + HTML_STOP_TEMPLATE;
-
+        return HTML_START_TEMPLATE.replace("{baseHref}", baseDir).replace("pageTitle", title)
+                + text
+                + HTML_STOP_TEMPLATE;
     }
 
     /**
@@ -258,8 +251,7 @@ public class SBaseHTMLFactory {
                 id = nsb.getId();
             }
         }
-        return String.format("%s %s",
-                id, SBMLUtil.getUnqualifiedClassName(sbase));
+        return String.format("%s %s", id, SBMLUtil.getUnqualifiedClassName(sbase));
     }
 
     /**
@@ -278,12 +270,10 @@ public class SBaseHTMLFactory {
                 exportHTML = "";
             }
             NamedSBase nsb = (NamedSBase) sbase;
-            header = MessageFormat.format("<h2>{0}{1} <small>{2}</small></h2>\n",
-                    exportHTML, className, nsb.getId());
+            header = MessageFormat.format("<h2>{0}{1} <small>{2}</small></h2>\n", exportHTML, className, nsb.getId());
         }
         return header;
     }
-
 
     /**
      * Create History HTML.
@@ -308,11 +298,7 @@ public class SBaseHTMLFactory {
             if (c.isSetEmail()) {
                 email = EMAIL_LINK.replace("{email}", c.getEmail());
             }
-            html += MessageFormat.format("{0} {1} {2}{3}</br>\n",
-                    givenName,
-                    familyName,
-                    email,
-                    organisation);
+            html += MessageFormat.format("{0} {1} {2}{3}</br>\n", givenName, familyName, email, organisation);
         }
         if (h.isSetCreatedDate()) {
             html += CREATED_DATE1.replace("{date}", h.getCreatedDate().toString());
@@ -407,8 +393,7 @@ public class SBaseHTMLFactory {
         // Not supported
         else {
             logger.warn(MessageFormat.format(
-                    "No object map support for {0} <{1}>",
-                    SBMLUtil.getUnqualifiedClassName(item)));
+                    "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item)));
             if (item instanceof NamedSBase) {
                 map = SBMLUtil.createNamedSBaseMap((NamedSBase) item);
             } else {
@@ -448,8 +433,9 @@ public class SBaseHTMLFactory {
 
             String sboTermId = sbase.getSBOTermID();
 
-            CVTerm term = new CVTerm(CVTerm.Qualifier.BQB_IS, String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId)));
-
+            CVTerm term = new CVTerm(
+                    CVTerm.Qualifier.BQB_IS,
+                    String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId)));
 
             Boolean termExists = false;
             outerloop:
@@ -483,119 +469,115 @@ public class SBaseHTMLFactory {
         String text = "";
 
         String qualifierHTML = String.format(
-                "<p class=\"cvterm\">\n" +
-                        "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
+                "<p class=\"cvterm\">\n" + "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
                 cvterm.getQualifierType(), bmQualifierType);
-
 
         Namespace dataType = null;
         // List of Resource URIs
 
         for (String resourceURI : cvterm.getResources()) {
             // bugfix to handle https://identifier.org/ resources
-            if (resourceURI.contains("identifiers.org")){
-            resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
-            String[] tokens = resourceURI.split("/");
-            String compactIdentifier = getCompactId(tokens);
+            if (resourceURI.contains("identifiers.org")) {
+                resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
+                String[] tokens = resourceURI.split("/");
+                String compactIdentifier = getCompactId(tokens);
 
-            String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
-            String prefix = StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
-            if (result.get(prefix) == null && tokens.length > 3) {
-                prefix = tokens[3].toLowerCase();
-            }
-            dataType = (result.get(prefix) == null)
-                    ? result.get(StringUtils.substringAfter(prefix, "."))
-                    : result.get(prefix);
-
-            String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
-            if (identifier == null) {
-                identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
-            }
-            // link to primary resource via id
-            String resourceLink = null;
-
-            if (dataType == null) {
-                resourceLink = resourceURI;
-
-            } else {
-                for (Resource resource : dataType.getResources()) {
-                    // take first one
-                    resourceLink = createURL(dataType, resource, identifier);
-
-                    break;
-
+                String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
+                String prefix =
+                        StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
+                if (result.get(prefix) == null && tokens.length > 3) {
+                    prefix = tokens[3].toLowerCase();
                 }
-            }
+                dataType = (result.get(prefix) == null)
+                        ? result.get(StringUtils.substringAfter(prefix, "."))
+                        : result.get(prefix);
 
-            // identifier
-            String identifierHTML = IDENTIFIER_LINK
-                    .replace("{resourceLink}", resourceLink)
-                    .replace("{identifier}", identifier);
+                String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
+                if (identifier == null) {
+                    identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
+                }
+                // link to primary resource via id
+                String resourceLink = null;
 
-            // not possible to resolve dataType from MIRIAM registry
-            if (dataType == null) {
-                logger.warn(
-                        MessageFormat.format(
-                        "DataType could not be retrieved for data collection part: <{0}>",
-                        dataCollection)
-                );
-                text += UNKNOWN_DATA_COLLECTION.replace("{qualifierHTML}", qualifierHTML)
-                        .replace("{identifierHTML}", identifierHTML)
-                        .replace("{ICON_WARNING}", ICON_WARNING)
-                        .replace("{dataCollectionURL}", dataCollection)
-                        .replace("{dataCollectionID}", dataCollection);
+                if (dataType == null) {
+                    resourceLink = resourceURI;
 
-                text += INVISIBLE_RESOURCE_LINK.replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
-                        .replace("{resourceURI}", resourceURI);
-            }
-            // dataType found
-            if (dataType != null) {
-                text += qualifierHTML + MIRIAM_COLLECTION_LINK
-                        .replace("{dataTypeURL}", dataType.getResources().get(0).getResourceHomeUrl())
-                        .replace("{dataTypeName}", dataType.getName())
-                        .replace("{identifierHTML}", identifierHTML);
+                } else {
+                    for (Resource resource : dataType.getResources()) {
+                        // take first one
+                        resourceLink = createURL(dataType, resource, identifier);
 
-                // check that identifier is correct for given datatype
-                String pattern = dataType.getPattern();
-                if (!RegistryUtil.checkRegexp(identifier, pattern)) {
+                        break;
+                    }
+                }
+
+                // identifier
+                String identifierHTML =
+                        IDENTIFIER_LINK.replace("{resourceLink}", resourceLink).replace("{identifier}", identifier);
+
+                // not possible to resolve dataType from MIRIAM registry
+                if (dataType == null) {
                     logger.warn(MessageFormat.format(
-                            "Identifier <{0}> does not match pattern <{1}> of data collection: <{2}>",
-                            identifier,
-                            pattern,
-                            dataType.getId()
-                    ));
-                    text += IDENTIFIER_PATTERN_MISMATCH
+                            "DataType could not be retrieved for data collection part: <{0}>", dataCollection));
+                    text += UNKNOWN_DATA_COLLECTION
+                            .replace("{qualifierHTML}", qualifierHTML)
+                            .replace("{identifierHTML}", identifierHTML)
                             .replace("{ICON_WARNING}", ICON_WARNING)
-                            .replace("{identifier}", identifier)
-                            .replace("{pattern}", pattern);
+                            .replace("{dataCollectionURL}", dataCollection)
+                            .replace("{dataCollectionID}", dataCollection);
+
+                    text += INVISIBLE_RESOURCE_LINK
+                            .replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
+                            .replace("{resourceURI}", resourceURI);
                 }
+                // dataType found
+                if (dataType != null) {
+                    text += qualifierHTML
+                            + MIRIAM_COLLECTION_LINK
+                                    .replace(
+                                            "{dataTypeURL}",
+                                            dataType.getResources().get(0).getResourceHomeUrl())
+                                    .replace("{dataTypeName}", dataType.getName())
+                                    .replace("{identifierHTML}", identifierHTML);
 
-                // Create OLS resource for location
-                for (Resource resource : dataType.getResources()) {
-                    if (resource.isDeprecated()) {
-                        continue;
+                    // check that identifier is correct for given datatype
+                    String pattern = dataType.getPattern();
+                    if (!RegistryUtil.checkRegexp(identifier, pattern)) {
+                        logger.warn(MessageFormat.format(
+                                "Identifier <{0}> does not match pattern <{1}> of data collection: <{2}>",
+                                identifier, pattern, dataType.getId()));
+                        text += IDENTIFIER_PATTERN_MISMATCH
+                                .replace("{ICON_WARNING}", ICON_WARNING)
+                                .replace("{identifier}", identifier)
+                                .replace("{pattern}", pattern);
                     }
-                    if (OlsClient.isOlsResource(resource)) {
 
-                        text += createOLSLocation(dataType, resource, identifier);
+                    // Create OLS resource for location
+                    for (Resource resource : dataType.getResources()) {
+                        if (resource.isDeprecated()) {
+                            continue;
+                        }
+                        if (OlsClient.isOlsResource(resource)) {
+
+                            text += createOLSLocation(dataType, resource, identifier);
+                        }
                     }
+                    // Create other locations
+                    for (Resource resource : dataType.getResources()) {
+                        if (resource.isDeprecated()) {
+                            continue;
+                        }
+                        if (!OlsClient.isOlsResource(resource)) {
+
+                            text += createNonOLSLocation(dataType, resource, identifier);
+                        }
+                    }
+
+                    // add secondary information
+                    text += createSecondaryInformation(dataType, identifier);
                 }
-                // Create other locations
-                for (Resource resource : dataType.getResources()) {
-                    if (resource.isDeprecated()) {
-                        continue;
-                    }
-                    if (!OlsClient.isOlsResource(resource)) {
-
-                        text += createNonOLSLocation(dataType, resource, identifier);
-                    }
-                }
-
-                // add secondary information
-                text += createSecondaryInformation(dataType, identifier);
+                text += "</p>\n";
             }
-            text += "</p>\n";
-        }
         }
         return text;
     }
@@ -619,7 +601,6 @@ public class SBaseHTMLFactory {
         return url;
     }
 
-
     // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
 
     /**
@@ -629,10 +610,7 @@ public class SBaseHTMLFactory {
 
         String info = resource.getDescription();
 
-        return String.format(
-                "\t<a href=\"%s\"> %s</a><br />\n",
-                createURL(namespace, resource, identifier),
-                info);
+        return String.format("\t<a href=\"%s\"> %s</a><br />\n", createURL(namespace, resource, identifier), info);
     }
 
     /**
@@ -648,7 +626,6 @@ public class SBaseHTMLFactory {
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
 
-
         String[] tokens = olsURL.split("=");
         if (tokens.length > 1) {
             termIdentifier = tokens[tokens.length - 1];
@@ -661,7 +638,8 @@ public class SBaseHTMLFactory {
 
             String purlURL = term.iri();
             String ontologyURL = createURL(namespace, resource, identifier);
-            html += ONTOLOGY_TERM_LINK.replace("{ontologyURL}", ontologyURL)
+            html += ONTOLOGY_TERM_LINK
+                    .replace("{ontologyURL}", ontologyURL)
                     .replace("{ontologyName}", term.ontologyName().toUpperCase())
                     .replace("{termLabel}", term.label())
                     .replace("{purlURL}", purlURL)
@@ -678,12 +656,12 @@ public class SBaseHTMLFactory {
             List<String> descriptions = term.descriptions();
             if (descriptions != null && !descriptions.isEmpty()) {
                 for (String description : descriptions) {
-                    html += DESCRIPTION_LABEL
-                            .replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));
+                    html += DESCRIPTION_LABEL.replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));
                 }
             }
         } else {
-            html += OLS_TERM_ERROR.replace("{ICON_WARNING}", ICON_WARNING)
+            html += OLS_TERM_ERROR
+                    .replace("{ICON_WARNING}", ICON_WARNING)
                     .replace("{TERM_ID}", termIdentifier)
                     .replace("{OLS_URL}", olsURL);
             ;
@@ -715,16 +693,15 @@ public class SBaseHTMLFactory {
     /**
      * Creates compact identifier."
      */
-    public static String getCompactId(String[] tokens){
+    public static String getCompactId(String[] tokens) {
 
         String identifier;
-        if (tokens[tokens.length - 1].contains(":")){ //format : identifiers.org/[namespace prefix]:[accession]
+        if (tokens[tokens.length - 1].contains(":")) { // format : identifiers.org/[namespace prefix]:[accession]
             identifier = tokens[tokens.length - 1];
-        } else if (tokens[tokens.length - 1].contains("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]")){
-            identifier = tokens[tokens.length - 1].replace("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]",":");
-        }
-        else {
-            identifier = tokens[tokens.length - 2]+":"+tokens[tokens.length - 1];
+        } else if (tokens[tokens.length - 1].contains("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]")) {
+            identifier = tokens[tokens.length - 1].replace("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]", ":");
+        } else {
+            identifier = tokens[tokens.length - 2] + ":" + tokens[tokens.length - 1];
         }
 
         identifier = identifier.toUpperCase();
@@ -782,15 +759,9 @@ public class SBaseHTMLFactory {
     private static String createNotes(SBase sbase) {
         String notes = SBMLUtil.parseNotes(sbase);
         if (notes != null) {
-            return String.format(
-                    "<hr />\n" +
-                            "<div id=\"notes\">\n" +
-                            "%s\n" +
-                            "</div>\n",
-                    notes);
+            return String.format("<hr />\n" + "<div id=\"notes\">\n" + "%s\n" + "</div>\n", notes);
         }
         return "";
-
     }
 
     /**
@@ -823,12 +794,10 @@ public class SBaseHTMLFactory {
         // object = model.getListOfSpecies().get("c__gal");
         // object = model.getListOfReactions().get("c__GALTM2");
 
-
         // retrieve info for object
         SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
         fac.createInfo();
         String html = fac.getHtml();
-
 
         // Save to tmp file for viewing
         File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
@@ -846,7 +815,7 @@ public class SBaseHTMLFactory {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             namespaces.load(reader);
             return namespaces.getProperty(keyToFind);
-           /* String line;
+            /* String line;
             while ((line = reader.readLine()) != null) {
                 // Unescape the line for readability
                 String cleanLine = line.replaceAll("\\\\", "");
@@ -859,6 +828,4 @@ public class SBaseHTMLFactory {
         }
         return null;
     }
-
-
 }

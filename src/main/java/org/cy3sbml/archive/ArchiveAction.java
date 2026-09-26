@@ -1,5 +1,11 @@
 package org.cy3sbml.archive;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
+import javax.swing.*;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
@@ -10,13 +16,6 @@ import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * Importing SBML networks.
@@ -38,16 +37,16 @@ public class ArchiveAction extends AbstractCyAction {
      * @param loadNetworkFileTaskFactory
      * @param taskManager
      */
-    public ArchiveAction(CySwingApplication cySwingApplication,
-                         FileUtil fileUtil,
-                         LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-                         TaskManager taskManager) {
+    public ArchiveAction(
+            CySwingApplication cySwingApplication,
+            FileUtil fileUtil,
+            LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
+            TaskManager taskManager) {
         super(ArchiveAction.class.getSimpleName());
         this.cySwingApplication = cySwingApplication;
         this.fileUtil = fileUtil;
         this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
         this.taskManager = taskManager;
-
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_ARCHIVE));
         putValue(LARGE_ICON_KEY, icon);
@@ -73,11 +72,11 @@ public class ArchiveAction extends AbstractCyAction {
         // open new file open dialog
         Collection<FileChooserFilter> filters = new HashSet<>();
         String[] extensions = {"", "zip", "omex", "sedx", "sbex", "cmex", "sbox", "neux", "phex", "ro"};
-        filters.add(new FileChooserFilter("Archive files, Research Bundles, COMBINE Archives (*, *.zip, *.omex, *.ro)", extensions));
+        filters.add(new FileChooserFilter(
+                "Archive files, Research Bundles, COMBINE Archives (*, *.zip, *.omex, *.ro)", extensions));
 
-
-        File[] files = fileUtil.getFiles(cySwingApplication.getJFrame(),
-                GUIConstants.DESCRIPTION_ARCHIVE, FileDialog.LOAD, filters);
+        File[] files = fileUtil.getFiles(
+                cySwingApplication.getJFrame(), GUIConstants.DESCRIPTION_ARCHIVE, FileDialog.LOAD, filters);
 
         if ((files != null) && (files.length != 0)) {
             for (int i = 0; i < files.length; i++) {
@@ -87,6 +86,4 @@ public class ArchiveAction extends AbstractCyAction {
             }
         }
     }
-
-
 }

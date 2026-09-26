@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
 import java.util.Arrays;
@@ -9,29 +10,21 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.util.IOUtil;
-
+import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
-import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
-
 import org.mockito.MockitoAnnotations;
-
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.xml.stream.XMLStreamException;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * Helper functions to test SBML models.
@@ -74,15 +67,16 @@ public class TestUtils {
      * Resources in the skip set are skipped.
      * If a filter string is given only the resources matching the filter are returned.
      */
-    public static Iterable<Object[]> findResources(String where, String resourcePath, String extension, String filter, HashSet<String> skip) {
+    public static Iterable<Object[]> findResources(
+            String where, String resourcePath, String extension, String filter, HashSet<String> skip) {
 
         File currentDir = new File(System.getProperty("user.dir"));
         // String rootPath = new File(currentDir, resourcePath).getPath();
         String rootPath;
-        if (where.equals("main")){
+        if (where.equals("main")) {
             rootPath = currentDir.getAbsolutePath() + "/src/main/resources" + resourcePath;
 
-        }else {
+        } else {
             rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
         }
         // Get SBML files for passed tests
@@ -108,7 +102,6 @@ public class TestUtils {
         }
         return Arrays.asList(resources);
     }
-
 
     /**
      * Search recursively for all SBML files in given path.
@@ -194,7 +187,6 @@ public class TestUtils {
         logger.warn(String.format("<%s> memory usage: %s MB", info, usedMB));
     }
 
-
     public static CyNode findNodeById(String sbmlId, CyNetwork network) {
         for (CyNode node : network.getNodeList()) {
             CyRow attributes = network.getRow(node);
@@ -215,7 +207,8 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws FileNotFoundException {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource)
+            throws FileNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
@@ -255,7 +248,6 @@ public class TestUtils {
             t.printStackTrace();
         }
 
-
         // Display memory usage
         logMemory(fileName);
 
@@ -273,7 +265,8 @@ public class TestUtils {
      * See also:
      * This aborts the travis build.
      */
-    public static void testNetworkSerialization(String testType, String resource) throws IOException, XMLStreamException, ClassNotFoundException {
+    public static void testNetworkSerialization(String testType, String resource)
+            throws IOException, XMLStreamException, ClassNotFoundException {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 

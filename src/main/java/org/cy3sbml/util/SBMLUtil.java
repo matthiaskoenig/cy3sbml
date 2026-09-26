@@ -1,16 +1,15 @@
 package org.cy3sbml.util;
 
-import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
+import javax.xml.stream.XMLStreamException;
 import org.apache.commons.text.StringEscapeUtils;
+import org.cy3sbml.SBML;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.sbml.jsbml.*;
-import org.cy3sbml.SBML;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
@@ -22,7 +21,6 @@ import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.util.StringTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -98,7 +96,6 @@ public class SBMLUtil {
                 logger.error("Error parsing notes xml.", e);
                 e.printStackTrace();
             }
-
         }
         return null;
     }
@@ -124,7 +121,6 @@ public class SBMLUtil {
         return variable;
     }
 
-
     /**
      * Returns unqualified class name of a given object.
      */
@@ -137,7 +133,6 @@ public class SBMLUtil {
         name = name.replace('$', '.');
         return name;
     }
-
 
     ////////////////////////////////////////////////////////////
     // Attribute maps
@@ -155,8 +150,10 @@ public class SBMLUtil {
     public static final String ATTR_INITIAL_AMOUNT = "amount";
     public static final String ATTR_CHARGE = "charge";
 
-    private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
-    private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
+    private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID
+            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
+    private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID
+            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
     private static final String UNIT_TEMPLATE = "<span class=\"unit\">%s</span>";
     private static final String MATH_TEMPLATE = "<span class=\"math\">%s</span>";
 
@@ -165,8 +162,7 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createSBaseMap(SBase sbase) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put(SBML.ATTR_METAID,
-                (sbase.isSetMetaId()) ? sbase.getMetaId() : GUIConstants.ICON_NONE);
+        map.put(SBML.ATTR_METAID, (sbase.isSetMetaId()) ? sbase.getMetaId() : GUIConstants.ICON_NONE);
         return map;
     }
 
@@ -175,10 +171,8 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createNamedSBaseMap(NamedSBase nsb) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put(ATTR_ID,
-                (nsb.isSetId()) ? nsb.getId() : GUIConstants.ICON_NONE);
-        map.put(ATTR_NAME,
-                (nsb.isSetName()) ? StringEscapeUtils.escapeHtml4(nsb.getName()): GUIConstants.ICON_NONE);
+        map.put(ATTR_ID, (nsb.isSetId()) ? nsb.getId() : GUIConstants.ICON_NONE);
+        map.put(ATTR_NAME, (nsb.isSetName()) ? StringEscapeUtils.escapeHtml4(nsb.getName()) : GUIConstants.ICON_NONE);
         map.putAll(createSBaseMap(nsb));
         return map;
     }
@@ -209,9 +203,9 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createSymbolMap(Symbol symbol) {
         LinkedHashMap<String, String> map = createQuantityWithUnitNodeMap(symbol);
-        map.put(SBML.ATTR_CONSTANT,
-                symbol.isSetConstant() ? SBaseHTMLFactory.booleanHTML(symbol.getConstant()) : GUIConstants.ICON_NONE
-        );
+        map.put(
+                SBML.ATTR_CONSTANT,
+                symbol.isSetConstant() ? SBaseHTMLFactory.booleanHTML(symbol.getConstant()) : GUIConstants.ICON_NONE);
         return map;
     }
 
@@ -222,7 +216,8 @@ public class SBMLUtil {
     /**
      * Map for AbstractMathContainer.
      */
-    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(AbstractMathContainer container, Variable variable) {
+    public static LinkedHashMap<String, String> createAbstractMathContainerNodeMap(
+            AbstractMathContainer container, Variable variable) {
         LinkedHashMap<String, String> map = createSBaseMap(container);
         String math = container.isSetMath() ? container.getMath().toFormula() : GUIConstants.ICON_NONE;
         String units = getDerivedUnitHtml(container);
@@ -257,7 +252,8 @@ public class SBMLUtil {
                 // packages += String.format("; <a href=\"%s\">%s-V%s</a>",
                 //        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
 
-                packages += String.format(" <span class=\"collection\">%s-V%s</span>",
+                packages += String.format(
+                        " <span class=\"collection\">%s-V%s</span>",
                         plugin.getPackageName(), plugin.getPackageVersion());
             }
         }
@@ -267,9 +263,11 @@ public class SBMLUtil {
 
         // default
         map.put(
-                String.format("<span class=\"collection\">L%sV%s</span>%s", model.getLevel(), model.getVersion(), packages),
-                String.format("<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>", BrowserHyperlinkListener.URL_SBMLFILE)
-        );
+                String.format(
+                        "<span class=\"collection\">L%sV%s</span>%s", model.getLevel(), model.getVersion(), packages),
+                String.format(
+                        "<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>",
+                        BrowserHyperlinkListener.URL_SBMLFILE));
         map.putAll(createNamedSBaseMap(model));
 
         // optional
@@ -311,12 +309,14 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createCompartmentMap(Compartment compartment) {
         LinkedHashMap<String, String> map = createSymbolMap(compartment);
-        map.put(SBML.ATTR_SPATIAL_DIMENSIONS,
-                compartment.isSetSpatialDimensions() ? ((Double) compartment.getSpatialDimensions()).toString() : GUIConstants.ICON_NONE
-        );
-        map.put(SBML.ATTR_SIZE,
-                compartment.isSetSize() ? ((Double) compartment.getSize()).toString() : GUIConstants.ICON_NONE
-        );
+        map.put(
+                SBML.ATTR_SPATIAL_DIMENSIONS,
+                compartment.isSetSpatialDimensions()
+                        ? ((Double) compartment.getSpatialDimensions()).toString()
+                        : GUIConstants.ICON_NONE);
+        map.put(
+                SBML.ATTR_SIZE,
+                compartment.isSetSize() ? ((Double) compartment.getSize()).toString() : GUIConstants.ICON_NONE);
         return map;
     }
 
@@ -339,9 +339,12 @@ public class SBMLUtil {
             compartment = s.getCompartment() + String.format(LINK_ID_TEMPLATE, s.getCompartment());
         }
         map.put(ATTR_COMPARTMENT, compartment);
-        String boundaryCondition = (s.isSetBoundaryCondition()) ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition()) : GUIConstants.ICON_NONE;
+        String boundaryCondition = (s.isSetBoundaryCondition())
+                ? SBaseHTMLFactory.booleanHTML(s.getBoundaryCondition())
+                : GUIConstants.ICON_NONE;
         map.put(SBML.ATTR_BOUNDARY_CONDITION, boundaryCondition);
-        String initialAmount = s.isSetInitialAmount() ? ((Double) s.getInitialAmount()).toString() : GUIConstants.ICON_NONE;
+        String initialAmount =
+                s.isSetInitialAmount() ? ((Double) s.getInitialAmount()).toString() : GUIConstants.ICON_NONE;
         map.put(ATTR_INITIAL_AMOUNT, initialAmount);
         String initialConcentration = GUIConstants.ICON_NONE;
         if (s.isSetInitialConcentration()) {
@@ -389,8 +392,11 @@ public class SBMLUtil {
     public static LinkedHashMap<String, String> createReactionMap(Reaction r) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(r);
 
-        String compartment = (r.isSetCompartment()) ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment()) : GUIConstants.ICON_NONE;
-        String reversible = (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : GUIConstants.ICON_NONE;
+        String compartment = (r.isSetCompartment())
+                ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment())
+                : GUIConstants.ICON_NONE;
+        String reversible =
+                (r.isSetReversible()) ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : GUIConstants.ICON_NONE;
         String fast = (r.isSetFast()) ? SBaseHTMLFactory.booleanHTML(r.getFast()) : GUIConstants.ICON_NONE;
         String kineticLaw = GUIConstants.ICON_NONE;
         if (r.isSetKineticLaw()) {
@@ -452,7 +458,6 @@ public class SBMLUtil {
         map.put("units", units);
         return map;
     }
-
 
     /**
      * Unit map.
@@ -575,13 +580,15 @@ public class SBMLUtil {
         LinkedHashMap<String, String> map = createNamedSBaseMap(qs);
 
         String compartment = (qs.isSetCompartment()) ? qs.getCompartment().toString() : GUIConstants.ICON_NONE;
-        String initialLevel = (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : GUIConstants.ICON_NONE;
+        String initialLevel =
+                (qs.isSetInitialLevel()) ? ((Integer) qs.getInitialLevel()).toString() : GUIConstants.ICON_NONE;
         String maxLevel = (qs.isSetMaxLevel()) ? ((Integer) qs.getMaxLevel()).toString() : GUIConstants.ICON_NONE;
-        String constant = (qs.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : GUIConstants.ICON_NONE;
+        String constant =
+                (qs.isSetConstant()) ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : GUIConstants.ICON_NONE;
         map.put(ATTR_COMPARTMENT, compartment);
-        map.put(String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
-                String.format("%s/%s", initialLevel, maxLevel)
-        );
+        map.put(
+                String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
+                String.format("%s/%s", initialLevel, maxLevel));
         map.put(SBML.ATTR_CONSTANT, constant);
         return map;
     }
@@ -611,18 +618,10 @@ public class SBMLUtil {
      */
     public static LinkedHashMap<String, String> createPortMap(Port port) {
         LinkedHashMap<String, String> map = createNamedSBaseMap(port);
-        map.put(SBML.ATTR_COMP_PORTREF,
-                port.isSetPortRef() ? port.getPortRef() : GUIConstants.ICON_NONE
-        );
-        map.put(SBML.ATTR_COMP_IDREF,
-                port.isSetIdRef() ? port.getIdRef() : GUIConstants.ICON_NONE
-        );
-        map.put(SBML.ATTR_COMP_UNITREF,
-                port.isSetUnitRef() ? port.getUnitRef() : GUIConstants.ICON_NONE
-        );
-        map.put(SBML.ATTR_COMP_METAIDREF,
-                port.isSetMetaIdRef() ? port.getMetaIdRef() : GUIConstants.ICON_NONE
-        );
+        map.put(SBML.ATTR_COMP_PORTREF, port.isSetPortRef() ? port.getPortRef() : GUIConstants.ICON_NONE);
+        map.put(SBML.ATTR_COMP_IDREF, port.isSetIdRef() ? port.getIdRef() : GUIConstants.ICON_NONE);
+        map.put(SBML.ATTR_COMP_UNITREF, port.isSetUnitRef() ? port.getUnitRef() : GUIConstants.ICON_NONE);
+        map.put(SBML.ATTR_COMP_METAIDREF, port.isSetMetaIdRef() ? port.getMetaIdRef() : GUIConstants.ICON_NONE);
         return map;
     }
 
@@ -653,7 +652,6 @@ public class SBMLUtil {
         return map;
     }
 
-
     /**
      * Derived unit string.
      */
@@ -664,5 +662,4 @@ public class SBMLUtil {
         }
         return units;
     }
-
 }

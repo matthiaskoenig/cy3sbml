@@ -1,7 +1,6 @@
 package org.cy3sbml.ols;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.util.HttpJson;

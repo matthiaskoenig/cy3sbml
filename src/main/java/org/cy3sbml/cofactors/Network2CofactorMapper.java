@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.cy3sbml.mapping.One2ManyMapping;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,6 +102,4 @@ public class Network2CofactorMapper implements Serializable {
         }
         return string;
     }
-
-
 }

@@ -9,5 +9,4 @@ public record OlsTerm(
         String ontologyName,
         String oboId,
         List<String> synonyms,
-        List<String> descriptions) {
-}
+        List<String> descriptions) {}

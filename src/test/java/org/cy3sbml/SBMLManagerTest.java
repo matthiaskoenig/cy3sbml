@@ -1,12 +1,13 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,6 @@ import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * Testing the SBMLManager.
@@ -78,7 +76,6 @@ public class SBMLManagerTest {
         doc = manager.getSBMLDocument(rootSUID);
         assertNull(doc);
     }
-
 
     @Test
     public void getMapping() throws Exception {
@@ -145,5 +142,4 @@ public class SBMLManagerTest {
         assertNotNull(c2);
         assertEquals(c, c2);
     }
-
 }

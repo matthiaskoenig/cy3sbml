@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.sbml.jsbml.SBMLDocument;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Mapping between CyNetworks and SBMLDocuments.
@@ -94,7 +91,6 @@ public class Network2SBMLMapper implements Serializable {
         return (documentMap.containsKey(rootSUID));
     }
 
-
     /**
      * Get all rootNetwork SUIDs which have an association SBMLDocument.
      *
@@ -103,7 +99,6 @@ public class Network2SBMLMapper implements Serializable {
     public Set<Long> keySet() {
         return documentMap.keySet();
     }
-
 
     /**
      * Get DocumentMap.
@@ -150,7 +145,8 @@ public class Network2SBMLMapper implements Serializable {
     public String toString() {
         String info = "\n--- SBML2NetworkMapping ---\n";
         for (Long key : documentMap.keySet()) {
-            info += String.format("%s -> %s\n", key.toString(), documentMap.get(key).toString());
+            info += String.format(
+                    "%s -> %s\n", key.toString(), documentMap.get(key).toString());
         }
         info += "-------------------------------";
         return info;

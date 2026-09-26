@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import java.io.File;
 import java.util.Properties;
-
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.group.CyGroupFactory;
@@ -41,8 +40,10 @@ public class ServiceAdapter {
     public VisualMappingManager visualMappingManager;
     public CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
     public DialogTaskManager dialogTaskManager;
+
     @SuppressWarnings("rawtypes")
     public SynchronousTaskManager synchronousTaskManager;
+
     @SuppressWarnings("rawtypes")
     public TaskManager taskManager;
 
@@ -69,20 +70,16 @@ public class ServiceAdapter {
             DialogTaskManager dialogTaskManager,
             SynchronousTaskManager synchronousTaskManager,
             TaskManager taskManager,
-
             CyNetworkFactory cyNetworkFactory,
             CyGroupFactory cyGroupFactory,
             CyNetworkViewFactory cyNetworkViewFactory,
-
-
             CyProperty<Properties> cy3sbmlProperties,
             File cy3sbmlDirectory,
             StreamUtil streamUtil,
             OpenBrowser openBrowser,
             ConnectionProxy connectionProxy,
             LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-            FileUtil fileUtil
-    ) {
+            FileUtil fileUtil) {
         if (uniqueInstance == null) {
             uniqueInstance = new ServiceAdapter(
                     cySwingApplication,
@@ -132,8 +129,7 @@ public class ServiceAdapter {
             OpenBrowser openBrowser,
             ConnectionProxy connectionProxy,
             LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-            FileUtil fileUtil
-    ) {
+            FileUtil fileUtil) {
         logger.debug("ServiceAdapter created");
         this.cySwingApplication = cySwingApplication;
         this.cyApplicationManager = cyApplicationManager;

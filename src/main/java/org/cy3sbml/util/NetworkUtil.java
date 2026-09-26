@@ -1,7 +1,6 @@
 package org.cy3sbml.util;
 
 import java.util.List;
-
 import org.cy3sbml.SBML;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -9,10 +8,8 @@ import org.cytoscape.model.CyTable;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Utils for working with networks.
@@ -50,7 +47,7 @@ public class NetworkUtil {
      * It does not require that the network is in the mapping.
      */
     public static boolean isSBMLNetwork(CyNetwork cyNetwork) {
-        //true if the attribute column exists
+        // true if the attribute column exists
         CyTable cyTable = cyNetwork.getDefaultNetworkTable();
         return cyTable.getColumn(SBML.NETWORKTYPE_ATTR) != null;
     }
@@ -74,7 +71,6 @@ public class NetworkUtil {
         }
         return network;
     }
-
 
     ////////////////////////////////////////////////////////
     // Selection
@@ -105,7 +101,6 @@ public class NetworkUtil {
         selectNodeInNetwork(network, node);
     }
 
-
     /**
      * Selects given node in network.
      * Unselects all other nodes.
@@ -125,6 +120,4 @@ public class NetworkUtil {
             AttributeUtil.set(network, node, CyNetwork.SELECTED, true, Boolean.class);
         }
     }
-
-
 }

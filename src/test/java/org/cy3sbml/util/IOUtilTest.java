@@ -1,14 +1,13 @@
 package org.cy3sbml.util;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Test IOUtil.
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IOUtilTest {
 
     @TempDir
-    Path tempDir;  // JUnit 5 temporary directory
+    Path tempDir; // JUnit 5 temporary directory
 
     @Test
     public void copyInputStream() throws Exception {
@@ -29,7 +28,7 @@ public class IOUtilTest {
 
     @Test
     public void createUniqueFile() throws Exception {
-        File directory = tempDir.toFile();  // Use the temp directory
+        File directory = tempDir.toFile(); // Use the temp directory
         String fileName = "test";
         String extension = ".xml";
         File f1 = IOUtil.createUniqueFile(directory, fileName, extension);
@@ -39,7 +38,7 @@ public class IOUtilTest {
     @Test
     public void saveURLasFile() throws Exception {
         File f = tempDir.resolve("testfile.html").toFile();
-        URL url = new URL("https://www.google.com");  // Changed to https
+        URL url = new URL("https://www.google.com"); // Changed to https
         IOUtil.saveURLasFile(url, f);
         assertTrue(f.exists());
     }

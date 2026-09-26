@@ -13,25 +13,20 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.stream.XMLStreamException;
-
+import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.cofactors.Network2CofactorMapper;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
 import org.cytoscape.session.events.*;
-
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
 import org.sbml.jsbml.SBMLWriter;
-
-import org.cy3sbml.cofactors.CofactorManager;
-import org.cy3sbml.cofactors.Network2CofactorMapper;
-import org.cy3sbml.mapping.Network2SBMLMapper;
-import org.cy3sbml.mapping.One2ManyMapping;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,8 +49,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
      * Session data is locally saved in given directory.
      * Normally this is the CytoscapeConfiguration/cy3sbml directory.
      */
-    public SessionData() {
-    }
+    public SessionData() {}
 
     /**
      * Save session.
@@ -222,7 +216,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                         // set updated mapper
                         cofactorManager.setNetwork2CofactorMapper(updatedMapper);
 
-
                     } catch (IOException | ClassNotFoundException e) {
                         logger.error("Deserialization of Network2CofactorMapper failed.", e);
                         e.printStackTrace();
@@ -233,7 +226,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 logger.error("Errors in deserialization", e);
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -300,5 +292,4 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         }
         return newM;
     }
-
 }

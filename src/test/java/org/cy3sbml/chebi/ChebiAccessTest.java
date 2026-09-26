@@ -87,14 +87,18 @@ class ChebiAccessTest {
 
     @Test
     void parsesCompound() {
-        var compound = new ChebiAccess(fixture("/chebi/15422.json")).compound("CHEBI:15422").orElseThrow();
+        var compound = new ChebiAccess(fixture("/chebi/15422.json"))
+                .compound("CHEBI:15422")
+                .orElseThrow();
         assertEquals("ATP", compound.name());
         assertEquals("C10H16N5O13P3", compound.formula());
     }
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(new ChebiAccess(fixture("/chebi/missing.json")).compound("CHEBI:15422").isEmpty());
+        assertTrue(new ChebiAccess(fixture("/chebi/missing.json"))
+                .compound("CHEBI:15422")
+                .isEmpty());
     }
 
     @Test

@@ -3,25 +3,21 @@ package org.cy3sbml.actions;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.ImageIcon;
-
 import org.cy3sbml.SBMLManager;
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
-import org.sbml.jsbml.SBMLDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.view.model.CyNetworkView;
-
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.cofactors.CofactorManager;
+import org.sbml.jsbml.SBMLDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Action to handle cofactor nodes.
@@ -38,7 +34,8 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
     /**
      * Constructor.
      */
-    public CofactorAction(Map<String, String> configProps, ServiceAdapter adapter, SBMLEnableTaskFactory sbmlEnableTaskFactory) {
+    public CofactorAction(
+            Map<String, String> configProps, ServiceAdapter adapter, SBMLEnableTaskFactory sbmlEnableTaskFactory) {
         super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, sbmlEnableTaskFactory);
         this.adapter = adapter;
         this.sbmlEnableTaskFactory = sbmlEnableTaskFactory;
@@ -96,6 +93,4 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
         sbmlEnableTaskFactory.setReady(ready);
         updateEnableState();
     }
-
 }
-

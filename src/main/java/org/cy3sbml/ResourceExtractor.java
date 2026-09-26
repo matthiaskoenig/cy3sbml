@@ -1,15 +1,14 @@
 package org.cy3sbml;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class extracts bundled resources to a local directory.
@@ -26,7 +25,6 @@ public class ResourceExtractor {
     public static final String RO_RESOURCES = "/ro/";
     public static final String OMEX_RESOURCES = "/omex/";
     public static final String BIOMODELS_RESOURCES = "/biomodels/";
-
 
     public static final Set<String> RESOURCES;
 
@@ -98,7 +96,6 @@ public class ResourceExtractor {
         URI fileURI = file.toURI();
         return fileURI;
     }
-
 
     /**
      * Extracts the bundle resources from the BundleContext in the
@@ -177,6 +174,5 @@ public class ResourceExtractor {
                 return;
             }
         }
-
     }
 }

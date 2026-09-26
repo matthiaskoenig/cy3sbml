@@ -1,20 +1,15 @@
 package org.cy3sbml.mapping;
 
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-
 import org.sbml.jsbml.*;
-
-import org.sbml.jsbml.ext.qual.QualConstants;
-import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
-
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -162,7 +157,6 @@ public class MetaIdSBaseMap {
         sbaseMap.put(sbase.getMetaId(), sbase);
     }
 
-
     /**
      * Get SBase object by cyId.
      *
@@ -185,5 +179,4 @@ public class MetaIdSBaseMap {
     public Collection<SBase> getObjects() {
         return sbaseMap.values();
     }
-
 }

@@ -11,8 +11,14 @@ class MemoryCacheTest {
     void loadsOnceAndCachesPresentValues() {
         var cache = new MemoryCache<String, String>(10);
         var calls = new AtomicInteger();
-        assertEquals(Optional.of("a"), cache.get("k", k -> { calls.incrementAndGet(); return Optional.of("a"); }));
-        assertEquals(Optional.of("a"), cache.get("k", k -> { calls.incrementAndGet(); return Optional.of("b"); }));
+        assertEquals(Optional.of("a"), cache.get("k", k -> {
+            calls.incrementAndGet();
+            return Optional.of("a");
+        }));
+        assertEquals(Optional.of("a"), cache.get("k", k -> {
+            calls.incrementAndGet();
+            return Optional.of("b");
+        }));
         assertEquals(1, calls.get());
     }
 

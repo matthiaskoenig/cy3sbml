@@ -1,10 +1,9 @@
 package org.cy3sbml.styles;
 
-import org.cy3sbml.SBML;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.cy3sbml.SBML;
 
 /**
  * Definition of mappings for style.
@@ -33,7 +32,6 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         // passthroughMapping
         ////////////////////////////////
 
-
         ////////////////////////////////
         // discreteMapping
         ////////////////////////////////
@@ -60,8 +58,12 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m3.put(SBML.NODETYPE_FUNCTION_DEFINITION, "#FFCC66");
         m3.put(SBML.NODETYPE_COMP_PORT, "#FFFFFF");
 
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_FILL_COLOR, SBML.NODETYPE_ATTR_EXTENDED, "#FFFFFF", m3));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.NODE_FILL_COLOR,
+                SBML.NODETYPE_ATTR_EXTENDED,
+                "#FFFFFF",
+                m3));
 
         // EDGE //
         Map<String, String> m10 = new HashMap<>();
@@ -76,13 +78,24 @@ public class StyleInfo_cy3sbml extends StyleInfo {
         m10.put(SBML.INTERACTION_SBASE_UNITDEFINITION, "#FF3333");
         m10.put(SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT, "#FF6600");
         m10.put(SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT, "#FF6600");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#CCCCCC", m10));
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_SOURCE_ARROW_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#000000", m10));
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_TARGET_ARROW_UNSELECTED_PAINT, SBML.INTERACTION_ATTR_EXTENDED, "#000000", m10));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.EDGE_STROKE_UNSELECTED_PAINT,
+                SBML.INTERACTION_ATTR_EXTENDED,
+                "#CCCCCC",
+                m10));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.EDGE_SOURCE_ARROW_UNSELECTED_PAINT,
+                SBML.INTERACTION_ATTR_EXTENDED,
+                "#000000",
+                m10));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.EDGE_TARGET_ARROW_UNSELECTED_PAINT,
+                SBML.INTERACTION_ATTR_EXTENDED,
+                "#000000",
+                m10));
         return mappings;
     }
-
 }

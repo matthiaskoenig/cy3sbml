@@ -38,7 +38,9 @@ class OlsClientTest {
 
     @Test
     void parsesTermFromCurie() {
-        var term = new OlsClient(fixture("/ols/go_0042752.json")).term("GO:0042752").orElseThrow();
+        var term = new OlsClient(fixture("/ols/go_0042752.json"))
+                .term("GO:0042752")
+                .orElseThrow();
         assertEquals("regulation of circadian rhythm", term.label());
         assertEquals("go", term.ontologyName());
         assertEquals("http://purl.obolibrary.org/obo/GO_0042752", term.iri());
@@ -47,7 +49,8 @@ class OlsClientTest {
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(new OlsClient(fixture("/ols/missing.json")).term("GO:0042752").isEmpty());
+        assertTrue(
+                new OlsClient(fixture("/ols/missing.json")).term("GO:0042752").isEmpty());
     }
 
     @Test
@@ -80,6 +83,8 @@ class OlsClientTest {
     @Tag("network")
     void liveLookup() {
         var client = new OlsClient(HttpJson.createDefault());
-        assertEquals("regulation of circadian rhythm", client.term("GO:0042752").orElseThrow().label());
+        assertEquals(
+                "regulation of circadian rhythm",
+                client.term("GO:0042752").orElseThrow().label());
     }
 }

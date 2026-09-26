@@ -1,11 +1,10 @@
 package org.cy3sbml.styles;
 
-import org.cy3sbml.SBML;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.cy3sbml.SBML;
 
 /**
  * Parent class of all StyleInfo.
@@ -51,8 +50,7 @@ public class StyleInfo {
         // passthroughMapping
         ////////////////////////////////
 
-        mappings.add(new MappingPassthrough(Mapping.DataType.string,
-                VisualPropertyKey.NODE_LABEL, SBML.LABEL, ""));
+        mappings.add(new MappingPassthrough(Mapping.DataType.string, VisualPropertyKey.NODE_LABEL, SBML.LABEL, ""));
 
         ////////////////////////////////
         // discreteMapping
@@ -67,15 +65,19 @@ public class StyleInfo {
         m1.put("6", "#66CCFF");
         m1.put("7", "#990099");
         m1.put("8", "#F0F0F0");
-        mappings.add(new MappingDiscrete(Mapping.DataType.integer,
-                VisualPropertyKey.NODE_BORDER_PAINT, SBML.ATTR_COMPARTMENT_CODE, "#000000", m1));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.integer,
+                VisualPropertyKey.NODE_BORDER_PAINT,
+                SBML.ATTR_COMPARTMENT_CODE,
+                "#000000",
+                m1));
 
         Map<String, String> m2 = new HashMap<>();
         m2.put(SBML.NODETYPE_SPECIES, "16");
         m2.put(SBML.NODETYPE_QUAL_SPECIES, "16");
         m2.put(SBML.NODETYPE_FBC_GENEPRODUCT, "16");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_LABEL_FONT_SIZE, SBML.NODETYPE_ATTR, "16", m2));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string, VisualPropertyKey.NODE_LABEL_FONT_SIZE, SBML.NODETYPE_ATTR, "16", m2));
 
         Map<String, String> m4 = new HashMap<>();
         m4.put(SBML.NODETYPE_REACTION, "Liberation Sans Bold,plain,12");
@@ -88,8 +90,12 @@ public class StyleInfo {
         m4.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_KINETIC_LAW, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_QUAL_TRANSITION, "Liberation Sans Bold,plain,12");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_LABEL_FONT_FACE, SBML.NODETYPE_ATTR, "Liberation Sans,plain,12", m4));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.NODE_LABEL_FONT_FACE,
+                SBML.NODETYPE_ATTR,
+                "Liberation Sans,plain,12",
+                m4));
 
         Map<String, String> m5 = new HashMap<>();
         m5.put(SBML.NODETYPE_SPECIES, "40");
@@ -113,8 +119,8 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "10");
         m5.put(SBML.NODETYPE_COMP_REPLACED_BY, "10");
         m5.put(SBML.NODETYPE_COMP_DELETION, "10");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string, VisualPropertyKey.NODE_SIZE, SBML.NODETYPE_ATTR, "25", m5));
 
         Map<String, String> m6 = new HashMap<>();
         m6.put(SBML.NODETYPE_REACTION, "N,S,c,0.00,0.00");
@@ -130,8 +136,12 @@ public class StyleInfo {
         m6.put(SBML.NODETYPE_COMP_REPLACED_BY, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_COMP_DELETION, "N,S,c,0.00,0.00");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_LABEL_POSITION, SBML.NODETYPE_ATTR, "C,C,c,0.00,0.00", m6));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.NODE_LABEL_POSITION,
+                SBML.NODETYPE_ATTR,
+                "C,C,c,0.00,0.00",
+                m6));
 
         Map<String, String> m7 = new HashMap<>();
         m7.put(SBML.NODETYPE_REACTION, "RECTANGLE");
@@ -148,8 +158,8 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_COMP_REPLACED_BY, "RECTANGLE");
         m7.put(SBML.NODETYPE_COMP_REPLACED_ELEMENT, "RECTANGLE");
 
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string, VisualPropertyKey.NODE_SHAPE, SBML.NODETYPE_ATTR, "ELLIPSE", m7));
 
         // EDGE
 
@@ -157,8 +167,8 @@ public class StyleInfo {
         m8.put(SBML.INTERACTION_REACTION_PRODUCT, "DELTA");
         m8.put(SBML.INTERACTION_QUAL_TRANSITION_OUTPUT, "DELTA");
         m8.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "DELTA_SHORT_2");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_TARGET_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m8));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string, VisualPropertyKey.EDGE_TARGET_ARROW_SHAPE, SBML.INTERACTION_ATTR, "NONE", m8));
 
         Map<String, String> m9 = new HashMap<>();
         m9.put(SBML.INTERACTION_REACTION_MODIFIER, "CIRCLE");
@@ -167,8 +177,12 @@ public class StyleInfo {
         m9.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "DELTA_SHORT_2");
         m9.put(SBML.INTERACTION_COMP_SBASE_DELETION, "DELTA_SHORT_2");
 
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE, SBML.INTERACTION_ATTR_EXTENDED, "NONE", m9));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string,
+                VisualPropertyKey.EDGE_SOURCE_ARROW_SHAPE,
+                SBML.INTERACTION_ATTR_EXTENDED,
+                "NONE",
+                m9));
 
         Map<String, String> m11 = new HashMap<>();
         m11.put(SBML.INTERACTION_REACTION_MODIFIER, "LONG_DASH");
@@ -181,10 +195,9 @@ public class StyleInfo {
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_DELETION, "EQUAL_DASH");
-        mappings.add(new MappingDiscrete(Mapping.DataType.string,
-                VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.string, VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 
         return mappings;
     }
-
 }

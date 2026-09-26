@@ -3,18 +3,15 @@ package org.cy3sbml.biomodel;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-
+import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskObserver;
 import org.cytoscape.work.swing.DialogTaskManager;
-import org.cy3sbml.ServiceAdapter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Searching BioModels.
@@ -22,19 +19,17 @@ import org.slf4j.LoggerFactory;
 public class SearchBioModel implements TaskObserver {
     private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
     DialogTaskManager dialogTaskManager;
+
     @SuppressWarnings("rawtypes")
     SynchronousTaskManager synchronousTaskManager;
-
 
     private SearchContent searchContent;
     private static List<String> modelIds;
     private ArrayList<Biomodel> simpleModels;
 
-
     public SearchBioModel(ServiceAdapter adapter) {
         dialogTaskManager = adapter.dialogTaskManager;
         synchronousTaskManager = adapter.synchronousTaskManager;
-
 
         resetSearch();
     }
@@ -49,11 +44,9 @@ public class SearchBioModel implements TaskObserver {
         return modelIds;
     }
 
-
     public String getModelId(int index) {
         return modelIds.get(index);
     }
-
 
     public int getSize() {
         return modelIds.size();
@@ -67,7 +60,8 @@ public class SearchBioModel implements TaskObserver {
         searchModelIdsForSearchContent(searchContent);
     }
 
-    public void getBioModelsByParsedIds(Set<String> parsedIds) throws IOException, InterruptedException, ExecutionException {
+    public void getBioModelsByParsedIds(Set<String> parsedIds)
+            throws IOException, InterruptedException, ExecutionException {
         resetSearch();
         HashMap<String, String> map = new HashMap<String, String>();
         map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
@@ -83,14 +77,14 @@ public class SearchBioModel implements TaskObserver {
         simpleModels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
     }
 
-//	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
-//		// convert to array
-//		String[] ids = new String[idsList.size()];
-//		for (int k=0; k<idsList.size(); k++){
-//			ids[k] = idsList.get(k);
-//		}
-//		return bmInterface.getSimpleModelsByIds(ids);
-//	}
+    //	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
+    //		// convert to array
+    //		String[] ids = new String[idsList.size()];
+    //		for (int k=0; k<idsList.size(); k++){
+    //			ids[k] = idsList.get(k);
+    //		}
+    //		return bmInterface.getSimpleModelsByIds(ids);
+    //	}
 
     private void searchModelIdsForSearchContent(SearchContent content) {
         // Run the biomodel task with a taskManger
@@ -115,15 +109,13 @@ public class SearchBioModel implements TaskObserver {
             logger.info(id);
         }
 
-        //simpleModels = getSimpleModelsForSearchResult(modelIds);
+        // simpleModels = getSimpleModelsForSearchResult(modelIds);
         // TODO: somehow notify that this is finished & update the content
         // do synchronous
     }
 
     @Override
-    public void allFinished(FinishStatus finishStatus) {
-    }
-
+    public void allFinished(FinishStatus finishStatus) {}
 
     public static void addIdsToResultIds(final List<String> ids, List<String> resultIds, final String mode) {
         // OR -> combine all results
@@ -140,7 +132,8 @@ public class SearchBioModel implements TaskObserver {
         }
     }
 
-    public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, ExecutionException, InterruptedException {
+    public String getHTMLInformation(final List<String> selectedModelIds)
+            throws IOException, ExecutionException, InterruptedException {
         String info = getHTMLHeaderForModelSearch();
 
         info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(modelIds, selectedModelIds);
@@ -148,17 +141,15 @@ public class SearchBioModel implements TaskObserver {
     }
 
     private String getHTMLHeaderForModelSearch() {
-        String info = String.format(
-                "<h2>%d BioModels found for </h2>" +
-                        "<hr>", getSize());
+        String info = String.format("<h2>%d BioModels found for </h2>" + "<hr>", getSize());
         info += searchContent.toHTML();
         info += "<hr>";
         return info;
     }
 
-//	public String getHTMLInformationForModel(int modelIndex){
-//		SimpleModel simpleModel = getSimpleModel(modelIndex);
-//		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
-//	}
+    //	public String getHTMLInformationForModel(int modelIndex){
+    //		SimpleModel simpleModel = getSimpleModel(modelIndex);
+    //		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
+    //	}
 
 }

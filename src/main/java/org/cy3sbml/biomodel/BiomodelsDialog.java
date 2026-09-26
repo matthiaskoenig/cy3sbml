@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -11,9 +12,9 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -23,24 +24,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-
-import java.awt.event.KeyAdapter;
-import javax.swing.JTextArea;
-
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * BiomodelsDialog.
@@ -52,7 +48,6 @@ public class BiomodelsDialog extends JDialog {
     private static BiomodelsDialog uniqueInstance;
     private final ServiceAdapter adapter;
     private final SearchBioModel searchBioModel;
-
 
     private final JTextArea idTextArea;
     private final JTextField nameField;
@@ -68,7 +63,6 @@ public class BiomodelsDialog extends JDialog {
     private final JPanel panel;
     private final JScrollPane infoScrollPane;
     private final JEditorPane infoPane;
-
 
     @SuppressWarnings("rawtypes")
     private JList biomodelsList;
@@ -108,7 +102,6 @@ public class BiomodelsDialog extends JDialog {
         lblName.setBounds(33, 17, 160, 15);
         panel.add(lblName);
 
-
         // Search By Name Field
         nameField = new JTextField();
         nameField.setToolTipText("Search BioModels by name");
@@ -123,7 +116,7 @@ public class BiomodelsDialog extends JDialog {
         personField.setToolTipText("Search Biomodels by Person");
         personField.setBounds(112, 44, 160, 25);
         personField.setColumns(10);
-        //panel.add(personField);
+        // panel.add(personField);
         personField.addKeyListener(new EnterKeyAdapter());
 
         // Search By Publication/Abstract
@@ -140,7 +133,7 @@ public class BiomodelsDialog extends JDialog {
         chebiField.setColumns(10);
         chebiField.setBounds(112, 108, 160, 25);
         chebiField.addKeyListener(new EnterKeyAdapter());
-        //panel.add(chebiField);
+        // panel.add(chebiField);
 
         // Search by UniProt
         uniprotField = new JTextField();
@@ -148,7 +141,7 @@ public class BiomodelsDialog extends JDialog {
         uniprotField.setColumns(10);
         uniprotField.setBounds(112, 140, 160, 25);
         uniprotField.addKeyListener(new EnterKeyAdapter());
-        //panel.add(uniprotField);
+        // panel.add(uniprotField);
 
         // Load Ids Button
         JButton loadIdsButton = new JButton("Load Ids");
@@ -308,7 +301,6 @@ public class BiomodelsDialog extends JDialog {
         idTextArea.setRows(4);
         idTextArea.setTabSize(4);
         idTextArea.setText("BIOMD0000000070, BIOMD0000000071");
-
     }
 
     class EnterKeyAdapter extends KeyAdapter {
@@ -330,15 +322,14 @@ public class BiomodelsDialog extends JDialog {
         JFrame frame = new JFrame("CySBML BioModel Import");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Add content to the window.
+        // Add content to the window.
         frame.getContentPane().add(this);
         frame.setSize(600, 600);
         frame.setResizable(true);
-        //Display the window.
+        // Display the window.
         frame.pack();
         frame.setVisible(true);
     }
-
 
     public void loadBioModelById(String id) {
         logger.info("Load BioModel: " + id);
@@ -375,7 +366,8 @@ public class BiomodelsDialog extends JDialog {
     }
 
     /// ////// UPDATE GUI ////////////
-    private void updateBioModelListAndInformationAfterSearch(List<String> ids) throws IOException, InterruptedException, ExecutionException {
+    private void updateBioModelListAndInformationAfterSearch(List<String> ids)
+            throws IOException, InterruptedException, ExecutionException {
         updateModelListInDialog(ids);
         updateBioModelInformation(getListOfSelectedModelIds());
 
@@ -384,7 +376,6 @@ public class BiomodelsDialog extends JDialog {
         JScrollBar scrollBar = infoScrollPane.getVerticalScrollBar();
         scrollBar.setValue(topPosition);
     }
-
 
     // working on raw JList - yes this should be like that
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -402,7 +393,8 @@ public class BiomodelsDialog extends JDialog {
         });
     }
 
-    public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException, ExecutionException {
+    public void updateBioModelInformation(List<String> selectedModelIds)
+            throws IOException, InterruptedException, ExecutionException {
         final int caretPosition = infoPane.getCaretPosition();
         final int scrollPosition = infoScrollPane.getVerticalScrollBar().getValue();
         Point location = infoScrollPane.getViewport().getLocation();
@@ -423,7 +415,6 @@ public class BiomodelsDialog extends JDialog {
             }
         });
     }
-
 
     /// ////// SELECT MODELS ////////////
     private void handleModelSelectionInModelList() throws IOException, InterruptedException, ExecutionException {
@@ -491,9 +482,8 @@ public class BiomodelsDialog extends JDialog {
         nameField.setText(reset);
         personField.setText(reset);
         publicationField.setText(reset);
-        //taxonomyField.setText(reset);
+        // taxonomyField.setText(reset);
         chebiField.setText(reset);
         uniprotField.setText(reset);
     }
-
 }

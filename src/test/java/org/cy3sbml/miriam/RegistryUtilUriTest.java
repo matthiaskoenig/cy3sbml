@@ -1,11 +1,11 @@
 package org.cy3sbml.miriam;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the identifiers.org resource URI helpers in {@link RegistryUtil}. These replace
@@ -34,43 +34,37 @@ public class RegistryUtilUriTest {
     @Test
     public void getIdentifierFromURI_legacyForm() {
         // namespace/accession, two path segments
-        assertEquals("36927",
-                RegistryUtil.getIdentifierFromURI("http://identifiers.org/chebi/36927"));
+        assertEquals("36927", RegistryUtil.getIdentifierFromURI("http://identifiers.org/chebi/36927"));
     }
 
     @Test
     public void getIdentifierFromURI_legacyFormWithColonInAccession() {
         // the accession itself contains a colon (GO's own accession syntax)
-        assertEquals("GO:0042752",
-                RegistryUtil.getIdentifierFromURI("http://identifiers.org/go/GO:0042752"));
+        assertEquals("GO:0042752", RegistryUtil.getIdentifierFromURI("http://identifiers.org/go/GO:0042752"));
     }
 
     @Test
     public void getIdentifierFromURI_compactForm() {
         // single path segment "chebi:CHEBI:36927": lowercase "chebi" is the namespace,
         // "CHEBI:36927" (itself containing a colon) is the accession
-        assertEquals("CHEBI:36927",
-                RegistryUtil.getIdentifierFromURI("https://identifiers.org/chebi:CHEBI:36927"));
+        assertEquals("CHEBI:36927", RegistryUtil.getIdentifierFromURI("https://identifiers.org/chebi:CHEBI:36927"));
     }
 
     @Test
     public void getIdentifierFromURI_embeddedPrefixForm() {
         // single path segment "GO:0042752": "GO" is not lowercase, so this is not a genuine
         // namespace:accession split -- the whole segment is the accession
-        assertEquals("GO:0042752",
-                RegistryUtil.getIdentifierFromURI("https://identifiers.org/GO:0042752"));
+        assertEquals("GO:0042752", RegistryUtil.getIdentifierFromURI("https://identifiers.org/GO:0042752"));
     }
 
     @Test
     public void getIdentifierFromURI_urnForm() {
-        assertEquals("CHEBI:36927",
-                RegistryUtil.getIdentifierFromURI("urn:miriam:chebi:CHEBI:36927"));
+        assertEquals("CHEBI:36927", RegistryUtil.getIdentifierFromURI("urn:miriam:chebi:CHEBI:36927"));
     }
 
     @Test
     public void getIdentifierFromURI_urnFormWithColonInAccession() {
-        assertEquals("GO:0042752",
-                RegistryUtil.getIdentifierFromURI("urn:miriam:go:GO:0042752"));
+        assertEquals("GO:0042752", RegistryUtil.getIdentifierFromURI("urn:miriam:go:GO:0042752"));
     }
 
     @Test
@@ -99,8 +93,7 @@ public class RegistryUtilUriTest {
 
     @Test
     public void getIdentifierFromURI_withQueryString() {
-        assertEquals("36927",
-                RegistryUtil.getIdentifierFromURI("http://identifiers.org/chebi/36927?redirect=true"));
+        assertEquals("36927", RegistryUtil.getIdentifierFromURI("http://identifiers.org/chebi/36927?redirect=true"));
     }
 
     @Test
@@ -112,32 +105,27 @@ public class RegistryUtilUriTest {
 
     @Test
     public void getNamespaceFromURI_legacyForm() {
-        assertEquals("chebi",
-                RegistryUtil.getNamespaceFromURI("http://identifiers.org/chebi/CHEBI:36927"));
+        assertEquals("chebi", RegistryUtil.getNamespaceFromURI("http://identifiers.org/chebi/CHEBI:36927"));
     }
 
     @Test
     public void getNamespaceFromURI_legacyFormWithColonInAccession() {
-        assertEquals("go",
-                RegistryUtil.getNamespaceFromURI("http://identifiers.org/go/GO:0042752"));
+        assertEquals("go", RegistryUtil.getNamespaceFromURI("http://identifiers.org/go/GO:0042752"));
     }
 
     @Test
     public void getNamespaceFromURI_compactForm() {
-        assertEquals("chebi",
-                RegistryUtil.getNamespaceFromURI("https://identifiers.org/chebi:CHEBI:36927"));
+        assertEquals("chebi", RegistryUtil.getNamespaceFromURI("https://identifiers.org/chebi:CHEBI:36927"));
     }
 
     @Test
     public void getNamespaceFromURI_embeddedPrefixForm() {
-        assertEquals("GO",
-                RegistryUtil.getNamespaceFromURI("https://identifiers.org/GO:0042752"));
+        assertEquals("GO", RegistryUtil.getNamespaceFromURI("https://identifiers.org/GO:0042752"));
     }
 
     @Test
     public void getNamespaceFromURI_urnForm() {
-        assertEquals("chebi",
-                RegistryUtil.getNamespaceFromURI("urn:miriam:chebi:CHEBI:36927"));
+        assertEquals("chebi", RegistryUtil.getNamespaceFromURI("urn:miriam:chebi:CHEBI:36927"));
     }
 
     @Test
@@ -159,41 +147,46 @@ public class RegistryUtilUriTest {
     @Test
     public void getDataCollectionPartFromURI_legacyForm() {
         // registry-lib kept the trailing slash on the data collection part
-        assertEquals("http://identifiers.org/chebi/",
+        assertEquals(
+                "http://identifiers.org/chebi/",
                 RegistryUtil.getDataCollectionPartFromURI("http://identifiers.org/chebi/CHEBI:36927"));
     }
 
     @Test
     public void getDataCollectionPartFromURI_legacyFormWithColonInAccession() {
-        assertEquals("http://identifiers.org/go/",
+        assertEquals(
+                "http://identifiers.org/go/",
                 RegistryUtil.getDataCollectionPartFromURI("http://identifiers.org/go/GO:0042752"));
     }
 
     @Test
     public void getDataCollectionPartFromURI_compactForm() {
-        assertEquals("https://identifiers.org/chebi/",
+        assertEquals(
+                "https://identifiers.org/chebi/",
                 RegistryUtil.getDataCollectionPartFromURI("https://identifiers.org/chebi:CHEBI:36927"));
     }
 
     @Test
     public void getDataCollectionPartFromURI_embeddedPrefixForm() {
-        assertEquals("https://identifiers.org/GO/",
+        assertEquals(
+                "https://identifiers.org/GO/",
                 RegistryUtil.getDataCollectionPartFromURI("https://identifiers.org/GO:0042752"));
     }
 
     @Test
     public void getDataCollectionPartFromURI_urnForm() {
-        assertEquals("urn:miriam:chebi",
-                RegistryUtil.getDataCollectionPartFromURI("urn:miriam:chebi:CHEBI:36927"));
+        assertEquals("urn:miriam:chebi", RegistryUtil.getDataCollectionPartFromURI("urn:miriam:chebi:CHEBI:36927"));
     }
 
     @Test
     public void getDataCollectionPartFromURI_httpVsHttps() {
         // the data collection part is a link back to the resource, so it keeps the scheme of
         // the URI it was extracted from (unlike the identifier and namespace parts)
-        assertEquals("http://identifiers.org/chebi/",
+        assertEquals(
+                "http://identifiers.org/chebi/",
                 RegistryUtil.getDataCollectionPartFromURI("http://identifiers.org/chebi/CHEBI:36927"));
-        assertEquals("https://identifiers.org/chebi/",
+        assertEquals(
+                "https://identifiers.org/chebi/",
                 RegistryUtil.getDataCollectionPartFromURI("https://identifiers.org/chebi/CHEBI:36927"));
     }
 

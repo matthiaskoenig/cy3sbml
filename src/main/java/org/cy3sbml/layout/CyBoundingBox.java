@@ -69,5 +69,4 @@ public class CyBoundingBox {
     public String toString() {
         return String.format("id=%s, x=%s, y=%s, h=%s, w=%s", nodeId, xpos, ypos, height, width);
     }
-
 }

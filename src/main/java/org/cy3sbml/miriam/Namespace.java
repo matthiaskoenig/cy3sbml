@@ -1,11 +1,11 @@
 package org.cy3sbml.miriam;
 
+import static org.cy3sbml.miriam.Fields.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static org.cy3sbml.miriam.Fields.*;
 
 public class Namespace {
 
@@ -31,7 +31,7 @@ public class Namespace {
         this.namespaceEmbeddedInLui = (Boolean) value.get(NAMESPACE_EMBEDDED_IN_LUI);
         this.description = (String) value.get(DESCRIPTION);
         this.mirId = (String) value.get(MIR_ID);
-        //this.resources = (List<Resource>) value.get("resources");
+        // this.resources = (List<Resource>) value.get("resources");
         this.created = (String) value.get(CREATED);
         this.modified = (String) value.get(MODIFIED);
         this.sampleId = (String) value.get(SAMPLE_ID);
@@ -46,12 +46,10 @@ public class Namespace {
             for (Object item : (List<?>) resourcesRaw) {
 
                 this.resources.add(Resource.fromMap((Map<String, Object>) item));
-
             }
         } else {
             this.resources = Collections.emptyList();
         }
-
     }
 
     public Namespace(List<Resource> resources) {
@@ -110,5 +108,4 @@ public class Namespace {
     public String getDeprecationDate() {
         return deprecationDate;
     }
-
 }

@@ -1,32 +1,21 @@
 package org.cy3sbml.util;
 
+import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 
+import java.io.*;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
-import java.io.*;
-
 import org.apache.commons.io.FileUtils;
-
 import org.apache.commons.io.IOUtils;
-
+import org.cy3sbml.SBMLManager;
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.work.TaskIterator;
-
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
 import org.sbml.jsbml.TidySBMLWriter;
-
-import org.cy3sbml.SBMLManager;
-import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cy3sbml.gui.WebViewPanel;
-
-import org.cy3sbml.ServiceAdapter;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
-
 
 public class GUIUtil {
     private static final Logger logger = LoggerFactory.getLogger(GUIUtil.class);
@@ -59,7 +48,6 @@ public class GUIUtil {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Open current SBML in browser.
@@ -109,7 +97,6 @@ public class GUIUtil {
         openHTMLInBrowser(html);
     }
 
-
     /**
      * Open validation HTML in external Browser.
      */
@@ -127,7 +114,6 @@ public class GUIUtil {
         }
     }
 
-
     /**
      * Open a given file in browser.
      */
@@ -137,7 +123,5 @@ public class GUIUtil {
                 OpenBrowser.openURL("file://" + temp.getAbsolutePath());
             }
         });
-
     }
-
 }

@@ -1,10 +1,8 @@
 package org.cy3sbml.chebi;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import java.net.URI;
 import java.util.Optional;
-
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
@@ -92,20 +90,28 @@ public final class ChebiAccess {
             ChebiCompound compound = optionalCompound.get();
             if (compound.formula() != null || compound.charge() != null || compound.mass() != null) {
                 html.append(GUIConstants.TABLE_START)
-                        .append(GUIConstants.TS).append("Formula").append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.formula())).append(GUIConstants.TE)
-                        .append(GUIConstants.TS).append("Charge").append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.charge())).append(GUIConstants.TE)
-                        .append(GUIConstants.TS).append("Mass").append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.mass())).append(GUIConstants.TE)
+                        .append(GUIConstants.TS)
+                        .append("Formula")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.formula()))
+                        .append(GUIConstants.TE)
+                        .append(GUIConstants.TS)
+                        .append("Charge")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.charge()))
+                        .append(GUIConstants.TE)
+                        .append(GUIConstants.TS)
+                        .append("Mass")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.mass()))
+                        .append(GUIConstants.TE)
                         .append(GUIConstants.TABLE_END);
             }
         }
 
         Optional<String> svg = structure(chebiId);
-        svg.ifPresent(s -> html.append(String.format(
-                "<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n",
-                chebiId, s)));
+        svg.ifPresent(s ->
+                html.append(String.format("<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n", chebiId, s)));
 
         return html.toString();
     }

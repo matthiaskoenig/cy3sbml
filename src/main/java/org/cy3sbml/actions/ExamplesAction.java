@@ -2,11 +2,9 @@ package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,4 +39,3 @@ public class ExamplesAction extends AbstractCyAction {
         vwPanel.setExamples();
     }
 }
-

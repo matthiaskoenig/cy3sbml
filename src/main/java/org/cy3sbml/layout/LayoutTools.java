@@ -1,11 +1,9 @@
 package org.cy3sbml.layout;
 
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.cy3sbml.SBML;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.util.AttributeUtil;
@@ -86,7 +84,6 @@ public class LayoutTools {
         HashMap<String, CyBoundingBox> boxesMap = XMLInterface.readLayoutFromXML(file);
         if (boxesMap != null) {
 
-
             List<CyNode> nodes = network.getNodeList();
             for (CyNode node : nodes) {
                 // if position is stored
@@ -110,15 +107,15 @@ public class LayoutTools {
 /// ////////////////////////////////////////////////////////////////////////
 // SBML Layout extension
 /// ////////////////////////////////////////////////////////////////////////
-	
-	/*
+
+/*
 	public static void saveLayoutOfCurrentViewInSBMLFile(File file){
 		CyNetworkView view = Cytoscape.getCurrentNetworkView();
 		SBMLDocument doc = writeLayoutOfNetworkViewToSBMLDocument(view);
 		if (doc != null){
 			try {
 				SBMLWriter.write(doc, file, CySBML.NAME, CySBML.VERSION);
-				
+
 			} catch (SBMLException e) {
 				e.printStackTrace();
 			} catch (XMLStreamException e) {
@@ -130,7 +127,7 @@ public class LayoutTools {
 			System.out.println("CySBML[INFO] -> No SBMLDocument found for current Network view");
 		}
 	}
-		
+
 	private static SBMLDocument writeLayoutOfNetworkViewToSBMLDocument(CyNetworkView view){
 		CyNetwork network = view.getNetwork();
 		SBMLDocument doc = NavigationPanel.getInstance().getSBMLDocumentForCyNetwork(network);
@@ -141,7 +138,7 @@ public class LayoutTools {
 			Model model = doc.getModel();
 			model.setLevel(level);
 			model.setVersion(version);
-			
+
 			// Get LayoutModel
 			LayoutModelPlugin layoutModel = LayoutExtension.getOrCreateLayoutModel(doc);
 			// Add the layout
@@ -150,7 +147,7 @@ public class LayoutTools {
 		}
 		return doc;
 	}
-	
+
 	private static Layout createSBMLLayoutForView(CyNetworkView view, Model model){
 		int level = model.getLevel();
 		int version = model.getVersion();
@@ -158,12 +155,12 @@ public class LayoutTools {
 		String layoutId = view.getIdentifier();
 		layout.setId(layoutId);
 		layout.setName(layoutId);
-		
+
 		CyNetwork network = view.getNetwork();
 	    @SuppressWarnings("unchecked")
 		List<CyNode> nodes = network.nodesList();
 	    CyAttributes nodeAttributes = Cytoscape.getNodeAttributes();
-	    
+
 	    for (CyNode node : nodes){
 	    	NodeView nodeView = view.getNodeView(node);
 	    	// Test if reaction or species node
@@ -171,7 +168,7 @@ public class LayoutTools {
 	    	String nodeType = (String) nodeAttributes.getAttribute(nodeId, CySBMLConstants.ATT_TYPE);
 	    	if (nodeType!=null){
 	    		if (nodeType.equals(CySBMLConstants.NODETYPE_REACTION) || nodeType.equals(CySBMLConstants.NODETYPE_SPECIES)){
-	    			
+
 	    			double xpos = nodeView.getXPosition();
 					double ypos = nodeView.getYPosition();
 					double zpos = 0.0;
@@ -180,13 +177,13 @@ public class LayoutTools {
 					double depth = 0.0;
 					Dimensions dim = new Dimensions(width, height, depth, level, version);
 					Point point = new Point(xpos, ypos, zpos, level, version);
-					
+
 					BoundingBox box = new BoundingBox();
 					box.setLevel(level);
 					box.setVersion(version);
 					box.setPosition(point);
 					box.setDimensions(dim);
-					
+
 					if (nodeType.equals(CySBMLConstants.NODETYPE_SPECIES)){
 						SpeciesGlyph sGlyph = new SpeciesGlyph();
 						sGlyph.setId(nodeId);
@@ -195,7 +192,7 @@ public class LayoutTools {
 						sGlyph.setBoundingBox(box);
 						sGlyph.setSpecies(nodeId);
 						layout.addSpeciesGlyph(sGlyph);
-						
+
 					}
 					else if (nodeType.equals(CySBMLConstants.NODETYPE_REACTION)){
 						ReactionGlyph rGlyph = new ReactionGlyph();
@@ -204,20 +201,20 @@ public class LayoutTools {
 						rGlyph.setId(nodeId);
 						rGlyph.setBoundingBox(box);
 						rGlyph.setReaction(nodeId);
-						
+
 						//write the speciesReferences
-						
+
 //						ListOf<SpeciesReferenceGlyph> listOfSpeciesReferencesGlyph = new ListOf<SpeciesReferenceGlyph>();
 //						Reaction reaction = model.getReaction(nodeId);
 //						for (SpeciesReference sRef : reaction.getListOfProducts()){
-//							SpeciesReferenceGlyph sRefGlyph = 
+//							SpeciesReferenceGlyph sRefGlyph =
 //							listOfSpeciesReferencesGlyph.add(new SpeciesReferenceGlyph(sRef.getId()));
 //						}
 //						for (SpeciesReference sRef : reaction.getListOfReactants()){
 //							listOfSpeciesReferencesGlyph.add(new SpeciesReferenceGlyph(sRef.getId()));
 //						}
 //						rGlyph.setListOfSpeciesReferencesGlyph(listOfSpeciesReferencesGlyph);
-						
+
 						layout.addReactionGlyph(rGlyph);
 					}
 	    		}
@@ -226,4 +223,3 @@ public class LayoutTools {
 	    return layout;
 	}
 	*/
-

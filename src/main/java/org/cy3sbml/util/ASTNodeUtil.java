@@ -1,7 +1,6 @@
 package org.cy3sbml.util;
 
 import java.util.HashSet;
-
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.Parameter;
@@ -13,7 +12,10 @@ public class ASTNodeUtil {
         HashSet<Parameter> pSet = new HashSet<Parameter>();
         if (astNode.getType().equals(ASTNode.Type.NAME)
                 && (astNode.getVariable() instanceof Parameter)
-                && (astNode.getParentSBMLObject().getModel().getParameter(astNode.getVariable().getId()) != null)) {
+                && (astNode.getParentSBMLObject()
+                                .getModel()
+                                .getParameter(astNode.getVariable().getId())
+                        != null)) {
             pSet.add((Parameter) astNode.getVariable());
         }
         // recursive search

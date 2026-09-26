@@ -1,13 +1,10 @@
 package org.cy3sbml.util;
 
 import java.util.Properties;
-
 import org.cy3sbml.miriam.RegistryUtil;
-
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.SBase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,5 +38,4 @@ public class AnnotationUtil {
 
         return props;
     }
-
 }

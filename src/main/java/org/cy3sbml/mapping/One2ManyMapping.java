@@ -40,7 +40,6 @@ public class One2ManyMapping<T1, T2> implements Serializable {
         map.remove(key);
     }
 
-
     public HashSet<T2> getValues(T1 key) {
         HashSet<T2> values;
         if (containsKey(key)) {

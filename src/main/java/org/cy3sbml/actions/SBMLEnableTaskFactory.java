@@ -27,5 +27,4 @@ public class SBMLEnableTaskFactory implements TaskFactory {
     public boolean isReady() {
         return ready;
     }
-
 }

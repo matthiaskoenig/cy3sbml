@@ -111,18 +111,15 @@ public class MappingUtil {
     public static String localParameterId(LocalParameter lp) {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
         Reaction reaction = law.getParent();
-        return String.format("%s%s%s",
-                reaction.getId(), SEPARATOR, lp.getId());
+        return String.format("%s%s%s", reaction.getId(), SEPARATOR, lp.getId());
     }
 
     private static String unitDefinitionMetaId(UnitDefinition ud) {
-        return String.format("%s%s",
-                PREFIX_UNITSID, ud.getId());
+        return String.format("%s%s", PREFIX_UNITSID, ud.getId());
     }
 
     private static String unitMetaId(Unit unit) {
-        return String.format("%s%s",
-                PREFIX_UNITSID, unit.getKind().toString());
+        return String.format("%s%s", PREFIX_UNITSID, unit.getKind().toString());
     }
 
     private static String kineticLawMetaId(KineticLaw law) {
@@ -132,8 +129,7 @@ public class MappingUtil {
 
     private static String initialAssignmentMetaId(InitialAssignment assignment) {
         String variable = (assignment.isSetVariable()) ? assignment.getVariable() : "";
-        return String.format("%s_%s",
-                PREFIX_INITIAL_ASSIGNMENT, variable);
+        return String.format("%s_%s", PREFIX_INITIAL_ASSIGNMENT, variable);
     }
 
     private static String ruleMetaId(Rule rule) {
@@ -148,8 +144,7 @@ public class MappingUtil {
                 RateRule r = (RateRule) rule;
                 variable = (r.isSetVariable()) ? r.getVariable() : "";
             }
-            return String.format("%s_%s",
-                    PREFIX_RULE, variable);
+            return String.format("%s_%s", PREFIX_RULE, variable);
         }
     }
 
@@ -168,5 +163,4 @@ public class MappingUtil {
     private static String eventAssignmentMetaId(EventAssignment ea) {
         return PREFIX_EVENT_ASSIGNMENT;
     }
-
 }

@@ -3,20 +3,10 @@ package org.cy3sbml.util;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +29,7 @@ public class IOUtil {
      */
     public static String inputStream2String(InputStream source) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(source));
-             StringWriter writer = new StringWriter()) {
+                StringWriter writer = new StringWriter()) {
             char[] buffer = new char[BUFFER_SIZE];
             int charactersRead;
             while ((charactersRead = reader.read(buffer)) != -1) {
@@ -56,7 +46,6 @@ public class IOUtil {
         return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
     }
 
-
     /**
      * Copy InputStream.
      */
@@ -70,7 +59,6 @@ public class IOUtil {
         is.close();
         return new ByteArrayInputStream(copy.toByteArray());
     }
-
 
     /**
      * Creates a unique file with a given filename and a given extension in a given directory.
@@ -117,7 +105,7 @@ public class IOUtil {
 
             // Copy decompressed input stream directly to file
             try (InputStream in = inputStream;
-                 FileOutputStream fos = new FileOutputStream(file)) {
+                    FileOutputStream fos = new FileOutputStream(file)) {
                 byte[] buffer = new byte[8192];
                 int len;
                 while ((len = in.read(buffer)) > 0) {
@@ -135,12 +123,9 @@ public class IOUtil {
         }
     }
 
-
     /**
      * Returns the Last-Modified Http Response Header field.
      * @param url
      * @return
      */
-
-
 }

@@ -9,11 +9,8 @@ public class MappingDiscrete extends Mapping {
 
     private Map map;
 
-    public MappingDiscrete(DataType dataType,
-                           VisualPropertyKey property,
-                           String attributeName,
-                           String defaultValue,
-                           Map map) {
+    public MappingDiscrete(
+            DataType dataType, VisualPropertyKey property, String attributeName, String defaultValue, Map map) {
         super(MappingType.DISCRETE, dataType, property, attributeName, defaultValue);
         this.map = map;
     }
@@ -21,5 +18,4 @@ public class MappingDiscrete extends Mapping {
     public Map getMap() {
         return map;
     }
-
 }

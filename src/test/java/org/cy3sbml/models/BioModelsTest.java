@@ -3,7 +3,6 @@ package org.cy3sbml.models;
 import java.util.HashSet;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +32,8 @@ public class BioModelsTest {
         HashSet<String> skip = null;
         String filter = null;
         return StreamSupport.stream(
-                        TestUtils.findResources("test",TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+                        TestUtils.findResources("test", TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip)
+                                .spliterator(),
                         false)
                 .map(arr -> arr[0].toString());
     }

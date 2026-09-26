@@ -1,12 +1,9 @@
 package org.cy3sbml.gui;
 
-
 import java.io.IOException;
 import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Creates SBase HTML information in separate thread.
@@ -60,5 +57,4 @@ public class SBaseHTMLThread extends Thread {
     public String getInfo() {
         return info;
     }
-
 }

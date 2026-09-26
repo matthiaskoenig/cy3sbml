@@ -1,6 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.cysbml</groupId>
+    <artifactId>cy3sbml</artifactId>
+    <version>0.5.1</version>
+    <packaging>bundle</packaging>
+    <name>${bundle.symbolicName}</name>
+    <description>A Cytoscape app for SBML.</description>
+    <url>https://github.com/matthiaskoenig/cy3sbml</url>
 
     <properties>
         <bundle.symbolicName>cy3sbml</bundle.symbolicName>
@@ -22,201 +30,8 @@
             are excluded. Run with -Pall-tests for everything, or select the
             network tests with -Dtest.groups=network -Dtest.excludedGroups= -->
         <test.excludedGroups>network,models</test.excludedGroups>
-        <test.groups></test.groups>
+        <test.groups/>
     </properties>
-
-    <groupId>org.cysbml</groupId>
-    <artifactId>cy3sbml</artifactId>
-    <packaging>bundle</packaging>
-    <name>${bundle.symbolicName}</name>
-    <version>0.5.1</version>
-    <description>A Cytoscape app for SBML.</description>
-    <url>https://github.com/matthiaskoenig/cy3sbml</url>
-
-    <build>
-        <plugins>
-            <!-- bundle -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven-bundle-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <!-- The BND instructions for the bundle -->
-                    <instructions>
-                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
-                        <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
-					org.sbml.jsbml.*</Export-Package>
-                        <Private-Package>${bundle.namespace}.*</Private-Package>
-                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
-                        <Embed-Transitive>true</Embed-Transitive>
-                        <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
-                        <!--
-                        <Import-Package>*;resolution:=optional</Import-Package>
-                        -->
-                        <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.16.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <optimize>true</optimize>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                    <compilerArguments>
-                        <Xmaxwarns>10000</Xmaxwarns>
-                        <Xmaxerrs>10000</Xmaxerrs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-
-            <!-- resources -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.5.0</version>
-            </plugin>
-            <!-- jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.5.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
-
-            <!-- testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <groups>${test.groups}</groups>
-                    <excludedGroups>${test.excludedGroups}</excludedGroups>
-                </configuration>
-
-            </plugin>
-
-            <!-- coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.15</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- enforce build environment and dependency hygiene -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.6.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>extra-enforcer-rules</artifactId>
-                        <version>1.12.1</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>enforce-build-environment</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>[17,)</version>
-                                </requireJavaVersion>
-                                <requireMavenVersion>
-                                    <version>[3.9,)</version>
-                                </requireMavenVersion>
-                                <banDuplicatePomDependencyVersions/>
-                                <banDuplicateClasses>
-                                    <scopes>
-                                        <scope>compile</scope>
-                                        <scope>runtime</scope>
-                                    </scopes>
-                                    <findAllDuplicates>true</findAllDuplicates>
-                                    <ignoreWhenIdentical>true</ignoreWhenIdentical>
-                                    <ignoreClasses>
-                                        <!-- xstream (needed by JSBML's validator, see the
-                                            dependency comment below) pulls in both xmlpull and
-                                            xpp3_min, which both provide the same XmlPull API
-                                            classes. -->
-                                        <ignoreClass>org.xmlpull.v1.*</ignoreClass>
-                                    </ignoreClasses>
-                                </banDuplicateClasses>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>enforce-release-dependencies</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${enforcer.skipReleaseDeps}</skip>
-                            <rules>
-                                <requireReleaseDeps/>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- formatting -->
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>3.10.3</version>
-                <configuration>
-                    <java>
-                        <palantirJavaFormat>
-                            <version>2.99.0</version>
-                        </palantirJavaFormat>
-                        <removeUnusedImports/>
-                        <importOrder/>
-                        <trimTrailingWhitespace/>
-                        <endWithNewline/>
-                    </java>
-                    <pom>
-                        <sortPom>
-                            <nrOfIndentSpace>4</nrOfIndentSpace>
-                            <expandEmptyElements>false</expandEmptyElements>
-                        </sortPom>
-                    </pom>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -229,39 +44,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <repositories>
-        <!-- Cytoscape -->
-        <repository>
-            <id>cytoscape_releases</id>
-            <name>Cytoscape Releases</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>cytoscape_thirdparty</id>
-            <name>Cytoscape Thirdparty</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <!-- JSBML  -->
-        <repository>
-            <id>in-project</id>
-            <name>In project repository</name>
-            <url>file:${project.basedir}/lib</url>
-        </repository>
-    </repositories>
-
 
     <dependencies>
         <!-- Cytoscape 3 dependency -->
@@ -444,7 +226,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.20.0</version>
         </dependency>
-
 
         <!-- Logging -->
         <dependency>
@@ -653,15 +434,231 @@
             <scope>test</scope>
         </dependency>
 
-
     </dependencies>
+
+    <repositories>
+        <!-- Cytoscape -->
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>cytoscape_releases</id>
+            <name>Cytoscape Releases</name>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>cytoscape_thirdparty</id>
+            <name>Cytoscape Thirdparty</name>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/</url>
+        </repository>
+        <!-- JSBML  -->
+        <repository>
+            <id>in-project</id>
+            <name>In project repository</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <!-- bundle -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- The BND instructions for the bundle -->
+                    <instructions>
+                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
+					org.sbml.jsbml.*</Export-Package>
+                        <Private-Package>${bundle.namespace}.*</Private-Package>
+                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
+                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
+                        <!--
+                        <Import-Package>*;resolution:=optional</Import-Package>
+                        -->
+                        <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.16.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <optimize>true</optimize>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <compilerArguments>
+                        <Xmaxwarns>10000</Xmaxwarns>
+                        <Xmaxerrs>10000</Xmaxerrs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <!-- resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+            <!-- jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
+            <!-- testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <groups>${test.groups}</groups>
+                    <excludedGroups>${test.excludedGroups}</excludedGroups>
+                </configuration>
+
+            </plugin>
+
+            <!-- coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- enforce build environment and dependency hygiene -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>1.12.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>enforce-build-environment</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[17,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.9,)</version>
+                                </requireMavenVersion>
+                                <banDuplicatePomDependencyVersions/>
+                                <banDuplicateClasses>
+                                    <scopes>
+                                        <scope>compile</scope>
+                                        <scope>runtime</scope>
+                                    </scopes>
+                                    <findAllDuplicates>true</findAllDuplicates>
+                                    <ignoreWhenIdentical>true</ignoreWhenIdentical>
+                                    <ignoreClasses>
+                                        <!-- xstream (needed by JSBML's validator, see the
+                                            dependency comment below) pulls in both xmlpull and
+                                            xpp3_min, which both provide the same XmlPull API
+                                            classes. -->
+                                        <ignoreClass>org.xmlpull.v1.*</ignoreClass>
+                                    </ignoreClasses>
+                                </banDuplicateClasses>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-release-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${enforcer.skipReleaseDeps}</skip>
+                            <rules>
+                                <requireReleaseDeps/>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- formatting -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>3.10.3</version>
+                <configuration>
+                    <java>
+                        <palantirJavaFormat>
+                            <version>2.99.0</version>
+                        </palantirJavaFormat>
+                        <removeUnusedImports/>
+                        <importOrder/>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                    </java>
+                    <pom>
+                        <sortPom>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <expandEmptyElements>false</expandEmptyElements>
+                        </sortPom>
+                    </pom>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
     <profiles>
         <!-- Run all tests, including the network and models tagged tests. -->
         <profile>
             <id>all-tests</id>
             <properties>
-                <test.excludedGroups></test.excludedGroups>
+                <test.excludedGroups/>
             </properties>
         </profile>
     </profiles>

@@ -1,17 +1,14 @@
 package org.cy3sbml.miriam;
 
+import static org.cy3sbml.miriam.Fields.*;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.cy3sbml.miriam.Fields.*;
-
-
 public class Resource {
-
 
     private int id;
     private String providerCode;
@@ -48,22 +45,22 @@ public class Resource {
         resource.institution = (LinkedHashMap) value.get(INSTITUTION);
         resource.location = (LinkedHashMap) value.get(LOCATION);
         resource.deprecated = value.get(DEPRECATED).toString().equals(TRUE);
-        resource.deprecationDate = (String) Optional.ofNullable(value.get(DEPRECATION_DATE))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.deprecationOfflineDate = (String) Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationDate =
+                (String) Optional.ofNullable(value.get(DEPRECATION_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationOfflineDate = (String)
+                Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
         resource.renderDeprecatedLanding = value.get(RENDER_DEPRECATED_LANDING).toString();
-        resource.deprecationStatetement = (String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationStatetement =
+                (String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT)).orElse(NO_DESCRIPTION_AVAILABLE);
         resource.protectedUrls = value.get(PROTECTED_URLS).toString().equals(TRUE);
-        resource.renderProtectedLanding = value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
-        resource.authHelpUrl = (String) Optional.ofNullable(value.get(AUTH_HELP_URL))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.authHelpDescription = (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.renderProtectedLanding =
+                value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
+        resource.authHelpUrl =
+                (String) Optional.ofNullable(value.get(AUTH_HELP_URL)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.authHelpDescription =
+                (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION)).orElse(NO_DESCRIPTION_AVAILABLE);
         return resource;
     }
-
 
     public static class Institution {
         private int id;
@@ -112,7 +109,6 @@ public class Resource {
         public Location getLocation() {
             return location;
         }
-
     }
 
     public static class Location {
@@ -121,8 +117,7 @@ public class Resource {
 
         @JsonCreator
         public Location(
-                @JsonProperty("countryCode") String countryCode,
-                @JsonProperty("countryName") String countryName) {
+                @JsonProperty("countryCode") String countryCode, @JsonProperty("countryName") String countryName) {
             this.countryCode = countryCode;
             this.countryName = countryName;
         }
@@ -215,7 +210,4 @@ public class Resource {
     public String getAuthHelpDescription() {
         return authHelpDescription;
     }
-
-
 }
-

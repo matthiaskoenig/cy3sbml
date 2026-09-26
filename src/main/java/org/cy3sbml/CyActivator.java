@@ -1,21 +1,34 @@
 package org.cy3sbml;
 
-import org.cy3sbml.actions.*;
-import org.cy3sbml.archive.*;
-import org.cy3sbml.styles.StyleManager;
-
-import org.cytoscape.group.CyGroupFactory;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
-
+import org.cy3sbml.actions.*;
+import org.cy3sbml.archive.*;
+import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.gui.SBaseHTMLFactory;
+import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.styles.StyleManager;
+import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.HttpJson;
+import org.cytoscape.application.CyApplicationConfiguration;
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.application.events.SetCurrentNetworkListener;
+import org.cytoscape.application.swing.CyAction;
+import org.cytoscape.application.swing.CySwingApplication;
+import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.group.CyGroupFactory;
+import org.cytoscape.io.util.StreamUtil;
+import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
+import org.cytoscape.model.events.NetworkAddedListener;
+import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
@@ -23,16 +36,8 @@ import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
-import org.cytoscape.application.CyApplicationConfiguration;
-import org.cytoscape.application.CyApplicationManager;
-import org.cytoscape.application.events.SetCurrentNetworkListener;
-import org.cytoscape.application.swing.CyAction;
-import org.cytoscape.application.swing.CySwingApplication;
-import org.cytoscape.application.swing.CytoPanelComponent;
-import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.model.events.NetworkAddedListener;
-import org.cytoscape.model.events.RowsSetListener;
+import org.cytoscape.util.swing.FileUtil;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
@@ -42,20 +47,8 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
-import org.cytoscape.io.util.StreamUtil;
-import org.cytoscape.util.swing.FileUtil;
-import org.cytoscape.util.swing.OpenBrowser;
-
-
-import org.cy3sbml.chebi.ChebiAccess;
-import org.cy3sbml.cofactors.CofactorManager;
-import org.cy3sbml.gui.SBaseHTMLFactory;
-import org.cy3sbml.gui.WebViewPanel;
-import org.cy3sbml.miriam.RegistryUtil;
-import org.cy3sbml.ols.OlsClient;
-import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.util.HttpJson;
-
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -175,27 +168,22 @@ public class CyActivator extends AbstractCyActivator {
                     dialogTaskManager,
                     synchronousTaskManager,
                     taskManager,
-
                     cyNetworkFactory,
                     cyGroupFactory,
                     cyNetworkViewFactory,
-
                     appProperties,
                     appDirectory,
                     streamUtil,
                     openBrowser,
                     connectionProxy,
                     loadNetworkFileTaskFactory,
-                    fileUtil
-            );
+                    fileUtil);
 
             // load visual styles
-            final String[] styles = {
-                    SBML.STYLE_CY3SBML,
-                    SBML.STYLE_CY3SBML_DARK,
-                    ArchiveReaderTask.ARCHIVE_STYLE};
+            final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK, ArchiveReaderTask.ARCHIVE_STYLE};
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
-            StyleManager styleManager = StyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager, styles);
+            StyleManager styleManager =
+                    StyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager, styles);
             styleManager.loadStyles();
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
@@ -217,13 +205,12 @@ public class CyActivator extends AbstractCyActivator {
 
             // GUI frames
 
-
             // init actions [100 - 120]
             ChangeStateAction changeStateAction = new ChangeStateAction();
             registerService(bc, changeStateAction, CyAction.class, new Properties());
 
-            ArchiveAction archiveAction = new ArchiveAction(cySwingApplication, fileUtil,
-                    loadNetworkFileTaskFactory, synchronousTaskManager);
+            ArchiveAction archiveAction =
+                    new ArchiveAction(cySwingApplication, fileUtil, loadNetworkFileTaskFactory, synchronousTaskManager);
             registerService(bc, archiveAction, CyAction.class, new Properties());
 
             ImportAction importAction = new ImportAction(adapter);
@@ -243,7 +230,6 @@ public class CyActivator extends AbstractCyActivator {
 
             // init actions
 
-
             HelpAction helpAction = new HelpAction();
             registerService(bc, helpAction, CyAction.class, new Properties());
 
@@ -260,11 +246,7 @@ public class CyActivator extends AbstractCyActivator {
 
             ArchiveFileFilter archiveFilter = new ArchiveFileFilter(streamUtil);
             ArchiveReaderTaskFactory archiveReaderTaskFactory = new ArchiveReaderTaskFactory(
-                    archiveFilter,
-                    networkFactory,
-                    networkViewFactory,
-                    visualMappingManager,
-                    layoutAlgorithmManager);
+                    archiveFilter, networkFactory, networkViewFactory, visualMappingManager, layoutAlgorithmManager);
             Properties archiveReaderProps = new Properties();
             archiveReaderProps.setProperty("readerDescription", "Archive file reader (cy3sbml)");
             archiveReaderProps.setProperty("readerId", "archiveNetworkReader");
@@ -289,7 +271,6 @@ public class CyActivator extends AbstractCyActivator {
             // register services for other apps
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
-
             //  Update and load registry
             Thread miriamThread = new Thread(new Runnable() {
                 public void run() {
@@ -303,12 +284,9 @@ public class CyActivator extends AbstractCyActivator {
 
             logger.info("----------------------------");
 
-
         } catch (Throwable e) {
             logger.error("Could not start server!", e);
             e.printStackTrace();
         }
     }
-
 }
-

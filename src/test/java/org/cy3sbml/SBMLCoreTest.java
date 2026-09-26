@@ -1,23 +1,18 @@
 package org.cy3sbml;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.List;
-
+import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.NetworkUtil;
-
 import org.cytoscape.model.*;
+import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-
-import org.cy3sbml.util.IOUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test reading of SBML core model.
@@ -140,11 +135,15 @@ public class SBMLCoreTest {
         CyNode n1 = e1.getSource();
         String n1Id = network.getRow(n1).get(SBML.ATTR_ID, String.class);
         if (n1Id.equals("React2")) {
-            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
-            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
         } else {
-            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
-            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_REACTANT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
         }
 
         // 0 outgoing edge
@@ -163,7 +162,8 @@ public class SBMLCoreTest {
         assertNotNull(network);
 
         // Test species node
-        // <species id="BLL" initialAmount="0" name="BasalACh2" metaid="_000003" sboTerm="SBO:0000297" compartment="comp1">
+        // <species id="BLL" initialAmount="0" name="BasalACh2" metaid="_000003" sboTerm="SBO:0000297"
+        // compartment="comp1">
         CyNode node = TestUtils.findNodeById("BLL", network);
         assertNotNull(node);
         CyRow attributes = network.getRow(node);

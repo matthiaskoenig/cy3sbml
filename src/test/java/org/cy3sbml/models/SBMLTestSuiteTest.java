@@ -3,7 +3,6 @@ package org.cy3sbml.models;
 import java.util.HashSet;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +35,10 @@ public class SBMLTestSuiteTest {
         String filter = "-sbml-l\\dv\\d.xml";
 
         return StreamSupport.stream(
-                TestUtils.findResources("test", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
-                false
-        ).map(arr -> arr[0].toString());
+                        TestUtils.findResources("test", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip)
+                                .spliterator(),
+                        false)
+                .map(arr -> arr[0].toString());
     }
 
     @ParameterizedTest(name = "{index}: {0}")

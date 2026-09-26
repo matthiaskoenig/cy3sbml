@@ -1,8 +1,5 @@
 package org.cy3sbml.styles;
 
-import org.cytoscape.view.model.VisualProperty;
-
-
 /**
  * Parent class of mappings.
  */
@@ -13,27 +10,29 @@ public class Mapping {
     private String attributeName;
     private String defaultValue;
 
-
     public enum MappingType {
-        DISCRETE, PASSTHROUGH, CONTINOUS
+        DISCRETE,
+        PASSTHROUGH,
+        CONTINOUS
     }
 
     public enum DataType {
-        integer, string
+        integer,
+        string
     }
 
-    public Mapping(MappingType mappingType,
-                   DataType dataType,
-                   VisualPropertyKey property,
-                   String attributeName,
-                   String defaultValue) {
+    public Mapping(
+            MappingType mappingType,
+            DataType dataType,
+            VisualPropertyKey property,
+            String attributeName,
+            String defaultValue) {
         this.mappingType = mappingType;
         this.dataType = dataType;
         this.property = property;
         this.attributeName = attributeName;
         this.defaultValue = defaultValue;
     }
-
 
     public MappingType getMappingType() {
         return mappingType;
@@ -55,4 +54,3 @@ public class Mapping {
         return defaultValue;
     }
 }
-

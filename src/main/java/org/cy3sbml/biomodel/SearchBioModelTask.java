@@ -2,10 +2,8 @@ package org.cy3sbml.biomodel;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
-
 
 public class SearchBioModelTask implements ObservableTask {
     private SearchContent searchContent;
@@ -13,7 +11,6 @@ public class SearchBioModelTask implements ObservableTask {
 
     public SearchBioModelTask(SearchContent searchContent) {
         this.searchContent = searchContent;
-
     }
 
     public void run(final TaskMonitor taskMonitor) throws Exception {
@@ -21,7 +18,6 @@ public class SearchBioModelTask implements ObservableTask {
         List<String> resultIds = new LinkedList<String>();
         List<String> ids = null;
         List<String> ids2 = null;
-
 
         taskMonitor.setProgress(0.0);
         taskMonitor.setTitle("Searching by Name ...");
@@ -59,7 +55,6 @@ public class SearchBioModelTask implements ObservableTask {
     public List<String> getIds() {
         return searchResultIds;
     }
-
 
     @Override
     public void cancel() {

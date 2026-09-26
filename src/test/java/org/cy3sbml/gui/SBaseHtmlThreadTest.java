@@ -1,11 +1,13 @@
 package org.cy3sbml.gui;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.Collection;
 import java.util.HashSet;
-
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.util.SBMLUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,13 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
 /**
@@ -150,5 +147,4 @@ public class SBaseHtmlThreadTest {
      * This allows faster development cycle of the information HTML than
      * packing it in the Cytoscape app.
      */
-
 }

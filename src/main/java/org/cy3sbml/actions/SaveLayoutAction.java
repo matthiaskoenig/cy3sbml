@@ -5,14 +5,12 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
-
+import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.layout.LayoutTools;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.util.swing.FileUtil;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.layout.LayoutTools;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

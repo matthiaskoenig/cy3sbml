@@ -17,5 +17,4 @@ public record UniprotEntry(
         List<String> geneNames,
         List<String> functionComments,
         List<String> catalyticActivities,
-        List<String> pathways) {
-}
+        List<String> pathways) {}

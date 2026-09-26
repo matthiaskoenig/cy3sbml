@@ -1,21 +1,19 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-
 /**
  * Testing fbc models.
  */
 public class SBMLFbcTest {
     public static final String TEST_MODEL_FBC = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "fbc_01.xml";
-
 
     /**
      * Test fbc species attributes.
@@ -29,7 +27,8 @@ public class SBMLFbcTest {
         assertEquals(864, network.getEdgeCount());
 
         // Test species node
-        // <species boundaryCondition="false" constant="false" metaid="M_13dpg_c" hasOnlySubstanceUnits="false" sboTerm="SBO:0000247" compartment="c" name="3-Phospho-D-glyceroyl phosphate"
+        // <species boundaryCondition="false" constant="false" metaid="M_13dpg_c" hasOnlySubstanceUnits="false"
+        // sboTerm="SBO:0000247" compartment="c" name="3-Phospho-D-glyceroyl phosphate"
         // fbc:chemicalFormula="C3H4O10P2" id="M_13dpg_c">
 
         CyNode node = TestUtils.findNodeById("M_13dpg_c", network);

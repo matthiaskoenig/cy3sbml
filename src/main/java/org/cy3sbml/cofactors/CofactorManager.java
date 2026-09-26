@@ -3,16 +3,14 @@ package org.cy3sbml.cofactors;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
+import org.cy3sbml.SBML;
+import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
-import org.cy3sbml.SBML;
-import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.util.AttributeUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -153,7 +151,8 @@ public class CofactorManager {
      */
     private void mergeCofactorClones(CyNetwork network, CyNode cofactor) {
         // get clone ids
-        HashSet<Long> cloneSUIDs = mapper.getCofactor2CloneMapping(network.getSUID()).getValues(cofactor.getSUID());
+        HashSet<Long> cloneSUIDs =
+                mapper.getCofactor2CloneMapping(network.getSUID()).getValues(cofactor.getSUID());
         for (Long cloneSUID : cloneSUIDs) {
             List<CyEdge> edges = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
             // remove the clone edge
@@ -165,7 +164,10 @@ public class CofactorManager {
         // add cofactor node from to subnetwork
         ((CySubNetwork) network).addNode(cofactor);
         // set attribute for force update of style
-        AttributeUtil.set(network, cofactor, SBML.NODETYPE_ATTR,
+        AttributeUtil.set(
+                network,
+                cofactor,
+                SBML.NODETYPE_ATTR,
                 AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class),
                 String.class);
 
@@ -179,7 +181,10 @@ public class CofactorManager {
             CyNode target = edge.getTarget();
             if (network.containsNode(source) && network.containsNode(target)) {
                 ((CySubNetwork) network).addEdge(edge);
-                AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR,
+                AttributeUtil.set(
+                        network,
+                        edge,
+                        SBML.INTERACTION_ATTR,
                         AttributeUtil.get(network, edge, SBML.INTERACTION_ATTR, String.class),
                         String.class);
             }
@@ -195,8 +200,4 @@ public class CofactorManager {
     public String toString() {
         return mapper.toString();
     }
-
 }
-
-
-

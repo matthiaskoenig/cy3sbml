@@ -4,7 +4,6 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.util.Properties;
-
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedEvent;
 import org.cytoscape.property.PropertyUpdatedListener;
@@ -36,8 +35,7 @@ public class ConnectionProxy implements PropertyUpdatedListener {
     public Proxy getProxy() {
         Properties properties = cyProperties.getProperties();
         final String proxyType = properties.getProperty("proxy.server.type");
-        if ("direct".equals(proxyType))
-            return Proxy.NO_PROXY;
+        if ("direct".equals(proxyType)) return Proxy.NO_PROXY;
 
         String hostName = properties.getProperty("proxy.server");
         String portString = properties.getProperty("proxy.server.port");
@@ -46,12 +44,9 @@ public class ConnectionProxy implements PropertyUpdatedListener {
             int port = Integer.parseInt(portString);
             Type type = null;
 
-            if ("http".equals(proxyType))
-                type = Type.HTTP;
-            if ("socks".equals(proxyType))
-                type = Type.SOCKS;
-            if (type == null)
-                return Proxy.NO_PROXY;
+            if ("http".equals(proxyType)) type = Type.HTTP;
+            if ("socks".equals(proxyType)) type = Type.SOCKS;
+            if (type == null) return Proxy.NO_PROXY;
 
             return new Proxy(type, new InetSocketAddress(hostName, port));
         } catch (NumberFormatException e) {

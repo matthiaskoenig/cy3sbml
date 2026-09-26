@@ -1,7 +1,8 @@
 package org.cy3sbml.uniprot;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -9,15 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
  * Client for the UniProtKB REST API.
@@ -140,16 +138,21 @@ public final class UniprotAccess {
         }
         UniprotEntry entry = optionalEntry.get();
 
-        html.append(htmlFragments.get(UNIPROT_LINK)
+        html.append(htmlFragments
+                .get(UNIPROT_LINK)
                 .replace(BASE_URL, UNIPROT_URL)
                 .replace(ACCESSION, StringEscapeUtils.escapeHtml4(accession))
                 .replace(UNIPROT_ID, StringEscapeUtils.escapeHtml4(entry.uniProtId())));
 
         if (entry.fullName() != null) {
-            html.append("\t<b>").append(StringEscapeUtils.escapeHtml4(entry.fullName())).append("</b><br />\n");
+            html.append("\t<b>")
+                    .append(StringEscapeUtils.escapeHtml4(entry.fullName()))
+                    .append("</b><br />\n");
         }
         for (String ecNumber : entry.ecNumbers()) {
-            html.append("\t<b>EC</b>: ").append(StringEscapeUtils.escapeHtml4(ecNumber)).append("<br />\n");
+            html.append("\t<b>EC</b>: ")
+                    .append(StringEscapeUtils.escapeHtml4(ecNumber))
+                    .append("<br />\n");
         }
 
         if (entry.scientificName() != null) {
@@ -157,11 +160,15 @@ public final class UniprotAccess {
             if (entry.commonName() != null) {
                 organismStr += " (" + entry.commonName() + ")";
             }
-            html.append("\t<b>Organism</b>: ").append(StringEscapeUtils.escapeHtml4(organismStr)).append("<br />\n");
+            html.append("\t<b>Organism</b>: ")
+                    .append(StringEscapeUtils.escapeHtml4(organismStr))
+                    .append("<br />\n");
         }
 
         for (String geneName : entry.geneNames()) {
-            html.append("\t<b>Gene</b>: ").append(StringEscapeUtils.escapeHtml4(geneName)).append("<br />\n");
+            html.append("\t<b>Gene</b>: ")
+                    .append(StringEscapeUtils.escapeHtml4(geneName))
+                    .append("<br />\n");
         }
 
         if (!entry.alternativeNames().isEmpty()) {
@@ -173,16 +180,17 @@ public final class UniprotAccess {
         }
 
         for (String functionComment : entry.functionComments()) {
-            html.append(htmlFragments.get(FUNCTION_COMMENT)
+            html.append(htmlFragments
+                    .get(FUNCTION_COMMENT)
                     .replace(COMMENT_TEXT, StringEscapeUtils.escapeHtml4(functionComment)));
         }
         for (String reactionName : entry.catalyticActivities()) {
-            html.append(htmlFragments.get(CATALYTIC_ACTIVITY)
+            html.append(htmlFragments
+                    .get(CATALYTIC_ACTIVITY)
                     .replace(REACTION_NAME, StringEscapeUtils.escapeHtml4(reactionName)));
         }
         for (String pathway : entry.pathways()) {
-            html.append(htmlFragments.get(PATHWAY)
-                    .replace(PATHWAY_NAME, StringEscapeUtils.escapeHtml4(pathway)));
+            html.append(htmlFragments.get(PATHWAY).replace(PATHWAY_NAME, StringEscapeUtils.escapeHtml4(pathway)));
         }
 
         return html.toString();
