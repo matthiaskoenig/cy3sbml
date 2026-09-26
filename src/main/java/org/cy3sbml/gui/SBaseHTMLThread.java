@@ -29,11 +29,20 @@ public class SBaseHTMLThread extends Thread {
 
     /**
      * Creates information for all objects within a single thread.
+     * <p>
+     * Web-service lookups made while building the HTML (OLS, UniProt, ChEBI) restore the
+     * thread's interrupt flag on {@code InterruptedException} rather than throwing it, so
+     * this checks {@code Thread.currentThread().isInterrupted()} between SBase objects and
+     * again before posting to the panel; a cancelled render then stops promptly and never
+     * overwrites the HTML of a newer, still-running render.
      */
     @Override
     public void run() {
 
         for (Object obj : objSet) {
+            if (Thread.currentThread().isInterrupted()) {
+                return;
+            }
             String html;
             try {
                 html = htmlFactory.createInfo((SBase) obj);
@@ -47,6 +56,9 @@ public class SBaseHTMLThread extends Thread {
             } else {
                 info += html;
             }
+        }
+        if (Thread.currentThread().isInterrupted()) {
+            return;
         }
         // Display if a panel is provided
         if (panel != null) {

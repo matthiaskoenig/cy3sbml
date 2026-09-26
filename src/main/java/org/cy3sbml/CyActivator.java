@@ -73,6 +73,8 @@ public class CyActivator extends AbstractCyActivator {
         private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
     }
 
+    private WebViewPanel webViewPanel;
+
     public CyActivator() {
         super();
     }
@@ -208,8 +210,7 @@ public class CyActivator extends AbstractCyActivator {
             BiomodelsDialog biomodelsDialog = new BiomodelsDialog(adapter);
 
             // panels
-            WebViewPanel webViewPanel =
-                    new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);
+            webViewPanel = new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -297,5 +298,17 @@ public class CyActivator extends AbstractCyActivator {
         } catch (Throwable e) {
             Log.logger.error("Could not start server!", e);
         }
+    }
+
+    /**
+     * Stops the WebViewPanel's render executor (its daemon thread and any in-flight
+     * web-service call) before AbstractCyActivator unregisters the OSGi services.
+     */
+    @Override
+    public void shutDown() {
+        if (webViewPanel != null) {
+            webViewPanel.close();
+        }
+        super.shutDown();
     }
 }

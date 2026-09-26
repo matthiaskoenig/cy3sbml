@@ -51,6 +51,7 @@ public final class WebViewPanel extends JFXPanel
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
+    private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
     private Browser browser;
     private long lastInformationThreadId = -1;
     private String html;
@@ -208,14 +209,18 @@ public final class WebViewPanel extends JFXPanel
 
     /**
      * Display information for set of nodes.
+     * <p>
+     * Submits the HTML generation (the OLS/UniProt/ChEBI web-service lookups) to the
+     * {@link #renderExecutor} rather than starting its own thread, so that a later
+     * selection cancels it the same way it cancels a pending {@link PanelUpdater}: a
+     * superseded render is interrupted instead of an unrelated, uninterruptible thread
+     * continuing to run in the background after a newer render has already started.
      */
     @Override
     public void showSBaseInfo(Set<Object> objSet) {
-        // starting threads for webservice calls
-
         SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this, htmlFactory);
         lastInformationThreadId = thread.getId();
-        thread.start();
+        renderExecutor.submit(thread);
     }
 
     @Override
@@ -309,9 +314,17 @@ public final class WebViewPanel extends JFXPanel
             return;
         }
 
-        // Update the information in separate thread
+        // Update the information on the render executor; submitting cancels
+        // whatever render is still pending or running for a previous selection.
         PanelUpdater updater = new PanelUpdater(this, network, sbmlManager, htmlFactory);
-        Thread t = new Thread(updater);
-        t.start();
+        renderExecutor.submit(updater);
+    }
+
+    /**
+     * Stops the render executor. Called from {@code CyActivator.shutDown} so the
+     * daemon render thread and any in-flight web-service call are stopped on app shutdown.
+     */
+    public void close() {
+        renderExecutor.close();
     }
 }

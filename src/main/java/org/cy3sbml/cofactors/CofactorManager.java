@@ -24,7 +24,13 @@ public class CofactorManager {
     private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
     private static final String CLONE_TAG = "-clone";
 
-    private Network2CofactorMapper mapper;
+    /*
+     * mapper is replaced wholesale on session restore (setNetwork2CofactorMapper) while
+     * processNode reads it from Cytoscape event handlers, so volatile is enough to make a
+     * writer's new value visible to a reader thread. Network2CofactorMapper's own methods
+     * are synchronized, so in-place mutation of the mapper's contents stays safe regardless.
+     */
+    private volatile Network2CofactorMapper mapper;
 
     /**
      * Constructor.

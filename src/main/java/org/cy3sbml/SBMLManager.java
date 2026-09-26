@@ -32,7 +32,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     /*
      * currentSUID and network2sbml are written from Cytoscape event handlers
      * (network/selection listeners, session restore) and read from the WebViewPanel's
-     * background panel-update thread (PanelUpdater, run on its own Thread).
+     * background render thread (PanelUpdater, run on its LatestTaskExecutor).
      *
      * currentSUID is only ever replaced wholesale (never mutated in place), so volatile
      * is enough to make a writer's new value visible to the reader thread.
