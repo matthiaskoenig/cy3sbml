@@ -47,6 +47,7 @@ public class WebViewPanel extends JFXPanel
 
     private final ServiceAdapter adapter;
     private final SBMLManager sbmlManager;
+    private final SBaseHTMLFactory htmlFactory;
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
@@ -60,10 +61,12 @@ public class WebViewPanel extends JFXPanel
     public WebViewPanel(
             ServiceAdapter adapter,
             SBMLManager sbmlManager,
+            SBaseHTMLFactory htmlFactory,
             CofactorManager cofactorManager,
             BiomodelsDialog biomodelsDialog) {
         this.adapter = adapter;
         this.sbmlManager = sbmlManager;
+        this.htmlFactory = htmlFactory;
         this.cofactorManager = cofactorManager;
         this.biomodelsDialog = biomodelsDialog;
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
@@ -210,7 +213,7 @@ public class WebViewPanel extends JFXPanel
     public void showSBaseInfo(Set<Object> objSet) {
         // starting threads for webservice calls
 
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
+        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this, htmlFactory);
         lastInformationThreadId = thread.getId();
         thread.start();
     }
@@ -307,7 +310,7 @@ public class WebViewPanel extends JFXPanel
         }
 
         // Update the information in separate thread
-        PanelUpdater updater = new PanelUpdater(this, network, sbmlManager);
+        PanelUpdater updater = new PanelUpdater(this, network, sbmlManager, htmlFactory);
         Thread t = new Thread(updater);
         t.start();
     }

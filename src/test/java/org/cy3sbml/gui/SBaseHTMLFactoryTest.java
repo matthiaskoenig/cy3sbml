@@ -12,6 +12,17 @@ import org.sbml.jsbml.xml.XMLTriple;
 class SBaseHTMLFactoryTest {
 
     @Test
+    void htmlTextHasBaseDirAndTitle() {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null);
+
+        String html = htmlFactory.createHTMLText("<p>text</p>", "Title");
+
+        assertTrue(html.contains("<base href=\"file:///app/gui/\" />"), html);
+        assertTrue(html.contains("<title>Title</title>"), html);
+        assertTrue(html.contains("<p>text</p>"), html);
+    }
+
+    @Test
     void nonRdfAnnotationShowsNonRdfElements() throws Exception {
         Species species = new Species("s1", 3, 1);
         species.getAnnotation()

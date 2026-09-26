@@ -88,6 +88,7 @@ public class CyActivator extends AbstractCyActivator {
             // store bundle information (for display of dependencies, versions, ...)
             File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
             System.setProperty("logfile.name", logFile.getAbsolutePath());
+
             logger = LoggerFactory.getLogger(CyActivator.class);
 
             logger.info("----------------------------");
@@ -109,15 +110,15 @@ public class CyActivator extends AbstractCyActivator {
             final ResourceExtractor resourceHandler = new ResourceExtractor(bc, appDirectory);
             resourceHandler.extract();
 
-            // Set baseDir for HTML generation
-            // allows the dynamical generated HTML to resolve the gui resources
-            SBaseHTMLFactory.setBaseDirFromAppDir(appDirectory);
-
-            // OLS, UniProt and ChEBI clients used to resolve identifiers for display
+            // HTML generation for SBases; the baseDir allows the dynamically generated HTML
+            // to resolve the gui resources, the OLS, UniProt and ChEBI clients resolve
+            // identifiers for display
             HttpJson httpJson = HttpJson.createDefault();
-            SBaseHTMLFactory.setOlsClient(new OlsClient(httpJson));
-            SBaseHTMLFactory.setUniprotAccess(new UniprotAccess(httpJson));
-            SBaseHTMLFactory.setChebiAccess(new ChebiAccess(httpJson));
+            SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                    SBaseHTMLFactory.baseDirFromAppDir(appDirectory),
+                    new OlsClient(httpJson),
+                    new UniprotAccess(httpJson),
+                    new ChebiAccess(httpJson));
 
             // cy3sbml properties
             PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
@@ -199,7 +200,8 @@ public class CyActivator extends AbstractCyActivator {
             BiomodelsDialog biomodelsDialog = new BiomodelsDialog(adapter);
 
             // panels
-            WebViewPanel webViewPanel = new WebViewPanel(adapter, sbmlManager, cofactorManager, biomodelsDialog);
+            WebViewPanel webViewPanel =
+                    new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());

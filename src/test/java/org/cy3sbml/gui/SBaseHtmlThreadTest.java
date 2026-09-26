@@ -7,7 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import javax.swing.tree.TreeNode;
 import org.cy3sbml.*;
+import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.HttpJson;
 import org.cy3sbml.util.SBMLUtil;
 import org.cy3sbml.util.filter.SBaseFilter;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,10 +38,18 @@ public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
 
+    private static SBaseHTMLFactory htmlFactory;
+
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         // Setup with local registry
         RegistryUtil.getMiriamContent();
+        HttpJson httpJson = HttpJson.createDefault();
+        htmlFactory = new SBaseHTMLFactory(
+                "file:///cy3sbml/gui/",
+                new OlsClient(httpJson),
+                new UniprotAccess(httpJson),
+                new ChebiAccess(httpJson));
     }
 
     @Test
@@ -48,7 +60,7 @@ public class SBaseHtmlThreadTest {
         Collection<Object> objSet = new HashSet<>();
         objSet.add(model);
         // starting threads for webservice calls
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel);
+        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel, htmlFactory);
 
         thread.start();
         thread.join();
@@ -113,7 +125,7 @@ public class SBaseHtmlThreadTest {
         for (TreeNode sbase : objects) {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
-            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
+            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel, htmlFactory);
             t1.start();
             t1.join();
             String html = t1.getInfo();

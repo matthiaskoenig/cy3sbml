@@ -17,28 +17,30 @@ import org.slf4j.LoggerFactory;
 public class PanelUpdater implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(PanelUpdater.class);
 
-    private static final String TEMPLATE_NO_SBML_NODE = SBaseHTMLFactory.createHTMLText(
-            "<h2>No information</h2>" + "<p>No SBML object registered for node in ObjectMapper.</p>"
-                    + "<p>Some nodes do not have SBase objects associated, e.g."
-                    + "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>"
-                    + "<p>Other examples are the base units like <code>dimensionless</code>"
-                    + "or <code>mole</code> which are not part of the model.</p>");
+    private static final String TEXT_NO_SBML_NODE = "<h2>No information</h2>"
+            + "<p>No SBML object registered for node in ObjectMapper.</p>"
+            + "<p>Some nodes do not have SBase objects associated, e.g. "
+            + "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>"
+            + "<p>Other examples are the base units like <code>dimensionless</code> "
+            + "or <code>mole</code> which are not part of the model.</p>";
 
-    private static final String TEMPLATE_LOAD_WEBSERVICE = SBaseHTMLFactory.createHTMLText(
-            "<h2>Web Services</h2>" + "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n"
-                    + "Loading information from WebServices ...</p>");
+    private static final String TEXT_LOAD_WEBSERVICE = "<h2>Web Services</h2>"
+            + "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n"
+            + "Loading information from WebServices ...</p>";
 
-    private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
-            "<h2>No information</h2>" + "<p>No SBMLDocument associated with the current network.</p>");
+    private static final String TEXT_NO_SBML =
+            "<h2>No information</h2>" + "<p>No SBMLDocument associated with the current network.</p>";
 
     private final InfoPanel panel;
     private final CyNetwork network;
     private final SBMLManager sbmlManager;
+    private final SBaseHTMLFactory htmlFactory;
 
-    public PanelUpdater(InfoPanel panel, CyNetwork network, SBMLManager sbmlManager) {
+    public PanelUpdater(InfoPanel panel, CyNetwork network, SBMLManager sbmlManager, SBaseHTMLFactory htmlFactory) {
         this.panel = panel;
         this.network = network;
         this.sbmlManager = sbmlManager;
+        this.htmlFactory = htmlFactory;
     }
 
     /**
@@ -56,7 +58,7 @@ public class PanelUpdater implements Runnable {
             updateSBMLPanel(document);
         } else {
             logger.debug("No SBMLDocument for current network: " + network);
-            panel.setText(TEMPLATE_NO_SBML);
+            panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML));
         }
     }
 
@@ -80,10 +82,10 @@ public class PanelUpdater implements Runnable {
             SBase sbase = sbmlManager.getSBaseByCyId(cyId);
 
             if (sbase != null) {
-                panel.setText(TEMPLATE_LOAD_WEBSERVICE);
+                panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
                 panel.showSBaseInfo(sbase);
             } else {
-                panel.setText(TEMPLATE_NO_SBML_NODE);
+                panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML_NODE));
             }
         } else {
             // show document/model information
