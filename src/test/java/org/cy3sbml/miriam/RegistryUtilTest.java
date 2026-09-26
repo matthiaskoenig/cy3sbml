@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 /**
  * Testing RegistryUtils.
  */
+@Tag("network")
 public class RegistryUtilTest {
     private static final Pattern IDENTIFIERS_ORG_PATTERN =
             Pattern.compile("https?://identifiers\\.org/[^\\s\"'>)]+");
