@@ -22,7 +22,7 @@ Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `Web
 - Tests are JUnit 6 + Mockito.
 - Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`.
 - `src/test/java/org/cy3sbml/oven/` holds experimental, non-regular tests.
-- Java formatting uses the IntelliJ formatter (see pre-commit hook in `docs/develop.md`).
+- Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/develop.md`.
 
 ### Running in Cytoscape
 

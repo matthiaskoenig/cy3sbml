@@ -103,11 +103,14 @@ git checkout develop
 ```
 
 ### Setup code formatting hook
-Add the following file `.git/hooks/pre-commit` linking to your idea installation
+Java formatting is enforced by Spotless (`palantir-java-format`), checked in CI by the
+`format` job. Add the following file `.git/hooks/pre-commit` (and make it executable
+with `chmod +x .git/hooks/pre-commit`) so staged Java files are formatted automatically
+before each commit:
 ```bash
 #!/bin/sh
 CHANGED_JAVA_SRC_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.java$')
-/home/mkoenig/Programs/idea-IU-252.25557.131/bin/format $CHANGED_JAVA_SRC_FILES
+./mvnw -q spotless:apply
 git add $CHANGED_JAVA_SRC_FILES
 ```
 
