@@ -35,4 +35,19 @@ public class BiomodelsQueryTest {
         List<String> biomodelIds = result.getBiomodelIdsFromSearch();
         assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);
     }
+
+    @Test
+    public void getBiomodelIdsFromSearch_skipsModelsWithoutId() {
+        String json = """
+                {"models": [
+                    {"id": "MODEL1204270001", "name": "with id"},
+                    {"name": "missing id"},
+                    {"id": "MODEL1209260000", "name": "with id"}
+                ]}
+                """;
+        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", 200, json);
+
+        List<String> biomodelIds = result.getBiomodelIdsFromSearch();
+        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);
+    }
 }

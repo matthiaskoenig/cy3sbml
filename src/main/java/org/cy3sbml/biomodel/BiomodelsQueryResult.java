@@ -67,11 +67,13 @@ public class BiomodelsQueryResult {
         List<String> biomodelIds = new ArrayList<>();
         if (jsonObject != null) {
 
-            // get biomodel identifiers
+            // get biomodel identifiers, skipping any model without an id
             JsonNode array = jsonObject.path("models");
             for (JsonNode model : array) {
                 String biomodelId = model.path("id").asText(null);
-                biomodelIds.add(biomodelId);
+                if (biomodelId != null) {
+                    biomodelIds.add(biomodelId);
+                }
             }
         }
         return biomodelIds;
