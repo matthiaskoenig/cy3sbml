@@ -557,7 +557,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
 
         // UnitDefinition //
         for (UnitDefinition ud : model.getListOfUnitDefinitions()) {
-            createUnitDefinitionGraph(context, ud);
+            UnitGraphBuilder.createUnitDefinitionGraph(context, ud);
         }
 
         // FunctionDefinition //
@@ -572,7 +572,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             // The objects of the FunctionDefinition ASTNode can have different naming conventions
             // than the objects, i.e. a lambda(x), does not mean that it is called with
             // an object x
-            // createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
+            // MathGraphBuilder.createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
         }
 
         // Compartment //
@@ -580,7 +580,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyNode n = context.createNode(compartment, SBML.NODETYPE_COMPARTMENT);
             AttributeWriter.setSymbolNodeAttributes(network, n, compartment);
             // edge to unit
-            createUnitEdge(context, n, compartment);
+            UnitGraphBuilder.createUnitEdge(context, n, compartment);
 
             if (compartment.isSetSpatialDimensions()) {
                 AttributeUtil.set(
@@ -596,7 +596,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyNode n = context.createNode(parameter, SBML.NODETYPE_PARAMETER);
             AttributeWriter.setSymbolNodeAttributes(network, n, parameter);
             // edge to unit
-            createUnitEdge(context, n, parameter);
+            UnitGraphBuilder.createUnitEdge(context, n, parameter);
         }
 
         // Species //
@@ -604,7 +604,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyNode n = context.createNode(species, SBML.NODETYPE_SPECIES);
             AttributeWriter.setSymbolNodeAttributes(network, n, species);
             // edge to unit
-            createUnitEdge(context, n, species);
+            UnitGraphBuilder.createUnitEdge(context, n, species);
 
             // edge to compartment
             if (species.isSetCompartment()) {
@@ -756,7 +756,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                         CyNode lpNode = context.createNode(lp, SBML.NODETYPE_LOCAL_PARAMETER);
                         AttributeWriter.setQuantityWithUnitAttributes(network, lpNode, lp);
                         // edge to unit
-                        createUnitEdge(context, lpNode, lp);
+                        UnitGraphBuilder.createUnitEdge(context, lpNode, lp);
 
                         // edge to law
                         context.createEdge(lpNode, lawNode, SBML.INTERACTION_LOCALPARAMETER_KINETICLAW);
@@ -768,7 +768,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                     // set math on reaction
                     AttributeUtil.set(
                             network, n, SBML.ATTR_KINETIC_LAW, law.getMath().toFormula(), String.class);
-                    createMathNetwork(context, law, lawNode, SBML.INTERACTION_REFERENCE_KINETICLAW);
+                    MathGraphBuilder.createMathNetwork(context, law, lawNode, SBML.INTERACTION_REFERENCE_KINETICLAW);
                 } else {
                     logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
                 }
@@ -798,7 +798,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                             variable, assignment));
                 }
                 // referenced nodes in math
-                createMathNetwork(context, assignment, assignmentNode, SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT);
+                MathGraphBuilder.createMathNetwork(
+                        context, assignment, assignmentNode, SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT);
 
             } else {
                 logger.error(String.format(
@@ -825,7 +826,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyNode n = context.createNode(rule, ruleType);
             AttributeWriter.setAbstractMathContainerNodeAttributes(network, n, rule);
             // referenced nodes in math
-            createMathNetwork(context, rule, n, SBML.INTERACTION_REFERENCE_RULE);
+            MathGraphBuilder.createMathNetwork(context, rule, n, SBML.INTERACTION_REFERENCE_RULE);
 
             String label = SBMLUtil.TEMPLATE_ALGEBRAIC_RULE;
             // edge to variable for rateRule and assignmentRule
@@ -883,15 +884,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             }
             // edge via trigger math
             if (event.isSetTrigger()) {
-                createMathNetwork(context, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
+                MathGraphBuilder.createMathNetwork(context, event.getTrigger(), n, SBML.INTERACTION_TRIGGER_EVENT);
             }
             // edge via priority math
             if (event.isSetPriority()) {
-                createMathNetwork(context, event.getPriority(), n, SBML.INTERACTION_PRIORITY_EVENT);
+                MathGraphBuilder.createMathNetwork(context, event.getPriority(), n, SBML.INTERACTION_PRIORITY_EVENT);
             }
             // edge via delay math
             if (event.isSetDelay()) {
-                createMathNetwork(context, event.getDelay(), n, SBML.INTERACTION_PRIORITY_EVENT);
+                MathGraphBuilder.createMathNetwork(context, event.getDelay(), n, SBML.INTERACTION_PRIORITY_EVENT);
             }
 
             for (EventAssignment ea : event.getListOfEventAssignments()) {
@@ -925,7 +926,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 }
 
                 // referenced nodes in math
-                createMathNetwork(context, ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
+                MathGraphBuilder.createMathNetwork(context, ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
             }
         }
     }
@@ -1620,105 +1621,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     ////////////////////////////////////////////////////////////////////////////
     // HELPER FUNCTIONS
     ////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Creates an edge to the unit for the quantity.
-     *
-     * @param q QuantityWithUnit
-     * @return edge if unit is available, null otherwise
-     */
-    private CyEdge createUnitEdge(ConversionContext context, CyNode n, QuantityWithUnit q) {
-        CyEdge e = null;
-
-        // edge to unit
-        if (q.isSetUnits()) {
-            // Every time a new unit instance is created for base units !
-            UnitDefinition ud = q.getUnitsInstance();
-            CyNode udNode = context.nodeByMetaId(ud.getMetaId()).orElse(null);
-            /*
-            The UnitDefinition instance which has the unitsID of this SBaseWithUnit as id.
-            Null if it doesn't exist. In case that the unit of this SBaseWithUnit represents
-            a base Unit, a new UnitDefinition will be created and returned by this method.
-            This new UnitDefinition will only contain the one unit represented by the unit
-            identifier in this SBaseWithUnit. Note that the corresponding model will not
-            contain this UnitDefinition. The identifier of this new UnitDefinition will
-            be set to the same value as the name of the base Unit.
-
-            I.e. in the case of a base unit we have to create the UnitDefinition node first.
-            */
-            if (ud != null && udNode == null) {
-                logger.debug("Base UnitDefinition encountered. Creating UnitDefinition graph: {}", ud);
-                String unitSid = ud.getId();
-                if (context.baseUnitDefinitions().containsKey(unitSid)) {
-                    // This base unit was encountered before and the network created
-                    ud = context.baseUnitDefinitions().get(unitSid);
-                } else {
-                    // The base unit must be stored for later lookup
-                    createUnitDefinitionGraph(context, ud);
-                    context.baseUnitDefinitions().put(unitSid, ud);
-                }
-                // get the unique node
-                udNode = context.nodeByMetaId(ud.getMetaId()).orElse(null);
-            }
-            // now the udNode should exist for sure
-            if (udNode != null) {
-                e = context.createEdge(n, udNode, SBML.INTERACTION_SBASE_UNITDEFINITION);
-            } else {
-                logger.error("UnitDefinition node not found for <{}>: {}", q, q.getId());
-            }
-        }
-        return e;
-    }
-
-    /**
-     * Creates the graph for a given UnitDefinition.
-     * This is used for all UnitDefinitions in the ListOfUnitDefinitions, but
-     * also for the UnitInstances of base units, which are not necessarily part
-     * of the ListOfUnits. For instance substanceUnits of species.
-     */
-    private void createUnitDefinitionGraph(ConversionContext context, UnitDefinition ud) {
-        CyNetwork network = context.network();
-        CyNode n = context.createNode(ud, SBML.NODETYPE_UNIT_DEFINITION);
-        AttributeWriter.setNamedSBaseAttributes(network, n, ud);
-
-        for (Unit unit : ud.getListOfUnits()) {
-            if (ud.isSetId() && unit.isSetKind()) {
-                CyNode uNode = context.createNode(unit, SBML.NODETYPE_UNIT);
-                AttributeWriter.setUnitAttributes(network, uNode, unit);
-
-                // edge to UnitDefinition
-                context.createEdge(uNode, n, SBML.INTERACTION_UNIT_UNITDEFINITION);
-            } else {
-                logger.warn("Unit could not be created due to missing UnitDefinition id or unit kind: {}", ud);
-            }
-        }
-    }
-
-    /**
-     * Creates math subgraph for given math container and node.
-     */
-    private void createMathNetwork(
-            ConversionContext context, AbstractMathContainer container, CyNode containerNode, String edgeType) {
-        CyNetwork network = context.network();
-        if (container.isSetMath()) {
-            ASTNode astNode = container.getMath();
-            AttributeUtil.set(network, containerNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
-
-            // Get the refenced objects in math.
-            // This can be parameters, localParameters, species, ...
-            // create edge if node exists
-            for (NamedSBase nsb : ASTNodeUtil.findReferencedNamedSBases(astNode)) {
-                CyNode nsbNode = context.nodeByMetaId(nsb.getMetaId()).orElse(null);
-
-                if (nsbNode != null) {
-                    context.createEdge(nsbNode, containerNode, edgeType);
-                } else {
-                    logger.warn("Node for metaId <" + nsb.getMetaId() + "> not found in math <" + astNode.toFormula()
-                            + ">");
-                }
-            }
-        }
-    }
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
