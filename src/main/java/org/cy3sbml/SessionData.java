@@ -12,12 +12,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.IOUtil;
+import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
@@ -44,11 +46,26 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     private static final String NETWORK2SBMLMAPPER_ID = "Network2SBMLMapper.ser";
     private static final String NETWORK2COFACTOR_ID = "Network2Cofactors.ser";
 
+    private final Consumer<Network2SBMLMapper> sbmlMapperConsumer;
+    private final Consumer<Network2CofactorMapper> cofactorMapperConsumer;
+
     /**
-     * Session data is locally saved in given directory.
-     * Normally this is the CytoscapeConfiguration/cy3sbml directory.
+     * Restores the loaded mappers in the SBMLManager and the CofactorManager.
      */
-    public SessionData() {}
+    public SessionData() {
+        this(
+                mapper -> SBMLManager.getInstance().setSBML2NetworkMapper(mapper),
+                mapper -> CofactorManager.getInstance().setNetwork2CofactorMapper(mapper));
+    }
+
+    /**
+     * Restores the loaded mappers with the given consumers.
+     */
+    SessionData(
+            Consumer<Network2SBMLMapper> sbmlMapperConsumer, Consumer<Network2CofactorMapper> cofactorMapperConsumer) {
+        this.sbmlMapperConsumer = sbmlMapperConsumer;
+        this.cofactorMapperConsumer = cofactorMapperConsumer;
+    }
 
     /**
      * Save session.
@@ -142,56 +159,61 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 
     /**
      * Load Session data for cy3sbml.
+     * <p>
+     * The listener is a boundary: a failure in one app file is logged and the
+     * remaining files are still restored.
      */
-    private static void loadSessionData(SessionLoadedEvent event) {
+    void loadSessionData(SessionLoadedEvent event) {
         CySession session = event.getLoadedSession();
-        // check if app files exist
-        if (session.getAppFileListMap() == null || session.getAppFileListMap().size() == 0) {
+        Map<String, List<File>> appFiles = session.getAppFileListMap();
+        List<File> files = appFiles == null ? null : appFiles.get(APP_ID);
+        if (files == null) {
             return;
         }
-
-        // iterate
-        List<File> files = event.getLoadedSession().getAppFileListMap().get(APP_ID);
         for (File f : files) {
-            String name = f.getName();
-            logger.debug("cy3sbml file in session: " + f.getName());
-            // deserialize documentMap
-            if (name.equals(NETWORK2SBMLMAPPER_ID)) {
-                logger.debug("Deserialize <Network2SBMLMapper>");
-
-                try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
-                    // read mapper
-                    Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
-                    // update suids in mapper & set in manager
-                    Network2SBMLMapper updatedMapper = updateSUIDsInMapper(session, mapper);
-                    SBMLManager sbmlManager = SBMLManager.getInstance();
-                    // set updated mapper
-                    sbmlManager.setSBML2NetworkMapper(updatedMapper);
-
-                } catch (IOException | ClassNotFoundException | ClassCastException e) {
-                    logger.error("Deserialization of Network2SBMLMapper failed.", e);
-                }
-            }
-
-            // deserialize
-            else if (name.equals(NETWORK2COFACTOR_ID)) {
-                logger.debug("Deserialize <Network2CofactorMapper>");
-
-                try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
-                    // read mapper
-                    Network2CofactorMapper m = (Network2CofactorMapper) input.readObject();
-                    CofactorManager cofactorManager = CofactorManager.getInstance();
-
-                    // update suids in mapper & set in manager
-                    Network2CofactorMapper updatedMapper = updateSUIDsInCofactorMapper(session, m);
-                    // set updated mapper
-                    cofactorManager.setNetwork2CofactorMapper(updatedMapper);
-
-                } catch (IOException | ClassNotFoundException | ClassCastException e) {
-                    logger.error("Deserialization of Network2CofactorMapper failed.", e);
-                }
+            logger.debug("cy3sbml file in session: {}", f.getName());
+            try {
+                loadAppFile(session, f);
+            } catch (RuntimeException e) {
+                logger.error("Could not restore the session file: {}", f.getName(), e);
             }
         }
+    }
+
+    private void loadAppFile(CySession session, File f) {
+        String name = f.getName();
+        if (name.equals(NETWORK2SBMLMAPPER_ID)) {
+            logger.debug("Deserialize <Network2SBMLMapper>");
+            try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
+                Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
+                sbmlMapperConsumer.accept(updateSUIDsInMapper(session, mapper));
+            } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                logger.error("Deserialization of Network2SBMLMapper failed.", e);
+            }
+        } else if (name.equals(NETWORK2COFACTOR_ID)) {
+            logger.debug("Deserialize <Network2CofactorMapper>");
+            try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
+                Network2CofactorMapper mapper = (Network2CofactorMapper) input.readObject();
+                cofactorMapperConsumer.accept(updateSUIDsInCofactorMapper(session, mapper));
+            } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                logger.error("Deserialization of Network2CofactorMapper failed.", e);
+            }
+        }
+    }
+
+    /**
+     * Returns the SUID of the object in the loaded session for the SUID it had
+     * when the session was saved, or null if the object no longer exists
+     * (e.g. a node deleted after the import).
+     */
+    private static <T extends CyIdentifiable> Long newSUID(CySession s, Long oldSUID, Class<T> type) {
+        T object = s.getObject(oldSUID, type);
+        if (object == null) {
+            logger.warn(
+                    "{} with SUID {} not found in the loaded session, mapping skipped", type.getSimpleName(), oldSUID);
+            return null;
+        }
+        return object.getSUID();
     }
 
     /**
@@ -199,27 +221,27 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
      * <p>
      * SUIDs are not persistent across sessions.
      * Consequently the mappings have to be updated.
-     * <p>
-     * The network, node and edge SUIDs can be updated via:
-     * Long newSUID = s.getObjectByCyId(oldSUID, CyIdentifiable.class).getSUID();
+     * SUIDs of networks and nodes that no longer exist are skipped.
      */
-    private static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m) {
-        // mapper with updated SUIDS
+    static Network2SBMLMapper updateSUIDsInMapper(CySession s, Network2SBMLMapper m) {
         Network2SBMLMapper newM = new Network2SBMLMapper();
 
-        // documentMap
         Map<Long, SBMLDocument> documentMap = m.getDocumentMap();
         for (Long networkSuid : documentMap.keySet()) {
-            Long newNetworkSuid = s.getObject(networkSuid, CyNetwork.class).getSUID();
+            Long newNetworkSuid = newSUID(s, networkSuid, CyNetwork.class);
+            if (newNetworkSuid == null) {
+                continue;
+            }
             SBMLDocument doc = documentMap.get(networkSuid);
             One2ManyMapping<String, Long> nsb2node = m.getSBase2CyNodeMapping(networkSuid);
 
-            // replace keys in nsb2node mapping
-            One2ManyMapping<String, Long> newNsb2node = new One2ManyMapping<String, Long>();
+            One2ManyMapping<String, Long> newNsb2node = new One2ManyMapping<>();
             for (String key : nsb2node.keySet()) {
                 for (Long suid : nsb2node.getValues(key)) {
-                    Long newSuid = s.getObject(suid, CyNode.class).getSUID();
-                    newNsb2node.put(key, newSuid);
+                    Long newSuid = newSUID(s, suid, CyNode.class);
+                    if (newSuid != null) {
+                        newNsb2node.put(key, newSuid);
+                    }
                 }
             }
             newM.putDocument(newNetworkSuid, doc, newNsb2node);
@@ -228,30 +250,30 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     }
 
     /**
-     * Updates the changed SUIDs in the data structure.
+     * Updates the changed SUIDs in the cofactor data structure.
      * <p>
-     * SUIDs are not persistent across sessions.
-     * Consequently the mappings have to be updated.
-     * <p>
-     * The network, node and edge SUIDs can be updated via:
-     * Long newSUID = s.getObjectByCyId(oldSUID, CyIdentifiable.class).getSUID();
+     * SUIDs of networks and nodes that no longer exist are skipped.
      */
-    private static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m) {
+    static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m) {
         logger.debug("Update SUIDs in Network2CofactorMapper");
-        // mapper with updated SUIDS
         Network2CofactorMapper newM = new Network2CofactorMapper();
 
-        // update all network & node SUIDs
         for (Long networkSUID : m.keySet()) {
-            Long newNetworkSUID = s.getObject(networkSUID, CyNetwork.class).getSUID();
+            Long newNetworkSUID = newSUID(s, networkSUID, CyNetwork.class);
+            if (newNetworkSUID == null) {
+                continue;
+            }
             One2ManyMapping<Long, Long> cofactor2clones = m.getCofactor2CloneMapping(networkSUID);
             for (Long cofactorSUID : cofactor2clones.keySet()) {
-                // update cofactor SUID
-                Long newCofactorSUID = s.getObject(cofactorSUID, CyNode.class).getSUID();
+                Long newCofactorSUID = newSUID(s, cofactorSUID, CyNode.class);
+                if (newCofactorSUID == null) {
+                    continue;
+                }
                 for (Long cloneSUID : cofactor2clones.getValues(cofactorSUID)) {
-                    // update clone SUID
-                    Long newCloneSUID = s.getObject(cloneSUID, CyNode.class).getSUID();
-                    newM.put(newNetworkSUID, newCofactorSUID, newCloneSUID);
+                    Long newCloneSUID = newSUID(s, cloneSUID, CyNode.class);
+                    if (newCloneSUID != null) {
+                        newM.put(newNetworkSUID, newCofactorSUID, newCloneSUID);
+                    }
                 }
             }
         }
