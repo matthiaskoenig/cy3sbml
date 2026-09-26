@@ -85,10 +85,9 @@ public class Network2SBMLMapper implements Serializable {
      * Exists a SBMLDocument for the given rootNetwork.
      *
      * @param rootSUID root network SUID
-     * @return
      */
     public boolean containsDocument(Long rootSUID) {
-        return (documentMap.containsKey(rootSUID));
+        return documentMap.containsKey(rootSUID);
     }
 
     /**
@@ -102,8 +101,6 @@ public class Network2SBMLMapper implements Serializable {
 
     /**
      * Get DocumentMap.
-     *
-     * @return
      */
     public Map<Long, SBMLDocument> getDocumentMap() {
         return documentMap;
@@ -113,7 +110,6 @@ public class Network2SBMLMapper implements Serializable {
      * Mapping
      *
      * @param rootSUID root network SUID
-     * @return
      */
     public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID) {
         if (rootSUID == null) {
@@ -127,7 +123,6 @@ public class Network2SBMLMapper implements Serializable {
      * Mapping
      *
      * @param rootSUID root network SUID
-     * @return
      */
     public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID) {
         if (rootSUID == null) {
@@ -139,9 +134,8 @@ public class Network2SBMLMapper implements Serializable {
 
     /**
      * Creates information string.
-     *
-     * @return
      */
+    @Override
     public String toString() {
         String info = "\n--- SBML2NetworkMapping ---\n";
         for (Long key : documentMap.keySet()) {

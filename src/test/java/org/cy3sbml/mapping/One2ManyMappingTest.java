@@ -2,8 +2,7 @@ package org.cy3sbml.mapping;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
@@ -65,7 +64,7 @@ public class One2ManyMappingTest {
         map.put("id1", Long.valueOf(10));
         map.put("id1", Long.valueOf(20));
         map.put("id1", Long.valueOf(30));
-        HashSet<Long> values = map.getValues("id1");
+        Set<Long> values = map.getValues("id1");
         assertEquals(values.size(), 3);
         values = map.getValues("id2");
         assertEquals(values.size(), 0);
@@ -80,11 +79,11 @@ public class One2ManyMappingTest {
         map.put("id2", Long.valueOf(-20));
         map.put("id2", Long.valueOf(-30));
 
-        List<String> keys = new LinkedList<String>();
+        List<String> keys = new ArrayList<String>();
         keys.add("id1");
         keys.add("id2");
 
-        HashSet<Long> values = map.getValues(keys);
+        Set<Long> values = map.getValues(keys);
         assertEquals(values.size(), 6);
     }
 

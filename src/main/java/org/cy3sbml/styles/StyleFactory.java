@@ -3,7 +3,7 @@ package org.cy3sbml.styles;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
@@ -41,7 +41,6 @@ public class StyleFactory {
     public static void createStyle(StyleInfo info, File file) {
 
         // read template
-        String template = info.getTemplate();
         String name = info.getName();
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
@@ -69,7 +68,6 @@ public class StyleFactory {
                         Element evp = (Element) nvp;
                         String vpName = evp.getAttribute("name");
                         // found correct property
-                        String propertyName = m.getVisualProperty().toString();
 
                         if (vpName.equals(m.getVisualProperty().toString())) {
                             // set default
@@ -109,9 +107,6 @@ public class StyleFactory {
                                 // TODO: implement
                                 System.out.println("Continous mapping not supported.");
                             }
-
-                        } else {
-                            continue;
                         }
                     }
                 }
@@ -134,12 +129,11 @@ public class StyleFactory {
      * This creates/updates the styles based on the current settings in SBML.java.
      * <p>
      * For the installation
-     *
      */
     public static void main(String[] args) {
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
 
-        List<StyleInfo> styleInfos = new LinkedList<>();
+        List<StyleInfo> styleInfos = new ArrayList<>();
         styleInfos.add(new StyleInfo_cy3sbml()); // cy3sbml
         styleInfos.add(new StyleInfo_cy3sbmlDark()); // cy3sbml-dark
         for (StyleInfo info : styleInfos) {

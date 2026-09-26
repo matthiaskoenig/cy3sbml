@@ -42,22 +42,4 @@ public class HtmlTemplateParser {
 
         return sections;
     }
-
-    public static void main(String[] args) {
-        String htmlTemplate = "<!DOCTYPE html>\n" + "<!-- UNIPROT_LINK -->\n"
-                + "<a href=\"{BASE_URL}\"><img src=\"./images/logos/uniprot_icon.png\"/></a>\n"
-                + "<!-- /UNIPROT_LINK -->\n"
-                + "\n"
-                + "<!-- FUNCTION_COMMENT -->\n"
-                + "<span class=\"comment\">Function</span> {COMMENT_TEXT}<br/>\n"
-                + "<!-- /FUNCTION_COMMENT -->";
-
-        Map<String, String> templateMap = parseTemplateSections(htmlTemplate);
-
-        //        templateMap.forEach((key, value) -> {
-        //            System.out.println("[" + key + "]");
-        //            System.out.println(value);
-        //            System.out.println();
-        //        });
-    }
 }

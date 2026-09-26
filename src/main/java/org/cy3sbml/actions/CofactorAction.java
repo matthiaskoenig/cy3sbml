@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * Handle clones of network nodes for better visualization.
  * This allows to clone a selected set of nodes.
  */
-public class CofactorAction extends AbstractCyAction implements SetCurrentNetworkListener {
+public final class CofactorAction extends AbstractCyAction implements SetCurrentNetworkListener {
     private static final Logger logger = LoggerFactory.getLogger(CofactorAction.class);
     private static final long serialVersionUID = 1L;
     private ServiceAdapter adapter;
@@ -58,8 +58,6 @@ public class CofactorAction extends AbstractCyAction implements SetCurrentNetwor
 
     /**
      * Performs the cofactor action.
-     *
-     * @param adapter
      */
     public static void runCofactorAction(ServiceAdapter adapter) {
         // Get the current network via the service adapter

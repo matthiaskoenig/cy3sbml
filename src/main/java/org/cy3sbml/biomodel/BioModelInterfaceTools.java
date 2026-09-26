@@ -1,7 +1,6 @@
 package org.cy3sbml.biomodel;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -15,7 +14,7 @@ public class BioModelInterfaceTools {
     public static String getHTMLInformationForSimpleModels(List<String> modelIds, List<String> selectedSimpleModels)
             throws IOException, ExecutionException, InterruptedException {
         String info = "";
-        ArrayList<Biomodel> biomodelArrayList = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
+        List<Biomodel> biomodelArrayList = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
         ;
         for (int i = 0; i < modelIds.size(); i++) {
             String modelId = modelIds.get(i);
@@ -48,7 +47,7 @@ public class BioModelInterfaceTools {
         } else {
             info = "<table><tr><td>&nbsp;&nbsp;&nbsp;<td><td>";
         }
-        info += createHTMLTableHeader(selected) + createHTMLTableRow("ID", id)
+        info += createHTMLTableHeader() + createHTMLTableRow("ID", id)
                 + createHTMLTableRow("Submission ID", submissionIdentifier)
                 + createHTMLTableRow("Name", name)
                 + createHTMLTableRow("Description", description.toString())
@@ -63,7 +62,7 @@ public class BioModelInterfaceTools {
         return info;
     }
 
-    private static String createHTMLTableHeader(boolean selected) {
+    private static String createHTMLTableHeader() {
         String border = "0";
         String header = String.format("<table border=%s>", border);
         return header;

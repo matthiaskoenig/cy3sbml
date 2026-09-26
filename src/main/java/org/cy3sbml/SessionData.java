@@ -10,7 +10,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.xml.stream.XMLStreamException;
@@ -54,6 +54,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     /**
      * Save session.
      */
+    @Override
     public void handleEvent(SessionAboutToBeSavedEvent event) {
         saveSessionData(event);
     }
@@ -61,6 +62,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     /**
      * Load Session.
      */
+    @Override
     public void handleEvent(SessionLoadedEvent event) {
         loadSessionData(event);
     }
@@ -81,7 +83,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         }
 
         // Files to save
-        List<File> files = new LinkedList<>();
+        List<File> files = new ArrayList<>();
 
         // get SBMLManager for serialization
         SBMLManager sbmlManager = SBMLManager.getInstance();
@@ -96,7 +98,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             // use SUID if no model id is set
             String sbmlId = rootSUID.toString();
             Model model = doc.getModel();
-            if ((model != null) && (model.isSetId())) {
+            if ((model != null) && model.isSetId()) {
                 sbmlId = model.getId();
             }
 

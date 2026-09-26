@@ -2,7 +2,6 @@ package org.cy3sbml;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.net.Proxy.Type;
 import java.util.Properties;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedEvent;
@@ -42,14 +41,15 @@ public class ConnectionProxy implements PropertyUpdatedListener {
 
         try {
             int port = Integer.parseInt(portString);
-            Type type = null;
+            Proxy.Type type = null;
 
-            if ("http".equals(proxyType)) type = Type.HTTP;
-            if ("socks".equals(proxyType)) type = Type.SOCKS;
+            if ("http".equals(proxyType)) type = Proxy.Type.HTTP;
+            if ("socks".equals(proxyType)) type = Proxy.Type.SOCKS;
             if (type == null) return Proxy.NO_PROXY;
 
             return new Proxy(type, new InetSocketAddress(hostName, port));
         } catch (NumberFormatException e) {
+            logger.warn("Invalid proxy port, no proxy used", e);
         }
         return Proxy.NO_PROXY;
     }

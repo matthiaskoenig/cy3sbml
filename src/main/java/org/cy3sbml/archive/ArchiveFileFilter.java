@@ -35,8 +35,6 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
      * Indicates which URI the FileFilter accepts.
      *
      * @param uri      URI to check
-     * @param category
-     * @return
      */
     @Override
     public boolean accepts(URI uri, DataCategory category) {
@@ -57,10 +55,6 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
 
     /**
      * Indicates which streams the FileFilter accepts.
-     *
-     * @param stream
-     * @param category
-     * @return
      */
     @Override
     public boolean accepts(InputStream stream, DataCategory category) {
@@ -94,7 +88,6 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
      * }
      *
      * @param in the input stream to test.
-     * @return
      */
     public static boolean isZipStream(InputStream in) {
         // boolean isZipped = new ZipInputStream(stream).getNextEntry() != null;

@@ -62,15 +62,6 @@ public class RegistryUtil {
     }
 
     /**
-     * Load the registry from the resources.
-     */
-
-    /**
-     * Only update MIRIAM if newer version is available.
-     * Check last modified and use for update.
-     */
-
-    /**
      * Updates the MIRIAM registry file.
      * Downloads json from MIRIAM and saves in file.
      *
@@ -101,7 +92,7 @@ public class RegistryUtil {
 
             result = RegistryUtil.loadRegistry(f);
         } catch (IOException e) {
-
+            logger.error("Could not update the MIRIAM registry", e);
         }
         return result;
     }
@@ -198,7 +189,7 @@ public class RegistryUtil {
         }
 
         List<String> segments = new ArrayList<>();
-        for (String segment : path.split("/")) {
+        for (String segment : path.split("/", -1)) {
             if (!segment.isEmpty()) {
                 segments.add(segment);
             }

@@ -1,8 +1,8 @@
 package org.cy3sbml.cofactors;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.cy3sbml.SBML;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.AttributeUtil;
@@ -92,7 +92,7 @@ public class CofactorManager {
         // Is it a clone node
         if (clone2cofactors.containsKey(nodeSUID)) {
             // get the cofactor
-            Long cofactorSUID = (clone2cofactors.getValues(nodeSUID)).iterator().next();
+            Long cofactorSUID = clone2cofactors.getValues(nodeSUID).iterator().next();
             // retrieve node from root network
             CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
             node = rootNetwork.getNode(cofactorSUID);
@@ -130,9 +130,9 @@ public class CofactorManager {
             CyNode source = edge.getSource();
             CyNode target = edge.getTarget();
             CyEdge edgeClone = null;
-            if (source.getSUID() == cofactor.getSUID()) {
+            if (source.getSUID().equals(cofactor.getSUID())) {
                 edgeClone = network.addEdge(clone, target, edge.isDirected());
-            } else if (target.getSUID() == cofactor.getSUID()) {
+            } else if (target.getSUID().equals(cofactor.getSUID())) {
                 edgeClone = network.addEdge(source, clone, edge.isDirected());
             }
             AttributeUtil.copyEdgeAttributes(network, edge, edgeClone);
@@ -151,7 +151,7 @@ public class CofactorManager {
      */
     private void mergeCofactorClones(CyNetwork network, CyNode cofactor) {
         // get clone ids
-        HashSet<Long> cloneSUIDs =
+        Set<Long> cloneSUIDs =
                 mapper.getCofactor2CloneMapping(network.getSUID()).getValues(cofactor.getSUID());
         for (Long cloneSUID : cloneSUIDs) {
             List<CyEdge> edges = network.getAdjacentEdgeList(cofactor, CyEdge.Type.ANY);
@@ -197,6 +197,7 @@ public class CofactorManager {
     /**
      * String representation.
      */
+    @Override
     public String toString() {
         return mapper.toString();
     }

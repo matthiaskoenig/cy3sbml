@@ -150,6 +150,7 @@ public class BiomodelsDialog extends JDialog {
         panel.add(loadIdsButton);
 
         loadIdsButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 loadBioModelByIdsAndDisposeDialog();
             }
@@ -160,6 +161,7 @@ public class BiomodelsDialog extends JDialog {
         parseIdsButton.setBounds(33, 821, 102, 25);
         panel.add(parseIdsButton);
         parseIdsButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
                     parseBioModelByIds();
@@ -179,6 +181,7 @@ public class BiomodelsDialog extends JDialog {
         searchButton.setBounds(33, 203, 102, 25);
         panel.add(searchButton);
         searchButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
                     searchBioModels();
@@ -194,6 +197,7 @@ public class BiomodelsDialog extends JDialog {
         resetButton.setBounds(170, 203, 102, 25);
         panel.add(resetButton);
         resetButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 resetFields();
             }
@@ -206,6 +210,7 @@ public class BiomodelsDialog extends JDialog {
         loadSelectedButton.setEnabled(false);
         panel.add(loadSelectedButton);
         loadSelectedButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 loadSelectedBioModelsAndDisposeDialog();
             }
@@ -222,6 +227,7 @@ public class BiomodelsDialog extends JDialog {
         biomodelsList.setToolTipText("Search results, select for information.");
 
         biomodelsList.addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent arg0) {
                 // activate load button & get information for selection
                 if (biomodelsList.isSelectionEmpty()) {
@@ -250,6 +256,7 @@ public class BiomodelsDialog extends JDialog {
         infoPane.setEditable(false);
         infoPane.setText(BioModelDialogText.getInfo());
         infoPane.addHyperlinkListener(new HyperlinkListener() {
+            @Override
             public void hyperlinkUpdate(HyperlinkEvent evt) {
                 URL url = evt.getURL();
                 if (url != null) {
@@ -276,11 +283,13 @@ public class BiomodelsDialog extends JDialog {
         chckbxOR.setBounds(188, 172, 61, 23);
         panel.add(chckbxOR);
         chckbxAND.addChangeListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent arg0) {
                 chckbxOR.setSelected(!chckbxAND.isSelected());
             }
         });
         chckbxOR.addChangeListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent arg0) {
                 chckbxAND.setSelected(!chckbxOR.isSelected());
             }
@@ -348,7 +357,7 @@ public class BiomodelsDialog extends JDialog {
         searchBioModel.searchBioModels(searchContent);
 
         // Has to be done in task
-        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
+        updateBioModelListAndInformationAfterSearch(SearchBioModel.getModelIds());
     }
 
     public SearchContent getSearchContent() {
@@ -362,7 +371,7 @@ public class BiomodelsDialog extends JDialog {
 
         map.put(SearchContent.CONTENT_MODE, mode);
 
-        return (new SearchContent(map));
+        return new SearchContent(map);
     }
 
     /// ////// UPDATE GUI ////////////
@@ -383,10 +392,12 @@ public class BiomodelsDialog extends JDialog {
         biomodelsList.setModel(new AbstractListModel() {
             List<String> values = modelIds;
 
+            @Override
             public int getSize() {
                 return values.size();
             }
 
+            @Override
             public Object getElementAt(int index) {
                 return values.get(index);
             }
@@ -405,11 +416,13 @@ public class BiomodelsDialog extends JDialog {
         try {
             infoPane.setCaretPosition(caretPosition);
         } catch (java.lang.IllegalArgumentException e) {
+            logger.debug("Could not restore the caret position", e);
         }
 
         infoScrollPane.getViewport().setLocation(location);
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 infoScrollPane.getVerticalScrollBar().setValue(scrollPosition);
             }
@@ -458,7 +471,7 @@ public class BiomodelsDialog extends JDialog {
         idTextArea.setText(newText);
         searchBioModel.getBioModelsByParsedIds(ids);
 
-        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
+        updateBioModelListAndInformationAfterSearch(SearchBioModel.getModelIds());
     }
 
     /**

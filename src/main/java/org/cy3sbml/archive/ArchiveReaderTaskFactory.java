@@ -41,10 +41,6 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
 
     /**
      * Create the TaskIterator.
-     *
-     * @param inputStream
-     * @param inputName
-     * @return
      */
     @Override
     public TaskIterator createTaskIterator(InputStream inputStream, String inputName) {

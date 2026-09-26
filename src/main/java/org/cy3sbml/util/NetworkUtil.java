@@ -55,10 +55,6 @@ public class NetworkUtil {
     /**
      * Returns the network which starts with a given SubNetwork prefix.
      * Returns null if no such network exists.
-     *
-     * @param networks
-     * @param prefixSubnetwork
-     * @return
      */
     public static CyNetwork getNetworkBySubNetworkPrefix(CyNetwork[] networks, String prefixSubnetwork) {
         CyNetwork network = null;
@@ -78,9 +74,6 @@ public class NetworkUtil {
 
     /**
      * Select node by metaId.
-     *
-     * @param network
-     * @param metaId
      */
     public static void selectByMetaId(CyNetwork network, String metaId) {
         logger.info(String.format("Select node for metaId: %s", metaId));
@@ -91,9 +84,6 @@ public class NetworkUtil {
 
     /**
      * Select node by id.
-     *
-     * @param network
-     * @param id
      */
     public static void selectById(CyNetwork network, String id) {
         logger.info(String.format("Select node for id: %s", id));
@@ -104,9 +94,6 @@ public class NetworkUtil {
     /**
      * Selects given node in network.
      * Unselects all other nodes.
-     *
-     * @param network
-     * @param node
      */
     public static void selectNodeInNetwork(CyNetwork network, CyNode node) {
         if (node != null) {

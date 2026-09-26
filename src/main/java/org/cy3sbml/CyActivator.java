@@ -8,7 +8,6 @@ import java.util.Properties;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
 import org.cy3sbml.chebi.ChebiAccess;
-import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.RegistryUtil;
@@ -69,6 +68,7 @@ public class CyActivator extends AbstractCyActivator {
     /**
      * Starts the cy3sbml OSGI bundle.
      */
+    @Override
     public void start(BundleContext bc) {
         try {
             BundleInformation bundleInfo = new BundleInformation(bc);
@@ -123,7 +123,7 @@ public class CyActivator extends AbstractCyActivator {
             propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
             registerAllServices(bc, propsReader, propsReaderServiceProps);
 
-            /** Get services */
+            /* Get services */
             CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
 
             CyApplicationManager cyApplicationManager = getService(bc, CyApplicationManager.class);
@@ -157,7 +157,7 @@ public class CyActivator extends AbstractCyActivator {
             ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
             connectionProxy.setSystemProxyFromCyProperties();
 
-            /** Create ServiceAdapter */
+            /* Create ServiceAdapter */
             ServiceAdapter adapter = ServiceAdapter.getInstance(
                     cySwingApplication,
                     cyApplicationManager,
@@ -192,7 +192,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
             // Cofactor manager
-            CofactorManager cofactorManager = CofactorManager.getInstance();
 
             // panels
             WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
@@ -272,12 +271,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
             //  Update and load registry
-            Thread miriamThread = new Thread(new Runnable() {
-                public void run() {
-                    RegistryUtil.getMiriamContent();
-                }
-            });
-            miriamThread.run();
+            RegistryUtil.getMiriamContent();
 
             // cy3sbml panels
             webViewPanel.activate();

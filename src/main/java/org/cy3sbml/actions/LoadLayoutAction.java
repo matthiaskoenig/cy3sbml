@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Load node positions from file.
  */
-public class LoadLayoutAction extends AbstractCyAction {
+public final class LoadLayoutAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(LoadLayoutAction.class);
     private static final long serialVersionUID = 1L;
 

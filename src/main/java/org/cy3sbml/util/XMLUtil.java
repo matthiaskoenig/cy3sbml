@@ -28,7 +28,6 @@ public class XMLUtil {
      * Convert XML String to html string.
      */
     public static String xml2Html(String xml) {
-        String html = null;
         Document doc = XMLUtil.readXMLString(xml);
         if (doc != null) {
             String xmlTidy = XMLUtil.writeNodeToTidyString(doc);
@@ -37,7 +36,7 @@ public class XMLUtil {
             }
         }
         // escape the rest, i.e. things like < and >
-        html = StringEscapeUtils.escapeHtml4(xml);
+        String html = StringEscapeUtils.escapeHtml4(xml);
 
         // keep formating in html
         // Not working due to escaping of the respective tags

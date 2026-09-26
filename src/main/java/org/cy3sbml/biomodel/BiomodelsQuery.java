@@ -15,14 +15,11 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * UniRest based REST queries for biomodels.
  */
 public class BiomodelsQuery {
-    private static Logger logger = LoggerFactory.getLogger(BiomodelsQuery.class);
     public static final String BIOMODELS_RESTFUL_URL = "https://www.ebi.ac.uk/biomodels/";
     public static final String BIOMODELS_SEARCH = "search";
     public static final String BIOMODELS_BIOMODEL = "?format=json";
@@ -48,9 +45,6 @@ public class BiomodelsQuery {
 
     /**
      * Run a biomodels query.
-     *
-     * @param query
-     * @return
      */
     public static BiomodelsQueryResult performSearchQuery(String query) throws IOException, InterruptedException {
         // TODO: handle the more complex cases, i.e. if there is pagination, than
@@ -83,9 +77,6 @@ public class BiomodelsQuery {
 
     /**
      * Get information for given biomodel.
-     *
-     * @param biomodelId
-     * @return
      */
     public static CompletableFuture<Biomodel> performBiomodelQuery(String biomodelId)
             throws IOException, InterruptedException {
@@ -118,7 +109,6 @@ public class BiomodelsQuery {
     public static String getBioModelSBMLById(String id) throws IOException, InterruptedException {
 
         String sbml = "";
-        long start = System.currentTimeMillis();
         HttpResponse<String> sbmlResponse = getSBMLResponse(BIOMODELS_RESTFUL_URL, "model/download/", id);
         if (sbmlResponse.statusCode() == 200) {
             // The response body contains the SBML XML content

@@ -51,9 +51,7 @@ public class StyleManager implements SessionLoadedListener {
             InputStream styleStream = getClass().getResourceAsStream(resource);
             // Check if already existing
             VisualStyle style = getVisualStyleByName(vmm, styleName);
-            if (styleName.equals(style.getTitle())) {
-                continue;
-            } else {
+            if (!styleName.equals(style.getTitle())) {
                 loadVizmapFileTaskFactory.loadStyles(styleStream);
             }
         }

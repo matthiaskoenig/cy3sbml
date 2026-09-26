@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Loads the example HTML page.
  */
-public class ExamplesAction extends AbstractCyAction {
+public final class ExamplesAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
     private static final long serialVersionUID = 1L;
 

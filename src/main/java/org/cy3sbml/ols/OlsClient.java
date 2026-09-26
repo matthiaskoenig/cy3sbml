@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,9 +53,9 @@ public final class OlsClient {
         }
         String prefix = matcher.group(1);
         String local = matcher.group(2);
-        String oboId = prefix.toUpperCase() + ":" + local;
+        String oboId = prefix.toUpperCase(Locale.ROOT) + ":" + local;
 
-        URI uri = URI.create(OLS_BASE_URL + prefix.toLowerCase() + "/terms?obo_id="
+        URI uri = URI.create(OLS_BASE_URL + prefix.toLowerCase(Locale.ROOT) + "/terms?obo_id="
                 + URLEncoder.encode(oboId, StandardCharsets.UTF_8));
 
         return http.get(uri).flatMap(json -> parseTerm(json, prefix));
@@ -74,7 +75,7 @@ public final class OlsClient {
         }
         String ontologyName = term.path("ontology_name").asText(null);
         if (ontologyName == null) {
-            ontologyName = prefix.toLowerCase();
+            ontologyName = prefix.toLowerCase(Locale.ROOT);
         }
         return Optional.of(new OlsTerm(
                 iri,

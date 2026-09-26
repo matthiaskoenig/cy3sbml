@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Importing SBML networks..
  */
-public class ImportAction extends AbstractCyAction {
+public final class ImportAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
     private static final long serialVersionUID = 1L;
     private ServiceAdapter adapter;

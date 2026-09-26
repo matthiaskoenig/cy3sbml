@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import org.cytoscape.io.BasicCyFileFilter;
 import org.cytoscape.io.DataCategory;
 import org.cytoscape.io.util.StreamUtil;
@@ -74,7 +75,7 @@ public class SBMLFileFilter extends BasicCyFileFilter {
      * Checks if the header contains the SBML namespace definition.
      */
     private boolean checkHeader(InputStream stream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
         int linesToCheck = DEFAULT_LINES_TO_CHECK;
         while (linesToCheck > 0) {
             String line = reader.readLine();

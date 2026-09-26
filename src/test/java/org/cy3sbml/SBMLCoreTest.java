@@ -9,16 +9,12 @@ import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.*;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.JSBML;
-import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Test reading of SBML core model.
  */
 public class SBMLCoreTest {
-    private static final Logger logger = LoggerFactory.getLogger(SBMLCoreTest.class);
 
     public static final String TEST_MODEL_CORE_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
     public static final String TEST_MODEL_CORE_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "galactose.xml";
@@ -27,24 +23,18 @@ public class SBMLCoreTest {
     /**
      * Load the given model resource.
      */
-    private void loadModel(String resource) {
+    private void loadModel(String resource) throws Exception {
         InputStream instream = getClass().getResourceAsStream(resource);
-        try {
-            String xml = IOUtil.inputStream2String(instream);
-            SBMLDocument document = JSBML.readSBMLFromString(xml);
-            @SuppressWarnings("unused")
-            Model model = document.getModel();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String xml = IOUtil.inputStream2String(instream);
+        SBMLDocument document = JSBML.readSBMLFromString(xml);
+        assertNotNull(document.getModel());
     }
 
     /**
      * Test if model can be read with JSBML.
      */
     @Test
-    public void testModelLoading_01() {
+    public void testModelLoading_01() throws Exception {
         loadModel(TEST_MODEL_CORE_01);
     }
 
@@ -53,7 +43,7 @@ public class SBMLCoreTest {
      * Tests for InitialAssignments and Rules.
      */
     @Test
-    public void testModelLoading_02() {
+    public void testModelLoading_02() throws Exception {
         loadModel(TEST_MODEL_CORE_02);
     }
 
@@ -62,7 +52,7 @@ public class SBMLCoreTest {
      * Tests for LocalParameters.
      */
     @Test
-    public void testModelLoading_03() {
+    public void testModelLoading_03() throws Exception {
         loadModel(TEST_MODEL_CORE_03);
     }
 

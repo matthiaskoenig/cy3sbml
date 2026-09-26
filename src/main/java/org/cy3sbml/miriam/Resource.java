@@ -4,7 +4,6 @@ import static org.cy3sbml.miriam.Fields.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,8 +18,8 @@ public class Resource {
     private boolean official;
     private String sampleId;
     private String resourceHomeUrl;
-    private LinkedHashMap institution;
-    private LinkedHashMap location;
+    private Map<?, ?> institution;
+    private Map<?, ?> location;
     private boolean deprecated;
     private String deprecationDate;
     private String deprecationOfflineDate;
@@ -31,7 +30,7 @@ public class Resource {
     private String authHelpUrl;
     private String authHelpDescription;
 
-    public static Resource fromMap(Map<String, Object> value) {
+    public static Resource fromMap(Map<?, ?> value) {
         Resource resource = new Resource();
         resource.id = (int) value.get(ID);
         resource.providerCode = value.get(PROVIDER_CODE).toString();
@@ -42,8 +41,8 @@ public class Resource {
         resource.official = value.get(OFFICIAL).toString().equals(TRUE);
         resource.sampleId = (String) value.get(ID2);
         resource.resourceHomeUrl = (String) value.get(RESOURCE_HOME_URL);
-        resource.institution = (LinkedHashMap) value.get(INSTITUTION);
-        resource.location = (LinkedHashMap) value.get(LOCATION);
+        resource.institution = (Map<?, ?>) value.get(INSTITUTION);
+        resource.location = (Map<?, ?>) value.get(LOCATION);
         resource.deprecated = value.get(DEPRECATED).toString().equals(TRUE);
         resource.deprecationDate =
                 (String) Optional.ofNullable(value.get(DEPRECATION_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
@@ -167,11 +166,11 @@ public class Resource {
         return resourceHomeUrl;
     }
 
-    public LinkedHashMap getInstitution() {
+    public Map<?, ?> getInstitution() {
         return institution;
     }
 
-    public LinkedHashMap getLocation() {
+    public Map<?, ?> getLocation() {
         return location;
     }
 

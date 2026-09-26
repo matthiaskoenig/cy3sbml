@@ -1,7 +1,7 @@
 package org.cy3sbml.styles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.cy3sbml.SBML;
@@ -20,7 +20,7 @@ public class StyleInfo {
     public StyleInfo(String name, String template) {
         this.name = name;
         this.template = template;
-        this.mappings = new LinkedList<>();
+        this.mappings = new ArrayList<>();
     }
 
     public String getTemplate() {
@@ -44,7 +44,7 @@ public class StyleInfo {
      * Style specific mappings are defined in the subclasses.
      */
     public List<Mapping> createMappings() {
-        List<Mapping> mappings = new LinkedList<>();
+        List<Mapping> mappings = new ArrayList<>();
 
         ////////////////////////////////
         // passthroughMapping

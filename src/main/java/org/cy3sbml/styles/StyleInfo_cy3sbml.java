@@ -11,7 +11,7 @@ import org.cy3sbml.SBML;
  * Uses a template file and than sets the specific mappings in the file.
  * TODO: use colorbrewer for colors
  */
-public class StyleInfo_cy3sbml extends StyleInfo {
+public final class StyleInfo_cy3sbml extends StyleInfo {
 
     public static final String NAME = "cy3sbml";
     public static final String TEMPLATE = "/styles/template_cy3sbml.xml";

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Open the BioModel GUI for importing BioModels via search terms.
  */
-public class BiomodelsAction extends AbstractCyAction {
+public final class BiomodelsAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
     private static final long serialVersionUID = 1L;
 
@@ -38,8 +38,7 @@ public class BiomodelsAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        BiomodelsDialog bioModelsDialog = null;
-        bioModelsDialog = BiomodelsDialog.getInstance(adapter);
+        BiomodelsDialog bioModelsDialog = BiomodelsDialog.getInstance(adapter);
         bioModelsDialog.setVisible(true);
     }
 }

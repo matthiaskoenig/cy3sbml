@@ -144,8 +144,6 @@ public class MetaIdSBaseMap {
      * Generic function to add ListOf to the objectMapping.
      * The NamedSBase can be mapped via their metaIds.
      * All metaIds are set prior to this function.
-     *
-     * @param list
      */
     private void addListOf(ListOf<? extends SBase> list) {
         for (SBase sbase : list) {
@@ -159,9 +157,6 @@ public class MetaIdSBaseMap {
 
     /**
      * Get SBase object by cyId.
-     *
-     * @param cyId
-     * @return
      */
     public SBase getObjectByCyId(String cyId) {
         SBase sbase = null;

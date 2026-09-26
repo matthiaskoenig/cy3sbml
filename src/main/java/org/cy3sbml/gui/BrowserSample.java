@@ -13,8 +13,6 @@ public class BrowserSample extends Application {
 
     /**
      * Start application.
-     *
-     * @param stage
      */
     @Override
     public void start(Stage stage) {

@@ -1,6 +1,6 @@
 package org.cy3sbml.gui;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.cy3sbml.SBMLManager;
 import org.cytoscape.model.CyNetwork;
@@ -44,6 +44,7 @@ public class PanelUpdater implements Runnable {
      * Depending of the kind of network different updates are performed
      * If multiple nodes are selected only the information for the first node is displayed.
      */
+    @Override
     public void run() {
 
         // associated SBMLDocument
@@ -60,14 +61,12 @@ public class PanelUpdater implements Runnable {
 
     /**
      * Updates the panel information for an SBMLDocument.
-     *
-     * @param document
      */
     private void updateSBMLPanel(SBMLDocument document) {
         SBMLManager sbmlManager = SBMLManager.getInstance();
 
         // selected node SUIDs
-        LinkedList<Long> suids = new LinkedList<>();
+        List<Long> suids = new ArrayList<>();
         List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
         for (CyNode n : nodes) {
             suids.add(n.getSUID());

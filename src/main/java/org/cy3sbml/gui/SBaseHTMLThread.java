@@ -27,6 +27,7 @@ public class SBaseHTMLThread extends Thread {
     /**
      * Creates information for all objects within a single thread.
      */
+    @Override
     public void run() {
 
         for (Object obj : objSet) {
@@ -35,7 +36,7 @@ public class SBaseHTMLThread extends Thread {
             try {
                 infoFac.createInfo();
             } catch (IOException e) {
-
+                logger.error("Could not create the information for: " + obj, e);
             }
 
             String html = infoFac.getHtml();

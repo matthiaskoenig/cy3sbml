@@ -8,7 +8,7 @@ import org.cy3sbml.SBML;
 /**
  * Dark style.
  */
-public class StyleInfo_cy3sbmlDark extends StyleInfo {
+public final class StyleInfo_cy3sbmlDark extends StyleInfo {
     public static final String NAME = "cy3sbml-dark";
     public static final String TEMPLATE = "/styles/template_cy3sbml-dark.xml";
 

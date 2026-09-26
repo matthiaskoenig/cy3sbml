@@ -237,7 +237,7 @@ public class WebViewPanel extends JFXPanel
 
     /////////////////// EVENT HANDLING ///////////////////////////////////
 
-    /**
+    /*
      * Handle node selection events in the table/network.
      * <p>
      * The RowsSet event is quit broad (happens a lot in network generation and layout, so
@@ -257,7 +257,7 @@ public class WebViewPanel extends JFXPanel
      */
     public void handleEvent(RowsSetEvent event) {
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-        if (network != null && !event.getSource().equals(network.getDefaultNodeTable())
+        if ((network != null && !event.getSource().equals(network.getDefaultNodeTable()))
                 || !event.containsColumn(CyNetwork.SELECTED)) {
             return;
         }

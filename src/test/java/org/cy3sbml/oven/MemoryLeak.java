@@ -25,13 +25,13 @@ public class MemoryLeak {
      */
     private void readNetwork(String resource) throws Exception {
 
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
         InputStream instream = MemoryLeak.class.getResourceAsStream(resource);
-        String[] tokens = resource.split("/");
+        String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
 
         // run the reader

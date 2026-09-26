@@ -57,8 +57,6 @@ public class BiomodelsQueryResult {
 
     /**
      * Parses the Biomodel information from a search query.
-     *
-     * @return
      */
     public List<String> getBiomodelIdsFromSearch() {
         JsonNode jsonObject = getJSONObject();
@@ -79,10 +77,8 @@ public class BiomodelsQueryResult {
 
     /**
      * Returns biomodel information for given biomodel ids
-     *
-     * @return
      */
-    public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
+    public static List<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
             throws IOException, InterruptedException, ExecutionException {
 
         ArrayList<Biomodel> biomodels;
@@ -91,7 +87,7 @@ public class BiomodelsQueryResult {
             CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);
             futures.add(future);
         }
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture<?>[0]));
         biomodels = allFutures
                 .thenApply(v -> futures.stream()
                         .map(future -> {

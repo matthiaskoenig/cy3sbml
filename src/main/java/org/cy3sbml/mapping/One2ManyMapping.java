@@ -26,22 +26,15 @@ public class One2ManyMapping<T1, T2> implements Serializable {
     }
 
     public boolean put(T1 key, T2 newValue) {
-        boolean valueAdded = false;
-        HashSet<T2> values = getOrCreateValues(key);
-        if (!values.contains(newValue)) {
-            values.add(newValue);
-            valueAdded = true;
-        }
-        map.put(key, values);
-        return valueAdded;
+        return map.computeIfAbsent(key, k -> new HashSet<>()).add(newValue);
     }
 
     public void remove(T1 key) {
         map.remove(key);
     }
 
-    public HashSet<T2> getValues(T1 key) {
-        HashSet<T2> values;
+    public Set<T2> getValues(T1 key) {
+        Set<T2> values;
         if (containsKey(key)) {
             values = map.get(key);
         } else {
@@ -50,22 +43,12 @@ public class One2ManyMapping<T1, T2> implements Serializable {
         return values;
     }
 
-    public HashSet<T2> getValues(Collection<T1> keys) {
-        HashSet<T2> values = new HashSet<>();
+    public Set<T2> getValues(Collection<T1> keys) {
+        Set<T2> values = new HashSet<>();
         for (T1 key : keys) {
             if (containsKey(key)) {
                 values.addAll(map.get(key));
             }
-        }
-        return values;
-    }
-
-    private HashSet<T2> getOrCreateValues(T1 key) {
-        HashSet<T2> values;
-        if (containsKey(key)) {
-            values = map.get(key);
-        } else {
-            values = new HashSet<>();
         }
         return values;
     }
@@ -80,6 +63,7 @@ public class One2ManyMapping<T1, T2> implements Serializable {
         return reverseMapping;
     }
 
+    @Override
     public String toString() {
         String info = "*** OneToManyMapping ***\n";
         for (T1 key : keySet()) {

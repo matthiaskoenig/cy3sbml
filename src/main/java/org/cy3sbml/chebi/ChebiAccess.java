@@ -18,9 +18,6 @@ import org.slf4j.LoggerFactory;
  */
 public final class ChebiAccess {
     private static final Logger logger = LoggerFactory.getLogger(ChebiAccess.class);
-    private static final String COMPOUND_URL = "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/";
-    private static final String STRUCTURE_URL =
-            "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300";
 
     private final HttpJson http;
     private final MemoryCache<String, ChebiCompound> compoundCache = new MemoryCache<>(5000);
@@ -41,7 +38,8 @@ public final class ChebiAccess {
     }
 
     private Optional<ChebiCompound> lookupCompound(String chebiId) {
-        URI uri = URI.create(String.format(COMPOUND_URL, chebiNumber(chebiId)));
+        URI uri = URI.create(
+                String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/", chebiNumber(chebiId)));
         return http.get(uri).flatMap(json -> parseCompound(json, chebiId));
     }
 
@@ -54,7 +52,9 @@ public final class ChebiAccess {
     }
 
     private Optional<String> lookupStructure(String chebiId) {
-        URI uri = URI.create(String.format(STRUCTURE_URL, chebiNumber(chebiId)));
+        URI uri = URI.create(String.format(
+                "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300",
+                chebiNumber(chebiId)));
         return http.getText(uri);
     }
 

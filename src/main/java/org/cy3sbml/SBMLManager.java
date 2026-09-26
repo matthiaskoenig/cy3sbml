@@ -231,16 +231,16 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * Lookup the list of cyIds of SBase objects for the given suids.
      *
      * @param suids list of node suids.
-     * @return
      */
     public List<String> getCyIdsFromSUIDs(List<Long> suids) {
         One2ManyMapping<Long, String> mapping = getCurrentCyNode2SBaseMapping();
-        return new LinkedList<>(mapping.getValues(suids));
+        return new ArrayList<>(mapping.getValues(suids));
     }
 
     /**
      * String information.
      */
+    @Override
     public String toString() {
         return network2sbml.toString();
     }

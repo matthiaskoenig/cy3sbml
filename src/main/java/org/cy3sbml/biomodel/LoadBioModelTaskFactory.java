@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.IOUtils;
 import org.cy3sbml.ServiceAdapter;
@@ -34,7 +35,7 @@ public class LoadBioModelTaskFactory implements TaskFactory {
                         adapter.cySwingApplication.getJFrame(),
                         String.format("<html>No SBML for BioModel Id : <b>%s</b></html>", id));
             } else {
-                instream = new ByteArrayInputStream(sbml.getBytes("UTF-8"));
+                instream = new ByteArrayInputStream(sbml.getBytes(StandardCharsets.UTF_8));
             }
             // convert to tmp file and use the core-task read Network from file task
             final File tempFile = File.createTempFile(id, SUFFIX);

@@ -3,6 +3,7 @@ package org.cy3sbml.util;
 import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
@@ -26,8 +27,6 @@ public class GUIUtil {
      * <p>
      * TODO: make this a general function.
      * See also archive loading of xml.
-     *
-     * @param resource
      */
     public static void loadExampleFromResource(String resource) {
         InputStream instream = GUIUtil.class.getResourceAsStream(resource);
@@ -81,6 +80,7 @@ public class GUIUtil {
     public static void openURLinExternalBrowser(String url) {
         logger.debug("Open in external webView <" + url + ">");
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 OpenBrowser.openURL(url);
             }
@@ -106,7 +106,7 @@ public class GUIUtil {
             File temp = File.createTempFile("cy3sbml", ".html");
             logger.debug("Temp file : " + temp.getAbsolutePath());
 
-            FileUtils.writeStringToFile(temp, html);
+            FileUtils.writeStringToFile(temp, html, StandardCharsets.UTF_8);
             GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
             logger.error("File could not be opened.", e);
@@ -119,6 +119,7 @@ public class GUIUtil {
      */
     public static void openFileInBrowser(File temp) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 OpenBrowser.openURL("file://" + temp.getAbsolutePath());
             }

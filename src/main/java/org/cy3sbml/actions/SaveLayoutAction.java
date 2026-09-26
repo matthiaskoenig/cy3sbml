@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Save node positions to file.
  */
-public class SaveLayoutAction extends AbstractCyAction {
+public final class SaveLayoutAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(SaveLayoutAction.class);
     private static final long serialVersionUID = 1L;
 

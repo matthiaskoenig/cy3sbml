@@ -1,6 +1,6 @@
 package org.cy3sbml.biomodel;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
@@ -13,18 +13,16 @@ public class SearchBioModelTask implements ObservableTask {
         this.searchContent = searchContent;
     }
 
+    @Override
     public void run(final TaskMonitor taskMonitor) throws Exception {
         String mode = searchContent.getSearchMode();
-        List<String> resultIds = new LinkedList<String>();
-        List<String> ids = null;
-        List<String> ids2 = null;
+        List<String> resultIds = new ArrayList<String>();
 
         taskMonitor.setProgress(0.0);
         taskMonitor.setTitle("Searching by Name ...");
         if (searchContent.hasNames()) {
-            String fullName = "";
             List<String> names = searchContent.getNames();
-            fullName = String.join(" ", names);
+            String fullName = String.join(" ", names);
 
             BiomodelsQueryResult searchQueryResult = BiomodelsQuery.performSearchQuery(fullName);
             assert searchQueryResult != null;

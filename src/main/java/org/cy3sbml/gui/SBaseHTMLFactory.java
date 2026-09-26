@@ -7,9 +7,11 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.Locale;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.Namespace;
@@ -157,8 +159,6 @@ public class SBaseHTMLFactory {
 
     /**
      * Sets the baseDir from the application directory.
-     *
-     * @param appDir
      */
     public static void setBaseDirFromAppDir(File appDir) {
         String baseDir = appDir.toURI().toString();
@@ -210,9 +210,6 @@ public class SBaseHTMLFactory {
 
     /**
      * Creates info for given SBase.
-     *
-     * @param sbase
-     * @return
      */
     private static String createInfoForSBase(SBase sbase) throws IOException {
         if (sbase == null) {
@@ -230,9 +227,6 @@ public class SBaseHTMLFactory {
 
     /**
      * Create title string for given SBase.
-     *
-     * @param sbase
-     * @return
      */
     private static String getTitle(SBase sbase) {
         // handle SBMLDocument case
@@ -280,9 +274,10 @@ public class SBaseHTMLFactory {
      * The history encodes information about the creator(s) of the encoding and a
      * sequence of dates recording the dates of creation and subsequent modifcations of the SBML model encoding.
      *
-     * @param sbase
      * @return HTML String of History
      */
+    // reason: the JSBML History API returns java.util.Date
+    @SuppressWarnings("JavaUtilDate")
     private static String createHistory(SBase sbase) {
         if (!sbase.isSetHistory()) {
             return "";
@@ -331,71 +326,71 @@ public class SBaseHTMLFactory {
      * This mimics the SBMLReaderTaskFactory
      */
     private static String createSBase(SBase item) {
-        LinkedHashMap<String, String> map;
+        Map<String, String> map;
 
         // core //
-        if (item instanceof SBMLDocument) {
-            map = SBMLUtil.createSBMLDocumentMap((SBMLDocument) item);
-        } else if (item instanceof Model) {
-            map = SBMLUtil.createModelMap((Model) item);
-        } else if (item instanceof Compartment) {
-            map = SBMLUtil.createCompartmentMap((Compartment) item);
-        } else if (item instanceof Parameter) {
-            map = SBMLUtil.createParameterMap((Parameter) item);
-        } else if (item instanceof InitialAssignment) {
-            map = SBMLUtil.createInitialAssignmentMap((InitialAssignment) item);
-        } else if (item instanceof Rule) {
-            map = SBMLUtil.createRuleMap((Rule) item);
-        } else if (item instanceof LocalParameter) {
-            map = SBMLUtil.createLocalParameterMap((LocalParameter) item);
-        } else if (item instanceof Species) {
-            map = SBMLUtil.createSpeciesMap((Species) item);
-        } else if (item instanceof Reaction) {
-            map = SBMLUtil.createReactionMap((Reaction) item);
-        } else if (item instanceof KineticLaw) {
-            map = SBMLUtil.createKineticLawMap((KineticLaw) item);
-        } else if (item instanceof FunctionDefinition) {
-            map = SBMLUtil.createFunctionDefinitionMap((FunctionDefinition) item);
-        } else if (item instanceof UnitDefinition) {
-            map = SBMLUtil.createUnitDefinitionMap((UnitDefinition) item);
-        } else if (item instanceof Unit) {
-            map = SBMLUtil.createUnitMap((Unit) item);
-        } else if (item instanceof Constraint) {
-            map = SBMLUtil.createConstraintMap((Constraint) item);
-        } else if (item instanceof Event) {
-            map = SBMLUtil.createEventMap((Event) item);
-        } else if (item instanceof EventAssignment) {
-            map = SBMLUtil.createEventAssignmentMap((EventAssignment) item);
+        if (item instanceof SBMLDocument sbmlDocument) {
+            map = SBMLUtil.createSBMLDocumentMap(sbmlDocument);
+        } else if (item instanceof Model model) {
+            map = SBMLUtil.createModelMap(model);
+        } else if (item instanceof Compartment compartment) {
+            map = SBMLUtil.createCompartmentMap(compartment);
+        } else if (item instanceof Parameter parameter) {
+            map = SBMLUtil.createParameterMap(parameter);
+        } else if (item instanceof InitialAssignment initialAssignment) {
+            map = SBMLUtil.createInitialAssignmentMap(initialAssignment);
+        } else if (item instanceof Rule rule) {
+            map = SBMLUtil.createRuleMap(rule);
+        } else if (item instanceof LocalParameter localParameter) {
+            map = SBMLUtil.createLocalParameterMap(localParameter);
+        } else if (item instanceof Species species) {
+            map = SBMLUtil.createSpeciesMap(species);
+        } else if (item instanceof Reaction reaction) {
+            map = SBMLUtil.createReactionMap(reaction);
+        } else if (item instanceof KineticLaw kineticLaw) {
+            map = SBMLUtil.createKineticLawMap(kineticLaw);
+        } else if (item instanceof FunctionDefinition functionDefinition) {
+            map = SBMLUtil.createFunctionDefinitionMap(functionDefinition);
+        } else if (item instanceof UnitDefinition unitDefinition) {
+            map = SBMLUtil.createUnitDefinitionMap(unitDefinition);
+        } else if (item instanceof Unit unit) {
+            map = SBMLUtil.createUnitMap(unit);
+        } else if (item instanceof Constraint constraint) {
+            map = SBMLUtil.createConstraintMap(constraint);
+        } else if (item instanceof Event event) {
+            map = SBMLUtil.createEventMap(event);
+        } else if (item instanceof EventAssignment eventAssignment) {
+            map = SBMLUtil.createEventAssignmentMap(eventAssignment);
         }
 
         // qual //
-        else if (item instanceof QualitativeSpecies) {
-            map = SBMLUtil.createQualitativeSpeciesMap((QualitativeSpecies) item);
-        } else if (item instanceof Transition) {
-            map = SBMLUtil.createTransitionMap((Transition) item);
+        else if (item instanceof QualitativeSpecies qualitativeSpecies) {
+            map = SBMLUtil.createQualitativeSpeciesMap(qualitativeSpecies);
+        } else if (item instanceof Transition transition) {
+            map = SBMLUtil.createTransitionMap(transition);
         }
 
         // fbc //
-        else if (item instanceof GeneProduct) {
-            map = SBMLUtil.createGeneProductMap((GeneProduct) item);
+        else if (item instanceof GeneProduct geneProduct) {
+            map = SBMLUtil.createGeneProductMap(geneProduct);
         }
 
         // comp //
-        else if (item instanceof Port) {
-            map = SBMLUtil.createPortMap((Port) item);
+        else if (item instanceof Port port) {
+            map = SBMLUtil.createPortMap(port);
         }
 
         // group //
-        else if (item instanceof Group) {
-            map = SBMLUtil.createGroupMap((Group) item);
+        else if (item instanceof Group group) {
+            map = SBMLUtil.createGroupMap(group);
         }
 
         // Not supported
         else {
             logger.warn(MessageFormat.format(
                     "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item)));
-            if (item instanceof NamedSBase) {
-                map = SBMLUtil.createNamedSBaseMap((NamedSBase) item);
+            if (item instanceof NamedSBase namedSBase) {
+                map = SBMLUtil.createNamedSBaseMap(namedSBase);
             } else {
                 map = SBMLUtil.createSBaseMap(item);
             }
@@ -468,9 +463,10 @@ public class SBaseHTMLFactory {
 
         String text = "";
 
-        String qualifierHTML = String.format(
-                "<p class=\"cvterm\">\n" + "\t<span class=\"qualifier\" title=\"%s\">%s</span>\n",
-                cvterm.getQualifierType(), bmQualifierType);
+        String qualifierHTML = String.format("""
+                <p class="cvterm">
+                \t<span class="qualifier" title="%s">%s</span>
+                """, cvterm.getQualifierType(), bmQualifierType);
 
         Namespace dataType = null;
         // List of Resource URIs
@@ -484,9 +480,9 @@ public class SBaseHTMLFactory {
 
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
                 String prefix =
-                        StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
+                        StringUtils.substringBefore(compactIdentifier, ":").toLowerCase(Locale.ROOT);
                 if (result.get(prefix) == null && tokens.length > 3) {
-                    prefix = tokens[3].toLowerCase();
+                    prefix = tokens[3].toLowerCase(Locale.ROOT);
                 }
                 dataType = (result.get(prefix) == null)
                         ? result.get(StringUtils.substringAfter(prefix, "."))
@@ -584,14 +580,11 @@ public class SBaseHTMLFactory {
 
     /**
      * Creates the URL for the given location and identifier.
-     *
-     * @param identifier
-     * @return
      */
     private static String createURL(Namespace namespace, Resource resource, String identifier) {
         String url;
         String identifier2;
-        if (StringUtils.containsIgnoreCase(identifier, namespace.getPrefix())) {
+        if (Strings.CI.contains(identifier, namespace.getPrefix())) {
             identifier2 = StringUtils.substringAfter(identifier, ":");
         } else {
             identifier2 = identifier;
@@ -626,7 +619,7 @@ public class SBaseHTMLFactory {
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
 
-        String[] tokens = olsURL.split("=");
+        String[] tokens = olsURL.split("=", -1);
         if (tokens.length > 1) {
             termIdentifier = tokens[tokens.length - 1];
         }
@@ -640,7 +633,7 @@ public class SBaseHTMLFactory {
             String ontologyURL = createURL(namespace, resource, identifier);
             html += ONTOLOGY_TERM_LINK
                     .replace("{ontologyURL}", ontologyURL)
-                    .replace("{ontologyName}", term.ontologyName().toUpperCase())
+                    .replace("{ontologyName}", term.ontologyName().toUpperCase(Locale.ROOT))
                     .replace("{termLabel}", term.label())
                     .replace("{purlURL}", purlURL)
                     .replace("{purlDisplay}", purlURL);
@@ -673,8 +666,6 @@ public class SBaseHTMLFactory {
     /**
      * Resolves secondary resourses and returns the HTML.
      *
-     * @param dataType
-     * @param identifier
      * @return html string
      */
     public static String createSecondaryInformation(Namespace dataType, String identifier) {
@@ -704,7 +695,7 @@ public class SBaseHTMLFactory {
             identifier = tokens[tokens.length - 2] + ":" + tokens[tokens.length - 1];
         }
 
-        identifier = identifier.toUpperCase();
+        identifier = identifier.toUpperCase(Locale.ROOT);
         return identifier;
     }
 
@@ -713,6 +704,10 @@ public class SBaseHTMLFactory {
      * This is for instance used to process the SABIO-RK data.
      * Parses all the information in the annotation xml which is not RDF CV-Terms.
      */
+    // reason: real bug, the name is compared by reference, so the RDF child is not reliably
+    // skipped; fixing it changes the displayed annotation, so it is fixed in Task 3.2
+    // (remove the suppression there)
+    @SuppressWarnings("ReferenceEquality")
     private static String createNonRDFAnnotation(SBase sbase) {
         String html = "";
         if (sbase.isSetAnnotation()) {
@@ -739,7 +734,6 @@ public class SBaseHTMLFactory {
                             }
                         } catch (XMLStreamException e) {
                             logger.error("Error parsing annotation xml", e);
-                            e.printStackTrace();
                         }
                     }
                 }
@@ -759,7 +753,12 @@ public class SBaseHTMLFactory {
     private static String createNotes(SBase sbase) {
         String notes = SBMLUtil.parseNotes(sbase);
         if (notes != null) {
-            return String.format("<hr />\n" + "<div id=\"notes\">\n" + "%s\n" + "</div>\n", notes);
+            return String.format("""
+                                 <hr />
+                                 <div id="notes">
+                                 %s
+                                 </div>
+                                 """, notes);
         }
         return "";
     }
@@ -768,7 +767,7 @@ public class SBaseHTMLFactory {
      * Creates true or false HTML depending on boolean.
      */
     public static String booleanHTML(boolean b) {
-        return (b) ? ICON_TRUE : ICON_FALSE;
+        return b ? ICON_TRUE : ICON_FALSE;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -783,7 +782,7 @@ public class SBaseHTMLFactory {
         // resources for HTML
         File f = File.createTempFile("MiriamRegistry", ".json");
         // prepare miriam registry support
-        Map<String, Namespace> result = RegistryUtil.loadRegistry(f);
+        RegistryUtil.loadRegistry(f);
 
         // Create the HTML for selected SBMLDocuments and SBases
 
@@ -812,7 +811,7 @@ public class SBaseHTMLFactory {
                 throw new IllegalArgumentException("File not found in resources");
             }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             namespaces.load(reader);
             return namespaces.getProperty(keyToFind);
             /* String line;
@@ -824,7 +823,7 @@ public class SBaseHTMLFactory {
                 }
             }*/
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Could not read the prefix value: " + keyToFind, e);
         }
         return null;
     }

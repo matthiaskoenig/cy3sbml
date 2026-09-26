@@ -1,6 +1,6 @@
 package org.cy3sbml.layout;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.sbml.jsbml.ListOf;
@@ -22,10 +22,10 @@ import org.sbml.jsbml.ext.qual.Transition;
  * The layouts are prepared to use for visualization. Part of this is setting the
  * glyph ids.
  */
-public class LayoutPreprocessor {
+public final class LayoutPreprocessor {
     public static final String ALL = "all";
-    private static int speciesIdCounter;
-    private static int reactionIdCounter;
+    private int speciesIdCounter;
+    private int reactionIdCounter;
 
     private Layout layout;
     private Model model;
@@ -127,7 +127,7 @@ public class LayoutPreprocessor {
 
     public static boolean hasEdgeInformation(ReactionGlyph glyph) {
         ListOf<SpeciesReferenceGlyph> speciesReferenceGlyphs = glyph.getListOfSpeciesReferenceGlyphs();
-        if (speciesReferenceGlyphs == null | speciesReferenceGlyphs.size() == 0) {
+        if (speciesReferenceGlyphs == null || speciesReferenceGlyphs.size() == 0) {
             return false;
         }
         return true;
@@ -177,7 +177,7 @@ public class LayoutPreprocessor {
     }
 
     private List<String[]> getConnectedSpecies(Reaction reaction) {
-        List<String[]> connectedSpecies = new LinkedList<String[]>();
+        List<String[]> connectedSpecies = new ArrayList<String[]>();
         if (reaction.isSetListOfReactants()) {
             for (SpeciesReference speciesReference : reaction.getListOfReactants()) {
                 String[] data = new String[2];
@@ -206,7 +206,7 @@ public class LayoutPreprocessor {
     }
 
     private List<String[]> getConnectedQualitativeSpecies(Transition transition) {
-        List<String[]> connectedQSpecies = new LinkedList<String[]>();
+        List<String[]> connectedQSpecies = new ArrayList<String[]>();
         if (transition.isSetListOfInputs()) {
             for (Input input : transition.getListOfInputs()) {
                 String[] data = new String[2];

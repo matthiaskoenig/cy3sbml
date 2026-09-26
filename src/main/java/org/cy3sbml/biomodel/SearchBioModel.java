@@ -25,7 +25,6 @@ public class SearchBioModel implements TaskObserver {
 
     private SearchContent searchContent;
     private static List<String> modelIds;
-    private ArrayList<Biomodel> simpleModels;
 
     public SearchBioModel(ServiceAdapter adapter) {
         dialogTaskManager = adapter.dialogTaskManager;
@@ -36,8 +35,7 @@ public class SearchBioModel implements TaskObserver {
 
     private void resetSearch() {
         searchContent = null;
-        modelIds = new LinkedList<String>();
-        simpleModels = new ArrayList<>();
+        modelIds = new ArrayList<String>();
     }
 
     public static List<String> getModelIds() {
@@ -55,7 +53,7 @@ public class SearchBioModel implements TaskObserver {
     public void searchBioModels(SearchContent sContent) {
         resetSearch();
         searchContent = sContent;
-        // The task searches the biomodel ids and sets modelIds and simpleModels
+        // The task searches the biomodel ids and sets modelIds
         // when finished
         searchModelIdsForSearchContent(searchContent);
     }
@@ -68,13 +66,11 @@ public class SearchBioModel implements TaskObserver {
         // set search content
         searchContent = new SearchContent(map);
 
-        modelIds = new LinkedList<String>(parsedIds);
+        modelIds = new ArrayList<String>(parsedIds);
         logger.info("modelIds:" + modelIds.toString());
         for (String id : modelIds) {
             logger.info(id);
         }
-        // webservice request to get the simpleModels
-        simpleModels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
     }
 
     //	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){

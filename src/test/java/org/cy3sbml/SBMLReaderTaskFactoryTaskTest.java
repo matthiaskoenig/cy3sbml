@@ -29,14 +29,14 @@ public class SBMLReaderTaskFactoryTaskTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
-        String[] tokens = resource.split("/");
+        String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTaskWithViewSupport = new SBMLReaderTask(

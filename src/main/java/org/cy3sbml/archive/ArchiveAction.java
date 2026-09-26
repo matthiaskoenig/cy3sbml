@@ -20,28 +20,23 @@ import org.slf4j.LoggerFactory;
 /**
  * Importing SBML networks.
  */
-public class ArchiveAction extends AbstractCyAction {
+public final class ArchiveAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ArchiveAction.class);
     private static final long serialVersionUID = 1L;
 
     private CySwingApplication cySwingApplication;
     private FileUtil fileUtil;
     private LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
-    private TaskManager taskManager;
+    private TaskManager<?, ?> taskManager;
 
     /**
      * Constructor.
-     *
-     * @param cySwingApplication
-     * @param fileUtil
-     * @param loadNetworkFileTaskFactory
-     * @param taskManager
      */
     public ArchiveAction(
             CySwingApplication cySwingApplication,
             FileUtil fileUtil,
             LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
-            TaskManager taskManager) {
+            TaskManager<?, ?> taskManager) {
         super(ArchiveAction.class.getSimpleName());
         this.cySwingApplication = cySwingApplication;
         this.fileUtil = fileUtil;
@@ -55,6 +50,7 @@ public class ArchiveAction extends AbstractCyAction {
         setToolbarGravity(GUIConstants.GRAVITY_ARCHIVE);
     }
 
+    @Override
     public boolean isInToolBar() {
         return true;
     }
@@ -62,8 +58,6 @@ public class ArchiveAction extends AbstractCyAction {
     /**
      * Load archive files.
      * TODO: run this through the task manager analoque to the file import
-     *
-     * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {

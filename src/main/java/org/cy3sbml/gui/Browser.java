@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * This can be embedded in Swing using a JFXPanel.
  * A HyperlinkListener processes the hyperlinks.
  */
-public class Browser extends Region {
+public final class Browser extends Region {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
     private final WebView webView;

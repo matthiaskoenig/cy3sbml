@@ -143,7 +143,6 @@ public class AttributeUtil {
      * @param network    network in which the node is searched
      * @param attribute  attribute column to search
      * @param identifier identifier to search
-     * @return
      */
     public static CyNode getNodeByAttribute(CyNetwork network, String attribute, String identifier) {
         Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(attribute, identifier);

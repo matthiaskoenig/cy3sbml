@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Set help information in ResultsPanel.
  */
-public class HelpAction extends AbstractCyAction {
+public final class HelpAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
     private static final long serialVersionUID = 1L;
 

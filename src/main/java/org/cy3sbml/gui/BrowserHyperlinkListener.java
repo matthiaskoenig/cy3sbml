@@ -99,7 +99,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
      * Decides what to do if a given URL is encountered.
      * Here the actions are called.
      *
-     * @param url
      * @return cancel action, i.e. is the WebView event further processed
      */
     private static Boolean processURLEvent(URL url) {
@@ -143,11 +142,11 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                 } else {
                     logger.error(String.format("Action not created for <%s>", s));
                 }
-            } else if (s.startsWith(URL_SELECT_METAID) || (s.startsWith(URL_SELECT_ID))) {
+            } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
                 // Only select if current network exists
                 CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
                 if (network != null) {
-                    String[] tokens = s.split("/");
+                    String[] tokens = s.split("/", -1);
                     String identifier = tokens[tokens.length - 1];
                     if (s.startsWith(URL_SELECT_ID)) {
                         NetworkUtil.selectById(network, identifier);

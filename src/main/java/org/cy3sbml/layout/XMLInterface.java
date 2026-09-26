@@ -3,6 +3,7 @@ package org.cy3sbml.layout;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -96,12 +97,12 @@ public class XMLInterface {
 
     // XML IMPORT //
 
-    public static HashMap<String, CyBoundingBox> readLayoutFromXML(String filename) {
+    public static Map<String, CyBoundingBox> readLayoutFromXML(String filename) {
         File xmlFile = new File(filename);
         return readLayoutFromXML(xmlFile);
     }
 
-    public static HashMap<String, CyBoundingBox> readLayoutFromXML(File xmlFile) {
+    public static Map<String, CyBoundingBox> readLayoutFromXML(File xmlFile) {
         HashMap<String, CyBoundingBox> boxes = new HashMap<String, CyBoundingBox>();
 
         try {

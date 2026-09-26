@@ -5,14 +5,11 @@ import org.cy3sbml.miriam.RegistryUtil;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.SBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tools for working with annotations.
  */
 public class AnnotationUtil {
-    private static final Logger logger = LoggerFactory.getLogger(AnnotationUtil.class);
 
     /**
      * Parses the CV-terms into properties.

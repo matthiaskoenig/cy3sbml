@@ -45,7 +45,7 @@ public class Namespace {
             this.resources = new ArrayList<>();
             for (Object item : (List<?>) resourcesRaw) {
 
-                this.resources.add(Resource.fromMap((Map<String, Object>) item));
+                this.resources.add(Resource.fromMap((Map<?, ?>) item));
             }
         } else {
             this.resources = Collections.emptyList();

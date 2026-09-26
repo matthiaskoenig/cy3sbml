@@ -1,9 +1,9 @@
 package org.cy3sbml.layout;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.cy3sbml.SBML;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.util.AttributeUtil;
@@ -51,7 +51,7 @@ public class LayoutTools {
         CyNetwork network = view.getModel();
 
         List<CyNode> nodes = network.getNodeList();
-        List<CyBoundingBox> boxes = new LinkedList<CyBoundingBox>();
+        List<CyBoundingBox> boxes = new ArrayList<CyBoundingBox>();
         for (CyNode node : nodes) {
             View<CyNode> nodeView = view.getNodeView(node);
             // id column is used for mapping positions
@@ -81,7 +81,7 @@ public class LayoutTools {
     public void loadLayoutForViewFromFile(CyNetworkView view, File file) {
         CyNetwork network = view.getModel();
 
-        HashMap<String, CyBoundingBox> boxesMap = XMLInterface.readLayoutFromXML(file);
+        Map<String, CyBoundingBox> boxesMap = XMLInterface.readLayoutFromXML(file);
         if (boxesMap != null) {
 
             List<CyNode> nodes = network.getNodeList();

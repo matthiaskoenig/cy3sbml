@@ -3,22 +3,23 @@ package org.cy3sbml;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.util.IOUtil;
-import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.*;
-import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 import org.mockito.MockitoAnnotations;
 import org.sbml.jsbml.JSBML;
@@ -49,7 +50,7 @@ public class TestUtils {
             if (value.startsWith("http://")) {
                 value = value.substring(7, value.length());
             }
-            String[] tokens = value.split(":");
+            String[] tokens = value.split(":", -1);
             // we found the proxy settings
             if (tokens.length == 2) {
                 String host = tokens[0];
@@ -68,7 +69,7 @@ public class TestUtils {
      * If a filter string is given only the resources matching the filter are returned.
      */
     public static Iterable<Object[]> findResources(
-            String where, String resourcePath, String extension, String filter, HashSet<String> skip) {
+            String where, String resourcePath, String extension, String filter, Set<String> skip) {
 
         File currentDir = new File(System.getProperty("user.dir"));
         // String rootPath = new File(currentDir, resourcePath).getPath();
@@ -80,7 +81,7 @@ public class TestUtils {
             rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
         }
         // Get SBML files for passed tests
-        LinkedList<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
+        List<String> sbmlPaths = TestUtils.findFiles(rootPath, extension, filter, skip);
         Collections.sort(sbmlPaths);
 
         int N = sbmlPaths.size();
@@ -89,7 +90,7 @@ public class TestUtils {
         for (int k = 0; k < N; k++) {
             String path = sbmlPaths.get(k);
             // create the resource
-            String[] items = path.split("/");
+            String[] items = path.split("/", -1);
             int mindex = -1;
             for (int i = 0; i < items.length; i++) {
                 if (items[i].equals("models")) {
@@ -108,8 +109,8 @@ public class TestUtils {
      * SBML files have to end in ".xml" and pass the filter expression
      * and is not in the skip set.
      */
-    public static LinkedList<String> findFiles(String path, String extension, String filter, HashSet<String> skip) {
-        LinkedList<String> fileList = new LinkedList<>();
+    public static List<String> findFiles(String path, String extension, String filter, Set<String> skip) {
+        List<String> fileList = new ArrayList<>();
 
         File root = new File(path);
         File[] list = root.listFiles();
@@ -146,7 +147,7 @@ public class TestUtils {
         return fileList;
     }
 
-    public static LinkedList<String> findFiles(String path, String extension) {
+    public static List<String> findFiles(String path, String extension) {
         return findFiles(path, extension, null, null);
     }
 
@@ -155,14 +156,13 @@ public class TestUtils {
      */
     public CyNetwork[] readNetwork(String resource) throws Exception {
 
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
-        final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
-        String[] tokens = resource.split("/");
+        String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
         CyNetwork[] networks;
         try {
@@ -216,10 +216,10 @@ public class TestUtils {
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         // read SBML
-        String[] tokens = resource.split("/\\\\");
+        String[] tokens = resource.split("/\\\\", -1);
         String fileName = tokens[tokens.length - 1];
         InputStream instream;
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
             instream = new FileInputStream(resource);
         } else {
             instream = TestUtils.class.getResourceAsStream(resource);
@@ -240,12 +240,12 @@ public class TestUtils {
             try {
                 instream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Could not close the input stream", e);
             }
 
         } catch (Throwable t) {
             networks = null;
-            t.printStackTrace();
+            logger.error("Could not read the network: " + resource, t);
         }
 
         // Display memory usage
@@ -272,7 +272,7 @@ public class TestUtils {
 
         // read SBML
         InputStream instream;
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
             instream = new FileInputStream(resource);
         } else {
             instream = TestUtils.class.getResourceAsStream(resource);

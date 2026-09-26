@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.*;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -34,14 +35,6 @@ public class RegistryUtilTest {
         // Example resource folders
         HashSet<String> skip = null;
         String filter = null;
-        Iterable<Object[]> models1 =
-                TestUtils.findResources("test", TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip);
-        Iterable<Object[]> models2 =
-                TestUtils.findResources("test", TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip);
-        Iterable<Object[]> models3 =
-                TestUtils.findResources("test", TestUtils.UNITTESTS_RESOURCE_PATH, ".xml", filter, skip);
-        Iterable<Object[]> models4 =
-                TestUtils.findResources("test", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip);
         Iterable<Object[]> models5 = TestUtils.findResources("main", "/models", ".xml", filter, skip);
 
         return Stream.of(models5) // Stream<Iterable<Object[]>>
@@ -49,7 +42,9 @@ public class RegistryUtilTest {
                         .flatMap(resourceInfo -> {
                             String resourcePath = (String) resourceInfo[0];
                             InputStream is;
-                            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                            if (System.getProperty("os.name")
+                                    .toLowerCase(Locale.ROOT)
+                                    .contains("windows")) {
                                 try {
                                     is = new FileInputStream(resourcePath);
                                 } catch (FileNotFoundException e) {
@@ -103,7 +98,7 @@ public class RegistryUtilTest {
         // checking for thousands of identifiers links)
         String checkedNamespace;
         if (tokens[3].contains(":")) {
-            checkedNamespace = tokens[3].split(":")[0];
+            checkedNamespace = tokens[3].split(":", -1)[0];
         } else {
             checkedNamespace = tokens[3];
         }
@@ -124,11 +119,11 @@ public class RegistryUtilTest {
                 int responseCode = connection.getResponseCode();
                 if (responseCode >= 200 && responseCode < 400) {
                     String identifier = getCompactId(tokens);
-                    String prefix = StringUtils.substringBefore(identifier, ":").toLowerCase();
+                    String prefix = StringUtils.substringBefore(identifier, ":").toLowerCase(Locale.ROOT);
 
                     if (result.get(prefix)
                             == null) { // if the prefix is not in the compact ID, it must be in the previous token
-                        prefix = tokens[3].toLowerCase();
+                        prefix = tokens[3].toLowerCase(Locale.ROOT);
                     }
 
                     assertNotNull(result.get(prefix));
