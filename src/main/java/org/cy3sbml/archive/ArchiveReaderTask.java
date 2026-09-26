@@ -369,6 +369,29 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     }
 
     /**
+     * Image extension of the folder with the given path.
+     * <p>
+     * The folders of individual studies, models and assays, i.e. the folders directly inside
+     * a "studies", "models" or "assays" folder, get the study, model and assay image,
+     * all other folders the folder image.
+     */
+    static String folderExtension(String path) {
+        // "/studies/s1/" and "studies/s1/" both give [studies, s1]
+        String[] tokens = StringUtils.strip(path, "/").split("/", -1);
+        if (tokens.length >= 2) {
+            String type = tokens[tokens.length - 2];
+            if (type.equals("studies")) {
+                return "study";
+            } else if (type.equals("models")) {
+                return "model";
+            } else if (type.equals("assays")) {
+                return "assay";
+            }
+        }
+        return "folder";
+    }
+
+    /**
      * Creates the image link for a given node.
      */
     private void setImageAttribute(CyNode n) {
@@ -384,22 +407,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         if (path.equals("/")) {
             extension = "researchobject";
         } else if (path.endsWith("/")) {
-            extension = "folder";
-            // handle subset of folder aggregates
-            // reason: behavior change, fixed with golden snapshot update in Task 3.2 (folder
-            // paths end with "/", split(x, -1) would change the folder type token)
-            @SuppressWarnings("StringSplitter")
-            String[] tokens = path.split("/");
-            if (tokens.length > 2) {
-                String type = tokens[tokens.length - 2];
-                if (type.equals("studies")) {
-                    extension = "study";
-                } else if (type.equals("models")) {
-                    extension = "model";
-                } else if (type.equals("assays")) {
-                    extension = "assay";
-                }
-            }
+            extension = folderExtension(path);
         } else {
             if (mediaType == null) {
                 extension = "blank";
