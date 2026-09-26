@@ -1,7 +1,11 @@
 package org.cy3sbml.gui;
 
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.event.HyperlinkEvent;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;

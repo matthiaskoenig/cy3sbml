@@ -1,7 +1,10 @@
 package org.cy3sbml.util;
 
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.SBML;

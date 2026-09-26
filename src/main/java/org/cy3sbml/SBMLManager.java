@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
