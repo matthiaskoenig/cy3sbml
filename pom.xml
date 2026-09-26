@@ -6,12 +6,15 @@
         <bundle.symbolicName>cy3sbml</bundle.symbolicName>
         <bundle.namespace>org.cy3sbml</bundle.namespace>
         <cytoscape.api.version>3.10.0</cytoscape.api.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven-bundle-plugin.version>6.2.0</maven-bundle-plugin.version>
         <osgi.api.version>7.0.0</osgi.api.version>
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
+        <!-- requireReleaseDeps is not active yet: JSBML and ols-client are still SNAPSHOT
+            dependencies (Tasks 2.2/2.3). Task 2.5 flips this to false. -->
+        <enforcer.skipReleaseDeps>true</enforcer.skipReleaseDeps>
         <!-- Exclude the long-running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
@@ -59,10 +62,8 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.16.0</version>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
                     <encoding>UTF-8</encoding>
                     <optimize>true</optimize>
                     <showWarnings>true</showWarnings>
@@ -78,25 +79,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.5.0</version>
             </plugin>
             <!-- jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>3.2.0</version>
             </plugin>
 
             <!-- testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.6.0</version>
                 <configuration>
                     <excludes>
                         <exclude>${models.test.excludes}</exclude>
@@ -110,7 +111,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
+                <version>0.8.15</version>
                 <executions>
                     <execution>
                         <goals>
@@ -127,8 +128,95 @@
                 </executions>
             </plugin>
 
+            <!-- enforce build environment and dependency hygiene -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>1.12.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>enforce-build-environment</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[17,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.9,)</version>
+                                </requireMavenVersion>
+                                <banDuplicatePomDependencyVersions/>
+                                <banDuplicateClasses>
+                                    <scopes>
+                                        <scope>compile</scope>
+                                        <scope>runtime</scope>
+                                    </scopes>
+                                    <findAllDuplicates>true</findAllDuplicates>
+                                    <ignoreWhenIdentical>true</ignoreWhenIdentical>
+                                    <ignoreClasses>
+                                        <!-- xstream pulls in both xmlpull and xpp3_min, which
+                                            both provide the same XmlPull API classes; xstream
+                                            is removed in Task 2.5. -->
+                                        <ignoreClass>org.xmlpull.v1.*</ignoreClass>
+                                        <!-- ols-client's spring-context brings spring-aop, which
+                                            repackages the aopalliance API also pulled in directly
+                                            by japi; ols-client is removed in Task 2.3. -->
+                                        <ignoreClass>org.aopalliance.*</ignoreClass>
+                                        <!-- ols-client's spring-core brings spring-jcl, a
+                                            commons-logging-compatible reimplementation of the
+                                            same classes; ols-client is removed in Task 2.3. -->
+                                        <ignoreClass>org.apache.commons.logging.*</ignoreClass>
+                                        <!-- japi depends on both the legacy com.codahale.metrics
+                                            and its io.dropwizard.metrics successor under the same
+                                            package name; japi is removed in Task 2.4. -->
+                                        <ignoreClass>com.codahale.metrics.*</ignoreClass>
+                                    </ignoreClasses>
+                                </banDuplicateClasses>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- Not active yet: JSBML and ols-client are still SNAPSHOT dependencies
+                            (Tasks 2.2/2.3). Task 2.5 sets enforcer.skipReleaseDeps to false. -->
+                        <id>enforce-release-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${enforcer.skipReleaseDeps}</skip>
+                            <rules>
+                                <requireReleaseDeps/>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>6.1.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <!-- Cytoscape -->
@@ -154,60 +242,30 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>cytoscape_snapshots</id>
-            <name>Cytoscape Snapshots</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
         <!-- JSBML  -->
         <repository>
             <id>in-project</id>
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
-        <repository>
-            <id>JSBML-SNAPSHOT</id>
-            <name>The JSBML Snapshot repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
 
-        <!-- uniprot -->
+        <!-- Kept only until the dependency that needs them is removed:
+            registry-lib and miriam-lib (Task 2.5 or later) and japi (Task 2.4)
+            are hosted here and nowhere else; ols-client (Task 2.3) is a SNAPSHOT
+            hosted here. -->
+        <repository>
+            <id>nexus-ebi-release-repo</id>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+        </repository>
         <repository>
             <id>ebiUniprotPublic</id>
             <name>ebi-uniprot-public</name>
             <url>https://www.ebi.ac.uk/uniprot/artifactory/public</url>
         </repository>
-
-        <!-- OLS client -->
         <repository>
             <id>EBI SNAPSHOT</id>
             <name>EBI Snapshot repository</name>
             <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
-        </repository>
-
-        <!-- EBI repo -->
-        <repository>
-            <id>nexus-ebi-release-repo</id>
-            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
-        </repository>
-
-        <repository>
-            <id>repository.jboss.org-public</id>
-            <name>JBoss.org Maven repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public</url>
-        </repository>
-
-        <repository>
-            <id>maven-central</id>
-            <name>Maven central repository</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
@@ -454,6 +512,13 @@
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
+                <!-- log4j's JMS appender is not used, and its jar is hosted only on the
+                    JBoss public repository that is no longer in <repositories>; log4j
+                    itself stays since JSBML loads org.apache.log4j.Logger reflectively. -->
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -618,40 +683,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.24.0</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.19.0</version>
+            <version>5.24.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- Testing -->
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <!-- version managed by the org.junit:junit-bom import above -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>6.0.0-M2</version>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>6.0.0-M2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>6.0.0-M2</version>
-            <scope>test</scope>
-        </dependency>
-
-
 
         <dependency>
             <groupId>org.cytoscape</groupId>
