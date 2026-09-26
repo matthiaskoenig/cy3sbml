@@ -19,6 +19,9 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
