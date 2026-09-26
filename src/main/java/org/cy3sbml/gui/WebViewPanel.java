@@ -53,7 +53,7 @@ public final class WebViewPanel extends JFXPanel
     private final CytoPanel cytoPanelEast;
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
     private Browser browser;
-    private String html;
+    private volatile String html;
 
     /**
      * Constructor
@@ -166,8 +166,16 @@ public final class WebViewPanel extends JFXPanel
 
     /// //////////////// INFORMATION DISPLAY ///////////////////////////////////
 
+    /**
+     * Shows the static help page.
+     * <p>
+     * Submitted on the {@link #renderExecutor} rather than called directly: submitting
+     * cancels whatever render is still pending or running (e.g. a slow web-service lookup
+     * for a previous selection), so that render can no longer overwrite the help page
+     * once it is requested, and runs the two in the order they were requested.
+     */
     public void setHelp() {
-        browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE);
+        renderExecutor.submit(() -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE));
     }
 
     public void setExamples() {

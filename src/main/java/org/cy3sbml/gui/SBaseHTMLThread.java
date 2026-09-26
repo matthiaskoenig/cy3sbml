@@ -67,8 +67,9 @@ public class SBaseHTMLThread implements Runnable {
         if (Thread.currentThread().isInterrupted()) {
             return;
         }
-        // Display if a panel is provided
-        if (panel != null) {
+        // Display if a panel is provided and there was something to show; an empty
+        // object set must not blank out whatever the panel is currently displaying.
+        if (panel != null && !objSet.isEmpty()) {
             panel.setText(info);
         }
     }
