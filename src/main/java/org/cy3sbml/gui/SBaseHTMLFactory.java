@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
-import org.cy3sbml.chebi.ChebiCache;
+import org.cy3sbml.chebi.ChebiAccess;
 import org.identifiers.registry.RegistryUtilities;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
@@ -30,7 +30,6 @@ import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
-import org.cy3sbml.chebi.ChebiCache;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.cy3sbml.util.SBMLUtil;
@@ -65,6 +64,20 @@ public class SBaseHTMLFactory {
      * PR 3 turns it into an instance dependency.
      */
     private static OlsClient olsClient;
+
+    /**
+     * UniProt client used to resolve UniProt accessions for display.
+     * Set by {@code CyActivator} on startup. A static field for now;
+     * PR 3 turns it into an instance dependency.
+     */
+    private static UniprotAccess uniprotAccess;
+
+    /**
+     * ChEBI client used to resolve ChEBI ids for display.
+     * Set by {@code CyActivator} on startup. A static field for now;
+     * PR 3 turns it into an instance dependency.
+     */
+    private static ChebiAccess chebiAccess;
 
     private SBase sbase;
     private String html;
@@ -109,6 +122,44 @@ public class SBaseHTMLFactory {
             olsClient = new OlsClient(org.cy3sbml.util.HttpJson.createDefault());
         }
         return olsClient;
+    }
+
+    /**
+     * Sets the UniProt client used to resolve UniProt accessions for display.
+     */
+    public static void setUniprotAccess(UniprotAccess uniprotAccess) {
+        SBaseHTMLFactory.uniprotAccess = uniprotAccess;
+    }
+
+    /**
+     * Gets the UniProt client used to resolve UniProt accessions for display,
+     * lazily creating a default one (e.g. for tests that do not run
+     * {@code CyActivator}). Keeps a single shared instance.
+     */
+    private static synchronized UniprotAccess getUniprotAccess() {
+        if (uniprotAccess == null) {
+            uniprotAccess = new UniprotAccess(org.cy3sbml.util.HttpJson.createDefault());
+        }
+        return uniprotAccess;
+    }
+
+    /**
+     * Sets the ChEBI client used to resolve ChEBI ids for display.
+     */
+    public static void setChebiAccess(ChebiAccess chebiAccess) {
+        SBaseHTMLFactory.chebiAccess = chebiAccess;
+    }
+
+    /**
+     * Gets the ChEBI client used to resolve ChEBI ids for display,
+     * lazily creating a default one (e.g. for tests that do not run
+     * {@code CyActivator}). Keeps a single shared instance.
+     */
+    private static synchronized ChebiAccess getChebiAccess() {
+        if (chebiAccess == null) {
+            chebiAccess = new ChebiAccess(org.cy3sbml.util.HttpJson.createDefault());
+        }
+        return chebiAccess;
     }
 
     /**
@@ -654,9 +705,9 @@ public class SBaseHTMLFactory {
         String namespace = dataType.getPrefix();
 
         if (namespace.equals("uniprot")) {
-            html += UniprotAccess.uniprotHTML(identifier);
+            html += getUniprotAccess().html(identifier);
         } else if (namespace.equals("chebi")) {
-            html += ChebiCache.getChebiHTML(identifier);
+            html += getChebiAccess().html(identifier);
         }
 
         return html;

@@ -55,6 +55,14 @@ public class HttpJson {
      * Empty on a non-2xx response, an IO error, a timeout or malformed JSON.
      */
     public Optional<JsonNode> get(URI uri) {
+        return getText(uri).flatMap(body -> parse(uri, body));
+    }
+
+    /**
+     * Fetches the raw text body at the given URI (e.g. an SVG image response).
+     * Empty on a non-2xx response, an IO error or a timeout.
+     */
+    public Optional<String> getText(URI uri) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")
@@ -68,13 +76,22 @@ public class HttpJson {
                 logger.warn("Unexpected HTTP status {} for {}", status, uri);
                 return Optional.empty();
             }
-            return Optional.of(mapper.readTree(response.body()));
+            return Optional.of(response.body());
         } catch (IOException e) {
-            logger.warn("Error retrieving JSON from {}: {}", uri, e.getMessage());
+            logger.warn("Error retrieving {}: {}", uri, e.getMessage());
             return Optional.empty();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.warn("Interrupted while retrieving JSON from {}", uri);
+            logger.warn("Interrupted while retrieving {}", uri);
+            return Optional.empty();
+        }
+    }
+
+    private Optional<JsonNode> parse(URI uri, String body) {
+        try {
+            return Optional.of(mapper.readTree(body));
+        } catch (IOException e) {
+            logger.warn("Error parsing JSON from {}: {}", uri, e.getMessage());
             return Optional.empty();
         }
     }

@@ -47,11 +47,13 @@ import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 
 
+import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HttpJson;
 
 import org.slf4j.Logger;
@@ -116,8 +118,11 @@ public class CyActivator extends AbstractCyActivator {
             // allows the dynamical generated HTML to resolve the gui resources
             SBaseHTMLFactory.setBaseDirFromAppDir(appDirectory);
 
-            // OLS client used to resolve ontology terms for display
-            SBaseHTMLFactory.setOlsClient(new OlsClient(HttpJson.createDefault()));
+            // OLS, UniProt and ChEBI clients used to resolve identifiers for display
+            HttpJson httpJson = HttpJson.createDefault();
+            SBaseHTMLFactory.setOlsClient(new OlsClient(httpJson));
+            SBaseHTMLFactory.setUniprotAccess(new UniprotAccess(httpJson));
+            SBaseHTMLFactory.setChebiAccess(new ChebiAccess(httpJson));
 
             // cy3sbml properties
             PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);

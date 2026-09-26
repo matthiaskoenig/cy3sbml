@@ -1,169 +1,190 @@
 package org.cy3sbml.uniprot;
 
-import org.cy3sbml.gui.GUIConstants;
-import uk.ac.ebi.kraken.interfaces.uniprot.Gene;
-import uk.ac.ebi.kraken.interfaces.uniprot.Organism;
-import uk.ac.ebi.kraken.interfaces.uniprot.ProteinDescription;
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
-import uk.ac.ebi.kraken.interfaces.uniprot.comments.*;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Field;
-import uk.ac.ebi.kraken.interfaces.uniprot.description.Name;
-import uk.ac.ebi.uniprot.dataservice.client.Client;
-import uk.ac.ebi.uniprot.dataservice.client.QueryResult;
-import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
-import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
-import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
-import uk.ac.ebi.uniprot.dataservice.query.Query;
+import com.fasterxml.jackson.databind.JsonNode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.text.MessageFormat;
-import java.util.HashMap;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import org.apache.commons.text.StringEscapeUtils;
+import org.cy3sbml.cache.MemoryCache;
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.util.HttpJson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.cy3sbml.uniprot.UniprotHTMLFields.*;
 
 /**
- * Access UniProt information.
+ * Client for the UniProtKB REST API.
+ * <p>
+ * Looks up entries by accession (e.g. {@code P10415}). Results are cached in
+ * memory since entries do not change within a Cytoscape session.
  */
-public class UniprotAccess {
-
+public final class UniprotAccess {
     private static final Logger logger = LoggerFactory.getLogger(UniprotAccess.class);
-    public static Map<String, String> htmlFragments = GUIConstants.htmlFragments;
+    private static final String UNIPROTKB_URL = "https://rest.uniprot.org/uniprotkb/";
+    private static final Map<String, String> htmlFragments = GUIConstants.htmlFragments;
 
-    /**
-     * Retrieve UniProt Entry by accession id.
-     *
-     * @param accession UniProt accession id, e.g. "P10415"
-     * @return uniprot entry
-     */
-    public static UniProtEntry getUniProtEntry(String accession) {
-        UniProtEntry entry = null;
-        ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
-        UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
-        try {
-            // fetch entry
-            entry = uniProtService.getEntry(accession);
+    private final HttpJson http;
+    private final MemoryCache<String, UniprotEntry> cache = new MemoryCache<>(5000);
 
-            if (entry == null) {
-                // is secondary accession, get first result
-                logger.debug("Querying any accession: {}", accession);
-                Query query = UniProtQueryBuilder.anyAccession(accession);
-                QueryResult<UniProtEntry> result = uniProtService.getEntries(query);
-                entry = result.next();
-            }
-            if (entry == null) {
-                logger.warn("UniProt Entry {} could not be retrieved", accession);
-            } else {
-                logger.debug("Retrieved UniProtEntry {}", accession);
-            }
-        } catch (Exception e) {
-            logger.error("Problems retrieving uniprot entry.", e);
-            e.printStackTrace();
-        }
-        return entry;
+    public UniprotAccess(HttpJson http) {
+        this.http = http;
     }
 
-
     /**
-     * Creates additional information for entry.
-     * Identifier of the form "P29218"
+     * Gets the UniProt entry for a given accession, e.g. {@code P10415}.
+     * Returns empty if the entry could not be retrieved or parsed.
      */
-    public static String uniprotHTML(String accession) {
+    public Optional<UniprotEntry> entry(String accession) {
+        return cache.get(accession, this::lookup);
+    }
 
-        String text = "\t<br />\n";
-        UniProtEntry entry = UniprotCache.getUniProtEntry(accession);
-        if (entry != null) {
-            String uniProtId = entry.getUniProtId().toString();
-            text += htmlFragments.get(UNIPROT_LINK)
-                    .replace(BASE_URL, UNIPROT_URL)
-                    .replace(ACCESSION, accession)
-                    .replace(UNIPROT_ID, uniProtId);
+    private Optional<UniprotEntry> lookup(String accession) {
+        URI uri = URI.create(UNIPROTKB_URL + URLEncoder.encode(accession, StandardCharsets.UTF_8) + ".json");
+        return http.get(uri).flatMap(json -> parseEntry(json, accession));
+    }
 
+    private static Optional<UniprotEntry> parseEntry(JsonNode json, String accession) {
+        String primaryAccession = json.path("primaryAccession").asText(null);
+        String uniProtId = json.path("uniProtkbId").asText(null);
+        if (primaryAccession == null || uniProtId == null) {
+            logger.warn("UniProt entry {} is missing its accession or id", accession);
+            return Optional.empty();
+        }
 
-            // description
-            ProteinDescription description = entry.getProteinDescription();
+        JsonNode description = json.path("proteinDescription");
+        JsonNode recommendedName = description.path("recommendedName");
+        String fullName = recommendedName.path("fullName").path("value").asText(null);
+        List<String> ecNumbers = textValues(recommendedName.path("ecNumbers"), "value");
 
-            // Names (Full, Short, EC, AltName)
-            Name name = description.getRecommendedName();
-            List<Field> fields = name.getFields();
-            for (Field field : fields) {
+        List<String> alternativeNames = new ArrayList<>();
+        for (JsonNode altName : description.path("alternativeNames")) {
+            String value = altName.path("fullName").path("value").asText(null);
+            if (value != null) {
+                alternativeNames.add(value);
+            }
+        }
 
-                if (field.getType().getValue().equals("Full")) {
-                    text += MessageFormat.format(
-                            "\t<b>{0}</b><br />\n",
-                            field.getValue()
-                    );
-                } else {
-                    text += MessageFormat.format(
-                            "\t<b>{0}</b>: {1}<br />\n",
-                            field.getType().getValue(),
-                            field.getValue()
-                    );
+        JsonNode organism = json.path("organism");
+        String scientificName = organism.path("scientificName").asText(null);
+        String commonName = organism.path("commonName").asText(null);
+
+        List<String> geneNames = new ArrayList<>();
+        for (JsonNode gene : json.path("genes")) {
+            String value = gene.path("geneName").path("value").asText(null);
+            if (value != null) {
+                geneNames.add(value);
+            }
+        }
+
+        List<String> functionComments = new ArrayList<>();
+        List<String> catalyticActivities = new ArrayList<>();
+        List<String> pathways = new ArrayList<>();
+        for (JsonNode comment : json.path("comments")) {
+            String commentType = comment.path("commentType").asText("");
+            switch (commentType) {
+                case "FUNCTION" -> functionComments.addAll(textValues(comment.path("texts"), "value"));
+                case "CATALYTIC ACTIVITY" -> {
+                    String reactionName = comment.path("reaction").path("name").asText(null);
+                    if (reactionName != null) {
+                        catalyticActivities.add(reactionName);
+                    }
                 }
-            }
-
-            // organism
-            Organism organism = entry.getOrganism();
-            String organismStr = organism.getScientificName().toString();
-            if (organism.hasCommonName()) {
-                organismStr += MessageFormat.format(" ({0})", organism.getCommonName());
-
-            }
-            text += MessageFormat.format(
-                    "\t<b>Organism</b>: {0}<br />\n",
-                    organismStr);
-
-            // genes
-            for (Gene gene : entry.getGenes()) {
-                String geneName = gene.getGeneName().getValue();
-                text += MessageFormat.format("\t<b>Gene</b>: {0}<br />\n", geneName);
-
-            }
-
-            // alternative names
-            text += "\t<span class=\"comment\">Synonyms</span>";
-            for (Name n : description.getAlternativeNames()) {
-                text += MessageFormat.format(
-                        "{0}; ",
-                        n.getFields().get(0).getValue()
-                );
-            }
-            text += "<br />\n";
-
-            // comments
-            for (Comment comment : entry.getComments()) {
-                CommentType ctype = comment.getCommentType();
-                Map<String, String> commentReplacements = new HashMap<>();
-                if (ctype.equals(CommentType.FUNCTION)) {
-                    FunctionComment fComment = (FunctionComment) comment;
-                    for (CommentText commentText : fComment.getTexts()) {
-                        text += htmlFragments.get(FUNCTION_COMMENT)
-                                .replace(COMMENT_TEXT, commentText.getValue());
-
-                    }
-                } else if (ctype.equals(CommentType.CATALYTIC_ACTIVITY)) {
-                    CatalyticActivityCommentStructured caComment = (CatalyticActivityCommentStructured) comment;
-                    Reaction reaction = caComment.getReaction();
-                    if (reaction != null) {
-                        text += htmlFragments.get(CATALYTIC_ACTIVITY)
-                                .replace(REACTION_NAME, reaction.getName());
-
-                    }
-                } else if (ctype.equals(CommentType.PATHWAY)) {
-                    PathwayComment pComment = (PathwayComment) comment;
-                    for (CommentText commentText : pComment.getTexts()) {
-                        text += htmlFragments.get(PATHWAY)
-                                .replace(PATHWAY_NAME, commentText.getValue());
-                    }
+                case "PATHWAY" -> pathways.addAll(textValues(comment.path("texts"), "value"));
+                default -> {
+                    // other comment types are not shown in the secondary information panel
                 }
             }
         }
 
-        return text;
+        return Optional.of(new UniprotEntry(
+                primaryAccession,
+                uniProtId,
+                fullName,
+                List.copyOf(ecNumbers),
+                List.copyOf(alternativeNames),
+                scientificName,
+                commonName,
+                List.copyOf(geneNames),
+                List.copyOf(functionComments),
+                List.copyOf(catalyticActivities),
+                List.copyOf(pathways)));
     }
 
+    private static List<String> textValues(JsonNode arrayNode, String field) {
+        List<String> values = new ArrayList<>();
+        for (JsonNode node : arrayNode) {
+            String value = node.path(field).asText(null);
+            if (value != null) {
+                values.add(value);
+            }
+        }
+        return values;
+    }
 
+    /**
+     * Creates the secondary-information HTML fragment for a UniProt accession,
+     * for display in the SBase details panel.
+     */
+    public String html(String accession) {
+        StringBuilder html = new StringBuilder("\t<br />\n");
+        Optional<UniprotEntry> optionalEntry = entry(accession);
+        if (optionalEntry.isEmpty()) {
+            return html.toString();
+        }
+        UniprotEntry entry = optionalEntry.get();
+
+        html.append(htmlFragments.get(UNIPROT_LINK)
+                .replace(BASE_URL, UNIPROT_URL)
+                .replace(ACCESSION, StringEscapeUtils.escapeHtml4(accession))
+                .replace(UNIPROT_ID, StringEscapeUtils.escapeHtml4(entry.uniProtId())));
+
+        if (entry.fullName() != null) {
+            html.append("\t<b>").append(StringEscapeUtils.escapeHtml4(entry.fullName())).append("</b><br />\n");
+        }
+        for (String ecNumber : entry.ecNumbers()) {
+            html.append("\t<b>EC</b>: ").append(StringEscapeUtils.escapeHtml4(ecNumber)).append("<br />\n");
+        }
+
+        if (entry.scientificName() != null) {
+            String organismStr = entry.scientificName();
+            if (entry.commonName() != null) {
+                organismStr += " (" + entry.commonName() + ")";
+            }
+            html.append("\t<b>Organism</b>: ").append(StringEscapeUtils.escapeHtml4(organismStr)).append("<br />\n");
+        }
+
+        for (String geneName : entry.geneNames()) {
+            html.append("\t<b>Gene</b>: ").append(StringEscapeUtils.escapeHtml4(geneName)).append("<br />\n");
+        }
+
+        if (!entry.alternativeNames().isEmpty()) {
+            html.append("\t<span class=\"comment\">Synonyms</span>");
+            for (String altName : entry.alternativeNames()) {
+                html.append(StringEscapeUtils.escapeHtml4(altName)).append("; ");
+            }
+            html.append("<br />\n");
+        }
+
+        for (String functionComment : entry.functionComments()) {
+            html.append(htmlFragments.get(FUNCTION_COMMENT)
+                    .replace(COMMENT_TEXT, StringEscapeUtils.escapeHtml4(functionComment)));
+        }
+        for (String reactionName : entry.catalyticActivities()) {
+            html.append(htmlFragments.get(CATALYTIC_ACTIVITY)
+                    .replace(REACTION_NAME, StringEscapeUtils.escapeHtml4(reactionName)));
+        }
+        for (String pathway : entry.pathways()) {
+            html.append(htmlFragments.get(PATHWAY)
+                    .replace(PATHWAY_NAME, StringEscapeUtils.escapeHtml4(pathway)));
+        }
+
+        return html.toString();
+    }
 }
