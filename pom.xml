@@ -237,14 +237,6 @@
             <name>In project repository</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
-
-        <!-- Kept only until the dependency that needs it is removed:
-            registry-lib and miriam-lib (Task 2.5 or later) are hosted
-            here and nowhere else. -->
-        <repository>
-            <id>nexus-ebi-release-repo</id>
-            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
-        </repository>
     </repositories>
 
 
@@ -436,34 +428,6 @@
             <version>0.3.0</version>
         </dependency>
 
-        <!-- MIRIAM Registry -->
-        <!-- manually registered from repo -->
-        <dependency>
-            <groupId>org.identifiers.registry</groupId>
-            <artifactId>registry-lib</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/miriam/miriam-lib/ -->
-        <dependency>
-            <groupId>uk.ac.ebi.miriam</groupId>
-            <artifactId>miriam-lib</artifactId>
-            <version>1.1.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <!-- log4j's JMS appender is not used, and its jar is hosted only on the
-                    JBoss public repository that is no longer in <repositories>; log4j
-                    itself stays since JSBML loads org.apache.log4j.Logger reflectively. -->
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-
         <!-- REST clients (org.cy3sbml.ols.OlsClient, org.cy3sbml.uniprot.UniprotAccess,
             org.cy3sbml.chebi.ChebiAccess) -->
         <dependency>
@@ -490,6 +454,17 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.5.20</version>
+        </dependency>
+
+        <!-- org.sbml.jsbml.JSBML.loadClasses reflectively instantiates org.apache.log4j.Logger
+            (see the exclusions below and on the jsbml dependency). This was previously
+            supplied transitively by miriam-lib, removed in Task 2.5, so it is now a direct
+            dependency; reload4j is the maintained, CVE-fixed drop-in replacement for the
+            unmaintained log4j 1.x (same org.apache.log4j.* classes). -->
+        <dependency>
+            <groupId>ch.qos.reload4j</groupId>
+            <artifactId>reload4j</artifactId>
+            <version>1.2.26</version>
         </dependency>
 
         <dependency>

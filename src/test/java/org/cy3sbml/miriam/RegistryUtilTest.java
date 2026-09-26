@@ -4,8 +4,6 @@ package org.cy3sbml.miriam;
 import org.apache.commons.lang.StringUtils;
 import org.cy3sbml.TestUtils;
 import org.cy3sbml.util.IOUtil;
-import org.identifiers.registry.RegistryDatabase;
-import org.identifiers.registry.RegistryUtilities;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

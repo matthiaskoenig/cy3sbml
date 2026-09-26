@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import org.cy3sbml.chebi.ChebiAccess;
-import org.identifiers.registry.RegistryUtilities;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
@@ -499,7 +498,7 @@ public class SBaseHTMLFactory {
             String[] tokens = resourceURI.split("/");
             String compactIdentifier = getCompactId(tokens);
 
-            String dataCollection = RegistryUtilities.getDataCollectionPartFromURI(resourceURI);
+            String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
             String prefix = StringUtils.substringBefore(compactIdentifier, ":").toLowerCase();
             if (result.get(prefix) == null && tokens.length > 3) {
                 prefix = tokens[3].toLowerCase();
@@ -508,7 +507,7 @@ public class SBaseHTMLFactory {
                     ? result.get(StringUtils.substringAfter(prefix, "."))
                     : result.get(prefix);
 
-            String identifier = RegistryUtilities.getIdentifierFromURI(resourceURI);
+            String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
             if (identifier == null) {
                 identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
             }
@@ -558,7 +557,7 @@ public class SBaseHTMLFactory {
 
                 // check that identifier is correct for given datatype
                 String pattern = dataType.getPattern();
-                if (!RegistryUtilities.checkRegexp(identifier, pattern)) {
+                if (!RegistryUtil.checkRegexp(identifier, pattern)) {
                     logger.warn(MessageFormat.format(
                             "Identifier <{0}> does not match pattern <{1}> of data collection: <{2}>",
                             identifier,
