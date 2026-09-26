@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import org.cy3sbml.chebi.ChebiAccess;

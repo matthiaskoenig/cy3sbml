@@ -1,7 +1,7 @@
 package org.cy3sbml.miriam;
 
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.TestUtils;
 import org.cy3sbml.util.IOUtil;
 import org.junit.jupiter.api.Tag;

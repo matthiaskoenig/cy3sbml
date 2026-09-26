@@ -407,21 +407,7 @@
             <artifactId>commons-io</artifactId>
             <version>2.20.0</version>
         </dependency>
-        <!-- Legacy org.apache.commons.lang.StringUtils (SBMLReaderTask, SBaseHTMLFactory) and
-            com.google.common.io.Files (SessionData): previously pulled in transitively by
-            japi, now needed as direct dependencies since japi is removed in Task 2.4. -->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>32.0.1-jre</version>
-        </dependency>
-
-        <!-- JavaFX -->
+        <!-- JavaFX: org.codefx.libfx.control.webview (Browser, BrowserHyperlinkListener) -->
         <dependency>
             <groupId>org.codefx.libfx</groupId>
             <artifactId>LibFX</artifactId>

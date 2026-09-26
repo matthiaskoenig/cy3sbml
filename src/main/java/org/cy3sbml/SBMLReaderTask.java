@@ -3,7 +3,7 @@ package org.cy3sbml;
 import java.io.InputStream;
 import java.util.*;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.filter.SBaseFilter;
 import org.cytoscape.group.CyGroup;

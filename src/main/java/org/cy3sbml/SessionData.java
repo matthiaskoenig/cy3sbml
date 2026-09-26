@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import com.google.common.io.Files;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -78,7 +78,13 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         logger.info("SessionAboutToBeSaved: save cy3sbml session state");
 
         // FIXME: not sure if this is the write file import
-        File directory = Files.createTempDir();
+        File directory;
+        try {
+            directory = Files.createTempDirectory(APP_ID).toFile();
+        } catch (IOException e) {
+            logger.error("Could not create temporary directory for session data", e);
+            return;
+        }
 
         // Files to save
         List<File> files = new LinkedList<>();
