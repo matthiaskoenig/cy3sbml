@@ -31,6 +31,7 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
     private final ServiceAdapter adapter;
     private final SBMLEnableTaskFactory sbmlEnableTaskFactory;
     private final CofactorManager cofactorManager;
+    private final SBMLManager sbmlManager;
 
     /**
      * Constructor.
@@ -39,11 +40,13 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
             Map<String, String> configProps,
             ServiceAdapter adapter,
             SBMLEnableTaskFactory sbmlEnableTaskFactory,
-            CofactorManager cofactorManager) {
+            CofactorManager cofactorManager,
+            SBMLManager sbmlManager) {
         super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, sbmlEnableTaskFactory);
         this.adapter = adapter;
         this.sbmlEnableTaskFactory = sbmlEnableTaskFactory;
         this.cofactorManager = cofactorManager;
+        this.sbmlManager = sbmlManager;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_COFACTOR));
         putValue(LARGE_ICON_KEY, icon);
@@ -85,7 +88,7 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
         CyNetwork network = event.getNetwork();
         boolean ready = false;
         if (network != null) {
-            SBMLDocument doc = SBMLManager.getInstance().getSBMLDocument(network);
+            SBMLDocument doc = sbmlManager.getSBMLDocument(network);
             if (doc != null) {
                 ready = true;
             }

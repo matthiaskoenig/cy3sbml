@@ -17,13 +17,15 @@ import org.slf4j.LoggerFactory;
 public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTaskFactory.class);
     private final ServiceAdapter adapter;
+    private final SBMLManager sbmlManager;
 
     /**
      * Constructor.
      */
-    public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter) {
+    public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter, SBMLManager sbmlManager) {
         super(filter);
         this.adapter = adapter;
+        this.sbmlManager = sbmlManager;
     }
 
     @Override
@@ -39,7 +41,8 @@ public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
                     adapter.cyNetworkViewFactory,
                     adapter.visualMappingManager,
                     adapter.cyLayoutAlgorithmManager,
-                    adapter.cy3sbmlProperties));
+                    adapter.cy3sbmlProperties,
+                    sbmlManager));
         } catch (IOException e) {
             logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
             return null;

@@ -189,7 +189,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
             // SBMLManager
-            SBMLManager sbmlManager = SBMLManager.getInstance(cyApplicationManager);
+            SBMLManager sbmlManager = new SBMLManager(cyApplicationManager);
             registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
             // Cofactor manager
@@ -199,7 +199,7 @@ public class CyActivator extends AbstractCyActivator {
             BiomodelsDialog biomodelsDialog = new BiomodelsDialog(adapter);
 
             // panels
-            WebViewPanel webViewPanel = new WebViewPanel(adapter, cofactorManager, biomodelsDialog);
+            WebViewPanel webViewPanel = new WebViewPanel(adapter, sbmlManager, cofactorManager, biomodelsDialog);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -226,7 +226,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
             CofactorAction cofactorAction =
-                    new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory, cofactorManager);
+                    new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory, cofactorManager, sbmlManager);
             registerService(bc, cofactorAction, CyAction.class, new Properties());
             registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
 
@@ -259,14 +259,14 @@ public class CyActivator extends AbstractCyActivator {
 
             // SBML file reader
             SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
-            SBMLReaderTaskFactory sbmlReaderTaskFactory = new SBMLReaderTaskFactory(sbmlFilter, adapter);
+            SBMLReaderTaskFactory sbmlReaderTaskFactory = new SBMLReaderTaskFactory(sbmlFilter, adapter, sbmlManager);
             Properties sbmlReaderProps = new Properties();
             sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
             sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
             registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
 
             // Session loading & saving
-            SessionData sessionData = new SessionData(cofactorManager);
+            SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
             registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
             registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 

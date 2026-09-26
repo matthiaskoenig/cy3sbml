@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
@@ -46,30 +45,15 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     private static final String NETWORK2SBMLMAPPER_ID = "Network2SBMLMapper.ser";
     private static final String NETWORK2COFACTOR_ID = "Network2Cofactors.ser";
 
-    private final Consumer<Network2SBMLMapper> sbmlMapperConsumer;
-    private final Consumer<Network2CofactorMapper> cofactorMapperConsumer;
-
+    private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
 
     /**
-     * Restores the loaded mappers in the SBMLManager and the CofactorManager.
+     * Saves the mappers of the SBMLManager and the CofactorManager and
+     * restores the loaded mappers in them.
      */
-    public SessionData(CofactorManager cofactorManager) {
-        this(
-                mapper -> SBMLManager.getInstance().setSBML2NetworkMapper(mapper),
-                cofactorManager::setNetwork2CofactorMapper,
-                cofactorManager);
-    }
-
-    /**
-     * Restores the loaded mappers with the given consumers.
-     */
-    SessionData(
-            Consumer<Network2SBMLMapper> sbmlMapperConsumer,
-            Consumer<Network2CofactorMapper> cofactorMapperConsumer,
-            CofactorManager cofactorManager) {
-        this.sbmlMapperConsumer = sbmlMapperConsumer;
-        this.cofactorMapperConsumer = cofactorMapperConsumer;
+    public SessionData(SBMLManager sbmlManager, CofactorManager cofactorManager) {
+        this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
     }
 
@@ -106,8 +90,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         // Files to save
         List<File> files = new ArrayList<>();
 
-        // get SBMLManager for serialization
-        SBMLManager sbmlManager = SBMLManager.getInstance();
+        // SBML mapper for serialization
         Network2SBMLMapper mapper = sbmlManager.getNetwork2SBMLMapper();
         Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 
@@ -191,7 +174,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             logger.debug("Deserialize <Network2SBMLMapper>");
             try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
                 Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
-                sbmlMapperConsumer.accept(updateSUIDsInMapper(session, mapper));
+                sbmlManager.setSBML2NetworkMapper(updateSUIDsInMapper(session, mapper));
             } catch (IOException | ClassNotFoundException | ClassCastException e) {
                 logger.error("Deserialization of Network2SBMLMapper failed.", e);
             }
@@ -199,7 +182,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             logger.debug("Deserialize <Network2CofactorMapper>");
             try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
                 Network2CofactorMapper mapper = (Network2CofactorMapper) input.readObject();
-                cofactorMapperConsumer.accept(updateSUIDsInCofactorMapper(session, mapper));
+                cofactorManager.setNetwork2CofactorMapper(updateSUIDsInCofactorMapper(session, mapper));
             } catch (IOException | ClassNotFoundException | ClassCastException e) {
                 logger.error("Deserialization of Network2CofactorMapper failed.", e);
             }

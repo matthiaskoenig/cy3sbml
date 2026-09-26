@@ -2,7 +2,10 @@ package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
@@ -11,7 +14,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +29,7 @@ import org.cytoscape.session.events.SessionLoadedEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.ArgumentCaptor;
 import org.sbml.jsbml.SBMLDocument;
 
 /**
@@ -97,40 +100,42 @@ class SessionDataTest {
 
     @Test
     void restoresMappingsAndSkipsStaleSUIDs() throws Exception {
-        List<Network2SBMLMapper> sbmlMappers = new ArrayList<>();
-        List<Network2CofactorMapper> cofactorMappers = new ArrayList<>();
-        SessionData sessionData = new SessionData(sbmlMappers::add, cofactorMappers::add, new CofactorManager());
+        SBMLManager sbmlManager = mock(SBMLManager.class);
+        CofactorManager cofactorManager = new CofactorManager();
+        SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
 
         sessionData.handleEvent(event(
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),
                 serialize("Network2Cofactors.ser", cofactorMapperWithStaleClone())));
 
-        assertEquals(1, sbmlMappers.size());
-        Network2SBMLMapper sbmlMapper = sbmlMappers.get(0);
+        ArgumentCaptor<Network2SBMLMapper> sbmlMappers = ArgumentCaptor.forClass(Network2SBMLMapper.class);
+        verify(sbmlManager).setSBML2NetworkMapper(sbmlMappers.capture());
+        Network2SBMLMapper sbmlMapper = sbmlMappers.getValue();
         assertNotNull(sbmlMapper.getDocument(NEW_NETWORK));
         One2ManyMapping<String, Long> nodes = sbmlMapper.getSBase2CyNodeMapping(NEW_NETWORK);
         assertEquals(Set.of("s1"), nodes.keySet());
         assertEquals(Set.of(NEW_NODE), nodes.getValues("s1"));
 
-        assertEquals(1, cofactorMappers.size());
-        One2ManyMapping<Long, Long> clones = cofactorMappers.get(0).getCofactor2CloneMapping(NEW_NETWORK);
+        One2ManyMapping<Long, Long> clones =
+                cofactorManager.getNetwork2CofactorMapper().getCofactor2CloneMapping(NEW_NETWORK);
         assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
     }
 
     @Test
     void failureInOneFileStillRestoresTheOthers() throws Exception {
-        List<Network2CofactorMapper> cofactorMappers = new ArrayList<>();
-        SessionData sessionData = new SessionData(
-                mapper -> {
-                    throw new IllegalStateException("SBMLManager failure");
-                },
-                cofactorMappers::add,
-                new CofactorManager());
+        SBMLManager sbmlManager = mock(SBMLManager.class);
+        doThrow(new IllegalStateException("SBMLManager failure"))
+                .when(sbmlManager)
+                .setSBML2NetworkMapper(any());
+        CofactorManager cofactorManager = new CofactorManager();
+        SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
 
         sessionData.handleEvent(event(
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),
                 serialize("Network2Cofactors.ser", cofactorMapperWithStaleClone())));
 
-        assertEquals(1, cofactorMappers.size());
+        One2ManyMapping<Long, Long> clones =
+                cofactorManager.getNetwork2CofactorMapper().getCofactor2CloneMapping(NEW_NETWORK);
+        assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
     }
 }

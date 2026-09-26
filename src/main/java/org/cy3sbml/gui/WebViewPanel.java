@@ -46,6 +46,7 @@ public class WebViewPanel extends JFXPanel
     private static final long serialVersionUID = 1L;
 
     private final ServiceAdapter adapter;
+    private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
@@ -56,8 +57,13 @@ public class WebViewPanel extends JFXPanel
     /**
      * Constructor
      */
-    public WebViewPanel(ServiceAdapter adapter, CofactorManager cofactorManager, BiomodelsDialog biomodelsDialog) {
+    public WebViewPanel(
+            ServiceAdapter adapter,
+            SBMLManager sbmlManager,
+            CofactorManager cofactorManager,
+            BiomodelsDialog biomodelsDialog) {
         this.adapter = adapter;
+        this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
         this.biomodelsDialog = biomodelsDialog;
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
@@ -79,7 +85,7 @@ public class WebViewPanel extends JFXPanel
         // This method is invoked on the JavaFX thread
         browser = new Browser(
                 adapter.cy3sbmlDirectory,
-                new BrowserHyperlinkListener(adapter, this, cofactorManager, biomodelsDialog));
+                new BrowserHyperlinkListener(adapter, this, sbmlManager, cofactorManager, biomodelsDialog));
         Scene scene = new Scene(browser, 300, 600);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
@@ -256,7 +262,7 @@ public class WebViewPanel extends JFXPanel
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
         // network changed, update of the current SBMLDocument and bundle
-        SBMLManager.getInstance().updateCurrent(network);
+        sbmlManager.updateCurrent(network);
         updateInformation();
     }
 
@@ -301,7 +307,7 @@ public class WebViewPanel extends JFXPanel
         }
 
         // Update the information in separate thread
-        PanelUpdater updater = new PanelUpdater(this, network);
+        PanelUpdater updater = new PanelUpdater(this, network, sbmlManager);
         Thread t = new Thread(updater);
         t.start();
     }

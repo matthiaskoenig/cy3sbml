@@ -46,7 +46,7 @@ public class SBMLReaderTaskFactoryTaskTest {
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTaskWithViewSupport = new SBMLReaderTask(
-                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
+                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null, null);
     }
 
     @Test

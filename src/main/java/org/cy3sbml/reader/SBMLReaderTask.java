@@ -60,6 +60,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final VisualMappingManager visualMappingManager;
     private final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
     private final CyProperty<Properties> cy3sbmlProperties;
+    private final SBMLManager sbmlManager;
 
     private final List<PackageReader> readers;
     private final SubnetworkBuilder subnetworkBuilder;
@@ -80,7 +81,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyNetworkViewFactory viewFactory,
             VisualMappingManager visualMappingManager,
             CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
-            CyProperty<Properties> cy3sbmlProperties) {
+            CyProperty<Properties> cy3sbmlProperties,
+            SBMLManager sbmlManager) {
 
         this.stream = stream;
         this.networkFactory = networkFactory;
@@ -89,6 +91,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         this.visualMappingManager = visualMappingManager;
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
         this.cy3sbmlProperties = cy3sbmlProperties;
+        this.sbmlManager = sbmlManager;
 
         // package readers in the order they are applied to every model
         readers = List.of(
@@ -105,10 +108,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         cyNetworks = new ArrayList<>();
     }
 
-    /** Creates the reader without view, style and layout support, e.g. for tests. */
+    /** Creates the reader without view, style, layout and SBMLManager support, e.g. for tests. */
     public SBMLReaderTask(
             InputStream stream, String fileName, CyNetworkFactory networkFactory, CyGroupFactory groupFactory) {
-        this(stream, fileName, networkFactory, groupFactory, null, null, null, null);
+        this(stream, fileName, networkFactory, groupFactory, null, null, null, null, null);
     }
 
     /**
@@ -130,7 +133,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     @Override
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         // SBMLManager is only available in the OSGI context
-        SBMLManager sbmlManager = SBMLManager.getInstance();
         if (sbmlManager != null) {
             // the existing mapping (of read networks) is updated
             One2ManyMapping<String, Long> mapping = mappingFromNetwork(network, sbmlManager.getMapping(network));

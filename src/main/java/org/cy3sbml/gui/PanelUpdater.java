@@ -31,12 +31,14 @@ public class PanelUpdater implements Runnable {
     private static final String TEMPLATE_NO_SBML = SBaseHTMLFactory.createHTMLText(
             "<h2>No information</h2>" + "<p>No SBMLDocument associated with the current network.</p>");
 
-    private InfoPanel panel;
-    private CyNetwork network;
+    private final InfoPanel panel;
+    private final CyNetwork network;
+    private final SBMLManager sbmlManager;
 
-    public PanelUpdater(InfoPanel panel, CyNetwork network) {
+    public PanelUpdater(InfoPanel panel, CyNetwork network, SBMLManager sbmlManager) {
         this.panel = panel;
         this.network = network;
+        this.sbmlManager = sbmlManager;
     }
 
     /**
@@ -48,7 +50,6 @@ public class PanelUpdater implements Runnable {
     public void run() {
 
         // associated SBMLDocument
-        SBMLManager sbmlManager = SBMLManager.getInstance();
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
 
         if (document != null) {
@@ -63,8 +64,6 @@ public class PanelUpdater implements Runnable {
      * Updates the panel information for an SBMLDocument.
      */
     private void updateSBMLPanel(SBMLDocument document) {
-        SBMLManager sbmlManager = SBMLManager.getInstance();
-
         // selected node SUIDs
         List<Long> suids = new ArrayList<>();
         List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);

@@ -22,41 +22,20 @@ import org.slf4j.LoggerFactory;
  * The SBMLManager provides the entry point to interact with SBMLDocuments.
  * All access to SBMLDocuments should go via the SBMLManager.
  * <p>
- * The SBMLManager is a singleton class.
+ * CyActivator creates the single instance and registers it as an OSGi service,
+ * so that other apps can look it up.
  */
 public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
-    private static SBMLManager uniqueInstance;
-    private CyApplicationManager cyApplicationManager;
+    private final CyApplicationManager cyApplicationManager;
 
     private Long currentSUID;
     private Network2SBMLMapper network2sbml;
 
     /**
-     * Get SBMLManager (creates the instance).
-     */
-    public static synchronized SBMLManager getInstance(CyApplicationManager cyApplicationManager) {
-        if (uniqueInstance == null) {
-            uniqueInstance = new SBMLManager(cyApplicationManager);
-        }
-        return uniqueInstance;
-    }
-
-    /**
-     * Get SBMLManager instance.
-     * Use this function to access the SBMLManager.
-     */
-    public static synchronized SBMLManager getInstance() {
-        if (uniqueInstance == null) {
-            logger.error("Access to SBMLManager before creation");
-        }
-        return uniqueInstance;
-    }
-
-    /**
      * Constructor.
      */
-    private SBMLManager(CyApplicationManager cyApplicationManager) {
+    public SBMLManager(CyApplicationManager cyApplicationManager) {
         logger.debug("SBMLManager created");
         this.cyApplicationManager = cyApplicationManager;
         reset();

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.swing.event.HyperlinkEvent;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
@@ -92,16 +93,19 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
 
     private final ServiceAdapter adapter;
     private final WebViewPanel webViewPanel;
+    private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
 
     public BrowserHyperlinkListener(
             ServiceAdapter adapter,
             WebViewPanel webViewPanel,
+            SBMLManager sbmlManager,
             CofactorManager cofactorManager,
             BiomodelsDialog biomodelsDialog) {
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
+        this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
         this.biomodelsDialog = biomodelsDialog;
     }
@@ -185,7 +189,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
 
             // SBML file
             else if (s.equals(URL_SBMLFILE)) {
-                GUIUtil.openCurrentSBMLInBrowser();
+                GUIUtil.openCurrentSBMLInBrowser(sbmlManager);
             }
 
             // SBase HTML

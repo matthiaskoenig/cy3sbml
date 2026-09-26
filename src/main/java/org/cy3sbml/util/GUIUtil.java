@@ -50,8 +50,7 @@ public class GUIUtil {
      * Open current SBML in browser.
      * Writes a temporary file of the SBML which can be loaded.
      */
-    public static void openCurrentSBMLInBrowser() {
-        SBMLManager sbmlManager = SBMLManager.getInstance();
+    public static void openCurrentSBMLInBrowser(SBMLManager sbmlManager) {
         SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
 
         try {
