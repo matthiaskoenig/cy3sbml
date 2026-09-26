@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLReaderError;
 import org.cy3sbml.util.AttributeUtil;
@@ -129,6 +130,30 @@ class SBMLReaderTaskTest {
 
             verify(networkFactory, times(1)).createNetwork();
             assertFalse(task.getError());
+            assertEquals(0, task.getNetworks().length);
+        }
+    }
+
+    @Test
+    void failedReaderReturnsNoNetworks() throws Exception {
+        TaskMonitor taskMonitor = mock(TaskMonitor.class);
+        // fail while reading the second model, after the networks of the first model were created
+        AtomicInteger modelsRead = new AtomicInteger();
+        doAnswer(invocation -> {
+                    if (modelsRead.incrementAndGet() == 2) {
+                        throw new IllegalStateException("failure in second model");
+                    }
+                    return null;
+                })
+                .when(taskMonitor)
+                .setProgress(0.4);
+
+        try (InputStream stream = getClass().getResourceAsStream(MODEL_WITH_DEFINITIONS)) {
+            SBMLReaderTask task = readerTask(stream, new NetworkTestSupport().getNetworkFactory());
+
+            assertThrows(SBMLReaderError.class, () -> task.run(taskMonitor));
+
+            assertTrue(task.getError());
             assertEquals(0, task.getNetworks().length);
         }
     }
