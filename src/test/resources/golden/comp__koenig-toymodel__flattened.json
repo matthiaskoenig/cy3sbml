@@ -1,0 +1,2165 @@
+{
+  "networks" : [
+    {
+      "name" : "All__toy_top_level",
+      "nodeCount" : 46,
+      "edgeCount" : 62,
+      "attributes" : {
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "All__toy_top_level",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "shared name" : "Top level model",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "R3",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_objective-fba__R3_maximize" : 1.0,
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B2 export (R3)",
+          "metaId" : "R3",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B2 export (R3)"
+        },
+        {
+          "cyId" : "UnitSId__ITEM",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM0",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM01",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__KILOGRAM",
+          "exponent" : 1.0,
+          "kind" : "KILOGRAM",
+          "label" : "KILOGRAM",
+          "metaId" : "UnitSId__KILOGRAM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE",
+          "exponent" : 3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0",
+          "exponent" : 2.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE01",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE012",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE012",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0123",
+          "exponent" : 1.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0123",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND0",
+          "exponent" : 1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND01",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__item_base",
+          "label" : "item_base",
+          "metaId" : "UnitSId__item_base",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_base"
+        },
+        {
+          "cyId" : "UnitSId__item_per_m3",
+          "label" : "item_per_m3",
+          "metaId" : "UnitSId__item_per_m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_m3"
+        },
+        {
+          "cyId" : "UnitSId__item_per_s",
+          "label" : "item_per_s",
+          "metaId" : "UnitSId__item_per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_s"
+        },
+        {
+          "cyId" : "UnitSId__kg",
+          "label" : "kg",
+          "metaId" : "UnitSId__kg",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "kg"
+        },
+        {
+          "cyId" : "UnitSId__m",
+          "label" : "m",
+          "metaId" : "UnitSId__m",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m"
+        },
+        {
+          "cyId" : "UnitSId__m2",
+          "label" : "m2",
+          "metaId" : "UnitSId__m2",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m2"
+        },
+        {
+          "cyId" : "UnitSId__m3",
+          "label" : "m3",
+          "metaId" : "UnitSId__m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m3"
+        },
+        {
+          "cyId" : "UnitSId__mM",
+          "label" : "mM",
+          "metaId" : "UnitSId__mM",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "mM"
+        },
+        {
+          "cyId" : "UnitSId__per_s",
+          "label" : "per_s",
+          "metaId" : "UnitSId__per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "per_s"
+        },
+        {
+          "cyId" : "UnitSId__s",
+          "label" : "s",
+          "metaId" : "UnitSId__s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "s"
+        },
+        {
+          "constant" : false,
+          "cyId" : "bounds__k1",
+          "derivedUnits" : "per_s",
+          "label" : "k1",
+          "metaId" : "bounds__k1",
+          "sbml id" : "bounds__k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k1",
+          "units" : "per_s",
+          "value" : -0.2
+        },
+        {
+          "constant" : true,
+          "cyId" : "cell",
+          "derivedUnits" : "m3",
+          "label" : "cell",
+          "metaId" : "cell",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cell",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "fba__A",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "A",
+          "metaId" : "fba__A",
+          "sbml compartment" : "extern",
+          "sbml id" : "fba__A",
+          "sbml initial amount" : 10.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 10.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B1",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B1",
+          "metaId" : "fba__B1",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B1",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B1",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B2",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B2",
+          "metaId" : "fba__B2",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B2",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "fba__R1",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "ub_R1",
+          "label" : "A import (R1)",
+          "metaId" : "fba__R1",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "fba__R1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "A import (R1)"
+        },
+        {
+          "compartmentCode" : 2,
+          "cyId" : "fba__R2",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B1 <-> B2 (R2)",
+          "metaId" : "fba__R2",
+          "reversible" : true,
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__R2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B1 <-> B2 (R2)"
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__lb",
+          "derivedUnits" : "item_per_s",
+          "label" : "lower bound",
+          "metaId" : "fba__lb",
+          "sbml id" : "fba__lb",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "lower bound",
+          "units" : "item_per_s",
+          "value" : 0.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__membrane",
+          "derivedUnits" : "m2",
+          "label" : "membrane",
+          "metaId" : "fba__membrane",
+          "sbml id" : "fba__membrane",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "membrane",
+          "size" : 1.0,
+          "spatialDimensions" : 2.0,
+          "units" : "m2",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__ub",
+          "derivedUnits" : "item_per_s",
+          "label" : "upper bound",
+          "metaId" : "fba__ub",
+          "sbml id" : "fba__ub",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "upper bound",
+          "units" : "item_per_s",
+          "value" : 1000.0
+        },
+        {
+          "cyId" : "law__model__R4",
+          "derivedUnits" : "item_per_s",
+          "label" : "model__R4",
+          "math" : "model__k_R4*C",
+          "metaId" : "law__model__R4",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "law__update__R3",
+          "derivedUnits" : "item_per_s",
+          "label" : "update__R3",
+          "math" : "vR3",
+          "metaId" : "law__update__R3",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "model__D",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "D",
+          "metaId" : "model__D",
+          "sbml compartment" : "extern",
+          "sbml id" : "model__D",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "model__R4",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "model__k_R4*C",
+          "label" : "C -> D",
+          "metaId" : "model__R4",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "model__R4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "C -> D"
+        },
+        {
+          "constant" : true,
+          "cyId" : "model__k_R4",
+          "derivedUnits" : "per_s",
+          "label" : "k R4",
+          "metaId" : "model__k_R4",
+          "sbml id" : "model__k_R4",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k R4",
+          "units" : "per_s",
+          "value" : 0.1
+        },
+        {
+          "cyId" : "rule__ub_R1",
+          "label" : "<d/dt ub_R1>",
+          "math" : "bounds__k1*ub_R1",
+          "metaId" : "rule__ub_R1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "ub_R1"
+        },
+        {
+          "cyId" : "rule__vR3",
+          "derivedUnits" : "invalid",
+          "label" : "<vR3>",
+          "math" : "R3",
+          "metaId" : "rule__vR3",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "vR3"
+        },
+        {
+          "constant" : false,
+          "cyId" : "ub_R1",
+          "derivedUnits" : "item_per_s",
+          "label" : "ub_R1",
+          "metaId" : "ub_R1",
+          "sbml id" : "ub_R1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "ub_R1",
+          "units" : "item_per_s",
+          "value" : 1.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "update__R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "update__R3",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "update__R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        },
+        {
+          "constant" : false,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "law__model__R4",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "fba__B2",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "fba__membrane",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "rule__vR3",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM0",
+          "target" : "UnitSId__item_per_m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM01",
+          "target" : "UnitSId__item_base",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__KILOGRAM",
+          "target" : "UnitSId__kg",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE",
+          "target" : "UnitSId__m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0",
+          "target" : "UnitSId__m2",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE01",
+          "target" : "UnitSId__mM",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE012",
+          "target" : "UnitSId__item_per_m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0123",
+          "target" : "UnitSId__m",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE",
+          "target" : "UnitSId__mM",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND0",
+          "target" : "UnitSId__s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND01",
+          "target" : "UnitSId__per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "bounds__k1",
+          "target" : "UnitSId__per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "bounds__k1",
+          "target" : "rule__ub_R1",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "cell",
+          "target" : "UnitSId__m3",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "UnitSId__m3",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__A",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__A",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__B1",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__B1",
+          "target" : "cell",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__B2",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__B2",
+          "target" : "cell",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__A",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__B1",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__membrane",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "cell",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B1",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B2",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "R3",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "fba__R1",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "fba__R2",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__membrane",
+          "target" : "UnitSId__m2",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__ub",
+          "target" : "R3",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__ub",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "fba__ub",
+          "target" : "fba__R2",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "model__D",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "model__D",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "C",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "law__model__R4",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "model__D",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__k_R4",
+          "target" : "UnitSId__per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "model__k_R4",
+          "target" : "law__model__R4",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "fba__R1",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "rule__ub_R1",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "rule__ub_R1",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "law__update__R3",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "law__update__R3",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "rule__vR3",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__toy_top_level",
+      "nodeCount" : 23,
+      "edgeCount" : 35,
+      "attributes" : {
+        "name" : "Kinetic__toy_top_level"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "R3",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_objective-fba__R3_maximize" : 1.0,
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B2 export (R3)",
+          "metaId" : "R3",
+          "name" : "B2 export (R3)",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B2 export (R3)"
+        },
+        {
+          "constant" : false,
+          "cyId" : "bounds__k1",
+          "derivedUnits" : "per_s",
+          "label" : "k1",
+          "metaId" : "bounds__k1",
+          "name" : "k1",
+          "sbml id" : "bounds__k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k1",
+          "units" : "per_s",
+          "value" : -0.2
+        },
+        {
+          "constant" : true,
+          "cyId" : "cell",
+          "derivedUnits" : "m3",
+          "label" : "cell",
+          "metaId" : "cell",
+          "name" : "cell",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cell",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "name" : "external compartment",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "fba__A",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "A",
+          "metaId" : "fba__A",
+          "name" : "A",
+          "sbml compartment" : "extern",
+          "sbml id" : "fba__A",
+          "sbml initial amount" : 10.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 10.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B1",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B1",
+          "metaId" : "fba__B1",
+          "name" : "B1",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B1",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B1",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B2",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B2",
+          "metaId" : "fba__B2",
+          "name" : "B2",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B2",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "fba__R1",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "ub_R1",
+          "label" : "A import (R1)",
+          "metaId" : "fba__R1",
+          "name" : "A import (R1)",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "fba__R1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "A import (R1)"
+        },
+        {
+          "compartmentCode" : 2,
+          "cyId" : "fba__R2",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B1 <-> B2 (R2)",
+          "metaId" : "fba__R2",
+          "name" : "B1 <-> B2 (R2)",
+          "reversible" : true,
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__R2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B1 <-> B2 (R2)"
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__lb",
+          "derivedUnits" : "item_per_s",
+          "label" : "lower bound",
+          "metaId" : "fba__lb",
+          "name" : "lower bound",
+          "sbml id" : "fba__lb",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "lower bound",
+          "units" : "item_per_s",
+          "value" : 0.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__membrane",
+          "derivedUnits" : "m2",
+          "label" : "membrane",
+          "metaId" : "fba__membrane",
+          "name" : "membrane",
+          "sbml id" : "fba__membrane",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "membrane",
+          "size" : 1.0,
+          "spatialDimensions" : 2.0,
+          "units" : "m2",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "fba__ub",
+          "derivedUnits" : "item_per_s",
+          "label" : "upper bound",
+          "metaId" : "fba__ub",
+          "name" : "upper bound",
+          "sbml id" : "fba__ub",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "upper bound",
+          "units" : "item_per_s",
+          "value" : 1000.0
+        },
+        {
+          "cyId" : "law__model__R4",
+          "derivedUnits" : "item_per_s",
+          "label" : "model__R4",
+          "math" : "model__k_R4*C",
+          "metaId" : "law__model__R4",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "law__update__R3",
+          "derivedUnits" : "item_per_s",
+          "label" : "update__R3",
+          "math" : "vR3",
+          "metaId" : "law__update__R3",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "model__D",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "D",
+          "metaId" : "model__D",
+          "name" : "D",
+          "sbml compartment" : "extern",
+          "sbml id" : "model__D",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "model__R4",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "model__k_R4*C",
+          "label" : "C -> D",
+          "metaId" : "model__R4",
+          "name" : "C -> D",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "model__R4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "C -> D"
+        },
+        {
+          "constant" : true,
+          "cyId" : "model__k_R4",
+          "derivedUnits" : "per_s",
+          "label" : "k R4",
+          "metaId" : "model__k_R4",
+          "name" : "k R4",
+          "sbml id" : "model__k_R4",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k R4",
+          "units" : "per_s",
+          "value" : 0.1
+        },
+        {
+          "cyId" : "rule__ub_R1",
+          "label" : "<d/dt ub_R1>",
+          "math" : "bounds__k1*ub_R1",
+          "metaId" : "rule__ub_R1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "ub_R1"
+        },
+        {
+          "cyId" : "rule__vR3",
+          "derivedUnits" : "invalid",
+          "label" : "<vR3>",
+          "math" : "R3",
+          "metaId" : "rule__vR3",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "vR3"
+        },
+        {
+          "constant" : false,
+          "cyId" : "ub_R1",
+          "derivedUnits" : "item_per_s",
+          "label" : "ub_R1",
+          "metaId" : "ub_R1",
+          "name" : "ub_R1",
+          "sbml id" : "ub_R1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "ub_R1",
+          "units" : "item_per_s",
+          "value" : 1.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "update__R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "update__R3",
+          "name" : "-> C",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "update__R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        },
+        {
+          "constant" : false,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "name" : "vR3 (FBA flux)",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "law__model__R4",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "fba__B2",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "fba__membrane",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "rule__vR3",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "bounds__k1",
+          "target" : "rule__ub_R1",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "fba__A",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__B1",
+          "target" : "cell",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__B2",
+          "target" : "cell",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__A",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__B1",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__membrane",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "cell",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B1",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B2",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "R3",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "fba__R1",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__lb",
+          "target" : "fba__R2",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__ub",
+          "target" : "R3",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "fba__ub",
+          "target" : "fba__R2",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "model__D",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "C",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "law__model__R4",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "model__D",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__k_R4",
+          "target" : "law__model__R4",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "fba__R1",
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "rule__ub_R1",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "rule__ub_R1",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "law__update__R3",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "law__update__R3",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "rule__vR3",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "toy_top_level",
+      "nodeCount" : 10,
+      "edgeCount" : 9,
+      "attributes" : {
+        "name" : "toy_top_level"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "R3",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_objective-fba__R3_maximize" : 1.0,
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B2 export (R3)",
+          "metaId" : "R3",
+          "name" : "B2 export (R3)",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B2 export (R3)"
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "fba__A",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "A",
+          "metaId" : "fba__A",
+          "name" : "A",
+          "sbml compartment" : "extern",
+          "sbml id" : "fba__A",
+          "sbml initial amount" : 10.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 10.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B1",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B1",
+          "metaId" : "fba__B1",
+          "name" : "B1",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B1",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B1",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 2,
+          "constant" : false,
+          "cyId" : "fba__B2",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "B2",
+          "metaId" : "fba__B2",
+          "name" : "B2",
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__B2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B2",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 3,
+          "cyId" : "fba__R1",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "ub_R1",
+          "label" : "A import (R1)",
+          "metaId" : "fba__R1",
+          "name" : "A import (R1)",
+          "reversible" : true,
+          "sbml compartment" : "fba__membrane",
+          "sbml id" : "fba__R1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "A import (R1)"
+        },
+        {
+          "compartmentCode" : 2,
+          "cyId" : "fba__R2",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "fba__lb",
+          "fbc_upperFluxBound" : "fba__ub",
+          "label" : "B1 <-> B2 (R2)",
+          "metaId" : "fba__R2",
+          "name" : "B1 <-> B2 (R2)",
+          "reversible" : true,
+          "sbml compartment" : "cell",
+          "sbml id" : "fba__R2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "B1 <-> B2 (R2)"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "model__D",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "D",
+          "metaId" : "model__D",
+          "name" : "D",
+          "sbml compartment" : "extern",
+          "sbml id" : "model__D",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "model__R4",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "model__k_R4*C",
+          "label" : "C -> D",
+          "metaId" : "model__R4",
+          "name" : "C -> D",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "model__R4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "C -> D"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "update__R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "update__R3",
+          "name" : "-> C",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "update__R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "fba__B2",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__A",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R1",
+          "target" : "fba__B1",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B1",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "fba__R2",
+          "target" : "fba__B2",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "C",
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "model__R4",
+          "target" : "model__D",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "update__R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

@@ -1,0 +1,828 @@
+{
+  "networks" : [
+    {
+      "name" : "All__toy_ode_update",
+      "nodeCount" : 31,
+      "edgeCount" : 24,
+      "attributes" : {
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE metabolite update submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_8b8842adcc30469d8e8b93cf8f8e3716",
+        "name" : "All__toy_ode_update",
+        "sbml id" : "toy_ode_update",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "shared name" : "ODE metabolite update submodel",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "comp_idRef" : "C",
+          "cyId" : "C_port",
+          "label" : "C_port",
+          "metaId" : "C_port",
+          "portSid" : "C_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "R3",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        },
+        {
+          "cyId" : "UnitSId__ITEM",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM0",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM01",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__KILOGRAM",
+          "exponent" : 1.0,
+          "kind" : "KILOGRAM",
+          "label" : "KILOGRAM",
+          "metaId" : "UnitSId__KILOGRAM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE",
+          "exponent" : 3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0",
+          "exponent" : 2.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE01",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE012",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE012",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0123",
+          "exponent" : 1.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0123",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND0",
+          "exponent" : 1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND01",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__item_base",
+          "label" : "item_base",
+          "metaId" : "UnitSId__item_base",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_base"
+        },
+        {
+          "cyId" : "UnitSId__item_per_m3",
+          "label" : "item_per_m3",
+          "metaId" : "UnitSId__item_per_m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_m3"
+        },
+        {
+          "cyId" : "UnitSId__item_per_s",
+          "label" : "item_per_s",
+          "metaId" : "UnitSId__item_per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_s"
+        },
+        {
+          "cyId" : "UnitSId__kg",
+          "label" : "kg",
+          "metaId" : "UnitSId__kg",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "kg"
+        },
+        {
+          "cyId" : "UnitSId__m",
+          "label" : "m",
+          "metaId" : "UnitSId__m",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m"
+        },
+        {
+          "cyId" : "UnitSId__m2",
+          "label" : "m2",
+          "metaId" : "UnitSId__m2",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m2"
+        },
+        {
+          "cyId" : "UnitSId__m3",
+          "label" : "m3",
+          "metaId" : "UnitSId__m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m3"
+        },
+        {
+          "cyId" : "UnitSId__mM",
+          "label" : "mM",
+          "metaId" : "UnitSId__mM",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "mM"
+        },
+        {
+          "cyId" : "UnitSId__per_s",
+          "label" : "per_s",
+          "metaId" : "UnitSId__per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "per_s"
+        },
+        {
+          "cyId" : "UnitSId__s",
+          "label" : "s",
+          "metaId" : "UnitSId__s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "s"
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "comp_idRef" : "extern",
+          "cyId" : "extern_port",
+          "label" : "extern_port",
+          "metaId" : "extern_port",
+          "portSid" : "extern_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        },
+        {
+          "cyId" : "law__R3",
+          "derivedUnits" : "item_per_s",
+          "label" : "R3",
+          "math" : "vR3",
+          "metaId" : "law__R3",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : true,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        },
+        {
+          "comp_idRef" : "vR3",
+          "cyId" : "vR3_port",
+          "label" : "vR3_port",
+          "metaId" : "vR3_port",
+          "portSid" : "vR3_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "UnitSId__item_base",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C_port",
+          "target" : "C",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "law__R3",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM0",
+          "target" : "UnitSId__item_per_m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM01",
+          "target" : "UnitSId__item_base",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__KILOGRAM",
+          "target" : "UnitSId__kg",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE",
+          "target" : "UnitSId__m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0",
+          "target" : "UnitSId__m2",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE01",
+          "target" : "UnitSId__mM",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE012",
+          "target" : "UnitSId__item_per_m3",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0123",
+          "target" : "UnitSId__m",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE",
+          "target" : "UnitSId__mM",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND0",
+          "target" : "UnitSId__s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND01",
+          "target" : "UnitSId__per_s",
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "UnitSId__m3",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "extern_port",
+          "target" : "extern",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "UnitSId__item_per_s",
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "law__R3",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3_port",
+          "target" : "vR3",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__toy_ode_update",
+      "nodeCount" : 8,
+      "edgeCount" : 8,
+      "attributes" : {
+        "name" : "Kinetic__toy_ode_update"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "comp_idRef" : "C",
+          "cyId" : "C_port",
+          "label" : "C_port",
+          "metaId" : "C_port",
+          "portSid" : "C_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "R3",
+          "name" : "-> C",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "name" : "external compartment",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "comp_idRef" : "extern",
+          "cyId" : "extern_port",
+          "label" : "extern_port",
+          "metaId" : "extern_port",
+          "portSid" : "extern_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        },
+        {
+          "cyId" : "law__R3",
+          "derivedUnits" : "item_per_s",
+          "label" : "R3",
+          "math" : "vR3",
+          "metaId" : "law__R3",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : true,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "name" : "vR3 (FBA flux)",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        },
+        {
+          "comp_idRef" : "vR3",
+          "cyId" : "vR3_port",
+          "label" : "vR3_port",
+          "metaId" : "vR3_port",
+          "portSid" : "vR3_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000599"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "extern",
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C_port",
+          "target" : "C",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction" : "sbaseRef-id",
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "extern",
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "law__R3",
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "extern_port",
+          "target" : "extern",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction" : "sbaseRef-id",
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "law__R3",
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "vR3_port",
+          "target" : "vR3",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction" : "sbaseRef-id",
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "toy_ode_update",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "toy_ode_update"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "vR3",
+          "label" : "-> C",
+          "metaId" : "R3",
+          "name" : "-> C",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "-> C"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R3",
+          "target" : "C",
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

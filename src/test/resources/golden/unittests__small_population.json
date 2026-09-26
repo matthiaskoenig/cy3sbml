@@ -1,0 +1,433 @@
+{
+  "networks" : [
+    {
+      "name" : "All__small",
+      "nodeCount" : 38,
+      "edgeCount" : 1,
+      "attributes" : {
+        "label" : "small",
+        "metaId" : "iBioSim1",
+        "name" : "All__small",
+        "sbml id" : "small",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim2",
+          "label" : "C1",
+          "metaId" : "iBioSim2",
+          "sbml id" : "C1",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim11",
+          "label" : "C10",
+          "metaId" : "iBioSim11",
+          "sbml id" : "C10",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim12",
+          "label" : "C11",
+          "metaId" : "iBioSim12",
+          "sbml id" : "C11",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim13",
+          "label" : "C12",
+          "metaId" : "iBioSim13",
+          "sbml id" : "C12",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim14",
+          "label" : "C13",
+          "metaId" : "iBioSim14",
+          "sbml id" : "C13",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim15",
+          "label" : "C14",
+          "metaId" : "iBioSim15",
+          "sbml id" : "C14",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim16",
+          "label" : "C15",
+          "metaId" : "iBioSim16",
+          "sbml id" : "C15",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim17",
+          "label" : "C16",
+          "metaId" : "iBioSim17",
+          "sbml id" : "C16",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim18",
+          "label" : "C17",
+          "metaId" : "iBioSim18",
+          "sbml id" : "C17",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim19",
+          "label" : "C18",
+          "metaId" : "iBioSim19",
+          "sbml id" : "C18",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim20",
+          "label" : "C19",
+          "metaId" : "iBioSim20",
+          "sbml id" : "C19",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim3",
+          "label" : "C2",
+          "metaId" : "iBioSim3",
+          "sbml id" : "C2",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim21",
+          "label" : "C20",
+          "metaId" : "iBioSim21",
+          "sbml id" : "C20",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim22",
+          "label" : "C21",
+          "metaId" : "iBioSim22",
+          "sbml id" : "C21",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim23",
+          "label" : "C22",
+          "metaId" : "iBioSim23",
+          "sbml id" : "C22",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim24",
+          "label" : "C23",
+          "metaId" : "iBioSim24",
+          "sbml id" : "C23",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim25",
+          "label" : "C24",
+          "metaId" : "iBioSim25",
+          "sbml id" : "C24",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim26",
+          "label" : "C25",
+          "metaId" : "iBioSim26",
+          "sbml id" : "C25",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim27",
+          "label" : "C26",
+          "metaId" : "iBioSim27",
+          "sbml id" : "C26",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim28",
+          "label" : "C27",
+          "metaId" : "iBioSim28",
+          "sbml id" : "C27",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim29",
+          "label" : "C28",
+          "metaId" : "iBioSim29",
+          "sbml id" : "C28",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim30",
+          "label" : "C29",
+          "metaId" : "iBioSim30",
+          "sbml id" : "C29",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim4",
+          "label" : "C3",
+          "metaId" : "iBioSim4",
+          "sbml id" : "C3",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim31",
+          "label" : "C30",
+          "metaId" : "iBioSim31",
+          "sbml id" : "C30",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim32",
+          "label" : "C31",
+          "metaId" : "iBioSim32",
+          "sbml id" : "C31",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim33",
+          "label" : "C32",
+          "metaId" : "iBioSim33",
+          "sbml id" : "C32",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim34",
+          "label" : "C33",
+          "metaId" : "iBioSim34",
+          "sbml id" : "C33",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim35",
+          "label" : "C34",
+          "metaId" : "iBioSim35",
+          "sbml id" : "C34",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim36",
+          "label" : "C35",
+          "metaId" : "iBioSim36",
+          "sbml id" : "C35",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim37",
+          "label" : "C36",
+          "metaId" : "iBioSim37",
+          "sbml id" : "C36",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim5",
+          "label" : "C4",
+          "metaId" : "iBioSim5",
+          "sbml id" : "C4",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim6",
+          "label" : "C5",
+          "metaId" : "iBioSim6",
+          "sbml id" : "C5",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim7",
+          "label" : "C6",
+          "metaId" : "iBioSim7",
+          "sbml id" : "C6",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim8",
+          "label" : "C7",
+          "metaId" : "iBioSim8",
+          "sbml id" : "C7",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim9",
+          "label" : "C8",
+          "metaId" : "iBioSim9",
+          "sbml id" : "C8",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "represCirc",
+          "cyId" : "iBioSim10",
+          "label" : "C9",
+          "metaId" : "iBioSim10",
+          "sbml id" : "C9",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "constant" : true,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "comp_idRef" : "Cell",
+          "cyId" : "compartment__Cell",
+          "label" : "compartment__Cell",
+          "metaId" : "compartment__Cell",
+          "portSid" : "compartment__Cell",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000601"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "compartment__Cell",
+          "target" : "Cell",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__small",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "Kinetic__small"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "comp_idRef" : "Cell",
+          "cyId" : "compartment__Cell",
+          "label" : "compartment__Cell",
+          "metaId" : "compartment__Cell",
+          "portSid" : "compartment__Cell",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port",
+          "sbo" : "SBO:0000601"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "compartment__Cell",
+          "target" : "Cell",
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction" : "sbaseRef-id",
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "small",
+      "nodeCount" : 0,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "small"
+      },
+      "nodes" : [ ],
+      "edges" : [ ]
+    }
+  ],
+  "groups" : [ ]
+}

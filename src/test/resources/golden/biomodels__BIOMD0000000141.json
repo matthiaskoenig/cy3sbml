@@ -1,0 +1,598 @@
+{
+  "networks" : [
+    {
+      "name" : "All__model_0000001",
+      "nodeCount" : 15,
+      "edgeCount" : 19,
+      "attributes" : {
+        "biomodels.db" : "BIOMD0000000141",
+        "go" : "GO:0019228",
+        "label" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
+        "metaId" : "metaid_0000002",
+        "name" : "All__model_0000001",
+        "pubmed" : "15484883",
+        "sbml id" : "model_0000001",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "shared name" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
+        "taxonomy" : "40674"
+      },
+      "nodes" : [
+        {
+          "cyId" : "metaid_0000011",
+          "derivedUnits" : "",
+          "label" : "Vthresh",
+          "metaId" : "metaid_0000011",
+          "sbml id" : "Vthresh",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 30.0
+        },
+        {
+          "cyId" : "metaid_0000004",
+          "derivedUnits" : "",
+          "label" : "a",
+          "metaId" : "metaid_0000004",
+          "sbml id" : "a",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.02
+        },
+        {
+          "cyId" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "derivedUnits" : "invalid",
+          "label" : "u",
+          "math" : "u+d",
+          "metaId" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "sbml type" : "eventAssignment",
+          "sbml type ext" : "eventAssignment",
+          "variable" : "u"
+        },
+        {
+          "cyId" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "derivedUnits" : "invalid",
+          "label" : "v",
+          "math" : "c",
+          "metaId" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "sbml type" : "eventAssignment",
+          "sbml type ext" : "eventAssignment",
+          "variable" : "v"
+        },
+        {
+          "cyId" : "metaid_0000005",
+          "derivedUnits" : "",
+          "label" : "b",
+          "metaId" : "metaid_0000005",
+          "sbml id" : "b",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -0.1
+        },
+        {
+          "cyId" : "metaid_0000006",
+          "derivedUnits" : "",
+          "label" : "c",
+          "metaId" : "metaid_0000006",
+          "sbml id" : "c",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -55.0
+        },
+        {
+          "cyId" : "metaid_0000003",
+          "derivedUnits" : "volume",
+          "go" : "GO:0005623",
+          "label" : "cell",
+          "metaId" : "metaid_0000003",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "",
+          "label" : "d",
+          "metaId" : "metaid_0000007",
+          "sbml id" : "d",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 6.0
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "derivedUnits" : "",
+          "label" : "event_0000001",
+          "math" : "v > Vthresh",
+          "metaId" : "metaid_0000012",
+          "sbml id" : "event_0000001",
+          "sbml type" : "event",
+          "sbml type ext" : "event"
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000016",
+          "derivedUnits" : "",
+          "label" : "i",
+          "metaId" : "metaid_0000016",
+          "sbml id" : "i",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "metaid_0000021",
+          "derivedUnits" : "invalid",
+          "label" : "<i>",
+          "math" : "piecewise(0, time < 30, 0.075*(time-30))",
+          "metaId" : "metaid_0000021",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "i"
+        },
+        {
+          "cyId" : "metaid_0000024",
+          "derivedUnits" : "invalid",
+          "label" : "<d/dt v>",
+          "math" : "((0.04*v^2+4.1*v+108)-u)+i",
+          "metaId" : "metaid_0000024",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "v"
+        },
+        {
+          "cyId" : "metaid_0000025",
+          "label" : "<d/dt u>",
+          "math" : "a*(b*v-u)",
+          "metaId" : "metaid_0000025",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "u"
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000023",
+          "derivedUnits" : "",
+          "label" : "u",
+          "metaId" : "metaid_0000023",
+          "sbml id" : "u",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 6.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000020",
+          "derivedUnits" : "",
+          "label" : "v",
+          "metaId" : "metaid_0000020",
+          "sbml id" : "v",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -60.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Vthresh",
+          "target" : "event_0000001",
+          "interaction" : "trigger_event",
+          "attributes" : {
+            "interaction type" : "trigger_event",
+            "shared interaction" : "trigger_event"
+          }
+        },
+        {
+          "source" : "a",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "b",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "c",
+          "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "d",
+          "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "event_0000001",
+          "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "event_0000001",
+          "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "i",
+          "target" : "metaid_0000021",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "i",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "a179d8a8-4256-4780-81c6-5c444c62bd7b",
+          "interaction" : "variable_eventAssignment",
+          "attributes" : {
+            "interaction type" : "variable_eventAssignment",
+            "shared interaction" : "variable_eventAssignment"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000025",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "a54fdf28-93ec-442b-9442-7f0ecdf144e7",
+          "interaction" : "variable_eventAssignment",
+          "attributes" : {
+            "interaction type" : "variable_eventAssignment",
+            "shared interaction" : "variable_eventAssignment"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "event_0000001",
+          "interaction" : "trigger_event",
+          "attributes" : {
+            "interaction type" : "trigger_event",
+            "shared interaction" : "trigger_event"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000024",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__model_0000001",
+      "nodeCount" : 12,
+      "edgeCount" : 10,
+      "attributes" : {
+        "name" : "Kinetic__model_0000001"
+      },
+      "nodes" : [
+        {
+          "cyId" : "metaid_0000011",
+          "derivedUnits" : "",
+          "label" : "Vthresh",
+          "metaId" : "metaid_0000011",
+          "sbml id" : "Vthresh",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 30.0
+        },
+        {
+          "cyId" : "metaid_0000004",
+          "derivedUnits" : "",
+          "label" : "a",
+          "metaId" : "metaid_0000004",
+          "sbml id" : "a",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.02
+        },
+        {
+          "cyId" : "metaid_0000005",
+          "derivedUnits" : "",
+          "label" : "b",
+          "metaId" : "metaid_0000005",
+          "sbml id" : "b",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -0.1
+        },
+        {
+          "cyId" : "metaid_0000006",
+          "derivedUnits" : "",
+          "label" : "c",
+          "metaId" : "metaid_0000006",
+          "sbml id" : "c",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -55.0
+        },
+        {
+          "cyId" : "metaid_0000003",
+          "derivedUnits" : "volume",
+          "go" : "GO:0005623",
+          "label" : "cell",
+          "metaId" : "metaid_0000003",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "",
+          "label" : "d",
+          "metaId" : "metaid_0000007",
+          "sbml id" : "d",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 6.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000016",
+          "derivedUnits" : "",
+          "label" : "i",
+          "metaId" : "metaid_0000016",
+          "sbml id" : "i",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "metaid_0000021",
+          "derivedUnits" : "invalid",
+          "label" : "<i>",
+          "math" : "piecewise(0, time < 30, 0.075*(time-30))",
+          "metaId" : "metaid_0000021",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "i"
+        },
+        {
+          "cyId" : "metaid_0000024",
+          "derivedUnits" : "invalid",
+          "label" : "<d/dt v>",
+          "math" : "((0.04*v^2+4.1*v+108)-u)+i",
+          "metaId" : "metaid_0000024",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "v"
+        },
+        {
+          "cyId" : "metaid_0000025",
+          "label" : "<d/dt u>",
+          "math" : "a*(b*v-u)",
+          "metaId" : "metaid_0000025",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "u"
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000023",
+          "derivedUnits" : "",
+          "label" : "u",
+          "metaId" : "metaid_0000023",
+          "sbml id" : "u",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 6.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "metaid_0000020",
+          "derivedUnits" : "",
+          "label" : "v",
+          "metaId" : "metaid_0000020",
+          "sbml id" : "v",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -60.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "a",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "b",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "i",
+          "target" : "metaid_0000021",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "i",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "metaid_0000025",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000024",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000024",
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "metaid_0000025",
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "model_0000001",
+      "nodeCount" : 0,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "model_0000001"
+      },
+      "nodes" : [ ],
+      "edges" : [ ]
+    }
+  ],
+  "groups" : [ ]
+}
