@@ -113,7 +113,6 @@ public class IOUtil {
 
         } catch (IOException e) {
             logger.error("URL could not be saved.", e);
-            e.printStackTrace();
         } finally {
             if (sourceConnection != null) {
                 sourceConnection.disconnect();

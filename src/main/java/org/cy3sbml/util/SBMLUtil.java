@@ -43,7 +43,6 @@ public class SBMLUtil {
             doc = SBMLReader.read(instream);
         } catch (XMLStreamException e) {
             logger.error("SBMLDocument reading failed.", e);
-            e.printStackTrace();
         }
         return doc;
     }
@@ -92,7 +91,6 @@ public class SBMLUtil {
                 return text;
             } catch (XMLStreamException e) {
                 logger.error("Error parsing notes xml.", e);
-                e.printStackTrace();
             }
         }
         return null;
@@ -486,7 +484,6 @@ public class SBMLUtil {
                 message = constraint.getMessageString();
             } catch (XMLStreamException e) {
                 logger.error("Constraint message could not be created.", e);
-                e.printStackTrace();
             }
         }
         map.put(SBML.ATTR_MESSAGE, message);

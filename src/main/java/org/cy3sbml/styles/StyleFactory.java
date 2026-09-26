@@ -102,8 +102,7 @@ public class StyleFactory {
                                 }
 
                             } else if (m.getMappingType() == Mapping.MappingType.CONTINOUS) {
-                                // TODO: implement
-                                System.out.println("Continous mapping not supported.");
+                                logger.warn("Continuous mapping not supported: {}", m);
                             }
                         }
                     }
@@ -111,12 +110,11 @@ public class StyleFactory {
             }
 
             // save the template
-            System.out.println(file.getAbsolutePath());
+            logger.info("Write style: {}", file.getAbsolutePath());
             XMLUtil.writeNodeToTidyFile(doc, file);
 
         } catch (ParserConfigurationException | IOException | SAXException e) {
             logger.error("Style could not be created.", e);
-            e.printStackTrace();
         }
     }
 }

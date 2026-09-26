@@ -74,7 +74,6 @@ public class RegistryUtil {
             logger.info("Updated MIRIAM: " + file.getAbsolutePath());
         } catch (MalformedURLException e) {
             logger.error("MalformedURLException", e);
-            e.printStackTrace();
         }
     }
 

@@ -42,7 +42,6 @@ public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
                     adapter.cy3sbmlProperties));
         } catch (IOException e) {
             logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
-            e.printStackTrace();
             return null;
         }
     }

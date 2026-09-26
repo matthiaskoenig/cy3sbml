@@ -431,7 +431,6 @@ final class CoreReader implements PackageReader {
                     AttributeUtil.set(network, n, SBML.ATTR_MESSAGE, constraint.getMessageString(), String.class);
                 } catch (XMLStreamException e) {
                     logger.error("Message string could not be created for constraint.", e);
-                    e.printStackTrace();
                 }
             }
         }

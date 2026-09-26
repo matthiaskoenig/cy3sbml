@@ -109,7 +109,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 files.add(sbmlFile);
             } catch (SBMLException | XMLStreamException | IOException e) {
                 logger.error("Saving of SBMLDocument failed", e);
-                e.printStackTrace();
             }
         }
 
@@ -125,7 +124,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             files.add(file);
         } catch (IOException e) {
             logger.error("Serialization of Network2SBMLMapper failed.", e);
-            e.printStackTrace();
         }
 
         // Serialize
@@ -144,7 +142,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             files.add(file);
         } catch (IOException e) {
             logger.error("Serialization of Network2CofactorMapper failed.", e);
-            e.printStackTrace();
         }
 
         // Write files in session file
@@ -152,7 +149,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             event.addAppFiles(APP_ID, files);
         } catch (Exception e) {
             logger.error("File could not be added to app files.", e);
-            e.printStackTrace();
         }
     }
 
@@ -194,7 +190,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 
                     } catch (IOException | ClassNotFoundException e) {
                         logger.error("Deserialization of Network2SBMLMapper failed.", e);
-                        e.printStackTrace();
                     }
                 }
 
@@ -220,13 +215,11 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 
                     } catch (IOException | ClassNotFoundException e) {
                         logger.error("Deserialization of Network2CofactorMapper failed.", e);
-                        e.printStackTrace();
                     }
                 }
 
             } catch (Throwable e) {
                 logger.error("Errors in deserialization", e);
-                e.printStackTrace();
             }
         }
     }

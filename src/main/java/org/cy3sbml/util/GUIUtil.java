@@ -44,7 +44,6 @@ public class GUIUtil {
             adapter.synchronousTaskManager.execute(iterator);
         } catch (Exception e) {
             logger.warn("Could not read example.", e);
-            e.printStackTrace();
         }
     }
 
@@ -66,11 +65,9 @@ public class GUIUtil {
                 openFileInBrowser(temp);
             } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
                 logger.error("SBML opening failed.", e);
-                e.printStackTrace();
             }
         } catch (IOException e) {
             logger.error("SBML could not be opened in browser.", e);
-            e.printStackTrace();
         }
     }
 
@@ -110,7 +107,6 @@ public class GUIUtil {
             GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
             logger.error("File could not be opened.", e);
-            e.printStackTrace();
         }
     }
 

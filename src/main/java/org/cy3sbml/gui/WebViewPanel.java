@@ -330,7 +330,6 @@ public class WebViewPanel extends JFXPanel
             t.start();
         } catch (Throwable t) {
             logger.error("Error in handling node selection in CyNetwork", t);
-            t.printStackTrace();
         }
     }
 }

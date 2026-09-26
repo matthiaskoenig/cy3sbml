@@ -164,13 +164,11 @@ public class ResourceExtractor {
                     }
                 } catch (IOException e1) {
                     logger.error("Directory could not be extracted", e1);
-                    e1.printStackTrace();
                     return;
                 }
 
             } catch (MalformedURLException me) {
                 logger.error("Problems with url", me);
-                me.printStackTrace();
                 return;
             }
         }

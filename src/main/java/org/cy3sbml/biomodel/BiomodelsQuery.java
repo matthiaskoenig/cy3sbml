@@ -15,11 +15,14 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * UniRest based REST queries for biomodels.
  */
 public class BiomodelsQuery {
+    private static final Logger logger = LoggerFactory.getLogger(BiomodelsQuery.class);
     public static final String BIOMODELS_RESTFUL_URL = "https://www.ebi.ac.uk/biomodels/";
     public static final String BIOMODELS_SEARCH = "search";
     public static final String BIOMODELS_BIOMODEL = "?format=json";
@@ -110,7 +113,7 @@ public class BiomodelsQuery {
             sbml = sbmlResponse.body();
 
         } else {
-            System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
+            logger.error("Could not download SBML for {}: status code {}", id, sbmlResponse.statusCode());
         }
 
         return sbml;

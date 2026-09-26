@@ -280,7 +280,6 @@ public class CyActivator extends AbstractCyActivator {
 
         } catch (Throwable e) {
             logger.error("Could not start server!", e);
-            e.printStackTrace();
         }
     }
 }

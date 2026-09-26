@@ -50,7 +50,6 @@ public class LoadBioModelTaskFactory implements TaskFactory {
             file = tempFile;
         } catch (Exception e) {
             logger.error("Problem loading Biomodel.", e);
-            e.printStackTrace();
         }
     }
 

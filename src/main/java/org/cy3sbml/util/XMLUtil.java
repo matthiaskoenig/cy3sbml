@@ -69,7 +69,6 @@ public class XMLUtil {
             doc = dBuilder.parse(xmlStream);
         } catch (SAXException | ParserConfigurationException | IOException e) {
             logger.error("Reading xml string failed.", e);
-            e.printStackTrace();
         }
         return doc;
     }
@@ -89,7 +88,6 @@ public class XMLUtil {
             transformer.transform(input, output);
         } catch (TransformerException e) {
             logger.error("Writing node failed.", e);
-            e.printStackTrace();
         }
     }
 
@@ -112,7 +110,6 @@ public class XMLUtil {
 
         } catch (TransformerException e) {
             logger.error("Writing node failed.", e);
-            e.printStackTrace();
         }
         return output;
     }

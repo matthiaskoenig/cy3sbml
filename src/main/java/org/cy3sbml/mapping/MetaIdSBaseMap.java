@@ -136,7 +136,6 @@ public class MetaIdSBaseMap {
 
         } catch (Throwable t) {
             logger.error("MetaIdSBaseMap could not be created", t);
-            t.printStackTrace();
         }
     }
 

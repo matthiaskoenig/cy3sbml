@@ -65,7 +65,6 @@ public class XMLInterface {
         } catch (ParserConfigurationException e) {
             doc = null;
             logger.error("Problems with xml parsing.", e);
-            e.printStackTrace();
         }
         return doc;
     }
@@ -91,7 +90,6 @@ public class XMLInterface {
             transformer.transform(source, result);
         } catch (TransformerException e) {
             logger.error("Problems writing layout", e);
-            e.printStackTrace();
         }
     }
 
@@ -119,7 +117,6 @@ public class XMLInterface {
             }
         } catch (Exception e) {
             logger.error("Problems reading layout.", e);
-            e.printStackTrace();
         }
         return boxes;
     }

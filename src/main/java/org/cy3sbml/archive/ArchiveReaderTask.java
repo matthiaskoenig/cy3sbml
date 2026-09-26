@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.zip.ZipError;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.WebViewPanel;
@@ -242,16 +241,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             // Read information from manifest file
             //////////////////////////////////////////////////////////////////
 
-            // Read archive
-            try {
-                System.out.println("------------------------");
-                // TODO: implement
-
-                System.out.println("------------------------");
-            } catch (ZipError e) {
-                logger.error("Could not read the zip file.");
-                logger.error("Rename archives ending in *.zip with *.zip1");
-            }
+            // TODO: implement reading the archive content
 
             // set image attributes
             for (CyNode n : node2path.keySet()) {

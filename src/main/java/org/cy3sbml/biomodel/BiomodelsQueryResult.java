@@ -3,15 +3,22 @@ package org.cy3sbml.biomodel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Result of the given web service query.
  */
 public class BiomodelsQueryResult {
+    private static final Logger logger = LoggerFactory.getLogger(BiomodelsQueryResult.class);
 
     private final String query;
     private final Integer status;
@@ -93,9 +100,9 @@ public class BiomodelsQueryResult {
                         .map(future -> {
                             try {
                                 return future.join(); // Get each Biomodel
-                            } catch (Exception e) {
-                                System.err.println("Skipping failed model: " + e.getMessage());
-                                return null; // or handle errors differently
+                            } catch (CompletionException | CancellationException e) {
+                                logger.warn("Could not query a biomodel, skipping it: {}", e.getMessage());
+                                return null;
                             }
                         })
                         .filter(Objects::nonNull) // Remove nulls (failed requests)
