@@ -26,6 +26,7 @@ public final class ChebiAccess {
 
     private final HttpJson http;
     private final MemoryCache<String, ChebiCompound> cache = new MemoryCache<>(5000);
+    private final MemoryCache<String, String> htmlCache = new MemoryCache<>(5000);
 
     public ChebiAccess(HttpJson http) {
         this.http = http;
@@ -52,7 +53,7 @@ public final class ChebiAccess {
         }
         JsonNode chemicalData = json.path("chemical_data");
         String formula = chemicalData.path("formula").asText(null);
-        String charge = chemicalData.has("charge") ? chemicalData.path("charge").asText() : null;
+        String charge = chemicalData.path("charge").asText(null);
         String mass = chemicalData.path("mass").asText(null);
         return Optional.of(new ChebiCompound(chebiId, name, formula, charge, mass));
     }
@@ -64,9 +65,14 @@ public final class ChebiAccess {
 
     /**
      * Creates the secondary-information HTML fragment for a ChEBI id,
-     * for display in the SBase details panel.
+     * for display in the SBase details panel. Cached, since building it
+     * fetches the structure image in addition to the compound.
      */
     public String html(String chebiId) {
+        return htmlCache.get(chebiId, id -> Optional.of(buildHtml(id))).orElse("");
+    }
+
+    private String buildHtml(String chebiId) {
         StringBuilder html = new StringBuilder();
 
         Optional<ChebiCompound> optionalCompound = compound(chebiId);

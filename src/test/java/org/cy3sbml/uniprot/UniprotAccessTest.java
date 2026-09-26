@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import org.cy3sbml.util.HttpJson;
 import org.junit.jupiter.api.Tag;
@@ -37,6 +38,38 @@ class UniprotAccessTest {
         String html = new UniprotAccess(fixture("/uniprot/P10415.json")).html("P10415");
         assertTrue(html.contains("BCL2_HUMAN"));
         assertTrue(html.contains("Homo sapiens"));
+    }
+
+    /**
+     * P04406 (GAPDH / G3P_HUMAN) has an EC number, an alternative name, a
+     * CATALYTIC ACTIVITY comment and a PATHWAY comment, none of which P10415
+     * (BCL2, used above) has.
+     */
+    @Test
+    void parsesEntryWithAllFields() {
+        var entry = new UniprotAccess(fixture("/uniprot/P04406.json")).entry("P04406").orElseThrow();
+        assertEquals("G3P_HUMAN", entry.uniProtId());
+        assertEquals("Glyceraldehyde-3-phosphate dehydrogenase", entry.fullName());
+        assertEquals(List.of("1.2.1.12"), entry.ecNumbers());
+        assertEquals(List.of("Peptidyl-cysteine S-nitrosylase GAPDH"), entry.alternativeNames());
+        assertFalse(entry.functionComments().isEmpty());
+        assertEquals(2, entry.catalyticActivities().size());
+        assertTrue(entry.catalyticActivities().get(0)
+                .contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
+        assertEquals(
+                List.of("Carbohydrate degradation; glycolysis; pyruvate from D-glyceraldehyde"
+                        + " 3-phosphate: step 1/5"),
+                entry.pathways());
+    }
+
+    @Test
+    void htmlWithAllFields() {
+        String html = new UniprotAccess(fixture("/uniprot/P04406.json")).html("P04406");
+        assertTrue(html.contains("G3P_HUMAN"));
+        assertTrue(html.contains("<b>EC</b>: 1.2.1.12"));
+        assertTrue(html.contains("Peptidyl-cysteine S-nitrosylase GAPDH"));
+        assertTrue(html.contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
+        assertTrue(html.contains("Carbohydrate degradation; glycolysis"));
     }
 
     @Test
