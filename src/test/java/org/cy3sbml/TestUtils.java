@@ -194,61 +194,41 @@ public class TestUtils {
     }
 
     /**
-     * Perform the network test for a given SBML resource.
+     * Reads the given SBML resource with the SBMLReaderTask.
      * <p>
-     * There is a memory leak in the network creation, probably the following issue
-     * http://code.cytoscape.org/redmine/issues/3507
-     * <p>
-     * See also:
-     * This aborts the travis build.
+     * Failures of the reader propagate so that they fail the calling test.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource)
-            throws FileNotFoundException {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws Exception {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // read SBML
-        String[] tokens = resource.split("/\\\\", -1);
+        String[] tokens = resource.split("[/\\\\]", -1);
         String fileName = tokens[tokens.length - 1];
-        InputStream instream;
-        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
-            instream = new FileInputStream(resource);
-        } else {
-            instream = TestUtils.class.getResourceAsStream(resource);
-        }
-
-        CyNetwork[] networks = new CyNetwork[0];
-        try {
+        try (InputStream instream = openModel(resource)) {
             // Reader can be tested without service adapter
-            // calls networkFactory.createNetwork()
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-            for (CyNetwork network : networks) {
-                network.dispose();
-            }
             readerTask.run(taskMonitor);
-            networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());
-
-            try {
-                instream.close();
-            } catch (IOException e) {
-                logger.error("Could not close the input stream", e);
-            }
-
-        } catch (Throwable t) {
-            networks = null;
-            logger.error("Could not read the network: " + resource, t);
+            assertTrue(readerTask.getNetworks().length >= 1);
         }
 
         // Display memory usage
         logMemory(fileName);
+    }
 
-        // Networks could be read
-        assertNotNull(networks);
-        assertTrue(networks.length >= 1);
+    /**
+     * Opens the model found by {@link #findResources}: a classpath resource, on Windows a file path.
+     */
+    private static InputStream openModel(String resource) throws FileNotFoundException {
+        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+            return new FileInputStream(resource);
+        }
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        assertNotNull(instream, "Resource not found: " + resource);
+        return instream;
     }
 
     /**
