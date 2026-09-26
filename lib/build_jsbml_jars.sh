@@ -79,9 +79,23 @@ cd "$CY3SBMLCODE"
 # install in the local repository
 echo "Installing JSBML $JSBML_VERSION into $LOCAL_REPO"
 
+# Maven-format checksum sidecar: the hash only, lower case, no
+# filename and no trailing newline (matches the .md5/.sha1 files
+# already checked in for e.g. lib/cy3sbml-dep/jtidy/r938/).
+write_checksums() {
+    local target="$1"
+    printf '%s' "$(md5sum "$target" | awk '{print $1}')" > "$target.md5"
+    printf '%s' "$(sha1sum "$target" | awk '{print $1}')" > "$target.sha1"
+}
+
 install_jar() {
     local artifact_id="$1"
     local jar_file="$2"
+    local artifact_dir="$LOCAL_REPO/cy3sbml-dep/$artifact_id/$JSBML_VERSION"
+    local installed_jar="$artifact_dir/$artifact_id-$JSBML_VERSION.jar"
+    local installed_pom="$artifact_dir/$artifact_id-$JSBML_VERSION.pom"
+    local metadata="$LOCAL_REPO/cy3sbml-dep/$artifact_id/maven-metadata-local.xml"
+
     ./mvnw -B -q install:install-file \
         -DlocalRepositoryPath="$LOCAL_REPO" \
         -DgroupId=cy3sbml-dep \
@@ -91,6 +105,12 @@ install_jar() {
         -Dpackaging=jar \
         -DgeneratePom=true \
         -DcreateChecksum=true
+
+    # install:install-file 3.x ignores -DcreateChecksum, so write the
+    # sidecars ourselves.
+    write_checksums "$installed_jar"
+    write_checksums "$installed_pom"
+    write_checksums "$metadata"
 }
 
 install_jar jsbml         "$JSBMLCODE/core/build/jsbml-$JSBML_VERSION.jar"
@@ -145,6 +165,14 @@ echo "and run ./mvnw -B -q clean verify."
 #           -Dfile=<path to the existing jar for $artifact> \
 #           -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
 #   done
+#
+# -DcreateChecksum=true is a no-op on this maven-install-plugin
+# version, so the .jar.md5/.jar.sha1/.pom.md5/.pom.sha1 and
+# maven-metadata-local.xml.md5/.sha1 sidecars for each artifact
+# were written by hand afterwards with the same write_checksums()
+# helper used above (hash only, no filename, no trailing newline),
+# matching the format of the pre-existing lib/cy3sbml-dep/jtidy/
+# checksums.
 #
 # The next real JSBML upgrade should go through the normal
 # path above (build from source with ant on a machine that has
