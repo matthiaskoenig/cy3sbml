@@ -25,14 +25,10 @@ public class IOUtil {
     }
 
     /**
-     * Read String from InputStream.
+     * Read String from UTF-8 encoded InputStream.
      */
-    // reason: real bug, the SBML is decoded with the platform charset instead of the XML
-    // encoding; fixing it changes the import on non UTF-8 platforms, so it is fixed in
-    // Task 3.2 (remove the suppression there)
-    @SuppressWarnings("DefaultCharset")
     public static String inputStream2String(InputStream source) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(source));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(source, StandardCharsets.UTF_8));
                 StringWriter writer = new StringWriter()) {
             char[] buffer = new char[BUFFER_SIZE];
             int charactersRead;

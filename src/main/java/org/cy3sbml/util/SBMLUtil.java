@@ -1,6 +1,5 @@
 package org.cy3sbml.util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import javax.xml.stream.XMLStreamException;
@@ -41,9 +40,8 @@ public class SBMLUtil {
         InputStream instream = SBMLUtil.class.getResourceAsStream(resource);
         SBMLDocument doc = null;
         try {
-            String xml = IOUtil.inputStream2String(instream);
-            doc = JSBML.readSBMLFromString(xml);
-        } catch (IOException | XMLStreamException e) {
+            doc = SBMLReader.read(instream);
+        } catch (XMLStreamException e) {
             logger.error("SBMLDocument reading failed.", e);
             e.printStackTrace();
         }

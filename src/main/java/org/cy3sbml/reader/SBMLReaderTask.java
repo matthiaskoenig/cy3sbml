@@ -9,7 +9,6 @@ import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.styles.StyleManager;
-import org.cy3sbml.util.IOUtil;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyNetwork;
@@ -34,6 +33,7 @@ import org.cytoscape.work.swing.TunableUIHelper;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
 import org.sbml.jsbml.ext.comp.ExternalModelDefinition;
@@ -210,8 +210,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             }
 
             logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
-            String xml = IOUtil.inputStream2String(stream);
-            document = JSBML.readSBMLFromString(xml);
+            // the XML parser decodes the stream with the encoding of the XML declaration
+            document = SBMLReader.read(stream);
 
             // Models are defined either as the core model or as comp ModelDefinitions.
             // For every model a separate network is created.

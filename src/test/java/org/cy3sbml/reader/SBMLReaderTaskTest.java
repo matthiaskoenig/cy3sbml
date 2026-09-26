@@ -11,8 +11,12 @@ import static org.mockito.Mockito.verify;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.group.GroupTestSupport;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
@@ -34,5 +38,35 @@ class SBMLReaderTaskTest {
         assertTrue(task.getError());
         verify(taskMonitor).showMessage(eq(TaskMonitor.Level.ERROR), anyString());
         assertEquals(0, task.getNetworks().length);
+    }
+
+    @Test
+    void readerHonorsTheXmlEncoding() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="ISO-8859-1"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+                  <model id="m">
+                    <listOfCompartments>
+                      <compartment id="c" constant="true"/>
+                    </listOfCompartments>
+                    <listOfSpecies>
+                      <species id="s1" name="M\u00e4hren \u00b5M" compartment="c" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+                    </listOfSpecies>
+                  </model>
+                </sbml>
+                """;
+        InputStream stream = new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.ISO_8859_1));
+        SBMLReaderTask task = new SBMLReaderTask(
+                stream,
+                "latin1.xml",
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+
+        task.run(mock(TaskMonitor.class));
+
+        CyNetwork network = task.getNetworks()[0];
+        CyNode species = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, "s1");
+        assertEquals("M\u00e4hren \u00b5M", network.getRow(species).get(SBML.ATTR_NAME, String.class));
     }
 }
