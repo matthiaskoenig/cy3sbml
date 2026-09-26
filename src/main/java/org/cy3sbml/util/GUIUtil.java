@@ -81,6 +81,10 @@ public class GUIUtil {
      * Open the given SBase HTML information in external Browser.
      */
     public static void openSBaseHTMLInBrowser(String html) {
+        if (html == null) {
+            logger.warn("No HTML available in the panel, nothing to open in the browser.");
+            return;
+        }
         // remove export button, exported html cannot be exported
         html = html.replace(EXPORT_HTML, "");
         openHTMLInBrowser(html);
