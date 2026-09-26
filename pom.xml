@@ -12,9 +12,13 @@
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
-        <!-- requireReleaseDeps is not active yet: JSBML and ols-client are still SNAPSHOT
-            dependencies (Tasks 2.2/2.3). Task 2.5 flips this to false. -->
+        <!-- requireReleaseDeps is not active yet: ols-client is still a SNAPSHOT
+            dependency (Task 2.3). Task 2.5 flips this to false. -->
         <enforcer.skipReleaseDeps>true</enforcer.skipReleaseDeps>
+        <!-- Pinned to the JSBML commit that built the jars in lib/cy3sbml-dep
+            (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
+            22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
+        <jsbml.version>1.7-20230103-22659a76</jsbml.version>
         <!-- Exclude the long-running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
@@ -186,8 +190,8 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- Not active yet: JSBML and ols-client are still SNAPSHOT dependencies
-                            (Tasks 2.2/2.3). Task 2.5 sets enforcer.skipReleaseDeps to false. -->
+                        <!-- Not active yet: ols-client is still a SNAPSHOT dependency
+                            (Task 2.3). Task 2.5 sets enforcer.skipReleaseDeps to false. -->
                         <id>enforce-release-dependencies</id>
                         <goals>
                             <goal>enforce</goal>
@@ -593,7 +597,7 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <version>${jsbml.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -604,37 +608,37 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-qual</artifactId>
-            <version>2.1-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-layout</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-comp</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-fbc</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-groups</artifactId>
-            <version>0.4-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-distrib</artifactId>
-            <version>0.5</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-tidy</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>

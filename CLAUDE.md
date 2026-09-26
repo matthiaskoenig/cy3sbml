@@ -35,7 +35,7 @@ Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to p
 
 ## Dependencies
 
-- JSBML (`1.7-SNAPSHOT` and its extension modules) is not taken from Maven Central. Pre-built jars are in `lib/cy3sbml-dep`, an in-project Maven repository declared in `pom.xml`. Rebuild them with `lib/build_jsbml_jars.sh` only when upgrading JSBML, and update versions in `pom.xml` and the script together.
+- JSBML (core and its extension modules: `qual`, `layout`, `comp`, `fbc`, `groups`, `distrib`, `tidy`) is not taken from Maven Central. Pre-built jars are in `lib/cy3sbml-dep`, an in-project Maven repository declared in `pom.xml`, pinned to one JSBML commit under the `jsbml.version` property (`1.7-<commit-date>-<short-sha>`). Rebuild them with `lib/build_jsbml_jars.sh <jsbml-commit>` only when upgrading JSBML, and update `jsbml.version` in `pom.xml` to match.
 - Cytoscape API artifacts come from the NRNB Nexus repositories and have `provided` scope.
 - `maven-bundle-plugin` embeds all non-provided, non-test dependencies (transitively) into the bundle jar and marks imports `resolution:=optional`. New runtime dependencies end up inside the jar automatically. Check for OSGi class loading issues when adding them.
 

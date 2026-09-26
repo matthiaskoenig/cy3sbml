@@ -266,9 +266,11 @@ cd $JSBMLCODE
 git pull
 ```
 
-Build the JSBML jars with the provided script and register in local mvn repository
+Build the JSBML jars with the provided script (it takes the JSBML commit to pin as its argument) and register them in the local mvn repository
 ```
-$CY3SBML/lib/build_jsbml_jars.sh
+$CY3SBML/lib/build_jsbml_jars.sh <jsbml-commit>
 ```
-If the version numbers change of JSBML or the extensions change, the build script and the respective versions in the
-`pom.xml` have to be updated.
+This requires `ant` on the `PATH`. The script derives a version string from the commit
+(`1.7-<commit-date>-<short-sha>`) and installs core and every package jar under that version.
+Afterwards, update the `jsbml.version` property in `pom.xml` to match, and remove the previous
+version's directories under `lib/cy3sbml-dep/jsbml*/`.
