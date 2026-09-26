@@ -2,7 +2,6 @@ package org.cy3sbml.reader;
 
 import java.io.InputStream;
 import java.util.*;
-import javax.swing.tree.TreeNode;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
@@ -10,7 +9,6 @@ import org.cy3sbml.SBMLReaderError;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.*;
-import org.cy3sbml.util.filter.SBaseFilter;
 import org.cytoscape.group.CyGroup;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -38,15 +36,6 @@ import org.cytoscape.work.swing.TunableUIHelper;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.*;
 import org.sbml.jsbml.ext.groups.*;
-import org.sbml.jsbml.ext.layout.LayoutConstants;
-import org.sbml.jsbml.ext.layout.LayoutModelPlugin;
-import org.sbml.jsbml.ext.qual.FunctionTerm;
-import org.sbml.jsbml.ext.qual.Input;
-import org.sbml.jsbml.ext.qual.Output;
-import org.sbml.jsbml.ext.qual.QualConstants;
-import org.sbml.jsbml.ext.qual.QualModelPlugin;
-import org.sbml.jsbml.ext.qual.QualitativeSpecies;
-import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -372,15 +361,15 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             taskMonitor.setProgress(0.4);
         }
         // <qual>
-        readQual(context, model);
+        new QualReader().read(context, model);
         // <fbc>
         new FbcReader().read(context, model);
         // <comp>
-        readComp(context, model);
+        new CompReader().read(context, model);
         // <groups>
-        readGroups(context, model);
+        new GroupsReader().read(context, model);
         // <layout>
-        readLayouts(model);
+        new LayoutReader().read(context, model);
 
         // Add compartment codes dynamically for colors
         addCompartmentCodes(network, model);
@@ -921,138 +910,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     // SBML QUAL
     ////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Create nodes, edges and attributes from Qualitative Model.
-     */
-    private void readQual(ConversionContext context, Model model) {
-        CyNetwork network = context.network();
-        logger.debug("<qual>");
-
-        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-        if (qualModel == null) {
-            return;
-        }
-
-        // QualSpecies //
-        for (QualitativeSpecies qSpecies : qualModel.getListOfQualitativeSpecies()) {
-            CyNode n = context.createNode(qSpecies, SBML.NODETYPE_QUAL_SPECIES);
-            AttributeWriter.setNamedSBaseAttributes(network, n, qSpecies);
-
-            if (qSpecies.isSetCompartment()) {
-                AttributeUtil.set(network, n, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
-                // edge to compartment
-                Compartment comp = qSpecies.getCompartmentInstance();
-                CyNode compNode = context.nodeByMetaId(comp.getMetaId()).orElse(null);
-                context.createEdge(n, compNode, SBML.INTERACTION_SPECIES_COMPARTMENT);
-            }
-            if (qSpecies.isSetConstant()) {
-                AttributeUtil.set(network, n, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
-            }
-            if (qSpecies.isSetInitialLevel()) {
-                AttributeUtil.set(network, n, SBML.ATTR_QUAL_INITIAL_LEVEL, qSpecies.getInitialLevel(), Integer.class);
-            }
-            if (qSpecies.isSetMaxLevel()) {
-                AttributeUtil.set(network, n, SBML.ATTR_QUAL_MAX_LEVEL, qSpecies.getMaxLevel(), Integer.class);
-            }
-        }
-        // QualTransitions
-        for (Transition transition : qualModel.getListOfTransitions()) {
-            CyNode n = context.createNode(transition, SBML.NODETYPE_QUAL_TRANSITION);
-            AttributeWriter.setNamedSBaseAttributes(network, n, transition);
-
-            // Inputs
-            for (Input input : transition.getListOfInputs()) {
-                String qSpeciesId = input.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesId);
-
-                CyNode inNode = context.nodeByMetaId(qSpecies.getMetaId()).orElse(null);
-                CyEdge e = context.createEdge(n, inNode, SBML.INTERACTION_QUAL_TRANSITION_INPUT);
-
-                // required (no checking of required -> NullPointerException risk)
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_TRANSITION_EFFECT,
-                        input.getTransitionEffect().toString(),
-                        String.class);
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                        input.getQualitativeSpecies().toString(),
-                        String.class);
-                // optional
-                if (input.isSetId()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_ID, input.getId(), String.class);
-                }
-                if (input.isSetName()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_NAME, input.getName(), String.class);
-                }
-                if (input.isSetSign()) {
-                    AttributeUtil.set(
-                            network, e, SBML.ATTR_QUAL_SIGN, input.getSign().toString(), String.class);
-                }
-                if (input.isSetSBOTerm()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_SBOTERM, input.getSBOTermID(), String.class);
-                }
-                if (input.isSetMetaId()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_METAID, input.getMetaId(), String.class);
-                }
-                if (input.isSetThresholdLevel()) {
-                    AttributeUtil.set(
-                            network, e, SBML.ATTR_QUAL_THRESHOLD_LEVEL, input.getThresholdLevel(), Integer.class);
-                }
-            }
-
-            // Outputs
-            for (Output output : transition.getListOfOutputs()) {
-                String qSpeciesString = output.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesString);
-                CyNode outNode = context.nodeByMetaId(qSpecies.getMetaId()).orElse(null);
-                CyEdge e = context.createEdge(n, outNode, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT);
-
-                // required
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                        output.getQualitativeSpecies().toString(),
-                        String.class);
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_TRANSITION_EFFECT,
-                        output.getTransitionEffect().toString(),
-                        String.class);
-                // optional
-                if (output.isSetId()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_ID, output.getId(), String.class);
-                }
-                if (output.isSetName()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_NAME, output.getName(), String.class);
-                }
-                if (output.isSetSBOTerm()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_SBOTERM, output.getSBOTermID(), String.class);
-                }
-                if (output.isSetMetaId()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_METAID, output.getMetaId(), String.class);
-                }
-                if (output.isSetOutputLevel()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_QUAL_OUTPUT_LEVEL, output.getOutputLevel(), Integer.class);
-                }
-            }
-
-            // parse the default term / function terms
-            if (transition.isSetListOfFunctionTerms()) {
-                List<Integer> resultLevels = new ArrayList<Integer>();
-                for (FunctionTerm term : transition.getListOfFunctionTerms()) {
-                    resultLevels.add(term.getResultLevel());
-                }
-                AttributeUtil.setList(network, n, SBML.ATTR_QUAL_RESULT_LEVELS, resultLevels, Integer.class);
-            }
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // SBML FBC
     ////////////////////////////////////////////////////////////////////////////
@@ -1061,325 +918,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     // SBML COMP
     ////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Create network information from comp model.
-     */
-    private void readComp(ConversionContext context, Model model) {
-        CyNetwork network = context.network();
-        logger.debug("<comp>");
-
-        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
-        if (compModel == null) {
-            return;
-        }
-
-        // Submodel //
-        /*
-           Submodels are instantiations of models contained within other models.
-           A Submodel object must say which Model object it instantiates, and may additionally define how the Model object is
-           to be modified before it is instantiated in the enclosing model.
-        */
-        logger.debug("<Submodel>");
-        for (Submodel submodel : compModel.getListOfSubmodels()) {
-
-            logger.debug(submodel.toString());
-            CyNode n = context.createNode(submodel, SBML.NODETYPE_COMP_SUBMODEL);
-            AttributeWriter.setNamedSBaseAttributes(network, n, submodel);
-
-            AttributeUtil.set(network, n, SBML.ATTR_COMP_MODELREF, submodel.getModelRef(), String.class);
-            if (submodel.isSetTimeConversionFactor()) {
-                AttributeUtil.set(
-                        network,
-                        n,
-                        SBML.ATTR_COMP_TIME_CONVERSION_FACTOR,
-                        submodel.getTimeConversionFactor(),
-                        String.class);
-            }
-            if (submodel.isSetExtentConversionFactor()) {
-                AttributeUtil.set(
-                        network,
-                        n,
-                        SBML.ATTR_COMP_EXTENT_CONVERSION_FACTOR,
-                        submodel.getExtentConversionFactor(),
-                        String.class);
-            }
-
-            // Deletion
-            for (Deletion deletion : submodel.getListOfDeletions()) {
-                // TODO: add edge
-                logger.debug(deletion.toString());
-                CyNode nd = context.createNode(deletion, SBML.NODETYPE_COMP_DELETION);
-                AttributeWriter.setNamedSBaseAttributes(network, nd, deletion);
-
-                // SbaseRef
-                // TODO
-                deletion.getIdRef();
-            }
-
-            // TODO: generic method for getting node for SbaseRef
-            // SBaseRef provides attributes portRef, idRef, unitRef 12
-            // and metaIdRef, and a recursive subcomponent, sBaseRef
-        }
-
-        // Port //
-        logger.debug("<Port>");
-        // create port nodes
-        for (Port port : compModel.getListOfPorts()) {
-            logger.debug(port.toString());
-            CyNode n = context.createNode(port, SBML.NODETYPE_COMP_PORT);
-            AttributeWriter.setNamedSBaseAttributes(network, n, port);
-            AttributeWriter.setSBaseRefAttributes(network, n, port);
-        }
-        // create port edges
-        for (Port port : compModel.getListOfPorts()) {
-            CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, port.getId());
-            createSBaseRefEdge(context, source, port, model.getId());
-        }
-
-        logger.debug("<ReplacedElement & ReplacedBy>");
-        // only sbases in current model
-        for (TreeNode node : model.filter(new SBaseFilter())) {
-            SBase sbase = (SBase) node;
-            CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
-            if (compSBase != null) {
-                logger.debug(compSBase.toString());
-
-                CyNode source = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, sbase.getMetaId());
-
-                // replacedElements (SBaseRef)
-                for (ReplacedElement replacedElement : compSBase.getListOfReplacedElements()) {
-
-                    logger.debug(replacedElement.toString());
-                    //
-                    // targets can be from other submodels
-                    CyNode target = context.createNode(replacedElement, SBML.NODETYPE_COMP_REPLACED_ELEMENT);
-                    AttributeWriter.setSBaseRefAttributes(network, target, replacedElement);
-
-                    String ref = getRefFromSBaseRef(replacedElement);
-                    String submodel = "";
-                    if (replacedElement.isSetSubmodelRef()) {
-                        submodel = replacedElement.getSubmodelRef();
-                    }
-
-                    AttributeUtil.set(
-                            network, target, SBML.LABEL, String.format("<%s:%s>", submodel, ref), String.class);
-
-                    // edge to replacing element
-                    context.createEdge(source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT);
-
-                    createSBaseRefEdge(context, target, replacedElement, model.getId());
-
-                    AttributeUtil.set(
-                            network,
-                            target,
-                            SBML.ATTR_COMP_SUBMODELREF,
-                            replacedElement.getSubmodelRef(),
-                            String.class);
-                    if (replacedElement.isSetConversionFactor()) {
-                        // FIXME
-                        // replacedElement.getConversionFactor();
-                    }
-                    if (replacedElement.isSetDeletion()) {
-                        // FIXME
-                        // replacedElement.getDeletion();
-                    }
-
-                    /*
-                    When deletion is set, it means the ReplacedElement object is actually an annotation to indicate that the replacement object
-                    replaces something deleted from a submodel. The use of the deletion attribute overrides the use of the attributes
-                    inherited from SBaseRef: instead of using, e.g., portRef or idRef, the ReplacedElement instance sets deletion to
-                    the identifier of the Deletion object. In addition, the referenced Deletion must be a child of the Submodel referenced
-                    by the submodelRef attribute
-                    */
-
-                }
-
-                // replacedBy
-                if (compSBase.isSetReplacedBy()) {
-                    ReplacedBy replacedBy = compSBase.getReplacedBy();
-                    logger.debug(replacedBy.toString());
-                    CyNode target = context.createNode(replacedBy, SBML.NODETYPE_COMP_REPLACED_BY);
-                    AttributeWriter.setSBaseRefAttributes(network, target, replacedBy);
-
-                    String ref = getRefFromSBaseRef(replacedBy);
-                    String submodel = "";
-                    if (replacedBy.isSetSubmodelRef()) {
-                        submodel = replacedBy.getSubmodelRef();
-                    }
-
-                    AttributeUtil.set(
-                            network, target, SBML.LABEL, String.format("<%s:%s>", submodel, ref), String.class);
-
-                    // edge to replacing element
-                    context.createEdge(source, target, SBML.INTERACTION_COMP_SBASE_REPLACED_BY);
-                    createSBaseRefEdge(context, target, replacedBy, model.getId());
-                }
-
-                // deletion
-            }
-        }
-    }
-
-    /**
-     * Get String of referenced element from port.
-     *
-     * @return String
-     */
-    private String getRefFromSBaseRef(SBaseRef sbaseRef) {
-
-        String ref = "";
-        if (sbaseRef.isSetPortRef()) {
-            ref = sbaseRef.getPortRef();
-        } else if (sbaseRef.isSetIdRef()) {
-            ref = sbaseRef.getIdRef();
-        } else if (sbaseRef.isSetUnitRef()) {
-            ref = sbaseRef.getUnitRef();
-        } else if (sbaseRef.isSetMetaIdRef()) {
-            ref = sbaseRef.getMetaIdRef();
-        }
-        return ref;
-    }
-
-    /**
-     * Creates the edge for the given source node and sBaseRef.
-     * <p>
-     * Finds the target of the SbaseRef and adds the edge to it.
-     */
-    private void createSBaseRefEdge(ConversionContext context, CyNode sbaseNode, SBaseRef sBaseRef, String model) {
-        CyNetwork network = context.network();
-
-        String submodel = null;
-        // necessary to check if sBaseRef in own model
-        if (sBaseRef instanceof ReplacedElement replacedElement) {
-            submodel = replacedElement.getSubmodelRef();
-        } else if (sBaseRef instanceof ReplacedBy replacedBy) {
-            submodel = replacedBy.getSubmodelRef();
-        }
-        // empty submodel points to same model
-        if (submodel != null && submodel.length() == 0) {
-            submodel = model;
-        }
-
-        CyNode target = null;
-        String interaction = null;
-
-        // link to other submodel component
-        if (submodel != null && !submodel.equals(model)) {
-            logger.warn("SBaseRef to other submodel. Link not created.");
-        } else {
-            if (sBaseRef.isSetPortRef()) {
-                String portRef = sBaseRef.getPortRef();
-                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_PORT_SID, portRef);
-                interaction = SBML.INTERACTION_COMP_SBASEREF_PORT;
-            } else if (sBaseRef.isSetIdRef()) {
-                String idRef = sBaseRef.getIdRef();
-                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, idRef);
-                interaction = SBML.INTERACTION_COMP_SBASEREF_ID;
-            } else if (sBaseRef.isSetUnitRef()) {
-                String unitRef = sBaseRef.getUnitRef();
-                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_UNIT_SID, unitRef);
-                interaction = SBML.INTERACTION_COMP_SBASEREF_UNIT;
-            } else if (sBaseRef.isSetMetaIdRef()) {
-                String metaIdRef = sBaseRef.getMetaIdRef();
-                target = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_METAID, metaIdRef);
-                interaction = SBML.INTERACTION_COMP_SBASEREF_METAID;
-            }
-
-            // handle the recursive case
-            // FIXME:
-            // if (port.isSetSBaseRef()){
-            //     port.getSBaseRef();
-            // }
-
-            context.createEdge(sbaseNode, target, interaction);
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // SBML GROUPS
     ////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Create groups.
-     * Groups are implemented as group nodes.
-     * <p>
-     * A CyGroup is created either as an empty group
-     * CyGroup emptyGroup = groupFactory.createGroup(network, true);
-     * or by turning an existing node into an empty group:
-     * CyGroup emptyGroup = groupFactory.createGroup(network, node, true);
-     */
-    private void readGroups(ConversionContext context, Model model) {
-        logger.debug("<groups>");
-
-        GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
-        if (groupsModel == null) {
-            return;
-        }
-
-        for (Group group : groupsModel.getListOfGroups()) {
-            logger.debug(String.format("Reading group: <%s>", group));
-
-            // empty group node & sets attributes
-            CyGroup cyGroup = context.createGroup(group);
-
-            // collect nodes from members
-            List<CyNode> nodes = new ArrayList<>();
-            ListOfMembers membersList = group.getListOfMembers();
-            for (Member member : membersList) {
-
-                // resolve object & node
-                SBase sbase = member.getSBaseInstance();
-                CyNode memberNode = context.nodeByMetaId(sbase.getMetaId()).orElse(null);
-
-                if (memberNode != null) {
-                    nodes.add(memberNode);
-                } else {
-                    logger.error(String.format("Member <%s> of group <%s> not found via metaId.", group, member));
-                }
-
-                // Information transfer to members
-
-                // Unlike most lists of objects in SBML, the sboTerm attribute and the Notes
-                // and Annotation children are taken from the ListOfMembers to apply directly to every
-                // SBML element referenced by each child Member of this ListOfMembers,
-                // if that referenced element has no such definition.
-                // Thus, if a referenced element has no defined sboTerm, child Notes, or child Annotation,
-                // that element should be considered to now have the sboTerm, child Notes, or child Annotation of the
-                // ListOfMembers.
-
-                // ! this changes the SBMLDocument
-                if (membersList.isSetSBOTerm() && !sbase.isSetSBOTerm()) {
-                    sbase.setSBOTerm(membersList.getSBOTerm());
-                }
-                if (membersList.isSetNotes() && !sbase.isSetNotes()) {
-                    sbase.setNotes(membersList.getNotes());
-                }
-                if (membersList.isSetAnnotation() && !sbase.isSetAnnotation()) {
-                    sbase.setAnnotation(membersList.getAnnotation());
-                }
-            }
-            logger.debug(String.format("Adding %s nodes to cyGroup", nodes.size()));
-            cyGroup.addNodes(nodes);
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // SBML SBML_LAYOUT
     ////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Creates the layouts stored in the layout extension.
-     * TODO: implement
-     */
-    private void readLayouts(Model model) {
-        logger.debug("<layout>");
-
-        LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
-
-        if (layoutModel != null) {
-            logger.warn("Layouts found, but not yet supported.");
-        }
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // HELPER FUNCTIONS
