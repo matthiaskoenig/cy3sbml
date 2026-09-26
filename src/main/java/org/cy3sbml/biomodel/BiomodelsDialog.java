@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractListModel;
@@ -150,7 +149,7 @@ public class BiomodelsDialog extends JDialog {
         parseIdsButton.addActionListener(event -> {
             try {
                 parseBioModelByIds();
-            } catch (IOException | InterruptedException | ExecutionException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -163,7 +162,7 @@ public class BiomodelsDialog extends JDialog {
         searchButton.addActionListener(event -> {
             try {
                 searchBioModels();
-            } catch (IOException | InterruptedException | ExecutionException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -202,7 +201,7 @@ public class BiomodelsDialog extends JDialog {
             }
             try {
                 handleModelSelectionInModelList();
-            } catch (IOException | InterruptedException | ExecutionException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -270,7 +269,7 @@ public class BiomodelsDialog extends JDialog {
             if (key == KeyEvent.VK_ENTER) {
                 try {
                     searchBioModels();
-                } catch (IOException | InterruptedException | ExecutionException e) {
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -312,7 +311,7 @@ public class BiomodelsDialog extends JDialog {
     }
 
     /// ////// SEARCH MODELS ////////////
-    public void searchBioModels() throws IOException, InterruptedException, ExecutionException {
+    public void searchBioModels() throws IOException, InterruptedException {
         logger.info("search BioModels");
         infoPane.setText(BioModelDialogText.performBioModelSearch());
 
@@ -339,7 +338,7 @@ public class BiomodelsDialog extends JDialog {
 
     /// ////// UPDATE GUI ////////////
     private void updateBioModelListAndInformationAfterSearch(List<String> ids)
-            throws IOException, InterruptedException, ExecutionException {
+            throws IOException, InterruptedException {
         updateModelListInDialog(ids);
         updateBioModelInformation(getListOfSelectedModelIds());
 
@@ -367,8 +366,7 @@ public class BiomodelsDialog extends JDialog {
         });
     }
 
-    public void updateBioModelInformation(List<String> selectedModelIds)
-            throws IOException, InterruptedException, ExecutionException {
+    public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException {
         final int caretPosition = infoPane.getCaretPosition();
         final int scrollPosition = infoScrollPane.getVerticalScrollBar().getValue();
         Point location = infoScrollPane.getViewport().getLocation();
@@ -388,7 +386,7 @@ public class BiomodelsDialog extends JDialog {
     }
 
     /// ////// SELECT MODELS ////////////
-    private void handleModelSelectionInModelList() throws IOException, InterruptedException, ExecutionException {
+    private void handleModelSelectionInModelList() throws IOException, InterruptedException {
         List<String> selectedModelIds = getListOfSelectedModelIds();
         updateBioModelInformation(selectedModelIds);
     }
@@ -418,7 +416,7 @@ public class BiomodelsDialog extends JDialog {
         }
     }
 
-    public void parseBioModelByIds() throws IOException, InterruptedException, ExecutionException {
+    public void parseBioModelByIds() throws IOException, InterruptedException {
         String text = idTextArea.getText();
         Set<String> ids = parseBioModelIdsFromString(text);
 

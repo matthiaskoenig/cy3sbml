@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.FinishStatus;
 import org.cytoscape.work.ObservableTask;
@@ -61,8 +60,7 @@ public class SearchBioModel implements TaskObserver {
         searchModelIdsForSearchContent(searchContent);
     }
 
-    public void getBioModelsByParsedIds(Set<String> parsedIds)
-            throws IOException, InterruptedException, ExecutionException {
+    public void getBioModelsByParsedIds(Set<String> parsedIds) throws IOException, InterruptedException {
         resetSearch();
         HashMap<String, String> map = new HashMap<String, String>();
         map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
@@ -118,8 +116,7 @@ public class SearchBioModel implements TaskObserver {
         }
     }
 
-    public String getHTMLInformation(final List<String> selectedModelIds)
-            throws IOException, ExecutionException, InterruptedException {
+    public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException {
         String info = getHTMLHeaderForModelSearch();
 
         info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(modelIds, selectedModelIds);

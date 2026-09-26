@@ -4,13 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,31 +82,37 @@ public class BiomodelsQueryResult {
     }
 
     /**
-     * Returns biomodel information for given biomodel ids
+     * Looks up the biomodel for a given id.
      */
-    public static List<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
-            throws IOException, InterruptedException, ExecutionException {
+    @FunctionalInterface
+    interface BiomodelLookup {
+        CompletableFuture<Biomodel> query(String biomodelId) throws IOException, InterruptedException;
+    }
 
-        ArrayList<Biomodel> biomodels;
-        List<CompletableFuture<Biomodel>> futures = new ArrayList<>();
+    /**
+     * Returns the biomodels for the given ids, in the order of the ids.
+     * Biomodels whose lookup fails are skipped with a warning.
+     */
+    public static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
+            throws IOException, InterruptedException {
+        return getBiomodelsFromIds(biomodelIds, BiomodelsQuery::performBiomodelQuery);
+    }
+
+    static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds, BiomodelLookup lookup)
+            throws IOException, InterruptedException {
+        // start all lookups before waiting for the first one
+        Map<String, CompletableFuture<Biomodel>> futures = new LinkedHashMap<>();
         for (String biomodelId : biomodelIds) {
-            CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);
-            futures.add(future);
+            futures.put(biomodelId, lookup.query(biomodelId));
         }
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture<?>[0]));
-        biomodels = allFutures
-                .thenApply(v -> futures.stream()
-                        .map(future -> {
-                            try {
-                                return future.join(); // Get each Biomodel
-                            } catch (CompletionException | CancellationException e) {
-                                logger.warn("Could not query a biomodel, skipping it: {}", e.getMessage());
-                                return null;
-                            }
-                        })
-                        .filter(Objects::nonNull) // Remove nulls (failed requests)
-                        .collect(Collectors.toCollection(ArrayList::new)))
-                .get();
+        Map<String, Biomodel> biomodels = new LinkedHashMap<>();
+        for (Map.Entry<String, CompletableFuture<Biomodel>> entry : futures.entrySet()) {
+            try {
+                biomodels.put(entry.getKey(), entry.getValue().join());
+            } catch (CompletionException | CancellationException e) {
+                logger.warn("Could not query biomodel {}, skipping it: {}", entry.getKey(), e.getMessage());
+            }
+        }
         return biomodels;
     }
 }

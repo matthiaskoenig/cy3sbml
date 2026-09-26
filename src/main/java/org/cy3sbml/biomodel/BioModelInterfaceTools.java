@@ -2,7 +2,7 @@ package org.cy3sbml.biomodel;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 
 /**
  * Tools to interact with BioModels.
@@ -12,14 +12,15 @@ public class BioModelInterfaceTools {
     // string and html representations
 
     public static String getHTMLInformationForSimpleModels(List<String> modelIds, List<String> selectedSimpleModels)
-            throws IOException, ExecutionException, InterruptedException {
+            throws IOException, InterruptedException {
         String info = "";
-        List<Biomodel> biomodelArrayList = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
-        ;
-        for (int i = 0; i < modelIds.size(); i++) {
-            String modelId = modelIds.get(i);
-
-            Biomodel model = biomodelArrayList.get(i);
+        Map<String, Biomodel> biomodels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
+        for (String modelId : modelIds) {
+            Biomodel model = biomodels.get(modelId);
+            if (model == null) {
+                info += String.format("<p>BioModel <b>%s</b> could not be loaded.</p><hr>", modelId);
+                continue;
+            }
             boolean modelIsSelected = false;
             for (int j = 0; j < selectedSimpleModels.size(); ++j) {
                 String selectedId = selectedSimpleModels.get(j);
