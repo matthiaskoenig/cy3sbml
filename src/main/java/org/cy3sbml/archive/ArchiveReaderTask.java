@@ -185,12 +185,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     }
 
     /**
-     * Cancel task.
-     */
-    @Override
-    public void cancel() {}
-
-    /**
      * Creates the archive network.
      * <p>
      * The heavy lifting is performed by the robundle implementation.

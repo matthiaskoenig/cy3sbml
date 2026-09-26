@@ -195,9 +195,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         return error;
     }
 
-    @Override
-    public void cancel() {}
-
     /** Reads the SBML and creates the networks for its models. */
     @Override
     public void run(TaskMonitor taskMonitor) throws Exception {
@@ -228,6 +225,11 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             }
             // no network of the flattened comp model yet (#401)
 
+            if (cancelled) {
+                // a cancelled import returns no networks, not the ones read so far
+                cyNetworks.clear();
+                return;
+            }
             if (taskMonitor != null) {
                 taskMonitor.setProgress(0.8);
             }
@@ -276,6 +278,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
      * the same metaIds and ids, so every model is read with its own context.
      */
     private void createNetworksFromModel(Model model) {
+        if (cancelled) {
+            return;
+        }
         CyNetwork network = networkFactory.createNetwork();
         ConversionContext context = new ConversionContext(document, network, groupFactory);
         for (PackageReader reader : readers) {
