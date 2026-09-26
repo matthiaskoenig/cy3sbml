@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import javax.swing.tree.TreeNode;
 import org.cy3sbml.*;
-import org.cy3sbml.mapping.MetaIdSBaseMap;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.util.SBMLUtil;
+import org.cy3sbml.util.filter.SBaseFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBase;
 
 /**
  * Testing the HTML information generation.
@@ -106,11 +107,10 @@ public class SBaseHtmlThreadTest {
     private void runModelTest(String resource) throws InterruptedException {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
 
-        // objects from model
-        MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
-        Collection<SBase> objects = map.getObjects();
+        // all SBases of the model
+        List<? extends TreeNode> objects = doc.getModel().filter(new SBaseFilter());
 
-        for (SBase sbase : objects) {
+        for (TreeNode sbase : objects) {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
             SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
