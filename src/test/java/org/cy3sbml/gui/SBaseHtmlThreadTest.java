@@ -53,18 +53,16 @@ public class SBaseHtmlThreadTest {
     }
 
     @Test
-    public void run() throws Exception {
+    public void run() {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
         Model model = doc.getModel();
 
         Collection<Object> objSet = new HashSet<>();
         objSet.add(model);
-        // starting threads for webservice calls
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel, htmlFactory);
+        SBaseHTMLThread task = new SBaseHTMLThread(objSet, panel, htmlFactory);
 
-        thread.start();
-        thread.join();
-        String html = thread.getInfo();
+        task.run();
+        String html = task.getInfo();
         assertNotNull(html);
     }
 
@@ -116,7 +114,7 @@ public class SBaseHtmlThreadTest {
     /**
      * Creates info for all objects in the model.
      */
-    private void runModelTest(String resource) throws InterruptedException {
+    private void runModelTest(String resource) {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
 
         // all SBases of the model
@@ -126,8 +124,7 @@ public class SBaseHtmlThreadTest {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
             SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel, htmlFactory);
-            t1.start();
-            t1.join();
+            t1.run();
             String html = t1.getInfo();
             assertNotNull(html);
         }

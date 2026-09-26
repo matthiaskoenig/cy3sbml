@@ -53,7 +53,6 @@ public final class WebViewPanel extends JFXPanel
     private final CytoPanel cytoPanelEast;
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
     private Browser browser;
-    private long lastInformationThreadId = -1;
     private String html;
 
     /**
@@ -186,18 +185,6 @@ public final class WebViewPanel extends JFXPanel
     }
 
     /**
-     * Update Text in the navigation panel.
-     * Only updates information if the current thread is the last requested thread
-     * for updating text.
-     */
-    @Override
-    public void setText(SBaseHTMLThread infoThread) {
-        if (infoThread.getId() == lastInformationThreadId) {
-            this.setText(infoThread.getInfo());
-        }
-    }
-
-    /**
      * Create information string for SBML Node and display.
      */
     @Override
@@ -210,17 +197,19 @@ public final class WebViewPanel extends JFXPanel
     /**
      * Display information for set of nodes.
      * <p>
-     * Submits the HTML generation (the OLS/UniProt/ChEBI web-service lookups) to the
-     * {@link #renderExecutor} rather than starting its own thread, so that a later
-     * selection cancels it the same way it cancels a pending {@link PanelUpdater}: a
-     * superseded render is interrupted instead of an unrelated, uninterruptible thread
-     * continuing to run in the background after a newer render has already started.
+     * Runs the HTML generation (the OLS/UniProt/ChEBI web-service lookups) inline, on
+     * whatever thread is calling this. The only caller is {@link PanelUpdater}, itself
+     * running as the single task {@link #updateInformation()} submits to the
+     * {@link #renderExecutor} for the current selection. This must stay a plain call and
+     * never become a nested {@code renderExecutor.submit(...)}: the executor cancels
+     * whatever task it is currently running when a new one is submitted, so a nested
+     * submit from inside a task that is itself about to be cancelled would race with, and
+     * could cancel, a newer selection's already-submitted task instead of its own.
+     * Keeping exactly one submit per selection is what makes that cancellation correct.
      */
     @Override
     public void showSBaseInfo(Set<Object> objSet) {
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this, htmlFactory);
-        lastInformationThreadId = thread.getId();
-        renderExecutor.submit(thread);
+        new SBaseHTMLThread(objSet, this, htmlFactory).run();
     }
 
     @Override

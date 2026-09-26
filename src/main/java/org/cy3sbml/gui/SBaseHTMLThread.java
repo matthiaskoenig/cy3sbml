@@ -7,10 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Creates SBase HTML information in separate thread.
- * Provides some helper functions to preload information for given SBMLDocuments.
+ * Builds the HTML information for a set of SBase objects, via web-service lookups
+ * (OLS, UniProt, ChEBI), and posts it to a panel.
+ * <p>
+ * Despite its name, this is a plain {@link Runnable} helper, not a {@link Thread}: it is
+ * meant to be run inline, as a single step of whichever thread is already carrying out a
+ * render (see {@code WebViewPanel.showSBaseInfo}), never started or submitted to an
+ * executor as a second, independent unit of work. Doing so would defeat the "one submit
+ * per selection" invariant that {@code LatestTaskExecutor} relies on to cancel a
+ * superseded render correctly, letting a stale caller cancel a newer, unrelated one.
  */
-public class SBaseHTMLThread extends Thread {
+public class SBaseHTMLThread implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
     private final Collection<Object> objSet;
     private final InfoPanel panel;
@@ -62,7 +69,7 @@ public class SBaseHTMLThread extends Thread {
         }
         // Display if a panel is provided
         if (panel != null) {
-            panel.setText(this);
+            panel.setText(info);
         }
     }
 

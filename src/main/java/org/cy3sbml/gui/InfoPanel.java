@@ -9,13 +9,6 @@ public interface InfoPanel {
     void setText(String text);
 
     /**
-     * Update Text in the navigation panel.
-     * Only updates information if the current thread is the last requested thread
-     * for updating text.
-     */
-    void setText(SBaseHTMLThread infoThread);
-
-    /**
      * Display SBase information
      */
     void showSBaseInfo(Object obj);
