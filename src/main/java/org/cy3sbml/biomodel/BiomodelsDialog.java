@@ -21,6 +21,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -293,9 +294,21 @@ public class BiomodelsDialog extends JDialog {
     public void loadBioModelById(String id) {
         logger.info("Load BioModel: " + id);
         infoPane.setText(BioModelDialogText.getWebserviceSBMLRequest());
-        LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
-        TaskIterator iterator = loadFactory.createTaskIterator();
-        adapter.synchronousTaskManager.execute(iterator);
+        // UI boundary: a failure is reported and must not escape into Swing
+        try {
+            LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
+            if (!loadFactory.isReady()) {
+                JOptionPane.showMessageDialog(
+                        this, String.format("<html>No SBML could be loaded for BioModel Id: <b>%s</b></html>", id));
+                return;
+            }
+            TaskIterator iterator = loadFactory.createTaskIterator();
+            adapter.synchronousTaskManager.execute(iterator);
+        } catch (RuntimeException e) {
+            logger.error("Could not load BioModel: {}", id, e);
+            JOptionPane.showMessageDialog(
+                    this, String.format("<html>Could not load BioModel Id: <b>%s</b><br>%s</html>", id, e));
+        }
     }
 
     /// ////// SEARCH MODELS ////////////

@@ -42,6 +42,9 @@ public class GUIUtil {
             adapter.synchronousTaskManager.execute(iterator);
         } catch (IOException e) {
             logger.warn("Could not read example: {}", resource, e);
+        } catch (RuntimeException e) {
+            // UI boundary: called from a hyperlink in the WebView
+            logger.error("Could not load example: {}", resource, e);
         }
     }
 
