@@ -165,9 +165,10 @@
                                     <findAllDuplicates>true</findAllDuplicates>
                                     <ignoreWhenIdentical>true</ignoreWhenIdentical>
                                     <ignoreClasses>
-                                        <!-- xstream pulls in both xmlpull and xpp3_min, which
-                                            both provide the same XmlPull API classes; xstream
-                                            is removed in Task 2.5. -->
+                                        <!-- xstream (needed by JSBML's validator, see the
+                                            dependency comment below) pulls in both xmlpull and
+                                            xpp3_min, which both provide the same XmlPull API
+                                            classes. -->
                                         <ignoreClass>org.xmlpull.v1.*</ignoreClass>
                                     </ignoreClasses>
                                 </banDuplicateClasses>
@@ -430,46 +431,9 @@
 
         <!-- JavaFX -->
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.2.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.codefx.libfx</groupId>
             <artifactId>LibFX</artifactId>
             <version>0.3.0</version>
-        </dependency>
-
-        <!--  UniRest -->
-        <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpasyncclient</artifactId>
-            <version>4.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20250517</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.59</version>
         </dependency>
 
         <!-- MIRIAM Registry -->
@@ -584,18 +548,28 @@
             <artifactId>woodstox-core</artifactId>
             <version>5.0.1</version>
         </dependency>
+        <!-- Used by org.sbml.jsbml.xml.parsers.SBMLRDFAnnotationParser (org.w3c.util.DateParser
+            and InvalidDateException, for RDF annotation dates), loaded via
+            annotationParsers.xml whenever an SBML file with RDF annotations is read; removing
+            it breaks every SBML model read (confirmed by running the model tests). -->
         <dependency>
             <groupId>org.w3c.jigsaw</groupId>
             <artifactId>jigsaw</artifactId>
             <version>2.2.6</version>
         </dependency>
+        <!-- Used by org.sbml.jsbml.validator.SBMLValidator and the
+            org.sbml.jsbml.xml.xstream.converter.* classes; confirmed with jdeps against the
+            jsbml jars in lib/cy3sbml-dep. 1.4.9 has known CVEs, so pinned to the latest
+            1.4.x release instead. -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.9</version>
+            <version>1.4.21</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <!-- Used by org.sbml.jsbml.xml.stax.SBMLWriter and
+            org.sbml.jsbml.util.compilers.MathMLXMLStreamCompiler; confirmed with jdeps. -->
         <dependency>
             <groupId>com.fasterxml.staxmate</groupId>
             <artifactId>staxmate</artifactId>

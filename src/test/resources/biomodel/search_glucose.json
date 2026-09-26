@@ -1,0 +1,29 @@
+{
+  "matches": 173,
+  "models": [
+    {
+      "format": "SBML",
+      "id": "MODEL1204270001",
+      "lastModified": null,
+      "name": "Koenig2012 - Hepatic Glucose Metabolism",
+      "submissionDate": "2012-04-27T00:00:00Z",
+      "submitter": "Matthias König",
+      "url": "https://www.biomodels.org/MODEL1204270001"
+    },
+    {
+      "format": "SBML",
+      "id": "MODEL1209260000",
+      "lastModified": null,
+      "name": "Koenig2012 - Hepatic Glucose Metabolism",
+      "submissionDate": "2012-09-26T00:00:00Z",
+      "submitter": "Matthias König",
+      "url": "https://www.biomodels.org/MODEL1209260000"
+    }
+  ],
+  "queryParameters": {
+    "numResults": 10,
+    "offset": 0,
+    "sortBy": "relevance",
+    "sortDirection": "desc"
+  }
+}

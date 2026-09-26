@@ -8,10 +8,9 @@ import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.*;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.JSONArray;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.cy3sbml.util.IOUtil;
 
@@ -31,6 +30,7 @@ public class RegistryUtil {
     public static final String PREFIX = "prefix";
     private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
     public static final String URL_MIRIAM_JSON = "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
 
     /**
@@ -42,21 +42,21 @@ public class RegistryUtil {
     public static Map<String, Namespace> loadRegistry(File file) throws IOException {
 
         byte[] jsonBytes = Files.readAllBytes(file.toPath());
-        JSONObject root = JSON.parseObject(jsonBytes);
-        JSONObject payload = root.getJSONObject(PAYLOAD);
-        if (payload == null) {
+        JsonNode root = MAPPER.readTree(jsonBytes);
+        JsonNode payload = root.path(PAYLOAD);
+        if (payload.isMissingNode()) {
             throw new IllegalArgumentException("Missing 'payload' object");
         }
-        JSONArray namespaces = payload.getJSONArray(NAMESPACES);
-        if (namespaces == null) {
+        JsonNode namespaces = payload.path(NAMESPACES);
+        if (!namespaces.isArray()) {
             throw new IllegalArgumentException("Missing 'namespaces' array");
         }
         Map<String, Namespace> result = new HashMap<>();
-        for (int i = 0; i < namespaces.size(); i++) {
-            JSONObject nsNode = namespaces.getJSONObject(i);
-            String prefix = nsNode.getString(PREFIX);
+        for (JsonNode nsNode : namespaces) {
+            String prefix = nsNode.path(PREFIX).asText(null);
             if (prefix == null || prefix.isEmpty()) continue;
-            Map<Object, Object> nsData = new LinkedHashMap<>(nsNode);
+            Map<Object, Object> nsData = MAPPER.convertValue(nsNode, new TypeReference<Map<Object, Object>>() {
+            });
 
             result.put(prefix, new Namespace(nsData));
         }

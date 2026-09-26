@@ -1,6 +1,7 @@
 package org.cy3sbml.biomodel;
 
-import org.json.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.*;
@@ -42,13 +43,16 @@ public class BiomodelsQueryResult {
         return json;
     }
 
-    private JSONObject getJSONObject() {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private JsonNode getJSONObject() {
         if (json == null) {
             return null;
-        } else {
-            JSONObject obj = new JSONObject(json);
-
-            return obj;
+        }
+        try {
+            return MAPPER.readTree(json);
+        } catch (IOException e) {
+            return null;
         }
     }
 
@@ -59,15 +63,14 @@ public class BiomodelsQueryResult {
      * @return
      */
     public List<String> getBiomodelIdsFromSearch() {
-        JSONObject jsonObject = getJSONObject();
+        JsonNode jsonObject = getJSONObject();
         List<String> biomodelIds = new ArrayList<>();
         if (jsonObject != null) {
 
             // get biomodel identifiers
-            JSONArray array = jsonObject.getJSONArray("models");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject model = (JSONObject) array.get(i);
-                String biomodelId = (String) model.get("id");
+            JsonNode array = jsonObject.path("models");
+            for (JsonNode model : array) {
+                String biomodelId = model.path("id").asText(null);
                 biomodelIds.add(biomodelId);
             }
         }
