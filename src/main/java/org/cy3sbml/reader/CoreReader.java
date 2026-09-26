@@ -120,7 +120,6 @@ final class CoreReader implements PackageReader {
             // The objects of the FunctionDefinition ASTNode can have different naming conventions
             // than the objects, i.e. a lambda(x), does not mean that it is called with
             // an object x
-            // MathGraphBuilder.createMathNetwork(fd, fdNode, SBML.INTERACTION_REFERENCE_FUNCTIONDEFINITION);
         }
     }
 

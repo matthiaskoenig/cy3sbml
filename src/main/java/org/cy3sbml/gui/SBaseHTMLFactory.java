@@ -786,14 +786,6 @@ public class SBaseHTMLFactory {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             namespaces.load(reader);
             return namespaces.getProperty(keyToFind);
-            /* String line;
-            while ((line = reader.readLine()) != null) {
-                // Unescape the line for readability
-                String cleanLine = line.replaceAll("\\\\", "");
-                if (cleanLine.startsWith(keyToFind + "=")) {
-                    return cleanLine.split("=", 2)[1]; // Extract value after '='
-                }
-            }*/
         } catch (Exception e) {
             logger.error("Could not read the prefix value: " + keyToFind, e);
         }

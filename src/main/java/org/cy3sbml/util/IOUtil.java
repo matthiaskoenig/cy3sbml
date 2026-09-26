@@ -120,10 +120,4 @@ public class IOUtil {
             }
         }
     }
-
-    /*
-     * Returns the Last-Modified Http Response Header field.
-     * @param url
-     * @return
-     */
 }

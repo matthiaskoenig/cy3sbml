@@ -38,7 +38,6 @@ public class BioModelInterfaceTools {
         String name = simpleModel.getName();
         String publicationId = simpleModel.getPublicationIdentifier();
         String submissionIdentifier = simpleModel.getSubmissionIdentifier();
-        // String dateModified = simpleModel.getLastModificationDateStr();
         String description = simpleModel.getDescription();
         String authors = simpleModel.getAuthors();
         String info;

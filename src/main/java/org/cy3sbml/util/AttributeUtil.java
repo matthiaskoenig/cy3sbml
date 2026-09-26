@@ -80,8 +80,6 @@ public class AttributeUtil {
     private static <T> T get(
             CyNetwork network, CyIdentifiable entry, String tableName, String name, Class<? extends T> type) {
         CyRow row = network.getRow(entry, tableName);
-        // CyTable table = row.getTable();
-        // CyColumn column = table.getColumn(name);
         return row.get(name, type);
     }
 

@@ -33,11 +33,6 @@ public class BiomodelsQuery {
     public static URI uriFromQuery(String query) throws URISyntaxException {
         // FIXME: Necessary to url escape
         // https://stackoverflow.com/questions/724043/http-url-address-encoding-in-java#724764
-        //	    query = query.replace(":", "%3A");
-        //        query = query.replace(" ", "%20");
-        //        query = query.replace("\"", "%22");
-        //        query = query.replace(">", "%3E");
-        //        query = query.replace("<", "%3C");
 
         URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
         return uri;
@@ -114,8 +109,6 @@ public class BiomodelsQuery {
             // The response body contains the SBML XML content
             sbml = sbmlResponse.body();
 
-            // You can save it to a file if needed
-            // Files.writeString(Path.of(modelId + ".xml"), sbmlContent);
         } else {
             System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
         }

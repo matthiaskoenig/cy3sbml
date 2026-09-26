@@ -39,7 +39,6 @@ public final class Browser extends Region {
         getChildren().add(webView);
 
         // Listening to hyperlink events
-        // BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
         WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
     }
 

@@ -73,15 +73,6 @@ public class SearchBioModel implements TaskObserver {
         }
     }
 
-    //	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
-    //		// convert to array
-    //		String[] ids = new String[idsList.size()];
-    //		for (int k=0; k<idsList.size(); k++){
-    //			ids[k] = idsList.get(k);
-    //		}
-    //		return bmInterface.getSimpleModelsByIds(ids);
-    //	}
-
     private void searchModelIdsForSearchContent(SearchContent content) {
         // Run the biomodel task with a taskManger
 
@@ -105,7 +96,6 @@ public class SearchBioModel implements TaskObserver {
             logger.info(id);
         }
 
-        // simpleModels = getSimpleModelsForSearchResult(modelIds);
         // TODO: somehow notify that this is finished & update the content
         // do synchronous
     }
@@ -142,10 +132,4 @@ public class SearchBioModel implements TaskObserver {
         info += "<hr>";
         return info;
     }
-
-    //	public String getHTMLInformationForModel(int modelIndex){
-    //		SimpleModel simpleModel = getSimpleModel(modelIndex);
-    //		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
-    //	}
-
 }

@@ -45,9 +45,6 @@ public class SBMLFileFilter extends BasicCyFileFilter {
         }
 
         try {
-            // check for extension
-            // String ext = FilenameUtils.getExtension(uri.toString());
-            // extensions.contains(ext)
             return accepts(streamUtil.getInputStream(uri.toURL()), category);
         } catch (IOException e) {
             logger.error("Error while creating stream from uri", e);

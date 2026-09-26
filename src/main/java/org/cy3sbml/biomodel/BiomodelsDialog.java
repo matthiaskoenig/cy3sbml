@@ -116,7 +116,6 @@ public class BiomodelsDialog extends JDialog {
         personField.setToolTipText("Search Biomodels by Person");
         personField.setBounds(112, 44, 160, 25);
         personField.setColumns(10);
-        // panel.add(personField);
         personField.addKeyListener(new EnterKeyAdapter());
 
         // Search By Publication/Abstract
@@ -125,7 +124,6 @@ public class BiomodelsDialog extends JDialog {
         publicationField.setBounds(112, 76, 160, 25);
         publicationField.setColumns(10);
         publicationField.addKeyListener(new EnterKeyAdapter());
-        //	panel.add(publicationField);
 
         // Search by Chebi
         chebiField = new JTextField();
@@ -133,7 +131,6 @@ public class BiomodelsDialog extends JDialog {
         chebiField.setColumns(10);
         chebiField.setBounds(112, 108, 160, 25);
         chebiField.addKeyListener(new EnterKeyAdapter());
-        // panel.add(chebiField);
 
         // Search by UniProt
         uniprotField = new JTextField();
@@ -141,7 +138,6 @@ public class BiomodelsDialog extends JDialog {
         uniprotField.setColumns(10);
         uniprotField.setBounds(112, 140, 160, 25);
         uniprotField.addKeyListener(new EnterKeyAdapter());
-        // panel.add(uniprotField);
 
         // Load Ids Button
         JButton loadIdsButton = new JButton("Load Ids");
@@ -495,7 +491,6 @@ public class BiomodelsDialog extends JDialog {
         nameField.setText(reset);
         personField.setText(reset);
         publicationField.setText(reset);
-        // taxonomyField.setText(reset);
         chebiField.setText(reset);
         uniprotField.setText(reset);
     }

@@ -246,10 +246,6 @@ public class SBMLUtil {
             packages = "";
             for (SBasePlugin plugin : packageMap.values()) {
 
-                // URI does not lead anywhere
-                // packages += String.format("; <a href=\"%s\">%s-V%s</a>",
-                //        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
-
                 packages += String.format(
                         " <span class=\"collection\">%s-V%s</span>",
                         plugin.getPackageName(), plugin.getPackageVersion());

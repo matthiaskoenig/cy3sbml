@@ -228,44 +228,12 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             path2node = new HashMap<>();
             node2path = new HashMap<>();
 
-            /*
-            if (stream instanceof ZipInputStream){
-                logger.info("ZipInputStream found in reader.");
-
-                //    This should no happen currently, because the ZipInputStream
-                //     is packed into a BufferecInputStream and unreadable as a
-                //     consequence.
-                //     We have to rename *.zip files to deal with this.
-                ZipInputStream zis = (ZipInputStream) stream;
-
-                // read entries from zip file
-                ZipEntry ze = null;
-                while ((ze = zis.getNextEntry()) != null) {
-                    System.out.println("Unzipping " + ze.getName());
-
-                    // write files
-                    FileOutputStream fout = new FileOutputStream(ze.getName());
-                    for (int c = zin.read(); c != -1; c = zin.read()) {
-                        fout.write(c);
-                    }
-
-                    zis.closeEntry();
-                    // fout.close();
-                }
-                zis.close();
-            } else {
-                logger.error("Stream is not ZipInputStream");
-                System.out.println(stream);
-            }
-            */
-
             // Create empty root network and node map
             network = networkFactory.createNetwork();
             AttributeUtil.set(network, network, NODE_ATTR_PATH, fileName, String.class);
 
             // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
             // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
-            // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
             // CyRootNetwork also provides methods to create and add new subnetworks (see
             // CyRootNetwork.addSubNetwork()).
             rootNetwork = ((CySubNetwork) network).getRootNetwork();

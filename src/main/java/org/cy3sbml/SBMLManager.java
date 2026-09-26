@@ -30,7 +30,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 
     private Long currentSUID;
     private Network2SBMLMapper network2sbml;
-    // private HashMap<Long, MetaIdSBaseMap> network2objectMap;
 
     /**
      * Get SBMLManager (creates the instance).
@@ -68,7 +67,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     private void reset() {
         currentSUID = null;
         network2sbml = new Network2SBMLMapper();
-        // network2objectMap = new HashMap<>();
     }
 
     /**
@@ -96,8 +94,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     public void addSBMLForNetwork(SBMLDocument doc, Long rootNetworkSUID, One2ManyMapping<String, Long> mapping) {
         // document & mapping
         network2sbml.putDocument(rootNetworkSUID, doc, mapping);
-        // object map
-        // network2objectMap.put(rootNetworkSUID, new MetaIdSBaseMap(doc));
     }
 
     /**
@@ -224,7 +220,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     public SBase getSBaseByCyId(String cyId, Long SUID) {
         SBMLDocument doc = network2sbml.getDocument(SUID);
         return doc.getElementByMetaId(cyId);
-        // return network2objectMap.get(SUID).getObjectByCyId(cyId);
     }
 
     /**
@@ -256,19 +251,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         logger.debug("SBMLManager from given mapper");
 
         network2sbml = mapper;
-        // network2objectMap = new HashMap<>();
-
-        // Create mapping
-        /*
-        Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
-        for (Long suid: documentMap.keySet()){
-            SBMLDocument doc = documentMap.get(suid);
-
-            // create id<->object mapping
-            MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
-            network2objectMap.put(suid, map);
-        }
-        */
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();

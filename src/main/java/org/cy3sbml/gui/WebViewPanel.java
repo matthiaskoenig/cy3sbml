@@ -120,7 +120,6 @@ public class WebViewPanel extends JFXPanel
 
     @Override
     public Icon getIcon() {
-        // return new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
         return null;
     }
 
