@@ -26,15 +26,15 @@ import org.xml.sax.SAXException;
 public class XMLInterface {
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
 
-    public static String LAYOUT = "layout";
-    public static String BOX_LIST = "listOfBoundingBoxes";
+    public static final String LAYOUT = "layout";
+    public static final String BOX_LIST = "listOfBoundingBoxes";
 
-    public static String BOX = "boundingBox";
-    public static String BOX_ID = "id";
-    public static String BOX_X = "xpos";
-    public static String BOX_Y = "ypos";
-    public static String BOX_HEIGHT = "height";
-    public static String BOX_WIDTH = "width";
+    public static final String BOX = "boundingBox";
+    public static final String BOX_ID = "id";
+    public static final String BOX_X = "xpos";
+    public static final String BOX_Y = "ypos";
+    public static final String BOX_HEIGHT = "height";
+    public static final String BOX_WIDTH = "width";
 
     // XML EXPORT //
 
@@ -115,28 +115,46 @@ public class XMLInterface {
             for (int k = 0; k < boxList.getLength(); ++k) {
                 Node boxNode = boxList.item(k);
                 CyBoundingBox box = readBoundingBoxFromNode(boxNode);
-                boxes.put(box.getNodeId(), box);
+                if (box != null) {
+                    boxes.put(box.getNodeId(), box);
+                }
             }
-        } catch (ParserConfigurationException | SAXException | IOException | NumberFormatException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             logger.error("Could not read layout: {}", xmlFile, e);
         }
         return boxes;
     }
 
+    /**
+     * Reads the bounding box of the given node, or returns null if an attribute is missing
+     * or not a number.
+     */
     private static CyBoundingBox readBoundingBoxFromNode(Node boxNode) {
         NamedNodeMap map = boxNode.getAttributes();
-        String nodeId = map.getNamedItem(BOX_ID).getTextContent();
-        String xpos = map.getNamedItem(BOX_X).getTextContent();
-        String ypos = map.getNamedItem(BOX_Y).getTextContent();
-        String height = map.getNamedItem(BOX_HEIGHT).getTextContent();
-        String width = map.getNamedItem(BOX_WIDTH).getTextContent();
+        String nodeId = attribute(map, BOX_ID);
+        String xpos = attribute(map, BOX_X);
+        String ypos = attribute(map, BOX_Y);
+        String height = attribute(map, BOX_HEIGHT);
+        String width = attribute(map, BOX_WIDTH);
+        if (nodeId == null || xpos == null || ypos == null || height == null || width == null) {
+            logger.warn("Bounding box with missing attributes skipped: id={}", nodeId);
+            return null;
+        }
+        try {
+            return new CyBoundingBox(
+                    nodeId,
+                    Double.parseDouble(xpos),
+                    Double.parseDouble(ypos),
+                    Double.parseDouble(height),
+                    Double.parseDouble(width));
+        } catch (NumberFormatException e) {
+            logger.warn("Bounding box with invalid number skipped: id={}", nodeId, e);
+            return null;
+        }
+    }
 
-        CyBoundingBox box = new CyBoundingBox(
-                nodeId,
-                Double.parseDouble(xpos),
-                Double.parseDouble(ypos),
-                Double.parseDouble(height),
-                Double.parseDouble(width));
-        return box;
+    private static String attribute(NamedNodeMap map, String name) {
+        Node item = map.getNamedItem(name);
+        return item == null ? null : item.getTextContent();
     }
 }
