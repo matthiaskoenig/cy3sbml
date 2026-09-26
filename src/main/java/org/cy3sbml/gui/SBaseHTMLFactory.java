@@ -714,11 +714,7 @@ public class SBaseHTMLFactory {
      * This is for instance used to process the SABIO-RK data.
      * Parses all the information in the annotation xml which is not RDF CV-Terms.
      */
-    // reason: real bug, the name is compared by reference, so the RDF child is not reliably
-    // skipped; fixing it changes the displayed annotation, so it is fixed in Task 3.2
-    // (remove the suppression there)
-    @SuppressWarnings("ReferenceEquality")
-    private static String createNonRDFAnnotation(SBase sbase) {
+    static String createNonRDFAnnotation(SBase sbase) {
         String html = "";
         if (sbase.isSetAnnotation()) {
             Annotation annotation = sbase.getAnnotation();
@@ -729,7 +725,7 @@ public class SBaseHTMLFactory {
                 for (int i = 0; i < xmlNode.getChildCount(); i++) {
                     XMLNode child = xmlNode.getChildAt(i);
                     String name = child.getName();
-                    if (name != "RDF") {
+                    if (!"RDF".equals(name)) {
                         try {
                             String xml = XMLNode.convertXMLNodeToString(child);
                             // Handle special case of whitespaces/empty text nodes
