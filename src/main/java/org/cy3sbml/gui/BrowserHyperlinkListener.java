@@ -11,6 +11,7 @@ import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
@@ -90,10 +91,13 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
 
     private final ServiceAdapter adapter;
     private final WebViewPanel webViewPanel;
+    private final CofactorManager cofactorManager;
 
-    public BrowserHyperlinkListener(ServiceAdapter adapter, WebViewPanel webViewPanel) {
+    public BrowserHyperlinkListener(
+            ServiceAdapter adapter, WebViewPanel webViewPanel, CofactorManager cofactorManager) {
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
+        this.cofactorManager = cofactorManager;
     }
 
     @Override
@@ -137,7 +141,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                     action = new HelpAction(webViewPanel);
                 }
                 if (s.equals(URL_COFACTOR_NODES)) {
-                    CofactorAction.runCofactorAction(adapter);
+                    CofactorAction.runCofactorAction(adapter, cofactorManager);
                 }
                 if (s.equals(URL_SAVELAYOUT)) {
                     action = new SaveLayoutAction(adapter);

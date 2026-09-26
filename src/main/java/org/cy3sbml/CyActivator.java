@@ -8,6 +8,7 @@ import java.util.Properties;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
 import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.RegistryUtil;
@@ -191,9 +192,10 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, sbmlManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
             // Cofactor manager
+            CofactorManager cofactorManager = new CofactorManager();
 
             // panels
-            WebViewPanel webViewPanel = new WebViewPanel(adapter);
+            WebViewPanel webViewPanel = new WebViewPanel(adapter, cofactorManager);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -219,7 +221,8 @@ public class CyActivator extends AbstractCyActivator {
             ExamplesAction examplesAction = new ExamplesAction(webViewPanel);
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
-            CofactorAction cofactorAction = new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
+            CofactorAction cofactorAction =
+                    new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory, cofactorManager);
             registerService(bc, cofactorAction, CyAction.class, new Properties());
             registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
 
@@ -259,7 +262,7 @@ public class CyActivator extends AbstractCyActivator {
             registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
 
             // Session loading & saving
-            SessionData sessionData = new SessionData();
+            SessionData sessionData = new SessionData(cofactorManager);
             registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
             registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 

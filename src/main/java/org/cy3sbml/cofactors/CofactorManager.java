@@ -19,30 +19,17 @@ import org.slf4j.LoggerFactory;
  * <p>
  * This manages the splitting of cofactor nodes into clones and the
  * merging of clones into the original cofactor before splitting.
- * <p>
- * The CofactorManager is a singleton class.
  */
 public class CofactorManager {
     private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
     private static final String CLONE_TAG = "-clone";
 
-    private static CofactorManager uniqueInstance;
     private Network2CofactorMapper mapper;
-
-    /**
-     * Access to singleton instance.
-     */
-    public static synchronized CofactorManager getInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new CofactorManager();
-        }
-        return uniqueInstance;
-    }
 
     /**
      * Constructor.
      */
-    private CofactorManager() {
+    public CofactorManager() {
         logger.debug("CofactorManager created");
         mapper = new Network2CofactorMapper();
     }

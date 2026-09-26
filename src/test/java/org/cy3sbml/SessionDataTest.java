@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
@@ -98,7 +99,7 @@ class SessionDataTest {
     void restoresMappingsAndSkipsStaleSUIDs() throws Exception {
         List<Network2SBMLMapper> sbmlMappers = new ArrayList<>();
         List<Network2CofactorMapper> cofactorMappers = new ArrayList<>();
-        SessionData sessionData = new SessionData(sbmlMappers::add, cofactorMappers::add);
+        SessionData sessionData = new SessionData(sbmlMappers::add, cofactorMappers::add, new CofactorManager());
 
         sessionData.handleEvent(event(
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),
@@ -123,7 +124,8 @@ class SessionDataTest {
                 mapper -> {
                     throw new IllegalStateException("SBMLManager failure");
                 },
-                cofactorMappers::add);
+                cofactorMappers::add,
+                new CofactorManager());
 
         sessionData.handleEvent(event(
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),

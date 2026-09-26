@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javax.swing.*;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -44,6 +45,7 @@ public class WebViewPanel extends JFXPanel
     private static final long serialVersionUID = 1L;
 
     private final ServiceAdapter adapter;
+    private final CofactorManager cofactorManager;
     private final CytoPanel cytoPanelEast;
     private Browser browser;
     private long lastInformationThreadId = -1;
@@ -52,8 +54,9 @@ public class WebViewPanel extends JFXPanel
     /**
      * Constructor
      */
-    public WebViewPanel(ServiceAdapter adapter) {
+    public WebViewPanel(ServiceAdapter adapter, CofactorManager cofactorManager) {
         this.adapter = adapter;
+        this.cofactorManager = cofactorManager;
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
         setLayout(new BorderLayout());
@@ -71,7 +74,7 @@ public class WebViewPanel extends JFXPanel
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(adapter.cy3sbmlDirectory, new BrowserHyperlinkListener(adapter, this));
+        browser = new Browser(adapter.cy3sbmlDirectory, new BrowserHyperlinkListener(adapter, this, cofactorManager));
         Scene scene = new Scene(browser, 300, 600);
         fxPanel.setScene(scene);
         // necessary to support the detached mode

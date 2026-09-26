@@ -49,22 +49,28 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     private final Consumer<Network2SBMLMapper> sbmlMapperConsumer;
     private final Consumer<Network2CofactorMapper> cofactorMapperConsumer;
 
+    private final CofactorManager cofactorManager;
+
     /**
      * Restores the loaded mappers in the SBMLManager and the CofactorManager.
      */
-    public SessionData() {
+    public SessionData(CofactorManager cofactorManager) {
         this(
                 mapper -> SBMLManager.getInstance().setSBML2NetworkMapper(mapper),
-                mapper -> CofactorManager.getInstance().setNetwork2CofactorMapper(mapper));
+                cofactorManager::setNetwork2CofactorMapper,
+                cofactorManager);
     }
 
     /**
      * Restores the loaded mappers with the given consumers.
      */
     SessionData(
-            Consumer<Network2SBMLMapper> sbmlMapperConsumer, Consumer<Network2CofactorMapper> cofactorMapperConsumer) {
+            Consumer<Network2SBMLMapper> sbmlMapperConsumer,
+            Consumer<Network2CofactorMapper> cofactorMapperConsumer,
+            CofactorManager cofactorManager) {
         this.sbmlMapperConsumer = sbmlMapperConsumer;
         this.cofactorMapperConsumer = cofactorMapperConsumer;
+        this.cofactorManager = cofactorManager;
     }
 
     /**
@@ -86,7 +92,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     /**
      * Save the session data from cy3sbml.
      */
-    public static void saveSessionData(SessionAboutToBeSavedEvent event) {
+    public void saveSessionData(SessionAboutToBeSavedEvent event) {
         logger.info("SessionAboutToBeSaved: save cy3sbml session state");
 
         File directory;
@@ -139,7 +145,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 
         // Serialize
         logger.debug("Serializing <Network2CofactorMapper>");
-        CofactorManager cofactorManager = CofactorManager.getInstance();
         Network2CofactorMapper network2cofactorMapper = cofactorManager.getNetwork2CofactorMapper();
         File cofactorFile = new File(directory, NETWORK2COFACTOR_ID);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(cofactorFile))) {
