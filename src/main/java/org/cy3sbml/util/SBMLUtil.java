@@ -580,9 +580,6 @@ public class SBMLUtil {
     /**
      * QualitativeSpecies map.
      */
-    // reason: real bug, the key reads "qual_initialLevel/s"; fixing it changes the displayed
-    // SBase information, so it is fixed in Task 3.2 (remove the suppression there)
-    @SuppressWarnings("FormatString")
     public static Map<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         Map<String, String> map = createNamedSBaseMap(qs);
 
@@ -593,7 +590,7 @@ public class SBMLUtil {
         String constant = qs.isSetConstant() ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : GUIConstants.ICON_NONE;
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(
-                String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
+                String.format("%s/%s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
                 String.format("%s/%s", initialLevel, maxLevel));
         map.put(SBML.ATTR_CONSTANT, constant);
         return map;
