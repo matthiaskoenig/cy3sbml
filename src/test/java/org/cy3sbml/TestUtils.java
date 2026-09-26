@@ -21,7 +21,6 @@ import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.work.TaskMonitor;
-import org.mockito.MockitoAnnotations;
 import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public class TestUtils {
             }
             String[] tokens = value.split(":", -1);
             // we found the proxy settings
-            if (tokens.length == 2) {
+            if (tokens.length == 2 && !tokens[1].isEmpty()) {
                 String host = tokens[0];
                 String port = tokens[1];
                 logger.info(String.format("Set test proxy: %s:%s", host, port));
@@ -156,7 +155,6 @@ public class TestUtils {
      */
     public CyNetwork[] readNetwork(String resource) throws Exception {
 
-        MockitoAnnotations.openMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 

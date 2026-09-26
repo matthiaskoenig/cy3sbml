@@ -6,8 +6,12 @@ import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Properties;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -619,9 +623,15 @@ public class SBaseHTMLFactory {
         // for some ontologies the OLS term query term is not the identifier
         String termIdentifier = identifier;
 
+        // the last non-empty token after the first one; a URL ending with "=" keeps the
+        // identifier
         String[] tokens = olsURL.split("=", -1);
-        if (tokens.length > 1) {
-            termIdentifier = tokens[tokens.length - 1];
+        int last = tokens.length - 1;
+        while (last > 0 && tokens[last].isEmpty()) {
+            last--;
+        }
+        if (last > 0) {
+            termIdentifier = tokens[last];
         }
 
         Optional<OlsTerm> optionalTerm = getOlsClient().term(termIdentifier);

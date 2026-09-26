@@ -386,7 +386,10 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         } else if (path.endsWith("/")) {
             extension = "folder";
             // handle subset of folder aggregates
-            String[] tokens = path.split("/", -1);
+            // reason: behavior change, fixed with golden snapshot update in Task 3.2 (folder
+            // paths end with "/", split(x, -1) would change the folder type token)
+            @SuppressWarnings("StringSplitter")
+            String[] tokens = path.split("/");
             if (tokens.length > 2) {
                 String type = tokens[tokens.length - 2];
                 if (type.equals("studies")) {
