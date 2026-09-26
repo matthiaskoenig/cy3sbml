@@ -61,7 +61,17 @@ import org.slf4j.LoggerFactory;
  */
 public class CyActivator extends AbstractCyActivator {
     public static final String PROPERTIES_FILE = "cy3sbml.props";
-    private static Logger logger;
+
+    /**
+     * Holds the logger, which is created on first use.
+     * <p>
+     * The first logger configures logback, which writes to the file in the
+     * system property "logfile.name". start sets the property before it logs,
+     * so the logger must not be created when the class is loaded.
+     */
+    private static final class Log {
+        private static final Logger logger = LoggerFactory.getLogger(CyActivator.class);
+    }
 
     public CyActivator() {
         super();
@@ -89,17 +99,15 @@ public class CyActivator extends AbstractCyActivator {
             File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
             System.setProperty("logfile.name", logFile.getAbsolutePath());
 
-            logger = LoggerFactory.getLogger(CyActivator.class);
-
-            logger.info("----------------------------");
-            logger.info("Start " + bundleInfo.getInfo());
-            logger.info("----------------------------");
-            logger.info("directory = " + appDirectory.getAbsolutePath());
-            logger.info("logfile = " + logFile.getAbsolutePath());
+            Log.logger.info("----------------------------");
+            Log.logger.info("Start " + bundleInfo.getInfo());
+            Log.logger.info("----------------------------");
+            Log.logger.info("directory = " + appDirectory.getAbsolutePath());
+            Log.logger.info("logfile = " + logFile.getAbsolutePath());
 
             // Loading extension bundle from resources (netscape.javascript)
             String extensionBundle = "extension/org.cy3javascript.extension-0.0.1.jar";
-            logger.info("Install extension bundle");
+            Log.logger.info("Install extension bundle");
             Bundle bundle = bc.getBundle();
             URL jarUrl = bundle.getEntry(extensionBundle);
             InputStream input = jarUrl.openStream();
@@ -284,10 +292,10 @@ public class CyActivator extends AbstractCyActivator {
             // cy3sbml panels
             webViewPanel.activate();
 
-            logger.info("----------------------------");
+            Log.logger.info("----------------------------");
 
         } catch (Throwable e) {
-            logger.error("Could not start server!", e);
+            Log.logger.error("Could not start server!", e);
         }
     }
 }
