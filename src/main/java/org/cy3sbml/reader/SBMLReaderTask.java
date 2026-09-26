@@ -233,10 +233,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         } catch (Throwable t) {
             logger.error("Could not read SBML into Cytoscape!", t);
             error = true;
-            throw new SBMLReaderError("cy3sbml reader failed to build a SBML model. "
+            String message = "cy3sbml reader failed to build a SBML model. "
                     + "Please validate the file in the online SBML validator at 'http://www.sbml.org/validator/' "
-                    + "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues'"
-                    + t);
+                    + "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues': " + t;
+            if (taskMonitor != null) {
+                taskMonitor.showMessage(TaskMonitor.Level.ERROR, message);
+            }
+            throw new SBMLReaderError(message, t);
         }
     }
 
