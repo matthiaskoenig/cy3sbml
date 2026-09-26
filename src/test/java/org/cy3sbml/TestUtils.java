@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -152,27 +153,22 @@ public class TestUtils {
 
     /**
      * Read the CyNetworks from given SBML file resource.
+     * <p>
+     * Failures of the reader propagate so that they fail the calling test.
      */
-    public CyNetwork[] readNetwork(String resource) throws Exception {
-
+    public static CyNetwork[] readNetwork(String resource) throws Exception {
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // read SBML
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
-        CyNetwork[] networks;
-        try {
-            // Reader can be tested without service adapter,
+        try (InputStream instream = TestUtils.class.getResourceAsStream(resource)) {
+            assertNotNull(instream, "Resource not found: " + resource);
+            // Reader can be tested without service adapter
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-
-            readerTask.run(null);
-            networks = readerTask.getNetworks();
-        } catch (Throwable t) {
-            networks = null;
+            readerTask.run(mock(TaskMonitor.class));
+            return readerTask.getNetworks();
         }
-        return networks;
     }
 
     /**
