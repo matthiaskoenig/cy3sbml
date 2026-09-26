@@ -42,6 +42,10 @@ public class HttpJson {
                 .connectTimeout(TIMEOUT)
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .proxy(ProxySelector.getDefault())
+                // Force HTTP/1.1: HTTP/2 to ebi.ac.uk fails with "EOF reached while
+                // reading" through some network paths (same root cause as the
+                // long-standing ChEBI HTTP/2 failures), while HTTP/1.1 is reliable.
+                .version(HttpClient.Version.HTTP_1_1)
                 .build();
         return new HttpJson(client, new ObjectMapper());
     }

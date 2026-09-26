@@ -23,6 +23,19 @@ class OlsClientTest {
         };
     }
 
+    private static HttpJson fixtureFromJson(String json) {
+        return new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+                try {
+                    return Optional.of(new ObjectMapper().readTree(json));
+                } catch (java.io.IOException e) {
+                    return Optional.empty();
+                }
+            }
+        };
+    }
+
     @Test
     void parsesTermFromCurie() {
         var term = new OlsClient(fixture("/ols/go_0042752.json")).term("GO:0042752").orElseThrow();
@@ -40,6 +53,27 @@ class OlsClientTest {
     @Test
     void returnsEmptyForNonOntologyIdentifier() {
         assertTrue(new OlsClient(fixture("/ols/go_0042752.json")).term("P10415").isEmpty());
+    }
+
+    @Test
+    void returnsEmptyWhenTermIsMissingLabel() {
+        String json = """
+                {"_embedded": {"terms": [
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "ontology_name": "go"}
+                ]}}
+                """;
+        assertTrue(new OlsClient(fixtureFromJson(json)).term("GO:0042752").isEmpty());
+    }
+
+    @Test
+    void defaultsOntologyNameToPrefixWhenMissing() {
+        String json = """
+                {"_embedded": {"terms": [
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "label": "regulation of circadian rhythm"}
+                ]}}
+                """;
+        var term = new OlsClient(fixtureFromJson(json)).term("GO:0042752").orElseThrow();
+        assertEquals("go", term.ontologyName());
     }
 
     @Test

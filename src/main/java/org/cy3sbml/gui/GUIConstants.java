@@ -70,7 +70,6 @@ public class GUIConstants {
     public static final String TE = htmlFragments.get("TABLE_ROW_END");
     public static final String OLS_TERM_ERROR = htmlFragments.get("OLS_TERM_ERROR");
     public static final String DESCRIPTION_LABEL = htmlFragments.get("DESCRIPTION_LABEL");
-    public static final String OBO_SYNONYMS_LABEL = htmlFragments.get("OBO_SYNONYMS_LABEL");
     public static final String SYNONYMS_LABEL = htmlFragments.get("SYNONYMS_LABEL");
     public static final String ONTOLOGY_TERM_LINK = htmlFragments.get("ONTOLOGY_TERM_LINK");
     public static final String CONDITIONAL_LINK = htmlFragments.get("CONDITIONAL_LINK");

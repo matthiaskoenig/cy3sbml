@@ -64,7 +64,7 @@ public class SBaseHTMLFactory {
      * Set by {@code CyActivator} on startup. A static field for now;
      * PR 3 turns it into an instance dependency.
      */
-    private static OlsClient olsClient = new OlsClient(org.cy3sbml.util.HttpJson.createDefault());
+    private static OlsClient olsClient;
 
     private SBase sbase;
     private String html;
@@ -97,6 +97,18 @@ public class SBaseHTMLFactory {
      */
     public static void setOlsClient(OlsClient olsClient) {
         SBaseHTMLFactory.olsClient = olsClient;
+    }
+
+    /**
+     * Gets the OLS client used to resolve ontology terms for display,
+     * lazily creating a default one (e.g. for tests that do not run
+     * {@code CyActivator}). Keeps a single shared instance.
+     */
+    private static synchronized OlsClient getOlsClient() {
+        if (olsClient == null) {
+            olsClient = new OlsClient(org.cy3sbml.util.HttpJson.createDefault());
+        }
+        return olsClient;
     }
 
     /**
@@ -592,7 +604,7 @@ public class SBaseHTMLFactory {
             termIdentifier = tokens[tokens.length - 1];
         }
 
-        Optional<OlsTerm> optionalTerm = olsClient.term(termIdentifier);
+        Optional<OlsTerm> optionalTerm = getOlsClient().term(termIdentifier);
 
         if (optionalTerm.isPresent()) {
             OlsTerm term = optionalTerm.get();

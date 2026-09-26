@@ -59,19 +59,29 @@ public final class OlsClient {
         URI uri = URI.create(OLS_BASE_URL + prefix.toLowerCase() + "/terms?obo_id="
                 + URLEncoder.encode(oboId, StandardCharsets.UTF_8));
 
-        return http.get(uri).flatMap(OlsClient::parseTerm);
+        return http.get(uri).flatMap(json -> parseTerm(json, prefix));
     }
 
-    private static Optional<OlsTerm> parseTerm(JsonNode json) {
+    private static Optional<OlsTerm> parseTerm(JsonNode json, String prefix) {
         JsonNode terms = json.path("_embedded").path("terms");
         if (!terms.isArray() || terms.isEmpty()) {
             return Optional.empty();
         }
         JsonNode term = terms.get(0);
+        String label = term.path("label").asText(null);
+        String iri = term.path("iri").asText(null);
+        if (label == null || iri == null) {
+            logger.warn("OLS term is missing label or iri: {}", term);
+            return Optional.empty();
+        }
+        String ontologyName = term.path("ontology_name").asText(null);
+        if (ontologyName == null) {
+            ontologyName = prefix.toLowerCase();
+        }
         return Optional.of(new OlsTerm(
-                term.path("iri").asText(null),
-                term.path("label").asText(null),
-                term.path("ontology_name").asText(null),
+                iri,
+                label,
+                ontologyName,
                 term.path("obo_id").asText(null),
                 toStringList(term.path("synonyms")),
                 toStringList(term.path("description"))));
