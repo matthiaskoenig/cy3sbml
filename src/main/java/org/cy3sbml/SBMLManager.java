@@ -29,8 +29,16 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
     private final CyApplicationManager cyApplicationManager;
 
-    private Long currentSUID;
-    private Network2SBMLMapper network2sbml;
+    /*
+     * currentSUID and network2sbml are written from Cytoscape event handlers
+     * (network/selection listeners, session restore) and read from the WebViewPanel's
+     * background panel-update thread (PanelUpdater, run on its own Thread). There is no
+     * compound invariant across the two fields that a reader depends on, so a plain
+     * volatile reference on each field is enough to make a writer's update visible to
+     * that reader; it does not make a read-then-write sequence atomic.
+     */
+    private volatile Long currentSUID;
+    private volatile Network2SBMLMapper network2sbml;
 
     /**
      * Constructor.
