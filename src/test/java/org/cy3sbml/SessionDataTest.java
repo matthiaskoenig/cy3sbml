@@ -2,15 +2,16 @@ package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -21,15 +22,27 @@ import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.reader.SBMLReaderTask;
+import org.cy3sbml.util.NetworkUtil;
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.group.CyGroupFactory;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.session.CySession;
 import org.cytoscape.session.CySessionManager;
+import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
 import org.cytoscape.session.events.SessionLoadedEvent;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.mockito.ArgumentCaptor;
 import org.sbml.jsbml.SBMLDocument;
 
 /**
@@ -100,7 +113,7 @@ class SessionDataTest {
 
     @Test
     void restoresMappingsAndSkipsStaleSUIDs() throws Exception {
-        SBMLManager sbmlManager = mock(SBMLManager.class);
+        SBMLManager sbmlManager = new SBMLManager(mock(CyApplicationManager.class));
         CofactorManager cofactorManager = new CofactorManager();
         SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
 
@@ -108,9 +121,7 @@ class SessionDataTest {
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),
                 serialize("Network2Cofactors.ser", cofactorMapperWithStaleClone())));
 
-        ArgumentCaptor<Network2SBMLMapper> sbmlMappers = ArgumentCaptor.forClass(Network2SBMLMapper.class);
-        verify(sbmlManager).setSBML2NetworkMapper(sbmlMappers.capture());
-        Network2SBMLMapper sbmlMapper = sbmlMappers.getValue();
+        Network2SBMLMapper sbmlMapper = sbmlManager.getNetwork2SBMLMapper();
         assertNotNull(sbmlMapper.getDocument(NEW_NETWORK));
         One2ManyMapping<String, Long> nodes = sbmlMapper.getSBase2CyNodeMapping(NEW_NETWORK);
         assertEquals(Set.of("s1"), nodes.keySet());
@@ -119,6 +130,77 @@ class SessionDataTest {
         One2ManyMapping<Long, Long> clones =
                 cofactorManager.getNetwork2CofactorMapper().getCofactor2CloneMapping(NEW_NETWORK);
         assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
+    }
+
+    /**
+     * Reads a real SBML model with the SBMLReaderTask into an SBMLManager, saves the
+     * session with the real SessionData API, and restores it into a fresh SBMLManager.
+     */
+    @Test
+    void sessionRoundTripRestoresMapping() throws Exception {
+        CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
+        CyNetworkViewFactory viewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+
+        SBMLManager originalManager = new SBMLManager(mock(CyApplicationManager.class));
+        CyNetwork network;
+        try (InputStream instream = TestUtils.class.getResourceAsStream(SBMLFbcTest.TEST_MODEL_FBC)) {
+            SBMLReaderTask readerTask = new SBMLReaderTask(
+                    instream,
+                    "fbc_01.xml",
+                    networkFactory,
+                    groupFactory,
+                    viewFactory,
+                    null,
+                    null,
+                    null,
+                    originalManager);
+            readerTask.run(mock(TaskMonitor.class));
+            network = readerTask.getNetworks()[0];
+            // registers the SBMLDocument and mapping in the SBMLManager
+            readerTask.buildCyNetworkView(network);
+        }
+
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+        SBMLDocument originalDocument = originalManager.getSBMLDocument(rootSUID);
+        assertNotNull(originalDocument);
+        String modelId = originalDocument.getModel().getId();
+        One2ManyMapping<String, Long> originalMapping = originalManager.getMapping(rootSUID);
+        int originalKeyCount = originalMapping.keySet().size();
+        int originalValueCount =
+                originalMapping.getValues(originalMapping.keySet()).size();
+        assertTrue(originalKeyCount > 0);
+
+        // save the session with the real SessionData API
+        SessionData savingSessionData = new SessionData(originalManager, new CofactorManager());
+        SessionAboutToBeSavedEvent saveEvent = new SessionAboutToBeSavedEvent(mock(CySessionManager.class));
+        savingSessionData.saveSessionData(saveEvent);
+        List<File> savedFiles = saveEvent.getAppFileListMap().get("cy3sbml");
+        assertNotNull(savedFiles);
+
+        // simulate the loaded session: SUIDs are unchanged, objects are looked up by SUID
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+        CySession loadedSession = mock(CySession.class);
+        when(loadedSession.getObject(rootSUID, CyNetwork.class)).thenReturn(rootNetwork);
+        for (CyNode node : rootNetwork.getNodeList()) {
+            when(loadedSession.getObject(node.getSUID(), CyNode.class)).thenReturn(node);
+        }
+        when(loadedSession.getAppFileListMap()).thenReturn(Map.of("cy3sbml", savedFiles));
+        SessionLoadedEvent loadEvent = new SessionLoadedEvent(mock(CySessionManager.class), loadedSession, "test.cys");
+
+        // restore into a fresh SBMLManager
+        SBMLManager restoredManager = new SBMLManager(mock(CyApplicationManager.class));
+        SessionData loadingSessionData = new SessionData(restoredManager, new CofactorManager());
+        loadingSessionData.handleEvent(loadEvent);
+
+        SBMLDocument restoredDocument = restoredManager.getSBMLDocument(rootSUID);
+        assertNotNull(restoredDocument);
+        assertEquals(modelId, restoredDocument.getModel().getId());
+        One2ManyMapping<String, Long> restoredMapping = restoredManager.getMapping(rootSUID);
+        assertEquals(originalKeyCount, restoredMapping.keySet().size());
+        assertEquals(
+                originalValueCount,
+                restoredMapping.getValues(restoredMapping.keySet()).size());
     }
 
     @Test
