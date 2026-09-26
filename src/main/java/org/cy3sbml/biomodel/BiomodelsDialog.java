@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 public class BiomodelsDialog extends JDialog {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsDialog.class);
 
-    private static BiomodelsDialog uniqueInstance;
     private final ServiceAdapter adapter;
     private final SearchBioModel searchBioModel;
 
@@ -62,15 +61,8 @@ public class BiomodelsDialog extends JDialog {
     @SuppressWarnings("rawtypes")
     private JList biomodelsList;
 
-    public static synchronized BiomodelsDialog getInstance(ServiceAdapter adapter) {
-        if (uniqueInstance == null) {
-            uniqueInstance = new BiomodelsDialog(adapter);
-        }
-        return uniqueInstance;
-    }
-
     @SuppressWarnings("rawtypes")
-    private BiomodelsDialog(final ServiceAdapter adapter) {
+    public BiomodelsDialog(final ServiceAdapter adapter) {
         // call with parentFrame
         super(adapter.cySwingApplication.getJFrame(), true);
         this.adapter = adapter;

@@ -2,7 +2,6 @@ package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
@@ -16,14 +15,14 @@ public final class BiomodelsAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
     private static final long serialVersionUID = 1L;
 
-    private ServiceAdapter adapter;
+    private final BiomodelsDialog biomodelsDialog;
 
     /**
      * Constructor.
      */
-    public BiomodelsAction(ServiceAdapter adapter) {
+    public BiomodelsAction(BiomodelsDialog biomodelsDialog) {
         super(BiomodelsAction.class.getSimpleName());
-        this.adapter = adapter;
+        this.biomodelsDialog = biomodelsDialog;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_BIOMODELS));
         putValue(LARGE_ICON_KEY, icon);
@@ -38,7 +37,6 @@ public final class BiomodelsAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        BiomodelsDialog bioModelsDialog = BiomodelsDialog.getInstance(adapter);
-        bioModelsDialog.setVisible(true);
+        biomodelsDialog.setVisible(true);
     }
 }

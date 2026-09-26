@@ -11,6 +11,7 @@ import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
+import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.NetworkUtil;
@@ -92,12 +93,17 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     private final ServiceAdapter adapter;
     private final WebViewPanel webViewPanel;
     private final CofactorManager cofactorManager;
+    private final BiomodelsDialog biomodelsDialog;
 
     public BrowserHyperlinkListener(
-            ServiceAdapter adapter, WebViewPanel webViewPanel, CofactorManager cofactorManager) {
+            ServiceAdapter adapter,
+            WebViewPanel webViewPanel,
+            CofactorManager cofactorManager,
+            BiomodelsDialog biomodelsDialog) {
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
         this.cofactorManager = cofactorManager;
+        this.biomodelsDialog = biomodelsDialog;
     }
 
     @Override
@@ -135,7 +141,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                     action = new ExamplesAction(webViewPanel);
                 }
                 if (s.equals(URL_BIOMODELS)) {
-                    action = new BiomodelsAction(adapter);
+                    action = new BiomodelsAction(biomodelsDialog);
                 }
                 if (s.equals(URL_HELP)) {
                     action = new HelpAction(webViewPanel);

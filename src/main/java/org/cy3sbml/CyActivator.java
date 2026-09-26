@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
+import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -194,8 +195,11 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
             CofactorManager cofactorManager = new CofactorManager();
 
+            // BioModels search and import dialog
+            BiomodelsDialog biomodelsDialog = new BiomodelsDialog(adapter);
+
             // panels
-            WebViewPanel webViewPanel = new WebViewPanel(adapter, cofactorManager);
+            WebViewPanel webViewPanel = new WebViewPanel(adapter, cofactorManager, biomodelsDialog);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -226,7 +230,7 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, cofactorAction, CyAction.class, new Properties());
             registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
 
-            BiomodelsAction biomodelsAction = new BiomodelsAction(adapter);
+            BiomodelsAction biomodelsAction = new BiomodelsAction(biomodelsDialog);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
 
             // init actions
