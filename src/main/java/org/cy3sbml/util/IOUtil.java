@@ -15,28 +15,12 @@ import org.slf4j.LoggerFactory;
  */
 public class IOUtil {
     private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
-    private static final int BUFFER_SIZE = 16384;
 
     /**
      * Read resource to InputStream
      */
     public static InputStream readResource(String resource) {
         return IOUtil.class.getResourceAsStream(resource);
-    }
-
-    /**
-     * Read String from UTF-8 encoded InputStream.
-     */
-    public static String inputStream2String(InputStream source) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(source, StandardCharsets.UTF_8));
-                StringWriter writer = new StringWriter()) {
-            char[] buffer = new char[BUFFER_SIZE];
-            int charactersRead;
-            while ((charactersRead = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, charactersRead);
-            }
-            return writer.toString();
-        }
     }
 
     /**

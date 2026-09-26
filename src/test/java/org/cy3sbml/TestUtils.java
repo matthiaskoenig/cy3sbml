@@ -18,13 +18,12 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.reader.SBMLReaderTask;
-import org.cy3sbml.util.IOUtil;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.work.TaskMonitor;
-import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -245,32 +244,23 @@ public class TestUtils {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
-        // read SBML
-        InputStream instream;
-        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
-            instream = new FileInputStream(resource);
-        } else {
-            instream = TestUtils.class.getResourceAsStream(resource);
+        SBMLDocument doc;
+        try (InputStream instream = openModel(resource)) {
+            doc = SBMLReader.read(instream);
         }
-        String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument doc = JSBML.readSBMLFromString(xml);
         assertNotNull(doc);
 
         // Serialize SBMLDocument
         File tempFile = File.createTempFile("sbml", ".ser");
-
-        FileOutputStream fileOut = new FileOutputStream(tempFile.getAbsolutePath());
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(doc);
-        out.close();
-        fileOut.close();
+        tempFile.deleteOnExit();
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(tempFile))) {
+            out.writeObject(doc);
+        }
 
         // Deserialize
-        InputStream inputStream = new FileInputStream(tempFile.getAbsolutePath());
-        InputStream buffer = new BufferedInputStream(inputStream);
-        ObjectInput input = new ObjectInputStream(buffer);
-
-        SBMLDocument docSerialized = (SBMLDocument) input.readObject();
-        assertNotNull(docSerialized);
+        try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(tempFile)))) {
+            SBMLDocument docSerialized = (SBMLDocument) input.readObject();
+            assertNotNull(docSerialized);
+        }
     }
 }

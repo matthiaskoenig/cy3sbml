@@ -4,12 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.List;
-import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.*;
 import org.junit.jupiter.api.Test;
-import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 
 /**
  * Test reading of SBML core model.
@@ -24,9 +23,11 @@ public class SBMLCoreTest {
      * Load the given model resource.
      */
     private void loadModel(String resource) throws Exception {
-        InputStream instream = getClass().getResourceAsStream(resource);
-        String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument document = JSBML.readSBMLFromString(xml);
+        SBMLDocument document;
+        try (InputStream instream = getClass().getResourceAsStream(resource)) {
+            assertNotNull(instream, "Resource not found: " + resource);
+            document = SBMLReader.read(instream);
+        }
         assertNotNull(document.getModel());
     }
 

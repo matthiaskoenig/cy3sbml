@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -21,7 +22,6 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.TestUtils;
-import org.cy3sbml.util.IOUtil;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,10 +58,10 @@ public class RegistryUtilTest {
                                 is = TestUtils.class.getResourceAsStream(resourcePath);
                             }
                             String content;
-                            try {
-                                content = IOUtil.inputStream2String(is);
+                            try (InputStream stream = is) {
+                                content = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
                             } catch (IOException e) {
-                                throw new RuntimeException(e);
+                                throw new UncheckedIOException(e);
                             }
                             Set<String> uris = extractIdentifiersOrgLinks(content);
                             return uris.stream();

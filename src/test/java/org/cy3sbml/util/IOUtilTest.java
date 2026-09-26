@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class IOUtilTest {
         String text1 = "test string";
         InputStream s1 = IOUtil.string2InputStream(text1);
         InputStream s2 = IOUtil.copyInputStream(s1);
-        String text2 = IOUtil.inputStream2String(s2);
+        String text2 = new String(s2.readAllBytes(), StandardCharsets.UTF_8);
         assertEquals(text1, text2);
     }
 
