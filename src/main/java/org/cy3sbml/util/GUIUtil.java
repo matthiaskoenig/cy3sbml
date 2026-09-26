@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.WebViewPanel;
@@ -29,13 +28,16 @@ public class GUIUtil {
      * See also archive loading of xml.
      */
     public static void loadExampleFromResource(String resource) {
-        InputStream instream = GUIUtil.class.getResourceAsStream(resource);
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("tmp-example", ".xml");
+        try (InputStream instream = GUIUtil.class.getResourceAsStream(resource)) {
+            if (instream == null) {
+                logger.warn("Could not find example resource: {}", resource);
+                return;
+            }
+            File tempFile = File.createTempFile("tmp-example", ".xml");
             tempFile.deleteOnExit();
-            FileOutputStream out = new FileOutputStream(tempFile);
-            IOUtils.copy(instream, out);
+            try (FileOutputStream out = new FileOutputStream(tempFile)) {
+                instream.transferTo(out);
+            }
 
             // read the file
             // FIXME: use observer

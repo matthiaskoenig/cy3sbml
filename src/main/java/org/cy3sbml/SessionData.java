@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -114,14 +113,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
 
         // Serialize
         logger.debug("Serializing <Network2SBMLMapper>");
-        try {
-            File file = new File(directory, NETWORK2SBMLMAPPER_ID);
-            FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        File mapperFile = new File(directory, NETWORK2SBMLMAPPER_ID);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(mapperFile))) {
             out.writeObject(mapper);
-            out.close();
-            fileOut.close();
-            files.add(file);
+            files.add(mapperFile);
         } catch (IOException e) {
             logger.error("Serialization of Network2SBMLMapper failed.", e);
         }
@@ -130,16 +125,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         logger.debug("Serializing <Network2CofactorMapper>");
         CofactorManager cofactorManager = CofactorManager.getInstance();
         Network2CofactorMapper network2cofactorMapper = cofactorManager.getNetwork2CofactorMapper();
-        try {
-            File file = new File(directory, NETWORK2COFACTOR_ID);
-            FileOutputStream fileOut;
-
-            fileOut = new FileOutputStream(file.getAbsolutePath());
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        File cofactorFile = new File(directory, NETWORK2COFACTOR_ID);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(cofactorFile))) {
             out.writeObject(network2cofactorMapper);
-            out.close();
-            fileOut.close();
-            files.add(file);
+            files.add(cofactorFile);
         } catch (IOException e) {
             logger.error("Serialization of Network2CofactorMapper failed.", e);
         }
@@ -171,13 +160,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             if (name.equals(NETWORK2SBMLMAPPER_ID)) {
                 logger.debug("Deserialize <Network2SBMLMapper>");
 
-                InputStream inputStream;
-                ObjectInput input;
-                try {
-                    inputStream = new FileInputStream(f.getAbsolutePath());
-                    InputStream buffer = new BufferedInputStream(inputStream);
-                    input = new ObjectInputStream(buffer);
-
+                try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
                     // read mapper
                     Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
                     // update suids in mapper & set in manager
@@ -195,13 +178,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             else if (name.equals(NETWORK2COFACTOR_ID)) {
                 logger.debug("Deserialize <Network2CofactorMapper>");
 
-                InputStream inputStream;
-                ObjectInput input;
-                try {
-                    inputStream = new FileInputStream(f.getAbsolutePath());
-                    InputStream buffer = new BufferedInputStream(inputStream);
-                    input = new ObjectInputStream(buffer);
-
+                try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
                     // read mapper
                     Network2CofactorMapper m = (Network2CofactorMapper) input.readObject();
                     CofactorManager cofactorManager = CofactorManager.getInstance();

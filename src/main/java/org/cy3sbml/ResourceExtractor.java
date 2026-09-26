@@ -136,8 +136,7 @@ public class ResourceExtractor {
             try {
                 URL inURL = new URL(rootURL.toString() + path);
 
-                try {
-                    InputStream inputStream = inURL.openConnection().getInputStream();
+                try (InputStream inputStream = inURL.openConnection().getInputStream()) {
                     File outFile = new File(appDirectory + "/" + path);
                     // create directory
                     if (path.endsWith("/")) {
@@ -152,15 +151,9 @@ public class ResourceExtractor {
                         }
 
                         logger.debug(" --> " + outFile.getAbsolutePath());
-                        OutputStream outputStream = new FileOutputStream(outFile);
-
-                        int read;
-                        byte[] bytes = new byte[1024];
-
-                        while ((read = inputStream.read(bytes)) != -1) {
-                            outputStream.write(bytes, 0, read);
+                        try (OutputStream outputStream = new FileOutputStream(outFile)) {
+                            inputStream.transferTo(outputStream);
                         }
-                        outputStream.close();
                     }
                 } catch (IOException e1) {
                     logger.error("Directory could not be extracted", e1);

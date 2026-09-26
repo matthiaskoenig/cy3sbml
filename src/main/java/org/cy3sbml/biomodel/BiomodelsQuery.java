@@ -133,11 +133,10 @@ public class BiomodelsQuery {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private static String getStringBody(HttpResponse<InputStream> ioResponse) {
-        InputStream inputStream = ioResponse.body();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-        String content = bufferedReader.lines().collect(Collectors.joining("\n"));
-
-        return content;
+    private static String getStringBody(HttpResponse<InputStream> ioResponse) throws IOException {
+        try (BufferedReader bufferedReader =
+                new BufferedReader(new InputStreamReader(ioResponse.body(), StandardCharsets.UTF_8))) {
+            return bufferedReader.lines().collect(Collectors.joining("\n"));
+        }
     }
 }
