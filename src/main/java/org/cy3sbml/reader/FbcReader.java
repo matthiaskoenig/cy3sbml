@@ -21,8 +21,8 @@ import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.fbc.GeneProductAssociation;
 import org.sbml.jsbml.ext.fbc.GeneProductRef;
+import org.sbml.jsbml.ext.fbc.LogicalOperator;
 import org.sbml.jsbml.ext.fbc.Objective;
-import org.sbml.jsbml.ext.fbc.Or;
 import org.sbml.jsbml.xml.XMLNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -196,63 +196,38 @@ final class FbcReader implements PackageReader {
 
     /**
      * Recursive function for processing the Associations.
-     * FIXME: unnecessary code duplication
+     * Gene product references are linked to their gene product node, and/or
+     * operators become nodes whose children are processed recursively.
      */
     private static void processAssociation(
             ConversionContext context, CyNode parentNode, String parentType, Association association) {
         CyNetwork network = context.network();
-        // GeneProductRef
-        if (association.getClass().equals(GeneProductRef.class)) {
-            GeneProductRef gpRef = (GeneProductRef) association;
+        String interaction = parentType.equals(SBML.NODETYPE_REACTION)
+                ? SBML.INTERACTION_FBC_ASSOCIATION_REACTION
+                : SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION;
+
+        if (association instanceof GeneProductRef gpRef) {
             CyNode gpNode = context.nodeByMetaId(gpRef.getGeneProductInstance().getMetaId())
                     .orElse(null);
             if (gpNode != null) {
-                if (parentType.equals(SBML.NODETYPE_REACTION)) {
-                    context.createEdge(gpNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_REACTION);
-                } else {
-                    context.createEdge(gpNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION);
-                }
+                context.createEdge(gpNode, parentNode, interaction);
             } else {
-                logger.error(String.format(
-                        "GeneProduct does not exist for GeneAssociation: %s in %s",
-                        gpRef.getGeneProduct(), association));
+                logger.error(
+                        "GeneProduct does not exist for GeneAssociation: {} in {}",
+                        gpRef.getGeneProduct(),
+                        association);
             }
-        }
-        // And
-        else if (association.getClass().equals(And.class)) {
-            And andRef = (And) association;
+        } else if (association instanceof LogicalOperator operator) {
+            boolean isAnd = operator instanceof And;
+            String nodeType = isAnd ? SBML.NODETYPE_FBC_AND : SBML.NODETYPE_FBC_OR;
 
-            // Create and node & edge
-            CyNode andNode = network.addNode();
-            AttributeUtil.set(network, andNode, SBML.LABEL, "AND", String.class);
-            AttributeUtil.set(network, andNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_AND, String.class);
-            if (parentType.equals(SBML.NODETYPE_REACTION)) {
-                context.createEdge(andNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_REACTION);
-            } else {
-                context.createEdge(andNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION);
-            }
-            // recursive association children
-            for (Association a : andRef.getListOfAssociations()) {
-                processAssociation(context, andNode, SBML.NODETYPE_FBC_AND, a);
-            }
-        }
-        // or
-        else if (association.getClass().equals(Or.class)) {
-            Or orRef = (Or) association;
+            CyNode operatorNode = network.addNode();
+            AttributeUtil.set(network, operatorNode, SBML.LABEL, isAnd ? "AND" : "OR", String.class);
+            AttributeUtil.set(network, operatorNode, SBML.NODETYPE_ATTR, nodeType, String.class);
+            context.createEdge(operatorNode, parentNode, interaction);
 
-            // Create and node & edge
-            CyNode orNode = network.addNode();
-            AttributeUtil.set(network, orNode, SBML.LABEL, "OR", String.class);
-            AttributeUtil.set(network, orNode, SBML.NODETYPE_ATTR, SBML.NODETYPE_FBC_OR, String.class);
-            if (parentType.equals(SBML.NODETYPE_REACTION)) {
-                context.createEdge(orNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_REACTION);
-            } else {
-                context.createEdge(orNode, parentNode, SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION);
-            }
-
-            // recursive association children
-            for (Association a : orRef.getListOfAssociations()) {
-                processAssociation(context, orNode, SBML.NODETYPE_FBC_AND, a);
+            for (Association child : operator.getListOfAssociations()) {
+                processAssociation(context, operatorNode, nodeType, child);
             }
         }
     }

@@ -52,11 +52,7 @@ public class BioModelInterfaceTools {
                 + createHTMLTableRow("Description", description.toString())
                 + createHTMLTableRow("Authors", authors)
                 + createHTMLTableRow("Pubmed", createPubmedHTMLLink(publicationId))
-                +
-                // createHTMLTableRow("modified", dateModified) +
-                // FIXME: modified date info is not available in the response body
-
-                "</table>"
+                + "</table>"
                 + "</td></tr></table>";
         return info;
     }

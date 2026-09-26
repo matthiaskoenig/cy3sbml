@@ -122,8 +122,7 @@ public class ResourceExtractor {
 
     /**
      * Extract the resources in given directory.
-     * FIXME: no removal of old resources, existing files are overwritten,
-     * old files accumulate
+     * Existing files are overwritten, files of older versions are not removed (#404).
      */
     private void extractDirectory(URL rootURL, String directory) {
         // list all GUI resources of bundle and extract them

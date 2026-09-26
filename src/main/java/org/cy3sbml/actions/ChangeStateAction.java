@@ -29,8 +29,7 @@ public final class ChangeStateAction extends AbstractCyAction {
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_CHANGESTATE);
         setToolbarGravity(GUIConstants.GRAVITY_CHANGESTATE);
 
-        // FIXME: in Cy3.5
-        // this.insertToolbarSeparatorBefore = true;
+        this.insertToolbarSeparatorBefore = true;
         this.inToolBar = true;
         this.inMenuBar = false;
     }

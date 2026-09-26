@@ -409,9 +409,6 @@ public class SBMLUtil {
         map.put(SBML.ATTR_KINETIC_LAW, String.format(MATH_TEMPLATE, kineticLaw));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
-        // TODO: create an equation string
-        // TODO: fbc flux objective from list of fluxObjectives
-
         // fbc
         FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.namespaceURI);
         if (fbcReaction != null) {
@@ -635,13 +632,12 @@ public class SBMLUtil {
         if (members.isSetName()) {
             map.put("members name", members.getName());
         }
-        String membersStr = "<ul>";
+        StringBuilder membersStr = new StringBuilder("<ul>");
         for (Member member : group.getListOfMembers()) {
-            // FIXME: more efficient
-            membersStr += String.format("<li>%s</li>", member.getSBaseInstance().toString());
+            membersStr.append("<li>").append(member.getSBaseInstance()).append("</li>");
         }
-        membersStr += "</ul>";
-        map.put("members", membersStr);
+        membersStr.append("</ul>");
+        map.put("members", membersStr.toString());
 
         return map;
     }

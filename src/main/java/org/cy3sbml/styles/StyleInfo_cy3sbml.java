@@ -9,7 +9,6 @@ import org.cy3sbml.SBML;
  * Definition of mappings for style.
  * <p>
  * Uses a template file and than sets the specific mappings in the file.
- * TODO: use colorbrewer for colors
  */
 public final class StyleInfo_cy3sbml extends StyleInfo {
 

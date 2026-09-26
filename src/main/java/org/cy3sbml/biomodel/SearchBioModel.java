@@ -95,9 +95,6 @@ public class SearchBioModel implements TaskObserver {
         for (String id : ids) {
             logger.info(id);
         }
-
-        // TODO: somehow notify that this is finished & update the content
-        // do synchronous
     }
 
     @Override

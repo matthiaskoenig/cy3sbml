@@ -135,7 +135,6 @@ public class AttributeUtil {
 
     /**
      * Returns the first matching node.
-     * TODO: method for all matchin nodes
      * Returns first node with attribute==identifier in DefaultNodeTable.
      *
      * @param network    network in which the node is searched

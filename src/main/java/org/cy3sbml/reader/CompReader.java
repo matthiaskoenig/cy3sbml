@@ -73,19 +73,11 @@ final class CompReader implements PackageReader {
 
             // Deletion
             for (Deletion deletion : submodel.getListOfDeletions()) {
-                // TODO: add edge
                 logger.debug(deletion.toString());
                 CyNode nd = context.createNode(deletion, SBML.NODETYPE_COMP_DELETION);
                 AttributeWriter.setNamedSBaseAttributes(network, nd, deletion);
-
-                // SbaseRef
-                // TODO
-                deletion.getIdRef();
+                // the edge to the deleted element is not created yet (#401)
             }
-
-            // TODO: generic method for getting node for SbaseRef
-            // SBaseRef provides attributes portRef, idRef, unitRef 12
-            // and metaIdRef, and a recursive subcomponent, sBaseRef
         }
 
         // Port //
@@ -142,23 +134,7 @@ final class CompReader implements PackageReader {
                             SBML.ATTR_COMP_SUBMODELREF,
                             replacedElement.getSubmodelRef(),
                             String.class);
-                    if (replacedElement.isSetConversionFactor()) {
-                        // FIXME
-                        // replacedElement.getConversionFactor();
-                    }
-                    if (replacedElement.isSetDeletion()) {
-                        // FIXME
-                        // replacedElement.getDeletion();
-                    }
-
-                    /*
-                    When deletion is set, it means the ReplacedElement object is actually an annotation to indicate that the replacement object
-                    replaces something deleted from a submodel. The use of the deletion attribute overrides the use of the attributes
-                    inherited from SBaseRef: instead of using, e.g., portRef or idRef, the ReplacedElement instance sets deletion to
-                    the identifier of the Deletion object. In addition, the referenced Deletion must be a child of the Submodel referenced
-                    by the submodelRef attribute
-                    */
-
+                    // conversionFactor and deletion are not converted yet (#401)
                 }
 
                 // replacedBy
@@ -253,11 +229,7 @@ final class CompReader implements PackageReader {
                 interaction = SBML.INTERACTION_COMP_SBASEREF_METAID;
             }
 
-            // handle the recursive case
-            // FIXME:
-            // if (port.isSetSBaseRef()){
-            //     port.getSBaseRef();
-            // }
+            // the recursive sBaseRef is not followed yet (#401)
 
             context.createEdge(sbaseNode, target, interaction);
         }

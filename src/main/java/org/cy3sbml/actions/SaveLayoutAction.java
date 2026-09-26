@@ -36,8 +36,7 @@ public final class SaveLayoutAction extends AbstractCyAction {
         this.putValue(SHORT_DESCRIPTION, GUIConstants.DESCRIPTION_SAVELAYOUT);
         setToolbarGravity(GUIConstants.GRAVITY_SAVELAYOUT);
 
-        // FIXME in Cy3.5
-        // this.insertToolbarSeparatorAfter = true;
+        this.insertToolbarSeparatorAfter = true;
         this.inToolBar = true;
         this.inMenuBar = false;
     }

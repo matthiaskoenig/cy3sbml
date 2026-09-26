@@ -23,9 +23,6 @@ public class GUIUtil {
     /**
      * Loads an SBML example file from the given resource.
      * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
-     * <p>
-     * TODO: make this a general function.
-     * See also archive loading of xml.
      */
     public static void loadExampleFromResource(String resource) {
         try (InputStream instream = GUIUtil.class.getResourceAsStream(resource)) {
@@ -40,7 +37,6 @@ public class GUIUtil {
             }
 
             // read the file
-            // FIXME: use observer
             ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);

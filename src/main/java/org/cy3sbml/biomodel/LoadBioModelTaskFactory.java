@@ -21,11 +21,8 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     private ServiceAdapter adapter;
     private File file;
 
-    // TODO: create taskIterator for list of ids
     public LoadBioModelTaskFactory(String id, ServiceAdapter adapter) {
         this.adapter = adapter;
-
-        // TODO: reading SBML & creating the temp file should be in a separate task
 
         try {
             String sbml = BiomodelsQuery.getBioModelSBMLById(id);
@@ -40,9 +37,6 @@ public class LoadBioModelTaskFactory implements TaskFactory {
             // convert to tmp file and use the core-task read Network from file task
             final File tempFile = File.createTempFile(id, SUFFIX);
             tempFile.deleteOnExit();
-
-            // TODO: create file for storage in cy3sbml folder
-            // adapter.cy3sbmlDirectory
 
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
                 IOUtils.copy(instream, out);

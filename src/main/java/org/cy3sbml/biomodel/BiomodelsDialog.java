@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * BiomodelsDialog.
- * FIXME: Reduce dependency on cytoscape, allow individual testing.
  */
 public class BiomodelsDialog extends JDialog {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsDialog.class);
@@ -408,7 +407,6 @@ public class BiomodelsDialog extends JDialog {
 
         String searchInfo = searchBioModel.getHTMLInformation(selectedModelIds);
         infoPane.setText(searchInfo);
-        // TODO: cursor position not handled correctly
         try {
             infoPane.setCaretPosition(caretPosition);
         } catch (java.lang.IllegalArgumentException e) {

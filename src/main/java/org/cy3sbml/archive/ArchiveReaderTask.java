@@ -158,8 +158,8 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     private void readFilesFromBundle() {
         // Get all SBML files from bundle
 
+        // not implemented yet (#116)
         List<Path> paths = new ArrayList<>();
-        // TODO: implement
 
         // read the files
         logger.info("Reading files from bundle");
@@ -241,7 +241,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             // Read information from manifest file
             //////////////////////////////////////////////////////////////////
 
-            // TODO: implement reading the archive content
+            // reading the archive content is not implemented yet (#116)
 
             // set image attributes
             for (CyNode n : node2path.keySet()) {

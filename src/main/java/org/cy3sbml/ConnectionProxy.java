@@ -94,8 +94,8 @@ public class ConnectionProxy implements PropertyUpdatedListener {
 
     @Override
     public void handleEvent(PropertyUpdatedEvent event) {
-        // TODO: currently bug in change of properties in cytoscape
-        // as a consequence there is no way to listen to these changes.
+        // Cytoscape does not fire this event reliably for proxy property changes,
+        // so the event is only logged.
 
         @SuppressWarnings("rawtypes")
         CyProperty property = event.getSource();

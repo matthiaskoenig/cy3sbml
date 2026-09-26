@@ -224,8 +224,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             if (compDoc != null) {
                 readModelDefinitions(compDoc);
             }
-            // TODO: network of the flattened comp model with instantiated submodels
-            // (no flattening routine in JSBML)
+            // no network of the flattened comp model yet (#401)
 
             if (taskMonitor != null) {
                 taskMonitor.setProgress(0.8);

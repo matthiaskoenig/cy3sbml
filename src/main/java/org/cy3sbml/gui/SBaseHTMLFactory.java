@@ -597,8 +597,6 @@ public class SBaseHTMLFactory {
         return url;
     }
 
-    // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
-
     /**
      * Information for non-OLS location.
      */

@@ -57,7 +57,6 @@ public final class ArchiveAction extends AbstractCyAction {
 
     /**
      * Load archive files.
-     * TODO: run this through the task manager analoque to the file import
      */
     @Override
     public void actionPerformed(ActionEvent e) {

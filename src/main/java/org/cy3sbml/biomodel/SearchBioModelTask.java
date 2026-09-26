@@ -56,7 +56,7 @@ public class SearchBioModelTask implements ObservableTask {
 
     @Override
     public void cancel() {
-        // TODO Auto-generated method stub
+        // the search request cannot be interrupted
     }
 
     @SuppressWarnings("unchecked")

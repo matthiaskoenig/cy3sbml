@@ -35,9 +35,6 @@ public class BiomodelsQuery {
      * Performs necessary replacements and sanitation of query.
      */
     public static URI uriFromQuery(String query) throws URISyntaxException {
-        // FIXME: Necessary to url escape
-        // https://stackoverflow.com/questions/724043/http-url-address-encoding-in-java#724764
-
         URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
         return uri;
     }
@@ -46,10 +43,7 @@ public class BiomodelsQuery {
      * Run a biomodels query.
      */
     public static BiomodelsQueryResult performSearchQuery(String query) throws IOException, InterruptedException {
-        // TODO: handle the more complex cases, i.e. if there is pagination, than
-        // FIXME: pagination - &offset=0&numResults=10
-        // perform all the individual queries and combine the results.
-
+        // only the first result page is read (#402)
         String url = String.format(
                 "%s?query=%s&format=json",
                 BIOMODELS_RESTFUL_URL + BIOMODELS_SEARCH, URLEncoder.encode(query, StandardCharsets.UTF_8));
