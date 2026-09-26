@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ArchiveFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(ArchiveFileFilter.class);
-    public static byte[] MAGIC = {'P', 'K', 0x3, 0x4};
+    private static final byte[] MAGIC = {'P', 'K', 0x3, 0x4};
 
     /**
      * Constructor.

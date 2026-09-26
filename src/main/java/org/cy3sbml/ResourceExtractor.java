@@ -21,8 +21,7 @@ import org.slf4j.LoggerFactory;
  * JavaFX does currently not support the access via bundle: uris.
  */
 public class ResourceExtractor {
-    private static Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
-    private static File appDirectory;
+    private static final Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
 
     public static final String GUI_RESOURCES = "/gui/";
     public static final String RO_RESOURCES = "/ro/";
@@ -41,22 +40,14 @@ public class ResourceExtractor {
     }
 
     private final BundleContext bc;
+    private final File appDirectory;
 
     /**
      * Constructor.
      */
     public ResourceExtractor(final BundleContext bc, final File appDirectory) {
         this.bc = bc;
-        setAppDirectory(appDirectory);
-    }
-
-    /**
-     * Sets the appDirectory where the resources are extracted.
-     *
-     * @param appDirectory local directory for files
-     */
-    public static void setAppDirectory(File appDirectory) {
-        ResourceExtractor.appDirectory = appDirectory;
+        this.appDirectory = appDirectory;
     }
 
     /**
@@ -69,7 +60,7 @@ public class ResourceExtractor {
      * @param resource resource String
      * @return fileURI of resource, or null if not existing
      */
-    public static String getResource(String resource) {
+    public String getResource(String resource) {
         URI fileURI = fileURIforResource(resource);
         if (fileURI == null) {
             return null;
@@ -85,7 +76,7 @@ public class ResourceExtractor {
      * @param resource resource path
      * @return String representation of fileURI or null
      */
-    public static URI fileURIforResource(String resource) {
+    public URI fileURIforResource(String resource) {
         if (appDirectory == null) {
             logger.error("appDirectory is not set in ResourceExtractor");
             return null;

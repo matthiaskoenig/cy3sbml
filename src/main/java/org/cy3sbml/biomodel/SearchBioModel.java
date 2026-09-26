@@ -2,6 +2,7 @@ package org.cy3sbml.biomodel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,14 @@ public class SearchBioModel implements TaskObserver {
     SynchronousTaskManager synchronousTaskManager;
 
     private SearchContent searchContent;
-    private static List<String> modelIds;
+
+    /**
+     * Accessed from the search task thread (via {@link #taskFinished}) and from the
+     * dialog's panel update thread ({@link #getModelIds}, {@link #getModelId}, {@link #getSize}).
+     * Volatile so a search result published by the task thread is visible to readers, and
+     * always assigned an unmodifiable copy so that readers never observe a partially built list.
+     */
+    private volatile List<String> modelIds;
 
     public SearchBioModel(ServiceAdapter adapter) {
         dialogTaskManager = adapter.dialogTaskManager;
@@ -37,10 +45,10 @@ public class SearchBioModel implements TaskObserver {
 
     private void resetSearch() {
         searchContent = null;
-        modelIds = new ArrayList<String>();
+        modelIds = Collections.emptyList();
     }
 
-    public static List<String> getModelIds() {
+    public List<String> getModelIds() {
         return modelIds;
     }
 
@@ -67,9 +75,10 @@ public class SearchBioModel implements TaskObserver {
         // set search content
         searchContent = new SearchContent(map);
 
-        modelIds = new ArrayList<String>(parsedIds);
-        logger.info("modelIds:" + modelIds.toString());
-        for (String id : modelIds) {
+        List<String> ids = Collections.unmodifiableList(new ArrayList<>(parsedIds));
+        modelIds = ids;
+        logger.info("modelIds:" + ids);
+        for (String id : ids) {
             logger.info(id);
         }
     }
@@ -91,7 +100,7 @@ public class SearchBioModel implements TaskObserver {
         // when finished assign the modelIds
         @SuppressWarnings("unchecked")
         List<String> ids = (List<String>) task.getResults(List.class);
-        modelIds = ids;
+        modelIds = Collections.unmodifiableList(new ArrayList<>(ids));
         logger.info("modelIds:");
         for (String id : ids) {
             logger.info(id);

@@ -311,7 +311,7 @@ public final class BiomodelsDialog extends JDialog {
         searchBioModel.searchBioModels(searchContent);
 
         // Has to be done in task
-        updateBioModelListAndInformationAfterSearch(SearchBioModel.getModelIds());
+        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
     }
 
     public SearchContent getSearchContent() {
@@ -419,7 +419,7 @@ public final class BiomodelsDialog extends JDialog {
         idTextArea.setText(newText);
         searchBioModel.getBioModelsByParsedIds(ids);
 
-        updateBioModelListAndInformationAfterSearch(SearchBioModel.getModelIds());
+        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
     }
 
     /**

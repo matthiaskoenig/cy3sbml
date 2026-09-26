@@ -53,7 +53,7 @@ public class SBaseHTMLFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
     public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
     public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
-    public static String delim = "/";
+    public static final String delim = "/";
     public static final Map<String, Namespace> result = getMiriamContent();
 
     private final String baseDir;

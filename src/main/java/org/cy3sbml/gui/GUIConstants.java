@@ -28,17 +28,17 @@ public class GUIConstants {
     public static final String ICON_LOADLAYOUT = "/gui/images/layout-load.png";
     public static final String ICON_SAVELAYOUT = "/gui/images/layout-save.png";
 
-    public static float GRAVITY_CHANGESTATE = (float) 100.0;
-    public static float GRAVITY_IMPORT = (float) 101.0;
-    public static float GRAVITY_ARCHIVE = (float) 102.0;
+    public static final float GRAVITY_CHANGESTATE = (float) 100.0;
+    public static final float GRAVITY_IMPORT = (float) 101.0;
+    public static final float GRAVITY_ARCHIVE = (float) 102.0;
 
-    public static float GRAVITY_EXAMPLES = (float) 106.0;
-    public static float GRAVITY_BIOMODELS = (float) 110.0;
-    public static float GRAVITY_HELP = (float) 112.0;
+    public static final float GRAVITY_EXAMPLES = (float) 106.0;
+    public static final float GRAVITY_BIOMODELS = (float) 110.0;
+    public static final float GRAVITY_HELP = (float) 112.0;
 
-    public static float GRAVITY_LOCATION = (float) 113.0;
-    public static float GRAVITY_LOADLAYOUT = (float) 114.0;
-    public static float GRAVITY_SAVELAYOUT = (float) 120.0;
+    public static final float GRAVITY_LOCATION = (float) 113.0;
+    public static final float GRAVITY_LOADLAYOUT = (float) 114.0;
+    public static final float GRAVITY_SAVELAYOUT = (float) 120.0;
 
     public static final String DESCRIPTION_CHANGESTATE = "Hide|show panel";
     public static final String DESCRIPTION_ARCHIVE = "Import Archive (COMBINE & ResearchObjects)";
