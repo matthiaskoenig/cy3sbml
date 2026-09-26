@@ -1,5 +1,6 @@
 package org.cy3sbml.chebi;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test access to chebi via rest queries.
  */
+@Tag("network")
 public class ChebiAccessTest {
 
     @Test

@@ -101,6 +101,7 @@
                     <excludes>
                         <exclude>${models.test.excludes}</exclude>
                     </excludes>
+                    <excludedGroups>network</excludedGroups>
                 </configuration>
 
             </plugin>

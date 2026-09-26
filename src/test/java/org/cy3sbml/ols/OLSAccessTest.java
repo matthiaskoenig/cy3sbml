@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cy3sbml.miriam.Namespace;
 import org.identifiers.registry.RegistryDatabase;
 import org.identifiers.registry.RegistryUtilities;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Test OLS Access.
  */
+@Tag("network")
 public class OLSAccessTest {
     @Test
     public void getTerm() throws Exception {

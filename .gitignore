@@ -29,3 +29,11 @@ logs/cy3sbml_build.log
 lib/logs/
 *.log
 logfile.name_IS_UNDEFINED
+
+# editors / tooling
+.vscode/
+.factorypath
+
+# generated
+site/
+docs/release-notes.md
