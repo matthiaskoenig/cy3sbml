@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;

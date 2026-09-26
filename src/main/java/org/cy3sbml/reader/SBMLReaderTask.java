@@ -1,10 +1,13 @@
-package org.cy3sbml;
+package org.cy3sbml.reader;
 
 import java.io.InputStream;
 import java.util.*;
 import javax.swing.tree.TreeNode;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
+import org.cy3sbml.SBML;
+import org.cy3sbml.SBMLManager;
+import org.cy3sbml.SBMLReaderError;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.*;

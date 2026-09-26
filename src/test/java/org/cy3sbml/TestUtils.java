@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;

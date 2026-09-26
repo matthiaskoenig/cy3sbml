@@ -3,6 +3,7 @@ package org.cy3sbml;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
