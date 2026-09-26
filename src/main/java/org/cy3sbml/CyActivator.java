@@ -182,8 +182,7 @@ public class CyActivator extends AbstractCyActivator {
             // load visual styles
             final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK, ArchiveReaderTask.ARCHIVE_STYLE};
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
-            StyleManager styleManager =
-                    StyleManager.getInstance(loadVizmapFileTaskFactory, visualMappingManager, styles);
+            StyleManager styleManager = new StyleManager(loadVizmapFileTaskFactory, visualMappingManager, styles);
             styleManager.loadStyles();
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
