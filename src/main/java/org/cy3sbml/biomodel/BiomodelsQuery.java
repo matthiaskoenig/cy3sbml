@@ -143,27 +143,4 @@ public class BiomodelsQuery {
 
         return content;
     }
-
-    /* Test the Restful API. */
-    public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
-
-        BiomodelsQueryResult result = BiomodelsQuery.performSearchQuery("/BIOMD0000000012?format=json");
-        System.out.println(result.getJSON());
-
-        CompletableFuture<Biomodel> biomodel = BiomodelsQuery.performBiomodelQuery("BIOMD0000000012");
-
-        System.out.println(biomodel);
-
-        // Download the OMEX archive
-        // https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000012
-
-        // Download single model file
-        // https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000012?filename=BIOMD0000000012_url.xml
-
-        // Search for models
-        // https://www.ebi.ac.uk/biomodels/search?query=repressilator&format=json
-
-        // newQuery("searchKineticLaws/sbml?q=Tissue:spleen AND Organism:\"Homo sapiens\"");
-        // newQuery("searchKineticLaws/sbml?q=Tissue:spleen%20AND%20Organism:%22homo%20sapiens%22");
-    }
 }

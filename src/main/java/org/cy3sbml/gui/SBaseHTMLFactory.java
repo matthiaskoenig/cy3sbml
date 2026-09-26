@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
@@ -774,39 +773,6 @@ public class SBaseHTMLFactory {
      */
     public static String booleanHTML(boolean b) {
         return b ? ICON_TRUE : ICON_FALSE;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * <main> : Testing the HTML creation
-     * <p>
-     * Create HTML and write to test file for fast
-     * development iterations.
-     */
-    public static void main(String[] args) throws Exception {
-        // resources for HTML
-        File f = File.createTempFile("MiriamRegistry", ".json");
-        // prepare miriam registry support
-        RegistryUtil.loadRegistry(f);
-
-        // Create the HTML for selected SBMLDocuments and SBases
-
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-
-        Model model = doc.getModel();
-
-        // object = model.getListOfSpecies().get("c__gal");
-        // object = model.getListOfReactions().get("c__GALTM2");
-
-        // retrieve info for object
-        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
-        fac.createInfo();
-        String html = fac.getHtml();
-
-        // Save to tmp file for viewing
-        File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
-        FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
     }
 
     public static String getPrefixValue(String keyToFind) {

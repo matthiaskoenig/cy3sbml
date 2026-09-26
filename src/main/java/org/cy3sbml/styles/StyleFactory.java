@@ -3,8 +3,6 @@ package org.cy3sbml.styles;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -119,26 +117,6 @@ public class StyleFactory {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             logger.error("Style could not be created.", e);
             e.printStackTrace();
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Create all styles.
-     * This creates/updates the styles based on the current settings in SBML.java.
-     * <p>
-     * For the installation
-     */
-    public static void main(String[] args) {
-        String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
-
-        List<StyleInfo> styleInfos = new ArrayList<>();
-        styleInfos.add(new StyleInfo_cy3sbml()); // cy3sbml
-        styleInfos.add(new StyleInfo_cy3sbmlDark()); // cy3sbml-dark
-        for (StyleInfo info : styleInfos) {
-            File file = new File(targetDir, info.getName() + ".xml");
-            StyleFactory.createStyle(info, file);
         }
     }
 }

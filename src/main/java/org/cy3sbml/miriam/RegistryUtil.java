@@ -97,8 +97,6 @@ public class RegistryUtil {
         return result;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, MalformedURLException {}
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Small helpers for identifiers.org resource URIs (http(s)://identifiers.org/... and
     // urn:miriam:... URNs), replacing the org.identifiers.registry:registry-lib dependency
