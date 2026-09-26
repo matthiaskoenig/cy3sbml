@@ -51,6 +51,8 @@ import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.util.HttpJson;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,6 +115,9 @@ public class CyActivator extends AbstractCyActivator {
             // Set baseDir for HTML generation
             // allows the dynamical generated HTML to resolve the gui resources
             SBaseHTMLFactory.setBaseDirFromAppDir(appDirectory);
+
+            // OLS client used to resolve ontology terms for display
+            SBaseHTMLFactory.setOlsClient(new OlsClient(HttpJson.createDefault()));
 
             // cy3sbml properties
             PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);

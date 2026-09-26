@@ -12,9 +12,7 @@
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
-        <!-- requireReleaseDeps is not active yet: ols-client is still a SNAPSHOT
-            dependency (Task 2.3). Task 2.5 flips this to false. -->
-        <enforcer.skipReleaseDeps>true</enforcer.skipReleaseDeps>
+        <enforcer.skipReleaseDeps>false</enforcer.skipReleaseDeps>
         <!-- Pinned to the JSBML commit that built the jars in lib/cy3sbml-dep
             (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
             22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
@@ -22,7 +20,7 @@
         <!-- Exclude the long-running model tests. For all tests run
             mvn clean install -Dmodels.test.excludes=""
         -->
-        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java
+        <models.test.excludes>**/models/*Test.java, **/biomodel/BioModelInterfaceTest.java
         </models.test.excludes>
     </properties>
 
@@ -171,14 +169,6 @@
                                             both provide the same XmlPull API classes; xstream
                                             is removed in Task 2.5. -->
                                         <ignoreClass>org.xmlpull.v1.*</ignoreClass>
-                                        <!-- ols-client's spring-context brings spring-aop, which
-                                            repackages the aopalliance API also pulled in directly
-                                            by japi; ols-client is removed in Task 2.3. -->
-                                        <ignoreClass>org.aopalliance.*</ignoreClass>
-                                        <!-- ols-client's spring-core brings spring-jcl, a
-                                            commons-logging-compatible reimplementation of the
-                                            same classes; ols-client is removed in Task 2.3. -->
-                                        <ignoreClass>org.apache.commons.logging.*</ignoreClass>
                                         <!-- japi depends on both the legacy com.codahale.metrics
                                             and its io.dropwizard.metrics successor under the same
                                             package name; japi is removed in Task 2.4. -->
@@ -190,8 +180,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- Not active yet: ols-client is still a SNAPSHOT dependency
-                            (Task 2.3). Task 2.5 sets enforcer.skipReleaseDeps to false. -->
                         <id>enforce-release-dependencies</id>
                         <goals>
                             <goal>enforce</goal>
@@ -255,8 +243,7 @@
 
         <!-- Kept only until the dependency that needs them is removed:
             registry-lib and miriam-lib (Task 2.5 or later) and japi (Task 2.4)
-            are hosted here and nowhere else; ols-client (Task 2.3) is a SNAPSHOT
-            hosted here. -->
+            are hosted here and nowhere else. -->
         <repository>
             <id>nexus-ebi-release-repo</id>
             <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
@@ -265,11 +252,6 @@
             <id>ebiUniprotPublic</id>
             <name>ebi-uniprot-public</name>
             <url>https://www.ebi.ac.uk/uniprot/artifactory/public</url>
-        </repository>
-        <repository>
-            <id>EBI SNAPSHOT</id>
-            <name>EBI Snapshot repository</name>
-            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
         </repository>
     </repositories>
 
@@ -527,39 +509,7 @@
         </dependency>
 
 
-        <!-- OLS -->
-        <!-- https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
-        <dependency>
-            <groupId>uk.ac.ebi.pride.utilities</groupId>
-            <artifactId>ols-client</artifactId>
-            <version>2.14-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>uk.ac.ebi.pride.architectural</groupId>
-                    <artifactId>pride-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!-- OLS4 REST client (org.cy3sbml.ols.OlsClient) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

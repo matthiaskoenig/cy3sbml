@@ -3,7 +3,6 @@ package org.cy3sbml.miriam;
 
 import org.apache.commons.lang.StringUtils;
 import org.cy3sbml.TestUtils;
-import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.util.IOUtil;
 import org.identifiers.registry.RegistryDatabase;
 import org.identifiers.registry.RegistryUtilities;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 import java.io.*;
 import java.net.HttpURLConnection;

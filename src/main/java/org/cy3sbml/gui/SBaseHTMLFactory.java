@@ -21,16 +21,14 @@ import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 
-import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.miriam.Resource;
-import org.cy3sbml.ols.OLSAccess;
-import org.cy3sbml.ols.OLSCache;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.chebi.ChebiCache;
 import org.cy3sbml.util.IOUtil;
@@ -61,6 +59,13 @@ public class SBaseHTMLFactory {
     public static String delim = "/";
     public static final Map<String, Namespace> result = getMiriamContent();
 
+    /**
+     * OLS client used to resolve ontology terms for display.
+     * Set by {@code CyActivator} on startup. A static field for now;
+     * PR 3 turns it into an instance dependency.
+     */
+    private static OlsClient olsClient = new OlsClient(org.cy3sbml.util.HttpJson.createDefault());
+
     private SBase sbase;
     private String html;
 
@@ -85,6 +90,13 @@ public class SBaseHTMLFactory {
      */
     public static String getBaseDir() {
         return baseDir;
+    }
+
+    /**
+     * Sets the OLS client used to resolve ontology terms for display.
+     */
+    public static void setOlsClient(OlsClient olsClient) {
+        SBaseHTMLFactory.olsClient = olsClient;
     }
 
     /**
@@ -501,7 +513,7 @@ public class SBaseHTMLFactory {
                     if (resource.isDeprecated()) {
                         continue;
                     }
-                    if (OLSAccess.isPhysicalLocationOLS(resource)) {
+                    if (OlsClient.isOlsResource(resource)) {
 
                         text += createOLSLocation(dataType, resource, identifier);
                     }
@@ -511,7 +523,7 @@ public class SBaseHTMLFactory {
                     if (resource.isDeprecated()) {
                         continue;
                     }
-                    if (!OLSAccess.isPhysicalLocationOLS(resource)) {
+                    if (!OlsClient.isOlsResource(resource)) {
 
                         text += createNonOLSLocation(dataType, resource, identifier);
                     }
@@ -580,36 +592,29 @@ public class SBaseHTMLFactory {
             termIdentifier = tokens[tokens.length - 1];
         }
 
-        Term term = OLSCache.getTerm(termIdentifier);
+        Optional<OlsTerm> optionalTerm = olsClient.term(termIdentifier);
 
-        if (term != null) {
+        if (optionalTerm.isPresent()) {
+            OlsTerm term = optionalTerm.get();
 
-            String purlURL = term.getIri().getIdentifier();
+            String purlURL = term.iri();
             String ontologyURL = createURL(namespace, resource, identifier);
             html += ONTOLOGY_TERM_LINK.replace("{ontologyURL}", ontologyURL)
-                    .replace("{ontologyName}", term.getOntologyName().toUpperCase())
-                    .replace("{termLabel}", term.getLabel())
+                    .replace("{ontologyName}", term.ontologyName().toUpperCase())
+                    .replace("{termLabel}", term.label())
                     .replace("{purlURL}", purlURL)
                     .replace("{purlDisplay}", purlURL);
 
-            String[] synonyms = term.getSynonyms();
-            if (synonyms != null && synonyms.length > 0) {
+            List<String> synonyms = term.synonyms();
+            if (synonyms != null && !synonyms.isEmpty()) {
                 html += SYNONYMS_LABEL;
                 for (String syn : synonyms) {
                     html += String.format("%s; ", syn);
                 }
                 html += "<br />\n";
             }
-            Map<String, String> oboSynonyms = term.getOboSynonyms();
-            if (oboSynonyms != null && oboSynonyms.size() > 0) {
-                html += OBO_SYNONYMS_LABEL;
-                for (String name : oboSynonyms.keySet()) {
-                    html += String.format("%s; ", name);
-                }
-                html += "<br />\n";
-            }
-            String[] descriptions = term.getDescription();
-            if (descriptions != null && descriptions.length > 0) {
+            List<String> descriptions = term.descriptions();
+            if (descriptions != null && !descriptions.isEmpty()) {
                 for (String description : descriptions) {
                     html += DESCRIPTION_LABEL
                             .replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));

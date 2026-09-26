@@ -1,7 +1,5 @@
 package org.cy3sbml.miriam;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +9,6 @@ import static org.cy3sbml.miriam.Fields.*;
 
 public class Namespace {
 
-    @Getter
     private int id;
     private String prefix;
     private String name;
