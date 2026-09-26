@@ -15,6 +15,7 @@
         <bundle.namespace>org.cy3sbml</bundle.namespace>
         <cytoscape.api.version>3.10.0</cytoscape.api.version>
         <maven.compiler.release>17</maven.compiler.release>
+        <error-prone.version>2.50.0</error-prone.version>
         <maven-bundle-plugin.version>6.2.0</maven-bundle-plugin.version>
         <osgi.api.version>7.0.0</osgi.api.version>
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
@@ -193,6 +194,14 @@
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
             <version>${osgi.compendium.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- The OSGi packages above are annotated with @Version; without this
+            jar javac warns that it cannot find the annotation (fails -Werror). -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation.versioning</artifactId>
+            <version>1.1.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -503,13 +512,14 @@
                 <inherited>true</inherited>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <optimize>true</optimize>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
-                    <compilerArguments>
-                        <Xmaxwarns>10000</Xmaxwarns>
-                        <Xmaxerrs>10000</Xmaxerrs>
-                    </compilerArguments>
+                    <compilerArgs>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>10000</arg>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>10000</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
@@ -528,6 +538,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <!-- pinned: the bundle packaging does not bind a version, so Maven
+                resolves the newest one and warns about the Maven 4 betas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.2.0</version>
             </plugin>
 
@@ -660,6 +677,38 @@
             <properties>
                 <test.excludedGroups/>
             </properties>
+        </profile>
+        <!-- Check the code with Error Prone and fail on compiler warnings.
+            Error Prone needs JDK 21 or newer to run, the code still compiles with
+            release 17. The JVM flags Error Prone needs are in .mvn/jvm.config. -->
+        <profile>
+            <id>lint</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>-XDcompilePolicy=simple</arg>
+                                <!-- required by Error Prone on JDK 21 -->
+                                <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+                                <arg>--should-stop=ifError=FLOW</arg>
+                                <arg>-Xplugin:ErrorProne</arg>
+                                <arg>-Xlint:all,-processing,-serial</arg>
+                                <arg>-Werror</arg>
+                            </compilerArgs>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>com.google.errorprone</groupId>
+                                    <artifactId>error_prone_core</artifactId>
+                                    <version>${error-prone.version}</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
