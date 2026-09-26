@@ -107,9 +107,8 @@ public class SBaseHTMLFactory {
         String html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
         html += createInfoForSBase(sbase);
-        if (sbase instanceof SBMLDocument) {
+        if (sbase instanceof SBMLDocument doc) {
             // in case of SBMLDocument add the model information
-            SBMLDocument doc = (SBMLDocument) sbase;
             if (doc.isSetModel()) {
                 html += createInfoForSBase(doc.getModel());
             }

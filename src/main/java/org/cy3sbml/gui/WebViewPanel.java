@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * This panel is the main area for displaying SBML information for the
  * network.
  */
-public class WebViewPanel extends JFXPanel
+public final class WebViewPanel extends JFXPanel
         implements CytoPanelComponent2,
                 InfoPanel,
                 RowsSetListener,

@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 /**
  * BiomodelsDialog.
  */
-public class BiomodelsDialog extends JDialog {
+public final class BiomodelsDialog extends JDialog {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsDialog.class);
 
     private final ServiceAdapter adapter;
