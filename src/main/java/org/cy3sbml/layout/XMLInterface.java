@@ -1,6 +1,7 @@
 package org.cy3sbml.layout;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XMLInterface {
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
@@ -115,8 +117,8 @@ public class XMLInterface {
                 CyBoundingBox box = readBoundingBoxFromNode(boxNode);
                 boxes.put(box.getNodeId(), box);
             }
-        } catch (Exception e) {
-            logger.error("Problems reading layout.", e);
+        } catch (ParserConfigurationException | SAXException | IOException | NumberFormatException e) {
+            logger.error("Could not read layout: {}", xmlFile, e);
         }
         return boxes;
     }

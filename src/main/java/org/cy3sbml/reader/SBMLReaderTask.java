@@ -159,7 +159,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             Task nextTask = itr.next();
             try {
                 nextTask.run(taskMonitor);
-            } catch (Exception e) {
+            } catch (Exception e) { // Task.run declares Exception
                 throw new RuntimeException("Could not finish layout", e);
             }
         }

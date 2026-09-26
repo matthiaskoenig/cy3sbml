@@ -776,18 +776,17 @@ public class SBaseHTMLFactory {
     }
 
     public static String getPrefixValue(String keyToFind) {
-        try {
+        InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
+        if (inputStream == null) {
+            logger.error("Could not find the namespace resource: {}", FILENAME_NAMESPACE);
+            return null;
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             Properties namespaces = new Properties();
-            InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found in resources");
-            }
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             namespaces.load(reader);
             return namespaces.getProperty(keyToFind);
-        } catch (Exception e) {
-            logger.error("Could not read the prefix value: " + keyToFind, e);
+        } catch (IOException e) {
+            logger.error("Could not read the prefix value: {}", keyToFind, e);
         }
         return null;
     }

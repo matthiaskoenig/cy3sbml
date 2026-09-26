@@ -141,7 +141,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             Task nextTask = itr.next();
             try {
                 nextTask.run(taskMonitor);
-            } catch (Exception e) {
+            } catch (Exception e) { // Task.run declares Exception
                 throw new RuntimeException("Could not finish layout", e);
             }
         }

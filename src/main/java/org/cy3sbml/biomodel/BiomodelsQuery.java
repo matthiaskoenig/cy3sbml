@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -93,8 +94,8 @@ public class BiomodelsQuery {
                             String json = getStringBody(response); // Reuse your method
                             JsonNode jsonObject = MAPPER.readTree(json);
                             return new Biomodel(jsonObject);
-                        } catch (Exception e) {
-                            throw new RuntimeException("Failed to parse biomodel: " + biomodelId, e);
+                        } catch (IOException e) {
+                            throw new UncheckedIOException("Could not parse biomodel: " + biomodelId, e);
                         }
                     } else {
                         throw new RuntimeException("HTTP error for " + biomodelId + ": " + response.statusCode());

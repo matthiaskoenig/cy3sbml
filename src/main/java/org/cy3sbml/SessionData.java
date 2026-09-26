@@ -147,7 +147,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         // Write files in session file
         try {
             event.addAppFiles(APP_ID, files);
-        } catch (Exception e) {
+        } catch (Exception e) { // SessionAboutToBeSavedEvent.addAppFiles declares Exception
             logger.error("File could not be added to app files.", e);
         }
     }
@@ -167,59 +167,53 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         for (File f : files) {
             String name = f.getName();
             logger.debug("cy3sbml file in session: " + f.getName());
-            try {
+            // deserialize documentMap
+            if (name.equals(NETWORK2SBMLMAPPER_ID)) {
+                logger.debug("Deserialize <Network2SBMLMapper>");
 
-                // deserialize documentMap
-                if (name.equals(NETWORK2SBMLMAPPER_ID)) {
-                    logger.debug("Deserialize <Network2SBMLMapper>");
+                InputStream inputStream;
+                ObjectInput input;
+                try {
+                    inputStream = new FileInputStream(f.getAbsolutePath());
+                    InputStream buffer = new BufferedInputStream(inputStream);
+                    input = new ObjectInputStream(buffer);
 
-                    InputStream inputStream;
-                    ObjectInput input;
-                    try {
-                        inputStream = new FileInputStream(f.getAbsolutePath());
-                        InputStream buffer = new BufferedInputStream(inputStream);
-                        input = new ObjectInputStream(buffer);
+                    // read mapper
+                    Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
+                    // update suids in mapper & set in manager
+                    Network2SBMLMapper updatedMapper = updateSUIDsInMapper(session, mapper);
+                    SBMLManager sbmlManager = SBMLManager.getInstance();
+                    // set updated mapper
+                    sbmlManager.setSBML2NetworkMapper(updatedMapper);
 
-                        // read mapper
-                        Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
-                        // update suids in mapper & set in manager
-                        Network2SBMLMapper updatedMapper = updateSUIDsInMapper(session, mapper);
-                        SBMLManager sbmlManager = SBMLManager.getInstance();
-                        // set updated mapper
-                        sbmlManager.setSBML2NetworkMapper(updatedMapper);
-
-                    } catch (IOException | ClassNotFoundException e) {
-                        logger.error("Deserialization of Network2SBMLMapper failed.", e);
-                    }
+                } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                    logger.error("Deserialization of Network2SBMLMapper failed.", e);
                 }
+            }
 
-                // deserialize
-                else if (name.equals(NETWORK2COFACTOR_ID)) {
-                    logger.debug("Deserialize <Network2CofactorMapper>");
+            // deserialize
+            else if (name.equals(NETWORK2COFACTOR_ID)) {
+                logger.debug("Deserialize <Network2CofactorMapper>");
 
-                    InputStream inputStream;
-                    ObjectInput input;
-                    try {
-                        inputStream = new FileInputStream(f.getAbsolutePath());
-                        InputStream buffer = new BufferedInputStream(inputStream);
-                        input = new ObjectInputStream(buffer);
+                InputStream inputStream;
+                ObjectInput input;
+                try {
+                    inputStream = new FileInputStream(f.getAbsolutePath());
+                    InputStream buffer = new BufferedInputStream(inputStream);
+                    input = new ObjectInputStream(buffer);
 
-                        // read mapper
-                        Network2CofactorMapper m = (Network2CofactorMapper) input.readObject();
-                        CofactorManager cofactorManager = CofactorManager.getInstance();
+                    // read mapper
+                    Network2CofactorMapper m = (Network2CofactorMapper) input.readObject();
+                    CofactorManager cofactorManager = CofactorManager.getInstance();
 
-                        // update suids in mapper & set in manager
-                        Network2CofactorMapper updatedMapper = updateSUIDsInCofactorMapper(session, m);
-                        // set updated mapper
-                        cofactorManager.setNetwork2CofactorMapper(updatedMapper);
+                    // update suids in mapper & set in manager
+                    Network2CofactorMapper updatedMapper = updateSUIDsInCofactorMapper(session, m);
+                    // set updated mapper
+                    cofactorManager.setNetwork2CofactorMapper(updatedMapper);
 
-                    } catch (IOException | ClassNotFoundException e) {
-                        logger.error("Deserialization of Network2CofactorMapper failed.", e);
-                    }
+                } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                    logger.error("Deserialization of Network2CofactorMapper failed.", e);
                 }
-
-            } catch (Throwable e) {
-                logger.error("Errors in deserialization", e);
             }
         }
     }

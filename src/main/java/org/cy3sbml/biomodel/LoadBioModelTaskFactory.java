@@ -3,6 +3,7 @@ package org.cy3sbml.biomodel;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import javax.swing.JOptionPane;
@@ -26,7 +27,6 @@ public class LoadBioModelTaskFactory implements TaskFactory {
 
         // TODO: reading SBML & creating the temp file should be in a separate task
 
-        InputStream instream = null;
         try {
             String sbml = BiomodelsQuery.getBioModelSBMLById(id);
 
@@ -34,9 +34,9 @@ public class LoadBioModelTaskFactory implements TaskFactory {
                 JOptionPane.showMessageDialog(
                         adapter.cySwingApplication.getJFrame(),
                         String.format("<html>No SBML for BioModel Id : <b>%s</b></html>", id));
-            } else {
-                instream = new ByteArrayInputStream(sbml.getBytes(StandardCharsets.UTF_8));
+                return;
             }
+            InputStream instream = new ByteArrayInputStream(sbml.getBytes(StandardCharsets.UTF_8));
             // convert to tmp file and use the core-task read Network from file task
             final File tempFile = File.createTempFile(id, SUFFIX);
             tempFile.deleteOnExit();
@@ -48,8 +48,11 @@ public class LoadBioModelTaskFactory implements TaskFactory {
                 IOUtils.copy(instream, out);
             }
             file = tempFile;
-        } catch (Exception e) {
-            logger.error("Problem loading Biomodel.", e);
+        } catch (IOException e) {
+            logger.error("Could not load biomodel: {}", id, e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error("Interrupted while loading biomodel: {}", id, e);
         }
     }
 

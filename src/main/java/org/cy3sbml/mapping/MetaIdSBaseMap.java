@@ -43,100 +43,95 @@ public class MetaIdSBaseMap {
             return;
         }
 
-        try {
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML CORE
-            ////////////////////////////////////////////////////////////////////////////
-            Model model;
-            if (document.isSetModel()) {
-                model = document.getModel();
-            } else {
-                return;
-            }
-            // UnitDefinitions
-            addListOf(model.getListOfUnitDefinitions());
-            for (UnitDefinition ud : model.getListOfUnitDefinitions()) {
-                addListOf(ud.getListOfUnits());
-            }
-            // FunctionDefinitions
-            addListOf(model.getListOfFunctionDefinitions());
-            // UnitDefinitions
-            addListOf(model.getListOfUnitDefinitions());
-            // Compartments
-            addListOf(model.getListOfCompartments());
-            // Species
-            addListOf(model.getListOfSpecies());
-            // Parameters
-            addListOf(model.getListOfParameters());
-            // InitialAssignments
-            addListOf(model.getListOfInitialAssignments());
-            // Rules
-            addListOf(model.getListOfRules());
-            // Reactions
-            addListOf(model.getListOfReactions());
-            // LocalParameters & KineticLaws
-            for (Reaction reaction : model.getListOfReactions()) {
-                if (reaction.isSetKineticLaw()) {
-                    KineticLaw law = reaction.getKineticLaw();
-                    add(law);
-                    addListOf(law.getListOfLocalParameters());
-                }
-            }
-            // Constraints
-            addListOf(model.getListOfConstraints());
-            // Events
-            addListOf(model.getListOfEvents());
-            for (Event event : model.getListOfEvents()) {
-                addListOf(event.getListOfEventAssignments());
-            }
-
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML QUAL
-            ////////////////////////////////////////////////////////////////////////////
-
-            QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
-            if (qualModel != null) {
-                // QualitativeSpecies
-                addListOf(qualModel.getListOfQualitativeSpecies());
-                // Transitions
-                addListOf(qualModel.getListOfTransitions());
-            }
-
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML FBC
-            ////////////////////////////////////////////////////////////////////////////
-
-            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
-            if (fbcModel != null) {
-                // GeneProducts
-                addListOf(fbcModel.getListOfGeneProducts());
-            }
-
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML COMP
-            ////////////////////////////////////////////////////////////////////////////
-
-            CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
-            if (compModel != null) {
-                // Ports
-                addListOf(compModel.getListOfPorts());
-            }
-
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML GROUPS
-            ////////////////////////////////////////////////////////////////////////////
-
-            // TODO: implement
-
-            ////////////////////////////////////////////////////////////////////////////
-            // SBML LAYOUT
-            ////////////////////////////////////////////////////////////////////////////
-
-            // TODO: implement
-
-        } catch (Throwable t) {
-            logger.error("MetaIdSBaseMap could not be created", t);
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML CORE
+        ////////////////////////////////////////////////////////////////////////////
+        Model model;
+        if (document.isSetModel()) {
+            model = document.getModel();
+        } else {
+            return;
         }
+        // UnitDefinitions
+        addListOf(model.getListOfUnitDefinitions());
+        for (UnitDefinition ud : model.getListOfUnitDefinitions()) {
+            addListOf(ud.getListOfUnits());
+        }
+        // FunctionDefinitions
+        addListOf(model.getListOfFunctionDefinitions());
+        // UnitDefinitions
+        addListOf(model.getListOfUnitDefinitions());
+        // Compartments
+        addListOf(model.getListOfCompartments());
+        // Species
+        addListOf(model.getListOfSpecies());
+        // Parameters
+        addListOf(model.getListOfParameters());
+        // InitialAssignments
+        addListOf(model.getListOfInitialAssignments());
+        // Rules
+        addListOf(model.getListOfRules());
+        // Reactions
+        addListOf(model.getListOfReactions());
+        // LocalParameters & KineticLaws
+        for (Reaction reaction : model.getListOfReactions()) {
+            if (reaction.isSetKineticLaw()) {
+                KineticLaw law = reaction.getKineticLaw();
+                add(law);
+                addListOf(law.getListOfLocalParameters());
+            }
+        }
+        // Constraints
+        addListOf(model.getListOfConstraints());
+        // Events
+        addListOf(model.getListOfEvents());
+        for (Event event : model.getListOfEvents()) {
+            addListOf(event.getListOfEventAssignments());
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML QUAL
+        ////////////////////////////////////////////////////////////////////////////
+
+        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        if (qualModel != null) {
+            // QualitativeSpecies
+            addListOf(qualModel.getListOfQualitativeSpecies());
+            // Transitions
+            addListOf(qualModel.getListOfTransitions());
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML FBC
+        ////////////////////////////////////////////////////////////////////////////
+
+        FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+        if (fbcModel != null) {
+            // GeneProducts
+            addListOf(fbcModel.getListOfGeneProducts());
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML COMP
+        ////////////////////////////////////////////////////////////////////////////
+
+        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+        if (compModel != null) {
+            // Ports
+            addListOf(compModel.getListOfPorts());
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML GROUPS
+        ////////////////////////////////////////////////////////////////////////////
+
+        // TODO: implement
+
+        ////////////////////////////////////////////////////////////////////////////
+        // SBML LAYOUT
+        ////////////////////////////////////////////////////////////////////////////
+
+        // TODO: implement
     }
 
     /**

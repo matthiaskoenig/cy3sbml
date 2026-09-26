@@ -42,8 +42,8 @@ public class GUIUtil {
             ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);
-        } catch (Exception e) {
-            logger.warn("Could not read example.", e);
+        } catch (IOException e) {
+            logger.warn("Could not read example: {}", resource, e);
         }
     }
 

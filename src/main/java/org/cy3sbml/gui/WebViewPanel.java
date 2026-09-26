@@ -324,12 +324,8 @@ public class WebViewPanel extends JFXPanel
         }
 
         // Update the information in separate thread
-        try {
-            PanelUpdater updater = new PanelUpdater(this, network);
-            Thread t = new Thread(updater);
-            t.start();
-        } catch (Throwable t) {
-            logger.error("Error in handling node selection in CyNetwork", t);
-        }
+        PanelUpdater updater = new PanelUpdater(this, network);
+        Thread t = new Thread(updater);
+        t.start();
     }
 }
