@@ -158,7 +158,7 @@ public class CyActivator extends AbstractCyActivator {
             connectionProxy.setSystemProxyFromCyProperties();
 
             /* Create ServiceAdapter */
-            ServiceAdapter adapter = ServiceAdapter.getInstance(
+            ServiceAdapter adapter = new ServiceAdapter(
                     cySwingApplication,
                     cyApplicationManager,
                     cyNetworkManager,
