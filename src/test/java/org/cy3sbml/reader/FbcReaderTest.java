@@ -4,6 +4,7 @@ import static org.cy3sbml.reader.ReaderTestSupport.edgesOfType;
 import static org.cy3sbml.reader.ReaderTestSupport.nodeById;
 import static org.cy3sbml.reader.ReaderTestSupport.nodesOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 import java.util.Set;
@@ -70,5 +71,43 @@ class FbcReaderTest {
         CyNode reaction = nodeById(context, "R16");
         assertEquals("0.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
         assertEquals("1000.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+    }
+
+    @Test
+    void skipsFbcV1FluxBoundsWithoutOperationOrReaction() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+                    xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1"
+                    level="3" version="1" fbc:required="false">
+                  <model id="m">
+                    <listOfCompartments>
+                      <compartment id="c" constant="true"/>
+                    </listOfCompartments>
+                    <listOfSpecies>
+                      <species id="A" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
+                          constant="false"/>
+                    </listOfSpecies>
+                    <listOfReactions>
+                      <reaction id="r1" reversible="false" fast="false">
+                        <listOfReactants>
+                          <speciesReference species="A" stoichiometry="1" constant="true"/>
+                        </listOfReactants>
+                      </reaction>
+                    </listOfReactions>
+                    <fbc:listOfFluxBounds>
+                      <fbc:fluxBound fbc:id="noOperation" fbc:reaction="r1" fbc:value="5"/>
+                      <fbc:fluxBound fbc:id="noReaction" fbc:reaction="missing" fbc:operation="lessEqual" fbc:value="7"/>
+                      <fbc:fluxBound fbc:id="upper" fbc:reaction="r1" fbc:operation="lessEqual" fbc:value="10"/>
+                    </fbc:listOfFluxBounds>
+                  </model>
+                </sbml>
+                """;
+        ConversionContext context = ReaderTestSupport.readString(sbml.strip(), new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        CyNode reaction = nodeById(context, "r1");
+        assertNull(ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
+        assertEquals("10.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
     }
 }

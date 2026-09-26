@@ -177,9 +177,19 @@ final class FbcReader implements PackageReader {
     private static void readFluxBounds(ConversionContext context, FBCModelPlugin fbcModel) {
         CyNetwork network = context.network();
         for (FluxBound fluxBound : fbcModel.getListOfFluxBounds()) {
-            Reaction reaction = fluxBound.getReactionInstance();
-            CyNode n = context.nodeByMetaId(reaction.getMetaId()).orElse(null);
             FluxBound.Operation operation = fluxBound.getOperation();
+            if (operation == null) {
+                logger.warn("FluxBound without operation skipped: {}", fluxBound);
+                continue;
+            }
+            Reaction reaction = fluxBound.getReactionInstance();
+            CyNode n = reaction == null
+                    ? null
+                    : context.nodeByMetaId(reaction.getMetaId()).orElse(null);
+            if (n == null) {
+                logger.warn("FluxBound for a missing reaction skipped: {}", fluxBound);
+                continue;
+            }
             String value = Double.toString(fluxBound.getValue());
             switch (operation) {
                 case EQUAL -> {
