@@ -37,7 +37,8 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Build and test
-        run: mvn --batch-mode --no-transfer-progress verify
+        shell: bash
+        run: ./mvnw --batch-mode --no-transfer-progress verify
       - name: Publish the test report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1

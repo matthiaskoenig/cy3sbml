@@ -8,14 +8,14 @@ cy3sbml is a Cytoscape 3 app (OSGi bundle) that imports SBML models into Cytosca
 
 ## Build and test
 
-Requires JDK 17, Maven 3, and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `WebView`). CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
+Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `WebView`). Use the bundled Maven Wrapper (`./mvnw`, `mvnw.cmd` on Windows) instead of a system Maven install; it downloads the pinned Maven version on first use. CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
 
 ```bash
-mvn clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar
-mvn test                               # fast tests (long-running model tests excluded)
-mvn test -Dtest=IOUtilTest             # single test class
-mvn test -Dtest=IOUtilTest#testName    # single test method
-mvn clean install -Dmodels.test.excludes=""  # all tests incl. model suites (slow, needs network)
+./mvnw clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar
+./mvnw test                               # fast tests (long-running model tests excluded)
+./mvnw test -Dtest=IOUtilTest             # single test class
+./mvnw test -Dtest=IOUtilTest#testName    # single test method
+./mvnw clean install -Dmodels.test.excludes=""  # all tests incl. model suites (slow, needs network)
 ```
 
 - Tests are JUnit 5 + Mockito.
@@ -25,7 +25,7 @@ mvn clean install -Dmodels.test.excludes=""  # all tests incl. model suites (slo
 
 ### Running in Cytoscape
 
-Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the app after each `mvn install -DskipTests`:
+Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the app after each `./mvnw install -DskipTests`:
 
 ```bash
 ln -s $PWD/target/cy3sbml-<version>.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
