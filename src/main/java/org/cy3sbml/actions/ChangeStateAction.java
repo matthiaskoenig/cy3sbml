@@ -17,11 +17,14 @@ public final class ChangeStateAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ChangeStateAction.class);
     private static final long serialVersionUID = 1L;
 
+    private final WebViewPanel webViewPanel;
+
     /**
      * Constructor.
      */
-    public ChangeStateAction() {
+    public ChangeStateAction(WebViewPanel webViewPanel) {
         super(ChangeStateAction.class.getSimpleName());
+        this.webViewPanel = webViewPanel;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_CHANGESTATE));
         putValue(LARGE_ICON_KEY, icon);
@@ -37,7 +40,6 @@ public final class ChangeStateAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed");
-        WebViewPanel vwPanel = WebViewPanel.getInstance();
-        vwPanel.changeState();
+        webViewPanel.changeState();
     }
 }

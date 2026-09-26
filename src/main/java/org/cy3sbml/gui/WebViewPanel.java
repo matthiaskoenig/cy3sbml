@@ -31,8 +31,6 @@ import org.slf4j.LoggerFactory;
  * The panel is registered as Cytoscape Results Panel.
  * This panel is the main area for displaying SBML information for the
  * network.
- * <p>
- * WebViewPanel is a singleton class.
  */
 public class WebViewPanel extends JFXPanel
         implements CytoPanelComponent2,
@@ -45,33 +43,16 @@ public class WebViewPanel extends JFXPanel
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
     private static final long serialVersionUID = 1L;
 
-    private static WebViewPanel uniqueInstance;
-
-    private ServiceAdapter adapter;
-    private CytoPanel cytoPanelEast;
+    private final ServiceAdapter adapter;
+    private final CytoPanel cytoPanelEast;
     private Browser browser;
     private long lastInformationThreadId = -1;
     private String html;
 
     /**
-     * Singleton.
-     */
-    public static synchronized WebViewPanel getInstance(ServiceAdapter adapter) {
-        if (uniqueInstance == null) {
-            logger.debug("WebViewPanel created");
-            uniqueInstance = new WebViewPanel(adapter);
-        }
-        return uniqueInstance;
-    }
-
-    public static synchronized WebViewPanel getInstance() {
-        return uniqueInstance;
-    }
-
-    /**
      * Constructor
      */
-    private WebViewPanel(ServiceAdapter adapter) {
+    public WebViewPanel(ServiceAdapter adapter) {
         this.adapter = adapter;
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
@@ -90,15 +71,11 @@ public class WebViewPanel extends JFXPanel
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(adapter.cy3sbmlDirectory);
+        browser = new Browser(adapter.cy3sbmlDirectory, new BrowserHyperlinkListener(adapter, this));
         Scene scene = new Scene(browser, 300, 600);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
         Platform.setImplicitExit(false);
-    }
-
-    public ServiceAdapter getAdapter() {
-        return adapter;
     }
 
     public String getHtml() {

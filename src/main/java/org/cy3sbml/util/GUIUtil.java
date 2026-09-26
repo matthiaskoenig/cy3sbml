@@ -9,7 +9,6 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.work.TaskIterator;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
@@ -22,9 +21,9 @@ public class GUIUtil {
 
     /**
      * Loads an SBML example file from the given resource.
-     * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
+     * Needs access to the LoadNetworkFileTaskFactory and the SynchronousTaskManager.
      */
-    public static void loadExampleFromResource(String resource) {
+    public static void loadExampleFromResource(ServiceAdapter adapter, String resource) {
         try (InputStream instream = GUIUtil.class.getResourceAsStream(resource)) {
             if (instream == null) {
                 logger.warn("Could not find example resource: {}", resource);
@@ -37,7 +36,6 @@ public class GUIUtil {
             }
 
             // read the file
-            ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);
         } catch (IOException e) {
@@ -81,10 +79,9 @@ public class GUIUtil {
     }
 
     /**
-     * Open HTML information in external Browser.
+     * Open the given SBase HTML information in external Browser.
      */
-    public static void openSBaseHTMLInBrowser() {
-        String html = WebViewPanel.getInstance().getHtml();
+    public static void openSBaseHTMLInBrowser(String html) {
         // remove export button, exported html cannot be exported
         html = html.replace(EXPORT_HTML, "");
         openHTMLInBrowser(html);

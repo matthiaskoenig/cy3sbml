@@ -88,6 +88,14 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         URLS_ACTION = Collections.unmodifiableSet(set);
     }
 
+    private final ServiceAdapter adapter;
+    private final WebViewPanel webViewPanel;
+
+    public BrowserHyperlinkListener(ServiceAdapter adapter, WebViewPanel webViewPanel) {
+        this.adapter = adapter;
+        this.webViewPanel = webViewPanel;
+    }
+
     @Override
     public boolean hyperlinkUpdate(HyperlinkEvent hyperlinkEvent) {
         logger.info(WebViews.hyperlinkEventToString(hyperlinkEvent));
@@ -105,30 +113,28 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
      *
      * @return cancel action, i.e. is the WebView event further processed
      */
-    private static Boolean processURLEvent(URL url) {
+    private Boolean processURLEvent(URL url) {
         if (url != null) {
             String s = url.toString();
-
-            ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
 
             // Cytoscape Action
             if (URLS_ACTION.contains(s)) {
                 AbstractCyAction action = null;
                 if (s.equals(URL_CHANGESTATE)) {
-                    action = new ChangeStateAction();
+                    action = new ChangeStateAction(webViewPanel);
                 }
                 if (s.equals(URL_IMPORT)) {
                     action = new ImportAction(adapter);
                 }
 
                 if (s.equals(URL_EXAMPLES)) {
-                    action = new ExamplesAction();
+                    action = new ExamplesAction(webViewPanel);
                 }
                 if (s.equals(URL_BIOMODELS)) {
                     action = new BiomodelsAction(adapter);
                 }
                 if (s.equals(URL_HELP)) {
-                    action = new HelpAction();
+                    action = new HelpAction(webViewPanel);
                 }
                 if (s.equals(URL_COFACTOR_NODES)) {
                     CofactorAction.runCofactorAction(adapter);
@@ -164,7 +170,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
             else if (EXAMPLE_SBML.containsKey(s)) {
                 String resource = EXAMPLE_SBML.get(s);
                 logger.info("Loading: " + s);
-                GUIUtil.loadExampleFromResource(resource);
+                GUIUtil.loadExampleFromResource(adapter, resource);
             }
 
             // SBML file
@@ -174,7 +180,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
 
             // SBase HTML
             else if (s.equals(URL_HTML_SBASE)) {
-                GUIUtil.openSBaseHTMLInBrowser();
+                GUIUtil.openSBaseHTMLInBrowser(webViewPanel.getHtml());
             }
 
             // HTML links

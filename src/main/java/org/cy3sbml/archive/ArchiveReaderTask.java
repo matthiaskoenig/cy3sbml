@@ -1,18 +1,10 @@
 package org.cy3sbml.archive;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -146,42 +138,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
-        // read SBMLFiles
-        readFilesFromBundle();
+        // reading the SBML files of the archive is not implemented yet (#116)
 
         return view;
-    }
-
-    /**
-     * Reads secondary file form given bundle.
-     */
-    private void readFilesFromBundle() {
-        // Get all SBML files from bundle
-
-        // not implemented yet (#116)
-        List<Path> paths = new ArrayList<>();
-
-        // read the files
-        logger.info("Reading files from bundle");
-        ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
-        for (Path path : paths) {
-
-            logger.info("Reading: <" + path + ">");
-            try {
-                File tempFile = File.createTempFile("tmp-file", ".xml");
-                tempFile.deleteOnExit();
-
-                Files.copy(path, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                try {
-                    TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
-                    adapter.synchronousTaskManager.execute(iterator);
-                } catch (java.lang.IllegalStateException e) {
-                    logger.warn("No NetworkReader for the given file format");
-                }
-            } catch (IOException e) {
-                logger.error("Could not extract the archive entry: " + path, e);
-            }
-        }
     }
 
     /**

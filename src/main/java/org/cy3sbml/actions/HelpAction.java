@@ -15,11 +15,14 @@ public final class HelpAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
     private static final long serialVersionUID = 1L;
 
+    private final WebViewPanel webViewPanel;
+
     /**
      * Constructor.
      */
-    public HelpAction() {
+    public HelpAction(WebViewPanel webViewPanel) {
         super(HelpAction.class.getSimpleName());
+        this.webViewPanel = webViewPanel;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
         putValue(LARGE_ICON_KEY, icon);
@@ -34,8 +37,7 @@ public final class HelpAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        WebViewPanel vwPanel = WebViewPanel.getInstance();
-        vwPanel.activate();
-        vwPanel.setHelp();
+        webViewPanel.activate();
+        webViewPanel.setHelp();
     }
 }

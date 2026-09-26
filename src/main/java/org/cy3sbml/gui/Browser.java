@@ -25,11 +25,7 @@ public final class Browser extends Region {
     private final WebEngine webEngine;
     private final File appDirectory;
 
-    // single instance for all browsers
-    // avoid concurrency issues
-    private static final BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
-
-    public Browser(File appDirectory) {
+    public Browser(File appDirectory, BrowserHyperlinkListener hyperlinkListener) {
         this.appDirectory = appDirectory;
         webView = new WebView();
         webEngine = webView.getEngine();
@@ -39,7 +35,7 @@ public final class Browser extends Region {
         getChildren().add(webView);
 
         // Listening to hyperlink events
-        WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
+        WebViews.addHyperlinkListener(webView, hyperlinkListener, HyperlinkEvent.EventType.ACTIVATED);
     }
 
     /**

@@ -15,11 +15,14 @@ public final class ExamplesAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ExamplesAction.class);
     private static final long serialVersionUID = 1L;
 
+    private final WebViewPanel webViewPanel;
+
     /**
      * Constructor.
      */
-    public ExamplesAction() {
+    public ExamplesAction(WebViewPanel webViewPanel) {
         super(ExamplesAction.class.getSimpleName());
+        this.webViewPanel = webViewPanel;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_EXAMPLES));
         putValue(LARGE_ICON_KEY, icon);
@@ -34,8 +37,7 @@ public final class ExamplesAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        WebViewPanel vwPanel = WebViewPanel.getInstance();
-        vwPanel.activate();
-        vwPanel.setExamples();
+        webViewPanel.activate();
+        webViewPanel.setExamples();
     }
 }

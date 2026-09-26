@@ -193,7 +193,7 @@ public class CyActivator extends AbstractCyActivator {
             // Cofactor manager
 
             // panels
-            WebViewPanel webViewPanel = WebViewPanel.getInstance(adapter);
+            WebViewPanel webViewPanel = new WebViewPanel(adapter);
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
@@ -204,7 +204,7 @@ public class CyActivator extends AbstractCyActivator {
             // GUI frames
 
             // init actions [100 - 120]
-            ChangeStateAction changeStateAction = new ChangeStateAction();
+            ChangeStateAction changeStateAction = new ChangeStateAction(webViewPanel);
             registerService(bc, changeStateAction, CyAction.class, new Properties());
 
             ArchiveAction archiveAction =
@@ -216,7 +216,7 @@ public class CyActivator extends AbstractCyActivator {
 
             SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
 
-            ExamplesAction examplesAction = new ExamplesAction();
+            ExamplesAction examplesAction = new ExamplesAction(webViewPanel);
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
             CofactorAction cofactorAction = new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory);
@@ -228,7 +228,7 @@ public class CyActivator extends AbstractCyActivator {
 
             // init actions
 
-            HelpAction helpAction = new HelpAction();
+            HelpAction helpAction = new HelpAction(webViewPanel);
             registerService(bc, helpAction, CyAction.class, new Properties());
 
             SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
