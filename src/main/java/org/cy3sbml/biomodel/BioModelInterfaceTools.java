@@ -34,12 +34,12 @@ public class BioModelInterfaceTools {
     }
 
     public static String getHTMLInformationForSimpleModel(Biomodel simpleModel, boolean selected) {
-        String id = simpleModel.getId();
-        String name = simpleModel.getName();
-        String publicationId = simpleModel.getPublicationIdentifier();
-        String submissionIdentifier = simpleModel.getSubmissionIdentifier();
-        String description = simpleModel.getDescription();
-        String authors = simpleModel.getAuthors();
+        String id = simpleModel.id();
+        String name = simpleModel.name();
+        String publicationId = simpleModel.publicationIdentifier();
+        String submissionIdentifier = simpleModel.submissionIdentifier();
+        String description = simpleModel.description();
+        String authors = simpleModel.authors();
         String info;
         if (selected) {
             info = "<table><tr><td bgcolor=\"#339933\">&nbsp;&nbsp;&nbsp;<td><td>";

@@ -676,16 +676,15 @@ public class SBaseHTMLFactory {
      * @return html string
      */
     public static String createSecondaryInformation(Namespace dataType, String identifier) {
-        String html = "";
-        String namespace = dataType.getPrefix();
-
-        if (namespace.equals("uniprot")) {
-            html += getUniprotAccess().html(identifier);
-        } else if (namespace.equals("chebi")) {
-            html += getChebiAccess().html(identifier);
+        String prefix = dataType.getPrefix();
+        if (prefix == null) {
+            return "";
         }
-
-        return html;
+        return switch (prefix) {
+            case "uniprot" -> getUniprotAccess().html(identifier);
+            case "chebi" -> getChebiAccess().html(identifier);
+            default -> "";
+        };
     }
 
     /**

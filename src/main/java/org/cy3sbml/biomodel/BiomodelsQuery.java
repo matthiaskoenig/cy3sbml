@@ -87,7 +87,7 @@ public class BiomodelsQuery {
                         try {
                             String json = getStringBody(response); // Reuse your method
                             JsonNode jsonObject = MAPPER.readTree(json);
-                            return new Biomodel(jsonObject);
+                            return Biomodel.fromJson(jsonObject);
                         } catch (IOException e) {
                             throw new UncheckedIOException("Could not parse biomodel: " + biomodelId, e);
                         }

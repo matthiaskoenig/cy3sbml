@@ -336,17 +336,15 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     static String folderExtension(String path) {
         // "/studies/s1/" and "studies/s1/" both give [studies, s1]
         String[] tokens = StringUtils.strip(path, "/").split("/", -1);
-        if (tokens.length >= 2) {
-            String type = tokens[tokens.length - 2];
-            if (type.equals("studies")) {
-                return "study";
-            } else if (type.equals("models")) {
-                return "model";
-            } else if (type.equals("assays")) {
-                return "assay";
-            }
+        if (tokens.length < 2) {
+            return "folder";
         }
-        return "folder";
+        return switch (tokens[tokens.length - 2]) {
+            case "studies" -> "study";
+            case "models" -> "model";
+            case "assays" -> "assay";
+            default -> "folder";
+        };
     }
 
     /**

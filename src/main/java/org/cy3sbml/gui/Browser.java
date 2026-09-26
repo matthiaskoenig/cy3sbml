@@ -56,24 +56,14 @@ public final class Browser extends Region {
      * Load page in webView;
      */
     public void loadPage(String url) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                webEngine.load(url);
-            }
-        });
+        Platform.runLater(() -> webEngine.load(url));
     }
 
     /**
      * Load HTML text in the webEngine.
      */
     public void loadText(String text) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                webEngine.loadContent(text);
-            }
-        });
+        Platform.runLater(() -> webEngine.loadContent(text));
     }
 
     @Override

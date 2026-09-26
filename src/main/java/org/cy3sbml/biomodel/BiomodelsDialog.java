@@ -2,8 +2,6 @@ package org.cy3sbml.biomodel;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -27,12 +25,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
@@ -144,29 +137,17 @@ public class BiomodelsDialog extends JDialog {
         loadIdsButton.setBounds(170, 821, 102, 25);
         panel.add(loadIdsButton);
 
-        loadIdsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                loadBioModelByIdsAndDisposeDialog();
-            }
-        });
+        loadIdsButton.addActionListener(event -> loadBioModelByIdsAndDisposeDialog());
 
         JButton parseIdsButton = new JButton("Parse Ids");
         parseIdsButton.setToolTipText("Parse BioModel Ids from text.");
         parseIdsButton.setBounds(33, 821, 102, 25);
         panel.add(parseIdsButton);
-        parseIdsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    parseBioModelByIds();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                } catch (ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
+        parseIdsButton.addActionListener(event -> {
+            try {
+                parseBioModelByIds();
+            } catch (IOException | InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -175,14 +156,11 @@ public class BiomodelsDialog extends JDialog {
         searchButton.setToolTipText("Search Biomodels");
         searchButton.setBounds(33, 203, 102, 25);
         panel.add(searchButton);
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    searchBioModels();
-                } catch (IOException | InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
+        searchButton.addActionListener(event -> {
+            try {
+                searchBioModels();
+            } catch (IOException | InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -191,12 +169,7 @@ public class BiomodelsDialog extends JDialog {
         resetButton.setToolTipText("Reset Search Fields");
         resetButton.setBounds(170, 203, 102, 25);
         panel.add(resetButton);
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                resetFields();
-            }
-        });
+        resetButton.addActionListener(event -> resetFields());
         searchBioModel = new SearchBioModel(adapter);
         // Load Selected Models
         loadSelectedButton = new JButton("Load Selected");
@@ -204,12 +177,7 @@ public class BiomodelsDialog extends JDialog {
         loadSelectedButton.setBounds(33, 666, 160, 25);
         loadSelectedButton.setEnabled(false);
         panel.add(loadSelectedButton);
-        loadSelectedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                loadSelectedBioModelsAndDisposeDialog();
-            }
-        });
+        loadSelectedButton.addActionListener(event -> loadSelectedBioModelsAndDisposeDialog());
 
         // ScrollBars
         JScrollPane listScrollPane = new JScrollPane();
@@ -221,20 +189,17 @@ public class BiomodelsDialog extends JDialog {
         biomodelsList = new JList();
         biomodelsList.setToolTipText("Search results, select for information.");
 
-        biomodelsList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent arg0) {
-                // activate load button & get information for selection
-                if (biomodelsList.isSelectionEmpty()) {
-                    loadSelectedButton.setEnabled(false);
-                } else {
-                    loadSelectedButton.setEnabled(true);
-                }
-                try {
-                    handleModelSelectionInModelList();
-                } catch (IOException | InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
+        biomodelsList.addListSelectionListener(event -> {
+            // activate load button & get information for selection
+            if (biomodelsList.isSelectionEmpty()) {
+                loadSelectedButton.setEnabled(false);
+            } else {
+                loadSelectedButton.setEnabled(true);
+            }
+            try {
+                handleModelSelectionInModelList();
+            } catch (IOException | InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -250,14 +215,11 @@ public class BiomodelsDialog extends JDialog {
         infoPane.setContentType("text/html");
         infoPane.setEditable(false);
         infoPane.setText(BioModelDialogText.getInfo());
-        infoPane.addHyperlinkListener(new HyperlinkListener() {
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent evt) {
-                URL url = evt.getURL();
-                if (url != null) {
-                    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                        adapter.openBrowser.openURL(url.toString());
-                    }
+        infoPane.addHyperlinkListener(evt -> {
+            URL url = evt.getURL();
+            if (url != null) {
+                if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    adapter.openBrowser.openURL(url.toString());
                 }
             }
         });
@@ -277,18 +239,8 @@ public class BiomodelsDialog extends JDialog {
         chckbxOR = new JCheckBox("OR");
         chckbxOR.setBounds(188, 172, 61, 23);
         panel.add(chckbxOR);
-        chckbxAND.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                chckbxOR.setSelected(!chckbxAND.isSelected());
-            }
-        });
-        chckbxOR.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent arg0) {
-                chckbxAND.setSelected(!chckbxOR.isSelected());
-            }
-        });
+        chckbxAND.addChangeListener(event -> chckbxOR.setSelected(!chckbxAND.isSelected()));
+        chckbxOR.addChangeListener(event -> chckbxAND.setSelected(!chckbxOR.isSelected()));
         chckbxAND.setSelected(true);
 
         JScrollPane idsScrollPane = new JScrollPane();
@@ -415,12 +367,8 @@ public class BiomodelsDialog extends JDialog {
 
         infoScrollPane.getViewport().setLocation(location);
 
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                infoScrollPane.getVerticalScrollBar().setValue(scrollPosition);
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(
+                () -> infoScrollPane.getVerticalScrollBar().setValue(scrollPosition));
     }
 
     /// ////// SELECT MODELS ////////////

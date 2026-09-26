@@ -74,12 +74,7 @@ public class GUIUtil {
      */
     public static void openURLinExternalBrowser(String url) {
         logger.debug("Open in external webView <" + url + ">");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OpenBrowser.openURL(url);
-            }
-        });
+        SwingUtilities.invokeLater(() -> OpenBrowser.openURL(url));
     }
 
     /**
@@ -112,11 +107,6 @@ public class GUIUtil {
      * Open a given file in browser.
      */
     public static void openFileInBrowser(File temp) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OpenBrowser.openURL("file://" + temp.getAbsolutePath());
-            }
-        });
+        SwingUtilities.invokeLater(() -> OpenBrowser.openURL("file://" + temp.getAbsolutePath()));
     }
 }

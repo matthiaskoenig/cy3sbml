@@ -78,12 +78,9 @@ public class WebViewPanel extends JFXPanel
         setLayout(new BorderLayout());
 
         JFXPanel fxPanel = this;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel);
-                setHelp();
-            }
+        Platform.runLater(() -> {
+            initFX(fxPanel);
+            setHelp();
         });
     }
 
@@ -190,12 +187,7 @@ public class WebViewPanel extends JFXPanel
     public void setText(String text) {
         html = text;
         // Necessary to use invokeLater to handle the Swing GUI update
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                browser.loadText(text);
-            }
-        });
+        SwingUtilities.invokeLater(() -> browser.loadText(text));
     }
 
     /**
