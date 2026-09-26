@@ -58,4 +58,17 @@ class FbcReaderTest {
                 2 * reactions,
                 edgesOfType(network, SBML.INTERACTION_PARAMETER_REACTION).size());
     }
+
+    @Test
+    void readsFbcV1FluxBounds() throws Exception {
+        ConversionContext context = ReaderTestSupport.readResource(
+                "/models/fbc/JSBML_testcase_L3V1_fbcV1.xml", new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        // <fbc:fluxBound fbc:reaction="R16" fbc:operation="greaterEqual" fbc:value="0"/>
+        // <fbc:fluxBound fbc:reaction="R16" fbc:operation="lessEqual" fbc:value="1000"/>
+        CyNode reaction = nodeById(context, "R16");
+        assertEquals("0.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
+        assertEquals("1000.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+    }
 }

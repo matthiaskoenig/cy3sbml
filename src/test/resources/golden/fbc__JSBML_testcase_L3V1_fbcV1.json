@@ -353,6 +353,8 @@
         {
           "cyId" : "meta_R01",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
           "label" : "R01",
           "metaId" : "meta_R01",
           "reversible" : false,
@@ -364,6 +366,8 @@
         {
           "cyId" : "meta_R02",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R02",
           "metaId" : "meta_R02",
           "reversible" : true,
@@ -375,6 +379,8 @@
         {
           "cyId" : "meta_R03",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R03",
           "metaId" : "meta_R03",
           "reversible" : true,
@@ -386,6 +392,8 @@
         {
           "cyId" : "meta_R04",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R04",
           "metaId" : "meta_R04",
           "reversible" : true,
@@ -397,6 +405,8 @@
         {
           "cyId" : "meta_R05",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R05",
           "metaId" : "meta_R05",
           "reversible" : false,
@@ -408,6 +418,8 @@
         {
           "cyId" : "meta_R06",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R06",
           "metaId" : "meta_R06",
           "reversible" : false,
@@ -419,6 +431,8 @@
         {
           "cyId" : "meta_R07",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R07",
           "metaId" : "meta_R07",
           "reversible" : false,
@@ -430,6 +444,8 @@
         {
           "cyId" : "meta_R08",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R08",
           "metaId" : "meta_R08",
           "reversible" : false,
@@ -441,6 +457,8 @@
         {
           "cyId" : "meta_R09",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R09",
           "metaId" : "meta_R09",
           "reversible" : false,
@@ -452,6 +470,8 @@
         {
           "cyId" : "meta_R10",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R10",
           "metaId" : "meta_R10",
           "reversible" : false,
@@ -463,6 +483,8 @@
         {
           "cyId" : "meta_R11",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R11",
           "metaId" : "meta_R11",
           "reversible" : false,
@@ -474,6 +496,8 @@
         {
           "cyId" : "meta_R12",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R12",
           "metaId" : "meta_R12",
           "reversible" : false,
@@ -485,6 +509,8 @@
         {
           "cyId" : "meta_R13",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R13",
           "metaId" : "meta_R13",
           "reversible" : false,
@@ -496,6 +522,8 @@
         {
           "cyId" : "meta_R14",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R14",
           "metaId" : "meta_R14",
           "reversible" : true,
@@ -507,6 +535,8 @@
         {
           "cyId" : "meta_R15",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R15",
           "metaId" : "meta_R15",
           "reversible" : false,
@@ -518,6 +548,8 @@
         {
           "cyId" : "meta_R16",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R16",
           "metaId" : "meta_R16",
           "reversible" : false,
@@ -529,6 +561,8 @@
         {
           "cyId" : "meta_R17",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R17",
           "metaId" : "meta_R17",
           "reversible" : false,
@@ -540,6 +574,8 @@
         {
           "cyId" : "meta_R18",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R18",
           "metaId" : "meta_R18",
           "reversible" : false,
@@ -551,6 +587,8 @@
         {
           "cyId" : "meta_R19",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R19",
           "metaId" : "meta_R19",
           "reversible" : true,
@@ -562,6 +600,8 @@
         {
           "cyId" : "meta_R20",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R20",
           "metaId" : "meta_R20",
           "reversible" : true,
@@ -573,6 +613,8 @@
         {
           "cyId" : "meta_R21",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R21",
           "metaId" : "meta_R21",
           "reversible" : true,
@@ -584,6 +626,8 @@
         {
           "cyId" : "meta_R22",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R22",
           "metaId" : "meta_R22",
           "reversible" : false,
@@ -595,6 +639,8 @@
         {
           "cyId" : "meta_R23",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R23",
           "metaId" : "meta_R23",
           "reversible" : true,
@@ -606,6 +652,8 @@
         {
           "cyId" : "meta_R24",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R24",
           "metaId" : "meta_R24",
           "reversible" : false,
@@ -617,6 +665,8 @@
         {
           "cyId" : "meta_R25",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R25",
           "metaId" : "meta_R25",
           "reversible" : false,
@@ -628,7 +678,9 @@
         {
           "cyId" : "meta_R26",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
           "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R26",
           "metaId" : "meta_R26",
           "reversible" : false,
@@ -2144,6 +2196,8 @@
         {
           "cyId" : "meta_R01",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
           "label" : "R01",
           "metaId" : "meta_R01",
           "name" : "R01",
@@ -2156,6 +2210,8 @@
         {
           "cyId" : "meta_R02",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R02",
           "metaId" : "meta_R02",
           "name" : "R02",
@@ -2168,6 +2224,8 @@
         {
           "cyId" : "meta_R03",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R03",
           "metaId" : "meta_R03",
           "name" : "R03",
@@ -2180,6 +2238,8 @@
         {
           "cyId" : "meta_R04",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R04",
           "metaId" : "meta_R04",
           "name" : "R04",
@@ -2192,6 +2252,8 @@
         {
           "cyId" : "meta_R05",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R05",
           "metaId" : "meta_R05",
           "name" : "R05",
@@ -2204,6 +2266,8 @@
         {
           "cyId" : "meta_R06",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R06",
           "metaId" : "meta_R06",
           "name" : "R06",
@@ -2216,6 +2280,8 @@
         {
           "cyId" : "meta_R07",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R07",
           "metaId" : "meta_R07",
           "name" : "R07",
@@ -2228,6 +2294,8 @@
         {
           "cyId" : "meta_R08",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R08",
           "metaId" : "meta_R08",
           "name" : "R08",
@@ -2240,6 +2308,8 @@
         {
           "cyId" : "meta_R09",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R09",
           "metaId" : "meta_R09",
           "name" : "R09",
@@ -2252,6 +2322,8 @@
         {
           "cyId" : "meta_R10",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R10",
           "metaId" : "meta_R10",
           "name" : "R10",
@@ -2264,6 +2336,8 @@
         {
           "cyId" : "meta_R11",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R11",
           "metaId" : "meta_R11",
           "name" : "R11",
@@ -2276,6 +2350,8 @@
         {
           "cyId" : "meta_R12",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R12",
           "metaId" : "meta_R12",
           "name" : "R12",
@@ -2288,6 +2364,8 @@
         {
           "cyId" : "meta_R13",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R13",
           "metaId" : "meta_R13",
           "name" : "R13",
@@ -2300,6 +2378,8 @@
         {
           "cyId" : "meta_R14",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R14",
           "metaId" : "meta_R14",
           "name" : "R14",
@@ -2312,6 +2392,8 @@
         {
           "cyId" : "meta_R15",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R15",
           "metaId" : "meta_R15",
           "name" : "R15",
@@ -2324,6 +2406,8 @@
         {
           "cyId" : "meta_R16",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R16",
           "metaId" : "meta_R16",
           "name" : "R16",
@@ -2336,6 +2420,8 @@
         {
           "cyId" : "meta_R17",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R17",
           "metaId" : "meta_R17",
           "name" : "R17",
@@ -2348,6 +2434,8 @@
         {
           "cyId" : "meta_R18",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R18",
           "metaId" : "meta_R18",
           "name" : "R18",
@@ -2360,6 +2448,8 @@
         {
           "cyId" : "meta_R19",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R19",
           "metaId" : "meta_R19",
           "name" : "R19",
@@ -2372,6 +2462,8 @@
         {
           "cyId" : "meta_R20",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R20",
           "metaId" : "meta_R20",
           "name" : "R20",
@@ -2384,6 +2476,8 @@
         {
           "cyId" : "meta_R21",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R21",
           "metaId" : "meta_R21",
           "name" : "R21",
@@ -2396,6 +2490,8 @@
         {
           "cyId" : "meta_R22",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R22",
           "metaId" : "meta_R22",
           "name" : "R22",
@@ -2408,6 +2504,8 @@
         {
           "cyId" : "meta_R23",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R23",
           "metaId" : "meta_R23",
           "name" : "R23",
@@ -2420,6 +2518,8 @@
         {
           "cyId" : "meta_R24",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R24",
           "metaId" : "meta_R24",
           "name" : "R24",
@@ -2432,6 +2532,8 @@
         {
           "cyId" : "meta_R25",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R25",
           "metaId" : "meta_R25",
           "name" : "R25",
@@ -2444,7 +2546,9 @@
         {
           "cyId" : "meta_R26",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
           "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R26",
           "metaId" : "meta_R26",
           "name" : "R26",
@@ -3807,6 +3911,8 @@
         {
           "cyId" : "meta_R01",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
           "label" : "R01",
           "metaId" : "meta_R01",
           "name" : "R01",
@@ -3819,6 +3925,8 @@
         {
           "cyId" : "meta_R02",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R02",
           "metaId" : "meta_R02",
           "name" : "R02",
@@ -3831,6 +3939,8 @@
         {
           "cyId" : "meta_R03",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R03",
           "metaId" : "meta_R03",
           "name" : "R03",
@@ -3843,6 +3953,8 @@
         {
           "cyId" : "meta_R04",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R04",
           "metaId" : "meta_R04",
           "name" : "R04",
@@ -3855,6 +3967,8 @@
         {
           "cyId" : "meta_R05",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R05",
           "metaId" : "meta_R05",
           "name" : "R05",
@@ -3867,6 +3981,8 @@
         {
           "cyId" : "meta_R06",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R06",
           "metaId" : "meta_R06",
           "name" : "R06",
@@ -3879,6 +3995,8 @@
         {
           "cyId" : "meta_R07",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R07",
           "metaId" : "meta_R07",
           "name" : "R07",
@@ -3891,6 +4009,8 @@
         {
           "cyId" : "meta_R08",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R08",
           "metaId" : "meta_R08",
           "name" : "R08",
@@ -3903,6 +4023,8 @@
         {
           "cyId" : "meta_R09",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R09",
           "metaId" : "meta_R09",
           "name" : "R09",
@@ -3915,6 +4037,8 @@
         {
           "cyId" : "meta_R10",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R10",
           "metaId" : "meta_R10",
           "name" : "R10",
@@ -3927,6 +4051,8 @@
         {
           "cyId" : "meta_R11",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R11",
           "metaId" : "meta_R11",
           "name" : "R11",
@@ -3939,6 +4065,8 @@
         {
           "cyId" : "meta_R12",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R12",
           "metaId" : "meta_R12",
           "name" : "R12",
@@ -3951,6 +4079,8 @@
         {
           "cyId" : "meta_R13",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R13",
           "metaId" : "meta_R13",
           "name" : "R13",
@@ -3963,6 +4093,8 @@
         {
           "cyId" : "meta_R14",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R14",
           "metaId" : "meta_R14",
           "name" : "R14",
@@ -3975,6 +4107,8 @@
         {
           "cyId" : "meta_R15",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R15",
           "metaId" : "meta_R15",
           "name" : "R15",
@@ -3987,6 +4121,8 @@
         {
           "cyId" : "meta_R16",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R16",
           "metaId" : "meta_R16",
           "name" : "R16",
@@ -3999,6 +4135,8 @@
         {
           "cyId" : "meta_R17",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R17",
           "metaId" : "meta_R17",
           "name" : "R17",
@@ -4011,6 +4149,8 @@
         {
           "cyId" : "meta_R18",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R18",
           "metaId" : "meta_R18",
           "name" : "R18",
@@ -4023,6 +4163,8 @@
         {
           "cyId" : "meta_R19",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R19",
           "metaId" : "meta_R19",
           "name" : "R19",
@@ -4035,6 +4177,8 @@
         {
           "cyId" : "meta_R20",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R20",
           "metaId" : "meta_R20",
           "name" : "R20",
@@ -4047,6 +4191,8 @@
         {
           "cyId" : "meta_R21",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R21",
           "metaId" : "meta_R21",
           "name" : "R21",
@@ -4059,6 +4205,8 @@
         {
           "cyId" : "meta_R22",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R22",
           "metaId" : "meta_R22",
           "name" : "R22",
@@ -4071,6 +4219,8 @@
         {
           "cyId" : "meta_R23",
           "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R23",
           "metaId" : "meta_R23",
           "name" : "R23",
@@ -4083,6 +4233,8 @@
         {
           "cyId" : "meta_R24",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R24",
           "metaId" : "meta_R24",
           "name" : "R24",
@@ -4095,6 +4247,8 @@
         {
           "cyId" : "meta_R25",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R25",
           "metaId" : "meta_R25",
           "name" : "R25",
@@ -4107,7 +4261,9 @@
         {
           "cyId" : "meta_R26",
           "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
           "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
           "label" : "R26",
           "metaId" : "meta_R26",
           "name" : "R26",

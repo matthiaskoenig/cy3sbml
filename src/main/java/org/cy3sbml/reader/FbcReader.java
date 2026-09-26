@@ -173,24 +173,23 @@ final class FbcReader implements PackageReader {
      * of the reaction in fbc v2.
      */
     // reason: FluxBound is deprecated in JSBML, but needed to read fbc v1 models.
-    // reason: real bug, fixed with golden snapshot update in Task 3.2 (the operation String
-    // is compared to a FluxBound.Operation, so the flux bounds are never set); remove the
-    // EqualsIncompatibleType suppression there.
-    @SuppressWarnings({"deprecation", "EqualsIncompatibleType"})
+    @SuppressWarnings("deprecation")
     private static void readFluxBounds(ConversionContext context, FBCModelPlugin fbcModel) {
         CyNetwork network = context.network();
         for (FluxBound fluxBound : fbcModel.getListOfFluxBounds()) {
             Reaction reaction = fluxBound.getReactionInstance();
             CyNode n = context.nodeByMetaId(reaction.getMetaId()).orElse(null);
-            String operation = fluxBound.getOperation().toString();
-            Double value = fluxBound.getValue();
-            if (operation.equals(FluxBound.Operation.EQUAL)) {
-                AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value.toString(), String.class);
-                AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value.toString(), String.class);
-            } else if (operation.equals(FluxBound.Operation.GREATER_EQUAL)) {
-                AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value.toString(), String.class);
-            } else if (operation.equals(FluxBound.Operation.LESS_EQUAL)) {
-                AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value.toString(), String.class);
+            FluxBound.Operation operation = fluxBound.getOperation();
+            String value = Double.toString(fluxBound.getValue());
+            switch (operation) {
+                case EQUAL -> {
+                    AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value, String.class);
+                    AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value, String.class);
+                }
+                case GREATER_EQUAL ->
+                    AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_FLUX_BOUND, value, String.class);
+                case LESS_EQUAL -> AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_FLUX_BOUND, value, String.class);
+                default -> logger.warn("Unsupported operation of fbc v1 FluxBound: {}", fluxBound);
             }
         }
     }

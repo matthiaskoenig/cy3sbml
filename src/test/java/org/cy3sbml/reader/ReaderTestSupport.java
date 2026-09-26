@@ -26,7 +26,13 @@ final class ReaderTestSupport {
      * Reads the unit test model with the given file name with the readers in the given order.
      */
     static ConversionContext read(String fileName, PackageReader... readers) throws Exception {
-        String resource = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + fileName;
+        return readResource(TestUtils.UNITTESTS_RESOURCE_PATH + "/" + fileName, readers);
+    }
+
+    /**
+     * Reads the model resource with the readers in the given order.
+     */
+    static ConversionContext readResource(String resource, PackageReader... readers) throws Exception {
         SBMLDocument document;
         try (InputStream stream = ReaderTestSupport.class.getResourceAsStream(resource)) {
             assertNotNull(stream, "Resource not found: " + resource);
