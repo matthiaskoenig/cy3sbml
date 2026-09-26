@@ -25,8 +25,8 @@ public final class ChebiAccess {
             "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300";
 
     private final HttpJson http;
-    private final MemoryCache<String, ChebiCompound> cache = new MemoryCache<>(5000);
-    private final MemoryCache<String, String> htmlCache = new MemoryCache<>(5000);
+    private final MemoryCache<String, ChebiCompound> compoundCache = new MemoryCache<>(5000);
+    private final MemoryCache<String, String> structureCache = new MemoryCache<>(5000);
 
     public ChebiAccess(HttpJson http) {
         this.http = http;
@@ -35,14 +35,29 @@ public final class ChebiAccess {
     /**
      * Gets the ChEBI compound for a given id, e.g. {@code CHEBI:15422}.
      * Returns empty if the compound could not be retrieved or parsed.
+     * Only successful lookups are cached, so a failure is retried on the
+     * next call rather than stuck for the rest of the session.
      */
     public Optional<ChebiCompound> compound(String chebiId) {
-        return cache.get(chebiId, this::lookup);
+        return compoundCache.get(chebiId, this::lookupCompound);
     }
 
-    private Optional<ChebiCompound> lookup(String chebiId) {
+    private Optional<ChebiCompound> lookupCompound(String chebiId) {
         URI uri = URI.create(String.format(COMPOUND_URL, chebiNumber(chebiId)));
         return http.get(uri).flatMap(json -> parseCompound(json, chebiId));
+    }
+
+    /**
+     * Gets the structure image (SVG) for a given ChEBI id.
+     * Only successful lookups are cached, for the same reason as {@link #compound}.
+     */
+    private Optional<String> structure(String chebiId) {
+        return structureCache.get(chebiId, this::lookupStructure);
+    }
+
+    private Optional<String> lookupStructure(String chebiId) {
+        URI uri = URI.create(String.format(STRUCTURE_URL, chebiNumber(chebiId)));
+        return http.getText(uri);
     }
 
     private static Optional<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
@@ -65,14 +80,11 @@ public final class ChebiAccess {
 
     /**
      * Creates the secondary-information HTML fragment for a ChEBI id,
-     * for display in the SBase details panel. Cached, since building it
-     * fetches the structure image in addition to the compound.
+     * for display in the SBase details panel. Composed fresh on every call
+     * from the (independently cached) compound and structure lookups, so a
+     * partial failure (e.g. while offline) is retried rather than cached.
      */
     public String html(String chebiId) {
-        return htmlCache.get(chebiId, id -> Optional.of(buildHtml(id))).orElse("");
-    }
-
-    private String buildHtml(String chebiId) {
         StringBuilder html = new StringBuilder();
 
         Optional<ChebiCompound> optionalCompound = compound(chebiId);
@@ -90,8 +102,7 @@ public final class ChebiAccess {
             }
         }
 
-        String structureUri = String.format(STRUCTURE_URL, chebiNumber(chebiId));
-        Optional<String> svg = http.getText(URI.create(structureUri));
+        Optional<String> svg = structure(chebiId);
         svg.ifPresent(s -> html.append(String.format(
                 "<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n",
                 chebiId, s)));
