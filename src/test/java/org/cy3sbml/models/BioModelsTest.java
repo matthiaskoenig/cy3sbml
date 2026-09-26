@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
@@ -17,6 +18,7 @@ import org.mockito.MockitoAnnotations;
  * <p>
  * Retrieved on 2024-01-16, 1072 curated models
  */
+@Tag("models")
 public class BioModelsTest {
 
     @Mock

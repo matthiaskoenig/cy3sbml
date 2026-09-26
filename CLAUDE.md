@@ -12,14 +12,15 @@ Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `Web
 
 ```bash
 ./mvnw clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar
-./mvnw test                               # fast tests (long-running model tests excluded)
+./mvnw test                               # fast tests (network and models tests excluded)
 ./mvnw test -Dtest=IOUtilTest             # single test class
 ./mvnw test -Dtest=IOUtilTest#testName    # single test method
-./mvnw clean install -Dmodels.test.excludes=""  # all tests incl. model suites (slow, needs network)
+./mvnw test -Pall-tests                   # all tests incl. network and model suites (slow, needs network)
+./mvnw test -Dtest.groups=network -Dtest.excludedGroups=  # only the network tests
 ```
 
-- Tests are JUnit 5 + Mockito.
-- `models.test.excludes` in `pom.xml` excludes `**/models/*Test.java` (SBML Test Suite, BioModels, BiGG) plus `OLSClientTest` and `BioModelInterfaceTest`, which hit web services. Test models live in `src/test/resources/models/`.
+- Tests are JUnit 6 + Mockito.
+- Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`.
 - `src/test/java/org/cy3sbml/oven/` holds experimental, non-regular tests.
 - Java formatting uses the IntelliJ formatter (see pre-commit hook in `docs/develop.md`).
 

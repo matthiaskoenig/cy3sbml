@@ -17,11 +17,12 @@
             (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
             22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
         <jsbml.version>1.7-20230103-22659a76</jsbml.version>
-        <!-- Exclude the long-running model tests. For all tests run
-            mvn clean install -Dmodels.test.excludes=""
-        -->
-        <models.test.excludes>**/models/*Test.java, **/biomodel/BioModelInterfaceTest.java
-        </models.test.excludes>
+        <!-- JUnit tag-based test selection. By default the "network" (hits web
+            services) and "models" (long-running model test suites) tagged tests
+            are excluded. Run with -Pall-tests for everything, or select the
+            network tests with -Dtest.groups=network -Dtest.excludedGroups= -->
+        <test.excludedGroups>network,models</test.excludedGroups>
+        <test.groups></test.groups>
     </properties>
 
     <groupId>org.cysbml</groupId>
@@ -101,10 +102,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
-                    <excludes>
-                        <exclude>${models.test.excludes}</exclude>
-                    </excludes>
-                    <excludedGroups>network</excludedGroups>
+                    <groups>${test.groups}</groups>
+                    <excludedGroups>${test.excludedGroups}</excludedGroups>
                 </configuration>
 
             </plugin>
@@ -632,4 +631,14 @@
 
 
     </dependencies>
+
+    <profiles>
+        <!-- Run all tests, including the network and models tagged tests. -->
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <test.excludedGroups></test.excludedGroups>
+            </properties>
+        </profile>
+    </profiles>
 </project>
