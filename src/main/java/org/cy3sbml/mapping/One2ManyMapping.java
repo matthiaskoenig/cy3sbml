@@ -4,10 +4,20 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * One to many mapping class.
+ * <p>
+ * Reached from both the Cytoscape event/EDT thread (writers, via SBMLManager and
+ * CofactorManager) and the WebViewPanel's background panel-update thread (readers), so
+ * every method is {@code synchronized} on the instance and the collection-returning
+ * methods hand out defensive copies rather than live views, so a caller can iterate the
+ * result without holding the lock and without racing a concurrent writer.
+ * <p>
+ * The synchronization is added purely on the methods; the serialized field ({@code map})
+ * is unchanged so session files serialized by an older version can still be deserialized.
  */
 public class One2ManyMapping<T1, T2> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -17,57 +27,54 @@ public class One2ManyMapping<T1, T2> implements Serializable {
         map = new HashMap<>();
     }
 
-    public boolean containsKey(T1 key) {
+    public synchronized boolean containsKey(T1 key) {
         return map.containsKey(key);
     }
 
-    public Set<T1> keySet() {
-        return map.keySet();
+    public synchronized Set<T1> keySet() {
+        return new HashSet<>(map.keySet());
     }
 
-    public boolean put(T1 key, T2 newValue) {
+    public synchronized boolean put(T1 key, T2 newValue) {
         return map.computeIfAbsent(key, k -> new HashSet<>()).add(newValue);
     }
 
-    public void remove(T1 key) {
+    public synchronized void remove(T1 key) {
         map.remove(key);
     }
 
-    public Set<T2> getValues(T1 key) {
-        Set<T2> values;
-        if (containsKey(key)) {
-            values = map.get(key);
-        } else {
-            values = new HashSet<>();
-        }
-        return values;
+    public synchronized Set<T2> getValues(T1 key) {
+        HashSet<T2> values = map.get(key);
+        return values == null ? new HashSet<>() : new HashSet<>(values);
     }
 
-    public Set<T2> getValues(Collection<T1> keys) {
+    public synchronized Set<T2> getValues(Collection<T1> keys) {
         Set<T2> values = new HashSet<>();
         for (T1 key : keys) {
-            if (containsKey(key)) {
-                values.addAll(map.get(key));
+            HashSet<T2> keyValues = map.get(key);
+            if (keyValues != null) {
+                values.addAll(keyValues);
             }
         }
         return values;
     }
 
-    public One2ManyMapping<T2, T1> createReverseMapping() {
+    public synchronized One2ManyMapping<T2, T1> createReverseMapping() {
         One2ManyMapping<T2, T1> reverseMapping = new One2ManyMapping<>();
-        for (T1 key : this.keySet()) {
-            for (T2 value : this.getValues(key)) {
-                reverseMapping.put(value, key);
+        for (Map.Entry<T1, HashSet<T2>> entry : map.entrySet()) {
+            for (T2 value : entry.getValue()) {
+                reverseMapping.put(value, entry.getKey());
             }
         }
         return reverseMapping;
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         String info = "*** OneToManyMapping ***\n";
-        for (T1 key : keySet()) {
-            info += String.format("%s -> %s\n", key.toString(), map.get(key).toString());
+        for (Map.Entry<T1, HashSet<T2>> entry : map.entrySet()) {
+            info += String.format(
+                    "%s -> %s\n", entry.getKey().toString(), entry.getValue().toString());
         }
         info += "************************";
         return info;

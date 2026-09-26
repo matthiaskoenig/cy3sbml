@@ -48,14 +48,31 @@ public class SearchBioModel implements TaskObserver {
         modelIds = Collections.emptyList();
     }
 
+    /**
+     * Returns the current snapshot of model ids. Safe to iterate: a concurrent search
+     * result replaces the field with a new list rather than mutating this one.
+     */
     public List<String> getModelIds() {
         return modelIds;
     }
 
+    /**
+     * Returns the model id at the given index in the current snapshot.
+     * <p>
+     * Do not call this in a loop together with {@link #getSize()}: a concurrent search
+     * result may replace the underlying list between the two calls, so the index could be
+     * out of bounds for the list {@link #getSize()} was read from. Call
+     * {@link #getModelIds()} once instead and iterate over the returned snapshot.
+     */
     public String getModelId(int index) {
         return modelIds.get(index);
     }
 
+    /**
+     * Returns the number of model ids in the current snapshot.
+     * <p>
+     * Do not call this in a loop together with {@link #getModelId(int)}; see there.
+     */
     public int getSize() {
         return modelIds.size();
     }

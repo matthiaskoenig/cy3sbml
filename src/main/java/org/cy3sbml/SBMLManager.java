@@ -32,10 +32,18 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     /*
      * currentSUID and network2sbml are written from Cytoscape event handlers
      * (network/selection listeners, session restore) and read from the WebViewPanel's
-     * background panel-update thread (PanelUpdater, run on its own Thread). There is no
-     * compound invariant across the two fields that a reader depends on, so a plain
-     * volatile reference on each field is enough to make a writer's update visible to
-     * that reader; it does not make a read-then-write sequence atomic.
+     * background panel-update thread (PanelUpdater, run on its own Thread).
+     *
+     * currentSUID is only ever replaced wholesale (never mutated in place), so volatile
+     * is enough to make a writer's new value visible to the reader thread.
+     *
+     * network2sbml is also replaced wholesale on session restore, so it needs the same
+     * volatile reference; but addSBMLForNetwork/removeSBMLForNetwork mutate the SAME
+     * Network2SBMLMapper instance in place while a reader may be querying it concurrently.
+     * That mutation safety is provided by Network2SBMLMapper itself (its methods are
+     * synchronized, and the One2ManyMapping instances it hands out are synchronized too),
+     * not by this field's volatile modifier. volatile here only guarantees visibility of a
+     * full mapper replacement, not safety of in-place mutation of the mapper's contents.
      */
     private volatile Long currentSUID;
     private volatile Network2SBMLMapper network2sbml;

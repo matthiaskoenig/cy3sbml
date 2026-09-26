@@ -2,6 +2,7 @@ package org.cy3sbml.mapping;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import org.sbml.jsbml.SBMLDocument;
@@ -19,6 +20,15 @@ import org.slf4j.LoggerFactory;
  * The SBMLReaderTaskFactory creates multiple networks with the mapping between networks
  * and SBMLDocuments managed by the SBMLManager which updates this mapper.
  * The mappings should only be changed via the SBMLManager and not directly.
+ * <p>
+ * Reached from both the Cytoscape event/EDT thread (put/removeDocument, called through
+ * SBMLManager) and the WebViewPanel's background panel-update thread (reads, also through
+ * SBMLManager), so every method is {@code synchronized} on the instance. Methods that expose
+ * the outer map or its keys ({@link #getDocumentMap()}, {@link #keySet()}) return defensive
+ * copies so a caller can iterate the result without racing a concurrent writer; the contained
+ * {@link One2ManyMapping} instances are thread-safe on their own and are handed out live.
+ * The serialized fields are unchanged, so session files written by an older version still
+ * deserialize.
  */
 public class Network2SBMLMapper implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Network2SBMLMapper.class);
@@ -43,7 +53,7 @@ public class Network2SBMLMapper implements Serializable {
      * The SBMLDocument is stored with the SBML id to SUID (CyNode) mapping.
      * A reverse mapping from SUIDs to SBML ids is created in the process.
      */
-    public void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping) {
+    public synchronized void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping) {
         logger.debug("Network put: " + rootSUID.toString());
         documentMap.put(rootSUID, doc);
         sbase2nodeMappingMap.put(rootSUID, mapping);
@@ -56,7 +66,7 @@ public class Network2SBMLMapper implements Serializable {
      *
      * @param rootSUID root network SUID
      */
-    public void removeDocument(Long rootSUID) {
+    public synchronized void removeDocument(Long rootSUID) {
         logger.debug("Network remove:" + rootSUID.toString());
         documentMap.remove(rootSUID);
         sbase2nodeMappingMap.remove(rootSUID);
@@ -69,7 +79,7 @@ public class Network2SBMLMapper implements Serializable {
      * @param rootSUID root network SUID
      * @return SBMLDocument or null
      */
-    public SBMLDocument getDocument(Long rootSUID) {
+    public synchronized SBMLDocument getDocument(Long rootSUID) {
         SBMLDocument doc = null;
         if (rootSUID == null) {
             logger.debug("No SUID set. No SBMLDocument can be retrieved !");
@@ -86,24 +96,28 @@ public class Network2SBMLMapper implements Serializable {
      *
      * @param rootSUID root network SUID
      */
-    public boolean containsDocument(Long rootSUID) {
+    public synchronized boolean containsDocument(Long rootSUID) {
         return documentMap.containsKey(rootSUID);
     }
 
     /**
      * Get all rootNetwork SUIDs which have an association SBMLDocument.
+     * <p>
+     * Returns a defensive copy so the caller can iterate it without racing a concurrent writer.
      *
      * @return Set of root network SUIDs
      */
-    public Set<Long> keySet() {
-        return documentMap.keySet();
+    public synchronized Set<Long> keySet() {
+        return new HashSet<>(documentMap.keySet());
     }
 
     /**
      * Get DocumentMap.
+     * <p>
+     * Returns a defensive copy so the caller can iterate it without racing a concurrent writer.
      */
-    public Map<Long, SBMLDocument> getDocumentMap() {
-        return documentMap;
+    public synchronized Map<Long, SBMLDocument> getDocumentMap() {
+        return new HashMap<>(documentMap);
     }
 
     /**
@@ -111,7 +125,7 @@ public class Network2SBMLMapper implements Serializable {
      *
      * @param rootSUID root network SUID
      */
-    public One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID) {
+    public synchronized One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID) {
         if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
@@ -124,7 +138,7 @@ public class Network2SBMLMapper implements Serializable {
      *
      * @param rootSUID root network SUID
      */
-    public One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID) {
+    public synchronized One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID) {
         if (rootSUID == null) {
             logger.warn("No current SUID set. Mapping can not be retrieved !");
             return null;
@@ -136,7 +150,7 @@ public class Network2SBMLMapper implements Serializable {
      * Creates information string.
      */
     @Override
-    public String toString() {
+    public synchronized String toString() {
         String info = "\n--- SBML2NetworkMapping ---\n";
         for (Long key : documentMap.keySet()) {
             info += String.format(
