@@ -53,7 +53,8 @@ public final class OlsClient {
         }
         String prefix = matcher.group(1);
         String local = matcher.group(2);
-        String oboId = prefix.toUpperCase(Locale.ROOT) + ":" + local;
+        // OBO prefixes are case sensitive in OLS (e.g. NCBITaxon, VariO)
+        String oboId = prefix + ":" + local;
 
         URI uri = URI.create(OLS_BASE_URL + prefix.toLowerCase(Locale.ROOT) + "/terms?obo_id="
                 + URLEncoder.encode(oboId, StandardCharsets.UTF_8));

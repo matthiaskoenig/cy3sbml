@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.cy3sbml.util.HttpJson;
 import org.junit.jupiter.api.Tag;
@@ -77,6 +79,23 @@ class OlsClientTest {
                 """;
         var term = new OlsClient(fixtureFromJson(json)).term("GO:0042752").orElseThrow();
         assertEquals("go", term.ontologyName());
+    }
+
+    @Test
+    void keepsTheCaseOfTheOboPrefix() {
+        List<URI> requested = new ArrayList<>();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+                requested.add(uri);
+                return Optional.empty();
+            }
+        };
+        new OlsClient(http).term("NCBITaxon_7787");
+        assertEquals(
+                List.of(URI.create(
+                        "https://www.ebi.ac.uk/ols4/api/ontologies/ncbitaxon/terms?obo_id=NCBITaxon%3A7787")),
+                requested);
     }
 
     @Test
