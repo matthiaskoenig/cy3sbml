@@ -35,18 +35,33 @@ public class PanelUpdater implements Runnable {
     private final CyNetwork network;
     private final SBMLManager sbmlManager;
     private final SBaseHTMLFactory htmlFactory;
+    private final RenderCoalescer renderCoalescer;
 
-    public PanelUpdater(InfoPanel panel, CyNetwork network, SBMLManager sbmlManager, SBaseHTMLFactory htmlFactory) {
+    public PanelUpdater(
+            InfoPanel panel,
+            CyNetwork network,
+            SBMLManager sbmlManager,
+            SBaseHTMLFactory htmlFactory,
+            RenderCoalescer renderCoalescer) {
         this.panel = panel;
         this.network = network;
         this.sbmlManager = sbmlManager;
         this.htmlFactory = htmlFactory;
+        this.renderCoalescer = renderCoalescer;
     }
 
     /**
      * Here the node information update is performed.
      * Depending of the kind of network different updates are performed
      * If multiple nodes are selected only the information for the first node is displayed.
+     * <p>
+     * A request that resolves to the very same target (the same {@code SBMLDocument} or
+     * {@code SBase} instance, or the same fixed message) as the last one actually
+     * rendered is skipped via {@link #renderCoalescer}: several Cytoscape events fired
+     * while loading a single model can resolve to the same thing to display (e.g. a
+     * model's several subnetworks, taken current in turn, share one {@code SBMLDocument}),
+     * and re-rendering it every time would re-run the OLS/UniProt/ChEBI lookups and flicker
+     * the WebView for no visible change.
      */
     @Override
     public void run() {
@@ -58,7 +73,9 @@ public class PanelUpdater implements Runnable {
             updateSBMLPanel(document);
         } else {
             logger.debug("No SBMLDocument for current network: " + network);
-            panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML));
+            if (renderCoalescer.accept(TEXT_NO_SBML)) {
+                panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML));
+            }
         }
     }
 
@@ -82,12 +99,14 @@ public class PanelUpdater implements Runnable {
             SBase sbase = sbmlManager.getSBaseByCyId(cyId);
 
             if (sbase != null) {
-                panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
-                panel.showSBaseInfo(sbase);
-            } else {
+                if (renderCoalescer.accept(sbase)) {
+                    panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
+                    panel.showSBaseInfo(sbase);
+                }
+            } else if (renderCoalescer.accept(TEXT_NO_SBML_NODE)) {
                 panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML_NODE));
             }
-        } else {
+        } else if (renderCoalescer.accept(document)) {
             // show document/model information
             panel.showSBaseInfo(document);
         }

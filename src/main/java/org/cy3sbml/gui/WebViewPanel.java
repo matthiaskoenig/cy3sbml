@@ -52,6 +52,7 @@ public final class WebViewPanel extends JFXPanel
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
+    private final RenderCoalescer renderCoalescer = new RenderCoalescer();
     private static final int PREFERRED_WIDTH = 400;
     private static final int PREFERRED_HEIGHT = 600;
     private Browser browser;
@@ -179,6 +180,9 @@ public final class WebViewPanel extends JFXPanel
      * once it is requested, and runs the two in the order they were requested.
      */
     public void setHelp() {
+        // the help page replaces whatever was last rendered, so the next real render
+        // (even for the same document/SBase as before) must not be coalesced away
+        renderCoalescer.reset();
         renderExecutor.submit(() -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE));
     }
 
@@ -317,7 +321,7 @@ public final class WebViewPanel extends JFXPanel
 
         // Update the information on the render executor; submitting cancels
         // whatever render is still pending or running for a previous selection.
-        PanelUpdater updater = new PanelUpdater(this, network, sbmlManager, htmlFactory);
+        PanelUpdater updater = new PanelUpdater(this, network, sbmlManager, htmlFactory, renderCoalescer);
         renderExecutor.submit(updater);
     }
 
