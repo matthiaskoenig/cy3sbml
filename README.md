@@ -8,10 +8,11 @@
 
 `cy3sbml` is a [Cytoscape 3](https://cytoscape.org) app that imports SBML models as networks, using
 [JSBML](https://github.com/sbmlteam/jsbml) to support all SBML levels and versions plus the `qual`, `comp`,
-`fbc`, `groups` and `layout` packages. It renders species, reactions, kinetics and annotations as Cytoscape
-nodes, edges and styles, and provides one-click links to [BioModels](https://www.ebi.ac.uk/biomodels/),
+`fbc` and `groups` packages. It renders species, reactions, kinetics and annotations as Cytoscape
+nodes, edges and styles, and provides one-click links to [BioModels](https://www.biomodels.org),
 [identifiers.org](https://identifiers.org/) and the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/index).
-Models can be imported directly from files, COMBINE archives, or the BioModels database.
+Models can be imported from SBML files or searched and imported from the BioModels database.
+The SBML `layout` package and COMBINE archives (OMEX) are not supported yet.
 
 ![cy3sbml in Cytoscape: the base network of the fbc model mini_textbook with the information of the reaction R_PFK](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshots/main-window-fbc-model.png)
 
