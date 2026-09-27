@@ -28,6 +28,10 @@ class HttpJsonTest {
         server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
         server.createContext("/malformed", exchange -> respond(exchange, 200, "{not json"));
         server.createContext("/error", exchange -> respond(exchange, 500, ""));
+        server.createContext("/empty", exchange -> {
+            exchange.sendResponseHeaders(200, -1);
+            exchange.close();
+        });
         server.createContext("/notfound", exchange -> respond(exchange, 404, ""));
         server.createContext("/badrequest", exchange -> respond(exchange, 400, ""));
         server.createContext("/gone", exchange -> respond(exchange, 410, ""));
@@ -91,6 +95,15 @@ class HttpJsonTest {
         // intercepting proxy answering with an HTML page) is more likely a transient
         // network-path issue than a deterministic one for this URI
         assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/malformed")).status());
+    }
+
+    @Test
+    void fetchTreatsAnEmptyBodyAsTransient() throws Exception {
+        // a 2xx response without a body carries no JSON document; like a malformed
+        // body it is treated as a transient error and not cached
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/empty")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetchAsync(uri("/empty")).get().status());
+        assertTrue(httpJson.get(uri("/empty")).isEmpty());
     }
 
     @Test

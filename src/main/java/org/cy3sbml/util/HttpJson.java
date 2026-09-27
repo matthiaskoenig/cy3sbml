@@ -327,7 +327,14 @@ public class HttpJson {
 
     private FetchResult<JsonNode> parse(URI uri, String body) {
         try {
-            return FetchResult.found(mapper.readTree(body));
+            JsonNode node = mapper.readTree(body);
+            if (node == null || node.isMissingNode()) {
+                // A 2xx response with an empty body carries no JSON document. Like a
+                // malformed body (see below) this is treated as transient/ERROR.
+                logger.warn("Empty JSON body from {}", uri);
+                return FetchResult.error();
+            }
+            return FetchResult.found(node);
         } catch (IOException e) {
             // A 200 response whose body is not valid JSON is more likely a transient
             // network-path issue (e.g. a captive portal or an intercepting proxy
