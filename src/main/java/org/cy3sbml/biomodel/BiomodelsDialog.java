@@ -47,10 +47,6 @@ public final class BiomodelsDialog extends JDialog {
 
     private final JTextArea idTextArea;
     private final JTextField nameField;
-    private final JTextField personField;
-    private final JTextField publicationField;
-    private final JTextField chebiField;
-    private final JTextField uniprotField;
 
     private final JCheckBox chckbxAND;
     private final JCheckBox chckbxOR;
@@ -94,40 +90,12 @@ public final class BiomodelsDialog extends JDialog {
 
         // Search By Name Field
         nameField = new JTextField();
-        nameField.setToolTipText("Search BioModels by name");
+        nameField.setToolTipText("Search terms, searched in the whole BioModels entry");
         nameField.setBounds(112, 12, 160, 25);
         nameField.setText("glycolysis");
         nameField.setColumns(10);
         panel.add(nameField);
         nameField.addKeyListener(new EnterKeyAdapter());
-
-        // Search By Person Field
-        personField = new JTextField();
-        personField.setToolTipText("Search Biomodels by Person");
-        personField.setBounds(112, 44, 160, 25);
-        personField.setColumns(10);
-        personField.addKeyListener(new EnterKeyAdapter());
-
-        // Search By Publication/Abstract
-        publicationField = new JTextField();
-        publicationField.setToolTipText("Search Biomodels by Publication/Abstract");
-        publicationField.setBounds(112, 76, 160, 25);
-        publicationField.setColumns(10);
-        publicationField.addKeyListener(new EnterKeyAdapter());
-
-        // Search by Chebi
-        chebiField = new JTextField();
-        chebiField.setToolTipText("Search Biomodels by Publication/Abstract");
-        chebiField.setColumns(10);
-        chebiField.setBounds(112, 108, 160, 25);
-        chebiField.addKeyListener(new EnterKeyAdapter());
-
-        // Search by UniProt
-        uniprotField = new JTextField();
-        uniprotField.setToolTipText("Search Biomodels by Publication/Abstract");
-        uniprotField.setColumns(10);
-        uniprotField.setBounds(112, 140, 160, 25);
-        uniprotField.addKeyListener(new EnterKeyAdapter());
 
         // Load Ids Button
         JButton loadIdsButton = new JButton("Load Ids");
@@ -452,9 +420,5 @@ public final class BiomodelsDialog extends JDialog {
     public void resetFields() {
         String reset = "";
         nameField.setText(reset);
-        personField.setText(reset);
-        publicationField.setText(reset);
-        chebiField.setText(reset);
-        uniprotField.setText(reset);
     }
 }

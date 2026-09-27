@@ -1,68 +1,41 @@
 package org.cy3sbml.biomodel;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class SearchContentTest {
 
     @Test
     public void testByName() {
-        String name = "Test";
+        SearchContent content = new SearchContent(
+                Map.of(SearchContent.CONTENT_NAME, "Test", SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND));
 
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_NAME, name);
-        map.put(SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND);
-
-        SearchContent content = new SearchContent(map);
         assertTrue(content.hasNames());
-        assertFalse(content.hasPublications());
+        assertEquals(List.of("Test"), content.getNames());
+        assertEquals(SearchContent.CONNECT_AND, content.getSearchMode());
     }
 
     @Test
-    public void testByPerson() {
-        String person = "König, Bölling";
+    public void splitsTheSearchTextIntoTerms() {
+        SearchContent content = new SearchContent(Map.of(
+                SearchContent.CONTENT_NAME,
+                "König, Bölling;; , glucose.liver",
+                SearchContent.CONTENT_MODE,
+                SearchContent.CONNECT_OR));
 
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_PERSON, person);
-        map.put(SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND);
-
-        SearchContent content = new SearchContent(map);
-        assertTrue(content.hasPersons());
-        assertFalse(content.hasPublications());
+        assertEquals(List.of("König", "Bölling", "glucose", "liver"), content.getNames());
     }
 
     @Test
-    public void testByPublication() {
-        // HepatoNet1
-        String publication = "PMID:20823849";
+    public void hasNoNamesForParsedIds() {
+        SearchContent content = new SearchContent(Map.of(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS));
 
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_PUBLICATION, publication);
-        map.put(SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND);
-
-        SearchContent content = new SearchContent(map);
-        assertTrue(content.hasPublications());
-        assertFalse(content.hasChebis());
-    }
-
-    @Test
-    public void testCombination() {
-        String name = "Test";
-        String person = "König, Bölling;; ,";
-        String publication = "PMID:12345";
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_NAME, name);
-        map.put(SearchContent.CONTENT_PERSON, person);
-        map.put(SearchContent.CONTENT_PUBLICATION, publication);
-        map.put(SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND);
-
-        SearchContent content = new SearchContent(map);
-        assertTrue(content.hasNames());
-        assertTrue(content.hasPersons());
-        assertTrue(content.hasPublications());
+        assertFalse(content.hasNames());
+        assertTrue(content.toHTML().contains(SearchContent.PARSED_IDS));
     }
 }

@@ -140,21 +140,6 @@ public class SearchBioModel implements TaskObserver {
         return searchFailed;
     }
 
-    public static void addIdsToResultIds(final List<String> ids, List<String> resultIds, final String mode) {
-        // OR -> combine all results
-        if (mode.equals(SearchContent.CONNECT_OR)) {
-            resultIds.addAll(ids);
-        }
-        // AND -> only the combination results of all search terms
-        if (mode.equals(SearchContent.CONNECT_AND)) {
-            if (resultIds.size() > 0) {
-                resultIds.retainAll(ids);
-            } else {
-                resultIds.addAll(ids);
-            }
-        }
-    }
-
     public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException {
         String info = getHTMLHeaderForModelSearch();
 

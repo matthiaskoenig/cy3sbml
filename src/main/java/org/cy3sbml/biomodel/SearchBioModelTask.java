@@ -18,36 +18,20 @@ public class SearchBioModelTask implements ObservableTask {
 
     @Override
     public void run(final TaskMonitor taskMonitor) throws Exception {
-        String mode = searchContent.getSearchMode();
         List<String> resultIds = new ArrayList<String>();
 
         taskMonitor.setProgress(0.0);
-        taskMonitor.setTitle("Searching by Name ...");
+        taskMonitor.setTitle("Searching BioModels ...");
         if (searchContent.hasNames()) {
             // the search terms are combined with the search mode (AND, OR) in the query
-            String query = String.join(" " + mode + " ", searchContent.getNames());
+            String query = String.join(" " + searchContent.getSearchMode() + " ", searchContent.getNames());
 
             BiomodelsQueryResult searchQueryResult = biomodelsQuery.performSearchQuery(query);
             if (!searchQueryResult.success()) {
                 throw new IOException("The BioModels search failed for: " + query);
             }
-            List<String> modelIds = searchQueryResult.getBiomodelIdsFromSearch();
-            // Has to be done in task
-
-            SearchBioModel.addIdsToResultIds(modelIds, resultIds, mode);
+            resultIds.addAll(searchQueryResult.getBiomodelIdsFromSearch());
         }
-        taskMonitor.setProgress(0.2);
-        taskMonitor.setTitle("Searching by Person ...");
-
-        taskMonitor.setProgress(0.4);
-        taskMonitor.setTitle("Searching by Publication ...");
-
-        taskMonitor.setProgress(0.6);
-        taskMonitor.setTitle("Searching by ChEBI ...");
-
-        taskMonitor.setProgress(0.8);
-        taskMonitor.setTitle("Searching by UniProt ...");
-
         taskMonitor.setProgress(1.0);
         searchResultIds = resultIds;
     }
