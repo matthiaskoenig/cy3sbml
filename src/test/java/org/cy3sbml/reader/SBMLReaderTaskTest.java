@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,11 +40,18 @@ class SBMLReaderTaskTest {
                 new GroupTestSupport().getGroupFactory());
         TaskMonitor taskMonitor = mock(TaskMonitor.class);
 
-        assertThrows(SBMLReaderError.class, () -> task.run(taskMonitor));
+        SBMLReaderError error = assertThrows(SBMLReaderError.class, () -> task.run(taskMonitor));
 
         assertTrue(task.getError());
-        verify(taskMonitor).showMessage(eq(TaskMonitor.Level.ERROR), anyString());
         assertEquals(0, task.getNetworks().length);
+        // Cytoscape reports the thrown error, a task monitor message would show it twice
+        verify(taskMonitor, never()).showMessage(eq(TaskMonitor.Level.ERROR), anyString());
+        String message = error.getMessage();
+        assertTrue(message.startsWith("cy3sbml could not read the SBML file 'broken.xml': "), message);
+        assertTrue(message.contains("line 1"), message);
+        assertFalse(message.contains("com.ctc.wstx"), message);
+        assertFalse(message.contains("\n"), message);
+        assertTrue(message.contains("https://sbml.org/facilities/validator/"), message);
     }
 
     @Test

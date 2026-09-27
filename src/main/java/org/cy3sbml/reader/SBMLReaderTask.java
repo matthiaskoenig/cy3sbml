@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
@@ -62,6 +63,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final CyProperty<Properties> cy3sbmlProperties;
     private final SBMLManager sbmlManager;
 
+    private final String fileName;
     private final List<PackageReader> readers;
     private final SubnetworkBuilder subnetworkBuilder;
 
@@ -85,6 +87,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             SBMLManager sbmlManager) {
 
         this.stream = stream;
+        this.fileName = fileName;
         this.networkFactory = networkFactory;
         this.groupFactory = cyGroupFactory;
         this.viewFactory = viewFactory;
@@ -240,14 +243,30 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             error = true;
             // never return a partial set of networks
             cyNetworks.clear();
-            String message = "cy3sbml reader failed to build a SBML model. "
-                    + "Please validate the file in the online SBML validator at 'http://www.sbml.org/validator/' "
-                    + "and report the issue at 'https://github.com/matthiaskoenig/cy3sbml/issues': " + t;
-            if (taskMonitor != null) {
-                taskMonitor.showMessage(TaskMonitor.Level.ERROR, message);
-            }
+            // Cytoscape shows the message of the thrown error to the user
+            String message = String.format(
+                    "cy3sbml could not read the SBML file '%s': %s. Check the file with the SBML validator at "
+                            + "https://sbml.org/facilities/validator/ and report the problem at "
+                            + "https://github.com/matthiaskoenig/cy3sbml/issues if the file is valid.",
+                    fileName, describe(t));
             throw new SBMLReaderError(message, t);
         }
+    }
+
+    /**
+     * Short description of a read failure for the user: the first line of the message and,
+     * for XML errors, the line in the file.
+     */
+    private static String describe(Throwable t) {
+        String message = t.getMessage();
+        if (message == null || message.isBlank()) {
+            return t.getClass().getSimpleName();
+        }
+        String description = message.strip().lines().findFirst().orElse(message).strip();
+        if (t instanceof XMLStreamException xmlError && xmlError.getLocation() != null) {
+            description += " (line " + xmlError.getLocation().getLineNumber() + ")";
+        }
+        return description;
     }
 
     /**
