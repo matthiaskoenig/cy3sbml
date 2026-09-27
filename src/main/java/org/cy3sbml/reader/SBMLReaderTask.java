@@ -239,7 +239,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 taskMonitor.setProgress(0.8);
             }
         } catch (Throwable t) {
-            logger.error("Could not read SBML into Cytoscape!", t);
             error = true;
             // never return a partial set of networks
             cyNetworks.clear();
@@ -249,6 +248,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                             + "https://sbml.org/facilities/validator/ and report the problem at "
                             + "https://github.com/matthiaskoenig/cy3sbml/issues if the file is valid.",
                     fileName, describe(t));
+            // the error keeps the cause, Cytoscape logs it with its stack trace
+            logger.error(message);
             throw new SBMLReaderError(message, t);
         }
     }

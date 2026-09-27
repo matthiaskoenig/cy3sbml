@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class XMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
@@ -58,17 +60,31 @@ public class XMLUtil {
     }
 
     /**
+     * Creates a document builder that reports parse errors only through its exceptions.
+     * The default error handler also prints them to stderr.
+     */
+    public static DocumentBuilder documentBuilder() throws ParserConfigurationException {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        builder.setErrorHandler(new DefaultHandler() {
+            @Override
+            public void fatalError(SAXParseException e) throws SAXException {
+                throw e;
+            }
+        });
+        return builder;
+    }
+
+    /**
      * Read XML Document from String.
      */
     public static Document readXMLString(String xml) {
         InputStream xmlStream = IOUtil.string2InputStream(xml);
         Document doc = null;
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(xmlStream);
+            doc = documentBuilder().parse(xmlStream);
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            logger.error("Reading xml string failed.", e);
+            // invalid XML in a model, e.g. in the notes, is a data problem, not a bug
+            logger.warn("Reading xml string failed: {}", e.getMessage());
         }
         return doc;
     }

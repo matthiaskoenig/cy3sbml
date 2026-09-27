@@ -13,7 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.util.XMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLInterface {
-    private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(XMLInterface.class);
 
     public static final String LAYOUT = "layout";
     public static final String BOX_LIST = "listOfBoundingBoxes";
@@ -106,9 +106,7 @@ public class XMLInterface {
         HashMap<String, CyBoundingBox> boxes = new HashMap<String, CyBoundingBox>();
 
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
+            Document doc = XMLUtil.documentBuilder().parse(xmlFile);
             doc.getDocumentElement().normalize();
 
             NodeList boxList = doc.getElementsByTagName(BOX);
@@ -120,7 +118,8 @@ public class XMLInterface {
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            logger.error("Could not read layout: {}", xmlFile, e);
+            // an unreadable layout file is a data problem, not a bug
+            logger.warn("Could not read layout {}: {}", xmlFile, e.getMessage());
         }
         return boxes;
     }
@@ -148,7 +147,7 @@ public class XMLInterface {
                     Double.parseDouble(height),
                     Double.parseDouble(width));
         } catch (NumberFormatException e) {
-            logger.warn("Bounding box with invalid number skipped: id={}", nodeId, e);
+            logger.warn("Bounding box with invalid number skipped: id={}: {}", nodeId, e.getMessage());
             return null;
         }
     }
