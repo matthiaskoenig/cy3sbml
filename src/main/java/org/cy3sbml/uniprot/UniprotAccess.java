@@ -65,8 +65,9 @@ public final class UniprotAccess {
         String primaryAccession = json.path("primaryAccession").asText(null);
         String uniProtId = json.path("uniProtkbId").asText(null);
         if (primaryAccession == null || uniProtId == null) {
+            // a structurally incomplete 200 body is deterministic for this accession
             logger.warn("UniProt entry {} is missing its accession or id", accession);
-            return FetchResult.error();
+            return FetchResult.notFound();
         }
 
         JsonNode description = json.path("proteinDescription");

@@ -57,8 +57,9 @@ public final class OlsClient {
     private FetchResult<OlsTerm> lookup(String identifier) {
         Matcher matcher = IDENTIFIER_PATTERN.matcher(identifier);
         if (!matcher.matches()) {
+            // deterministic for this identifier: it will never become an ontology one
             logger.warn("Identifier is not an ontology identifier: {}", identifier);
-            return FetchResult.error();
+            return FetchResult.notFound();
         }
         String prefix = matcher.group(1);
         String local = matcher.group(2);
@@ -108,8 +109,9 @@ public final class OlsClient {
         String label = term.path("label").asText(null);
         String iri = term.path("iri").asText(null);
         if (label == null || iri == null) {
+            // a structurally incomplete 200 body is deterministic for this identifier
             logger.warn("OLS term is missing label or iri: {}", term);
-            return FetchResult.error();
+            return FetchResult.notFound();
         }
         String ontologyName = term.path("ontology_name").asText(null);
         if (ontologyName == null) {

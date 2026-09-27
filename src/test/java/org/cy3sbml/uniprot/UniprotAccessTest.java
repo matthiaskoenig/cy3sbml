@@ -92,6 +92,29 @@ class UniprotAccessTest {
     }
 
     @Test
+    void cachesAStructurallyIncompleteResponseAsNotFound() {
+        String json = "{\"someOtherField\": \"x\"}"; // missing primaryAccession/uniProtkbId
+        var calls = new java.util.concurrent.atomic.AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                try {
+                    return FetchResult.found(new ObjectMapper().readTree(json));
+                } catch (IOException e) {
+                    return FetchResult.error();
+                }
+            }
+        };
+        var access = new UniprotAccess(http);
+
+        assertTrue(access.entry("P10415").isEmpty());
+        assertTrue(access.entry("P10415").isEmpty());
+
+        assertEquals(1, calls.get());
+    }
+
+    @Test
     void cachesNotFoundThenRetriesAfterTtl() {
         var calls = new java.util.concurrent.atomic.AtomicInteger();
         HttpJson http = new HttpJson(null, new ObjectMapper()) {

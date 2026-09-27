@@ -75,8 +75,9 @@ public final class ChebiAccess {
     private static FetchResult<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
         String name = json.path("name").asText(null);
         if (name == null) {
+            // a structurally incomplete 200 body is deterministic for this id
             logger.warn("ChEBI compound {} is missing a name", chebiId);
-            return FetchResult.error();
+            return FetchResult.notFound();
         }
         JsonNode chemicalData = json.path("chemical_data");
         String formula = chemicalData.path("formula").asText(null);

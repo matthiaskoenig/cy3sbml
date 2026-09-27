@@ -83,6 +83,30 @@ class OlsClientTest {
     }
 
     @Test
+    void cachesAStructurallyIncompleteResponseAsNotFound() {
+        String json = """
+                {"_embedded": {"terms": [
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "ontology_name": "go"}
+                ]}}
+                """;
+        AtomicInteger calls = new AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                return fixtureFromJson(json).fetch(uri);
+            }
+        };
+        var client = new OlsClient(http);
+
+        assertTrue(client.term("GO:0042752").isEmpty());
+        assertTrue(client.term("GO:0042752").isEmpty());
+
+        // GO is already upper-case, so no retry with an upper-cased prefix happens either
+        assertEquals(1, calls.get());
+    }
+
+    @Test
     void defaultsOntologyNameToPrefixWhenMissing() {
         String json = """
                 {"_embedded": {"terms": [

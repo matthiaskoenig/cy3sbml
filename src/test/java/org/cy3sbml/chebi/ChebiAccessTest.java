@@ -147,6 +147,29 @@ class ChebiAccessTest {
     }
 
     @Test
+    void cachesAStructurallyIncompleteResponseAsNotFound() {
+        String json = "{\"chemical_data\": {}}"; // missing "name"
+        var calls = new AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                try {
+                    return FetchResult.found(new ObjectMapper().readTree(json));
+                } catch (IOException e) {
+                    return FetchResult.error();
+                }
+            }
+        };
+        var access = new ChebiAccess(http);
+
+        assertTrue(access.compound("CHEBI:15422").isEmpty());
+        assertTrue(access.compound("CHEBI:15422").isEmpty());
+
+        assertEquals(1, calls.get());
+    }
+
+    @Test
     void doesNotRetryNotFoundCompoundWithinTtl() {
         var calls = new AtomicInteger();
         HttpJson http = new HttpJson(null, new ObjectMapper()) {
