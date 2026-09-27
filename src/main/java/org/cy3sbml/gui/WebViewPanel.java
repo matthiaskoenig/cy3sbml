@@ -52,6 +52,8 @@ public final class WebViewPanel extends JFXPanel
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
+    private static final int PREFERRED_WIDTH = 400;
+    private static final int PREFERRED_HEIGHT = 600;
     private Browser browser;
     private volatile String html;
 
@@ -72,6 +74,8 @@ public final class WebViewPanel extends JFXPanel
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
         setLayout(new BorderLayout());
+        // the JavaFX scene is attached later, the docked panel takes its width from here
+        setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
 
         JFXPanel fxPanel = this;
         Platform.runLater(() -> {
@@ -89,7 +93,7 @@ public final class WebViewPanel extends JFXPanel
         browser = new Browser(
                 adapter.cy3sbmlDirectory,
                 new BrowserHyperlinkListener(adapter, this, sbmlManager, cofactorManager, biomodelsDialog));
-        Scene scene = new Scene(browser, 300, 600);
+        Scene scene = new Scene(browser, PREFERRED_WIDTH, PREFERRED_HEIGHT);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
         Platform.setImplicitExit(false);
@@ -121,7 +125,7 @@ public final class WebViewPanel extends JFXPanel
 
     @Override
     public String getTitle() {
-        return "cy3sbml ";
+        return "cy3sbml";
     }
 
     public boolean isActive() {
