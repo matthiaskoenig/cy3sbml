@@ -80,7 +80,8 @@ public class HttpJson {
             return Optional.empty();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.warn("Interrupted while retrieving {}", uri);
+            // a cancelled render interrupts its lookups, this is not an error
+            logger.debug("Interrupted while retrieving {}", uri);
             return Optional.empty();
         }
     }

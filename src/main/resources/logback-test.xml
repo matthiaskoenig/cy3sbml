@@ -3,14 +3,14 @@
         <file>${logfile.name}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logfile.name_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logfile.name}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>5MB</maxFileSize>
             <maxHistory>20</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
         </rollingPolicy>
 
         <encoder>
-            <pattern>[%-5level] %d{yyyy-dd-MM HH:mm:ss} \(%logger{36} L%line\) - %msg%n</pattern>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss} \(%logger{36} L%line\) - %msg%n</pattern>
         </encoder>
     </appender>
 
