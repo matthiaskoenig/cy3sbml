@@ -2,7 +2,6 @@ package org.cy3sbml.biomodel;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
@@ -27,27 +26,16 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     public LoadBioModelTaskFactory(String id, BiomodelsQuery query, ServiceAdapter adapter) {
         this.adapter = adapter;
 
-        File tempFile = null;
         try {
-            // download to a tmp file and use the core-task read Network from file task
-            tempFile = File.createTempFile(id, SUFFIX);
+            // download to a tmp file and use the core-task read Network from file task,
+            // a failed download removes the file
+            File tempFile = File.createTempFile(id, SUFFIX);
             tempFile.deleteOnExit();
             query.downloadSBML(id, tempFile.toPath());
             file = tempFile;
         } catch (IOException e) {
             error = e.getMessage();
             logger.warn("Could not download BioModel {}: {}", id, error);
-            if (tempFile != null) {
-                deleteQuietly(tempFile);
-            }
-        }
-    }
-
-    private static void deleteQuietly(File file) {
-        try {
-            Files.deleteIfExists(file.toPath());
-        } catch (IOException e) {
-            logger.debug("Could not delete {}", file, e);
         }
     }
 

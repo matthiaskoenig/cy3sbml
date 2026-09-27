@@ -10,12 +10,18 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpTimeoutException;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
+import java.util.OptionalLong;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Flow;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
@@ -48,6 +54,8 @@ public class HttpJson {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
     /** Timeout of a whole file download, which may be large. */
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
+    /** Maximum size of a file download. */
+    static final long MAX_DOWNLOAD_BYTES = 100L * 1024 * 1024;
 
     private final HttpClient client;
     private final ObjectMapper mapper;
@@ -144,17 +152,43 @@ public class HttpJson {
 
     /**
      * Downloads the body at the given URI into the given file, streaming it.
+     * The download is limited to {@value #MAX_DOWNLOAD_BYTES} bytes.
      *
      * @throws IOException with a message naming the URI and the reason if the
-     *     download failed: a non-2xx status, a transport error or a timeout
+     *     download failed: a non-2xx status, a body above the size limit, a transport
+     *     error or a timeout. The file is removed on any failure.
      */
     public void download(URI uri, Path file) throws IOException {
+        download(uri, file, MAX_DOWNLOAD_BYTES);
+    }
+
+    /**
+     * Downloads the body at the given URI into the given file, failing if it is
+     * larger than {@code maxBytes}; see {@link #download(URI, Path)}.
+     */
+    void download(URI uri, Path file, long maxBytes) throws IOException {
+        try {
+            downloadUnchecked(uri, file, maxBytes);
+        } catch (IOException | RuntimeException e) {
+            try {
+                Files.deleteIfExists(file);
+            } catch (IOException deleteError) {
+                e.addSuppressed(deleteError);
+            }
+            throw e;
+        }
+    }
+
+    private void downloadUnchecked(URI uri, Path file, long maxBytes) throws IOException {
         HttpRequest request =
                 HttpRequest.newBuilder().uri(uri).timeout(TIMEOUT).GET().build();
         CompletableFuture<HttpResponse<Path>> future = client.sendAsync(
                 request,
                 info -> isSuccess(info.statusCode())
-                        ? HttpResponse.BodySubscribers.ofFile(file)
+                        ? new LimitedBodySubscriber(
+                                HttpResponse.BodySubscribers.ofFile(file),
+                                info.headers().firstValueAsLong("Content-Length"),
+                                maxBytes)
                         : HttpResponse.BodySubscribers.replacing(null));
         HttpResponse<Path> response;
         try {
@@ -172,6 +206,75 @@ public class HttpJson {
         }
         if (!isSuccess(response.statusCode())) {
             throw new IOException("Could not download " + uri + ": HTTP status " + response.statusCode());
+        }
+    }
+
+    /**
+     * Passes the body on to the delegate as long as it is not larger than the maximum,
+     * judged by the declared Content-Length and by counting the received bytes, and
+     * cancels the download with an {@link IOException} otherwise.
+     */
+    private static final class LimitedBodySubscriber implements HttpResponse.BodySubscriber<Path> {
+        private final HttpResponse.BodySubscriber<Path> delegate;
+        private final OptionalLong declaredLength;
+        private final long maxBytes;
+        private Flow.Subscription subscription;
+        private long received;
+        private boolean failed;
+
+        LimitedBodySubscriber(HttpResponse.BodySubscriber<Path> delegate, OptionalLong declaredLength, long maxBytes) {
+            this.delegate = delegate;
+            this.declaredLength = declaredLength;
+            this.maxBytes = maxBytes;
+        }
+
+        @Override
+        public CompletionStage<Path> getBody() {
+            return delegate.getBody();
+        }
+
+        @Override
+        public void onSubscribe(Flow.Subscription subscription) {
+            this.subscription = subscription;
+            delegate.onSubscribe(subscription);
+            if (declaredLength.isPresent() && declaredLength.getAsLong() > maxBytes) {
+                fail();
+            }
+        }
+
+        @Override
+        public void onNext(List<ByteBuffer> buffers) {
+            if (failed) {
+                return;
+            }
+            for (ByteBuffer buffer : buffers) {
+                received += buffer.remaining();
+            }
+            if (received > maxBytes) {
+                fail();
+                return;
+            }
+            delegate.onNext(buffers);
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            if (!failed) {
+                delegate.onError(throwable);
+            }
+        }
+
+        @Override
+        public void onComplete() {
+            if (!failed) {
+                delegate.onComplete();
+            }
+        }
+
+        private void fail() {
+            failed = true;
+            subscription.cancel();
+            delegate.onError(new IOException("the file is larger than the maximum of " + maxBytes + " bytes"));
         }
     }
 

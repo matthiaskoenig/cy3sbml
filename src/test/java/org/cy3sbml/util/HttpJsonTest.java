@@ -8,13 +8,20 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class HttpJsonTest {
     private HttpServer server;
     private HttpJson httpJson;
+    private static final int LIMIT = 1000;
+
+    @TempDir
+    Path tempDir;
 
     @BeforeEach
     void startServer() throws IOException {
@@ -27,6 +34,21 @@ class HttpJsonTest {
         server.createContext("/timeout", exchange -> respond(exchange, 408, ""));
         server.createContext("/toomanyrequests", exchange -> respond(exchange, 429, ""));
         server.createContext("/proxyauth", exchange -> respond(exchange, 407, ""));
+        server.createContext("/small", exchange -> respond(exchange, 200, "a".repeat(LIMIT)));
+        // the size is declared in the Content-Length header
+        server.createContext("/large", exchange -> respond(exchange, 200, "a".repeat(LIMIT + 1)));
+        // the size is not declared, the body is streamed in chunks
+        server.createContext("/largechunked", exchange -> {
+            exchange.sendResponseHeaders(200, 0);
+            try (var out = exchange.getResponseBody()) {
+                for (int i = 0; i < 10; i++) {
+                    out.write("a".repeat(LIMIT / 4).getBytes(StandardCharsets.UTF_8));
+                    out.flush();
+                }
+            } catch (IOException e) {
+                // the client stops reading once the limit is exceeded
+            }
+        });
         server.start();
         httpJson = new HttpJson(java.net.http.HttpClient.newHttpClient(), new ObjectMapper());
     }
@@ -104,5 +126,40 @@ class HttpJsonTest {
         assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/timeout")).status());
         assertEquals(
                 FetchStatus.ERROR, httpJson.fetchText(uri("/toomanyrequests")).status());
+    }
+
+    @Test
+    void downloadWritesTheBodyUpToTheLimit() throws IOException {
+        Path file = tempDir.resolve("small.txt");
+        httpJson.download(uri("/small"), file, LIMIT);
+
+        assertEquals(LIMIT, Files.size(file));
+    }
+
+    @Test
+    void downloadRejectsADeclaredSizeAboveTheLimit() throws IOException {
+        Path file = Files.createFile(tempDir.resolve("large.txt"));
+        IOException e = assertThrows(IOException.class, () -> httpJson.download(uri("/large"), file, LIMIT));
+
+        assertTrue(e.getMessage().contains("larger than the maximum of 1000 bytes"), e.getMessage());
+        assertFalse(Files.exists(file));
+    }
+
+    @Test
+    void downloadStopsAStreamedBodyAboveTheLimit() throws IOException {
+        Path file = Files.createFile(tempDir.resolve("largechunked.txt"));
+        IOException e = assertThrows(IOException.class, () -> httpJson.download(uri("/largechunked"), file, LIMIT));
+
+        assertTrue(e.getMessage().contains("larger than the maximum of 1000 bytes"), e.getMessage());
+        assertFalse(Files.exists(file));
+    }
+
+    @Test
+    void downloadOfAnErrorStatusRemovesTheFile() throws IOException {
+        Path file = Files.createFile(tempDir.resolve("notfound.txt"));
+        IOException e = assertThrows(IOException.class, () -> httpJson.download(uri("/notfound"), file));
+
+        assertTrue(e.getMessage().contains("HTTP status 404"), e.getMessage());
+        assertFalse(Files.exists(file));
     }
 }
