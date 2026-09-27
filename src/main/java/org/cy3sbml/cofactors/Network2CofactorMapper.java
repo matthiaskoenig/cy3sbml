@@ -2,6 +2,7 @@ package org.cy3sbml.cofactors;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import org.cy3sbml.mapping.One2ManyMapping;
@@ -12,6 +13,11 @@ import org.slf4j.LoggerFactory;
  * Clone2cofactor and reverse mappings for the networks.
  * <p>
  * Lookup of the network via given (sub)network SUIDs.
+ * <p>
+ * Like {@code Network2SBMLMapper}, this is reached from both the Cytoscape event/EDT
+ * thread and background reader threads, so every method is {@code synchronized} on the
+ * instance; {@link #keySet()} returns a defensive copy. The serialized fields are
+ * unchanged, so session files written by an older version still deserialize.
  */
 public class Network2CofactorMapper implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Network2CofactorMapper.class);
@@ -29,32 +35,35 @@ public class Network2CofactorMapper implements Serializable {
         clone2cofactor = new HashMap<>();
     }
 
-    public boolean containsSUID(Long suid) {
+    public synchronized boolean containsSUID(Long suid) {
         return cofactor2clone.containsKey(suid);
     }
 
-    public Set<Long> keySet() {
-        return cofactor2clone.keySet();
+    /**
+     * Returns a defensive copy so the caller can iterate it without racing a concurrent writer.
+     */
+    public synchronized Set<Long> keySet() {
+        return new HashSet<>(cofactor2clone.keySet());
     }
 
-    public One2ManyMapping<Long, Long> getCofactor2CloneMapping(Long networkSUID) {
+    public synchronized One2ManyMapping<Long, Long> getCofactor2CloneMapping(Long networkSUID) {
         return cofactor2clone.get(networkSUID);
     }
 
-    public One2ManyMapping<Long, Long> getClone2CofactorMapping(Long networkSUID) {
+    public synchronized One2ManyMapping<Long, Long> getClone2CofactorMapping(Long networkSUID) {
         return clone2cofactor.get(networkSUID);
     }
 
     /**
      * Add a new mapping for given network.
      */
-    public One2ManyMapping<Long, Long> newCofactor2CloneMapping(Long networkSUID) {
+    public synchronized One2ManyMapping<Long, Long> newCofactor2CloneMapping(Long networkSUID) {
         One2ManyMapping<Long, Long> cofactor2clones = new One2ManyMapping<Long, Long>();
         addCofactor2CloneMapping(networkSUID, cofactor2clones);
         return cofactor2clones;
     }
 
-    public void addCofactor2CloneMapping(Long networkSUID, One2ManyMapping<Long, Long> cofactor2clones) {
+    public synchronized void addCofactor2CloneMapping(Long networkSUID, One2ManyMapping<Long, Long> cofactor2clones) {
         cofactor2clone.put(networkSUID, cofactor2clones);
         // always add the reverse mapping
         clone2cofactor.put(networkSUID, cofactor2clones.createReverseMapping());
@@ -63,7 +72,7 @@ public class Network2CofactorMapper implements Serializable {
     /**
      * Use this function to add values.
      */
-    public void put(Long networkSUID, Long cofactorSUID, Long cloneSUID) {
+    public synchronized void put(Long networkSUID, Long cofactorSUID, Long cloneSUID) {
         if (!cofactor2clone.containsKey(networkSUID)) {
             newCofactor2CloneMapping(networkSUID);
         }
@@ -74,7 +83,7 @@ public class Network2CofactorMapper implements Serializable {
     /**
      * Use this function to remove values.
      */
-    public void remove(Long networkSUID, Long cofactorSUID) {
+    public synchronized void remove(Long networkSUID, Long cofactorSUID) {
         Set<Long> cloneSUIDs = cofactor2clone.get(networkSUID).getValues(cofactorSUID);
         for (Long cloneSUID : cloneSUIDs) {
             clone2cofactor.get(networkSUID).remove(cloneSUID);
@@ -87,7 +96,7 @@ public class Network2CofactorMapper implements Serializable {
      * Lists the existing CofactorMappings for networks.
      */
     @Override
-    public String toString() {
+    public synchronized String toString() {
         String string = "------------------------\n";
         string += "Cofactor Mapping\n";
         string += "------------------------\n";

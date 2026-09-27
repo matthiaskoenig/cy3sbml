@@ -47,19 +47,13 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
         logger.debug("createTaskIterator: input stream name: " + inputName);
         // BufferedInput stream even for the zip files
 
-        ArchiveReaderTask task;
-        try {
-            task = new ArchiveReaderTask(
-                    inputStream,
-                    inputName,
-                    networkFactory,
-                    networkViewFactory,
-                    visualMappingManager,
-                    layoutAlgorithmManager);
-        } catch (Exception e) {
-            task = null;
-            logger.error("Error copying stream", e);
-        }
+        ArchiveReaderTask task = new ArchiveReaderTask(
+                inputStream,
+                inputName,
+                networkFactory,
+                networkViewFactory,
+                visualMappingManager,
+                layoutAlgorithmManager);
         return new TaskIterator(task);
     }
 }

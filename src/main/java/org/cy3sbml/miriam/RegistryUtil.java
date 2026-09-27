@@ -6,17 +6,20 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.*;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import org.cy3sbml.util.IOUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tools for working with Miriam registry.
@@ -27,27 +30,43 @@ public class RegistryUtil {
     public static final String PAYLOAD = "payload";
     public static final String NAMESPACES = "namespaces";
     public static final String PREFIX = "prefix";
-    private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
     public static final String URL_MIRIAM_JSON =
             "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    /** Classpath location of the bundled offline copy of the registry. */
+    static final String BUNDLED_REGISTRY = "/miriam/MiriamRegistry.json";
+
     /**
-     * Load the registry from the resources.
+     * Load the registry from a MIRIAM json file.
      *
      * @param file MIRIAM json file
      */
     public static Map<String, Namespace> loadRegistry(File file) throws IOException {
+        return parseRegistry(Files.readAllBytes(file.toPath()));
+    }
 
-        byte[] jsonBytes = Files.readAllBytes(file.toPath());
+    /**
+     * Load the offline copy of the registry bundled with the app.
+     */
+    public static Map<String, Namespace> loadBundledRegistry() throws IOException {
+        try (InputStream in = RegistryUtil.class.getResourceAsStream(BUNDLED_REGISTRY)) {
+            if (in == null) {
+                throw new FileNotFoundException("Missing resource: " + BUNDLED_REGISTRY);
+            }
+            return parseRegistry(in.readAllBytes());
+        }
+    }
+
+    static Map<String, Namespace> parseRegistry(byte[] jsonBytes) throws IOException {
         JsonNode root = MAPPER.readTree(jsonBytes);
         JsonNode payload = root.path(PAYLOAD);
         if (payload.isMissingNode()) {
-            throw new IllegalArgumentException("Missing 'payload' object");
+            throw new IOException("Missing 'payload' object");
         }
         JsonNode namespaces = payload.path(NAMESPACES);
         if (!namespaces.isArray()) {
-            throw new IllegalArgumentException("Missing 'namespaces' array");
+            throw new IOException("Missing 'namespaces' array");
         }
         Map<String, Namespace> result = new HashMap<>();
         for (JsonNode nsNode : namespaces) {
@@ -62,42 +81,31 @@ public class RegistryUtil {
     }
 
     /**
-     * Updates the MIRIAM registry file.
-     * Downloads json from MIRIAM and saves in file.
+     * Downloads and parses the registry.
      *
-     * @param file MIRIAM json file
+     * @param source registry URL, usually {@link #URL_MIRIAM_JSON}
+     * @param timeout connect timeout and timeout of every read, so a stalled server fails
+     * @throws IOException if the registry cannot be downloaded or parsed
      */
-    public static void updateMiriamJSON(File file) {
+    public static Map<String, Namespace> download(URI source, Duration timeout) throws IOException {
+        int timeoutMillis = Math.toIntExact(timeout.toMillis());
+        HttpURLConnection connection = (HttpURLConnection) source.toURL().openConnection();
         try {
-            URL miriamURL = new URL(URL_MIRIAM_JSON);
-            IOUtil.saveURLasFile(miriamURL, file);
-            logger.info("Updated MIRIAM: " + file.getAbsolutePath());
-        } catch (MalformedURLException e) {
-            logger.error("MalformedURLException", e);
-            e.printStackTrace();
+            connection.setConnectTimeout(timeoutMillis);
+            connection.setReadTimeout(timeoutMillis);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("Accept", "application/json");
+            int status = connection.getResponseCode();
+            if (status < 200 || status >= 300) {
+                throw new IOException("HTTP status " + status);
+            }
+            try (InputStream in = connection.getInputStream()) {
+                return parseRegistry(in.readAllBytes());
+            }
+        } finally {
+            connection.disconnect();
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Script for updating the packaged MIRIAM XML file in src/main/resources.
-     */
-    public static Map<String, Namespace> getMiriamContent() {
-        File f = null;
-        Map<String, Namespace> result = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-            RegistryUtil.updateMiriamJSON(f);
-
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-            logger.error("Could not update the MIRIAM registry", e);
-        }
-        return result;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException, MalformedURLException {}
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Small helpers for identifiers.org resource URIs (http(s)://identifiers.org/... and

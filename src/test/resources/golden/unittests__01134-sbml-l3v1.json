@@ -1,0 +1,760 @@
+{
+  "networks" : [
+    {
+      "name" : "All__case01134",
+      "nodeCount" : 10,
+      "edgeCount" : 6,
+      "attributes" : {
+        "label" : "case01134",
+        "name" : "All__case01134",
+        "sbml id" : "case01134",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "shared name" : "case01134"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 10.0,
+          "spatialDimensions" : 3.0,
+          "value" : 10.0
+        },
+        {
+          "comp_idRef" : "sub3",
+          "cyId" : "C2_port",
+          "label" : "C2_port",
+          "metaId" : "C2_port",
+          "portSid" : "C2_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port"
+        },
+        {
+          "comp_idRef" : "C",
+          "cyId" : "C_port",
+          "label" : "C_port",
+          "metaId" : "C_port",
+          "portSid" : "C_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 5.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0
+        },
+        {
+          "comp_modelRef" : "moddef1",
+          "cyId" : "sub1",
+          "label" : "sub1",
+          "metaId" : "sub1",
+          "sbml id" : "sub1",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "moddef2",
+          "cyId" : "sub2",
+          "label" : "sub2",
+          "metaId" : "sub2",
+          "sbml id" : "sub2",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "moddef3",
+          "cyId" : "sub3",
+          "label" : "sub3",
+          "metaId" : "sub3",
+          "sbml id" : "sub3",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_idRef" : "sub1",
+          "comp_submodelRef" : "sub2",
+          "cyId" : "",
+          "label" : "<sub2:sub1>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_idRef" : "sub1",
+          "cyId" : "",
+          "label" : "<sub2:sub1>",
+          "sbml type" : "comp_replacedBy",
+          "sbml type ext" : "comp_replacedBy"
+        },
+        {
+          "comp_idRef" : "sub2",
+          "comp_submodelRef" : "sub3",
+          "cyId" : "",
+          "label" : "<sub3:sub2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C2_port",
+          "target" : "sub3",
+          "directed" : true,
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "C_port",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedBy",
+          "attributes" : {
+            "interaction type" : "sbase-replacedBy",
+            "shared interaction" : "sbase-replacedBy"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "All__moddef1",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "label" : "moddef1",
+        "name" : "All__moddef1",
+        "sbml id" : "moddef1",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C0",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C0",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S10",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S10",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 2.5,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.5
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "All__moddef2",
+      "nodeCount" : 3,
+      "edgeCount" : 1,
+      "attributes" : {
+        "label" : "moddef2",
+        "name" : "All__moddef2",
+        "sbml id" : "moddef2",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C01",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C01",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S101",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S101",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 9.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 9.0
+        },
+        {
+          "comp_modelRef" : "moddef1",
+          "cyId" : "sub10",
+          "label" : "sub1",
+          "metaId" : "sub10",
+          "sbml id" : "sub1",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "All__moddef3",
+      "nodeCount" : 4,
+      "edgeCount" : 1,
+      "attributes" : {
+        "label" : "moddef3",
+        "name" : "All__moddef3",
+        "sbml id" : "moddef3",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C012",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C012",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1012",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1012",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 11.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 11.0
+        },
+        {
+          "comp_modelRef" : "moddef1",
+          "cyId" : "sub101",
+          "label" : "sub1",
+          "metaId" : "sub101",
+          "sbml id" : "sub1",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        },
+        {
+          "comp_modelRef" : "moddef2",
+          "cyId" : "sub20",
+          "label" : "sub2",
+          "metaId" : "sub20",
+          "sbml id" : "sub2",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__case01134",
+      "nodeCount" : 7,
+      "edgeCount" : 5,
+      "attributes" : {
+        "name" : "Kinetic__case01134"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 10.0,
+          "spatialDimensions" : 3.0,
+          "value" : 10.0
+        },
+        {
+          "comp_idRef" : "sub3",
+          "cyId" : "C2_port",
+          "label" : "C2_port",
+          "metaId" : "C2_port",
+          "portSid" : "C2_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port"
+        },
+        {
+          "comp_idRef" : "C",
+          "cyId" : "C_port",
+          "label" : "C_port",
+          "metaId" : "C_port",
+          "portSid" : "C_port",
+          "sbml type" : "comp_port",
+          "sbml type ext" : "comp_port"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 5.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0
+        },
+        {
+          "comp_idRef" : "sub1",
+          "comp_submodelRef" : "sub2",
+          "cyId" : "",
+          "label" : "<sub2:sub1>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_idRef" : "sub1",
+          "cyId" : "",
+          "label" : "<sub2:sub1>",
+          "sbml type" : "comp_replacedBy",
+          "sbml type ext" : "comp_replacedBy"
+        },
+        {
+          "comp_idRef" : "sub2",
+          "comp_submodelRef" : "sub3",
+          "cyId" : "",
+          "label" : "<sub3:sub2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C_port",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "sbaseRef-id",
+          "attributes" : {
+            "interaction" : "sbaseRef-id",
+            "interaction type" : "sbaseRef-id",
+            "shared interaction" : "sbaseRef-id"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedBy",
+          "attributes" : {
+            "interaction" : "sbase-replacedBy",
+            "interaction type" : "sbase-replacedBy",
+            "shared interaction" : "sbase-replacedBy"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__moddef1",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "Kinetic__moddef1"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C0",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C0",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S10",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S10",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 2.5,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.5
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__moddef2",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "Kinetic__moddef2"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C01",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C01",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S101",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S101",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 9.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 9.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__moddef3",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "Kinetic__moddef3"
+      },
+      "nodes" : [
+        {
+          "constant" : false,
+          "cyId" : "C012",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C012",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1012",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1012",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 11.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 11.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "case01134",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "case01134"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 5.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0
+        }
+      ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "moddef1",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "moddef1"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S10",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S10",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 2.5,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.5
+        }
+      ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "moddef2",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "moddef2"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S101",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S101",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 9.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 9.0
+        }
+      ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "moddef3",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "moddef3"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1012",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1012",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial amount" : 11.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 11.0
+        }
+      ],
+      "edges" : [ ]
+    }
+  ],
+  "groups" : [ ]
+}

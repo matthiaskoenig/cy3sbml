@@ -1,7 +1,6 @@
 package org.cy3sbml.miriam;
 
 import static org.cy3sbml.gui.SBaseHTMLFactory.getCompactId;
-import static org.cy3sbml.gui.SBaseHTMLFactory.result;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -9,11 +8,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,6 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.TestUtils;
-import org.cy3sbml.util.IOUtil;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,6 +32,8 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 @Tag("network")
 public class RegistryUtilTest {
+    private static final MiriamRegistry result = MiriamRegistry.bundled();
+
     private static final Pattern IDENTIFIERS_ORG_PATTERN = Pattern.compile("https?://identifiers\\.org/[^\\s\"'>)]+");
     private static final List<String> checkedNamespaces = new ArrayList<>();
 
@@ -58,10 +60,10 @@ public class RegistryUtilTest {
                                 is = TestUtils.class.getResourceAsStream(resourcePath);
                             }
                             String content;
-                            try {
-                                content = IOUtil.inputStream2String(is);
+                            try (InputStream stream = is) {
+                                content = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
                             } catch (IOException e) {
-                                throw new RuntimeException(e);
+                                throw new UncheckedIOException(e);
                             }
                             Set<String> uris = extractIdentifiersOrgLinks(content);
                             return uris.stream();
@@ -79,17 +81,10 @@ public class RegistryUtilTest {
 
     @Test
     @Tag("network")
-    public void updateMiriamXML() throws Exception {
-        File f = File.createTempFile("test", ".xml");
-        assertNotNull(f);
-        RegistryUtil.updateMiriamJSON(f);
-        assertNotNull(RegistryUtil.getMiriamContent());
-    }
-
-    @Test
-    @Tag("network")
-    public void loadRegistry() {
-        assertNotNull(RegistryUtil.getMiriamContent());
+    public void downloadRegistry() throws Exception {
+        Map<String, Namespace> registry =
+                RegistryUtil.download(MiriamRegistry.ONLINE_REGISTRY, MiriamRegistry.DOWNLOAD_TIMEOUT);
+        assertNotNull(registry.get("go"));
     }
 
     @ParameterizedTest

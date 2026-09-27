@@ -2,53 +2,78 @@ package org.cy3sbml.gui;
 
 import java.io.IOException;
 import java.util.Collection;
+import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Creates SBase HTML information in separate thread.
- * Provides some helper functions to preload information for given SBMLDocuments.
+ * Builds the HTML information for a set of SBase objects, via web-service lookups
+ * (OLS, UniProt, ChEBI), and posts it to a panel.
+ * <p>
+ * Despite its name, this is a plain {@link Runnable} helper, not a {@link Thread}: it is
+ * meant to be run inline, as a single step of whichever thread is already carrying out a
+ * render (see {@code WebViewPanel.showSBaseInfo}), never started or submitted to an
+ * executor as a second, independent unit of work. Doing so would defeat the "one submit
+ * per selection" invariant that {@code LatestTaskExecutor} relies on to cancel a
+ * superseded render correctly, letting a stale caller cancel a newer, unrelated one.
  */
-public class SBaseHTMLThread extends Thread {
+public class SBaseHTMLThread implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLThread.class);
-    private Collection<Object> objSet;
-    private InfoPanel panel;
+    private final Collection<Object> objSet;
+    private final InfoPanel panel;
+    private final SBaseHTMLFactory htmlFactory;
     private String info;
 
     /**
      * Constructor.
      */
-    public SBaseHTMLThread(Collection<Object> objSet, InfoPanel panel) {
+    public SBaseHTMLThread(Collection<Object> objSet, InfoPanel panel, SBaseHTMLFactory htmlFactory) {
         this.objSet = objSet;
         this.panel = panel;
+        this.htmlFactory = htmlFactory;
         this.info = null;
     }
 
     /**
      * Creates information for all objects within a single thread.
+     * <p>
+     * Web-service lookups made while building the HTML (OLS, UniProt, ChEBI) restore the
+     * thread's interrupt flag on {@code InterruptedException} rather than throwing it, so
+     * this checks {@code Thread.currentThread().isInterrupted()} between SBase objects and
+     * again before posting to the panel, so a cancelled render stops promptly. These checks
+     * alone are not atomic with the post: a render can be superseded right after its last
+     * check. The panel therefore publishes only while this render is still the current
+     * one (see {@code WebViewPanel.setText} and {@code LatestTaskExecutor.publishIfCurrent}),
+     * so a superseded render never overwrites the HTML of a newer one.
      */
     @Override
     public void run() {
 
         for (Object obj : objSet) {
-            SBaseHTMLFactory infoFac = new SBaseHTMLFactory(obj);
-
+            if (Thread.currentThread().isInterrupted()) {
+                return;
+            }
+            String html;
             try {
-                infoFac.createInfo();
+                html = htmlFactory.createInfo((SBase) obj);
             } catch (IOException e) {
                 logger.error("Could not create the information for: " + obj, e);
+                continue;
             }
 
-            String html = infoFac.getHtml();
             if (info == null) {
                 info = html;
             } else {
                 info += html;
             }
         }
-        // Display if a panel is provided
-        if (panel != null) {
-            panel.setText(this);
+        if (Thread.currentThread().isInterrupted()) {
+            return;
+        }
+        // Display if a panel is provided and there was something to show; an empty
+        // object set must not blank out whatever the panel is currently displaying.
+        if (panel != null && !objSet.isEmpty()) {
+            panel.setText(info);
         }
     }
 

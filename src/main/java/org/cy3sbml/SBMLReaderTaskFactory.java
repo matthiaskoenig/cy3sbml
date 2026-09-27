@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
@@ -16,13 +17,15 @@ import org.slf4j.LoggerFactory;
 public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SBMLReaderTaskFactory.class);
     private final ServiceAdapter adapter;
+    private final SBMLManager sbmlManager;
 
     /**
      * Constructor.
      */
-    public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter) {
+    public SBMLReaderTaskFactory(CyFileFilter filter, ServiceAdapter adapter, SBMLManager sbmlManager) {
         super(filter);
         this.adapter = adapter;
+        this.sbmlManager = sbmlManager;
     }
 
     @Override
@@ -38,10 +41,10 @@ public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
                     adapter.cyNetworkViewFactory,
                     adapter.visualMappingManager,
                     adapter.cyLayoutAlgorithmManager,
-                    adapter.cy3sbmlProperties));
+                    adapter.cy3sbmlProperties,
+                    sbmlManager));
         } catch (IOException e) {
             logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
-            e.printStackTrace();
             return null;
         }
     }

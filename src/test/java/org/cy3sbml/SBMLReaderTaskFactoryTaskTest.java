@@ -3,6 +3,7 @@ package org.cy3sbml;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
@@ -45,7 +46,7 @@ public class SBMLReaderTaskFactoryTaskTest {
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTaskWithViewSupport = new SBMLReaderTask(
-                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
+                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null, null);
     }
 
     @Test

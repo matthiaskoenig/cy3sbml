@@ -1,19 +1,10 @@
 package org.cy3sbml.archive;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.zip.ZipError;
 import org.apache.commons.lang3.StringUtils;
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -142,54 +133,15 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             Task nextTask = itr.next();
             try {
                 nextTask.run(taskMonitor);
-            } catch (Exception e) {
+            } catch (Exception e) { // Task.run declares Exception
                 throw new RuntimeException("Could not finish layout", e);
             }
         }
 
-        // read SBMLFiles
-        readFilesFromBundle();
+        // reading the SBML files of the archive is not implemented yet (#116)
 
         return view;
     }
-
-    /**
-     * Reads secondary file form given bundle.
-     */
-    private void readFilesFromBundle() {
-        // Get all SBML files from bundle
-
-        List<Path> paths = new ArrayList<>();
-        // TODO: implement
-
-        // read the files
-        logger.info("Reading files from bundle");
-        ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
-        for (Path path : paths) {
-
-            logger.info("Reading: <" + path + ">");
-            try {
-                File tempFile = File.createTempFile("tmp-file", ".xml");
-                tempFile.deleteOnExit();
-
-                Files.copy(path, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                try {
-                    TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
-                    adapter.synchronousTaskManager.execute(iterator);
-                } catch (java.lang.IllegalStateException e) {
-                    logger.warn("No NetworkReader for the given file format");
-                }
-            } catch (IOException e) {
-                logger.error("Could not extract the archive entry: " + path, e);
-            }
-        }
-    }
-
-    /**
-     * Cancel task.
-     */
-    @Override
-    public void cancel() {}
 
     /**
      * Creates the archive network.
@@ -228,44 +180,12 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             path2node = new HashMap<>();
             node2path = new HashMap<>();
 
-            /*
-            if (stream instanceof ZipInputStream){
-                logger.info("ZipInputStream found in reader.");
-
-                //    This should no happen currently, because the ZipInputStream
-                //     is packed into a BufferecInputStream and unreadable as a
-                //     consequence.
-                //     We have to rename *.zip files to deal with this.
-                ZipInputStream zis = (ZipInputStream) stream;
-
-                // read entries from zip file
-                ZipEntry ze = null;
-                while ((ze = zis.getNextEntry()) != null) {
-                    System.out.println("Unzipping " + ze.getName());
-
-                    // write files
-                    FileOutputStream fout = new FileOutputStream(ze.getName());
-                    for (int c = zin.read(); c != -1; c = zin.read()) {
-                        fout.write(c);
-                    }
-
-                    zis.closeEntry();
-                    // fout.close();
-                }
-                zis.close();
-            } else {
-                logger.error("Stream is not ZipInputStream");
-                System.out.println(stream);
-            }
-            */
-
             // Create empty root network and node map
             network = networkFactory.createNetwork();
             AttributeUtil.set(network, network, NODE_ATTR_PATH, fileName, String.class);
 
             // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
             // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
-            // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
             // CyRootNetwork also provides methods to create and add new subnetworks (see
             // CyRootNetwork.addSubNetwork()).
             rootNetwork = ((CySubNetwork) network).getRootNetwork();
@@ -274,16 +194,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             // Read information from manifest file
             //////////////////////////////////////////////////////////////////
 
-            // Read archive
-            try {
-                System.out.println("------------------------");
-                // TODO: implement
-
-                System.out.println("------------------------");
-            } catch (ZipError e) {
-                logger.error("Could not read the zip file.");
-                logger.error("Rename archives ending in *.zip with *.zip1");
-            }
+            // reading the archive content is not implemented yet (#116)
 
             // set image attributes
             for (CyNode n : node2path.keySet()) {
@@ -369,6 +280,27 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     }
 
     /**
+     * Image extension of the folder with the given path.
+     * <p>
+     * The folders of individual studies, models and assays, i.e. the folders directly inside
+     * a "studies", "models" or "assays" folder, get the study, model and assay image,
+     * all other folders the folder image.
+     */
+    static String folderExtension(String path) {
+        // "/studies/s1/" and "studies/s1/" both give [studies, s1]
+        String[] tokens = StringUtils.strip(path, "/").split("/", -1);
+        if (tokens.length < 2) {
+            return "folder";
+        }
+        return switch (tokens[tokens.length - 2]) {
+            case "studies" -> "study";
+            case "models" -> "model";
+            case "assays" -> "assay";
+            default -> "folder";
+        };
+    }
+
+    /**
      * Creates the image link for a given node.
      */
     private void setImageAttribute(CyNode n) {
@@ -384,22 +316,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         if (path.equals("/")) {
             extension = "researchobject";
         } else if (path.endsWith("/")) {
-            extension = "folder";
-            // handle subset of folder aggregates
-            // reason: behavior change, fixed with golden snapshot update in Task 3.2 (folder
-            // paths end with "/", split(x, -1) would change the folder type token)
-            @SuppressWarnings("StringSplitter")
-            String[] tokens = path.split("/");
-            if (tokens.length > 2) {
-                String type = tokens[tokens.length - 2];
-                if (type.equals("studies")) {
-                    extension = "study";
-                } else if (type.equals("models")) {
-                    extension = "model";
-                } else if (type.equals("assays")) {
-                    extension = "assay";
-                }
-            }
+            extension = folderExtension(path);
         } else {
             if (mediaType == null) {
                 extension = "blank";

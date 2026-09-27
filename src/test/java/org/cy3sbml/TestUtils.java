@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,13 +17,13 @@ import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.cy3sbml.util.IOUtil;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.*;
 import org.cytoscape.work.TaskMonitor;
-import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,27 +153,22 @@ public class TestUtils {
 
     /**
      * Read the CyNetworks from given SBML file resource.
+     * <p>
+     * Failures of the reader propagate so that they fail the calling test.
      */
-    public CyNetwork[] readNetwork(String resource) throws Exception {
-
+    public static CyNetwork[] readNetwork(String resource) throws Exception {
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // read SBML
-        InputStream instream = TestUtils.class.getResourceAsStream(resource);
         String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
-        CyNetwork[] networks;
-        try {
-            // Reader can be tested without service adapter,
+        try (InputStream instream = TestUtils.class.getResourceAsStream(resource)) {
+            assertNotNull(instream, "Resource not found: " + resource);
+            // Reader can be tested without service adapter
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-
-            readerTask.run(null);
-            networks = readerTask.getNetworks();
-        } catch (Throwable t) {
-            networks = null;
+            readerTask.run(mock(TaskMonitor.class));
+            return readerTask.getNetworks();
         }
-        return networks;
     }
 
     /**
@@ -197,61 +193,41 @@ public class TestUtils {
     }
 
     /**
-     * Perform the network test for a given SBML resource.
+     * Reads the given SBML resource with the SBMLReaderTask.
      * <p>
-     * There is a memory leak in the network creation, probably the following issue
-     * http://code.cytoscape.org/redmine/issues/3507
-     * <p>
-     * See also:
-     * This aborts the travis build.
+     * Failures of the reader propagate so that they fail the calling test.
      */
-    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource)
-            throws FileNotFoundException {
+    public static void testNetwork(TaskMonitor taskMonitor, String testType, String resource) throws Exception {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
-        // read SBML
-        String[] tokens = resource.split("/\\\\", -1);
+        String[] tokens = resource.split("[/\\\\]", -1);
         String fileName = tokens[tokens.length - 1];
-        InputStream instream;
-        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
-            instream = new FileInputStream(resource);
-        } else {
-            instream = TestUtils.class.getResourceAsStream(resource);
-        }
-
-        CyNetwork[] networks = new CyNetwork[0];
-        try {
+        try (InputStream instream = openModel(resource)) {
             // Reader can be tested without service adapter
-            // calls networkFactory.createNetwork()
             SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-            for (CyNetwork network : networks) {
-                network.dispose();
-            }
             readerTask.run(taskMonitor);
-            networks = readerTask.getNetworks();
             assertFalse(readerTask.getError());
-
-            try {
-                instream.close();
-            } catch (IOException e) {
-                logger.error("Could not close the input stream", e);
-            }
-
-        } catch (Throwable t) {
-            networks = null;
-            logger.error("Could not read the network: " + resource, t);
+            assertTrue(readerTask.getNetworks().length >= 1);
         }
 
         // Display memory usage
         logMemory(fileName);
+    }
 
-        // Networks could be read
-        assertNotNull(networks);
-        assertTrue(networks.length >= 1);
+    /**
+     * Opens the model found by {@link #findResources}: a classpath resource, on Windows a file path.
+     */
+    private static InputStream openModel(String resource) throws FileNotFoundException {
+        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+            return new FileInputStream(resource);
+        }
+        InputStream instream = TestUtils.class.getResourceAsStream(resource);
+        assertNotNull(instream, "Resource not found: " + resource);
+        return instream;
     }
 
     /**
@@ -268,32 +244,23 @@ public class TestUtils {
         logger.info("--------------------------------------------------------");
         logger.info(String.format("%s : %s", testType, resource));
 
-        // read SBML
-        InputStream instream;
-        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
-            instream = new FileInputStream(resource);
-        } else {
-            instream = TestUtils.class.getResourceAsStream(resource);
+        SBMLDocument doc;
+        try (InputStream instream = openModel(resource)) {
+            doc = SBMLReader.read(instream);
         }
-        String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument doc = JSBML.readSBMLFromString(xml);
         assertNotNull(doc);
 
         // Serialize SBMLDocument
         File tempFile = File.createTempFile("sbml", ".ser");
-
-        FileOutputStream fileOut = new FileOutputStream(tempFile.getAbsolutePath());
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(doc);
-        out.close();
-        fileOut.close();
+        tempFile.deleteOnExit();
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(tempFile))) {
+            out.writeObject(doc);
+        }
 
         // Deserialize
-        InputStream inputStream = new FileInputStream(tempFile.getAbsolutePath());
-        InputStream buffer = new BufferedInputStream(inputStream);
-        ObjectInput input = new ObjectInputStream(buffer);
-
-        SBMLDocument docSerialized = (SBMLDocument) input.readObject();
-        assertNotNull(docSerialized);
+        try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(tempFile)))) {
+            SBMLDocument docSerialized = (SBMLDocument) input.readObject();
+            assertNotNull(docSerialized);
+        }
     }
 }

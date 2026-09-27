@@ -4,10 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import javax.swing.tree.TreeNode;
 import org.cy3sbml.*;
-import org.cy3sbml.mapping.MetaIdSBaseMap;
-import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.miriam.MiriamRegistry;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.HttpJson;
 import org.cy3sbml.util.SBMLUtil;
+import org.cy3sbml.util.filter.SBaseFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,7 +24,6 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBase;
 
 /**
  * Testing the HTML information generation.
@@ -33,25 +38,30 @@ public class SBaseHtmlThreadTest {
     @Mock
     InfoPanel panel;
 
+    private static SBaseHTMLFactory htmlFactory;
+
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
-        // Setup with local registry
-        RegistryUtil.getMiriamContent();
+        HttpJson httpJson = HttpJson.createDefault();
+        htmlFactory = new SBaseHTMLFactory(
+                "file:///cy3sbml/gui/",
+                MiriamRegistry.bundled(),
+                new OlsClient(httpJson),
+                new UniprotAccess(httpJson),
+                new ChebiAccess(httpJson));
     }
 
     @Test
-    public void run() throws Exception {
+    public void run() {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(SBMLCoreTest.TEST_MODEL_CORE_01);
         Model model = doc.getModel();
 
         Collection<Object> objSet = new HashSet<>();
         objSet.add(model);
-        // starting threads for webservice calls
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, panel);
+        SBaseHTMLThread task = new SBaseHTMLThread(objSet, panel, htmlFactory);
 
-        thread.start();
-        thread.join();
-        String html = thread.getInfo();
+        task.run();
+        String html = task.getInfo();
         assertNotNull(html);
     }
 
@@ -103,19 +113,17 @@ public class SBaseHtmlThreadTest {
     /**
      * Creates info for all objects in the model.
      */
-    private void runModelTest(String resource) throws InterruptedException {
+    private void runModelTest(String resource) {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
 
-        // objects from model
-        MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
-        Collection<SBase> objects = map.getObjects();
+        // all SBases of the model
+        List<? extends TreeNode> objects = doc.getModel().filter(new SBaseFilter());
 
-        for (SBase sbase : objects) {
+        for (TreeNode sbase : objects) {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
-            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel);
-            t1.start();
-            t1.join();
+            SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel, htmlFactory);
+            t1.run();
             String html = t1.getInfo();
             assertNotNull(html);
         }

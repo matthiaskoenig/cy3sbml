@@ -28,17 +28,25 @@ import org.slf4j.LoggerFactory;
 public final class CofactorAction extends AbstractCyAction implements SetCurrentNetworkListener {
     private static final Logger logger = LoggerFactory.getLogger(CofactorAction.class);
     private static final long serialVersionUID = 1L;
-    private ServiceAdapter adapter;
-    private SBMLEnableTaskFactory sbmlEnableTaskFactory;
+    private final ServiceAdapter adapter;
+    private final SBMLEnableTaskFactory sbmlEnableTaskFactory;
+    private final CofactorManager cofactorManager;
+    private final SBMLManager sbmlManager;
 
     /**
      * Constructor.
      */
     public CofactorAction(
-            Map<String, String> configProps, ServiceAdapter adapter, SBMLEnableTaskFactory sbmlEnableTaskFactory) {
+            Map<String, String> configProps,
+            ServiceAdapter adapter,
+            SBMLEnableTaskFactory sbmlEnableTaskFactory,
+            CofactorManager cofactorManager,
+            SBMLManager sbmlManager) {
         super(configProps, adapter.cyApplicationManager, adapter.cyNetworkViewManager, sbmlEnableTaskFactory);
         this.adapter = adapter;
         this.sbmlEnableTaskFactory = sbmlEnableTaskFactory;
+        this.cofactorManager = cofactorManager;
+        this.sbmlManager = sbmlManager;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_COFACTOR));
         putValue(LARGE_ICON_KEY, icon);
@@ -53,13 +61,13 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
     @Override
     public void actionPerformed(ActionEvent e) {
         logger.info("actionPerformed()");
-        runCofactorAction(adapter);
+        runCofactorAction(adapter, cofactorManager);
     }
 
     /**
      * Performs the cofactor action.
      */
-    public static void runCofactorAction(ServiceAdapter adapter) {
+    public static void runCofactorAction(ServiceAdapter adapter, CofactorManager cofactorManager) {
         // Get the current network via the service adapter
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
         CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
@@ -68,11 +76,8 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
         }
 
         // Selected nodes are inputs to the cofactor handling
-        // TODO: implement different inputs (from SBML, from List, cofactor files)
-        //  (this has to be processed in the network generation)
         List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
 
-        CofactorManager cofactorManager = CofactorManager.getInstance();
         cofactorManager.processNodes(network, nodes);
 
         view.updateView();
@@ -83,7 +88,7 @@ public final class CofactorAction extends AbstractCyAction implements SetCurrent
         CyNetwork network = event.getNetwork();
         boolean ready = false;
         if (network != null) {
-            SBMLDocument doc = SBMLManager.getInstance().getSBMLDocument(network);
+            SBMLDocument doc = sbmlManager.getSBMLDocument(network);
             if (doc != null) {
                 ready = true;
             }

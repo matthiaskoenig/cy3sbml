@@ -5,12 +5,14 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * Test all SBML files of the SBML TestCases.
@@ -20,15 +22,13 @@ import org.mockito.MockitoAnnotations;
  * Retrieved on 2025-09-08.
  */
 @Tag("models")
+@ExtendWith(MockitoExtension.class)
+// NetworkTestSupport stubs mocks the reader does not use
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class SBMLTestSuiteTest {
 
     @Mock
     TaskMonitor taskMonitor;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     static Stream<String> sbmlTestCases() {
         HashSet<String> skip = new HashSet<>();

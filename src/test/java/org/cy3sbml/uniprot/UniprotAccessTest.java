@@ -2,10 +2,15 @@ package org.cy3sbml.uniprot;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.net.URI;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
+import org.cy3sbml.cache.MutableClock;
+import org.cy3sbml.util.FetchResult;
 import org.cy3sbml.util.HttpJson;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,11 +19,11 @@ class UniprotAccessTest {
     private static HttpJson fixture(String resource) {
         return new HttpJson(null, new ObjectMapper()) {
             @Override
-            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+            public FetchResult<JsonNode> fetch(URI uri) {
                 try (var in = UniprotAccessTest.class.getResourceAsStream(resource)) {
-                    return in == null ? Optional.empty() : Optional.of(new ObjectMapper().readTree(in));
-                } catch (java.io.IOException e) {
-                    return Optional.empty();
+                    return in == null ? FetchResult.notFound() : FetchResult.found(new ObjectMapper().readTree(in));
+                } catch (IOException e) {
+                    return FetchResult.error();
                 }
             }
         };
@@ -77,9 +82,58 @@ class UniprotAccessTest {
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(new UniprotAccess(fixture("/uniprot/missing.json"))
-                .entry("P10415")
-                .isEmpty());
+        HttpJson erroring = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                return FetchResult.error();
+            }
+        };
+        assertTrue(new UniprotAccess(erroring).entry("P10415").isEmpty());
+    }
+
+    @Test
+    void cachesAStructurallyIncompleteResponseAsNotFound() {
+        String json = "{\"someOtherField\": \"x\"}"; // missing primaryAccession/uniProtkbId
+        var calls = new java.util.concurrent.atomic.AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                try {
+                    return FetchResult.found(new ObjectMapper().readTree(json));
+                } catch (IOException e) {
+                    return FetchResult.error();
+                }
+            }
+        };
+        var access = new UniprotAccess(http);
+
+        assertTrue(access.entry("P10415").isEmpty());
+        assertTrue(access.entry("P10415").isEmpty());
+
+        assertEquals(1, calls.get());
+    }
+
+    @Test
+    void cachesNotFoundThenRetriesAfterTtl() {
+        var calls = new java.util.concurrent.atomic.AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                return FetchResult.notFound();
+            }
+        };
+        var clock = new MutableClock(Instant.parse("2024-01-01T00:00:00Z"));
+        var access = new UniprotAccess(http, clock);
+
+        assertTrue(access.entry("P10415").isEmpty());
+        assertTrue(access.entry("P10415").isEmpty());
+        assertEquals(1, calls.get());
+
+        clock.advance(Duration.ofMinutes(11));
+        assertTrue(access.entry("P10415").isEmpty());
+        assertEquals(2, calls.get());
     }
 
     @Test

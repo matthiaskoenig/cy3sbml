@@ -1,0 +1,419 @@
+{
+  "networks" : [
+    {
+      "name" : "All__case00032",
+      "nodeCount" : 6,
+      "edgeCount" : 11,
+      "attributes" : {
+        "label" : "case00032",
+        "name" : "All__case00032",
+        "sbml id" : "case00032",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L1 V2",
+        "shared name" : "case00032"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "",
+          "derivedUnits" : "volume",
+          "label" : "compartment",
+          "name" : "compartment",
+          "sbml id" : "compartment",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "compartment",
+          "size" : 1.0,
+          "units" : "volume",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "",
+          "derivedUnits" : "",
+          "label" : "k1",
+          "name" : "k1",
+          "sbml id" : "k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k1",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "",
+          "label" : "<d/dt S1>",
+          "math" : "(-1)*k1*S1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "S1"
+        },
+        {
+          "cyId" : "",
+          "label" : "<d/dt S2>",
+          "math" : "k1*S1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "S2"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "compartment",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__case00032",
+      "nodeCount" : 6,
+      "edgeCount" : 8,
+      "attributes" : {
+        "name" : "Kinetic__case00032"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "",
+          "derivedUnits" : "volume",
+          "label" : "compartment",
+          "name" : "compartment",
+          "sbml id" : "compartment",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "compartment",
+          "size" : 1.0,
+          "units" : "volume",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "",
+          "derivedUnits" : "",
+          "label" : "k1",
+          "name" : "k1",
+          "sbml id" : "k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "k1",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "",
+          "label" : "<d/dt S1>",
+          "math" : "(-1)*k1*S1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "S1"
+        },
+        {
+          "cyId" : "",
+          "label" : "<d/dt S2>",
+          "math" : "k1*S1",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "S2"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S1>\",\"math\":\"(-1)*k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S1\"}",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "target" : "{\"cyId\":\"\",\"label\":\"<d/dt S2>\",\"math\":\"k1*S1\",\"sbml type\":\"rateRule\",\"sbml type ext\":\"rateRule\",\"variable\":\"S2\"}",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "case00032",
+      "nodeCount" : 2,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "case00032"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [ ]
+    }
+  ],
+  "groups" : [ ]
+}

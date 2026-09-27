@@ -1,0 +1,1467 @@
+{
+  "networks" : [
+    {
+      "name" : "All__BIOMD0000000006",
+      "nodeCount" : 20,
+      "edgeCount" : 36,
+      "attributes" : {
+        "biomodels.db" : "BIOMD0000000006",
+        "kegg.pathway" : "sce04111",
+        "label" : "Tyson1991 - Cell Cycle 2 var",
+        "metaId" : "_000001",
+        "name" : "All__BIOMD0000000006",
+        "obo.go" : "GO:0000278",
+        "pubmed" : "1831270",
+        "reactome" : "REACT_152",
+        "sbml id" : "BIOMD0000000006",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "shared name" : "Tyson1991 - Cell Cycle 2 var",
+        "taxonomy" : "33154"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808249",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "EmptySet",
+          "metaId" : "_808249",
+          "sbml compartment" : "cell",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000291",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175121",
+          "derivedUnits" : "invalid",
+          "kineticLaw" : "kappa",
+          "label" : "Reaction1",
+          "metaId" : "_175121",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000205"
+        },
+        {
+          "cyId" : "_175122",
+          "kineticLaw" : "k6*u",
+          "label" : "Reaction2",
+          "metaId" : "_175122",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179"
+        },
+        {
+          "cyId" : "_175123",
+          "kineticLaw" : "k4*z*(k4prime/k4+u^2)",
+          "label" : "Reaction3",
+          "metaId" : "_175123",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000176"
+        },
+        {
+          "cyId" : "_175128",
+          "label" : "<d/dt u>",
+          "math" : "k4*(v-u)*(alpha+u^2)-k6*u",
+          "metaId" : "_175128",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "u"
+        },
+        {
+          "cyId" : "_175129",
+          "derivedUnits" : "substance",
+          "label" : "<z>",
+          "math" : "v-u",
+          "metaId" : "_175129",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "z"
+        },
+        {
+          "cyId" : "_175131",
+          "label" : "<d/dt v>",
+          "math" : "kappa-k6*u",
+          "metaId" : "_175131",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "v"
+        },
+        {
+          "cyId" : "_175132",
+          "derivedUnits" : "invalid",
+          "label" : "<alpha>",
+          "math" : "k4prime/k4",
+          "metaId" : "_175132",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "alpha"
+        },
+        {
+          "cyId" : "_372768",
+          "derivedUnits" : "invalid",
+          "label" : "Reaction1",
+          "math" : "kappa",
+          "metaId" : "_372768",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_372804",
+          "label" : "Reaction2",
+          "math" : "k6*u",
+          "metaId" : "_372804",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_372840",
+          "label" : "Reaction3",
+          "math" : "k4*z*(k4prime/k4+u^2)",
+          "metaId" : "_372840",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : false,
+          "cyId" : "_175140",
+          "derivedUnits" : "",
+          "label" : "alpha",
+          "metaId" : "_175140",
+          "sbml id" : "alpha",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter"
+        },
+        {
+          "cyId" : "_000002",
+          "derivedUnits" : "volume",
+          "label" : "cell",
+          "metaId" : "_000002",
+          "obo.go" : "GO:0005623",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175136",
+          "derivedUnits" : "",
+          "label" : "k4",
+          "metaId" : "_175136",
+          "sbml id" : "k4",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 180.0
+        },
+        {
+          "cyId" : "_175139",
+          "derivedUnits" : "",
+          "label" : "k4prime",
+          "metaId" : "_175139",
+          "sbml id" : "k4prime",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.018
+        },
+        {
+          "cyId" : "_175135",
+          "derivedUnits" : "",
+          "label" : "k6",
+          "metaId" : "_175135",
+          "sbml id" : "k6",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175134",
+          "derivedUnits" : "",
+          "label" : "kappa",
+          "metaId" : "_175134",
+          "sbml id" : "kappa",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.015
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808265",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "u",
+          "metaId" : "_808265",
+          "obo.go" : "GO:0031387",
+          "sbml compartment" : "cell",
+          "sbml id" : "u",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_175119",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "v",
+          "metaId" : "_175119",
+          "obo.go" : "GO:0004693",
+          "sbml compartment" : "cell",
+          "sbml id" : "v",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808285",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "z",
+          "metaId" : "_808285",
+          "sbml compartment" : "cell",
+          "sbml id" : "z",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "EmptySet",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372744",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "_372768",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_372756",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_372792",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372780",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_372828",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372816",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "alpha",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "alpha",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k4prime",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4prime",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "kappa",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "kappa",
+          "target" : "_372768",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "BIOMD0000000006",
+      "nodeCount" : 7,
+      "edgeCount" : 6,
+      "attributes" : {
+        "name" : "BIOMD0000000006"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808249",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "EmptySet",
+          "metaId" : "_808249",
+          "sbml compartment" : "cell",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000291",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175121",
+          "derivedUnits" : "invalid",
+          "kineticLaw" : "kappa",
+          "label" : "Reaction1",
+          "metaId" : "_175121",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000205"
+        },
+        {
+          "cyId" : "_175122",
+          "kineticLaw" : "k6*u",
+          "label" : "Reaction2",
+          "metaId" : "_175122",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179"
+        },
+        {
+          "cyId" : "_175123",
+          "kineticLaw" : "k4*z*(k4prime/k4+u^2)",
+          "label" : "Reaction3",
+          "metaId" : "_175123",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000176"
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808265",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "u",
+          "metaId" : "_808265",
+          "obo.go" : "GO:0031387",
+          "sbml compartment" : "cell",
+          "sbml id" : "u",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_175119",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "v",
+          "metaId" : "_175119",
+          "obo.go" : "GO:0004693",
+          "sbml compartment" : "cell",
+          "sbml id" : "v",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808285",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "z",
+          "metaId" : "_808285",
+          "sbml compartment" : "cell",
+          "sbml id" : "z",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Reaction1",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372744",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372756",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372792",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372780",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372828",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372816",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__BIOMD0000000006",
+      "nodeCount" : 20,
+      "edgeCount" : 36,
+      "attributes" : {
+        "name" : "Kinetic__BIOMD0000000006"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808249",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "EmptySet",
+          "metaId" : "_808249",
+          "sbml compartment" : "cell",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000291",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175121",
+          "derivedUnits" : "invalid",
+          "kineticLaw" : "kappa",
+          "label" : "Reaction1",
+          "metaId" : "_175121",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000205"
+        },
+        {
+          "cyId" : "_175122",
+          "kineticLaw" : "k6*u",
+          "label" : "Reaction2",
+          "metaId" : "_175122",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179"
+        },
+        {
+          "cyId" : "_175123",
+          "kineticLaw" : "k4*z*(k4prime/k4+u^2)",
+          "label" : "Reaction3",
+          "metaId" : "_175123",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000176"
+        },
+        {
+          "cyId" : "_175128",
+          "label" : "<d/dt u>",
+          "math" : "k4*(v-u)*(alpha+u^2)-k6*u",
+          "metaId" : "_175128",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "u"
+        },
+        {
+          "cyId" : "_175129",
+          "derivedUnits" : "substance",
+          "label" : "<z>",
+          "math" : "v-u",
+          "metaId" : "_175129",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "z"
+        },
+        {
+          "cyId" : "_175131",
+          "label" : "<d/dt v>",
+          "math" : "kappa-k6*u",
+          "metaId" : "_175131",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "v"
+        },
+        {
+          "cyId" : "_175132",
+          "derivedUnits" : "invalid",
+          "label" : "<alpha>",
+          "math" : "k4prime/k4",
+          "metaId" : "_175132",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "alpha"
+        },
+        {
+          "cyId" : "_372768",
+          "derivedUnits" : "invalid",
+          "label" : "Reaction1",
+          "math" : "kappa",
+          "metaId" : "_372768",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_372804",
+          "label" : "Reaction2",
+          "math" : "k6*u",
+          "metaId" : "_372804",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_372840",
+          "label" : "Reaction3",
+          "math" : "k4*z*(k4prime/k4+u^2)",
+          "metaId" : "_372840",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : false,
+          "cyId" : "_175140",
+          "derivedUnits" : "",
+          "label" : "alpha",
+          "metaId" : "_175140",
+          "sbml id" : "alpha",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter"
+        },
+        {
+          "cyId" : "_000002",
+          "derivedUnits" : "volume",
+          "label" : "cell",
+          "metaId" : "_000002",
+          "obo.go" : "GO:0005623",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175136",
+          "derivedUnits" : "",
+          "label" : "k4",
+          "metaId" : "_175136",
+          "sbml id" : "k4",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 180.0
+        },
+        {
+          "cyId" : "_175139",
+          "derivedUnits" : "",
+          "label" : "k4prime",
+          "metaId" : "_175139",
+          "sbml id" : "k4prime",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.018
+        },
+        {
+          "cyId" : "_175135",
+          "derivedUnits" : "",
+          "label" : "k6",
+          "metaId" : "_175135",
+          "sbml id" : "k6",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_175134",
+          "derivedUnits" : "",
+          "label" : "kappa",
+          "metaId" : "_175134",
+          "sbml id" : "kappa",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.015
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808265",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "u",
+          "metaId" : "_808265",
+          "obo.go" : "GO:0031387",
+          "sbml compartment" : "cell",
+          "sbml id" : "u",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_175119",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "v",
+          "metaId" : "_175119",
+          "obo.go" : "GO:0004693",
+          "sbml compartment" : "cell",
+          "sbml id" : "v",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "cyId" : "_808285",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "z",
+          "metaId" : "_808285",
+          "sbml compartment" : "cell",
+          "sbml id" : "z",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "uniprot" : "P04551",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "EmptySet",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372744",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "_372768",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372756",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372792",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372780",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "u",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_372828",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "z",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_372816",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "alpha",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "alpha",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k4prime",
+          "target" : "_175132",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k4prime",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "k6",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "kappa",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "kappa",
+          "target" : "_372768",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_372804",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "u",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175128",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "_175131",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "v",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "_175129",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "_372840",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "z",
+          "target" : "cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

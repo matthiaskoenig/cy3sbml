@@ -3,11 +3,7 @@ package org.cy3sbml.styles;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
@@ -45,9 +41,7 @@ public class StyleFactory {
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlStream);
+            Document doc = XMLUtil.documentBuilder().parse(xmlStream);
 
             // modify template with information
             // - set name
@@ -104,8 +98,7 @@ public class StyleFactory {
                                 }
 
                             } else if (m.getMappingType() == Mapping.MappingType.CONTINOUS) {
-                                // TODO: implement
-                                System.out.println("Continous mapping not supported.");
+                                logger.warn("Continuous mapping not supported: {}", m);
                             }
                         }
                     }
@@ -113,32 +106,11 @@ public class StyleFactory {
             }
 
             // save the template
-            System.out.println(file.getAbsolutePath());
+            logger.info("Write style: {}", file.getAbsolutePath());
             XMLUtil.writeNodeToTidyFile(doc, file);
 
         } catch (ParserConfigurationException | IOException | SAXException e) {
             logger.error("Style could not be created.", e);
-            e.printStackTrace();
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Create all styles.
-     * This creates/updates the styles based on the current settings in SBML.java.
-     * <p>
-     * For the installation
-     */
-    public static void main(String[] args) {
-        String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
-
-        List<StyleInfo> styleInfos = new ArrayList<>();
-        styleInfos.add(new StyleInfo_cy3sbml()); // cy3sbml
-        styleInfos.add(new StyleInfo_cy3sbmlDark()); // cy3sbml-dark
-        for (StyleInfo info : styleInfos) {
-            File file = new File(targetDir, info.getName() + ".xml");
-            StyleFactory.createStyle(info, file);
         }
     }
 }

@@ -1,7 +1,6 @@
 package org.cy3sbml.gui;
 
 import static org.cy3sbml.gui.GUIConstants.*;
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -12,12 +11,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.miriam.Resource;
@@ -52,170 +52,83 @@ public class SBaseHTMLFactory {
     public static final String SBO = "SBO";
     public static final String CY3SBML = "cy3sbml";
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
-    private static String baseDir;
     public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
     public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
-    public static String delim = "/";
-    public static final Map<String, Namespace> result = getMiriamContent();
+    public static final String delim = "/";
+
+    private final String baseDir;
+    private final MiriamRegistry miriamRegistry;
+    private final OlsClient olsClient;
+    private final UniprotAccess uniprotAccess;
+    private final ChebiAccess chebiAccess;
 
     /**
-     * OLS client used to resolve ontology terms for display.
-     * Set by {@code CyActivator} on startup. A static field for now;
-     * PR 3 turns it into an instance dependency.
+     * Creates the factory.
+     *
+     * @param baseDir base URL of the gui resources, which resolves the relative resources within the WebView
+     * @param miriamRegistry data collections for resolving annotation URIs
+     * @param olsClient resolves ontology terms for display
+     * @param uniprotAccess resolves UniProt accessions for display
+     * @param chebiAccess resolves ChEBI ids for display
      */
-    private static OlsClient olsClient;
-
-    /**
-     * UniProt client used to resolve UniProt accessions for display.
-     * Set by {@code CyActivator} on startup. A static field for now;
-     * PR 3 turns it into an instance dependency.
-     */
-    private static UniprotAccess uniprotAccess;
-
-    /**
-     * ChEBI client used to resolve ChEBI ids for display.
-     * Set by {@code CyActivator} on startup. A static field for now;
-     * PR 3 turns it into an instance dependency.
-     */
-    private static ChebiAccess chebiAccess;
-
-    private SBase sbase;
-    private String html;
-
-    /**
-     * Constructor.
-     */
-    public SBaseHTMLFactory(Object obj) {
-        sbase = (SBase) obj;
+    public SBaseHTMLFactory(
+            String baseDir,
+            MiriamRegistry miriamRegistry,
+            OlsClient olsClient,
+            UniprotAccess uniprotAccess,
+            ChebiAccess chebiAccess) {
+        this.baseDir = baseDir;
+        this.miriamRegistry = miriamRegistry;
+        this.olsClient = olsClient;
+        this.uniprotAccess = uniprotAccess;
+        this.chebiAccess = chebiAccess;
     }
 
     /**
-     * Sets the baseDir for the HTML document.
-     * This is used to find relative resources within the WebView.
+     * Returns the base URL of the gui resources in the given application directory.
      */
-    public static void setBaseDir(String baseDir) {
-        SBaseHTMLFactory.baseDir = baseDir;
-    }
-
-    /**
-     * Get the html base directory.
-     */
-    public static String getBaseDir() {
-        return baseDir;
-    }
-
-    /**
-     * Sets the OLS client used to resolve ontology terms for display.
-     */
-    public static void setOlsClient(OlsClient olsClient) {
-        SBaseHTMLFactory.olsClient = olsClient;
-    }
-
-    /**
-     * Gets the OLS client used to resolve ontology terms for display,
-     * lazily creating a default one (e.g. for tests that do not run
-     * {@code CyActivator}). Keeps a single shared instance.
-     */
-    private static synchronized OlsClient getOlsClient() {
-        if (olsClient == null) {
-            olsClient = new OlsClient(org.cy3sbml.util.HttpJson.createDefault());
-        }
-        return olsClient;
-    }
-
-    /**
-     * Sets the UniProt client used to resolve UniProt accessions for display.
-     */
-    public static void setUniprotAccess(UniprotAccess uniprotAccess) {
-        SBaseHTMLFactory.uniprotAccess = uniprotAccess;
-    }
-
-    /**
-     * Gets the UniProt client used to resolve UniProt accessions for display,
-     * lazily creating a default one (e.g. for tests that do not run
-     * {@code CyActivator}). Keeps a single shared instance.
-     */
-    private static synchronized UniprotAccess getUniprotAccess() {
-        if (uniprotAccess == null) {
-            uniprotAccess = new UniprotAccess(org.cy3sbml.util.HttpJson.createDefault());
-        }
-        return uniprotAccess;
-    }
-
-    /**
-     * Sets the ChEBI client used to resolve ChEBI ids for display.
-     */
-    public static void setChebiAccess(ChebiAccess chebiAccess) {
-        SBaseHTMLFactory.chebiAccess = chebiAccess;
-    }
-
-    /**
-     * Gets the ChEBI client used to resolve ChEBI ids for display,
-     * lazily creating a default one (e.g. for tests that do not run
-     * {@code CyActivator}). Keeps a single shared instance.
-     */
-    private static synchronized ChebiAccess getChebiAccess() {
-        if (chebiAccess == null) {
-            chebiAccess = new ChebiAccess(org.cy3sbml.util.HttpJson.createDefault());
-        }
-        return chebiAccess;
-    }
-
-    /**
-     * Sets the baseDir from the application directory.
-     */
-    public static void setBaseDirFromAppDir(File appDir) {
+    public static String baseDirFromAppDir(File appDir) {
         String baseDir = appDir.toURI().toString();
         baseDir = baseDir.replace("file:/", "file:///");
-        SBaseHTMLFactory.setBaseDir(baseDir + "gui/");
-    }
-
-    /**
-     * Get created information string.
-     * No information String created in cache mode.
-     */
-    public String getHtml() {
-        return html;
+        return baseDir + "gui/";
     }
 
     /**
      * Creates HTML for given text String.
      */
-    public static String createHTMLText(String text, String title) {
-        return HTML_START_TEMPLATE.replace("{baseHref}", baseDir).replace("pageTitle", title)
-                + text
-                + HTML_STOP_TEMPLATE;
+    public String createHTMLText(String text, String title) {
+        return String.format(HTML_START_TEMPLATE, baseDir, title) + text + HTML_STOP_TEMPLATE;
     }
 
     /**
      * Creates HTML text.
      */
-    public static String createHTMLText(String text) {
+    public String createHTMLText(String text) {
         return createHTMLText(text, CY3SBML);
     }
 
     /**
-     * Parse and create information for current Sbase.
+     * Creates the HTML information for the given SBase.
      */
-    public void createInfo() throws IOException {
+    public String createInfo(SBase sbase) throws IOException {
         String title = getTitle(sbase);
-        html = String.format(HTML_START_TEMPLATE, baseDir, title);
+        String html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
         html += createInfoForSBase(sbase);
-        if (sbase instanceof SBMLDocument) {
+        if (sbase instanceof SBMLDocument doc) {
             // in case of SBMLDocument add the model information
-            SBMLDocument doc = (SBMLDocument) sbase;
             if (doc.isSetModel()) {
                 html += createInfoForSBase(doc.getModel());
             }
         }
         html += HTML_STOP_TEMPLATE;
+        return html;
     }
 
     /**
      * Creates info for given SBase.
      */
-    private static String createInfoForSBase(SBase sbase) throws IOException {
+    private String createInfoForSBase(SBase sbase) throws IOException {
         if (sbase == null) {
             return "";
         }
@@ -405,7 +318,7 @@ public class SBaseHTMLFactory {
     /**
      * Create HTML for CVTerms.
      */
-    private static String createCVTerms(SBase sbase) throws IOException {
+    private String createCVTerms(SBase sbase) throws IOException {
         List<CVTerm> cvterms = sbase.getCVTerms();
         // Handle SBO
         addCVTermForSBO(sbase);
@@ -455,7 +368,7 @@ public class SBaseHTMLFactory {
     /**
      * Creates HTML for single CVTerm.
      */
-    private static String createCVTerm(CVTerm cvterm) throws IOException {
+    private String createCVTerm(CVTerm cvterm) throws IOException {
 
         // get the biological/model qualifier type
         CVTerm.Qualifier bmQualifierType = null;
@@ -485,12 +398,12 @@ public class SBaseHTMLFactory {
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
                 String prefix =
                         StringUtils.substringBefore(compactIdentifier, ":").toLowerCase(Locale.ROOT);
-                if (result.get(prefix) == null && tokens.length > 3) {
+                if (miriamRegistry.get(prefix) == null && tokens.length > 3) {
                     prefix = tokens[3].toLowerCase(Locale.ROOT);
                 }
-                dataType = (result.get(prefix) == null)
-                        ? result.get(StringUtils.substringAfter(prefix, "."))
-                        : result.get(prefix);
+                dataType = (miriamRegistry.get(prefix) == null)
+                        ? miriamRegistry.get(StringUtils.substringAfter(prefix, "."))
+                        : miriamRegistry.get(prefix);
 
                 String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
                 if (identifier == null) {
@@ -598,8 +511,6 @@ public class SBaseHTMLFactory {
         return url;
     }
 
-    // FIXME: This is only a temporary solution for creating olsURLs for a variety of identifier prefixes
-
     /**
      * Information for non-OLS location.
      */
@@ -614,7 +525,7 @@ public class SBaseHTMLFactory {
      * Information for an OLS location.
      * Only the identifier needed for the query.
      */
-    private static String createOLSLocation(Namespace namespace, Resource resource, String identifier) {
+    private String createOLSLocation(Namespace namespace, Resource resource, String identifier) {
         String html = "";
         // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
 
@@ -634,7 +545,7 @@ public class SBaseHTMLFactory {
             termIdentifier = tokens[last];
         }
 
-        Optional<OlsTerm> optionalTerm = getOlsClient().term(termIdentifier);
+        Optional<OlsTerm> optionalTerm = olsClient.term(termIdentifier);
 
         if (optionalTerm.isPresent()) {
             OlsTerm term = optionalTerm.get();
@@ -644,7 +555,7 @@ public class SBaseHTMLFactory {
             html += ONTOLOGY_TERM_LINK
                     .replace("{ontologyURL}", ontologyURL)
                     .replace("{ontologyName}", term.ontologyName().toUpperCase(Locale.ROOT))
-                    .replace("{termLabel}", term.label())
+                    .replace("{termLabel}", ontologyTextHTML(term.label()))
                     .replace("{purlURL}", purlURL)
                     .replace("{purlDisplay}", purlURL);
 
@@ -652,14 +563,14 @@ public class SBaseHTMLFactory {
             if (synonyms != null && !synonyms.isEmpty()) {
                 html += SYNONYMS_LABEL;
                 for (String syn : synonyms) {
-                    html += String.format("%s; ", syn);
+                    html += String.format("%s; ", ontologyTextHTML(syn));
                 }
                 html += "<br />\n";
             }
             List<String> descriptions = term.descriptions();
             if (descriptions != null && !descriptions.isEmpty()) {
                 for (String description : descriptions) {
-                    html += DESCRIPTION_LABEL.replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));
+                    html += DESCRIPTION_LABEL.replace("{DESCRIPTION}", ontologyTextHTML(description));
                 }
             }
         } else {
@@ -673,22 +584,48 @@ public class SBaseHTMLFactory {
         return html;
     }
 
+    /** Inline formatting tags without attributes that ontology texts use, e.g. {@code <small>D</small>}. */
+    private static final String INLINE_TAGS = "sub|sup|small|i|em|b";
+
+    /**
+     * An escaped pair of the same inline tag around content without escaped inline tags;
+     * restored tags in the content are allowed, so nested pairs are restored inside out.
+     */
+    private static final Pattern ESCAPED_INLINE_PAIR = Pattern.compile("&lt;(" + INLINE_TAGS + ")&gt;"
+            + "((?:(?!&lt;/?(?:" + INLINE_TAGS + ")&gt;)[^<]|<[^>]*>)*?)"
+            + "&lt;/\\1&gt;");
+
+    /**
+     * HTML for a text from an ontology term (label, synonym or description).
+     * The text is escaped, matched pairs of inline formatting tags such as sub, sup and small
+     * are kept; unbalanced or crossing tags stay escaped.
+     */
+    static String ontologyTextHTML(String text) {
+        String html = StringEscapeUtils.escapeHtml4(text);
+        while (true) {
+            String restored = ESCAPED_INLINE_PAIR.matcher(html).replaceAll("<$1>$2</$1>");
+            if (restored.equals(html)) {
+                return html;
+            }
+            html = restored;
+        }
+    }
+
     /**
      * Resolves secondary resourses and returns the HTML.
      *
      * @return html string
      */
-    public static String createSecondaryInformation(Namespace dataType, String identifier) {
-        String html = "";
-        String namespace = dataType.getPrefix();
-
-        if (namespace.equals("uniprot")) {
-            html += getUniprotAccess().html(identifier);
-        } else if (namespace.equals("chebi")) {
-            html += getChebiAccess().html(identifier);
+    public String createSecondaryInformation(Namespace dataType, String identifier) {
+        String prefix = dataType.getPrefix();
+        if (prefix == null) {
+            return "";
         }
-
-        return html;
+        return switch (prefix) {
+            case "uniprot" -> uniprotAccess.html(identifier);
+            case "chebi" -> chebiAccess.html(identifier);
+            default -> "";
+        };
     }
 
     /**
@@ -714,11 +651,7 @@ public class SBaseHTMLFactory {
      * This is for instance used to process the SABIO-RK data.
      * Parses all the information in the annotation xml which is not RDF CV-Terms.
      */
-    // reason: real bug, the name is compared by reference, so the RDF child is not reliably
-    // skipped; fixing it changes the displayed annotation, so it is fixed in Task 3.2
-    // (remove the suppression there)
-    @SuppressWarnings("ReferenceEquality")
-    private static String createNonRDFAnnotation(SBase sbase) {
+    static String createNonRDFAnnotation(SBase sbase) {
         String html = "";
         if (sbase.isSetAnnotation()) {
             Annotation annotation = sbase.getAnnotation();
@@ -729,7 +662,7 @@ public class SBaseHTMLFactory {
                 for (int i = 0; i < xmlNode.getChildCount(); i++) {
                     XMLNode child = xmlNode.getChildAt(i);
                     String name = child.getName();
-                    if (name != "RDF") {
+                    if (!"RDF".equals(name)) {
                         try {
                             String xml = XMLNode.convertXMLNodeToString(child);
                             // Handle special case of whitespaces/empty text nodes
@@ -780,60 +713,18 @@ public class SBaseHTMLFactory {
         return b ? ICON_TRUE : ICON_FALSE;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * <main> : Testing the HTML creation
-     * <p>
-     * Create HTML and write to test file for fast
-     * development iterations.
-     */
-    public static void main(String[] args) throws Exception {
-        // resources for HTML
-        File f = File.createTempFile("MiriamRegistry", ".json");
-        // prepare miriam registry support
-        RegistryUtil.loadRegistry(f);
-
-        // Create the HTML for selected SBMLDocuments and SBases
-
-        SBMLDocument doc = SBMLUtil.readSBMLDocument("/models/BIOMD0000000016.xml");
-
-        Model model = doc.getModel();
-
-        // object = model.getListOfSpecies().get("c__gal");
-        // object = model.getListOfReactions().get("c__GALTM2");
-
-        // retrieve info for object
-        SBaseHTMLFactory fac = new SBaseHTMLFactory(model);
-        fac.createInfo();
-        String html = fac.getHtml();
-
-        // Save to tmp file for viewing
-        File file = new File("src/main/resources/tmp", "htmlCreationTest.html");
-        FileUtils.writeStringToFile(file, html, StandardCharsets.UTF_8);
-    }
-
     public static String getPrefixValue(String keyToFind) {
-        try {
+        InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
+        if (inputStream == null) {
+            logger.error("Could not find the namespace resource: {}", FILENAME_NAMESPACE);
+            return null;
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             Properties namespaces = new Properties();
-            InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found in resources");
-            }
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             namespaces.load(reader);
             return namespaces.getProperty(keyToFind);
-            /* String line;
-            while ((line = reader.readLine()) != null) {
-                // Unescape the line for readability
-                String cleanLine = line.replaceAll("\\\\", "");
-                if (cleanLine.startsWith(keyToFind + "=")) {
-                    return cleanLine.split("=", 2)[1]; // Extract value after '='
-                }
-            }*/
-        } catch (Exception e) {
-            logger.error("Could not read the prefix value: " + keyToFind, e);
+        } catch (IOException e) {
+            logger.error("Could not read the prefix value: {}", keyToFind, e);
         }
         return null;
     }

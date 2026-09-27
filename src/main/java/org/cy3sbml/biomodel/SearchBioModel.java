@@ -1,151 +1,87 @@
 package org.cy3sbml.biomodel;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import org.cy3sbml.ServiceAdapter;
-import org.cytoscape.work.FinishStatus;
-import org.cytoscape.work.ObservableTask;
-import org.cytoscape.work.SynchronousTaskManager;
-import org.cytoscape.work.TaskIterator;
-import org.cytoscape.work.TaskObserver;
-import org.cytoscape.work.swing.DialogTaskManager;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Searching BioModels.
+ * The BioModels search of the dialog: the model ids found by a search or parsed from
+ * text, and their information.
+ * <p>
+ * {@link #search} and {@link #getInformation} access the BioModels web service and must
+ * not run on the Swing event dispatch thread. They return immutable results, which the
+ * dialog renders with {@link #getHTMLInformation} on the event dispatch thread.
  */
-public class SearchBioModel implements TaskObserver {
+public class SearchBioModel {
     private static final Logger logger = LoggerFactory.getLogger(SearchBioModel.class);
-    DialogTaskManager dialogTaskManager;
 
-    @SuppressWarnings("rawtypes")
-    SynchronousTaskManager synchronousTaskManager;
+    private final BiomodelsQuery biomodelsQuery;
 
-    private SearchContent searchContent;
-    private static List<String> modelIds;
-
-    public SearchBioModel(ServiceAdapter adapter) {
-        dialogTaskManager = adapter.dialogTaskManager;
-        synchronousTaskManager = adapter.synchronousTaskManager;
-
-        resetSearch();
-    }
-
-    private void resetSearch() {
-        searchContent = null;
-        modelIds = new ArrayList<String>();
-    }
-
-    public static List<String> getModelIds() {
-        return modelIds;
-    }
-
-    public String getModelId(int index) {
-        return modelIds.get(index);
-    }
-
-    public int getSize() {
-        return modelIds.size();
-    }
-
-    public void searchBioModels(SearchContent sContent) {
-        resetSearch();
-        searchContent = sContent;
-        // The task searches the biomodel ids and sets modelIds
-        // when finished
-        searchModelIdsForSearchContent(searchContent);
-    }
-
-    public void getBioModelsByParsedIds(Set<String> parsedIds)
-            throws IOException, InterruptedException, ExecutionException {
-        resetSearch();
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS);
-        // set search content
-        searchContent = new SearchContent(map);
-
-        modelIds = new ArrayList<String>(parsedIds);
-        logger.info("modelIds:" + modelIds.toString());
-        for (String id : modelIds) {
-            logger.info(id);
+    /**
+     * The result of a search: the search content, the model ids, and the information
+     * of the models whose lookup succeeded (by id, in the order of the ids).
+     */
+    public record Result(SearchContent searchContent, List<String> modelIds, Map<String, Biomodel> biomodels) {
+        public Result {
+            modelIds = List.copyOf(modelIds);
+            biomodels = Collections.unmodifiableMap(new LinkedHashMap<>(biomodels));
         }
     }
 
-    //	private LinkedHashMap<String, SimpleModel> getSimpleModelsForSearchResult(List<String> idsList){
-    //		// convert to array
-    //		String[] ids = new String[idsList.size()];
-    //		for (int k=0; k<idsList.size(); k++){
-    //			ids[k] = idsList.get(k);
-    //		}
-    //		return bmInterface.getSimpleModelsByIds(ids);
-    //	}
-
-    private void searchModelIdsForSearchContent(SearchContent content) {
-        // Run the biomodel task with a taskManger
-
-        // Necessary to init the tasks with different contents
-        SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content);
-        TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator();
-
-        // execute the iterator with dialog
-        synchronousTaskManager.execute(iterator, this);
+    public SearchBioModel(BiomodelsQuery biomodelsQuery) {
+        this.biomodelsQuery = biomodelsQuery;
     }
 
-    @Override
-    public void taskFinished(ObservableTask task) {
-        logger.info("Task finished");
-        // when finished assign the modelIds
-        @SuppressWarnings("unchecked")
-        List<String> ids = (List<String>) task.getResults(List.class);
-        modelIds = ids;
-        logger.info("modelIds:");
-        for (String id : ids) {
-            logger.info(id);
-        }
-
-        // simpleModels = getSimpleModelsForSearchResult(modelIds);
-        // TODO: somehow notify that this is finished & update the content
-        // do synchronous
-    }
-
-    @Override
-    public void allFinished(FinishStatus finishStatus) {}
-
-    public static void addIdsToResultIds(final List<String> ids, List<String> resultIds, final String mode) {
-        // OR -> combine all results
-        if (mode.equals(SearchContent.CONNECT_OR)) {
-            resultIds.addAll(ids);
-        }
-        // AND -> only the combination results of all search terms
-        if (mode.equals(SearchContent.CONNECT_AND)) {
-            if (resultIds.size() > 0) {
-                resultIds.retainAll(ids);
-            } else {
-                resultIds.addAll(ids);
+    /**
+     * Searches BioModels with the search terms of the given content, combined with its
+     * search mode (AND, OR), and gets the information of the found models.
+     *
+     * @throws IOException if the search failed, e.g. because BioModels could not be reached
+     */
+    public Result search(SearchContent content) throws IOException {
+        List<String> modelIds = new ArrayList<>();
+        if (content.hasNames()) {
+            String query = String.join(" " + content.getSearchMode() + " ", content.getNames());
+            BiomodelsQueryResult result = biomodelsQuery.performSearchQuery(query);
+            if (!result.success()) {
+                throw new IOException("The BioModels search failed for: " + query);
             }
+            modelIds.addAll(result.getBiomodelIdsFromSearch());
         }
+        logger.info("BioModels search '{}' found: {}", content.namesToString(" "), modelIds);
+        return getInformation(content, modelIds);
     }
 
-    public String getHTMLInformation(final List<String> selectedModelIds)
-            throws IOException, ExecutionException, InterruptedException {
-        String info = getHTMLHeaderForModelSearch();
+    /**
+     * Gets the information of the given model ids, e.g. parsed from text.
+     */
+    public Result getInformation(Collection<String> modelIds) {
+        return getInformation(
+                new SearchContent(Map.of(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS)), modelIds);
+    }
 
-        info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(modelIds, selectedModelIds);
+    private Result getInformation(SearchContent content, Collection<String> modelIds) {
+        return new Result(
+                content, List.copyOf(modelIds), BiomodelsQueryResult.getBiomodelsFromIds(modelIds, biomodelsQuery));
+    }
+
+    /**
+     * Returns the HTML information of the given search result, highlighting the
+     * selected models. Does not access the web service.
+     */
+    public static String getHTMLInformation(Result result, List<String> selectedModelIds) {
+        String info = String.format(
+                "<h2>%d BioModels found for </h2><hr>", result.modelIds().size());
+        info += result.searchContent().toHTML();
+        info += "<hr>";
+        info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(
+                result.biomodels(), result.modelIds(), selectedModelIds);
         return BioModelDialogText.getString(info);
     }
-
-    private String getHTMLHeaderForModelSearch() {
-        String info = String.format("<h2>%d BioModels found for </h2>" + "<hr>", getSize());
-        info += searchContent.toHTML();
-        info += "<hr>";
-        return info;
-    }
-
-    //	public String getHTMLInformationForModel(int modelIndex){
-    //		SimpleModel simpleModel = getSimpleModel(modelIndex);
-    //		return BioModelWSInterfaceTools.getHTMLInformationForSimpleModel(simpleModel);
-    //	}
-
 }

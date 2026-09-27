@@ -124,6 +124,17 @@ table {
     padding: 5px;
 }
 
+/* the headers, texts and notes of the info panel (which has no container) are
+   indented like the history and CVTerm blocks */
+body > h2, body > p{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#notes{
+    padding: 5px;
+}
+
 .qualifier{
     background-color: #13721c;
     padding:2px;

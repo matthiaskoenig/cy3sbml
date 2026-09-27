@@ -24,8 +24,8 @@
         <enforcer.skipReleaseDeps>false</enforcer.skipReleaseDeps>
         <!-- Pinned to the JSBML commit that built the jars in lib/cy3sbml-dep
             (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
-            22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
-        <jsbml.version>1.7-20230103-22659a76</jsbml.version>
+            8192a8a7010676202eb666413213879c5a6a555e, committed 2026-09-07. -->
+        <jsbml.version>1.7-20260907-8192a8a7</jsbml.version>
         <!-- JUnit tag-based test selection. By default the "network" (hits web
             services) and "models" (long-running model test suites) tagged tests
             are excluded. Run with -Pall-tests for everything, or select the
@@ -243,7 +243,7 @@
             <version>2.0.17</version>
         </dependency>
 
-        <!-- slf4j runtime binding (see src/main/resources/logback-test.xml) -->
+        <!-- slf4j runtime binding (app: src/main/resources/logback.xml, tests: src/test/resources/logback-test.xml) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -479,6 +479,48 @@
 
     <build>
         <plugins>
+            <!-- JSBML ships its JUnit test classes inside its jars, some of them (e.g.
+                AssignmentRuleDerivedUnitsTest) mixed into the very same package as the
+                production classes cy3sbml needs (org.sbml.jsbml, org.sbml.jsbml.util, ...).
+                maven-bundle-plugin's Export-Package can only exclude by whole package, so it
+                cannot reach those; unpack the jsbml/jsbml-* jars here, with the test classes
+                and test/testdata packages filtered out, into a directory the bundle plugin
+                below copies in via Include-Resource instead of classpath-borrowing them
+                straight from the (unfiltered) jars.
+                Restricted to the jsbml-prefixed artifacts on purpose: jtidy (the other
+                cy3sbml-dep artifact, the third-party HTML tidy library JSBML's own
+                jsbml-tidy module wraps) ships no test classes to filter, and unpacking it
+                here too would additionally spill its own resources (e.g. tidy.gif) at the
+                bundle root; it stays a normal embedded (nested-jar) dependency instead, via
+                the explicit Embed-Dependency clause for it below. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.7.0</version>
+                <executions>
+                    <execution>
+                        <id>unpack-jsbml-without-tests</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <includeGroupIds>cy3sbml-dep</includeGroupIds>
+                            <includeArtifactIds>jsbml,jsbml-qual,jsbml-layout,jsbml-comp,jsbml-fbc,jsbml-groups,jsbml-distrib,jsbml-tidy</includeArtifactIds>
+                            <outputDirectory>${project.build.directory}/jsbml-classes</outputDirectory>
+                            <excludes>META-INF/**,
+                                **/test/**,
+                                **/testdata/**,
+                                **/*Test.class,
+                                **/*Test$*.class,
+                                **/*Tests.class,
+                                **/*Tests$*.class,
+                                **/*JUnitTests.class</excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- bundle -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -490,12 +532,26 @@
                     <instructions>
                         <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
-					org.sbml.jsbml.*</Export-Package>
+                        <Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
+                        <!-- org.sbml.jsbml.* is exported from whatever the unpack-jsbml-without-tests
+                            execution above put in target/jsbml-classes (see Include-Resource below),
+                            rather than by classpath-borrowing it from the jsbml jars directly: that
+                            would also pull in their (test-class-contaminated) packages. -->
+                        <_exportcontents>org.sbml.jsbml.*</_exportcontents>
                         <Private-Package>${bundle.namespace}.*</Private-Package>
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
+                        <!-- jtidy is excluded from the generic clause (its groupId is
+                            cy3sbml-dep) since it is not part of the filtered jsbml-classes
+                            unpack above; the explicit second clause embeds it normally
+                            (as a nested jar), same as before that unpack existed. -->
+                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape;groupId=!cy3sbml-dep,
+                            jtidy;groupId=cy3sbml-dep;scope=!provided|test</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
+                        <!-- {maven-resources} is bnd's default resource copy (src/main/resources,
+                            e.g. the gui templates, styles and the bundled extension jar); an
+                            explicit Include-Resource instruction replaces that default, so it must
+                            be listed here explicitly alongside the filtered jsbml classes. -->
+                        <Include-Resource>{maven-resources}, ${project.build.directory}/jsbml-classes</Include-Resource>
                         <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
                         <!--
                         <Import-Package>*;resolution:=optional</Import-Package>
@@ -558,6 +614,32 @@
                     <excludedGroups>${test.excludedGroups}</excludedGroups>
                 </configuration>
 
+            </plugin>
+
+            <!-- packaged-bundle integration tests (*IT.java), run in the integration-test/
+                verify phases against the already-packaged target/cy3sbml-<version>.jar, e.g.
+                BundleJarContentIT checks the jar itself has the resources the app needs at
+                runtime (see the task-3.12 investigation: a resource missing from the packaged
+                jar aborted CyActivator.start and handed SBML imports to Cytoscape's own,
+                broken bundled SBML app; a unit test running against target/classes cannot
+                catch that, since target/classes still has everything). -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.5.6</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <cy3sbml.bundle.jar>${project.build.directory}/${project.build.finalName}.jar</cy3sbml.bundle.jar>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- coverage -->

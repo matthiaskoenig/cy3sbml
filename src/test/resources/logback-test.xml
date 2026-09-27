@@ -1,0 +1,21 @@
+<!-- Logging of the tests: console only, warnings and errors.
+     Takes precedence over src/main/resources/logback.xml, the file log of the app,
+     which needs the logfile.name property set by CyActivator. -->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level \(%logger{36}\) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.sbml.jsbml.AbstractMathContainer" level="ERROR" />
+    <!-- SessionDataTest injects failures, which SessionData logs with their stack trace -->
+    <logger name="org.cy3sbml.SessionData" level="OFF" />
+    <!-- LatestTaskExecutorTest deliberately submits a task that throws, which
+         LatestTaskExecutor logs with its stack trace -->
+    <logger name="org.cy3sbml.gui.LatestTaskExecutor" level="OFF" />
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

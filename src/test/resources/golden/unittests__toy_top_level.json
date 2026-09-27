@@ -1,0 +1,2199 @@
+{
+  "networks" : [
+    {
+      "name" : "All__toy_top_level",
+      "nodeCount" : 81,
+      "edgeCount" : 70,
+      "attributes" : {
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "All__toy_top_level",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "shared name" : "Top level model",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "fast" : false,
+          "label" : "R3 dummy",
+          "metaId" : "R3",
+          "name" : "R3 dummy",
+          "reversible" : true,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R3 dummy"
+        },
+        {
+          "cyId" : "UnitSId__ITEM",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM0",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__ITEM01",
+          "exponent" : 1.0,
+          "kind" : "ITEM",
+          "label" : "ITEM",
+          "metaId" : "UnitSId__ITEM01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__KILOGRAM",
+          "exponent" : 1.0,
+          "kind" : "KILOGRAM",
+          "label" : "KILOGRAM",
+          "metaId" : "UnitSId__KILOGRAM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE",
+          "exponent" : 3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0",
+          "exponent" : 2.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE01",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE012",
+          "exponent" : -3.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE012",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0123",
+          "exponent" : 1.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0123",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND0",
+          "exponent" : 1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND01",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND01",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__item_base",
+          "label" : "item_base",
+          "metaId" : "UnitSId__item_base",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_base"
+        },
+        {
+          "cyId" : "UnitSId__item_per_m3",
+          "label" : "item_per_m3",
+          "metaId" : "UnitSId__item_per_m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_m3"
+        },
+        {
+          "cyId" : "UnitSId__item_per_s",
+          "label" : "item_per_s",
+          "metaId" : "UnitSId__item_per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "item_per_s"
+        },
+        {
+          "cyId" : "UnitSId__kg",
+          "label" : "kg",
+          "metaId" : "UnitSId__kg",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "kg"
+        },
+        {
+          "cyId" : "UnitSId__m",
+          "label" : "m",
+          "metaId" : "UnitSId__m",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m"
+        },
+        {
+          "cyId" : "UnitSId__m2",
+          "label" : "m2",
+          "metaId" : "UnitSId__m2",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m2"
+        },
+        {
+          "cyId" : "UnitSId__m3",
+          "label" : "m3",
+          "metaId" : "UnitSId__m3",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "m3"
+        },
+        {
+          "cyId" : "UnitSId__mM",
+          "label" : "mM",
+          "metaId" : "UnitSId__mM",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "mM"
+        },
+        {
+          "cyId" : "UnitSId__per_s",
+          "label" : "per_s",
+          "metaId" : "UnitSId__per_s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "per_s"
+        },
+        {
+          "cyId" : "UnitSId__s",
+          "label" : "s",
+          "metaId" : "UnitSId__s",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "s"
+        },
+        {
+          "comp_modelRef" : "toy_ode_bounds",
+          "cyId" : "bounds",
+          "label" : "bounds",
+          "metaId" : "bounds",
+          "sbml id" : "bounds",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel",
+          "sbo" : "SBO:0000062"
+        },
+        {
+          "constant" : true,
+          "cyId" : "cell",
+          "derivedUnits" : "m3",
+          "label" : "cell",
+          "metaId" : "cell",
+          "name" : "cell",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cell",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "name" : "external compartment",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "comp_modelRef" : "toy_fba",
+          "cyId" : "fba",
+          "label" : "fba",
+          "metaId" : "fba",
+          "sbml id" : "fba",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel",
+          "sbo" : "SBO:0000624"
+        },
+        {
+          "comp_modelRef" : "toy_ode_model",
+          "cyId" : "model",
+          "label" : "model",
+          "metaId" : "model",
+          "sbml id" : "model",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel",
+          "sbo" : "SBO:0000062"
+        },
+        {
+          "cyId" : "rule__vR3",
+          "derivedUnits" : "invalid",
+          "label" : "<vR3>",
+          "math" : "R3",
+          "metaId" : "rule__vR3",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "vR3"
+        },
+        {
+          "constant" : false,
+          "cyId" : "ub_R1",
+          "derivedUnits" : "item_per_s",
+          "label" : "ub_R1",
+          "metaId" : "ub_R1",
+          "name" : "ub_R1",
+          "sbml id" : "ub_R1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "ub_R1",
+          "units" : "item_per_s",
+          "value" : 1.0
+        },
+        {
+          "comp_modelRef" : "toy_ode_update",
+          "cyId" : "update",
+          "label" : "update",
+          "metaId" : "update",
+          "sbml id" : "update",
+          "sbml type" : "comp_submodel",
+          "sbml type ext" : "comp_submodel",
+          "sbo" : "SBO:0000062"
+        },
+        {
+          "constant" : false,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "name" : "vR3 (FBA flux)",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "model",
+          "cyId" : "",
+          "label" : "<model:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "R3_port",
+          "cyId" : "",
+          "label" : "<fba:R3_port>",
+          "sbml type" : "comp_replacedBy",
+          "sbml type ext" : "comp_replacedBy"
+        },
+        {
+          "comp_portRef" : "cell_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:cell_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "model",
+          "cyId" : "",
+          "label" : "<model:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "ub_R1_port",
+          "comp_submodelRef" : "bounds",
+          "cyId" : "",
+          "label" : "<bounds:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "ub_R1_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "vR3_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:vR3_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<bounds:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<bounds:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<bounds:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<bounds:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<bounds:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<bounds:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<bounds:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<bounds:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<bounds:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<fba:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<fba:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<fba:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<fba:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<fba:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<fba:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<fba:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<fba:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<fba:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<model:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<model:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<model:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<model:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<model:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<model:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<model:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<model:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<model:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<update:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<update:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<update:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<update:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<update:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<update:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<update:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<update:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<update:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "UnitSId__item_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "extern",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "extern",
+          "directed" : true,
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "rule__vR3",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedBy",
+          "attributes" : {
+            "interaction type" : "sbase-replacedBy",
+            "shared interaction" : "sbase-replacedBy"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM",
+          "target" : "UnitSId__item_per_s",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM0",
+          "target" : "UnitSId__item_per_m3",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__ITEM01",
+          "target" : "UnitSId__item_base",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__KILOGRAM",
+          "target" : "UnitSId__kg",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE",
+          "target" : "UnitSId__m3",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0",
+          "target" : "UnitSId__m2",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE01",
+          "target" : "UnitSId__mM",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE012",
+          "target" : "UnitSId__item_per_m3",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0123",
+          "target" : "UnitSId__m",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE",
+          "target" : "UnitSId__mM",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND",
+          "target" : "UnitSId__item_per_s",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND0",
+          "target" : "UnitSId__s",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND01",
+          "target" : "UnitSId__per_s",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_m3",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<bounds:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_m3",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<fba:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_m3",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<model:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_m3",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<update:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_s",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<bounds:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_s",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<fba:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_s",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<model:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__item_per_s",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<update:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__kg",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<bounds:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__kg",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<fba:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__kg",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<model:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__kg",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<update:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<bounds:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<fba:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<model:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<update:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m2",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<bounds:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m2",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<fba:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m2",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<model:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m2",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<update:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m3",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<bounds:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m3",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<fba:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m3",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<model:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__m3",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<update:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__mM",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<bounds:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__mM",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<fba:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__mM",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<model:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__mM",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<update:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__per_s",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<bounds:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__per_s",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<fba:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__per_s",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<model:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__per_s",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<update:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__s",
+          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<bounds:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__s",
+          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<fba:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__s",
+          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<model:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "UnitSId__s",
+          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<update:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "cell",
+          "target" : "UnitSId__m3",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "cell",
+          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "UnitSId__m3",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "UnitSId__item_per_s",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "UnitSId__item_per_s",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "rule__vR3",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__toy_top_level",
+      "nodeCount" : 54,
+      "edgeCount" : 16,
+      "attributes" : {
+        "name" : "Kinetic__toy_top_level"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "fast" : false,
+          "label" : "R3 dummy",
+          "metaId" : "R3",
+          "name" : "R3 dummy",
+          "reversible" : true,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R3 dummy"
+        },
+        {
+          "constant" : true,
+          "cyId" : "cell",
+          "derivedUnits" : "m3",
+          "label" : "cell",
+          "metaId" : "cell",
+          "name" : "cell",
+          "sbml id" : "cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cell",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "extern",
+          "derivedUnits" : "m3",
+          "label" : "external compartment",
+          "metaId" : "extern",
+          "name" : "external compartment",
+          "sbml id" : "extern",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "external compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "units" : "m3",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "rule__vR3",
+          "derivedUnits" : "invalid",
+          "label" : "<vR3>",
+          "math" : "R3",
+          "metaId" : "rule__vR3",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "vR3"
+        },
+        {
+          "constant" : false,
+          "cyId" : "ub_R1",
+          "derivedUnits" : "item_per_s",
+          "label" : "ub_R1",
+          "metaId" : "ub_R1",
+          "name" : "ub_R1",
+          "sbml id" : "ub_R1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "ub_R1",
+          "units" : "item_per_s",
+          "value" : 1.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "vR3",
+          "derivedUnits" : "item_per_s",
+          "label" : "vR3 (FBA flux)",
+          "metaId" : "vR3",
+          "name" : "vR3 (FBA flux)",
+          "sbml id" : "vR3",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "shared name" : "vR3 (FBA flux)",
+          "units" : "item_per_s",
+          "value" : 0.1
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "model",
+          "cyId" : "",
+          "label" : "<model:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "C_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:C_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "R3_port",
+          "cyId" : "",
+          "label" : "<fba:R3_port>",
+          "sbml type" : "comp_replacedBy",
+          "sbml type ext" : "comp_replacedBy"
+        },
+        {
+          "comp_portRef" : "cell_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:cell_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "model",
+          "cyId" : "",
+          "label" : "<model:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "extern_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:extern_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "ub_R1_port",
+          "comp_submodelRef" : "bounds",
+          "cyId" : "",
+          "label" : "<bounds:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "ub_R1_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "",
+          "label" : "<fba:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_portRef" : "vR3_port",
+          "comp_submodelRef" : "update",
+          "cyId" : "",
+          "label" : "<update:vR3_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<bounds:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<bounds:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<bounds:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<bounds:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<bounds:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<bounds:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<bounds:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<bounds:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<bounds:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<fba:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<fba:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<fba:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<fba:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<fba:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<fba:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<fba:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<fba:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "fba",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<fba:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<model:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<model:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<model:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<model:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<model:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<model:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<model:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<model:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "model",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<model:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "",
+          "label" : "<update:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "",
+          "label" : "<update:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "kg",
+          "cyId" : "",
+          "label" : "<update:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m",
+          "cyId" : "",
+          "label" : "<update:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m2",
+          "cyId" : "",
+          "label" : "<update:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "m3",
+          "cyId" : "",
+          "label" : "<update:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "mM",
+          "cyId" : "",
+          "label" : "<update:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "per_s",
+          "cyId" : "",
+          "label" : "<update:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_submodelRef" : "update",
+          "comp_unitRef" : "s",
+          "cyId" : "",
+          "label" : "<update:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "extern",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "extern",
+          "directed" : true,
+          "interaction" : "reaction_compartment",
+          "attributes" : {
+            "interaction" : "reaction_compartment",
+            "interaction type" : "reaction_compartment",
+            "shared interaction" : "reaction_compartment"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "rule__vR3",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "R3",
+          "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedBy",
+          "attributes" : {
+            "interaction" : "sbase-replacedBy",
+            "interaction type" : "sbase-replacedBy",
+            "shared interaction" : "sbase-replacedBy"
+          }
+        },
+        {
+          "source" : "cell",
+          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "extern",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "ub_R1",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "rule__vR3",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "vR3",
+          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "directed" : true,
+          "interaction" : "sbase-replacedElement",
+          "attributes" : {
+            "interaction" : "sbase-replacedElement",
+            "interaction type" : "sbase-replacedElement",
+            "shared interaction" : "sbase-replacedElement"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "toy_top_level",
+      "nodeCount" : 2,
+      "edgeCount" : 1,
+      "attributes" : {
+        "name" : "toy_top_level"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R3",
+          "fast" : false,
+          "label" : "R3 dummy",
+          "metaId" : "R3",
+          "name" : "R3 dummy",
+          "reversible" : true,
+          "sbml compartment" : "extern",
+          "sbml id" : "R3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R3 dummy"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R3",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

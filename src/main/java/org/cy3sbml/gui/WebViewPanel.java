@@ -3,12 +3,15 @@ package org.cy3sbml.gui;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javax.swing.*;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.biomodel.BiomodelsDialog;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -31,10 +34,8 @@ import org.slf4j.LoggerFactory;
  * The panel is registered as Cytoscape Results Panel.
  * This panel is the main area for displaying SBML information for the
  * network.
- * <p>
- * WebViewPanel is a singleton class.
  */
-public class WebViewPanel extends JFXPanel
+public final class WebViewPanel extends JFXPanel
         implements CytoPanelComponent2,
                 InfoPanel,
                 RowsSetListener,
@@ -45,45 +46,42 @@ public class WebViewPanel extends JFXPanel
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
     private static final long serialVersionUID = 1L;
 
-    private static WebViewPanel uniqueInstance;
-
-    private ServiceAdapter adapter;
-    private CytoPanel cytoPanelEast;
+    private final ServiceAdapter adapter;
+    private final SBMLManager sbmlManager;
+    private final SBaseHTMLFactory htmlFactory;
+    private final CofactorManager cofactorManager;
+    private final BiomodelsDialog biomodelsDialog;
+    private final CytoPanel cytoPanelEast;
+    private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
+    private static final int PREFERRED_WIDTH = 400;
+    private static final int PREFERRED_HEIGHT = 600;
     private Browser browser;
-    private long lastInformationThreadId = -1;
-    private String html;
-
-    /**
-     * Singleton.
-     */
-    public static synchronized WebViewPanel getInstance(ServiceAdapter adapter) {
-        if (uniqueInstance == null) {
-            logger.debug("WebViewPanel created");
-            uniqueInstance = new WebViewPanel(adapter);
-        }
-        return uniqueInstance;
-    }
-
-    public static synchronized WebViewPanel getInstance() {
-        return uniqueInstance;
-    }
+    private volatile String html;
 
     /**
      * Constructor
      */
-    private WebViewPanel(ServiceAdapter adapter) {
+    public WebViewPanel(
+            ServiceAdapter adapter,
+            SBMLManager sbmlManager,
+            SBaseHTMLFactory htmlFactory,
+            CofactorManager cofactorManager,
+            BiomodelsDialog biomodelsDialog) {
         this.adapter = adapter;
+        this.sbmlManager = sbmlManager;
+        this.htmlFactory = htmlFactory;
+        this.cofactorManager = cofactorManager;
+        this.biomodelsDialog = biomodelsDialog;
         this.cytoPanelEast = adapter.cySwingApplication.getCytoPanel(CytoPanelName.EAST);
 
         setLayout(new BorderLayout());
+        // the JavaFX scene is attached later, the docked panel takes its width from here
+        setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
 
         JFXPanel fxPanel = this;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel);
-                setHelp();
-            }
+        Platform.runLater(() -> {
+            initFX(fxPanel);
+            setHelp();
         });
     }
 
@@ -93,15 +91,13 @@ public class WebViewPanel extends JFXPanel
      */
     private void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(adapter.cy3sbmlDirectory);
-        Scene scene = new Scene(browser, 300, 600);
+        browser = new Browser(
+                adapter.cy3sbmlDirectory,
+                new BrowserHyperlinkListener(adapter, this, sbmlManager, cofactorManager, biomodelsDialog));
+        Scene scene = new Scene(browser, PREFERRED_WIDTH, PREFERRED_HEIGHT);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
         Platform.setImplicitExit(false);
-    }
-
-    public ServiceAdapter getAdapter() {
-        return adapter;
     }
 
     public String getHtml() {
@@ -120,7 +116,6 @@ public class WebViewPanel extends JFXPanel
 
     @Override
     public Icon getIcon() {
-        // return new ImageIcon(getClass().getResource(GUIConstants.ICON_HELP));
         return null;
     }
 
@@ -131,7 +126,7 @@ public class WebViewPanel extends JFXPanel
 
     @Override
     public String getTitle() {
-        return "cy3sbml ";
+        return "cy3sbml";
     }
 
     public boolean isActive() {
@@ -176,39 +171,58 @@ public class WebViewPanel extends JFXPanel
 
     /// //////////////// INFORMATION DISPLAY ///////////////////////////////////
 
+    /**
+     * Shows the static help page.
+     * <p>
+     * Submitted on the {@link #renderExecutor} under a fresh key (never equal to any
+     * other key, including a previous call's), so it is never coalesced away and always
+     * cancels whatever render is still pending or running (e.g. a slow web-service lookup
+     * for a previous selection): that render can no longer overwrite the help page once
+     * it is requested, and the two run in the order they were requested. The page is
+     * loaded via {@link #publish}, the same publication path the SBase renders use.
+     */
     public void setHelp() {
-        browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE);
+        renderExecutor.submit(
+                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE)));
     }
 
+    /**
+     * Shows the static examples page. Submitted on the {@link #renderExecutor} under a
+     * fresh key, same as {@link #setHelp}, so an in-flight render cannot overwrite it.
+     */
     public void setExamples() {
-        browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
+        renderExecutor.submit(
+                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE)));
     }
 
     /**
      * Set text.
+     * <p>
+     * Must be called from a render task running on the {@link #renderExecutor}; the text
+     * is only shown if that task is still the current render (see {@link #publish}).
      */
     @Override
     public void setText(String text) {
-        html = text;
-        // Necessary to use invokeLater to handle the Swing GUI update
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                browser.loadText(text);
-            }
+        publish(b -> {
+            html = text;
+            b.loadText(text);
         });
     }
 
     /**
-     * Update Text in the navigation panel.
-     * Only updates information if the current thread is the last requested thread
-     * for updating text.
+     * Publishes a render result to the browser, but only if the calling render task is
+     * still the current one ({@link LatestTaskExecutor#publishIfCurrent}): a superseded
+     * render that already passed its last interrupt check is dropped here, so it can never
+     * overwrite the result of a newer render or the help/examples page.
+     * <p>
+     * The accepted publication enqueues a single runnable on the JavaFX application
+     * thread while holding the executor's lock. That thread runs its queue in FIFO order,
+     * so the browser receives the accepted publications in the order they were accepted.
+     * The browser is only touched on the JavaFX thread, after {@link #initFX} (enqueued
+     * first, from the constructor) created it.
      */
-    @Override
-    public void setText(SBaseHTMLThread infoThread) {
-        if (infoThread.getId() == lastInformationThreadId) {
-            this.setText(infoThread.getInfo());
-        }
+    private void publish(Consumer<Browser> publication) {
+        renderExecutor.publishIfCurrent(() -> Platform.runLater(() -> publication.accept(browser)));
     }
 
     /**
@@ -223,14 +237,20 @@ public class WebViewPanel extends JFXPanel
 
     /**
      * Display information for set of nodes.
+     * <p>
+     * Runs the HTML generation (the OLS/UniProt/ChEBI web-service lookups) inline, on
+     * whatever thread is calling this. The only caller is {@link PanelUpdater}, itself
+     * running as the single task {@link #updateInformation()} submits to the
+     * {@link #renderExecutor} for the current selection. This must stay a plain call and
+     * never become a nested {@code renderExecutor.submit(...)}: the executor cancels
+     * whatever task it is currently running when a new one is submitted, so a nested
+     * submit from inside a task that is itself about to be cancelled would race with, and
+     * could cancel, a newer selection's already-submitted task instead of its own.
+     * Keeping exactly one submit per selection is what makes that cancellation correct.
      */
     @Override
     public void showSBaseInfo(Set<Object> objSet) {
-        // starting threads for webservice calls
-
-        SBaseHTMLThread thread = new SBaseHTMLThread(objSet, this);
-        lastInformationThreadId = thread.getId();
-        thread.start();
+        new SBaseHTMLThread(objSet, this, htmlFactory).run();
     }
 
     @Override
@@ -280,7 +300,7 @@ public class WebViewPanel extends JFXPanel
     public void handleEvent(SetCurrentNetworkEvent event) {
         CyNetwork network = event.getNetwork();
         // network changed, update of the current SBMLDocument and bundle
-        SBMLManager.getInstance().updateCurrent(network);
+        sbmlManager.updateCurrent(network);
         updateInformation();
     }
 
@@ -306,6 +326,13 @@ public class WebViewPanel extends JFXPanel
 
     /**
      * Updates panel information within a separate thread.
+     * <p>
+     * Resolves the render target (see {@link PanelUpdater#resolveTarget}) and submits it
+     * as the render executor's key: several Cytoscape events fired while loading one
+     * model can resolve to the same target (e.g. a model's subnetworks, taken current in
+     * turn, share one {@code SBMLDocument}), and {@code LatestTaskExecutor} coalesces a
+     * resubmission of the target it is already rendering rather than cancelling and
+     * restarting it, so one load renders once.
      */
     public void updateInformation() {
         logger.debug("updateInformation()");
@@ -324,14 +351,15 @@ public class WebViewPanel extends JFXPanel
             return;
         }
 
-        // Update the information in separate thread
-        try {
-            PanelUpdater updater = new PanelUpdater(this, network);
-            Thread t = new Thread(updater);
-            t.start();
-        } catch (Throwable t) {
-            logger.error("Error in handling node selection in CyNetwork", t);
-            t.printStackTrace();
-        }
+        Object target = PanelUpdater.resolveTarget(network, sbmlManager);
+        renderExecutor.submit(target, new PanelUpdater(this, target, htmlFactory));
+    }
+
+    /**
+     * Stops the render executor. Called from {@code CyActivator.shutDown} so the
+     * daemon render thread and any in-flight web-service call are stopped on app shutdown.
+     */
+    public void close() {
+        renderExecutor.close();
     }
 }

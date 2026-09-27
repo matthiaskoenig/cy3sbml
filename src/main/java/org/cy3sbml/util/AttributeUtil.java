@@ -80,8 +80,6 @@ public class AttributeUtil {
     private static <T> T get(
             CyNetwork network, CyIdentifiable entry, String tableName, String name, Class<? extends T> type) {
         CyRow row = network.getRow(entry, tableName);
-        // CyTable table = row.getTable();
-        // CyColumn column = table.getColumn(name);
         return row.get(name, type);
     }
 
@@ -137,7 +135,6 @@ public class AttributeUtil {
 
     /**
      * Returns the first matching node.
-     * TODO: method for all matchin nodes
      * Returns first node with attribute==identifier in DefaultNodeTable.
      *
      * @param network    network in which the node is searched

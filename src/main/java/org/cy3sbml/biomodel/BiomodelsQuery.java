@@ -1,169 +1,78 @@
 package org.cy3sbml.biomodel;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
+import org.cy3sbml.util.FetchStatus;
+import org.cy3sbml.util.HttpJson;
 
 /**
- * UniRest based REST queries for biomodels.
+ * Queries of the BioModels REST API (https://www.biomodels.org/docs/).
+ * <p>
+ * All requests go through {@link HttpJson}, which follows redirects (BioModels moved from
+ * www.ebi.ac.uk/biomodels to www.biomodels.org and redirects the old addresses), uses
+ * HTTP/1.1 and timeouts, and honors the Cytoscape proxy settings.
  */
 public class BiomodelsQuery {
-    public static final String BIOMODELS_RESTFUL_URL = "https://www.ebi.ac.uk/biomodels/";
-    public static final String BIOMODELS_SEARCH = "search";
-    public static final String BIOMODELS_BIOMODEL = "?format=json";
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    /** Base URL of the BioModels REST API. */
+    public static final URI BIOMODELS_URL = URI.create("https://www.biomodels.org/");
+
+    private final HttpJson http;
+    private final URI base;
 
     /**
-     * Create URI from query String.
-     * <p>
-     * Performs necessary replacements and sanitation of query.
+     * Creates the queries against the BioModels REST API at the given base URL,
+     * which must end with a slash.
      */
-    public static URI uriFromQuery(String query) throws URISyntaxException {
-        // FIXME: Necessary to url escape
-        // https://stackoverflow.com/questions/724043/http-url-address-encoding-in-java#724764
-        //	    query = query.replace(":", "%3A");
-        //        query = query.replace(" ", "%20");
-        //        query = query.replace("\"", "%22");
-        //        query = query.replace(">", "%3E");
-        //        query = query.replace("<", "%3C");
-
-        URI uri = new URI(BIOMODELS_RESTFUL_URL + query);
-        return uri;
+    public BiomodelsQuery(HttpJson http, URI base) {
+        this.http = http;
+        this.base = base;
     }
 
     /**
-     * Run a biomodels query.
+     * Creates the queries against the public BioModels REST API.
      */
-    public static BiomodelsQueryResult performSearchQuery(String query) throws IOException, InterruptedException {
-        // TODO: handle the more complex cases, i.e. if there is pagination, than
-        // FIXME: pagination - &offset=0&numResults=10
-        // perform all the individual queries and combine the results.
+    public static BiomodelsQuery createDefault() {
+        return new BiomodelsQuery(HttpJson.createDefault(), BIOMODELS_URL);
+    }
 
-        String url = String.format(
-                "%s?query=%s&format=json",
-                BIOMODELS_RESTFUL_URL + BIOMODELS_SEARCH, URLEncoder.encode(query, StandardCharsets.UTF_8));
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-        HttpResponse<InputStream> response =
-                client.send(request, java.net.http.HttpResponse.BodyHandlers.ofInputStream());
+    /**
+     * Runs a BioModels search. The result is unsuccessful if the search failed.
+     */
+    public BiomodelsQueryResult performSearchQuery(String query) {
+        // only the first result page is read (#402)
+        URI uri = base.resolve("search?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&format=json");
+        return new BiomodelsQueryResult(query, http.fetchText(uri).value().orElse(null));
+    }
 
-        if (response != null) {
-            Integer status = response.statusCode();
-            String json = null;
-            if (status == 200) {
-                json = getStringBody(response);
+    /**
+     * Gets the information for the given BioModel. The future fails if the
+     * information could not be retrieved or parsed.
+     */
+    public CompletableFuture<Biomodel> performBiomodelQuery(String biomodelId) {
+        URI uri = base.resolve(encode(biomodelId) + "?format=json");
+        return http.fetchAsync(uri).thenApply(result -> {
+            if (result.status() != FetchStatus.FOUND) {
+                throw new IllegalStateException("Could not retrieve BioModel " + biomodelId + ": " + result.status());
             }
-            return new BiomodelsQueryResult(query, status, json);
-        }
-
-        return null;
+            return Biomodel.fromJson(result.value().orElseThrow());
+        });
     }
 
     /**
-     * Get information for given biomodel.
+     * Downloads the SBML file of the given BioModel into the given file.
+     *
+     * @throws IOException if the download failed, e.g. for an unknown id
      */
-    public static CompletableFuture<Biomodel> performBiomodelQuery(String biomodelId)
-            throws IOException, InterruptedException {
-        String query = biomodelId + "?format=json";
-        String url = BIOMODELS_RESTFUL_URL + query;
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-        CompletableFuture<Biomodel> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
-                .thenApply(response -> {
-                    if (response.statusCode() == 200) {
-                        try {
-                            String json = getStringBody(response); // Reuse your method
-                            JsonNode jsonObject = MAPPER.readTree(json);
-                            return new Biomodel(jsonObject);
-                        } catch (Exception e) {
-                            throw new RuntimeException("Failed to parse biomodel: " + biomodelId, e);
-                        }
-                    } else {
-                        throw new RuntimeException("HTTP error for " + biomodelId + ": " + response.statusCode());
-                    }
-                });
-
-        return future;
+    public void downloadSBML(String biomodelId, Path file) throws IOException {
+        String id = encode(biomodelId);
+        http.download(base.resolve("model/download/" + id + "?filename=" + id + "_url.xml"), file);
     }
 
-    public static String getBioModelSBMLById(String id) throws IOException, InterruptedException {
-
-        String sbml = "";
-        HttpResponse<String> sbmlResponse = getSBMLResponse(BIOMODELS_RESTFUL_URL, "model/download/", id);
-        if (sbmlResponse.statusCode() == 200) {
-            // The response body contains the SBML XML content
-            sbml = sbmlResponse.body();
-
-            // You can save it to a file if needed
-            // Files.writeString(Path.of(modelId + ".xml"), sbmlContent);
-        } else {
-            System.err.println("Failed to download SBML. Status code: " + sbmlResponse.statusCode());
-        }
-
-        return sbml;
-    }
-
-    public static HttpResponse<String> getSBMLResponse(String base, String operation, String id)
-            throws IOException, InterruptedException {
-        String downloadUrl = base + operation + id + "?filename=" + id + "_url.xml";
-
-        HttpClient client = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .build();
-        HttpRequest request =
-                HttpRequest.newBuilder().uri(URI.create(downloadUrl)).GET().build();
-
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    private static String getStringBody(HttpResponse<InputStream> ioResponse) {
-        InputStream inputStream = ioResponse.body();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-        String content = bufferedReader.lines().collect(Collectors.joining("\n"));
-
-        return content;
-    }
-
-    /* Test the Restful API. */
-    public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
-
-        BiomodelsQueryResult result = BiomodelsQuery.performSearchQuery("/BIOMD0000000012?format=json");
-        System.out.println(result.getJSON());
-
-        CompletableFuture<Biomodel> biomodel = BiomodelsQuery.performBiomodelQuery("BIOMD0000000012");
-
-        System.out.println(biomodel);
-
-        // Download the OMEX archive
-        // https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000012
-
-        // Download single model file
-        // https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000012?filename=BIOMD0000000012_url.xml
-
-        // Search for models
-        // https://www.ebi.ac.uk/biomodels/search?query=repressilator&format=json
-
-        // newQuery("searchKineticLaws/sbml?q=Tissue:spleen AND Organism:\"Homo sapiens\"");
-        // newQuery("searchKineticLaws/sbml?q=Tissue:spleen%20AND%20Organism:%22homo%20sapiens%22");
+    private static String encode(String pathSegment) {
+        return URLEncoder.encode(pathSegment, StandardCharsets.UTF_8);
     }
 }

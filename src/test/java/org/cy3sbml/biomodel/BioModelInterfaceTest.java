@@ -1,71 +1,78 @@
 package org.cy3sbml.biomodel;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import org.cy3sbml.TestUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
- * Test biomodels access.
+ * Tests the access to the live BioModels REST API.
  */
-@Disabled("Biomodels is down again")
 @Tag("network")
 public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_ID = "BIOMD0000000070";
     static final String VALID_BIOMODEL_PERSON = "gille";
     static final String VALID_BIOMODEL_NAME = "glycolysis";
-    static final String INVALID_STRING = "xcvsfsfasdfa1323452342";
+    static final String INVALID_BIOMODEL_ID = "BIOMD9999999999";
 
-    BiomodelsQuery bmQuery;
+    private final BiomodelsQuery query = BiomodelsQuery.createDefault();
+
+    @TempDir
+    Path tempDir;
 
     @BeforeAll
     public static void onlyOnce() {
         TestUtils.setSystemProxyForTests();
     }
 
-    @BeforeEach
-    public void setUp() {
-        bmQuery = new BiomodelsQuery();
-    }
+    @Test
+    public void downloadSBML() throws IOException {
+        Path file = tempDir.resolve(VALID_BIOMODEL_ID + ".xml");
+        query.downloadSBML(VALID_BIOMODEL_ID, file);
 
-    @AfterEach
-    public void tearDown() {
-        bmQuery = null;
+        assertTrue(Files.readString(file).contains("<sbml"));
     }
 
     @Test
-    public void testGetBioModelSBMLById() throws IOException, InterruptedException {
-        String sbml = BiomodelsQuery.getBioModelSBMLById(VALID_BIOMODEL_ID);
-        assertNotNull(sbml);
+    public void downloadSBMLOfUnknownIdFails() {
+        Path file = tempDir.resolve(INVALID_BIOMODEL_ID + ".xml");
+        IOException e = assertThrows(IOException.class, () -> query.downloadSBML(INVALID_BIOMODEL_ID, file));
+
+        assertTrue(e.getMessage().contains("HTTP status 404"), e.getMessage());
     }
 
     @Test
-    public void testGetBioModelSBMLById2() throws IOException, InterruptedException {
-        String sbml = BiomodelsQuery.getBioModelSBMLById(INVALID_STRING);
-        assertNotNull(sbml);
+    public void biomodelQuery() {
+        Biomodel biomodel = query.performBiomodelQuery(VALID_BIOMODEL_ID).join();
+
+        assertEquals(VALID_BIOMODEL_ID, biomodel.id());
+        assertFalse(biomodel.name().isEmpty());
     }
 
     @Test
-    public void testGetBioModelIdsByPerson() throws IOException, InterruptedException {
-        List<String> modelIds =
-                BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
-        assertNotNull(modelIds, () -> "Models have to exist.");
+    public void searchByPerson() {
+        BiomodelsQueryResult result = query.performSearchQuery(VALID_BIOMODEL_PERSON);
+
+        assertTrue(result.success());
+        assertFalse(result.getBiomodelIdsFromSearch().isEmpty(), "More than 0 models have to exist.");
+    }
+
+    @Test
+    public void searchByName() {
+        BiomodelsQueryResult result = query.performSearchQuery(VALID_BIOMODEL_NAME);
+
+        assertTrue(result.success());
+        List<String> modelIds = result.getBiomodelIdsFromSearch();
         assertFalse(modelIds.isEmpty(), "More than 0 models have to exist.");
-        for (String modelId : modelIds) {
-            System.out.println(modelId);
-        }
-    }
-
-    @Test
-    public void testGetBioModelIdsByName() throws IOException, InterruptedException {
-        List<String> modelIds =
-                BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
-        assertNotNull(modelIds, () -> "Models have to exist.");
-        assertFalse(modelIds.isEmpty());
-        for (String modelId : modelIds) {
-            System.out.println(modelId);
-        }
     }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class XMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
@@ -58,18 +61,65 @@ public class XMLUtil {
     }
 
     /**
+     * Creates a {@link DocumentBuilderFactory} hardened against XML external entity (XXE)
+     * attacks. The XML parsed by cy3sbml (SBML notes and annotations, layout files, the
+     * bundled style templates) never needs a document type declaration, so any DOCTYPE is
+     * rejected outright; this also rules out entity expansion attacks. External general
+     * and parameter entities, external DTD loading, XInclude and entity reference
+     * expansion are disabled as well, as defense in depth, and secure processing is on.
+     */
+    public static DocumentBuilderFactory documentBuilderFactory() throws ParserConfigurationException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
+        return factory;
+    }
+
+    /**
+     * Creates a {@link Transformer} (identity transform) that never fetches external DTDs
+     * or stylesheets.
+     */
+    public static Transformer transformer() throws TransformerConfigurationException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        return factory.newTransformer();
+    }
+
+    /**
+     * Creates a document builder from the hardened {@link #documentBuilderFactory()} that
+     * reports parse errors only through its exceptions. The default error handler also
+     * prints them to stderr.
+     */
+    public static DocumentBuilder documentBuilder() throws ParserConfigurationException {
+        DocumentBuilder builder = documentBuilderFactory().newDocumentBuilder();
+        builder.setErrorHandler(new DefaultHandler() {
+            @Override
+            public void fatalError(SAXParseException e) throws SAXException {
+                throw e;
+            }
+        });
+        return builder;
+    }
+
+    /**
      * Read XML Document from String.
      */
     public static Document readXMLString(String xml) {
         InputStream xmlStream = IOUtil.string2InputStream(xml);
         Document doc = null;
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(xmlStream);
+            doc = documentBuilder().parse(xmlStream);
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            logger.error("Reading xml string failed.", e);
-            e.printStackTrace();
+            // invalid XML in a model, e.g. in the notes, is a data problem, not a bug
+            logger.warn("Reading xml string failed: {}", e.getMessage());
         }
         return doc;
     }
@@ -81,7 +131,7 @@ public class XMLUtil {
         XMLUtil.cleanEmptyTextNodes(node);
         Transformer transformer;
         try {
-            transformer = TransformerFactory.newInstance().newTransformer();
+            transformer = XMLUtil.transformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
             Result output = new StreamResult(file);
@@ -89,7 +139,6 @@ public class XMLUtil {
             transformer.transform(input, output);
         } catch (TransformerException e) {
             logger.error("Writing node failed.", e);
-            e.printStackTrace();
         }
     }
 
@@ -102,7 +151,7 @@ public class XMLUtil {
 
         String output = null;
         try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            Transformer transformer = XMLUtil.transformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", INDENT_AMOUNT.toString());
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -112,7 +161,6 @@ public class XMLUtil {
 
         } catch (TransformerException e) {
             logger.error("Writing node failed.", e);
-            e.printStackTrace();
         }
         return output;
     }

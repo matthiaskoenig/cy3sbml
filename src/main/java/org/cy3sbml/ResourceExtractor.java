@@ -4,7 +4,10 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -18,13 +21,11 @@ import org.slf4j.LoggerFactory;
  * JavaFX does currently not support the access via bundle: uris.
  */
 public class ResourceExtractor {
-    private static Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
-    private static File appDirectory;
+    private static final Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
 
     public static final String GUI_RESOURCES = "/gui/";
     public static final String RO_RESOURCES = "/ro/";
     public static final String OMEX_RESOURCES = "/omex/";
-    public static final String BIOMODELS_RESOURCES = "/biomodels/";
 
     public static final Set<String> RESOURCES;
 
@@ -33,27 +34,18 @@ public class ResourceExtractor {
         set.add(GUI_RESOURCES);
         set.add(RO_RESOURCES);
         set.add(OMEX_RESOURCES);
-        set.add(BIOMODELS_RESOURCES);
         RESOURCES = Collections.unmodifiableSet(set);
     }
 
     private final BundleContext bc;
+    private final File appDirectory;
 
     /**
      * Constructor.
      */
     public ResourceExtractor(final BundleContext bc, final File appDirectory) {
         this.bc = bc;
-        setAppDirectory(appDirectory);
-    }
-
-    /**
-     * Sets the appDirectory where the resources are extracted.
-     *
-     * @param appDirectory local directory for files
-     */
-    public static void setAppDirectory(File appDirectory) {
-        ResourceExtractor.appDirectory = appDirectory;
+        this.appDirectory = appDirectory;
     }
 
     /**
@@ -66,7 +58,7 @@ public class ResourceExtractor {
      * @param resource resource String
      * @return fileURI of resource, or null if not existing
      */
-    public static String getResource(String resource) {
+    public String getResource(String resource) {
         URI fileURI = fileURIforResource(resource);
         if (fileURI == null) {
             return null;
@@ -82,7 +74,7 @@ public class ResourceExtractor {
      * @param resource resource path
      * @return String representation of fileURI or null
      */
-    public static URI fileURIforResource(String resource) {
+    public URI fileURIforResource(String resource) {
         if (appDirectory == null) {
             logger.error("appDirectory is not set in ResourceExtractor");
             return null;
@@ -122,8 +114,7 @@ public class ResourceExtractor {
 
     /**
      * Extract the resources in given directory.
-     * FIXME: no removal of old resources, existing files are overwritten,
-     * old files accumulate
+     * Existing files are overwritten, files of older versions are not removed (#404).
      */
     private void extractDirectory(URL rootURL, String directory) {
         // list all GUI resources of bundle and extract them
@@ -136,8 +127,7 @@ public class ResourceExtractor {
             try {
                 URL inURL = new URL(rootURL.toString() + path);
 
-                try {
-                    InputStream inputStream = inURL.openConnection().getInputStream();
+                try (InputStream inputStream = inURL.openConnection().getInputStream()) {
                     File outFile = new File(appDirectory + "/" + path);
                     // create directory
                     if (path.endsWith("/")) {
@@ -152,25 +142,17 @@ public class ResourceExtractor {
                         }
 
                         logger.debug(" --> " + outFile.getAbsolutePath());
-                        OutputStream outputStream = new FileOutputStream(outFile);
-
-                        int read;
-                        byte[] bytes = new byte[1024];
-
-                        while ((read = inputStream.read(bytes)) != -1) {
-                            outputStream.write(bytes, 0, read);
+                        try (OutputStream outputStream = new FileOutputStream(outFile)) {
+                            inputStream.transferTo(outputStream);
                         }
-                        outputStream.close();
                     }
                 } catch (IOException e1) {
                     logger.error("Directory could not be extracted", e1);
-                    e1.printStackTrace();
                     return;
                 }
 
             } catch (MalformedURLException me) {
                 logger.error("Problems with url", me);
-                me.printStackTrace();
                 return;
             }
         }

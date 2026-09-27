@@ -1,8 +1,10 @@
 package org.cy3sbml.util;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.SBML;
@@ -41,11 +43,9 @@ public class SBMLUtil {
         InputStream instream = SBMLUtil.class.getResourceAsStream(resource);
         SBMLDocument doc = null;
         try {
-            String xml = IOUtil.inputStream2String(instream);
-            doc = JSBML.readSBMLFromString(xml);
-        } catch (IOException | XMLStreamException e) {
+            doc = SBMLReader.read(instream);
+        } catch (XMLStreamException e) {
             logger.error("SBMLDocument reading failed.", e);
-            e.printStackTrace();
         }
         return doc;
     }
@@ -94,7 +94,6 @@ public class SBMLUtil {
                 return text;
             } catch (XMLStreamException e) {
                 logger.error("Error parsing notes xml.", e);
-                e.printStackTrace();
             }
         }
         return null;
@@ -248,10 +247,6 @@ public class SBMLUtil {
             packages = "";
             for (SBasePlugin plugin : packageMap.values()) {
 
-                // URI does not lead anywhere
-                // packages += String.format("; <a href=\"%s\">%s-V%s</a>",
-                //        plugin.getURI(), plugin.getPackageName(), plugin.getPackageVersion());
-
                 packages += String.format(
                         " <span class=\"collection\">%s-V%s</span>",
                         plugin.getPackageName(), plugin.getPackageVersion());
@@ -371,7 +366,7 @@ public class SBMLUtil {
         }
 
         // fbc
-        FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.namespaceURI);
+        FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.shortLabel);
         if (fbcSpecies != null) {
             String charge = GUIConstants.ICON_NONE;
             if (fbcSpecies.isSetCharge()) {
@@ -417,11 +412,8 @@ public class SBMLUtil {
         map.put(SBML.ATTR_KINETIC_LAW, String.format(MATH_TEMPLATE, kineticLaw));
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
-        // TODO: create an equation string
-        // TODO: fbc flux objective from list of fluxObjectives
-
         // fbc
-        FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.namespaceURI);
+        FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.shortLabel);
         if (fbcReaction != null) {
             String lowerFluxBound = GUIConstants.ICON_NONE;
             if (fbcReaction.isSetLowerFluxBound()) {
@@ -492,7 +484,6 @@ public class SBMLUtil {
                 message = constraint.getMessageString();
             } catch (XMLStreamException e) {
                 logger.error("Constraint message could not be created.", e);
-                e.printStackTrace();
             }
         }
         map.put(SBML.ATTR_MESSAGE, message);
@@ -580,9 +571,6 @@ public class SBMLUtil {
     /**
      * QualitativeSpecies map.
      */
-    // reason: real bug, the key reads "qual_initialLevel/s"; fixing it changes the displayed
-    // SBase information, so it is fixed in Task 3.2 (remove the suppression there)
-    @SuppressWarnings("FormatString")
     public static Map<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         Map<String, String> map = createNamedSBaseMap(qs);
 
@@ -593,7 +581,7 @@ public class SBMLUtil {
         String constant = qs.isSetConstant() ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : GUIConstants.ICON_NONE;
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(
-                String.format("%s/s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
+                String.format("%s/%s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
                 String.format("%s/%s", initialLevel, maxLevel));
         map.put(SBML.ATTR_CONSTANT, constant);
         return map;
@@ -647,13 +635,12 @@ public class SBMLUtil {
         if (members.isSetName()) {
             map.put("members name", members.getName());
         }
-        String membersStr = "<ul>";
+        StringBuilder membersStr = new StringBuilder("<ul>");
         for (Member member : group.getListOfMembers()) {
-            // FIXME: more efficient
-            membersStr += String.format("<li>%s</li>", member.getSBaseInstance().toString());
+            membersStr.append("<li>").append(member.getSBaseInstance()).append("</li>");
         }
-        membersStr += "</ul>";
-        map.put("members", membersStr);
+        membersStr.append("</ul>");
+        map.put("members", membersStr.toString());
 
         return map;
     }

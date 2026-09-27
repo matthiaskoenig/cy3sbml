@@ -44,11 +44,8 @@ public class SBMLFileFilter extends BasicCyFileFilter {
             return false;
         }
 
-        try {
-            // check for extension
-            // String ext = FilenameUtils.getExtension(uri.toString());
-            // extensions.contains(ext)
-            return accepts(streamUtil.getInputStream(uri.toURL()), category);
+        try (InputStream stream = streamUtil.getInputStream(uri.toURL())) {
+            return accepts(stream, category);
         } catch (IOException e) {
             logger.error("Error while creating stream from uri", e);
             return false;
@@ -75,6 +72,7 @@ public class SBMLFileFilter extends BasicCyFileFilter {
      * Checks if the header contains the SBML namespace definition.
      */
     private boolean checkHeader(InputStream stream) throws IOException {
+        // the stream belongs to the caller, so the reader is not closed
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
         int linesToCheck = DEFAULT_LINES_TO_CHECK;
         while (linesToCheck > 0) {

@@ -1,0 +1,646 @@
+{
+  "networks" : [
+    {
+      "name" : "All__case00027",
+      "nodeCount" : 13,
+      "edgeCount" : 16,
+      "attributes" : {
+        "label" : "case00027",
+        "metaId" : "_case00027",
+        "name" : "All__case00027",
+        "sbml id" : "case00027",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "shared name" : "case00027",
+        "timeUnits" : "time"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "UnitSId__LITRE",
+          "exponent" : 1.0,
+          "kind" : "LITRE",
+          "label" : "LITRE",
+          "metaId" : "UnitSId__LITRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND",
+          "exponent" : 1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__substance",
+          "label" : "substance",
+          "metaId" : "UnitSId__substance",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "substance"
+        },
+        {
+          "cyId" : "UnitSId__time",
+          "label" : "time",
+          "metaId" : "UnitSId__time",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "time"
+        },
+        {
+          "cyId" : "UnitSId__volume",
+          "label" : "volume",
+          "metaId" : "UnitSId__volume",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "volume"
+        },
+        {
+          "cyId" : "assignment__compartment",
+          "derivedUnits" : "invalid",
+          "label" : "assignment__compartment",
+          "math" : "0.534",
+          "metaId" : "assignment__compartment",
+          "sbml type" : "initialAssignment",
+          "sbml type ext" : "initialAssignment",
+          "variable" : "compartment"
+        },
+        {
+          "constant" : true,
+          "cyId" : "compartment",
+          "derivedUnits" : "volume",
+          "initialAssignment" : "0.534",
+          "label" : "compartment",
+          "metaId" : "compartment",
+          "name" : "compartment",
+          "sbml id" : "compartment",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "compartment",
+          "size" : 0.534,
+          "spatialDimensions" : 3.0,
+          "units" : "volume",
+          "value" : 0.534
+        },
+        {
+          "cyId" : "law__reaction1",
+          "label" : "reaction1",
+          "math" : "compartment*reaction1_k*S1",
+          "metaId" : "law__reaction1",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "reaction1",
+          "fast" : false,
+          "kineticLaw" : "compartment*reaction1_k*S1",
+          "label" : "reaction1",
+          "metaId" : "reaction1",
+          "name" : "reaction1",
+          "reversible" : false,
+          "sbml id" : "reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "reaction1"
+        },
+        {
+          "cyId" : "reaction1_k",
+          "derivedUnits" : "",
+          "label" : "reaction1_k",
+          "metaId" : "reaction1_k",
+          "sbml id" : "reaction1_k",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 100.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "UnitSId__substance",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "compartment",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "UnitSId__substance",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "compartment",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "UnitSId__LITRE",
+          "target" : "UnitSId__volume",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE",
+          "target" : "UnitSId__substance",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND",
+          "target" : "UnitSId__time",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "UnitSId__volume",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "assignment__compartment",
+          "directed" : true,
+          "interaction" : "variable_initialAssignment",
+          "attributes" : {
+            "interaction type" : "variable_initialAssignment",
+            "shared interaction" : "variable_initialAssignment"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1_k",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1_k",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__case00027",
+      "nodeCount" : 7,
+      "edgeCount" : 10,
+      "attributes" : {
+        "name" : "Kinetic__case00027"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "assignment__compartment",
+          "derivedUnits" : "invalid",
+          "label" : "assignment__compartment",
+          "math" : "0.534",
+          "metaId" : "assignment__compartment",
+          "sbml type" : "initialAssignment",
+          "sbml type ext" : "initialAssignment",
+          "variable" : "compartment"
+        },
+        {
+          "constant" : true,
+          "cyId" : "compartment",
+          "derivedUnits" : "volume",
+          "initialAssignment" : "0.534",
+          "label" : "compartment",
+          "metaId" : "compartment",
+          "name" : "compartment",
+          "sbml id" : "compartment",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "compartment",
+          "size" : 0.534,
+          "spatialDimensions" : 3.0,
+          "units" : "volume",
+          "value" : 0.534
+        },
+        {
+          "cyId" : "law__reaction1",
+          "label" : "reaction1",
+          "math" : "compartment*reaction1_k*S1",
+          "metaId" : "law__reaction1",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "reaction1",
+          "fast" : false,
+          "kineticLaw" : "compartment*reaction1_k*S1",
+          "label" : "reaction1",
+          "metaId" : "reaction1",
+          "name" : "reaction1",
+          "reversible" : false,
+          "sbml id" : "reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "reaction1"
+        },
+        {
+          "cyId" : "reaction1_k",
+          "derivedUnits" : "",
+          "label" : "reaction1_k",
+          "metaId" : "reaction1_k",
+          "sbml id" : "reaction1_k",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 100.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "S1",
+          "target" : "compartment",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "compartment",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "assignment__compartment",
+          "directed" : true,
+          "interaction" : "variable_initialAssignment",
+          "attributes" : {
+            "interaction" : "variable_initialAssignment",
+            "interaction type" : "variable_initialAssignment",
+            "shared interaction" : "variable_initialAssignment"
+          }
+        },
+        {
+          "source" : "compartment",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1_k",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "reaction1_k",
+          "target" : "law__reaction1",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "case00027",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "case00027"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "reaction1",
+          "fast" : false,
+          "kineticLaw" : "compartment*reaction1_k*S1",
+          "label" : "reaction1",
+          "metaId" : "reaction1",
+          "name" : "reaction1",
+          "reversible" : false,
+          "sbml id" : "reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "reaction1"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "reaction1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

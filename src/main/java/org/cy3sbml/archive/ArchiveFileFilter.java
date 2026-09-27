@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ArchiveFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(ArchiveFileFilter.class);
-    public static byte[] MAGIC = {'P', 'K', 0x3, 0x4};
+    private static final byte[] MAGIC = {'P', 'K', 0x3, 0x4};
 
     /**
      * Constructor.
@@ -42,8 +42,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
             logger.debug("public boolean accepts(URI uri, DataCategory category)");
             logger.debug(uri.toURL().toString());
 
-            // Not working because streamUtil extracts the zipped content
-            // InputStream inputStream = streamUtil.getInputStream(uri.toURL());
+            // streamUtil.getInputStream would extract the zipped content, so read the raw stream
             InputStream inputStream = streamUtil.getURLConnection(uri.toURL()).getInputStream();
 
             return accepts(inputStream, category);
@@ -90,8 +89,6 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
      * @param in the input stream to test.
      */
     public static boolean isZipStream(InputStream in) {
-        // boolean isZipped = new ZipInputStream(stream).getNextEntry() != null;
-
         /*
         in.read():
 

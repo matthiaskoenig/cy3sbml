@@ -29,18 +29,12 @@ public class SBMLManagerTest {
 
     @BeforeEach
     public void setUp() {
-        manager = SBMLManager.getInstance(null);
+        manager = new SBMLManager(null);
     }
 
     @AfterEach
     public void tearDown() {
         manager = null;
-    }
-
-    @Test
-    public void getInstance() throws Exception {
-        SBMLManager test = SBMLManager.getInstance();
-        assertNotNull(test);
     }
 
     @Test

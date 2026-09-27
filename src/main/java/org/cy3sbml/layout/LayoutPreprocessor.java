@@ -182,7 +182,6 @@ public final class LayoutPreprocessor {
             for (SpeciesReference speciesReference : reaction.getListOfReactants()) {
                 String[] data = new String[2];
                 data[0] = speciesReference.getSpeciesInstance().getId();
-                // data[1] = CySBMLGraphReader.EDGETYPE_REACTION_REACTANT;
                 connectedSpecies.add(data);
             }
         }
@@ -190,7 +189,6 @@ public final class LayoutPreprocessor {
             for (SpeciesReference speciesReference : reaction.getListOfProducts()) {
                 String[] data = new String[2];
                 data[0] = speciesReference.getSpeciesInstance().getId();
-                // data[1] = CySBMLGraphReader.EDGETYPE_REACTION_PRODUCT;
                 connectedSpecies.add(data);
             }
         }
@@ -198,7 +196,6 @@ public final class LayoutPreprocessor {
             for (ModifierSpeciesReference speciesReference : reaction.getListOfModifiers()) {
                 String[] data = new String[2];
                 data[0] = speciesReference.getSpeciesInstance().getId();
-                // data[1] = CySBMLGraphReader.EDGETYPE_REACTION_MODIFIER;
                 connectedSpecies.add(data);
             }
         }
@@ -211,7 +208,6 @@ public final class LayoutPreprocessor {
             for (Input input : transition.getListOfInputs()) {
                 String[] data = new String[2];
                 data[0] = input.getQualitativeSpecies();
-                // data[1] = CySBMLGraphReader.EDGETYPE_TRANSITION_INPUT;
                 connectedQSpecies.add(data);
             }
         }
@@ -219,7 +215,6 @@ public final class LayoutPreprocessor {
             for (Output output : transition.getListOfOutputs()) {
                 String[] data = new String[2];
                 data[0] = output.getQualitativeSpecies();
-                // data[1] = CySBMLGraphReader.EDGETYPE_TRANSITION_INPUT;
                 connectedQSpecies.add(data);
             }
         }

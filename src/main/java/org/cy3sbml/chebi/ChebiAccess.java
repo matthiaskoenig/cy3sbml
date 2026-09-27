@@ -2,10 +2,12 @@ package org.cy3sbml.chebi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
+import java.time.Clock;
 import java.util.Optional;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.util.FetchResult;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,55 +22,68 @@ public final class ChebiAccess {
     private static final Logger logger = LoggerFactory.getLogger(ChebiAccess.class);
 
     private final HttpJson http;
-    private final MemoryCache<String, ChebiCompound> compoundCache = new MemoryCache<>(5000);
-    private final MemoryCache<String, String> structureCache = new MemoryCache<>(5000);
+    private final MemoryCache<String, ChebiCompound> compoundCache;
+    private final MemoryCache<String, String> structureCache;
 
     public ChebiAccess(HttpJson http) {
+        this(http, Clock.systemUTC());
+    }
+
+    /** For tests: an injectable clock for the "not found" cache TTL. */
+    ChebiAccess(HttpJson http, Clock clock) {
         this.http = http;
+        this.compoundCache = new MemoryCache<>(5000, MemoryCache.DEFAULT_NOT_FOUND_TTL, clock);
+        this.structureCache = new MemoryCache<>(5000, MemoryCache.DEFAULT_NOT_FOUND_TTL, clock);
     }
 
     /**
      * Gets the ChEBI compound for a given id, e.g. {@code CHEBI:15422}.
      * Returns empty if the compound could not be retrieved or parsed.
-     * Only successful lookups are cached, so a failure is retried on the
-     * next call rather than stuck for the rest of the session.
+     * A "not found" result is cached for a short TTL; a transport or parse
+     * error is retried on the next call rather than stuck for the session.
      */
     public Optional<ChebiCompound> compound(String chebiId) {
         return compoundCache.get(chebiId, this::lookupCompound);
     }
 
-    private Optional<ChebiCompound> lookupCompound(String chebiId) {
+    private FetchResult<ChebiCompound> lookupCompound(String chebiId) {
         URI uri = URI.create(
                 String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/", chebiNumber(chebiId)));
-        return http.get(uri).flatMap(json -> parseCompound(json, chebiId));
+        FetchResult<JsonNode> json = http.fetch(uri);
+        return switch (json.status()) {
+            case FOUND -> parseCompound(json.value().orElseThrow(), chebiId);
+            case NOT_FOUND -> FetchResult.notFound();
+            case ERROR -> FetchResult.error();
+        };
     }
 
     /**
      * Gets the structure image (SVG) for a given ChEBI id.
-     * Only successful lookups are cached, for the same reason as {@link #compound}.
+     * Cached the same way as {@link #compound}.
      */
     private Optional<String> structure(String chebiId) {
         return structureCache.get(chebiId, this::lookupStructure);
     }
 
-    private Optional<String> lookupStructure(String chebiId) {
+    private FetchResult<String> lookupStructure(String chebiId) {
         URI uri = URI.create(String.format(
                 "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300",
                 chebiNumber(chebiId)));
-        return http.getText(uri);
+        return http.fetchText(uri);
     }
 
-    private static Optional<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
+    private static FetchResult<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
         String name = json.path("name").asText(null);
         if (name == null) {
+            // a structurally incomplete 200 body is deterministic for this id
             logger.warn("ChEBI compound {} is missing a name", chebiId);
-            return Optional.empty();
+            return FetchResult.notFound();
         }
         JsonNode chemicalData = json.path("chemical_data");
         String formula = chemicalData.path("formula").asText(null);
         String charge = chemicalData.path("charge").asText(null);
         String mass = chemicalData.path("mass").asText(null);
-        return Optional.of(new ChebiCompound(chebiId, name, formula, charge, mass));
+        return FetchResult.found(new ChebiCompound(chebiId, name, formula, charge, mass));
     }
 
     private static String chebiNumber(String chebiId) {

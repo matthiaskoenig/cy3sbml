@@ -20,7 +20,7 @@ public class SBMLCompTest {
      */
     @Test
     public void testComp_01() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertEquals(38, network.getNodeCount());
         assertEquals(1, network.getEdgeCount());
@@ -31,7 +31,7 @@ public class SBMLCompTest {
      */
     @Test
     public void testComp_02() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_02);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_02);
         // FIXME: there can be multiple subnetworks with the same prefix
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertNotNull(network);
@@ -44,7 +44,7 @@ public class SBMLCompTest {
      */
     @Test
     public void testComp_03() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_COMP_03);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_03);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(10, network.getNodeCount());

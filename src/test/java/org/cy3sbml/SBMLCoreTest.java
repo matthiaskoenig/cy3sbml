@@ -4,12 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.List;
-import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.*;
 import org.junit.jupiter.api.Test;
-import org.sbml.jsbml.JSBML;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 
 /**
  * Test reading of SBML core model.
@@ -24,9 +23,11 @@ public class SBMLCoreTest {
      * Load the given model resource.
      */
     private void loadModel(String resource) throws Exception {
-        InputStream instream = getClass().getResourceAsStream(resource);
-        String xml = IOUtil.inputStream2String(instream);
-        SBMLDocument document = JSBML.readSBMLFromString(xml);
+        SBMLDocument document;
+        try (InputStream instream = getClass().getResourceAsStream(resource)) {
+            assertNotNull(instream, "Resource not found: " + resource);
+            document = SBMLReader.read(instream);
+        }
         assertNotNull(document.getModel());
     }
 
@@ -61,7 +62,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreNetwork_01() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         assertNotNull(networks);
         assertTrue(networks.length >= 1);
 
@@ -83,14 +84,14 @@ public class SBMLCoreTest {
 
     @Test
     public void testCoreNetwork_02() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_02);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_02);
         assertNotNull(networks);
         assertTrue(networks.length >= 1);
     }
 
     @Test
     public void testCoreNetwork_03() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_03);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_03);
         assertNotNull(networks);
         assertTrue(networks.length >= 1);
     }
@@ -100,7 +101,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreEdges() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
@@ -147,7 +148,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreSpecies() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
         assertNotNull(network);
 
@@ -170,7 +171,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreCompartment() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
@@ -191,7 +192,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreParameter() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
@@ -212,7 +213,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreReaction() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
@@ -251,7 +252,7 @@ public class SBMLCoreTest {
      */
     @Test
     public void testCoreNameSharing() throws Exception {
-        CyNetwork[] networks = new TestUtils().readNetwork(TEST_MODEL_CORE_01);
+        CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
         CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
 

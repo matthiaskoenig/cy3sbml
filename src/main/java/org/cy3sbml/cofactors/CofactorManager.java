@@ -19,30 +19,23 @@ import org.slf4j.LoggerFactory;
  * <p>
  * This manages the splitting of cofactor nodes into clones and the
  * merging of clones into the original cofactor before splitting.
- * <p>
- * The CofactorManager is a singleton class.
  */
 public class CofactorManager {
     private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
     private static final String CLONE_TAG = "-clone";
 
-    private static CofactorManager uniqueInstance;
-    private Network2CofactorMapper mapper;
-
-    /**
-     * Access to singleton instance.
+    /*
+     * mapper is replaced wholesale on session restore (setNetwork2CofactorMapper) while
+     * processNode reads it from Cytoscape event handlers, so volatile is enough to make a
+     * writer's new value visible to a reader thread. Network2CofactorMapper's own methods
+     * are synchronized, so in-place mutation of the mapper's contents stays safe regardless.
      */
-    public static synchronized CofactorManager getInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new CofactorManager();
-        }
-        return uniqueInstance;
-    }
+    private volatile Network2CofactorMapper mapper;
 
     /**
      * Constructor.
      */
-    private CofactorManager() {
+    public CofactorManager() {
         logger.debug("CofactorManager created");
         mapper = new Network2CofactorMapper();
     }

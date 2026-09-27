@@ -1,0 +1,1668 @@
+{
+  "networks" : [
+    {
+      "name" : "All__Scheper1999",
+      "nodeCount" : 22,
+      "edgeCount" : 42,
+      "attributes" : {
+        "biomodels.db" : "BIOMD0000000024",
+        "go" : "GO:0042752",
+        "kegg.pathway" : "dme04711",
+        "label" : "Scheper1999_CircClock",
+        "metaId" : "metaid_0000002",
+        "name" : "All__Scheper1999",
+        "pubmed" : "9870936",
+        "sbml id" : "Scheper1999",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V1",
+        "shared name" : "Scheper1999_CircClock",
+        "taxonomy" : "7227"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "EmptySet",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00046",
+          "label" : "mRNA",
+          "metaId" : "metaid_0000008",
+          "name" : "mRNA",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "M",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "mRNA",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "go" : "GO:0006402",
+          "kineticLaw" : "compartment_0000004*Md_qM*M",
+          "label" : "messenger degradation",
+          "metaId" : "metaid_0000012",
+          "name" : "messenger degradation",
+          "reversible" : false,
+          "sbml id" : "Md",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "messenger degradation"
+        },
+        {
+          "cyId" : "_709640",
+          "derivedUnits" : "",
+          "label" : "Md_qM",
+          "metaId" : "_709640",
+          "sbml id" : "Md_qM",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.21
+        },
+        {
+          "chebi" : "CHEBI:16541",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000009",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00017",
+          "label" : "protein",
+          "metaId" : "metaid_0000009",
+          "name" : "protein",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "P",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "protein",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "go" : "GO:0030163",
+          "kineticLaw" : "compartment_0000004*Pd_qP*P",
+          "label" : "protein degradation",
+          "metaId" : "metaid_0000013",
+          "name" : "protein degradation",
+          "reversible" : false,
+          "sbml id" : "Pd",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein degradation"
+        },
+        {
+          "cyId" : "_709641",
+          "derivedUnits" : "",
+          "label" : "Pd_qP",
+          "metaId" : "_709641",
+          "sbml id" : "Pd_qP",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.21
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "go" : "GO:0009299",
+          "kineticLaw" : "compartment_0000004*TC_rM/(1+(P/TC_k)^TC_n)",
+          "label" : "mRNA production",
+          "metaId" : "metaid_0000010",
+          "name" : "mRNA production",
+          "reversible" : false,
+          "sbml id" : "TC",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "mRNA production"
+        },
+        {
+          "cyId" : "_709634",
+          "derivedUnits" : "",
+          "label" : "TC_k",
+          "metaId" : "_709634",
+          "sbml id" : "TC_k",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_709635",
+          "derivedUnits" : "",
+          "label" : "TC_n",
+          "metaId" : "_709635",
+          "sbml id" : "TC_n",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 2.0
+        },
+        {
+          "cyId" : "_709632",
+          "derivedUnits" : "",
+          "label" : "TC_rM",
+          "metaId" : "_709632",
+          "sbml id" : "TC_rM",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006412",
+          "kineticLaw" : "compartment_0000004*TL_rP*delay(M, TL_parameter_0000009)^TL_m",
+          "label" : "protein production",
+          "metaId" : "metaid_0000011",
+          "name" : "protein production",
+          "reversible" : false,
+          "sbml id" : "TL",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein production"
+        },
+        {
+          "cyId" : "_709638",
+          "derivedUnits" : "",
+          "label" : "TL_m",
+          "metaId" : "_709638",
+          "sbml id" : "TL_m",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 3.0
+        },
+        {
+          "cyId" : "_709639",
+          "derivedUnits" : "",
+          "label" : "tau",
+          "metaId" : "_709639",
+          "name" : "tau",
+          "sbml id" : "TL_parameter_0000009",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "tau",
+          "value" : 4.0
+        },
+        {
+          "cyId" : "_709636",
+          "derivedUnits" : "",
+          "label" : "TL_rP",
+          "metaId" : "_709636",
+          "sbml id" : "TL_rP",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "label" : "Md",
+          "math" : "compartment_0000004*Md_qM*M",
+          "metaId" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "label" : "Pd",
+          "math" : "compartment_0000004*Pd_qP*P",
+          "metaId" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "metaid_0000014",
+          "derivedUnits" : "volume",
+          "go" : "GO:0005737",
+          "label" : "cytoplasm",
+          "metaId" : "metaid_0000014",
+          "name" : "cytoplasm",
+          "sbml id" : "compartment_0000004",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cytoplasm",
+          "size" : 1.0E-15,
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "eae948a9-0be1-4f64-bb6d-c71b308bb390",
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "eae948a9-0be1-4f64-bb6d-c71b308bb390",
+          "multiplier" : 3600.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit"
+        },
+        {
+          "cyId" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "label" : "TC",
+          "math" : "compartment_0000004*TC_rM/(1+(P/TC_k)^TC_n)",
+          "metaId" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "derivedUnits" : "invalid",
+          "label" : "TL",
+          "math" : "compartment_0000004*TL_rP*delay(M, TL_parameter_0000009)^TL_m",
+          "metaId" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "metaid_0000015",
+          "label" : "time",
+          "metaId" : "metaid_0000015",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "time"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "EmptySet",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_860bed30-39fb-47a3-820f-e1ee3daf7673",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_322a7dc5-86bf-4555-a990-7e4ac66d4197",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md_qM",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md_qM",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "e9125707-e0a8-4cae-bc37-30b3b87c1059",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_04383796-791a-4dbf-971f-3f249b1dc6b6",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd_qP",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd_qP",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_8f254ac3-1383-4a34-a504-e69bd35c3319",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_52873c1e-bd2a-4d5f-81e7-6138d0029b9f",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_0e437688-d4d5-417b-ac7b-a61dc0384336",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_k",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_k",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_n",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_n",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_rM",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_rM",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_4ff82c2f-f6d5-41a8-988f-5c82f1ad27bd",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_7f271f7b-6d1c-4c90-a37a-47d6658ab2a7",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "b928ca09-3f4f-4ea1-ab64-143a2931ef27",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_m",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_m",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_parameter_0000009",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_parameter_0000009",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_rP",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_rP",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "eae948a9-0be1-4f64-bb6d-c71b308bb390",
+          "target" : "metaid_0000015",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__Scheper1999",
+      "nodeCount" : 20,
+      "edgeCount" : 41,
+      "attributes" : {
+        "name" : "Kinetic__Scheper1999"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "EmptySet",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00046",
+          "label" : "mRNA",
+          "metaId" : "metaid_0000008",
+          "name" : "mRNA",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "M",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "mRNA",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "go" : "GO:0006402",
+          "kineticLaw" : "compartment_0000004*Md_qM*M",
+          "label" : "messenger degradation",
+          "metaId" : "metaid_0000012",
+          "name" : "messenger degradation",
+          "reversible" : false,
+          "sbml id" : "Md",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "messenger degradation"
+        },
+        {
+          "cyId" : "_709640",
+          "derivedUnits" : "",
+          "label" : "Md_qM",
+          "metaId" : "_709640",
+          "sbml id" : "Md_qM",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.21
+        },
+        {
+          "chebi" : "CHEBI:16541",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000009",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00017",
+          "label" : "protein",
+          "metaId" : "metaid_0000009",
+          "name" : "protein",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "P",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "protein",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "go" : "GO:0030163",
+          "kineticLaw" : "compartment_0000004*Pd_qP*P",
+          "label" : "protein degradation",
+          "metaId" : "metaid_0000013",
+          "name" : "protein degradation",
+          "reversible" : false,
+          "sbml id" : "Pd",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein degradation"
+        },
+        {
+          "cyId" : "_709641",
+          "derivedUnits" : "",
+          "label" : "Pd_qP",
+          "metaId" : "_709641",
+          "sbml id" : "Pd_qP",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 0.21
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "go" : "GO:0009299",
+          "kineticLaw" : "compartment_0000004*TC_rM/(1+(P/TC_k)^TC_n)",
+          "label" : "mRNA production",
+          "metaId" : "metaid_0000010",
+          "name" : "mRNA production",
+          "reversible" : false,
+          "sbml id" : "TC",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "mRNA production"
+        },
+        {
+          "cyId" : "_709634",
+          "derivedUnits" : "",
+          "label" : "TC_k",
+          "metaId" : "_709634",
+          "sbml id" : "TC_k",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_709635",
+          "derivedUnits" : "",
+          "label" : "TC_n",
+          "metaId" : "_709635",
+          "sbml id" : "TC_n",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 2.0
+        },
+        {
+          "cyId" : "_709632",
+          "derivedUnits" : "",
+          "label" : "TC_rM",
+          "metaId" : "_709632",
+          "sbml id" : "TC_rM",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006412",
+          "kineticLaw" : "compartment_0000004*TL_rP*delay(M, TL_parameter_0000009)^TL_m",
+          "label" : "protein production",
+          "metaId" : "metaid_0000011",
+          "name" : "protein production",
+          "reversible" : false,
+          "sbml id" : "TL",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein production"
+        },
+        {
+          "cyId" : "_709638",
+          "derivedUnits" : "",
+          "label" : "TL_m",
+          "metaId" : "_709638",
+          "sbml id" : "TL_m",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 3.0
+        },
+        {
+          "cyId" : "_709639",
+          "derivedUnits" : "",
+          "label" : "tau",
+          "metaId" : "_709639",
+          "name" : "tau",
+          "sbml id" : "TL_parameter_0000009",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "tau",
+          "value" : 4.0
+        },
+        {
+          "cyId" : "_709636",
+          "derivedUnits" : "",
+          "label" : "TL_rP",
+          "metaId" : "_709636",
+          "sbml id" : "TL_rP",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "label" : "Md",
+          "math" : "compartment_0000004*Md_qM*M",
+          "metaId" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "label" : "Pd",
+          "math" : "compartment_0000004*Pd_qP*P",
+          "metaId" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "metaid_0000014",
+          "derivedUnits" : "volume",
+          "go" : "GO:0005737",
+          "label" : "cytoplasm",
+          "metaId" : "metaid_0000014",
+          "name" : "cytoplasm",
+          "sbml id" : "compartment_0000004",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "cytoplasm",
+          "size" : 1.0E-15,
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "label" : "TC",
+          "math" : "compartment_0000004*TC_rM/(1+(P/TC_k)^TC_n)",
+          "metaId" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "derivedUnits" : "invalid",
+          "label" : "TL",
+          "math" : "compartment_0000004*TL_rP*delay(M, TL_parameter_0000009)^TL_m",
+          "metaId" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "EmptySet",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_860bed30-39fb-47a3-820f-e1ee3daf7673",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_322a7dc5-86bf-4555-a990-7e4ac66d4197",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md_qM",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Md_qM",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "compartment_0000004",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "e9125707-e0a8-4cae-bc37-30b3b87c1059",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_04383796-791a-4dbf-971f-3f249b1dc6b6",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd_qP",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Pd_qP",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_8f254ac3-1383-4a34-a504-e69bd35c3319",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_52873c1e-bd2a-4d5f-81e7-6138d0029b9f",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_0e437688-d4d5-417b-ac7b-a61dc0384336",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_k",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_k",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_n",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_n",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_rM",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TC_rM",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_4ff82c2f-f6d5-41a8-988f-5c82f1ad27bd",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_7f271f7b-6d1c-4c90-a37a-47d6658ab2a7",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "b928ca09-3f4f-4ea1-ab64-143a2931ef27",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_m",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_m",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_parameter_0000009",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_parameter_0000009",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_rP",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "TL_rP",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "c92a0ca0-810c-4a66-8fc7-d43a3071f415",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "ca906619-39a6-4dd0-ada5-c33559dbe28e",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "f64d844d-2089-4fc8-97fc-a8e73b0dedff",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "compartment_0000004",
+          "target" : "fde933ea-6fad-4424-8022-d48acf6e81f0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Scheper1999",
+      "nodeCount" : 7,
+      "edgeCount" : 10,
+      "attributes" : {
+        "name" : "Scheper1999"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "EmptySet",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "EmptySet",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00046",
+          "label" : "mRNA",
+          "metaId" : "metaid_0000008",
+          "name" : "mRNA",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "M",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "mRNA",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "go" : "GO:0006402",
+          "kineticLaw" : "compartment_0000004*Md_qM*M",
+          "label" : "messenger degradation",
+          "metaId" : "metaid_0000012",
+          "name" : "messenger degradation",
+          "reversible" : false,
+          "sbml id" : "Md",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "messenger degradation"
+        },
+        {
+          "chebi" : "CHEBI:16541",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000009",
+          "derivedUnits" : "substance",
+          "kegg.compound" : "C00017",
+          "label" : "protein",
+          "metaId" : "metaid_0000009",
+          "name" : "protein",
+          "sbml compartment" : "compartment_0000004",
+          "sbml id" : "P",
+          "sbml initial amount" : 1.0E-15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "protein",
+          "value" : 1.0E-15
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "go" : "GO:0030163",
+          "kineticLaw" : "compartment_0000004*Pd_qP*P",
+          "label" : "protein degradation",
+          "metaId" : "metaid_0000013",
+          "name" : "protein degradation",
+          "reversible" : false,
+          "sbml id" : "Pd",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein degradation"
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "go" : "GO:0009299",
+          "kineticLaw" : "compartment_0000004*TC_rM/(1+(P/TC_k)^TC_n)",
+          "label" : "mRNA production",
+          "metaId" : "metaid_0000010",
+          "name" : "mRNA production",
+          "reversible" : false,
+          "sbml id" : "TC",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "mRNA production"
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006412",
+          "kineticLaw" : "compartment_0000004*TL_rP*delay(M, TL_parameter_0000009)^TL_m",
+          "label" : "protein production",
+          "metaId" : "metaid_0000011",
+          "name" : "protein production",
+          "reversible" : false,
+          "sbml id" : "TL",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "protein production"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Md",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_860bed30-39fb-47a3-820f-e1ee3daf7673",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Md",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_322a7dc5-86bf-4555-a990-7e4ac66d4197",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "e9125707-e0a8-4cae-bc37-30b3b87c1059",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Pd",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_04383796-791a-4dbf-971f-3f249b1dc6b6",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_8f254ac3-1383-4a34-a504-e69bd35c3319",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_52873c1e-bd2a-4d5f-81e7-6138d0029b9f",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TC",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_0e437688-d4d5-417b-ac7b-a61dc0384336",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "EmptySet",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_4ff82c2f-f6d5-41a8-988f-5c82f1ad27bd",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_7f271f7b-6d1c-4c90-a37a-47d6658ab2a7",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "TL",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "b928ca09-3f4f-4ea1-ab64-143a2931ef27",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

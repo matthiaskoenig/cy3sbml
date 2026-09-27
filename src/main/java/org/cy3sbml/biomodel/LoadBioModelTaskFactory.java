@@ -1,66 +1,82 @@
 package org.cy3sbml.biomodel;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import javax.swing.JOptionPane;
-import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Downloads the SBML of a BioModel into a temporary file and loads it with the
+ * Cytoscape network file loader.
+ * <p>
+ * The factory is only ready if the download succeeded, callers check {@link #isReady()}
+ * before creating the task iterator.
+ */
 public class LoadBioModelTaskFactory implements TaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(LoadBioModelTaskFactory.class);
     public static final String SUFFIX = ".xml"; // has to match the reader
 
-    private ServiceAdapter adapter;
+    private final String id;
+    private final ServiceAdapter adapter;
     private File file;
+    private String error;
 
-    // TODO: create taskIterator for list of ids
-    public LoadBioModelTaskFactory(String id, ServiceAdapter adapter) {
+    public LoadBioModelTaskFactory(String id, BiomodelsQuery query, ServiceAdapter adapter) {
+        this.id = id;
         this.adapter = adapter;
 
-        // TODO: reading SBML & creating the temp file should be in a separate task
-
-        InputStream instream = null;
         try {
-            String sbml = BiomodelsQuery.getBioModelSBMLById(id);
-
-            if (sbml == null || sbml.equals("") || sbml.startsWith(id)) {
-                JOptionPane.showMessageDialog(
-                        adapter.cySwingApplication.getJFrame(),
-                        String.format("<html>No SBML for BioModel Id : <b>%s</b></html>", id));
-            } else {
-                instream = new ByteArrayInputStream(sbml.getBytes(StandardCharsets.UTF_8));
-            }
-            // convert to tmp file and use the core-task read Network from file task
-            final File tempFile = File.createTempFile(id, SUFFIX);
+            // download to a tmp file and use the core-task read Network from file task,
+            // a failed download removes the file
+            File tempFile = File.createTempFile(id, SUFFIX);
             tempFile.deleteOnExit();
-
-            // TODO: create file for storage in cy3sbml folder
-            // adapter.cy3sbmlDirectory
-
-            try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                IOUtils.copy(instream, out);
-            }
+            query.downloadSBML(id, tempFile.toPath());
             file = tempFile;
-        } catch (Exception e) {
-            logger.error("Problem loading Biomodel.", e);
-            e.printStackTrace();
+        } catch (IOException e) {
+            error = e.getMessage();
+            logger.warn("Could not download BioModel {}: {}", id, error);
         }
     }
 
     @Override
     public TaskIterator createTaskIterator() {
+        if (file == null) {
+            throw new IllegalStateException("BioModel SBML was not downloaded, check isReady()");
+        }
         return adapter.loadNetworkFileTaskFactory.createTaskIterator(file);
     }
 
+    /** Returns true if the SBML was downloaded. */
     @Override
     public boolean isReady() {
-        return false;
+        return file != null;
+    }
+
+    /**
+     * Downloads the SBML of the given BioModels, one factory per id. Accesses the web
+     * service, so it must not run on the Swing event dispatch thread.
+     */
+    public static List<LoadBioModelTaskFactory> download(
+            List<String> ids, BiomodelsQuery query, ServiceAdapter adapter) {
+        List<LoadBioModelTaskFactory> factories = new ArrayList<>();
+        for (String id : ids) {
+            factories.add(new LoadBioModelTaskFactory(id, query, adapter));
+        }
+        return factories;
+    }
+
+    /** Returns the BioModel id. */
+    public String getId() {
+        return id;
+    }
+
+    /** Returns the reason why the SBML could not be downloaded, null if it was. */
+    public String getError() {
+        return error;
     }
 }

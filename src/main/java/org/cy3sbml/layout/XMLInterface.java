@@ -1,18 +1,16 @@
 package org.cy3sbml.layout;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.util.XMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -20,19 +18,20 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XMLInterface {
-    private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(XMLInterface.class);
 
-    public static String LAYOUT = "layout";
-    public static String BOX_LIST = "listOfBoundingBoxes";
+    public static final String LAYOUT = "layout";
+    public static final String BOX_LIST = "listOfBoundingBoxes";
 
-    public static String BOX = "boundingBox";
-    public static String BOX_ID = "id";
-    public static String BOX_X = "xpos";
-    public static String BOX_Y = "ypos";
-    public static String BOX_HEIGHT = "height";
-    public static String BOX_WIDTH = "width";
+    public static final String BOX = "boundingBox";
+    public static final String BOX_ID = "id";
+    public static final String BOX_X = "xpos";
+    public static final String BOX_Y = "ypos";
+    public static final String BOX_HEIGHT = "height";
+    public static final String BOX_WIDTH = "width";
 
     // XML EXPORT //
 
@@ -49,10 +48,7 @@ public class XMLInterface {
     private static Document createXMLDocumentFromLayout(Collection<CyBoundingBox> boxes) {
         Document doc = null;
         try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder;
-            docBuilder = docFactory.newDocumentBuilder();
-            doc = docBuilder.newDocument();
+            doc = XMLUtil.documentBuilder().newDocument();
             Element rootElement = doc.createElement(LAYOUT);
             doc.appendChild(rootElement);
 
@@ -65,7 +61,6 @@ public class XMLInterface {
         } catch (ParserConfigurationException e) {
             doc = null;
             logger.error("Problems with xml parsing.", e);
-            e.printStackTrace();
         }
         return doc;
     }
@@ -82,16 +77,12 @@ public class XMLInterface {
 
     private static void writeXMLDocumentToFile(Document doc, File xmlFile) {
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer;
-
-            transformer = transformerFactory.newTransformer();
+            Transformer transformer = XMLUtil.transformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(xmlFile);
             transformer.transform(source, result);
         } catch (TransformerException e) {
             logger.error("Problems writing layout", e);
-            e.printStackTrace();
         }
     }
 
@@ -106,38 +97,54 @@ public class XMLInterface {
         HashMap<String, CyBoundingBox> boxes = new HashMap<String, CyBoundingBox>();
 
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
+            Document doc = XMLUtil.documentBuilder().parse(xmlFile);
             doc.getDocumentElement().normalize();
 
             NodeList boxList = doc.getElementsByTagName(BOX);
             for (int k = 0; k < boxList.getLength(); ++k) {
                 Node boxNode = boxList.item(k);
                 CyBoundingBox box = readBoundingBoxFromNode(boxNode);
-                boxes.put(box.getNodeId(), box);
+                if (box != null) {
+                    boxes.put(box.getNodeId(), box);
+                }
             }
-        } catch (Exception e) {
-            logger.error("Problems reading layout.", e);
-            e.printStackTrace();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            // an unreadable layout file is a data problem, not a bug
+            logger.warn("Could not read layout {}: {}", xmlFile, e.getMessage());
         }
         return boxes;
     }
 
+    /**
+     * Reads the bounding box of the given node, or returns null if an attribute is missing
+     * or not a number.
+     */
     private static CyBoundingBox readBoundingBoxFromNode(Node boxNode) {
         NamedNodeMap map = boxNode.getAttributes();
-        String nodeId = map.getNamedItem(BOX_ID).getTextContent();
-        String xpos = map.getNamedItem(BOX_X).getTextContent();
-        String ypos = map.getNamedItem(BOX_Y).getTextContent();
-        String height = map.getNamedItem(BOX_HEIGHT).getTextContent();
-        String width = map.getNamedItem(BOX_WIDTH).getTextContent();
+        String nodeId = attribute(map, BOX_ID);
+        String xpos = attribute(map, BOX_X);
+        String ypos = attribute(map, BOX_Y);
+        String height = attribute(map, BOX_HEIGHT);
+        String width = attribute(map, BOX_WIDTH);
+        if (nodeId == null || xpos == null || ypos == null || height == null || width == null) {
+            logger.warn("Bounding box with missing attributes skipped: id={}", nodeId);
+            return null;
+        }
+        try {
+            return new CyBoundingBox(
+                    nodeId,
+                    Double.parseDouble(xpos),
+                    Double.parseDouble(ypos),
+                    Double.parseDouble(height),
+                    Double.parseDouble(width));
+        } catch (NumberFormatException e) {
+            logger.warn("Bounding box with invalid number skipped: id={}: {}", nodeId, e.getMessage());
+            return null;
+        }
+    }
 
-        CyBoundingBox box = new CyBoundingBox(
-                nodeId,
-                Double.parseDouble(xpos),
-                Double.parseDouble(ypos),
-                Double.parseDouble(height),
-                Double.parseDouble(width));
-        return box;
+    private static String attribute(NamedNodeMap map, String name) {
+        Node item = map.getNamedItem(name);
+        return item == null ? null : item.getTextContent();
     }
 }

@@ -31,7 +31,6 @@ public class Namespace {
         this.namespaceEmbeddedInLui = (Boolean) value.get(NAMESPACE_EMBEDDED_IN_LUI);
         this.description = (String) value.get(DESCRIPTION);
         this.mirId = (String) value.get(MIR_ID);
-        // this.resources = (List<Resource>) value.get("resources");
         this.created = (String) value.get(CREATED);
         this.modified = (String) value.get(MODIFIED);
         this.sampleId = (String) value.get(SAMPLE_ID);

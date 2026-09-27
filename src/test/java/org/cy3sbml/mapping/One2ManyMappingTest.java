@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,5 +97,37 @@ public class One2ManyMappingTest {
         One2ManyMapping<Long, String> revMap = map.createReverseMapping();
         assertTrue(revMap.containsKey(Long.valueOf(10)));
         assertTrue(revMap.containsKey(Long.valueOf(20)));
+    }
+
+    /**
+     * One2ManyMapping is reached from both the Cytoscape event/EDT thread (writers) and the
+     * WebViewPanel's background panel-update thread (readers). Many threads put values under
+     * the same key concurrently; without the instance-level synchronization on put/getValues
+     * this can throw (structural modification of the backing HashSet raced with an iteration
+     * inside computeIfAbsent) or lose entries.
+     */
+    @Test
+    public void testConcurrentPutDoesNotLoseValuesOrThrow() throws Exception {
+        int threadCount = 16;
+        int valuesPerThread = 200;
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        try {
+            List<Future<?>> futures = new ArrayList<>();
+            for (int t = 0; t < threadCount; t++) {
+                long base = (long) t * valuesPerThread;
+                futures.add(executor.submit(() -> {
+                    for (int i = 0; i < valuesPerThread; i++) {
+                        map.put("shared", base + i);
+                    }
+                }));
+            }
+            for (Future<?> future : futures) {
+                // propagates any exception raised inside the task
+                future.get();
+            }
+        } finally {
+            executor.shutdown();
+        }
+        assertEquals(threadCount * valuesPerThread, map.getValues("shared").size());
     }
 }

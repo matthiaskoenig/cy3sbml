@@ -1,0 +1,5081 @@
+{
+  "networks" : [
+    {
+      "name" : "All__MODEL_01186",
+      "nodeCount" : 64,
+      "edgeCount" : 85,
+      "attributes" : {
+        "label" : "MODEL_01186",
+        "metaId" : "meta_MODEL_01186",
+        "name" : "All__MODEL_01186",
+        "sbml id" : "MODEL_01186",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "Cell",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "Cell",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "Cell",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "name" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "Cell",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "Cell",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_E",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "E",
+          "metaId" : "meta_E",
+          "name" : "E",
+          "sbml compartment" : "Cell",
+          "sbml id" : "E",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "E",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_F",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "F",
+          "metaId" : "meta_F",
+          "name" : "F",
+          "sbml compartment" : "Cell",
+          "sbml id" : "F",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_G",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "G",
+          "metaId" : "meta_G",
+          "name" : "G",
+          "sbml compartment" : "Cell",
+          "sbml id" : "G",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "G",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_H",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "H",
+          "metaId" : "meta_H",
+          "name" : "H",
+          "sbml compartment" : "Cell",
+          "sbml id" : "H",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "H",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_I",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "I",
+          "metaId" : "meta_I",
+          "name" : "I",
+          "sbml compartment" : "Cell",
+          "sbml id" : "I",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "I",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_J",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "J",
+          "metaId" : "meta_J",
+          "name" : "J",
+          "sbml compartment" : "Cell",
+          "sbml id" : "J",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "J",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_K",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "K",
+          "metaId" : "meta_K",
+          "name" : "K",
+          "sbml compartment" : "Cell",
+          "sbml id" : "K",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "K",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_L",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "L",
+          "metaId" : "meta_L",
+          "name" : "L",
+          "sbml compartment" : "Cell",
+          "sbml id" : "L",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "L",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_M",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "M",
+          "metaId" : "meta_M",
+          "name" : "M",
+          "sbml compartment" : "Cell",
+          "sbml id" : "M",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "M",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_N",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "N",
+          "metaId" : "meta_N",
+          "name" : "N",
+          "sbml compartment" : "Cell",
+          "sbml id" : "N",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "N",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_O",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "O",
+          "metaId" : "meta_O",
+          "name" : "O",
+          "sbml compartment" : "Cell",
+          "sbml id" : "O",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "O",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_P",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "P",
+          "metaId" : "meta_P",
+          "name" : "P",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Q",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Q",
+          "metaId" : "meta_Q",
+          "name" : "Q",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Q",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Q",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_R",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "R",
+          "metaId" : "meta_R",
+          "name" : "R",
+          "sbml compartment" : "Cell",
+          "sbml id" : "R",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "R",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_R01",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
+          "label" : "R01",
+          "metaId" : "meta_R01",
+          "name" : "R01",
+          "reversible" : false,
+          "sbml id" : "R01",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R01"
+        },
+        {
+          "cyId" : "meta_R02",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R02",
+          "metaId" : "meta_R02",
+          "name" : "R02",
+          "reversible" : true,
+          "sbml id" : "R02",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R02"
+        },
+        {
+          "cyId" : "meta_R03",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R03",
+          "metaId" : "meta_R03",
+          "name" : "R03",
+          "reversible" : true,
+          "sbml id" : "R03",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R03"
+        },
+        {
+          "cyId" : "meta_R04",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R04",
+          "metaId" : "meta_R04",
+          "name" : "R04",
+          "reversible" : true,
+          "sbml id" : "R04",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R04"
+        },
+        {
+          "cyId" : "meta_R05",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R05",
+          "metaId" : "meta_R05",
+          "name" : "R05",
+          "reversible" : false,
+          "sbml id" : "R05",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R05"
+        },
+        {
+          "cyId" : "meta_R06",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R06",
+          "metaId" : "meta_R06",
+          "name" : "R06",
+          "reversible" : false,
+          "sbml id" : "R06",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R06"
+        },
+        {
+          "cyId" : "meta_R07",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R07",
+          "metaId" : "meta_R07",
+          "name" : "R07",
+          "reversible" : false,
+          "sbml id" : "R07",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R07"
+        },
+        {
+          "cyId" : "meta_R08",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R08",
+          "metaId" : "meta_R08",
+          "name" : "R08",
+          "reversible" : false,
+          "sbml id" : "R08",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R08"
+        },
+        {
+          "cyId" : "meta_R09",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R09",
+          "metaId" : "meta_R09",
+          "name" : "R09",
+          "reversible" : false,
+          "sbml id" : "R09",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R09"
+        },
+        {
+          "cyId" : "meta_R10",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R10",
+          "metaId" : "meta_R10",
+          "name" : "R10",
+          "reversible" : false,
+          "sbml id" : "R10",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R10"
+        },
+        {
+          "cyId" : "meta_R11",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R11",
+          "metaId" : "meta_R11",
+          "name" : "R11",
+          "reversible" : false,
+          "sbml id" : "R11",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R11"
+        },
+        {
+          "cyId" : "meta_R12",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R12",
+          "metaId" : "meta_R12",
+          "name" : "R12",
+          "reversible" : false,
+          "sbml id" : "R12",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R12"
+        },
+        {
+          "cyId" : "meta_R13",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R13",
+          "metaId" : "meta_R13",
+          "name" : "R13",
+          "reversible" : false,
+          "sbml id" : "R13",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R13"
+        },
+        {
+          "cyId" : "meta_R14",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R14",
+          "metaId" : "meta_R14",
+          "name" : "R14",
+          "reversible" : true,
+          "sbml id" : "R14",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R14"
+        },
+        {
+          "cyId" : "meta_R15",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R15",
+          "metaId" : "meta_R15",
+          "name" : "R15",
+          "reversible" : false,
+          "sbml id" : "R15",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R15"
+        },
+        {
+          "cyId" : "meta_R16",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R16",
+          "metaId" : "meta_R16",
+          "name" : "R16",
+          "reversible" : false,
+          "sbml id" : "R16",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R16"
+        },
+        {
+          "cyId" : "meta_R17",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R17",
+          "metaId" : "meta_R17",
+          "name" : "R17",
+          "reversible" : false,
+          "sbml id" : "R17",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R17"
+        },
+        {
+          "cyId" : "meta_R18",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R18",
+          "metaId" : "meta_R18",
+          "name" : "R18",
+          "reversible" : false,
+          "sbml id" : "R18",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R18"
+        },
+        {
+          "cyId" : "meta_R19",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R19",
+          "metaId" : "meta_R19",
+          "name" : "R19",
+          "reversible" : true,
+          "sbml id" : "R19",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R19"
+        },
+        {
+          "cyId" : "meta_R20",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R20",
+          "metaId" : "meta_R20",
+          "name" : "R20",
+          "reversible" : true,
+          "sbml id" : "R20",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R20"
+        },
+        {
+          "cyId" : "meta_R21",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R21",
+          "metaId" : "meta_R21",
+          "name" : "R21",
+          "reversible" : true,
+          "sbml id" : "R21",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R21"
+        },
+        {
+          "cyId" : "meta_R22",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R22",
+          "metaId" : "meta_R22",
+          "name" : "R22",
+          "reversible" : false,
+          "sbml id" : "R22",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R22"
+        },
+        {
+          "cyId" : "meta_R23",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R23",
+          "metaId" : "meta_R23",
+          "name" : "R23",
+          "reversible" : true,
+          "sbml id" : "R23",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R23"
+        },
+        {
+          "cyId" : "meta_R24",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R24",
+          "metaId" : "meta_R24",
+          "name" : "R24",
+          "reversible" : false,
+          "sbml id" : "R24",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R24"
+        },
+        {
+          "cyId" : "meta_R25",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R25",
+          "metaId" : "meta_R25",
+          "name" : "R25",
+          "reversible" : false,
+          "sbml id" : "R25",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R25"
+        },
+        {
+          "cyId" : "meta_R26",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R26",
+          "metaId" : "meta_R26",
+          "name" : "R26",
+          "reversible" : false,
+          "sbml id" : "R26",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R26"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_S",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S",
+          "metaId" : "meta_S",
+          "name" : "S",
+          "sbml compartment" : "Cell",
+          "sbml id" : "S",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_T",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "T",
+          "metaId" : "meta_T",
+          "name" : "T",
+          "sbml compartment" : "Cell",
+          "sbml id" : "T",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "T",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_U",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "U",
+          "metaId" : "meta_U",
+          "name" : "U",
+          "sbml compartment" : "Cell",
+          "sbml id" : "U",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "U",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "UnitSId__GRAM",
+          "exponent" : -1.0,
+          "kind" : "GRAM",
+          "label" : "GRAM",
+          "metaId" : "UnitSId__GRAM",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__LITRE",
+          "exponent" : 1.0,
+          "kind" : "LITRE",
+          "label" : "LITRE",
+          "metaId" : "UnitSId__LITRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE",
+          "exponent" : 2.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__METRE0",
+          "exponent" : 1.0,
+          "kind" : "METRE",
+          "label" : "METRE",
+          "metaId" : "UnitSId__METRE0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__MOLE0",
+          "exponent" : 1.0,
+          "kind" : "MOLE",
+          "label" : "MOLE",
+          "metaId" : "UnitSId__MOLE0",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : -3
+        },
+        {
+          "cyId" : "UnitSId__SECOND",
+          "exponent" : 1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__SECOND0",
+          "exponent" : -1.0,
+          "kind" : "SECOND",
+          "label" : "SECOND",
+          "metaId" : "UnitSId__SECOND0",
+          "multiplier" : 2.7777E-4,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__area",
+          "label" : "area",
+          "metaId" : "UnitSId__area",
+          "name" : "area",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "area",
+          "unitSid" : "area"
+        },
+        {
+          "cyId" : "UnitSId__length",
+          "label" : "length",
+          "metaId" : "UnitSId__length",
+          "name" : "length",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "length",
+          "unitSid" : "length"
+        },
+        {
+          "cyId" : "UnitSId__mmol_per_gDW_per_hr",
+          "label" : "mmol_per_gDW_per_hr",
+          "metaId" : "UnitSId__mmol_per_gDW_per_hr",
+          "name" : "mmol_per_gDW_per_hr",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "mmol_per_gDW_per_hr",
+          "unitSid" : "mmol_per_gDW_per_hr"
+        },
+        {
+          "cyId" : "UnitSId__substance",
+          "label" : "substance",
+          "metaId" : "UnitSId__substance",
+          "name" : "substance",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "substance",
+          "unitSid" : "substance"
+        },
+        {
+          "cyId" : "UnitSId__time",
+          "label" : "time",
+          "metaId" : "UnitSId__time",
+          "name" : "time",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "time",
+          "unitSid" : "time"
+        },
+        {
+          "cyId" : "UnitSId__volume",
+          "label" : "volume",
+          "metaId" : "UnitSId__volume",
+          "name" : "volume",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "shared name" : "volume",
+          "unitSid" : "volume"
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_X",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "X",
+          "metaId" : "meta_X",
+          "name" : "X",
+          "sbml compartment" : "Cell",
+          "sbml id" : "X",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "X",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Y",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Y",
+          "metaId" : "meta_Y",
+          "name" : "Y",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Y",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Y",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "A",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "B",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "D",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "E",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "F",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "G",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "H",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "I",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "J",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "K",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "L",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "N",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "O",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Q",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "R",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "R01",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R01",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 0.5
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "T",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "U",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "S",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "T",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "U",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "UnitSId__GRAM",
+          "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__LITRE",
+          "target" : "UnitSId__volume",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE",
+          "target" : "UnitSId__area",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__METRE0",
+          "target" : "UnitSId__length",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE",
+          "target" : "UnitSId__substance",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__MOLE0",
+          "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND",
+          "target" : "UnitSId__time",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__SECOND0",
+          "target" : "UnitSId__mmol_per_gDW_per_hr",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "X",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Y",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__MODEL_01186",
+      "nodeCount" : 50,
+      "edgeCount" : 77,
+      "attributes" : {
+        "name" : "Kinetic__MODEL_01186"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "Cell",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "Cell",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "Cell",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "Cell",
+          "derivedUnits" : "",
+          "label" : "Cell",
+          "metaId" : "Cell",
+          "name" : "Cell",
+          "sbml id" : "Cell",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "shared name" : "Cell",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "Cell",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_E",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "E",
+          "metaId" : "meta_E",
+          "name" : "E",
+          "sbml compartment" : "Cell",
+          "sbml id" : "E",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "E",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_F",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "F",
+          "metaId" : "meta_F",
+          "name" : "F",
+          "sbml compartment" : "Cell",
+          "sbml id" : "F",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_G",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "G",
+          "metaId" : "meta_G",
+          "name" : "G",
+          "sbml compartment" : "Cell",
+          "sbml id" : "G",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "G",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_H",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "H",
+          "metaId" : "meta_H",
+          "name" : "H",
+          "sbml compartment" : "Cell",
+          "sbml id" : "H",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "H",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_I",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "I",
+          "metaId" : "meta_I",
+          "name" : "I",
+          "sbml compartment" : "Cell",
+          "sbml id" : "I",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "I",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_J",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "J",
+          "metaId" : "meta_J",
+          "name" : "J",
+          "sbml compartment" : "Cell",
+          "sbml id" : "J",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "J",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_K",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "K",
+          "metaId" : "meta_K",
+          "name" : "K",
+          "sbml compartment" : "Cell",
+          "sbml id" : "K",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "K",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_L",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "L",
+          "metaId" : "meta_L",
+          "name" : "L",
+          "sbml compartment" : "Cell",
+          "sbml id" : "L",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "L",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_M",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "M",
+          "metaId" : "meta_M",
+          "name" : "M",
+          "sbml compartment" : "Cell",
+          "sbml id" : "M",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "M",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_N",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "N",
+          "metaId" : "meta_N",
+          "name" : "N",
+          "sbml compartment" : "Cell",
+          "sbml id" : "N",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "N",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_O",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "O",
+          "metaId" : "meta_O",
+          "name" : "O",
+          "sbml compartment" : "Cell",
+          "sbml id" : "O",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "O",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_P",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "P",
+          "metaId" : "meta_P",
+          "name" : "P",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Q",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Q",
+          "metaId" : "meta_Q",
+          "name" : "Q",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Q",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Q",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_R",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "R",
+          "metaId" : "meta_R",
+          "name" : "R",
+          "sbml compartment" : "Cell",
+          "sbml id" : "R",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "R",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_R01",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
+          "label" : "R01",
+          "metaId" : "meta_R01",
+          "name" : "R01",
+          "reversible" : false,
+          "sbml id" : "R01",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R01"
+        },
+        {
+          "cyId" : "meta_R02",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R02",
+          "metaId" : "meta_R02",
+          "name" : "R02",
+          "reversible" : true,
+          "sbml id" : "R02",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R02"
+        },
+        {
+          "cyId" : "meta_R03",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R03",
+          "metaId" : "meta_R03",
+          "name" : "R03",
+          "reversible" : true,
+          "sbml id" : "R03",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R03"
+        },
+        {
+          "cyId" : "meta_R04",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R04",
+          "metaId" : "meta_R04",
+          "name" : "R04",
+          "reversible" : true,
+          "sbml id" : "R04",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R04"
+        },
+        {
+          "cyId" : "meta_R05",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R05",
+          "metaId" : "meta_R05",
+          "name" : "R05",
+          "reversible" : false,
+          "sbml id" : "R05",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R05"
+        },
+        {
+          "cyId" : "meta_R06",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R06",
+          "metaId" : "meta_R06",
+          "name" : "R06",
+          "reversible" : false,
+          "sbml id" : "R06",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R06"
+        },
+        {
+          "cyId" : "meta_R07",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R07",
+          "metaId" : "meta_R07",
+          "name" : "R07",
+          "reversible" : false,
+          "sbml id" : "R07",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R07"
+        },
+        {
+          "cyId" : "meta_R08",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R08",
+          "metaId" : "meta_R08",
+          "name" : "R08",
+          "reversible" : false,
+          "sbml id" : "R08",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R08"
+        },
+        {
+          "cyId" : "meta_R09",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R09",
+          "metaId" : "meta_R09",
+          "name" : "R09",
+          "reversible" : false,
+          "sbml id" : "R09",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R09"
+        },
+        {
+          "cyId" : "meta_R10",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R10",
+          "metaId" : "meta_R10",
+          "name" : "R10",
+          "reversible" : false,
+          "sbml id" : "R10",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R10"
+        },
+        {
+          "cyId" : "meta_R11",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R11",
+          "metaId" : "meta_R11",
+          "name" : "R11",
+          "reversible" : false,
+          "sbml id" : "R11",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R11"
+        },
+        {
+          "cyId" : "meta_R12",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R12",
+          "metaId" : "meta_R12",
+          "name" : "R12",
+          "reversible" : false,
+          "sbml id" : "R12",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R12"
+        },
+        {
+          "cyId" : "meta_R13",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R13",
+          "metaId" : "meta_R13",
+          "name" : "R13",
+          "reversible" : false,
+          "sbml id" : "R13",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R13"
+        },
+        {
+          "cyId" : "meta_R14",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R14",
+          "metaId" : "meta_R14",
+          "name" : "R14",
+          "reversible" : true,
+          "sbml id" : "R14",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R14"
+        },
+        {
+          "cyId" : "meta_R15",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R15",
+          "metaId" : "meta_R15",
+          "name" : "R15",
+          "reversible" : false,
+          "sbml id" : "R15",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R15"
+        },
+        {
+          "cyId" : "meta_R16",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R16",
+          "metaId" : "meta_R16",
+          "name" : "R16",
+          "reversible" : false,
+          "sbml id" : "R16",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R16"
+        },
+        {
+          "cyId" : "meta_R17",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R17",
+          "metaId" : "meta_R17",
+          "name" : "R17",
+          "reversible" : false,
+          "sbml id" : "R17",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R17"
+        },
+        {
+          "cyId" : "meta_R18",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R18",
+          "metaId" : "meta_R18",
+          "name" : "R18",
+          "reversible" : false,
+          "sbml id" : "R18",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R18"
+        },
+        {
+          "cyId" : "meta_R19",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R19",
+          "metaId" : "meta_R19",
+          "name" : "R19",
+          "reversible" : true,
+          "sbml id" : "R19",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R19"
+        },
+        {
+          "cyId" : "meta_R20",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R20",
+          "metaId" : "meta_R20",
+          "name" : "R20",
+          "reversible" : true,
+          "sbml id" : "R20",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R20"
+        },
+        {
+          "cyId" : "meta_R21",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R21",
+          "metaId" : "meta_R21",
+          "name" : "R21",
+          "reversible" : true,
+          "sbml id" : "R21",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R21"
+        },
+        {
+          "cyId" : "meta_R22",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R22",
+          "metaId" : "meta_R22",
+          "name" : "R22",
+          "reversible" : false,
+          "sbml id" : "R22",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R22"
+        },
+        {
+          "cyId" : "meta_R23",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R23",
+          "metaId" : "meta_R23",
+          "name" : "R23",
+          "reversible" : true,
+          "sbml id" : "R23",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R23"
+        },
+        {
+          "cyId" : "meta_R24",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R24",
+          "metaId" : "meta_R24",
+          "name" : "R24",
+          "reversible" : false,
+          "sbml id" : "R24",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R24"
+        },
+        {
+          "cyId" : "meta_R25",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R25",
+          "metaId" : "meta_R25",
+          "name" : "R25",
+          "reversible" : false,
+          "sbml id" : "R25",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R25"
+        },
+        {
+          "cyId" : "meta_R26",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R26",
+          "metaId" : "meta_R26",
+          "name" : "R26",
+          "reversible" : false,
+          "sbml id" : "R26",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R26"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_S",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S",
+          "metaId" : "meta_S",
+          "name" : "S",
+          "sbml compartment" : "Cell",
+          "sbml id" : "S",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_T",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "T",
+          "metaId" : "meta_T",
+          "name" : "T",
+          "sbml compartment" : "Cell",
+          "sbml id" : "T",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "T",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_U",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "U",
+          "metaId" : "meta_U",
+          "name" : "U",
+          "sbml compartment" : "Cell",
+          "sbml id" : "U",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "U",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_X",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "X",
+          "metaId" : "meta_X",
+          "name" : "X",
+          "sbml compartment" : "Cell",
+          "sbml id" : "X",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "X",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Y",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Y",
+          "metaId" : "meta_Y",
+          "name" : "Y",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Y",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Y",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "A",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "B",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "D",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "E",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "F",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "G",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "H",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "I",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "J",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "K",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "L",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "M",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "N",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "O",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "P",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Q",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "R",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "R01",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R01",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 0.5
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "T",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "U",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "S",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "T",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "U",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "X",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Y",
+          "target" : "Cell",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MODEL_01186",
+      "nodeCount" : 49,
+      "edgeCount" : 54,
+      "attributes" : {
+        "name" : "MODEL_01186"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "Cell",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "Cell",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "Cell",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "Cell",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_E",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "E",
+          "metaId" : "meta_E",
+          "name" : "E",
+          "sbml compartment" : "Cell",
+          "sbml id" : "E",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "E",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_F",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "F",
+          "metaId" : "meta_F",
+          "name" : "F",
+          "sbml compartment" : "Cell",
+          "sbml id" : "F",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_G",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "G",
+          "metaId" : "meta_G",
+          "name" : "G",
+          "sbml compartment" : "Cell",
+          "sbml id" : "G",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "G",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_H",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "H",
+          "metaId" : "meta_H",
+          "name" : "H",
+          "sbml compartment" : "Cell",
+          "sbml id" : "H",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "H",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_I",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "I",
+          "metaId" : "meta_I",
+          "name" : "I",
+          "sbml compartment" : "Cell",
+          "sbml id" : "I",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "I",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_J",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "J",
+          "metaId" : "meta_J",
+          "name" : "J",
+          "sbml compartment" : "Cell",
+          "sbml id" : "J",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "J",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_K",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "K",
+          "metaId" : "meta_K",
+          "name" : "K",
+          "sbml compartment" : "Cell",
+          "sbml id" : "K",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "K",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_L",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "L",
+          "metaId" : "meta_L",
+          "name" : "L",
+          "sbml compartment" : "Cell",
+          "sbml id" : "L",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "L",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_M",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "M",
+          "metaId" : "meta_M",
+          "name" : "M",
+          "sbml compartment" : "Cell",
+          "sbml id" : "M",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "M",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_N",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "N",
+          "metaId" : "meta_N",
+          "name" : "N",
+          "sbml compartment" : "Cell",
+          "sbml id" : "N",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "N",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_O",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "O",
+          "metaId" : "meta_O",
+          "name" : "O",
+          "sbml compartment" : "Cell",
+          "sbml id" : "O",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "O",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_P",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "P",
+          "metaId" : "meta_P",
+          "name" : "P",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Q",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Q",
+          "metaId" : "meta_Q",
+          "name" : "Q",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Q",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Q",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_R",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "R",
+          "metaId" : "meta_R",
+          "name" : "R",
+          "sbml compartment" : "Cell",
+          "sbml id" : "R",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "R",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_R01",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1.0",
+          "label" : "R01",
+          "metaId" : "meta_R01",
+          "name" : "R01",
+          "reversible" : false,
+          "sbml id" : "R01",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R01"
+        },
+        {
+          "cyId" : "meta_R02",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R02",
+          "metaId" : "meta_R02",
+          "name" : "R02",
+          "reversible" : true,
+          "sbml id" : "R02",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R02"
+        },
+        {
+          "cyId" : "meta_R03",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R03",
+          "metaId" : "meta_R03",
+          "name" : "R03",
+          "reversible" : true,
+          "sbml id" : "R03",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R03"
+        },
+        {
+          "cyId" : "meta_R04",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R04",
+          "metaId" : "meta_R04",
+          "name" : "R04",
+          "reversible" : true,
+          "sbml id" : "R04",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R04"
+        },
+        {
+          "cyId" : "meta_R05",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R05",
+          "metaId" : "meta_R05",
+          "name" : "R05",
+          "reversible" : false,
+          "sbml id" : "R05",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R05"
+        },
+        {
+          "cyId" : "meta_R06",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R06",
+          "metaId" : "meta_R06",
+          "name" : "R06",
+          "reversible" : false,
+          "sbml id" : "R06",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R06"
+        },
+        {
+          "cyId" : "meta_R07",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R07",
+          "metaId" : "meta_R07",
+          "name" : "R07",
+          "reversible" : false,
+          "sbml id" : "R07",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R07"
+        },
+        {
+          "cyId" : "meta_R08",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R08",
+          "metaId" : "meta_R08",
+          "name" : "R08",
+          "reversible" : false,
+          "sbml id" : "R08",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R08"
+        },
+        {
+          "cyId" : "meta_R09",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R09",
+          "metaId" : "meta_R09",
+          "name" : "R09",
+          "reversible" : false,
+          "sbml id" : "R09",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R09"
+        },
+        {
+          "cyId" : "meta_R10",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R10",
+          "metaId" : "meta_R10",
+          "name" : "R10",
+          "reversible" : false,
+          "sbml id" : "R10",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R10"
+        },
+        {
+          "cyId" : "meta_R11",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R11",
+          "metaId" : "meta_R11",
+          "name" : "R11",
+          "reversible" : false,
+          "sbml id" : "R11",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R11"
+        },
+        {
+          "cyId" : "meta_R12",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R12",
+          "metaId" : "meta_R12",
+          "name" : "R12",
+          "reversible" : false,
+          "sbml id" : "R12",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R12"
+        },
+        {
+          "cyId" : "meta_R13",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R13",
+          "metaId" : "meta_R13",
+          "name" : "R13",
+          "reversible" : false,
+          "sbml id" : "R13",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R13"
+        },
+        {
+          "cyId" : "meta_R14",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R14",
+          "metaId" : "meta_R14",
+          "name" : "R14",
+          "reversible" : true,
+          "sbml id" : "R14",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R14"
+        },
+        {
+          "cyId" : "meta_R15",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R15",
+          "metaId" : "meta_R15",
+          "name" : "R15",
+          "reversible" : false,
+          "sbml id" : "R15",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R15"
+        },
+        {
+          "cyId" : "meta_R16",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R16",
+          "metaId" : "meta_R16",
+          "name" : "R16",
+          "reversible" : false,
+          "sbml id" : "R16",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R16"
+        },
+        {
+          "cyId" : "meta_R17",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R17",
+          "metaId" : "meta_R17",
+          "name" : "R17",
+          "reversible" : false,
+          "sbml id" : "R17",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R17"
+        },
+        {
+          "cyId" : "meta_R18",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R18",
+          "metaId" : "meta_R18",
+          "name" : "R18",
+          "reversible" : false,
+          "sbml id" : "R18",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R18"
+        },
+        {
+          "cyId" : "meta_R19",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R19",
+          "metaId" : "meta_R19",
+          "name" : "R19",
+          "reversible" : true,
+          "sbml id" : "R19",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R19"
+        },
+        {
+          "cyId" : "meta_R20",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R20",
+          "metaId" : "meta_R20",
+          "name" : "R20",
+          "reversible" : true,
+          "sbml id" : "R20",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R20"
+        },
+        {
+          "cyId" : "meta_R21",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R21",
+          "metaId" : "meta_R21",
+          "name" : "R21",
+          "reversible" : true,
+          "sbml id" : "R21",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R21"
+        },
+        {
+          "cyId" : "meta_R22",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R22",
+          "metaId" : "meta_R22",
+          "name" : "R22",
+          "reversible" : false,
+          "sbml id" : "R22",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R22"
+        },
+        {
+          "cyId" : "meta_R23",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "-1000.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R23",
+          "metaId" : "meta_R23",
+          "name" : "R23",
+          "reversible" : true,
+          "sbml id" : "R23",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "R23"
+        },
+        {
+          "cyId" : "meta_R24",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R24",
+          "metaId" : "meta_R24",
+          "name" : "R24",
+          "reversible" : false,
+          "sbml id" : "R24",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R24"
+        },
+        {
+          "cyId" : "meta_R25",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R25",
+          "metaId" : "meta_R25",
+          "name" : "R25",
+          "reversible" : false,
+          "sbml id" : "R25",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R25"
+        },
+        {
+          "cyId" : "meta_R26",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "0.0",
+          "fbc_objective-OBJF" : 1.0,
+          "fbc_upperFluxBound" : "1000.0",
+          "label" : "R26",
+          "metaId" : "meta_R26",
+          "name" : "R26",
+          "reversible" : false,
+          "sbml id" : "R26",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "R26"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_S",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S",
+          "metaId" : "meta_S",
+          "name" : "S",
+          "sbml compartment" : "Cell",
+          "sbml id" : "S",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_T",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "T",
+          "metaId" : "meta_T",
+          "name" : "T",
+          "sbml compartment" : "Cell",
+          "sbml id" : "T",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "T",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_U",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "U",
+          "metaId" : "meta_U",
+          "name" : "U",
+          "sbml compartment" : "Cell",
+          "sbml id" : "U",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "U",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_X",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "X",
+          "metaId" : "meta_X",
+          "name" : "X",
+          "sbml compartment" : "Cell",
+          "sbml id" : "X",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "X",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_Y",
+          "fbc_charge" : 1,
+          "fbc_chemicalFormula" : "C2H6O",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "Y",
+          "metaId" : "meta_Y",
+          "name" : "Y",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Y",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Y",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R01",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R01",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R02",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R03",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R04",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R05",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R06",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "E",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R07",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "F",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R08",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R09",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "G",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R10",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "H",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R11",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R12",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R13",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R14",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R15",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "J",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R16",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "M",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R17",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "N",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R18",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "K",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R19",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "O",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R20",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "L",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R21",
+          "target" : "P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "Q",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R22",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R23",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "R",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R24",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 0.5
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "T",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R25",
+          "target" : "U",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "S",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R26",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

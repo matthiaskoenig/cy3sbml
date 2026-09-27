@@ -7,7 +7,13 @@ import java.util.List;
 /**
  * Stores information for a given biomodel.
  */
-public class Biomodel {
+public record Biomodel(
+        String id,
+        String submissionIdentifier,
+        String publicationIdentifier,
+        String name,
+        String description,
+        String authors) {
     public static final String SUBMISSION_ID = "submissionId";
     public static final String PUBLICATION = "publication";
     public static final String PUBLICATION_ID = "publicationId";
@@ -15,27 +21,21 @@ public class Biomodel {
     public static final String ACCESSION = "accession";
     public static final String DESCRIPTION = "description";
     public static final String AUTHORS = "authors";
-    // Fetch information about a given model at a particular revision.
 
-    private String id;
-    private String submissionIdentifier;
-    private String publicationIdentifier;
-    private String name;
-    private String description;
-    private String authors;
-
-    public Biomodel(JsonNode jsonObject) {
-
-        submissionIdentifier = requiredText(jsonObject, SUBMISSION_ID);
+    /**
+     * Creates the biomodel from the JSON of the BioModels model endpoint.
+     */
+    public static Biomodel fromJson(JsonNode jsonObject) {
+        String submissionIdentifier = requiredText(jsonObject, SUBMISSION_ID);
         JsonNode publicationObject = requiredObject(jsonObject, PUBLICATION);
 
         // not all fields exist
-        id = optionalText(jsonObject, PUBLICATION_ID, "");
-        name = optionalText(jsonObject, NAME, "");
-        publicationIdentifier = optionalText(publicationObject, ACCESSION, "");
-        description = optionalText(jsonObject, DESCRIPTION, "");
+        String id = optionalText(jsonObject, PUBLICATION_ID, "");
+        String name = optionalText(jsonObject, NAME, "");
+        String publicationIdentifier = optionalText(publicationObject, ACCESSION, "");
+        String description = optionalText(jsonObject, DESCRIPTION, "");
 
-        List<String> authorsList = new ArrayList<String>();
+        List<String> authorsList = new ArrayList<>();
         JsonNode authorsArray = publicationObject.get(AUTHORS);
         if (authorsArray != null && authorsArray.isArray()) {
             for (JsonNode author : authorsArray) {
@@ -45,7 +45,8 @@ public class Biomodel {
                 }
             }
         }
-        authors = String.join(", ", authorsList);
+        return new Biomodel(
+                id, submissionIdentifier, publicationIdentifier, name, description, String.join(", ", authorsList));
     }
 
     /**
@@ -77,34 +78,5 @@ public class Biomodel {
     private static String optionalText(JsonNode node, String field, String defaultValue) {
         JsonNode value = node.get(field);
         return (value == null || !value.isTextual()) ? defaultValue : value.asText();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getPublicationIdentifier() {
-        return publicationIdentifier;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getAuthors() {
-        return authors;
-    }
-
-    public String getInfo() {
-        String text = getPublicationIdentifier();
-        return text;
-    }
-
-    public String getSubmissionIdentifier() {
-        return submissionIdentifier;
     }
 }

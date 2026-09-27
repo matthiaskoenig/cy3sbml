@@ -2,7 +2,6 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
-import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
@@ -25,11 +24,7 @@ public final class Browser extends Region {
     private final WebEngine webEngine;
     private final File appDirectory;
 
-    // single instance for all browsers
-    // avoid concurrency issues
-    private static final BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
-
-    public Browser(File appDirectory) {
+    public Browser(File appDirectory, BrowserHyperlinkListener hyperlinkListener) {
         this.appDirectory = appDirectory;
         webView = new WebView();
         webEngine = webView.getEngine();
@@ -39,12 +34,11 @@ public final class Browser extends Region {
         getChildren().add(webView);
 
         // Listening to hyperlink events
-        // BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
-        WebViews.addHyperlinkListener(webView, eventProcessingListener, HyperlinkEvent.EventType.ACTIVATED);
+        WebViews.addHyperlinkListener(webView, hyperlinkListener, HyperlinkEvent.EventType.ACTIVATED);
     }
 
     /**
-     * Load local resource;
+     * Load local resource. Must be called on the JavaFX application thread.
      */
     public void loadPageFromResource(String resource) {
         File file = new File(appDirectory, resource);
@@ -54,27 +48,17 @@ public final class Browser extends Region {
     }
 
     /**
-     * Load page in webView;
+     * Load page in webView. Must be called on the JavaFX application thread.
      */
     public void loadPage(String url) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                webEngine.load(url);
-            }
-        });
+        webEngine.load(url);
     }
 
     /**
-     * Load HTML text in the webEngine.
+     * Load HTML text in the webEngine. Must be called on the JavaFX application thread.
      */
     public void loadText(String text) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                webEngine.loadContent(text);
-            }
-        });
+        webEngine.loadContent(text);
     }
 
     @Override

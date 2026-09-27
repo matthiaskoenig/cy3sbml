@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
  */
 public class OpenBrowser {
     private static final Logger logger = LoggerFactory.getLogger(OpenBrowser.class);
-    private static String[] BROWSERS = {"xdg-open", "htmlview", "firefox", "mozilla", "konqueror", "chrome", "chromium"
+    private static final String[] BROWSERS = {
+        "xdg-open", "htmlview", "firefox", "mozilla", "konqueror", "chrome", "chromium"
     };
 
     /**

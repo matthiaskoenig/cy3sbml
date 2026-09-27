@@ -7,10 +7,8 @@ import java.nio.charset.StandardCharsets;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.work.TaskIterator;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
@@ -23,28 +21,28 @@ public class GUIUtil {
 
     /**
      * Loads an SBML example file from the given resource.
-     * Needs access to the LoadNetworkFileTaskFaktory and the SynchronousTaskManager.
-     * <p>
-     * TODO: make this a general function.
-     * See also archive loading of xml.
+     * Needs access to the LoadNetworkFileTaskFactory and the SynchronousTaskManager.
      */
-    public static void loadExampleFromResource(String resource) {
-        InputStream instream = GUIUtil.class.getResourceAsStream(resource);
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("tmp-example", ".xml");
+    public static void loadExampleFromResource(ServiceAdapter adapter, String resource) {
+        try (InputStream instream = GUIUtil.class.getResourceAsStream(resource)) {
+            if (instream == null) {
+                logger.warn("Could not find example resource: {}", resource);
+                return;
+            }
+            File tempFile = File.createTempFile("tmp-example", ".xml");
             tempFile.deleteOnExit();
-            FileOutputStream out = new FileOutputStream(tempFile);
-            IOUtils.copy(instream, out);
+            try (FileOutputStream out = new FileOutputStream(tempFile)) {
+                instream.transferTo(out);
+            }
 
             // read the file
-            // FIXME: use observer
-            ServiceAdapter adapter = WebViewPanel.getInstance().getAdapter();
             TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
             adapter.synchronousTaskManager.execute(iterator);
-        } catch (Exception e) {
-            logger.warn("Could not read example.", e);
-            e.printStackTrace();
+        } catch (IOException e) {
+            logger.warn("Could not read example: {}", resource, e);
+        } catch (RuntimeException e) {
+            // UI boundary: called from a hyperlink in the WebView
+            logger.error("Could not load example: {}", resource, e);
         }
     }
 
@@ -52,8 +50,7 @@ public class GUIUtil {
      * Open current SBML in browser.
      * Writes a temporary file of the SBML which can be loaded.
      */
-    public static void openCurrentSBMLInBrowser() {
-        SBMLManager sbmlManager = SBMLManager.getInstance();
+    public static void openCurrentSBMLInBrowser(SBMLManager sbmlManager) {
         SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
 
         try {
@@ -66,11 +63,9 @@ public class GUIUtil {
                 openFileInBrowser(temp);
             } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
                 logger.error("SBML opening failed.", e);
-                e.printStackTrace();
             }
         } catch (IOException e) {
             logger.error("SBML could not be opened in browser.", e);
-            e.printStackTrace();
         }
     }
 
@@ -79,19 +74,17 @@ public class GUIUtil {
      */
     public static void openURLinExternalBrowser(String url) {
         logger.debug("Open in external webView <" + url + ">");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OpenBrowser.openURL(url);
-            }
-        });
+        SwingUtilities.invokeLater(() -> OpenBrowser.openURL(url));
     }
 
     /**
-     * Open HTML information in external Browser.
+     * Open the given SBase HTML information in external Browser.
      */
-    public static void openSBaseHTMLInBrowser() {
-        String html = WebViewPanel.getInstance().getHtml();
+    public static void openSBaseHTMLInBrowser(String html) {
+        if (html == null) {
+            logger.warn("No HTML available in the panel, nothing to open in the browser.");
+            return;
+        }
         // remove export button, exported html cannot be exported
         html = html.replace(EXPORT_HTML, "");
         openHTMLInBrowser(html);
@@ -110,7 +103,6 @@ public class GUIUtil {
             GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
             logger.error("File could not be opened.", e);
-            e.printStackTrace();
         }
     }
 
@@ -118,11 +110,6 @@ public class GUIUtil {
      * Open a given file in browser.
      */
     public static void openFileInBrowser(File temp) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OpenBrowser.openURL("file://" + temp.getAbsolutePath());
-            }
-        });
+        SwingUtilities.invokeLater(() -> OpenBrowser.openURL("file://" + temp.getAbsolutePath()));
     }
 }

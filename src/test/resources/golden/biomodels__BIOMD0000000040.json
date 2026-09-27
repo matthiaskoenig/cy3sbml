@@ -1,0 +1,2005 @@
+{
+  "networks" : [
+    {
+      "name" : "All__Field1974_Oregonator",
+      "nodeCount" : 22,
+      "edgeCount" : 49,
+      "attributes" : {
+        "biomodels.db" : "BIOMD0000000040",
+        "doi" : "1.1681288",
+        "go" : "GO:0007622",
+        "label" : "Field1974_Oregonator",
+        "metaId" : "metaid_0000002",
+        "name" : "All__Field1974_Oregonator",
+        "sbml id" : "Field1974_Oregonator",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V1",
+        "shared name" : "Field1974_Oregonator",
+        "taxonomy" : "131567"
+      },
+      "nodes" : [
+        {
+          "cyId" : "metaid_0000003",
+          "derivedUnits" : "volume",
+          "label" : "BZ",
+          "metaId" : "metaid_0000003",
+          "sbml id" : "BZ",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "chebi" : "CHEBI:15858",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000004",
+          "derivedUnits" : "substance",
+          "label" : "Br-",
+          "metaId" : "metaid_0000004",
+          "name" : "Br-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Br",
+          "sbml initial concentration" : 1.0E-7,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Br-",
+          "value" : 1.0E-7
+        },
+        {
+          "boundaryCondition" : true,
+          "chebi" : "CHEBI:29223",
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000005",
+          "derivedUnits" : "substance",
+          "label" : "BrO3-",
+          "metaId" : "metaid_0000005",
+          "name" : "BrO3-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "BrO3",
+          "sbml initial concentration" : 0.06,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "BrO3-",
+          "value" : 0.06
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000006",
+          "derivedUnits" : "substance",
+          "label" : "Ce4+",
+          "metaId" : "metaid_0000006",
+          "name" : "Ce4+",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Ce",
+          "sbml initial concentration" : 0.05,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Ce4+",
+          "value" : 0.05
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "HBrO2",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HBrO2",
+          "sbml initial concentration" : 5.0E-11,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0E-11
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "label" : "HOBr",
+          "metaId" : "metaid_0000008",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HOBr",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "metaid_0000009",
+          "kineticLaw" : "Br*BrO3*Reaction1_k1*BZ",
+          "label" : "M1",
+          "metaId" : "metaid_0000009",
+          "name" : "M1",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M1"
+        },
+        {
+          "cyId" : "_106570",
+          "derivedUnits" : "",
+          "label" : "kM1",
+          "metaId" : "_106570",
+          "name" : "kM1",
+          "sbml id" : "Reaction1_k1",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM1",
+          "value" : 1.34
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "kineticLaw" : "Br*HBrO2*Reaction2_k2*BZ",
+          "label" : "M2",
+          "metaId" : "metaid_0000010",
+          "name" : "M2",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M2"
+        },
+        {
+          "cyId" : "_106631",
+          "derivedUnits" : "",
+          "label" : "kM2",
+          "metaId" : "_106631",
+          "name" : "kM2",
+          "sbml id" : "Reaction2_k2",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM2",
+          "value" : 1.6E9
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "kineticLaw" : "BrO3*HBrO2*Reaction3_k3*BZ",
+          "label" : "M3",
+          "metaId" : "metaid_0000011",
+          "name" : "M3",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M3"
+        },
+        {
+          "cyId" : "_106705",
+          "derivedUnits" : "",
+          "label" : "kM3",
+          "metaId" : "_106705",
+          "name" : "kM3",
+          "sbml id" : "Reaction3_k3",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM3",
+          "value" : 8000.0
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "kineticLaw" : "HBrO2^2*Reaction4_k4*BZ",
+          "label" : "M4",
+          "metaId" : "metaid_0000012",
+          "name" : "M4",
+          "reversible" : false,
+          "sbml id" : "Reaction4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M4"
+        },
+        {
+          "cyId" : "_106765",
+          "derivedUnits" : "",
+          "label" : "kM4",
+          "metaId" : "_106765",
+          "name" : "kM4",
+          "sbml id" : "Reaction4_k4",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM4",
+          "value" : 4.0E7
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "kineticLaw" : "Ce*Reaction5_k5*BZ",
+          "label" : "M5",
+          "metaId" : "metaid_0000013",
+          "name" : "M5",
+          "reversible" : false,
+          "sbml id" : "Reaction5",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M5"
+        },
+        {
+          "cyId" : "_106826",
+          "derivedUnits" : "",
+          "label" : "kM5",
+          "metaId" : "_106826",
+          "name" : "kM5",
+          "sbml id" : "Reaction5_k5",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM5",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_106558",
+          "label" : "Reaction1",
+          "math" : "Br*BrO3*Reaction1_k1*BZ",
+          "metaId" : "_106558",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106619",
+          "label" : "Reaction2",
+          "math" : "Br*HBrO2*Reaction2_k2*BZ",
+          "metaId" : "_106619",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106693",
+          "label" : "Reaction3",
+          "math" : "BrO3*HBrO2*Reaction3_k3*BZ",
+          "metaId" : "_106693",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106753",
+          "label" : "Reaction4",
+          "math" : "HBrO2^2*Reaction4_k4*BZ",
+          "metaId" : "_106753",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106814",
+          "label" : "Reaction5",
+          "math" : "Ce*Reaction5_k5*BZ",
+          "metaId" : "_106814",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "metaid_0000014",
+          "derivedUnits" : "",
+          "label" : "f",
+          "metaId" : "metaid_0000014",
+          "sbml id" : "f",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "BZ",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Ce",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Ce",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HOBr",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106510",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106522",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106534",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106546",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1_k1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1_k1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106582",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106594",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106606",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2_k2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2_k2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106643",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106668",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106680",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106655",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3_k3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3_k3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106729",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106717",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106741",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4_k4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4_k4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "metaId" : "_106790",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106777",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5_k5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5_k5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Field1974_Oregonator",
+      "nodeCount" : 10,
+      "edgeCount" : 16,
+      "attributes" : {
+        "name" : "Field1974_Oregonator"
+      },
+      "nodes" : [
+        {
+          "chebi" : "CHEBI:15858",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000004",
+          "derivedUnits" : "substance",
+          "label" : "Br-",
+          "metaId" : "metaid_0000004",
+          "name" : "Br-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Br",
+          "sbml initial concentration" : 1.0E-7,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Br-",
+          "value" : 1.0E-7
+        },
+        {
+          "boundaryCondition" : true,
+          "chebi" : "CHEBI:29223",
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000005",
+          "derivedUnits" : "substance",
+          "label" : "BrO3-",
+          "metaId" : "metaid_0000005",
+          "name" : "BrO3-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "BrO3",
+          "sbml initial concentration" : 0.06,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "BrO3-",
+          "value" : 0.06
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000006",
+          "derivedUnits" : "substance",
+          "label" : "Ce4+",
+          "metaId" : "metaid_0000006",
+          "name" : "Ce4+",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Ce",
+          "sbml initial concentration" : 0.05,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Ce4+",
+          "value" : 0.05
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "HBrO2",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HBrO2",
+          "sbml initial concentration" : 5.0E-11,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0E-11
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "label" : "HOBr",
+          "metaId" : "metaid_0000008",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HOBr",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "metaid_0000009",
+          "kineticLaw" : "Br*BrO3*Reaction1_k1*BZ",
+          "label" : "M1",
+          "metaId" : "metaid_0000009",
+          "name" : "M1",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M1"
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "kineticLaw" : "Br*HBrO2*Reaction2_k2*BZ",
+          "label" : "M2",
+          "metaId" : "metaid_0000010",
+          "name" : "M2",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M2"
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "kineticLaw" : "BrO3*HBrO2*Reaction3_k3*BZ",
+          "label" : "M3",
+          "metaId" : "metaid_0000011",
+          "name" : "M3",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M3"
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "kineticLaw" : "HBrO2^2*Reaction4_k4*BZ",
+          "label" : "M4",
+          "metaId" : "metaid_0000012",
+          "name" : "M4",
+          "reversible" : false,
+          "sbml id" : "Reaction4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M4"
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "kineticLaw" : "Ce*Reaction5_k5*BZ",
+          "label" : "M5",
+          "metaId" : "metaid_0000013",
+          "name" : "M5",
+          "reversible" : false,
+          "sbml id" : "Reaction5",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M5"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Reaction1",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106510",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106522",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106534",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106546",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106582",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106594",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106606",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106643",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106668",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106680",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106655",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106729",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106717",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106741",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106790",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106777",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__Field1974_Oregonator",
+      "nodeCount" : 22,
+      "edgeCount" : 49,
+      "attributes" : {
+        "name" : "Kinetic__Field1974_Oregonator"
+      },
+      "nodes" : [
+        {
+          "cyId" : "metaid_0000003",
+          "derivedUnits" : "volume",
+          "label" : "BZ",
+          "metaId" : "metaid_0000003",
+          "sbml id" : "BZ",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "chebi" : "CHEBI:15858",
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000004",
+          "derivedUnits" : "substance",
+          "label" : "Br-",
+          "metaId" : "metaid_0000004",
+          "name" : "Br-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Br",
+          "sbml initial concentration" : 1.0E-7,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Br-",
+          "value" : 1.0E-7
+        },
+        {
+          "boundaryCondition" : true,
+          "chebi" : "CHEBI:29223",
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000005",
+          "derivedUnits" : "substance",
+          "label" : "BrO3-",
+          "metaId" : "metaid_0000005",
+          "name" : "BrO3-",
+          "sbml compartment" : "BZ",
+          "sbml id" : "BrO3",
+          "sbml initial concentration" : 0.06,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "BrO3-",
+          "value" : 0.06
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000006",
+          "derivedUnits" : "substance",
+          "label" : "Ce4+",
+          "metaId" : "metaid_0000006",
+          "name" : "Ce4+",
+          "sbml compartment" : "BZ",
+          "sbml id" : "Ce",
+          "sbml initial concentration" : 0.05,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Ce4+",
+          "value" : 0.05
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "metaid_0000007",
+          "derivedUnits" : "substance",
+          "label" : "HBrO2",
+          "metaId" : "metaid_0000007",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HBrO2",
+          "sbml initial concentration" : 5.0E-11,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 5.0E-11
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "metaid_0000008",
+          "derivedUnits" : "substance",
+          "label" : "HOBr",
+          "metaId" : "metaid_0000008",
+          "sbml compartment" : "BZ",
+          "sbml id" : "HOBr",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "metaid_0000009",
+          "kineticLaw" : "Br*BrO3*Reaction1_k1*BZ",
+          "label" : "M1",
+          "metaId" : "metaid_0000009",
+          "name" : "M1",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M1"
+        },
+        {
+          "cyId" : "_106570",
+          "derivedUnits" : "",
+          "label" : "kM1",
+          "metaId" : "_106570",
+          "name" : "kM1",
+          "sbml id" : "Reaction1_k1",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM1",
+          "value" : 1.34
+        },
+        {
+          "cyId" : "metaid_0000010",
+          "kineticLaw" : "Br*HBrO2*Reaction2_k2*BZ",
+          "label" : "M2",
+          "metaId" : "metaid_0000010",
+          "name" : "M2",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M2"
+        },
+        {
+          "cyId" : "_106631",
+          "derivedUnits" : "",
+          "label" : "kM2",
+          "metaId" : "_106631",
+          "name" : "kM2",
+          "sbml id" : "Reaction2_k2",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM2",
+          "value" : 1.6E9
+        },
+        {
+          "cyId" : "metaid_0000011",
+          "kineticLaw" : "BrO3*HBrO2*Reaction3_k3*BZ",
+          "label" : "M3",
+          "metaId" : "metaid_0000011",
+          "name" : "M3",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M3"
+        },
+        {
+          "cyId" : "_106705",
+          "derivedUnits" : "",
+          "label" : "kM3",
+          "metaId" : "_106705",
+          "name" : "kM3",
+          "sbml id" : "Reaction3_k3",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM3",
+          "value" : 8000.0
+        },
+        {
+          "cyId" : "metaid_0000012",
+          "kineticLaw" : "HBrO2^2*Reaction4_k4*BZ",
+          "label" : "M4",
+          "metaId" : "metaid_0000012",
+          "name" : "M4",
+          "reversible" : false,
+          "sbml id" : "Reaction4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M4"
+        },
+        {
+          "cyId" : "_106765",
+          "derivedUnits" : "",
+          "label" : "kM4",
+          "metaId" : "_106765",
+          "name" : "kM4",
+          "sbml id" : "Reaction4_k4",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM4",
+          "value" : 4.0E7
+        },
+        {
+          "cyId" : "metaid_0000013",
+          "kineticLaw" : "Ce*Reaction5_k5*BZ",
+          "label" : "M5",
+          "metaId" : "metaid_0000013",
+          "name" : "M5",
+          "reversible" : false,
+          "sbml id" : "Reaction5",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "M5"
+        },
+        {
+          "cyId" : "_106826",
+          "derivedUnits" : "",
+          "label" : "kM5",
+          "metaId" : "_106826",
+          "name" : "kM5",
+          "sbml id" : "Reaction5_k5",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "shared name" : "kM5",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "_106558",
+          "label" : "Reaction1",
+          "math" : "Br*BrO3*Reaction1_k1*BZ",
+          "metaId" : "_106558",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106619",
+          "label" : "Reaction2",
+          "math" : "Br*HBrO2*Reaction2_k2*BZ",
+          "metaId" : "_106619",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106693",
+          "label" : "Reaction3",
+          "math" : "BrO3*HBrO2*Reaction3_k3*BZ",
+          "metaId" : "_106693",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106753",
+          "label" : "Reaction4",
+          "math" : "HBrO2^2*Reaction4_k4*BZ",
+          "metaId" : "_106753",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "_106814",
+          "label" : "Reaction5",
+          "math" : "Ce*Reaction5_k5*BZ",
+          "metaId" : "_106814",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "cyId" : "metaid_0000014",
+          "derivedUnits" : "",
+          "label" : "f",
+          "metaId" : "metaid_0000014",
+          "sbml id" : "f",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "BZ",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BZ",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Br",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "BrO3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Ce",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Ce",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HBrO2",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "HOBr",
+          "target" : "BZ",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106510",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106522",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106534",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106546",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1_k1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction1_k1",
+          "target" : "_106558",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106582",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106594",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106606",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2_k2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction2_k2",
+          "target" : "_106619",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106643",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106668",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106680",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106655",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3_k3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction3_k3",
+          "target" : "_106693",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "BrO3",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106729",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HBrO2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106717",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "HOBr",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106741",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4_k4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction4_k4",
+          "target" : "_106753",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Br",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_106790",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Ce",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_106777",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5_k5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "Reaction5_k5",
+          "target" : "_106814",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

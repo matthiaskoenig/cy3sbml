@@ -1,46 +1,18 @@
 package org.cy3sbml.util;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Helper functions for input and output.
  */
 public class IOUtil {
-    private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
-    private static final int BUFFER_SIZE = 16384;
 
     /**
      * Read resource to InputStream
      */
     public static InputStream readResource(String resource) {
         return IOUtil.class.getResourceAsStream(resource);
-    }
-
-    /**
-     * Read String from InputStream.
-     */
-    // reason: real bug, the SBML is decoded with the platform charset instead of the XML
-    // encoding; fixing it changes the import on non UTF-8 platforms, so it is fixed in
-    // Task 3.2 (remove the suppression there)
-    @SuppressWarnings("DefaultCharset")
-    public static String inputStream2String(InputStream source) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(source));
-                StringWriter writer = new StringWriter()) {
-            char[] buffer = new char[BUFFER_SIZE];
-            int charactersRead;
-            while ((charactersRead = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, charactersRead);
-            }
-            return writer.toString();
-        }
     }
 
     /**
@@ -81,53 +53,4 @@ public class IOUtil {
         }
         return target;
     }
-
-    /**
-     * Get URL as file.
-     * Use to download files
-     */
-    public static void saveURLasFile(URL url, File file) {
-        HttpURLConnection sourceConnection = null;
-        try {
-            sourceConnection = (HttpURLConnection) url.openConnection();
-            sourceConnection.setInstanceFollowRedirects(true);
-            sourceConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-
-            String encoding = sourceConnection.getContentEncoding();
-            InputStream rawInputStream = sourceConnection.getInputStream();
-
-            InputStream inputStream;
-            if ("gzip".equalsIgnoreCase(encoding)) {
-                inputStream = new GZIPInputStream(rawInputStream);
-            } else if ("deflate".equalsIgnoreCase(encoding)) {
-                inputStream = new InflaterInputStream(rawInputStream, new Inflater(true));
-            } else {
-                inputStream = rawInputStream;
-            }
-
-            // Copy decompressed input stream directly to file
-            try (InputStream in = inputStream;
-                    FileOutputStream fos = new FileOutputStream(file)) {
-                byte[] buffer = new byte[8192];
-                int len;
-                while ((len = in.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-            }
-
-        } catch (IOException e) {
-            logger.error("URL could not be saved.", e);
-            e.printStackTrace();
-        } finally {
-            if (sourceConnection != null) {
-                sourceConnection.disconnect();
-            }
-        }
-    }
-
-    /*
-     * Returns the Last-Modified Http Response Header field.
-     * @param url
-     * @return
-     */
 }

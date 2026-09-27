@@ -1,6 +1,7 @@
 package org.cy3sbml;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
@@ -21,42 +22,36 @@ import org.slf4j.LoggerFactory;
  * The SBMLManager provides the entry point to interact with SBMLDocuments.
  * All access to SBMLDocuments should go via the SBMLManager.
  * <p>
- * The SBMLManager is a singleton class.
+ * CyActivator creates the single instance and registers it as an OSGi service,
+ * so that other apps can look it up.
  */
 public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
-    private static SBMLManager uniqueInstance;
-    private CyApplicationManager cyApplicationManager;
+    private final CyApplicationManager cyApplicationManager;
 
-    private Long currentSUID;
-    private Network2SBMLMapper network2sbml;
-    // private HashMap<Long, MetaIdSBaseMap> network2objectMap;
-
-    /**
-     * Get SBMLManager (creates the instance).
+    /*
+     * currentSUID and network2sbml are written from Cytoscape event handlers
+     * (network/selection listeners, session restore) and read from the WebViewPanel's
+     * background render thread (PanelUpdater, run on its LatestTaskExecutor).
+     *
+     * currentSUID is only ever replaced wholesale (never mutated in place), so volatile
+     * is enough to make a writer's new value visible to the reader thread.
+     *
+     * network2sbml is also replaced wholesale on session restore, so it needs the same
+     * volatile reference; but addSBMLForNetwork/removeSBMLForNetwork mutate the SAME
+     * Network2SBMLMapper instance in place while a reader may be querying it concurrently.
+     * That mutation safety is provided by Network2SBMLMapper itself (its methods are
+     * synchronized, and the One2ManyMapping instances it hands out are synchronized too),
+     * not by this field's volatile modifier. volatile here only guarantees visibility of a
+     * full mapper replacement, not safety of in-place mutation of the mapper's contents.
      */
-    public static synchronized SBMLManager getInstance(CyApplicationManager cyApplicationManager) {
-        if (uniqueInstance == null) {
-            uniqueInstance = new SBMLManager(cyApplicationManager);
-        }
-        return uniqueInstance;
-    }
-
-    /**
-     * Get SBMLManager instance.
-     * Use this function to access the SBMLManager.
-     */
-    public static synchronized SBMLManager getInstance() {
-        if (uniqueInstance == null) {
-            logger.error("Access to SBMLManager before creation");
-        }
-        return uniqueInstance;
-    }
+    private volatile Long currentSUID;
+    private volatile Network2SBMLMapper network2sbml;
 
     /**
      * Constructor.
      */
-    private SBMLManager(CyApplicationManager cyApplicationManager) {
+    public SBMLManager(CyApplicationManager cyApplicationManager) {
         logger.debug("SBMLManager created");
         this.cyApplicationManager = cyApplicationManager;
         reset();
@@ -68,7 +63,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     private void reset() {
         currentSUID = null;
         network2sbml = new Network2SBMLMapper();
-        // network2objectMap = new HashMap<>();
     }
 
     /**
@@ -96,8 +90,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     public void addSBMLForNetwork(SBMLDocument doc, Long rootNetworkSUID, One2ManyMapping<String, Long> mapping) {
         // document & mapping
         network2sbml.putDocument(rootNetworkSUID, doc, mapping);
-        // object map
-        // network2objectMap.put(rootNetworkSUID, new MetaIdSBaseMap(doc));
     }
 
     /**
@@ -224,7 +216,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     public SBase getSBaseByCyId(String cyId, Long SUID) {
         SBMLDocument doc = network2sbml.getDocument(SUID);
         return doc.getElementByMetaId(cyId);
-        // return network2objectMap.get(SUID).getObjectByCyId(cyId);
     }
 
     /**
@@ -256,19 +247,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         logger.debug("SBMLManager from given mapper");
 
         network2sbml = mapper;
-        // network2objectMap = new HashMap<>();
-
-        // Create mapping
-        /*
-        Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
-        for (Long suid: documentMap.keySet()){
-            SBMLDocument doc = documentMap.get(suid);
-
-            // create id<->object mapping
-            MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
-            network2objectMap.put(suid, map);
-        }
-        */
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();

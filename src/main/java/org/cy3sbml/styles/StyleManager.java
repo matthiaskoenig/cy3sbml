@@ -12,28 +12,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class to manage the loading of the visual styles.
- * The style manager is a singleton class.
  */
 public class StyleManager implements SessionLoadedListener {
     private static final Logger logger = LoggerFactory.getLogger(StyleManager.class);
-    private static StyleManager uniqueInstance;
 
-    private LoadVizmapFileTaskFactory loadVizmapFileTaskFactory;
-    private VisualMappingManager vmm;
-    private String[] styles;
-
-    public static synchronized StyleManager getInstance(
-            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
-        if (uniqueInstance == null) {
-            uniqueInstance = new StyleManager(loadVizmapFileTaskFactory, vmm, styles);
-        }
-        return uniqueInstance;
-    }
+    private final LoadVizmapFileTaskFactory loadVizmapFileTaskFactory;
+    private final VisualMappingManager vmm;
+    private final String[] styles;
 
     /**
      * Constructor.
      */
-    private StyleManager(
+    public StyleManager(
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
         logger.debug("StyleManager created");
         this.loadVizmapFileTaskFactory = loadVizmapFileTaskFactory;
