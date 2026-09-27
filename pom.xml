@@ -243,7 +243,7 @@
             <version>2.0.17</version>
         </dependency>
 
-        <!-- slf4j runtime binding (see src/main/resources/logback-test.xml) -->
+        <!-- slf4j runtime binding (app: src/main/resources/logback.xml, tests: src/test/resources/logback-test.xml) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
