@@ -120,7 +120,8 @@ requested last is the page shown. Rendering reads the SBML document and never ch
   and replaced by the current registry after a download in the background.
 - `OlsClient` (Ontology Lookup Service), `UniprotAccess` (UniProt REST API) and
   `ChebiAccess` (ChEBI). They use `HttpJson` for the HTTP requests and cache results in
-  a `MemoryCache`, with a limited lifetime for "not found" results.
+  a `MemoryCache`, with a limited lifetime for "not found" results. The cache loads
+  each key once: concurrent lookups of the same key share one request.
 
 `BrowserHyperlinkListener` handles the links in the panel: app actions (examples, help,
 import), selection of nodes by id, and external links, which open in the system browser.
