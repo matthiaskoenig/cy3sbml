@@ -19,15 +19,13 @@ import org.slf4j.LoggerFactory;
 public class BiomodelsQueryResult {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsQueryResult.class);
 
-    private final String query;
     private final String json;
 
     /**
-     * Creates the result of the given search query with the JSON response,
+     * Creates the result of a search query with the JSON response,
      * {@code null} if the search failed.
      */
-    public BiomodelsQueryResult(final String query, String json) {
-        this.query = query;
+    public BiomodelsQueryResult(String json) {
         this.json = json;
     }
 
@@ -36,14 +34,6 @@ public class BiomodelsQueryResult {
      */
     public boolean success() {
         return json != null;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public String getJSON() {
-        return json;
     }
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

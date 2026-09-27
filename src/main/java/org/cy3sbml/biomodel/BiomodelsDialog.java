@@ -229,20 +229,6 @@ public final class BiomodelsDialog extends JDialog {
         }
     }
 
-    public void showBioModelsPanel() {
-
-        JFrame frame = new JFrame("CySBML BioModel Import");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Add content to the window.
-        frame.getContentPane().add(this);
-        frame.setSize(600, 600);
-        frame.setResizable(true);
-        // Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
     /// ////// BACKGROUND WORK ////////////
 
     /**

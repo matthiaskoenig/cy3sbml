@@ -29,7 +29,6 @@ import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
-import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.property.CyProperty;
 import org.cytoscape.property.PropertyUpdatedListener;
@@ -372,7 +371,6 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
             registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
 

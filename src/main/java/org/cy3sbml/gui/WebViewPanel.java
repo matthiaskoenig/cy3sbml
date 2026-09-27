@@ -16,8 +16,6 @@ import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.events.NetworkAddedEvent;
-import org.cytoscape.model.events.NetworkAddedListener;
 import org.cytoscape.model.events.RowsSetEvent;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.view.model.CyNetworkView;
@@ -40,7 +38,6 @@ public final class WebViewPanel extends JFXPanel
                 InfoPanel,
                 RowsSetListener,
                 SetCurrentNetworkListener,
-                NetworkAddedListener,
                 NetworkViewAddedListener,
                 NetworkViewAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
@@ -301,16 +298,6 @@ public final class WebViewPanel extends JFXPanel
         sbmlManager.updateCurrent(network);
         updateInformation();
     }
-
-    /**
-     * If networks are added check if they are subnetworks
-     * of SBML networks and add the respective SBMLDocument
-     * to them in the mapping.
-     * Due to the mapping based on the RootNetworks sub-networks
-     * automatically can use the mappings of the parent networks.
-     */
-    @Override
-    public void handleEvent(NetworkAddedEvent event) {}
 
     @Override
     public void handleEvent(NetworkViewAddedEvent event) {

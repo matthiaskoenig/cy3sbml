@@ -27,7 +27,7 @@ public class BiomodelsQueryTest {
     @Test
     public void parsesSearchResult() throws IOException {
         String json = fixture("/biomodel/search_glucose.json");
-        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", json);
+        BiomodelsQueryResult result = new BiomodelsQueryResult(json);
 
         assertEquals(true, result.success());
 
@@ -44,7 +44,7 @@ public class BiomodelsQueryTest {
                     {"id": "MODEL1209260000", "name": "with id"}
                 ]}
                 """;
-        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", json);
+        BiomodelsQueryResult result = new BiomodelsQueryResult(json);
 
         List<String> biomodelIds = result.getBiomodelIdsFromSearch();
         assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);
