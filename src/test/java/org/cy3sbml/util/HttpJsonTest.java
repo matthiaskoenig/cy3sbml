@@ -1,15 +1,21 @@
 package org.cy3sbml.util;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,6 +110,27 @@ class HttpJsonTest {
         assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/empty")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetchAsync(uri("/empty")).get().status());
         assertTrue(httpJson.get(uri("/empty")).isEmpty());
+    }
+
+    /**
+     * A 2xx response whose body is null (e.g. from a custom HttpClient) must never reach
+     * {@code FetchResult.found}: it is an ERROR on every fetch path.
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    void fetchTreatsANullBodyAsTransient() throws Exception {
+        HttpResponse<Object> response = mock(HttpResponse.class);
+        when(response.statusCode()).thenReturn(200);
+        when(response.body()).thenReturn(null);
+        HttpClient client = mock(HttpClient.class);
+        when(client.send(any(), any())).thenReturn(response);
+        when(client.sendAsync(any(), any())).thenReturn(CompletableFuture.completedFuture(response));
+        HttpJson nullBodyJson = new HttpJson(client, new ObjectMapper());
+        URI uri = URI.create("http://localhost/null-body");
+
+        assertEquals(FetchStatus.ERROR, nullBodyJson.fetchText(uri).status());
+        assertEquals(FetchStatus.ERROR, nullBodyJson.fetch(uri).status());
+        assertEquals(FetchStatus.ERROR, nullBodyJson.fetchAsync(uri).get().status());
     }
 
     @Test

@@ -299,7 +299,14 @@ public class HttpJson {
             logger.warn("Unexpected HTTP status {} for {}", status, uri);
             return FetchResult.error();
         }
-        return FetchResult.found(response.body());
+        String body = response.body();
+        if (body == null) {
+            // a 2xx response without a body carries no value; like an empty JSON body
+            // (see parse) this is a transient error, never a found null
+            logger.warn("No response body from {}", uri);
+            return FetchResult.error();
+        }
+        return FetchResult.found(body);
     }
 
     private static boolean isSuccess(int status) {
