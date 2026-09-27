@@ -83,11 +83,13 @@ class FbcReaderTest {
     }
 
     /**
-     * Builds the model in Java (rather than parsing it from XML) to construct a
-     * FBCModelPlugin whose package version is 1, mirroring
-     * {@code SBMLUtilTest.createSpeciesMapIncludesFbcVersion1ChargeAndFormula}: the plugin
-     * lookup that reaches the fbc v1 flux bounds must not depend on the fbc package
-     * version reported by the model's plugin instance.
+     * Builds the model in Java (rather than parsing it from XML), the same way {@code
+     * SBMLUtilTest.createSpeciesMapIncludesFbcVersion1ChargeAndFormula} does for a
+     * species' plugin, to exercise {@code FbcReader.readFluxBounds} without needing an
+     * XML fixture: constructs a {@code FBCModelPlugin} with {@code setPackageVersion(1)},
+     * so {@code fbcModel.getVersion() == 1} takes the fbc v1 {@code FluxBound}-list
+     * branch, with two {@code FluxBound} objects referencing the reaction directly rather
+     * than via the fbc v2 reaction attributes {@link #readsFluxBoundsOfReactions} covers.
      */
     @Test
     @SuppressWarnings("deprecation") // FluxBound is deprecated in JSBML, but needed for fbc v1

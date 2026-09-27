@@ -486,7 +486,13 @@
                 cannot reach those; unpack the jsbml/jsbml-* jars here, with the test classes
                 and test/testdata packages filtered out, into a directory the bundle plugin
                 below copies in via Include-Resource instead of classpath-borrowing them
-                straight from the (unfiltered) jars. -->
+                straight from the (unfiltered) jars.
+                Restricted to the jsbml-prefixed artifacts on purpose: jtidy (the other
+                cy3sbml-dep artifact, the third-party HTML tidy library JSBML's own
+                jsbml-tidy module wraps) ships no test classes to filter, and unpacking it
+                here too would additionally spill its own resources (e.g. tidy.gif) at the
+                bundle root; it stays a normal embedded (nested-jar) dependency instead, via
+                the explicit Embed-Dependency clause for it below. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -500,6 +506,7 @@
                         <phase>process-classes</phase>
                         <configuration>
                             <includeGroupIds>cy3sbml-dep</includeGroupIds>
+                            <includeArtifactIds>jsbml,jsbml-qual,jsbml-layout,jsbml-comp,jsbml-fbc,jsbml-groups,jsbml-distrib,jsbml-tidy</includeArtifactIds>
                             <outputDirectory>${project.build.directory}/jsbml-classes</outputDirectory>
                             <excludes>META-INF/**,
                                 **/test/**,
@@ -533,7 +540,12 @@
                         <_exportcontents>org.sbml.jsbml.*</_exportcontents>
                         <Private-Package>${bundle.namespace}.*</Private-Package>
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape;groupId=!cy3sbml-dep</Embed-Dependency>
+                        <!-- jtidy is excluded from the generic clause (its groupId is
+                            cy3sbml-dep) since it is not part of the filtered jsbml-classes
+                            unpack above; the explicit second clause embeds it normally
+                            (as a nested jar), same as before that unpack existed. -->
+                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape;groupId=!cy3sbml-dep,
+                            jtidy;groupId=cy3sbml-dep;scope=!provided|test</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
                         <!-- {maven-resources} is bnd's default resource copy (src/main/resources,
                             e.g. the gui templates, styles and the bundled extension jar); an
