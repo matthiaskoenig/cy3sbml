@@ -40,7 +40,14 @@ jobs:
         shell: bash
         run: ./mvnw --batch-mode --no-transfer-progress verify
       - name: Publish the test report
-        if: success() || failure()
+        # creating the check run needs checks: write, which the token of a pull
+        # request from a fork never has; the report is informational, so the
+        # test result alone decides the job (and the required tests check)
+        if: >-
+          (success() || failure()) &&
+          (github.event_name != 'pull_request' ||
+          github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
         uses: scacap/action-surefire-report@v1
         with:
           check_name: surefire (${{ matrix.os }})
