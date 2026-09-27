@@ -22,6 +22,7 @@ public final class RenderCoalescer {
      * differs, by reference, from the last accepted target. Returns false,
      * leaving the last target unchanged, for a repeat of the same reference.
      */
+    @SuppressWarnings("ReferenceEquality") // identity, not value equality, is the intended comparison here
     public synchronized boolean accept(Object target) {
         if (target == lastTarget) {
             return false;

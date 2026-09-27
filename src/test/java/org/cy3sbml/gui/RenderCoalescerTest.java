@@ -23,12 +23,13 @@ class RenderCoalescerTest {
     @Test
     void acceptsADifferentReferenceEvenIfEqual() {
         var coalescer = new RenderCoalescer();
-        // two distinct String instances that are .equals() but not the same reference
-        String first = new StringBuilder("x").toString();
-        String second = new StringBuilder("x").toString();
-        assertTrue(coalescer.accept(first));
-        assertTrue(coalescer.accept(second));
+        // two distinct instances that are .equals() (a record's generated equals compares
+        // components) but not the same reference
+        assertTrue(coalescer.accept(new Value("x")));
+        assertTrue(coalescer.accept(new Value("x")));
     }
+
+    private record Value(String v) {}
 
     @Test
     void acceptsAgainAfterReset() {

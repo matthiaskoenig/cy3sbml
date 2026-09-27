@@ -80,7 +80,9 @@ class PanelUpdaterTest {
         CyNode node = network.addNode();
         network.getRow(node).set(CyNetwork.SELECTED, true);
         when(sbmlManager.getCurrentSBMLDocument()).thenReturn(document);
-        when(sbmlManager.getCyIdsFromSUIDs(List.of(node.getSUID()))).thenReturn(List.of("a"), List.of("b"));
+        when(sbmlManager.getCyIdsFromSUIDs(List.of(node.getSUID())))
+                .thenReturn(List.of("a"))
+                .thenReturn(List.of("b"));
         when(sbmlManager.getSBaseByCyId("a")).thenReturn(sbaseA);
         when(sbmlManager.getSBaseByCyId("b")).thenReturn(sbaseB);
 
