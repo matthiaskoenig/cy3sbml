@@ -91,7 +91,7 @@ final class QualReader implements PackageReader {
                     AttributeUtil.set(network, e, SBML.ATTR_ID, input.getId(), String.class);
                 }
                 if (input.isSetName()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_NAME, input.getName(), String.class);
+                    AttributeWriter.setName(network, e, input.getName());
                 }
                 if (input.isSetSign()) {
                     AttributeUtil.set(
@@ -134,7 +134,7 @@ final class QualReader implements PackageReader {
                     AttributeUtil.set(network, e, SBML.ATTR_ID, output.getId(), String.class);
                 }
                 if (output.isSetName()) {
-                    AttributeUtil.set(network, e, SBML.ATTR_NAME, output.getName(), String.class);
+                    AttributeWriter.setName(network, e, output.getName());
                 }
                 if (output.isSetSBOTerm()) {
                     AttributeUtil.set(network, e, SBML.ATTR_SBOTERM, output.getSBOTermID(), String.class);

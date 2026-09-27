@@ -91,9 +91,19 @@ final class AttributeWriter {
         }
         if (nsb.isSetName()) {
             String name = nsb.getName();
-            AttributeUtil.set(network, n, SBML.ATTR_NAME, name, String.class);
+            setName(network, n, name);
             AttributeUtil.set(network, n, SBML.LABEL, name, String.class);
         }
+    }
+
+    /**
+     * Set the name of a node or edge.
+     * Subnetworks the element is added to later copy {@code shared name} into their {@code name}
+     * column, the network the element is created in needs {@code name} set explicitly.
+     */
+    static void setName(CyNetwork network, CyIdentifiable n, String name) {
+        AttributeUtil.set(network, n, SBML.ATTR_NAME, name, String.class);
+        AttributeUtil.set(network, n, CyNetwork.NAME, name, String.class);
     }
 
     /**

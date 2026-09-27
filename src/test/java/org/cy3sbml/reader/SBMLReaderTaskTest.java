@@ -77,6 +77,39 @@ class SBMLReaderTaskTest {
     }
 
     @Test
+    void nodesHaveTheSbmlNameAsNameInEverySubnetwork() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+                  <model id="m">
+                    <listOfCompartments>
+                      <compartment id="c" name="cytosol" constant="true"/>
+                    </listOfCompartments>
+                    <listOfSpecies>
+                      <species id="s1" name="glucose" compartment="c" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+                    </listOfSpecies>
+                  </model>
+                </sbml>
+                """;
+        InputStream stream = new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.UTF_8));
+        SBMLReaderTask task = new SBMLReaderTask(
+                stream,
+                "names.xml",
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+
+        task.run(mock(TaskMonitor.class));
+
+        assertEquals(3, task.getNetworks().length);
+        for (CyNetwork network : task.getNetworks()) {
+            CyNode species = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, "s1");
+            String networkName = network.getRow(network).get(CyNetwork.NAME, String.class);
+            assertEquals("glucose", network.getRow(species).get(CyNetwork.NAME, String.class), networkName);
+        }
+    }
+
+    @Test
     void readerReadsCompModelWithReplacementsInSubmodels() throws Exception {
         String resource = "/models/comp/Watanabe2014/test_replacement_4.xml";
         TaskMonitor taskMonitor = mock(TaskMonitor.class);
