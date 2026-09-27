@@ -58,8 +58,8 @@ flowchart TB
 - `SessionData` writes the mappings of `SBMLManager` and `CofactorManager` and the SBML
   files into Cytoscape session files, and restores them when a session is loaded.
 - `StyleManager` loads the visual styles from `src/main/resources/styles`.
-- `ConnectionProxy` sets the Java proxy properties from the proxy settings of Cytoscape,
-  and updates them when the settings change.
+- `ConnectionProxy` sets the Java proxy properties from the proxy settings of Cytoscape
+  when the app starts. An HTTP proxy without host or port is ignored with a warning.
 
 ## Import pipeline
 
@@ -109,7 +109,9 @@ network events. For every change it resolves the object to show (`PanelUpdater`)
 submits the rendering to a `LatestTaskExecutor`. The executor runs one render at a time
 on its own thread. A new target cancels the pending or running render. The same target
 is not rendered again while it is pending or running. So a slow web service request for an old selection never replaces the
-information of a newer one.
+information of a newer one. The rendered HTML and the help and examples pages all reach
+the `Browser` through `PageLoader`, on the thread that requests them, so the page
+requested last is the page shown. Rendering reads the SBML document and never changes it.
 
 `SBaseHTMLFactory` creates the HTML of an SBML object with the templates in
 `src/main/resources/gui`. It resolves annotations with:
@@ -122,6 +124,8 @@ information of a newer one.
 
 `BrowserHyperlinkListener` handles the links in the panel: app actions (examples, help,
 import), selection of nodes by id, and external links, which open in the system browser.
+The links are clicked on the JavaFX thread; their actions run on the Swing event dispatch
+thread.
 
 ## Other packages
 
