@@ -31,8 +31,10 @@ class HttpJsonTest {
             exchange.getResponseBody().write(body);
             exchange.close();
         });
-        server.createContext("/empty", exchange -> {
-            exchange.sendResponseHeaders(200, -1);
+        server.createContext("/notfound", exchange -> {
+            byte[] body = new byte[0];
+            exchange.sendResponseHeaders(404, body.length);
+            exchange.getResponseBody().write(body);
             exchange.close();
         });
         server.start();
@@ -59,7 +61,15 @@ class HttpJsonTest {
     }
 
     @Test
-    void returnsEmptyOnEmptyBody() {
-        assertTrue(httpJson.get(uri("/empty")).isEmpty());
+    void fetchDistinguishesNotFoundFromError() {
+        assertEquals(FetchStatus.NOT_FOUND, httpJson.fetch(uri("/notfound")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/error")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/malformed")).status());
+    }
+
+    @Test
+    void fetchTextDistinguishesNotFoundFromError() {
+        assertEquals(FetchStatus.NOT_FOUND, httpJson.fetchText(uri("/notfound")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/error")).status());
     }
 }

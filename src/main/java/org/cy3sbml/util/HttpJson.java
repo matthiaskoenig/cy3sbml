@@ -16,8 +16,12 @@ import org.slf4j.LoggerFactory;
 /**
  * Small JSON-over-HTTP helper for the REST web services (OLS, ...).
  * <p>
- * Returns an empty {@link Optional} on any non-2xx response, IO error,
- * timeout, empty or malformed JSON body, logging the reason at warn level.
+ * {@link #get} and {@link #getText} return an empty {@link Optional} on any
+ * non-2xx response, IO error, timeout or malformed JSON body, logging the
+ * reason at warn level. {@link #fetch} and {@link #fetchText} return the
+ * same information plus a {@link FetchStatus}, distinguishing "not found"
+ * (HTTP 404) from a transport or parse error, so callers can cache a "not
+ * found" result without caching a transient error.
  */
 public class HttpJson {
     private static final Logger logger = LoggerFactory.getLogger(HttpJson.class);
@@ -50,10 +54,10 @@ public class HttpJson {
 
     /**
      * Fetches and parses the JSON body at the given URI.
-     * Empty on a non-2xx response, an IO error, a timeout, an empty body or malformed JSON.
+     * Empty on a non-2xx response, an IO error, a timeout or malformed JSON.
      */
     public Optional<JsonNode> get(URI uri) {
-        return getText(uri).flatMap(body -> parse(uri, body));
+        return fetch(uri).value();
     }
 
     /**
@@ -61,6 +65,27 @@ public class HttpJson {
      * Empty on a non-2xx response, an IO error or a timeout.
      */
     public Optional<String> getText(URI uri) {
+        return fetchText(uri).value();
+    }
+
+    /**
+     * Fetches and parses the JSON body at the given URI, distinguishing "not
+     * found" (HTTP 404) from a transport or parse error.
+     */
+    public FetchResult<JsonNode> fetch(URI uri) {
+        FetchResult<String> text = fetchText(uri);
+        return switch (text.status()) {
+            case FOUND -> parse(uri, text.value().orElseThrow());
+            case NOT_FOUND -> FetchResult.notFound();
+            case ERROR -> FetchResult.error();
+        };
+    }
+
+    /**
+     * Fetches the raw text body at the given URI, distinguishing "not found"
+     * (HTTP 404) from a transport error.
+     */
+    public FetchResult<String> fetchText(URI uri) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")
@@ -70,34 +95,32 @@ public class HttpJson {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             int status = response.statusCode();
+            if (status == 404) {
+                logger.debug("Not found (404) for {}", uri);
+                return FetchResult.notFound();
+            }
             if (status < 200 || status >= 300) {
                 logger.warn("Unexpected HTTP status {} for {}", status, uri);
-                return Optional.empty();
+                return FetchResult.error();
             }
-            return Optional.of(response.body());
+            return FetchResult.found(response.body());
         } catch (IOException e) {
             logger.warn("Error retrieving {}: {}", uri, e.getMessage());
-            return Optional.empty();
+            return FetchResult.error();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             // a cancelled render interrupts its lookups, this is not an error
             logger.debug("Interrupted while retrieving {}", uri);
-            return Optional.empty();
+            return FetchResult.error();
         }
     }
 
-    private Optional<JsonNode> parse(URI uri, String body) {
+    private FetchResult<JsonNode> parse(URI uri, String body) {
         try {
-            JsonNode node = mapper.readTree(body);
-            // readTree returns null or a MissingNode for an empty body
-            if (node == null || node.isMissingNode()) {
-                logger.warn("Empty JSON body from {}", uri);
-                return Optional.empty();
-            }
-            return Optional.of(node);
+            return FetchResult.found(mapper.readTree(body));
         } catch (IOException e) {
             logger.warn("Error parsing JSON from {}: {}", uri, e.getMessage());
-            return Optional.empty();
+            return FetchResult.error();
         }
     }
 }

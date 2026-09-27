@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.util.FetchResult;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +31,16 @@ public final class UniprotAccess {
     private static final Map<String, String> htmlFragments = GUIConstants.htmlFragments;
 
     private final HttpJson http;
-    private final MemoryCache<String, UniprotEntry> cache = new MemoryCache<>(5000);
+    private final MemoryCache<String, UniprotEntry> cache;
 
     public UniprotAccess(HttpJson http) {
+        this(http, Clock.systemUTC());
+    }
+
+    /** For tests: an injectable clock for the "not found" cache TTL. */
+    UniprotAccess(HttpJson http, Clock clock) {
         this.http = http;
+        this.cache = new MemoryCache<>(5000, MemoryCache.DEFAULT_NOT_FOUND_TTL, clock);
     }
 
     /**
@@ -43,17 +51,22 @@ public final class UniprotAccess {
         return cache.get(accession, this::lookup);
     }
 
-    private Optional<UniprotEntry> lookup(String accession) {
+    private FetchResult<UniprotEntry> lookup(String accession) {
         URI uri = URI.create(UNIPROTKB_URL + URLEncoder.encode(accession, StandardCharsets.UTF_8) + ".json");
-        return http.get(uri).flatMap(json -> parseEntry(json, accession));
+        FetchResult<JsonNode> json = http.fetch(uri);
+        return switch (json.status()) {
+            case FOUND -> parseEntry(json.value().orElseThrow(), accession);
+            case NOT_FOUND -> FetchResult.notFound();
+            case ERROR -> FetchResult.error();
+        };
     }
 
-    private static Optional<UniprotEntry> parseEntry(JsonNode json, String accession) {
+    private static FetchResult<UniprotEntry> parseEntry(JsonNode json, String accession) {
         String primaryAccession = json.path("primaryAccession").asText(null);
         String uniProtId = json.path("uniProtkbId").asText(null);
         if (primaryAccession == null || uniProtId == null) {
             logger.warn("UniProt entry {} is missing its accession or id", accession);
-            return Optional.empty();
+            return FetchResult.error();
         }
 
         JsonNode description = json.path("proteinDescription");
@@ -101,7 +114,7 @@ public final class UniprotAccess {
             }
         }
 
-        return Optional.of(new UniprotEntry(
+        return FetchResult.found(new UniprotEntry(
                 primaryAccession,
                 uniProtId,
                 fullName,

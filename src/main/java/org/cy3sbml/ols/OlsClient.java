@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.miriam.Resource;
+import org.cy3sbml.util.FetchResult;
+import org.cy3sbml.util.FetchStatus;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +32,16 @@ public final class OlsClient {
     private static final String OLS_BASE_URL = "https://www.ebi.ac.uk/ols4/api/ontologies/";
 
     private final HttpJson http;
-    private final MemoryCache<String, OlsTerm> cache = new MemoryCache<>(5000);
+    private final MemoryCache<String, OlsTerm> cache;
 
     public OlsClient(HttpJson http) {
+        this(http, Clock.systemUTC());
+    }
+
+    /** For tests: an injectable clock for the "not found" cache TTL. */
+    OlsClient(HttpJson http, Clock clock) {
         this.http = http;
+        this.cache = new MemoryCache<>(5000, MemoryCache.DEFAULT_NOT_FOUND_TTL, clock);
     }
 
     /**
@@ -45,49 +54,68 @@ public final class OlsClient {
         return cache.get(identifier, this::lookup);
     }
 
-    private Optional<OlsTerm> lookup(String identifier) {
+    private FetchResult<OlsTerm> lookup(String identifier) {
         Matcher matcher = IDENTIFIER_PATTERN.matcher(identifier);
         if (!matcher.matches()) {
             logger.warn("Identifier is not an ontology identifier: {}", identifier);
-            return Optional.empty();
+            return FetchResult.error();
         }
         String prefix = matcher.group(1);
         String local = matcher.group(2);
 
         // OBO prefixes are case sensitive in OLS (e.g. NCBITaxon, VariO), annotations
         // sometimes write them in lower case (e.g. go:0006915)
-        Optional<OlsTerm> term = query(prefix, prefix, local);
+        FetchResult<OlsTerm> term = query(prefix, prefix, local);
         String upperPrefix = prefix.toUpperCase(Locale.ROOT);
-        if (term.isEmpty() && !upperPrefix.equals(prefix)) {
-            term = query(prefix, upperPrefix, local);
+        if (term.status() != FetchStatus.FOUND && !upperPrefix.equals(prefix)) {
+            term = combine(term, query(prefix, upperPrefix, local));
         }
         return term;
     }
 
-    private Optional<OlsTerm> query(String ontologyPrefix, String oboPrefix, String local) {
+    /** Found wins; else an error on either attempt wins (stay uncached); else not found. */
+    private static <T> FetchResult<T> combine(FetchResult<T> first, FetchResult<T> second) {
+        if (first.status() == FetchStatus.FOUND) {
+            return first;
+        }
+        if (second.status() == FetchStatus.FOUND) {
+            return second;
+        }
+        if (first.status() == FetchStatus.ERROR || second.status() == FetchStatus.ERROR) {
+            return FetchResult.error();
+        }
+        return FetchResult.notFound();
+    }
+
+    private FetchResult<OlsTerm> query(String ontologyPrefix, String oboPrefix, String local) {
         String oboId = oboPrefix + ":" + local;
         URI uri = URI.create(OLS_BASE_URL + ontologyPrefix.toLowerCase(Locale.ROOT) + "/terms?obo_id="
                 + URLEncoder.encode(oboId, StandardCharsets.UTF_8));
-        return http.get(uri).flatMap(json -> parseTerm(json, ontologyPrefix));
+        FetchResult<JsonNode> json = http.fetch(uri);
+        return switch (json.status()) {
+            case FOUND -> parseTerm(json.value().orElseThrow(), ontologyPrefix);
+            case NOT_FOUND -> FetchResult.notFound();
+            case ERROR -> FetchResult.error();
+        };
     }
 
-    private static Optional<OlsTerm> parseTerm(JsonNode json, String prefix) {
+    private static FetchResult<OlsTerm> parseTerm(JsonNode json, String prefix) {
         JsonNode terms = json.path("_embedded").path("terms");
         if (!terms.isArray() || terms.isEmpty()) {
-            return Optional.empty();
+            return FetchResult.notFound();
         }
         JsonNode term = terms.get(0);
         String label = term.path("label").asText(null);
         String iri = term.path("iri").asText(null);
         if (label == null || iri == null) {
             logger.warn("OLS term is missing label or iri: {}", term);
-            return Optional.empty();
+            return FetchResult.error();
         }
         String ontologyName = term.path("ontology_name").asText(null);
         if (ontologyName == null) {
             ontologyName = prefix.toLowerCase(Locale.ROOT);
         }
-        return Optional.of(new OlsTerm(
+        return FetchResult.found(new OlsTerm(
                 iri,
                 label,
                 ontologyName,

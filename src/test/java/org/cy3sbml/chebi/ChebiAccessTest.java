@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.net.URI;
-import java.util.Optional;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.cy3sbml.cache.MutableClock;
+import org.cy3sbml.util.FetchResult;
 import org.cy3sbml.util.HttpJson;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,11 +19,11 @@ class ChebiAccessTest {
     private static HttpJson fixture(String resource) {
         return new HttpJson(null, new ObjectMapper()) {
             @Override
-            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+            public FetchResult<JsonNode> fetch(URI uri) {
                 try (var in = ChebiAccessTest.class.getResourceAsStream(resource)) {
-                    return in == null ? Optional.empty() : Optional.of(new ObjectMapper().readTree(in));
-                } catch (java.io.IOException e) {
-                    return Optional.empty();
+                    return in == null ? FetchResult.notFound() : FetchResult.found(new ObjectMapper().readTree(in));
+                } catch (IOException e) {
+                    return FetchResult.error();
                 }
             }
         };
@@ -35,26 +39,26 @@ class ChebiAccessTest {
         }
 
         @Override
-        public Optional<JsonNode> get(URI uri) {
+        public FetchResult<JsonNode> fetch(URI uri) {
             getCalls.incrementAndGet();
             try (var in = ChebiAccessTest.class.getResourceAsStream("/chebi/15422.json")) {
-                return in == null ? Optional.empty() : Optional.of(new ObjectMapper().readTree(in));
-            } catch (java.io.IOException e) {
-                return Optional.empty();
+                return in == null ? FetchResult.notFound() : FetchResult.found(new ObjectMapper().readTree(in));
+            } catch (IOException e) {
+                return FetchResult.error();
             }
         }
 
         @Override
-        public Optional<String> getText(URI uri) {
+        public FetchResult<String> fetchText(URI uri) {
             textCalls.incrementAndGet();
-            return Optional.of("<svg>structure</svg>");
+            return FetchResult.found("<svg>structure</svg>");
         }
     }
 
     /**
-     * Fails both the compound and structure lookups while {@link #failing} is
-     * true, and counts calls, to assert that a failed lookup is retried
-     * rather than cached.
+     * Fails both the compound and structure lookups (as a transport error)
+     * while {@link #failing} is true, and counts calls, to assert that a
+     * failed lookup is retried rather than cached.
      */
     private static class FlakyFixture extends HttpJson {
         final AtomicInteger getCalls = new AtomicInteger();
@@ -66,22 +70,22 @@ class ChebiAccessTest {
         }
 
         @Override
-        public Optional<JsonNode> get(URI uri) {
+        public FetchResult<JsonNode> fetch(URI uri) {
             getCalls.incrementAndGet();
             if (failing) {
-                return Optional.empty();
+                return FetchResult.error();
             }
             try (var in = ChebiAccessTest.class.getResourceAsStream("/chebi/15422.json")) {
-                return in == null ? Optional.empty() : Optional.of(new ObjectMapper().readTree(in));
-            } catch (java.io.IOException e) {
-                return Optional.empty();
+                return in == null ? FetchResult.notFound() : FetchResult.found(new ObjectMapper().readTree(in));
+            } catch (IOException e) {
+                return FetchResult.error();
             }
         }
 
         @Override
-        public Optional<String> getText(URI uri) {
+        public FetchResult<String> fetchText(URI uri) {
             textCalls.incrementAndGet();
-            return failing ? Optional.empty() : Optional.of("<svg>structure</svg>");
+            return failing ? FetchResult.error() : FetchResult.found("<svg>structure</svg>");
         }
     }
 
@@ -96,9 +100,13 @@ class ChebiAccessTest {
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(new ChebiAccess(fixture("/chebi/missing.json"))
-                .compound("CHEBI:15422")
-                .isEmpty());
+        HttpJson erroring = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                return FetchResult.error();
+            }
+        };
+        assertTrue(new ChebiAccess(erroring).compound("CHEBI:15422").isEmpty());
     }
 
     @Test
@@ -136,6 +144,28 @@ class ChebiAccessTest {
         assertTrue(full.contains("<svg>structure</svg>"));
         assertEquals(2, flaky.getCalls.get());
         assertEquals(2, flaky.textCalls.get());
+    }
+
+    @Test
+    void doesNotRetryNotFoundCompoundWithinTtl() {
+        var calls = new AtomicInteger();
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                calls.incrementAndGet();
+                return FetchResult.notFound();
+            }
+        };
+        var clock = new MutableClock(Instant.parse("2024-01-01T00:00:00Z"));
+        var access = new ChebiAccess(http, clock);
+
+        assertTrue(access.compound("CHEBI:99999").isEmpty());
+        assertTrue(access.compound("CHEBI:99999").isEmpty());
+        assertEquals(1, calls.get());
+
+        clock.advance(Duration.ofMinutes(11));
+        assertTrue(access.compound("CHEBI:99999").isEmpty());
+        assertEquals(2, calls.get());
     }
 
     @Test
