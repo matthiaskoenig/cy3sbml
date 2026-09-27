@@ -23,7 +23,7 @@ class SBaseHTMLThreadTest {
         InfoPanel panel = mock(InfoPanel.class);
         SBaseHTMLFactory htmlFactory = mock(SBaseHTMLFactory.class);
 
-        new SBaseHTMLThread(Set.of(), panel, htmlFactory).render();
+        new SBaseHTMLThread(Set.of(), panel, htmlFactory).run();
 
         verify(panel, never()).setText(org.mockito.ArgumentMatchers.any());
     }

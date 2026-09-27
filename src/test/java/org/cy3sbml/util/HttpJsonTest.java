@@ -26,6 +26,7 @@ class HttpJsonTest {
         server.createContext("/gone", exchange -> respond(exchange, 410, ""));
         server.createContext("/timeout", exchange -> respond(exchange, 408, ""));
         server.createContext("/toomanyrequests", exchange -> respond(exchange, 429, ""));
+        server.createContext("/proxyauth", exchange -> respond(exchange, 407, ""));
         server.start();
         httpJson = new HttpJson(java.net.http.HttpClient.newHttpClient(), new ObjectMapper());
     }
@@ -63,10 +64,11 @@ class HttpJsonTest {
     }
 
     @Test
-    void fetchTreatsAMalformedJsonBodyAsDeterministic() {
-        // a 200 response whose body is not valid JSON is a deterministic server-side
-        // issue for this URI, not a transient one: retrying gets the same body again
-        assertEquals(FetchStatus.NOT_FOUND, httpJson.fetch(uri("/malformed")).status());
+    void fetchTreatsAMalformedJsonBodyAsTransient() {
+        // a 200 response whose body is not valid JSON (e.g. a captive portal or an
+        // intercepting proxy answering with an HTML page) is more likely a transient
+        // network-path issue than a deterministic one for this URI
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/malformed")).status());
     }
 
     @Test
@@ -81,10 +83,12 @@ class HttpJsonTest {
     }
 
     @Test
-    void fetchTreats408And429AsTransient() {
-        // 408 (Request Timeout) and 429 (Too Many Requests) are about the server's
-        // momentary state, not the request, so unlike other 4xx statuses they stay
+    void fetchTreats407And408And429AsTransient() {
+        // 407 (Proxy Authentication Required), 408 (Request Timeout) and 429 (Too Many
+        // Requests) are about the server's (or an intermediate proxy's) momentary
+        // state, not the request, so unlike other 4xx statuses they stay
         // transient/uncached, like a 5xx
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/proxyauth")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/timeout")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/toomanyrequests")).status());
     }
@@ -96,6 +100,7 @@ class HttpJsonTest {
                 FetchStatus.NOT_FOUND, httpJson.fetchText(uri("/badrequest")).status());
         assertEquals(FetchStatus.NOT_FOUND, httpJson.fetchText(uri("/gone")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/error")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/proxyauth")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/timeout")).status());
         assertEquals(
                 FetchStatus.ERROR, httpJson.fetchText(uri("/toomanyrequests")).status());

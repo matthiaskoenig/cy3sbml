@@ -60,7 +60,7 @@ public class SBaseHtmlThreadTest {
         objSet.add(model);
         SBaseHTMLThread task = new SBaseHTMLThread(objSet, panel, htmlFactory);
 
-        task.render();
+        task.run();
         String html = task.getInfo();
         assertNotNull(html);
     }
@@ -123,7 +123,7 @@ public class SBaseHtmlThreadTest {
             Collection<Object> objCollection = new HashSet<>();
             objCollection.add(sbase);
             SBaseHTMLThread t1 = new SBaseHTMLThread(objCollection, panel, htmlFactory);
-            t1.render();
+            t1.run();
             String html = t1.getInfo();
             assertNotNull(html);
         }

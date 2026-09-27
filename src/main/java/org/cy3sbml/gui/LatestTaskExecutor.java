@@ -8,11 +8,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Runs render tasks one at a time on a single daemon thread, keeping only the most
- * recently submitted task alive.
+ * recently submitted task alive, and coalescing a resubmission of the task that is
+ * already pending or running.
  * <p>
- * Submitting a new task cancels (interrupts) whatever task is currently pending or
- * running, so a slow, superseded render (e.g. one still waiting on a web service call)
- * never posts stale information after a newer selection has already been requested.
+ * Each task is submitted under a key (compared by reference identity). Submitting a
+ * task under the same key as the one currently pending or running is a no-op: that task
+ * keeps running undisturbed, so a slow render is not cancelled by a resubmission of the
+ * very same thing. Submitting a task under a different key - or when the current one has
+ * already finished - cancels (interrupts) whatever is pending or running first, so a
+ * slow, superseded render (e.g. one still waiting on a web-service call) never posts
+ * stale information after a newer selection has already been requested. A caller for
+ * whom "the same as what is already running" never applies (e.g. a help/examples page,
+ * which should always replace whatever is being rendered) passes a fresh key (e.g.
+ * {@code new Object()}) on every call.
  * <p>
  * Every task submitted here must run to completion (or bail out early on interruption) as
  * a single, self-contained unit of work: a task must never itself call {@link #submit}
@@ -28,6 +36,7 @@ public final class LatestTaskExecutor implements AutoCloseable {
     private static final String THREAD_NAME = "cy3sbml-info-renderer";
 
     private final ExecutorService executor;
+    private Object currentKey;
     private Future<?> currentTask;
     private boolean closed = false;
 
@@ -40,22 +49,44 @@ public final class LatestTaskExecutor implements AutoCloseable {
     }
 
     /**
-     * Cancels the pending/running previous task, then submits {@code task} to run next.
+     * Submits {@code task} under {@code key}.
+     * <p>
+     * If the currently pending/running task's key is the same reference as {@code key},
+     * this is a no-op: that task is left running, {@code task} is discarded. Otherwise
+     * the current task (if any) is cancelled and {@code task} is submitted as the new
+     * current one.
      * <p>
      * A no-op (with a debug log) once {@link #close()} has been called: {@code close()}
      * runs from {@code CyActivator.shutDown} on OSGi bundle stop, which can race a
      * Cytoscape event still arriving on the EDT, and that caller must not have to handle a
      * rejection.
      */
-    public synchronized void submit(Runnable task) {
+    @SuppressWarnings("ReferenceEquality") // identity, not value equality, is the intended comparison here
+    public synchronized void submit(Object key, Runnable task) {
         if (closed) {
             logger.debug("submit() called after close(); ignoring task");
+            return;
+        }
+        if (currentTask != null && !currentTask.isDone() && key == currentKey) {
+            logger.debug("Task for {} is already pending/running; not resubmitting", key);
             return;
         }
         if (currentTask != null) {
             currentTask.cancel(true);
         }
-        currentTask = executor.submit(task);
+        currentKey = key;
+        currentTask = executor.submit(() -> {
+            try {
+                task.run();
+            } catch (RuntimeException e) {
+                // Logged (message only, no stack trace, to keep passing-test output
+                // clean) rather than left to the Future nobody calls get() on: an
+                // uncaught exception here must not go unnoticed. The Future is marked
+                // done regardless (whether it completes normally or by throwing), so a
+                // later submit() is never stuck skipping because of a task that failed.
+                logger.error("Uncaught exception from a render task for {}: {}", key, e.toString());
+            }
+        });
     }
 
     /**

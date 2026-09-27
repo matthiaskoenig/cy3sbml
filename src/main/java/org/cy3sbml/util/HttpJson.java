@@ -20,12 +20,16 @@ import org.slf4j.LoggerFactory;
  * non-2xx response, IO error, timeout or malformed JSON body, logging the
  * reason at warn level. {@link #fetch} and {@link #fetchText} return the
  * same information plus a {@link FetchStatus}, distinguishing a deterministic
- * failure for the given URI (a 404 or other non-transient 4xx status, or a 200
- * response whose body cannot be parsed) from a transient transport error (a
- * timeout, connection failure, or a 5xx/408/429 status), so callers can cache
- * the former without caching the latter: retrying the deterministic ones
- * would only get the same result again, while the transient ones may well
- * succeed on the next attempt (e.g. once back online).
+ * failure for the given URI (a 404 or other non-transient 4xx status) from a
+ * transient transport error (a timeout, connection failure, a malformed body -
+ * e.g. a captive portal or proxy answering with an HTML page instead of JSON -
+ * or a 5xx/407/408/429 status), so callers can cache the former without
+ * caching the latter: retrying the deterministic ones would only get the same
+ * result again, while the transient ones may well succeed on the next attempt
+ * (e.g. once back online). A well-formed JSON body that is missing the fields
+ * a specific client needs is deterministic too, but that is for the client
+ * (which knows what "required" means for its own response shape) to decide,
+ * not this generic helper.
  */
 public class HttpJson {
     private static final Logger logger = LoggerFactory.getLogger(HttpJson.class);
@@ -122,26 +126,29 @@ public class HttpJson {
     }
 
     /**
-     * A 4xx status other than 408 (Request Timeout) and 429 (Too Many Requests) is a
-     * deterministic client error: the request itself is what is wrong (a bad id, an
-     * unsupported ontology prefix, ...), so retrying it against the same URI gets the
-     * same status again. 408 and 429 are the two 4xx statuses that are about the
-     * server's momentary state rather than the request, so they stay transient/uncached
-     * like a 5xx.
+     * A 4xx status other than 407 (Proxy Authentication Required), 408 (Request Timeout)
+     * and 429 (Too Many Requests) is a deterministic client error: the request itself is
+     * what is wrong (a bad id, an unsupported ontology prefix, ...), so retrying it
+     * against the same URI gets the same status again. 407, 408 and 429 are about the
+     * server's (or an intermediate proxy's) momentary state rather than the request
+     * itself, so they stay transient/uncached like a 5xx.
      */
     private static boolean isDeterministicClientError(int status) {
-        return status >= 400 && status < 500 && status != 408 && status != 429;
+        return status >= 400 && status < 500 && status != 407 && status != 408 && status != 429;
     }
 
     private FetchResult<JsonNode> parse(URI uri, String body) {
         try {
             return FetchResult.found(mapper.readTree(body));
         } catch (IOException e) {
-            // a 200 response whose body is not valid JSON is a deterministic
-            // server-side data issue for this URI, not a transient one: retrying gets
-            // the same body again
+            // A 200 response whose body is not valid JSON is more likely a transient
+            // network-path issue (e.g. a captive portal or an intercepting proxy
+            // answering with an HTML page instead of the expected JSON) than a
+            // permanent, deterministic one for this URI, so it stays uncached/ERROR,
+            // unlike a well-formed JSON body missing required fields (a client's own
+            // concern, see e.g. OlsClient.parseTerm).
             logger.warn("Error parsing JSON from {}: {}", uri, e.getMessage());
-            return FetchResult.notFound();
+            return FetchResult.error();
         }
     }
 }

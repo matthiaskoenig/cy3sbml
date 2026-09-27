@@ -52,7 +52,6 @@ public final class WebViewPanel extends JFXPanel
     private final BiomodelsDialog biomodelsDialog;
     private final CytoPanel cytoPanelEast;
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
-    private final RenderCoalescer renderCoalescer = new RenderCoalescer();
     private static final int PREFERRED_WIDTH = 400;
     private static final int PREFERRED_HEIGHT = 600;
     private Browser browser;
@@ -174,55 +173,38 @@ public final class WebViewPanel extends JFXPanel
     /**
      * Shows the static help page.
      * <p>
-     * Submitted on the {@link #renderExecutor} rather than called directly: submitting
+     * Submitted on the {@link #renderExecutor} under a fresh key (never equal to any
+     * other key, including a previous call's), so it is never coalesced away and always
      * cancels whatever render is still pending or running (e.g. a slow web-service lookup
-     * for a previous selection), so that render can no longer overwrite the help page
-     * once it is requested, and runs the two in the order they were requested.
-     * <p>
-     * The actual load, and with it the coalescer invalidation, happens inside the
-     * submitted task (via {@link RenderCoalescer#resetThenRun}) rather than here on the
-     * calling thread: invalidating here, before the task is even queued, would still
-     * invalidate even if this particular help request then itself got superseded and
-     * cancelled before ever running, which is the race this used to have.
+     * for a previous selection): that render can no longer overwrite the help page once
+     * it is requested, and the two run in the order they were requested.
      */
     public void setHelp() {
-        renderExecutor.submit(() ->
-                renderCoalescer.resetThenRun(() -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE)));
+        renderExecutor.submit(new Object(), () -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE));
     }
 
     public void setExamples() {
-        renderCoalescer.resetThenRun(() -> browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE));
+        browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
     }
 
     /**
      * Set text.
-     * <p>
-     * The single gateway for loading text/HTML content into the browser (used directly
-     * by {@link PanelUpdater} for its two fixed "no information" messages, and by {@link
-     * SBaseHTMLThread} for the actual SBase/document content), so invalidating the
-     * render coalescer here, via {@link RenderCoalescer#resetThenRun}, covers every
-     * caller without any of them having to remember to do it themselves. A caller that
-     * wants the target it is rendering tracked as completed (only {@link PanelUpdater})
-     * calls {@link RenderCoalescer#markCompleted} itself immediately afterwards, once it
-     * knows the render actually finished.
      */
     @Override
     public void setText(String text) {
-        renderCoalescer.resetThenRun(() -> {
-            html = text;
-            // Necessary to use invokeLater to handle the Swing GUI update
-            SwingUtilities.invokeLater(() -> browser.loadText(text));
-        });
+        html = text;
+        // Necessary to use invokeLater to handle the Swing GUI update
+        SwingUtilities.invokeLater(() -> browser.loadText(text));
     }
 
     /**
      * Create information string for SBML Node and display.
      */
     @Override
-    public boolean showSBaseInfo(Object obj) {
+    public void showSBaseInfo(Object obj) {
         Set<Object> objSet = new HashSet<>();
         objSet.add(obj);
-        return showSBaseInfo(objSet);
+        showSBaseInfo(objSet);
     }
 
     /**
@@ -237,13 +219,10 @@ public final class WebViewPanel extends JFXPanel
      * submit from inside a task that is itself about to be cancelled would race with, and
      * could cancel, a newer selection's already-submitted task instead of its own.
      * Keeping exactly one submit per selection is what makes that cancellation correct.
-     *
-     * @return true if the information was actually shown; false if this render was
-     *     cancelled (interrupted) partway through.
      */
     @Override
-    public boolean showSBaseInfo(Set<Object> objSet) {
-        return new SBaseHTMLThread(objSet, this, htmlFactory).render();
+    public void showSBaseInfo(Set<Object> objSet) {
+        new SBaseHTMLThread(objSet, this, htmlFactory).run();
     }
 
     @Override
@@ -320,14 +299,12 @@ public final class WebViewPanel extends JFXPanel
     /**
      * Updates panel information within a separate thread.
      * <p>
-     * Resolves the render target (see {@link PanelUpdater#resolveTarget}) and coalesces
-     * here, before submitting anything: a target already pending/running or already
-     * showing (the render coalescer's last completed one) is skipped outright, rather
-     * than being submitted and left to the {@code PanelUpdater} task to discover it is
-     * redundant. Deciding this only after a render for it has already started (and been
-     * cancelled by this very submission) was the bug: the newer request would then see
-     * the same target already "accepted" and coalesce itself away too, so neither render
-     * ever finished.
+     * Resolves the render target (see {@link PanelUpdater#resolveTarget}) and submits it
+     * as the render executor's key: several Cytoscape events fired while loading one
+     * model can resolve to the same target (e.g. a model's subnetworks, taken current in
+     * turn, share one {@code SBMLDocument}), and {@code LatestTaskExecutor} coalesces a
+     * resubmission of the target it is already rendering rather than cancelling and
+     * restarting it, so one load renders once.
      */
     public void updateInformation() {
         logger.debug("updateInformation()");
@@ -347,15 +324,7 @@ public final class WebViewPanel extends JFXPanel
         }
 
         Object target = PanelUpdater.resolveTarget(network, sbmlManager);
-        if (renderCoalescer.isRedundant(target)) {
-            logger.debug("Skipping redundant render request for {}", target);
-            return;
-        }
-
-        // Update the information on the render executor; submitting cancels
-        // whatever render is still pending or running for a previous selection.
-        renderCoalescer.markPending(target);
-        renderExecutor.submit(new PanelUpdater(this, target, htmlFactory, renderCoalescer));
+        renderExecutor.submit(target, new PanelUpdater(this, target, htmlFactory));
     }
 
     /**

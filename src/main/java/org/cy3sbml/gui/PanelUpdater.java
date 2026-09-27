@@ -15,14 +15,13 @@ import org.slf4j.LoggerFactory;
  * Renders one previously-resolved render target (see {@link #resolveTarget}) into the
  * panel.
  * <p>
- * The coalescing decision (is this target worth rendering at all) is made by the
- * submitter, {@code WebViewPanel.updateInformation}, before this is even constructed;
- * this only marks the target as the render coalescer's completed one, via {@link
- * RenderCoalescer#markCompleted}, once (and only once) the render actually finished -
- * i.e. was not cancelled/interrupted partway through by a newer request. A cancelled
- * render therefore leaves the last completed target unchanged, so a later request for
- * the same target it failed to show still gets rendered rather than being wrongly
- * coalesced away as "already done".
+ * Whether this is worth running at all - is a render for this exact target already
+ * pending or running - is decided by the submitter, {@code WebViewPanel.
+ * updateInformation}, via {@code LatestTaskExecutor.submit(target, this)}: the target
+ * itself is the task's key, so a resubmission of the same target is coalesced away by
+ * the executor before this ever runs again. Re-rendering a target that already
+ * completed earlier is acceptable: the underlying OLS/UniProt/ChEBI/document lookups are
+ * themselves cached, so it is cheap.
  */
 public class PanelUpdater implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(PanelUpdater.class);
@@ -44,13 +43,11 @@ public class PanelUpdater implements Runnable {
     private final InfoPanel panel;
     private final Object target;
     private final SBaseHTMLFactory htmlFactory;
-    private final RenderCoalescer renderCoalescer;
 
-    public PanelUpdater(InfoPanel panel, Object target, SBaseHTMLFactory htmlFactory, RenderCoalescer renderCoalescer) {
+    public PanelUpdater(InfoPanel panel, Object target, SBaseHTMLFactory htmlFactory) {
         this.panel = panel;
         this.target = target;
         this.htmlFactory = htmlFactory;
-        this.renderCoalescer = renderCoalescer;
     }
 
     /**
@@ -58,8 +55,8 @@ public class PanelUpdater implements Runnable {
      * model's {@code SBMLDocument} if nothing (that has a mapped {@code SBase}) is
      * selected, the selected node's {@code SBase}, or one of the two fixed "no
      * information" messages. Pure and side-effect-free (queries {@code sbmlManager} but
-     * changes nothing), so a caller can use it to decide whether a render is actually
-     * needed before submitting one.
+     * changes nothing), so a caller can use it as the key for {@code LatestTaskExecutor.
+     * submit} before submitting a render for it.
      */
     static Object resolveTarget(CyNetwork network, SBMLManager sbmlManager) {
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
@@ -81,25 +78,21 @@ public class PanelUpdater implements Runnable {
     }
 
     /**
-     * Renders {@link #target}, and marks it as the render coalescer's completed target
-     * only if the render actually finished.
+     * Renders {@link #target}.
      */
     @Override
     public void run() {
-        if (target instanceof SBase sbase) {
+        // SBMLDocument is itself an SBase in JSBML, so it must be checked first: a
+        // selected document (nothing mapped is selected) is shown directly, without the
+        // "Loading..." placeholder that is only for a genuinely selected SBase.
+        if (target instanceof SBMLDocument document) {
+            panel.showSBaseInfo(document);
+        } else if (target instanceof SBase sbase) {
             panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
-            if (panel.showSBaseInfo(sbase)) {
-                renderCoalescer.markCompleted(target);
-            }
-        } else if (target instanceof SBMLDocument document) {
-            if (panel.showSBaseInfo(document)) {
-                renderCoalescer.markCompleted(target);
-            }
+            panel.showSBaseInfo(sbase);
         } else {
-            // one of the two fixed messages (a String); setText itself is never
-            // interrupted, it only queues the actual display update
+            // one of the two fixed messages (a String)
             panel.setText(htmlFactory.createHTMLText((String) target));
-            renderCoalescer.markCompleted(target);
         }
     }
 }
