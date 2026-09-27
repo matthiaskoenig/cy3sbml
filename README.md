@@ -88,6 +88,6 @@ To uninstall or disable `cy3sbml`:
 
 # Documentation
 Documentation is available in the [`./docs/`](./docs/) folder. 
-Information on how to contribute can be found here [`contributing.md`](./docs/contributing.md), information for developers can be found here: [`develop.md`](./docs/develop.md)
+Information on how to contribute can be found here [`contributing.md`](./docs/development/contributing.md), information for developers can be found here: [`building.md`](./docs/development/building.md)
 
 &copy; 2012-2025 Matthias König, [Systems Medicine of the Liver](https://livermetabolism.com)

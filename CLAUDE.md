@@ -23,7 +23,7 @@ Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `Web
 - Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`.
 - `GoldenModelsTest` (`src/test/java/org/cy3sbml/golden/`) pins the networks `SBMLReaderTask` creates for a set of reference models against a JSON snapshot per model in `src/test/resources/golden/`. After an intended change to the import, regenerate them with `./mvnw -B -q test -Dtest=GoldenModelsTest -Dgolden.update=true` and review the diff before committing.
 - `src/test/java/org/cy3sbml/oven/` holds experimental, non-regular tests.
-- Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/develop.md`.
+- Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/development/quality.md`.
 - The `lint` profile compiles with Error Prone and `-Xlint:all,-processing,-serial -Werror`. Error Prone needs JDK 21 or newer to run, so point `JAVA_HOME` at a JDK 21+ install for it: `JAVA_HOME=<jdk21> ./mvnw -B -Plint clean verify` (the code still compiles and runs on the pinned JDK 17 otherwise).
 
 ### Running in Cytoscape
@@ -59,4 +59,4 @@ All code is under `org.cy3sbml` (`src/main/java/org/cy3sbml/`).
 
 ## Release
 
-See `docs/release.md`. Release notes go in `release-notes/`. The version lives in `pom.xml`.
+See `docs/development/release.md`. Release notes go in `release-notes/`. The version lives in `pom.xml`.
