@@ -124,6 +124,11 @@ table {
     padding: 5px;
 }
 
+/* the notes are indented like the history and CVTerm blocks */
+#notes{
+    padding: 5px;
+}
+
 .qualifier{
     background-color: #13721c;
     padding:2px;

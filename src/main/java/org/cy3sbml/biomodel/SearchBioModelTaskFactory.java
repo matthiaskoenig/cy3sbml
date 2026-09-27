@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 public class SearchBioModelTaskFactory implements TaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SearchBioModelTaskFactory.class);
 
-    private SearchContent searchContent;
+    private final SearchContent searchContent;
+    private final BiomodelsQuery biomodelsQuery;
 
-    public SearchBioModelTaskFactory(SearchContent searchContent) {
+    public SearchBioModelTaskFactory(SearchContent searchContent, BiomodelsQuery biomodelsQuery) {
+        this.biomodelsQuery = biomodelsQuery;
         logger.info("SearchBioModelTaskFactory created");
         this.searchContent = searchContent;
     }
@@ -18,7 +20,7 @@ public class SearchBioModelTaskFactory implements TaskFactory {
     @Override
     public TaskIterator createTaskIterator() {
 
-        SearchBioModelTask searchTask = new SearchBioModelTask(searchContent);
+        SearchBioModelTask searchTask = new SearchBioModelTask(searchContent, biomodelsQuery);
         return new TaskIterator(searchTask);
     }
 

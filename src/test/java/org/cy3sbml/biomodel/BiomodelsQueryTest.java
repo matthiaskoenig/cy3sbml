@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests parsing of the BioModels search response, recorded from
- * https://www.ebi.ac.uk/biomodels/search?query=glucose&format=json&numResults=2
+ * https://www.biomodels.org/search?query=glucose&format=json&numResults=2
  * (trimmed to the "matches", "models" and "queryParameters" fields actually used).
  */
 public class BiomodelsQueryTest {
@@ -27,7 +27,7 @@ public class BiomodelsQueryTest {
     @Test
     public void parsesSearchResult() throws IOException {
         String json = fixture("/biomodel/search_glucose.json");
-        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", 200, json);
+        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", json);
 
         assertEquals(true, result.success());
 
@@ -44,7 +44,7 @@ public class BiomodelsQueryTest {
                     {"id": "MODEL1209260000", "name": "with id"}
                 ]}
                 """;
-        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", 200, json);
+        BiomodelsQueryResult result = new BiomodelsQueryResult("glucose", json);
 
         List<String> biomodelIds = result.getBiomodelIdsFromSearch();
         assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);

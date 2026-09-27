@@ -29,6 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
+import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
@@ -41,6 +42,7 @@ public final class BiomodelsDialog extends JDialog {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsDialog.class);
 
     private final ServiceAdapter adapter;
+    private final BiomodelsQuery biomodelsQuery;
     private final SearchBioModel searchBioModel;
 
     private final JTextArea idTextArea;
@@ -62,10 +64,11 @@ public final class BiomodelsDialog extends JDialog {
     private JList biomodelsList;
 
     @SuppressWarnings("rawtypes")
-    public BiomodelsDialog(final ServiceAdapter adapter) {
+    public BiomodelsDialog(final ServiceAdapter adapter, final BiomodelsQuery biomodelsQuery) {
         // call with parentFrame
         super(adapter.cySwingApplication.getJFrame(), true);
         this.adapter = adapter;
+        this.biomodelsQuery = biomodelsQuery;
 
         logger.info("BioModelGUIDialog created");
 
@@ -165,7 +168,7 @@ public final class BiomodelsDialog extends JDialog {
         resetButton.setBounds(170, 203, 102, 25);
         panel.add(resetButton);
         resetButton.addActionListener(event -> resetFields());
-        searchBioModel = new SearchBioModel(adapter);
+        searchBioModel = new SearchBioModel(adapter, biomodelsQuery);
         // Load Selected Models
         loadSelectedButton = new JButton("Load Selected");
         loadSelectedButton.setToolTipText("Load selected BioModels from the List");
@@ -287,10 +290,13 @@ public final class BiomodelsDialog extends JDialog {
         infoPane.setText(BioModelDialogText.getWebserviceSBMLRequest());
         // UI boundary: a failure is reported and must not escape into Swing
         try {
-            LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, adapter);
+            LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, biomodelsQuery, adapter);
             if (!loadFactory.isReady()) {
                 JOptionPane.showMessageDialog(
-                        this, String.format("<html>No SBML could be loaded for BioModel Id: <b>%s</b></html>", id));
+                        this,
+                        String.format(
+                                "<html>No SBML could be loaded for BioModel Id: <b>%s</b><br>%s</html>",
+                                id, StringEscapeUtils.escapeHtml4(loadFactory.getError())));
                 return;
             }
             TaskIterator iterator = loadFactory.createTaskIterator();
@@ -309,6 +315,11 @@ public final class BiomodelsDialog extends JDialog {
 
         SearchContent searchContent = getSearchContent();
         searchBioModel.searchBioModels(searchContent);
+        if (searchBioModel.searchFailed()) {
+            updateModelListInDialog(List.of());
+            infoPane.setText(BioModelDialogText.getWebserviceError());
+            return;
+        }
 
         // Has to be done in task
         updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());

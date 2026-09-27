@@ -1,16 +1,19 @@
 package org.cy3sbml.biomodel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.cytoscape.work.ObservableTask;
 import org.cytoscape.work.TaskMonitor;
 
 public class SearchBioModelTask implements ObservableTask {
-    private SearchContent searchContent;
+    private final SearchContent searchContent;
+    private final BiomodelsQuery biomodelsQuery;
     private List<String> searchResultIds;
 
-    public SearchBioModelTask(SearchContent searchContent) {
+    public SearchBioModelTask(SearchContent searchContent, BiomodelsQuery biomodelsQuery) {
         this.searchContent = searchContent;
+        this.biomodelsQuery = biomodelsQuery;
     }
 
     @Override
@@ -21,11 +24,13 @@ public class SearchBioModelTask implements ObservableTask {
         taskMonitor.setProgress(0.0);
         taskMonitor.setTitle("Searching by Name ...");
         if (searchContent.hasNames()) {
-            List<String> names = searchContent.getNames();
-            String fullName = String.join(" ", names);
+            // the search terms are combined with the search mode (AND, OR) in the query
+            String query = String.join(" " + mode + " ", searchContent.getNames());
 
-            BiomodelsQueryResult searchQueryResult = BiomodelsQuery.performSearchQuery(fullName);
-            assert searchQueryResult != null;
+            BiomodelsQueryResult searchQueryResult = biomodelsQuery.performSearchQuery(query);
+            if (!searchQueryResult.success()) {
+                throw new IOException("The BioModels search failed for: " + query);
+            }
             List<String> modelIds = searchQueryResult.getBiomodelIdsFromSearch();
             // Has to be done in task
 

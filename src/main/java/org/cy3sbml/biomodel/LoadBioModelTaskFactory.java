@@ -1,12 +1,8 @@
 package org.cy3sbml.biomodel;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
+import java.nio.file.Files;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
@@ -24,33 +20,34 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(LoadBioModelTaskFactory.class);
     public static final String SUFFIX = ".xml"; // has to match the reader
 
-    private ServiceAdapter adapter;
+    private final ServiceAdapter adapter;
     private File file;
+    private String error;
 
-    public LoadBioModelTaskFactory(String id, ServiceAdapter adapter) {
+    public LoadBioModelTaskFactory(String id, BiomodelsQuery query, ServiceAdapter adapter) {
         this.adapter = adapter;
 
+        File tempFile = null;
         try {
-            String sbml = BiomodelsQuery.getBioModelSBMLById(id);
-
-            if (sbml == null || sbml.equals("") || sbml.startsWith(id)) {
-                logger.warn("No SBML for BioModel: {}", id);
-                return;
-            }
-            InputStream instream = new ByteArrayInputStream(sbml.getBytes(StandardCharsets.UTF_8));
-            // convert to tmp file and use the core-task read Network from file task
-            final File tempFile = File.createTempFile(id, SUFFIX);
+            // download to a tmp file and use the core-task read Network from file task
+            tempFile = File.createTempFile(id, SUFFIX);
             tempFile.deleteOnExit();
-
-            try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                IOUtils.copy(instream, out);
-            }
+            query.downloadSBML(id, tempFile.toPath());
             file = tempFile;
         } catch (IOException e) {
-            logger.error("Could not load biomodel: {}", id, e);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.error("Interrupted while loading biomodel: {}", id, e);
+            error = e.getMessage();
+            logger.warn("Could not download BioModel {}: {}", id, error);
+            if (tempFile != null) {
+                deleteQuietly(tempFile);
+            }
+        }
+    }
+
+    private static void deleteQuietly(File file) {
+        try {
+            Files.deleteIfExists(file.toPath());
+        } catch (IOException e) {
+            logger.debug("Could not delete {}", file, e);
         }
     }
 
@@ -66,5 +63,10 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     @Override
     public boolean isReady() {
         return file != null;
+    }
+
+    /** Returns the reason why the SBML could not be downloaded, null if it was. */
+    public String getError() {
+        return error;
     }
 }

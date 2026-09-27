@@ -1,6 +1,5 @@
 package org.cy3sbml.biomodel;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +10,10 @@ public class BioModelInterfaceTools {
 
     // string and html representations
 
-    public static String getHTMLInformationForSimpleModels(List<String> modelIds, List<String> selectedSimpleModels)
-            throws IOException, InterruptedException {
+    public static String getHTMLInformationForSimpleModels(
+            BiomodelsQuery query, List<String> modelIds, List<String> selectedSimpleModels) {
         String info = "";
-        Map<String, Biomodel> biomodels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds);
+        Map<String, Biomodel> biomodels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds, query);
         for (String modelId : modelIds) {
             Biomodel model = biomodels.get(modelId);
             if (model == null) {
@@ -73,7 +72,7 @@ public class BioModelInterfaceTools {
 
     public static String createBioModelHTMLLink(String bioModelId) {
         return String.format(
-                "<a href=\"http://www.ebi.ac.uk/biomodels-main/%s\" target=\"_blank\">%s</a>", bioModelId, bioModelId);
+                "<a href=\"https://www.biomodels.org/%s\" target=\"_blank\">%s</a>", bioModelId, bioModelId);
     }
 
     private static String createPubmedHTMLLink(String pubmedId) {

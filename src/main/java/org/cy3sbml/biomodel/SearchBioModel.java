@@ -26,6 +26,7 @@ public class SearchBioModel implements TaskObserver {
     @SuppressWarnings("rawtypes")
     SynchronousTaskManager synchronousTaskManager;
 
+    private final BiomodelsQuery biomodelsQuery;
     private SearchContent searchContent;
 
     /**
@@ -36,7 +37,11 @@ public class SearchBioModel implements TaskObserver {
      */
     private volatile List<String> modelIds;
 
-    public SearchBioModel(ServiceAdapter adapter) {
+    /** Set by the search task thread, read by the dialog after the synchronous search. */
+    private volatile boolean searchFailed;
+
+    public SearchBioModel(ServiceAdapter adapter, BiomodelsQuery biomodelsQuery) {
+        this.biomodelsQuery = biomodelsQuery;
         dialogTaskManager = adapter.dialogTaskManager;
         synchronousTaskManager = adapter.synchronousTaskManager;
 
@@ -45,6 +50,7 @@ public class SearchBioModel implements TaskObserver {
 
     private void resetSearch() {
         searchContent = null;
+        searchFailed = false;
         modelIds = Collections.emptyList();
     }
 
@@ -104,7 +110,7 @@ public class SearchBioModel implements TaskObserver {
         // Run the biomodel task with a taskManger
 
         // Necessary to init the tasks with different contents
-        SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content);
+        SearchBioModelTaskFactory searchBioModelTaskFactory = new SearchBioModelTaskFactory(content, biomodelsQuery);
         TaskIterator iterator = searchBioModelTaskFactory.createTaskIterator();
 
         // execute the iterator with dialog
@@ -125,7 +131,14 @@ public class SearchBioModel implements TaskObserver {
     }
 
     @Override
-    public void allFinished(FinishStatus finishStatus) {}
+    public void allFinished(FinishStatus finishStatus) {
+        searchFailed = finishStatus.getType() == FinishStatus.Type.FAILED;
+    }
+
+    /** Returns true if the last search failed, e.g. because BioModels could not be reached. */
+    public boolean searchFailed() {
+        return searchFailed;
+    }
 
     public static void addIdsToResultIds(final List<String> ids, List<String> resultIds, final String mode) {
         // OR -> combine all results
@@ -145,7 +158,7 @@ public class SearchBioModel implements TaskObserver {
     public String getHTMLInformation(final List<String> selectedModelIds) throws IOException, InterruptedException {
         String info = getHTMLHeaderForModelSearch();
 
-        info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(modelIds, selectedModelIds);
+        info += BioModelInterfaceTools.getHTMLInformationForSimpleModels(biomodelsQuery, modelIds, selectedModelIds);
         return BioModelDialogText.getString(info);
     }
 

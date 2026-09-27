@@ -20,12 +20,14 @@ public class BiomodelsQueryResult {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsQueryResult.class);
 
     private final String query;
-    private final Integer status;
     private final String json;
 
-    public BiomodelsQueryResult(final String query, Integer status, String json) {
+    /**
+     * Creates the result of the given search query with the JSON response,
+     * {@code null} if the search failed.
+     */
+    public BiomodelsQueryResult(final String query, String json) {
         this.query = query;
-        this.status = status;
         this.json = json;
     }
 
@@ -33,15 +35,11 @@ public class BiomodelsQueryResult {
      * Returns true if the request was successful.
      */
     public boolean success() {
-        return (status == 200);
+        return json != null;
     }
 
     public String getQuery() {
         return query;
-    }
-
-    public Integer getStatus() {
-        return status;
     }
 
     public String getJSON() {
@@ -86,20 +84,18 @@ public class BiomodelsQueryResult {
      */
     @FunctionalInterface
     interface BiomodelLookup {
-        CompletableFuture<Biomodel> query(String biomodelId) throws IOException, InterruptedException;
+        CompletableFuture<Biomodel> query(String biomodelId);
     }
 
     /**
      * Returns the biomodels for the given ids, in the order of the ids.
      * Biomodels whose lookup fails are skipped with a warning.
      */
-    public static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
-            throws IOException, InterruptedException {
-        return getBiomodelsFromIds(biomodelIds, BiomodelsQuery::performBiomodelQuery);
+    public static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds, BiomodelsQuery query) {
+        return getBiomodelsFromIds(biomodelIds, query::performBiomodelQuery);
     }
 
-    static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds, BiomodelLookup lookup)
-            throws IOException, InterruptedException {
+    static Map<String, Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds, BiomodelLookup lookup) {
         // start all lookups before waiting for the first one
         Map<String, CompletableFuture<Biomodel>> futures = new LinkedHashMap<>();
         for (String biomodelId : biomodelIds) {

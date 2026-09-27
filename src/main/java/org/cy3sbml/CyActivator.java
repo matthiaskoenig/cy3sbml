@@ -8,6 +8,7 @@ import java.util.Properties;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.archive.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
+import org.cy3sbml.biomodel.BiomodelsQuery;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -349,7 +350,8 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
             // BioModels search and import dialog
-            BiomodelsDialog biomodelsDialog = new BiomodelsDialog(adapter);
+            BiomodelsDialog biomodelsDialog =
+                    new BiomodelsDialog(adapter, new BiomodelsQuery(httpJson, BiomodelsQuery.BIOMODELS_URL));
 
             // panels
             webViewPanel = new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);
