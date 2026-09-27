@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
@@ -547,7 +548,7 @@ public class SBaseHTMLFactory {
             html += ONTOLOGY_TERM_LINK
                     .replace("{ontologyURL}", ontologyURL)
                     .replace("{ontologyName}", term.ontologyName().toUpperCase(Locale.ROOT))
-                    .replace("{termLabel}", term.label())
+                    .replace("{termLabel}", ontologyTextHTML(term.label()))
                     .replace("{purlURL}", purlURL)
                     .replace("{purlDisplay}", purlURL);
 
@@ -555,14 +556,14 @@ public class SBaseHTMLFactory {
             if (synonyms != null && !synonyms.isEmpty()) {
                 html += SYNONYMS_LABEL;
                 for (String syn : synonyms) {
-                    html += String.format("%s; ", syn);
+                    html += String.format("%s; ", ontologyTextHTML(syn));
                 }
                 html += "<br />\n";
             }
             List<String> descriptions = term.descriptions();
             if (descriptions != null && !descriptions.isEmpty()) {
                 for (String description : descriptions) {
-                    html += DESCRIPTION_LABEL.replace("{DESCRIPTION}", StringEscapeUtils.escapeHtml4(description));
+                    html += DESCRIPTION_LABEL.replace("{DESCRIPTION}", ontologyTextHTML(description));
                 }
             }
         } else {
@@ -574,6 +575,17 @@ public class SBaseHTMLFactory {
             html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;
+    }
+
+    /** Inline formatting tags without attributes that ontology texts use, e.g. {@code <small>D</small>}. */
+    private static final Pattern ESCAPED_INLINE_TAG = Pattern.compile("&lt;(/?(?:sub|sup|small|i|em|b))&gt;");
+
+    /**
+     * HTML for a text from an ontology term (label, synonym or description).
+     * The text is escaped, inline formatting tags such as sub, sup and small are kept.
+     */
+    static String ontologyTextHTML(String text) {
+        return ESCAPED_INLINE_TAG.matcher(StringEscapeUtils.escapeHtml4(text)).replaceAll("<$1>");
     }
 
     /**

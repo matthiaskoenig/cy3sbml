@@ -1,5 +1,6 @@
 package org.cy3sbml.gui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -48,5 +49,19 @@ class SBaseHTMLFactoryTest {
         String html = SBaseHTMLFactory.createNonRDFAnnotation(species);
 
         assertFalse(html.contains("rdf content"), html);
+    }
+
+    @Test
+    void ontologyTextKeepsInlineFormatting() {
+        assertEquals(
+                "<small>D</small>-galactose, H<sub>2</sub>O",
+                SBaseHTMLFactory.ontologyTextHTML("<small>D</small>-galactose, H<sub>2</sub>O"));
+    }
+
+    @Test
+    void ontologyTextEscapesOtherMarkup() {
+        assertEquals(
+                "&lt;script&gt;x&lt;/script&gt; a &amp; b &lt;sub onclick=&quot;x&quot;&gt;",
+                SBaseHTMLFactory.ontologyTextHTML("<script>x</script> a & b <sub onclick=\"x\">"));
     }
 }
