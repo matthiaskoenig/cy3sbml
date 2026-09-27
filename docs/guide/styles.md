@@ -29,5 +29,6 @@ The styles map the columns of the [network model](network.md) to visual properti
 | edge line type and target arrow shape | `interaction type` |
 | edge color, source arrow shape and arrow colors | `shared interaction` (activators and inhibitors have their own colors) |
 
-The mappings are Cytoscape discrete mappings, so you can change them in the **Style**
+The node label is a passthrough mapping, all other mappings are discrete mappings. You
+can change them in the **Style**
 panel like in any other style, and save the result in your session.

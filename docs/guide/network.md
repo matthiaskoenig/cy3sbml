@@ -67,7 +67,7 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `reference_kineticLaw` | object referenced in the math | kinetic law |
 | `variable_rule`, `reference_rule` | rule variable, object referenced in the math | rule |
 | `variable_initialAssignment`, `reference_initialAssignment` | assigned variable, object referenced in the math | initial assignment |
-| `trigger_event`, `priority_event` | object referenced in the trigger or priority | event |
+| `trigger_event`, `priority_event`, `delay_event` | object referenced in the trigger, priority or delay | event |
 | `variable_eventAssignment`, `reference_eventAssignment` | assigned variable, event or object referenced in the math | event assignment |
 | `unit_unitDefinition` | unit | unit definition |
 | `sbase_unitDefinition` | object with units | unit definition |
@@ -77,7 +77,7 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `species_geneProduct` | associated species | gene product (fbc) |
 | `association_reaction` | gene product or top and/or node of the association | reaction (fbc) |
 | `association_association` | gene product or and/or node | the and/or node it belongs to (fbc) |
-| `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, replacement or deletion | referenced element |
+| `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, replacedElement or replacedBy node | referenced element |
 | `sbase-replacedElement`, `sbase-replacedBy` | element with the replacement | its replacedElement or replacedBy node |
 
 The column `shared interaction` refines the type for the visual style: a modifier edge

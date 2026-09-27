@@ -19,7 +19,8 @@ The branch and tag rules are GitHub rulesets, stored as JSON in `.github/ruleset
 `.github/rulesets/apply.sh` applies the rulesets and the merge settings of the
 repository (squash and rebase merges, no merge commits, auto-merge, deletion of merged
 branches) with the GitHub CLI. It needs admin rights on the repository and updates
-existing rulesets, so run it again after every change of the JSON files:
+existing rulesets. A change of the JSON files takes effect only after `apply.sh` is run
+again:
 
 ```bash
 gh auth login

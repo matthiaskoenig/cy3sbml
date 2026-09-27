@@ -1,7 +1,7 @@
 """Generate `docs/release-notes.md` from the per-version release notes.
 
 Every release writes its notes to `release-notes/<version>.md` (see
-`docs/release.md`). This script concatenates all of them, newest version
+`docs/development/release.md`). This script concatenates all of them, newest version
 first, into the single page the documentation site links to. Each file's own
 Markdown headings are demoted by one level so they nest under the page's
 `# Release notes` heading.

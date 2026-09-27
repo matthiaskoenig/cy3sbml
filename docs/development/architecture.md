@@ -108,8 +108,8 @@ Use them instead of string literals.
 `WebViewPanel` is a cytopanel with a JavaFX `WebView`. It listens to selection and
 network events. For every change it resolves the object to show (`PanelUpdater`) and
 submits the rendering to a `LatestTaskExecutor`. The executor runs one render at a time
-on its own thread. A new target cancels the running render, the same target is not
-rendered twice. So a slow web service request for an old selection never replaces the
+on its own thread. A new target cancels the pending or running render. The same target
+is not rendered again while it is pending or running. So a slow web service request for an old selection never replaces the
 information of a newer one.
 
 `SBaseHTMLFactory` creates the HTML of an SBML object with the templates in

@@ -20,7 +20,8 @@ information and the annotations of the selected object in a panel next to the ne
   [Info panel and annotations](guide/info-panel.md).
 - Visual styles for SBML networks, a light one and a dark one. See [Styles](guide/styles.md).
 - Example models, and import from [BioModels](https://www.ebi.ac.uk/biomodels/).
-  See [Importing SBML](guide/import.md).
+  See [Importing SBML](guide/import.md). The BioModels import of version 0.5.1 has a
+  [known problem](guide/import.md#biomodels).
 - Saving and loading of node positions, and splitting of cofactor nodes.
   See [Layouts](guide/layouts.md) and [Cofactor nodes](guide/cofactors.md).
 

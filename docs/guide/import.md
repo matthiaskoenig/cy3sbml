@@ -7,8 +7,9 @@ Cytoscape uses it for SBML files. An import creates three networks per model, se
 ## Which files are read as SBML
 
 A file is read by cy3sbml if its first 20 lines contain the SBML namespace
-`http://www.sbml.org/sbml/`. The file extension is `.xml`, `.sbml`, or none.
-All SBML levels and versions are supported.
+`http://www.sbml.org/sbml/`, whatever its file extension. The file dialog of
+**Import SBML** lists files with the extensions `.xml` and `.sbml` and files without
+extension. All SBML levels and versions are supported.
 
 The file is decoded with the encoding declared in its XML declaration (UTF-8 if none is
 declared).

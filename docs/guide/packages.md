@@ -19,7 +19,7 @@ are listed in [Network model](network.md).
 All core objects become nodes: compartments, species, reactions, parameters, kinetic laws
 and local parameters, rules, initial assignments, function definitions, events and event
 assignments, constraints, and unit definitions with their units. The math of kinetic
-laws, rules, assignments and event triggers and priorities becomes edges from every
+laws, rules, assignments and event triggers, priorities and delays becomes edges from every
 referenced object to the object with the math.
 
 ## qual
@@ -42,13 +42,14 @@ levels, signs, thresholds and transition effects are stored as columns with the 
 
 ## comp (hierarchical model composition)
 
-- Submodels, ports, deletions, replaced elements and replaced-by elements become nodes,
-  with edges to the elements they reference.
+- Submodels, ports, deletions, replaced elements and replaced-by elements become nodes.
+  Ports, replaced elements and replaced-by elements have edges to the elements they
+  reference. Deletions have no edges yet
+  ([issue #401](https://github.com/matthiaskoenig/cy3sbml/issues/401)).
 - Every model definition in the file gets its own network collection, in addition to the
   main model.
 - External model definitions are not loaded. Import the referenced files one by one.
-- The flattened model is not created, and the edges from deletions to the deleted
-  elements are not created yet
+- The flattened model is not created yet
   ([issue #401](https://github.com/matthiaskoenig/cy3sbml/issues/401)).
 
 ![The All network of a comp test model with submodels, deletions and replaced elements](../images/screenshots/comp-model.png)

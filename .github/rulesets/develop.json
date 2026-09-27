@@ -44,6 +44,15 @@
         "required_status_checks": [
           {
             "context": "tests"
+          },
+          {
+            "context": "format"
+          },
+          {
+            "context": "lint"
+          },
+          {
+            "context": "docs"
           }
         ]
       }

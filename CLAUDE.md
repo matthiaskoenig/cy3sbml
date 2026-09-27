@@ -8,7 +8,7 @@ cy3sbml is a Cytoscape 3 app (OSGi bundle) that imports SBML models into Cytosca
 
 ## Build and test
 
-Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `WebView`). Use the bundled Maven Wrapper (`./mvnw`, `mvnw.cmd` on Windows) instead of a system Maven install; it downloads the pinned Maven version on first use. CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
+Requires JDK 17. JavaFX (the GUI uses JavaFX `WebView`) comes from Maven Central as `provided` dependencies with the platform-specific jars, so no system JavaFX is needed to build and test; no test starts the JavaFX runtime, and Cytoscape ships JavaFX at runtime. Use the bundled Maven Wrapper (`./mvnw`, `mvnw.cmd` on Windows) instead of a system Maven install; it downloads the pinned Maven version on first use. CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
 
 ```bash
 ./mvnw clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar

@@ -35,8 +35,9 @@ network.
 
 ## Golden snapshot tests
 
-`GoldenModelsTest` pins the result of the import. For a list of reference models (the
-unit test models and models with `comp`, `fbc`, `qual`, `layout` and `distrib`), it
+`GoldenModelsTest` pins the result of the import. For a list of reference models (for example
+the unit test models, models with `comp`, `fbc`, `qual`, `layout` and `distrib`, and
+models from BioModels, the SBML Test Suite and BiGG), it
 imports the model and compares the networks, nodes, edges and table values with a JSON
 snapshot in `src/test/resources/golden/`. The columns `SUID` and `selected` are left out.
 
