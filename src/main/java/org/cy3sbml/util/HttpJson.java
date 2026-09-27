@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * Small JSON-over-HTTP helper for the REST web services (OLS, ...).
  * <p>
  * Returns an empty {@link Optional} on any non-2xx response, IO error,
- * timeout or malformed JSON body, logging the reason at warn level.
+ * timeout, empty or malformed JSON body, logging the reason at warn level.
  */
 public class HttpJson {
     private static final Logger logger = LoggerFactory.getLogger(HttpJson.class);
@@ -50,7 +50,7 @@ public class HttpJson {
 
     /**
      * Fetches and parses the JSON body at the given URI.
-     * Empty on a non-2xx response, an IO error, a timeout or malformed JSON.
+     * Empty on a non-2xx response, an IO error, a timeout, an empty body or malformed JSON.
      */
     public Optional<JsonNode> get(URI uri) {
         return getText(uri).flatMap(body -> parse(uri, body));
@@ -87,7 +87,13 @@ public class HttpJson {
 
     private Optional<JsonNode> parse(URI uri, String body) {
         try {
-            return Optional.of(mapper.readTree(body));
+            JsonNode node = mapper.readTree(body);
+            // readTree returns null or a MissingNode for an empty body
+            if (node == null || node.isMissingNode()) {
+                logger.warn("Empty JSON body from {}", uri);
+                return Optional.empty();
+            }
+            return Optional.of(node);
         } catch (IOException e) {
             logger.warn("Error parsing JSON from {}: {}", uri, e.getMessage());
             return Optional.empty();

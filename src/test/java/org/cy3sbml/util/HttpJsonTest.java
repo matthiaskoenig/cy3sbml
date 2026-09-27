@@ -31,6 +31,10 @@ class HttpJsonTest {
             exchange.getResponseBody().write(body);
             exchange.close();
         });
+        server.createContext("/empty", exchange -> {
+            exchange.sendResponseHeaders(200, -1);
+            exchange.close();
+        });
         server.start();
         httpJson = new HttpJson(java.net.http.HttpClient.newHttpClient(), new ObjectMapper());
     }
@@ -52,5 +56,10 @@ class HttpJsonTest {
     @Test
     void returnsEmptyOnHttpError() {
         assertTrue(httpJson.get(uri("/error")).isEmpty());
+    }
+
+    @Test
+    void returnsEmptyOnEmptyBody() {
+        assertTrue(httpJson.get(uri("/empty")).isEmpty());
     }
 }

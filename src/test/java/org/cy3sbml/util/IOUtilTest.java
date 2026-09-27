@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -36,6 +37,7 @@ public class IOUtilTest {
     }
 
     @Test
+    @Tag("network")
     public void saveURLasFile() throws Exception {
         File f = tempDir.resolve("testfile.html").toFile();
         URL url = new URL("https://www.google.com"); // Changed to https
