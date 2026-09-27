@@ -19,9 +19,8 @@ information and the annotations of the selected object in a panel next to the ne
   Ontology Lookup Service, UniProt and ChEBI. See
   [Info panel and annotations](guide/info-panel.md).
 - Visual styles for SBML networks, a light one and a dark one. See [Styles](guide/styles.md).
-- Example models, and import from [BioModels](https://www.ebi.ac.uk/biomodels/).
-  See [Importing SBML](guide/import.md). The BioModels import of version 0.5.1 has a
-  [known problem](guide/import.md#biomodels).
+- Example models, and search and import of models from
+  [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
 - Saving and loading of node positions, and splitting of cofactor nodes.
   See [Layouts](guide/layouts.md) and [Cofactor nodes](guide/cofactors.md).
 

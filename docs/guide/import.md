@@ -46,30 +46,27 @@ cover:
 
 ## BioModels
 
-Click **Biomodel Import** in the toolbar to open the BioModels dialog. It loads models
-from [BioModels](https://www.ebi.ac.uk/biomodels/) in two ways:
+Click **Biomodel Import** in the toolbar to open the dialog **CySBML BioModel Import**.
+It loads models from [BioModels](https://www.biomodels.org) in two ways:
 
-- **Search:** enter a term in **Name**, click **Search**, select one or more models in
-  the result list, and click **Load Selected**. Only the first page of search results is
-  read.
+- **Search:** type search terms in the **Name** field and click **Search** (or press
+  Enter). BioModels searches the terms in the whole model entry, for example the model
+  name, description, authors, publication and annotations. **Compose by** combines
+  several terms with **AND** (all terms must match) or **OR** (any term matches). The
+  first 10 results are listed. Select a model id in the list to see its information on
+  the right. Select one or more ids and click **Load Selected** to import them.
 - **By identifier:** type or paste text with BioModels identifiers (`BIOMD` or `MODEL`
-  followed by 10 digits, or `BMID` followed by 12 digits) into **BioModel Ids**.
-  **Parse Ids** lists the identifiers found in the text with their model information,
-  **Load Ids** loads the models.
+  followed by 10 digits, or `BMID` followed by 12 digits) into **BioModel Ids**. Any text
+  that contains identifiers works. **Parse Ids** lists the models with their
+  information, **Load Ids** imports them.
 
-The SBML of every model is downloaded and imported like a file.
+**Reset** clears the search field. The requests to BioModels run in the background and
+can take a few seconds. The SBML of every model is downloaded and imported like a file.
+If BioModels cannot be reached, the dialog says so. Check the internet connection and
+the proxy settings, or download the SBML file from the BioModels website and import it
+as a file.
 
-![The BioModels import dialog](../images/screenshots/biomodels-dialog.png)
-
-!!! warning "Known problem"
-
-    BioModels moved to `https://biomodels.org`, and the old addresses answer with a
-    redirect. The BioModels dialog of cy3sbml 0.5.1 does not handle this: a search finds
-    no models, and loading by identifier reports "No SBML could be loaded". Until this
-    is fixed, download the SBML file from the BioModels website and import it as a file.
-
-The dialog lists further search fields (person, publication, ChEBI, UniProt) in its help
-text, but only the name field is available.
+![The BioModels import dialog with the results of a search for glycolysis](../images/screenshots/biomodels-dialog.png)
 
 ## Several models in one file
 
