@@ -24,8 +24,8 @@
         <enforcer.skipReleaseDeps>false</enforcer.skipReleaseDeps>
         <!-- Pinned to the JSBML commit that built the jars in lib/cy3sbml-dep
             (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
-            22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
-        <jsbml.version>1.7-20230103-22659a76</jsbml.version>
+            8192a8a7010676202eb666413213879c5a6a555e, committed 2026-09-07. -->
+        <jsbml.version>1.7-20260907-8192a8a7</jsbml.version>
         <!-- JUnit tag-based test selection. By default the "network" (hits web
             services) and "models" (long-running model test suites) tagged tests
             are excluded. Run with -Pall-tests for everything, or select the
