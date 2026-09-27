@@ -3,7 +3,12 @@ package org.cy3sbml.gui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
+import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.miriam.MiriamRegistry;
+import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.xml.XMLAttributes;
@@ -21,6 +26,24 @@ class SBaseHTMLFactoryTest {
         assertTrue(html.contains("<base href=\"file:///app/gui/\" />"), html);
         assertTrue(html.contains("<title>Title</title>"), html);
         assertTrue(html.contains("<p>text</p>"), html);
+    }
+
+    @Test
+    void renderingShowsTheSboTermWithoutChangingTheDocument() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", 3, 1);
+        species.setSBOTerm(247);
+
+        String html = htmlFactory.createInfo(species);
+
+        // the SBO term is shown as an annotation, but not added to the model
+        assertEquals(0, species.getCVTermCount());
+        assertTrue(html.contains("SBO:0000247"), html);
     }
 
     @Test

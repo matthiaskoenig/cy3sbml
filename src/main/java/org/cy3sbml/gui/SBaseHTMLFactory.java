@@ -5,6 +5,7 @@ import static org.cy3sbml.gui.GUIConstants.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -319,50 +320,35 @@ public class SBaseHTMLFactory {
      * Create HTML for CVTerms.
      */
     private String createCVTerms(SBase sbase) throws IOException {
-        List<CVTerm> cvterms = sbase.getCVTerms();
-        // Handle SBO
-        addCVTermForSBO(sbase);
-
-        // Create HTML
         String text = "";
-        if (cvterms.size() > 0) {
-            for (CVTerm term : cvterms) {
-                text += createCVTerm(term);
-            }
+        for (CVTerm term : cvTermsForDisplay(sbase)) {
+            text += createCVTerm(term);
         }
         return text;
     }
 
     /**
-     * Adds the CVTerm for SBO to the CVTerms.
+     * The CVTerms of the SBase, preceded by a CVTerm for its SBO term if none of them refers
+     * to it. Rendering runs concurrently with other readers of the document (e.g. saving the
+     * session), so this never changes the SBase: the SBO CVTerm is only part of the returned
+     * list.
      */
-    private static void addCVTermForSBO(SBase sbase) {
-        List<CVTerm> cvterms = sbase.getCVTerms();
-
-        // add the SBO term to the annotations if not existing already
+    private static List<CVTerm> cvTermsForDisplay(SBase sbase) {
+        List<CVTerm> cvterms = sbase.isSetAnnotation() ? sbase.getCVTerms() : List.of();
+        List<CVTerm> terms = new ArrayList<>(cvterms.size() + 1);
         if (sbase.isSetSBOTerm()) {
-            String nameSpace = getPrefixValue(SBO);
-
             String sboTermId = sbase.getSBOTermID();
-
-            CVTerm term = new CVTerm(
-                    CVTerm.Qualifier.BQB_IS,
-                    String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId)));
-
-            Boolean termExists = false;
-            outerloop:
-            for (CVTerm t : cvterms) {
-                for (String uri : t.getResources()) {
-                    if (uri.endsWith(sboTermId)) {
-                        termExists = true;
-                        break outerloop;
-                    }
-                }
-            }
+            boolean termExists =
+                    cvterms.stream().flatMap(t -> t.getResources().stream()).anyMatch(uri -> uri.endsWith(sboTermId));
             if (!termExists) {
-                cvterms.add(0, term);
+                String nameSpace = getPrefixValue(SBO);
+                terms.add(new CVTerm(
+                        CVTerm.Qualifier.BQB_IS,
+                        String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId))));
             }
         }
+        terms.addAll(cvterms);
+        return terms;
     }
 
     /**
