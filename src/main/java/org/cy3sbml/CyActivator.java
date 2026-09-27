@@ -12,7 +12,6 @@ import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
-import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.uniprot.UniprotAccess;
@@ -286,9 +285,6 @@ public class CyActivator extends AbstractCyActivator {
 
             // register services for other apps
             registerService(bc, sbmlManager, SBMLManager.class, new Properties());
-
-            //  Update and load registry
-            RegistryUtil.getMiriamContent();
 
             // cy3sbml panels
             webViewPanel.activate();

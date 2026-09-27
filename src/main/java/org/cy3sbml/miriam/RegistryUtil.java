@@ -37,22 +37,39 @@ public class RegistryUtil {
             "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    /** Classpath location of the bundled offline copy of the registry. */
+    static final String BUNDLED_REGISTRY = "/miriam/MiriamRegistry.json";
+
     /**
-     * Load the registry from the resources.
+     * Load the registry from a MIRIAM json file.
      *
      * @param file MIRIAM json file
      */
     public static Map<String, Namespace> loadRegistry(File file) throws IOException {
+        return parseRegistry(Files.readAllBytes(file.toPath()));
+    }
 
-        byte[] jsonBytes = Files.readAllBytes(file.toPath());
+    /**
+     * Load the offline copy of the registry bundled with the app.
+     */
+    public static Map<String, Namespace> loadBundledRegistry() throws IOException {
+        try (InputStream in = RegistryUtil.class.getResourceAsStream(BUNDLED_REGISTRY)) {
+            if (in == null) {
+                throw new FileNotFoundException("Missing resource: " + BUNDLED_REGISTRY);
+            }
+            return parseRegistry(in.readAllBytes());
+        }
+    }
+
+    private static Map<String, Namespace> parseRegistry(byte[] jsonBytes) throws IOException {
         JsonNode root = MAPPER.readTree(jsonBytes);
         JsonNode payload = root.path(PAYLOAD);
         if (payload.isMissingNode()) {
-            throw new IllegalArgumentException("Missing 'payload' object");
+            throw new IOException("Missing 'payload' object");
         }
         JsonNode namespaces = payload.path(NAMESPACES);
         if (!namespaces.isArray()) {
-            throw new IllegalArgumentException("Missing 'namespaces' array");
+            throw new IOException("Missing 'namespaces' array");
         }
         Map<String, Namespace> result = new HashMap<>();
         for (JsonNode nsNode : namespaces) {
@@ -74,9 +91,7 @@ public class RegistryUtil {
      */
     public static void updateMiriamJSON(File file) {
         try {
-            URL miriamURL = new URL(URL_MIRIAM_JSON);
-            IOUtil.saveURLasFile(miriamURL, file);
-            logger.info("Updated MIRIAM: " + file.getAbsolutePath());
+            IOUtil.saveURLasFile(new URL(URL_MIRIAM_JSON), file);
         } catch (MalformedURLException e) {
             logger.error("MalformedURLException", e);
         }
@@ -85,20 +100,37 @@ public class RegistryUtil {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Script for updating the packaged MIRIAM XML file in src/main/resources.
+     * Gets the current MIRIAM registry from identifiers.org.
+     * Falls back to the bundled copy if the registry cannot be downloaded or parsed.
      */
     public static Map<String, Namespace> getMiriamContent() {
+        try {
+            return getMiriamContent(new URL(URL_MIRIAM_JSON));
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    static Map<String, Namespace> getMiriamContent(URL registryURL) {
         File f = null;
-        Map<String, Namespace> result = null;
         try {
             f = File.createTempFile("MiriamRegistry", ".json");
-            RegistryUtil.updateMiriamJSON(f);
-
-            result = RegistryUtil.loadRegistry(f);
-        } catch (IOException e) {
-            logger.error("Could not update the MIRIAM registry", e);
+            IOUtil.saveURLasFile(registryURL, f);
+            Map<String, Namespace> result = loadRegistry(f);
+            logger.info("Loaded MIRIAM registry from " + registryURL);
+            return result;
+        } catch (IOException | RuntimeException e) {
+            logger.warn("MIRIAM registry could not be loaded from " + registryURL + ", using bundled copy: " + e);
+        } finally {
+            if (f != null && !f.delete()) {
+                f.deleteOnExit();
+            }
         }
-        return result;
+        try {
+            return loadBundledRegistry();
+        } catch (IOException e) {
+            throw new UncheckedIOException("Bundled MIRIAM registry could not be loaded", e);
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
