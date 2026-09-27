@@ -53,13 +53,22 @@ public final class OlsClient {
         }
         String prefix = matcher.group(1);
         String local = matcher.group(2);
-        // OBO prefixes are case sensitive in OLS (e.g. NCBITaxon, VariO)
-        String oboId = prefix + ":" + local;
 
-        URI uri = URI.create(OLS_BASE_URL + prefix.toLowerCase(Locale.ROOT) + "/terms?obo_id="
+        // OBO prefixes are case sensitive in OLS (e.g. NCBITaxon, VariO), annotations
+        // sometimes write them in lower case (e.g. go:0006915)
+        Optional<OlsTerm> term = query(prefix, prefix, local);
+        String upperPrefix = prefix.toUpperCase(Locale.ROOT);
+        if (term.isEmpty() && !upperPrefix.equals(prefix)) {
+            term = query(prefix, upperPrefix, local);
+        }
+        return term;
+    }
+
+    private Optional<OlsTerm> query(String ontologyPrefix, String oboPrefix, String local) {
+        String oboId = oboPrefix + ":" + local;
+        URI uri = URI.create(OLS_BASE_URL + ontologyPrefix.toLowerCase(Locale.ROOT) + "/terms?obo_id="
                 + URLEncoder.encode(oboId, StandardCharsets.UTF_8));
-
-        return http.get(uri).flatMap(json -> parseTerm(json, prefix));
+        return http.get(uri).flatMap(json -> parseTerm(json, ontologyPrefix));
     }
 
     private static Optional<OlsTerm> parseTerm(JsonNode json, String prefix) {

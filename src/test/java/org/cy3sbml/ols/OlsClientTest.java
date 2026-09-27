@@ -92,10 +92,43 @@ class OlsClientTest {
             }
         };
         new OlsClient(http).term("NCBITaxon_7787");
+        // the case preserving lookup comes first
         assertEquals(
-                List.of(URI.create(
-                        "https://www.ebi.ac.uk/ols4/api/ontologies/ncbitaxon/terms?obo_id=NCBITaxon%3A7787")),
+                URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/ncbitaxon/terms?obo_id=NCBITaxon%3A7787"),
+                requested.get(0));
+    }
+
+    /** Answers with the GO fixture for the given URI only, records all requested URIs. */
+    private static HttpJson fixtureFor(URI answered, List<URI> requested) {
+        return new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+                requested.add(uri);
+                if (!uri.equals(answered)) {
+                    return Optional.empty();
+                }
+                return fixture("/ols/go_0042752.json").get(uri);
+            }
+        };
+    }
+
+    @Test
+    void retriesLowercasePrefixUpperCased() {
+        List<URI> requested = new ArrayList<>();
+        URI upper = URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/go/terms?obo_id=GO%3A0042752");
+        var term = new OlsClient(fixtureFor(upper, requested)).term("go:0042752");
+        assertTrue(term.isPresent());
+        assertEquals(
+                List.of(URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/go/terms?obo_id=go%3A0042752"), upper),
                 requested);
+    }
+
+    @Test
+    void doesNotRetryWhenThePrefixIsUpperCase() {
+        List<URI> requested = new ArrayList<>();
+        var term = new OlsClient(fixtureFor(URI.create("https://example.org"), requested)).term("GO:0042752");
+        assertTrue(term.isEmpty());
+        assertEquals(1, requested.size());
     }
 
     @Test
