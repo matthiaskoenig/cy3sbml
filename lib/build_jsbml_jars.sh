@@ -36,8 +36,8 @@
 #      the old jars are superseded, not kept side by side.
 #
 # After running this script:
-#   - update the `jsbml.version` property in pom.xml to the
-#     version this script prints,
+#   - update the `jsbml.version` and `jsbml.osgi.version`
+#     properties in pom.xml to the versions this script prints,
 #   - run `./mvnw -B -q clean verify` to confirm the build
 #     resolves the new jars.
 #
@@ -158,6 +158,8 @@ install_jar jsbml-groups  "$JSBMLCODE/build/jsbml-groups-$JSBML_VERSION.jar"
 install_jar jsbml-distrib "$JSBMLCODE/build/jsbml-distrib-$JSBML_VERSION.jar"
 install_jar jsbml-tidy    "$JSBMLCODE/build/jsbml-tidy-$JSBML_VERSION.jar"
 
-echo "Done. Set <jsbml.version>$JSBML_VERSION</jsbml.version> in pom.xml"
+JSBML_OSGI_VERSION="$(echo "$JSBML_VERSION" | sed -E 's/^([0-9]+)\.([0-9]+)-/\1.\2.0./')"
+echo "Done. Set <jsbml.version>$JSBML_VERSION</jsbml.version> and"
+echo "<jsbml.osgi.version>$JSBML_OSGI_VERSION</jsbml.osgi.version> in pom.xml"
 echo "and run ./mvnw -B -q clean verify."
 

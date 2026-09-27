@@ -43,9 +43,10 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
             logger.debug(uri.toURL().toString());
 
             // streamUtil.getInputStream would extract the zipped content, so read the raw stream
-            InputStream inputStream = streamUtil.getURLConnection(uri.toURL()).getInputStream();
-
-            return accepts(inputStream, category);
+            try (InputStream inputStream =
+                    streamUtil.getURLConnection(uri.toURL()).getInputStream()) {
+                return accepts(inputStream, category);
+            }
         } catch (IOException e) {
             logger.error("Error while creating stream from uri", e);
             return false;

@@ -2,6 +2,7 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * This can be embedded in Swing using a JFXPanel.
  * A HyperlinkListener processes the hyperlinks.
  */
-public final class Browser extends Region {
+public final class Browser extends Region implements PageLoader.Target {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
     private final WebView webView;
@@ -38,8 +39,9 @@ public final class Browser extends Region {
     }
 
     /**
-     * Load local resource. Must be called on the JavaFX application thread.
+     * Load local resource;
      */
+    @Override
     public void loadPageFromResource(String resource) {
         File file = new File(appDirectory, resource);
         URI fileURI = file.toURI();
@@ -48,17 +50,18 @@ public final class Browser extends Region {
     }
 
     /**
-     * Load page in webView. Must be called on the JavaFX application thread.
+     * Load page in webView;
      */
     public void loadPage(String url) {
-        webEngine.load(url);
+        Platform.runLater(() -> webEngine.load(url));
     }
 
     /**
-     * Load HTML text in the webEngine. Must be called on the JavaFX application thread.
+     * Load HTML text in the webEngine.
      */
+    @Override
     public void loadText(String text) {
-        webEngine.loadContent(text);
+        Platform.runLater(() -> webEngine.loadContent(text));
     }
 
     @Override

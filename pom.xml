@@ -4,7 +4,7 @@
 
     <groupId>org.cysbml</groupId>
     <artifactId>cy3sbml</artifactId>
-    <version>0.5.1</version>
+    <version>0.6.0</version>
     <packaging>bundle</packaging>
     <name>${bundle.symbolicName}</name>
     <description>A Cytoscape app for SBML.</description>
@@ -26,6 +26,9 @@
             (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
             8192a8a7010676202eb666413213879c5a6a555e, committed 2026-09-07. -->
         <jsbml.version>1.7-20260907-8192a8a7</jsbml.version>
+        <!-- The same JSBML version as an OSGi version, used for the exported
+            org.sbml.jsbml packages. Update it together with jsbml.version. -->
+        <jsbml.osgi.version>1.7.0.20260907-8192a8a7</jsbml.osgi.version>
         <!-- JUnit tag-based test selection. By default the "network" (hits web
             services) and "models" (long-running model test suites) tagged tests
             are excluded. Run with -Pall-tests for everything, or select the
@@ -536,8 +539,10 @@
                         <!-- org.sbml.jsbml.* is exported from whatever the unpack-jsbml-without-tests
                             execution above put in target/jsbml-classes (see Include-Resource below),
                             rather than by classpath-borrowing it from the jsbml jars directly: that
-                            would also pull in their (test-class-contaminated) packages. -->
-                        <_exportcontents>org.sbml.jsbml.*</_exportcontents>
+                            would also pull in their (test-class-contaminated) packages. The JSBML
+                            types are part of the API of the SBMLManager service, so they are exported,
+                            with the JSBML version instead of the app version. -->
+                        <_exportcontents>org.sbml.jsbml.*;version="${jsbml.osgi.version}"</_exportcontents>
                         <Private-Package>${bundle.namespace}.*</Private-Package>
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
                         <!-- jtidy is excluded from the generic clause (its groupId is

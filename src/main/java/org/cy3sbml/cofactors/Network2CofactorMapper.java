@@ -35,10 +35,6 @@ public class Network2CofactorMapper implements Serializable {
         clone2cofactor = new HashMap<>();
     }
 
-    public synchronized boolean containsSUID(Long suid) {
-        return cofactor2clone.containsKey(suid);
-    }
-
     /**
      * Returns a defensive copy so the caller can iterate it without racing a concurrent writer.
      */

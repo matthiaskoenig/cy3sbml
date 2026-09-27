@@ -99,8 +99,4 @@ public class ServiceAdapter {
         this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
         this.fileUtil = fileUtil;
     }
-
-    public Object cy3sbmlProperty(String s) {
-        return cy3sbmlProperties.getProperties().get(s);
-    }
 }

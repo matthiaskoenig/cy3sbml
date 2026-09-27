@@ -45,7 +45,7 @@ public class BiomodelsQuery {
     public BiomodelsQueryResult performSearchQuery(String query) {
         // only the first result page is read (#402)
         URI uri = base.resolve("search?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&format=json");
-        return new BiomodelsQueryResult(query, http.fetchText(uri).value().orElse(null));
+        return new BiomodelsQueryResult(http.fetchText(uri).value().orElse(null));
     }
 
     /**

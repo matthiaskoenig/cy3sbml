@@ -69,11 +69,6 @@ public class BioModelInterfaceTools {
                 attribute, value);
     }
 
-    public static String createBioModelHTMLLink(String bioModelId) {
-        return String.format(
-                "<a href=\"https://www.biomodels.org/%s\" target=\"_blank\">%s</a>", bioModelId, bioModelId);
-    }
-
     private static String createPubmedHTMLLink(String pubmedId) {
         return String.format(
                 "<a href=\"http://www.ncbi.nlm.nih.gov/pubmed?term=%s\" target=\"_blank\">%s</a>", pubmedId, pubmedId);

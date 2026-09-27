@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.time.Duration;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -49,6 +50,25 @@ public final class MiriamRegistry {
      */
     public Namespace get(String prefix) {
         return prefix == null ? null : namespaces.get().get(prefix);
+    }
+
+    /**
+     * The data collection of the given identifiers.org resource URI or urn:miriam URN, or
+     * null. The namespace of the URI is matched case-insensitively (e.g. "NCBITaxon" gives
+     * "ncbitaxon"); a namespace with a provider part such as "obo.go" falls back to the part
+     * after the dot.
+     */
+    public Namespace findByURI(String resourceURI) {
+        String namespace = RegistryUtil.getNamespaceFromURI(resourceURI);
+        if (namespace == null) {
+            return null;
+        }
+        String prefix = namespace.toLowerCase(Locale.ROOT);
+        Namespace dataCollection = get(prefix);
+        if (dataCollection == null && prefix.contains(".")) {
+            dataCollection = get(prefix.substring(prefix.indexOf('.') + 1));
+        }
+        return dataCollection;
     }
 
     /**

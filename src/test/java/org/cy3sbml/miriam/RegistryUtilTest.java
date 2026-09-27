@@ -1,6 +1,5 @@
 package org.cy3sbml.miriam;
 
-import static org.cy3sbml.gui.SBaseHTMLFactory.getCompactId;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -20,7 +19,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.TestUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -92,15 +90,9 @@ public class RegistryUtilTest {
     @MethodSource("resourceFilesProvider")
     public void testResourceUriProcessing(String resourceURI) throws IOException {
 
-        String[] tokens = resourceURI.split("/");
         // created a checkednamespaces list so the code skips the namespaces it already checked before (instead of
         // checking for thousands of identifiers links)
-        String checkedNamespace;
-        if (tokens[3].contains(":")) {
-            checkedNamespace = tokens[3].split(":", -1)[0];
-        } else {
-            checkedNamespace = tokens[3];
-        }
+        String checkedNamespace = RegistryUtil.getNamespaceFromURI(resourceURI);
         // added brackets around the names in case some namespaces contain others e.g. "go" and may be there is a
         // namespace such as "goxyz"
         if (!checkedNamespaces.contains("[" + checkedNamespace + "]")) {
@@ -117,18 +109,7 @@ public class RegistryUtilTest {
 
                 int responseCode = connection.getResponseCode();
                 if (responseCode >= 200 && responseCode < 400) {
-                    String identifier = getCompactId(tokens);
-                    String prefix = StringUtils.substringBefore(identifier, ":").toLowerCase(Locale.ROOT);
-
-                    if (result.get(prefix)
-                            == null) { // if the prefix is not in the compact ID, it must be in the previous token
-                        prefix = tokens[3].toLowerCase(Locale.ROOT);
-                    }
-
-                    assertNotNull(result.get(prefix));
-                    Namespace dataType = (result.get(prefix) == null)
-                            ? result.get(StringUtils.substringAfter(prefix, "."))
-                            : result.get(prefix);
+                    Namespace dataType = result.findByURI(resourceURI);
                     assertNotNull(dataType);
                 }
             } catch (SocketTimeoutException e) {

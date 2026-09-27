@@ -21,6 +21,15 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Check the release notes
+        # fail before the build if the release notes are missing
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          test -f "release-notes/${VERSION}.md" || {
+            echo "::error::release-notes/${VERSION}.md is missing"
+            exit 1
+          }
+          echo "NOTES=release-notes/${VERSION}.md" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v6
         with:
           java-version: "17"
@@ -31,8 +40,6 @@ jobs:
       - name: Checksums
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          echo "NOTES=release-notes/${VERSION}.md" >> "$GITHUB_ENV"
-          test -f "release-notes/${VERSION}.md"
           cd target
           JAR="cy3sbml-${VERSION}.jar"
           test -f "$JAR"
