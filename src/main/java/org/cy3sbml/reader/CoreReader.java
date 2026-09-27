@@ -460,7 +460,7 @@ final class CoreReader implements PackageReader {
             }
             // edge via delay math
             if (event.isSetDelay()) {
-                MathGraphBuilder.createMathNetwork(context, event.getDelay(), n, SBML.INTERACTION_PRIORITY_EVENT);
+                MathGraphBuilder.createMathNetwork(context, event.getDelay(), n, SBML.INTERACTION_DELAY_EVENT);
             }
 
             for (EventAssignment ea : event.getListOfEventAssignments()) {

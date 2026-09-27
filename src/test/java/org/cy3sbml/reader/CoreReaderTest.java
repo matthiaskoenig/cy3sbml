@@ -1,5 +1,6 @@
 package org.cy3sbml.reader;
 
+import static org.cy3sbml.reader.ReaderTestSupport.edgesOfType;
 import static org.cy3sbml.reader.ReaderTestSupport.nodeById;
 import static org.cy3sbml.reader.ReaderTestSupport.nodesOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,5 +34,47 @@ class CoreReaderTest {
 
         assertEquals(SBML.NETWORKTYPE_SBML, network.getRow(network).get(SBML.NETWORKTYPE_ATTR, String.class));
         assertEquals("L2 V4", network.getRow(network).get(SBML.LEVEL_VERSION, String.class));
+    }
+
+    @Test
+    void eventDelayAndPriorityMathGetTheirOwnInteractionTypes() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+                  <model id="events">
+                    <listOfParameters>
+                      <parameter id="d" value="1" constant="true"/>
+                      <parameter id="p" value="2" constant="true"/>
+                      <parameter id="x" value="0" constant="false"/>
+                    </listOfParameters>
+                    <listOfEvents>
+                      <event id="e1" useValuesFromTriggerTime="true">
+                        <trigger initialValue="false" persistent="true">
+                          <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <apply><gt/><csymbol encoding="text"
+                              definitionURL="http://www.sbml.org/sbml/symbols/time">t</csymbol><cn>1</cn></apply>
+                          </math>
+                        </trigger>
+                        <priority>
+                          <math xmlns="http://www.w3.org/1998/Math/MathML"><ci>p</ci></math>
+                        </priority>
+                        <delay>
+                          <math xmlns="http://www.w3.org/1998/Math/MathML"><ci>d</ci></math>
+                        </delay>
+                        <listOfEventAssignments>
+                          <eventAssignment variable="x">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML"><cn>1</cn></math>
+                          </eventAssignment>
+                        </listOfEventAssignments>
+                      </event>
+                    </listOfEvents>
+                  </model>
+                </sbml>
+                """;
+        ConversionContext context = ReaderTestSupport.readString(sbml, new CoreReader());
+        CyNetwork network = context.network();
+
+        assertEquals(1, edgesOfType(network, SBML.INTERACTION_DELAY_EVENT).size());
+        assertEquals(1, edgesOfType(network, SBML.INTERACTION_PRIORITY_EVENT).size());
     }
 }
