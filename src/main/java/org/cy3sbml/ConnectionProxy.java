@@ -57,6 +57,13 @@ public class ConnectionProxy implements PropertyUpdatedListener {
             System.setProperty("https.proxyPort", "");
         } else if ("http".equals(type)) {
             // HTTP/HTTPS Proxy
+            if (host == null || host.isBlank() || port == null || port.isBlank()) {
+                logger.warn(
+                        "HTTP proxy ignored: the Cytoscape proxy settings have no host or port (host '{}', port '{}')",
+                        host,
+                        port);
+                return;
+            }
             System.setProperty("http.proxyHost", host);
             System.setProperty("http.proxyPort", port);
             System.setProperty("https.proxyHost", host);
