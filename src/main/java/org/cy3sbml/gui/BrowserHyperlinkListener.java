@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executor;
+import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
@@ -96,6 +98,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
+    private final Executor dispatch;
 
     public BrowserHyperlinkListener(
             ServiceAdapter adapter,
@@ -103,107 +106,123 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
             SBMLManager sbmlManager,
             CofactorManager cofactorManager,
             BiomodelsDialog biomodelsDialog) {
+        this(adapter, webViewPanel, sbmlManager, cofactorManager, biomodelsDialog, SwingUtilities::invokeLater);
+    }
+
+    /**
+     * @param dispatch runs the action of a clicked link; the Swing event dispatch thread
+     *     outside of tests
+     */
+    BrowserHyperlinkListener(
+            ServiceAdapter adapter,
+            WebViewPanel webViewPanel,
+            SBMLManager sbmlManager,
+            CofactorManager cofactorManager,
+            BiomodelsDialog biomodelsDialog,
+            Executor dispatch) {
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
         this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
         this.biomodelsDialog = biomodelsDialog;
+        this.dispatch = dispatch;
     }
 
+    /**
+     * Called on the JavaFX thread. The action of the link opens Swing dialogs and changes
+     * Cytoscape networks and tables, so it runs on the Swing event dispatch thread.
+     *
+     * @return true if the WebView must not load the link itself
+     */
     @Override
     public boolean hyperlinkUpdate(HyperlinkEvent hyperlinkEvent) {
         logger.info(WebViews.hyperlinkEventToString(hyperlinkEvent));
 
-        // clicked url
         URL url = hyperlinkEvent.getURL();
-        Boolean cancel = processURLEvent(url);
-        return cancel;
+        if (url == null) {
+            // This is a link we should load, do not cancel.
+            return false;
+        }
+        String s = url.toString();
+        dispatch.execute(() -> processURL(s));
+        return true;
     }
 
     /**
      * Processes the given url.
      * Decides what to do if a given URL is encountered.
      * Here the actions are called.
-     *
-     * @return cancel action, i.e. is the WebView event further processed
      */
-    private Boolean processURLEvent(URL url) {
-        if (url != null) {
-            String s = url.toString();
-
-            // Cytoscape Action
-            if (URLS_ACTION.contains(s)) {
-                AbstractCyAction action = null;
-                if (s.equals(URL_CHANGESTATE)) {
-                    action = new ChangeStateAction(webViewPanel);
-                }
-                if (s.equals(URL_IMPORT)) {
-                    action = new ImportAction(adapter);
-                }
-
-                if (s.equals(URL_EXAMPLES)) {
-                    action = new ExamplesAction(webViewPanel);
-                }
-                if (s.equals(URL_BIOMODELS)) {
-                    action = new BiomodelsAction(biomodelsDialog);
-                }
-                if (s.equals(URL_HELP)) {
-                    action = new HelpAction(webViewPanel);
-                }
-                if (s.equals(URL_COFACTOR_NODES)) {
-                    CofactorAction.runCofactorAction(adapter, cofactorManager);
-                }
-                if (s.equals(URL_SAVELAYOUT)) {
-                    action = new SaveLayoutAction(adapter);
-                }
-                if (s.equals(URL_LOADLAYOUT)) {
-                    action = new LoadLayoutAction(adapter);
-                }
-
-                // execute action
-                if (action != null) {
-                    action.actionPerformed(null);
-                } else {
-                    logger.error(String.format("Action not created for <%s>", s));
-                }
-            } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
-                // Only select if current network exists
-                CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-                if (network != null) {
-                    String[] tokens = s.split("/", -1);
-                    String identifier = tokens[tokens.length - 1];
-                    if (s.startsWith(URL_SELECT_ID)) {
-                        NetworkUtil.selectById(network, identifier);
-                    } else if (s.startsWith(URL_SELECT_METAID)) {
-                        NetworkUtil.selectByMetaId(network, identifier);
-                    }
-                }
+    private void processURL(String s) {
+        // Cytoscape Action
+        if (URLS_ACTION.contains(s)) {
+            if (s.equals(URL_COFACTOR_NODES)) {
+                CofactorAction.runCofactorAction(adapter, cofactorManager);
+                return;
+            }
+            AbstractCyAction action = null;
+            if (s.equals(URL_CHANGESTATE)) {
+                action = new ChangeStateAction(webViewPanel);
+            }
+            if (s.equals(URL_IMPORT)) {
+                action = new ImportAction(adapter);
+            }
+            if (s.equals(URL_EXAMPLES)) {
+                action = new ExamplesAction(webViewPanel);
+            }
+            if (s.equals(URL_BIOMODELS)) {
+                action = new BiomodelsAction(biomodelsDialog);
+            }
+            if (s.equals(URL_HELP)) {
+                action = new HelpAction(webViewPanel);
+            }
+            if (s.equals(URL_SAVELAYOUT)) {
+                action = new SaveLayoutAction(adapter);
+            }
+            if (s.equals(URL_LOADLAYOUT)) {
+                action = new LoadLayoutAction(adapter);
             }
 
-            // Example networks
-            else if (EXAMPLE_SBML.containsKey(s)) {
-                String resource = EXAMPLE_SBML.get(s);
-                logger.info("Loading: " + s);
-                GUIUtil.loadExampleFromResource(adapter, resource);
+            // execute action
+            if (action != null) {
+                action.actionPerformed(null);
+            } else {
+                logger.error(String.format("Action not created for <%s>", s));
             }
-
-            // SBML file
-            else if (s.equals(URL_SBMLFILE)) {
-                GUIUtil.openCurrentSBMLInBrowser(sbmlManager);
+        } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
+            // Only select if current network exists
+            CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+            if (network != null) {
+                String[] tokens = s.split("/", -1);
+                String identifier = tokens[tokens.length - 1];
+                if (s.startsWith(URL_SELECT_ID)) {
+                    NetworkUtil.selectById(network, identifier);
+                } else if (s.startsWith(URL_SELECT_METAID)) {
+                    NetworkUtil.selectByMetaId(network, identifier);
+                }
             }
-
-            // SBase HTML
-            else if (s.equals(URL_HTML_SBASE)) {
-                GUIUtil.openSBaseHTMLInBrowser(webViewPanel.getHtml());
-            }
-
-            // HTML links
-            else {
-                GUIUtil.openURLinExternalBrowser(s);
-            }
-            return true;
         }
-        // This is a link we should load, do not cancel.
-        return false;
+
+        // Example networks
+        else if (EXAMPLE_SBML.containsKey(s)) {
+            String resource = EXAMPLE_SBML.get(s);
+            logger.info("Loading: " + s);
+            GUIUtil.loadExampleFromResource(adapter, resource);
+        }
+
+        // SBML file
+        else if (s.equals(URL_SBMLFILE)) {
+            GUIUtil.openCurrentSBMLInBrowser(sbmlManager);
+        }
+
+        // SBase HTML
+        else if (s.equals(URL_HTML_SBASE)) {
+            GUIUtil.openSBaseHTMLInBrowser(webViewPanel.getHtml());
+        }
+
+        // HTML links
+        else {
+            GUIUtil.openURLinExternalBrowser(s);
+        }
     }
 }
