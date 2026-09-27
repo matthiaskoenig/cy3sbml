@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -151,6 +153,25 @@ public class BundleJarContentIT {
     public void manifestDeclaresTheActivator() throws IOException {
         Manifest manifest = jar.getManifest();
         assertEquals("org.cy3sbml.CyActivator", manifest.getMainAttributes().getValue("Bundle-Activator"));
+    }
+
+    @Test
+    public void manifestExportsJsbmlWithTheJsbmlVersion() throws IOException {
+        String exports = jar.getManifest().getMainAttributes().getValue("Export-Package");
+        assertNotNull(exports, "bundle manifest has no Export-Package");
+        // org.sbml.jsbml types are part of the API of the SBMLManager service, so the
+        // packages are exported, but with the version of JSBML, not of the app
+        Matcher clause = Pattern.compile("(?:^|,)(org\\.sbml\\.jsbml[\\w.]*);").matcher(exports);
+        int count = 0;
+        while (clause.find()) {
+            Matcher version = Pattern.compile("version=\"([^\"]+)\"").matcher(exports);
+            assertTrue(version.find(clause.end()), clause.group(1) + " has no version");
+            assertTrue(
+                    version.group(1).startsWith("1.7.0"),
+                    clause.group(1) + " is exported with version " + version.group(1));
+            count++;
+        }
+        assertTrue(count > 0, "org.sbml.jsbml is not exported");
     }
 
     @Test
