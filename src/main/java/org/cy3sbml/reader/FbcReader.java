@@ -42,7 +42,7 @@ final class FbcReader implements PackageReader {
         CyNetwork network = context.network();
         logger.debug("<fbc>");
 
-        FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+        FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.shortLabel);
         if (fbcModel == null) {
             return;
         }
@@ -54,7 +54,7 @@ final class FbcReader implements PackageReader {
 
         // Species attributes
         for (Species species : model.getListOfSpecies()) {
-            FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) species.getExtension(FBCConstants.namespaceURI);
+            FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) species.getExtension(FBCConstants.shortLabel);
             if (fbcSpecies != null) {
                 CyNode n = context.nodeByMetaId(species.getMetaId()).orElse(null);
                 // optional
@@ -101,7 +101,7 @@ final class FbcReader implements PackageReader {
 
         // Reaction attributes
         for (Reaction reaction : model.getListOfReactions()) {
-            FBCReactionPlugin fbcReaction = (FBCReactionPlugin) reaction.getExtension(FBCConstants.namespaceURI);
+            FBCReactionPlugin fbcReaction = (FBCReactionPlugin) reaction.getExtension(FBCConstants.shortLabel);
 
             if (fbcReaction != null) {
                 // optional bounds

@@ -366,7 +366,7 @@ public class SBMLUtil {
         }
 
         // fbc
-        FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.namespaceURI);
+        FBCSpeciesPlugin fbcSpecies = (FBCSpeciesPlugin) s.getExtension(FBCConstants.shortLabel);
         if (fbcSpecies != null) {
             String charge = GUIConstants.ICON_NONE;
             if (fbcSpecies.isSetCharge()) {
@@ -413,7 +413,7 @@ public class SBMLUtil {
         map.put(SBML.ATTR_UNITS, String.format(UNIT_TEMPLATE, units));
 
         // fbc
-        FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.namespaceURI);
+        FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.shortLabel);
         if (fbcReaction != null) {
             String lowerFluxBound = GUIConstants.ICON_NONE;
             if (fbcReaction.isSetLowerFluxBound()) {

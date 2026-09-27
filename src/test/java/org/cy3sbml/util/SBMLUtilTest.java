@@ -202,6 +202,21 @@ class SBMLUtilTest {
     }
 
     @Test
+    void createSpeciesMapIncludesFbcVersion1ChargeAndFormula() {
+        // the plugin lookup must not depend on the fbc package version of the model
+        FBCSpeciesPlugin fbcSpecies = new FBCSpeciesPlugin(species);
+        fbcSpecies.setPackageVersion(1);
+        species.addExtension(FBCConstants.namespaceURI_L3V1V1, fbcSpecies);
+        fbcSpecies.setCharge(1);
+        fbcSpecies.setChemicalFormula("C2H6O");
+
+        Map<String, String> map = SBMLUtil.createSpeciesMap(species);
+
+        assertEquals("1", map.get(SBML.ATTR_FBC_CHARGE));
+        assertEquals("C2H6O", map.get(SBML.ATTR_FBC_CHEMICAL_FORMULA));
+    }
+
+    @Test
     void createReactionMapIncludesKineticLawAndCompartment() {
         Map<String, String> map = SBMLUtil.createReactionMap(reaction);
         assertTrue(map.get(SBML.ATTR_KINETIC_LAW).contains("1"));

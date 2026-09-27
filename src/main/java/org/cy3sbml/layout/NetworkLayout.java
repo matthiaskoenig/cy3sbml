@@ -281,7 +281,7 @@ public class NetworkLayout {
         BoundingBox genericBox = createGenericBoundingBox();
         String key;
         Model model = document.getModel();
-        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.shortLabel);
         if (qModel != null) {
             for (QualitativeSpecies qspecies : qModel.getListOfQualitativeSpecies()) {
                 key = qspecies.getId();
@@ -297,7 +297,7 @@ public class NetworkLayout {
         BoundingBox genericBox = createGenericBoundingBox();
         String key;
         Model model = document.getModel();
-        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        QualModelPlugin qModel = (QualModelPlugin) model.getExtension(QualConstants.shortLabel);
         if (qModel != null) {
             for (Transition qtransition : qModel.getListOfTransitions()) {
                 key = qtransition.getId();

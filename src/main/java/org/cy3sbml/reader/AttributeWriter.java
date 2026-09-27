@@ -53,7 +53,7 @@ final class AttributeWriter {
         // COBRA attributes (only for fbc models)
         Model model = sbase.getModel();
         if (model != null) {
-            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.namespaceURI);
+            FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.shortLabel);
             if (fbcModel != null) {
                 if ((sbase instanceof Reaction) || (sbase instanceof Species) || (sbase instanceof GeneProduct)) {
                     props.putAll(CobraNotesParser.parse(sbase));

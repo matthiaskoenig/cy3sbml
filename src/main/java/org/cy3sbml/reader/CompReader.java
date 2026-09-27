@@ -35,7 +35,7 @@ final class CompReader implements PackageReader {
         CyNetwork network = context.network();
         logger.debug("<comp>");
 
-        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.namespaceURI);
+        CompModelPlugin compModel = (CompModelPlugin) model.getExtension(CompConstants.shortLabel);
         if (compModel == null) {
             return;
         }
@@ -99,7 +99,7 @@ final class CompReader implements PackageReader {
         // only sbases in current model
         for (TreeNode node : model.filter(new SBaseFilter())) {
             SBase sbase = (SBase) node;
-            CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.namespaceURI);
+            CompSBasePlugin compSBase = (CompSBasePlugin) sbase.getExtension(CompConstants.shortLabel);
             if (compSBase != null) {
                 logger.debug(compSBase.toString());
 

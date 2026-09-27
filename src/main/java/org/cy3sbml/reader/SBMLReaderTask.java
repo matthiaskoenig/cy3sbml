@@ -224,7 +224,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             } else {
                 logger.warn("No core model in SBMLDocument! Check model definition.");
             }
-            CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.namespaceURI);
+            CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.shortLabel);
             if (compDoc != null) {
                 readModelDefinitions(compDoc);
             }

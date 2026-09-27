@@ -33,7 +33,7 @@ final class GroupsReader implements PackageReader {
     public void read(ConversionContext context, Model model) {
         logger.debug("<groups>");
 
-        GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.namespaceURI);
+        GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getExtension(GroupsConstants.shortLabel);
         if (groupsModel == null) {
             return;
         }

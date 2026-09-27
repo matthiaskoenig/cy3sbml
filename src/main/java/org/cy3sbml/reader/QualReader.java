@@ -33,7 +33,7 @@ final class QualReader implements PackageReader {
         CyNetwork network = context.network();
         logger.debug("<qual>");
 
-        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.namespaceURI);
+        QualModelPlugin qualModel = (QualModelPlugin) model.getExtension(QualConstants.shortLabel);
         if (qualModel == null) {
             return;
         }

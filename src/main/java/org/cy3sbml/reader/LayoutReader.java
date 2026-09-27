@@ -20,7 +20,7 @@ final class LayoutReader implements PackageReader {
     public void read(ConversionContext context, Model model) {
         logger.debug("<layout>");
 
-        LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.namespaceURI);
+        LayoutModelPlugin layoutModel = (LayoutModelPlugin) model.getExtension(LayoutConstants.shortLabel);
 
         if (layoutModel != null) {
             logger.warn("Layouts found, but not yet supported.");
