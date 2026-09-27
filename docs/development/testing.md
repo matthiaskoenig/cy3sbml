@@ -1,6 +1,6 @@
 # Testing
 
-The tests use JUnit 5 and Mockito. They are in `src/test/java`, the test models in
+The tests use JUnit 6 (Jupiter) and Mockito. They are in `src/test/java`, the test models in
 `src/test/resources/models`.
 
 ## Run the tests
