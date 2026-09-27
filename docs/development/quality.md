@@ -22,14 +22,26 @@ removes unused imports, orders the imports, trims trailing whitespace, and sorts
 ```
 
 IDE formatters produce different results, so run `spotless:apply` before every commit.
-A git pre-commit hook does this for you. Save it as `.git/hooks/pre-commit` and make it
+A git pre-commit hook does this for you. It formats the staged Java files and stages the
+result. It stops if a staged file also has unstaged changes, because staging the formatted
+file would stage those changes too. Save it as `.git/hooks/pre-commit` and make it
 executable with `chmod +x .git/hooks/pre-commit`:
 
 ```bash
 #!/bin/sh
-CHANGED_JAVA_SRC_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.java$')
-./mvnw -q spotless:apply
-git add $CHANGED_JAVA_SRC_FILES
+# format the staged Java files with spotless and stage the result
+FILES=$(git diff --cached --name-only --diff-filter=ACM -- '*.java')
+[ -z "$FILES" ] && exit 0
+# re-staging a file that also has unstaged changes would stage those too
+PARTIAL=$(git diff --name-only -- $FILES)
+if [ -n "$PARTIAL" ]; then
+    echo "pre-commit: stage or stash the unstaged changes first:" >&2
+    echo "$PARTIAL" >&2
+    exit 1
+fi
+PATTERNS=$(printf '.*%s,' $FILES)
+./mvnw -q spotless:apply -DspotlessFiles="${PATTERNS%,}" || exit 1
+git add -- $FILES
 ```
 
 ## Error Prone
