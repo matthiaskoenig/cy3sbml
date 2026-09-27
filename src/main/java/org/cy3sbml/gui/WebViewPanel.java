@@ -55,7 +55,7 @@ public final class WebViewPanel extends JFXPanel
     private final LatestTaskExecutor renderExecutor = new LatestTaskExecutor();
     private static final int PREFERRED_WIDTH = 400;
     private static final int PREFERRED_HEIGHT = 600;
-    private Browser browser;
+    private final PageLoader pages = new PageLoader();
     private volatile String html;
 
     /**
@@ -78,26 +78,26 @@ public final class WebViewPanel extends JFXPanel
         // the JavaFX scene is attached later, the docked panel takes its width from here
         setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
 
+        // shown once the browser exists, unless a render is requested before
+        setHelp();
         JFXPanel fxPanel = this;
-        Platform.runLater(() -> {
-            initFX(fxPanel);
-            setHelp();
-        });
+        Platform.runLater(() -> pages.attach(initFX(fxPanel)));
     }
 
     /**
      * Initialize the JavaFX components.
      * This creates the browser and adds it to the scene.
      */
-    private void initFX(JFXPanel fxPanel) {
+    private Browser initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
-        browser = new Browser(
+        Browser browser = new Browser(
                 adapter.cy3sbmlDirectory,
                 new BrowserHyperlinkListener(adapter, this, sbmlManager, cofactorManager, biomodelsDialog));
         Scene scene = new Scene(browser, PREFERRED_WIDTH, PREFERRED_HEIGHT);
         fxPanel.setScene(scene);
         // necessary to support the detached mode
         Platform.setImplicitExit(false);
+        return browser;
     }
 
     public String getHtml() {
@@ -183,7 +183,7 @@ public final class WebViewPanel extends JFXPanel
      */
     public void setHelp() {
         renderExecutor.submit(
-                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE)));
+                new Object(), () -> publish(p -> p.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE)));
     }
 
     /**
@@ -192,37 +192,35 @@ public final class WebViewPanel extends JFXPanel
      */
     public void setExamples() {
         renderExecutor.submit(
-                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE)));
+                new Object(), () -> publish(p -> p.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE)));
     }
 
     /**
-     * Set text.
+     * Shows the given HTML text.
      * <p>
      * Must be called from a render task running on the {@link #renderExecutor}; the text
      * is only shown if that task is still the current render (see {@link #publish}).
      */
     @Override
     public void setText(String text) {
-        publish(b -> {
+        publish(p -> {
             html = text;
-            b.loadText(text);
+            p.loadText(text);
         });
     }
 
     /**
-     * Publishes a render result to the browser, but only if the calling render task is
-     * still the current one ({@link LatestTaskExecutor#publishIfCurrent}): a superseded
-     * render that already passed its last interrupt check is dropped here, so it can never
-     * overwrite the result of a newer render or the help/examples page.
+     * Publishes a page to the browser, but only if the calling render task is still the
+     * current one ({@link LatestTaskExecutor#publishIfCurrent}): a superseded render that
+     * already passed its last interrupt check is dropped here, so it can never overwrite
+     * the result of a newer render or the help/examples page.
      * <p>
-     * The accepted publication enqueues a single runnable on the JavaFX application
-     * thread while holding the executor's lock. That thread runs its queue in FIFO order,
-     * so the browser receives the accepted publications in the order they were accepted.
-     * The browser is only touched on the JavaFX thread, after {@link #initFX} (enqueued
-     * first, from the constructor) created it.
+     * An accepted publication goes to the {@link PageLoader} while the executor's lock is
+     * held, so the pages reach the browser in the order their publications were accepted,
+     * and the page accepted last is the page shown.
      */
-    private void publish(Consumer<Browser> publication) {
-        renderExecutor.publishIfCurrent(() -> Platform.runLater(() -> publication.accept(browser)));
+    private void publish(Consumer<PageLoader> publication) {
+        renderExecutor.publishIfCurrent(() -> publication.accept(pages));
     }
 
     /**
