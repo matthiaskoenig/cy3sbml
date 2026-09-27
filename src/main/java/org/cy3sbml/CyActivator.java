@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.biomodel.BiomodelsQuery;
@@ -73,6 +74,11 @@ import org.slf4j.LoggerFactory;
 public class CyActivator extends AbstractCyActivator {
     public static final String PROPERTIES_FILE = "cy3sbml.props";
 
+    /** The system property with the log file, read by logback.xml. */
+    private static final String LOGFILE_PROPERTY = "logfile.name";
+
+    private static final String APP_NAME = "cy3sbml";
+
     private static final String EXTENSION_BUNDLE_RESOURCE = "extension/org.cy3javascript.extension-0.0.1.jar";
 
     /**
@@ -103,6 +109,12 @@ public class CyActivator extends AbstractCyActivator {
      */
     @Override
     public void start(BundleContext bc) {
+        // before anything can fail and log: the first logger reads the property
+        File logFile = logFile(
+                bc, () -> getService(bc, CyApplicationConfiguration.class).getConfigurationDirectoryLocation());
+        logFile.getParentFile().mkdirs();
+        System.setProperty(LOGFILE_PROPERTY, logFile.getAbsolutePath());
+
         CoreServices core;
         try {
             core = startCore(bc);
@@ -117,6 +129,36 @@ public class CyActivator extends AbstractCyActivator {
         startExtensionBundle(bc);
         startResourceExtraction(bc, core.appDirectory());
         startGui(bc, core);
+    }
+
+    /**
+     * The log file of the app, {@code <configuration directory>/<bundle name>/<bundle name>-v<version>.log}.
+     * Never throws, so the log file is known before anything can fail: without the
+     * Cytoscape configuration directory, the default {@code ~/CytoscapeConfiguration} is
+     * used, and without bundle information the app name.
+     *
+     * @param configurationDirectory the Cytoscape configuration directory
+     */
+    static File logFile(BundleContext bc, Supplier<File> configurationDirectory) {
+        String name = APP_NAME;
+        String info = APP_NAME;
+        try {
+            BundleInformation bundleInfo = new BundleInformation(bc);
+            name = bundleInfo.getName();
+            info = bundleInfo.getInfo();
+        } catch (RuntimeException e) {
+            // no bundle information, use the app name
+        }
+        File cyDirectory;
+        try {
+            cyDirectory = configurationDirectory.get();
+        } catch (RuntimeException e) {
+            cyDirectory = null;
+        }
+        if (cyDirectory == null) {
+            cyDirectory = new File(System.getProperty("user.home"), "CytoscapeConfiguration");
+        }
+        return new File(new File(cyDirectory, name), info + ".log");
     }
 
     /**
@@ -138,15 +180,11 @@ public class CyActivator extends AbstractCyActivator {
             appDirectory.mkdir();
         }
 
-        // store bundle information (for display of dependencies, versions, ...)
-        File logFile = new File(appDirectory, bundleInfo.getInfo() + ".log");
-        System.setProperty("logfile.name", logFile.getAbsolutePath());
-
         Log.logger.info("----------------------------");
         Log.logger.info("Start " + bundleInfo.getInfo());
         Log.logger.info("----------------------------");
         Log.logger.info("directory = " + appDirectory.getAbsolutePath());
-        Log.logger.info("logfile = " + logFile.getAbsolutePath());
+        Log.logger.info("logfile = " + System.getProperty(LOGFILE_PROPERTY));
 
         // cy3sbml properties. Registering it under every interface it implements - notably
         // CyProperty, with the "cyPropertyName" service property below - is what makes
