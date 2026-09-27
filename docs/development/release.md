@@ -29,9 +29,9 @@ gh auth login
 
 ## Release a version
 
-1. Open a pull request that sets the release version in `pom.xml`, for example `0.5.1`.
+1. Open a pull request that sets the release version in `pom.xml`, for example `0.6.0`.
 2. In the same pull request, write the release notes in
-   `release-notes/<version>.md`, for example `release-notes/0.5.1.md`. They are the text
+   `release-notes/<version>.md`, for example `release-notes/0.6.0.md`. They are the text
    of the GitHub release and appear on the [Release notes](../release-notes.md) page.
 3. Merge the pull request into `develop`.
 4. Tag the merged commit on `develop` and push the tag:

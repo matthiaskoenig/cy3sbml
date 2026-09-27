@@ -78,21 +78,21 @@ public class CyActivatorTest {
 
     @Test
     public void logFileIsInTheAppDirectoryOfTheCytoscapeConfiguration(@TempDir File configuration) {
-        File logFile = CyActivator.logFile(bundleContext("cy3sbml", "0.5.1"), () -> configuration);
+        File logFile = CyActivator.logFile(bundleContext("cy3sbml", "0.6.0"), () -> configuration);
 
-        assertEquals(new File(new File(configuration, "cy3sbml"), "cy3sbml-v0.5.1.log"), logFile);
+        assertEquals(new File(new File(configuration, "cy3sbml"), "cy3sbml-v0.6.0.log"), logFile);
     }
 
     @Test
     public void logFileWithoutTheConfigurationServiceIsInTheDefaultConfigurationDirectory() {
         // startCore fails without the service, and logs that error to this file
-        File logFile = CyActivator.logFile(bundleContext("cy3sbml", "0.5.1"), () -> {
+        File logFile = CyActivator.logFile(bundleContext("cy3sbml", "0.6.0"), () -> {
             throw new IllegalStateException("no CyApplicationConfiguration");
         });
 
         File expected = new File(
                 new File(new File(System.getProperty("user.home"), "CytoscapeConfiguration"), "cy3sbml"),
-                "cy3sbml-v0.5.1.log");
+                "cy3sbml-v0.6.0.log");
         assertEquals(expected, logFile);
     }
 
