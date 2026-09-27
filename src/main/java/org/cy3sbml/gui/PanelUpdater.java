@@ -12,12 +12,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Updates the Panel information based on selection.
+ * Renders one previously-resolved render target (see {@link #resolveTarget}) into the
+ * panel.
+ * <p>
+ * The coalescing decision (is this target worth rendering at all) is made by the
+ * submitter, {@code WebViewPanel.updateInformation}, before this is even constructed;
+ * this only marks the target as the render coalescer's completed one, via {@link
+ * RenderCoalescer#markCompleted}, once (and only once) the render actually finished -
+ * i.e. was not cancelled/interrupted partway through by a newer request. A cancelled
+ * render therefore leaves the last completed target unchanged, so a later request for
+ * the same target it failed to show still gets rendered rather than being wrongly
+ * coalesced away as "already done".
  */
 public class PanelUpdater implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(PanelUpdater.class);
 
-    private static final String TEXT_NO_SBML_NODE = "<h2>No information</h2>"
+    static final String TEXT_NO_SBML_NODE = "<h2>No information</h2>"
             + "<p>No SBML object registered for node in ObjectMapper.</p>"
             + "<p>Some nodes do not have SBase objects associated, e.g. "
             + "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>"
@@ -28,87 +38,68 @@ public class PanelUpdater implements Runnable {
             + "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n"
             + "Loading information from WebServices ...</p>";
 
-    private static final String TEXT_NO_SBML =
+    static final String TEXT_NO_SBML =
             "<h2>No information</h2>" + "<p>No SBMLDocument associated with the current network.</p>";
 
     private final InfoPanel panel;
-    private final CyNetwork network;
-    private final SBMLManager sbmlManager;
+    private final Object target;
     private final SBaseHTMLFactory htmlFactory;
     private final RenderCoalescer renderCoalescer;
 
-    public PanelUpdater(
-            InfoPanel panel,
-            CyNetwork network,
-            SBMLManager sbmlManager,
-            SBaseHTMLFactory htmlFactory,
-            RenderCoalescer renderCoalescer) {
+    public PanelUpdater(InfoPanel panel, Object target, SBaseHTMLFactory htmlFactory, RenderCoalescer renderCoalescer) {
         this.panel = panel;
-        this.network = network;
-        this.sbmlManager = sbmlManager;
+        this.target = target;
         this.htmlFactory = htmlFactory;
         this.renderCoalescer = renderCoalescer;
     }
 
     /**
-     * Here the node information update is performed.
-     * Depending of the kind of network different updates are performed
-     * If multiple nodes are selected only the information for the first node is displayed.
-     * <p>
-     * A request that resolves to the very same target (the same {@code SBMLDocument} or
-     * {@code SBase} instance, or the same fixed message) as the last one actually
-     * rendered is skipped via {@link #renderCoalescer}: several Cytoscape events fired
-     * while loading a single model can resolve to the same thing to display (e.g. a
-     * model's several subnetworks, taken current in turn, share one {@code SBMLDocument}),
-     * and re-rendering it every time would re-run the OLS/UniProt/ChEBI lookups and flicker
-     * the WebView for no visible change.
+     * Resolves what should be rendered for the given network's current selection: the
+     * model's {@code SBMLDocument} if nothing (that has a mapped {@code SBase}) is
+     * selected, the selected node's {@code SBase}, or one of the two fixed "no
+     * information" messages. Pure and side-effect-free (queries {@code sbmlManager} but
+     * changes nothing), so a caller can use it to decide whether a render is actually
+     * needed before submitting one.
      */
-    @Override
-    public void run() {
-
-        // associated SBMLDocument
+    static Object resolveTarget(CyNetwork network, SBMLManager sbmlManager) {
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
-
-        if (document != null) {
-            updateSBMLPanel(document);
-        } else {
+        if (document == null) {
             logger.debug("No SBMLDocument for current network: " + network);
-            if (renderCoalescer.accept(TEXT_NO_SBML)) {
-                panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML));
-            }
+            return TEXT_NO_SBML;
         }
+
+        List<Long> suids = new ArrayList<>();
+        for (CyNode n : CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true)) {
+            suids.add(n.getSUID());
+        }
+        List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
+        if (cyIds.isEmpty()) {
+            return document;
+        }
+        SBase sbase = sbmlManager.getSBaseByCyId(cyIds.get(0));
+        return sbase != null ? sbase : TEXT_NO_SBML_NODE;
     }
 
     /**
-     * Updates the panel information for an SBMLDocument.
+     * Renders {@link #target}, and marks it as the render coalescer's completed target
+     * only if the render actually finished.
      */
-    private void updateSBMLPanel(SBMLDocument document) {
-        // selected node SUIDs
-        List<Long> suids = new ArrayList<>();
-        List<CyNode> nodes = CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true);
-        for (CyNode n : nodes) {
-            suids.add(n.getSUID());
-        }
-        // information for selected node(s)
-
-        List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
-
-        if (cyIds.size() > 0) {
-            // use first SBase
-            String cyId = cyIds.get(0);
-            SBase sbase = sbmlManager.getSBaseByCyId(cyId);
-
-            if (sbase != null) {
-                if (renderCoalescer.accept(sbase)) {
-                    panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
-                    panel.showSBaseInfo(sbase);
-                }
-            } else if (renderCoalescer.accept(TEXT_NO_SBML_NODE)) {
-                panel.setText(htmlFactory.createHTMLText(TEXT_NO_SBML_NODE));
+    @Override
+    public void run() {
+        if (target instanceof SBase sbase) {
+            panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
+            if (panel.showSBaseInfo(sbase)) {
+                renderCoalescer.markCompleted(target);
             }
-        } else if (renderCoalescer.accept(document)) {
-            // show document/model information
-            panel.showSBaseInfo(document);
+        } else if (target instanceof SBMLDocument document) {
+            if (panel.showSBaseInfo(document)) {
+                renderCoalescer.markCompleted(target);
+            }
+        } else {
+            // one of the two fixed messages (a String); setText itself is never
+            // interrupted, it only queues the actual display update
+            panel.setText(htmlFactory.createHTMLText((String) target));
+            renderCoalescer.markCompleted(target);
         }
     }
 }
