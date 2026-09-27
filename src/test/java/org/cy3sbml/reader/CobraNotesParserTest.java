@@ -35,4 +35,30 @@ class CobraNotesParserTest {
     void returnsEmptyPropertiesWithoutNotes() {
         assertTrue(CobraNotesParser.parse(new Species(3, 1)).isEmpty());
     }
+
+    private static Species speciesWithRawNotes(String notes) throws Exception {
+        Species species = new Species(3, 1);
+        species.setNotes(notes);
+        return species;
+    }
+
+    /** Paragraphs directly in the notes, without a body element. */
+    @Test
+    void parsesDirectParagraphsWithoutBody() throws Exception {
+        Properties props = CobraNotesParser.parse(speciesWithRawNotes("<notes>"
+                + "<p xmlns=\"http://www.w3.org/1999/xhtml\">GENE_ASSOCIATION: b0001</p>"
+                + "<p xmlns=\"http://www.w3.org/1999/xhtml\">SUBSYSTEM: Glycolysis</p>"
+                + "</notes>"));
+        assertEquals(Map.of("GENE_ASSOCIATION", "b0001", "SUBSYSTEM", "Glycolysis"), props);
+    }
+
+    /** Paragraphs in an html element with a body. */
+    @Test
+    void parsesParagraphsInHtmlBody() throws Exception {
+        Properties props = CobraNotesParser.parse(speciesWithRawNotes("<notes>"
+                + "<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>t</title></head>"
+                + "<body><p>GENE_ASSOCIATION: b0001</p></body></html>"
+                + "</notes>"));
+        assertEquals(Map.of("GENE_ASSOCIATION", "b0001"), props);
+    }
 }

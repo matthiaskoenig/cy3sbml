@@ -21,18 +21,7 @@ final class CobraNotesParser {
     static Properties parse(SBase sbase) {
         Properties props = new Properties();
         if (sbase.isSetNotes()) {
-            XMLNode notes = sbase.getNotes();
-            XMLNode parent = notes;
-            XMLNode body = notes.getChildElement("body", (String) null);
-            if (body == null) {
-                body = notes.getChildElement("p", (String) null);
-            }
-            if (body == null) {
-                body = notes.getChildElement("html", (String) null);
-            }
-            if (body != null) {
-                parent = body;
-            }
+            XMLNode parent = paragraphParent(sbase.getNotes());
             for (XMLNode pNode : parent.getChildElements("p", (String) null)) {
                 if (pNode.getChildCount() > 0) {
                     String content = pNode.getChild(0).getCharacters();
@@ -51,5 +40,24 @@ final class CobraNotesParser {
         }
 
         return props;
+    }
+
+    /**
+     * Returns the element whose {@code <p>} children hold the key value pairs: the
+     * {@code <body>} of the notes (directly, or inside an {@code <html>} element), the
+     * {@code <html>} element if it has no body, or else the notes element itself, for
+     * paragraphs placed directly in the notes.
+     */
+    private static XMLNode paragraphParent(XMLNode notes) {
+        XMLNode body = notes.getChildElement("body", (String) null);
+        if (body != null) {
+            return body;
+        }
+        XMLNode html = notes.getChildElement("html", (String) null);
+        if (html != null) {
+            XMLNode htmlBody = html.getChildElement("body", (String) null);
+            return htmlBody != null ? htmlBody : html;
+        }
+        return notes;
     }
 }
