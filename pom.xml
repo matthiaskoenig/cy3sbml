@@ -479,6 +479,41 @@
 
     <build>
         <plugins>
+            <!-- JSBML ships its JUnit test classes inside its jars, some of them (e.g.
+                AssignmentRuleDerivedUnitsTest) mixed into the very same package as the
+                production classes cy3sbml needs (org.sbml.jsbml, org.sbml.jsbml.util, ...).
+                maven-bundle-plugin's Export-Package can only exclude by whole package, so it
+                cannot reach those; unpack the jsbml/jsbml-* jars here, with the test classes
+                and test/testdata packages filtered out, into a directory the bundle plugin
+                below copies in via Include-Resource instead of classpath-borrowing them
+                straight from the (unfiltered) jars. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.7.0</version>
+                <executions>
+                    <execution>
+                        <id>unpack-jsbml-without-tests</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <includeGroupIds>cy3sbml-dep</includeGroupIds>
+                            <outputDirectory>${project.build.directory}/jsbml-classes</outputDirectory>
+                            <excludes>META-INF/**,
+                                **/test/**,
+                                **/testdata/**,
+                                **/*Test.class,
+                                **/*Test$*.class,
+                                **/*Tests.class,
+                                **/*Tests$*.class,
+                                **/*JUnitTests.class</excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- bundle -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -490,12 +525,21 @@
                     <instructions>
                         <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
-					org.sbml.jsbml.*</Export-Package>
+                        <Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
+                        <!-- org.sbml.jsbml.* is exported from whatever the unpack-jsbml-without-tests
+                            execution above put in target/jsbml-classes (see Include-Resource below),
+                            rather than by classpath-borrowing it from the jsbml jars directly: that
+                            would also pull in their (test-class-contaminated) packages. -->
+                        <_exportcontents>org.sbml.jsbml.*</_exportcontents>
                         <Private-Package>${bundle.namespace}.*</Private-Package>
                         <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
+                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape;groupId=!cy3sbml-dep</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
+                        <!-- {maven-resources} is bnd's default resource copy (src/main/resources,
+                            e.g. the gui templates, styles and the bundled extension jar); an
+                            explicit Include-Resource instruction replaces that default, so it must
+                            be listed here explicitly alongside the filtered jsbml classes. -->
+                        <Include-Resource>{maven-resources}, ${project.build.directory}/jsbml-classes</Include-Resource>
                         <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
                         <!--
                         <Import-Package>*;resolution:=optional</Import-Package>
