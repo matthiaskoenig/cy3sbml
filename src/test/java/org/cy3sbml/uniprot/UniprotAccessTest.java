@@ -1,80 +1,91 @@
 package org.cy3sbml.uniprot;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
-import uk.ac.ebi.uniprot.dataservice.client.Client;
-import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
-import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtQueryBuilder;
-import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
-import uk.ac.ebi.uniprot.dataservice.query.Query;
-
-import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
-
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
+import org.cy3sbml.util.HttpJson;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-/**
- * Test access to UniProt via JAPI.
- */
-@Tag("network")
-public class UniprotAccessTest {
-
-    @Test
-    public void getUniProtEntry() {
-        String accession = "P04483";
-        UniProtEntry entry = UniprotAccess.getUniProtEntry(accession);
-        assertNotNull(entry);
-        assertEquals("TETR2_ECOLX", entry.getUniProtId().toString());
+class UniprotAccessTest {
+    private static HttpJson fixture(String resource) {
+        return new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public Optional<com.fasterxml.jackson.databind.JsonNode> get(URI uri) {
+                try (var in = UniprotAccessTest.class.getResourceAsStream(resource)) {
+                    return in == null ? Optional.empty() : Optional.of(new ObjectMapper().readTree(in));
+                } catch (java.io.IOException e) {
+                    return Optional.empty();
+                }
+            }
+        };
     }
 
     @Test
-    public void uniprotAccess() {
-        ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
-        UniProtService uniProtService = serviceFactoryInstance.getUniProtQueryService();
-        try {
+    void parsesEntry() {
+        var entry = new UniprotAccess(fixture("/uniprot/P10415.json"))
+                .entry("P10415")
+                .orElseThrow();
+        assertEquals("BCL2_HUMAN", entry.uniProtId());
+        assertEquals("Apoptosis regulator Bcl-2", entry.fullName());
+        assertEquals("Homo sapiens", entry.scientificName());
+        assertTrue(entry.geneNames().contains("BCL2"));
+    }
 
-            // the accession we're interested in
-            String accession = "P04483";
+    @Test
+    void html() {
+        String html = new UniprotAccess(fixture("/uniprot/P10415.json")).html("P10415");
+        assertTrue(html.contains("BCL2_HUMAN"));
+        assertTrue(html.contains("Homo sapiens"));
+    }
 
-            // use the service directly to fetch the UniProtEntry
-            accessSingleFullUniProtEntry(uniProtService, accession);
+    /**
+     * P04406 (GAPDH / G3P_HUMAN) has an EC number, an alternative name, a
+     * CATALYTIC ACTIVITY comment and a PATHWAY comment, none of which P10415
+     * (BCL2, used above) has.
+     */
+    @Test
+    void parsesEntryWithAllFields() {
+        var entry = new UniprotAccess(fixture("/uniprot/P04406.json"))
+                .entry("P04406")
+                .orElseThrow();
+        assertEquals("G3P_HUMAN", entry.uniProtId());
+        assertEquals("Glyceraldehyde-3-phosphate dehydrogenase", entry.fullName());
+        assertEquals(List.of("1.2.1.12"), entry.ecNumbers());
+        assertEquals(List.of("Peptidyl-cysteine S-nitrosylase GAPDH"), entry.alternativeNames());
+        assertFalse(entry.functionComments().isEmpty());
+        assertEquals(2, entry.catalyticActivities().size());
+        assertTrue(entry.catalyticActivities().get(0).contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
+        assertEquals(
+                List.of("Carbohydrate degradation; glycolysis; pyruvate from D-glyceraldehyde"
+                        + " 3-phosphate: step 1/5"),
+                entry.pathways());
+    }
 
-            // create a query that will satisfy the 1 document result,
-            // i.e., the one for entry P10144
-            Query query = UniProtQueryBuilder.accession(accession);
+    @Test
+    void htmlWithAllFields() {
+        String html = new UniprotAccess(fixture("/uniprot/P04406.json")).html("P04406");
+        assertTrue(html.contains("G3P_HUMAN"));
+        assertTrue(html.contains("<b>EC</b>: 1.2.1.12"));
+        assertTrue(html.contains("Peptidyl-cysteine S-nitrosylase GAPDH"));
+        assertTrue(html.contains("D-glyceraldehyde 3-phosphate + phosphate + NAD(+)"));
+        assertTrue(html.contains("Carbohydrate degradation; glycolysis"));
+    }
 
-            // use the service with the query to entries
-            accessMultiFullUniProtEntry(uniProtService, query);
+    @Test
+    void returnsEmptyOnHttpError() {
+        assertTrue(new UniprotAccess(fixture("/uniprot/missing.json"))
+                .entry("P10415")
+                .isEmpty());
+    }
 
-            // use the service with the query to access only its comments
-            accessCommentsOnly(uniProtService, query);
-
-            // use the service with the query to access only its features
-            accessFeaturesOnly(uniProtService, query);
-
-            // use the service with the query to access only its protein names
-            accessProteinNamesOnly(uniProtService, query);
-
-            // use the service with the query to access only its EC numbers
-            accessECsOnly(uniProtService, query);
-
-            // use the service with the query to access only its genes
-            accessGenesOnly(uniProtService, query);
-
-            // use the service with the query to access only its database cross-references
-            accessXrefsOnly(uniProtService, query);
-
-            // use the service with the query to access results with all components
-            accessResults(uniProtService, query);
-
-            // use the service simply find out numbers of hits of a query
-            showResultHits(uniProtService);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Test
+    @Tag("network")
+    void liveLookup() {
+        var access = new UniprotAccess(HttpJson.createDefault());
+        assertEquals("BCL2_HUMAN", access.entry("P10415").orElseThrow().uniProtId());
     }
 }

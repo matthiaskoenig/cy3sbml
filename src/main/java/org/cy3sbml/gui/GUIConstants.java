@@ -1,9 +1,9 @@
 package org.cy3sbml.gui;
 
-import java.util.Map;
-
 import static org.cy3sbml.HtmlTemplateParser.load;
 import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
+
+import java.util.Map;
 
 /**
  * Constants used in GUI.
@@ -50,7 +50,7 @@ public class GUIConstants {
     public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";
     public static final String DESCRIPTION_SAVELAYOUT = "Save Layout";
 
-    //HTML FRAGMENTS
+    // HTML FRAGMENTS
     public static final String htmlTemplate = load();
     public static final Map<String, String> htmlFragments = parseTemplateSections(htmlTemplate);
 
@@ -61,7 +61,8 @@ public class GUIConstants {
     public static final String ICON_FALSE = htmlFragments.get("FALSE");
     public static final String ICON_NONE = htmlFragments.get("NONE");
     public static final String ICON_INVISIBLE = htmlFragments.get("INVISIBLE");
-    public static final String EXPORT_HTML = htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);
+    public static final String EXPORT_HTML =
+            htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);
     ;
     public static final String TABLE_START = htmlFragments.get("TABLE_START");
     public static final String TABLE_END = htmlFragments.get("TABLE_END");
@@ -70,7 +71,6 @@ public class GUIConstants {
     public static final String TE = htmlFragments.get("TABLE_ROW_END");
     public static final String OLS_TERM_ERROR = htmlFragments.get("OLS_TERM_ERROR");
     public static final String DESCRIPTION_LABEL = htmlFragments.get("DESCRIPTION_LABEL");
-    public static final String OBO_SYNONYMS_LABEL = htmlFragments.get("OBO_SYNONYMS_LABEL");
     public static final String SYNONYMS_LABEL = htmlFragments.get("SYNONYMS_LABEL");
     public static final String ONTOLOGY_TERM_LINK = htmlFragments.get("ONTOLOGY_TERM_LINK");
     public static final String CONDITIONAL_LINK = htmlFragments.get("CONDITIONAL_LINK");
@@ -83,7 +83,5 @@ public class GUIConstants {
     public static final String MODIFIED_DATE = htmlFragments.get("MODIFIED_DATE");
     public static final String CREATED_DATE1 = htmlFragments.get("CREATED_DATE");
 
-    private GUIConstants() {
-    }
-
+    private GUIConstants() {}
 }

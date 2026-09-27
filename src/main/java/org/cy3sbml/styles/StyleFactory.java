@@ -1,5 +1,14 @@
 package org.cy3sbml.styles;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.slf4j.Logger;
@@ -9,16 +18,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Factory for creating visual styles depending on the current
@@ -42,9 +41,7 @@ public class StyleFactory {
     public static void createStyle(StyleInfo info, File file) {
 
         // read template
-        String template = info.getTemplate();
         String name = info.getName();
-
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
         try {
@@ -71,7 +68,6 @@ public class StyleFactory {
                         Element evp = (Element) nvp;
                         String vpName = evp.getAttribute("name");
                         // found correct property
-                        String propertyName = m.getVisualProperty().toString();
 
                         if (vpName.equals(m.getVisualProperty().toString())) {
                             // set default
@@ -82,7 +78,8 @@ public class StyleFactory {
 
                                 // create mapping node
                                 Element eMap = doc.createElement("passthroughMapping");
-                                eMap.setAttribute("attributeType", m.getDataType().toString());
+                                eMap.setAttribute(
+                                        "attributeType", m.getDataType().toString());
                                 eMap.setAttribute("attributeName", m.getAttributeName());
                                 nvp.appendChild(eMap);
 
@@ -90,7 +87,8 @@ public class StyleFactory {
 
                                 // create mapping node
                                 Element eMap = doc.createElement("discreteMapping");
-                                eMap.setAttribute("attributeType", m.getDataType().toString());
+                                eMap.setAttribute(
+                                        "attributeType", m.getDataType().toString());
                                 eMap.setAttribute("attributeName", m.getAttributeName());
                                 nvp.appendChild(eMap);
 
@@ -109,10 +107,6 @@ public class StyleFactory {
                                 // TODO: implement
                                 System.out.println("Continous mapping not supported.");
                             }
-
-
-                        } else {
-                            continue;
                         }
                     }
                 }
@@ -135,19 +129,16 @@ public class StyleFactory {
      * This creates/updates the styles based on the current settings in SBML.java.
      * <p>
      * For the installation
-     *
      */
     public static void main(String[] args) {
         String targetDir = "/home/mkoenig/git/cy3sbml/src/main/resources/styles";
 
-
-        List<StyleInfo> styleInfos = new LinkedList<>();
-        styleInfos.add(new StyleInfo_cy3sbml());  // cy3sbml
-        styleInfos.add(new StyleInfo_cy3sbmlDark());  // cy3sbml-dark
+        List<StyleInfo> styleInfos = new ArrayList<>();
+        styleInfos.add(new StyleInfo_cy3sbml()); // cy3sbml
+        styleInfos.add(new StyleInfo_cy3sbmlDark()); // cy3sbml-dark
         for (StyleInfo info : styleInfos) {
             File file = new File(targetDir, info.getName() + ".xml");
             StyleFactory.createStyle(info, file);
         }
     }
-
 }

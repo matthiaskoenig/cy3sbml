@@ -2,7 +2,6 @@ package org.cy3sbml.gui;
 
 import java.util.Set;
 
-
 public interface InfoPanel {
     /**
      * Set text.
@@ -16,7 +15,6 @@ public interface InfoPanel {
      */
     void setText(SBaseHTMLThread infoThread);
 
-
     /**
      * Display SBase information
      */
@@ -26,6 +24,4 @@ public interface InfoPanel {
      * Display information for set of nodes.
      */
     void showSBaseInfo(Set<Object> objSet);
-
-
 }

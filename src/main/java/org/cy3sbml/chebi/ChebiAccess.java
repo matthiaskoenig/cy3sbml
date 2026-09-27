@@ -1,111 +1,118 @@
 package org.cy3sbml.chebi;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONException;
-import com.alibaba.fastjson2.JSONObject;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import java.net.URI;
+import java.util.Optional;
+import org.apache.commons.text.StringEscapeUtils;
+import org.cy3sbml.cache.MemoryCache;
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.cy3sbml.gui.GUIConstants;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Map;
-
-import static org.cy3sbml.gui.GUIConstants.*;
-
-
 /**
- * Access Chebi information.
+ * Client for the ChEBI public backend REST API.
+ * <p>
+ * Looks up compounds by ChEBI id (e.g. {@code CHEBI:15422}). Results are
+ * cached in memory since compounds do not change within a Cytoscape session.
  */
-public class ChebiAccess {
-
+public final class ChebiAccess {
     private static final Logger logger = LoggerFactory.getLogger(ChebiAccess.class);
-    public static Map<String, String> htmlFragments = GUIConstants.htmlFragments;
+
+    private final HttpJson http;
+    private final MemoryCache<String, ChebiCompound> compoundCache = new MemoryCache<>(5000);
+    private final MemoryCache<String, String> structureCache = new MemoryCache<>(5000);
+
+    public ChebiAccess(HttpJson http) {
+        this.http = http;
+    }
 
     /**
-     * Perform queries and get chebi information.
-     * @param identifier: chebi identifier of form CHEBI:15377
-     * @return HTML presentation of chebi information
+     * Gets the ChEBI compound for a given id, e.g. {@code CHEBI:15422}.
+     * Returns empty if the compound could not be retrieved or parsed.
+     * Only successful lookups are cached, so a failure is retried on the
+     * next call rather than stuck for the rest of the session.
      */
-    public static String getChebiHTML(String identifier) {
-        String[] tokens = identifier.split(":");
-        String chebiNumber = tokens[1];
-        String json = null;
-        String svg = null;
+    public Optional<ChebiCompound> compound(String chebiId) {
+        return compoundCache.get(chebiId, this::lookupCompound);
+    }
 
-        // retrieve chebi information
-        String url = String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/", chebiNumber);
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response;
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            json = response.body();
-        } catch (IOException | InterruptedException e) {
-            logger.error(e.getMessage(), e);
+    private Optional<ChebiCompound> lookupCompound(String chebiId) {
+        URI uri = URI.create(
+                String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/", chebiNumber(chebiId)));
+        return http.get(uri).flatMap(json -> parseCompound(json, chebiId));
+    }
+
+    /**
+     * Gets the structure image (SVG) for a given ChEBI id.
+     * Only successful lookups are cached, for the same reason as {@link #compound}.
+     */
+    private Optional<String> structure(String chebiId) {
+        return structureCache.get(chebiId, this::lookupStructure);
+    }
+
+    private Optional<String> lookupStructure(String chebiId) {
+        URI uri = URI.create(String.format(
+                "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300",
+                chebiNumber(chebiId)));
+        return http.getText(uri);
+    }
+
+    private static Optional<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
+        String name = json.path("name").asText(null);
+        if (name == null) {
+            logger.warn("ChEBI compound {} is missing a name", chebiId);
+            return Optional.empty();
+        }
+        JsonNode chemicalData = json.path("chemical_data");
+        String formula = chemicalData.path("formula").asText(null);
+        String charge = chemicalData.path("charge").asText(null);
+        String mass = chemicalData.path("mass").asText(null);
+        return Optional.of(new ChebiCompound(chebiId, name, formula, charge, mass));
+    }
+
+    private static String chebiNumber(String chebiId) {
+        int idx = chebiId.indexOf(':');
+        return idx >= 0 ? chebiId.substring(idx + 1) : chebiId;
+    }
+
+    /**
+     * Creates the secondary-information HTML fragment for a ChEBI id,
+     * for display in the SBase details panel. Composed fresh on every call
+     * from the (independently cached) compound and structure lookups, so a
+     * partial failure (e.g. while offline) is retried rather than cached.
+     */
+    public String html(String chebiId) {
+        StringBuilder html = new StringBuilder();
+
+        Optional<ChebiCompound> optionalCompound = compound(chebiId);
+        if (optionalCompound.isPresent()) {
+            ChebiCompound compound = optionalCompound.get();
+            if (compound.formula() != null || compound.charge() != null || compound.mass() != null) {
+                html.append(GUIConstants.TABLE_START)
+                        .append(GUIConstants.TS)
+                        .append("Formula")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.formula()))
+                        .append(GUIConstants.TE)
+                        .append(GUIConstants.TS)
+                        .append("Charge")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.charge()))
+                        .append(GUIConstants.TE)
+                        .append(GUIConstants.TS)
+                        .append("Mass")
+                        .append(GUIConstants.TM)
+                        .append(StringEscapeUtils.escapeHtml4(compound.mass()))
+                        .append(GUIConstants.TE)
+                        .append(GUIConstants.TABLE_END);
+            }
         }
 
-        // retrieve chebi structure
-        url = String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300", chebiNumber);
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            svg = response.body();
-        } catch (IOException | InterruptedException e) {
-            logger.error(e.getMessage(), e);
-        }
+        Optional<String> svg = structure(chebiId);
+        svg.ifPresent(s ->
+                html.append(String.format("<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n", chebiId, s)));
 
-        // HTML display
-        //   "chemical_data": {
-        //    "formula": "H2O",
-        //    "charge": 0,
-        //    "mass": "18.015",
-        //    "monoisotopic_mass": "18.01056"
-        //  },
-        String text = "";
-        String formula;
-        String charge;
-        String mass;
-
-        JSONObject obj = JSON.parseObject(json);
-        if (obj != null) {
-            try {
-                JSONObject chemical_data = obj.getJSONObject("chemical_data");
-                if (chemical_data != null) {
-                    formula = chemical_data.getString("formula");
-                    charge = chemical_data.getString("charge");
-                    mass = chemical_data.getString("mass");
-                    text += String.format(
-                            TABLE_START +
-                                    TS + "Formula" + TM + "%s" + TE +
-                                    TS + "Charge" + TM + "%s" + TE +
-                                    TS + "Mass" + TM + "%s" + TE +
-                                    TABLE_END,
-                            formula, charge, mass
-                    );
-                }
-            } catch (JSONException ignored) {}
-        }
-        // add image
-        if (svg != null) {
-            text += String.format(
-                    "<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n",
-                    identifier, svg);
-
-        }
-        return text;
+        return html.toString();
     }
 }

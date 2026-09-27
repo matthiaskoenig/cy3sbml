@@ -1,11 +1,9 @@
 package org.cy3sbml.styles;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-
+import org.junit.jupiter.api.Test;
 
 public class StyleInfo02Test {
     @Test
@@ -15,5 +13,4 @@ public class StyleInfo02Test {
         assertNotNull(mappings);
         assertTrue(mappings.size() > 0);
     }
-
 }

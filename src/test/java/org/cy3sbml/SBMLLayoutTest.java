@@ -1,11 +1,11 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.model.CyNetwork;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testing layout models.
@@ -24,5 +24,4 @@ public class SBMLLayoutTest {
         assertEquals(138, network.getNodeCount());
         assertEquals(207, network.getEdgeCount());
     }
-
 }

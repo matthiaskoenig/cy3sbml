@@ -3,10 +3,10 @@ package org.cy3sbml.models;
 import java.util.HashSet;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
 import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
  * <p>
  * Retrieved on 2024-01-16, 1072 curated models
  */
+@Tag("models")
 public class BioModelsTest {
 
     @Mock
@@ -31,7 +32,8 @@ public class BioModelsTest {
         HashSet<String> skip = null;
         String filter = null;
         return StreamSupport.stream(
-                        TestUtils.findResources("test",TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip).spliterator(),
+                        TestUtils.findResources("test", TestUtils.BIOMODELS_RESOURCE_PATH, ".xml", filter, skip)
+                                .spliterator(),
                         false)
                 .map(arr -> arr[0].toString());
     }

@@ -2,28 +2,23 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
-
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
+import javax.swing.event.HyperlinkEvent;
 import org.codefx.libfx.control.webview.WebViews;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.event.HyperlinkEvent;
-
 
 /**
  * Browser for displaying HTML within a JavaFX Webview.
  * This can be embedded in Swing using a JFXPanel.
  * A HyperlinkListener processes the hyperlinks.
  */
-public class Browser extends Region {
+public final class Browser extends Region {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
 
     private final WebView webView;
@@ -33,7 +28,6 @@ public class Browser extends Region {
     // single instance for all browsers
     // avoid concurrency issues
     private static final BrowserHyperlinkListener eventProcessingListener = new BrowserHyperlinkListener();
-
 
     public Browser(File appDirectory) {
         this.appDirectory = appDirectory;
@@ -81,7 +75,6 @@ public class Browser extends Region {
                 webEngine.loadContent(text);
             }
         });
-
     }
 
     @Override
@@ -100,5 +93,4 @@ public class Browser extends Region {
     protected double computePrefHeight(double width) {
         return 600;
     }
-
 }

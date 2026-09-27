@@ -2,12 +2,9 @@ package org.cy3sbml.cofactors;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.cy3sbml.mapping.One2ManyMapping;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +30,7 @@ public class Network2CofactorMapper implements Serializable {
     }
 
     public boolean containsSUID(Long suid) {
-        return (cofactor2clone.containsKey(suid));
+        return cofactor2clone.containsKey(suid);
     }
 
     public Set<Long> keySet() {
@@ -78,7 +75,7 @@ public class Network2CofactorMapper implements Serializable {
      * Use this function to remove values.
      */
     public void remove(Long networkSUID, Long cofactorSUID) {
-        HashSet<Long> cloneSUIDs = cofactor2clone.get(networkSUID).getValues(cofactorSUID);
+        Set<Long> cloneSUIDs = cofactor2clone.get(networkSUID).getValues(cofactorSUID);
         for (Long cloneSUID : cloneSUIDs) {
             clone2cofactor.get(networkSUID).remove(cloneSUID);
         }
@@ -89,6 +86,7 @@ public class Network2CofactorMapper implements Serializable {
      * String representation.
      * Lists the existing CofactorMappings for networks.
      */
+    @Override
     public String toString() {
         String string = "------------------------\n";
         string += "Cofactor Mapping\n";
@@ -104,6 +102,4 @@ public class Network2CofactorMapper implements Serializable {
         }
         return string;
     }
-
-
 }

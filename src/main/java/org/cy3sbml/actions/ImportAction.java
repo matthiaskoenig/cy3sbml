@@ -6,20 +6,18 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
-
+import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.work.TaskIterator;
-import org.cy3sbml.ServiceAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Importing SBML networks..
  */
-public class ImportAction extends AbstractCyAction {
+public final class ImportAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
     private static final long serialVersionUID = 1L;
     private ServiceAdapter adapter;
@@ -46,8 +44,8 @@ public class ImportAction extends AbstractCyAction {
         String[] extensions = {"", "xml", "sbml"};
         filters.add(new FileChooserFilter("SBML files (*, *.xml, *.sbml)", extensions));
 
-        File[] files = adapter.fileUtil.getFiles(adapter.cySwingApplication.getJFrame(),
-                GUIConstants.DESCRIPTION_IMPORT, FileDialog.LOAD, filters);
+        File[] files = adapter.fileUtil.getFiles(
+                adapter.cySwingApplication.getJFrame(), GUIConstants.DESCRIPTION_IMPORT, FileDialog.LOAD, filters);
 
         if ((files != null) && (files.length != 0)) {
             for (int i = 0; i < files.length; i++) {
@@ -57,6 +55,4 @@ public class ImportAction extends AbstractCyAction {
             }
         }
     }
-
-
 }

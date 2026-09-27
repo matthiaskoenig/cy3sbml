@@ -2,11 +2,9 @@ package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * This allows to hide the panel and remove the overhead of
  * information generation and update.
  */
-public class ChangeStateAction extends AbstractCyAction {
+public final class ChangeStateAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ChangeStateAction.class);
     private static final long serialVersionUID = 1L;
 

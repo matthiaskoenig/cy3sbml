@@ -5,11 +5,8 @@ package org.cy3sbml.styles;
  */
 public class MappingPassthrough extends Mapping {
 
-    public MappingPassthrough(DataType dataType,
-                              VisualPropertyKey property,
-                              String attributeName,
-                              String defaultValue) {
+    public MappingPassthrough(
+            DataType dataType, VisualPropertyKey property, String attributeName, String defaultValue) {
         super(MappingType.PASSTHROUGH, dataType, property, attributeName, defaultValue);
     }
-
 }

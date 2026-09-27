@@ -1,29 +1,20 @@
 package org.cy3sbml;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.List;
-
-import org.cy3sbml.util.NetworkUtil;
-
-import org.cytoscape.model.*;
-import org.sbml.jsbml.JSBML;
-import org.sbml.jsbml.Model;
-import org.sbml.jsbml.SBMLDocument;
-
 import org.cy3sbml.util.IOUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.cy3sbml.util.NetworkUtil;
+import org.cytoscape.model.*;
+import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.JSBML;
+import org.sbml.jsbml.SBMLDocument;
 
 /**
  * Test reading of SBML core model.
  */
 public class SBMLCoreTest {
-    private static final Logger logger = LoggerFactory.getLogger(SBMLCoreTest.class);
 
     public static final String TEST_MODEL_CORE_01 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "core_01.xml";
     public static final String TEST_MODEL_CORE_02 = TestUtils.UNITTESTS_RESOURCE_PATH + "/" + "galactose.xml";
@@ -32,24 +23,18 @@ public class SBMLCoreTest {
     /**
      * Load the given model resource.
      */
-    private void loadModel(String resource) {
+    private void loadModel(String resource) throws Exception {
         InputStream instream = getClass().getResourceAsStream(resource);
-        try {
-            String xml = IOUtil.inputStream2String(instream);
-            SBMLDocument document = JSBML.readSBMLFromString(xml);
-            @SuppressWarnings("unused")
-            Model model = document.getModel();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String xml = IOUtil.inputStream2String(instream);
+        SBMLDocument document = JSBML.readSBMLFromString(xml);
+        assertNotNull(document.getModel());
     }
 
     /**
      * Test if model can be read with JSBML.
      */
     @Test
-    public void testModelLoading_01() {
+    public void testModelLoading_01() throws Exception {
         loadModel(TEST_MODEL_CORE_01);
     }
 
@@ -58,7 +43,7 @@ public class SBMLCoreTest {
      * Tests for InitialAssignments and Rules.
      */
     @Test
-    public void testModelLoading_02() {
+    public void testModelLoading_02() throws Exception {
         loadModel(TEST_MODEL_CORE_02);
     }
 
@@ -67,7 +52,7 @@ public class SBMLCoreTest {
      * Tests for LocalParameters.
      */
     @Test
-    public void testModelLoading_03() {
+    public void testModelLoading_03() throws Exception {
         loadModel(TEST_MODEL_CORE_03);
     }
 
@@ -140,11 +125,15 @@ public class SBMLCoreTest {
         CyNode n1 = e1.getSource();
         String n1Id = network.getRow(n1).get(SBML.ATTR_ID, String.class);
         if (n1Id.equals("React2")) {
-            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
-            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_REACTANT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
         } else {
-            assertEquals(SBML.INTERACTION_REACTION_REACTANT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
-            assertEquals(SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_REACTANT, network.getRow(e2).get(SBML.INTERACTION_ATTR, String.class));
+            assertEquals(
+                    SBML.INTERACTION_REACTION_PRODUCT, network.getRow(e1).get(SBML.INTERACTION_ATTR, String.class));
         }
 
         // 0 outgoing edge
@@ -163,7 +152,8 @@ public class SBMLCoreTest {
         assertNotNull(network);
 
         // Test species node
-        // <species id="BLL" initialAmount="0" name="BasalACh2" metaid="_000003" sboTerm="SBO:0000297" compartment="comp1">
+        // <species id="BLL" initialAmount="0" name="BasalACh2" metaid="_000003" sboTerm="SBO:0000297"
+        // compartment="comp1">
         CyNode node = TestUtils.findNodeById("BLL", network);
         assertNotNull(node);
         CyRow attributes = network.getRow(node);

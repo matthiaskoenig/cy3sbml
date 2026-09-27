@@ -12,11 +12,11 @@ public class HtmlTemplateParser {
     public static String load() {
         try {
             return new String(
-                    HtmlTemplateParser.class.getClassLoader()
+                    HtmlTemplateParser.class
+                            .getClassLoader()
                             .getResourceAsStream("gui/" + "linktemplate.html")
                             .readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
+                    StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load template: " + "linktemplate.html", e);
         }
@@ -28,8 +28,6 @@ public class HtmlTemplateParser {
      * @param htmlTemplate read from the .html file
      * @return Map of template sections (key = section name, value = template content)
      */
-
-
     public static Map<String, String> parseTemplateSections(String htmlTemplate) {
 
         Map<String, String> sections = new LinkedHashMap<>();
@@ -43,24 +41,5 @@ public class HtmlTemplateParser {
         }
 
         return sections;
-    }
-
-    public static void main(String[] args) {
-        String htmlTemplate = "<!DOCTYPE html>\n" +
-                "<!-- UNIPROT_LINK -->\n" +
-                "<a href=\"{BASE_URL}\"><img src=\"./images/logos/uniprot_icon.png\"/></a>\n" +
-                "<!-- /UNIPROT_LINK -->\n" +
-                "\n" +
-                "<!-- FUNCTION_COMMENT -->\n" +
-                "<span class=\"comment\">Function</span> {COMMENT_TEXT}<br/>\n" +
-                "<!-- /FUNCTION_COMMENT -->";
-
-        Map<String, String> templateMap = parseTemplateSections(htmlTemplate);
-
-//        templateMap.forEach((key, value) -> {
-//            System.out.println("[" + key + "]");
-//            System.out.println(value);
-//            System.out.println();
-//        });
     }
 }

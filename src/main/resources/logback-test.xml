@@ -25,7 +25,6 @@
 
     <logger name="org.sbml.jsbml.AbstractMathContainer" level="ERROR" />
     <logger name="org.springframework.web.client" level="ERROR" />
-    <logger name="uk.ac.ebi.uniprot.dataservice.client.uniprot" level="WARN" />
     <logger name="org.cy3sbml" level="DEBUG" />
 
     <root level="DEBUG">

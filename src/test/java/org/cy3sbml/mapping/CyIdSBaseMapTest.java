@@ -1,11 +1,11 @@
 package org.cy3sbml.mapping;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.cy3sbml.*;
 import org.cy3sbml.util.SBMLUtil;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.SBMLDocument;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test the different models.
@@ -74,5 +74,4 @@ public class CyIdSBaseMapTest {
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
         assertNotNull(map);
     }
-
 }

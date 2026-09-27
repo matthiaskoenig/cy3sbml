@@ -1,12 +1,9 @@
 package org.cy3sbml.gui;
 
-
 import java.io.IOException;
 import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Creates SBase HTML information in separate thread.
@@ -30,6 +27,7 @@ public class SBaseHTMLThread extends Thread {
     /**
      * Creates information for all objects within a single thread.
      */
+    @Override
     public void run() {
 
         for (Object obj : objSet) {
@@ -38,7 +36,7 @@ public class SBaseHTMLThread extends Thread {
             try {
                 infoFac.createInfo();
             } catch (IOException e) {
-
+                logger.error("Could not create the information for: " + obj, e);
             }
 
             String html = infoFac.getHtml();
@@ -60,5 +58,4 @@ public class SBaseHTMLThread extends Thread {
     public String getInfo() {
         return info;
     }
-
 }

@@ -1,15 +1,11 @@
-
 package org.cy3sbml.biomodel;
-
-
-import java.io.IOException;
-import java.util.List;
-
-import org.cy3sbml.TestUtils;
-import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.util.List;
+import org.cy3sbml.TestUtils;
+import org.junit.jupiter.api.*;
 
 /**
  * Test biomodels access.
@@ -39,7 +35,6 @@ public class BioModelInterfaceTest {
         bmQuery = null;
     }
 
-
     @Test
     public void testGetBioModelSBMLById() throws IOException, InterruptedException {
         String sbml = BiomodelsQuery.getBioModelSBMLById(VALID_BIOMODEL_ID);
@@ -54,7 +49,8 @@ public class BioModelInterfaceTest {
 
     @Test
     public void testGetBioModelIdsByPerson() throws IOException, InterruptedException {
-        List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
+        List<String> modelIds =
+                BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_PERSON).getBiomodelIdsFromSearch();
         assertNotNull(modelIds, () -> "Models have to exist.");
         assertFalse(modelIds.isEmpty(), "More than 0 models have to exist.");
         for (String modelId : modelIds) {
@@ -64,7 +60,8 @@ public class BioModelInterfaceTest {
 
     @Test
     public void testGetBioModelIdsByName() throws IOException, InterruptedException {
-        List<String> modelIds = BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
+        List<String> modelIds =
+                BiomodelsQuery.performSearchQuery(VALID_BIOMODEL_NAME).getBiomodelIdsFromSearch();
         assertNotNull(modelIds, () -> "Models have to exist.");
         assertFalse(modelIds.isEmpty());
         for (String modelId : modelIds) {

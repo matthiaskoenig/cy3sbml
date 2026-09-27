@@ -1,29 +1,24 @@
 package org.cy3sbml.actions;
 
-import java.io.File;
-import java.util.HashSet;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
 import javax.swing.ImageIcon;
-
+import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.gui.GUIConstants;
+import org.cy3sbml.layout.LayoutTools;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
 import org.cytoscape.util.swing.FileUtil;
-
-import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.layout.LayoutTools;
-import org.cy3sbml.gui.GUIConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Load node positions from file.
  */
-public class LoadLayoutAction extends AbstractCyAction {
+public final class LoadLayoutAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(LoadLayoutAction.class);
     private static final long serialVersionUID = 1L;
 

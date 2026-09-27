@@ -2,18 +2,16 @@ package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cytoscape.application.swing.AbstractCyAction;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Set help information in ResultsPanel.
  */
-public class HelpAction extends AbstractCyAction {
+public final class HelpAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
     private static final long serialVersionUID = 1L;
 
@@ -41,4 +39,3 @@ public class HelpAction extends AbstractCyAction {
         vwPanel.setHelp();
     }
 }
-

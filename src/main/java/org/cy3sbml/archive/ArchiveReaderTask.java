@@ -1,6 +1,16 @@
 package org.cy3sbml.archive;
 
-import org.apache.commons.io.IOUtils;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.zip.ZipError;
 import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.WebViewPanel;
@@ -26,20 +36,6 @@ import org.cytoscape.work.TaskMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.FileTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.zip.ZipError;
-
 /**
  * Create CyNetworks from Archives.
  * <p>
@@ -61,7 +57,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     public static final String TYPE_AGGREGATE = "aggregate";
     public static final String TYPE_FOLDER = "folder";
 
-
     public static final String NODE_ATTR_TYPE = "type";
     public static final String NODE_ATTR_NAME = "shared name";
     public static final String NODE_ATTR_PATH = "path";
@@ -74,18 +69,15 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     public static final String NODE_ATTR_CREATED_BY = "createdBy";
     public static final String NODE_ATTR_CREATED_ON = "createdOn";
 
-
     private String fileName;
-    private final InputStream stream;
     private final CyNetworkFactory networkFactory;
 
     private final CyNetworkViewFactory viewFactory;
     private final VisualMappingManager visualMappingManager;
     private final CyLayoutAlgorithmManager layoutAlgorithmManager;
 
-
     private CyRootNetwork rootNetwork;
-    private CyNetwork network;       // global network of all SBML information
+    private CyNetwork network; // global network of all SBML information
 
     private HashMap<String, CyNode> path2node;
     private HashMap<CyNode, String> node2path;
@@ -95,13 +87,14 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     /**
      * Constructor.
      */
-    public ArchiveReaderTask(InputStream stream, String fileName,
-                             CyNetworkFactory networkFactory,
-                             CyNetworkViewFactory viewFactory,
-                             VisualMappingManager visualMappingManager,
-                             CyLayoutAlgorithmManager layoutAlgorithmManager) {
+    public ArchiveReaderTask(
+            InputStream stream,
+            String fileName,
+            CyNetworkFactory networkFactory,
+            CyNetworkViewFactory viewFactory,
+            VisualMappingManager visualMappingManager,
+            CyLayoutAlgorithmManager layoutAlgorithmManager) {
 
-        this.stream = stream;
         this.fileName = fileName;
         this.networkFactory = networkFactory;
         this.viewFactory = viewFactory;
@@ -111,8 +104,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Get networks from reader.
-     *
-     * @return
      */
     @Override
     public CyNetwork[] getNetworks() {
@@ -122,14 +113,10 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Build NetworkView for given network.
-     *
-     * @param network
-     * @return
      */
     @Override
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         logger.debug("buildCyNetworkView");
-
 
         // create view
         CyNetworkView view = viewFactory.createNetworkView(network);
@@ -148,9 +135,10 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             CyLayoutAlgorithm layout = layoutAlgorithmManager.getLayout(ARCHIVE_LAYOUT);
             if (layout == null) {
                 layout = layoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
-                logger.warn(String.format("'{}' layout not found; default layout used.", ARCHIVE_LAYOUT));
+                logger.warn("'{}' layout not found; default layout used.", ARCHIVE_LAYOUT);
             }
-            TaskIterator itr = layout.createTaskIterator(view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
+            TaskIterator itr = layout.createTaskIterator(
+                    view, layout.getDefaultLayoutContext(), CyLayoutAlgorithm.ALL_NODE_VIEWS, "");
             Task nextTask = itr.next();
             try {
                 nextTask.run(taskMonitor);
@@ -171,7 +159,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     private void readFilesFromBundle() {
         // Get all SBML files from bundle
 
-        List<Path> paths = new LinkedList<>();
+        List<Path> paths = new ArrayList<>();
         // TODO: implement
 
         // read the files
@@ -192,18 +180,16 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
                     logger.warn("No NetworkReader for the given file format");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Could not extract the archive entry: " + path, e);
             }
         }
     }
-
 
     /**
      * Cancel task.
      */
     @Override
-    public void cancel() {
-    }
+    public void cancel() {}
 
     /**
      * Creates the archive network.
@@ -224,9 +210,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      * only one central file describing
      * manifest.xml (content)
      * metadata.rdf (metadata about content)
-     *
-     * @param taskMonitor
-     * @throws Exception
      */
     @Override
     public void run(TaskMonitor taskMonitor) throws Exception {
@@ -276,7 +259,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             }
             */
 
-
             // Create empty root network and node map
             network = networkFactory.createNetwork();
             AttributeUtil.set(network, network, NODE_ATTR_PATH, fileName, String.class);
@@ -284,9 +266,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             // To create a new CySubNetwork with the same CyNetwork's CyRootNetwork, cast your CyNetwork to
             // CySubNetwork and call the CySubNetwork.getRootNetwork() method:
             // 		CyRootNetwork rootNetwork = ((CySubNetwork)network).getRootNetwork();
-            // CyRootNetwork also provides methods to create and add new subnetworks (see CyRootNetwork.addSubNetwork()).
+            // CyRootNetwork also provides methods to create and add new subnetworks (see
+            // CyRootNetwork.addSubNetwork()).
             rootNetwork = ((CySubNetwork) network).getRootNetwork();
-
 
             //////////////////////////////////////////////////////////////////
             // Read information from manifest file
@@ -308,13 +290,12 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
                 setImageAttribute(n);
             }
 
-
             //////////////////////////////////////////////////////////////////
             // Base network
             //////////////////////////////////////////////////////////////////
 
             // Set name
-            String[] tokens = fileName.split("/");
+            String[] tokens = fileName.split("/", -1);
             String name = tokens[tokens.length - 1];
             rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
             network.getRow(network).set(CyNetwork.NAME, String.format("%s Content", name));
@@ -324,28 +305,10 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             }
             logger.debug("<--- End Archive Reader --->");
 
-
         } catch (Throwable t) {
             logger.error("Could not read Archive!", t);
-            t.printStackTrace();
         }
     }
-
-
-    /**
-     * Creates the node for the given aggregate.
-     *
-     * @return
-     */
-    private CyNode createNodeForPath() {
-
-        // Create single node
-        CyNode n = network.addNode();
-
-        // Set attributes
-        return n;
-    }
-
 
     private String getNameFromPath(String path) {
         // folders and root
@@ -353,26 +316,12 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             return path;
         }
         // files (file name)
-        String[] tokens = path.split("/");
+        String[] tokens = path.split("/", -1);
         return tokens[tokens.length - 1];
     }
 
-
-    /**
-     * Creates the Tree leading to root for given path.
-     *
-     * @return
-     */
-    private void createTreeForPath() {
-
-    }
-
-
     /**
      * Creates gr node for the given aggregate.
-     *
-     * @param n
-     * @return
      */
     private void createParentForNode(CyNode n) {
         logger.debug("createParentForNode: " + n);
@@ -421,11 +370,8 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
 
     /**
      * Creates the image link for a given node.
-     *
-     * @param n
      */
     private void setImageAttribute(CyNode n) {
-        final String TEMPLATE = "https://raw.githubusercontent.com/matthiaskoenig/cy3robundle/master/src/main/resources/gui/images/mediatype/%s.png";
 
         // read attribute
         String mediaType = AttributeUtil.get(network, n, NODE_ATTR_MEDIATYPE, String.class);
@@ -440,6 +386,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         } else if (path.endsWith("/")) {
             extension = "folder";
             // handle subset of folder aggregates
+            // reason: behavior change, fixed with golden snapshot update in Task 3.2 (folder
+            // paths end with "/", split(x, -1) would change the folder type token)
+            @SuppressWarnings("StringSplitter")
             String[] tokens = path.split("/");
             if (tokens.length > 2) {
                 String type = tokens[tokens.length - 2];
@@ -481,7 +430,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             }
         }
 
-        String imageLink = String.format(TEMPLATE, extension);
+        String imageLink = String.format(
+                "https://raw.githubusercontent.com/matthiaskoenig/cy3robundle/master/src/main/resources/gui/images/mediatype/%s.png",
+                extension);
         AttributeUtil.set(network, n, NODE_IMAGE, imageLink, String.class);
     }
 
@@ -490,8 +441,6 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      * Examples:
      * http://purl.org/NET/mediatypes/image/svg+xml
      * application/rdf+xml
-     *
-     * @param mediaType
      */
     private String getExtensionFromMediaType(String mediaType) {
         String tokens[] = mediaType.split("/");
@@ -503,5 +452,4 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
         }
         return extension;
     }
-
 }

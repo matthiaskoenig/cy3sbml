@@ -1,20 +1,15 @@
 package org.cy3sbml.mapping;
 
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-
 import org.sbml.jsbml.*;
-
-import org.sbml.jsbml.ext.qual.QualConstants;
-import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
-
+import org.sbml.jsbml.ext.qual.QualConstants;
+import org.sbml.jsbml.ext.qual.QualModelPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -149,8 +144,6 @@ public class MetaIdSBaseMap {
      * Generic function to add ListOf to the objectMapping.
      * The NamedSBase can be mapped via their metaIds.
      * All metaIds are set prior to this function.
-     *
-     * @param list
      */
     private void addListOf(ListOf<? extends SBase> list) {
         for (SBase sbase : list) {
@@ -162,12 +155,8 @@ public class MetaIdSBaseMap {
         sbaseMap.put(sbase.getMetaId(), sbase);
     }
 
-
     /**
      * Get SBase object by cyId.
-     *
-     * @param cyId
-     * @return
      */
     public SBase getObjectByCyId(String cyId) {
         SBase sbase = null;
@@ -185,5 +174,4 @@ public class MetaIdSBaseMap {
     public Collection<SBase> getObjects() {
         return sbaseMap.values();
     }
-
 }

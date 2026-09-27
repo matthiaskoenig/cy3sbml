@@ -37,12 +37,19 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Build and test
-        run: mvn --batch-mode --no-transfer-progress verify
+        shell: bash
+        run: ./mvnw --batch-mode --no-transfer-progress verify
       - name: Publish the test report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
         with:
           check_name: surefire (${{ matrix.os }})
+      - name: Upload the coverage report
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v7
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
 
   tests:
     # the check the branch protection requires; the names of the matrix jobs
@@ -59,3 +66,39 @@ jobs:
         run: |
           echo "test matrix: $RESULT"
           test "$RESULT" = "success"
+
+  format:
+    name: format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          java-version: "17"
+          distribution: temurin
+          cache: maven
+      - name: Check the formatting
+        run: ./mvnw --batch-mode --no-transfer-progress spotless:check
+
+  lint:
+    # Error Prone needs JDK 21 or newer to run; the code still compiles
+    # with release 17
+    name: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          java-version: "21"
+          distribution: temurin
+          cache: maven
+      - name: Check the code with Error Prone and compiler warnings
+        run: ./mvnw --batch-mode --no-transfer-progress -Plint -DskipTests test-compile

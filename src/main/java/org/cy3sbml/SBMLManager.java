@@ -1,25 +1,19 @@
 package org.cy3sbml;
 
 import java.util.*;
-
-import org.cy3sbml.mapping.MetaIdSBaseMap;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
-
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
-
-import org.cy3sbml.mapping.Network2SBMLMapper;
-import org.cy3sbml.mapping.One2ManyMapping;
-import org.cy3sbml.util.NetworkUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * The SBMLManager class manages mappings between SBMLDocuments & CyNetworks.
@@ -123,7 +117,8 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
             logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
             return true;
         } else {
-            logger.info(String.format("SBMLDocument not removed for rootSUID: %s. Number of associated networks: %s",
+            logger.info(String.format(
+                    "SBMLDocument not removed for rootSUID: %s. Number of associated networks: %s",
                     rootSUID, subnetworks.size()));
             return false;
         }
@@ -205,7 +200,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         return network2sbml.getDocument(rootNetworkSUID);
     }
 
-
     public One2ManyMapping<Long, String> getCurrentCyNode2SBaseMapping() {
         return network2sbml.getCyNode2SBaseMapping(currentSUID);
     }
@@ -237,20 +231,19 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * Lookup the list of cyIds of SBase objects for the given suids.
      *
      * @param suids list of node suids.
-     * @return
      */
     public List<String> getCyIdsFromSUIDs(List<Long> suids) {
         One2ManyMapping<Long, String> mapping = getCurrentCyNode2SBaseMapping();
-        return new LinkedList<>(mapping.getValues(suids));
+        return new ArrayList<>(mapping.getValues(suids));
     }
 
     /**
      * String information.
      */
+    @Override
     public String toString() {
         return network2sbml.toString();
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -293,6 +286,4 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         CyNetwork network = e.getNetwork();
         removeSBMLForNetwork(network);
     }
-
-
 }

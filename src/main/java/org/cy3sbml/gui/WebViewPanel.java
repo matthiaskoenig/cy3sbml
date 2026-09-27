@@ -1,21 +1,14 @@
 package org.cy3sbml.gui;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.awt.*;
-import javax.swing.*;
-
+import java.util.HashSet;
+import java.util.Set;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-
-import org.cy3sbml.CyActivator;
+import javax.swing.*;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
-import org.cy3sbml.miriam.Namespace;
-import org.cy3sbml.miriam.RegistryUtil;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.*;
@@ -29,15 +22,8 @@ import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedEvent;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedEvent;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
-
-import org.cy3sbml.SBMLManager;
-
-import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
-
 
 /**
  * WebView panel based on javafx.
@@ -48,12 +34,14 @@ import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
  * <p>
  * WebViewPanel is a singleton class.
  */
-public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoPanel,
-        RowsSetListener,
-        SetCurrentNetworkListener,
-        NetworkAddedListener,
-        NetworkViewAddedListener,
-        NetworkViewAboutToBeDestroyedListener {
+public class WebViewPanel extends JFXPanel
+        implements CytoPanelComponent2,
+                InfoPanel,
+                RowsSetListener,
+                SetCurrentNetworkListener,
+                NetworkAddedListener,
+                NetworkViewAddedListener,
+                NetworkViewAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +52,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     private Browser browser;
     private long lastInformationThreadId = -1;
     private String html;
-
 
     /**
      * Singleton.
@@ -120,7 +107,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     public String getHtml() {
         return html;
     }
-
 
     @Override
     public CytoPanelName getCytoPanelName() {
@@ -213,7 +199,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
         });
     }
 
-
     /**
      * Update Text in the navigation panel.
      * Only updates information if the current thread is the last requested thread
@@ -250,10 +235,9 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
 
     @Override
 
-
     /////////////////// EVENT HANDLING ///////////////////////////////////
 
-    /**
+    /*
      * Handle node selection events in the table/network.
      * <p>
      * The RowsSet event is quit broad (happens a lot in network generation and layout, so
@@ -273,8 +257,8 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
      */
     public void handleEvent(RowsSetEvent event) {
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
-        if (network != null && !event.getSource().equals(network.getDefaultNodeTable()) ||
-                !event.containsColumn(CyNetwork.SELECTED)) {
+        if ((network != null && !event.getSource().equals(network.getDefaultNodeTable()))
+                || !event.containsColumn(CyNetwork.SELECTED)) {
             return;
         }
         updateInformation();
@@ -308,8 +292,7 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
      * automatically can use the mappings of the parent networks.
      */
     @Override
-    public void handleEvent(NetworkAddedEvent event) {
-    }
+    public void handleEvent(NetworkAddedEvent event) {}
 
     @Override
     public void handleEvent(NetworkViewAddedEvent event) {
@@ -320,7 +303,6 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
         setHelp();
     }
-
 
     /**
      * Updates panel information within a separate thread.
@@ -352,5 +334,4 @@ public class WebViewPanel extends JFXPanel implements CytoPanelComponent2, InfoP
             t.printStackTrace();
         }
     }
-
 }

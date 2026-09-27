@@ -1,15 +1,14 @@
 package org.cy3sbml.styles;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.io.File;
 import java.nio.file.Path;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class StyleFactoryTest {
 
     @TempDir
-    Path tempDir;  // JUnit 5's replacement for TemporaryFolder
+    Path tempDir; // JUnit 5's replacement for TemporaryFolder
 
     @Test
     public void createStyle01() throws Exception {

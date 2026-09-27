@@ -1,25 +1,21 @@
 package org.cy3sbml.util;
 
-import org.apache.commons.text.StringEscapeUtils;
-
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 public class XMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
@@ -32,7 +28,6 @@ public class XMLUtil {
      * Convert XML String to html string.
      */
     public static String xml2Html(String xml) {
-        String html = null;
         Document doc = XMLUtil.readXMLString(xml);
         if (doc != null) {
             String xmlTidy = XMLUtil.writeNodeToTidyString(doc);
@@ -41,7 +36,7 @@ public class XMLUtil {
             }
         }
         // escape the rest, i.e. things like < and >
-        html = StringEscapeUtils.escapeHtml4(xml);
+        String html = StringEscapeUtils.escapeHtml4(xml);
 
         // keep formating in html
         // Not working due to escaping of the respective tags
@@ -78,7 +73,6 @@ public class XMLUtil {
         }
         return doc;
     }
-
 
     /**
      * Write XML Document to file.
@@ -155,8 +149,7 @@ public class XMLUtil {
 
             short nodeType = childNode.getNodeType();
             if (nodeType == Node.TEXT_NODE) {
-                boolean containsOnlyWhitespace = childNode.getNodeValue()
-                        .trim().isEmpty();
+                boolean containsOnlyWhitespace = childNode.getNodeValue().trim().isEmpty();
                 if (containsOnlyWhitespace) {
                     parentNode.removeChild(childNode);
                 }
@@ -172,9 +165,7 @@ public class XMLUtil {
             cleanEmptyTextNodes(childNode); // recurse into subtree
         }
 
-        if (nodeType == Node.ELEMENT_NODE
-                || nodeType == Node.CDATA_SECTION_NODE
-                || nodeType == Node.COMMENT_NODE) {
+        if (nodeType == Node.ELEMENT_NODE || nodeType == Node.CDATA_SECTION_NODE || nodeType == Node.COMMENT_NODE) {
             return true;
         } else {
             return false;

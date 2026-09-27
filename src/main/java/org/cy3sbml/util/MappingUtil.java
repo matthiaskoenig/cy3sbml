@@ -29,7 +29,6 @@ public class MappingUtil {
      * Set the unique metaId for the given sbase.
      *
      * @param doc   SBMLDocument for the sbase
-     * @param sbase
      */
     public static void setSBaseMetaId(SBMLDocument doc, SBase sbase) {
         if (sbase.isSetMetaId()) {
@@ -38,15 +37,14 @@ public class MappingUtil {
         String metaId = null;
 
         // Units (separate namespace) //
-        if (sbase instanceof UnitDefinition) {
-            metaId = unitDefinitionMetaId((UnitDefinition) sbase);
-        } else if (sbase instanceof Unit) {
-            metaId = unitMetaId((Unit) sbase);
+        if (sbase instanceof UnitDefinition unitDefinition) {
+            metaId = unitDefinitionMetaId(unitDefinition);
+        } else if (sbase instanceof Unit unit) {
+            metaId = unitMetaId(unit);
         }
 
         // NamedSBases
-        else if (sbase instanceof NamedSBase) {
-            NamedSBase nsb = (NamedSBase) sbase;
+        else if (sbase instanceof NamedSBase nsb) {
             if (nsb.isSetId()) {
                 metaId = nsb.getId();
             } else {
@@ -54,26 +52,26 @@ public class MappingUtil {
             }
         }
         // Kinetic Law
-        else if (sbase instanceof KineticLaw) {
-            metaId = kineticLawMetaId((KineticLaw) sbase);
+        else if (sbase instanceof KineticLaw kineticLaw) {
+            metaId = kineticLawMetaId(kineticLaw);
         }
         // Initial Assignment
-        else if (sbase instanceof InitialAssignment) {
-            metaId = initialAssignmentMetaId((InitialAssignment) sbase);
+        else if (sbase instanceof InitialAssignment initialAssignment) {
+            metaId = initialAssignmentMetaId(initialAssignment);
         }
         // Rule
-        else if (sbase instanceof Rule) {
-            metaId = ruleMetaId((Rule) sbase);
+        else if (sbase instanceof Rule rule) {
+            metaId = ruleMetaId(rule);
         }
         // Constraint
         else if (sbase instanceof Constraint) {
-            metaId = constraintMetaId((Constraint) sbase);
+            metaId = constraintMetaId();
         }
         // Event
-        else if (sbase instanceof Event) {
-            metaId = eventMetaId((Event) sbase);
+        else if (sbase instanceof Event event) {
+            metaId = eventMetaId(event);
         } else if (sbase instanceof EventAssignment) {
-            metaId = eventAssignmentMetaId((EventAssignment) sbase);
+            metaId = eventAssignmentMetaId();
         }
 
         // create unique and set
@@ -90,8 +88,6 @@ public class MappingUtil {
     /**
      * Creates unique metaId in the model.
      *
-     * @param doc
-     * @param metaId
      * @return metaId not in the SBMLDocument.
      */
     public static String createUniqueMetaId(SBMLDocument doc, String metaId) {
@@ -111,18 +107,15 @@ public class MappingUtil {
     public static String localParameterId(LocalParameter lp) {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
         Reaction reaction = law.getParent();
-        return String.format("%s%s%s",
-                reaction.getId(), SEPARATOR, lp.getId());
+        return String.format("%s%s%s", reaction.getId(), SEPARATOR, lp.getId());
     }
 
     private static String unitDefinitionMetaId(UnitDefinition ud) {
-        return String.format("%s%s",
-                PREFIX_UNITSID, ud.getId());
+        return String.format("%s%s", PREFIX_UNITSID, ud.getId());
     }
 
     private static String unitMetaId(Unit unit) {
-        return String.format("%s%s",
-                PREFIX_UNITSID, unit.getKind().toString());
+        return String.format("%s%s", PREFIX_UNITSID, unit.getKind().toString());
     }
 
     private static String kineticLawMetaId(KineticLaw law) {
@@ -131,9 +124,8 @@ public class MappingUtil {
     }
 
     private static String initialAssignmentMetaId(InitialAssignment assignment) {
-        String variable = (assignment.isSetVariable()) ? assignment.getVariable() : "";
-        return String.format("%s_%s",
-                PREFIX_INITIAL_ASSIGNMENT, variable);
+        String variable = assignment.isSetVariable() ? assignment.getVariable() : "";
+        return String.format("%s_%s", PREFIX_INITIAL_ASSIGNMENT, variable);
     }
 
     private static String ruleMetaId(Rule rule) {
@@ -141,19 +133,16 @@ public class MappingUtil {
             return PREFIX_ALGEBRAIC_RULE;
         } else {
             String variable = "";
-            if (rule instanceof AssignmentRule) {
-                AssignmentRule r = (AssignmentRule) rule;
-                variable = (r.isSetVariable()) ? r.getVariable() : "";
-            } else if (rule instanceof RateRule) {
-                RateRule r = (RateRule) rule;
-                variable = (r.isSetVariable()) ? r.getVariable() : "";
+            if (rule instanceof AssignmentRule r) {
+                variable = r.isSetVariable() ? r.getVariable() : "";
+            } else if (rule instanceof RateRule r) {
+                variable = r.isSetVariable() ? r.getVariable() : "";
             }
-            return String.format("%s_%s",
-                    PREFIX_RULE, variable);
+            return String.format("%s_%s", PREFIX_RULE, variable);
         }
     }
 
-    private static String constraintMetaId(Constraint constraint) {
+    private static String constraintMetaId() {
         return PREFIX_CONSTRAINT;
     }
 
@@ -165,8 +154,7 @@ public class MappingUtil {
         }
     }
 
-    private static String eventAssignmentMetaId(EventAssignment ea) {
+    private static String eventAssignmentMetaId() {
         return PREFIX_EVENT_ASSIGNMENT;
     }
-
 }

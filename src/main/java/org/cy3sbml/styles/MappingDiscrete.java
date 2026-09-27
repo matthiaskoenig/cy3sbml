@@ -7,19 +7,19 @@ import java.util.Map;
  */
 public class MappingDiscrete extends Mapping {
 
-    private Map map;
+    private Map<String, String> map;
 
-    public MappingDiscrete(DataType dataType,
-                           VisualPropertyKey property,
-                           String attributeName,
-                           String defaultValue,
-                           Map map) {
+    public MappingDiscrete(
+            DataType dataType,
+            VisualPropertyKey property,
+            String attributeName,
+            String defaultValue,
+            Map<String, String> map) {
         super(MappingType.DISCRETE, dataType, property, attributeName, defaultValue);
         this.map = map;
     }
 
-    public Map getMap() {
+    public Map<String, String> getMap() {
         return map;
     }
-
 }

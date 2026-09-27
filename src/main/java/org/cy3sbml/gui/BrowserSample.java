@@ -13,8 +13,6 @@ public class BrowserSample extends Application {
 
     /**
      * Start application.
-     *
-     * @param stage
      */
     @Override
     public void start(Stage stage) {
@@ -29,6 +27,5 @@ public class BrowserSample extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 }

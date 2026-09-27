@@ -4,16 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.nio.charset.StandardCharsets;
 import org.cytoscape.io.BasicCyFileFilter;
-import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.DataCategory;
 import org.cytoscape.io.util.StreamUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,18 +21,18 @@ public class SBMLFileFilter extends BasicCyFileFilter {
     private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
     private static final int DEFAULT_LINES_TO_CHECK = 20;
 
-
     /**
      * Constructor.
      */
     public SBMLFileFilter(StreamUtil streamUtil) {
         super(
-                new String[]{"xml", "sbml", ""},
-                new String[]{"text/xml", "application/rdf+xml", "application/xml", "text/plain", "text/sbml", "text/sbml+xml"},
+                new String[] {"xml", "sbml", ""},
+                new String[] {
+                    "text/xml", "application/rdf+xml", "application/xml", "text/plain", "text/sbml", "text/sbml+xml"
+                },
                 "SBML network reader (cy3sbml)",
                 DataCategory.NETWORK,
-                streamUtil
-        );
+                streamUtil);
     }
 
     /**
@@ -80,7 +75,7 @@ public class SBMLFileFilter extends BasicCyFileFilter {
      * Checks if the header contains the SBML namespace definition.
      */
     private boolean checkHeader(InputStream stream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
         int linesToCheck = DEFAULT_LINES_TO_CHECK;
         while (linesToCheck > 0) {
             String line = reader.readLine();
@@ -91,5 +86,4 @@ public class SBMLFileFilter extends BasicCyFileFilter {
         }
         return false;
     }
-
 }

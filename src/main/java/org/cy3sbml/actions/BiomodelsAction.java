@@ -1,24 +1,18 @@
 package org.cy3sbml.actions;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import javax.swing.ImageIcon;
-
-import org.cy3sbml.gui.GUIConstants;
-import org.cytoscape.application.swing.AbstractCyAction;
-
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.biomodel.BiomodelsDialog;
-
+import org.cy3sbml.gui.GUIConstants;
+import org.cytoscape.application.swing.AbstractCyAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Open the BioModel GUI for importing BioModels via search terms.
  */
-public class BiomodelsAction extends AbstractCyAction {
+public final class BiomodelsAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(BiomodelsAction.class);
     private static final long serialVersionUID = 1L;
 
@@ -44,8 +38,7 @@ public class BiomodelsAction extends AbstractCyAction {
     @Override
     public void actionPerformed(ActionEvent event) {
         logger.debug("actionPerformed()");
-        BiomodelsDialog bioModelsDialog = null;
-        bioModelsDialog = BiomodelsDialog.getInstance(adapter);
+        BiomodelsDialog bioModelsDialog = BiomodelsDialog.getInstance(adapter);
         bioModelsDialog.setVisible(true);
     }
 }

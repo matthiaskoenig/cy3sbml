@@ -1,22 +1,18 @@
 package org.cy3sbml.gui;
 
-import javax.swing.event.HyperlinkEvent;
 import java.net.URL;
 import java.util.*;
-
+import javax.swing.event.HyperlinkEvent;
 import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
 import org.codefx.libfx.control.webview.WebViews;
-
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.util.GUIUtil;
-
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Handle hyperlink events in WebView.
@@ -39,7 +35,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     public static final String URL_COFACTOR_NODES = "https://cy3sbml-cofactor";
     public static final String URL_LOADLAYOUT = "https://cy3sbml-layoutload";
     public static final String URL_SAVELAYOUT = "https://cy3sbml-layoutsave";
-
 
     public static final String URL_SBMLFILE = "http://sbml-file";
     public static final String URL_HTML_SBASE = "http://html-sbase";
@@ -104,7 +99,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
      * Decides what to do if a given URL is encountered.
      * Here the actions are called.
      *
-     * @param url
      * @return cancel action, i.e. is the WebView event further processed
      */
     private static Boolean processURLEvent(URL url) {
@@ -148,11 +142,11 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                 } else {
                     logger.error(String.format("Action not created for <%s>", s));
                 }
-            } else if (s.startsWith(URL_SELECT_METAID) || (s.startsWith(URL_SELECT_ID))) {
+            } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
                 // Only select if current network exists
                 CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
                 if (network != null) {
-                    String[] tokens = s.split("/");
+                    String[] tokens = s.split("/", -1);
                     String identifier = tokens[tokens.length - 1];
                     if (s.startsWith(URL_SELECT_ID)) {
                         NetworkUtil.selectById(network, identifier);
@@ -179,7 +173,6 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
                 GUIUtil.openSBaseHTMLInBrowser();
             }
 
-
             // HTML links
             else {
                 GUIUtil.openURLinExternalBrowser(s);
@@ -189,5 +182,4 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         // This is a link we should load, do not cancel.
         return false;
     }
-
 }

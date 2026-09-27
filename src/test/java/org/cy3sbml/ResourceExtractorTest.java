@@ -1,8 +1,8 @@
 package org.cy3sbml;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class ResourceExtractorTest {
 
@@ -13,5 +13,4 @@ public class ResourceExtractorTest {
         // without appdirectory the resources cannot be resolved
         assertNull(resource);
     }
-
 }

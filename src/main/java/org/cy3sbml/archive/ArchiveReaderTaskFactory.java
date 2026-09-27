@@ -1,5 +1,6 @@
 package org.cy3sbml.archive;
 
+import java.io.InputStream;
 import org.cytoscape.io.CyFileFilter;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
 import org.cytoscape.model.CyNetworkFactory;
@@ -9,12 +10,6 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 
 /**
  * TaskFactory for ArchiveReaderTask.
@@ -30,11 +25,12 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
     /**
      * Constructor.
      */
-    public ArchiveReaderTaskFactory(CyFileFilter filter,
-                                    CyNetworkFactory networkFactory,
-                                    CyNetworkViewFactory networkViewFactory,
-                                    VisualMappingManager visualMappingManager,
-                                    CyLayoutAlgorithmManager layoutAlgorithmManager) {
+    public ArchiveReaderTaskFactory(
+            CyFileFilter filter,
+            CyNetworkFactory networkFactory,
+            CyNetworkViewFactory networkViewFactory,
+            VisualMappingManager visualMappingManager,
+            CyLayoutAlgorithmManager layoutAlgorithmManager) {
         super(filter);
         logger.debug("new ArchiveReaderTaskFactory");
         this.networkFactory = networkFactory;
@@ -45,10 +41,6 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
 
     /**
      * Create the TaskIterator.
-     *
-     * @param inputStream
-     * @param inputName
-     * @return
      */
     @Override
     public TaskIterator createTaskIterator(InputStream inputStream, String inputName) {

@@ -8,24 +8,25 @@ cy3sbml is a Cytoscape 3 app (OSGi bundle) that imports SBML models into Cytosca
 
 ## Build and test
 
-Requires JDK 17, Maven 3, and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `WebView`). CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
+Requires JDK 17 and JavaFX (`sudo apt install openjfx`; the GUI uses JavaFX `WebView`). Use the bundled Maven Wrapper (`./mvnw`, `mvnw.cmd` on Windows) instead of a system Maven install; it downloads the pinned Maven version on first use. CI (`.github/workflows/ci.yml`) builds on Ubuntu and Windows with Temurin 17.
 
 ```bash
-mvn clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar
-mvn test                               # fast tests (long-running model tests excluded)
-mvn test -Dtest=IOUtilTest             # single test class
-mvn test -Dtest=IOUtilTest#testName    # single test method
-mvn clean install -Dmodels.test.excludes=""  # all tests incl. model suites (slow, needs network)
+./mvnw clean install -DskipTests          # build app jar: target/cy3sbml-<version>.jar
+./mvnw test                               # fast tests (network and models tests excluded)
+./mvnw test -Dtest=IOUtilTest             # single test class
+./mvnw test -Dtest=IOUtilTest#testName    # single test method
+./mvnw test -Pall-tests                   # all tests incl. network and model suites (slow, needs network)
+./mvnw test -Dtest.groups=network -Dtest.excludedGroups=  # only the network tests
 ```
 
-- Tests are JUnit 5 + Mockito.
-- `models.test.excludes` in `pom.xml` excludes `**/models/*Test.java` (SBML Test Suite, BioModels, BiGG) plus `OLSClientTest` and `BioModelInterfaceTest`, which hit web services. Test models live in `src/test/resources/models/`.
+- Tests are JUnit 6 + Mockito.
+- Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`.
 - `src/test/java/org/cy3sbml/oven/` holds experimental, non-regular tests.
-- Java formatting uses the IntelliJ formatter (see pre-commit hook in `docs/develop.md`).
+- Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/develop.md`.
 
 ### Running in Cytoscape
 
-Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the app after each `mvn install -DskipTests`:
+Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the app after each `./mvnw install -DskipTests`:
 
 ```bash
 ln -s $PWD/target/cy3sbml-<version>.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
@@ -35,7 +36,7 @@ Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to p
 
 ## Dependencies
 
-- JSBML (`1.7-SNAPSHOT` and its extension modules) is not taken from Maven Central. Pre-built jars are in `lib/cy3sbml-dep`, an in-project Maven repository declared in `pom.xml`. Rebuild them with `lib/build_jsbml_jars.sh` only when upgrading JSBML, and update versions in `pom.xml` and the script together.
+- JSBML (core and its extension modules: `qual`, `layout`, `comp`, `fbc`, `groups`, `distrib`, `tidy`) is not taken from Maven Central. Pre-built jars are in `lib/cy3sbml-dep`, an in-project Maven repository declared in `pom.xml`, pinned to one JSBML commit under the `jsbml.version` property (`1.7-<commit-date>-<short-sha>`). Rebuild them with `lib/build_jsbml_jars.sh <jsbml-commit>` only when upgrading JSBML, and update `jsbml.version` in `pom.xml` to match.
 - Cytoscape API artifacts come from the NRNB Nexus repositories and have `provided` scope.
 - `maven-bundle-plugin` embeds all non-provided, non-test dependencies (transitively) into the bundle jar and marks imports `resolution:=optional`. New runtime dependencies end up inside the jar automatically. Check for OSGi class loading issues when adding them.
 

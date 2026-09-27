@@ -23,8 +23,7 @@ public class SBMLCore {
     public static final String INTERACTION_TYPE_REACTION_MODIFIER = "reaction-modifier";
 
     public static final String KINETIC_LAW_ATTR_TEMPLATE = "kineticLaw-%1$s";
-    public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units"; //$NON-NLS-1$
+    public static final String KINETIC_LAW_UNITS_ATTR_TEMPLATE = "kineticLaw-%1$s-units"; // $NON-NLS-1$
 
-    private SBMLCore() {
-    }
+    private SBMLCore() {}
 }

@@ -9,29 +9,24 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.LinkedList;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.stream.XMLStreamException;
-
-import com.google.common.io.Files;
+import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.cofactors.Network2CofactorMapper;
+import org.cy3sbml.mapping.Network2SBMLMapper;
+import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
 import org.cytoscape.session.events.*;
-
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
 import org.sbml.jsbml.SBMLWriter;
-
-import org.cy3sbml.cofactors.CofactorManager;
-import org.cy3sbml.cofactors.Network2CofactorMapper;
-import org.cy3sbml.mapping.Network2SBMLMapper;
-import org.cy3sbml.mapping.One2ManyMapping;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,12 +49,12 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
      * Session data is locally saved in given directory.
      * Normally this is the CytoscapeConfiguration/cy3sbml directory.
      */
-    public SessionData() {
-    }
+    public SessionData() {}
 
     /**
      * Save session.
      */
+    @Override
     public void handleEvent(SessionAboutToBeSavedEvent event) {
         saveSessionData(event);
     }
@@ -67,6 +62,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     /**
      * Load Session.
      */
+    @Override
     public void handleEvent(SessionLoadedEvent event) {
         loadSessionData(event);
     }
@@ -78,10 +74,16 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         logger.info("SessionAboutToBeSaved: save cy3sbml session state");
 
         // FIXME: not sure if this is the write file import
-        File directory = Files.createTempDir();
+        File directory;
+        try {
+            directory = Files.createTempDirectory(APP_ID).toFile();
+        } catch (IOException e) {
+            logger.error("Could not create temporary directory for session data", e);
+            return;
+        }
 
         // Files to save
-        List<File> files = new LinkedList<>();
+        List<File> files = new ArrayList<>();
 
         // get SBMLManager for serialization
         SBMLManager sbmlManager = SBMLManager.getInstance();
@@ -96,7 +98,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             // use SUID if no model id is set
             String sbmlId = rootSUID.toString();
             Model model = doc.getModel();
-            if ((model != null) && (model.isSetId())) {
+            if ((model != null) && model.isSetId()) {
                 sbmlId = model.getId();
             }
 
@@ -216,7 +218,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                         // set updated mapper
                         cofactorManager.setNetwork2CofactorMapper(updatedMapper);
 
-
                     } catch (IOException | ClassNotFoundException e) {
                         logger.error("Deserialization of Network2CofactorMapper failed.", e);
                         e.printStackTrace();
@@ -227,7 +228,6 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 logger.error("Errors in deserialization", e);
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -294,5 +294,4 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         }
         return newM;
     }
-
 }

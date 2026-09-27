@@ -27,7 +27,6 @@ public interface Fields {
     public static final String INSTITUTION = "institution";
     public static final String LOCATION = "location";
 
-
     public static final String NO_DESCRIPTION_AVAILABLE = "No description available";
     public static final String DEPRECATION_OFFLINE_DATE = "deprecationOfflineDate";
     public static final String RENDER_DEPRECATED_LANDING = "renderDeprecatedLanding";

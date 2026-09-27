@@ -103,11 +103,14 @@ git checkout develop
 ```
 
 ### Setup code formatting hook
-Add the following file `.git/hooks/pre-commit` linking to your idea installation
+Java formatting is enforced by Spotless (`palantir-java-format`), checked in CI by the
+`format` job. Add the following file `.git/hooks/pre-commit` (and make it executable
+with `chmod +x .git/hooks/pre-commit`) so staged Java files are formatted automatically
+before each commit:
 ```bash
 #!/bin/sh
 CHANGED_JAVA_SRC_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.java$')
-/home/mkoenig/Programs/idea-IU-252.25557.131/bin/format $CHANGED_JAVA_SRC_FILES
+./mvnw -q spotless:apply
 git add $CHANGED_JAVA_SRC_FILES
 ```
 
@@ -266,9 +269,11 @@ cd $JSBMLCODE
 git pull
 ```
 
-Build the JSBML jars with the provided script and register in local mvn repository
+Build the JSBML jars with the provided script (it takes the JSBML commit to pin as its argument) and register them in the local mvn repository
 ```
-$CY3SBML/lib/build_jsbml_jars.sh
+$CY3SBML/lib/build_jsbml_jars.sh <jsbml-commit>
 ```
-If the version numbers change of JSBML or the extensions change, the build script and the respective versions in the
-`pom.xml` have to be updated.
+This requires `ant` on the `PATH`. The script derives a version string from the commit
+(`1.7-<commit-date>-<short-sha>`) and installs core and every package jar under that version.
+Afterwards, update the `jsbml.version` property in `pom.xml` to match, and remove the previous
+version's directories under `lib/cy3sbml-dep/jsbml*/`.

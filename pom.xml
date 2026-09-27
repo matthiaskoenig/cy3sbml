@@ -1,216 +1,50 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.cysbml</groupId>
+    <artifactId>cy3sbml</artifactId>
+    <version>0.5.1</version>
+    <packaging>bundle</packaging>
+    <name>${bundle.symbolicName}</name>
+    <description>A Cytoscape app for SBML.</description>
+    <url>https://github.com/matthiaskoenig/cy3sbml</url>
 
     <properties>
         <bundle.symbolicName>cy3sbml</bundle.symbolicName>
         <bundle.namespace>org.cy3sbml</bundle.namespace>
         <cytoscape.api.version>3.10.0</cytoscape.api.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <error-prone.version>2.50.0</error-prone.version>
+        <maven-bundle-plugin.version>6.2.0</maven-bundle-plugin.version>
         <osgi.api.version>7.0.0</osgi.api.version>
         <osgi.compendium.version>7.0.0</osgi.compendium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
-        <!-- Exclude the long-running model tests. For all tests run
-            mvn clean install -Dmodels.test.excludes=""
-        -->
-        <models.test.excludes>**/models/*Test.java, **/ols/OLSClientTest.java, **/biomodel/BioModelInterfaceTest.java
-        </models.test.excludes>
+        <enforcer.skipReleaseDeps>false</enforcer.skipReleaseDeps>
+        <!-- Pinned to the JSBML commit that built the jars in lib/cy3sbml-dep
+            (see lib/build_jsbml_jars.sh for provenance): sbmlteam/jsbml commit
+            22659a76927b24e23175563e2224bc56c05a0e74, committed 2023-01-03. -->
+        <jsbml.version>1.7-20230103-22659a76</jsbml.version>
+        <!-- JUnit tag-based test selection. By default the "network" (hits web
+            services) and "models" (long-running model test suites) tagged tests
+            are excluded. Run with -Pall-tests for everything, or select the
+            network tests with -Dtest.groups=network -Dtest.excludedGroups= -->
+        <test.excludedGroups>network,models</test.excludedGroups>
+        <test.groups/>
     </properties>
 
-    <groupId>org.cysbml</groupId>
-    <artifactId>cy3sbml</artifactId>
-    <packaging>bundle</packaging>
-    <name>${bundle.symbolicName}</name>
-    <version>0.5.1</version>
-    <description>A Cytoscape app for SBML.</description>
-    <url>https://github.com/matthiaskoenig/cy3sbml</url>
-
-    <build>
-        <plugins>
-            <!-- bundle -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven-bundle-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <!-- The BND instructions for the bundle -->
-                    <instructions>
-                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
-                        <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
-					org.sbml.jsbml.*</Export-Package>
-                        <Private-Package>${bundle.namespace}.*</Private-Package>
-                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
-                        <Embed-Transitive>true</Embed-Transitive>
-                        <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
-                        <!--
-                        <Import-Package>*;resolution:=optional</Import-Package>
-                        -->
-                        <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
-                <configuration>
-                    <source>15</source>
-                    <target>15</target>
-                    <encoding>UTF-8</encoding>
-                    <optimize>true</optimize>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                    <compilerArguments>
-                        <Xmaxwarns>10000</Xmaxwarns>
-                        <Xmaxerrs>10000</Xmaxerrs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-
-            <!-- resources -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-            </plugin>
-            <!-- jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
-
-            <!-- testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
-                <configuration>
-                    <excludes>
-                        <exclude>${models.test.excludes}</exclude>
-                    </excludes>
-                    <excludedGroups>network</excludedGroups>
-                </configuration>
-
-            </plugin>
-
-            <!-- coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
-    </build>
-
-    <repositories>
-        <!-- Cytoscape -->
-        <repository>
-            <id>cytoscape_releases</id>
-            <name>Cytoscape Releases</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>cytoscape_thirdparty</id>
-            <name>Cytoscape Thirdparty</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>cytoscape_snapshots</id>
-            <name>Cytoscape Snapshots</name>
-            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <!-- JSBML  -->
-        <repository>
-            <id>in-project</id>
-            <name>In project repository</name>
-            <url>file:${project.basedir}/lib</url>
-        </repository>
-        <repository>
-            <id>JSBML-SNAPSHOT</id>
-            <name>The JSBML Snapshot repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-
-        <!-- uniprot -->
-        <repository>
-            <id>ebiUniprotPublic</id>
-            <name>ebi-uniprot-public</name>
-            <url>https://www.ebi.ac.uk/uniprot/artifactory/public</url>
-        </repository>
-
-        <!-- OLS client -->
-        <repository>
-            <id>EBI SNAPSHOT</id>
-            <name>EBI Snapshot repository</name>
-            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots</url>
-        </repository>
-
-        <!-- EBI repo -->
-        <repository>
-            <id>nexus-ebi-release-repo</id>
-            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
-        </repository>
-
-        <repository>
-            <id>repository.jboss.org-public</id>
-            <name>JBoss.org Maven repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public</url>
-        </repository>
-
-        <repository>
-            <id>maven-central</id>
-            <name>Maven central repository</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>6.1.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Cytoscape 3 dependency -->
@@ -362,18 +196,13 @@
             <version>${osgi.compendium.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- caching -->
+        <!-- The OSGi packages above are annotated with @Version; without this
+            jar javac warns that it cannot find the annotation (fails -Werror). -->
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>2.10.9.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation.versioning</artifactId>
+            <version>1.1.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- misc -->
@@ -392,118 +221,19 @@
             <artifactId>commons-io</artifactId>
             <version>2.20.0</version>
         </dependency>
-
-        <!-- JavaFX -->
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.2.2</version>
-        </dependency>
+        <!-- JavaFX: org.codefx.libfx.control.webview (Browser, BrowserHyperlinkListener) -->
         <dependency>
             <groupId>org.codefx.libfx</groupId>
             <artifactId>LibFX</artifactId>
             <version>0.3.0</version>
         </dependency>
 
-        <!--  UniRest -->
-        <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpasyncclient</artifactId>
-            <version>4.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20250517</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.59</version>
-        </dependency>
-
-        <!-- MIRIAM Registry -->
-        <!-- manually registered from repo -->
-        <dependency>
-            <groupId>org.identifiers.registry</groupId>
-            <artifactId>registry-lib</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/miriam/miriam-lib/ -->
-        <dependency>
-            <groupId>uk.ac.ebi.miriam</groupId>
-            <artifactId>miriam-lib</artifactId>
-            <version>1.1.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-
-        <!-- OLS -->
-        <!-- https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-snapshots/uk/ac/ebi/pride/utilities/ols-client/ -->
-        <dependency>
-            <groupId>uk.ac.ebi.pride.utilities</groupId>
-            <artifactId>ols-client</artifactId>
-            <version>2.14-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>uk.ac.ebi.pride.architectural</groupId>
-                    <artifactId>pride-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!-- REST clients (org.cy3sbml.ols.OlsClient, org.cy3sbml.uniprot.UniprotAccess,
+            org.cy3sbml.chebi.ChebiAccess) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.20.0</version>
-        </dependency>
-
-
-        <!-- UniProt -->
-        <!-- https://www.ebi.ac.uk/~maven/m2repo/uk/ac/ebi/uniprot/japi/ -->
-        <dependency>
-            <groupId>uk.ac.ebi.uniprot</groupId>
-            <artifactId>japi</artifactId>
-            <version>1.3.6</version>
         </dependency>
 
         <!-- Logging -->
@@ -513,7 +243,7 @@
             <version>2.0.17</version>
         </dependency>
 
-        <!-- Needed for uniprot -->
+        <!-- slf4j runtime binding (see src/main/resources/logback-test.xml) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -525,10 +255,21 @@
             <version>1.5.20</version>
         </dependency>
 
+        <!-- org.sbml.jsbml.JSBML.loadClasses reflectively instantiates org.apache.log4j.Logger
+            (see the exclusions below and on the jsbml dependency). This was previously
+            supplied transitively by miriam-lib, removed in Task 2.5, so it is now a direct
+            dependency; reload4j is the maintained, CVE-fixed drop-in replacement for the
+            unmaintained log4j 1.x (same org.apache.log4j.* classes). -->
+        <dependency>
+            <groupId>ch.qos.reload4j</groupId>
+            <artifactId>reload4j</artifactId>
+            <version>1.2.26</version>
+        </dependency>
+
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <version>${jsbml.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -539,37 +280,37 @@
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-qual</artifactId>
-            <version>2.1-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-layout</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-comp</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-fbc</artifactId>
-            <version>1.0-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-groups</artifactId>
-            <version>0.4-b1</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-distrib</artifactId>
-            <version>0.5</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
             <artifactId>jsbml-tidy</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <version>${jsbml.version}</version>
         </dependency>
         <dependency>
             <groupId>cy3sbml-dep</groupId>
@@ -581,18 +322,28 @@
             <artifactId>woodstox-core</artifactId>
             <version>5.0.1</version>
         </dependency>
+        <!-- Used by org.sbml.jsbml.xml.parsers.SBMLRDFAnnotationParser (org.w3c.util.DateParser
+            and InvalidDateException, for RDF annotation dates), loaded via
+            annotationParsers.xml whenever an SBML file with RDF annotations is read; removing
+            it breaks every SBML model read (confirmed by running the model tests). -->
         <dependency>
             <groupId>org.w3c.jigsaw</groupId>
             <artifactId>jigsaw</artifactId>
             <version>2.2.6</version>
         </dependency>
+        <!-- Used by org.sbml.jsbml.validator.SBMLValidator and the
+            org.sbml.jsbml.xml.xstream.converter.* classes; confirmed with jdeps against the
+            jsbml jars in lib/cy3sbml-dep. 1.4.9 has known CVEs, so pinned to the latest
+            1.4.x release instead. -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.9</version>
+            <version>1.4.21</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <!-- Used by org.sbml.jsbml.xml.stax.SBMLWriter and
+            org.sbml.jsbml.util.compilers.MathMLXMLStreamCompiler; confirmed with jdeps. -->
         <dependency>
             <groupId>com.fasterxml.staxmate</groupId>
             <artifactId>staxmate</artifactId>
@@ -618,40 +369,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.24.0</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.19.0</version>
+            <version>5.24.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- Testing -->
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <!-- version managed by the org.junit:junit-bom import above -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>6.0.0-M2</version>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>6.0.0-M2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>6.0.0-M2</version>
-            <scope>test</scope>
-        </dependency>
-
-
 
         <dependency>
             <groupId>org.cytoscape</groupId>
@@ -706,6 +443,272 @@
             <scope>test</scope>
         </dependency>
 
-
     </dependencies>
+
+    <repositories>
+        <!-- Cytoscape -->
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>cytoscape_releases</id>
+            <name>Cytoscape Releases</name>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>cytoscape_thirdparty</id>
+            <name>Cytoscape Thirdparty</name>
+            <url>https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/</url>
+        </repository>
+        <!-- JSBML  -->
+        <repository>
+            <id>in-project</id>
+            <name>In project repository</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <!-- bundle -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- The BND instructions for the bundle -->
+                    <instructions>
+                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Export-Package>${bundle.namespace}.*;version="${project.version}",
+					org.sbml.jsbml.*</Export-Package>
+                        <Private-Package>${bundle.namespace}.*</Private-Package>
+                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
+                        <Embed-Dependency>*;scope=!provided|test;groupId=!org.cytoscape</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
+                        <!--
+                        <Import-Package>*;resolution:=optional</Import-Package>
+                        -->
+                        <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.16.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <compilerArgs>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>10000</arg>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>10000</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <!-- resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+            <!-- jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <!-- pinned: the bundle packaging does not bind a version, so Maven
+                resolves the newest one and warns about the Maven 4 betas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
+            <!-- testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <groups>${test.groups}</groups>
+                    <excludedGroups>${test.excludedGroups}</excludedGroups>
+                </configuration>
+
+            </plugin>
+
+            <!-- coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- enforce build environment and dependency hygiene -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>1.12.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>enforce-build-environment</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[17,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.9,)</version>
+                                </requireMavenVersion>
+                                <banDuplicatePomDependencyVersions/>
+                                <banDuplicateClasses>
+                                    <scopes>
+                                        <scope>compile</scope>
+                                        <scope>runtime</scope>
+                                    </scopes>
+                                    <findAllDuplicates>true</findAllDuplicates>
+                                    <ignoreWhenIdentical>true</ignoreWhenIdentical>
+                                    <ignoreClasses>
+                                        <!-- xstream (needed by JSBML's validator, see the
+                                            dependency comment below) pulls in both xmlpull and
+                                            xpp3_min, which both provide the same XmlPull API
+                                            classes. -->
+                                        <ignoreClass>org.xmlpull.v1.*</ignoreClass>
+                                    </ignoreClasses>
+                                </banDuplicateClasses>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-release-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${enforcer.skipReleaseDeps}</skip>
+                            <rules>
+                                <requireReleaseDeps/>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- formatting -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>3.10.3</version>
+                <configuration>
+                    <java>
+                        <palantirJavaFormat>
+                            <version>2.99.0</version>
+                        </palantirJavaFormat>
+                        <removeUnusedImports/>
+                        <importOrder/>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                    </java>
+                    <pom>
+                        <sortPom>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <expandEmptyElements>false</expandEmptyElements>
+                        </sortPom>
+                    </pom>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Run all tests, including the network and models tagged tests. -->
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <test.excludedGroups/>
+            </properties>
+        </profile>
+        <!-- Check the code with Error Prone and fail on compiler warnings.
+            Error Prone needs JDK 21 or newer to run, the code still compiles with
+            release 17. The JVM flags Error Prone needs are in .mvn/jvm.config. -->
+        <profile>
+            <id>lint</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>-XDcompilePolicy=simple</arg>
+                                <!-- required by Error Prone on JDK 21 -->
+                                <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+                                <arg>--should-stop=ifError=FLOW</arg>
+                                <arg>-Xplugin:ErrorProne</arg>
+                                <arg>-Xlint:all,-processing,-serial</arg>
+                                <arg>-Werror</arg>
+                            </compilerArgs>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>com.google.errorprone</groupId>
+                                    <artifactId>error_prone_core</artifactId>
+                                    <version>${error-prone.version}</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -1,9 +1,6 @@
 package org.cy3sbml.biomodel;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,45 +24,59 @@ public class Biomodel {
     private String description;
     private String authors;
 
-    public Biomodel(JSONObject jsonObject) {
+    public Biomodel(JsonNode jsonObject) {
 
-        submissionIdentifier = jsonObject.getString(SUBMISSION_ID);
-        JSONObject publicationObject = jsonObject.getJSONObject(PUBLICATION);
+        submissionIdentifier = requiredText(jsonObject, SUBMISSION_ID);
+        JsonNode publicationObject = requiredObject(jsonObject, PUBLICATION);
+
         // not all fields exist
-        try {
-            id = jsonObject.getString(PUBLICATION_ID);
-        } catch (JSONException e) {
-            id = "";
-        }
-        try {
-            name = jsonObject.getString(NAME);
-        } catch (JSONException e) {
-            name = "";
-        }
-        try {
+        id = optionalText(jsonObject, PUBLICATION_ID, "");
+        name = optionalText(jsonObject, NAME, "");
+        publicationIdentifier = optionalText(publicationObject, ACCESSION, "");
+        description = optionalText(jsonObject, DESCRIPTION, "");
 
-            publicationIdentifier = publicationObject.getString(ACCESSION);
-        } catch (JSONException e) {
-            publicationIdentifier = "";
-        }
-        try {
-            description = jsonObject.getString(DESCRIPTION);
-        } catch (JSONException e) {
-            description = "";
-        }
-
-        try {
-            List<String> authorsList = new ArrayList<String>();
-            JSONArray authorsArray = publicationObject.getJSONArray(AUTHORS);
-            for (int i = 0; i < authorsArray.length(); i++) {
-                JSONObject author = authorsArray.getJSONObject(i);
-                String name = author.getString(NAME);
-                authorsList.add(name);
+        List<String> authorsList = new ArrayList<String>();
+        JsonNode authorsArray = publicationObject.get(AUTHORS);
+        if (authorsArray != null && authorsArray.isArray()) {
+            for (JsonNode author : authorsArray) {
+                String authorName = optionalText(author, NAME, null);
+                if (authorName != null) {
+                    authorsList.add(authorName);
+                }
             }
-            authors = String.join(", ", authorsList);
-        } catch (JSONException e) {
-            authors = "";
         }
+        authors = String.join(", ", authorsList);
+    }
+
+    /**
+     * Returns the text value of the given required field, throwing if it is missing.
+     */
+    private static String requiredText(JsonNode node, String field) {
+        JsonNode value = node.get(field);
+        if (value == null || !value.isTextual()) {
+            throw new IllegalArgumentException("Missing required field: " + field);
+        }
+        return value.asText();
+    }
+
+    /**
+     * Returns the given required object field, throwing if it is missing.
+     */
+    private static JsonNode requiredObject(JsonNode node, String field) {
+        JsonNode value = node.get(field);
+        if (value == null || !value.isObject()) {
+            throw new IllegalArgumentException("Missing required field: " + field);
+        }
+        return value;
+    }
+
+    /**
+     * Returns the text value of the given field, or {@code defaultValue} if it is missing
+     * or not a text value.
+     */
+    private static String optionalText(JsonNode node, String field, String defaultValue) {
+        JsonNode value = node.get(field);
+        return (value == null || !value.isTextual()) ? defaultValue : value.asText();
     }
 
     public String getId() {
@@ -96,6 +107,4 @@ public class Biomodel {
     public String getSubmissionIdentifier() {
         return submissionIdentifier;
     }
-
-
 }

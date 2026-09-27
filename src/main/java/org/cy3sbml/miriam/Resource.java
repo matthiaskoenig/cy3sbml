@@ -1,17 +1,13 @@
 package org.cy3sbml.miriam;
 
+import static org.cy3sbml.miriam.Fields.*;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.cy3sbml.miriam.Fields.*;
-
-
 public class Resource {
-
 
     private int id;
     private String providerCode;
@@ -22,8 +18,8 @@ public class Resource {
     private boolean official;
     private String sampleId;
     private String resourceHomeUrl;
-    private LinkedHashMap institution;
-    private LinkedHashMap location;
+    private Map<?, ?> institution;
+    private Map<?, ?> location;
     private boolean deprecated;
     private String deprecationDate;
     private String deprecationOfflineDate;
@@ -34,7 +30,7 @@ public class Resource {
     private String authHelpUrl;
     private String authHelpDescription;
 
-    public static Resource fromMap(Map<String, Object> value) {
+    public static Resource fromMap(Map<?, ?> value) {
         Resource resource = new Resource();
         resource.id = (int) value.get(ID);
         resource.providerCode = value.get(PROVIDER_CODE).toString();
@@ -45,25 +41,25 @@ public class Resource {
         resource.official = value.get(OFFICIAL).toString().equals(TRUE);
         resource.sampleId = (String) value.get(ID2);
         resource.resourceHomeUrl = (String) value.get(RESOURCE_HOME_URL);
-        resource.institution = (LinkedHashMap) value.get(INSTITUTION);
-        resource.location = (LinkedHashMap) value.get(LOCATION);
+        resource.institution = (Map<?, ?>) value.get(INSTITUTION);
+        resource.location = (Map<?, ?>) value.get(LOCATION);
         resource.deprecated = value.get(DEPRECATED).toString().equals(TRUE);
-        resource.deprecationDate = (String) Optional.ofNullable(value.get(DEPRECATION_DATE))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.deprecationOfflineDate = (String) Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationDate =
+                (String) Optional.ofNullable(value.get(DEPRECATION_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationOfflineDate = (String)
+                Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
         resource.renderDeprecatedLanding = value.get(RENDER_DEPRECATED_LANDING).toString();
-        resource.deprecationStatetement = (String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationStatetement =
+                (String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT)).orElse(NO_DESCRIPTION_AVAILABLE);
         resource.protectedUrls = value.get(PROTECTED_URLS).toString().equals(TRUE);
-        resource.renderProtectedLanding = value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
-        resource.authHelpUrl = (String) Optional.ofNullable(value.get(AUTH_HELP_URL))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.authHelpDescription = (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION))
-                .orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.renderProtectedLanding =
+                value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
+        resource.authHelpUrl =
+                (String) Optional.ofNullable(value.get(AUTH_HELP_URL)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.authHelpDescription =
+                (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION)).orElse(NO_DESCRIPTION_AVAILABLE);
         return resource;
     }
-
 
     public static class Institution {
         private int id;
@@ -112,7 +108,6 @@ public class Resource {
         public Location getLocation() {
             return location;
         }
-
     }
 
     public static class Location {
@@ -121,8 +116,7 @@ public class Resource {
 
         @JsonCreator
         public Location(
-                @JsonProperty("countryCode") String countryCode,
-                @JsonProperty("countryName") String countryName) {
+                @JsonProperty("countryCode") String countryCode, @JsonProperty("countryName") String countryName) {
             this.countryCode = countryCode;
             this.countryName = countryName;
         }
@@ -172,11 +166,11 @@ public class Resource {
         return resourceHomeUrl;
     }
 
-    public LinkedHashMap getInstitution() {
+    public Map<?, ?> getInstitution() {
         return institution;
     }
 
-    public LinkedHashMap getLocation() {
+    public Map<?, ?> getLocation() {
         return location;
     }
 
@@ -215,7 +209,4 @@ public class Resource {
     public String getAuthHelpDescription() {
         return authHelpDescription;
     }
-
-
 }
-

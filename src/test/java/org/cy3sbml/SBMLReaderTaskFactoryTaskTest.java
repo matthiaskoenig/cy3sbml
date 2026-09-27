@@ -1,5 +1,8 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.InputStream;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
@@ -10,37 +13,39 @@ import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.io.InputStream;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * Test SBMLReaderTask
  */
+@ExtendWith(MockitoExtension.class)
+// Cytoscape's NetworkTestSupport stubs mocks it does not always use
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class SBMLReaderTaskFactoryTaskTest {
 
     @Mock
     TaskMonitor taskMonitor;
+
     private SBMLReaderTask readerTask;
     private SBMLReaderTask readerTaskWithViewSupport;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         final CyNetworkViewFactory networkViewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
         final CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
 
         String resource = SBMLCoreTest.TEST_MODEL_CORE_01;
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
-        String[] tokens = resource.split("/");
+        String[] tokens = resource.split("/", -1);
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
-        readerTaskWithViewSupport = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
+        readerTaskWithViewSupport = new SBMLReaderTask(
+                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null);
     }
 
     @Test
@@ -77,5 +82,4 @@ public class SBMLReaderTaskFactoryTaskTest {
     public void run() throws Exception {
         readerTask.run(taskMonitor);
     }
-
 }

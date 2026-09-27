@@ -27,7 +27,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Build the app
-        run: mvn --batch-mode --no-transfer-progress verify
+        run: ./mvnw --batch-mode --no-transfer-progress verify
       - name: Checksums
         run: |
           VERSION="${GITHUB_REF_NAME#v}"

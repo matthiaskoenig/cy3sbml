@@ -1,11 +1,13 @@
 package org.cy3sbml.gui;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.Collection;
 import java.util.HashSet;
-
 import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
 import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.util.SBMLUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,13 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.SBase;
 
 /**
@@ -105,13 +102,9 @@ public class SBaseHtmlThreadTest {
 
     /**
      * Creates info for all objects in the model.
-     *
-     * @param resource
-     * @throws InterruptedException
      */
     private void runModelTest(String resource) throws InterruptedException {
         SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
-        Model model = doc.getModel();
 
         // objects from model
         MetaIdSBaseMap map = new MetaIdSBaseMap(doc);
@@ -128,27 +121,11 @@ public class SBaseHtmlThreadTest {
         }
     }
 
-    private String createHTMLOutput(String resource) throws Exception {
-        SBMLDocument doc = SBMLUtil.readSBMLDocument(resource);
-        Model model = doc.getModel();
-
-        Collection<Object> objSet = new HashSet<>();
-        objSet.add(model);
-
-        // running in caching mode, no html generated
-        SBaseHTMLThread t1 = new SBaseHTMLThread(objSet, panel);
-        t1.start();
-        t1.join();
-        String html = t1.getInfo();
-        return html;
-    }
-
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
+    /*
      * Writing HTML information to file for development.
      * This allows faster development cycle of the information HTML than
      * packing it in the Cytoscape app.
      */
-
 }

@@ -1,13 +1,13 @@
 package org.cy3sbml.biomodel;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Parsing of the form fields into usable SearchContent instance.
  */
-public class SearchContent {
+public final class SearchContent {
 
     public static final String CONTENT_NAME = "NAME";
     public static final String CONTENT_PERSON = "PERSON";
@@ -21,16 +21,16 @@ public class SearchContent {
     public static final String CONNECT_OR = "OR";
     public static final String PARSED_IDS = "PARSED IDS";
 
-    private List<String> names = new LinkedList<String>();
-    private List<String> persons = new LinkedList<String>();
-    private List<String> publications = new LinkedList<String>();
-    private List<String> taxonomies = new LinkedList<String>();
-    private List<String> chebis = new LinkedList<String>();
-    private List<String> uniprots = new LinkedList<String>();
+    private List<String> names = new ArrayList<String>();
+    private List<String> persons = new ArrayList<String>();
+    private List<String> publications = new ArrayList<String>();
+    private List<String> taxonomies = new ArrayList<String>();
+    private List<String> chebis = new ArrayList<String>();
+    private List<String> uniprots = new ArrayList<String>();
 
     private String searchMode;
 
-    public SearchContent(HashMap<String, String> map) {
+    public SearchContent(Map<String, String> map) {
         if (map.containsKey(CONTENT_NAME)) {
             setNames(map.get(CONTENT_NAME));
         }
@@ -156,7 +156,6 @@ public class SearchContent {
         return getListToString(uniprots, separator);
     }
 
-
     // Search Mode
     public String getSearchMode() {
         return searchMode;
@@ -167,7 +166,7 @@ public class SearchContent {
         String separator = " ";
         String pattern = "([\\s\\.,;:])+";
         text = text.replaceAll(pattern, separator);
-        List<String> tokens = new LinkedList<String>();
+        List<String> tokens = new ArrayList<String>();
         String[] tokenArray = text.split(separator);
         if (tokenArray != null) {
             for (String token : tokenArray) {
@@ -183,7 +182,8 @@ public class SearchContent {
     // Printing
     public String toHTML() {
         String sep = " ";
-        String info = String.format("<table bgcolor=\"#C0C0C0\">"
+        String info = String.format(
+                "<table bgcolor=\"#C0C0C0\">"
                         + createHTMLTableRow("Name")
                         + createHTMLTableRow("Person")
                         + createHTMLTableRow("Publication")
@@ -201,19 +201,21 @@ public class SearchContent {
     }
 
     private String createHTMLTableRow(String att) {
-        return "<tr><td><font size=\"-1\"><b>" +
-                att +
-                "</b></font></td></td><font size=\"-1\">%s</font></td></tr>";
+        return "<tr><td><font size=\"-1\"><b>" + att + "</b></font></td></td><font size=\"-1\">%s</font></td></tr>";
     }
 
+    @Override
     public String toString() {
         String sep = " ";
-        String info = String.format("Name : %s\n"
-                        + "Person : %s\n"
-                        + "Publication : %s\n"
-                        + "ChEBI : %s\n"
-                        + "UniProt : %s\n"
-                        + "Mode : %s\n",
+        String info = String.format(
+                """
+                Name : %s
+                Person : %s
+                Publication : %s
+                ChEBI : %s
+                UniProt : %s
+                Mode : %s
+                """,
                 namesToString(sep),
                 personsToString(sep),
                 publicationsToString(sep),

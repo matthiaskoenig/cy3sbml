@@ -1,12 +1,10 @@
 package org.cy3sbml.styles;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class StyleInfo01Test {
     @Test

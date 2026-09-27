@@ -1,7 +1,7 @@
 package org.cy3sbml.biomodel;
 
-import org.json.*;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
  */
 public class BiomodelsQueryResult {
 
-    final private String query;
-    final private Integer status;
-    final private String json;
+    private final String query;
+    private final Integer status;
+    private final String json;
 
     public BiomodelsQueryResult(final String query, Integer status, String json) {
         this.query = query;
@@ -42,58 +42,54 @@ public class BiomodelsQueryResult {
         return json;
     }
 
-    private JSONObject getJSONObject() {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private JsonNode getJSONObject() {
         if (json == null) {
             return null;
-        } else {
-            JSONObject obj = new JSONObject(json);
-
-            return obj;
+        }
+        try {
+            return MAPPER.readTree(json);
+        } catch (IOException e) {
+            return null;
         }
     }
 
-
     /**
      * Parses the Biomodel information from a search query.
-     *
-     * @return
      */
     public List<String> getBiomodelIdsFromSearch() {
-        JSONObject jsonObject = getJSONObject();
+        JsonNode jsonObject = getJSONObject();
         List<String> biomodelIds = new ArrayList<>();
         if (jsonObject != null) {
 
-            // get biomodel identifiers
-            JSONArray array = jsonObject.getJSONArray("models");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject model = (JSONObject) array.get(i);
-                String biomodelId = (String) model.get("id");
-                biomodelIds.add(biomodelId);
+            // get biomodel identifiers, skipping any model without an id
+            JsonNode array = jsonObject.path("models");
+            for (JsonNode model : array) {
+                String biomodelId = model.path("id").asText(null);
+                if (biomodelId != null) {
+                    biomodelIds.add(biomodelId);
+                }
             }
         }
         return biomodelIds;
     }
 
-
     /**
      * Returns biomodel information for given biomodel ids
-     *
-     * @return
      */
-    public static ArrayList<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds) throws IOException, InterruptedException, ExecutionException {
+    public static List<Biomodel> getBiomodelsFromIds(Iterable<String> biomodelIds)
+            throws IOException, InterruptedException, ExecutionException {
 
         ArrayList<Biomodel> biomodels;
         List<CompletableFuture<Biomodel>> futures = new ArrayList<>();
         for (String biomodelId : biomodelIds) {
             CompletableFuture<Biomodel> future = BiomodelsQuery.performBiomodelQuery(biomodelId);
             futures.add(future);
-
         }
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
-                futures.toArray(new CompletableFuture[0])
-        );
-        biomodels = allFutures.thenApply(v ->
-                futures.stream()
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture<?>[0]));
+        biomodels = allFutures
+                .thenApply(v -> futures.stream()
                         .map(future -> {
                             try {
                                 return future.join(); // Get each Biomodel
@@ -103,10 +99,8 @@ public class BiomodelsQueryResult {
                             }
                         })
                         .filter(Objects::nonNull) // Remove nulls (failed requests)
-                        .collect(Collectors.toCollection(ArrayList::new))
-        ).get();
+                        .collect(Collectors.toCollection(ArrayList::new)))
+                .get();
         return biomodels;
     }
-
-
 }

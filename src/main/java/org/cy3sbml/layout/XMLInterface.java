@@ -1,13 +1,9 @@
 package org.cy3sbml.layout;
 
-import org.cy3sbml.gui.WebViewPanel;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,17 +12,17 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.io.File;
-
+import org.cy3sbml.gui.WebViewPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class XMLInterface {
     private static final Logger logger = LoggerFactory.getLogger(WebViewPanel.class);
-
 
     public static String LAYOUT = "layout";
     public static String BOX_LIST = "listOfBoundingBoxes";
@@ -101,12 +97,12 @@ public class XMLInterface {
 
     // XML IMPORT //
 
-    public static HashMap<String, CyBoundingBox> readLayoutFromXML(String filename) {
+    public static Map<String, CyBoundingBox> readLayoutFromXML(String filename) {
         File xmlFile = new File(filename);
         return readLayoutFromXML(xmlFile);
     }
 
-    public static HashMap<String, CyBoundingBox> readLayoutFromXML(File xmlFile) {
+    public static Map<String, CyBoundingBox> readLayoutFromXML(File xmlFile) {
         HashMap<String, CyBoundingBox> boxes = new HashMap<String, CyBoundingBox>();
 
         try {
@@ -136,7 +132,8 @@ public class XMLInterface {
         String height = map.getNamedItem(BOX_HEIGHT).getTextContent();
         String width = map.getNamedItem(BOX_WIDTH).getTextContent();
 
-        CyBoundingBox box = new CyBoundingBox(nodeId,
+        CyBoundingBox box = new CyBoundingBox(
+                nodeId,
                 Double.parseDouble(xpos),
                 Double.parseDouble(ypos),
                 Double.parseDouble(height),

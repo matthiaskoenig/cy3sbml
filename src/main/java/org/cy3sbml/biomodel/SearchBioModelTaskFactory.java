@@ -5,7 +5,6 @@ import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class SearchBioModelTaskFactory implements TaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(SearchBioModelTaskFactory.class);
 

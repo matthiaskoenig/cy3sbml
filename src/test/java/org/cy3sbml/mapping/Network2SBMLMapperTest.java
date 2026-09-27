@@ -1,16 +1,13 @@
 package org.cy3sbml.mapping;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
-import org.sbml.jsbml.SBMLDocument;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.SBMLDocument;
 
 /**
  * Testing Network2SBMLMapper.
@@ -92,5 +89,4 @@ public class Network2SBMLMapperTest {
         mapper.putDocument(SUID, DOC, MAPPING);
         assertNotNull(mapper.getCyNode2SBaseMapping(SUID));
     }
-
 }

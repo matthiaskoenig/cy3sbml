@@ -2,9 +2,6 @@ package org.cy3sbml.styles;
 
 import java.io.InputStream;
 import java.util.Set;
-
-import org.cy3sbml.SBML;
-import org.cy3sbml.archive.ArchiveReaderTask;
 import org.cytoscape.session.events.SessionLoadedEvent;
 import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
@@ -25,8 +22,8 @@ public class StyleManager implements SessionLoadedListener {
     private VisualMappingManager vmm;
     private String[] styles;
 
-    public static synchronized StyleManager getInstance(LoadVizmapFileTaskFactory loadVizmapFileTaskFactory,
-                                                        VisualMappingManager vmm, String[] styles) {
+    public static synchronized StyleManager getInstance(
+            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
         if (uniqueInstance == null) {
             uniqueInstance = new StyleManager(loadVizmapFileTaskFactory, vmm, styles);
         }
@@ -36,7 +33,8 @@ public class StyleManager implements SessionLoadedListener {
     /**
      * Constructor.
      */
-    private StyleManager(LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
+    private StyleManager(
+            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
         logger.debug("StyleManager created");
         this.loadVizmapFileTaskFactory = loadVizmapFileTaskFactory;
         this.vmm = vmm;
@@ -53,9 +51,7 @@ public class StyleManager implements SessionLoadedListener {
             InputStream styleStream = getClass().getResourceAsStream(resource);
             // Check if already existing
             VisualStyle style = getVisualStyleByName(vmm, styleName);
-            if (styleName.equals(style.getTitle())) {
-                continue;
-            } else {
+            if (!styleName.equals(style.getTitle())) {
                 loadVizmapFileTaskFactory.loadStyles(styleStream);
             }
         }
@@ -84,5 +80,4 @@ public class StyleManager implements SessionLoadedListener {
         logger.debug("SessionAboutToBeLoadedEvent");
         loadStyles();
     }
-
 }
