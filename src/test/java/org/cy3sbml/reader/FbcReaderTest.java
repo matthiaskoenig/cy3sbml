@@ -14,6 +14,15 @@ import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.Compartment;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.Species;
+import org.sbml.jsbml.SpeciesReference;
+import org.sbml.jsbml.ext.fbc.FBCConstants;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
+import org.sbml.jsbml.ext.fbc.FluxBound;
 
 class FbcReaderTest {
 
@@ -71,6 +80,53 @@ class FbcReaderTest {
         CyNode reaction = nodeById(context, "R16");
         assertEquals("0.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
         assertEquals("1000.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+    }
+
+    /**
+     * Builds the model in Java (rather than parsing it from XML) to construct a
+     * FBCModelPlugin whose package version is 1, mirroring
+     * {@code SBMLUtilTest.createSpeciesMapIncludesFbcVersion1ChargeAndFormula}: the plugin
+     * lookup that reaches the fbc v1 flux bounds must not depend on the fbc package
+     * version reported by the model's plugin instance.
+     */
+    @Test
+    @SuppressWarnings("deprecation") // FluxBound is deprecated in JSBML, but needed for fbc v1
+    void readsFbcV1FluxBoundsFromAProgrammaticallyBuiltPluginVersion1() {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        Model model = document.createModel("m1");
+        Compartment compartment = model.createCompartment("c1");
+        compartment.setConstant(true);
+        Species species = model.createSpecies("s1", compartment);
+        species.setBoundaryCondition(false);
+        species.setHasOnlySubstanceUnits(false);
+        species.setConstant(false);
+        Reaction reaction = model.createReaction("r1");
+        reaction.setReversible(false);
+        reaction.setFast(false);
+        SpeciesReference reactant = reaction.createReactant(species);
+        reactant.setStoichiometry(1d);
+        reactant.setConstant(true);
+
+        // the plugin lookup must not depend on the fbc package version of the model
+        FBCModelPlugin fbcModel = new FBCModelPlugin(model);
+        fbcModel.setPackageVersion(1);
+        model.addExtension(FBCConstants.namespaceURI_L3V1V1, fbcModel);
+
+        FluxBound lower = fbcModel.createFluxBound("lb");
+        lower.setReaction(reaction);
+        lower.setOperation(FluxBound.Operation.GREATER_EQUAL);
+        lower.setValue(0);
+        FluxBound upper = fbcModel.createFluxBound("ub");
+        upper.setReaction(reaction);
+        upper.setOperation(FluxBound.Operation.LESS_EQUAL);
+        upper.setValue(1000);
+
+        ConversionContext context = ReaderTestSupport.read(document, new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+        CyNode reactionNode = nodeById(context, "r1");
+
+        assertEquals("0.0", ReaderTestSupport.attribute(network, reactionNode, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
+        assertEquals("1000.0", ReaderTestSupport.attribute(network, reactionNode, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
     }
 
     @Test

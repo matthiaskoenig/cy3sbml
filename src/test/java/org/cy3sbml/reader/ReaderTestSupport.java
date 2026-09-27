@@ -48,7 +48,11 @@ final class ReaderTestSupport {
         return read(new SBMLReader().readSBMLFromString(sbml), readers);
     }
 
-    private static ConversionContext read(SBMLDocument document, PackageReader... readers) {
+    /**
+     * Runs the given readers on an already-built {@link SBMLDocument}, e.g. one built
+     * programmatically in a test rather than parsed from an XML resource or string.
+     */
+    static ConversionContext read(SBMLDocument document, PackageReader... readers) {
         CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
         ConversionContext context = new ConversionContext(document, network, new GroupTestSupport().getGroupFactory());
         Model model = document.getModel();
