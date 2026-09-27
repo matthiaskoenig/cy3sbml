@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
@@ -21,8 +20,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.util.HttpJson;
-import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +42,7 @@ class BiomodelsQueryHttpTest {
     private HttpServer server;
     private String origin;
     private volatile String lastSearchQuery;
+    private final AtomicInteger requestCount = new AtomicInteger();
 
     @TempDir
     Path tempDir;
@@ -66,6 +66,13 @@ class BiomodelsQueryHttpTest {
                     StandardCharsets.UTF_8);
             respond(exchange, 200, "application/json", searchJson());
         });
+        server.createContext(
+                "/new/MODEL1204270001",
+                exchange -> respond(
+                        exchange,
+                        200,
+                        "application/json",
+                        "{\"submissionId\": \"MODEL1204270001\", \"name\": \"Koenig2012\", \"publication\": {}}"));
         server.createContext(
                 "/new/BIOMD0000000012", exchange -> respond(exchange, 200, "application/json", MODEL_JSON));
         server.createContext("/new/model/download/", exchange -> {
@@ -91,7 +98,8 @@ class BiomodelsQueryHttpTest {
         }
     }
 
-    private static void respond(HttpExchange exchange, int status, String contentType, String body) throws IOException {
+    private void respond(HttpExchange exchange, int status, String contentType, String body) throws IOException {
+        requestCount.incrementAndGet();
         byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().add("Content-Type", contentType);
         exchange.sendResponseHeaders(status, bytes.length);
@@ -168,24 +176,52 @@ class BiomodelsQueryHttpTest {
     }
 
     @Test
-    void searchTaskCombinesTheSearchTermsWithTheSearchMode() throws Exception {
+    void searchCombinesTheSearchTermsWithTheSearchModeAndGetsTheInformation() throws Exception {
         SearchContent content = new SearchContent(Map.of(
                 SearchContent.CONTENT_NAME, "glucose, liver", SearchContent.CONTENT_MODE, SearchContent.CONNECT_OR));
-        SearchBioModelTask task = new SearchBioModelTask(content, query("/old/"));
 
-        task.run(mock(TaskMonitor.class));
+        SearchBioModel.Result result = new SearchBioModel(query("/old/")).search(content);
 
         assertEquals("glucose OR liver", lastSearchQuery);
-        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), task.getIds());
+        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), result.modelIds());
+        // only the first model has information on the server
+        assertEquals(List.of("MODEL1204270001"), List.copyOf(result.biomodels().keySet()));
+        assertEquals("Koenig2012", result.biomodels().get("MODEL1204270001").name());
     }
 
     @Test
-    void searchTaskFailsIfTheSearchFailed() {
+    void searchFailsIfTheSearchFailed() {
         SearchContent content = new SearchContent(
                 Map.of(SearchContent.CONTENT_NAME, "glucose", SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND));
-        SearchBioModelTask task = new SearchBioModelTask(content, query("/down/"));
 
-        IOException e = assertThrows(IOException.class, () -> task.run(mock(TaskMonitor.class)));
+        IOException e = assertThrows(IOException.class, () -> new SearchBioModel(query("/down/")).search(content));
         assertTrue(e.getMessage().contains("glucose"), e.getMessage());
+    }
+
+    @Test
+    void htmlInformationDoesNotAccessTheWebService() throws Exception {
+        SearchBioModel.Result result = new SearchBioModel(query("/new/")).getInformation(List.of("BIOMD0000000012"));
+        int requests = requestCount.get();
+
+        String html = SearchBioModel.getHTMLInformation(result, List.of("BIOMD0000000012"));
+
+        assertEquals(requests, requestCount.get());
+        assertTrue(html.contains("Elowitz2000 - Repressilator"), html);
+        assertTrue(html.contains("1 BioModels found"), html);
+    }
+
+    @Test
+    void downloadCreatesOneLoadFactoryPerId() {
+        List<LoadBioModelTaskFactory> factories =
+                LoadBioModelTaskFactory.download(List.of("BIOMD0000000012", "BIOMD9999999999"), query("/old/"), null);
+
+        assertEquals(2, factories.size());
+        assertTrue(factories.get(0).isReady());
+        assertEquals(null, factories.get(0).getError());
+        assertFalse(factories.get(1).isReady());
+        assertEquals("BIOMD9999999999", factories.get(1).getId());
+        assertTrue(
+                factories.get(1).getError().contains("HTTP status 404"),
+                factories.get(1).getError());
     }
 }

@@ -1,15 +1,18 @@
 package org.cy3sbml.biomodel;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractListModel;
@@ -28,10 +31,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.ServiceAdapter;
-import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +55,19 @@ public final class BiomodelsDialog extends JDialog {
     private final JCheckBox chckbxOR;
 
     private final JButton loadSelectedButton;
+    private final JButton loadIdsButton;
+    private final JButton parseIdsButton;
+    private final JButton searchButton;
+    private final JButton resetButton;
     private final JPanel panel;
     private final JScrollPane infoScrollPane;
     private final JEditorPane infoPane;
 
     @SuppressWarnings("rawtypes")
     private JList biomodelsList;
+
+    /** The current search result, only accessed on the event dispatch thread. */
+    private SearchBioModel.Result searchResult;
 
     @SuppressWarnings("rawtypes")
     public BiomodelsDialog(final ServiceAdapter adapter, final BiomodelsQuery biomodelsQuery) {
@@ -98,45 +108,33 @@ public final class BiomodelsDialog extends JDialog {
         nameField.addKeyListener(new EnterKeyAdapter());
 
         // Load Ids Button
-        JButton loadIdsButton = new JButton("Load Ids");
+        loadIdsButton = new JButton("Load Ids");
         loadIdsButton.setToolTipText("Parse BioModel Ids and load the models.");
         loadIdsButton.setBounds(170, 821, 102, 25);
         panel.add(loadIdsButton);
 
         loadIdsButton.addActionListener(event -> loadBioModelByIdsAndDisposeDialog());
 
-        JButton parseIdsButton = new JButton("Parse Ids");
+        parseIdsButton = new JButton("Parse Ids");
         parseIdsButton.setToolTipText("Parse BioModel Ids from text.");
         parseIdsButton.setBounds(33, 821, 102, 25);
         panel.add(parseIdsButton);
-        parseIdsButton.addActionListener(event -> {
-            try {
-                parseBioModelByIds();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        parseIdsButton.addActionListener(event -> parseBioModelByIds());
 
         // Search Button
-        JButton searchButton = new JButton("Search");
+        searchButton = new JButton("Search");
         searchButton.setToolTipText("Search Biomodels");
         searchButton.setBounds(33, 203, 102, 25);
         panel.add(searchButton);
-        searchButton.addActionListener(event -> {
-            try {
-                searchBioModels();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        searchButton.addActionListener(event -> searchBioModels());
 
         // Reset Button
-        JButton resetButton = new JButton("Reset");
+        resetButton = new JButton("Reset");
         resetButton.setToolTipText("Reset Search Fields");
         resetButton.setBounds(170, 203, 102, 25);
         panel.add(resetButton);
         resetButton.addActionListener(event -> resetFields());
-        searchBioModel = new SearchBioModel(adapter, biomodelsQuery);
+        searchBioModel = new SearchBioModel(biomodelsQuery);
         // Load Selected Models
         loadSelectedButton = new JButton("Load Selected");
         loadSelectedButton.setToolTipText("Load selected BioModels from the List");
@@ -162,11 +160,7 @@ public final class BiomodelsDialog extends JDialog {
             } else {
                 loadSelectedButton.setEnabled(true);
             }
-            try {
-                handleModelSelectionInModelList();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            handleModelSelectionInModelList();
         });
 
         listScrollPane.setViewportView(biomodelsList);
@@ -229,12 +223,8 @@ public final class BiomodelsDialog extends JDialog {
         @Override
         public void keyPressed(KeyEvent keyE) {
             int key = keyE.getKeyCode();
-            if (key == KeyEvent.VK_ENTER) {
-                try {
-                    searchBioModels();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+            if (key == KeyEvent.VK_ENTER && searchButton.isEnabled()) {
+                searchBioModels();
             }
         }
     }
@@ -253,44 +243,61 @@ public final class BiomodelsDialog extends JDialog {
         frame.setVisible(true);
     }
 
-    public void loadBioModelById(String id) {
-        logger.info("Load BioModel: " + id);
-        infoPane.setText(BioModelDialogText.getWebserviceSBMLRequest());
-        // UI boundary: a failure is reported and must not escape into Swing
-        try {
-            LoadBioModelTaskFactory loadFactory = new LoadBioModelTaskFactory(id, biomodelsQuery, adapter);
-            if (!loadFactory.isReady()) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        String.format(
-                                "<html>No SBML could be loaded for BioModel Id: <b>%s</b><br>%s</html>",
-                                id, StringEscapeUtils.escapeHtml4(loadFactory.getError())));
-                return;
+    /// ////// BACKGROUND WORK ////////////
+
+    /**
+     * Runs the given web service access off the event dispatch thread while the dialog
+     * shows the busy state, then hands its result or failure to the given handlers on the
+     * event dispatch thread.
+     */
+    private <T> void runInBackground(
+            String busyText, Callable<T> work, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
+        setBusy(true);
+        infoPane.setText(busyText);
+        new SwingWorker<T, Void>() {
+            @Override
+            protected T doInBackground() throws Exception {
+                return work.call();
             }
-            TaskIterator iterator = loadFactory.createTaskIterator();
-            adapter.synchronousTaskManager.execute(iterator);
-        } catch (RuntimeException e) {
-            logger.error("Could not load BioModel: {}", id, e);
-            JOptionPane.showMessageDialog(
-                    this, String.format("<html>Could not load BioModel Id: <b>%s</b><br>%s</html>", id, e));
+
+            @Override
+            protected void done() {
+                setBusy(false);
+                try {
+                    onSuccess.accept(get());
+                } catch (ExecutionException e) {
+                    onFailure.accept(e.getCause());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    onFailure.accept(e);
+                }
+            }
+        }.execute();
+    }
+
+    /** Disables the actions and shows the wait cursor while a web service access runs. */
+    private void setBusy(boolean busy) {
+        for (JButton button : List.of(searchButton, resetButton, parseIdsButton, loadIdsButton)) {
+            button.setEnabled(!busy);
         }
+        loadSelectedButton.setEnabled(!busy && !biomodelsList.isSelectionEmpty());
+        biomodelsList.setEnabled(!busy);
+        setCursor(busy ? Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR) : Cursor.getDefaultCursor());
     }
 
     /// ////// SEARCH MODELS ////////////
-    public void searchBioModels() throws IOException, InterruptedException {
-        logger.info("search BioModels");
-        infoPane.setText(BioModelDialogText.performBioModelSearch());
-
+    public void searchBioModels() {
         SearchContent searchContent = getSearchContent();
-        searchBioModel.searchBioModels(searchContent);
-        if (searchBioModel.searchFailed()) {
-            updateModelListInDialog(List.of());
-            infoPane.setText(BioModelDialogText.getWebserviceError());
-            return;
-        }
-
-        // Has to be done in task
-        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
+        logger.info("Search BioModels: {}", searchContent.namesToString(" "));
+        runInBackground(
+                BioModelDialogText.performBioModelSearch(),
+                () -> searchBioModel.search(searchContent),
+                this::showSearchResult,
+                error -> {
+                    logger.warn("BioModels search failed: {}", error.getMessage());
+                    showSearchResult(null);
+                    infoPane.setText(BioModelDialogText.getWebserviceError());
+                });
     }
 
     public SearchContent getSearchContent() {
@@ -298,19 +305,19 @@ public final class BiomodelsDialog extends JDialog {
         if (chckbxOR.isSelected()) {
             mode = SearchContent.CONNECT_OR;
         }
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(SearchContent.CONTENT_NAME, nameField.getText());
-
-        map.put(SearchContent.CONTENT_MODE, mode);
-
-        return new SearchContent(map);
+        return new SearchContent(
+                Map.of(SearchContent.CONTENT_NAME, nameField.getText(), SearchContent.CONTENT_MODE, mode));
     }
 
     /// ////// UPDATE GUI ////////////
-    private void updateBioModelListAndInformationAfterSearch(List<String> ids)
-            throws IOException, InterruptedException {
-        updateModelListInDialog(ids);
+
+    /** Shows the given search result, none if null. */
+    private void showSearchResult(SearchBioModel.Result result) {
+        searchResult = result;
+        updateModelListInDialog(result != null ? result.modelIds() : List.of());
+        if (result == null) {
+            return;
+        }
         updateBioModelInformation(getListOfSelectedModelIds());
 
         int topPosition = 0;
@@ -337,13 +344,16 @@ public final class BiomodelsDialog extends JDialog {
         });
     }
 
-    public void updateBioModelInformation(List<String> selectedModelIds) throws IOException, InterruptedException {
+    /** Shows the information of the current search result, it does not access the web service. */
+    public void updateBioModelInformation(List<String> selectedModelIds) {
+        if (searchResult == null) {
+            return;
+        }
         final int caretPosition = infoPane.getCaretPosition();
         final int scrollPosition = infoScrollPane.getVerticalScrollBar().getValue();
         Point location = infoScrollPane.getViewport().getLocation();
 
-        String searchInfo = searchBioModel.getHTMLInformation(selectedModelIds);
-        infoPane.setText(searchInfo);
+        infoPane.setText(SearchBioModel.getHTMLInformation(searchResult, selectedModelIds));
         try {
             infoPane.setCaretPosition(caretPosition);
         } catch (java.lang.IllegalArgumentException e) {
@@ -357,9 +367,8 @@ public final class BiomodelsDialog extends JDialog {
     }
 
     /// ////// SELECT MODELS ////////////
-    private void handleModelSelectionInModelList() throws IOException, InterruptedException {
-        List<String> selectedModelIds = getListOfSelectedModelIds();
-        updateBioModelInformation(selectedModelIds);
+    private void handleModelSelectionInModelList() {
+        updateBioModelInformation(getListOfSelectedModelIds());
     }
 
     public List<String> getListOfSelectedModelIds() {
@@ -370,42 +379,74 @@ public final class BiomodelsDialog extends JDialog {
 
     /// ////// LOAD MODELS ////////////
     public void loadSelectedBioModelsAndDisposeDialog() {
-        if (biomodelsList.isSelectionEmpty() == false) {
-            this.dispose();
-            List<String> ids = getListOfSelectedModelIds();
-            for (String id : ids) {
-                loadBioModelById(id);
-            }
+        if (!biomodelsList.isSelectionEmpty()) {
+            loadBioModelsAndDisposeDialog(getListOfSelectedModelIds());
         }
     }
 
     public void loadBioModelByIdsAndDisposeDialog() {
-        Set<String> ids = parseBioModelIdsFromString(idTextArea.getText());
-        this.dispose();
-        for (String id : ids) {
-            loadBioModelById(id);
-        }
+        loadBioModelsAndDisposeDialog(List.copyOf(parseBioModelIdsFromString(idTextArea.getText())));
     }
 
-    public void parseBioModelByIds() throws IOException, InterruptedException {
-        String text = idTextArea.getText();
-        Set<String> ids = parseBioModelIdsFromString(text);
-
-        String newText = "";
-        for (String id : ids) {
-            newText += id + " ";
+    /**
+     * Downloads the SBML of the given BioModels in the background, then closes the dialog,
+     * loads the downloaded models and reports the ones that could not be downloaded.
+     */
+    private void loadBioModelsAndDisposeDialog(List<String> ids) {
+        if (ids.isEmpty()) {
+            return;
         }
-        idTextArea.setText(newText);
-        searchBioModel.getBioModelsByParsedIds(ids);
+        logger.info("Load BioModels: {}", ids);
+        runInBackground(
+                BioModelDialogText.getWebserviceSBMLRequest(),
+                () -> LoadBioModelTaskFactory.download(ids, biomodelsQuery, adapter),
+                factories -> {
+                    dispose();
+                    String errors = "";
+                    for (LoadBioModelTaskFactory factory : factories) {
+                        if (factory.isReady()) {
+                            adapter.dialogTaskManager.execute(factory.createTaskIterator());
+                        } else {
+                            errors += String.format(
+                                    "<br><b>%s</b>: %s",
+                                    factory.getId(), StringEscapeUtils.escapeHtml4(factory.getError()));
+                        }
+                    }
+                    if (!errors.isEmpty()) {
+                        JOptionPane.showMessageDialog(
+                                adapter.cySwingApplication.getJFrame(),
+                                "<html>No SBML could be loaded for the BioModels:" + errors + "</html>");
+                    }
+                },
+                error -> {
+                    logger.error("Could not load the BioModels {}", ids, error);
+                    JOptionPane.showMessageDialog(
+                            this,
+                            String.format(
+                                    "<html>Could not load the BioModels: <b>%s</b><br>%s</html>",
+                                    String.join(", ", ids), StringEscapeUtils.escapeHtml4(String.valueOf(error))));
+                });
+    }
 
-        updateBioModelListAndInformationAfterSearch(searchBioModel.getModelIds());
+    public void parseBioModelByIds() {
+        Set<String> ids = parseBioModelIdsFromString(idTextArea.getText());
+        idTextArea.setText(String.join(" ", ids));
+        runInBackground(
+                BioModelDialogText.getWebserviceSBMLRequest(),
+                () -> searchBioModel.getInformation(ids),
+                this::showSearchResult,
+                error -> {
+                    logger.warn("BioModels information failed: {}", error.getMessage());
+                    showSearchResult(null);
+                    infoPane.setText(BioModelDialogText.getWebserviceError());
+                });
     }
 
     /**
      * Returns set of BioModel identifiers from given text.
      */
     public static Set<String> parseBioModelIdsFromString(String text) {
-        Set<String> ids = new HashSet<String>();
+        Set<String> ids = new LinkedHashSet<String>();
         String bioModelPattern = "((BIOMD|MODEL)\\d{10})|(BMID\\d{12})";
         Pattern pattern = Pattern.compile(bioModelPattern);
         Matcher matcher = pattern.matcher(text);

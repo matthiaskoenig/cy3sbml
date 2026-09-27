@@ -11,9 +11,8 @@ public class BioModelInterfaceTools {
     // string and html representations
 
     public static String getHTMLInformationForSimpleModels(
-            BiomodelsQuery query, List<String> modelIds, List<String> selectedSimpleModels) {
+            Map<String, Biomodel> biomodels, List<String> modelIds, List<String> selectedSimpleModels) {
         String info = "";
-        Map<String, Biomodel> biomodels = BiomodelsQueryResult.getBiomodelsFromIds(modelIds, query);
         for (String modelId : modelIds) {
             Biomodel model = biomodels.get(modelId);
             if (model == null) {

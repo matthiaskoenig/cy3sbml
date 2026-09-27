@@ -2,6 +2,8 @@ package org.cy3sbml.biomodel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
@@ -19,11 +21,13 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     private static final Logger logger = LoggerFactory.getLogger(LoadBioModelTaskFactory.class);
     public static final String SUFFIX = ".xml"; // has to match the reader
 
+    private final String id;
     private final ServiceAdapter adapter;
     private File file;
     private String error;
 
     public LoadBioModelTaskFactory(String id, BiomodelsQuery query, ServiceAdapter adapter) {
+        this.id = id;
         this.adapter = adapter;
 
         try {
@@ -51,6 +55,24 @@ public class LoadBioModelTaskFactory implements TaskFactory {
     @Override
     public boolean isReady() {
         return file != null;
+    }
+
+    /**
+     * Downloads the SBML of the given BioModels, one factory per id. Accesses the web
+     * service, so it must not run on the Swing event dispatch thread.
+     */
+    public static List<LoadBioModelTaskFactory> download(
+            List<String> ids, BiomodelsQuery query, ServiceAdapter adapter) {
+        List<LoadBioModelTaskFactory> factories = new ArrayList<>();
+        for (String id : ids) {
+            factories.add(new LoadBioModelTaskFactory(id, query, adapter));
+        }
+        return factories;
+    }
+
+    /** Returns the BioModel id. */
+    public String getId() {
+        return id;
     }
 
     /** Returns the reason why the SBML could not be downloaded, null if it was. */

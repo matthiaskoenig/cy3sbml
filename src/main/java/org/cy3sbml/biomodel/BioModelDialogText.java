@@ -47,7 +47,7 @@ public class BioModelDialogText {
 
     public static String performBioModelSearch() {
         String info = getHeaderString();
-        info += "<p>Searching BioModels ...</p>" + "<p>... WebService request can take a few seconds.</p>";
+        info += "<p>Searching BioModels ...</p>" + "<p>... the request can take a few seconds.</p>";
         return info;
     }
 
@@ -59,8 +59,8 @@ public class BioModelDialogText {
 
     public static String getWebserviceSBMLRequest() {
         String info = getHeaderString();
-        info += "<p>Getting SBML information via Webservice ... </p>"
-                + "... Webservice request can take a few seconds.</p>";
+        info += "<p>Getting the BioModels from the BioModels web service ...</p>"
+                + "<p>... the request can take a few seconds.</p>";
         return info;
     }
 }
