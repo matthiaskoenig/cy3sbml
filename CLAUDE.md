@@ -57,6 +57,18 @@ All code is under `org.cy3sbml` (`src/main/java/org/cy3sbml/`).
 
 `tools/pycysbml` is a separate Python (uv) helper package for downloading and preparing test models. It is not part of the app build.
 
+## Documentation
+
+The documentation site is built with [zensical](https://zensical.org) from Markdown in `docs/` (config in `zensical.toml`), and published to <https://matthiaskoenig.github.io/cy3sbml/> by `.github/workflows/docs.yml` on every push to `develop`. To build it locally:
+
+```bash
+uv run --no-project --python 3.14 python scripts/release_notes.py   # docs/release-notes.md from release-notes/*.md, gitignored
+uvx --python 3.14 --with-requirements docs/requirements.txt zensical build --clean
+uv run --no-project --python 3.14 python scripts/llms_txt.py        # llms.txt, llms-full.txt and per-page markdown in site/
+```
+
+The build must stay warning-free. Do not hand-edit `docs/release-notes.md` or anything under `site/`, both are generated.
+
 ## Release
 
-See `docs/development/release.md`. Release notes go in `release-notes/`. The version lives in `pom.xml`.
+See `docs/development/release.md` for the full process. In short: set the version in `pom.xml` and add `release-notes/<version>.md` in a pull request to `develop`, then tag the merged commit (`v<version>`); `.github/workflows/release.yml` builds and tests the tag, creates the GitHub release with the jar and checksums, and fast-forwards `main` to it. Branch and tag protection (`develop`, `main`, tags) are GitHub rulesets under `.github/rulesets/`, applied with `.github/rulesets/apply.sh`.
