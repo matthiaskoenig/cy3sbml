@@ -15,6 +15,7 @@ import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
 import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
+import org.sbml.jsbml.ext.fbc.FluxBound;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.groups.Member;
@@ -81,9 +82,13 @@ class SBMLUtilTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation") // FluxBound is deprecated in JSBML, but still a valid nested-class example
     void getUnqualifiedClassNameStripsPackageAndReplacesDollar() {
         assertEquals("Compartment", SBMLUtil.getUnqualifiedClassName(compartment));
         assertEquals("QualitativeSpecies", SBMLUtil.getUnqualifiedClassName(new QualitativeSpecies("s2", 3, 1)));
+        // a nested class' binary name (e.g. FluxBound$Operation) has a '$', not a '.',
+        // between the outer and the inner class name
+        assertEquals("FluxBound.Operation", SBMLUtil.getUnqualifiedClassName(FluxBound.Operation.GREATER_EQUAL));
     }
 
     @Test

@@ -50,6 +50,9 @@ class CofactorManagerTest {
         CyEdge e1 = base.addEdge(cofactor, n1, true);
         CyEdge e2 = base.addEdge(cofactor, n2, true);
         CyEdge e3 = base.addEdge(cofactor, n3, true);
+        for (CyEdge e : List.of(e1, e2, e3)) {
+            AttributeUtil.set(base, e, SBML.INTERACTION_ATTR, SBML.INTERACTION_REACTION_REACTANT, String.class);
+        }
 
         network = rootNetwork.addSubNetwork(Set.of(cofactor, n1, n2, n3), Set.of(e1, e2, e3));
 
@@ -65,10 +68,12 @@ class CofactorManagerTest {
         assertEquals(6, network.getNodeCount());
         assertEquals(3, network.getEdgeCount());
         for (CyNode neighbor : List.of(n1, n2, n3)) {
+            List<CyEdge> neighborEdges = network.getAdjacentEdgeList(neighbor, CyEdge.Type.ANY);
+            assertEquals(1, neighborEdges.size());
+            // the clone edge must keep the interaction type of the edge it was cloned from
             assertEquals(
-                    1,
-                    network.getAdjacentEdgeList(neighbor, org.cytoscape.model.CyEdge.Type.ANY)
-                            .size());
+                    SBML.INTERACTION_REACTION_REACTANT,
+                    AttributeUtil.get(network, neighborEdges.get(0), SBML.INTERACTION_ATTR, String.class));
         }
     }
 
@@ -103,10 +108,13 @@ class CofactorManagerTest {
         assertTrue(network.containsNode(cofactor));
         assertEquals(SBML.NODETYPE_SPECIES, AttributeUtil.get(network, cofactor, SBML.NODETYPE_ATTR, String.class));
         for (CyNode neighbor : List.of(n1, n2, n3)) {
+            List<CyEdge> neighborEdges = network.getAdjacentEdgeList(neighbor, CyEdge.Type.ANY);
+            assertEquals(1, neighborEdges.size());
+            // the restored edge must keep its original interaction type through the
+            // split/merge round trip
             assertEquals(
-                    1,
-                    network.getAdjacentEdgeList(neighbor, org.cytoscape.model.CyEdge.Type.ANY)
-                            .size());
+                    SBML.INTERACTION_REACTION_REACTANT,
+                    AttributeUtil.get(network, neighborEdges.get(0), SBML.INTERACTION_ATTR, String.class));
         }
     }
 }
