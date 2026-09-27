@@ -64,4 +64,16 @@ class SBaseHTMLFactoryTest {
                 "&lt;script&gt;x&lt;/script&gt; a &amp; b &lt;sub onclick=&quot;x&quot;&gt;",
                 SBaseHTMLFactory.ontologyTextHTML("<script>x</script> a & b <sub onclick=\"x\">"));
     }
+
+    @Test
+    void ontologyTextKeepsNestedPairs() {
+        assertEquals("<b><i>x</i></b> y", SBaseHTMLFactory.ontologyTextHTML("<b><i>x</i></b> y"));
+    }
+
+    @Test
+    void ontologyTextEscapesUnbalancedTags() {
+        assertEquals("H&lt;sub&gt;2 O", SBaseHTMLFactory.ontologyTextHTML("H<sub>2 O"));
+        assertEquals("x&lt;/i&gt; y", SBaseHTMLFactory.ontologyTextHTML("x</i> y"));
+        assertEquals("&lt;b&gt;&lt;i&gt;x&lt;/b&gt;&lt;/i&gt;", SBaseHTMLFactory.ontologyTextHTML("<b><i>x</b></i>"));
+    }
 }

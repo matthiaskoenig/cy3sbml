@@ -585,14 +585,30 @@ public class SBaseHTMLFactory {
     }
 
     /** Inline formatting tags without attributes that ontology texts use, e.g. {@code <small>D</small>}. */
-    private static final Pattern ESCAPED_INLINE_TAG = Pattern.compile("&lt;(/?(?:sub|sup|small|i|em|b))&gt;");
+    private static final String INLINE_TAGS = "sub|sup|small|i|em|b";
+
+    /**
+     * An escaped pair of the same inline tag around content without escaped inline tags;
+     * restored tags in the content are allowed, so nested pairs are restored inside out.
+     */
+    private static final Pattern ESCAPED_INLINE_PAIR = Pattern.compile("&lt;(" + INLINE_TAGS + ")&gt;"
+            + "((?:(?!&lt;/?(?:" + INLINE_TAGS + ")&gt;)[^<]|<[^>]*>)*?)"
+            + "&lt;/\\1&gt;");
 
     /**
      * HTML for a text from an ontology term (label, synonym or description).
-     * The text is escaped, inline formatting tags such as sub, sup and small are kept.
+     * The text is escaped, matched pairs of inline formatting tags such as sub, sup and small
+     * are kept; unbalanced or crossing tags stay escaped.
      */
     static String ontologyTextHTML(String text) {
-        return ESCAPED_INLINE_TAG.matcher(StringEscapeUtils.escapeHtml4(text)).replaceAll("<$1>");
+        String html = StringEscapeUtils.escapeHtml4(text);
+        while (true) {
+            String restored = ESCAPED_INLINE_PAIR.matcher(html).replaceAll("<$1>$2</$1>");
+            if (restored.equals(html)) {
+                return html;
+            }
+            html = restored;
+        }
     }
 
     /**
