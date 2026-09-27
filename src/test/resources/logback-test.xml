@@ -15,6 +15,29 @@
          LatestTaskExecutor logs with its stack trace -->
     <logger name="org.cy3sbml.gui.LatestTaskExecutor" level="OFF" />
 
+    <!-- Loggers that warn on the deliberate inputs of the tests are raised to ERROR, so a
+         warning in the test output stands out. Every other logger stays at WARN. -->
+    <!-- the test models: comp links to other submodels, external model definitions,
+         layouts, elements without metaId -->
+    <logger name="org.cy3sbml.reader.CompReader" level="ERROR" />
+    <logger name="org.cy3sbml.reader.LayoutReader" level="ERROR" />
+    <logger name="org.cy3sbml.reader.SBMLReaderTask" level="ERROR" />
+    <logger name="org.cy3sbml.util.MappingUtil" level="ERROR" />
+    <!-- malformed inputs: flux bounds, layout files, XML strings, proxy settings -->
+    <logger name="org.cy3sbml.reader.FbcReader" level="ERROR" />
+    <logger name="org.cy3sbml.layout.XMLInterface" level="ERROR" />
+    <logger name="org.cy3sbml.util.XMLUtil" level="ERROR" />
+    <logger name="org.cy3sbml.util.GUIUtil" level="ERROR" />
+    <logger name="org.cy3sbml.ConnectionProxy" level="ERROR" />
+    <!-- web-service fixtures: error statuses, timeouts, incomplete entries -->
+    <logger name="org.cy3sbml.util.HttpJson" level="ERROR" />
+    <logger name="org.cy3sbml.miriam.MiriamRegistry" level="ERROR" />
+    <logger name="org.cy3sbml.ols.OlsClient" level="ERROR" />
+    <logger name="org.cy3sbml.uniprot.UniprotAccess" level="ERROR" />
+    <logger name="org.cy3sbml.chebi.ChebiAccess" level="ERROR" />
+    <logger name="org.cy3sbml.biomodel.BiomodelsQueryResult" level="ERROR" />
+    <logger name="org.cy3sbml.biomodel.LoadBioModelTaskFactory" level="ERROR" />
+
     <root level="WARN">
         <appender-ref ref="STDOUT" />
     </root>
