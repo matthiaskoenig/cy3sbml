@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
@@ -43,9 +41,7 @@ public class StyleFactory {
 
         InputStream xmlStream = IOUtil.readResource(info.getTemplate());
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlStream);
+            Document doc = XMLUtil.documentBuilder().parse(xmlStream);
 
             // modify template with information
             // - set name

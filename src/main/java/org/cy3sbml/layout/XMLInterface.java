@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.cy3sbml.util.XMLUtil;
@@ -51,10 +48,7 @@ public class XMLInterface {
     private static Document createXMLDocumentFromLayout(Collection<CyBoundingBox> boxes) {
         Document doc = null;
         try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder;
-            docBuilder = docFactory.newDocumentBuilder();
-            doc = docBuilder.newDocument();
+            doc = XMLUtil.documentBuilder().newDocument();
             Element rootElement = doc.createElement(LAYOUT);
             doc.appendChild(rootElement);
 
@@ -83,10 +77,7 @@ public class XMLInterface {
 
     private static void writeXMLDocumentToFile(Document doc, File xmlFile) {
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer;
-
-            transformer = transformerFactory.newTransformer();
+            Transformer transformer = XMLUtil.transformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(xmlFile);
             transformer.transform(source, result);

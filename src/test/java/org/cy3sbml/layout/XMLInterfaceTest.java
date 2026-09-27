@@ -49,4 +49,24 @@ class XMLInterfaceTest {
     void returnsNoBoxesForMalformedXml() throws Exception {
         assertTrue(XMLInterface.readLayoutFromXML(write("<layout><boundingBox")).isEmpty());
     }
+
+    /** A layout file with an external entity must not leak a local file into node ids. */
+    @Test
+    void readLayoutFromXMLDoesNotResolveExternalEntities() throws Exception {
+        Path secret = tempDir.resolve("secret.txt");
+        Files.writeString(secret, "TOP-SECRET", StandardCharsets.UTF_8);
+        File layout = tempDir.resolve("layout.xml").toFile();
+        Files.writeString(
+                layout.toPath(),
+                "<?xml version=\"1.0\"?>\n"
+                        + "<!DOCTYPE layout [<!ENTITY xxe SYSTEM \"" + secret.toUri() + "\">]>\n"
+                        + "<layout><listOfBoundingBoxes>"
+                        + "<boundingBox id=\"&xxe;\" xpos=\"1\" ypos=\"2\" height=\"3\" width=\"4\"/>"
+                        + "</listOfBoundingBoxes></layout>",
+                StandardCharsets.UTF_8);
+
+        Map<String, CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(layout);
+
+        assertTrue(boxes.isEmpty(), "the layout with a DOCTYPE must be rejected: " + boxes.keySet());
+    }
 }

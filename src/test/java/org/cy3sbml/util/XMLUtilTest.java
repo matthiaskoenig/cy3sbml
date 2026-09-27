@@ -1,6 +1,7 @@
 package org.cy3sbml.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,6 +30,50 @@ class XMLUtilTest {
     @Test
     void readXMLStringReturnsNullForMalformedXml() {
         assertNull(XMLUtil.readXMLString("<root><child>"));
+    }
+
+    /**
+     * XXE: an external general entity pointing to a local file must not pull the file's
+     * content into the parsed document. The document type declaration is rejected, so
+     * parsing fails and nothing is read.
+     */
+    @Test
+    void readXMLStringDoesNotResolveExternalEntities() throws Exception {
+        Path secret = tempDir.resolve("secret.txt");
+        Files.writeString(secret, "TOP-SECRET", StandardCharsets.UTF_8);
+        String xml = "<?xml version=\"1.0\"?>\n"
+                + "<!DOCTYPE root [<!ENTITY xxe SYSTEM \"" + secret.toUri() + "\">]>\n"
+                + "<root>&xxe;</root>";
+
+        assertNull(XMLUtil.readXMLString(xml));
+        String html = XMLUtil.xml2Html(xml);
+        assertFalse(html.contains("TOP-SECRET"), html);
+    }
+
+    /** XXE via an external parameter entity / external DTD must not be loaded either. */
+    @Test
+    void readXMLStringDoesNotLoadExternalDtds() throws Exception {
+        Path dtd = tempDir.resolve("evil.dtd");
+        Path marker = tempDir.resolve("secret.txt");
+        Files.writeString(marker, "TOP-SECRET", StandardCharsets.UTF_8);
+        Files.writeString(dtd, "<!ENTITY xxe SYSTEM \"" + marker.toUri() + "\">", StandardCharsets.UTF_8);
+        String xml = "<?xml version=\"1.0\"?>\n"
+                + "<!DOCTYPE root [<!ENTITY % ext SYSTEM \"" + dtd.toUri() + "\"> %ext;]>\n"
+                + "<root>&xxe;</root>";
+
+        assertNull(XMLUtil.readXMLString(xml));
+    }
+
+    @Test
+    void documentBuilderFactoryIsHardened() throws Exception {
+        DocumentBuilderFactory factory = XMLUtil.documentBuilderFactory();
+        assertTrue(factory.getFeature("http://apache.org/xml/features/disallow-doctype-decl"));
+        assertFalse(factory.getFeature("http://xml.org/sax/features/external-general-entities"));
+        assertFalse(factory.getFeature("http://xml.org/sax/features/external-parameter-entities"));
+        assertFalse(factory.getFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd"));
+        assertTrue(factory.getFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING));
+        assertFalse(factory.isXIncludeAware());
+        assertFalse(factory.isExpandEntityReferences());
     }
 
     @Test
