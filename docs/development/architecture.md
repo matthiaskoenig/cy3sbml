@@ -108,10 +108,15 @@ Use them instead of string literals.
 network events. For every change it resolves the object to show (`PanelUpdater`) and
 submits the rendering to a `LatestTaskExecutor`. The executor runs one render at a time
 on its own thread. A new target cancels the pending or running render. The same target
-is not rendered again while it is pending or running. So a slow web service request for an old selection never replaces the
-information of a newer one. The rendered HTML and the help and examples pages all reach
-the `Browser` through `PageLoader`, on the thread that requests them, so the page
-requested last is the page shown. Rendering reads the SBML document and never changes it.
+is not rendered again while it is pending or running. Cancelling interrupts the render,
+but a render can be replaced right after its last interrupt check. So every render
+publishes its page with `LatestTaskExecutor.publishIfCurrent`, which checks, under the
+same lock that `submit` uses, that the render is still the latest one and drops the page
+otherwise. A slow web service request for an old selection therefore never replaces the
+information of a newer one or the help page. The accepted pages (rendered HTML, help and
+examples) reach the `Browser` through `PageLoader` in the order they were accepted, so the
+page accepted last is the page shown. Rendering reads the SBML document and never changes
+it.
 
 `SBaseHTMLFactory` creates the HTML of an SBML object with the templates in
 `src/main/resources/gui`. It resolves annotations with:
