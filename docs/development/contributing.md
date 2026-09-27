@@ -11,7 +11,7 @@ existing issue first. If there is none, open a new issue with:
 - a clear description, and for a bug the steps to reproduce it,
 - the SBML file, or a link to it, if the problem is about a model,
 - the versions of cy3sbml, Cytoscape, Java and the operating system. Cytoscape shows them
-  in **Help → About...**, for example:
+  in **Help → About**, for example:
 
   ```
   Version: 3.10.4

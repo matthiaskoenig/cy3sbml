@@ -10,9 +10,11 @@ and saved in a session is kept. cy3sbml also adds the style `robundle` for archi
 networks.
 
 Every imported network view gets the style named by the property `cy3sbml.visualStyle`
-(default `cy3sbml`). To use the dark style for new imports, set the property to
-`cy3sbml-dark` in **Edit → Preferences → Properties...** under `cy3sbml`. To change the
-style of an existing view, select the style in the **Style** panel of Cytoscape.
+(default `cy3sbml`). The property is stored in the file
+`~/CytoscapeConfiguration/cy3sbml.props`; it is not listed in **Edit → Preferences →
+Properties...**. To use the dark style for new imports, quit Cytoscape, change the line
+to `cy3sbml.visualStyle=cy3sbml-dark`, and start Cytoscape again. To change the style of
+an existing view, select the style in the **Style** panel of Cytoscape.
 
 ![The cy3sbml style on the base network of the repressilator BIOMD0000000012: species as circles, reactions as small squares, activating modifiers as green dashed edges, inhibiting modifiers as red dashed edges](../images/screenshots/cy3sbml-style.png){ width="600" }
 

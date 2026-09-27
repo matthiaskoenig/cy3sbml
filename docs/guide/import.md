@@ -21,7 +21,8 @@ Use one of these ways:
 - Click **Import SBML** in the toolbar and select one or more files. Every selected file
   is imported.
 - Use the Cytoscape menu **File → Import → Network from File...**.
-- Drag SBML files onto the network panel of Cytoscape.
+- Drag SBML files onto the **Network** panel of Cytoscape (it shows "Drag network files
+  here" while it is empty).
 - Load a file with the Cytoscape automation interface (CyREST), for example the command
   `network load file file=<path>`.
 

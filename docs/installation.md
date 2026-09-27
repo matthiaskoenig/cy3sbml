@@ -19,9 +19,10 @@ The recommended way is the Cytoscape App Store.
 
 **In Cytoscape:**
 
-1. Open **Apps → App Store → Show App Store**.
-2. Search for `cy3sbml`.
-3. Click **Install**.
+1. Open **Apps → App Store → Show App Store**. The **App Store** panel opens on the left
+   side of the Cytoscape window.
+2. Type `cy3sbml` into the field **Search the App Store...**.
+3. Install cy3sbml from the result.
 
 **In a web browser:**
 
@@ -40,16 +41,16 @@ Every release on [GitHub](https://github.com/matthiaskoenig/cy3sbml/releases) ha
 app jar `cy3sbml-<version>.jar` with its checksums. To install it:
 
 1. Download `cy3sbml-<version>.jar`.
-2. In Cytoscape, open **Apps → App Store → Show App Store**.
-3. Click **Install from File...** and select the jar.
+2. In Cytoscape, open **Apps → App Store → Install Apps From File** and select the jar.
 
 Development builds are installed the same way, or with a symbolic link into the Cytoscape
 apps folder, see [Building](development/building.md#run-in-cytoscape).
 
 ## Update, disable or uninstall
 
-Open **Apps → App Store → Show App Store**, switch to the list of installed apps, select
-cy3sbml, and click **Update**, **Disable** or **Uninstall**.
+Open **Apps → App Store → Show App Store**. The App Store panel lists cy3sbml under
+**Installed apps**. The icons in its row uninstall the app (trash can), enable or disable
+it (check box), and update it (arrow, green if a new version is available).
 
 ## Files written by cy3sbml
 
