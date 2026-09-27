@@ -176,6 +176,7 @@ class SBMLUtilTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation") // the test covers the deprecated charge attribute
     void createSpeciesMapIncludesDeprecatedCharge() {
         // the deprecated core "charge" attribute only exists on SBML Level 2 species
         Species s2 = new Species("s2", 2, 4);
@@ -224,7 +225,7 @@ class SBMLUtilTest {
     @Test
     void createInitialAssignmentMapIncludesVariable() {
         InitialAssignment ia = model.createInitialAssignment();
-        ia.setSymbol("p1");
+        ia.setVariable("p1");
         ia.setMath(new ASTNode(5.0));
 
         Map<String, String> map = SBMLUtil.createInitialAssignmentMap(ia);
