@@ -2,10 +2,12 @@ package org.cy3sbml.uniprot;
 
 
 import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("network")
 public class UniprotCacheTest {
     @Test
     public void getUniProtEntry() throws Exception {

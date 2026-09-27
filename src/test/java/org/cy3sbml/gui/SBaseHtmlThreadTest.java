@@ -7,6 +7,7 @@ import org.cy3sbml.*;
 import org.cy3sbml.mapping.MetaIdSBaseMap;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -28,6 +29,7 @@ import org.sbml.jsbml.SBase;
  * A mock for the panel is created to simplify testing.
  * http://www.vogella.com/tutorials/Mockito/article.html
  */
+@Tag("network")
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class SBaseHtmlThreadTest {

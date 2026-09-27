@@ -1,5 +1,6 @@
 package org.cy3sbml.ols;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Testing the OLS client.
  */
+@Tag("network")
 public class OLSClientTest {
 
     private static OLSClient olsClient = new OLSClient(new OLSWsConfigProd());

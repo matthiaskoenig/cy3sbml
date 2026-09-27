@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test biomodels access.
  */
 @Disabled("Biomodels is down again")
+@Tag("network")
 public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_ID = "BIOMD0000000070";
     static final String VALID_BIOMODEL_PERSON = "gille";

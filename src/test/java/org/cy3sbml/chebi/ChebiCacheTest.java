@@ -1,8 +1,10 @@
 package org.cy3sbml.chebi;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("network")
 public class ChebiCacheTest {
     @Test
     public void getChebiHTML() throws Exception {

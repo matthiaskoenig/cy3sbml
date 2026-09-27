@@ -11,6 +11,7 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 import static uk.ac.ebi.uniprot.dataservice.client.examples.UniProtRetrievalExamples.*;
 
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test access to UniProt via JAPI.
  */
+@Tag("network")
 public class UniprotAccessTest {
 
     @Test

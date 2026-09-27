@@ -1,0 +1,33 @@
+# Keep the GitHub Actions and the Maven dependencies up to date.
+# See https://docs.github.com/code-security/dependabot/dependabot-version-updates
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      maven-plugins:
+        patterns:
+          - "org.apache.maven.plugins:*"
+          - "*-maven-plugin"
+      maven-dependencies:
+        patterns:
+          - "*"
+    ignore:
+      # built from source into lib/cy3sbml-dep, see lib/build_jsbml_jars.sh
+      - dependency-name: "org.sbml.jsbml*"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"

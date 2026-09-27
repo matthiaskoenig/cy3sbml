@@ -7,6 +7,7 @@ import org.cy3sbml.ols.OLSAccess;
 import org.cy3sbml.util.IOUtil;
 import org.identifiers.registry.RegistryDatabase;
 import org.identifiers.registry.RegistryUtilities;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 /**
  * Testing RegistryUtils.
  */
+@Tag("network")
 public class RegistryUtilTest {
     private static final Pattern IDENTIFIERS_ORG_PATTERN =
             Pattern.compile("https?://identifiers\\.org/[^\\s\"'>)]+");
@@ -86,6 +88,7 @@ public class RegistryUtilTest {
     }
 
     @Test
+    @Tag("network")
     public void updateMiriamXML() throws Exception {
         File f = File.createTempFile("test", ".xml");
         assertNotNull(f);
@@ -95,11 +98,13 @@ public class RegistryUtilTest {
 
 
     @Test
+    @Tag("network")
     public void loadRegistry() {
         assertNotNull(RegistryUtil.getMiriamContent());
     }
 
     @ParameterizedTest
+    @Tag("network")
     @MethodSource("resourceFilesProvider")
     public void testResourceUriProcessing(String resourceURI) throws IOException {
 

@@ -1,0 +1,63 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write  # create the GitHub release
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          java-version: "17"
+          distribution: temurin
+          cache: maven
+      - name: Build the app
+        run: mvn --batch-mode --no-transfer-progress verify
+      - name: Checksums
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "NOTES=release-notes/${VERSION}.md" >> "$GITHUB_ENV"
+          test -f "release-notes/${VERSION}.md"
+          cd target
+          JAR="cy3sbml-${VERSION}.jar"
+          test -f "$JAR"
+          md5sum "$JAR" > "$JAR.md5"
+          sha1sum "$JAR" > "$JAR.sha1"
+      - name: Create the GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          body_path: ${{ env.NOTES }}
+          files: |
+            target/cy3sbml-*.jar
+            target/cy3sbml-*.jar.md5
+            target/cy3sbml-*.jar.sha1
+
+  sync-main:
+    # main tracks the latest release
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Fast-forward main to the release
+        # no --force: the push fails if it is not a fast-forward
+        run: git push origin HEAD:main
