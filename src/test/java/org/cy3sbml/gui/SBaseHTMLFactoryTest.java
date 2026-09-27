@@ -14,7 +14,7 @@ class SBaseHTMLFactoryTest {
 
     @Test
     void htmlTextHasBaseDirAndTitle() {
-        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null);
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null);
 
         String html = htmlFactory.createHTMLText("<p>text</p>", "Title");
 

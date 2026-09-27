@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.tree.TreeNode;
 import org.cy3sbml.*;
 import org.cy3sbml.chebi.ChebiAccess;
-import org.cy3sbml.miriam.RegistryUtil;
+import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HttpJson;
@@ -42,11 +42,10 @@ public class SBaseHtmlThreadTest {
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
-        // Setup with local registry
-        RegistryUtil.getMiriamContent();
         HttpJson httpJson = HttpJson.createDefault();
         htmlFactory = new SBaseHTMLFactory(
                 "file:///cy3sbml/gui/",
+                MiriamRegistry.bundled(),
                 new OlsClient(httpJson),
                 new UniprotAccess(httpJson),
                 new ChebiAccess(httpJson));

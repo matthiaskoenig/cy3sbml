@@ -1,20 +1,12 @@
 package org.cy3sbml.util;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Helper functions for input and output.
  */
 public class IOUtil {
-    private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
 
     /**
      * Read resource to InputStream
@@ -60,47 +52,5 @@ public class IOUtil {
             suffix++;
         }
         return target;
-    }
-
-    /**
-     * Get URL as file.
-     * Use to download files
-     */
-    public static void saveURLasFile(URL url, File file) {
-        HttpURLConnection sourceConnection = null;
-        try {
-            sourceConnection = (HttpURLConnection) url.openConnection();
-            sourceConnection.setInstanceFollowRedirects(true);
-            sourceConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-
-            String encoding = sourceConnection.getContentEncoding();
-            InputStream rawInputStream = sourceConnection.getInputStream();
-
-            InputStream inputStream;
-            if ("gzip".equalsIgnoreCase(encoding)) {
-                inputStream = new GZIPInputStream(rawInputStream);
-            } else if ("deflate".equalsIgnoreCase(encoding)) {
-                inputStream = new InflaterInputStream(rawInputStream, new Inflater(true));
-            } else {
-                inputStream = rawInputStream;
-            }
-
-            // Copy decompressed input stream directly to file
-            try (InputStream in = inputStream;
-                    FileOutputStream fos = new FileOutputStream(file)) {
-                byte[] buffer = new byte[8192];
-                int len;
-                while ((len = in.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-            }
-
-        } catch (IOException e) {
-            logger.error("URL could not be saved.", e);
-        } finally {
-            if (sourceConnection != null) {
-                sourceConnection.disconnect();
-            }
-        }
     }
 }

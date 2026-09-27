@@ -1,7 +1,6 @@
 package org.cy3sbml.miriam;
 
 import static org.cy3sbml.gui.SBaseHTMLFactory.getCompactId;
-import static org.cy3sbml.gui.SBaseHTMLFactory.result;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -15,6 +14,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +32,8 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 @Tag("network")
 public class RegistryUtilTest {
+    private static final MiriamRegistry result = MiriamRegistry.bundled();
+
     private static final Pattern IDENTIFIERS_ORG_PATTERN = Pattern.compile("https?://identifiers\\.org/[^\\s\"'>)]+");
     private static final List<String> checkedNamespaces = new ArrayList<>();
 
@@ -79,17 +81,10 @@ public class RegistryUtilTest {
 
     @Test
     @Tag("network")
-    public void updateMiriamXML() throws Exception {
-        File f = File.createTempFile("test", ".xml");
-        assertNotNull(f);
-        RegistryUtil.updateMiriamJSON(f);
-        assertNotNull(RegistryUtil.getMiriamContent());
-    }
-
-    @Test
-    @Tag("network")
-    public void loadRegistry() {
-        assertNotNull(RegistryUtil.getMiriamContent());
+    public void downloadRegistry() throws Exception {
+        Map<String, Namespace> registry =
+                RegistryUtil.download(MiriamRegistry.ONLINE_REGISTRY, MiriamRegistry.DOWNLOAD_TIMEOUT);
+        assertNotNull(registry.get("go"));
     }
 
     @ParameterizedTest

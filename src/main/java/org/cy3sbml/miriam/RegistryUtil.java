@@ -6,11 +6,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,9 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import org.cy3sbml.util.IOUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tools for working with Miriam registry.
@@ -32,7 +30,6 @@ public class RegistryUtil {
     public static final String PAYLOAD = "payload";
     public static final String NAMESPACES = "namespaces";
     public static final String PREFIX = "prefix";
-    private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
     public static final String URL_MIRIAM_JSON =
             "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -61,7 +58,7 @@ public class RegistryUtil {
         }
     }
 
-    private static Map<String, Namespace> parseRegistry(byte[] jsonBytes) throws IOException {
+    static Map<String, Namespace> parseRegistry(byte[] jsonBytes) throws IOException {
         JsonNode root = MAPPER.readTree(jsonBytes);
         JsonNode payload = root.path(PAYLOAD);
         if (payload.isMissingNode()) {
@@ -84,52 +81,29 @@ public class RegistryUtil {
     }
 
     /**
-     * Updates the MIRIAM registry file.
-     * Downloads json from MIRIAM and saves in file.
+     * Downloads and parses the registry.
      *
-     * @param file MIRIAM json file
+     * @param source registry URL, usually {@link #URL_MIRIAM_JSON}
+     * @param timeout connect timeout and timeout of every read, so a stalled server fails
+     * @throws IOException if the registry cannot be downloaded or parsed
      */
-    public static void updateMiriamJSON(File file) {
+    public static Map<String, Namespace> download(URI source, Duration timeout) throws IOException {
+        int timeoutMillis = Math.toIntExact(timeout.toMillis());
+        HttpURLConnection connection = (HttpURLConnection) source.toURL().openConnection();
         try {
-            IOUtil.saveURLasFile(new URL(URL_MIRIAM_JSON), file);
-        } catch (MalformedURLException e) {
-            logger.error("MalformedURLException", e);
-        }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Gets the current MIRIAM registry from identifiers.org.
-     * Falls back to the bundled copy if the registry cannot be downloaded or parsed.
-     */
-    public static Map<String, Namespace> getMiriamContent() {
-        try {
-            return getMiriamContent(new URL(URL_MIRIAM_JSON));
-        } catch (MalformedURLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    static Map<String, Namespace> getMiriamContent(URL registryURL) {
-        File f = null;
-        try {
-            f = File.createTempFile("MiriamRegistry", ".json");
-            IOUtil.saveURLasFile(registryURL, f);
-            Map<String, Namespace> result = loadRegistry(f);
-            logger.info("Loaded MIRIAM registry from " + registryURL);
-            return result;
-        } catch (IOException | RuntimeException e) {
-            logger.warn("MIRIAM registry could not be loaded from " + registryURL + ", using bundled copy: " + e);
-        } finally {
-            if (f != null && !f.delete()) {
-                f.deleteOnExit();
+            connection.setConnectTimeout(timeoutMillis);
+            connection.setReadTimeout(timeoutMillis);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("Accept", "application/json");
+            int status = connection.getResponseCode();
+            if (status < 200 || status >= 300) {
+                throw new IOException("HTTP status " + status);
             }
-        }
-        try {
-            return loadBundledRegistry();
-        } catch (IOException e) {
-            throw new UncheckedIOException("Bundled MIRIAM registry could not be loaded", e);
+            try (InputStream in = connection.getInputStream()) {
+                return parseRegistry(in.readAllBytes());
+            }
+        } finally {
+            connection.disconnect();
         }
     }
 

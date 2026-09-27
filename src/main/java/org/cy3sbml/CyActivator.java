@@ -12,6 +12,7 @@ import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.uniprot.UniprotAccess;
@@ -123,8 +124,14 @@ public class CyActivator extends AbstractCyActivator {
             // to resolve the gui resources, the OLS, UniProt and ChEBI clients resolve
             // identifiers for display
             HttpJson httpJson = HttpJson.createDefault();
+            // the bundled MIRIAM registry is used until the current one is downloaded,
+            // the download must not block the bundle start
+            MiriamRegistry miriamRegistry = MiriamRegistry.bundled();
+            // the refresh logs its outcome, nothing waits for it
+            var unused = miriamRegistry.refreshInBackground(MiriamRegistry.ONLINE_REGISTRY);
             SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
                     SBaseHTMLFactory.baseDirFromAppDir(appDirectory),
+                    miriamRegistry,
                     new OlsClient(httpJson),
                     new UniprotAccess(httpJson),
                     new ChebiAccess(httpJson));

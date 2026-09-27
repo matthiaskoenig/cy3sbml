@@ -1,7 +1,6 @@
 package org.cy3sbml.gui;
 
 import static org.cy3sbml.gui.GUIConstants.*;
-import static org.cy3sbml.miriam.RegistryUtil.getMiriamContent;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
 import org.cy3sbml.miriam.Resource;
@@ -55,9 +55,9 @@ public class SBaseHTMLFactory {
     public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
     public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
     public static final String delim = "/";
-    public static final Map<String, Namespace> result = getMiriamContent();
 
     private final String baseDir;
+    private final MiriamRegistry miriamRegistry;
     private final OlsClient olsClient;
     private final UniprotAccess uniprotAccess;
     private final ChebiAccess chebiAccess;
@@ -66,12 +66,19 @@ public class SBaseHTMLFactory {
      * Creates the factory.
      *
      * @param baseDir base URL of the gui resources, which resolves the relative resources within the WebView
+     * @param miriamRegistry data collections for resolving annotation URIs
      * @param olsClient resolves ontology terms for display
      * @param uniprotAccess resolves UniProt accessions for display
      * @param chebiAccess resolves ChEBI ids for display
      */
-    public SBaseHTMLFactory(String baseDir, OlsClient olsClient, UniprotAccess uniprotAccess, ChebiAccess chebiAccess) {
+    public SBaseHTMLFactory(
+            String baseDir,
+            MiriamRegistry miriamRegistry,
+            OlsClient olsClient,
+            UniprotAccess uniprotAccess,
+            ChebiAccess chebiAccess) {
         this.baseDir = baseDir;
+        this.miriamRegistry = miriamRegistry;
         this.olsClient = olsClient;
         this.uniprotAccess = uniprotAccess;
         this.chebiAccess = chebiAccess;
@@ -391,12 +398,12 @@ public class SBaseHTMLFactory {
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
                 String prefix =
                         StringUtils.substringBefore(compactIdentifier, ":").toLowerCase(Locale.ROOT);
-                if (result.get(prefix) == null && tokens.length > 3) {
+                if (miriamRegistry.get(prefix) == null && tokens.length > 3) {
                     prefix = tokens[3].toLowerCase(Locale.ROOT);
                 }
-                dataType = (result.get(prefix) == null)
-                        ? result.get(StringUtils.substringAfter(prefix, "."))
-                        : result.get(prefix);
+                dataType = (miriamRegistry.get(prefix) == null)
+                        ? miriamRegistry.get(StringUtils.substringAfter(prefix, "."))
+                        : miriamRegistry.get(prefix);
 
                 String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
                 if (identifier == null) {
