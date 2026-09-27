@@ -78,21 +78,21 @@ public final class BiomodelsDialog extends JDialog {
 
         logger.info("BioModelGUIDialog created");
 
-        this.setSize(1000, 886);
+        this.setSize(1000, 754);
         this.setResizable(true);
         this.setTitle("CySBML BioModel Import");
         JFrame parentFrame = adapter.cySwingApplication.getJFrame();
         this.setLocationRelativeTo(parentFrame);
         panel = new JPanel();
         getContentPane().setLayout(null);
-        panel.setBounds(0, 0, 1000, 900);
+        panel.setBounds(0, 0, 1000, 768);
         getContentPane().add(panel, BorderLayout.NORTH);
         panel.setLayout(null);
         getContentPane().setLayout(new BorderLayout(0, 0));
 
         // Labels
         JLabel lblLoadByBiomodel = new JLabel("BioModel Ids");
-        lblLoadByBiomodel.setBounds(33, 708, 160, 15);
+        lblLoadByBiomodel.setBounds(33, 576, 160, 15);
         panel.add(lblLoadByBiomodel);
         JLabel lblName = new JLabel("Name");
         lblName.setBounds(33, 17, 160, 15);
@@ -110,35 +110,35 @@ public final class BiomodelsDialog extends JDialog {
         // Load Ids Button
         loadIdsButton = new JButton("Load Ids");
         loadIdsButton.setToolTipText("Parse BioModel Ids and load the models.");
-        loadIdsButton.setBounds(170, 821, 102, 25);
+        loadIdsButton.setBounds(170, 689, 102, 25);
         panel.add(loadIdsButton);
 
         loadIdsButton.addActionListener(event -> loadBioModelByIdsAndDisposeDialog());
 
         parseIdsButton = new JButton("Parse Ids");
         parseIdsButton.setToolTipText("Parse BioModel Ids from text.");
-        parseIdsButton.setBounds(33, 821, 102, 25);
+        parseIdsButton.setBounds(33, 689, 102, 25);
         panel.add(parseIdsButton);
         parseIdsButton.addActionListener(event -> parseBioModelByIds());
 
         // Search Button
         searchButton = new JButton("Search");
         searchButton.setToolTipText("Search Biomodels");
-        searchButton.setBounds(33, 203, 102, 25);
+        searchButton.setBounds(33, 71, 102, 25);
         panel.add(searchButton);
         searchButton.addActionListener(event -> searchBioModels());
 
         // Reset Button
         resetButton = new JButton("Reset");
         resetButton.setToolTipText("Reset Search Fields");
-        resetButton.setBounds(170, 203, 102, 25);
+        resetButton.setBounds(170, 71, 102, 25);
         panel.add(resetButton);
         resetButton.addActionListener(event -> resetFields());
         searchBioModel = new SearchBioModel(biomodelsQuery);
         // Load Selected Models
         loadSelectedButton = new JButton("Load Selected");
         loadSelectedButton.setToolTipText("Load selected BioModels from the List");
-        loadSelectedButton.setBounds(33, 666, 160, 25);
+        loadSelectedButton.setBounds(33, 534, 160, 25);
         loadSelectedButton.setEnabled(false);
         panel.add(loadSelectedButton);
         loadSelectedButton.addActionListener(event -> loadSelectedBioModelsAndDisposeDialog());
@@ -146,7 +146,7 @@ public final class BiomodelsDialog extends JDialog {
         // ScrollBars
         JScrollPane listScrollPane = new JScrollPane();
         listScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        listScrollPane.setBounds(33, 240, 239, 414);
+        listScrollPane.setBounds(33, 108, 239, 414);
         panel.add(listScrollPane);
 
         // Set the empty Lists
@@ -167,7 +167,7 @@ public final class BiomodelsDialog extends JDialog {
 
         // information area
         infoScrollPane = new JScrollPane();
-        infoScrollPane.setBounds(288, 12, 687, 833);
+        infoScrollPane.setBounds(288, 12, 687, 701);
         panel.add(infoScrollPane);
 
         infoPane = new JEditorPane();
@@ -186,18 +186,18 @@ public final class BiomodelsDialog extends JDialog {
         infoScrollPane.setViewportView(infoPane);
 
         JSeparator separator = new JSeparator();
-        separator.setBounds(33, 703, 239, 2);
+        separator.setBounds(33, 571, 239, 2);
         panel.add(separator);
 
         JLabel lblComposeBy = new JLabel("Compose by");
-        lblComposeBy.setBounds(33, 176, 102, 15);
+        lblComposeBy.setBounds(33, 44, 102, 15);
         panel.add(lblComposeBy);
 
         chckbxAND = new JCheckBox("AND");
-        chckbxAND.setBounds(125, 172, 61, 23);
+        chckbxAND.setBounds(125, 40, 61, 23);
         panel.add(chckbxAND);
         chckbxOR = new JCheckBox("OR");
-        chckbxOR.setBounds(188, 172, 61, 23);
+        chckbxOR.setBounds(188, 40, 61, 23);
         panel.add(chckbxOR);
         chckbxAND.addChangeListener(event -> chckbxOR.setSelected(!chckbxAND.isSelected()));
         chckbxOR.addChangeListener(event -> chckbxAND.setSelected(!chckbxOR.isSelected()));
@@ -206,7 +206,7 @@ public final class BiomodelsDialog extends JDialog {
         JScrollPane idsScrollPane = new JScrollPane();
         idsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         idsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        idsScrollPane.setBounds(33, 725, 239, 90);
+        idsScrollPane.setBounds(33, 593, 239, 90);
         panel.add(idsScrollPane);
 
         idTextArea = new JTextArea();

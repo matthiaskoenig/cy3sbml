@@ -1,11 +1,13 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.net.URL;
+import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
 
@@ -41,5 +43,23 @@ public class CyActivatorTest {
         URL url = CyActivator.findBundleResource(bundle, "logback-test.xml", "unused");
 
         assertSame(resourceUrl, url);
+    }
+
+    /**
+     * Testing {@link CyActivator#cyPropertyServiceProperties}, the OSGi service
+     * properties the cy3sbml {@link PropsReader} is registered with.
+     * <p>
+     * Task 3.15: the cy3sbml properties did not show up in Edit &gt; Preferences &gt;
+     * Properties. Both that dialog and CyREST's {@code /v1/properties} endpoint list a
+     * {@code CyProperty} service only when its {@code cyPropertyName} service property
+     * is set; this pins that contract down so a future change to the registration
+     * cannot silently drop it again.
+     */
+    @Test
+    public void cyPropertyServicePropertiesSetsCyPropertyName() {
+        Properties serviceProps = CyActivator.cyPropertyServiceProperties(CyActivator.PROPERTIES_FILE);
+
+        assertEquals(CyActivator.PROPERTIES_FILE, serviceProps.getProperty("cyPropertyName"));
+        assertEquals("cy3sbml.props", serviceProps.getProperty("cyPropertyName"));
     }
 }

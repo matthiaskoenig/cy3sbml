@@ -150,11 +150,13 @@ public class CyActivator extends AbstractCyActivator {
         Log.logger.info("directory = " + appDirectory.getAbsolutePath());
         Log.logger.info("logfile = " + logFile.getAbsolutePath());
 
-        // cy3sbml properties
+        // cy3sbml properties. Registering it under every interface it implements - notably
+        // CyProperty, with the "cyPropertyName" service property below - is what makes
+        // Cytoscape list the "cy3sbml" group in Edit > Preferences > Properties and expose
+        // it at CyREST's /v1/properties/cy3sbml.props; SavePolicy.CONFIG_DIR (set in the
+        // PropsReader constructor) is what makes edits there persist to cy3sbml.props.
         PropsReader propsReader = new PropsReader(bundleInfo.getName(), PROPERTIES_FILE);
-        Properties propsReaderServiceProps = new Properties();
-        propsReaderServiceProps.setProperty("cyPropertyName", PROPERTIES_FILE);
-        registerAllServices(bc, propsReader, propsReaderServiceProps);
+        registerAllServices(bc, propsReader, cyPropertyServiceProperties(PROPERTIES_FILE));
 
         /* Get services */
         CySwingApplication cySwingApplication = getService(bc, CySwingApplication.class);
@@ -295,6 +297,18 @@ public class CyActivator extends AbstractCyActivator {
             Log.logger.error(logMessageIfMissing);
         }
         return url;
+    }
+
+    /**
+     * Builds the OSGi service properties a {@link org.cytoscape.property.CyProperty}
+     * needs to be picked up by Cytoscape's Properties editor and by CyREST's
+     * {@code /v1/properties} endpoint: the {@code cyPropertyName} service property,
+     * set to the property file name (e.g. {@code "cy3sbml.props"}).
+     */
+    static Properties cyPropertyServiceProperties(String propertiesFile) {
+        Properties serviceProps = new Properties();
+        serviceProps.setProperty("cyPropertyName", propertiesFile);
+        return serviceProps;
     }
 
     /**
