@@ -5,7 +5,7 @@ Systems Biology Markup Language ([SBML](https://sbml.org)) as Cytoscape networks
 It reads SBML with [JSBML](https://github.com/sbmlteam/jsbml) and shows the SBML
 information and the annotations of the selected object in a panel next to the network.
 
-![cy3sbml in Cytoscape: the e_coli_core model with the information of the reaction R_PFK](images/screenshots/main-window-fbc-model.png)
+![cy3sbml in Cytoscape: the base network of the fbc model mini_textbook with the information of the reaction R_PFK](images/screenshots/main-window-fbc-model.png)
 
 ## Features
 

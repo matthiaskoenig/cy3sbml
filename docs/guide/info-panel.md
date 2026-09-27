@@ -74,7 +74,7 @@ The results of OLS, UniProt and ChEBI are cached in memory while Cytoscape runs,
 selecting an object again does not repeat the requests. Terms that were not found are
 cached for a limited time, then requested again.
 
-![The info panel of a reaction of the galactose model with UniProt information](../images/screenshots/info-panel-uniprot.png){ width="400" }
+![The info panel for the species LacI protein of BIOMD0000000012, with UniProt information](../images/screenshots/info-panel-uniprot.png){ width="400" }
 
 ## Annotations as table columns
 

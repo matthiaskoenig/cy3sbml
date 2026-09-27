@@ -14,7 +14,7 @@ Every imported network view gets the style named by the property `cy3sbml.visual
 `cy3sbml-dark` in **Edit → Preferences → Properties...** under `cy3sbml`. To change the
 style of an existing view, select the style in the **Style** panel of Cytoscape.
 
-![The cy3sbml style: species as circles, reactions as small squares, parameters as diamonds, and the compartment as a hexagon](../images/screenshots/cy3sbml-style.png){ width="600" }
+![The cy3sbml style on the base network of the repressilator BIOMD0000000012: species as circles, reactions as small squares, activating modifiers as green dashed edges, inhibiting modifiers as red dashed edges](../images/screenshots/cy3sbml-style.png){ width="600" }
 
 ## Mappings
 
