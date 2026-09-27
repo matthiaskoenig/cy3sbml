@@ -392,18 +392,8 @@ public class SBaseHTMLFactory {
             // bugfix to handle https://identifier.org/ resources
             if (resourceURI.contains("identifiers.org")) {
                 resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
-                String[] tokens = resourceURI.split("/");
-                String compactIdentifier = getCompactId(tokens);
-
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
-                String prefix =
-                        StringUtils.substringBefore(compactIdentifier, ":").toLowerCase(Locale.ROOT);
-                if (miriamRegistry.get(prefix) == null && tokens.length > 3) {
-                    prefix = tokens[3].toLowerCase(Locale.ROOT);
-                }
-                dataType = (miriamRegistry.get(prefix) == null)
-                        ? miriamRegistry.get(StringUtils.substringAfter(prefix, "."))
-                        : miriamRegistry.get(prefix);
+                dataType = miriamRegistry.findByURI(resourceURI);
 
                 String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
                 if (identifier == null) {
@@ -626,24 +616,6 @@ public class SBaseHTMLFactory {
             case "chebi" -> chebiAccess.html(identifier);
             default -> "";
         };
-    }
-
-    /**
-     * Creates compact identifier."
-     */
-    public static String getCompactId(String[] tokens) {
-
-        String identifier;
-        if (tokens[tokens.length - 1].contains(":")) { // format : identifiers.org/[namespace prefix]:[accession]
-            identifier = tokens[tokens.length - 1];
-        } else if (tokens[tokens.length - 1].contains("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]")) {
-            identifier = tokens[tokens.length - 1].replace("[!\"#$%&'()*+,\\-./;<=>?@[\\\\\\]^_`{|}~]", ":");
-        } else {
-            identifier = tokens[tokens.length - 2] + ":" + tokens[tokens.length - 1];
-        }
-
-        identifier = identifier.toUpperCase(Locale.ROOT);
-        return identifier;
     }
 
     /**

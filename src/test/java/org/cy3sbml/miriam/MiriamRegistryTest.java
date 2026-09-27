@@ -1,5 +1,6 @@
 package org.cy3sbml.miriam;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -21,6 +22,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * The registry starts from the bundled copy and is replaced by a downloaded one only when
@@ -70,6 +73,37 @@ class MiriamRegistryTest {
         assertNotNull(registry.get("go"));
         assertNotNull(registry.get("chebi"));
         assertNull(registry.get(null));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        // legacy <namespace>/<accession>
+        "http://identifiers.org/chebi/CHEBI:36927, chebi",
+        "https://identifiers.org/uniprot/P12345, uniprot",
+        "http://identifiers.org/kegg.pathway/hsa:04360, kegg.pathway",
+        // compact <namespace>:<accession>
+        "https://identifiers.org/chebi:CHEBI:36927, chebi",
+        // accessions with an embedded, uppercase prefix
+        "https://identifiers.org/CHEBI:36927, chebi",
+        // provider-qualified namespace
+        "http://identifiers.org/obo.go/GO:0042752, go",
+        "http://identifiers.org/GO:0042752, go",
+        // urn:miriam
+        "urn:miriam:chebi:CHEBI%3A36927, chebi",
+    })
+    void findByUriResolvesTheDataCollection(String uri, String prefix) {
+        MiriamRegistry registry = MiriamRegistry.bundled();
+        Namespace dataCollection = registry.findByURI(uri);
+        assertNotNull(dataCollection, uri);
+        assertEquals(prefix, dataCollection.getPrefix());
+    }
+
+    @Test
+    void findByUriOfAnUnknownCollectionIsNull() {
+        MiriamRegistry registry = MiriamRegistry.bundled();
+        assertNull(registry.findByURI("https://identifiers.org/nosuchcollection/123"));
+        assertNull(registry.findByURI("https://identifiers.org/"));
+        assertNull(registry.findByURI(null));
     }
 
     @Test
