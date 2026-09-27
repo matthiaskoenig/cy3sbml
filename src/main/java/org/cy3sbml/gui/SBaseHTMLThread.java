@@ -40,8 +40,11 @@ public class SBaseHTMLThread implements Runnable {
      * Web-service lookups made while building the HTML (OLS, UniProt, ChEBI) restore the
      * thread's interrupt flag on {@code InterruptedException} rather than throwing it, so
      * this checks {@code Thread.currentThread().isInterrupted()} between SBase objects and
-     * again before posting to the panel; a cancelled render then stops promptly and never
-     * overwrites the HTML of a newer, still-running render.
+     * again before posting to the panel, so a cancelled render stops promptly. These checks
+     * alone are not atomic with the post: a render can be superseded right after its last
+     * check. The panel therefore publishes only while this render is still the current
+     * one (see {@code WebViewPanel.setText} and {@code LatestTaskExecutor.publishIfCurrent}),
+     * so a superseded render never overwrites the HTML of a newer one.
      */
     @Override
     public void run() {

@@ -30,6 +30,16 @@ import org.slf4j.LoggerFactory;
  * meantime - cancelling the wrong task instead of its own. Callers with a multi-step
  * render (e.g. WebViewPanel's PanelUpdater followed by SBase HTML generation) must run
  * every step as a plain, inline call within the one task they submitted.
+ * <p>
+ * Interruption alone cannot keep a superseded task from publishing: a task may pass its
+ * last interrupt check, get superseded, and only then post its result. Every accepted
+ * submission therefore gets a new, monotonically increasing generation, and a task
+ * publishes its result through {@link #publishIfCurrent}, which runs the publication only
+ * while the calling task's generation is still the latest one. The check and the
+ * publication happen under the same lock as {@link #submit}, so no newer submission can
+ * slip in between them. A publication must therefore be short and non-blocking (e.g.
+ * enqueueing onto the JavaFX application thread, whose FIFO order then preserves the
+ * order of the accepted publications).
  */
 public final class LatestTaskExecutor implements AutoCloseable {
     private static final Logger logger = LoggerFactory.getLogger(LatestTaskExecutor.class);
@@ -38,7 +48,10 @@ public final class LatestTaskExecutor implements AutoCloseable {
     private final ExecutorService executor;
     private Object currentKey;
     private Future<?> currentTask;
+    private long generation = 0;
     private boolean closed = false;
+    /** Generation of the task running on the executor thread; unset on any other thread. */
+    private final ThreadLocal<Long> runningGeneration = new ThreadLocal<>();
 
     public LatestTaskExecutor() {
         this.executor = Executors.newSingleThreadExecutor(runnable -> {
@@ -75,7 +88,9 @@ public final class LatestTaskExecutor implements AutoCloseable {
             currentTask.cancel(true);
         }
         currentKey = key;
+        long taskGeneration = ++generation;
         currentTask = executor.submit(() -> {
+            runningGeneration.set(taskGeneration);
             try {
                 task.run();
             } catch (RuntimeException e) {
@@ -85,8 +100,31 @@ public final class LatestTaskExecutor implements AutoCloseable {
                 // throwing), so a later submit() is never stuck skipping because of a
                 // task that failed.
                 logger.error("Uncaught exception from a render task for {}", key, e);
+            } finally {
+                runningGeneration.remove();
             }
         });
+    }
+
+    /**
+     * Runs {@code publication} if, and only if, the calling thread is running a task of
+     * this executor that is still the current one: no task under a different key (and no
+     * later task under an earlier key) has been submitted since, and the executor is not
+     * closed. The check and the publication run atomically with respect to
+     * {@link #submit}, so a publication that goes through is never followed by one of an
+     * older task. Called from any other thread, this does nothing.
+     *
+     * @param publication short, non-blocking action that posts the task's result
+     * @return whether {@code publication} ran
+     */
+    public synchronized boolean publishIfCurrent(Runnable publication) {
+        Long taskGeneration = runningGeneration.get();
+        if (closed || taskGeneration == null || taskGeneration != generation) {
+            logger.debug("Dropping the publication of a superseded render task");
+            return false;
+        }
+        publication.run();
+        return true;
     }
 
     /**

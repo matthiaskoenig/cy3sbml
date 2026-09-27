@@ -2,7 +2,6 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
-import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
@@ -39,7 +38,7 @@ public final class Browser extends Region {
     }
 
     /**
-     * Load local resource;
+     * Load local resource. Must be called on the JavaFX application thread.
      */
     public void loadPageFromResource(String resource) {
         File file = new File(appDirectory, resource);
@@ -49,17 +48,17 @@ public final class Browser extends Region {
     }
 
     /**
-     * Load page in webView;
+     * Load page in webView. Must be called on the JavaFX application thread.
      */
     public void loadPage(String url) {
-        Platform.runLater(() -> webEngine.load(url));
+        webEngine.load(url);
     }
 
     /**
-     * Load HTML text in the webEngine.
+     * Load HTML text in the webEngine. Must be called on the JavaFX application thread.
      */
     public void loadText(String text) {
-        Platform.runLater(() -> webEngine.loadContent(text));
+        webEngine.loadContent(text);
     }
 
     @Override

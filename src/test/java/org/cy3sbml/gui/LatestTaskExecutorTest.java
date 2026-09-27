@@ -340,6 +340,105 @@ class LatestTaskExecutorTest {
         assertFalse(ran.get(), "a task submitted after close() must never run");
     }
 
+    /**
+     * A superseded task that has already passed its last interrupt check (so it cannot
+     * notice the cancellation any more) must not publish: {@code publishIfCurrent} is the
+     * check at publication time and drops the stale publication, while the newer task's
+     * publication still goes through.
+     */
+    @Test
+    void aSupersededTaskCannotPublishAfterItsLastInterruptCheck() throws InterruptedException {
+        List<String> published = new CopyOnWriteArrayList<>();
+        List<Boolean> aResult = new CopyOnWriteArrayList<>();
+        CountDownLatch aChecked = new CountDownLatch(1);
+        CountDownLatch releaseA = new CountDownLatch(1);
+        CountDownLatch bDone = new CountDownLatch(1);
+
+        try (LatestTaskExecutor executor = new LatestTaskExecutor()) {
+            executor.submit(new Object(), () -> {
+                // A's last interrupt check passes: nothing has superseded it yet
+                assertFalse(Thread.currentThread().isInterrupted());
+                aChecked.countDown();
+                awaitUninterruptibly(releaseA);
+                aResult.add(executor.publishIfCurrent(() -> published.add("A")));
+            });
+            assertTrue(aChecked.await(5, TimeUnit.SECONDS), "task A should have passed its check");
+
+            executor.submit(new Object(), () -> {
+                executor.publishIfCurrent(() -> published.add("B"));
+                bDone.countDown();
+            });
+            releaseA.countDown();
+            assertTrue(bDone.await(5, TimeUnit.SECONDS), "task B should run to completion");
+        }
+
+        assertEquals(List.of(false), aResult, "the superseded task A must be told it is no longer current");
+        assertEquals(List.of("B"), published, "only the current task B may publish");
+    }
+
+    /**
+     * A resubmission under the key of the running task is coalesced, so the running task
+     * stays current and its publication goes through.
+     */
+    @Test
+    void aCoalescedResubmissionKeepsTheRunningTaskCurrent() throws InterruptedException {
+        Object key = new Object();
+        List<String> published = new CopyOnWriteArrayList<>();
+        CountDownLatch started = new CountDownLatch(1);
+        CountDownLatch release = new CountDownLatch(1);
+        CountDownLatch done = new CountDownLatch(1);
+
+        try (LatestTaskExecutor executor = new LatestTaskExecutor()) {
+            executor.submit(key, () -> {
+                started.countDown();
+                awaitUninterruptibly(release);
+                executor.publishIfCurrent(() -> published.add("A"));
+                done.countDown();
+            });
+            assertTrue(started.await(5, TimeUnit.SECONDS));
+            executor.submit(key, () -> published.add("coalesced"));
+            release.countDown();
+            assertTrue(done.await(5, TimeUnit.SECONDS));
+        }
+
+        assertEquals(List.of("A"), published);
+    }
+
+    /** A thread that is not running a task of this executor is never current. */
+    @Test
+    void publishIfCurrentOutsideATaskDoesNotPublish() {
+        AtomicBoolean ran = new AtomicBoolean(false);
+        try (LatestTaskExecutor executor = new LatestTaskExecutor()) {
+            assertFalse(executor.publishIfCurrent(() -> ran.set(true)));
+        }
+        assertFalse(ran.get());
+    }
+
+    /** After close() nothing publishes, not even the task that was current. */
+    @Test
+    void publishIfCurrentAfterCloseDoesNotPublish() throws InterruptedException {
+        AtomicBoolean ran = new AtomicBoolean(false);
+        List<Boolean> result = new CopyOnWriteArrayList<>();
+        CountDownLatch started = new CountDownLatch(1);
+        CountDownLatch closed = new CountDownLatch(1);
+        CountDownLatch done = new CountDownLatch(1);
+
+        LatestTaskExecutor executor = new LatestTaskExecutor();
+        executor.submit(new Object(), () -> {
+            started.countDown();
+            awaitUninterruptibly(closed);
+            result.add(executor.publishIfCurrent(() -> ran.set(true)));
+            done.countDown();
+        });
+        assertTrue(started.await(5, TimeUnit.SECONDS));
+        executor.close();
+        closed.countDown();
+        assertTrue(done.await(5, TimeUnit.SECONDS));
+
+        assertEquals(List.of(false), result);
+        assertFalse(ran.get());
+    }
+
     /** Blocks (on a latch nobody ever counts down) until interrupted, then returns. */
     private static void blockUntilInterrupted() {
         try {

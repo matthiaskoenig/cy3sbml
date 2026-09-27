@@ -3,6 +3,7 @@ package org.cy3sbml.gui;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -177,10 +178,12 @@ public final class WebViewPanel extends JFXPanel
      * other key, including a previous call's), so it is never coalesced away and always
      * cancels whatever render is still pending or running (e.g. a slow web-service lookup
      * for a previous selection): that render can no longer overwrite the help page once
-     * it is requested, and the two run in the order they were requested.
+     * it is requested, and the two run in the order they were requested. The page is
+     * loaded via {@link #publish}, the same publication path the SBase renders use.
      */
     public void setHelp() {
-        renderExecutor.submit(new Object(), () -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE));
+        renderExecutor.submit(
+                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE)));
     }
 
     /**
@@ -188,17 +191,38 @@ public final class WebViewPanel extends JFXPanel
      * fresh key, same as {@link #setHelp}, so an in-flight render cannot overwrite it.
      */
     public void setExamples() {
-        renderExecutor.submit(new Object(), () -> browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE));
+        renderExecutor.submit(
+                new Object(), () -> publish(b -> b.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE)));
     }
 
     /**
      * Set text.
+     * <p>
+     * Must be called from a render task running on the {@link #renderExecutor}; the text
+     * is only shown if that task is still the current render (see {@link #publish}).
      */
     @Override
     public void setText(String text) {
-        html = text;
-        // Necessary to use invokeLater to handle the Swing GUI update
-        SwingUtilities.invokeLater(() -> browser.loadText(text));
+        publish(b -> {
+            html = text;
+            b.loadText(text);
+        });
+    }
+
+    /**
+     * Publishes a render result to the browser, but only if the calling render task is
+     * still the current one ({@link LatestTaskExecutor#publishIfCurrent}): a superseded
+     * render that already passed its last interrupt check is dropped here, so it can never
+     * overwrite the result of a newer render or the help/examples page.
+     * <p>
+     * The accepted publication enqueues a single runnable on the JavaFX application
+     * thread while holding the executor's lock. That thread runs its queue in FIFO order,
+     * so the browser receives the accepted publications in the order they were accepted.
+     * The browser is only touched on the JavaFX thread, after {@link #initFX} (enqueued
+     * first, from the constructor) created it.
+     */
+    private void publish(Consumer<Browser> publication) {
+        renderExecutor.publishIfCurrent(() -> Platform.runLater(() -> publication.accept(browser)));
     }
 
     /**
