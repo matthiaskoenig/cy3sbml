@@ -18,16 +18,32 @@ updates:
     schedule:
       interval: "weekly"
     groups:
+      # a dependency joins the first group whose patterns match it, so the
+      # runtime-bound groups come before the catch-all
       maven-plugins:
         patterns:
           - "org.apache.maven.plugins:*"
           - "*-maven-plugin"
+      cytoscape-api:
+        patterns:
+          - "org.cytoscape:*"
+      javafx:
+        patterns:
+          - "org.openjfx:*"
       maven-dependencies:
         patterns:
           - "*"
     ignore:
       # built from source into lib/cy3sbml-dep, see lib/build_jsbml_jars.sh
-      - dependency-name: "org.sbml.jsbml*"
+      - dependency-name: "cy3sbml-dep:*"
+      # the Cytoscape API version is the minimum Cytoscape the app runs on;
+      # raise it deliberately, not through a dependency update
+      - dependency-name: "org.cytoscape:*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      # JavaFX is provided by the Cytoscape runtime (Java 17); newer major
+      # versions need a newer JDK
+      - dependency-name: "org.openjfx:*"
+        update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
