@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -368,7 +369,7 @@ class LatestTaskExecutorTest {
         long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
         while (!condition.getAsBoolean()) {
             if (System.nanoTime() > deadline) {
-                return;
+                fail("condition was never true within the 5s timeout");
             }
             Thread.sleep(5);
         }

@@ -183,8 +183,12 @@ public final class WebViewPanel extends JFXPanel
         renderExecutor.submit(new Object(), () -> browser.loadPageFromResource(GUIConstants.HTML_HELP_RESOURCE));
     }
 
+    /**
+     * Shows the static examples page. Submitted on the {@link #renderExecutor} under a
+     * fresh key, same as {@link #setHelp}, so an in-flight render cannot overwrite it.
+     */
     public void setExamples() {
-        browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE);
+        renderExecutor.submit(new Object(), () -> browser.loadPageFromResource(GUIConstants.HTML_EXAMPLE_RESOURCE));
     }
 
     /**

@@ -79,12 +79,12 @@ public final class LatestTaskExecutor implements AutoCloseable {
             try {
                 task.run();
             } catch (RuntimeException e) {
-                // Logged (message only, no stack trace, to keep passing-test output
-                // clean) rather than left to the Future nobody calls get() on: an
-                // uncaught exception here must not go unnoticed. The Future is marked
-                // done regardless (whether it completes normally or by throwing), so a
-                // later submit() is never stuck skipping because of a task that failed.
-                logger.error("Uncaught exception from a render task for {}: {}", key, e.toString());
+                // Logged with its stack trace rather than left to the Future nobody
+                // calls get() on: an uncaught exception here must not go unnoticed. The
+                // Future is marked done regardless (whether it completes normally or by
+                // throwing), so a later submit() is never stuck skipping because of a
+                // task that failed.
+                logger.error("Uncaught exception from a render task for {}", key, e);
             }
         });
     }
