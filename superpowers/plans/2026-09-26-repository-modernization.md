@@ -8,7 +8,7 @@
 
 **Tech Stack:** Java 17, Maven 3.9, OSGi (maven-bundle-plugin), Cytoscape API 3.10.0, JSBML 1.7 (pinned build), JavaFX 17 WebView, JUnit 6, Mockito, Spotless + palantir-java-format, Error Prone, jacoco, GitHub Actions, zensical, uv.
 
-**Spec:** `docs/superpowers/specs/2026-09-26-repository-modernization-design.md`
+**Spec:** `superpowers/specs/2026-09-26-repository-modernization-design.md`
 
 ## Global Constraints
 

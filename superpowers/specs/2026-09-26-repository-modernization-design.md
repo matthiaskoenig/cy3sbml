@@ -248,7 +248,9 @@ splitting, and session save and restore. UI defects found on the way are fixed.
 - `scripts/release_notes.py` generates `docs/release-notes.md` from
   `release-notes/*.md` (newest first) during the build; the generated file is
   gitignored
-- `docs/superpowers/` is excluded from the site
+- the plan and spec live in `superpowers/` at the repo root, outside `docs/`,
+  since zensical has no option to exclude a subdirectory of `docs/` from the
+  site
 
 ### Workflow
 
