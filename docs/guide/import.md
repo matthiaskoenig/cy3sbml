@@ -78,11 +78,9 @@ External model definitions are not loaded, see
 
 ## COMBINE archives
 
-The toolbar has a button **Import Archive (COMBINE & ResearchObjects)**, and cy3sbml
-registers a reader for archive files. Reading the content of an archive is not
-implemented yet ([issue #116](https://github.com/matthiaskoenig/cy3sbml/issues/116)):
-importing an archive creates no model networks. Extract the SBML files from the archive
-and import them as files.
+Importing COMBINE archives (OMEX) is not supported yet
+([issue #116](https://github.com/matthiaskoenig/cy3sbml/issues/116)). Extract the SBML
+files from the archive and import them as files.
 
 ## Errors while reading
 

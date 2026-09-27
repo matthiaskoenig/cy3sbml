@@ -6,8 +6,7 @@ cy3sbml adds two visual styles to Cytoscape when it starts:
 - `cy3sbml-dark`: the same mapping on a dark background.
 
 A style is only added if Cytoscape has no style with this name yet, so a style you changed
-and saved in a session is kept. cy3sbml also adds the style `robundle` for archive
-networks.
+and saved in a session is kept.
 
 Every imported network view gets the style named by the property `cy3sbml.visualStyle`
 (default `cy3sbml`). The property is stored in the file

@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
 import org.cy3sbml.actions.*;
-import org.cy3sbml.archive.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.biomodel.BiomodelsQuery;
 import org.cy3sbml.chebi.ChebiAccess;
@@ -59,14 +58,14 @@ import org.slf4j.LoggerFactory;
  * The CyActivator registers the cy3sbml services with OSGI. This is the class
  * used for startup of the app by Cytoscape 3.
  * <p>
- * {@link #start} runs in two phases. {@link #startCore} registers the SBML/archive
- * readers and the core services and listeners they depend on; nothing in that phase
+ * {@link #start} runs in two phases. {@link #startCore} registers the SBML
+ * reader and the core services and listeners they depend on; nothing in that phase
  * touches an optional, cy3sbml-bundled resource (a template, image, or the JavaScript
  * extension jar), so it should never fail in a correctly packaged build. Everything
  * that does depend on such a resource - the JavaScript extension bundle, the GUI
  * resource extraction, and the WebView panel/actions/styles themselves - runs
  * afterwards, each guarded on its own, so that a missing or broken optional resource
- * degrades only that feature and never unregisters the readers. Without this, an
+ * degrades only that feature and never unregisters the reader. Without this, an
  * aborted activator leaves no cy3sbml reader registered at all, and Cytoscape's own
  * bundled SBML app (whose JSBML has no biojava) silently takes over `.xml` imports
  * and fails with {@code NoClassDefFoundError: org.sbml.jsbml.SBO}.
@@ -114,14 +113,14 @@ public class CyActivator extends AbstractCyActivator {
 
         // Everything below is optional GUI/extension/resource setup. Each step is
         // guarded on its own: a failure here disables or degrades that feature but
-        // never touches the readers and listeners startCore already registered.
+        // never touches the reader and listeners startCore already registered.
         startExtensionBundle(bc);
         startResourceExtraction(bc, core.appDirectory());
         startGui(bc, core);
     }
 
     /**
-     * Registers the SBML/archive readers and the core Cytoscape services and listeners
+     * Registers the SBML reader and the core Cytoscape services and listeners
      * they need. Nothing here depends on a cy3sbml-bundled resource (a template, image,
      * or jar shipped under {@code src/main/resources}), so a packaging mistake in those
      * resources cannot make this phase fail.
@@ -228,14 +227,9 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
         registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
-        // Archive file reader
-        ArchiveFileFilter archiveFilter = new ArchiveFileFilter(streamUtil);
-        ArchiveReaderTaskFactory archiveReaderTaskFactory = new ArchiveReaderTaskFactory(
-                archiveFilter, cyNetworkFactory, cyNetworkViewFactory, visualMappingManager, cyLayoutAlgorithmManager);
-        Properties archiveReaderProps = new Properties();
-        archiveReaderProps.setProperty("readerDescription", "Archive file reader (cy3sbml)");
-        archiveReaderProps.setProperty("readerId", "archiveNetworkReader");
-        registerAllServices(bc, archiveReaderTaskFactory, archiveReaderProps);
+        // The archive reader (package org.cy3sbml.archive) is not registered: reading the
+        // content of COMBINE archives is not implemented yet (#116), and the reader would
+        // turn every zip file into an empty network.
 
         // SBML file reader. Registered here, before any optional GUI/extension/resource
         // setup runs: Cytoscape only routes .xml imports to its own bundled SBML app
@@ -247,7 +241,7 @@ public class CyActivator extends AbstractCyActivator {
         sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
         registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
 
-        Log.logger.info("cy3sbml core services and SBML/archive readers registered");
+        Log.logger.info("cy3sbml core services and SBML reader registered");
 
         return new CoreServices(appDirectory, adapter, sbmlManager, cofactorManager);
     }
@@ -313,7 +307,7 @@ public class CyActivator extends AbstractCyActivator {
     /**
      * Extracts the bundled GUI/RO/OMEX/BioModels resources into the app directory, since
      * JavaFX cannot read {@code bundle:} URIs directly. Guarded on its own: if this fails,
-     * the WebView panel may show incomplete pages, but the SBML/archive readers already
+     * the WebView panel may show incomplete pages, but the SBML reader already
      * registered by {@link #startCore} are unaffected.
      */
     private void startResourceExtraction(BundleContext bc, File appDirectory) {
@@ -329,7 +323,7 @@ public class CyActivator extends AbstractCyActivator {
      * Builds and registers the cy3sbml WebView panel, its actions, and the visual styles.
      * Guarded as a whole: if any part of this fails (e.g. a template or image the panel
      * needs is missing from the bundle), the panel and its actions are disabled, but the
-     * SBML/archive readers registered by {@link #startCore} keep working.
+     * SBML reader registered by {@link #startCore} keeps working.
      */
     private void startGui(BundleContext bc, CoreServices core) {
         try {
@@ -355,7 +349,7 @@ public class CyActivator extends AbstractCyActivator {
                     new ChebiAccess(httpJson));
 
             // load visual styles
-            final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK, ArchiveReaderTask.ARCHIVE_STYLE};
+            final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK};
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
             StyleManager styleManager =
                     new StyleManager(loadVizmapFileTaskFactory, adapter.visualMappingManager, styles);
@@ -379,13 +373,6 @@ public class CyActivator extends AbstractCyActivator {
             // init actions [100 - 120]
             ChangeStateAction changeStateAction = new ChangeStateAction(webViewPanel);
             registerService(bc, changeStateAction, CyAction.class, new Properties());
-
-            ArchiveAction archiveAction = new ArchiveAction(
-                    adapter.cySwingApplication,
-                    adapter.fileUtil,
-                    adapter.loadNetworkFileTaskFactory,
-                    adapter.synchronousTaskManager);
-            registerService(bc, archiveAction, CyAction.class, new Properties());
 
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());

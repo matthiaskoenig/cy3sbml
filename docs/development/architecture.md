@@ -12,7 +12,7 @@ actions, and registers them as OSGi services. New actions and listeners are adde
 The start runs in two phases:
 
 1. **Core:** the properties, `ServiceAdapter`, `SBMLManager`, `CofactorManager`,
-   `SessionData`, the archive reader and the SBML reader. Nothing in this phase depends
+   `SessionData` and the SBML reader. Nothing in this phase depends
    on a resource file of the app, so the SBML reader is always registered. Without it,
    Cytoscape would pass SBML files to its own bundled SBML reader.
 2. **GUI:** the bundled JavaScript extension, the extraction of the GUI resources into
@@ -31,7 +31,6 @@ flowchart TB
         CM[CofactorManager]
         SD[SessionData]
         RF[SBMLReaderTaskFactory]
-        AR[ArchiveReaderTaskFactory]
     end
     subgraph GUI [GUI phase]
         ST[StyleManager]
@@ -129,7 +128,7 @@ import), selection of nodes by id, and external links, which open in the system 
 | Package | Content |
 |---|---|
 | `actions` | toolbar actions: panel, import, examples, BioModels, help, cofactors, layouts |
-| `archive` | COMBINE archive reader, not functional yet (#116) |
+| `archive` | COMBINE archive reader, not functional and not registered yet (#116) |
 | `biomodel` | BioModels search and import dialog |
 | `cofactors` | cofactor splitting and merging |
 | `layout` | saving and loading node positions as XML |
