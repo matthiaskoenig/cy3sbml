@@ -49,7 +49,7 @@ public final class ImportAction extends AbstractCyAction {
 
         if ((files != null) && (files.length != 0)) {
             for (int i = 0; i < files.length; i++) {
-                logger.info("Load: " + files[i].getName());
+                logger.info("Load: {}", files[i].getName());
                 TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(files[i]);
                 adapter.synchronousTaskManager.execute(iterator);
             }

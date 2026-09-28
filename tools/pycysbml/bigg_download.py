@@ -1,6 +1,6 @@
-"""Download the BiGG models into the test resources of the `models` test suite.
+"""Download the BiGG models into the model corpora of the `models` test suite.
 
-`BiGGTest` reads every SBML file in `src/test/resources/models/bigg_models`.
+`BiGGTest` reads every SBML file in `src/test/corpora/models/bigg_models`.
 See http://bigg.ucsd.edu/data_access for the BiGG web API.
 
 ```bash
@@ -14,7 +14,7 @@ import requests
 
 BIGG_URL: str = "https://bigg.ucsd.edu"
 TARGET_DIR: Path = (
-    Path(__file__).parents[2] / "src" / "test" / "resources" / "models" / "bigg_models"
+    Path(__file__).parents[2] / "src" / "test" / "corpora" / "models" / "bigg_models"
 )
 TIMEOUT: float = 60.0
 

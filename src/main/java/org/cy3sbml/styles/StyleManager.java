@@ -36,7 +36,7 @@ public class StyleManager implements SessionLoadedListener {
      */
     public void loadStyles() {
         for (String styleName : styles) {
-            logger.info("Load visual style: " + styleName);
+            logger.info("Load visual style: {}", styleName);
             String resource = String.format("/styles/%s.xml", styleName);
             InputStream styleStream = getClass().getResourceAsStream(resource);
             // Check if already existing
@@ -61,7 +61,7 @@ public class StyleManager implements SessionLoadedListener {
                 return style;
             }
         }
-        logger.debug("style [" + styleName + "] not in VisualStyles, default style used.");
+        logger.debug("style [{}] not in VisualStyles, default style used.", styleName);
         return vmm.getDefaultVisualStyle();
     }
 

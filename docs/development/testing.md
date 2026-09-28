@@ -1,7 +1,10 @@
 # Testing
 
 The tests use JUnit 6 (Jupiter) and Mockito. They are in `src/test/java`, the test models in
-`src/test/resources/models`.
+`src/test/resources/models`. The large model corpora of the `models` tests (BiGG, BioModels
+and the SBML test suite, about 1.2 GB) are in `src/test/corpora/models`. Maven does not copy
+them to `target/test-classes`; surefire adds `src/test/corpora` to the test classpath, so
+they are read as the classpath resources `/models/bigg_models/...` and so on.
 
 ## Run the tests
 

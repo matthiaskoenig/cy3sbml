@@ -235,13 +235,13 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      * Creates gr node for the given aggregate.
      */
     private void createParentForNode(CyNode n) {
-        logger.debug("createParentForNode: " + n);
+        logger.debug("createParentForNode: {}", n);
 
         // get single node
         String path = node2path.get(n);
         String[] tokens = path.split("/");
         Integer Nparts = tokens.length;
-        logger.debug("path:" + path);
+        logger.debug("path:{}", path);
         if (tokens.length > 1) {
             String[] newTokens = Arrays.copyOfRange(tokens, 0, Nparts - 1);
             String parentPath;
@@ -250,7 +250,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             } else {
                 parentPath = StringUtils.join(newTokens, "/") + "/";
             }
-            logger.debug("parentPath:" + parentPath);
+            logger.debug("parentPath:{}", parentPath);
 
             // create parent node and edge
             CyNode nParent;
@@ -321,7 +321,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             if (mediaType == null) {
                 extension = "blank";
             } else {
-                logger.debug("mediaType: " + mediaType);
+                logger.debug("mediaType: {}", mediaType);
                 if (mediaType.equals("application/octet-stream")) {
                     extension = "bin";
                 } else {

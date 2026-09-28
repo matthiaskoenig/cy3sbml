@@ -1,6 +1,6 @@
 <!-- Logging of the tests: console only, warnings and errors.
      Takes precedence over src/main/resources/logback.xml, the file log of the app,
-     which needs the logfile.name property set by CyActivator. -->
+     which needs the cy3sbml.logfile property set by CyActivator. -->
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -8,7 +8,11 @@
         </encoder>
     </appender>
 
+    <!-- JSBML (log4j 1.x API, routed to slf4j by log4j-over-slf4j). The JSBML XML parsers
+         warn on the test models (notes without the XHTML namespace, unknown attributes,
+         broken files); other JSBML warnings stay visible. -->
     <logger name="org.sbml.jsbml.AbstractMathContainer" level="ERROR" />
+    <logger name="org.sbml.jsbml.xml" level="ERROR" />
     <!-- SessionDataTest injects failures, which SessionData logs with their stack trace -->
     <logger name="org.cy3sbml.SessionData" level="OFF" />
     <!-- LatestTaskExecutorTest deliberately submits a task that throws, which

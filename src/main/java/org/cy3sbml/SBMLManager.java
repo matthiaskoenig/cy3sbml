@@ -143,7 +143,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
      * Update current SBML via rootNetworkSUID.
      */
     public void updateCurrent(Long rootNetworkSUID) {
-        logger.debug("Set current network to root SUID: " + rootNetworkSUID);
+        logger.debug("Set current network to root SUID: {}", rootNetworkSUID);
         setCurrentSUID(rootNetworkSUID);
     }
 
@@ -155,7 +155,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         if (SUID != null && network2sbml.containsDocument(SUID)) {
             currentSUID = SUID;
         }
-        logger.debug("Current network set to: " + currentSUID);
+        logger.debug("Current network set to: {}", currentSUID);
     }
 
     /**

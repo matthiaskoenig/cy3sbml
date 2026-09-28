@@ -33,7 +33,7 @@ public class BiGGTest {
         HashSet<String> skip = null;
         String filter = null;
         return StreamSupport.stream(
-                        TestUtils.findResources("test", TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip)
+                        TestUtils.findResources("corpora", TestUtils.BIGGMODELS_RESOURCE_PATH, ".xml", filter, skip)
                                 .spliterator(),
                         false)
                 .map(arr -> arr[0].toString());

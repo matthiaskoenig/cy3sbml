@@ -101,7 +101,7 @@ final class DerivedAttributes implements PackageReader {
                 }
                 AttributeUtil.set(network, e, SBML.INTERACTION_ATTR_EXTENDED, type, String.class);
             } else {
-                logger.error("interaction type not set for edge: " + e);
+                logger.error("interaction type not set for edge: {}", e);
             }
         }
     }

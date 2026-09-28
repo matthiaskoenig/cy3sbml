@@ -330,8 +330,8 @@ public final class WebViewPanel extends JFXPanel
         // Only update if current network and view
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
         CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
-        logger.debug("current view: " + view);
-        logger.debug("current network: " + network);
+        logger.debug("current view: {}", view);
+        logger.debug("current network: {}", network);
         if (network == null || view == null) {
             return;
         }

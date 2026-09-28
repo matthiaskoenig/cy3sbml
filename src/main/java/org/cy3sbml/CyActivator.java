@@ -75,7 +75,7 @@ public class CyActivator extends AbstractCyActivator {
     public static final String PROPERTIES_FILE = "cy3sbml.props";
 
     /** The system property with the log file, read by logback.xml. */
-    private static final String LOGFILE_PROPERTY = "logfile.name";
+    private static final String LOGFILE_PROPERTY = "cy3sbml.logfile";
 
     private static final String APP_NAME = "cy3sbml";
 
@@ -85,7 +85,7 @@ public class CyActivator extends AbstractCyActivator {
      * Holds the logger, which is created on first use.
      * <p>
      * The first logger configures logback, which writes to the file in the
-     * system property "logfile.name". start sets the property before it logs,
+     * system property "cy3sbml.logfile". start sets the property before it logs,
      * so the logger must not be created when the class is loaded.
      */
     private static final class Log {
@@ -181,10 +181,10 @@ public class CyActivator extends AbstractCyActivator {
         }
 
         Log.logger.info("----------------------------");
-        Log.logger.info("Start " + bundleInfo.getInfo());
+        Log.logger.info("Start {}", bundleInfo.getInfo());
         Log.logger.info("----------------------------");
-        Log.logger.info("directory = " + appDirectory.getAbsolutePath());
-        Log.logger.info("logfile = " + System.getProperty(LOGFILE_PROPERTY));
+        Log.logger.info("directory = {}", appDirectory.getAbsolutePath());
+        Log.logger.info("logfile = {}", System.getProperty(LOGFILE_PROPERTY));
 
         // cy3sbml properties. Registering it under every interface it implements - notably
         // CyProperty, with the "cyPropertyName" service property below - is what makes
@@ -304,7 +304,7 @@ public class CyActivator extends AbstractCyActivator {
             bc.installBundle(jarUrl.getPath(), input);
         } catch (Exception e) {
             Log.logger.error(
-                    "cy3sbml panel disabled: could not install extension bundle " + EXTENSION_BUNDLE_RESOURCE, e);
+                    "cy3sbml panel disabled: could not install extension bundle {}", EXTENSION_BUNDLE_RESOURCE, e);
         }
     }
 
@@ -353,7 +353,9 @@ public class CyActivator extends AbstractCyActivator {
             new ResourceExtractor(bc, appDirectory).extract();
         } catch (Throwable e) {
             Log.logger.error(
-                    "cy3sbml panel may be incomplete: could not extract bundled GUI resources into " + appDirectory, e);
+                    "cy3sbml panel may be incomplete: could not extract bundled GUI resources into {}",
+                    appDirectory,
+                    e);
         }
     }
 

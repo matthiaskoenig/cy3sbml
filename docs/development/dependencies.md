@@ -40,7 +40,7 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
   directly (`inline=org/**` in the `Embed-Dependency` instruction). It leaves out
   their `META-INF`: without the `ServiceLoader` files, JSBML uses its built-in list
   of package parsers.
-- The dependencies of JSBML (woodstox, staxmate, xstream, biojava-ontology, ...) are
+- The dependencies of JSBML (woodstox, staxmate, biojava-ontology, ...) are
   normal Maven Central dependencies in `pom.xml`, so Dependabot updates them.
 
 ## Update JSBML

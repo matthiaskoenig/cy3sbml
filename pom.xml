@@ -18,7 +18,7 @@
         <error-prone.version>2.50.0</error-prone.version>
         <maven-bundle-plugin.version>6.2.0</maven-bundle-plugin.version>
         <osgi.api.version>7.0.0</osgi.api.version>
-        <osgi.compendium.version>7.0.0</osgi.compendium.version>
+        <slf4j.version>2.0.20</slf4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.osgi.framework.bootdelegation>netscape.javascript</org.osgi.framework.bootdelegation>
         <enforcer.skipReleaseDeps>false</enforcer.skipReleaseDeps>
@@ -38,6 +38,8 @@
             network tests with -Dtest.groups=network -Dtest.excludedGroups= -->
         <test.excludedGroups>network,models</test.excludedGroups>
         <test.groups/>
+        <!-- set by the JaCoCo agent; empty when JaCoCo is skipped (-Djacoco.skip) -->
+        <argLine/>
     </properties>
 
     <dependencyManagement>
@@ -145,37 +147,8 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JavaFX Linux -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>17.0.20</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>17.0.20</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>17.0.20</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>17.0.20</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>17.0.20</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- JavaFX: javafx-web (WebView) and javafx-swing (JFXPanel) bring the other
+            modules (base, graphics, controls, media) with the platform-specific jars. -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
@@ -196,13 +169,7 @@
             <version>${osgi.api.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.cmpn</artifactId>
-            <version>${osgi.compendium.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- The OSGi packages above are annotated with @Version; without this
+        <!-- The OSGi package above is annotated with @Version; without this
             jar javac warns that it cannot find the annotation (fails -Werror). -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -221,11 +188,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>1.15.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.22.0</version>
         </dependency>
         <!-- JavaFX: org.codefx.libfx.control.webview (Browser, BrowserHyperlinkListener) -->
         <dependency>
@@ -246,7 +208,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.20</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- slf4j runtime binding (app: src/main/resources/logback.xml, tests: src/test/resources/logback-test.xml) -->
@@ -260,15 +222,13 @@
             <artifactId>logback-core</artifactId>
             <version>1.6.4</version>
         </dependency>
-
-        <!-- org.sbml.jsbml.JSBML.loadClasses reflectively instantiates org.apache.log4j.Logger
-            (see the log4j exclusions below). This was previously supplied transitively by
-            miriam-lib, removed in Task 2.5, so it is now a direct dependency; reload4j is the maintained, CVE-fixed drop-in replacement for the
-            unmaintained log4j 1.x (same org.apache.log4j.* classes). -->
+        <!-- JSBML logs with the log4j 1.x API (org.apache.log4j.Logger); log4j-over-slf4j
+            implements that API on top of slf4j, so JSBML logs through logback with the
+            cy3sbml configuration (logback.xml, logback-test.xml). -->
         <dependency>
-            <groupId>ch.qos.reload4j</groupId>
-            <artifactId>reload4j</artifactId>
-            <version>1.2.26</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
@@ -329,17 +289,6 @@
             <groupId>org.w3c.jigsaw</groupId>
             <artifactId>jigsaw</artifactId>
             <version>2.2.6</version>
-        </dependency>
-        <!-- Used by org.sbml.jsbml.validator.SBMLValidator and the
-            org.sbml.jsbml.xml.xstream.converter.* classes; confirmed with jdeps against the
-            jsbml jars in lib/cy3sbml-dep. 1.4.9 has known CVEs, so pinned to the latest
-            1.4.x release instead. -->
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.21</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
         <!-- Used by org.sbml.jsbml.xml.stax.SBMLWriter and
             org.sbml.jsbml.util.compilers.MathMLXMLStreamCompiler; confirmed with jdeps. -->
@@ -571,13 +520,39 @@
             </plugin>
 
             <!-- testing -->
+            <!-- sets the property org.mockito:mockito-core:jar (path of the jar) for the
+                surefire argLine -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.11.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <!-- @{argLine} is the JaCoCo agent. Mockito's inline mock maker is loaded
+                        as an agent at startup instead of attaching itself at runtime, which
+                        newer JDKs warn about and will disallow. With an agent on the boot class
+                        path the JVM warns that class data sharing is limited, so it is off. -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
                     <groups>${test.groups}</groups>
                     <excludedGroups>${test.excludedGroups}</excludedGroups>
+                    <!-- The large model corpora (BiGG, BioModels, SBML test suite, about
+                        1.2 GB) are read from the classpath (/models/...) but are not test
+                        resources, so they are not copied to target/test-classes on every
+                        build; the directory is added to the test classpath as it is. -->
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${project.basedir}/src/test/corpora</additionalClasspathElement>
+                    </additionalClasspathElements>
                 </configuration>
 
             </plugin>
@@ -664,13 +639,6 @@
                                     </scopes>
                                     <findAllDuplicates>true</findAllDuplicates>
                                     <ignoreWhenIdentical>true</ignoreWhenIdentical>
-                                    <ignoreClasses>
-                                        <!-- xstream (needed by JSBML's validator, see the
-                                            dependency comment below) pulls in both xmlpull and
-                                            xpp3_min, which both provide the same XmlPull API
-                                            classes. -->
-                                        <ignoreClass>org.xmlpull.v1.*</ignoreClass>
-                                    </ignoreClasses>
                                 </banDuplicateClasses>
                             </rules>
                             <fail>true</fail>

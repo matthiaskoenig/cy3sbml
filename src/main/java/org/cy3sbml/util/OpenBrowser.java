@@ -54,7 +54,7 @@ public class OpenBrowser {
             Desktop.getDesktop().browse(uri);
             return true;
         } catch (IOException e) {
-            logger.warn("Failed to launch browser through java.awt.Desktop.browse(): " + e.getMessage());
+            logger.warn("Failed to launch browser through java.awt.Desktop.browse(): {}", e.getMessage());
             return false;
         }
     }

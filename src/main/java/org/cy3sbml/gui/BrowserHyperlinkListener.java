@@ -206,7 +206,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         // Example networks
         else if (EXAMPLE_SBML.containsKey(s)) {
             String resource = EXAMPLE_SBML.get(s);
-            logger.info("Loading: " + s);
+            logger.info("Loading: {}", s);
             GUIUtil.loadExampleFromResource(adapter, resource);
         }
 

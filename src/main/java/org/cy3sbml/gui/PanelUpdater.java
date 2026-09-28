@@ -61,7 +61,7 @@ public class PanelUpdater implements Runnable {
     static Object resolveTarget(CyNetwork network, SBMLManager sbmlManager) {
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
         if (document == null) {
-            logger.debug("No SBMLDocument for current network: " + network);
+            logger.debug("No SBMLDocument for current network: {}", network);
             return TEXT_NO_SBML;
         }
 

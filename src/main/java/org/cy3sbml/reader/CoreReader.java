@@ -490,7 +490,7 @@ final class CoreReader implements PackageReader {
                                 variable, ea));
                     }
                 } else {
-                    logger.error("Variable not set in EventAssignment: " + ea);
+                    logger.error("Variable not set in EventAssignment: {}", ea);
                 }
 
                 // referenced nodes in math

@@ -44,7 +44,7 @@ public class ArchiveReaderTaskFactory extends AbstractInputStreamTaskFactory {
      */
     @Override
     public TaskIterator createTaskIterator(InputStream inputStream, String inputName) {
-        logger.debug("createTaskIterator: input stream name: " + inputName);
+        logger.debug("createTaskIterator: input stream name: {}", inputName);
         // BufferedInput stream even for the zip files
 
         ArchiveReaderTask task = new ArchiveReaderTask(

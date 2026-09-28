@@ -95,7 +95,7 @@ public class CofactorManager {
             logger.warn("Selected nodes should never be cofactor nodes, something went wrong.");
 
         } else {
-            logger.info("Node not in cofactor mapping -> splitting:" + node.toString());
+            logger.info("Node not in cofactor mapping -> splitting:{}", node);
             splitCofactorNode(network, node);
         }
     }

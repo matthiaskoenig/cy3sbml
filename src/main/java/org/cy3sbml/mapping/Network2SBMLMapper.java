@@ -54,7 +54,7 @@ public class Network2SBMLMapper implements Serializable {
      * A reverse mapping from SUIDs to SBML ids is created in the process.
      */
     public synchronized void putDocument(Long rootSUID, SBMLDocument doc, One2ManyMapping<String, Long> mapping) {
-        logger.debug("Network put: " + rootSUID.toString());
+        logger.debug("Network put: {}", rootSUID);
         documentMap.put(rootSUID, doc);
         sbase2nodeMappingMap.put(rootSUID, mapping);
         node2sbaseMappingMap.put(rootSUID, mapping.createReverseMapping());
@@ -67,7 +67,7 @@ public class Network2SBMLMapper implements Serializable {
      * @param rootSUID root network SUID
      */
     public synchronized void removeDocument(Long rootSUID) {
-        logger.debug("Network remove:" + rootSUID.toString());
+        logger.debug("Network remove:{}", rootSUID);
         documentMap.remove(rootSUID);
         sbase2nodeMappingMap.remove(rootSUID);
         node2sbaseMappingMap.remove(rootSUID);

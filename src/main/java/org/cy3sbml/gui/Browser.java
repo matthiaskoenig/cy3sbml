@@ -29,7 +29,7 @@ public final class Browser extends Region implements PageLoader.Target {
         this.appDirectory = appDirectory;
         webView = new WebView();
         webEngine = webView.getEngine();
-        logger.debug("WebView version: " + webEngine.getUserAgent());
+        logger.debug("WebView version: {}", webEngine.getUserAgent());
 
         // add WebView to scene
         getChildren().add(webView);
@@ -45,7 +45,7 @@ public final class Browser extends Region implements PageLoader.Target {
     public void loadPageFromResource(String resource) {
         File file = new File(appDirectory, resource);
         URI fileURI = file.toURI();
-        logger.debug("Load page:" + fileURI);
+        logger.debug("Load page:{}", fileURI);
         loadPage(fileURI.toString());
     }
 
