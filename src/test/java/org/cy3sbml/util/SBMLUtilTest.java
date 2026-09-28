@@ -1,6 +1,7 @@
 package org.cy3sbml.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,10 +14,12 @@ import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
 import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
 import org.sbml.jsbml.ext.fbc.FluxBound;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
@@ -280,6 +283,51 @@ class SBMLUtilTest {
 
         assertEquals("lb", map.get(SBML.ATTR_FBC_LOWER_FLUX_BOUND));
         assertEquals("ub", map.get(SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+    }
+
+    @Test
+    void createReactionMapIncludesEquation() {
+        model.createSpecies("s2", compartment);
+        model.createSpecies("e1", compartment);
+        reaction.createReactant(species).setStoichiometry(2.0);
+        SpeciesReference product = reaction.createProduct(model.getSpecies("s2"));
+        product.setStoichiometry(1.0);
+        reaction.createModifier(model.getSpecies("e1"));
+
+        Map<String, String> map = SBMLUtil.createReactionMap(reaction);
+
+        assertEquals("2 s1 <span class=\"equation-arrow\">&#8594;</span> s2; e1", map.get(SBML.ATTR_EQUATION));
+    }
+
+    @Test
+    void equationOfReversibleReactionWithoutProducts() {
+        reaction.setReversible(true);
+        reaction.createReactant(species).setStoichiometry(0.5);
+
+        assertEquals("0.5 s1 <span class=\"equation-arrow\">&#8652;</span> &#8709;", SBMLUtil.equationHtml(reaction));
+    }
+
+    @Test
+    void equationShowsTheIdOfAnUnsetStoichiometry() {
+        // the stoichiometry of a species reference with an id can be set by a rule
+        reaction.createProduct(species).setId("sr1");
+
+        assertEquals("&#8709; <span class=\"equation-arrow\">&#8594;</span> sr1 s1", SBMLUtil.equationHtml(reaction));
+    }
+
+    @Test
+    void createReactionMapIncludesFbcFluxObjectives() {
+        FBCModelPlugin fbcModel = new FBCModelPlugin(model);
+        model.addExtension(FBCConstants.namespaceURI, fbcModel);
+        Objective growth = fbcModel.createObjective("growth", Objective.Type.MAXIMIZE);
+        growth.createFluxObjective(null, null, 2.5, reaction);
+        Objective other = fbcModel.createObjective("other", Objective.Type.MINIMIZE);
+        other.createFluxObjective(null, null, 1.0, model.createReaction("r2"));
+
+        Map<String, String> map = SBMLUtil.createReactionMap(reaction);
+
+        assertEquals("2.5", map.get(String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, "growth")));
+        assertFalse(map.containsKey(String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, "other")));
     }
 
     @Test

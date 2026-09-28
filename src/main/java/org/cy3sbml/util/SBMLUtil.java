@@ -14,9 +14,12 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
+import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
 import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
+import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
@@ -151,9 +154,9 @@ public class SBMLUtil {
     public static final String ATTR_CHARGE = "charge";
 
     private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID
-            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
+            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>";
     private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID
-            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
+            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>";
 
     /** HTML of an attribute that is not set: an empty cell. */
     private static final String UNSET = "";
@@ -416,6 +419,7 @@ public class SBMLUtil {
         }
         String units = getDerivedUnitHtml(r);
 
+        map.put(SBML.ATTR_EQUATION, equationHtml(r));
         map.put(ATTR_COMPARTMENT, compartment);
         map.put(SBML.ATTR_REVERSIBLE, reversible);
         map.put(SBML.ATTR_FAST, fast);
@@ -436,6 +440,91 @@ public class SBMLUtil {
                 upperFluxBound = fbcReaction.getUpperFluxBound();
             }
             map.put(SBML.ATTR_FBC_UPPER_FLUX_BOUND, upperFluxBound);
+        }
+        map.putAll(fluxObjectiveMap(r));
+        return map;
+    }
+
+    /**
+     * Reaction equation, e.g. {@code 2 A + B ⇌ C; E} with the modifiers after the semicolon.
+     * A missing side is written as the empty set.
+     */
+    static String equationHtml(Reaction r) {
+        String arrow =
+                String.format(" <span class=\"equation-arrow\">%s</span> ", r.getReversible() ? "&#8652;" : "&#8594;");
+        String equation = sideHtml(r.getListOfReactants()) + arrow + sideHtml(r.getListOfProducts());
+        if (r.isSetListOfModifiers() && r.getModifierCount() > 0) {
+            List<String> modifiers = new ArrayList<>();
+            for (ModifierSpeciesReference msr : r.getListOfModifiers()) {
+                modifiers.add(msr.getSpecies());
+            }
+            equation += "; " + String.join(" ", modifiers);
+        }
+        return equation;
+    }
+
+    private static String sideHtml(ListOf<SpeciesReference> speciesReferences) {
+        if (speciesReferences.isEmpty()) {
+            return "&#8709;";
+        }
+        List<String> terms = new ArrayList<>();
+        for (SpeciesReference sr : speciesReferences) {
+            String stoichiometry = stoichiometryHtml(sr);
+            terms.add(stoichiometry.isEmpty() ? sr.getSpecies() : stoichiometry + " " + sr.getSpecies());
+        }
+        return String.join(" + ", terms);
+    }
+
+    /**
+     * Stoichiometry in an equation: empty for 1, the formula of a (SBML L2) stoichiometryMath,
+     * and the species reference id for an unset (SBML L3) stoichiometry which a rule or
+     * assignment determines.
+     */
+    // reason: StoichiometryMath is deprecated in JSBML, but still read from SBML L2 models
+    @SuppressWarnings("deprecation")
+    private static String stoichiometryHtml(SpeciesReference sr) {
+        if (sr.isSetStoichiometryMath() && sr.getStoichiometryMath().isSetMath()) {
+            return "("
+                    + StringEscapeUtils.escapeHtml4(
+                            sr.getStoichiometryMath().getMath().toFormula()) + ")";
+        }
+        if (sr.isSetStoichiometry()) {
+            double value = sr.getStoichiometry();
+            return value == 1.0 ? "" : numberString(value);
+        }
+        return sr.getLevel() >= 3 && sr.isSetId() ? sr.getId() : "";
+    }
+
+    /** A number without a fractional part of zero, e.g. {@code 2} for 2.0. */
+    private static String numberString(double value) {
+        if (value == Math.rint(value) && !Double.isInfinite(value) && Math.abs(value) < 1e15) {
+            return Long.toString((long) value);
+        }
+        return Double.toString(value);
+    }
+
+    /**
+     * The coefficients of the reaction in the fbc objectives of its model, one entry per
+     * objective the reaction is part of, keyed like the objective columns of the network.
+     */
+    private static Map<String, String> fluxObjectiveMap(Reaction r) {
+        Map<String, String> map = new LinkedHashMap<>();
+        Model model = r.getModel();
+        if (model == null || !r.isSetId()) {
+            return map;
+        }
+        FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.shortLabel);
+        if (fbcModel == null) {
+            return map;
+        }
+        for (Objective objective : fbcModel.getListOfObjectives()) {
+            for (FluxObjective fluxObjective : objective.getListOfFluxObjectives()) {
+                if (r.getId().equals(fluxObjective.getReaction())) {
+                    map.put(
+                            String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, objective.getId()),
+                            Double.toString(fluxObjective.getCoefficient()));
+                }
+            }
         }
         return map;
     }

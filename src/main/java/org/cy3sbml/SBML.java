@@ -53,6 +53,7 @@ public class SBML {
     public static final String ATTR_BOUNDARY_CONDITION = "boundaryCondition";
     public static final String ATTR_HAS_ONLY_SUBSTANCE_UNITS = "hasOnlySubstanceUnits";
     public static final String ATTR_REVERSIBLE = "reversible";
+    public static final String ATTR_EQUATION = "equation";
     public static final String ATTR_STOICHIOMETRY = "stoichiometry";
     public static final String ATTR_CONVERSION_FACTOR = "conversionFactor";
     public static final String ATTR_VALUE = "value";

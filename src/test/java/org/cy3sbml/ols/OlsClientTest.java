@@ -18,6 +18,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OlsClientTest {
+    private static final String GO_PAGE = "https://www.ebi.ac.uk/ols4/ontologies/go/terms?obo_id=GO:0042752";
+
     /** Answers FOUND from the given resource, or NOT_FOUND if the resource does not exist. */
     private static HttpJson fixture(String resource) {
         return new HttpJson(null, new ObjectMapper()) {
@@ -46,9 +48,9 @@ class OlsClientTest {
     }
 
     @Test
-    void parsesTermFromCurie() {
+    void parsesTermFromPage() {
         var term = new OlsClient(fixture("/ols/go_0042752.json"))
-                .term("GO:0042752")
+                .termForPage(GO_PAGE)
                 .orElseThrow();
         assertEquals("regulation of circadian rhythm", term.label());
         assertEquals("go", term.ontologyName());
@@ -64,29 +66,31 @@ class OlsClientTest {
                 return FetchResult.error();
             }
         };
-        assertTrue(new OlsClient(erroring).term("GO:0042752").isEmpty());
+        assertTrue(new OlsClient(erroring).termForPage(GO_PAGE).isEmpty());
     }
 
     @Test
-    void returnsEmptyForNonOntologyIdentifier() {
-        assertTrue(new OlsClient(fixture("/ols/go_0042752.json")).term("P10415").isEmpty());
+    void returnsEmptyForNonOlsPage() {
+        assertTrue(new OlsClient(fixture("/ols/go_0042752.json"))
+                .termForPage("https://www.uniprot.org/uniprot/P10415")
+                .isEmpty());
     }
 
     @Test
     void returnsEmptyWhenTermIsMissingLabel() {
         String json = """
                 {"_embedded": {"terms": [
-                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "ontology_name": "go"}
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "obo_id": "GO:0042752", "ontology_name": "go"}
                 ]}}
                 """;
-        assertTrue(new OlsClient(fixtureFromJson(json)).term("GO:0042752").isEmpty());
+        assertTrue(new OlsClient(fixtureFromJson(json)).termForPage(GO_PAGE).isEmpty());
     }
 
     @Test
     void cachesAStructurallyIncompleteResponseAsNotFound() {
         String json = """
                 {"_embedded": {"terms": [
-                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "ontology_name": "go"}
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "obo_id": "GO:0042752", "ontology_name": "go"}
                 ]}}
                 """;
         AtomicInteger calls = new AtomicInteger();
@@ -99,26 +103,25 @@ class OlsClientTest {
         };
         var client = new OlsClient(http);
 
-        assertTrue(client.term("GO:0042752").isEmpty());
-        assertTrue(client.term("GO:0042752").isEmpty());
-
-        // GO is already upper-case, so no retry with an upper-cased prefix happens either
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
         assertEquals(1, calls.get());
     }
 
     @Test
-    void defaultsOntologyNameToPrefixWhenMissing() {
+    void defaultsOntologyNameToPageOntologyWhenMissing() {
         String json = """
                 {"_embedded": {"terms": [
-                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "label": "regulation of circadian rhythm"}
+                    {"iri": "http://purl.obolibrary.org/obo/GO_0042752", "obo_id": "GO:0042752",
+                     "label": "regulation of circadian rhythm"}
                 ]}}
                 """;
-        var term = new OlsClient(fixtureFromJson(json)).term("GO:0042752").orElseThrow();
+        var term = new OlsClient(fixtureFromJson(json)).termForPage(GO_PAGE).orElseThrow();
         assertEquals("go", term.ontologyName());
     }
 
     @Test
-    void keepsTheCaseOfTheOboPrefix() {
+    void queriesTheOntologyAndTermOfThePage() {
         List<URI> requested = new ArrayList<>();
         HttpJson http = new HttpJson(null, new ObjectMapper()) {
             @Override
@@ -127,44 +130,76 @@ class OlsClientTest {
                 return FetchResult.notFound();
             }
         };
-        new OlsClient(http).term("NCBITaxon_7787");
-        // the case preserving lookup comes first
+        var client = new OlsClient(http);
+        client.termForPage(GO_PAGE);
+        client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/ncbitaxon/terms?short_form=NCBITaxon_9606");
+        client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/nmrcv/terms?curie=NMR:1000003");
+        client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/cheminf/classes?obo_id=CHEMINF:000306");
+        client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/ordo/terms/"
+                + "http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_558");
+        client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/probonto/terms/"
+                + "http%253A%252F%252Fwww.probonto.org%252Fontology%2523PROB_c0000005");
         assertEquals(
-                URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/ncbitaxon/terms?obo_id=NCBITaxon%3A7787"),
-                requested.get(0));
-    }
-
-    /** Answers with the GO fixture for the given URI only, records all requested URIs. */
-    private static HttpJson fixtureFor(URI answered, List<URI> requested) {
-        return new HttpJson(null, new ObjectMapper()) {
-            @Override
-            public FetchResult<JsonNode> fetch(URI uri) {
-                requested.add(uri);
-                if (!uri.equals(answered)) {
-                    return FetchResult.notFound();
-                }
-                return fixture("/ols/go_0042752.json").fetch(uri);
-            }
-        };
-    }
-
-    @Test
-    void retriesLowercasePrefixUpperCased() {
-        List<URI> requested = new ArrayList<>();
-        URI upper = URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/go/terms?obo_id=GO%3A0042752");
-        var term = new OlsClient(fixtureFor(upper, requested)).term("go:0042752");
-        assertTrue(term.isPresent());
-        assertEquals(
-                List.of(URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/go/terms?obo_id=go%3A0042752"), upper),
+                List.of(
+                        URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/go/terms?obo_id=GO%3A0042752"),
+                        URI.create(
+                                "https://www.ebi.ac.uk/ols4/api/ontologies/ncbitaxon/terms?short_form=NCBITaxon_9606"),
+                        // the API ignores a curie parameter, so the CURIE is queried as OBO id
+                        URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/nmrcv/terms?obo_id=NMR%3A1000003"),
+                        URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/cheminf/terms?obo_id=CHEMINF%3A000306"),
+                        URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/ordo/terms?iri="
+                                + "http%3A%2F%2Fwww.orpha.net%2FORDO%2FOrphanet_558"),
+                        URI.create("https://www.ebi.ac.uk/ols4/api/ontologies/probonto/terms?iri="
+                                + "http%3A%2F%2Fwww.probonto.org%2Fontology%23PROB_c0000005")),
                 requested);
     }
 
     @Test
-    void doesNotRetryWhenThePrefixIsUpperCase() {
+    void returnsEmptyWithoutRequestForUnknownPageShapes() {
         List<URI> requested = new ArrayList<>();
-        var term = new OlsClient(fixtureFor(URI.create("https://example.org"), requested)).term("GO:0042752");
-        assertTrue(term.isEmpty());
-        assertEquals(1, requested.size());
+        HttpJson http = new HttpJson(null, new ObjectMapper()) {
+            @Override
+            public FetchResult<JsonNode> fetch(URI uri) {
+                requested.add(uri);
+                return FetchResult.notFound();
+            }
+        };
+        var client = new OlsClient(http);
+        assertTrue(
+                client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/go").isEmpty());
+        assertTrue(client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/go/terms?iri=x")
+                .isEmpty());
+        assertTrue(client.termForPage("https://www.ebi.ac.uk/ols4/ontologies/go/terms/%ZZ")
+                .isEmpty());
+        assertTrue(requested.isEmpty());
+    }
+
+    @Test
+    void returnsEmptyWhenTheFirstTermIsNotTheQueriedOne() {
+        // the API lists all terms of the ontology for a parameter it does not support
+        String json = """
+                {"_embedded": {"terms": [
+                    {"iri": "http://nmrML.org/nmrCV#BFO_0000001", "obo_id": "BFO:0000001", "label": "entity"}
+                ]}}
+                """;
+        assertTrue(new OlsClient(fixtureFromJson(json))
+                .termForPage("https://www.ebi.ac.uk/ols4/ontologies/nmrcv/terms?curie=NMR:1000003")
+                .isEmpty());
+    }
+
+    @Test
+    void matchesTheIriOfAnIriPage() {
+        String json = """
+                {"_embedded": {"terms": [
+                    {"iri": "http://www.orpha.net/ORDO/Orphanet_558", "label": "Marfan syndrome",
+                     "ontology_name": "ordo"}
+                ]}}
+                """;
+        var term = new OlsClient(fixtureFromJson(json))
+                .termForPage("https://www.ebi.ac.uk/ols4/ontologies/ordo/terms/"
+                        + "http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_558")
+                .orElseThrow();
+        assertEquals("Marfan syndrome", term.label());
     }
 
     @Test
@@ -180,12 +215,12 @@ class OlsClientTest {
         var clock = new MutableClock(Instant.parse("2024-01-01T00:00:00Z"));
         var client = new OlsClient(http, clock);
 
-        assertTrue(client.term("GO:0042752").isEmpty());
-        assertTrue(client.term("GO:0042752").isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
         assertEquals(1, requested.size());
 
         clock.advance(Duration.ofMinutes(11));
-        assertTrue(client.term("GO:0042752").isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
         assertEquals(2, requested.size());
     }
 
@@ -200,8 +235,8 @@ class OlsClientTest {
             }
         };
         var client = new OlsClient(http);
-        assertTrue(client.term("GO:0042752").isEmpty());
-        assertTrue(client.term("GO:0042752").isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
+        assertTrue(client.termForPage(GO_PAGE).isEmpty());
         assertEquals(2, calls.get());
     }
 
@@ -211,6 +246,6 @@ class OlsClientTest {
         var client = new OlsClient(HttpJson.createDefault());
         assertEquals(
                 "regulation of circadian rhythm",
-                client.term("GO:0042752").orElseThrow().label());
+                client.termForPage(GO_PAGE).orElseThrow().label());
     }
 }
