@@ -46,7 +46,7 @@ updates:
         patterns:
           - "*"
     ignore:
-      # built from source into lib/cy3sbml-dep, see lib/build_jsbml_jars.sh
+      # built from source into lib/cy3sbml-dep, see docs/development/dependencies.md
       - dependency-name: "cy3sbml-dep:*"
       # the Cytoscape API version is the minimum Cytoscape the app runs on;
       # raise it deliberately, not through a dependency update

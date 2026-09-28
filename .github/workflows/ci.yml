@@ -134,3 +134,5 @@ jobs:
         run: uv run --project tools --locked ty check --output-format=github
       - name: Self-check the release notes script
         run: uv run --project tools --locked python scripts/release_notes.py --check
+      - name: Self-check the JSBML update script
+        run: uv run --project tools --locked python scripts/update_jsbml.py --check
