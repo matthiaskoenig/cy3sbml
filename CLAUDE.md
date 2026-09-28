@@ -56,7 +56,7 @@ All code is under `org.cy3sbml` (`src/main/java/org/cy3sbml/`).
 - **Other**: `styles` (`StyleManager`, `StyleFactory`) creates and applies the cy3sbml visual styles from `resources/styles`. `layout` saves and loads node positions (XML). `cofactors` splits cofactor nodes. `biomodel` holds the BioModels search/import dialog. `util` holds shared helpers (`SBMLUtil`, `AttributeUtil`, `NetworkUtil`, `ASTNodeUtil`, ...).
 - **`ServiceAdapter`**: bundles the Cytoscape services that actions and tasks need, so they do not each take long constructor lists.
 
-`tools/pycysbml` is a separate Python (uv) helper package for downloading and preparing test models. It is not part of the app build.
+`tools/pycysbml` is a separate Python (uv) helper package for downloading and preparing test models. It is not part of the app build. The Python code (`scripts/`, `tools/pycysbml`) is checked with ruff and ty from that project: `uv run --project tools ruff check`, `uv run --project tools ruff format --check`, `uv run --project tools ty check` (config in `ruff.toml`, `ty.toml`; the `python` CI job).
 
 ## Documentation
 

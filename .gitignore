@@ -33,6 +33,8 @@ logfile.name_IS_UNDEFINED
 # editors / tooling
 .vscode/
 .factorypath
+__pycache__/
+.ruff_cache/
 
 # generated
 site/

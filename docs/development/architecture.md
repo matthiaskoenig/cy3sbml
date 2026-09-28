@@ -148,5 +148,6 @@ thread.
 | `styles` | style loading, and the generation of the style files from templates |
 | `util` | helpers, for example `SBMLUtil`, `AttributeUtil`, `NetworkUtil`, `ASTNodeUtil` |
 
-`tools/pycysbml` is a separate Python package for downloading and preparing test models.
-It is not part of the app build.
+`tools/pycysbml` is a separate Python (uv) package for downloading and preparing test models:
+`bigg_download.py` and `biomodels_download.py` download the models of the `models` test
+suite, `graph_to_sbml.py` creates `models/styles/graph.xml`. It is not part of the app build.

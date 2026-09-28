@@ -1,6 +1,6 @@
 # Code quality
 
-Three checks keep the code consistent. The CI runs them on every pull request, and they
+Four checks keep the code consistent. The CI runs them on every pull request, and they
 are required for merging into `develop`.
 
 | Check | Tool | Command |
@@ -8,6 +8,7 @@ are required for merging into `develop`.
 | `format` | Spotless with palantir-java-format | `./mvnw spotless:check` |
 | `lint` | Error Prone and `javac` warnings | `./mvnw -Plint -DskipTests test-compile` (JDK 21) |
 | `tests` | JUnit tests and the packaged jar test | `./mvnw verify` |
+| `python` | ruff and ty on the Python helpers | see [Python](#python) |
 
 ## Formatting
 
@@ -57,6 +58,25 @@ for Java 17. The JVM options that Error Prone needs are in `.mvn/jvm.config`.
 
 Fix the warning instead of suppressing it. If a suppression is needed, use
 `@SuppressWarnings` on the smallest possible scope, with a comment that gives the reason.
+
+## Python
+
+The Python helpers, the documentation scripts in `scripts/` and the test model tools in
+`tools/pycysbml`, are linted and formatted with [ruff](https://docs.astral.sh/ruff/) and
+type checked with [ty](https://docs.astral.sh/ty/), configured in `ruff.toml` and
+`ty.toml`. Both tools, and the dependencies of the helpers, come from the uv project in
+`tools/`, so run them through it from the repository root:
+
+```bash
+uv run --project tools ruff check           # lint
+uv run --project tools ruff format          # format the code
+uv run --project tools ruff format --check  # check the formatting, as the CI does
+uv run --project tools ty check             # type check
+```
+
+ty reports every diagnostic as an error, including a value of an untyped library or of
+`Any` that flows into an annotated variable or return. Narrow such a value with a check
+at the boundary, instead of suppressing the diagnostic.
 
 ## Tests
 

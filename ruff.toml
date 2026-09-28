@@ -1,0 +1,21 @@
+# Lint and format configuration for the Python helpers of the repository
+# (`scripts/` and `tools/pycysbml/`), see docs/development/quality.md.
+target-version = "py314"
+line-length = 88
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "A",   # flake8-builtins
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "PTH", # flake8-use-pathlib
+    "N",   # pep8-naming
+    "ANN", # flake8-annotations
+    "RUF", # ruff specific rules
+]

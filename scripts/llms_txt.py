@@ -41,15 +41,58 @@ class Page(NamedTuple):
     path: str
 
 
-def read_config() -> dict[str, Any]:
+class SiteConfig(NamedTuple):
+    """The settings of the zensical configuration used by this script.
+
+    Attributes:
+        site_name: name of the documentation site.
+        site_description: one line description of the site.
+        site_url: URL of the published site, without a trailing slash.
+        repo_url: URL of the source repository.
+        pages: pages of the nav, in the order of the nav.
+    """
+
+    site_name: str
+    site_description: str
+    site_url: str
+    repo_url: str
+    pages: list[Page]
+
+
+def _config_str(project: dict[str, Any], key: str) -> str:
+    """Return a string setting of the `project` table.
+
+    Args:
+        project: `project` table of the zensical configuration.
+        key: name of the setting.
+
+    Returns:
+        The value of the setting.
+
+    Raises:
+        SystemExit: if the setting is missing or not a string.
+    """
+    value = project.get(key)
+    if not isinstance(value, str):
+        raise SystemExit(f"'{CONFIG_PATH}': `project.{key}` must be a string.")
+    return value
+
+
+def read_config() -> SiteConfig:
     """Read the zensical configuration.
 
     Returns:
-        The `project` table of `zensical.toml`.
+        The settings of the `project` table of `zensical.toml`.
     """
     with CONFIG_PATH.open("rb") as f_config:
-        config: dict[str, Any] = tomllib.load(f_config)
-    return config["project"]
+        project: dict[str, Any] = tomllib.load(f_config)["project"]
+    return SiteConfig(
+        site_name=_config_str(project, "site_name"),
+        site_description=_config_str(project, "site_description"),
+        site_url=_config_str(project, "site_url").rstrip("/"),
+        repo_url=_config_str(project, "repo_url"),
+        pages=parse_nav(project["nav"]),
+    )
 
 
 def parse_nav(nav: list[Any], section: str = "Documentation") -> list[Page]:
@@ -71,8 +114,10 @@ def parse_nav(nav: list[Any], section: str = "Documentation") -> list[Page]:
                 # sections of `llms.txt` are flat
                 sub_section = section if section != "Documentation" else title
                 pages.extend(parse_nav(value, section=sub_section))
-            else:
+            elif isinstance(value, str):
                 pages.append(Page(section=section, title=title, path=value))
+            else:
+                raise SystemExit(f"'{CONFIG_PATH}': invalid nav entry '{title}'.")
     return pages
 
 
@@ -124,18 +169,18 @@ def sections(pages: dict[Page, str]) -> dict[str, list[Page]]:
     return grouped
 
 
-def write_llms_txt(pages: dict[Page, str], config: dict[str, Any]) -> None:
+def write_llms_txt(pages: dict[Page, str], config: SiteConfig) -> None:
     """Write the `llms.txt` index of the documentation.
 
     Args:
         pages: markdown of every page of the documentation.
-        config: `project` table of the zensical configuration.
+        config: settings of the zensical configuration.
     """
-    site_url: str = config["site_url"].rstrip("/")
+    site_url = config.site_url
     lines: list[str] = [
-        f"# {config['site_name']}",
+        f"# {config.site_name}",
         "",
-        f"> {config['site_description']}",
+        f"> {config.site_description}",
         "",
         "The links below point to the markdown source of the documentation. "
         f"[llms-full.txt]({site_url}/llms-full.txt) contains all of it in a "
@@ -153,25 +198,25 @@ def write_llms_txt(pages: dict[Page, str], config: dict[str, Any]) -> None:
         "",
         "## Optional",
         "",
-        f"- [Repository]({config['repo_url']}): source code, issues and releases.",
+        f"- [Repository]({config.repo_url}): source code, issues and releases.",
         f"- [Sitemap]({site_url}/sitemap.xml): all pages of the rendered site.",
         "",
     ]
     (SITE_DIR / "llms.txt").write_text("\n".join(lines))
 
 
-def write_llms_full_txt(pages: dict[Page, str], config: dict[str, Any]) -> None:
+def write_llms_full_txt(pages: dict[Page, str], config: SiteConfig) -> None:
     """Write the complete documentation as a single markdown file.
 
     Args:
         pages: markdown of every page of the documentation.
-        config: `project` table of the zensical configuration.
+        config: settings of the zensical configuration.
     """
-    site_url: str = config["site_url"].rstrip("/")
+    site_url = config.site_url
     lines: list[str] = [
-        f"# {config['site_name']}",
+        f"# {config.site_name}",
         "",
-        f"> {config['site_description']}",
+        f"> {config.site_description}",
         "",
         f"The complete documentation from {site_url}, one section per page.",
         "",
@@ -206,7 +251,7 @@ def main() -> None:
         raise SystemExit(f"'{SITE_DIR}' does not exist, run `zensical build` first.")
 
     config = read_config()
-    pages = {page: page_markdown(page) for page in parse_nav(config["nav"])}
+    pages = {page: page_markdown(page) for page in config.pages}
 
     write_markdown(pages)
     write_llms_txt(pages, config)

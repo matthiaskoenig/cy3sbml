@@ -1,4 +1,4 @@
-# Keep the GitHub Actions and the Maven dependencies up to date.
+# Keep the GitHub Actions, the Maven and the Python dependencies up to date.
 # See https://docs.github.com/code-security/dependabot/dependabot-version-updates
 version: 2
 updates:
@@ -13,6 +13,18 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "ci"
+  - package-ecosystem: "uv"
+    # the Python helpers, see tools/pyproject.toml
+    directory: "/tools"
+    schedule:
+      interval: "weekly"
+    groups:
+      python-tools:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
