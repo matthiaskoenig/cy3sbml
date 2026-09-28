@@ -5,7 +5,6 @@ import static org.cy3sbml.miriam.Fields.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
-import java.util.Optional;
 
 public class Resource {
 
@@ -44,21 +43,22 @@ public class Resource {
         resource.institution = (Map<?, ?>) value.get(INSTITUTION);
         resource.location = (Map<?, ?>) value.get(LOCATION);
         resource.deprecated = value.get(DEPRECATED).toString().equals(TRUE);
-        resource.deprecationDate =
-                (String) Optional.ofNullable(value.get(DEPRECATION_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.deprecationOfflineDate = (String)
-                Optional.ofNullable(value.get(DEPRECATION_OFFLINE_DATE)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationDate = stringOrDefault(value, DEPRECATION_DATE);
+        resource.deprecationOfflineDate = stringOrDefault(value, DEPRECATION_OFFLINE_DATE);
         resource.renderDeprecatedLanding = value.get(RENDER_DEPRECATED_LANDING).toString();
-        resource.deprecationStatetement =
-                (String) Optional.ofNullable(value.get(DEPRECATION_STATEMENT)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.deprecationStatetement = stringOrDefault(value, DEPRECATION_STATEMENT);
         resource.protectedUrls = value.get(PROTECTED_URLS).toString().equals(TRUE);
         resource.renderProtectedLanding =
                 value.get(RENDER_PROTECTED_LANDING).toString().equals(TRUE);
-        resource.authHelpUrl =
-                (String) Optional.ofNullable(value.get(AUTH_HELP_URL)).orElse(NO_DESCRIPTION_AVAILABLE);
-        resource.authHelpDescription =
-                (String) Optional.ofNullable(value.get(AUTH_HELP_DESCRIPTION)).orElse(NO_DESCRIPTION_AVAILABLE);
+        resource.authHelpUrl = stringOrDefault(value, AUTH_HELP_URL);
+        resource.authHelpDescription = stringOrDefault(value, AUTH_HELP_DESCRIPTION);
         return resource;
+    }
+
+    /** The string value of the key, or {@code NO_DESCRIPTION_AVAILABLE} if it has none. */
+    private static String stringOrDefault(Map<?, ?> value, String key) {
+        Object item = value.get(key);
+        return item == null ? NO_DESCRIPTION_AVAILABLE : (String) item;
     }
 
     public static class Institution {

@@ -379,8 +379,8 @@ public class SBaseHTMLFactory {
         // List of Resource URIs
 
         for (String resourceURI : cvterm.getResources()) {
-            // bugfix to handle https://identifier.org/ resources
-            if (resourceURI.contains("identifiers.org")) {
+            if (RegistryUtil.isIdentifiersURI(resourceURI)) {
+                // bugfix to handle https://identifier.org/ resources
                 resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
                 MiriamRegistry.ResolvedURI resolved = miriamRegistry.resolve(resourceURI);
@@ -391,19 +391,9 @@ public class SBaseHTMLFactory {
                     identifier = substringAfter(resourceURI, "http://identifiers.org/");
                 }
                 // link to primary resource via id
-                String resourceLink = null;
-
-                if (dataType == null) {
-                    resourceLink = resourceURI;
-
-                } else {
-                    for (Resource resource : dataType.getResources()) {
-                        // take first one
-                        resourceLink = createURL(dataType, resource, identifier);
-
-                        break;
-                    }
-                }
+                Resource primaryResource = dataType == null ? null : dataType.getPrimaryResource();
+                String resourceLink =
+                        primaryResource == null ? resourceURI : createURL(dataType, primaryResource, identifier);
 
                 // identifier
                 String identifierHTML =
@@ -426,11 +416,10 @@ public class SBaseHTMLFactory {
                 }
                 // dataType found
                 if (dataType != null) {
+                    String dataTypeURL = primaryResource == null ? resourceURI : primaryResource.getResourceHomeUrl();
                     text += qualifierHTML
                             + MIRIAM_COLLECTION_LINK
-                                    .replace(
-                                            "{dataTypeURL}",
-                                            dataType.getResources().get(0).getResourceHomeUrl())
+                                    .replace("{dataTypeURL}", dataTypeURL)
                                     .replace("{dataTypeName}", dataType.getName())
                                     .replace("{identifierHTML}", identifierHTML);
 

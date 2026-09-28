@@ -88,6 +88,30 @@ public class Namespace {
         return resources;
     }
 
+    /**
+     * The resource to link to: the official resource if it is not deprecated, else the first
+     * resource that is not deprecated, else the first resource (a deprecated resource only leads
+     * to a deprecation page). Null if the namespace has no resources.
+     */
+    public Resource getPrimaryResource() {
+        Resource fallback = null;
+        for (Resource resource : resources) {
+            if (resource.isDeprecated()) {
+                continue;
+            }
+            if (resource.isOfficial()) {
+                return resource;
+            }
+            if (fallback == null) {
+                fallback = resource;
+            }
+        }
+        if (fallback != null) {
+            return fallback;
+        }
+        return resources.isEmpty() ? null : resources.get(0);
+    }
+
     public String getCreated() {
         return created;
     }

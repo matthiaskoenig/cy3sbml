@@ -1,7 +1,5 @@
 package org.cy3sbml.miriam;
 
-import static org.cy3sbml.miriam.Fields.*;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -113,6 +111,14 @@ public class RegistryUtil {
     // (org.identifiers.registry.RegistryUtilities) previously used from AnnotationUtil and
     // SBaseHTMLFactory.
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Whether the given resource URI is an identifiers.org URI or a urn:miriam URN, the forms
+     * that {@link MiriamRegistry#resolve(String)} resolves against the registry.
+     */
+    public static boolean isIdentifiersURI(String uri) {
+        return uri != null && (uri.contains("identifiers.org") || uri.startsWith("urn:miriam:"));
+    }
 
     private static boolean isUrn(String uri) {
         return uri != null && uri.startsWith("urn:");

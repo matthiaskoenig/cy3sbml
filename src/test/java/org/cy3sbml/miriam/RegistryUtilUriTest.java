@@ -237,4 +237,13 @@ public class RegistryUtilUriTest {
         assertFalse(RegistryUtil.checkRegexp(null, "^CHEBI:\\d+$"));
         assertFalse(RegistryUtil.checkRegexp("CHEBI:36927", null));
     }
+
+    @Test
+    public void isIdentifiersURI() {
+        assertTrue(RegistryUtil.isIdentifiersURI("http://identifiers.org/chebi/CHEBI:36927"));
+        assertTrue(RegistryUtil.isIdentifiersURI("https://identifiers.org/chebi:CHEBI:36927"));
+        assertTrue(RegistryUtil.isIdentifiersURI("urn:miriam:obo.chebi:CHEBI%3A36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI("https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI(null));
+    }
 }

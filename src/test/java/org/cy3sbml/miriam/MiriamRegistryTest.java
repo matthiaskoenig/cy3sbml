@@ -192,4 +192,17 @@ class MiriamRegistryTest {
         assertNotNull(before.get("go"));
         assertNull(before.get("testcollection"));
     }
+
+    /** The primary resource is the official one, skipping deprecated resources. */
+    @Test
+    void primaryResourceSkipsDeprecatedResources() {
+        Namespace sbo = MiriamRegistry.bundled().findByURI("urn:miriam:biomodels.sbo:SBO%3A0000247");
+        assertNotNull(sbo);
+        assertTrue(sbo.getResources().get(0).isDeprecated());
+
+        Resource primary = sbo.getPrimaryResource();
+
+        assertFalse(primary.isDeprecated());
+        assertTrue(primary.isOfficial());
+    }
 }
