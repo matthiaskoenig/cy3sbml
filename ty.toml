@@ -1,0 +1,13 @@
+# Type check configuration for the Python helpers of the repository
+# (`scripts/` and `tools/pycysbml/`), see docs/development/quality.md.
+# Run through the `tools` project so that ty resolves its dependencies:
+# `uv run --project tools ty check`.
+[environment]
+python-version = "3.14"
+
+[src]
+include = ["scripts", "tools/pycysbml"]
+
+[rules]
+# every diagnostic fails the check, not only the errors
+all = "error"

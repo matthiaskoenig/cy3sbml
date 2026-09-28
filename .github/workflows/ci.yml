@@ -109,3 +109,28 @@ jobs:
           cache: maven
       - name: Check the code with Error Prone and compiler warnings
         run: ./mvnw --batch-mode --no-transfer-progress -Plint -DskipTests test-compile
+
+  python:
+    # the Python helpers in scripts/ and tools/pycysbml, see
+    # docs/development/quality.md
+    name: python
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - name: Install the tools project
+        run: uv sync --project tools --locked
+      - name: Check the code with ruff
+        run: uv run --project tools --locked ruff check --output-format=github
+      - name: Check the formatting with ruff
+        run: uv run --project tools --locked ruff format --check
+      - name: Check the types with ty
+        run: uv run --project tools --locked ty check --output-format=github
+      - name: Self-check the release notes script
+        run: uv run --project tools --locked python scripts/release_notes.py --check
