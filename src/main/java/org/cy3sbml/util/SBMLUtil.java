@@ -21,6 +21,8 @@ import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
+import org.sbml.jsbml.ext.qual.Input;
+import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
@@ -592,6 +594,41 @@ public class SBMLUtil {
      */
     public static Map<String, String> createTransitionMap(Transition transition) {
         Map<String, String> map = createNamedSBaseMap(transition);
+        return map;
+    }
+
+    /**
+     * Input map.
+     */
+    public static Map<String, String> createInputMap(Input input) {
+        Map<String, String> map = createNamedSBaseMap(input);
+        map.put(
+                SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
+                input.isSetQualitativeSpecies() ? input.getQualitativeSpecies() : GUIConstants.ICON_NONE);
+        map.put(
+                SBML.ATTR_QUAL_TRANSITION_EFFECT,
+                input.isSetTransitionEffect() ? input.getTransitionEffect().toString() : GUIConstants.ICON_NONE);
+        map.put(SBML.ATTR_QUAL_SIGN, input.isSetSign() ? input.getSign().toString() : GUIConstants.ICON_NONE);
+        map.put(
+                SBML.ATTR_QUAL_THRESHOLD_LEVEL,
+                input.isSetThresholdLevel() ? Integer.toString(input.getThresholdLevel()) : GUIConstants.ICON_NONE);
+        return map;
+    }
+
+    /**
+     * Output map.
+     */
+    public static Map<String, String> createOutputMap(Output output) {
+        Map<String, String> map = createNamedSBaseMap(output);
+        map.put(
+                SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
+                output.isSetQualitativeSpecies() ? output.getQualitativeSpecies() : GUIConstants.ICON_NONE);
+        map.put(
+                SBML.ATTR_QUAL_TRANSITION_EFFECT,
+                output.isSetTransitionEffect() ? output.getTransitionEffect().toString() : GUIConstants.ICON_NONE);
+        map.put(
+                SBML.ATTR_QUAL_OUTPUT_LEVEL,
+                output.isSetOutputLevel() ? Integer.toString(output.getOutputLevel()) : GUIConstants.ICON_NONE);
         return map;
     }
 

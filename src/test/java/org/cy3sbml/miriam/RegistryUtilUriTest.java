@@ -14,9 +14,10 @@ import org.junit.jupiter.api.Test;
  * <p>
  * Covers the identifiers.org URI forms actually seen in SBML annotations:
  * <ul>
- *     <li>legacy namespace/id form: {@code http://identifiers.org/<namespace>/<accession>}</li>
+ *     <li>legacy namespace/id form: {@code http://identifiers.org/<namespace>/<accession>},
+ *         where the accession may contain slashes</li>
  *     <li>compact form: {@code https://identifiers.org/<namespace>:<accession>}, where
- *         {@code <namespace>} is lowercase</li>
+ *         {@code <namespace>} is lowercase and the accession may contain slashes</li>
  *     <li>a provider-less compact URI whose single path segment is itself the accession, and
  *         that accession happens to embed a colon (e.g. GO's own accessions look like
  *         {@code GO:0042752}); since the segment's prefix before the colon is not lowercase,
@@ -55,6 +56,23 @@ public class RegistryUtilUriTest {
         // single path segment "GO:0042752": "GO" is not lowercase, so this is not a genuine
         // namespace:accession split -- the whole segment is the accession
         assertEquals("GO:0042752", RegistryUtil.getIdentifierFromURI("https://identifiers.org/GO:0042752"));
+    }
+
+    @Test
+    public void getIdentifierFromURI_legacyFormWithSlashInAccession() {
+        assertEquals(
+                "10.1016/j.jtbi.2004.04.039",
+                RegistryUtil.getIdentifierFromURI("https://identifiers.org/doi/10.1016/j.jtbi.2004.04.039"));
+    }
+
+    @Test
+    public void getIdentifierFromURI_compactFormWithSlashInAccession() {
+        assertEquals(
+                "10.1016/j.jtbi.2004.04.039",
+                RegistryUtil.getIdentifierFromURI("https://identifiers.org/doi:10.1016/j.jtbi.2004.04.039"));
+        assertEquals(
+                "DOI:10.1016/j.jtbi.2004.04.039",
+                RegistryUtil.getIdentifierFromURI("https://identifiers.org/DOI:10.1016/j.jtbi.2004.04.039"));
     }
 
     @Test
@@ -121,6 +139,11 @@ public class RegistryUtilUriTest {
     @Test
     public void getNamespaceFromURI_embeddedPrefixForm() {
         assertEquals("GO", RegistryUtil.getNamespaceFromURI("https://identifiers.org/GO:0042752"));
+    }
+
+    @Test
+    public void getNamespaceFromURI_compactFormWithSlashInAccession() {
+        assertEquals("DOI", RegistryUtil.getNamespaceFromURI("https://identifiers.org/DOI:10.1016/j.jtbi.2004.04.039"));
     }
 
     @Test

@@ -6,7 +6,7 @@
       "edgeCount" : 864,
       "attributes" : {
         "bigg.model" : "e_coli_core",
-        "doi" : "ecosalplus.10.2.1",
+        "doi" : "10.1128/ecosalplus.10.2.1",
         "extentUnits" : "substance",
         "fbc_strict" : true,
         "label" : "Escherichia coli str. K-12 substr. MG1655",

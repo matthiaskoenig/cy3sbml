@@ -15,7 +15,6 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.MiriamRegistry;
@@ -32,6 +31,8 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.qual.Input;
+import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.sbml.jsbml.util.StringTools;
@@ -286,6 +287,10 @@ public class SBaseHTMLFactory {
             map = SBMLUtil.createQualitativeSpeciesMap(qualitativeSpecies);
         } else if (item instanceof Transition transition) {
             map = SBMLUtil.createTransitionMap(transition);
+        } else if (item instanceof Input input) {
+            map = SBMLUtil.createInputMap(input);
+        } else if (item instanceof Output output) {
+            map = SBMLUtil.createOutputMap(output);
         }
 
         // fbc //
@@ -306,7 +311,7 @@ public class SBaseHTMLFactory {
         // Not supported
         else {
             logger.warn(MessageFormat.format(
-                    "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item)));
+                    "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item), item));
             if (item instanceof NamedSBase namedSBase) {
                 map = SBMLUtil.createNamedSBaseMap(namedSBase);
             } else {
@@ -379,9 +384,10 @@ public class SBaseHTMLFactory {
             if (resourceURI.contains("identifiers.org")) {
                 resourceURI = resourceURI.replace("https://identifiers.org", "http://identifiers.org");
                 String dataCollection = RegistryUtil.getDataCollectionPartFromURI(resourceURI);
-                dataType = miriamRegistry.findByURI(resourceURI);
+                MiriamRegistry.ResolvedURI resolved = miriamRegistry.resolve(resourceURI);
+                dataType = resolved == null ? null : resolved.dataCollection();
 
-                String identifier = RegistryUtil.getIdentifierFromURI(resourceURI);
+                String identifier = resolved == null ? null : resolved.identifier();
                 if (identifier == null) {
                     identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
                 }
@@ -477,7 +483,7 @@ public class SBaseHTMLFactory {
     private static String createURL(Namespace namespace, Resource resource, String identifier) {
         String url;
         String identifier2;
-        if (Strings.CI.contains(identifier, namespace.getPrefix())) {
+        if (Boolean.TRUE.equals(namespace.getNamespaceEmbeddedInLui()) && identifier.contains(":")) {
             identifier2 = StringUtils.substringAfter(identifier, ":");
         } else {
             identifier2 = identifier;
