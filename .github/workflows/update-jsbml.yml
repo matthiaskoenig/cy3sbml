@@ -1,0 +1,80 @@
+name: update JSBML
+
+# Builds the JSBML jars of a JSBML commit with scripts/update_jsbml.py and opens a
+# pull request with them, see docs/development/dependencies.md. Start it from the
+# Actions tab (Run workflow) or with `gh workflow run update-jsbml.yml`.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: JSBML branch, tag or commit
+        required: true
+        default: master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write       # push the update branch
+      pull-requests: write  # open the pull request
+      actions: write        # start the checks of the pull request, see below
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # the Ant build of JSBML runs code from the JSBML repository, so the
+          # token with write access is not stored in the checkout; only the
+          # last step, after the build, uses it
+          persist-credentials: false
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          java-version: "17"
+          distribution: temurin
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v10.2.0
+        with:
+          python-version: "3.14"
+      - name: Build the JSBML jars
+        env:
+          REF: ${{ inputs.ref }}
+        run: >-
+          uv run --no-project --python 3.14 python scripts/update_jsbml.py "$REF"
+          --summary "$RUNNER_TEMP/summary.md"
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "JSBML is up to date, nothing to do." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          version="$(sed -n 's|.*<jsbml.version>\(.*\)</jsbml.version>.*|\1|p' pom.xml)"
+          branch="update-jsbml-$version"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add --all lib/cy3sbml-dep pom.xml
+          { echo "Update JSBML to $version"; echo; cat "$RUNNER_TEMP/summary.md"; } \
+            > "$RUNNER_TEMP/message.txt"
+          git commit --quiet --file "$RUNNER_TEMP/message.txt"
+          git push --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "$branch"
+          if ! gh pr view "$branch" > /dev/null 2>&1; then
+            gh pr create --base develop --head "$branch" \
+              --title "Update JSBML to $version" --body-file "$RUNNER_TEMP/summary.md"
+          fi
+          # A pull request opened with the workflow token starts no workflows, so
+          # the checks the branch protection requires are started here; they run
+          # on the head commit of the pull request and report to it.
+          gh workflow run ci.yml --ref "$branch"
+          gh workflow run docs.yml --ref "$branch"
+          cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"

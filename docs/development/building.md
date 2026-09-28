@@ -36,7 +36,7 @@ The default branch is `develop`. The build writes the app jar to
   and have `provided` scope.
 - JSBML and its package modules are not taken from Maven Central. The jars are in
   `lib/cy3sbml-dep`, a Maven repository inside the project, pinned to one JSBML commit
-  (property `jsbml.version` in `pom.xml`). See [Update JSBML](#update-jsbml).
+  (property `jsbml.version` in `pom.xml`). See [Dependencies](dependencies.md).
 - The `maven-bundle-plugin` embeds all dependencies that are not `provided` or `test`,
   with their transitive dependencies, into the bundle jar, and marks the imports as
   optional. A new runtime dependency ends up in the jar automatically. Test the app in
@@ -72,24 +72,8 @@ Cytoscape then prints `Listening for transport dt_socket at address: 12345`. Att
 remote JVM debugger of your IDE to `localhost:12345`, for example a **Remote JVM Debug**
 run configuration in IntelliJ IDEA.
 
-## Update JSBML
+## Update dependencies
 
-The jars in `lib/cy3sbml-dep` are built from the JSBML sources with
-`lib/build_jsbml_jars.sh`. Rebuild them only to upgrade JSBML:
-
-```bash
-lib/build_jsbml_jars.sh <jsbml-commit>
-```
-
-The script needs `ant` and a JDK 17 on the `PATH`. It clones JSBML into `$JSBMLCODE`
-(default `$HOME/git/jsbml`), checks out the commit, builds the core and package jars
-with the version `1.7-<commit date>-<short sha>`, installs them into `lib/cy3sbml-dep`,
-and removes the jars of the previous version. Afterwards:
-
-1. Set the property `jsbml.version` in `pom.xml` to the printed version, and update the
-   commit in the comment next to it.
-2. Run `./mvnw -B -q clean verify`.
-3. Check the import of the models in Cytoscape, and note the upgrade in the release
-   notes.
-
-The header of the script documents how the current jars were built.
+Dependabot updates the Maven dependencies, the GitHub Actions and the Python helpers.
+JSBML is updated with `scripts/update_jsbml.py` or the *update JSBML* workflow. See
+[Dependencies](dependencies.md).

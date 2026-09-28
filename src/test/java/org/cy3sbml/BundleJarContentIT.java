@@ -197,6 +197,21 @@ public class BundleJarContentIT {
     }
 
     @Test
+    public void hasJsbmlTidyWithTheNestedJtidyJar() {
+        assertHasEntry("org/sbml/jsbml/TidySBMLWriter.class");
+        assertHasEntry("jtidy-r938.jar");
+    }
+
+    @Test
+    public void manifestImportsNoJUnit() throws IOException {
+        String imports = jar.getManifest().getMainAttributes().getValue("Import-Package");
+        assertNotNull(imports, "no Import-Package header");
+        assertTrue(
+                !imports.contains("org.junit") && !imports.contains("junit.framework"),
+                "bundle imports JUnit, the JSBML jars contain test classes: " + imports);
+    }
+
+    @Test
     public void hasNoJUnitTestClasses() {
         List<String> junitLike = new ArrayList<>();
         for (String name : entryNames) {
