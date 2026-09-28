@@ -504,38 +504,19 @@ public class SBaseHTMLFactory {
     }
 
     /**
-     * Information for an OLS location.
-     * Only the identifier needed for the query.
+     * Information for an OLS location: the term shown by the OLS term page for the identifier.
      */
     private String createOLSLocation(Namespace namespace, Resource resource, String identifier) {
         String html = "";
-        // Necessary to get the OLS identifier from the OLS url, in case there are prefixes and suffixes
-
         String olsURL = createURL(namespace, resource, identifier);
-
-        // for some ontologies the OLS term query term is not the identifier
-        String termIdentifier = identifier;
-
-        // the last non-empty token after the first one; a URL ending with "=" keeps the
-        // identifier
-        String[] tokens = olsURL.split("=", -1);
-        int last = tokens.length - 1;
-        while (last > 0 && tokens[last].isEmpty()) {
-            last--;
-        }
-        if (last > 0) {
-            termIdentifier = tokens[last];
-        }
-
-        Optional<OlsTerm> optionalTerm = olsClient.term(termIdentifier);
+        Optional<OlsTerm> optionalTerm = olsClient.termForPage(olsURL);
 
         if (optionalTerm.isPresent()) {
             OlsTerm term = optionalTerm.get();
 
             String purlURL = term.iri();
-            String ontologyURL = createURL(namespace, resource, identifier);
             html += ONTOLOGY_TERM_LINK
-                    .replace("{ontologyURL}", ontologyURL)
+                    .replace("{ontologyURL}", olsURL)
                     .replace("{ontologyName}", term.ontologyName().toUpperCase(Locale.ROOT))
                     .replace("{termLabel}", ontologyTextHTML(term.label()))
                     .replace("{purlURL}", purlURL)
@@ -558,9 +539,8 @@ public class SBaseHTMLFactory {
         } else {
             html += OLS_TERM_ERROR
                     .replace("{ICON_WARNING}", ICON_WARNING)
-                    .replace("{TERM_ID}", termIdentifier)
+                    .replace("{TERM_ID}", identifier)
                     .replace("{OLS_URL}", olsURL);
-            ;
             html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;

@@ -23,6 +23,13 @@ For the selected object, the panel shows in this order:
    law of a reaction, or the initial values of a species. Ids of referenced objects,
    for example the compartment of a species, have a link icon. Clicking it selects the
    node of the referenced object.
+   For a reaction, the table also shows:
+    - the equation, for example `2 A + B ⇌ C; E`: the reactants and products with their
+      stoichiometries, `⇌` for a reversible and `→` for an irreversible reaction, `∅` for
+      no reactants or products, and the modifiers after the semicolon. A stoichiometry
+      that is not set but determined by a rule shows the id of the species reference;
+    - the coefficient of the reaction in each fbc objective of the model, in the row
+      `fbc_objective-<objective id>`, like the network column of the same name.
 3. The model history: creators with email and organisation, the creation date and the
    modification dates.
 4. The annotations (see below).
@@ -62,7 +69,7 @@ The panel warns about two annotation problems:
 | Service | Used for | Shown information |
 |---|---|---|
 | [identifiers.org registry](https://registry.identifiers.org) | all resources | collection name, identifier pattern, resource links |
-| [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/) (OLS4) | ontology terms, for example GO, SBO, ChEBI, NCBITaxon | term label, description, synonyms |
+| [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/) (OLS4) | ontology terms, for example GO, SBO, ChEBI, NCBITaxon: the term of the OLS resource of the collection in the registry | term label, description, synonyms |
 | [UniProt](https://www.uniprot.org) REST API | `uniprot` resources | protein name, EC number, organism, gene, synonyms, function, catalytic activity, pathway |
 | [ChEBI](https://www.ebi.ac.uk/chebi/) | `chebi` resources | formula, charge, mass, structure image |
 

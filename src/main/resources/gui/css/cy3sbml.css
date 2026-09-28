@@ -163,6 +163,12 @@ body > h2, body > p{
     font-family: monospace;
 }
 
+/* the arrow glyphs of the body font are small */
+.equation-arrow{
+    font-size: 1.4em;
+    line-height: 1;
+}
+
 /********************************
 SBML validation
 *********************************/
