@@ -13,6 +13,7 @@ import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.SBase;
@@ -51,6 +52,52 @@ class SBaseHTMLFactoryTest {
         // the SBO term is shown as an annotation, but not added to the model
         assertEquals(0, species.getCVTermCount());
         assertTrue(html.contains("SBO:0000247"), html);
+    }
+
+    /**
+     * CVTerms with urn:miriam resource URNs (e.g. "urn:miriam:obo.chebi:CHEBI%3A15422") are
+     * shown like identifiers.org URIs, linked to the resources of their data collection.
+     */
+    @Test
+    void urnMiriamResourcesAreShown() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("atp", 3, 1);
+        species.setMetaId("meta_atp");
+        species.addCVTerm(new CVTerm(
+                CVTerm.Qualifier.BQB_IS, "urn:miriam:kegg.compound:C00002", "urn:miriam:obo.chebi:CHEBI%3A15422"));
+
+        String html = htmlFactory.createInfo(species);
+
+        assertTrue(html.contains("https://www.kegg.jp/entry/C00002"), html);
+        assertTrue(html.contains("https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15422"), html);
+        assertFalse(html.contains("Unknown data collection"), html);
+    }
+
+    /**
+     * Links go to a resource that is not deprecated, preferring the official one: the first
+     * SBO resource in the registry is deprecated and only leads to a deprecation page.
+     */
+    @Test
+    void linksSkipDeprecatedResources() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", 3, 1);
+        species.setSBOTerm(247);
+
+        String html = htmlFactory.createInfo(species);
+
+        assertFalse(html.contains("registry.identifiers.org/deprecation"), html);
+        assertFalse(html.contains("https://www.ebi.ac.uk/sbo/"), html);
+        assertTrue(html.contains("https://www.ebi.ac.uk/ols4/ontologies/sbo/terms?obo_id=SBO:0000247"), html);
     }
 
     /**
