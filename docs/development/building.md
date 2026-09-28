@@ -59,6 +59,15 @@ is installed.
 
 cy3sbml writes its log to `~/CytoscapeConfiguration/cy3sbml/cy3sbml-v<version>.log`.
 
+Cytoscape 3.10 runs on Java 17. It uses `JAVA_HOME`, or else the `java` on the `PATH`.
+With a newer Java (for example after installing JDK 21 for the Error Prone check, which
+can make it the default `java`), Cytoscape 3.10.4 hangs at startup without an error
+message, before any app is loaded. Start it with a JDK 17:
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ./cytoscape.sh
+```
+
 ## Debug
 
 Start Cytoscape in debug mode:

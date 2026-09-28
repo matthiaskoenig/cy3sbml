@@ -11,7 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -39,7 +38,7 @@ public class XMLUtil {
             }
         }
         // escape the rest, i.e. things like < and >
-        String html = StringEscapeUtils.escapeHtml4(xml);
+        String html = HtmlUtil.escape(xml);
 
         // keep formating in html
         // Not working due to escaping of the respective tags

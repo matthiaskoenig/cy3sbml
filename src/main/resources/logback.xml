@@ -1,9 +1,9 @@
 <configuration>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logfile.name}</file>
+        <file>${cy3sbml.logfile}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logfile.name}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${cy3sbml.logfile}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>5MB</maxFileSize>
             <maxHistory>20</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
@@ -23,11 +23,12 @@
         </filter>
     </appender>
 
+    <!-- JSBML (log4j 1.x API, routed to slf4j by log4j-over-slf4j) -->
+    <logger name="org.sbml" level="WARN" />
     <logger name="org.sbml.jsbml.AbstractMathContainer" level="ERROR" />
-    <logger name="org.springframework.web.client" level="ERROR" />
     <logger name="org.cy3sbml" level="DEBUG" />
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>

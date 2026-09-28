@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -235,22 +234,22 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      * Creates gr node for the given aggregate.
      */
     private void createParentForNode(CyNode n) {
-        logger.debug("createParentForNode: " + n);
+        logger.debug("createParentForNode: {}", n);
 
         // get single node
         String path = node2path.get(n);
         String[] tokens = path.split("/");
         Integer Nparts = tokens.length;
-        logger.debug("path:" + path);
+        logger.debug("path:{}", path);
         if (tokens.length > 1) {
             String[] newTokens = Arrays.copyOfRange(tokens, 0, Nparts - 1);
             String parentPath;
             if (newTokens.length == 1) {
                 parentPath = newTokens[0] + "/";
             } else {
-                parentPath = StringUtils.join(newTokens, "/") + "/";
+                parentPath = String.join("/", newTokens) + "/";
             }
-            logger.debug("parentPath:" + parentPath);
+            logger.debug("parentPath:{}", parentPath);
 
             // create parent node and edge
             CyNode nParent;
@@ -288,7 +287,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      */
     static String folderExtension(String path) {
         // "/studies/s1/" and "studies/s1/" both give [studies, s1]
-        String[] tokens = StringUtils.strip(path, "/").split("/", -1);
+        String[] tokens = path.replaceAll("^/+|/+$", "").split("/", -1);
         if (tokens.length < 2) {
             return "folder";
         }
@@ -321,7 +320,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             if (mediaType == null) {
                 extension = "blank";
             } else {
-                logger.debug("mediaType: " + mediaType);
+                logger.debug("mediaType: {}", mediaType);
                 if (mediaType.equals("application/octet-stream")) {
                     extension = "bin";
                 } else {

@@ -4,9 +4,9 @@ import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.io.FileUtils;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.work.TaskIterator;
@@ -56,7 +56,7 @@ public class GUIUtil {
         try {
             // write to tmp file
             File temp = File.createTempFile("cy3sbml", ".xml");
-            logger.debug("Temp file : " + temp.getAbsolutePath());
+            logger.debug("Temp file : {}", temp.getAbsolutePath());
 
             try {
                 TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
@@ -73,7 +73,7 @@ public class GUIUtil {
      * Open url in external webView.
      */
     public static void openURLinExternalBrowser(String url) {
-        logger.debug("Open in external webView <" + url + ">");
+        logger.debug("Open in external webView <{}>", url);
         SwingUtilities.invokeLater(() -> OpenBrowser.openURL(url));
     }
 
@@ -97,9 +97,9 @@ public class GUIUtil {
         // write temp file
         try {
             File temp = File.createTempFile("cy3sbml", ".html");
-            logger.debug("Temp file : " + temp.getAbsolutePath());
+            logger.debug("Temp file : {}", temp.getAbsolutePath());
 
-            FileUtils.writeStringToFile(temp, html, StandardCharsets.UTF_8);
+            Files.writeString(temp.toPath(), html, StandardCharsets.UTF_8);
             GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
             logger.error("File could not be opened.", e);

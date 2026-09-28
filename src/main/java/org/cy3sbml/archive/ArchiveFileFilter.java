@@ -28,7 +28,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
                 "Archive network reader (cy3robundle)",
                 DataCategory.NETWORK,
                 streamUtil);
-        logger.debug("new " + getClass() + "()");
+        logger.debug("new {}()", getClass());
     }
 
     /**
@@ -109,7 +109,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
             in.mark(MAGIC.length);
             for (int i = 0; i < MAGIC.length; i++) {
                 byte b = (byte) in.read();
-                logger.debug("byte[" + i + "]: '" + b + "'");
+                logger.debug("byte[{}]: '{}'", i, b);
                 if (MAGIC[i] != b) {
                     isZip = false;
                     break;
@@ -119,7 +119,7 @@ public class ArchiveFileFilter extends BasicCyFileFilter {
         } catch (IOException e) {
             isZip = false;
         }
-        logger.debug("isZipStream: " + isZip);
+        logger.debug("isZipStream: {}", isZip);
         return isZip;
     }
 }

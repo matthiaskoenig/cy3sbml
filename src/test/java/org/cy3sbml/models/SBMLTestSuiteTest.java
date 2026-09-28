@@ -7,6 +7,7 @@ import org.cy3sbml.TestUtils;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.ResourceLock;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
@@ -25,6 +26,8 @@ import org.mockito.quality.Strictness;
 @ExtendWith(MockitoExtension.class)
 // NetworkTestSupport stubs mocks the reader does not use
 @MockitoSettings(strictness = Strictness.LENIENT)
+// the model suites need a lot of memory, so they do not run at the same time
+@ResourceLock("model-suites")
 public class SBMLTestSuiteTest {
 
     @Mock
@@ -35,7 +38,7 @@ public class SBMLTestSuiteTest {
         String filter = "-sbml-l\\dv\\d.xml";
 
         return StreamSupport.stream(
-                        TestUtils.findResources("test", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip)
+                        TestUtils.findResources("corpora", TestUtils.SBMLTESTCASES_RESOURCE_PATH, ".xml", filter, skip)
                                 .spliterator(),
                         false)
                 .map(arr -> arr[0].toString());

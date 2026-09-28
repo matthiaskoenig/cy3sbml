@@ -30,7 +30,7 @@ public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
 
     @Override
     public TaskIterator createTaskIterator(InputStream is, String inputName) {
-        logger.debug("createTaskIterator: input stream name: " + inputName);
+        logger.debug("createTaskIterator: input stream name: {}", inputName);
 
         try {
             return new TaskIterator(new SBMLReaderTask(

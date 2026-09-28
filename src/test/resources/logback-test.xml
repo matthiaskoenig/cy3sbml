@@ -1,14 +1,27 @@
 <!-- Logging of the tests: console only, warnings and errors.
      Takes precedence over src/main/resources/logback.xml, the file log of the app,
-     which needs the logfile.name property set by CyActivator. -->
+     which needs the cy3sbml.logfile property set by CyActivator. -->
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- the errors the tests cause on purpose -->
+        <filter class="org.cy3sbml.ExpectedMessageFilter">
+            <!-- CyActivatorTest: a missing bundle resource -->
+            <message>cy3sbml panel disabled: extension jar missing from the bundle</message>
+            <!-- ResourceExtractorTest: no app directory -->
+            <message>appDirectory is not set in ResourceExtractor</message>
+            <!-- SBMLReaderTaskTest: a broken file, a reader that fails on the second model -->
+            <message>cy3sbml could not read the SBML file '(broken|01134-sbml-l3v1)\.xml': .*</message>
+        </filter>
         <encoder>
             <pattern>%-5level \(%logger{36}\) - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!-- JSBML (log4j 1.x API, routed to slf4j by log4j-over-slf4j). The JSBML XML parsers
+         warn on the test models (notes without the XHTML namespace, unknown attributes,
+         broken files); other JSBML warnings stay visible. -->
     <logger name="org.sbml.jsbml.AbstractMathContainer" level="ERROR" />
+    <logger name="org.sbml.jsbml.xml" level="ERROR" />
     <!-- SessionDataTest injects failures, which SessionData logs with their stack trace -->
     <logger name="org.cy3sbml.SessionData" level="OFF" />
     <!-- LatestTaskExecutorTest deliberately submits a task that throws, which

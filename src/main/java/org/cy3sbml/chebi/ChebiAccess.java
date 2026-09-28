@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
 import java.time.Clock;
 import java.util.Optional;
-import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.util.FetchResult;
+import org.cy3sbml.util.HtmlUtil;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,17 +108,17 @@ public final class ChebiAccess {
                         .append(GUIConstants.TS)
                         .append("Formula")
                         .append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.formula()))
+                        .append(HtmlUtil.escape(compound.formula()))
                         .append(GUIConstants.TE)
                         .append(GUIConstants.TS)
                         .append("Charge")
                         .append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.charge()))
+                        .append(HtmlUtil.escape(compound.charge()))
                         .append(GUIConstants.TE)
                         .append(GUIConstants.TS)
                         .append("Mass")
                         .append(GUIConstants.TM)
-                        .append(StringEscapeUtils.escapeHtml4(compound.mass()))
+                        .append(HtmlUtil.escape(compound.mass()))
                         .append(GUIConstants.TE)
                         .append(GUIConstants.TABLE_END);
             }

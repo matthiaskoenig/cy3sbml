@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.SBML;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -190,7 +189,7 @@ public class SBMLUtil {
     public static Map<String, String> createNamedSBaseMap(NamedSBase nsb) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put(ATTR_ID, nsb.isSetId() ? nsb.getId() : UNSET);
-        map.put(ATTR_NAME, nsb.isSetName() ? StringEscapeUtils.escapeHtml4(nsb.getName()) : UNSET);
+        map.put(ATTR_NAME, nsb.isSetName() ? HtmlUtil.escape(nsb.getName()) : UNSET);
         map.putAll(createSBaseMap(nsb));
         return map;
     }
@@ -484,9 +483,7 @@ public class SBMLUtil {
     @SuppressWarnings("deprecation")
     private static String stoichiometryHtml(SpeciesReference sr) {
         if (sr.isSetStoichiometryMath() && sr.getStoichiometryMath().isSetMath()) {
-            return "("
-                    + StringEscapeUtils.escapeHtml4(
-                            sr.getStoichiometryMath().getMath().toFormula()) + ")";
+            return "(" + HtmlUtil.escape(sr.getStoichiometryMath().getMath().toFormula()) + ")";
         }
         if (sr.isSetStoichiometry()) {
             double value = sr.getStoichiometry();

@@ -14,10 +14,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.parallel.Isolated;
 
 /**
  * Tests the access to the live BioModels REST API.
  */
+// sets the proxy system properties, which the other tests read
+@Isolated
 @Tag("network")
 public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_ID = "BIOMD0000000070";

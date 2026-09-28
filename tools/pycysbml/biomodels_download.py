@@ -1,6 +1,6 @@
-"""Download the curated BioModels into the test resources of the `models` suite.
+"""Download the curated BioModels into the model corpora of the `models` suite.
 
-`BioModelsTest` reads every SBML file in `src/test/resources/models/biomodels`.
+`BioModelsTest` reads every SBML file in `src/test/corpora/models/biomodels`.
 Uses the same BioModels REST API as `org.cy3sbml.biomodel.BiomodelsQuery`, see
 https://www.biomodels.org/docs/.
 
@@ -16,7 +16,7 @@ import requests
 BIOMODELS_URL: str = "https://www.biomodels.org"
 CURATED_QUERY: str = 'curationstatus:"Manually curated"'
 TARGET_DIR: Path = (
-    Path(__file__).parents[2] / "src" / "test" / "resources" / "models" / "biomodels"
+    Path(__file__).parents[2] / "src" / "test" / "corpora" / "models" / "biomodels"
 )
 # BioModels returns at most 100 results per search page
 PAGE_SIZE: int = 100

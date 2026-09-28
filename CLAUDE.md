@@ -19,10 +19,10 @@ Requires JDK 17. JavaFX (the GUI uses JavaFX `WebView`) comes from Maven Central
 ./mvnw test -Dtest.groups=network -Dtest.excludedGroups=  # only the network tests
 ```
 
-- Tests are JUnit 6 + Mockito.
-- Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`.
+- Tests are JUnit 6 + Mockito. Test classes run in parallel (`src/test/resources/junit-platform.properties`); a test class that changes global state (system properties) needs `@Isolated`. `JsbmlSetupListener` sets up JSBML once before the tests, as `CyActivator` does via `JsbmlSetup` (JSBML's `ParserManager` singleton is not thread-safe).
+- Tests are selected via JUnit tags (`org.junit.jupiter.api.Tag`), controlled by the surefire `<groups>`/`<excludedGroups>` in `pom.xml`, bound to the `test.groups`/`test.excludedGroups` properties. By default `test.excludedGroups` is `network,models`, so tests tagged `network` (hit web services, e.g. `ChebiAccessTest`, `OlsClientTest`, `BioModelInterfaceTest`) and `models` (the long-running `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest` suites in `src/test/java/org/cy3sbml/models/`) are skipped. The `all-tests` profile clears `test.excludedGroups` to run everything. Test models live in `src/test/resources/models/`; the large corpora of the `models` suites (BiGG, BioModels, SBML test suite, 1.2 GB) live in `src/test/corpora/models/`, which surefire puts on the test classpath without copying.
 - `GoldenModelsTest` (`src/test/java/org/cy3sbml/golden/`) pins the networks `SBMLReaderTask` creates for a set of reference models against a JSON snapshot per model in `src/test/resources/golden/`. After an intended change to the import, regenerate them with `./mvnw -B -q test -Dtest=GoldenModelsTest -Dgolden.update=true` and review the diff before committing.
-- Test logging: `src/test/resources/logback-test.xml` (cy3sbml) and `src/test/resources/log4j.properties` (JSBML) raise the loggers that warn on the deliberate test inputs to ERROR, so `./mvnw -B -q verify` prints no warnings; a new warning in the test output needs a look.
+- Test logging: JSBML logs through the log4j 1.x API, which `log4j-over-slf4j` routes to slf4j, so logback configures all logging (app: `src/main/resources/logback.xml`, tests: `src/test/resources/logback-test.xml`). `logback-test.xml` raises the loggers that warn on the deliberate test inputs to ERROR and drops the errors the tests cause on purpose (`ExpectedMessageFilter`), so `./mvnw -B -q verify` prints no warnings; a new warning in the test output needs a look.
 - Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/development/quality.md`.
 - The `lint` profile compiles with Error Prone and `-Xlint:all,-processing,-serial -Werror`. Error Prone needs JDK 21 or newer to run, so point `JAVA_HOME` at a JDK 21+ install for it: `JAVA_HOME=<jdk21> ./mvnw -B -Plint clean verify` (the code still compiles and runs on the pinned JDK 17 otherwise).
 
@@ -34,7 +34,7 @@ Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the ap
 ln -s $PWD/target/cy3sbml-<version>.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
 ```
 
-Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to port 12345. The app writes its log to `~/CytoscapeConfiguration/cy3sbml/`.
+Cytoscape 3.10 needs Java 17: with a newer default `java` (e.g. JDK 21) it hangs at startup with no error, so set `JAVA_HOME` to a JDK 17. Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to port 12345. The app writes its log to `~/CytoscapeConfiguration/cy3sbml/`.
 
 ## Dependencies
 

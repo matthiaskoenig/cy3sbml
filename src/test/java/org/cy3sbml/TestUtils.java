@@ -9,14 +9,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
@@ -67,6 +64,9 @@ public class TestUtils {
      * <p>
      * Resources in the skip set are skipped.
      * If a filter string is given only the resources matching the filter are returned.
+     *
+     * @param where the resource root: "main" (src/main/resources), "corpora" (the large model
+     *     corpora in src/test/corpora) or "test" (src/test/resources)
      */
     public static Iterable<Object[]> findResources(
             String where, String resourcePath, String extension, String filter, Set<String> skip) {
@@ -76,7 +76,8 @@ public class TestUtils {
         String rootPath;
         if (where.equals("main")) {
             rootPath = currentDir.getAbsolutePath() + "/src/main/resources" + resourcePath;
-
+        } else if (where.equals("corpora")) {
+            rootPath = currentDir.getAbsolutePath() + "/src/test/corpora" + resourcePath;
         } else {
             rootPath = currentDir.getAbsolutePath() + "/src/test/resources" + resourcePath;
         }
@@ -98,7 +99,7 @@ public class TestUtils {
                     break;
                 }
             }
-            String resource = StringUtils.join(ArrayUtils.subarray(items, mindex, items.length), "/");
+            String resource = String.join("/", Arrays.copyOfRange(items, mindex, items.length));
             resources[k][0] = "/" + resource;
         }
         return Arrays.asList(resources);
@@ -219,12 +220,9 @@ public class TestUtils {
     }
 
     /**
-     * Opens the model found by {@link #findResources}: a classpath resource, on Windows a file path.
+     * Opens the classpath resource of a model found by {@link #findResources}.
      */
-    private static InputStream openModel(String resource) throws FileNotFoundException {
-        if (System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
-            return new FileInputStream(resource);
-        }
+    private static InputStream openModel(String resource) {
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         assertNotNull(instream, "Resource not found: " + resource);
         return instream;

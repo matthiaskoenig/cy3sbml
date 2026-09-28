@@ -57,7 +57,7 @@ public class SBaseHTMLThread implements Runnable {
             try {
                 html = htmlFactory.createInfo((SBase) obj);
             } catch (IOException e) {
-                logger.error("Could not create the information for: " + obj, e);
+                logger.error("Could not create the information for: {}", obj, e);
                 continue;
             }
 

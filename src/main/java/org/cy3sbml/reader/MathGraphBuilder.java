@@ -38,8 +38,7 @@ final class MathGraphBuilder {
                 if (nsbNode != null) {
                     context.createEdge(nsbNode, containerNode, edgeType);
                 } else {
-                    logger.warn("Node for metaId <" + nsb.getMetaId() + "> not found in math <" + astNode.toFormula()
-                            + ">");
+                    logger.warn("Node for metaId <{}> not found in math <{}>", nsb.getMetaId(), astNode.toFormula());
                 }
             }
         }

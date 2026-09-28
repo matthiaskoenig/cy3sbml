@@ -1,5 +1,7 @@
 package org.cy3sbml.gui;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,9 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import javax.swing.SwingUtilities;
-import javax.swing.event.HyperlinkEvent;
-import org.codefx.libfx.control.webview.WebViewHyperlinkListener;
-import org.codefx.libfx.control.webview.WebViews;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * with click on hyperlinks.
  * Alternative javascript upcalls could be performed.
  */
-public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
+public class BrowserHyperlinkListener {
     private static final Logger logger = LoggerFactory.getLogger(BrowserHyperlinkListener.class);
 
     public static final String URL_CHANGESTATE = "https://cy3sbml-changestate";
@@ -129,23 +128,38 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
     }
 
     /**
-     * Called on the JavaFX thread. The action of the link opens Swing dialogs and changes
-     * Cytoscape networks and tables, so it runs on the Swing event dispatch thread.
+     * Called on the JavaFX thread when a link is clicked. The action of the link opens Swing
+     * dialogs and changes Cytoscape networks and tables, so it runs on the Swing event
+     * dispatch thread.
      *
+     * @param url the absolute URL of the link
      * @return true if the WebView must not load the link itself
      */
-    @Override
-    public boolean hyperlinkUpdate(HyperlinkEvent hyperlinkEvent) {
-        logger.info(WebViews.hyperlinkEventToString(hyperlinkEvent));
-
-        URL url = hyperlinkEvent.getURL();
-        if (url == null) {
-            // This is a link we should load, do not cancel.
-            return false;
-        }
+    public boolean linkActivated(URL url) {
+        logger.debug("Link activated: {}", url);
         String s = url.toString();
         dispatch.execute(() -> processURL(s));
         return true;
+    }
+
+    /**
+     * The absolute URL of a link: the href itself if it is an absolute URL, else the href
+     * resolved against the base URI of the link.
+     *
+     * @param baseUri the base URI of the link, may be null
+     * @param href the href attribute of the link
+     * @return the URL, or null if there is none (the WebView then handles the link itself)
+     */
+    static URL resolve(String baseUri, String href) {
+        try {
+            URI uri = URI.create(href.strip());
+            if (!uri.isAbsolute() && baseUri != null) {
+                uri = URI.create(baseUri).resolve(uri);
+            }
+            return uri.isAbsolute() ? uri.toURL() : null;
+        } catch (IllegalArgumentException | MalformedURLException e) {
+            return null;
+        }
     }
 
     /**
@@ -206,7 +220,7 @@ public class BrowserHyperlinkListener implements WebViewHyperlinkListener {
         // Example networks
         else if (EXAMPLE_SBML.containsKey(s)) {
             String resource = EXAMPLE_SBML.get(s);
-            logger.info("Loading: " + s);
+            logger.info("Loading: {}", s);
             GUIUtil.loadExampleFromResource(adapter, resource);
         }
 

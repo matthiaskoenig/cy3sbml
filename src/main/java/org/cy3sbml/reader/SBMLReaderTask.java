@@ -213,7 +213,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 return;
             }
 
-            logger.debug("JSBML version: " + JSBML.getJSBMLVersionString());
+            logger.debug("JSBML version: {}", JSBML.getJSBMLVersionString());
             // the XML parser decodes the stream with the encoding of the XML declaration
             document = SBMLReader.read(stream);
 
@@ -277,18 +277,18 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private void readModelDefinitions(CompSBMLDocumentPlugin compDoc) {
         logger.info("<ExternalModelDefinition>");
         for (ExternalModelDefinition emd : compDoc.getListOfExternalModelDefinitions()) {
-            logger.warn("Model reading from ExternalModelDefinition not supported: " + emd);
+            logger.warn("Model reading from ExternalModelDefinition not supported: {}", emd);
         }
 
         logger.info("<ModelDefinition>");
         for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
-            logger.info("ModelDefinition: " + md.toString());
+            logger.info("ModelDefinition: {}", md);
             Model mdModel = md.getModel();
             if (mdModel != null) {
                 createNetworksFromModel(mdModel);
-                logger.info("creating model for: " + md.getModel().getId());
+                logger.info("creating model for: {}", md.getModel().getId());
             } else {
-                logger.error("Model could not be read from ModelDefinition: " + md);
+                logger.error("Model could not be read from ModelDefinition: {}", md);
             }
         }
     }
