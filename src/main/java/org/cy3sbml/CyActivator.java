@@ -343,7 +343,7 @@ public class CyActivator extends AbstractCyActivator {
     }
 
     /**
-     * Extracts the bundled GUI/RO/OMEX/BioModels resources into the app directory, since
+     * Extracts the bundled GUI resources into the app directory, since
      * JavaFX cannot read {@code bundle:} URIs directly. Guarded on its own: if this fails,
      * the WebView panel may show incomplete pages, but the SBML reader already
      * registered by {@link #startCore} are unaffected.
