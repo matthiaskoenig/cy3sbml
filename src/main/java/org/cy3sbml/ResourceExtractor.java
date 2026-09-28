@@ -1,13 +1,16 @@
 package org.cy3sbml;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
-import java.net.URL;
-import java.util.Collections;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Stream;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -19,23 +22,21 @@ import org.slf4j.LoggerFactory;
  * file:// uris.
  * Required to allow JavaFX access to bundle resources.
  * JavaFX does currently not support the access via bundle: uris.
+ * <p>
+ * The extracted directories are owned by the extractor: each extraction replaces
+ * them completely, so resources removed or renamed in a newer version do not
+ * accumulate in the app directory (#404).
  */
 public class ResourceExtractor {
     private static final Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
 
     public static final String GUI_RESOURCES = "/gui/";
-    public static final String RO_RESOURCES = "/ro/";
-    public static final String OMEX_RESOURCES = "/omex/";
 
-    public static final Set<String> RESOURCES;
+    /** Bundle directories extracted into the app directory. */
+    public static final List<String> RESOURCES = List.of(GUI_RESOURCES);
 
-    static {
-        Set<String> set = new HashSet<>();
-        set.add(GUI_RESOURCES);
-        set.add(RO_RESOURCES);
-        set.add(OMEX_RESOURCES);
-        RESOURCES = Collections.unmodifiableSet(set);
-    }
+    /** Directories extracted by earlier cy3sbml versions, removed on extraction. */
+    static final List<String> OBSOLETE_RESOURCES = List.of("/biomodels/", "/ro/", "/omex/");
 
     private final BundleContext bc;
     private final File appDirectory;
@@ -91,7 +92,7 @@ public class ResourceExtractor {
 
     /**
      * Extracts the bundle resources from the BundleContext in the
-     * application directory.
+     * application directory, replacing the previously extracted resources.
      * <p>
      * BundleContext and application directory have to be provided.
      */
@@ -100,60 +101,64 @@ public class ResourceExtractor {
             logger.error("BundleContext or application directory not set. Files not extracted");
             return;
         }
-        logger.debug("-------------------------------------------------");
-        logger.debug("Extract bundle resources");
-        logger.debug("-------------------------------------------------");
-        // bundle root
-        Bundle bundle = bc.getBundle();
-        URL rootURL = bundle.getEntry("/");
-        for (String resource : RESOURCES) {
-            extractDirectory(rootURL, resource);
+        logger.debug("Extract bundle resources into <{}>", appDirectory);
+        for (String resource : OBSOLETE_RESOURCES) {
+            deleteDirectory(resolve(resource));
         }
-        logger.debug("-------------------------------------------------");
+        Bundle bundle = bc.getBundle();
+        for (String resource : RESOURCES) {
+            deleteDirectory(resolve(resource));
+            extractDirectory(bundle, resource);
+        }
+    }
+
+    /** Path in the app directory of a bundle path like "/gui/" or "gui/help.html". */
+    private Path resolve(String bundlePath) {
+        return appDirectory.toPath().resolve(bundlePath.replaceFirst("^/", ""));
     }
 
     /**
-     * Extract the resources in given directory.
-     * Existing files are overwritten, files of older versions are not removed (#404).
+     * Deletes the directory with all its content, if it exists.
+     * Symbolic links are deleted, not followed.
      */
-    private void extractDirectory(URL rootURL, String directory) {
-        // list all GUI resources of bundle and extract them
-        Enumeration<String> e = bc.getBundle().getEntryPaths(directory);
+    private static void deleteDirectory(Path directory) {
+        if (!Files.exists(directory)) {
+            return;
+        }
+        try (Stream<Path> paths = Files.walk(directory)) {
+            for (Path path : paths.sorted(Comparator.reverseOrder()).toList()) {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            logger.error("Could not delete extracted resources <{}>", directory, e);
+        }
+    }
 
-        while (e.hasMoreElements()) {
-            String path = e.nextElement();
-
-            // copy via stream from bundle URL to application file
+    /**
+     * Extracts the resources in given bundle directory recursively.
+     */
+    private void extractDirectory(Bundle bundle, String directory) {
+        Enumeration<String> paths = bundle.getEntryPaths(directory);
+        if (paths == null) {
+            logger.error("Bundle directory <{}> does not exist, not extracted", directory);
+            return;
+        }
+        while (paths.hasMoreElements()) {
+            String path = paths.nextElement();
+            Path target = resolve(path);
             try {
-                URL inURL = new URL(rootURL.toString() + path);
-
-                try (InputStream inputStream = inURL.openConnection().getInputStream()) {
-                    File outFile = new File(appDirectory + "/" + path);
-                    // create directory
-                    if (path.endsWith("/")) {
-                        outFile.mkdirs();
-                        // extract subdirectory recursively
-                        extractDirectory(rootURL, "/" + path);
-                    } else {
-                        // create directories for file if required
-                        File parent = outFile.getParentFile();
-                        if (!parent.exists() && !parent.mkdirs()) {
-                            throw new IllegalStateException("Couldn't create dir: " + parent);
-                        }
-
-                        logger.debug(" --> " + outFile.getAbsolutePath());
-                        try (OutputStream outputStream = new FileOutputStream(outFile)) {
-                            inputStream.transferTo(outputStream);
-                        }
+                if (path.endsWith("/")) {
+                    Files.createDirectories(target);
+                    extractDirectory(bundle, "/" + path);
+                } else {
+                    Files.createDirectories(target.getParent());
+                    logger.debug(" --> {}", target);
+                    try (InputStream inputStream = bundle.getEntry("/" + path).openStream()) {
+                        Files.copy(inputStream, target, StandardCopyOption.REPLACE_EXISTING);
                     }
-                } catch (IOException e1) {
-                    logger.error("Directory could not be extracted", e1);
-                    return;
                 }
-
-            } catch (MalformedURLException me) {
-                logger.error("Problems with url", me);
-                return;
+            } catch (IOException e) {
+                logger.error("Resource <{}> could not be extracted", path, e);
             }
         }
     }
