@@ -16,7 +16,6 @@ import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
-import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.slf4j.Logger;
@@ -38,9 +37,6 @@ public class ServiceAdapter {
     public final VisualMappingManager visualMappingManager;
     public final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
     public final DialogTaskManager dialogTaskManager;
-
-    @SuppressWarnings("rawtypes")
-    public final SynchronousTaskManager synchronousTaskManager;
 
     @SuppressWarnings("rawtypes")
     public final TaskManager taskManager;
@@ -66,7 +62,6 @@ public class ServiceAdapter {
             VisualMappingManager visualMappingManager,
             CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
             DialogTaskManager dialogTaskManager,
-            SynchronousTaskManager synchronousTaskManager,
             TaskManager taskManager,
             CyNetworkFactory cyNetworkFactory,
             CyGroupFactory cyGroupFactory,
@@ -86,7 +81,6 @@ public class ServiceAdapter {
         this.visualMappingManager = visualMappingManager;
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
         this.dialogTaskManager = dialogTaskManager;
-        this.synchronousTaskManager = synchronousTaskManager;
         this.taskManager = taskManager;
         this.cyNetworkFactory = cyNetworkFactory;
         this.cyGroupFactory = cyGroupFactory;

@@ -53,16 +53,20 @@ It loads models from [BioModels](https://www.biomodels.org) in two ways:
 - **Search:** type search terms in the **Name** field and click **Search** (or press
   Enter). BioModels searches the terms in the whole model entry, for example the model
   name, description, authors, publication and annotations. **Compose by** combines
-  several terms with **AND** (all terms must match) or **OR** (any term matches). The
-  first 10 results are listed. Select a model id in the list to see its information on
-  the right. Select one or more ids and click **Load Selected** to import them.
+  several terms with **AND** (all terms must match) or **OR** (any term matches). Up to
+  1000 results are listed, with their name and dates on the right. Select model ids in
+  the list to see their details (description, authors and publication). Select one or
+  more ids and click **Load Selected** to import them.
 - **By identifier:** type or paste text with BioModels identifiers (`BIOMD` or `MODEL`
   followed by 10 digits, or `BMID` followed by 12 digits) into **BioModel Ids**. Any text
   that contains identifiers works. **Parse Ids** lists the models with their
-  information, **Load Ids** imports them.
+  details, **Load Ids** imports them.
 
 **Reset** clears the search field. The requests to BioModels run in the background and
-can take a few seconds. The SBML of every model is downloaded and imported like a file.
+can take a few seconds; closing the dialog stops a running search. The dialog closes
+when models are loaded: Cytoscape downloads the SBML of every model into the folder
+`biomodels` of the cy3sbml directory (`~/CytoscapeConfiguration/cy3sbml/biomodels`) and
+imports it like a file, and reports the models that could not be downloaded.
 If BioModels cannot be reached, the dialog says so. Check the internet connection and
 the proxy settings, or download the SBML file from the BioModels website and import it
 as a file.

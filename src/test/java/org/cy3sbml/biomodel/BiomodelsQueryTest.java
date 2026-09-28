@@ -1,52 +1,68 @@
 package org.cy3sbml.biomodel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests parsing of the BioModels search response, recorded from
  * https://www.biomodels.org/search?query=glucose&format=json&numResults=2
- * (trimmed to the "matches", "models" and "queryParameters" fields actually used).
+ * (trimmed to the "matches", "models" and "queryParameters" fields).
  */
 public class BiomodelsQueryTest {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private static String fixture(String resource) throws IOException {
+    private static JsonNode fixture(String resource) throws IOException {
         try (InputStream in = BiomodelsQueryTest.class.getResourceAsStream(resource)) {
             if (in == null) {
                 throw new IOException("Missing test resource: " + resource);
             }
-            return new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            return MAPPER.readTree(in);
         }
     }
 
     @Test
     public void parsesSearchResult() throws IOException {
-        String json = fixture("/biomodel/search_glucose.json");
-        BiomodelsQueryResult result = new BiomodelsQueryResult(json);
+        JsonNode json = fixture("/biomodel/search_glucose.json");
 
-        assertEquals(true, result.success());
+        List<BiomodelSummary> models =
+                json.path("models").valueStream().map(BiomodelSummary::fromJson).toList();
 
-        List<String> biomodelIds = result.getBiomodelIdsFromSearch();
-        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);
+        assertEquals(
+                List.of(
+                        new BiomodelSummary(
+                                "MODEL1204270001",
+                                "Koenig2012 - Hepatic Glucose Metabolism",
+                                "2012-04-27T00:00:00Z",
+                                ""),
+                        new BiomodelSummary(
+                                "MODEL1209260000",
+                                json.path("models").get(1).path("name").asText(),
+                                json.path("models")
+                                        .get(1)
+                                        .path("submissionDate")
+                                        .asText(),
+                                json.path("models").get(1).path("lastModified").asText(""))),
+                models);
     }
 
     @Test
-    public void getBiomodelIdsFromSearch_skipsModelsWithoutId() {
-        String json = """
-                {"models": [
-                    {"id": "MODEL1204270001", "name": "with id"},
-                    {"name": "missing id"},
-                    {"id": "MODEL1209260000", "name": "with id"}
-                ]}
-                """;
-        BiomodelsQueryResult result = new BiomodelsQueryResult(json);
+    public void modelWithoutIdHasNoSummary() throws IOException {
+        assertNull(BiomodelSummary.fromJson(MAPPER.readTree("{\"name\": \"missing id\"}")));
+        assertNull(BiomodelSummary.fromJson(MAPPER.readTree("{\"id\": null}")));
+    }
 
-        List<String> biomodelIds = result.getBiomodelIdsFromSearch();
-        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), biomodelIds);
+    @Test
+    public void searchResultHasAtLeastTheModelsReadAsMatches() {
+        BiomodelSummary model = new BiomodelSummary("BIOMD0000000001", "", "", "");
+
+        assertEquals(1, new BiomodelsSearchResult(0, List.of(model)).matches());
+        assertEquals(false, new BiomodelsSearchResult(2, List.of(model)).isComplete());
     }
 }

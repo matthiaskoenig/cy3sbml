@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,11 +21,17 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Stream;
 import org.cy3sbml.util.HttpJson;
+import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
+import org.cytoscape.work.TaskIterator;
+import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +52,7 @@ class BiomodelsQueryHttpTest {
     private HttpServer server;
     private String origin;
     private volatile String lastSearchQuery;
-    private final AtomicInteger requestCount = new AtomicInteger();
+    private final List<String> searchPages = new CopyOnWriteArrayList<>();
 
     @TempDir
     Path tempDir;
@@ -61,10 +71,22 @@ class BiomodelsQueryHttpTest {
             respond(exchange, 301, "text/html", "<html>Moved Permanently</html>");
         });
         server.createContext("/new/search", exchange -> {
-            lastSearchQuery = URLDecoder.decode(
-                    exchange.getRequestURI().getRawQuery().replaceFirst("^query=([^&]*).*$", "$1"),
-                    StandardCharsets.UTF_8);
-            respond(exchange, 200, "application/json", searchJson());
+            Map<String, String> parameters =
+                    queryParameters(exchange.getRequestURI().getRawQuery());
+            lastSearchQuery = parameters.get("query");
+            searchPages.add(parameters.get("offset") + "+" + parameters.get("numResults"));
+            if (lastSearchQuery.equals("many")) {
+                respond(
+                        exchange,
+                        200,
+                        "application/json",
+                        manyModelsJson(
+                                Integer.parseInt(parameters.get("offset")),
+                                Integer.parseInt(parameters.get("numResults"))));
+            } else {
+                // the recorded response of 2 models of 173 matches, the same for every page
+                respond(exchange, 200, "application/json", searchJson());
+            }
         });
         server.createContext(
                 "/new/MODEL1204270001",
@@ -92,6 +114,29 @@ class BiomodelsQueryHttpTest {
         server.stop(0);
     }
 
+    /** Number of models found by the search for "many". */
+    private static final int MANY = 250;
+
+    /** A search response page of the models found by the search for "many". */
+    private static String manyModelsJson(int offset, int numResults) {
+        List<String> models = new ArrayList<>();
+        for (int i = offset; i < Math.min(offset + numResults, MANY); i++) {
+            models.add(String.format(
+                    "{\"id\": \"MODEL%010d\", \"name\": \"Model %d\", \"submissionDate\": \"2012-04-27T00:00:00Z\"}",
+                    i, i));
+        }
+        return "{\"matches\": " + MANY + ", \"models\": [" + String.join(", ", models) + "]}";
+    }
+
+    private static Map<String, String> queryParameters(String rawQuery) {
+        Map<String, String> parameters = new HashMap<>();
+        for (String parameter : rawQuery.split("&", -1)) {
+            String[] tokens = parameter.split("=", 2);
+            parameters.put(tokens[0], URLDecoder.decode(tokens.length > 1 ? tokens[1] : "", StandardCharsets.UTF_8));
+        }
+        return parameters;
+    }
+
     private static String searchJson() throws IOException {
         try (InputStream in = BiomodelsQueryHttpTest.class.getResourceAsStream("/biomodel/search_glucose.json")) {
             return new String(in.readAllBytes(), StandardCharsets.UTF_8);
@@ -99,7 +144,6 @@ class BiomodelsQueryHttpTest {
     }
 
     private void respond(HttpExchange exchange, int status, String contentType, String body) throws IOException {
-        requestCount.incrementAndGet();
         byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().add("Content-Type", contentType);
         exchange.sendResponseHeaders(status, bytes.length);
@@ -114,10 +158,48 @@ class BiomodelsQueryHttpTest {
 
     @Test
     void searchFollowsRedirects() throws Exception {
-        BiomodelsQueryResult result = query("/old/").performSearchQuery("glucose");
+        BiomodelsSearchResult result = query("/old/").search("glucose");
 
-        assertTrue(result.success());
-        assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), result.getBiomodelIdsFromSearch());
+        assertEquals(173, result.matches());
+        assertEquals(
+                List.of("MODEL1204270001", "MODEL1209260000"),
+                result.models().stream().map(BiomodelSummary::id).toList());
+        assertEquals(
+                new BiomodelSummary(
+                        "MODEL1204270001", "Koenig2012 - Hepatic Glucose Metabolism", "2012-04-27T00:00:00Z", ""),
+                result.models().get(0));
+        // the next page brings no new model, the search stops
+        assertEquals(List.of("0+100", "2+100"), searchPages);
+        assertFalse(result.isComplete());
+    }
+
+    @Test
+    void searchReadsAllPages() throws Exception {
+        BiomodelsSearchResult result = query("/new/").search("many");
+
+        assertEquals(List.of("0+100", "100+100", "200+100"), searchPages);
+        assertEquals(MANY, result.matches());
+        assertEquals(MANY, result.models().size());
+        assertTrue(result.isComplete());
+        assertEquals("MODEL0000000000", result.models().get(0).id());
+        assertEquals("MODEL0000000249", result.models().get(MANY - 1).id());
+    }
+
+    @Test
+    void searchReadsAtMostTheMaximumNumberOfModels() throws Exception {
+        BiomodelsSearchResult result = query("/new/").search("many", 120);
+
+        assertEquals(List.of("0+100", "100+20"), searchPages);
+        assertEquals(MANY, result.matches());
+        assertEquals(120, result.models().size());
+        assertFalse(result.isComplete());
+    }
+
+    @Test
+    void searchEscapesTheQuery() throws Exception {
+        query("/new/").search("glucose & insulin OR \"liver\"");
+
+        assertEquals("glucose & insulin OR \"liver\"", lastSearchQuery);
     }
 
     @Test
@@ -141,11 +223,10 @@ class BiomodelsQueryHttpTest {
     }
 
     @Test
-    void searchOfUnavailableServiceIsUnsuccessful() {
-        BiomodelsQueryResult result = query("/down/").performSearchQuery("glucose");
+    void searchOfUnavailableServiceFails() {
+        IOException e = assertThrows(IOException.class, () -> query("/down/").search("glucose"));
 
-        assertFalse(result.success());
-        assertEquals(List.of(), result.getBiomodelIdsFromSearch());
+        assertTrue(e.getMessage().contains("glucose"), e.getMessage());
     }
 
     @Test
@@ -183,10 +264,22 @@ class BiomodelsQueryHttpTest {
         SearchBioModel.Result result = new SearchBioModel(query("/old/")).search(content);
 
         assertEquals("glucose OR liver", lastSearchQuery);
+        assertEquals(173, result.matches());
         assertEquals(List.of("MODEL1204270001", "MODEL1209260000"), result.modelIds());
-        // only the first model has information on the server
-        assertEquals(List.of("MODEL1204270001"), List.copyOf(result.biomodels().keySet()));
-        assertEquals("Koenig2012", result.biomodels().get("MODEL1204270001").name());
+        assertEquals(
+                "Koenig2012 - Hepatic Glucose Metabolism",
+                result.summaries().get("MODEL1204270001").name());
+        assertFalse(result.isParsed());
+    }
+
+    @Test
+    void getDetailsSkipsModelsThatCannotBeLoaded() {
+        // only the first model has details on the server
+        Map<String, Biomodel> details =
+                new SearchBioModel(query("/old/")).getDetails(List.of("MODEL1204270001", "MODEL1209260000"));
+
+        assertEquals(List.of("MODEL1204270001"), List.copyOf(details.keySet()));
+        assertEquals("Koenig2012", details.get("MODEL1204270001").name());
     }
 
     @Test
@@ -199,29 +292,50 @@ class BiomodelsQueryHttpTest {
     }
 
     @Test
-    void htmlInformationDoesNotAccessTheWebService() throws Exception {
-        SearchBioModel.Result result = new SearchBioModel(query("/new/")).getInformation(List.of("BIOMD0000000012"));
-        int requests = requestCount.get();
+    void loaderDownloadsTheModelsAndLoadsThem() throws Exception {
+        LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = mock(LoadNetworkFileTaskFactory.class);
+        List<File> loaded = new ArrayList<>();
+        when(loadNetworkFileTaskFactory.createTaskIterator(any(File.class))).thenAnswer(invocation -> {
+            loaded.add(invocation.getArgument(0));
+            return new TaskIterator();
+        });
+        Path directory = tempDir.resolve("biomodels");
+        BiomodelLoader loader = new BiomodelLoader(query("/old/"), directory, loadNetworkFileTaskFactory);
 
-        String html = SearchBioModel.getHTMLInformation(result, List.of("BIOMD0000000012"));
+        TaskIterator iterator = loader.createTaskIterator(List.of("BIOMD0000000012", "BIOMD9999999999", "../x"));
+        TaskMonitor monitor = mock(TaskMonitor.class);
+        IOException e = assertThrows(IOException.class, () -> {
+            while (iterator.hasNext()) {
+                iterator.next().run(monitor);
+            }
+        });
 
-        assertEquals(requests, requestCount.get());
-        assertTrue(html.contains("Elowitz2000 - Repressilator"), html);
-        assertTrue(html.contains("1 BioModels found"), html);
+        // the downloaded model is loaded, the others are reported at the end
+        Path file = directory.resolve("BIOMD0000000012.xml");
+        assertEquals(List.of(file.toFile()), loaded);
+        assertEquals(SBML, Files.readString(file));
+        try (Stream<Path> files = Files.list(directory)) {
+            assertEquals(List.of(file), files.toList());
+        }
+        assertTrue(e.getMessage().contains("BIOMD9999999999"), e.getMessage());
+        assertTrue(e.getMessage().contains("HTTP status 404"), e.getMessage());
+        assertTrue(e.getMessage().contains("Invalid BioModel id: ../x"), e.getMessage());
+        assertFalse(e.getMessage().contains("BIOMD0000000012"), e.getMessage());
     }
 
     @Test
-    void downloadCreatesOneLoadFactoryPerId() {
-        List<LoadBioModelTaskFactory> factories =
-                LoadBioModelTaskFactory.download(List.of("BIOMD0000000012", "BIOMD9999999999"), query("/old/"), null);
+    void loaderReplacesAnEarlierDownloadOnlyOnSuccess() throws Exception {
+        LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = mock(LoadNetworkFileTaskFactory.class);
+        Path directory = tempDir.resolve("biomodels");
+        Files.createDirectories(directory);
+        Files.writeString(directory.resolve("BIOMD0000000012.xml"), "old");
+        Files.writeString(directory.resolve("BIOMD9999999999.xml"), "old");
+        BiomodelLoader loader = new BiomodelLoader(query("/old/"), directory, loadNetworkFileTaskFactory);
 
-        assertEquals(2, factories.size());
-        assertTrue(factories.get(0).isReady());
-        assertEquals(null, factories.get(0).getError());
-        assertFalse(factories.get(1).isReady());
-        assertEquals("BIOMD9999999999", factories.get(1).getId());
-        assertTrue(
-                factories.get(1).getError().contains("HTTP status 404"),
-                factories.get(1).getError());
+        loader.download("BIOMD0000000012");
+        assertThrows(IOException.class, () -> loader.download("BIOMD9999999999"));
+
+        assertEquals(SBML, Files.readString(directory.resolve("BIOMD0000000012.xml")));
+        assertEquals("old", Files.readString(directory.resolve("BIOMD9999999999.xml")));
     }
 }
