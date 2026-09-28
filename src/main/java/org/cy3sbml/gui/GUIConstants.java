@@ -59,7 +59,6 @@ public class GUIConstants {
     public static final String ICON_WARNING = htmlFragments.get("WARNING");
     public static final String ICON_TRUE = htmlFragments.get("TRUE");
     public static final String ICON_FALSE = htmlFragments.get("FALSE");
-    public static final String ICON_NONE = htmlFragments.get("NONE");
     public static final String ICON_INVISIBLE = htmlFragments.get("INVISIBLE");
     public static final String EXPORT_HTML =
             htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);

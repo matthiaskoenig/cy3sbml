@@ -180,6 +180,46 @@ class SBMLUtilTest {
         assertEquals(SBaseHTMLFactory.booleanHTML(false), map.get(SBML.ATTR_BOUNDARY_CONDITION));
     }
 
+    /** Unset attributes render as empty cells, without an icon or an empty unit box (#428). */
+    @Test
+    void createSpeciesMapLeavesUnsetAttributesEmpty() {
+        Species s = new Species("s2", 3, 1);
+
+        Map<String, String> map = SBMLUtil.createSpeciesMap(s);
+
+        assertEquals("", map.get("name"));
+        assertEquals("", map.get(SBML.ATTR_METAID));
+        assertEquals("", map.get(SBML.ATTR_DERIVED_UNITS));
+        assertEquals("", map.get(SBML.ATTR_VALUE));
+        assertEquals("", map.get(SBML.ATTR_CONSTANT));
+        assertEquals("", map.get("compartment"));
+        assertEquals("", map.get("amount"));
+        assertEquals("", map.get("initialConcentration"));
+    }
+
+    @Test
+    void createParameterMapShowsValueWithUnits() {
+        parameter.setUnits("mole");
+
+        Map<String, String> map = SBMLUtil.createParameterMap(parameter);
+
+        assertEquals("5.0 <span class=\"unit\">mole</span>", map.get(SBML.ATTR_VALUE));
+    }
+
+    /** An event with a priority but without a delay or trigger flags leaves them empty (#428). */
+    @Test
+    void createEventMapWithPriorityAndWithoutDelay() {
+        Event event = model.createEvent("e1");
+        event.createTrigger().setMath(new ASTNode(ASTNode.Type.CONSTANT_TRUE));
+        event.createPriority().setMath(new ASTNode(1));
+
+        Map<String, String> map = SBMLUtil.createEventMap(event);
+
+        assertEquals("<span class=\"math\">1</span>", map.get("priority"));
+        assertEquals("", map.get("delay"));
+        assertEquals("", map.get("trigger initialValue"));
+    }
+
     @Test
     @SuppressWarnings("deprecation") // the test covers the deprecated charge attribute
     void createSpeciesMapIncludesDeprecatedCharge() {
