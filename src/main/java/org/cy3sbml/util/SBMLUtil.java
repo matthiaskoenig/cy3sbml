@@ -154,8 +154,6 @@ public class SBMLUtil {
             + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
     private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID
             + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></span>";
-    private static final String UNIT_TEMPLATE = "<span class=\"unit\">%s</span>";
-    private static final String MATH_TEMPLATE = "<span class=\"math\">%s</span>";
 
     /** HTML of an attribute that is not set: an empty cell. */
     private static final String UNSET = "";
@@ -164,14 +162,14 @@ public class SBMLUtil {
      * Unit HTML, or {@link #UNSET} if there are no units.
      */
     private static String unitHtml(String units) {
-        return units == null || units.isEmpty() ? UNSET : String.format(UNIT_TEMPLATE, units);
+        return units == null || units.isEmpty() ? UNSET : String.format("<span class=\"unit\">%s</span>", units);
     }
 
     /**
      * Math HTML, or {@link #UNSET} if there is no math.
      */
     private static String mathHtml(String math) {
-        return math == null || math.isEmpty() ? UNSET : String.format(MATH_TEMPLATE, math);
+        return math == null || math.isEmpty() ? UNSET : String.format("<span class=\"math\">%s</span>", math);
     }
 
     /**
