@@ -34,7 +34,7 @@ Symlink the built jar into Cytoscape's apps folder. Cytoscape hot-reloads the ap
 ln -s $PWD/target/cy3sbml-<version>.jar $HOME/CytoscapeConfiguration/3/apps/installed/cy3sbml-latest.jar
 ```
 
-Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to port 12345. The app writes its log to `~/CytoscapeConfiguration/cy3sbml/`.
+Cytoscape 3.10 needs Java 17: with a newer default `java` (e.g. JDK 21) it hangs at startup with no error, so set `JAVA_HOME` to a JDK 17. Debug by launching `cytoscape.sh debug` and attaching a remote JVM debugger to port 12345. The app writes its log to `~/CytoscapeConfiguration/cy3sbml/`.
 
 ## Dependencies
 
