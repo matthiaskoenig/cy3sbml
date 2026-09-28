@@ -178,24 +178,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- misc -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-        <!-- JavaFX: org.codefx.libfx.control.webview (Browser, BrowserHyperlinkListener) -->
-        <dependency>
-            <groupId>org.codefx.libfx</groupId>
-            <artifactId>LibFX</artifactId>
-            <version>0.3.0</version>
-        </dependency>
-
         <!-- REST clients (org.cy3sbml.ols.OlsClient, org.cy3sbml.uniprot.UniprotAccess,
             org.cy3sbml.chebi.ChebiAccess) -->
         <dependency>
@@ -215,11 +197,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.6.4</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
             <version>1.6.4</version>
         </dependency>
         <!-- JSBML logs with the log4j 1.x API (org.apache.log4j.Logger); log4j-over-slf4j
@@ -339,6 +316,12 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- LauncherSessionListener (JsbmlSetupListener) -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
 

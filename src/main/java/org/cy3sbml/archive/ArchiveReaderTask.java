@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -248,7 +247,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             if (newTokens.length == 1) {
                 parentPath = newTokens[0] + "/";
             } else {
-                parentPath = StringUtils.join(newTokens, "/") + "/";
+                parentPath = String.join("/", newTokens) + "/";
             }
             logger.debug("parentPath:{}", parentPath);
 
@@ -288,7 +287,7 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
      */
     static String folderExtension(String path) {
         // "/studies/s1/" and "studies/s1/" both give [studies, s1]
-        String[] tokens = StringUtils.strip(path, "/").split("/", -1);
+        String[] tokens = path.replaceAll("^/+|/+$", "").split("/", -1);
         if (tokens.length < 2) {
             return "folder";
         }

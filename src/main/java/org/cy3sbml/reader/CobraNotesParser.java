@@ -1,7 +1,6 @@
 package org.cy3sbml.reader;
 
 import java.util.Properties;
-import org.apache.commons.lang3.StringUtils;
 import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.xml.XMLNode;
 
@@ -25,7 +24,9 @@ final class CobraNotesParser {
             for (XMLNode pNode : parent.getChildElements("p", (String) null)) {
                 if (pNode.getChildCount() > 0) {
                     String content = pNode.getChild(0).getCharacters();
-                    int colonCount = StringUtils.countMatches(content, ":");
+                    long colonCount = content == null
+                            ? 0
+                            : content.chars().filter(c -> c == ':').count();
                     if (colonCount == 1) {
                         int firstColonIndex = content.indexOf(":");
                         String key = content.substring(0, firstColonIndex).trim();

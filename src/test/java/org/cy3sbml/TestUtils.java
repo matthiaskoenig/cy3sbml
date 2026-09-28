@@ -14,8 +14,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
@@ -101,7 +99,7 @@ public class TestUtils {
                     break;
                 }
             }
-            String resource = StringUtils.join(ArrayUtils.subarray(items, mindex, items.length), "/");
+            String resource = String.join("/", Arrays.copyOfRange(items, mindex, items.length));
             resources[k][0] = "/" + resource;
         }
         return Arrays.asList(resources);

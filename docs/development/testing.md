@@ -6,6 +6,10 @@ and the SBML test suite, about 1.2 GB) are in `src/test/corpora/models`. Maven d
 them to `target/test-classes`; surefire adds `src/test/corpora` to the test classpath, so
 they are read as the classpath resources `/models/bigg_models/...` and so on.
 
+The test classes run in parallel, the tests of one class on one thread
+(`src/test/resources/junit-platform.properties`). A test class that changes global state,
+such as system properties, is annotated with `@Isolated`.
+
 ## Run the tests
 
 ```bash

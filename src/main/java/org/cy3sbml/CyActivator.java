@@ -15,6 +15,7 @@ import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.reader.JsbmlSetup;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HttpJson;
@@ -272,6 +273,8 @@ public class CyActivator extends AbstractCyActivator {
         // SBML file reader. Registered here, before any optional GUI/extension/resource
         // setup runs: Cytoscape only routes .xml imports to its own bundled SBML app
         // (whose jsbml has no biojava) when this factory is not registered.
+        // before the reader is registered, i.e. before imports can run in parallel
+        JsbmlSetup.initialize();
         SBMLFileFilter sbmlFilter = new SBMLFileFilter(streamUtil);
         SBMLReaderTaskFactory sbmlReaderTaskFactory = new SBMLReaderTaskFactory(sbmlFilter, adapter, sbmlManager);
         Properties sbmlReaderProps = new Properties();

@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.util.FetchResult;
+import org.cy3sbml.util.HtmlUtil;
 import org.cy3sbml.util.HttpJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,18 +155,14 @@ public final class UniprotAccess {
         html.append(htmlFragments
                 .get(UNIPROT_LINK)
                 .replace(BASE_URL, UNIPROT_URL)
-                .replace(ACCESSION, StringEscapeUtils.escapeHtml4(accession))
-                .replace(UNIPROT_ID, StringEscapeUtils.escapeHtml4(entry.uniProtId())));
+                .replace(ACCESSION, HtmlUtil.escape(accession))
+                .replace(UNIPROT_ID, HtmlUtil.escape(entry.uniProtId())));
 
         if (entry.fullName() != null) {
-            html.append("\t<b>")
-                    .append(StringEscapeUtils.escapeHtml4(entry.fullName()))
-                    .append("</b><br />\n");
+            html.append("\t<b>").append(HtmlUtil.escape(entry.fullName())).append("</b><br />\n");
         }
         for (String ecNumber : entry.ecNumbers()) {
-            html.append("\t<b>EC</b>: ")
-                    .append(StringEscapeUtils.escapeHtml4(ecNumber))
-                    .append("<br />\n");
+            html.append("\t<b>EC</b>: ").append(HtmlUtil.escape(ecNumber)).append("<br />\n");
         }
 
         if (entry.scientificName() != null) {
@@ -175,36 +171,30 @@ public final class UniprotAccess {
                 organismStr += " (" + entry.commonName() + ")";
             }
             html.append("\t<b>Organism</b>: ")
-                    .append(StringEscapeUtils.escapeHtml4(organismStr))
+                    .append(HtmlUtil.escape(organismStr))
                     .append("<br />\n");
         }
 
         for (String geneName : entry.geneNames()) {
-            html.append("\t<b>Gene</b>: ")
-                    .append(StringEscapeUtils.escapeHtml4(geneName))
-                    .append("<br />\n");
+            html.append("\t<b>Gene</b>: ").append(HtmlUtil.escape(geneName)).append("<br />\n");
         }
 
         if (!entry.alternativeNames().isEmpty()) {
             html.append("\t<span class=\"comment\">Synonyms</span>");
             for (String altName : entry.alternativeNames()) {
-                html.append(StringEscapeUtils.escapeHtml4(altName)).append("; ");
+                html.append(HtmlUtil.escape(altName)).append("; ");
             }
             html.append("<br />\n");
         }
 
         for (String functionComment : entry.functionComments()) {
-            html.append(htmlFragments
-                    .get(FUNCTION_COMMENT)
-                    .replace(COMMENT_TEXT, StringEscapeUtils.escapeHtml4(functionComment)));
+            html.append(htmlFragments.get(FUNCTION_COMMENT).replace(COMMENT_TEXT, HtmlUtil.escape(functionComment)));
         }
         for (String reactionName : entry.catalyticActivities()) {
-            html.append(htmlFragments
-                    .get(CATALYTIC_ACTIVITY)
-                    .replace(REACTION_NAME, StringEscapeUtils.escapeHtml4(reactionName)));
+            html.append(htmlFragments.get(CATALYTIC_ACTIVITY).replace(REACTION_NAME, HtmlUtil.escape(reactionName)));
         }
         for (String pathway : entry.pathways()) {
-            html.append(htmlFragments.get(PATHWAY).replace(PATHWAY_NAME, StringEscapeUtils.escapeHtml4(pathway)));
+            html.append(htmlFragments.get(PATHWAY).replace(PATHWAY_NAME, HtmlUtil.escape(pathway)));
         }
 
         return html.toString();

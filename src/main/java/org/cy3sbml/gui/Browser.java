@@ -2,16 +2,19 @@ package org.cy3sbml.gui;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URL;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javax.swing.event.HyperlinkEvent;
-import org.codefx.libfx.control.webview.WebViews;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventTarget;
 
 /**
  * Browser for displaying HTML within a JavaFX Webview.
@@ -24,9 +27,11 @@ public final class Browser extends Region implements PageLoader.Target {
     private final WebView webView;
     private final WebEngine webEngine;
     private final File appDirectory;
+    private final BrowserHyperlinkListener hyperlinkListener;
 
     public Browser(File appDirectory, BrowserHyperlinkListener hyperlinkListener) {
         this.appDirectory = appDirectory;
+        this.hyperlinkListener = hyperlinkListener;
         webView = new WebView();
         webEngine = webView.getEngine();
         logger.debug("WebView version: {}", webEngine.getUserAgent());
@@ -34,8 +39,38 @@ public final class Browser extends Region implements PageLoader.Target {
         // add WebView to scene
         getChildren().add(webView);
 
-        // Listening to hyperlink events
-        WebViews.addHyperlinkListener(webView, hyperlinkListener, HyperlinkEvent.EventType.ACTIVATED);
+        // Link clicks bubble up to the document, which handles the clicks on all links of
+        // the page, including links the scripts of the page add later.
+        webEngine.documentProperty().addListener((observable, oldDocument, document) -> {
+            if (document != null) {
+                ((EventTarget) document).addEventListener("click", this::onClick, false);
+            }
+        });
+    }
+
+    /**
+     * Passes a click on a link to the hyperlink listener, and keeps the WebView from loading
+     * the link if the listener handles it.
+     */
+    private void onClick(Event event) {
+        Node node = (Node) event.getTarget();
+        while (node != null && !isLink(node)) {
+            node = node.getParentNode();
+        }
+        if (node == null) {
+            return;
+        }
+        // the base URI honors the <base href> of the cy3sbml pages
+        URL url = BrowserHyperlinkListener.resolve(node.getBaseURI(), ((Element) node).getAttribute("href"));
+        if (url != null && hyperlinkListener.linkActivated(url)) {
+            event.preventDefault();
+        }
+    }
+
+    private static boolean isLink(Node node) {
+        return node instanceof Element element
+                && "a".equalsIgnoreCase(element.getTagName())
+                && element.hasAttribute("href");
     }
 
     /**

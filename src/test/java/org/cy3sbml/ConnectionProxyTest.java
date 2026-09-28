@@ -14,7 +14,10 @@ import org.cytoscape.property.CyProperty;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Isolated;
 
+// sets the proxy system properties, which the other tests read
+@Isolated
 class ConnectionProxyTest {
     private static final List<String> KEYS =
             List.of("http.proxyHost", "http.proxyPort", "https.proxyHost", "https.proxyPort");

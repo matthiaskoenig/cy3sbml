@@ -14,8 +14,6 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.miriam.Namespace;
@@ -24,6 +22,7 @@ import org.cy3sbml.miriam.Resource;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
+import org.cy3sbml.util.HtmlUtil;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.SBMLUtil;
 import org.cy3sbml.util.XMLUtil;
@@ -389,7 +388,7 @@ public class SBaseHTMLFactory {
 
                 String identifier = resolved == null ? null : resolved.identifier();
                 if (identifier == null) {
-                    identifier = StringUtils.substringAfter(resourceURI, "http://identifiers.org/");
+                    identifier = substringAfter(resourceURI, "http://identifiers.org/");
                 }
                 // link to primary resource via id
                 String resourceLink = null;
@@ -478,13 +477,21 @@ public class SBaseHTMLFactory {
     }
 
     /**
+     * The text after the first occurrence of the separator, empty if it does not occur.
+     */
+    private static String substringAfter(String text, String separator) {
+        int index = text.indexOf(separator);
+        return index < 0 ? "" : text.substring(index + separator.length());
+    }
+
+    /**
      * Creates the URL for the given location and identifier.
      */
     private static String createURL(Namespace namespace, Resource resource, String identifier) {
         String url;
         String identifier2;
         if (Boolean.TRUE.equals(namespace.getNamespaceEmbeddedInLui()) && identifier.contains(":")) {
-            identifier2 = StringUtils.substringAfter(identifier, ":");
+            identifier2 = substringAfter(identifier, ":");
         } else {
             identifier2 = identifier;
         }
@@ -563,7 +570,7 @@ public class SBaseHTMLFactory {
      * are kept; unbalanced or crossing tags stay escaped.
      */
     static String ontologyTextHTML(String text) {
-        String html = StringEscapeUtils.escapeHtml4(text);
+        String html = HtmlUtil.escape(text);
         while (true) {
             String restored = ESCAPED_INLINE_PAIR.matcher(html).replaceAll("<$1>$2</$1>");
             if (restored.equals(html)) {

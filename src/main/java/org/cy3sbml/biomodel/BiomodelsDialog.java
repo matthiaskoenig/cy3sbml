@@ -33,8 +33,8 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent;
-import org.apache.commons.text.StringEscapeUtils;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.util.HtmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -394,8 +394,7 @@ public final class BiomodelsDialog extends JDialog {
                             adapter.dialogTaskManager.execute(factory.createTaskIterator());
                         } else {
                             errors += String.format(
-                                    "<br><b>%s</b>: %s",
-                                    factory.getId(), StringEscapeUtils.escapeHtml4(factory.getError()));
+                                    "<br><b>%s</b>: %s", factory.getId(), HtmlUtil.escape(factory.getError()));
                         }
                     }
                     if (!errors.isEmpty()) {
@@ -410,7 +409,7 @@ public final class BiomodelsDialog extends JDialog {
                             this,
                             String.format(
                                     "<html>Could not load the BioModels: <b>%s</b><br>%s</html>",
-                                    String.join(", ", ids), StringEscapeUtils.escapeHtml4(String.valueOf(error))));
+                                    String.join(", ", ids), HtmlUtil.escape(String.valueOf(error))));
                 });
     }
 
