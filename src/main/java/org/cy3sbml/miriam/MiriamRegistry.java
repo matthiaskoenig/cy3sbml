@@ -53,13 +53,50 @@ public final class MiriamRegistry {
     }
 
     /**
+     * An identifiers.org resource URI resolved against the registry: its data collection (null
+     * if the registry has none for it) and its identifier.
+     */
+    public record ResolvedURI(Namespace dataCollection, String identifier) {}
+
+    /**
+     * Resolves the given identifiers.org resource URI or urn:miriam URN to its data collection
+     * and identifier, or null if the URI cannot be parsed. The namespace of the URI is matched
+     * case-insensitively (e.g. "NCBITaxon" gives "ncbitaxon"); a namespace with a provider part
+     * such as "obo.go" falls back to the part after the dot.
+     * <p>
+     * The identifier of a compact URI ({@code <prefix>:<accession>}) depends on the data
+     * collection: without the namespace embedded in the identifier it is the accession
+     * ("BAO:0000362" gives "0000362"), with it the identifier keeps the prefix ("GO:0007049" and
+     * "go:GO:0007049" both give "GO:0007049").
+     */
+    public ResolvedURI resolve(String resourceURI) {
+        RegistryUtil.ParsedResourceUri parsed = RegistryUtil.parse(resourceURI);
+        if (parsed == null) {
+            return null;
+        }
+        Namespace dataCollection = findByNamespace(parsed.namespace());
+        String accession = parsed.compactAccession();
+        if (dataCollection == null || accession == null) {
+            return new ResolvedURI(dataCollection, parsed.identifier());
+        }
+        if (!Boolean.TRUE.equals(dataCollection.getNamespaceEmbeddedInLui())) {
+            return new ResolvedURI(dataCollection, accession);
+        }
+        String embeddedPrefix = dataCollection.getPrefix() + ":";
+        boolean accessionHasPrefix = accession.regionMatches(true, 0, embeddedPrefix, 0, embeddedPrefix.length());
+        return new ResolvedURI(dataCollection, accessionHasPrefix ? accession : parsed.namespace() + ":" + accession);
+    }
+
+    /**
      * The data collection of the given identifiers.org resource URI or urn:miriam URN, or
-     * null. The namespace of the URI is matched case-insensitively (e.g. "NCBITaxon" gives
-     * "ncbitaxon"); a namespace with a provider part such as "obo.go" falls back to the part
-     * after the dot.
+     * null, see {@link #resolve(String)}.
      */
     public Namespace findByURI(String resourceURI) {
-        String namespace = RegistryUtil.getNamespaceFromURI(resourceURI);
+        ResolvedURI resolved = resolve(resourceURI);
+        return resolved == null ? null : resolved.dataCollection();
+    }
+
+    private Namespace findByNamespace(String namespace) {
         if (namespace == null) {
             return null;
         }

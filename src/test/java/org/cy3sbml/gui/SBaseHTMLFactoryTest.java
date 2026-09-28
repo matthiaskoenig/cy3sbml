@@ -5,12 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.util.filters.Filter;
 import org.sbml.jsbml.xml.XMLAttributes;
 import org.sbml.jsbml.xml.XMLNode;
 import org.sbml.jsbml.xml.XMLTriple;
@@ -44,6 +51,39 @@ class SBaseHTMLFactoryTest {
         // the SBO term is shown as an annotation, but not added to the model
         assertEquals(0, species.getCVTermCount());
         assertTrue(html.contains("SBO:0000247"), html);
+    }
+
+    /**
+     * The compact identifiers of the example model (e.g. "BAO:0000362", "DOI:10.1016/...",
+     * "GO:0007049") resolve to their data collections and match their patterns (#394).
+     */
+    @Test
+    void compactIdentifiersResolveToTheirDataCollections() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        SBMLDocument document;
+        try (InputStream in = getClass().getResourceAsStream("/models/Faure2006_MammalianCellCycle.sbml")) {
+            document = SBMLReader.read(in);
+        }
+        List<SBase> annotated = new ArrayList<>();
+        Filter hasCVTerms = o -> o instanceof SBase sbase && sbase.getCVTermCount() > 0;
+        for (Object o : document.filter(hasCVTerms)) {
+            annotated.add((SBase) o);
+        }
+        assertFalse(annotated.isEmpty());
+
+        StringBuilder html = new StringBuilder();
+        for (SBase sbase : annotated) {
+            html.append(htmlFactory.createInfo(sbase));
+        }
+
+        assertFalse(html.toString().contains("does not match pattern"), html.toString());
+        assertFalse(html.toString().contains("Unknown data collection"), html.toString());
+        assertTrue(html.toString().contains("https://doi.org/10.1016/j.jtbi.2004.04.039"), html.toString());
     }
 
     @Test

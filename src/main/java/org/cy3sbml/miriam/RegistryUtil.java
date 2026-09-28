@@ -142,26 +142,30 @@ public class RegistryUtil {
     /**
      * The result of splitting an identifiers.org resource URI (or urn:miriam URN) into its
      * namespace, identifier and data-collection parts. Any of the three may be null if the URI
-     * doesn't carry that information.
+     * doesn't carry that information. {@code compactAccession} is the part after the prefix
+     * colon of a compact URI ({@code https://identifiers.org/<prefix>:<accession>}, with the
+     * prefix in any case), null for the other forms; resolving it to the identifier needs the
+     * registry, see {@link MiriamRegistry#resolve(String)}.
      */
-    private record ParsedResourceUri(String namespace, String identifier, String dataCollectionPart) {}
+    record ParsedResourceUri(String namespace, String identifier, String dataCollectionPart, String compactAccession) {}
 
     /**
      * Splits a resource URI into namespace/identifier/data-collection parts, handling every
      * identifiers.org URI form without a registry lookup:
      * <ul>
      *     <li>{@code urn:miriam:<namespace>:<accession>}</li>
-     *     <li>legacy {@code http(s)://identifiers.org/<namespace>/<accession>} (two path
-     *         segments)</li>
-     *     <li>compact {@code https://identifiers.org/<namespace>:<accession>} (one path segment,
-     *         lowercase namespace prefix)</li>
-     *     <li>a provider-less single path segment that is itself the accession (kept as-is when
-     *         its prefix before the first colon isn't lowercase)</li>
+     *     <li>legacy {@code http(s)://identifiers.org/<namespace>/<accession>}</li>
+     *     <li>compact {@code https://identifiers.org/<prefix>:<accession>} (a colon in the first
+     *         path segment)</li>
+     *     <li>a provider-less single path segment that is itself the accession</li>
      * </ul>
-     * The accession/identifier part may itself contain colons (e.g. GO's "GO:0042752"); only the
-     * namespace-prefix colon, if any, is stripped. Returns null for a null or unparsable URI.
+     * The accession may itself contain colons (e.g. GO's "GO:0042752") and slashes (e.g. a
+     * DOI "10.1016/j.jtbi.2004.04.039"); only the namespace part is split off. Without the
+     * registry, the prefix of a compact URI counts as a namespace only if it is lowercase (the
+     * identifiers.org convention), so "GO:0042752" keeps "GO:0042752" as the identifier.
+     * Returns null for a null or unparsable URI.
      */
-    private static ParsedResourceUri parse(String uri) {
+    static ParsedResourceUri parse(String uri) {
         if (uri == null) {
             return null;
         }
@@ -173,7 +177,7 @@ public class RegistryUtil {
             String namespace = parts[2];
             String identifier = urlDecode(String.join(":", Arrays.asList(parts).subList(3, parts.length)));
             String dataCollectionPart = String.join(":", Arrays.asList(parts).subList(0, 3));
-            return new ParsedResourceUri(namespace, identifier, dataCollectionPart);
+            return new ParsedResourceUri(namespace, identifier, dataCollectionPart, null);
         }
 
         int schemeEnd = uri.indexOf("://");
@@ -206,28 +210,22 @@ public class RegistryUtil {
             return null;
         }
 
-        if (segments.size() >= 2) {
-            // legacy form: <namespace>/<accession>; the accession (last segment) may itself
-            // contain colons (e.g. GO's "GO:0042752"), so it is kept whole, not split further.
-            String namespace = segments.get(0);
-            String identifier = urlDecode(segments.get(segments.size() - 1));
-            String dataCollectionPart = origin + "/" + namespace + "/";
-            return new ParsedResourceUri(namespace, identifier, dataCollectionPart);
+        String first = segments.get(0);
+        int colonPos = first.indexOf(':');
+        if (colonPos == -1) {
+            if (segments.size() == 1) {
+                return new ParsedResourceUri(null, urlDecode(first), origin + "/", null);
+            }
+            // legacy form: <namespace>/<accession>, the accession is the rest of the path
+            String identifier = urlDecode(String.join("/", segments.subList(1, segments.size())));
+            return new ParsedResourceUri(first, identifier, origin + "/" + first + "/", null);
         }
 
-        // single path segment: either the compact "<namespace>:<accession>" form, or a
-        // provider-less URI whose segment is itself the (possibly colon-containing) accession.
-        String segment = segments.get(0);
-        int colonPos = segment.indexOf(':');
-        if (colonPos == -1) {
-            return new ParsedResourceUri(null, urlDecode(segment), origin + "/");
-        }
-        String candidatePrefix = segment.substring(0, colonPos);
-        String identifier = looksLikeNamespacePrefix(candidatePrefix)
-                ? urlDecode(segment.substring(colonPos + 1))
-                : urlDecode(segment);
-        String dataCollectionPart = origin + "/" + candidatePrefix + "/";
-        return new ParsedResourceUri(candidatePrefix, identifier, dataCollectionPart);
+        // compact form: <prefix>:<accession>, the accession is the rest of the path
+        String prefix = first.substring(0, colonPos);
+        String accession = urlDecode(String.join("/", segments).substring(colonPos + 1));
+        String identifier = looksLikeNamespacePrefix(prefix) ? accession : prefix + ":" + accession;
+        return new ParsedResourceUri(prefix, identifier, origin + "/" + prefix + "/", accession);
     }
 
     /**

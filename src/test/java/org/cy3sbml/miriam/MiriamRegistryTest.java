@@ -98,6 +98,41 @@ class MiriamRegistryTest {
         assertEquals(prefix, dataCollection.getPrefix());
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        // compact identifiers of Faure2006_MammalianCellCycle (#394)
+        "https://identifiers.org/BAO:0000362, bao, 0000362",
+        "https://identifiers.org/DOI:10.1016/j.jtbi.2004.04.039, doi, 10.1016/j.jtbi.2004.04.039",
+        "https://identifiers.org/GO:0007049, go, GO:0007049",
+        "https://identifiers.org/biomodels.db:MODEL2006080001, biomodels.db, MODEL2006080001",
+        "https://identifiers.org/taxonomy:40674, taxonomy, 40674",
+        // namespace embedded in the identifier, with and without the prefix
+        "https://identifiers.org/go:GO:0007049, go, GO:0007049",
+        "https://identifiers.org/chebi:CHEBI:36927, chebi, CHEBI:36927",
+        "https://identifiers.org/CHEBI:36927, chebi, CHEBI:36927",
+        // legacy and urn forms
+        "http://identifiers.org/go/GO:0042752, go, GO:0042752",
+        "https://identifiers.org/doi/10.1016/j.jtbi.2004.04.039, doi, 10.1016/j.jtbi.2004.04.039",
+        "urn:miriam:chebi:CHEBI%3A36927, chebi, CHEBI:36927",
+    })
+    void resolveGivesTheDataCollectionAndAnIdentifierMatchingItsPattern(String uri, String prefix, String identifier) {
+        MiriamRegistry.ResolvedURI resolved = MiriamRegistry.bundled().resolve(uri);
+        assertNotNull(resolved.dataCollection(), uri);
+        assertEquals(prefix, resolved.dataCollection().getPrefix());
+        assertEquals(identifier, resolved.identifier());
+        assertTrue(
+                RegistryUtil.checkRegexp(identifier, resolved.dataCollection().getPattern()), uri);
+    }
+
+    @Test
+    void resolveOfAnUnknownCollectionKeepsTheIdentifier() {
+        MiriamRegistry.ResolvedURI resolved =
+                MiriamRegistry.bundled().resolve("https://identifiers.org/nosuchcollection/123");
+        assertNull(resolved.dataCollection());
+        assertEquals("123", resolved.identifier());
+        assertNull(MiriamRegistry.bundled().resolve(null));
+    }
+
     @Test
     void findByUriOfAnUnknownCollectionIsNull() {
         MiriamRegistry registry = MiriamRegistry.bundled();
