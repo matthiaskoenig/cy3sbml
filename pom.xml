@@ -29,6 +29,9 @@
         <!-- The same JSBML version as an OSGi version, used for the exported
             org.sbml.jsbml packages. Update it together with jsbml.version. -->
         <jsbml.osgi.version>1.7.0.20260907-8192a8a7</jsbml.osgi.version>
+        <!-- biojava-ontology, embedded as a nested jar for JSBML (org.sbml.jsbml.SBO);
+            also passed to BundleJarContentIT, which checks the nested jar by name -->
+        <biojava.version>7.3.0</biojava.version>
         <!-- JUnit tag-based test selection. By default the "network" (hits web
             services) and "models" (long-running model test suites) tagged tests
             are excluded. Run with -Pall-tests for everything, or select the
@@ -212,17 +215,17 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.19.0</version>
+            <version>3.20.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.14.0</version>
+            <version>1.15.0</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.20.0</version>
+            <version>2.22.0</version>
         </dependency>
         <!-- JavaFX: org.codefx.libfx.control.webview (Browser, BrowserHyperlinkListener) -->
         <dependency>
@@ -236,26 +239,26 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.20.0</version>
+            <version>2.22.3</version>
         </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.17</version>
+            <version>2.0.20</version>
         </dependency>
 
         <!-- slf4j runtime binding (app: src/main/resources/logback.xml, tests: src/test/resources/logback-test.xml) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.20</version>
+            <version>1.6.3</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.20</version>
+            <version>1.6.3</version>
         </dependency>
 
         <!-- org.sbml.jsbml.JSBML.loadClasses reflectively instantiates org.apache.log4j.Logger
@@ -323,7 +326,7 @@
         <dependency>
             <groupId>com.fasterxml.woodstox</groupId>
             <artifactId>woodstox-core</artifactId>
-            <version>5.0.1</version>
+            <version>7.2.2</version>
         </dependency>
         <!-- Used by org.sbml.jsbml.xml.parsers.SBMLRDFAnnotationParser (org.w3c.util.DateParser
             and InvalidDateException, for RDF annotation dates), loaded via
@@ -350,17 +353,21 @@
         <dependency>
             <groupId>com.fasterxml.staxmate</groupId>
             <artifactId>staxmate</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.biojava</groupId>
             <artifactId>biojava-ontology</artifactId>
-            <version>4.0.0</version>
+            <version>${biojava.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
                     <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j2-impl</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -558,6 +565,14 @@
                             be listed here explicitly alongside the filtered jsbml classes. -->
                         <Include-Resource>{maven-resources}, ${project.build.directory}/jsbml-classes</Include-Resource>
                         <DynamicImport-Package>netscape.javascript</DynamicImport-Package>
+                        <!-- do not turn the bnd @ServiceProvider annotations of embedded jars
+                            (woodstox 7) into an osgi.serviceloader.registrar requirement, which
+                            Cytoscape does not provide; see BundleJarContentIT -->
+                        <_metainf-services>none</_metainf-services>
+                        <!-- biojava-ontology 7.x ships a stray package-info.class in the
+                            default package; bnd rejects a reference to the default package even
+                            though that class is never loaded, so the error is downgraded -->
+                        <_fixupmessages>"The default package '.' is not permitted";is:=warning</_fixupmessages>
                         <!--
                         <Import-Package>*;resolution:=optional</Import-Package>
                         -->
@@ -635,6 +650,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <cy3sbml.bundle.jar>${project.build.directory}/${project.build.finalName}.jar</cy3sbml.bundle.jar>
+                        <biojava.version>${biojava.version}</biojava.version>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

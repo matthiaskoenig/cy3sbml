@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -69,6 +70,25 @@ public class BundleJarContentIT {
         assertTrue(entryNames.contains(name), "bundle jar is missing entry: " + name);
     }
 
+    /**
+     * Embedded jars with bnd {@code @ServiceProvider} annotations (e.g. woodstox 7) make bnd
+     * add an {@code osgi.extender=osgi.serviceloader.registrar} requirement to the bundle,
+     * which Cytoscape does not provide, so the bundle does not resolve. The pom switches
+     * that processing off ({@code -metainf-services: none}).
+     */
+    @Test
+    public void requiresNoCapabilityBeyondTheJavaVersion() throws IOException {
+        Manifest manifest = jar.getManifest();
+        String requireCapability = manifest.getMainAttributes().getValue("Require-Capability");
+        assertEquals(
+                "osgi.ee;filter:=\"(&(osgi.ee=JavaSE)(version=17))\"",
+                requireCapability,
+                "the bundle requires capabilities Cytoscape may not provide");
+        assertNull(
+                manifest.getMainAttributes().getValue("Provide-Capability"),
+                "the bundle provides capabilities of its embedded jars");
+    }
+
     @Test
     public void hasTheJavaScriptExtensionBundle() {
         assertHasEntry("extension/org.cy3javascript.extension-0.0.1.jar");
@@ -125,7 +145,9 @@ public class BundleJarContentIT {
 
     @Test
     public void hasTheBiojavaOntologyClassesReachableFromTheNestedJar() throws IOException {
-        String nestedJarName = "biojava-ontology-4.0.0.jar";
+        String biojavaVersion = System.getProperty("biojava.version");
+        assertNotNull(biojavaVersion, "system property biojava.version is not set (see the pom's failsafe config)");
+        String nestedJarName = "biojava-ontology-" + biojavaVersion + ".jar";
         assertHasEntry(nestedJarName);
 
         Manifest manifest = jar.getManifest();
