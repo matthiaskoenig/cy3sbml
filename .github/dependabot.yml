@@ -44,6 +44,12 @@ updates:
       # versions need a newer JDK
       - dependency-name: "org.openjfx:*"
         update-types: ["version-update:semver-major"]
+      # the OSGi APIs are provided by Cytoscape's framework (Felix 6.0.5 in
+      # Cytoscape 3.10.x, OSGi R7, org.osgi.framework 1.9); compiling against
+      # R8 (osgi.core 8) makes the bundle import org.osgi.framework [1.10,2),
+      # which does not resolve in Cytoscape
+      - dependency-name: "org.osgi:*"
+        update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
