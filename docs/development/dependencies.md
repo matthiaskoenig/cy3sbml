@@ -45,9 +45,9 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
 
 ### Current pin: JSBML fork
 
-The pinned commit `8ceccc9b` is on the branch
+The pinned commit `973b9cc3` is on the branch
 [`cy3sbml`](https://github.com/matthiaskoenig/jsbml/tree/cy3sbml) of the fork
-`matthiaskoenig/jsbml`, two commits on top of JSBML `master` (`8192a8a7`):
+`matthiaskoenig/jsbml`: the changes of three branches on top of JSBML `master` (`8192a8a7`):
 
 - the branch [`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes)
   (`f9d33e50`) rewrites the flattening of hierarchical models (`CompFlatteningConverter`)
@@ -60,8 +60,16 @@ The pinned commit `8ceccc9b` is on the branch
   it creates (branch
   [`jar-json-resources`](https://github.com/matthiaskoenig/jsbml/tree/jar-json-resources)
   on top of JSBML `master`)
+- the branch [`distrib-fixes`](https://github.com/matthiaskoenig/jsbml/tree/distrib-fixes)
+  fixes the distrib package, which cy3sbml needs to read uncertainties
+  ([#281](https://github.com/matthiaskoenig/cy3sbml/issues/281)): the ids of distrib
+  elements are not registered in the SId namespace of the model (a warning for every
+  uncertainty with an id), the type `coeffientOfVariation` that libSBML writes
+  ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)) is read as
+  `coefficientOfVariation`, and the offline validation accepts the csymbols of the
+  distribution functions
 
-When both are merged into JSBML, update to JSBML `master` again.
+When all are merged into JSBML, update to JSBML `master` again.
 
 ## Update JSBML
 
