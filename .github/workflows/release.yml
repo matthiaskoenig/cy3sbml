@@ -35,16 +35,17 @@ jobs:
           java-version: "17"
           distribution: temurin
           cache: maven
-      - name: Build the app
-        run: ./mvnw --batch-mode --no-transfer-progress verify
+      - name: Build the app and the javadoc
+        run: ./mvnw --batch-mode --no-transfer-progress -Pjavadoc verify
       - name: Checksums
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           cd target
-          JAR="cy3sbml-${VERSION}.jar"
-          test -f "$JAR"
-          md5sum "$JAR" > "$JAR.md5"
-          sha1sum "$JAR" > "$JAR.sha1"
+          for JAR in "cy3sbml-${VERSION}.jar" "cy3sbml-${VERSION}-javadoc.jar"; do
+            test -f "$JAR"
+            md5sum "$JAR" > "$JAR.md5"
+            sha1sum "$JAR" > "$JAR.sha1"
+          done
       - name: Create the GitHub release
         uses: softprops/action-gh-release@v3
         with:

@@ -30,6 +30,21 @@ The default branch is `develop`. The build writes the app jar to
 `./mvnw verify` also runs the tests and the packaged-jar integration test, see
 [Testing](testing.md).
 
+## Javadoc
+
+The profile `javadoc` also builds the API documentation, the javadoc jar
+`target/cy3sbml-<version>-javadoc.jar`:
+
+```bash
+./mvnw -B -q -Pjavadoc package -DskipTests
+```
+
+It needs a full JDK with the `javadoc` tool (not a JRE). The javadoc is checked with
+doclint: malformed HTML, broken `@link` references and similar problems fail the build,
+missing comments do not. CI builds with the profile, so a javadoc error fails the pull
+request, and every release has the javadoc jar. `./mvnw javadoc:javadoc` writes the HTML
+to `target/reports/apidocs`.
+
 ## Dependencies
 
 - The Cytoscape API artifacts (API version 3.10.0, the minimum Cytoscape version) come

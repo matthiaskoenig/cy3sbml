@@ -515,6 +515,21 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.2.0</version>
             </plugin>
+            <!-- javadoc: the javadoc jar is built by the javadoc profile (CI and
+                releases), the configuration also applies to `javadoc:javadoc` -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <!-- all checks except missing comments, and warnings fail the build -->
+                    <doclint>all,-missing</doclint>
+                    <failOnWarnings>true</failOnWarnings>
+                    <doctitle>cy3sbml ${project.version} API</doctitle>
+                    <windowtitle>cy3sbml ${project.version} API</windowtitle>
+                </configuration>
+            </plugin>
 
             <!-- testing -->
             <!-- sets the property org.mockito:mockito-core:jar (path of the jar) for the
@@ -720,6 +735,28 @@
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- Build the javadoc jar (target/cy3sbml-<version>-javadoc.jar) in the
+            package phase. Used by CI and the release workflow; needs a full JDK
+            (the javadoc tool). -->
+        <profile>
+            <id>javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadoc</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

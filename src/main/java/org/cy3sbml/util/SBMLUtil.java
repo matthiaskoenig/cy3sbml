@@ -67,8 +67,8 @@ public class SBMLUtil {
     }
 
     /**
-     * Parses the notes xml from the <notes> </notes>.
-     * Removes enclosing <body> elements if existing.
+     * Parses the notes xml from the {@code <notes>} element.
+     * Removes enclosing {@code <body>} elements if existing.
      * Returns null if error occurred.
      */
     public static String parseNotes(SBase sbase) {

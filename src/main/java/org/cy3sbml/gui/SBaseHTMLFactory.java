@@ -53,7 +53,6 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Here the HTML information string is created which is displayed
  * on selection of SBML objects in the graph.
- * <p>
  */
 public class SBaseHTMLFactory {
     public static final String SBO = "SBO";
