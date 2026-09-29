@@ -6,11 +6,20 @@ table {
     font-size: 11px;
 }
 
-/* long ids and headings (e.g. ReplacedElement) wrap instead of widening the narrow panel */
+/* long ids and headings (e.g. ReplacedElement) wrap instead of widening the narrow panel;
+   with the automatic table layout, a long id widens the table despite the word break */
 h1, h2, h3, h4, td, th {
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.table td:first-child {
+    width: 38%;
 }
 
 .ontology{
