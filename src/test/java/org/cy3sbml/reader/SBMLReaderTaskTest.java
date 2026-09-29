@@ -1,9 +1,12 @@
 package org.cy3sbml.reader;
 
+import static org.cytoscape.view.presentation.property.BasicVisualLexicon.NODE_X_LOCATION;
+import static org.cytoscape.view.presentation.property.BasicVisualLexicon.NODE_Y_LOCATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -12,6 +15,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +28,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
@@ -35,9 +41,19 @@ import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyRow;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.property.CyProperty;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
+import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.View;
+import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyle;
+import org.cytoscape.work.Task;
+import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.SBMLDocument;
@@ -431,5 +447,69 @@ class SBMLReaderTaskTest {
         assertEquals("toy_fba.xml true", documentOfNetwork.get("toy_fba"));
         // the flat model is in its own document, without the comp package
         assertEquals("toy_top_level.xml false", documentOfNetwork.get("Flat__toy_top_level"));
+    }
+
+    /**
+     * The view of a layout network (#71) has the nodes at the glyph positions and the layout
+     * style, without the force-directed layout of the other views.
+     */
+    @Test
+    void layoutNetworkViewsHaveTheGlyphPositionsAndTheLayoutStyle() throws Exception {
+        CyLayoutAlgorithm algorithm = mock(CyLayoutAlgorithm.class);
+        List<CyNetworkView> laidOut = new ArrayList<>();
+        when(algorithm.createTaskIterator(any(), any(), any(), any())).thenAnswer(invocation -> {
+            laidOut.add(invocation.getArgument(0));
+            return new TaskIterator(mock(Task.class));
+        });
+        CyLayoutAlgorithmManager layoutManager = mock(CyLayoutAlgorithmManager.class);
+        when(layoutManager.getLayout(anyString())).thenReturn(algorithm);
+        VisualStyle style = style(SBML.STYLE_CY3SBML);
+        VisualStyle layoutStyle = style(SBML.STYLE_CY3SBML + SBML.STYLE_SUFFIX_LAYOUT);
+        VisualMappingManager vmm = mock(VisualMappingManager.class);
+        when(vmm.getAllVisualStyles()).thenReturn(Set.of(style, layoutStyle));
+        Properties properties = new Properties();
+        properties.setProperty(SBML.PROPERTY_VISUAL_STYLE, SBML.STYLE_CY3SBML);
+        @SuppressWarnings("unchecked")
+        CyProperty<Properties> cyProperty = mock(CyProperty.class);
+        when(cyProperty.getProperties()).thenReturn(properties);
+
+        SBMLReaderTask task;
+        try (InputStream stream = getClass().getResourceAsStream("/models/unittests/layout_02.xml")) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "layout_02.xml",
+                    null,
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory(),
+                    new NetworkViewTestSupport().getNetworkViewFactory(),
+                    vmm,
+                    layoutManager,
+                    cyProperty,
+                    null);
+            task.run(mock(TaskMonitor.class));
+        }
+        Map<String, CyNetworkView> views = new HashMap<>();
+        for (CyNetwork network : task.getNetworks()) {
+            views.put(network.getRow(network).get(CyNetwork.NAME, String.class), task.buildCyNetworkView(network));
+        }
+
+        CyNetworkView layoutView = views.get("layout_02__layout_layout1");
+        assertFalse(laidOut.contains(layoutView));
+        assertTrue(laidOut.contains(views.get("layout_02")));
+        verify(vmm).setVisualStyle(layoutStyle, layoutView);
+        verify(vmm).setVisualStyle(style, views.get("layout_02"));
+        CyNetwork layout = layoutView.getModel();
+        for (CyNode node : layout.getNodeList()) {
+            View<CyNode> nodeView = layoutView.getNodeView(node);
+            CyRow row = layout.getRow(node);
+            assertEquals(row.get(SBML.ATTR_LAYOUT_X, Double.class), nodeView.getVisualProperty(NODE_X_LOCATION));
+            assertEquals(row.get(SBML.ATTR_LAYOUT_Y, Double.class), nodeView.getVisualProperty(NODE_Y_LOCATION));
+        }
+    }
+
+    private static VisualStyle style(String title) {
+        VisualStyle style = mock(VisualStyle.class);
+        when(style.getTitle()).thenReturn(title);
+        return style;
     }
 }

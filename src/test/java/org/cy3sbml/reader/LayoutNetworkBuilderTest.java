@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -348,6 +350,67 @@ class LayoutNetworkBuilderTest {
             }
         }
         assertEquals(Set.of(SBML.INTERACTION_QUAL_TRANSITION_INPUT, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT), types);
+    }
+
+    /** Every model source has the networks of its layouts: model definitions and the flat model. */
+    @Test
+    void layoutsOfModelDefinitionsAndTheFlatModel() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+                    xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true"
+                    xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" layout:required="false">
+                  <model id="top">
+                    <comp:listOfSubmodels>
+                      <comp:submodel comp:id="sub" comp:modelRef="definition"/>
+                    </comp:listOfSubmodels>
+                    <layout:listOfLayouts>
+                      <layout:layout layout:id="top_layout">
+                        <layout:dimensions layout:width="100" layout:height="100"/>
+                      </layout:layout>
+                    </layout:listOfLayouts>
+                  </model>
+                  <comp:listOfModelDefinitions>
+                    <comp:modelDefinition id="definition">
+                      <listOfCompartments>
+                        <compartment id="c" constant="true"/>
+                      </listOfCompartments>
+                      <listOfSpecies>
+                        <species id="S" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+                      </listOfSpecies>
+                      <layout:listOfLayouts>
+                        <layout:layout layout:id="definition_layout">
+                          <layout:dimensions layout:width="100" layout:height="100"/>
+                          <layout:listOfSpeciesGlyphs>
+                            <layout:speciesGlyph layout:id="sg_S" layout:species="S">
+                              <layout:boundingBox>
+                                <layout:position layout:x="10" layout:y="10"/>
+                                <layout:dimensions layout:width="20" layout:height="20"/>
+                              </layout:boundingBox>
+                            </layout:speciesGlyph>
+                          </layout:listOfSpeciesGlyphs>
+                        </layout:layout>
+                      </layout:listOfLayouts>
+                    </comp:modelDefinition>
+                  </comp:listOfModelDefinitions>
+                </sbml>
+                """;
+        SBMLReaderTask task = new SBMLReaderTask(
+                new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.UTF_8)),
+                "definitions.xml",
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+        task.run(mock(TaskMonitor.class));
+        Map<String, CyNetwork> networks = byName(task.getNetworks());
+
+        assertTrue(networks.containsKey("top__layout_top_layout"), networks.keySet()::toString);
+        CyNetwork definitionLayout = networks.get("definition__layout_definition_layout");
+        assertNotNull(definitionLayout, networks.keySet()::toString);
+        assertEquals(Set.of("sg_S"), glyphNodes(definitionLayout).keySet());
+        assertTrue(
+                networks.keySet().stream()
+                        .anyMatch(name -> name.startsWith(SBML.PREFIX_NETWORK_FLAT + "__top__layout_")),
+                networks.keySet()::toString);
     }
 
     // ------------------------------------------------------------

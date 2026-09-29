@@ -25,6 +25,7 @@ import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyRow;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.property.CyProperty;
@@ -32,6 +33,8 @@ import org.cytoscape.view.layout.CyLayoutAlgorithm;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.View;
+import org.cytoscape.view.presentation.property.BasicVisualLexicon;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.work.AbstractTask;
@@ -172,7 +175,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
      * <p>
      * Here the SBMLDocument is registered in the SBMLManager for the given network,
      * a VisualStyle is applied,
-     * and a LayoutAlgorithm is applied.
+     * and a LayoutAlgorithm is applied. The nodes of a layout network are placed at the
+     * positions of their glyphs instead, with the layout variant of the style.
      */
     @Override
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
@@ -193,16 +197,28 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         }
 
         CyNetworkView view = viewFactory.createNetworkView(network);
+        boolean layoutNetwork = isLayoutNetwork(network);
         // VisualMappingManager only available in OSGI context
         if (visualMappingManager != null) {
             String styleName = (String) cy3sbmlProperties.getProperties().get(SBML.PROPERTY_VISUAL_STYLE);
             VisualStyle style = StyleManager.getVisualStyleByName(visualMappingManager, styleName);
+            if (layoutNetwork) {
+                // the layout variant of the style, if it exists
+                VisualStyle layoutStyle =
+                        StyleManager.getVisualStyleByName(visualMappingManager, styleName + SBML.STYLE_SUFFIX_LAYOUT);
+                if (layoutStyle.getTitle().equals(styleName + SBML.STYLE_SUFFIX_LAYOUT)) {
+                    style = layoutStyle;
+                }
+            }
             if (style != null) {
                 visualMappingManager.setVisualStyle(style, view);
             }
         }
 
-        if (doLayout && cyLayoutAlgorithmManager != null) {
+        if (layoutNetwork) {
+            // the nodes are at the positions of their glyphs
+            applyLayoutPositions(view);
+        } else if (doLayout && cyLayoutAlgorithmManager != null) {
             CyLayoutAlgorithm layout = cyLayoutAlgorithmManager.getLayout(SBML.SBML_LAYOUT);
             if (layout == null) {
                 layout = cyLayoutAlgorithmManager.getLayout(CyLayoutAlgorithmManager.DEFAULT_LAYOUT_NAME);
@@ -218,6 +234,28 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             }
         }
         return view;
+    }
+
+    /** True for the layout networks, see {@link LayoutNetworkBuilder}. */
+    static boolean isLayoutNetwork(CyNetwork network) {
+        CyRow row = network.getRow(network);
+        return row.getTable().getColumn(SBML.NETWORKTYPE_ATTR) != null
+                && SBML.NETWORKTYPE_LAYOUT.equals(row.get(SBML.NETWORKTYPE_ATTR, String.class));
+    }
+
+    /** Moves the nodes of the view of a layout network to the centres of their glyphs. */
+    static void applyLayoutPositions(CyNetworkView view) {
+        CyNetwork network = view.getModel();
+        for (CyNode node : network.getNodeList()) {
+            View<CyNode> nodeView = view.getNodeView(node);
+            CyRow row = network.getRow(node);
+            Double x = row.get(SBML.ATTR_LAYOUT_X, Double.class);
+            Double y = row.get(SBML.ATTR_LAYOUT_Y, Double.class);
+            if (nodeView != null && x != null && y != null) {
+                nodeView.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, x);
+                nodeView.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, y);
+            }
+        }
     }
 
     /**
