@@ -67,6 +67,14 @@ final class CompReader implements PackageReader {
                 AttributeWriter.setNamedSBaseAttributes(network, deletionNode, deletion);
                 context.createEdge(node, deletionNode, SBML.INTERACTION_COMP_SBASE_DELETION);
                 writeTarget(context, model, deletionNode, deletion);
+                if (!deletion.isSetId() && !deletion.isSetName()) {
+                    // label deletions without id and name like replaced elements
+                    setString(
+                            network,
+                            deletionNode,
+                            SBML.LABEL,
+                            String.format("<%s:%s>", submodel.getId(), reference(deletion)));
+                }
             }
         }
     }

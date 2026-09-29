@@ -6,6 +6,13 @@ table {
     font-size: 11px;
 }
 
+/* long ids and headings (e.g. ReplacedElement) wrap instead of widening the narrow panel */
+h1, h2, h3, h4, td, th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
 .ontology{
     background-color: #5FBDCE;
     padding:2px;

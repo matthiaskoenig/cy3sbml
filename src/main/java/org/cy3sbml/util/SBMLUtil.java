@@ -768,50 +768,60 @@ public class SBMLUtil {
      */
     public static Map<String, String> createSubmodelMap(Submodel submodel, SBaseRefResolver resolver) {
         Map<String, String> map = createNamedSBaseMap(submodel);
-        map.put(SBML.ATTR_COMP_MODELREF, submodel.isSetModelRef() ? submodel.getModelRef() : UNSET);
-        map.put(
-                SBML.ATTR_COMP_TIME_CONVERSION_FACTOR,
-                submodel.isSetTimeConversionFactor() ? submodel.getTimeConversionFactor() : UNSET);
-        map.put(
-                SBML.ATTR_COMP_EXTENT_CONVERSION_FACTOR,
-                submodel.isSetExtentConversionFactor() ? submodel.getExtentConversionFactor() : UNSET);
+        putIfSet(map, "modelRef", submodel.isSetModelRef() ? submodel.getModelRef() : null);
+        putIfSet(
+                map,
+                "timeConversionFactor",
+                submodel.isSetTimeConversionFactor() ? submodel.getTimeConversionFactor() : null);
+        putIfSet(
+                map,
+                "extentConversionFactor",
+                submodel.isSetExtentConversionFactor() ? submodel.getExtentConversionFactor() : null);
         map.put("deletions", Integer.toString(submodel.getDeletionCount()));
         if (resolver != null) {
-            ModelResolution resolution = resolver.models().resolve(submodel);
-            map.put("model", modelHtml(resolution));
+            map.put("model", modelHtml(resolver.models().resolve(submodel)));
         }
         return map;
     }
 
     /**
-     * Map of a port, deletion, replaced element or replaced by: the reference, and its
-     * target with a link to the node in the network of the target model.
+     * Map of a port, deletion, replaced element or replaced by: the attributes that are
+     * set, the chain of the reference, and its target with a link to the node in the
+     * network of the target model.
      *
      * @param resolver resolves the target, may be null
      */
     public static Map<String, String> createSBaseRefMap(SBaseRef ref, SBaseRefResolver resolver) {
         Map<String, String> map = ref instanceof NamedSBase named ? createNamedSBaseMap(named) : createSBaseMap(ref);
         if (ref instanceof ReplacedElement replacedElement) {
-            map.put(
-                    SBML.ATTR_COMP_SUBMODELREF,
-                    replacedElement.isSetSubmodelRef() ? replacedElement.getSubmodelRef() : UNSET);
-            map.put(
-                    SBML.ATTR_COMP_CONVERSION_FACTOR,
-                    replacedElement.isSetConversionFactor() ? replacedElement.getConversionFactor() : UNSET);
-            map.put(SBML.ATTR_COMP_DELETION, replacedElement.isSetDeletion() ? replacedElement.getDeletion() : UNSET);
+            putIfSet(map, "submodelRef", replacedElement.isSetSubmodelRef() ? replacedElement.getSubmodelRef() : null);
+            putIfSet(
+                    map,
+                    "conversionFactor",
+                    replacedElement.isSetConversionFactor() ? replacedElement.getConversionFactor() : null);
+            putIfSet(map, "deletion", replacedElement.isSetDeletion() ? replacedElement.getDeletion() : null);
         } else if (ref instanceof ReplacedBy replacedBy) {
-            map.put(SBML.ATTR_COMP_SUBMODELREF, replacedBy.isSetSubmodelRef() ? replacedBy.getSubmodelRef() : UNSET);
+            putIfSet(map, "submodelRef", replacedBy.isSetSubmodelRef() ? replacedBy.getSubmodelRef() : null);
         }
-        map.put(SBML.ATTR_COMP_PORTREF, ref.isSetPortRef() ? ref.getPortRef() : UNSET);
-        map.put(SBML.ATTR_COMP_IDREF, ref.isSetIdRef() ? ref.getIdRef() : UNSET);
-        map.put(SBML.ATTR_COMP_UNITREF, ref.isSetUnitRef() ? ref.getUnitRef() : UNSET);
-        map.put(SBML.ATTR_COMP_METAIDREF, ref.isSetMetaIdRef() ? ref.getMetaIdRef() : UNSET);
-        map.put(SBML.ATTR_COMP_SBASEREF, HtmlUtil.escape(SBaseRefResolver.describe(ref)));
+        putIfSet(map, "portRef", ref.isSetPortRef() ? ref.getPortRef() : null);
+        putIfSet(map, "idRef", ref.isSetIdRef() ? ref.getIdRef() : null);
+        putIfSet(map, "unitRef", ref.isSetUnitRef() ? ref.getUnitRef() : null);
+        putIfSet(map, "metaIdRef", ref.isSetMetaIdRef() ? ref.getMetaIdRef() : null);
+        if (ref.isSetSBaseRef() || map.containsKey("submodelRef")) {
+            map.put("reference", HtmlUtil.escape(SBaseRefResolver.describe(ref)));
+        }
         boolean replacesDeletion = ref instanceof ReplacedElement re && re.isSetDeletion();
         if (resolver != null && !replacesDeletion) {
             map.put("target", targetHtml(resolver.resolve(ref)));
         }
         return map;
+    }
+
+    /** Puts the escaped value if it is set (not null and not empty). */
+    private static void putIfSet(Map<String, String> map, String key, String value) {
+        if (value != null && !value.isEmpty()) {
+            map.put(key, HtmlUtil.escape(value));
+        }
     }
 
     /**

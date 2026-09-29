@@ -14190,7 +14190,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion",
-          "label" : "Deletion",
+          "label" : "<C1:reaction__Degradation_GFP>",
           "metaId" : "Deletion",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -14204,7 +14204,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion0",
-          "label" : "Deletion0",
+          "label" : "<C2:reaction__Degradation_GFP>",
           "metaId" : "Deletion0",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -14218,7 +14218,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion1",
-          "label" : "Deletion1",
+          "label" : "<C3:reaction__Degradation_GFP>",
           "metaId" : "Deletion1",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -14232,7 +14232,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion2",
-          "label" : "Deletion2",
+          "label" : "<C4:reaction__Degradation_GFP>",
           "metaId" : "Deletion2",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -30566,7 +30566,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion",
-          "label" : "Deletion",
+          "label" : "<C1:reaction__Degradation_GFP>",
           "metaId" : "Deletion",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -30580,7 +30580,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion0",
-          "label" : "Deletion0",
+          "label" : "<C2:reaction__Degradation_GFP>",
           "metaId" : "Deletion0",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -30594,7 +30594,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion1",
-          "label" : "Deletion1",
+          "label" : "<C3:reaction__Degradation_GFP>",
           "metaId" : "Deletion1",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
@@ -30608,7 +30608,7 @@
           "comp_targetModel" : "repressilator",
           "comp_targetType" : "reaction",
           "cyId" : "Deletion2",
-          "label" : "Deletion2",
+          "label" : "<C4:reaction__Degradation_GFP>",
           "metaId" : "Deletion2",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"

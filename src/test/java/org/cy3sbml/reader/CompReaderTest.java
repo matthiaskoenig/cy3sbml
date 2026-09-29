@@ -181,4 +181,17 @@ class CompReaderTest {
                 targets(network, port, SBML.INTERACTION_COMP_SBASEREF_ID));
         assertEquals(SBML.COMP_RESOLVED, attribute(network, port, SBML.ATTR_COMP_RESOLUTION));
     }
+
+    /** A deletion without id and name is labeled with its submodel and reference. */
+    @Test
+    void deletionWithoutIdIsLabeledWithItsReference() throws Exception {
+        ConversionContext context = ReaderTestSupport.readResource(
+                "/models/comp/Watanabe2014/test_replacement_1.xml", new CoreReader(), new CompReader());
+        CyNetwork network = context.network();
+
+        List<CyNode> deletions = ReaderTestSupport.nodesOfType(network, SBML.NODETYPE_COMP_DELETION);
+
+        assertEquals(1, deletions.size());
+        assertTrue(attribute(network, deletions.get(0), SBML.LABEL).startsWith("<C1:"));
+    }
 }

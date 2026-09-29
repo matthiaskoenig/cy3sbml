@@ -80,7 +80,7 @@ cy3sbml supports the comp package version 1 release 3.
 | ReplacedBy (`submodelRef`, SBaseRef) | node `comp_replacedBy` with `comp_submodelRef` and the target columns |
 | SBase (list of replaced elements, replaced by) | on every element |
 
-![The All network of a comp test model with submodels, deletions and replaced elements](../images/screenshots/comp-model.png)
+![The All network of a comp test model: nine submodels with their deletions, the replaced elements linked to their submodels, and the info panel of the submodel C1 with the link to the network of its model](../images/screenshots/comp-model.png)
 
 ## groups
 
