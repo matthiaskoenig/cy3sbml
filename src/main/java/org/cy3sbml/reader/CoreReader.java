@@ -247,8 +247,8 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode reactantNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, reactantNode, SBML.INTERACTION_REACTION_REACTANT);
-                    AttributeWriter.setSBaseAttributes(network, edge, speciesRef);
+                    CyEdge edge = context.createEdge(n, reactantNode, SBML.INTERACTION_REACTION_REACTANT, speciesRef);
+                    AttributeWriter.setNamedSBaseAttributes(network, edge, speciesRef);
 
                     Double stoichiometry = speciesRef.isSetStoichiometry() ? speciesRef.getStoichiometry() : 1.0;
                     AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
@@ -265,8 +265,8 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode productNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, productNode, SBML.INTERACTION_REACTION_PRODUCT);
-                    AttributeWriter.setSBaseAttributes(network, edge, speciesRef);
+                    CyEdge edge = context.createEdge(n, productNode, SBML.INTERACTION_REACTION_PRODUCT, speciesRef);
+                    AttributeWriter.setNamedSBaseAttributes(network, edge, speciesRef);
 
                     Double stoichiometry = speciesRef.isSetStoichiometry() ? speciesRef.getStoichiometry() : 1.0;
                     AttributeUtil.set(network, edge, SBML.ATTR_STOICHIOMETRY, stoichiometry, Double.class);
@@ -282,8 +282,8 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode modifierNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, modifierNode, SBML.INTERACTION_REACTION_MODIFIER);
-                    AttributeWriter.setSBaseAttributes(network, edge, msRef);
+                    CyEdge edge = context.createEdge(n, modifierNode, SBML.INTERACTION_REACTION_MODIFIER, msRef);
+                    AttributeWriter.setNamedSBaseAttributes(network, edge, msRef);
                 } else {
                     logger.error(String.format(
                             "ModifierSpecies does not exist for reaction: %s for %s",

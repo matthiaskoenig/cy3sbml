@@ -9,8 +9,8 @@ information and the annotations of the selected object in a panel next to the ne
 
 ## Features
 
-- Import of all SBML levels and versions, including the packages `qual`, `fbc`, `comp`
-  and `groups`. See [Supported SBML packages](guide/packages.md).
+- Import of all SBML levels and versions, including the packages `qual`, `fbc`, `comp`,
+  `groups` and `distrib`. See [Supported SBML packages](guide/packages.md).
 - Three networks per model: the reaction network, a kinetic network with parameters,
   rules and kinetic laws, and a network with all SBML objects.
   See [Network model](guide/network.md).

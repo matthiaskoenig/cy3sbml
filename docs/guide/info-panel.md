@@ -30,11 +30,13 @@ For the selected object, the panel shows in this order:
       that is not set but determined by a rule shows the id of the species reference;
     - the coefficient of the reaction in each fbc objective of the model, in the row
       `fbc_objective-<objective id>`, like the network column of the same name.
-3. The model history: creators with email and organisation, the creation date and the
+3. The uncertainties of the object (distrib package), see
+   [distrib](packages.md#distrib-distributions).
+4. The model history: creators with email and organisation, the creation date and the
    modification dates.
-4. The annotations (see below).
-5. Annotations that are not RDF, for example SABIO-RK data, as formatted XML.
-6. The notes.
+5. The annotations (see below).
+6. Annotations that are not RDF, for example SABIO-RK data, as formatted XML.
+7. The notes.
 
 Links to external web pages open in the web browser of the system.
 

@@ -112,6 +112,7 @@ These columns are set on nodes, when the SBML object has the value:
 | `math` | formula of rules, assignments, kinetic laws and function definitions |
 | `variable` | variable of a rule or assignment |
 | `stoichiometry` | stoichiometry, on reactant and product edges |
+| `sbml id`, `shared name`, `metaId`, `sbo` | on reactant, product and modifier edges: the attributes of the species reference |
 | `kind`, `exponent`, `scale`, `multiplier` | unit attributes |
 
 Package columns:
@@ -128,6 +129,9 @@ Package columns:
   `comp_modelRef`, `comp_timeConversionFactor`, `comp_extentConversionFactor`, and the
   resolved target `comp_targetModel`, `comp_targetId`, `comp_targetType`,
   `comp_targetMetaId` with `comp_resolution`.
+- `distrib`: `distrib_uncertainty` and `distrib_uncertaintyCount` on the node of every
+  element with uncertainties, and on the edges of species references. See
+  [distrib](packages.md#distrib-distributions).
 
 Annotations become columns too. Every resource of an RDF annotation is stored in a column
 named after its identifiers.org collection, with the identifier as value. For models with

@@ -3,6 +3,7 @@ package org.cy3sbml.reader;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -39,6 +40,8 @@ final class ConversionContext {
 
     private final Map<String, CyNode> metaId2Node = new HashMap<>();
     private final Map<String, CyNode> id2Node = new HashMap<>();
+    // edges that represent an SBase (species references), by instance
+    private final IdentityHashMap<SBase, CyEdge> sbase2Edge = new IdentityHashMap<>();
     // storage of groups to create in subnetworks
     private final Set<CyGroup> groups = new HashSet<>();
     // base UnitDefinition lookup
@@ -103,6 +106,16 @@ final class ConversionContext {
     }
 
     /**
+     * Creates the SBML edge that represents the SBase, e.g. the edge of a species
+     * reference, which {@link #edgeOf(SBase)} finds.
+     */
+    CyEdge createEdge(CyNode source, CyNode target, String interactionType, SBase sbase) {
+        CyEdge e = createEdge(source, target, interactionType);
+        sbase2Edge.put(sbase, e);
+        return e;
+    }
+
+    /**
      * Creates group node for the given group.
      */
     CyGroup createGroup(Group group) {
@@ -143,6 +156,11 @@ final class ConversionContext {
 
     Optional<CyNode> nodeByMetaId(String metaId) {
         return Optional.ofNullable(metaId2Node.get(metaId));
+    }
+
+    /** The edge that represents the SBase, e.g. a species reference. */
+    Optional<CyEdge> edgeOf(SBase sbase) {
+        return Optional.ofNullable(sbase2Edge.get(sbase));
     }
 
     /**
