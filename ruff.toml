@@ -2,6 +2,9 @@
 # (`scripts/` and `tools/pycysbml/`), see docs/development/quality.md.
 target-version = "py314"
 line-length = 88
+# the Python blocks of this page are pymdownx.snippets directives, which embed the
+# examples of examples/python (checked there), not Python code
+extend-exclude = ["docs/guide/automation.md"]
 
 [lint]
 select = [
