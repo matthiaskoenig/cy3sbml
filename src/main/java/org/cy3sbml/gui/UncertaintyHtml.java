@@ -14,15 +14,13 @@ import org.sbml.jsbml.ext.distrib.Uncertainty;
 
 /**
  * The HTML of the uncertainties of an SBase (distrib package): per uncertainty its id
- * and name and a table of its uncertainty parameters and spans, with the nested
+ * and name and a table of its uncertainty parameters and spans (type and value, like the
+ * attribute table), with the nested
  * parameters after their parent. A var is linked to the node of the element it
  * references.
  */
 public final class UncertaintyHtml {
-    private static final String TABLE_START = """
-            <table class="table table-striped table-condensed table-hover">
-            <tr><th>type</th><th>value</th><th>units</th><th>definition</th></tr>
-            """;
+    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
     private static final String UNSET_BOUND = "?";
     private static final String NESTED_PREFIX = "&nbsp;&nbsp;&#8627;&nbsp;";
 
@@ -39,7 +37,7 @@ public final class UncertaintyHtml {
         if (uncertainties.isEmpty()) {
             return "";
         }
-        StringBuilder html = new StringBuilder("<h3>Uncertainties</h3>\n");
+        StringBuilder html = new StringBuilder();
         for (Uncertainty uncertainty : uncertainties) {
             html.append(header(uncertainty));
             html.append(TABLE_START);
@@ -51,13 +49,12 @@ public final class UncertaintyHtml {
         return html.toString();
     }
 
+    /** The label of the uncertainty with its id and name, like the qualifier of a CVTerm. */
     private static String header(Uncertainty uncertainty) {
-        if (!uncertainty.isSetId() && !uncertainty.isSetName()) {
-            return "";
-        }
         String id = uncertainty.isSetId() ? "<b>" + HtmlUtil.escape(uncertainty.getId()) + "</b>" : "";
         String name = uncertainty.isSetName() ? HtmlUtil.escape(uncertainty.getName()) : "";
-        return "<p class=\"cvterm\">" + String.join(" ", id, name).strip() + "</p>\n";
+        return "<p class=\"cvterm\"><span class=\"qualifier\">uncertainty</span> "
+                + String.join(" ", id, name).strip() + "</p>\n";
     }
 
     private static void rows(
@@ -68,17 +65,26 @@ public final class UncertaintyHtml {
                 .append(NESTED_PREFIX.repeat(depth))
                 .append(label)
                 .append("</td><td>")
-                .append(value(parameter, model, targets))
-                .append("</td><td>")
-                .append(parameter.isSetUnits() ? HtmlUtil.escape(parameter.getUnits()) : "")
-                .append("</td><td>")
-                .append(definition(parameter))
+                .append(cell(parameter, model, targets))
                 .append("</td></tr>\n");
         if (parameter.isSetListOfUncertParameters()) {
             for (UncertParameter nested : parameter.getListOfUncertParameters()) {
                 rows(nested, depth + 1, model, targets, html);
             }
         }
+    }
+
+    /** The value with its units, followed by the link to the definition. */
+    private static String cell(UncertParameter parameter, Model model, CompTargets targets) {
+        String cell = value(parameter, model, targets);
+        if (parameter.isSetUnits()) {
+            cell += " " + HtmlUtil.escape(parameter.getUnits());
+        }
+        String definition = definition(parameter);
+        if (!definition.isEmpty()) {
+            cell = cell.isEmpty() ? definition : cell + " <small>(" + definition + ")</small>";
+        }
+        return cell;
     }
 
     /** The value, else the var, the bounds of a span, else the formula of the math. */
@@ -117,7 +123,13 @@ public final class UncertaintyHtml {
         if (!parameter.isSetDefinitionURL()) {
             return "";
         }
-        String url = HtmlUtil.escape(parameter.getDefinitionURL());
-        return "<a href=\"" + url + "\">" + url + "</a>";
+        String url = parameter.getDefinitionURL();
+        // the last part of the URL names the definition, e.g. "normal" or "PROB_k0000225"
+        String name = url.substring(Math.max(url.lastIndexOf('/'), url.lastIndexOf('#')) + 1);
+        if (name.isEmpty()) {
+            name = url;
+        }
+        String escaped = HtmlUtil.escape(url);
+        return "<a href=\"" + escaped + "\" title=\"" + escaped + "\">" + HtmlUtil.escape(name) + "</a>";
     }
 }

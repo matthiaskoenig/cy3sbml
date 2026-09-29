@@ -54,8 +54,10 @@ class UncertaintyHtmlTest {
     void parameterShowsAllUncertaintyParametersWithLinksToTheVars() {
         String html = UncertaintyHtml.create(model.getParameter("k1"), TARGETS);
 
-        assertTrue(html.contains("Uncertainties"), html);
+        assertTrue(html.contains("<span class=\"qualifier\">uncertainty</span>"), html);
         assertTrue(html.contains("<td>standardDeviation</td>"), html);
+        // two columns like the attribute table, no header row
+        assertFalse(html.contains("<th>"), html);
         assertTrue(
                 html.contains(
                         "sd_k1 <a href=\"" + BrowserHyperlinkListener.URL_SELECT_TARGET + ROOT + "/meta_sd_k1\">"),
@@ -63,7 +65,11 @@ class UncertaintyHtmlTest {
         assertTrue(html.contains("[sd_k1 <a href="), html);
         assertTrue(html.contains(", 10.0]"), html);
         assertTrue(html.contains("normal(1, sd_k1)"), html);
-        assertTrue(html.contains("<a href=\"http://www.sbml.org/sbml/symbols/distrib/normal\">"), html);
+        assertTrue(
+                html.contains("<a href=\"http://www.sbml.org/sbml/symbols/distrib/normal\""
+                        + " title=\"http://www.sbml.org/sbml/symbols/distrib/normal\">normal</a>"),
+                html);
+        assertTrue(html.contains(">PROB_k0000225</a>"), html);
         // the nested external parameter follows its parent
         assertTrue(html.indexOf("skew") > html.indexOf("normal(1, sd_k1)"), html);
         assertTrue(html.contains("class=\"distrib-nested\""), html);
@@ -73,10 +79,11 @@ class UncertaintyHtmlTest {
     void uncertaintyShowsIdNameAndUnits() {
         String html = UncertaintyHtml.create(model.getSpecies("S1"), TARGETS);
 
-        assertTrue(html.contains("<b>u_S1_a</b> measured"), html);
+        assertTrue(html.contains("<span class=\"qualifier\">uncertainty</span> <b>u_S1_a</b> measured"), html);
         assertTrue(html.contains("<b>u_S1_b</b>"), html);
         assertTrue(html.contains("[3.5, 4.9]"), html);
-        assertTrue(UncertaintyHtml.create(model.getCompartment("C"), TARGETS).contains("<td>litre</td>"));
+        String compartment = UncertaintyHtml.create(model.getCompartment("C"), TARGETS);
+        assertTrue(compartment.contains("<td>0.1 litre</td>"), compartment);
     }
 
     @Test
@@ -119,7 +126,7 @@ class UncertaintyHtmlTest {
         String html = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null, TARGETS)
                 .createInfo(model.getParameter("k1"));
 
-        assertTrue(html.contains("Uncertainties"), html);
+        assertTrue(html.contains("<span class=\"qualifier\">uncertainty</span>"), html);
         assertTrue(html.contains("normal(1, sd_k1)"), html);
     }
 }
