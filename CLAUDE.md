@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-cy3sbml is a Cytoscape 3 app (OSGi bundle) that imports SBML models into Cytoscape networks using JSBML. Supports all SBML levels/versions plus the `qual`, `comp` (including external model definitions and the flattened model), `fbc`, `groups` and `distrib` (uncertainties as columns and in the info panel) packages; also the SBML models of COMBINE archives (OMEX, #116) and the `layout` package (#71, one network per layout, without curves); cofactor nodes can be split into one node per edge and merged back (#456). Main branch is `develop`.
+cy3sbml is a Cytoscape 3 app (OSGi bundle) that imports SBML models into Cytoscape networks using JSBML. Supports all SBML levels/versions plus the `qual`, `comp` (including external model definitions and the flattened model), `fbc` (versions 1 to 3, #461: user defined constraints as nodes, key-value pairs in the info panel), `groups` and `distrib` (uncertainties as columns and in the info panel) packages; also the SBML models of COMBINE archives (OMEX, #116) and the `layout` package (#71, one network per layout, without curves); cofactor nodes can be split into one node per edge and merged back (#456). Main branch is `develop`.
 
 ## Build and test
 

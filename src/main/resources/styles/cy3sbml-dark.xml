@@ -84,6 +84,7 @@
                     <discreteMappingEntry attributeValue="event" value="#FF6600"/>
                     <discreteMappingEntry attributeValue="eventAssignment" value="#999999"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="#FF9966"/>
+                    <discreteMappingEntry attributeValue="fbc_userDefinedConstraint" value="#CC99FF"/>
                     <discreteMappingEntry attributeValue="functionDefinition" value="#FFCC66"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="#FF6666"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="#66CCFF"/>
@@ -106,6 +107,7 @@
                     <discreteMappingEntry attributeValue="algebraicRule" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="assignmentRule" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="compartment" value="Liberation Sans Bold,plain,12"/>
+                    <discreteMappingEntry attributeValue="fbc_userDefinedConstraint" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="initialAssignment" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="Liberation Sans Bold,plain,12"/>
                     <discreteMappingEntry attributeValue="localParameter" value="Liberation Sans Bold,plain,12"/>
@@ -130,6 +132,7 @@
                     <discreteMappingEntry attributeValue="event" value="40"/>
                     <discreteMappingEntry attributeValue="eventAssignment" value="20"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="40"/>
+                    <discreteMappingEntry attributeValue="fbc_userDefinedConstraint" value="30"/>
                     <discreteMappingEntry attributeValue="group" value="60"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="20"/>
                     <discreteMappingEntry attributeValue="localParameter" value="30"/>
@@ -156,6 +159,7 @@
                     <discreteMappingEntry attributeValue="comp_port" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="comp_replacedBy" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="comp_replacedElement" value="N,S,c,0.00,0.00"/>
+                    <discreteMappingEntry attributeValue="fbc_userDefinedConstraint" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="kineticLaw" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="localParameter" value="N,S,c,0.00,0.00"/>
                     <discreteMappingEntry attributeValue="parameter" value="N,S,c,0.00,0.00"/>
@@ -172,6 +176,7 @@
                     <discreteMappingEntry attributeValue="event" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="eventAssignment" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="fbc_geneProduct" value="TRIANGLE"/>
+                    <discreteMappingEntry attributeValue="fbc_userDefinedConstraint" value="OCTAGON"/>
                     <discreteMappingEntry attributeValue="group" value="HEXAGON"/>
                     <discreteMappingEntry attributeValue="localParameter" value="DIAMOND"/>
                     <discreteMappingEntry attributeValue="parameter" value="DIAMOND"/>
@@ -194,6 +199,7 @@
             <visualProperty default="#CCCCCC" name="EDGE_SOURCE_ARROW_UNSELECTED_PAINT">
                 <discreteMapping attributeName="shared interaction" attributeType="string">
                     <discreteMappingEntry attributeValue="input_transition" value="#FFFFFF"/>
+                    <discreteMappingEntry attributeValue="parameter_userDefinedConstraint" value="#9933CC"/>
                     <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
@@ -205,6 +211,7 @@
                     <discreteMappingEntry attributeValue="transition_output" value="#FFFFFF"/>
                     <discreteMappingEntry attributeValue="unit_unitDefinition" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="variable_eventAssignment" value="#FF6600"/>
+                    <discreteMappingEntry attributeValue="variable_userDefinedConstraint" value="#9933CC"/>
                 </discreteMapping>
             </visualProperty>
             <visualProperty default="NONE" name="EDGE_TARGET_ARROW_SHAPE">
@@ -252,6 +259,7 @@
             <visualProperty default="#CCCCCC" name="EDGE_STROKE_UNSELECTED_PAINT">
                 <discreteMapping attributeName="shared interaction" attributeType="string">
                     <discreteMappingEntry attributeValue="input_transition" value="#FFFFFF"/>
+                    <discreteMappingEntry attributeValue="parameter_userDefinedConstraint" value="#9933CC"/>
                     <discreteMappingEntry attributeValue="reaction-activator" value="#006600"/>
                     <discreteMappingEntry attributeValue="reaction-inhibitor" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="#3333FF"/>
@@ -263,6 +271,7 @@
                     <discreteMappingEntry attributeValue="transition_output" value="#FFFFFF"/>
                     <discreteMappingEntry attributeValue="unit_unitDefinition" value="#FF3333"/>
                     <discreteMappingEntry attributeValue="variable_eventAssignment" value="#FF6600"/>
+                    <discreteMappingEntry attributeValue="variable_userDefinedConstraint" value="#9933CC"/>
                 </discreteMapping>
             </visualProperty>
         </edge>

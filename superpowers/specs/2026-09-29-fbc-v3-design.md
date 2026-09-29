@@ -84,6 +84,15 @@ gives a typed view of them:
   annotation (removes it for an empty list), leaving the rest of the annotation unchanged;
   writes the XML libSBML writes.
 
+### Charge
+
+The species `charge` of fbc v3 is a double (integer in v1 and v2). `FBCSpeciesPlugin`
+stores a double: `getChargeAsDouble()` and `setCharge(double)` are added, `getCharge()`
+returns the truncated int as before (like libSBML); v3 reads and writes a double, v1 and
+v2 an integer. cy3sbml writes `fbc_charge` as a Double column for fbc v3 models and as an
+Integer column for v1 and v2. (libSBML 5.21 writes `fbc:charge="0"` in v3 for a charge
+set as Python int, so the test model generator passes a float.)
+
 ### Validation
 
 `SBMLDocument.checkConsistencyOffline()` reports no fbc errors for the valid v3 test model
@@ -125,8 +134,11 @@ must stay unchanged (test).
   the reactions and parameters) and to `__all`, not to the base network.
 - The variable type of a flux objective: a reaction column `fbc_objective-<id>_variableType`
   next to the coefficient column `fbc_objective-<id>`, only when set.
-- Styles: the constraint node gets the shape, color and size of a core `constraint` node
-  (both styles; the style files regenerated with `StyleFactory.createStyle`).
+- Styles: the constraint node is an octagon (size 30, light purple `#CC99FF`, bold label
+  below the node like parameters), the two edge types are purple (`#9933CC`), in both
+  styles; the style files are regenerated with `StyleFactory.createStyle`.
+- The flux bound edges are created with `ConversionContext.createEdge`; a bound parameter
+  without node is logged instead of failing the import.
 
 ### Info panel
 

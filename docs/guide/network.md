@@ -48,6 +48,7 @@ The type of a node is in the column `sbml type`.
 | `qual_transition` | Transition (qual) | base, kinetic, all |
 | `fbc_geneProduct` | GeneProduct (fbc) | base, kinetic, all |
 | `fbc_and`, `fbc_or` | And, Or of a gene product association (fbc) | base, kinetic, all |
+| `fbc_userDefinedConstraint` | UserDefinedConstraint (fbc version 3) | kinetic, all |
 | `comp_submodel` | Submodel (comp) | all |
 | `comp_port` | Port (comp) | kinetic, all |
 | `comp_replacedElement`, `comp_replacedBy` | ReplacedElement, ReplacedBy (comp) | kinetic, all |
@@ -87,6 +88,8 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `species_geneProduct` | associated species | gene product (fbc) |
 | `association_reaction` | gene product or top and/or node of the association | reaction (fbc) |
 | `association_association` | gene product or and/or node | the and/or node it belongs to (fbc) |
+| `parameter_userDefinedConstraint` | lower or upper bound parameter | user defined constraint (fbc) |
+| `variable_userDefinedConstraint` | reaction or parameter of a component variable | user defined constraint (fbc) |
 | `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, deletion, replacedElement or replacedBy node | referenced element in the same model |
 | `sbaseRef-submodel` | comp replacedElement or replacedBy node | its submodel |
 | `sbase-deletion` | comp submodel, or replacedElement of a deletion | deletion |
@@ -138,9 +141,11 @@ Package columns:
   `qual_transitionEffect`, `qual_qualitativeSpecies`, `qual_outputLevel`,
   `qual_resultLevels`.
 - `fbc`: `fbc_strict` (network table), `fbc_charge` and `fbc_chemicalFormula` (species),
-  `fbc_lowerFluxBound` and `fbc_upperFluxBound` (reactions), and one column
+  `fbc_lowerFluxBound` and `fbc_upperFluxBound` (reactions), one column
   `fbc_objective-<objective id>` per objective with the objective coefficient of the
-  reactions.
+  reactions and, for fbc version 3, `fbc_objective-<objective id>_variableType` with the
+  variable type; `fbc_lowerBound` and `fbc_upperBound` (user defined constraints),
+  `fbc_coefficient` and `fbc_variableType` (edges of the constraint components).
 - `comp`: `comp_portRef`, `comp_idRef`, `comp_unitRef`, `comp_metaIdRef`,
   `comp_sBaseRef`, `comp_submodelRef`, `comp_conversionFactor`, `comp_deletion`,
   `comp_modelRef`, `comp_timeConversionFactor`, `comp_extentConversionFactor`, and the

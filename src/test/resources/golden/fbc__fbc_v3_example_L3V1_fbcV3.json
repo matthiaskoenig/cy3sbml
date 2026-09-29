@@ -1,0 +1,1720 @@
+{
+  "networks" : [
+    {
+      "name" : "fbc_v3_example",
+      "nodeCount" : 12,
+      "edgeCount" : 13,
+      "attributes" : {
+        "fbc_strict" : false,
+        "label" : "fbc version 3 example",
+        "metaId" : "meta_fbc_v3_example",
+        "name" : "fbc_v3_example",
+        "sbml id" : "fbc_v3_example",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : -1.0,
+          "fbc_chemicalFormula" : "C6H12O6",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "c",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "C3H6O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "c",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : -2.0,
+          "fbc_chemicalFormula" : "C3H4O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "c",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "CO2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "c",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_RBTK",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "lb",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RBTK",
+          "metaId" : "meta_RBTK",
+          "reversible" : true,
+          "sbml id" : "RBTK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "cyId" : "meta_RGDP",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_linear" : 1.0,
+          "fbc_objective-obj_linear_variableType" : "linear",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGDP",
+          "metaId" : "meta_RGDP",
+          "reversible" : false,
+          "sbml id" : "RGDP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "meta_RGLX",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_quadratic" : 1.0,
+          "fbc_objective-obj_quadratic_variableType" : "quadratic",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGLX",
+          "metaId" : "meta_RGLX",
+          "reversible" : false,
+          "sbml id" : "RGLX",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "meta_g1",
+          "label" : "G1",
+          "metaId" : "meta_g1",
+          "sbml id" : "g1",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g2",
+          "label" : "G2",
+          "metaId" : "meta_g2",
+          "sbml id" : "g2",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g3",
+          "label" : "G3",
+          "metaId" : "meta_g3",
+          "sbml id" : "g3",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "RBTK_or",
+          "label" : "OR",
+          "sbml type" : "fbc_or",
+          "sbml type ext" : "fbc_or"
+        },
+        {
+          "cyId" : "RGLX_and",
+          "label" : "AND",
+          "sbml type" : "fbc_and",
+          "sbml type ext" : "fbc_and"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "A",
+          "target" : "g1",
+          "directed" : true,
+          "interaction" : "species_geneProduct",
+          "attributes" : {
+            "interaction" : "species_geneProduct",
+            "interaction type" : "species_geneProduct",
+            "shared interaction" : "species_geneProduct"
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g2",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g3",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction" : "association_reaction",
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction" : "association_reaction",
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "fbc_v3_example__all",
+      "nodeCount" : 25,
+      "edgeCount" : 35,
+      "attributes" : {
+        "fbc_strict" : false,
+        "label" : "fbc version 3 example",
+        "metaId" : "meta_fbc_v3_example",
+        "name" : "fbc_v3_example__all",
+        "sbml id" : "fbc_v3_example",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "shared name" : "fbc version 3 example"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : -1.0,
+          "fbc_chemicalFormula" : "C6H12O6",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "c",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "C3H6O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "c",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : -2.0,
+          "fbc_chemicalFormula" : "C3H4O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "c",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "CO2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "c",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_RBTK",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "lb",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RBTK",
+          "metaId" : "meta_RBTK",
+          "reversible" : true,
+          "sbml id" : "RBTK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "cyId" : "meta_RGDP",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_linear" : 1.0,
+          "fbc_objective-obj_linear_variableType" : "linear",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGDP",
+          "metaId" : "meta_RGDP",
+          "reversible" : false,
+          "sbml id" : "RGDP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "meta_RGLX",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_quadratic" : 1.0,
+          "fbc_objective-obj_quadratic_variableType" : "quadratic",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGLX",
+          "metaId" : "meta_RGLX",
+          "reversible" : false,
+          "sbml id" : "RGLX",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "constant" : true,
+          "cyId" : "c",
+          "derivedUnits" : "",
+          "label" : "c",
+          "metaId" : "c",
+          "sbml id" : "c",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "five",
+          "derivedUnits" : "",
+          "label" : "five",
+          "metaId" : "five",
+          "sbml id" : "five",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 5.0
+        },
+        {
+          "cyId" : "meta_g1",
+          "label" : "G1",
+          "metaId" : "meta_g1",
+          "sbml id" : "g1",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g2",
+          "label" : "G2",
+          "metaId" : "meta_g2",
+          "sbml id" : "g2",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g3",
+          "label" : "G3",
+          "metaId" : "meta_g3",
+          "sbml id" : "g3",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "constant" : true,
+          "cyId" : "inf",
+          "derivedUnits" : "",
+          "label" : "inf",
+          "metaId" : "inf",
+          "sbml id" : "inf",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : "Infinity"
+        },
+        {
+          "constant" : true,
+          "cyId" : "lb",
+          "derivedUnits" : "",
+          "label" : "lb",
+          "metaId" : "lb",
+          "sbml id" : "lb",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -1000.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "negone",
+          "derivedUnits" : "",
+          "label" : "negone",
+          "metaId" : "negone",
+          "sbml id" : "negone",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "one",
+          "derivedUnits" : "",
+          "label" : "one",
+          "metaId" : "one",
+          "sbml id" : "one",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "p1var",
+          "derivedUnits" : "",
+          "label" : "p1var",
+          "metaId" : "p1var",
+          "sbml id" : "p1var",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter"
+        },
+        {
+          "constant" : true,
+          "cyId" : "two",
+          "derivedUnits" : "",
+          "label" : "two",
+          "metaId" : "two",
+          "sbml id" : "two",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 2.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "ub",
+          "derivedUnits" : "",
+          "label" : "ub",
+          "metaId" : "ub",
+          "sbml id" : "ub",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1000.0
+        },
+        {
+          "cyId" : "meta_uc1",
+          "fbc_lowerBound" : "five",
+          "fbc_upperBound" : "five",
+          "label" : "RGLX - RBTK = 5",
+          "metaId" : "meta_uc1",
+          "name" : "RGLX - RBTK = 5",
+          "sbml id" : "uc1",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint",
+          "shared name" : "RGLX - RBTK = 5"
+        },
+        {
+          "cyId" : "meta_uc2",
+          "fbc_lowerBound" : "two",
+          "fbc_upperBound" : "inf",
+          "label" : "uc2",
+          "metaId" : "meta_uc2",
+          "sbml id" : "uc2",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint"
+        },
+        {
+          "cyId" : "meta_uc3",
+          "fbc_lowerBound" : "zero",
+          "fbc_upperBound" : "ub",
+          "label" : "uc3",
+          "metaId" : "meta_uc3",
+          "sbml id" : "uc3",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint"
+        },
+        {
+          "constant" : true,
+          "cyId" : "zero",
+          "derivedUnits" : "",
+          "label" : "zero",
+          "metaId" : "zero",
+          "sbml id" : "zero",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "RBTK_or",
+          "label" : "OR",
+          "sbml type" : "fbc_or",
+          "sbml type ext" : "fbc_or"
+        },
+        {
+          "cyId" : "RGLX_and",
+          "label" : "AND",
+          "sbml type" : "fbc_and",
+          "sbml type ext" : "fbc_and"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "A",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "A",
+          "target" : "g1",
+          "directed" : true,
+          "interaction" : "species_geneProduct",
+          "attributes" : {
+            "interaction type" : "species_geneProduct",
+            "shared interaction" : "species_geneProduct"
+          }
+        },
+        {
+          "source" : "B",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "D",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "negone",
+            "fbc_variableType" : "linear",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "quadratic",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "negone",
+            "fbc_variableType" : "linear",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "linear",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "quadratic",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "five",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "five",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g2",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g3",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "inf",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "lb",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "p1var",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "two",
+            "fbc_variableType" : "linear",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "two",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RGDP",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "RGDP",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "fbc_v3_example__kinetic",
+      "nodeCount" : 25,
+      "edgeCount" : 35,
+      "attributes" : {
+        "fbc_strict" : false,
+        "label" : "fbc version 3 example",
+        "metaId" : "meta_fbc_v3_example",
+        "name" : "fbc_v3_example__kinetic",
+        "sbml id" : "fbc_v3_example",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_A",
+          "fbc_charge" : -1.0,
+          "fbc_chemicalFormula" : "C6H12O6",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "A",
+          "metaId" : "meta_A",
+          "name" : "A",
+          "sbml compartment" : "c",
+          "sbml id" : "A",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "A",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_B",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "C3H6O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "B",
+          "metaId" : "meta_B",
+          "name" : "B",
+          "sbml compartment" : "c",
+          "sbml id" : "B",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "B",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_C",
+          "fbc_charge" : -2.0,
+          "fbc_chemicalFormula" : "C3H4O3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "C",
+          "metaId" : "meta_C",
+          "name" : "C",
+          "sbml compartment" : "c",
+          "sbml id" : "C",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "meta_D",
+          "fbc_charge" : 0.0,
+          "fbc_chemicalFormula" : "CO2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "D",
+          "metaId" : "meta_D",
+          "name" : "D",
+          "sbml compartment" : "c",
+          "sbml id" : "D",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "meta_RBTK",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "lb",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RBTK",
+          "metaId" : "meta_RBTK",
+          "reversible" : true,
+          "sbml id" : "RBTK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "cyId" : "meta_RGDP",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_linear" : 1.0,
+          "fbc_objective-obj_linear_variableType" : "linear",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGDP",
+          "metaId" : "meta_RGDP",
+          "reversible" : false,
+          "sbml id" : "RGDP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "meta_RGLX",
+          "fast" : false,
+          "fbc_lowerFluxBound" : "zero",
+          "fbc_objective-obj_quadratic" : 1.0,
+          "fbc_objective-obj_quadratic_variableType" : "quadratic",
+          "fbc_upperFluxBound" : "ub",
+          "label" : "RGLX",
+          "metaId" : "meta_RGLX",
+          "reversible" : false,
+          "sbml id" : "RGLX",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "constant" : true,
+          "cyId" : "c",
+          "derivedUnits" : "",
+          "label" : "c",
+          "metaId" : "c",
+          "sbml id" : "c",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "value" : 1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "five",
+          "derivedUnits" : "",
+          "label" : "five",
+          "metaId" : "five",
+          "sbml id" : "five",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 5.0
+        },
+        {
+          "cyId" : "meta_g1",
+          "label" : "G1",
+          "metaId" : "meta_g1",
+          "sbml id" : "g1",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g2",
+          "label" : "G2",
+          "metaId" : "meta_g2",
+          "sbml id" : "g2",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "cyId" : "meta_g3",
+          "label" : "G3",
+          "metaId" : "meta_g3",
+          "sbml id" : "g3",
+          "sbml type" : "fbc_geneProduct",
+          "sbml type ext" : "fbc_geneProduct"
+        },
+        {
+          "constant" : true,
+          "cyId" : "inf",
+          "derivedUnits" : "",
+          "label" : "inf",
+          "metaId" : "inf",
+          "sbml id" : "inf",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : "Infinity"
+        },
+        {
+          "constant" : true,
+          "cyId" : "lb",
+          "derivedUnits" : "",
+          "label" : "lb",
+          "metaId" : "lb",
+          "sbml id" : "lb",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -1000.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "negone",
+          "derivedUnits" : "",
+          "label" : "negone",
+          "metaId" : "negone",
+          "sbml id" : "negone",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : -1.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "one",
+          "derivedUnits" : "",
+          "label" : "one",
+          "metaId" : "one",
+          "sbml id" : "one",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "p1var",
+          "derivedUnits" : "",
+          "label" : "p1var",
+          "metaId" : "p1var",
+          "sbml id" : "p1var",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter"
+        },
+        {
+          "constant" : true,
+          "cyId" : "two",
+          "derivedUnits" : "",
+          "label" : "two",
+          "metaId" : "two",
+          "sbml id" : "two",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 2.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "ub",
+          "derivedUnits" : "",
+          "label" : "ub",
+          "metaId" : "ub",
+          "sbml id" : "ub",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 1000.0
+        },
+        {
+          "cyId" : "meta_uc1",
+          "fbc_lowerBound" : "five",
+          "fbc_upperBound" : "five",
+          "label" : "RGLX - RBTK = 5",
+          "metaId" : "meta_uc1",
+          "name" : "RGLX - RBTK = 5",
+          "sbml id" : "uc1",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint",
+          "shared name" : "RGLX - RBTK = 5"
+        },
+        {
+          "cyId" : "meta_uc2",
+          "fbc_lowerBound" : "two",
+          "fbc_upperBound" : "inf",
+          "label" : "uc2",
+          "metaId" : "meta_uc2",
+          "sbml id" : "uc2",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint"
+        },
+        {
+          "cyId" : "meta_uc3",
+          "fbc_lowerBound" : "zero",
+          "fbc_upperBound" : "ub",
+          "label" : "uc3",
+          "metaId" : "meta_uc3",
+          "sbml id" : "uc3",
+          "sbml type" : "fbc_userDefinedConstraint",
+          "sbml type ext" : "fbc_userDefinedConstraint"
+        },
+        {
+          "constant" : true,
+          "cyId" : "zero",
+          "derivedUnits" : "",
+          "label" : "zero",
+          "metaId" : "zero",
+          "sbml id" : "zero",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "RBTK_or",
+          "label" : "OR",
+          "sbml type" : "fbc_or",
+          "sbml type ext" : "fbc_or"
+        },
+        {
+          "cyId" : "RGLX_and",
+          "label" : "AND",
+          "sbml type" : "fbc_and",
+          "sbml type ext" : "fbc_and"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "A",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "A",
+          "target" : "g1",
+          "directed" : true,
+          "interaction" : "species_geneProduct",
+          "attributes" : {
+            "interaction" : "species_geneProduct",
+            "interaction type" : "species_geneProduct",
+            "shared interaction" : "species_geneProduct"
+          }
+        },
+        {
+          "source" : "B",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "C",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "D",
+          "target" : "c",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "negone",
+            "fbc_variableType" : "linear",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RBTK",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "quadratic",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGDP",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "negone",
+            "fbc_variableType" : "linear",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "linear",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "RGLX",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "one",
+            "fbc_variableType" : "quadratic",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "five",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "five",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g1",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g2",
+          "target" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "g3",
+          "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "directed" : true,
+          "interaction" : "association_association",
+          "attributes" : {
+            "interaction" : "association_association",
+            "interaction type" : "association_association",
+            "shared interaction" : "association_association"
+          }
+        },
+        {
+          "source" : "inf",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "lb",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "p1var",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "variable_userDefinedConstraint",
+          "attributes" : {
+            "fbc_coefficient" : "two",
+            "fbc_variableType" : "linear",
+            "interaction" : "variable_userDefinedConstraint",
+            "interaction type" : "variable_userDefinedConstraint",
+            "shared interaction" : "variable_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "two",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RGDP",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "ub",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "RGDP",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "parameter_reaction",
+          "attributes" : {
+            "interaction" : "parameter_reaction",
+            "interaction type" : "parameter_reaction",
+            "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "zero",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
+          "target" : "RBTK",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction" : "association_reaction",
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        },
+        {
+          "source" : "{\"cyId\":\"RGLX_and\",\"label\":\"AND\",\"sbml type\":\"fbc_and\",\"sbml type ext\":\"fbc_and\"}",
+          "target" : "RGLX",
+          "directed" : true,
+          "interaction" : "association_reaction",
+          "attributes" : {
+            "interaction" : "association_reaction",
+            "interaction type" : "association_reaction",
+            "shared interaction" : "association_reaction"
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

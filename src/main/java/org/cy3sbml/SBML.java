@@ -102,6 +102,14 @@ public class SBML {
     public static final String ATTR_FBC_LOWER_FLUX_BOUND = "fbc_lowerFluxBound";
     public static final String ATTR_FBC_UPPER_FLUX_BOUND = "fbc_upperFluxBound";
     public static final String ATTR_FBC_OBJECTIVE_TEMPLATE = "fbc_objective-%1$s";
+    // variable type (fbc v3) of the flux objective of a reaction in an objective
+    public static final String ATTR_FBC_OBJECTIVE_VARIABLE_TYPE_TEMPLATE = "fbc_objective-%1$s_variableType";
+    // user defined constraints (fbc v3): the bound parameters of the constraint node and
+    // the coefficient parameter and variable type of the edges of its components
+    public static final String ATTR_FBC_LOWER_BOUND = "fbc_lowerBound";
+    public static final String ATTR_FBC_UPPER_BOUND = "fbc_upperBound";
+    public static final String ATTR_FBC_COEFFICIENT = "fbc_coefficient";
+    public static final String ATTR_FBC_VARIABLE_TYPE = "fbc_variableType";
 
     // COMBINE archive: the name of the archive a network collection was read from
     public static final String ATTR_ARCHIVE = "archive";
@@ -178,6 +186,7 @@ public class SBML {
     public static final String NODETYPE_FBC_GENEPRODUCT = "fbc_geneProduct";
     public static final String NODETYPE_FBC_AND = "fbc_and";
     public static final String NODETYPE_FBC_OR = "fbc_or";
+    public static final String NODETYPE_FBC_USER_DEFINED_CONSTRAINT = "fbc_userDefinedConstraint";
 
     // comp
     public static final String NODETYPE_COMP_SUBMODEL = "comp_submodel";
@@ -243,6 +252,8 @@ public class SBML {
     public static final String INTERACTION_FBC_GENEPRODUCT_SPECIES = "species_geneProduct";
     public static final String INTERACTION_FBC_ASSOCIATION_REACTION = "association_reaction";
     public static final String INTERACTION_FBC_ASSOCIATION_ASSOCIATION = "association_association";
+    public static final String INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT = "parameter_userDefinedConstraint";
+    public static final String INTERACTION_FBC_VARIABLE_USER_DEFINED_CONSTRAINT = "variable_userDefinedConstraint";
 
     // comp
     public static final String INTERACTION_COMP_SBASEREF_ID = "sbaseRef-id";
@@ -346,6 +357,7 @@ public class SBML {
             SBML.NODETYPE_FBC_GENEPRODUCT,
             SBML.NODETYPE_FBC_AND,
             SBML.NODETYPE_FBC_OR,
+            SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT,
             SBML.NODETYPE_COMP_PORT,
             SBML.NODETYPE_COMP_REPLACED_BY,
             SBML.NODETYPE_COMP_REPLACED_ELEMENT,
@@ -370,6 +382,8 @@ public class SBML {
             SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES,
             SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION,
             SBML.INTERACTION_FBC_ASSOCIATION_REACTION,
+            SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT,
+            SBML.INTERACTION_FBC_VARIABLE_USER_DEFINED_CONSTRAINT,
             SBML.INTERACTION_COMP_SBASEREF_ID,
             SBML.INTERACTION_COMP_SBASEREF_UNIT,
             SBML.INTERACTION_COMP_SBASEREF_METAID,

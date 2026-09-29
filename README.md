@@ -8,7 +8,7 @@
 
 `cy3sbml` is a [Cytoscape 3](https://cytoscape.org) app that imports SBML models as networks. It
 uses [JSBML](https://github.com/sbmlteam/jsbml) to read all SBML levels and versions, with the
-`qual`, `fbc`, `comp`, `groups`, `distrib` and `layout` packages. Every SBML object becomes a node,
+`qual`, `fbc` (versions 1 to 3), `comp`, `groups`, `distrib` and `layout` packages. Every SBML object becomes a node,
 the relations between the objects become edges, and every layout of the `layout` package becomes a
 network with the drawn positions. A panel next to the network shows the SBML information and the
 annotations of the selected object, with links to [BioModels](https://www.biomodels.org),

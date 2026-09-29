@@ -1,5 +1,7 @@
 package org.cy3sbml.reader;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.cy3sbml.SBML;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyEdge;
@@ -7,8 +9,8 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.sbml.jsbml.Annotation;
 import org.sbml.jsbml.Model;
-import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.ext.fbc.And;
 import org.sbml.jsbml.ext.fbc.Association;
@@ -23,16 +25,20 @@ import org.sbml.jsbml.ext.fbc.GeneProductAssociation;
 import org.sbml.jsbml.ext.fbc.GeneProductRef;
 import org.sbml.jsbml.ext.fbc.LogicalOperator;
 import org.sbml.jsbml.ext.fbc.Objective;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraint;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraintComponent;
 import org.sbml.jsbml.xml.XMLNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Reads the fbc package: flux bounds, objectives, chemical formulas and charges,
- * and the gene product association networks.
+ * the gene product association networks and the user defined constraints (fbc v3).
  */
 final class FbcReader implements PackageReader {
     private static final Logger logger = LoggerFactory.getLogger(FbcReader.class);
+    // label of a user defined constraint without name and id
+    private static final String USER_DEFINED_CONSTRAINT_LABEL = "UDC";
 
     /**
      * Creates network information from fbc model.
@@ -58,7 +64,10 @@ final class FbcReader implements PackageReader {
             if (fbcSpecies != null) {
                 CyNode n = context.nodeByMetaId(species.getMetaId()).orElse(null);
                 // optional
-                if (fbcSpecies.isSetCharge()) {
+                // the charge is a double in fbc v3, an integer in fbc v1 and v2
+                if (fbcSpecies.isSetCharge() && fbcSpecies.getPackageVersion() >= 3) {
+                    AttributeUtil.set(network, n, SBML.ATTR_FBC_CHARGE, fbcSpecies.getChargeAsDouble(), Double.class);
+                } else if (fbcSpecies.isSetCharge()) {
                     AttributeUtil.set(network, n, SBML.ATTR_FBC_CHARGE, fbcSpecies.getCharge(), Integer.class);
                 }
                 if (fbcSpecies.isSetChemicalFormula()) {
@@ -73,10 +82,19 @@ final class FbcReader implements PackageReader {
         for (Objective objective : fbcModel.getListOfObjectives()) {
             // one reaction attribute column per objective
             String key = String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, objective.getId());
+            String variableTypeKey = String.format(SBML.ATTR_FBC_OBJECTIVE_VARIABLE_TYPE_TEMPLATE, objective.getId());
             for (FluxObjective fluxObjective : objective.getListOfFluxObjectives()) {
                 Reaction reaction = fluxObjective.getReactionInstance();
                 CyNode node = context.nodeByMetaId(reaction.getMetaId()).orElse(null);
                 AttributeUtil.set(network, node, key, fluxObjective.getCoefficient(), Double.class);
+                if (fluxObjective.isSetVariableType()) {
+                    AttributeUtil.set(
+                            network,
+                            node,
+                            variableTypeKey,
+                            fluxObjective.getVariableType().toString(),
+                            String.class);
+                }
             }
         }
 
@@ -113,12 +131,12 @@ final class FbcReader implements PackageReader {
                             SBML.ATTR_FBC_LOWER_FLUX_BOUND,
                             fbcReaction.getLowerFluxBound(),
                             String.class);
-                    // add edge
-                    Parameter p = model.getParameter(fbcReaction.getLowerFluxBound());
-                    CyNode parameterNode = context.nodeByMetaId(p.getMetaId()).orElse(null);
-                    CyEdge edge = network.addEdge(parameterNode, node, true);
-                    AttributeUtil.set(
-                            network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
+                    createReferenceEdge(
+                            context,
+                            fbcReaction.getLowerFluxBound(),
+                            node,
+                            SBML.INTERACTION_PARAMETER_REACTION,
+                            reaction);
                 }
                 if (fbcReaction.isSetUpperFluxBound()) {
                     AttributeUtil.set(
@@ -127,12 +145,12 @@ final class FbcReader implements PackageReader {
                             SBML.ATTR_FBC_UPPER_FLUX_BOUND,
                             fbcReaction.getUpperFluxBound(),
                             String.class);
-                    // add edge
-                    Parameter p = model.getParameter(fbcReaction.getUpperFluxBound());
-                    CyNode parameterNode = context.nodeByMetaId(p.getMetaId()).orElse(null);
-                    CyEdge edge = network.addEdge(parameterNode, node, true);
-                    AttributeUtil.set(
-                            network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_PARAMETER_REACTION, String.class);
+                    createReferenceEdge(
+                            context,
+                            fbcReaction.getUpperFluxBound(),
+                            node,
+                            SBML.INTERACTION_PARAMETER_REACTION,
+                            reaction);
                 }
 
                 // Create GeneProteinAssociation (GPA) network
@@ -145,6 +163,8 @@ final class FbcReader implements PackageReader {
                 }
             }
         }
+
+        readUserDefinedConstraints(context, fbcModel);
 
         // parse fbc v1 fluxBounds and geneAssociations
         if (fbcModel.getVersion() == 1) {
@@ -166,6 +186,89 @@ final class FbcReader implements PackageReader {
 
             readFluxBounds(context, fbcModel);
         }
+    }
+
+    /**
+     * Reads the user defined constraints (fbc v3). A constraint is a node with the
+     * parameters of its bounds as edges; a component is an edge from the node of its
+     * variable (and one from the node of its second variable) to the constraint node, with
+     * the coefficient parameter and the variable type as edge columns.
+     */
+    private static void readUserDefinedConstraints(ConversionContext context, FBCModelPlugin fbcModel) {
+        CyNetwork network = context.network();
+        for (UserDefinedConstraint constraint : fbcModel.getListOfUserDefinedConstraints()) {
+            CyNode n = context.createNode(constraint, SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT);
+            AttributeWriter.setNamedSBaseAttributes(network, n, constraint);
+            if (!constraint.isSetName() && !constraint.isSetId()) {
+                AttributeUtil.set(network, n, SBML.LABEL, USER_DEFINED_CONSTRAINT_LABEL, String.class);
+            }
+            if (constraint.isSetLowerBound()) {
+                AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_BOUND, constraint.getLowerBound(), String.class);
+                createReferenceEdge(
+                        context,
+                        constraint.getLowerBound(),
+                        n,
+                        SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT,
+                        constraint);
+            }
+            if (constraint.isSetUpperBound()) {
+                AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_BOUND, constraint.getUpperBound(), String.class);
+                createReferenceEdge(
+                        context,
+                        constraint.getUpperBound(),
+                        n,
+                        SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT,
+                        constraint);
+            }
+            for (UserDefinedConstraintComponent component : constraint.getListOfUserDefinedConstraintComponents()) {
+                for (String variable : componentVariables(component)) {
+                    CyEdge edge = createReferenceEdge(
+                            context, variable, n, SBML.INTERACTION_FBC_VARIABLE_USER_DEFINED_CONSTRAINT, component);
+                    if (edge == null) {
+                        continue;
+                    }
+                    if (component.isSetCoefficient()) {
+                        AttributeUtil.set(
+                                network, edge, SBML.ATTR_FBC_COEFFICIENT, component.getCoefficient(), String.class);
+                    }
+                    if (component.isSetVariableType()) {
+                        AttributeUtil.set(
+                                network,
+                                edge,
+                                SBML.ATTR_FBC_VARIABLE_TYPE,
+                                component.getVariableType().toString(),
+                                String.class);
+                    }
+                }
+            }
+        }
+    }
+
+    /** The variable and the second variable of the component, those that are set. */
+    private static List<String> componentVariables(UserDefinedConstraintComponent component) {
+        List<String> variables = new ArrayList<>(2);
+        if (component.isSetVariable()) {
+            variables.add(component.getVariable());
+        }
+        if (component.isSetVariable2()) {
+            variables.add(component.getVariable2());
+        }
+        return variables;
+    }
+
+    /**
+     * Creates the edge from the node of the element with the SId to the target node, or
+     * logs and returns null if there is no such node (a missing element, or one without
+     * node).
+     */
+    private static CyEdge createReferenceEdge(
+            ConversionContext context, String sid, CyNode target, String interaction, SBase element) {
+        CyNode source = context.nodeById(sid).orElse(null);
+        if (source == null || target == null) {
+            logger.warn("No edge {} from '{}' to {}: the element has no node.", interaction, sid, element);
+            return null;
+        }
+        return context.createEdge(source, target, interaction);
     }
 
     /**
