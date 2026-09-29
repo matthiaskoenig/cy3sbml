@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import org.cy3sbml.archive.ArchiveImport;
+import org.cy3sbml.archive.ArchiveInfo;
 import org.cy3sbml.comp.CompModels;
 import org.cy3sbml.comp.ModelResolution;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -225,5 +229,49 @@ public class SBMLManagerTest {
         ModelResolution.Resolved restored =
                 (ModelResolution.Resolved) resolver.models().resolve(document, "ext");
         assertSame(external.model(), restored.model());
+    }
+
+    private static final ArchiveImport ARCHIVE = new ArchiveImport(
+            new ArchiveInfo(
+                    "a.omex",
+                    "",
+                    "",
+                    List.of(),
+                    List.of(new ArchiveInfo.Entry(
+                            "model.xml", "http://identifiers.org/combine.specifications/sbml", true))),
+            "model.xml");
+
+    @Test
+    public void archiveOfADocument() {
+        SBMLDocument other = new SBMLDocument(3, 1);
+        manager.addSBMLForNetwork(DOC, SUID, MAPPING);
+        manager.addSBMLForNetwork(other, 456L, MAPPING);
+        manager.addArchive(SUID, ARCHIVE);
+
+        assertEquals(Optional.of(ARCHIVE), manager.getArchive(SUID));
+        assertEquals(Optional.of(ARCHIVE), manager.getArchive(DOC));
+        assertEquals(Optional.empty(), manager.getArchive(other));
+        assertEquals(Map.of(SUID, ARCHIVE), manager.getArchives());
+    }
+
+    @Test
+    public void archiveIsRemovedWithTheDocument() {
+        CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+        manager.addSBMLForNetwork(DOC, rootSUID, MAPPING);
+        manager.addArchive(rootSUID, ARCHIVE);
+
+        manager.removeSBMLForNetwork(network);
+
+        assertEquals(Optional.empty(), manager.getArchive(rootSUID));
+    }
+
+    @Test
+    public void setArchivesReplacesTheArchives() {
+        manager.addArchive(SUID, ARCHIVE);
+
+        manager.setArchives(Map.of(456L, ARCHIVE));
+
+        assertEquals(Map.of(456L, ARCHIVE), manager.getArchives());
     }
 }

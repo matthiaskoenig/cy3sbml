@@ -100,6 +100,9 @@ public class SBML {
     public static final String ATTR_FBC_UPPER_FLUX_BOUND = "fbc_upperFluxBound";
     public static final String ATTR_FBC_OBJECTIVE_TEMPLATE = "fbc_objective-%1$s";
 
+    // COMBINE archive: the name of the archive a network collection was read from
+    public static final String ATTR_ARCHIVE = "archive";
+
     // distrib: the summary and the number of the uncertainties of an element
     public static final String ATTR_DISTRIB_UNCERTAINTY = "distrib_uncertainty";
     public static final String ATTR_DISTRIB_UNCERTAINTY_COUNT = "distrib_uncertaintyCount";

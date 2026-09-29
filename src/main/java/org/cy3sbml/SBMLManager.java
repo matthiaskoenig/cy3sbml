@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.comp.CompModels;
 import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -64,6 +66,9 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     /**
      * Constructor.
      */
+    // the COMBINE archives the documents were imported from, by root network SUID
+    private final Map<Long, ArchiveImport> archives = new ConcurrentHashMap<>();
+
     // resolvers of the comp references of the read documents, which know the external
     // documents read; not part of the session
     private final List<SBaseRefResolver> sBaseRefResolvers = new CopyOnWriteArrayList<>();
@@ -123,6 +128,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
         if (subnetworks.size() == 1) {
             network2sbml.removeDocument(rootSUID);
+            archives.remove(rootSUID);
             removeUnusedResolvers();
             logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
             return true;
@@ -132,6 +138,37 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
                     rootSUID, subnetworks.size()));
             return false;
         }
+    }
+
+    /** Registers the COMBINE archive the document of the root network was imported from. */
+    public void addArchive(Long rootNetworkSUID, ArchiveImport archive) {
+        archives.put(rootNetworkSUID, archive);
+    }
+
+    /** The COMBINE archive the document of the root network was imported from. */
+    public Optional<ArchiveImport> getArchive(Long rootNetworkSUID) {
+        return Optional.ofNullable(archives.get(rootNetworkSUID));
+    }
+
+    /** The COMBINE archive the document was imported from. */
+    public Optional<ArchiveImport> getArchive(SBMLDocument document) {
+        for (Map.Entry<Long, SBMLDocument> entry : network2sbml.getDocumentMap().entrySet()) {
+            if (entry.getValue() == document) {
+                return getArchive(entry.getKey());
+            }
+        }
+        return Optional.empty();
+    }
+
+    /** The archives by root network SUID, for the session. */
+    public Map<Long, ArchiveImport> getArchives() {
+        return Map.copyOf(archives);
+    }
+
+    /** Replaces the archives, on session restore. */
+    public void setArchives(Map<Long, ArchiveImport> archives) {
+        this.archives.clear();
+        this.archives.putAll(archives);
     }
 
     /**

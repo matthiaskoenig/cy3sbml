@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
+import org.cy3sbml.archive.ArchiveDirectories;
+import org.cy3sbml.archive.CombineArchiveFileFilter;
+import org.cy3sbml.archive.CombineArchiveReaderTaskFactory;
 import org.cy3sbml.biomodel.BiomodelLoader;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.biomodel.BiomodelsQuery;
@@ -100,6 +103,8 @@ public class CyActivator extends AbstractCyActivator {
             File appDirectory, ServiceAdapter adapter, SBMLManager sbmlManager, CofactorManager cofactorManager) {}
 
     private WebViewPanel webViewPanel;
+    // the directories the COMBINE archives are unpacked into, deleted in shutDown
+    private volatile ArchiveDirectories archiveDirectories;
 
     public CyActivator() {
         super();
@@ -274,6 +279,15 @@ public class CyActivator extends AbstractCyActivator {
         sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
         sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
         registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
+
+        // COMBINE archive (OMEX) reader: imports the SBML models of the archive (#116)
+        archiveDirectories = ArchiveDirectories.temporary();
+        CombineArchiveReaderTaskFactory archiveReaderTaskFactory = new CombineArchiveReaderTaskFactory(
+                new CombineArchiveFileFilter(streamUtil), adapter, sbmlManager, archiveDirectories);
+        Properties archiveReaderProps = new Properties();
+        archiveReaderProps.setProperty("readerDescription", "COMBINE archive reader (cy3sbml)");
+        archiveReaderProps.setProperty("readerId", "cy3sbmlArchiveReader");
+        registerAllServices(bc, archiveReaderTaskFactory, archiveReaderProps);
 
         Log.logger.info("cy3sbml core services and SBML reader registered");
 
@@ -460,6 +474,9 @@ public class CyActivator extends AbstractCyActivator {
     public void shutDown() {
         if (webViewPanel != null) {
             webViewPanel.close();
+        }
+        if (archiveDirectories != null) {
+            archiveDirectories.deleteAll();
         }
         super.shutDown();
     }

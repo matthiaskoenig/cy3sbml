@@ -18,6 +18,8 @@
             <!-- unittests/small_population.xml: the copy of a Watanabe2014 model without its
                  external file represCirc.xml -->
             <message>The file .*/models/unittests/represCirc\.xml does not exist\.</message>
+            <!-- CombineArchiveReaderTaskTest: an archive without SBML -->
+            <message>The archive no_sbml\.omex contains no SBML file\.</message>
         </filter>
         <encoder>
             <pattern>%-5level \(%logger{36}\) - %msg%n</pattern>
