@@ -121,7 +121,7 @@ final class LayoutNetworkBuilder {
         // glyph nodes by glyph id, glyph ids are unique in a layout
         private final Map<String, CyNode> glyphNodes = new HashMap<>();
         // glyph nodes by glyph instance, also of the glyphs without id
-        private final Map<GraphicalObject, CyNode> nodeOfGlyph = new IdentityHashMap<>();
+        private final IdentityHashMap<GraphicalObject, CyNode> nodeOfGlyph = new IdentityHashMap<>();
         // the glyph nodes of every represented node of the network of the model
         private final Map<CyNode, List<CyNode>> glyphsOfNode = new LinkedHashMap<>();
         // the represented node of the network of the model of every glyph node
