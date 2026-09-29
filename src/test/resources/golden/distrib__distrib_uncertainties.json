@@ -1,0 +1,861 @@
+{
+  "networks" : [
+    {
+      "name" : "All__distrib_uncertainties",
+      "nodeCount" : 16,
+      "edgeCount" : 22,
+      "attributes" : {
+        "label" : "distrib uncertainties",
+        "name" : "All__distrib_uncertainties",
+        "sbml id" : "distrib_uncertainties",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V2",
+        "shared name" : "distrib uncertainties"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "C",
+          "derivedUnits" : "litre",
+          "distrib_uncertainty" : "standardDeviation=0.1 litre",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "units" : "litre",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "median=1.5",
+          "distrib_uncertaintyCount" : 1,
+          "kineticLaw" : "k1*J0_kl*S1",
+          "label" : "J0",
+          "metaId" : "J0",
+          "reversible" : false,
+          "sbml id" : "J0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "J0_kl",
+          "derivedUnits" : "dimensionless",
+          "distrib_uncertainty" : "interquartileRange=[0.1, ?]",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "J0_kl",
+          "metaId" : "J0_kl",
+          "sbml id" : "J0_kl",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "units" : "dimensionless",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "distrib_uncertainty" : "u_S1_a: mean=4.2; variance=0.3 | u_S1_b: confidenceInterval=[3.5, 4.9]",
+          "distrib_uncertaintyCount" : 2,
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 4.2,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 4.2
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "sbml compartment" : "C",
+          "sbml id" : "S2",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "UnitSId__DIMENSIONLESS",
+          "exponent" : 1.0,
+          "kind" : "DIMENSIONLESS",
+          "label" : "DIMENSIONLESS",
+          "metaId" : "UnitSId__DIMENSIONLESS",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__LITRE",
+          "exponent" : 1.0,
+          "kind" : "LITRE",
+          "label" : "LITRE",
+          "metaId" : "UnitSId__LITRE",
+          "multiplier" : 1.0,
+          "sbml type" : "unit",
+          "sbml type ext" : "unit",
+          "scale" : 0
+        },
+        {
+          "cyId" : "UnitSId__dimensionless_base",
+          "label" : "dimensionless_base",
+          "metaId" : "UnitSId__dimensionless_base",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "dimensionless_base"
+        },
+        {
+          "cyId" : "UnitSId__litre_base",
+          "label" : "litre_base",
+          "metaId" : "UnitSId__litre_base",
+          "sbml type" : "unitDefinition",
+          "sbml type ext" : "unitDefinition",
+          "unitSid" : "litre_base"
+        },
+        {
+          "cyId" : "assignment__p_ia",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "coefficientOfVariation=0.05",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "assignment__p_ia",
+          "math" : "2*k1",
+          "metaId" : "assignment__p_ia",
+          "sbml type" : "initialAssignment",
+          "sbml type ext" : "initialAssignment",
+          "variable" : "p_ia"
+        },
+        {
+          "constant" : true,
+          "cyId" : "k1",
+          "derivedUnits" : "dimensionless",
+          "distrib_uncertainty" : "standardDeviation=sd_k1; range=[sd_k1, 10.0]; distribution=normal(1, sd_k1) (skew=0.1)",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "k1",
+          "metaId" : "k1",
+          "sbml id" : "k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "law__J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "externalParameter=http://www.uncertml.org/distributions/normal",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "J0",
+          "math" : "k1*J0_kl*S1",
+          "metaId" : "law__J0",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : true,
+          "cyId" : "p_ia",
+          "derivedUnits" : "dimensionless",
+          "initialAssignment" : "2*k1",
+          "label" : "p_ia",
+          "metaId" : "p_ia",
+          "sbml id" : "p_ia",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "p_rule",
+          "derivedUnits" : "dimensionless",
+          "label" : "p_rule",
+          "metaId" : "p_rule",
+          "sbml id" : "p_rule",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "rule__p_rule",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "coefficientOfVariation=0.05",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "<p_rule>",
+          "math" : "k1*S1",
+          "metaId" : "rule__p_rule",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "p_rule"
+        },
+        {
+          "constant" : true,
+          "cyId" : "sd_k1",
+          "derivedUnits" : "dimensionless",
+          "label" : "sd_k1",
+          "metaId" : "sd_k1",
+          "sbml id" : "sd_k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.2
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "C",
+          "target" : "UnitSId__litre_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "distrib_uncertainty" : "standardDeviation=0.5",
+            "distrib_uncertaintyCount" : 1,
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "distrib_uncertainty" : "mean=1.0",
+            "distrib_uncertaintyCount" : 1,
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "J0_kl",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "J0_kl",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "J0_kl",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "UnitSId__DIMENSIONLESS",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "UnitSId__LITRE",
+          "target" : "UnitSId__litre_base",
+          "directed" : true,
+          "interaction" : "unit_unitDefinition",
+          "attributes" : {
+            "interaction type" : "unit_unitDefinition",
+            "shared interaction" : "unit_unitDefinition"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "assignment__p_ia",
+          "directed" : true,
+          "interaction" : "reference_initialAssignment",
+          "attributes" : {
+            "interaction type" : "reference_initialAssignment",
+            "shared interaction" : "reference_initialAssignment"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "p_ia",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "p_ia",
+          "target" : "assignment__p_ia",
+          "directed" : true,
+          "interaction" : "variable_initialAssignment",
+          "attributes" : {
+            "interaction type" : "variable_initialAssignment",
+            "shared interaction" : "variable_initialAssignment"
+          }
+        },
+        {
+          "source" : "p_rule",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        },
+        {
+          "source" : "p_rule",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        },
+        {
+          "source" : "sd_k1",
+          "target" : "UnitSId__dimensionless_base",
+          "directed" : true,
+          "interaction" : "sbase_unitDefinition",
+          "attributes" : {
+            "interaction type" : "sbase_unitDefinition",
+            "shared interaction" : "sbase_unitDefinition"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__distrib_uncertainties",
+      "nodeCount" : 12,
+      "edgeCount" : 14,
+      "attributes" : {
+        "name" : "Kinetic__distrib_uncertainties"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "C",
+          "derivedUnits" : "litre",
+          "distrib_uncertainty" : "standardDeviation=0.1 litre",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "units" : "litre",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "median=1.5",
+          "distrib_uncertaintyCount" : 1,
+          "kineticLaw" : "k1*J0_kl*S1",
+          "label" : "J0",
+          "metaId" : "J0",
+          "reversible" : false,
+          "sbml id" : "J0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "J0_kl",
+          "derivedUnits" : "dimensionless",
+          "distrib_uncertainty" : "interquartileRange=[0.1, ?]",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "J0_kl",
+          "metaId" : "J0_kl",
+          "sbml id" : "J0_kl",
+          "sbml type" : "localParameter",
+          "sbml type ext" : "localParameter",
+          "units" : "dimensionless",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "distrib_uncertainty" : "u_S1_a: mean=4.2; variance=0.3 | u_S1_b: confidenceInterval=[3.5, 4.9]",
+          "distrib_uncertaintyCount" : 2,
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 4.2,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 4.2
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "sbml compartment" : "C",
+          "sbml id" : "S2",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "assignment__p_ia",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "coefficientOfVariation=0.05",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "assignment__p_ia",
+          "math" : "2*k1",
+          "metaId" : "assignment__p_ia",
+          "sbml type" : "initialAssignment",
+          "sbml type ext" : "initialAssignment",
+          "variable" : "p_ia"
+        },
+        {
+          "constant" : true,
+          "cyId" : "k1",
+          "derivedUnits" : "dimensionless",
+          "distrib_uncertainty" : "standardDeviation=sd_k1; range=[sd_k1, 10.0]; distribution=normal(1, sd_k1) (skew=0.1)",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "k1",
+          "metaId" : "k1",
+          "sbml id" : "k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 1.0
+        },
+        {
+          "cyId" : "law__J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "externalParameter=http://www.uncertml.org/distributions/normal",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "J0",
+          "math" : "k1*J0_kl*S1",
+          "metaId" : "law__J0",
+          "sbml type" : "kineticLaw",
+          "sbml type ext" : "kineticLaw"
+        },
+        {
+          "constant" : true,
+          "cyId" : "p_ia",
+          "derivedUnits" : "dimensionless",
+          "initialAssignment" : "2*k1",
+          "label" : "p_ia",
+          "metaId" : "p_ia",
+          "sbml id" : "p_ia",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.0
+        },
+        {
+          "constant" : false,
+          "cyId" : "p_rule",
+          "derivedUnits" : "dimensionless",
+          "label" : "p_rule",
+          "metaId" : "p_rule",
+          "sbml id" : "p_rule",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "rule__p_rule",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "coefficientOfVariation=0.05",
+          "distrib_uncertaintyCount" : 1,
+          "label" : "<p_rule>",
+          "math" : "k1*S1",
+          "metaId" : "rule__p_rule",
+          "sbml type" : "assignmentRule",
+          "sbml type ext" : "assignmentRule",
+          "variable" : "p_rule"
+        },
+        {
+          "constant" : true,
+          "cyId" : "sd_k1",
+          "derivedUnits" : "dimensionless",
+          "label" : "sd_k1",
+          "metaId" : "sd_k1",
+          "sbml id" : "sd_k1",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "units" : "dimensionless",
+          "value" : 0.2
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "J0",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "distrib_uncertainty" : "standardDeviation=0.5",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "distrib_uncertainty" : "mean=1.0",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reaction_kineticLaw",
+          "attributes" : {
+            "interaction" : "reaction_kineticLaw",
+            "interaction type" : "reaction_kineticLaw",
+            "shared interaction" : "reaction_kineticLaw"
+          }
+        },
+        {
+          "source" : "J0_kl",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "localParameter_kineticLaw",
+          "attributes" : {
+            "interaction" : "localParameter_kineticLaw",
+            "interaction type" : "localParameter_kineticLaw",
+            "shared interaction" : "localParameter_kineticLaw"
+          }
+        },
+        {
+          "source" : "J0_kl",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "S1",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "S2",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "assignment__p_ia",
+          "directed" : true,
+          "interaction" : "reference_initialAssignment",
+          "attributes" : {
+            "interaction" : "reference_initialAssignment",
+            "interaction type" : "reference_initialAssignment",
+            "shared interaction" : "reference_initialAssignment"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "law__J0",
+          "directed" : true,
+          "interaction" : "reference_kineticLaw",
+          "attributes" : {
+            "interaction" : "reference_kineticLaw",
+            "interaction type" : "reference_kineticLaw",
+            "shared interaction" : "reference_kineticLaw"
+          }
+        },
+        {
+          "source" : "k1",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "reference_rule",
+          "attributes" : {
+            "interaction" : "reference_rule",
+            "interaction type" : "reference_rule",
+            "shared interaction" : "reference_rule"
+          }
+        },
+        {
+          "source" : "p_ia",
+          "target" : "assignment__p_ia",
+          "directed" : true,
+          "interaction" : "variable_initialAssignment",
+          "attributes" : {
+            "interaction" : "variable_initialAssignment",
+            "interaction type" : "variable_initialAssignment",
+            "shared interaction" : "variable_initialAssignment"
+          }
+        },
+        {
+          "source" : "p_rule",
+          "target" : "rule__p_rule",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "distrib_uncertainties",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "distrib_uncertainties"
+      },
+      "nodes" : [
+        {
+          "cyId" : "J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "median=1.5",
+          "distrib_uncertaintyCount" : 1,
+          "kineticLaw" : "k1*J0_kl*S1",
+          "label" : "J0",
+          "metaId" : "J0",
+          "reversible" : false,
+          "sbml id" : "J0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "distrib_uncertainty" : "u_S1_a: mean=4.2; variance=0.3 | u_S1_b: confidenceInterval=[3.5, 4.9]",
+          "distrib_uncertaintyCount" : 2,
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 4.2,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 4.2
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "sbml compartment" : "C",
+          "sbml id" : "S2",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "J0",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "distrib_uncertainty" : "standardDeviation=0.5",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "distrib_uncertainty" : "mean=1.0",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "groups" : [ ]
+}

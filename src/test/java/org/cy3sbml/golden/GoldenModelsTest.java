@@ -73,6 +73,9 @@ public class GoldenModelsTest {
             // layout
             "layout/hsa00450_L3V1_layoutV1.xml",
             "layout/sce03040_L3V1_qualV1_layoutV1.xml",
+            // distrib: uncertainties, distribution functions in math
+            "distrib/distrib_uncertainties.xml",
+            "sbml-test-suite/stochastic/00091/00091-sbml-l3v2.xml",
             // koenig
             "koenig/Koenig_demo_v02.xml",
             "koenig/van_der_pol.xml",

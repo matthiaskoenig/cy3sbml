@@ -1,0 +1,316 @@
+{
+  "networks" : [
+    {
+      "name" : "All__doc0",
+      "nodeCount" : 8,
+      "edgeCount" : 8,
+      "attributes" : {
+        "label" : "doc0",
+        "metaId" : "doc0",
+        "name" : "All__doc0",
+        "sbml id" : "doc0",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V2"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "C",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "cyId" : "E0",
+          "derivedUnits" : "",
+          "label" : "E0",
+          "math" : "t >= 0.5",
+          "metaId" : "E0",
+          "sbml id" : "E0",
+          "sbml type" : "event",
+          "sbml type ext" : "event",
+          "useValuesFromTriggerTime" : true
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "X",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "X",
+          "metaId" : "X",
+          "sbml compartment" : "C",
+          "sbml id" : "X",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "event_",
+          "derivedUnits" : "invalid",
+          "label" : "X",
+          "math" : "normal(mean, (1.5)^(0.5))",
+          "metaId" : "event_",
+          "sbml type" : "eventAssignment",
+          "sbml type ext" : "eventAssignment",
+          "variable" : "X"
+        },
+        {
+          "cyId" : "event_0",
+          "derivedUnits" : "invalid",
+          "label" : "t",
+          "math" : "-0.5",
+          "metaId" : "event_0",
+          "sbml type" : "eventAssignment",
+          "sbml type ext" : "eventAssignment",
+          "variable" : "t"
+        },
+        {
+          "constant" : true,
+          "cyId" : "mean",
+          "derivedUnits" : "",
+          "label" : "mean",
+          "metaId" : "mean",
+          "sbml id" : "mean",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "rule__t",
+          "derivedUnits" : "invalid",
+          "label" : "<d/dt t>",
+          "math" : "1",
+          "metaId" : "rule__t",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "t"
+        },
+        {
+          "constant" : false,
+          "cyId" : "t",
+          "derivedUnits" : "",
+          "label" : "t",
+          "metaId" : "t",
+          "sbml id" : "t",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "E0",
+          "target" : "event_",
+          "directed" : true,
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "E0",
+          "target" : "event_0",
+          "directed" : true,
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "X",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "X",
+          "target" : "event_",
+          "directed" : true,
+          "interaction" : "variable_eventAssignment",
+          "attributes" : {
+            "interaction type" : "variable_eventAssignment",
+            "shared interaction" : "variable_eventAssignment"
+          }
+        },
+        {
+          "source" : "mean",
+          "target" : "event_",
+          "directed" : true,
+          "interaction" : "reference_eventAssignment",
+          "attributes" : {
+            "interaction type" : "reference_eventAssignment",
+            "shared interaction" : "reference_eventAssignment"
+          }
+        },
+        {
+          "source" : "t",
+          "target" : "E0",
+          "directed" : true,
+          "interaction" : "trigger_event",
+          "attributes" : {
+            "interaction type" : "trigger_event",
+            "shared interaction" : "trigger_event"
+          }
+        },
+        {
+          "source" : "t",
+          "target" : "event_0",
+          "directed" : true,
+          "interaction" : "variable_eventAssignment",
+          "attributes" : {
+            "interaction type" : "variable_eventAssignment",
+            "shared interaction" : "variable_eventAssignment"
+          }
+        },
+        {
+          "source" : "t",
+          "target" : "rule__t",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Kinetic__doc0",
+      "nodeCount" : 5,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "Kinetic__doc0"
+      },
+      "nodes" : [
+        {
+          "constant" : true,
+          "cyId" : "C",
+          "derivedUnits" : "",
+          "label" : "C",
+          "metaId" : "C",
+          "sbml id" : "C",
+          "sbml type" : "compartment",
+          "sbml type ext" : "compartment",
+          "size" : 1.0,
+          "spatialDimensions" : 3.0,
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "X",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "X",
+          "metaId" : "X",
+          "sbml compartment" : "C",
+          "sbml id" : "X",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "constant" : true,
+          "cyId" : "mean",
+          "derivedUnits" : "",
+          "label" : "mean",
+          "metaId" : "mean",
+          "sbml id" : "mean",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "rule__t",
+          "derivedUnits" : "invalid",
+          "label" : "<d/dt t>",
+          "math" : "1",
+          "metaId" : "rule__t",
+          "sbml type" : "rateRule",
+          "sbml type ext" : "rateRule",
+          "variable" : "t"
+        },
+        {
+          "constant" : false,
+          "cyId" : "t",
+          "derivedUnits" : "",
+          "label" : "t",
+          "metaId" : "t",
+          "sbml id" : "t",
+          "sbml type" : "parameter",
+          "sbml type ext" : "parameter",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "X",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "species_compartment",
+          "attributes" : {
+            "interaction" : "species_compartment",
+            "interaction type" : "species_compartment",
+            "shared interaction" : "species_compartment"
+          }
+        },
+        {
+          "source" : "t",
+          "target" : "rule__t",
+          "directed" : true,
+          "interaction" : "variable_rule",
+          "attributes" : {
+            "interaction" : "variable_rule",
+            "interaction type" : "variable_rule",
+            "shared interaction" : "variable_rule"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "doc0",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "doc0"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "X",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "X",
+          "metaId" : "X",
+          "sbml compartment" : "C",
+          "sbml id" : "X",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [ ]
+    }
+  ],
+  "groups" : [ ]
+}
