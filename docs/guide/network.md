@@ -109,7 +109,7 @@ These columns are set on nodes, when the SBML object has the value:
 | `constant`, `value`, `units`, `derivedUnits` | attributes of quantities |
 | `size`, `spatialDimensions` | compartment attributes |
 | `reversible`, `fast`, `kineticLaw` | reaction attributes; `kineticLaw` holds the formula |
-| `math` | formula of rules, assignments, kinetic laws and function definitions |
+| `math` | formula of rules, assignments, kinetic laws and function definitions, with the inline units of numbers after the number (`1 dimensionless`) |
 | `variable` | variable of a rule or assignment |
 | `stoichiometry` | stoichiometry, on reactant and product edges |
 | `sbml id`, `shared name`, `metaId`, `sbo` | on reactant, product and modifier edges: the attributes of the species reference |

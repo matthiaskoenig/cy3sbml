@@ -42,4 +42,12 @@ public class ASTNodeUtil {
         }
         return nsbSet;
     }
+
+    /**
+     * Infix formula of the math, with the inline units of numbers ({@link UnitsFormulaCompiler}).
+     * Use this instead of {@link ASTNode#toFormula()}, which drops the units.
+     */
+    public static String toFormula(ASTNode astNode) {
+        return astNode.toFormula(new UnitsFormulaCompiler());
+    }
 }

@@ -111,7 +111,7 @@ public final class DistribUtil {
             return parameter.isSetUnits() ? value + " " + parameter.getUnits() : value;
         }
         if (parameter.isSetMath()) {
-            return parameter.getMath().toFormula();
+            return ASTNodeUtil.toFormula(parameter.getMath());
         }
         return parameter.isSetDefinitionURL() ? parameter.getDefinitionURL() : null;
     }

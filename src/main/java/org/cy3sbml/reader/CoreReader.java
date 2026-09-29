@@ -2,6 +2,7 @@ package org.cy3sbml.reader;
 
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
+import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.MappingUtil;
 import org.cy3sbml.util.SBMLUtil;
@@ -325,7 +326,7 @@ final class CoreReader implements PackageReader {
                 if (law.isSetMath()) {
                     // set math on reaction
                     AttributeUtil.set(
-                            network, n, SBML.ATTR_KINETIC_LAW, law.getMath().toFormula(), String.class);
+                            network, n, SBML.ATTR_KINETIC_LAW, ASTNodeUtil.toFormula(law.getMath()), String.class);
                     MathGraphBuilder.createMathNetwork(context, law, lawNode, SBML.INTERACTION_REFERENCE_KINETICLAW);
                 } else {
                     logger.warn(String.format("No math set for kinetic law in reaction: %s", reaction.getId()));
@@ -351,7 +352,11 @@ final class CoreReader implements PackageReader {
                     if (assignment.isSetMath()) {
                         ASTNode astNode = assignment.getMath();
                         AttributeUtil.set(
-                                network, variableNode, SBML.ATTR_INITIAL_ASSIGNMENT, astNode.toFormula(), String.class);
+                                network,
+                                variableNode,
+                                SBML.ATTR_INITIAL_ASSIGNMENT,
+                                ASTNodeUtil.toFormula(astNode),
+                                String.class);
                     }
                 } else {
                     logMissingVariableNode(variable, assignment);
