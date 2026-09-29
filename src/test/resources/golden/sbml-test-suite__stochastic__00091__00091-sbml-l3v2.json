@@ -10,6 +10,7 @@
         "name" : "doc0",
         "sbml id" : "doc0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
@@ -42,6 +43,7 @@
         "name" : "doc0__all",
         "sbml id" : "doc0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
@@ -231,6 +233,7 @@
         "name" : "doc0__kinetic",
         "sbml id" : "doc0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V2"
       },
       "nodes" : [

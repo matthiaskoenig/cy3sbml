@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import org.cy3sbml.SBML;
+import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyColumn;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -58,6 +59,10 @@ final class SubnetworkBuilder {
         // the model attributes are written to the network with all nodes
         copyNetworkAttributes(network, kineticNetwork);
         copyNetworkAttributes(network, baseNetwork);
+        // the kind of each network, which does not depend on the (possibly renamed) name
+        AttributeUtil.set(network, network, SBML.SUBNETWORK_ATTR, SBML.SUBNETWORK_ALL, String.class);
+        AttributeUtil.set(kineticNetwork, kineticNetwork, SBML.SUBNETWORK_ATTR, SBML.SUBNETWORK_KINETIC, String.class);
+        AttributeUtil.set(baseNetwork, baseNetwork, SBML.SUBNETWORK_ATTR, SBML.SUBNETWORK_BASE, String.class);
 
         // every network has its own groups (#171)
         groups.accept(baseNetwork);

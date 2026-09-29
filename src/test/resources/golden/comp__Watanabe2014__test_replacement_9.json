@@ -10,6 +10,7 @@
         "name" : "Flat__testHier",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -6699,6 +6700,7 @@
         "name" : "Flat__testHier__all",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -31580,6 +31582,7 @@
         "name" : "Flat__testHier__kinetic",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -54551,6 +54554,7 @@
         "name" : "Flat__testHier__layout_C1__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -55721,6 +55725,7 @@
         "name" : "Flat__testHier__layout_C2__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -56891,6 +56896,7 @@
         "name" : "Flat__testHier__layout_C3__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -58061,6 +58067,7 @@
         "name" : "Flat__testHier__layout_C4__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -59231,6 +59238,7 @@
         "name" : "Flat__testHier__layout_C5__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -60169,6 +60177,7 @@
         "name" : "Flat__testHier__layout_C6__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -61339,6 +61348,7 @@
         "name" : "Flat__testHier__layout_C7__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -62509,6 +62519,7 @@
         "name" : "Flat__testHier__layout_C8__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -63679,6 +63690,7 @@
         "name" : "Flat__testHier__layout_C9__iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -64849,6 +64861,7 @@
         "name" : "Flat__testHier__layout_iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -65494,6 +65507,7 @@
         "name" : "repressilator",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"
@@ -66286,6 +66300,7 @@
         "name" : "repressilator__all",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "Created by iBioSim flatten routine",
         "substanceUnits" : "mole",
@@ -69252,6 +69267,7 @@
         "name" : "repressilator__kinetic",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"
@@ -71978,6 +71994,7 @@
         "name" : "repressilator__layout_iBioSim",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"
@@ -72922,6 +72939,7 @@
         "name" : "testHier",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -72980,6 +72998,7 @@
         "name" : "testHier__all",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -73731,6 +73750,7 @@
         "name" : "testHier__kinetic",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -74229,6 +74249,7 @@
         "name" : "testHier__layout_iBioSim",
         "sbml id" : "testHier",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

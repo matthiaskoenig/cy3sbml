@@ -15,8 +15,11 @@ import org.cy3sbml.biomodel.BiomodelsQuery;
 import org.cy3sbml.biomodel.SearchBioModel;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.commands.CommandServices;
+import org.cy3sbml.commands.Commands;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.cy3sbml.gui.WebViewPanel;
+import org.cy3sbml.layout.LayoutTools;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.reader.JsbmlSetup;
@@ -43,6 +46,7 @@ import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
 import org.cytoscape.task.read.LoadNetworkFileTaskFactory;
+import org.cytoscape.task.read.LoadNetworkURLTaskFactory;
 import org.cytoscape.task.read.LoadVizmapFileTaskFactory;
 import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -54,6 +58,8 @@ import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
+import org.cytoscape.work.SynchronousTaskManager;
+import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.osgi.framework.Bundle;
@@ -104,7 +110,12 @@ public class CyActivator extends AbstractCyActivator {
      * The services built by {@link #startCore} that the optional GUI phase needs.
      */
     private record CoreServices(
-            File appDirectory, ServiceAdapter adapter, SBMLManager sbmlManager, CofactorManager cofactorManager) {}
+            File appDirectory,
+            ServiceAdapter adapter,
+            SBMLManager sbmlManager,
+            CofactorManager cofactorManager,
+            BiomodelsQuery biomodelsQuery,
+            BiomodelLoader biomodelLoader) {}
 
     private WebViewPanel webViewPanel;
     // the directories the COMBINE archives are unpacked into, deleted in shutDown
@@ -294,9 +305,32 @@ public class CyActivator extends AbstractCyActivator {
         archiveReaderProps.setProperty("readerId", "cy3sbmlArchiveReader");
         registerAllServices(bc, archiveReaderTaskFactory, archiveReaderProps);
 
-        Log.logger.info("cy3sbml core services and SBML reader registered");
+        // BioModels search and download, used by the commands and the BioModels dialog
+        BiomodelsQuery biomodelsQuery = BiomodelsQuery.createDefault();
+        BiomodelLoader biomodelLoader = new BiomodelLoader(
+                biomodelsQuery, appDirectory.toPath().resolve("biomodels"), loadNetworkFileTaskFactory);
 
-        return new CoreServices(appDirectory, adapter, sbmlManager, cofactorManager);
+        // automation commands (namespace cy3sbml, CyREST /v1/commands/cy3sbml/...), #18
+        CommandServices commandServices = new CommandServices(
+                cyApplicationManager,
+                cyNetworkManager,
+                cyNetworkViewManager,
+                visualMappingManager,
+                loadNetworkFileTaskFactory,
+                getService(bc, LoadNetworkURLTaskFactory.class),
+                getService(bc, SynchronousTaskManager.class),
+                sbmlManager,
+                cofactorManager,
+                biomodelsQuery,
+                biomodelLoader,
+                new LayoutTools(adapter));
+        for (Commands.Command command : Commands.create(commandServices)) {
+            registerService(bc, command.factory(), TaskFactory.class, command.properties());
+        }
+
+        Log.logger.info("cy3sbml core services, SBML reader and commands registered");
+
+        return new CoreServices(appDirectory, adapter, sbmlManager, cofactorManager, biomodelsQuery, biomodelLoader);
     }
 
     /**
@@ -419,11 +453,8 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
             // BioModels search and import dialog
-            BiomodelsQuery biomodelsQuery = new BiomodelsQuery(httpJson, BiomodelsQuery.BIOMODELS_URL);
-            BiomodelLoader biomodelLoader = new BiomodelLoader(
-                    biomodelsQuery,
-                    adapter.cy3sbmlDirectory.toPath().resolve("biomodels"),
-                    adapter.loadNetworkFileTaskFactory);
+            BiomodelsQuery biomodelsQuery = core.biomodelsQuery();
+            BiomodelLoader biomodelLoader = core.biomodelLoader();
             BiomodelsDialog biomodelsDialog = new BiomodelsDialog(
                     adapter.cySwingApplication.getJFrame(),
                     new SearchBioModel(biomodelsQuery),

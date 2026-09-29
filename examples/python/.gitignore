@@ -1,0 +1,5 @@
+.venv/
+# py4cytoscape log files
+logs/
+# images and files written by the examples
+results/

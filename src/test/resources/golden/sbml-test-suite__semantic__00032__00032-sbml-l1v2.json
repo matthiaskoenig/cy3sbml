@@ -9,6 +9,7 @@
         "name" : "case00032",
         "sbml id" : "case00032",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L1 V2"
       },
       "nodes" : [
@@ -56,6 +57,7 @@
         "name" : "case00032__all",
         "sbml id" : "case00032",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L1 V2",
         "shared name" : "case00032"
       },
@@ -255,6 +257,7 @@
         "name" : "case00032__kinetic",
         "sbml id" : "case00032",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L1 V2"
       },
       "nodes" : [

@@ -23,6 +23,14 @@ public class SBML {
     public static final String NETWORKTYPE_SBML = "sbml";
     public static final String NETWORKTYPE_LAYOUT = "sbmlLayout";
 
+    // the kind of network of a model (column of the network table): the base, kinetic, all
+    // or a layout network, see the SUFFIX_SUBNETWORK_* name suffixes
+    public static final String SUBNETWORK_ATTR = "sbmlSubnetwork";
+    public static final String SUBNETWORK_BASE = "base";
+    public static final String SUBNETWORK_KINETIC = "kinetic";
+    public static final String SUBNETWORK_ALL = "all";
+    public static final String SUBNETWORK_LAYOUT = "layout";
+
     public static final String LEVEL_VERSION = "sbmlVersion";
 
     public static final String NODETYPE_ATTR = SBMLCore.SBML_TYPE_ATTR;

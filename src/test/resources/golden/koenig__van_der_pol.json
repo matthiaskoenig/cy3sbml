@@ -9,6 +9,7 @@
         "name" : "van_der_pol",
         "sbml id" : "van_der_pol",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -121,6 +122,7 @@
         "name" : "van_der_pol__all",
         "sbml id" : "van_der_pol",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "van_der_pol"
       },
@@ -352,6 +354,7 @@
         "name" : "van_der_pol__kinetic",
         "sbml id" : "van_der_pol",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

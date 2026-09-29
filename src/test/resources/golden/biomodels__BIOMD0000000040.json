@@ -13,6 +13,7 @@
         "name" : "Field1974_Oregonator",
         "sbml id" : "Field1974_Oregonator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V1",
         "taxonomy" : "131567"
       },
@@ -379,6 +380,7 @@
         "name" : "Field1974_Oregonator__all",
         "sbml id" : "Field1974_Oregonator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V1",
         "shared name" : "Field1974_Oregonator",
         "taxonomy" : "131567"
@@ -1181,6 +1183,7 @@
         "name" : "Field1974_Oregonator__kinetic",
         "sbml id" : "Field1974_Oregonator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V1",
         "taxonomy" : "131567"
       },

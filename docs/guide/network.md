@@ -166,7 +166,10 @@ The model is stored in the network table, in the row of the `__all` network: the
 and annotations of the model, and the model attributes `substanceUnits`, `timeUnits`,
 `volumeUnits`, `areaUnits`, `lengthUnits`, `extentUnits` and `conversionFactor`. The base and
 the kinetic network have only their name. The layout networks have `sbmlNetwork`
-`sbmlLayout`. The root network of a model imported
+`sbmlLayout`. Every network has the column `sbmlSubnetwork` with its kind: `base`,
+`kinetic`, `all` or `layout`. Unlike the name, it does not change when Cytoscape renames a
+network of a model imported twice; the [automation commands](automation.md) return it as
+the network type. The root network of a model imported
 from a COMBINE archive has the column `archive` with the name of the archive.
 
 The layout networks have their own columns (not in the other networks):

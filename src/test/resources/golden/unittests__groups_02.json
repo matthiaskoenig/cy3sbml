@@ -9,6 +9,7 @@
         "name" : "groups_02",
         "sbml id" : "groups_02",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -140,6 +141,7 @@
         "name" : "groups_02__all",
         "sbml id" : "groups_02",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "groups of mixed, nested and overlapping members"
       },
@@ -408,6 +410,7 @@
         "name" : "groups_02__kinetic",
         "sbml id" : "groups_02",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

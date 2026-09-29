@@ -13,6 +13,7 @@
         "pubmed" : "15484883",
         "sbml id" : "model_0000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "40674"
       },
@@ -32,6 +33,7 @@
         "pubmed" : "15484883",
         "sbml id" : "model_0000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V4",
         "shared name" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
         "taxonomy" : "40674"
@@ -398,6 +400,7 @@
         "pubmed" : "15484883",
         "sbml id" : "model_0000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "40674"
       },

@@ -90,6 +90,7 @@ final class LayoutNetworkBuilder {
                 new LayoutGraph(rootNetwork, network).read(layout);
                 network.getRow(network).set(CyNetwork.NAME, name + SBML.SUFFIX_SUBNETWORK_LAYOUT + id);
                 AttributeUtil.set(network, network, SBML.NETWORKTYPE_ATTR, SBML.NETWORKTYPE_LAYOUT, String.class);
+                AttributeUtil.set(network, network, SBML.SUBNETWORK_ATTR, SBML.SUBNETWORK_LAYOUT, String.class);
                 setLocal(network, network, SBML.ATTR_LAYOUT_ID, layout.isSetId() ? layout.getId() : null, String.class);
                 networks.add(network);
             } catch (RuntimeException e) {

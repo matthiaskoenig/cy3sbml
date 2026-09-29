@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.cofactors.CofactorViews;
 import org.cytoscape.application.events.SetCurrentNetworkEvent;
 import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.AbstractCyAction;
@@ -14,7 +15,6 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.view.model.CyNetworkView;
-import org.cytoscape.view.vizmap.VisualStyle;
 
 /**
  * Toolbar action on the cofactor nodes of the current network, enabled for the networks
@@ -71,14 +71,7 @@ abstract class AbstractCofactorAction extends AbstractCyAction implements SetCur
             view = null;
         }
         apply(network, view, CyTableUtil.getNodesInState(network, CyNetwork.SELECTED, true));
-        if (view != null) {
-            // the new nodes and edges get the mappings of the style
-            VisualStyle style = adapter.visualMappingManager.getVisualStyle(view);
-            if (style != null) {
-                style.apply(view);
-            }
-            view.updateView();
-        }
+        CofactorViews.update(adapter.visualMappingManager, view);
     }
 
     @Override

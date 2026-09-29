@@ -22,6 +22,7 @@ nav = [
     { "Layouts" = "guide/layouts.md" },
     { "Cofactor nodes" = "guide/cofactors.md" },
     { "Supported SBML packages" = "guide/packages.md" },
+    { "Automation and REST API" = "guide/automation.md" },
   ] },
   { "Development" = [
     { "Building" = "development/building.md" },
@@ -108,6 +109,9 @@ pymdownx.keys = {}
 pymdownx.magiclink = {}
 pymdownx.mark = {}
 pymdownx.smartsymbols = {}
+# embeds the Python examples in guide/automation.md; a missing file fails the build
+pymdownx.snippets.base_path = ["."]
+pymdownx.snippets.check_paths = true
 pymdownx.superfences.custom_fences = [
   { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
 ]

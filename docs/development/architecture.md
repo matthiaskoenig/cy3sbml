@@ -13,8 +13,9 @@ The start sets the log file first, so that everything that fails can be logged. 
 runs in two phases:
 
 1. **Core:** the properties, `ConnectionProxy`, `ServiceAdapter`,
-   `SBMLManager`, `CofactorManager`, `SessionData`, the JSBML setup (`JsbmlSetup`) and
-   the two readers: the SBML reader and the COMBINE archive reader. Nothing in this phase
+   `SBMLManager`, `CofactorManager`, `SessionData`, the JSBML setup (`JsbmlSetup`),
+   the two readers (the SBML reader and the COMBINE archive reader), the BioModels search
+   and loader, and the automation commands. Nothing in this phase
    depends on a resource file of the app, so the readers are always registered. Without
    the SBML reader, Cytoscape would pass SBML files to its own bundled SBML reader.
 2. **GUI:** the bundled JavaScript extension, the extraction of the GUI resources into
@@ -208,6 +209,7 @@ the Swing event dispatch thread.
 |---|---|
 | `actions` | toolbar actions: panel on and off, import, examples, BioModels, help, split and merge cofactor nodes, save and load layout |
 | `biomodel` | BioModels search and import dialog |
+| `commands` | the automation commands in the command namespace `cy3sbml` (CyREST `/v1/commands/cy3sbml/...`), see below |
 | `cofactors` | cofactor splitting and merging (`CofactorManager`, `Network2CofactorMapper`) |
 | `layout` | saving and loading node positions as XML, matched by `cyId` (the SBML layout package is read in `reader`) |
 | `mapping` | the mappings of `SBMLManager` (`Network2SBMLMapper`, `One2ManyMapping`) |
@@ -216,6 +218,26 @@ the Swing event dispatch thread.
 | `cache` | in-memory cache of the web service clients |
 | `styles` | style loading, the layout styles (`LayoutStyleFactory`), and the generation of the style files `cy3sbml*.xml` from the templates and `StyleInfo*` (`StyleFactory.createStyle`) |
 | `util` | helpers, for example `SBMLUtil`, `AttributeUtil`, `NetworkUtil`, `ASTNodeUtil`, `HttpJson` |
+
+## Automation commands
+
+`commands.Commands` is the registry of the commands (name, descriptions, example JSON, task
+factory); `CyActivator` registers each factory as a `TaskFactory` service with the command
+service properties (`COMMAND_NAMESPACE` `cy3sbml`, `COMMAND`, `COMMAND_SUPPORTS_JSON`, ...)
+in the core phase, so the commands work without the GUI. The tasks take their arguments as
+`@Tunable` fields, which Cytoscape sets by reflection, so the task classes and their tunable
+members are public (`CommandsTest` checks it). They extend `JsonTask`, an `ObservableTask`
+with the result as `JSONResult` for CyREST and as `String` for the command line, written
+with Jackson. The services come as `CommandServices`.
+
+The commands reuse the logic of the GUI: `import` runs the Cytoscape network loaders (or
+`BiomodelLoader`) in the `SynchronousTaskManager`, so the result of the command is only
+the result of cy3sbml, and returns the new networks grouped by root network; the other
+commands use `SBMLManager`, `BiomodelsQuery`, `CofactorManager` (with `CofactorViews`,
+shared with the toolbar actions) and `LayoutTools`. The type of a network in the results is
+the network column `sbmlSubnetwork`, which `SubnetworkBuilder` and `LayoutNetworkBuilder`
+set. The user documentation is `docs/guide/automation.md`; `CommandsTest` checks that every
+command is documented there. The Python examples are in `examples/python` (py4cytoscape).
 
 `tools/pycysbml` is a separate Python (uv) package that downloads and writes test models,
 see [Testing](testing.md#test-models). It is not part of the app build.

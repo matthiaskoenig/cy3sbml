@@ -10,6 +10,7 @@
         "name" : "e_coli_core",
         "sbml id" : "e_coli_core",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -13940,6 +13941,7 @@
         "name" : "e_coli_core__all",
         "sbml id" : "e_coli_core",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -30107,6 +30109,7 @@
         "name" : "e_coli_core__kinetic",
         "sbml id" : "e_coli_core",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

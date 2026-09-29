@@ -24,8 +24,10 @@ Use one of these ways:
 - Use the Cytoscape menu **File → Import → Network from File...**.
 - Drag SBML files onto the **Network** panel of Cytoscape (it shows "Drag network files
   here" while it is empty).
-- Load a file with the Cytoscape automation interface (CyREST), for example the command
-  `network load file file=<path>`.
+- Import from a script or another program with the command `cy3sbml import` (a file, a URL,
+  an SBML string or a BioModels id), for example through CyREST from Python, see
+  [Automation and REST API](automation.md). The Cytoscape command
+  `network load file file=<path>` works as well.
 
 After the import, cy3sbml applies its visual style and the force-directed layout to every
 network view; the views of the layout networks get the layout style and the positions of the

@@ -9,7 +9,7 @@ every pull request. `format`, `lint` and `tests`, together with the documentatio
 | `format` | Spotless with palantir-java-format | `./mvnw spotless:check` |
 | `lint` | Error Prone and `javac` warnings | `./mvnw -Plint -DskipTests test-compile` (JDK 21) |
 | `tests` | JUnit tests and the packaged jar test | `./mvnw verify` |
-| `python` | ruff and ty on the Python helpers, self-checks of the scripts | see [Python](#python) |
+| `python` | ruff and ty on the Python helpers and examples, self-checks of the scripts | see [Python](#python) |
 
 ## Formatting
 
@@ -77,6 +77,14 @@ uv run --project tools ty check             # type check
 
 The CI also runs the self-checks of the scripts, `python scripts/release_notes.py --check`
 and `python scripts/update_jsbml.py --check`, through the same project.
+
+The Python examples of the automation commands in `examples/python` are their own uv
+project (with py4cytoscape). ruff checks them with the configuration above; ty runs
+through their project, with its configuration in `examples/python/pyproject.toml`:
+
+```bash
+uv run --project examples/python ty check --project examples/python
+```
 
 ty reports every diagnostic as an error, including a value of an untyped library or of
 `Any` that flows into an annotated variable or return. Narrow such a value with a check

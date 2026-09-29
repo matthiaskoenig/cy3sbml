@@ -112,8 +112,8 @@ jobs:
         run: ./mvnw --batch-mode --no-transfer-progress -Plint -DskipTests test-compile
 
   python:
-    # the Python helpers in scripts/ and tools/pycysbml, see
-    # docs/development/quality.md
+    # the Python helpers in scripts/ and tools/pycysbml and the Python examples in
+    # examples/python, see docs/development/quality.md
     name: python
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -133,6 +133,9 @@ jobs:
         run: uv run --project tools --locked ruff format --check
       - name: Check the types with ty
         run: uv run --project tools --locked ty check --output-format=github
+      - name: Check the types of the Python examples with ty
+        # examples/python is its own uv project (py4cytoscape); ruff above checks it
+        run: uv run --project examples/python --locked ty check --project examples/python --output-format=github
       - name: Self-check the release notes script
         run: uv run --project tools --locked python scripts/release_notes.py --check
       - name: Self-check the JSBML update script

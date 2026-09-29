@@ -15,6 +15,7 @@
         "reactome" : "REACT_152",
         "sbml id" : "BIOMD0000000006",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "33154"
       },
@@ -218,6 +219,7 @@
         "reactome" : "REACT_152",
         "sbml id" : "BIOMD0000000006",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V4",
         "shared name" : "Tyson1991 - Cell Cycle 2 var",
         "taxonomy" : "33154"
@@ -841,6 +843,7 @@
         "reactome" : "REACT_152",
         "sbml id" : "BIOMD0000000006",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "33154"
       },

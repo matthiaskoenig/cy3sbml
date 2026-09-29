@@ -10,6 +10,7 @@
         "name" : "case00027",
         "sbml id" : "case00027",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "timeUnits" : "time"
       },
@@ -103,6 +104,7 @@
         "name" : "case00027__all",
         "sbml id" : "case00027",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "case00027",
         "timeUnits" : "time"
@@ -437,6 +439,7 @@
         "name" : "case00027__kinetic",
         "sbml id" : "case00027",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "timeUnits" : "time"
       },

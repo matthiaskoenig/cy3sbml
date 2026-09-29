@@ -3,8 +3,10 @@ package org.cy3sbml.actions;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.layout.LayoutTools;
@@ -58,6 +60,12 @@ public final class SaveLayoutAction extends AbstractCyAction {
         }
 
         LayoutTools layoutTools = new LayoutTools(adapter);
-        layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
+        try {
+            layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
+        } catch (IOException e) {
+            logger.error("The layout could not be saved: {}", e.getMessage());
+            JOptionPane.showMessageDialog(
+                    frame, e.getMessage(), "The layout could not be saved", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

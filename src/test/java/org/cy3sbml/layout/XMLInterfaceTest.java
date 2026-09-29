@@ -1,9 +1,11 @@
 package org.cy3sbml.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -53,6 +55,17 @@ class XMLInterfaceTest {
         assertTrue(xml.contains("cyId=\"meta_S1\""), xml);
         assertTrue(xml.contains("id=\"S1\""), xml);
         assertEquals(boxes, XMLInterface.readLayoutFromXML(file));
+    }
+
+    /** A layout that cannot be written is an error, not a silently missing file. */
+    @Test
+    void writingToADirectoryFails() {
+        File directory = tempDir.toFile();
+
+        IOException error =
+                assertThrows(IOException.class, () -> XMLInterface.writeXMLFileForLayout(directory, List.of()));
+
+        assertTrue(error.getMessage().startsWith("The layout could not be written"), error.getMessage());
     }
 
     /** The nodes of a layout network (#71) have the glyph, aliases have the same cyId. */

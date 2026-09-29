@@ -10,6 +10,7 @@
         "name" : "small",
         "sbml id" : "small",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [ ],
@@ -25,6 +26,7 @@
         "name" : "small__all",
         "sbml id" : "small",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -441,6 +443,7 @@
         "name" : "small__kinetic",
         "sbml id" : "small",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -499,6 +502,7 @@
         "name" : "small__layout_iBioSim",
         "sbml id" : "small",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

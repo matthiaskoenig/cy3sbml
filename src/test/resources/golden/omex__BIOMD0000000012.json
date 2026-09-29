@@ -14,6 +14,7 @@
         "pubmed" : "10659856",
         "sbml id" : "BIOMD0000000012",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V3",
         "taxonomy" : "562"
       },
@@ -555,6 +556,7 @@
         "pubmed" : "10659856",
         "sbml id" : "BIOMD0000000012",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V3",
         "shared name" : "Elowitz2000 - Repressilator",
         "taxonomy" : "562"
@@ -2363,6 +2365,7 @@
         "pubmed" : "10659856",
         "sbml id" : "BIOMD0000000012",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V3",
         "taxonomy" : "562"
       },
