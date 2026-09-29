@@ -151,6 +151,8 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     }
 
     /** The COMBINE archive the document was imported from. */
+    // reason: the document instance of a network, SBMLDocument.equals compares the content
+    @SuppressWarnings("ReferenceEquality")
     public Optional<ArchiveImport> getArchive(SBMLDocument document) {
         for (Map.Entry<Long, SBMLDocument> entry : network2sbml.getDocumentMap().entrySet()) {
             if (entry.getValue() == document) {
