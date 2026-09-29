@@ -8,6 +8,7 @@
    "param1"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -21,6 +22,7 @@
    "param1"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -35,6 +37,7 @@
    "submod1__subparam2"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -51,6 +54,15 @@
    "submod1__subparam2"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:param1": [
+    "submod1__subparam2"
+   ],
+   "rule:param1": [
+    "param1",
+    "submod1__subparam2"
+   ]
+  },
   "rules": [
    "param1"
   ],
@@ -66,6 +78,7 @@
    "param2"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -82,6 +95,20 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "sub2__sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -102,6 +129,20 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -126,6 +167,32 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ],
+   "species:sub3__sub2__sub1__S1": [
+    "sub3__sub2__sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -154,6 +221,29 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -181,6 +271,26 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -207,6 +317,26 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -227,6 +357,7 @@
    "p2"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -240,6 +371,7 @@
    "p2"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -254,6 +386,11 @@
    "p8"
   ],
   "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv"
+   ]
+  },
   "rules": [
    "p8"
   ],
@@ -271,6 +408,12 @@
    "sub1__prel"
   ],
   "reactions": [],
+  "references": {
+   "rule:sub1__prel": [
+    "conv",
+    "p8"
+   ]
+  },
   "rules": [
    "sub1__prel"
   ],
@@ -287,6 +430,12 @@
    "p8"
   ],
   "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv",
+    "p8"
+   ]
+  },
   "rules": [
    "p8"
   ],
@@ -305,6 +454,15 @@
    "conv"
   ],
   "reactions": [],
+  "references": {
+   "rule:s8": [
+    "conv",
+    "s8"
+   ],
+   "species:s8": [
+    "C"
+   ]
+  },
   "rules": [
    "s8"
   ],
@@ -324,6 +482,12 @@
    "conv"
   ],
   "reactions": [],
+  "references": {
+   "rule:C8": [
+    "C8",
+    "conv"
+   ]
+  },
   "rules": [
    "C8"
   ],
@@ -352,6 +516,32 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "event:#0": [
+    "t5",
+    "timeconv"
+   ],
+   "initialAssignment:t2": [
+    "timeconv"
+   ],
+   "reaction:sub1__J0": [
+    "s1",
+    "t3",
+    "t5",
+    "timeconv"
+   ],
+   "rule:t1": [
+    "t1",
+    "timeconv"
+   ],
+   "rule:t3": [
+    "t1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [
    "t1",
    "t3"
@@ -374,6 +564,15 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__s1"
@@ -395,6 +594,17 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1",
+    "t3",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__s1"
@@ -414,6 +624,15 @@
   "reactions": [
    "sub1__sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__sub1__J0": [
+    "extentconv",
+    "sub1__sub1__s1"
+   ],
+   "species:sub1__sub1__s1": [
+    "sub1__sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__sub1__s1"
@@ -430,6 +649,11 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "rule:sub1__sub1__t1": [
+    "timeconv"
+   ]
+  },
   "rules": [
    "sub1__sub1__t1"
   ],
@@ -450,6 +674,15 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:sub1__timeconv_times_timeconv": [
+    "sub1__timeconv",
+    "timeconv"
+   ],
+   "rule:sub1__sub1__t1": [
+    "sub1__timeconv_times_timeconv"
+   ]
+  },
   "rules": [
    "sub1__sub1__t1"
   ],
@@ -483,6 +716,32 @@
   "reactions": [
    "sub1__sub1__sub1__J0"
   ],
+  "references": {
+   "initialAssignment:sub1__extentconv_times_extentconv": [
+    "extentconv",
+    "sub1__extentconv"
+   ],
+   "initialAssignment:sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv": [
+    "sub1__extentconv_times_extentconv",
+    "sub1__sub1__extentconv"
+   ],
+   "initialAssignment:sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv": [
+    "sub1__sub1__timeconv",
+    "sub1__timeconv_times_timeconv"
+   ],
+   "initialAssignment:sub1__timeconv_times_timeconv": [
+    "sub1__timeconv",
+    "timeconv"
+   ],
+   "reaction:sub1__sub1__sub1__J0": [
+    "sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv",
+    "sub1__sub1__sub1__s1",
+    "sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv"
+   ],
+   "species:sub1__sub1__sub1__s1": [
+    "sub1__sub1__sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__sub1__sub1__s1"
@@ -498,6 +757,7 @@
    "p8"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -511,6 +771,7 @@
    "p8"
   ],
   "reactions": [],
+  "references": {},
   "rules": [
    "p8"
   ],
@@ -526,6 +787,7 @@
    "p8"
   ],
   "reactions": [],
+  "references": {},
   "rules": [
    "p8"
   ],
@@ -544,6 +806,12 @@
    "p8"
   ],
   "reactions": [],
+  "references": {
+   "event:sub1__E1": [
+    "conv",
+    "p8"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -562,6 +830,11 @@
    "z"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:z": [
+    "i"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -576,6 +849,7 @@
    "sub1__t2"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -592,6 +866,12 @@
    "sub1__t2"
   ],
   "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1",
+    "sub1__t2"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -608,6 +888,12 @@
    "sub1__t2"
   ],
   "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1",
+    "sub1__t2"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -624,6 +910,11 @@
    "sub1__t2"
   ],
   "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t2"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -640,6 +931,11 @@
    "sub1__t2"
   ],
   "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -657,6 +953,15 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "sub1__p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__s1"
@@ -676,6 +981,15 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "new_p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__s1"
@@ -695,6 +1009,15 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub1__s1"
@@ -710,6 +1033,7 @@
    "p8"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -723,6 +1047,7 @@
    "p8"
   ],
   "reactions": [],
+  "references": {},
   "rules": [
    "p8"
   ],
@@ -744,6 +1069,52 @@
    "submod2__J0",
    "submod2__J1"
   ],
+  "references": {
+   "reaction:submod1__J0": [
+    "submod1__E",
+    "submod1__ES",
+    "submod1__S"
+   ],
+   "reaction:submod1__J1": [
+    "submod1__D",
+    "submod1__E",
+    "submod1__ES"
+   ],
+   "reaction:submod2__J0": [
+    "submod2__E",
+    "submod2__ES",
+    "submod2__S"
+   ],
+   "reaction:submod2__J1": [
+    "submod2__D",
+    "submod2__E",
+    "submod2__ES"
+   ],
+   "species:submod1__D": [
+    "submod1__comp"
+   ],
+   "species:submod1__E": [
+    "submod1__comp"
+   ],
+   "species:submod1__ES": [
+    "submod1__comp"
+   ],
+   "species:submod1__S": [
+    "submod1__comp"
+   ],
+   "species:submod2__D": [
+    "submod2__comp"
+   ],
+   "species:submod2__E": [
+    "submod2__comp"
+   ],
+   "species:submod2__ES": [
+    "submod2__comp"
+   ],
+   "species:submod2__S": [
+    "submod2__comp"
+   ]
+  },
   "rules": [],
   "species": [
    "submod1__D",
@@ -769,6 +1140,30 @@
    "A__J0",
    "A__J1"
   ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "S"
+   ],
+   "reaction:A__J1": [
+    "A__E",
+    "A__ES",
+    "D"
+   ],
+   "species:A__E": [
+    "comp"
+   ],
+   "species:A__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__E",
@@ -790,6 +1185,30 @@
    "J0",
    "J1"
   ],
+  "references": {
+   "reaction:J0": [
+    "E",
+    "ES",
+    "S"
+   ],
+   "reaction:J1": [
+    "D",
+    "E",
+    "ES"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:E": [
+    "comp"
+   ],
+   "species:ES": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
   "rules": [],
   "species": [
    "D",
@@ -811,6 +1230,30 @@
    "A__J0",
    "A__J1"
   ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "A__S"
+   ],
+   "reaction:A__J1": [
+    "A__D",
+    "A__E",
+    "A__ES"
+   ],
+   "species:A__D": [
+    "A__comp"
+   ],
+   "species:A__E": [
+    "A__comp"
+   ],
+   "species:A__ES": [
+    "A__comp"
+   ],
+   "species:A__S": [
+    "A__comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__D",
@@ -834,6 +1277,49 @@
    "A__B__J0",
    "A__B__J1"
   ],
+  "references": {
+   "reaction:A__A__J0": [
+    "A__A__E",
+    "A__A__ES",
+    "A__S"
+   ],
+   "reaction:A__A__J1": [
+    "A__A__D",
+    "A__A__E",
+    "A__A__ES"
+   ],
+   "reaction:A__B__J0": [
+    "A__B__E",
+    "A__B__ES",
+    "A__S"
+   ],
+   "reaction:A__B__J1": [
+    "A__B__D",
+    "A__B__E",
+    "A__B__ES"
+   ],
+   "species:A__A__D": [
+    "A__comp"
+   ],
+   "species:A__A__E": [
+    "A__comp"
+   ],
+   "species:A__A__ES": [
+    "A__comp"
+   ],
+   "species:A__B__D": [
+    "A__comp"
+   ],
+   "species:A__B__E": [
+    "A__comp"
+   ],
+   "species:A__B__ES": [
+    "A__comp"
+   ],
+   "species:A__S": [
+    "A__comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__A__D",
@@ -871,6 +1357,40 @@
   "reactions": [
    "A___J0"
   ],
+  "references": {
+   "event:A___E0": [
+    "A__y",
+    "Q",
+    "X",
+    "cf"
+   ],
+   "event:A___E1": [
+    "A__y",
+    "R",
+    "X",
+    "cf"
+   ],
+   "reaction:A___J0": [
+    "A__S1",
+    "A__k1",
+    "extentconv",
+    "timeconv"
+   ],
+   "rule:Q": [
+    "X",
+    "cf"
+   ],
+   "rule:U1": [
+    "X"
+   ],
+   "rule:X": [
+    "cf",
+    "timeconv"
+   ],
+   "species:A__S1": [
+    "A__default_compartment"
+   ]
+  },
   "rules": [
    "Q",
    "U1",
@@ -896,6 +1416,16 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t3",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -912,6 +1442,11 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "rule:t2": [
+    "timeconv"
+   ]
+  },
   "rules": [
    "t2"
   ],
@@ -928,6 +1463,12 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "rule:t1": [
+    "t1",
+    "timeconv"
+   ]
+  },
   "rules": [
    "t1"
   ],
@@ -945,6 +1486,15 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "rule:t1": [
+    "timeconv"
+   ],
+   "rule:t3": [
+    "t1",
+    "timeconv"
+   ]
+  },
   "rules": [
    "t1",
    "t3"
@@ -965,6 +1515,11 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:t3": [
+    "timeconv"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -983,6 +1538,16 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t5",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -1003,6 +1568,19 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t5",
+    "timeconv"
+   ],
+   "rule:t5": [
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [
    "t5"
   ],
@@ -1023,6 +1601,12 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "event:#0": [
+    "t5",
+    "timeconv"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1041,6 +1625,19 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1"
+   ],
+   "rule:sub1__p80": [
+    "extentconv",
+    "sub1__J0"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [
    "sub1__p80"
   ],
@@ -1060,6 +1657,13 @@
    "timeconv"
   ],
   "reactions": [],
+  "references": {
+   "rule:t1": [
+    "paramconv",
+    "t1",
+    "timeconv"
+   ]
+  },
   "rules": [
    "t1"
   ],
@@ -1080,6 +1684,19 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "sub1__s1",
+    "timeconv"
+   ],
+   "rule:sub1__p80": [
+    "sub1__J0",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [
    "sub1__p80"
   ],
@@ -1103,6 +1720,21 @@
   "reactions": [
    "sub1__J0"
   ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1",
+    "timeconv"
+   ],
+   "rule:sub1__p80": [
+    "extentconv",
+    "sub1__J0",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [
    "sub1__p80"
   ],
@@ -1127,6 +1759,20 @@
   "reactions": [
    "J0"
   ],
+  "references": {
+   "reaction:J0": [
+    "s1"
+   ],
+   "rule:sub1__p80": [
+    "J0"
+   ],
+   "species:s1": [
+    "C"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [
    "sub1__p80"
   ],
@@ -1153,6 +1799,21 @@
   "reactions": [
    "J0"
   ],
+  "references": {
+   "reaction:J0": [
+    "s1"
+   ],
+   "rule:sub1__p80": [
+    "J0",
+    "extentpertimeconv"
+   ],
+   "species:s1": [
+    "C"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
   "rules": [
    "sub1__p80"
   ],
@@ -1175,6 +1836,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1198,6 +1870,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1219,6 +1902,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1241,6 +1936,21 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1262,6 +1972,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1283,6 +2005,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1302,6 +2036,14 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1320,6 +2062,18 @@
    "A__J2",
    "J1"
   ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1339,6 +2093,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1357,6 +2122,11 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1375,6 +2145,11 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1391,6 +2166,12 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1408,6 +2189,15 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1424,6 +2214,12 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1440,6 +2236,12 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1454,6 +2256,7 @@
    "J1"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1471,6 +2274,15 @@
   "reactions": [
    "A__J2"
   ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1487,6 +2299,11 @@
    "J1"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1504,6 +2321,11 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1523,6 +2345,11 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1540,6 +2367,12 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1558,6 +2391,15 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1575,6 +2417,12 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1592,6 +2440,12 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1607,6 +2461,7 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {},
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -1623,6 +2478,15 @@
   "reactions": [
    "A__J2"
   ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1640,6 +2504,11 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1657,6 +2526,14 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1678,6 +2555,14 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1697,6 +2582,15 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1717,6 +2611,18 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1736,6 +2642,15 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1755,6 +2670,15 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1772,6 +2696,11 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1"
@@ -1789,6 +2718,18 @@
   "reactions": [
    "A__J2"
   ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:J1": [
+    "C"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "J1",
@@ -1807,6 +2748,14 @@
    "A__x"
   ],
   "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1828,6 +2777,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1_sr"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -1851,6 +2811,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1872,6 +2843,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1894,6 +2877,21 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1915,6 +2913,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1936,6 +2946,18 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1955,6 +2977,14 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1973,6 +3003,18 @@
    "A__J2",
    "J1"
   ],
+  "references": {
+   "reaction:A__J2": [
+    "J1_sr",
+    "S1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -1992,6 +3034,17 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1_sr"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [
    "A__x"
   ],
@@ -2011,6 +3064,14 @@
   "reactions": [
    "J1"
   ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1"
@@ -2039,6 +3100,26 @@
    "g"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:b": [
+    "a"
+   ],
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:d": [
+    "c"
+   ],
+   "initialAssignment:e": [
+    "d"
+   ],
+   "initialAssignment:f": [
+    "e"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ]
+  },
   "rules": [],
   "species": [],
   "unitDefinitions": []
@@ -2058,6 +3139,26 @@
    "g"
   ],
   "reactions": [],
+  "references": {
+   "rule:b": [
+    "a"
+   ],
+   "rule:c": [
+    "b"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ],
+   "rule:g": [
+    "f"
+   ]
+  },
   "rules": [
    "b",
    "c",
@@ -2088,6 +3189,26 @@
    "g"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:e": [
+    "d"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ],
+   "rule:b": [
+    "a"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:f": [
+    "e"
+   ]
+  },
   "rules": [
    "b",
    "d",
@@ -2111,6 +3232,26 @@
    "g"
   ],
   "reactions": [],
+  "references": {
+   "rule:b": [
+    "a"
+   ],
+   "rule:c": [
+    "b"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ],
+   "rule:g": [
+    "f"
+   ]
+  },
   "rules": [
    "a",
    "b",
@@ -2142,6 +3283,26 @@
    "g"
   ],
   "reactions": [],
+  "references": {
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:d": [
+    "c"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ],
+   "rule:b": [
+    "a"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ]
+  },
   "rules": [
    "b",
    "e",
@@ -2160,6 +3321,11 @@
    "p8"
   ],
   "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv"
+   ]
+  },
   "rules": [
    "p8"
   ],
@@ -2179,6 +3345,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "sub2__sub1__s1"
+   ],
+   "species:sub2__sub1__s1": [
+    "sub2__sub1__C"
+   ]
+  },
   "rules": [],
   "species": [
    "sub2__sub1__s1"
@@ -2198,6 +3373,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2217,6 +3401,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2235,6 +3428,30 @@
    "A__J0",
    "A__J1"
   ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "S"
+   ],
+   "reaction:A__J1": [
+    "A__E",
+    "A__ES",
+    "D"
+   ],
+   "species:A__E": [
+    "comp"
+   ],
+   "species:A__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__E",
@@ -2256,6 +3473,30 @@
    "A__submod1__J0",
    "A__submod1__J1"
   ],
+  "references": {
+   "reaction:A__submod1__J0": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "S"
+   ],
+   "reaction:A__submod1__J1": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "D"
+   ],
+   "species:A__submod1__E": [
+    "comp"
+   ],
+   "species:A__submod1__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__submod1__E",
@@ -2277,6 +3518,30 @@
    "A__submod1__J0",
    "A__submod1__J1"
   ],
+  "references": {
+   "reaction:A__submod1__J0": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "S"
+   ],
+   "reaction:A__submod1__J1": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "D"
+   ],
+   "species:A__submod1__E": [
+    "comp"
+   ],
+   "species:A__submod1__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
   "rules": [],
   "species": [
    "A__submod1__E",
@@ -2299,6 +3564,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2318,6 +3592,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2337,6 +3620,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2356,6 +3648,14 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"
@@ -2375,6 +3675,15 @@
   "reactions": [
    "sub2__sub1__J0"
   ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "cf",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
   "rules": [],
   "species": [
    "s1"

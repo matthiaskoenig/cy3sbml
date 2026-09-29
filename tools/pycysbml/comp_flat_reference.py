@@ -4,8 +4,9 @@ The SBML test suite ships no flattened models, so the ids of the elements of the
 models flattened by libSBML are the reference for the flattening in cy3sbml
 (JSBML `CompFlatteningConverter`). For every SBML file below the directory with
 submodels, the reference lists the ids per element type, keyed by the path of the
-file relative to the JSON file. Files libSBML cannot flatten are listed under
-`_failed` with the libSBML error.
+file relative to the JSON file, and the ids each element references (math,
+species of reactions, compartment of species). Files libSBML cannot flatten are
+listed under `_failed` with the libSBML error.
 
 ```bash
 uv run --project tools python tools/pycysbml/comp_flat_reference.py \
@@ -52,6 +53,63 @@ def element_ids(model: libsbml.Model) -> dict[str, list[str]]:
     }
 
 
+def math_names(math: libsbml.ASTNode | None) -> set[str]:
+    """The names of the math: the referenced ids and the called functions."""
+    if math is None:
+        return set()
+    names: set[str] = set()
+    if math.getType() in (libsbml.AST_NAME, libsbml.AST_FUNCTION):
+        names.add(str(math.getName()))
+    for i in range(math.getNumChildren()):
+        names |= math_names(math.getChild(i))
+    return names
+
+
+def references(model: libsbml.Model) -> dict[str, list[str]]:
+    """The ids each element references, keyed by `<type>:<id>`, each list sorted.
+
+    Only elements with references are listed. Elements without id (events,
+    constraints) are keyed by their index.
+    """
+    refs: dict[str, set[str]] = {}
+    for species in model.getListOfSpecies():
+        refs[f"species:{species.getId()}"] = {species.getCompartment()}
+    for reaction in model.getListOfReactions():
+        names = {
+            ref.getSpecies()
+            for refs_of_type in (
+                reaction.getListOfReactants(),
+                reaction.getListOfProducts(),
+                reaction.getListOfModifiers(),
+            )
+            for ref in refs_of_type
+        }
+        if reaction.isSetKineticLaw():
+            names |= math_names(reaction.getKineticLaw().getMath())
+        refs[f"reaction:{reaction.getId()}"] = names
+    for rule in model.getListOfRules():
+        if not rule.isAlgebraic():
+            refs[f"rule:{rule.getVariable()}"] = math_names(rule.getMath())
+    for assignment in model.getListOfInitialAssignments():
+        key = f"initialAssignment:{assignment.getSymbol()}"
+        refs[key] = math_names(assignment.getMath())
+    for index, event in enumerate(model.getListOfEvents()):
+        names = set()
+        if event.isSetTrigger():
+            names |= math_names(event.getTrigger().getMath())
+        if event.isSetDelay():
+            names |= math_names(event.getDelay().getMath())
+        if event.isSetPriority():
+            names |= math_names(event.getPriority().getMath())
+        for event_assignment in event.getListOfEventAssignments():
+            names.add(event_assignment.getVariable())
+            names |= math_names(event_assignment.getMath())
+        refs[f"event:{event.getId() or f'#{index}'}"] = names
+    for index, constraint in enumerate(model.getListOfConstraints()):
+        refs[f"constraint:#{index}"] = math_names(constraint.getMath())
+    return {key: sorted(names) for key, names in refs.items() if names}
+
+
 def errors(document: libsbml.SBMLDocument) -> str:
     """The messages of the errors (not the warnings) of the document, one per line."""
     log = document.getErrorLog()
@@ -63,7 +121,7 @@ def errors(document: libsbml.SBMLDocument) -> str:
     return "\n".join(messages)
 
 
-def flatten(path: Path) -> dict[str, list[str]] | str:
+def flatten(path: Path) -> dict[str, list[str] | dict[str, list[str]]] | str:
     """Element ids of the flattened model, or the libSBML errors."""
     document = libsbml.readSBMLFromFile(str(path))
     if document.getNumErrors(libsbml.LIBSBML_SEV_ERROR) > 0:
@@ -72,7 +130,8 @@ def flatten(path: Path) -> dict[str, list[str]] | str:
     properties.addOption("flatten comp", True)
     if document.convert(properties) != libsbml.LIBSBML_OPERATION_SUCCESS:
         return errors(document) or "conversion failed"
-    return element_ids(document.getModel())
+    model = document.getModel()
+    return {**element_ids(model), "references": references(model)}
 
 
 def has_submodels(path: Path) -> bool:
@@ -87,7 +146,9 @@ def main() -> None:
     args = parser.parse_args()
 
     base = args.output.resolve().parent
-    reference: dict[str, dict[str, list[str]] | dict[str, str]] = {}
+    reference: dict[
+        str, dict[str, list[str] | dict[str, list[str]]] | dict[str, str]
+    ] = {}
     failed: dict[str, str] = {}
     for path in sorted(args.directory.resolve().rglob(args.pattern)):
         if not has_submodels(path):

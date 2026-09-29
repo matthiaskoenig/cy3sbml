@@ -14,6 +14,26 @@
   "initialAssignments": [],
   "parameters": [],
   "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
   "rules": [],
   "species": [
    "S1",
@@ -64,6 +84,51 @@
    "model__R4",
    "update__R3"
   ],
+  "references": {
+   "reaction:R3": [
+    "C",
+    "fba__B2"
+   ],
+   "reaction:fba__R1": [
+    "fba__A",
+    "fba__B1"
+   ],
+   "reaction:fba__R2": [
+    "fba__B1",
+    "fba__B2"
+   ],
+   "reaction:model__R4": [
+    "C",
+    "model__D",
+    "model__k_R4"
+   ],
+   "reaction:update__R3": [
+    "C",
+    "vR3"
+   ],
+   "rule:ub_R1": [
+    "bounds__k1",
+    "ub_R1"
+   ],
+   "rule:vR3": [
+    "R3"
+   ],
+   "species:C": [
+    "extern"
+   ],
+   "species:fba__A": [
+    "extern"
+   ],
+   "species:fba__B1": [
+    "cell"
+   ],
+   "species:fba__B2": [
+    "cell"
+   ],
+   "species:model__D": [
+    "extern"
+   ]
+  },
   "rules": [
    "ub_R1",
    "vR3"
