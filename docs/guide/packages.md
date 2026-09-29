@@ -46,8 +46,8 @@ levels, signs, thresholds and transition effects are stored as columns with the 
   nodes that ends in the reaction. The gene associations of fbc version 1 are not read.
 - User defined constraints (fbc version 3), `lowerBound <= sum of components <= upperBound`,
   become `fbc_userDefinedConstraint` nodes in the kinetic and all network, with the ids of
-  the bound parameters in the columns `fbc_lowerBound` and `fbc_upperBound` and an edge
-  from each bound parameter. Every component, `coefficient * variable` or
+  the bound parameters in the columns `fbc_lowerBound` and `fbc_upperBound`, and an edge
+  from every parameter of the constraint (the bounds and the coefficients). Every component, `coefficient * variable` or
   `coefficient * variable * variable2`, is an edge from the reaction or parameter of its
   variable (and one from its second variable) to the constraint, with the id of the
   coefficient parameter in `fbc_coefficient` and the variable type in `fbc_variableType`.

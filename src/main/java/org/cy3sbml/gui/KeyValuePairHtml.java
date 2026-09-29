@@ -8,8 +8,8 @@ import org.sbml.jsbml.ext.fbc.KeyValuePairs;
 
 /**
  * The HTML of the key-value pairs of an SBase (fbc v3, a {@code listOfKeyValuePairs} in the
- * annotation): a table with a row per pair, the key (with id and name, if set), the value
- * and the uri defining the key, as a link if it is a URL.
+ * annotation): a table with a row per pair, the key (with id and name, if set), and the
+ * value with the uri defining the key, as a link if it is a URL.
  */
 public final class KeyValuePairHtml {
     private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n";
@@ -31,9 +31,7 @@ public final class KeyValuePairHtml {
                     .append("</b>")
                     .append(idAndName(pair))
                     .append("</td><td>")
-                    .append(pair.getValue() != null ? HtmlUtil.escape(pair.getValue()) : "")
-                    .append("</td><td>")
-                    .append(uri(pair.getUri()))
+                    .append(valueAndUri(pair))
                     .append("</td></tr>\n");
         }
         html.append("</table>\n");
@@ -48,15 +46,20 @@ public final class KeyValuePairHtml {
         return text.isEmpty() ? "" : " <small>(" + HtmlUtil.escape(text) + ")</small>";
     }
 
-    /** The uri, a link if it is a URL (a URN is not). */
-    private static String uri(String uri) {
+    /**
+     * The value, and below it the uri defining the key, small and as a link if it is a URL
+     * (a URN is not). Two cells per row like the attribute table.
+     */
+    private static String valueAndUri(KeyValuePair pair) {
+        String value = pair.getValue() != null ? HtmlUtil.escape(pair.getValue()) : "";
+        String uri = pair.getUri();
         if (uri == null) {
-            return "";
+            return value;
         }
         String escaped = HtmlUtil.escape(uri);
-        if (uri.startsWith("http://") || uri.startsWith("https://")) {
-            return "<a href=\"" + escaped + "\">" + escaped + "</a>";
-        }
-        return escaped;
+        String link = uri.startsWith("http://") || uri.startsWith("https://")
+                ? "<a href=\"" + escaped + "\">" + escaped + "</a>"
+                : escaped;
+        return (value.isEmpty() ? "" : value + "<br>") + "<small>" + link + "</small>";
     }
 }

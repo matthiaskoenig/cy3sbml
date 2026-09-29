@@ -123,8 +123,10 @@ must stay unchanged (test).
   (`SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT`), with the named SBase attributes and the
   columns `fbc_lowerBound` and `fbc_upperBound` (the parameter ids). Label: name, else id,
   else `UDC`.
-- Edges, interaction `parameter_userDefinedConstraint`, from the lower and upper bound
-  parameters to the constraint node (like the flux bound edges to reactions).
+- Edges, interaction `parameter_userDefinedConstraint`, from every parameter of the
+  constraint to the constraint node, once per parameter: the lower and upper bound and the
+  coefficients of the components (so no coefficient parameter is left unconnected and a
+  parameter that is both bounds gives one edge).
 - Per component an edge from the node of `variable` (and one from the node of
   `variable2`, if set) to the constraint node, interaction `variable_userDefinedConstraint`,
   with the edge columns `fbc_coefficient` (the parameter id) and `fbc_variableType`.

@@ -29,6 +29,8 @@ For the selected object, the panel shows in this order:
       stoichiometries, `⇌` for a reversible and `→` for an irreversible reaction, `∅` for
       no reactants or products, and the modifiers after the semicolon. A stoichiometry
       that is not set but determined by a rule shows the id of the species reference;
+    - the fbc flux bound parameters with their values and links to their nodes, for
+      example `ub = 1000`;
     - the coefficient of the reaction in each fbc objective of the model, in the row
       `fbc_objective-<objective id>`, like the network column of the same name, and the
       variable type of fbc version 3 in the row `fbc_objective-<objective id>_variableType`.

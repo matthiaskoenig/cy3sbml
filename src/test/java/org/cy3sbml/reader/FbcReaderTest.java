@@ -220,12 +220,14 @@ class FbcReaderTest {
         CyNode uc2 = nodeById(context, "uc2");
         assertEquals("uc2", ReaderTestSupport.attribute(network, uc2, SBML.LABEL));
 
-        // an edge from the lower and from the upper bound parameter of every constraint
-        List<CyEdge> boundEdges = edgesOfType(network, SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT);
-        assertEquals(6, boundEdges.size());
+        // an edge from every parameter of a constraint, bounds and coefficients, once:
+        // uc1 five (lower and upper bound), one, negone; uc2 two (lower bound and
+        // coefficient), inf, negone; uc3 zero, ub, one
+        List<CyEdge> parameterEdges = edgesOfType(network, SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT);
+        assertEquals(9, parameterEdges.size());
         assertEquals(
-                Set.of(nodeById(context, "two"), nodeById(context, "inf")),
-                boundEdges.stream()
+                Set.of(nodeById(context, "two"), nodeById(context, "inf"), nodeById(context, "negone")),
+                parameterEdges.stream()
                         .filter(e -> e.getTarget().equals(uc2))
                         .map(CyEdge::getSource)
                         .collect(Collectors.toSet()));

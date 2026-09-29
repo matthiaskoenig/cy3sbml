@@ -1,7 +1,9 @@
 package org.cy3sbml.reader;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.cy3sbml.SBML;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyEdge;
@@ -189,8 +191,9 @@ final class FbcReader implements PackageReader {
     }
 
     /**
-     * Reads the user defined constraints (fbc v3). A constraint is a node with the
-     * parameters of its bounds as edges; a component is an edge from the node of its
+     * Reads the user defined constraints (fbc v3). A constraint is a node with an edge
+     * from every parameter it references (bounds and coefficients); a component is an edge
+     * from the node of its
      * variable (and one from the node of its second variable) to the constraint node, with
      * the coefficient parameter and the variable type as edge columns.
      */
@@ -202,23 +205,24 @@ final class FbcReader implements PackageReader {
             if (!constraint.isSetName() && !constraint.isSetId()) {
                 AttributeUtil.set(network, n, SBML.LABEL, USER_DEFINED_CONSTRAINT_LABEL, String.class);
             }
+            // one edge per parameter of the constraint: the bounds and the coefficients
+            Set<String> parameters = new LinkedHashSet<>();
             if (constraint.isSetLowerBound()) {
                 AttributeUtil.set(network, n, SBML.ATTR_FBC_LOWER_BOUND, constraint.getLowerBound(), String.class);
-                createReferenceEdge(
-                        context,
-                        constraint.getLowerBound(),
-                        n,
-                        SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT,
-                        constraint);
+                parameters.add(constraint.getLowerBound());
             }
             if (constraint.isSetUpperBound()) {
                 AttributeUtil.set(network, n, SBML.ATTR_FBC_UPPER_BOUND, constraint.getUpperBound(), String.class);
+                parameters.add(constraint.getUpperBound());
+            }
+            for (UserDefinedConstraintComponent component : constraint.getListOfUserDefinedConstraintComponents()) {
+                if (component.isSetCoefficient()) {
+                    parameters.add(component.getCoefficient());
+                }
+            }
+            for (String parameter : parameters) {
                 createReferenceEdge(
-                        context,
-                        constraint.getUpperBound(),
-                        n,
-                        SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT,
-                        constraint);
+                        context, parameter, n, SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT, constraint);
             }
             for (UserDefinedConstraintComponent component : constraint.getListOfUserDefinedConstraintComponents()) {
                 for (String variable : componentVariables(component)) {

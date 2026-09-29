@@ -451,17 +451,15 @@ public class SBMLUtil {
         // fbc
         FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.shortLabel);
         if (fbcReaction != null) {
-            String lowerFluxBound = UNSET;
-            if (fbcReaction.isSetLowerFluxBound()) {
-                lowerFluxBound = fbcReaction.getLowerFluxBound();
-            }
-            map.put(SBML.ATTR_FBC_LOWER_FLUX_BOUND, lowerFluxBound);
-
-            String upperFluxBound = UNSET;
-            if (fbcReaction.isSetUpperFluxBound()) {
-                upperFluxBound = fbcReaction.getUpperFluxBound();
-            }
-            map.put(SBML.ATTR_FBC_UPPER_FLUX_BOUND, upperFluxBound);
+            // the bound parameters with their values and links, like the bounds of constraints
+            map.put(
+                    SBML.ATTR_FBC_LOWER_FLUX_BOUND,
+                    parameterHtml(
+                            r.getModel(), fbcReaction.isSetLowerFluxBound() ? fbcReaction.getLowerFluxBound() : null));
+            map.put(
+                    SBML.ATTR_FBC_UPPER_FLUX_BOUND,
+                    parameterHtml(
+                            r.getModel(), fbcReaction.isSetUpperFluxBound() ? fbcReaction.getUpperFluxBound() : null));
         }
         map.putAll(fluxObjectiveMap(r));
         return map;

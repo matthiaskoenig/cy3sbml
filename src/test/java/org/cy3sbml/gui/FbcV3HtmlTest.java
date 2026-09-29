@@ -38,13 +38,12 @@ class FbcV3HtmlTest {
 
         assertTrue(html.contains("key-value pairs"), html);
         assertTrue(html.contains("<b>confidence</b>"), html);
-        assertTrue(html.contains("<td>4</td>"), html);
         assertTrue(
-                html.contains("<a href=\"https://github.com/matthiaskoenig/cy3sbml/kvp\">"
-                        + "https://github.com/matthiaskoenig/cy3sbml/kvp</a>"),
+                html.contains("<td>4<br><small><a href=\"https://github.com/matthiaskoenig/cy3sbml/kvp\">"
+                        + "https://github.com/matthiaskoenig/cy3sbml/kvp</a></small></td>"),
                 html);
         // a pair without value and uri
-        assertTrue(html.contains("<tr><td><b>curated</b></td><td></td><td></td></tr>"), html);
+        assertTrue(html.contains("<tr><td><b>curated</b></td><td></td></tr>"), html);
     }
 
     @Test
@@ -106,5 +105,7 @@ class FbcV3HtmlTest {
 
         assertEquals("1.0", map.get("fbc_objective-obj_quadratic"));
         assertEquals("quadratic", map.get("fbc_objective-obj_quadratic_variableType"));
+        assertTrue(map.get(SBML.ATTR_FBC_LOWER_FLUX_BOUND).startsWith("zero = 0 <a"), map.toString());
+        assertTrue(map.get(SBML.ATTR_FBC_UPPER_FLUX_BOUND).startsWith("ub = 1000 <a"), map.toString());
     }
 }

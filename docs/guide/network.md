@@ -88,7 +88,7 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `species_geneProduct` | associated species | gene product (fbc) |
 | `association_reaction` | gene product or top and/or node of the association | reaction (fbc) |
 | `association_association` | gene product or and/or node | the and/or node it belongs to (fbc) |
-| `parameter_userDefinedConstraint` | lower or upper bound parameter | user defined constraint (fbc) |
+| `parameter_userDefinedConstraint` | bound or coefficient parameter | user defined constraint (fbc) |
 | `variable_userDefinedConstraint` | reaction or parameter of a component variable | user defined constraint (fbc) |
 | `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, deletion, replacedElement or replacedBy node | referenced element in the same model |
 | `sbaseRef-submodel` | comp replacedElement or replacedBy node | its submodel |

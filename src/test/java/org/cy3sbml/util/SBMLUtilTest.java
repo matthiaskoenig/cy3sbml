@@ -292,8 +292,9 @@ class SBMLUtilTest {
 
         Map<String, String> map = SBMLUtil.createReactionMap(reaction);
 
-        assertEquals("lb", map.get(SBML.ATTR_FBC_LOWER_FLUX_BOUND));
-        assertEquals("ub", map.get(SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+        // the parameter ids with a link to the node (the parameters have no value here)
+        assertTrue(map.get(SBML.ATTR_FBC_LOWER_FLUX_BOUND).startsWith("lb <a"), map.toString());
+        assertTrue(map.get(SBML.ATTR_FBC_UPPER_FLUX_BOUND).startsWith("ub <a"), map.toString());
     }
 
     @Test

@@ -322,7 +322,7 @@
     {
       "name" : "fbc_v3_example__all",
       "nodeCount" : 25,
-      "edgeCount" : 35,
+      "edgeCount" : 38,
       "attributes" : {
         "fbc_strict" : false,
         "label" : "fbc version 3 example",
@@ -817,16 +817,6 @@
           }
         },
         {
-          "source" : "five",
-          "target" : "uc1",
-          "directed" : true,
-          "interaction" : "parameter_userDefinedConstraint",
-          "attributes" : {
-            "interaction type" : "parameter_userDefinedConstraint",
-            "shared interaction" : "parameter_userDefinedConstraint"
-          }
-        },
-        {
           "source" : "g1",
           "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "directed" : true,
@@ -884,6 +874,46 @@
           "attributes" : {
             "interaction type" : "parameter_reaction",
             "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "negone",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "negone",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "one",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "one",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
           }
         },
         {
@@ -1003,7 +1033,7 @@
     {
       "name" : "fbc_v3_example__kinetic",
       "nodeCount" : 25,
-      "edgeCount" : 35,
+      "edgeCount" : 38,
       "attributes" : {
         "fbc_strict" : false,
         "label" : "fbc version 3 example",
@@ -1514,17 +1544,6 @@
           }
         },
         {
-          "source" : "five",
-          "target" : "uc1",
-          "directed" : true,
-          "interaction" : "parameter_userDefinedConstraint",
-          "attributes" : {
-            "interaction" : "parameter_userDefinedConstraint",
-            "interaction type" : "parameter_userDefinedConstraint",
-            "shared interaction" : "parameter_userDefinedConstraint"
-          }
-        },
-        {
           "source" : "g1",
           "target" : "{\"cyId\":\"RBTK_or\",\"label\":\"OR\",\"sbml type\":\"fbc_or\",\"sbml type ext\":\"fbc_or\"}",
           "directed" : true,
@@ -1588,6 +1607,50 @@
             "interaction" : "parameter_reaction",
             "interaction type" : "parameter_reaction",
             "shared interaction" : "parameter_reaction"
+          }
+        },
+        {
+          "source" : "negone",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "negone",
+          "target" : "uc2",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "one",
+          "target" : "uc1",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
+          }
+        },
+        {
+          "source" : "one",
+          "target" : "uc3",
+          "directed" : true,
+          "interaction" : "parameter_userDefinedConstraint",
+          "attributes" : {
+            "interaction" : "parameter_userDefinedConstraint",
+            "interaction type" : "parameter_userDefinedConstraint",
+            "shared interaction" : "parameter_userDefinedConstraint"
           }
         },
         {
