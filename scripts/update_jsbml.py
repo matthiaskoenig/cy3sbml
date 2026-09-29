@@ -14,6 +14,14 @@ uv run --no-project --python 3.14 python scripts/update_jsbml.py
 uv run --no-project --python 3.14 python scripts/update_jsbml.py <jsbml-ref>
 ```
 
+`--repository <url or path>` builds from another JSBML repository, for example
+a fork with fixes that are not merged into JSBML yet:
+
+```bash
+uv run --no-project --python 3.14 python scripts/update_jsbml.py \
+    --repository https://github.com/matthiaskoenig/jsbml <commit>
+```
+
 The script needs git and a JDK 17 (JSBML compiles for Java 7, which JDK 20 and
 newer no longer support). It
 
@@ -229,7 +237,7 @@ def jar_entries_to_keep(
     ]
 
 
-def minimal_pom(artifact_id: str, version: str, commit: str) -> str:
+def minimal_pom(artifact_id: str, version: str, commit: str, repository: str) -> str:
     """Return a POM without dependencies for a jar in `lib/cy3sbml-dep`.
 
     The JSBML dependencies (woodstox, staxmate, xstream, ...) are declared in
@@ -241,7 +249,7 @@ def minimal_pom(artifact_id: str, version: str, commit: str) -> str:
   <groupId>{GROUP_ID}</groupId>
   <artifactId>{artifact_id}</artifactId>
   <version>{version}</version>
-  <!-- built from {JSBML_URL}/commit/{commit}
+  <!-- built from {repository}/commit/{commit}
     by scripts/update_jsbml.py, without the test classes -->
 </project>
 """
@@ -300,10 +308,10 @@ def ant_executable() -> Path:
     return launcher
 
 
-def checkout(ref: str, jsbml_dir: Path) -> str:
-    """Clone JSBML into `jsbml_dir`, check out `ref` and return its commit hash."""
-    print(f"Cloning {JSBML_URL} and checking out '{ref}'")
-    run(["git", "clone", "--quiet", "--filter=blob:none", JSBML_URL, str(jsbml_dir)])
+def checkout(ref: str, jsbml_dir: Path, repository: str) -> str:
+    """Clone `repository` into `jsbml_dir`, check out `ref`, return its commit hash."""
+    print(f"Cloning {repository} and checking out '{ref}'")
+    run(["git", "clone", "--quiet", "--filter=blob:none", repository, str(jsbml_dir)])
     for candidate in (f"origin/{ref}", ref):
         try:
             commit = run(
@@ -314,7 +322,7 @@ def checkout(ref: str, jsbml_dir: Path) -> str:
             continue
         run(["git", "checkout", "--quiet", "--detach", commit], cwd=jsbml_dir)
         return commit
-    sys.exit(f"'{ref}' is no branch, tag or commit of {JSBML_URL}")
+    sys.exit(f"'{ref}' is no branch, tag or commit of {repository}")
 
 
 def build(jsbml_dir: Path, version: str) -> None:
@@ -369,7 +377,7 @@ def write_sha1(path: Path) -> None:
 
 
 def install(
-    module: Module, jsbml_dir: Path, version: str, commit: str
+    module: Module, jsbml_dir: Path, version: str, commit: str, repository: str
 ) -> tuple[int, int]:
     """Write the stripped jar of `module` with its POM into `lib/cy3sbml-dep`.
 
@@ -392,14 +400,16 @@ def install(
     jar = version_dir / f"{name}.jar"
     removed = strip_tests(built_jar, jar, jsbml_dir / module.source_dir / "test")
     pom = version_dir / f"{name}.pom"
-    pom.write_text(minimal_pom(module.artifact_id, version, commit))
+    pom.write_text(minimal_pom(module.artifact_id, version, commit, repository))
     write_sha1(jar)
     write_sha1(pom)
     with zipfile.ZipFile(jar) as written:
         return len(written.namelist()), removed
 
 
-def summary(old_version: str, new_version: str, commit: str, jsbml_dir: Path) -> str:
+def summary(
+    old_version: str, new_version: str, commit: str, jsbml_dir: Path, repository: str
+) -> str:
     """Return a Markdown summary of the update with the JSBML commits it adds."""
     old_sha = version_sha(old_version)
     log = run(
@@ -407,13 +417,13 @@ def summary(old_version: str, new_version: str, commit: str, jsbml_dir: Path) ->
         cwd=jsbml_dir,
     )
     commits = "\n".join(
-        f"- [`{line[:9]}`]({JSBML_URL}/commit/{line.split(' ', 1)[0]}) "
+        f"- [`{line[:9]}`]({repository}/commit/{line.split(' ', 1)[0]}) "
         f"{line.split(' ', 1)[1]}"
         for line in log.splitlines()
     )
     return (
         f"Update JSBML from `{old_version}` to `{new_version}` "
-        f"({JSBML_URL}/compare/{old_sha}...{commit[:8]}).\n\n"
+        f"({repository}/compare/{old_sha}...{commit[:8]}).\n\n"
         f"JSBML commits (first parent):\n\n{commits or '- none'}\n"
     )
 
@@ -430,6 +440,11 @@ def main() -> None:
         help=f"JSBML branch, tag or commit (default: {JSBML_DEFAULT_REF})",
     )
     parser.add_argument(
+        "--repository",
+        default=JSBML_URL,
+        help=f"JSBML repository URL or path (default: {JSBML_URL})",
+    )
+    parser.add_argument(
         "--force", action="store_true", help="rebuild the pinned commit, too"
     )
     parser.add_argument(
@@ -443,7 +458,7 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="jsbml-") as tmp:
         jsbml_dir = Path(tmp) / "jsbml"
-        commit = checkout(args.ref, jsbml_dir)
+        commit = checkout(args.ref, jsbml_dir, args.repository)
         commit_date = run(
             ["git", "show", "-s", "--format=%cd", "--date=format:%Y%m%d", commit],
             cwd=jsbml_dir,
@@ -460,14 +475,16 @@ def main() -> None:
 
         build(jsbml_dir, version)
         for module in MODULES:
-            entries, removed = install(module, jsbml_dir, version, commit)
+            entries, removed = install(
+                module, jsbml_dir, version, commit, args.repository
+            )
             print(f"  {module.artifact_id}: {entries} entries, {removed} test removed")
 
         pom = set_pom_property(pom, "jsbml.version", version)
         pom = set_pom_property(pom, "jsbml.osgi.version", osgi_version(version))
         POM_PATH.write_text(pom)
 
-        text = summary(old_version, version, commit, jsbml_dir)
+        text = summary(old_version, version, commit, jsbml_dir, args.repository)
         if args.summary:
             args.summary.write_text(text)
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cy3sbml-dep</groupId>
+  <artifactId>jsbml-layout</artifactId>
+  <version>1.7-20260929-1a0a2158</version>
+  <!-- built from /home/mkoenig/git/jsbml/commit/1a0a21589d9c46c8daa5943c997c4949d46f74d3
+    by scripts/update_jsbml.py, without the test classes -->
+</project>

@@ -25,10 +25,10 @@
         <!-- JSBML jars in lib/cy3sbml-dep, built from one sbmlteam/jsbml commit:
             <JSBML version>-<commit date>-<short sha>. Both properties are set by
             scripts/update_jsbml.py, see docs/development/dependencies.md. -->
-        <jsbml.version>1.7-20260907-8192a8a7</jsbml.version>
+        <jsbml.version>1.7-20260929-1a0a2158</jsbml.version>
         <!-- The same JSBML version as an OSGi version, used for the exported
             org.sbml.jsbml packages. -->
-        <jsbml.osgi.version>1.7.0.20260907-8192a8a7</jsbml.osgi.version>
+        <jsbml.osgi.version>1.7.0.20260929-1a0a2158</jsbml.osgi.version>
         <!-- biojava-ontology, embedded as a nested jar for JSBML (org.sbml.jsbml.SBO);
             also passed to BundleJarContentIT, which checks the nested jar by name -->
         <biojava.version>7.3.0</biojava.version>
@@ -266,6 +266,20 @@
             <groupId>org.w3c.jigsaw</groupId>
             <artifactId>jigsaw</artifactId>
             <version>2.2.6</version>
+        </dependency>
+        <!-- Used by org.sbml.jsbml.validator.offline.factory.SBMLErrorFactory, which creates the
+            errors JSBML throws for invalid values (e.g. an undefined unit), see
+            JsbmlDependenciesTest. -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Used by org.sbml.jsbml.xml.stax.SBMLWriter and
             org.sbml.jsbml.util.compilers.MathMLXMLStreamCompiler; confirmed with jdeps. -->

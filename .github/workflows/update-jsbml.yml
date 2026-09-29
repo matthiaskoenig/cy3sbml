@@ -10,6 +10,10 @@ on:
         description: JSBML branch, tag or commit
         required: true
         default: master
+      repository:
+        description: JSBML repository, for example a fork with fixes not merged yet
+        required: true
+        default: https://github.com/sbmlteam/jsbml
 
 permissions:
   contents: read
@@ -45,9 +49,10 @@ jobs:
       - name: Build the JSBML jars
         env:
           REF: ${{ inputs.ref }}
+          REPOSITORY: ${{ inputs.repository }}
         run: >-
           uv run --no-project --python 3.14 python scripts/update_jsbml.py "$REF"
-          --summary "$RUNNER_TEMP/summary.md"
+          --repository "$REPOSITORY" --summary "$RUNNER_TEMP/summary.md"
       - name: Open the pull request
         env:
           GH_TOKEN: ${{ github.token }}

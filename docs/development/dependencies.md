@@ -40,8 +40,19 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
   directly (`inline=org/**` in the `Embed-Dependency` instruction). It leaves out
   their `META-INF`: without the `ServiceLoader` files, JSBML uses its built-in list
   of package parsers.
-- The dependencies of JSBML (woodstox, staxmate, biojava-ontology, ...) are
-  normal Maven Central dependencies in `pom.xml`, so Dependabot updates them.
+- The dependencies of JSBML (woodstox, staxmate, biojava-ontology, json-simple, ...)
+  are normal Maven Central dependencies in `pom.xml`, so Dependabot updates them.
+
+### Current pin: JSBML fork
+
+The pinned commit `1a0a2158` is on the branch
+[`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes) of the fork
+`matthiaskoenig/jsbml`, one commit on top of JSBML `master` (`8192a8a7`). It rewrites
+the flattening of hierarchical models (`CompFlatteningConverter`) and fixes the
+resolution of external model definitions, which cy3sbml needs for the comp package
+([#401](https://github.com/matthiaskoenig/cy3sbml/issues/401),
+[#220](https://github.com/matthiaskoenig/cy3sbml/issues/220)). When the fix is merged
+into JSBML, update to JSBML `master` again.
 
 ## Update JSBML
 
@@ -57,6 +68,8 @@ changes nothing.
     ```bash
     gh workflow run update-jsbml.yml                  # latest JSBML master
     gh workflow run update-jsbml.yml -f ref=<commit>  # a given commit
+    gh workflow run update-jsbml.yml -f ref=<commit> \
+        -f repository=https://github.com/matthiaskoenig/jsbml  # a commit of a fork
     ```
 
 2. The workflow runs the script and opens the pull request "Update JSBML to
@@ -79,6 +92,11 @@ uv run --no-project --python 3.14 python scripts/update_jsbml.py          # late
 uv run --no-project --python 3.14 python scripts/update_jsbml.py <ref>    # branch, tag or commit
 ./mvnw -B -q clean verify
 ```
+
+`--repository <url or path>` builds from another repository than
+`https://github.com/sbmlteam/jsbml`: a fork with fixes that are not merged into JSBML
+yet, or a local clone while developing a fix. The workflow has the same `repository`
+input. Pin only commits that are pushed to a public repository.
 
 The script does these steps:
 
