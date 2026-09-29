@@ -359,6 +359,8 @@ public class SBML {
     public static final String PREFIX_SUBNETWORK_ALL = "All";
     public static final String PREFIX_SUBNETWORK_KINETIC = "Kinetic";
     public static final String PREFIX_SUBNETWORK_BASE = "";
+    // prefix of the network collection of the flat comp model
+    public static final String PREFIX_NETWORK_FLAT = "Flat";
 
     // -------------------------------------------------------------------------
     // cy3sbml properties

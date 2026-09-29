@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -165,8 +167,10 @@ public class TestUtils {
         String fileName = tokens[tokens.length - 1];
         try (InputStream instream = TestUtils.class.getResourceAsStream(resource)) {
             assertNotNull(instream, "Resource not found: " + resource);
-            // Reader can be tested without service adapter
-            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
+            // Reader can be tested without service adapter; with the location, as for a file
+            // imported in Cytoscape, so that external model definitions are found
+            SBMLReaderTask readerTask =
+                    new SBMLReaderTask(instream, fileName, location(resource), networkFactory, groupFactory);
             readerTask.run(mock(TaskMonitor.class));
             return readerTask.getNetworks();
         }
@@ -209,7 +213,8 @@ public class TestUtils {
         String fileName = tokens[tokens.length - 1];
         try (InputStream instream = openModel(resource)) {
             // Reader can be tested without service adapter
-            SBMLReaderTask readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
+            SBMLReaderTask readerTask =
+                    new SBMLReaderTask(instream, fileName, location(resource), networkFactory, groupFactory);
             readerTask.run(taskMonitor);
             assertFalse(readerTask.getError());
             assertTrue(readerTask.getNetworks().length >= 1);
@@ -222,6 +227,11 @@ public class TestUtils {
     /**
      * Opens the classpath resource of a model found by {@link #findResources}.
      */
+    /** The location of the classpath resource. */
+    private static URI location(String resource) throws URISyntaxException {
+        return TestUtils.class.getResource(resource).toURI();
+    }
+
     private static InputStream openModel(String resource) {
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         assertNotNull(instream, "Resource not found: " + resource);

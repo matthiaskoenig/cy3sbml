@@ -14,6 +14,9 @@
             <!-- CompModelsTest: a wrong md5 checksum, a missing external file -->
             <message>The md5 checksum of .*/models/comp/unit/ext\.xml is .* The file may have changed\.</message>
             <message>The file .*/models/comp/unit/missing\.xml does not exist\.</message>
+            <!-- unittests/small_population.xml: the copy of a Watanabe2014 model without its
+                 external file represCirc.xml -->
+            <message>The file .*/models/unittests/represCirc\.xml does not exist\.</message>
         </filter>
         <encoder>
             <pattern>%-5level \(%logger{36}\) - %msg%n</pattern>
