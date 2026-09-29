@@ -55,16 +55,16 @@ The [Python examples](https://github.com/matthiaskoenig/cy3sbml/tree/develop/exa
 use py4cytoscape. `cy3sbml_client.py` sends the arguments of a command as JSON through
 CyREST and returns its result:
 
-```python
+````python
 --8<-- "examples/python/cy3sbml_client.py"
-```
+````
 
 For example, `explore_model.py` imports a model, reads the SBML, reads SBML elements and
 selects the nodes of SBML ids:
 
-```python
+````python
 --8<-- "examples/python/explore_model.py"
-```
+````
 
 The other examples:
 

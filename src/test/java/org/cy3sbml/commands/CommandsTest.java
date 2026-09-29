@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.cytoscape.work.ServiceProperties;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.Tunable;
@@ -71,6 +73,43 @@ class CommandsTest {
                 }
             }
         }
+    }
+
+    private static final Pattern SNIPPET = Pattern.compile("--8<-- \"(.+)\"");
+
+    /**
+     * The fence of an embedded example ({@code --8<-- "<file>"}) is longer than every fence in
+     * the file, e.g. the {@code ```bash} of a docstring, which would otherwise end the code
+     * block of the page.
+     */
+    @Test
+    void theEmbeddedExamplesAreCodeBlocks() throws Exception {
+        List<String> lines = Files.readAllLines(Path.of("docs/guide/automation.md"));
+        int snippets = 0;
+        for (int i = 1; i < lines.size(); i++) {
+            Matcher snippet = SNIPPET.matcher(lines.get(i));
+            if (!snippet.matches()) {
+                continue;
+            }
+            snippets++;
+            int fence = fenceLength(lines.get(i - 1));
+            for (String line : Files.readAllLines(Path.of(snippet.group(1)))) {
+                assertTrue(
+                        fenceLength(line) < fence,
+                        "the fence of " + snippet.group(1) + " is not longer than its line: " + line);
+            }
+        }
+        assertTrue(snippets > 0);
+    }
+
+    /** The number of backticks at the start of the (stripped) line. */
+    private static int fenceLength(String line) {
+        String stripped = line.strip();
+        int length = 0;
+        while (length < stripped.length() && stripped.charAt(length) == '`') {
+            length++;
+        }
+        return length;
     }
 
     @Test
