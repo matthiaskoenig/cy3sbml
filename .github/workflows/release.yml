@@ -48,6 +48,7 @@ jobs:
       - name: Create the GitHub release
         uses: softprops/action-gh-release@v3
         with:
+          name: cy3sbml-${{ github.ref_name }}
           body_path: ${{ env.NOTES }}
           files: |
             target/cy3sbml-*.jar
