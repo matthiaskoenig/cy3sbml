@@ -3,6 +3,7 @@ package org.cy3sbml.gui;
 import java.util.List;
 import java.util.Locale;
 import org.cy3sbml.comp.CompTargets;
+import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.DistribUtil;
 import org.cy3sbml.util.HtmlUtil;
 import org.cy3sbml.util.SBMLUtil;
@@ -106,7 +107,7 @@ public final class UncertaintyHtml {
         if (parameter.isSetVar()) {
             return var(parameter.getVar(), model, targets);
         }
-        return parameter.isSetMath() ? HtmlUtil.escape(parameter.getMath().toFormula()) : "";
+        return parameter.isSetMath() ? HtmlUtil.escape(ASTNodeUtil.toFormula(parameter.getMath())) : "";
     }
 
     /** The id with a link to the node of the element it references, if there is one. */

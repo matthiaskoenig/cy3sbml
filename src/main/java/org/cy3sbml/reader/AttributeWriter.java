@@ -2,6 +2,7 @@ package org.cy3sbml.reader;
 
 import java.util.Properties;
 import org.cy3sbml.SBML;
+import org.cy3sbml.util.ASTNodeUtil;
 import org.cy3sbml.util.AnnotationUtil;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.model.CyIdentifiable;
@@ -178,7 +179,7 @@ final class AttributeWriter {
         AttributeUtil.set(network, n, SBML.ATTR_DERIVED_UNITS, container.getDerivedUnits(), String.class);
         if (container.isSetMath()) {
             ASTNode astNode = container.getMath();
-            AttributeUtil.set(network, n, SBML.ATTR_MATH, astNode.toFormula(), String.class);
+            AttributeUtil.set(network, n, SBML.ATTR_MATH, ASTNodeUtil.toFormula(astNode), String.class);
         }
     }
 

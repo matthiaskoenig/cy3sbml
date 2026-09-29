@@ -27,7 +27,7 @@ final class MathGraphBuilder {
         CyNetwork network = context.network();
         if (container.isSetMath()) {
             ASTNode astNode = container.getMath();
-            AttributeUtil.set(network, containerNode, SBML.ATTR_MATH, astNode.toFormula(), String.class);
+            AttributeUtil.set(network, containerNode, SBML.ATTR_MATH, ASTNodeUtil.toFormula(astNode), String.class);
 
             // Get the refenced objects in math.
             // This can be parameters, localParameters, species, ...
@@ -38,7 +38,10 @@ final class MathGraphBuilder {
                 if (nsbNode != null) {
                     context.createEdge(nsbNode, containerNode, edgeType);
                 } else {
-                    logger.warn("Node for metaId <{}> not found in math <{}>", nsb.getMetaId(), astNode.toFormula());
+                    logger.warn(
+                            "Node for metaId <{}> not found in math <{}>",
+                            nsb.getMetaId(),
+                            ASTNodeUtil.toFormula(astNode));
                 }
             }
         }

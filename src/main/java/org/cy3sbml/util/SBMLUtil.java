@@ -249,7 +249,7 @@ public class SBMLUtil {
     public static Map<String, String> createAbstractMathContainerNodeMap(
             AbstractMathContainer container, Variable variable) {
         Map<String, String> map = createSBaseMap(container);
-        String math = container.isSetMath() ? container.getMath().toFormula() : UNSET;
+        String math = container.isSetMath() ? ASTNodeUtil.toFormula(container.getMath()) : UNSET;
         String units = getDerivedUnitHtml(container);
         if (variable != null) {
             map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
@@ -426,7 +426,8 @@ public class SBMLUtil {
         if (r.isSetKineticLaw()) {
             KineticLaw law = r.getKineticLaw();
             if (law.isSetMath()) {
-                kineticLaw = law.getMath().toFormula() + String.format(LINK_METAID_TEMPLATE, law.getMetaId());
+                kineticLaw =
+                        ASTNodeUtil.toFormula(law.getMath()) + String.format(LINK_METAID_TEMPLATE, law.getMetaId());
             }
         }
         String units = getDerivedUnitHtml(r);
@@ -496,7 +497,9 @@ public class SBMLUtil {
     @SuppressWarnings("deprecation")
     private static String stoichiometryHtml(SpeciesReference sr) {
         if (sr.isSetStoichiometryMath() && sr.getStoichiometryMath().isSetMath()) {
-            return "(" + HtmlUtil.escape(sr.getStoichiometryMath().getMath().toFormula()) + ")";
+            return "("
+                    + HtmlUtil.escape(
+                            ASTNodeUtil.toFormula(sr.getStoichiometryMath().getMath())) + ")";
         }
         if (sr.isSetStoichiometry()) {
             double value = sr.getStoichiometry();
@@ -610,7 +613,7 @@ public class SBMLUtil {
         if (event.isSetTrigger()) {
             Trigger trigger = event.getTrigger();
             if (trigger.isSetMath()) {
-                triggerStr = mathHtml(trigger.getMath().toFormula());
+                triggerStr = mathHtml(ASTNodeUtil.toFormula(trigger.getMath()));
             }
             if (trigger.isSetInitialValue()) {
                 initialValue = SBaseHTMLFactory.booleanHTML(trigger.getInitialValue());
@@ -627,7 +630,7 @@ public class SBMLUtil {
         if (event.isSetPriority()) {
             Priority priority = event.getPriority();
             if (priority.isSetMath()) {
-                priorityStr = mathHtml(priority.getMath().toFormula());
+                priorityStr = mathHtml(ASTNodeUtil.toFormula(priority.getMath()));
             }
         }
         map.put("priority", priorityStr);
@@ -635,7 +638,7 @@ public class SBMLUtil {
         if (event.isSetDelay()) {
             Delay delay = event.getDelay();
             if (delay.isSetMath()) {
-                delayStr = mathHtml(delay.getMath().toFormula());
+                delayStr = mathHtml(ASTNodeUtil.toFormula(delay.getMath()));
             }
         }
         map.put("delay", delayStr);
