@@ -5,6 +5,8 @@ import static org.cy3sbml.gui.GUIConstants.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -224,25 +226,41 @@ public class SBaseHTMLFactory {
         String html = "<p class=\"cvterm\">";
         History h = sbase.getHistory();
         for (Creator c : h.getListOfCreators()) {
-            String givenName = c.isSetGivenName() ? c.getGivenName() : "";
-            String familyName = c.isSetFamilyName() ? c.getFamilyName() : "";
-            String organisation = c.isSetOrganisation() ? String.format(", %s", c.getOrganisation()) : "";
-            String email = "";
-            if (c.isSetEmail()) {
-                email = EMAIL_LINK.replace("{email}", c.getEmail());
+            List<String> parts = new ArrayList<>();
+            if (c.isSetGivenName()) {
+                parts.add(HtmlUtil.escape(c.getGivenName()));
             }
-            html += MessageFormat.format("{0} {1} {2}{3}</br>\n", givenName, familyName, email, organisation);
+            if (c.isSetFamilyName()) {
+                parts.add(HtmlUtil.escape(c.getFamilyName()));
+            }
+            if (c.isSetEmail()) {
+                parts.add(EMAIL_LINK.strip().replace("{email}", HtmlUtil.escape(c.getEmail())));
+            }
+            String creator = String.join(" ", parts);
+            if (c.isSetOrganisation()) {
+                creator += ", " + HtmlUtil.escape(c.getOrganisation());
+            }
+            html += creator + "<br />\n";
         }
         if (h.isSetCreatedDate()) {
-            html += CREATED_DATE1.replace("{date}", h.getCreatedDate().toString());
+            html += CREATED_DATE1.replace("{date}", formatDate(h.getCreatedDate()));
         }
         if (h.isSetListOfModification()) {
             for (Date date : h.getListOfModifiedDates()) {
-                html += MODIFIED_DATE.replace("{date}", date.toString());
+                html += MODIFIED_DATE.replace("{date}", formatDate(date));
             }
         }
         html += "</p>\n";
         return html;
+    }
+
+    /**
+     * Formats a history date in UTC as the W3CDTF date of the SBML file, e.g. "2005-02-02T14:56:11Z".
+     */
+    // reason: the JSBML History API returns java.util.Date
+    @SuppressWarnings("JavaUtilDate")
+    static String formatDate(Date date) {
+        return DateTimeFormatter.ISO_INSTANT.format(date.toInstant().truncatedTo(ChronoUnit.SECONDS));
     }
 
     /**

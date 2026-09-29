@@ -60,9 +60,12 @@ public class GUIConstants {
     public static final String ICON_TRUE = htmlFragments.get("TRUE");
     public static final String ICON_FALSE = htmlFragments.get("FALSE");
     public static final String ICON_INVISIBLE = htmlFragments.get("INVISIBLE");
+    /** Link icon, with its tooltip in the placeholder {title}. */
+    public static final String ICON_LINK = htmlFragments.get("LINK_ICON");
+
+    public static final String ICON_SPINNER = htmlFragments.get("SPINNER");
     public static final String EXPORT_HTML =
             htmlFragments.get("EXPORT_HTML").replace("{URL}", BrowserHyperlinkListener.URL_HTML_SBASE);
-    ;
     public static final String TABLE_START = htmlFragments.get("TABLE_START");
     public static final String TABLE_END = htmlFragments.get("TABLE_END");
     public static final String TS = htmlFragments.get("TABLE_ROW_START");
