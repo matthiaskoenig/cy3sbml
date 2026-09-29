@@ -13,15 +13,24 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.SBML;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
 import org.cy3sbml.util.AttributeUtil;
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
@@ -31,6 +40,7 @@ import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.SBMLDocument;
 
 class SBMLReaderTaskTest {
 
@@ -154,7 +164,8 @@ class SBMLReaderTaskTest {
             readerTask(stream, networkFactory).run(mock(TaskMonitor.class));
         }
 
-        verify(networkFactory, times(4)).createNetwork();
+        // the main model, the three model definitions and the flat model
+        verify(networkFactory, times(5)).createNetwork();
     }
 
     @Test
@@ -254,5 +265,171 @@ class SBMLReaderTaskTest {
         assertEquals("model.xml", SubnetworkBuilder.fileName("C:\\Users\\user\\model.xml"));
         assertEquals("https://example.org/", SubnetworkBuilder.fileName("https://example.org/"));
         assertEquals("", SubnetworkBuilder.fileName(null));
+    }
+
+    /** Reads the resource with its location, as Cytoscape does for a file, and returns the task. */
+    private static SBMLReaderTask readWithLocation(String resource, boolean withLocation) throws Exception {
+        URL url = SBMLReaderTaskTest.class.getResource(resource);
+        String fileName = resource.substring(resource.lastIndexOf('/') + 1);
+        SBMLReaderTask task;
+        try (InputStream stream = url.openStream()) {
+            task = new SBMLReaderTask(
+                    stream,
+                    fileName,
+                    withLocation ? url.toURI() : null,
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory());
+            task.run(mock(TaskMonitor.class));
+        }
+        assertFalse(task.getError());
+        return task;
+    }
+
+    /** The names of the base networks, one per network collection. */
+    private static List<String> collectionNames(SBMLReaderTask task) {
+        return Arrays.stream(task.getNetworks())
+                .map(network -> ((CySubNetwork) network).getRootNetwork())
+                .distinct()
+                .map(root -> root.getRow(root).get(CyNetwork.NAME, String.class))
+                .toList();
+    }
+
+    private static final String TOY_TOP_LEVEL = "/models/comp/koenig-toymodel/toy_top_level.xml";
+
+    @Test
+    void readerCreatesNetworksOfExternalAndFlatModels() throws Exception {
+        SBMLReaderTask task = readWithLocation(TOY_TOP_LEVEL, true);
+
+        assertEquals(
+                List.of(
+                        "toy_top_level",
+                        "toy_ode_bounds",
+                        "toy_fba",
+                        "toy_ode_update",
+                        "toy_ode_model",
+                        "Flat__toy_top_level"),
+                collectionNames(task));
+        assertEquals(18, task.getNetworks().length);
+    }
+
+    /** The flat network has the species of the libSBML flattening. */
+    @Test
+    void flatNetworkHasTheSpeciesOfTheFlatModel() throws Exception {
+        SBMLReaderTask task = readWithLocation(TOY_TOP_LEVEL, true);
+        JsonNode reference;
+        try (InputStream stream = getClass().getResourceAsStream("/models/comp/comp-flat-reference.json")) {
+            reference = new ObjectMapper().readTree(stream);
+        }
+        List<String> expected = new ArrayList<>();
+        reference.get("koenig-toymodel/toy_top_level.xml").get("species").forEach(id -> expected.add(id.asText()));
+
+        CyNetwork flat = Arrays.stream(task.getNetworks())
+                .filter(n -> "All__Flat__toy_top_level".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .findFirst()
+                .orElseThrow();
+        List<String> species = flat.getNodeList().stream()
+                .filter(n -> SBML.NODETYPE_SPECIES.equals(flat.getRow(n).get(SBML.NODETYPE_ATTR, String.class)))
+                .map(n -> flat.getRow(n).get(SBML.ATTR_ID, String.class))
+                .sorted()
+                .toList();
+        assertEquals(expected, species);
+    }
+
+    /** Without the location of the file, the external models are not found, and there is no flat model. */
+    @Test
+    void readerWithoutLocationCreatesOnlyTheMainNetwork() throws Exception {
+        SBMLReaderTask task = readWithLocation(TOY_TOP_LEVEL, false);
+
+        assertEquals(List.of("toy_top_level"), collectionNames(task));
+    }
+
+    @Test
+    void missingExternalFileSkipsOnlyItsNetwork() throws Exception {
+        SBMLReaderTask task = readWithLocation("/models/comp/unit/top.xml", true);
+
+        // top.xml refers to missing.xml, which no submodel uses, and to ext.xml and sub/ext2.xml
+        // several times
+        assertEquals(List.of("top", "local", "ext_main", "inner", "Flat__top"), collectionNames(task));
+    }
+
+    /** inst_a.xml and inst_b.xml instantiate each other: both networks, no flat network. */
+    @Test
+    void instantiationCycleThroughFilesSkipsTheFlatNetwork() throws Exception {
+        SBMLReaderTask task = readWithLocation("/models/comp/unit/inst_a.xml", true);
+
+        assertEquals(List.of("inst_a", "inst_b"), collectionNames(task));
+    }
+
+    @Test
+    void submodelThatCannotBeInstantiatedSkipsTheFlatNetwork() throws Exception {
+        SBMLReaderTask task = readWithLocation("/models/comp/unit/cycle_a.xml", true);
+
+        assertEquals(List.of("cycle_a_main"), collectionNames(task));
+    }
+
+    @Test
+    void documentWithOnlyModelDefinitionsCreatesTheirNetworks() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+                      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1"
+                      level="3" version="1" comp:required="true">
+                  <comp:listOfModelDefinitions>
+                    <comp:modelDefinition id="definition">
+                      <listOfCompartments>
+                        <compartment id="c" constant="true"/>
+                      </listOfCompartments>
+                    </comp:modelDefinition>
+                  </comp:listOfModelDefinitions>
+                </sbml>
+                """;
+        SBMLReaderTask task = new SBMLReaderTask(
+                new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.UTF_8)),
+                "definitions.xml",
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+        task.run(mock(TaskMonitor.class));
+
+        assertFalse(task.getError());
+        assertEquals(List.of("definition"), collectionNames(task));
+    }
+
+    /** Every network is registered with the document of its model. */
+    @Test
+    void networksAreRegisteredWithTheDocumentOfTheirModel() throws Exception {
+        URL url = getClass().getResource(TOY_TOP_LEVEL);
+        SBMLManager sbmlManager = new SBMLManager(mock(CyApplicationManager.class));
+        SBMLReaderTask task;
+        try (InputStream stream = url.openStream()) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "toy_top_level.xml",
+                    url.toURI(),
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory(),
+                    new NetworkViewTestSupport().getNetworkViewFactory(),
+                    null,
+                    null,
+                    null,
+                    sbmlManager);
+            task.run(mock(TaskMonitor.class));
+        }
+        for (CyNetwork network : task.getNetworks()) {
+            task.buildCyNetworkView(network);
+        }
+
+        Map<String, String> documentOfNetwork = new HashMap<>();
+        for (CyNetwork network : task.getNetworks()) {
+            SBMLDocument document = sbmlManager.getSBMLDocument(network);
+            String file = document.getLocationURI()
+                    .substring(document.getLocationURI().lastIndexOf('/') + 1);
+            documentOfNetwork.put(
+                    network.getRow(network).get(CyNetwork.NAME, String.class),
+                    file + " " + document.isPackageEnabled("comp"));
+        }
+        assertEquals("toy_top_level.xml true", documentOfNetwork.get("toy_top_level"));
+        assertEquals("toy_fba.xml true", documentOfNetwork.get("toy_fba"));
+        // the flat model is in its own document, without the comp package
+        assertEquals("toy_top_level.xml false", documentOfNetwork.get("Flat__toy_top_level"));
     }
 }

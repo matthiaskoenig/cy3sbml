@@ -5,13 +5,25 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
+import org.cy3sbml.comp.CompTargets;
+import org.cy3sbml.comp.ModelResolution;
+import org.cy3sbml.comp.SBaseRefResolution;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
-import org.sbml.jsbml.ext.comp.Port;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
+import org.sbml.jsbml.ext.comp.ExternalModelDefinition;
+import org.sbml.jsbml.ext.comp.ModelDefinition;
+import org.sbml.jsbml.ext.comp.ReplacedBy;
+import org.sbml.jsbml.ext.comp.ReplacedElement;
+import org.sbml.jsbml.ext.comp.SBaseRef;
+import org.sbml.jsbml.ext.comp.Submodel;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.FBCModelPlugin;
 import org.sbml.jsbml.ext.fbc.FBCReactionPlugin;
@@ -136,9 +148,9 @@ public class SBMLUtil {
         return name;
     }
 
-    ////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // Attribute maps
-    /// /////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
     public static final String TEMPLATE_ALGEBRAIC_RULE = "<~>";
@@ -672,7 +684,7 @@ public class SBMLUtil {
         return map;
     }
 
-    /// QUAL ///
+    // QUAL
 
     /**
      * QualitativeSpecies map.
@@ -735,7 +747,7 @@ public class SBMLUtil {
         return map;
     }
 
-    /// FBC ///
+    // FBC
 
     /**
      * GeneProduct map.
@@ -745,21 +757,150 @@ public class SBMLUtil {
         return map;
     }
 
-    /// COMP ///
+    // COMP
+
+    // <root network SUID>/<metaid>
+    private static final String LINK_TARGET_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_TARGET
+            + "%s/%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\""
+            + " title=\"Link to the node in the network of its model.\"></span></a>";
 
     /**
-     * Port map.
+     * Submodel map: the referenced model, with a link to its network, and the conversion factors.
+     *
+     * @param targets the comp references of the open documents, may be null
      */
-    public static Map<String, String> createPortMap(Port port) {
-        Map<String, String> map = createNamedSBaseMap(port);
-        map.put(SBML.ATTR_COMP_PORTREF, port.isSetPortRef() ? port.getPortRef() : UNSET);
-        map.put(SBML.ATTR_COMP_IDREF, port.isSetIdRef() ? port.getIdRef() : UNSET);
-        map.put(SBML.ATTR_COMP_UNITREF, port.isSetUnitRef() ? port.getUnitRef() : UNSET);
-        map.put(SBML.ATTR_COMP_METAIDREF, port.isSetMetaIdRef() ? port.getMetaIdRef() : UNSET);
+    public static Map<String, String> createSubmodelMap(Submodel submodel, CompTargets targets) {
+        Map<String, String> map = createNamedSBaseMap(submodel);
+        putIfSet(map, "modelRef", submodel.isSetModelRef() ? submodel.getModelRef() : null);
+        putIfSet(
+                map,
+                "timeConversionFactor",
+                submodel.isSetTimeConversionFactor() ? submodel.getTimeConversionFactor() : null);
+        putIfSet(
+                map,
+                "extentConversionFactor",
+                submodel.isSetExtentConversionFactor() ? submodel.getExtentConversionFactor() : null);
+        map.put("deletions", Integer.toString(submodel.getDeletionCount()));
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(submodel);
+        if (resolver != null) {
+            map.put("model", modelHtml(resolver.models().resolve(submodel), targets));
+        }
         return map;
     }
 
-    /// GROUP ///
+    /**
+     * Map of a port, deletion, replaced element or replaced by: the attributes that are
+     * set, the chain of the reference, and its target with a link to the node in the
+     * network of the target model.
+     *
+     * @param targets the comp references of the open documents, may be null
+     */
+    public static Map<String, String> createSBaseRefMap(SBaseRef ref, CompTargets targets) {
+        Map<String, String> map = ref instanceof NamedSBase named ? createNamedSBaseMap(named) : createSBaseMap(ref);
+        if (ref instanceof ReplacedElement replacedElement) {
+            putIfSet(map, "submodelRef", replacedElement.isSetSubmodelRef() ? replacedElement.getSubmodelRef() : null);
+            putIfSet(
+                    map,
+                    "conversionFactor",
+                    replacedElement.isSetConversionFactor() ? replacedElement.getConversionFactor() : null);
+            putIfSet(map, "deletion", replacedElement.isSetDeletion() ? replacedElement.getDeletion() : null);
+        } else if (ref instanceof ReplacedBy replacedBy) {
+            putIfSet(map, "submodelRef", replacedBy.isSetSubmodelRef() ? replacedBy.getSubmodelRef() : null);
+        }
+        putIfSet(map, "portRef", ref.isSetPortRef() ? ref.getPortRef() : null);
+        putIfSet(map, "idRef", ref.isSetIdRef() ? ref.getIdRef() : null);
+        putIfSet(map, "unitRef", ref.isSetUnitRef() ? ref.getUnitRef() : null);
+        putIfSet(map, "metaIdRef", ref.isSetMetaIdRef() ? ref.getMetaIdRef() : null);
+        if (ref.isSetSBaseRef() || map.containsKey("submodelRef")) {
+            map.put("reference", HtmlUtil.escape(SBaseRefResolver.describe(ref)));
+        }
+        boolean replacesDeletion = ref instanceof ReplacedElement re && re.isSetDeletion();
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(ref);
+        if (resolver != null && !replacesDeletion) {
+            map.put("target", targetHtml(resolver.resolve(ref), targets));
+        }
+        return map;
+    }
+
+    /** Puts the escaped value if it is set (not null and not empty). */
+    private static void putIfSet(Map<String, String> map, String key, String value) {
+        if (value != null && !value.isEmpty()) {
+            map.put(key, HtmlUtil.escape(value));
+        }
+    }
+
+    /**
+     * The model definitions and external model definitions of the document, with the
+     * model of each external model definition or why it could not be read.
+     *
+     * @param targets the comp references of the open documents, may be null
+     */
+    public static Map<String, String> createCompDocumentMap(SBMLDocument document, CompTargets targets) {
+        Map<String, String> map = new LinkedHashMap<>();
+        if (!(document.getExtension(CompConstants.shortLabel) instanceof CompSBMLDocumentPlugin plugin)) {
+            return map;
+        }
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(document);
+        for (ModelDefinition modelDefinition : plugin.getListOfModelDefinitions()) {
+            map.put("model definition " + modelDefinition.getId(), modelLink(modelDefinition, targets));
+        }
+        for (ExternalModelDefinition external : plugin.getListOfExternalModelDefinitions()) {
+            String source = HtmlUtil.escape(external.getSource());
+            if (external.isSetModelRef()) {
+                source += " (" + external.getModelRef() + ")";
+            }
+            if (resolver != null) {
+                source += ": " + modelHtml(resolver.models().resolve(document, external.getId()), targets);
+            }
+            map.put("external model definition " + external.getId(), source);
+        }
+        return map;
+    }
+
+    private static String modelHtml(ModelResolution resolution, CompTargets targets) {
+        if (resolution instanceof ModelResolution.Resolved resolved) {
+            return modelLink(resolved.model(), targets);
+        }
+        return String.format(
+                "<span class=\"text-danger\">%s</span>",
+                HtmlUtil.escape(((ModelResolution.Failed) resolution).reason()));
+    }
+
+    /** The name of the model, with a link to its network collection if there is one. */
+    private static String modelLink(Model model, CompTargets targets) {
+        String name = HtmlUtil.escape(modelName(model));
+        return networkLink(model, "", targets).map(link -> name + link).orElse(name);
+    }
+
+    private static String modelName(Model model) {
+        return model.isSetId() ? model.getId() : "main model";
+    }
+
+    /** The link to the node with the metaid in the network collection of the model. */
+    private static Optional<String> networkLink(Model model, String metaId, CompTargets targets) {
+        if (targets == null) {
+            return Optional.empty();
+        }
+        return targets.rootNetwork(model).map(root -> String.format(LINK_TARGET_TEMPLATE, root, metaId));
+    }
+
+    private static String targetHtml(SBaseRefResolution resolution, CompTargets targets) {
+        if (resolution instanceof SBaseRefResolution.Resolved resolved) {
+            SBase target = resolved.target();
+            String name = target.isSetId() ? target.getId() : target.getMetaId();
+            return String.format(
+                    "%s <b>%s</b> in model %s%s",
+                    target.getElementName(),
+                    HtmlUtil.escape(name),
+                    HtmlUtil.escape(modelName(resolved.model())),
+                    networkLink(resolved.model(), target.getMetaId(), targets).orElse(""));
+        }
+        return String.format(
+                "<span class=\"text-danger\">%s</span>",
+                HtmlUtil.escape(((SBaseRefResolution.Unresolved) resolution).reason()));
+    }
+
+    // GROUP
 
     /**
      * Group map.

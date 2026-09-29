@@ -77,33 +77,33 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE01",
+          "cyId" : "UnitSId__METRE1",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE01",
+          "metaId" : "UnitSId__METRE1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE012",
+          "cyId" : "UnitSId__METRE2",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE012",
+          "metaId" : "UnitSId__METRE2",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE0123",
+          "cyId" : "UnitSId__METRE3",
           "exponent" : 1.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE0123",
+          "metaId" : "UnitSId__METRE3",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -143,11 +143,11 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__SECOND01",
+          "cyId" : "UnitSId__SECOND1",
           "exponent" : -1.0,
           "kind" : "SECOND",
           "label" : "SECOND",
-          "metaId" : "UnitSId__SECOND01",
+          "metaId" : "UnitSId__SECOND1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -264,6 +264,12 @@
         },
         {
           "comp_idRef" : "ub_R1",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=ub_R1",
+          "comp_targetId" : "ub_R1",
+          "comp_targetMetaId" : "ub_R1",
+          "comp_targetModel" : "toy_ode_bounds",
+          "comp_targetType" : "parameter",
           "cyId" : "ub_R1_port",
           "label" : "ub_R1_port",
           "metaId" : "ub_R1_port",
@@ -325,7 +331,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE01",
+          "source" : "UnitSId__METRE1",
           "target" : "UnitSId__mM",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -335,7 +341,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE012",
+          "source" : "UnitSId__METRE2",
           "target" : "UnitSId__item_per_m3",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -345,7 +351,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE0123",
+          "source" : "UnitSId__METRE3",
           "target" : "UnitSId__m",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -385,7 +391,7 @@
           }
         },
         {
-          "source" : "UnitSId__SECOND01",
+          "source" : "UnitSId__SECOND1",
           "target" : "UnitSId__per_s",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -503,6 +509,12 @@
         },
         {
           "comp_idRef" : "ub_R1",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=ub_R1",
+          "comp_targetId" : "ub_R1",
+          "comp_targetMetaId" : "ub_R1",
+          "comp_targetModel" : "toy_ode_bounds",
+          "comp_targetType" : "parameter",
           "cyId" : "ub_R1_port",
           "label" : "ub_R1_port",
           "metaId" : "ub_R1_port",

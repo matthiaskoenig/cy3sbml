@@ -1,0 +1,3693 @@
+{
+ "semantic/01124/01124-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "param1"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01125/01125-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "param1"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01126/01126-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "param1",
+   "submod1__subparam2"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01127/01127-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "param1"
+  ],
+  "parameters": [
+   "param1",
+   "submod1__subparam2"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:param1": [
+    "submod1__subparam2"
+   ],
+   "rule:param1": [
+    "param1",
+    "submod1__subparam2"
+   ]
+  },
+  "rules": [
+   "param1"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01128/01128-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "param2"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01129/01129-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C",
+   "sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "sub2__sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub2__sub1__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01130/01130-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub2__sub1__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01131/01131-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C",
+   "sub3__C",
+   "sub3__sub1__C",
+   "sub3__sub2__C",
+   "sub3__sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ],
+   "species:sub3__sub2__sub1__S1": [
+    "sub3__sub2__sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub2__sub1__S1",
+   "sub3__S1",
+   "sub3__sub1__S1",
+   "sub3__sub2__S1",
+   "sub3__sub2__sub1__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01132/01132-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C",
+   "sub3__C",
+   "sub3__sub1__C",
+   "sub3__sub2__C",
+   "sub3__sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub2__sub1__S1": [
+    "C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub2__sub1__S1",
+   "sub3__S1",
+   "sub3__sub1__S1",
+   "sub3__sub2__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01133/01133-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C",
+   "sub3__C",
+   "sub3__sub1__C",
+   "sub3__sub2__C",
+   "sub3__sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub3__S1",
+   "sub3__sub1__S1",
+   "sub3__sub2__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01134/01134-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C",
+   "sub2__C",
+   "sub3__C",
+   "sub3__sub1__C",
+   "sub3__sub2__C",
+   "sub3__sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [],
+  "references": {
+   "species:S1": [
+    "C"
+   ],
+   "species:sub1__S1": [
+    "sub1__C"
+   ],
+   "species:sub2__S1": [
+    "sub2__C"
+   ],
+   "species:sub3__S1": [
+    "sub3__C"
+   ],
+   "species:sub3__sub1__S1": [
+    "sub3__sub1__C"
+   ],
+   "species:sub3__sub2__S1": [
+    "sub3__sub2__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1",
+   "sub1__S1",
+   "sub2__S1",
+   "sub3__S1",
+   "sub3__sub1__S1",
+   "sub3__sub2__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01135/01135-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p2"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01136/01136-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p2"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01137/01137-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv",
+   "p8"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv"
+   ]
+  },
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01138/01138-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv",
+   "p8",
+   "sub1__prel"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:sub1__prel": [
+    "conv",
+    "p8"
+   ]
+  },
+  "rules": [
+   "sub1__prel"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01139/01139-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv",
+   "p8"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv",
+    "p8"
+   ]
+  },
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01140/01140-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:s8": [
+    "conv",
+    "s8"
+   ],
+   "species:s8": [
+    "C"
+   ]
+  },
+  "rules": [
+   "s8"
+  ],
+  "species": [
+   "s8"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01141/01141-sbml-l3v1.xml": {
+  "compartments": [
+   "C8"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:C8": [
+    "C8",
+    "conv"
+   ]
+  },
+  "rules": [
+   "C8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01142/01142-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   ""
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "t2"
+  ],
+  "parameters": [
+   "t1",
+   "t2",
+   "t3",
+   "t4",
+   "t5",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "event:#0": [
+    "t5",
+    "timeconv"
+   ],
+   "initialAssignment:t2": [
+    "timeconv"
+   ],
+   "reaction:sub1__J0": [
+    "s1",
+    "t3",
+    "t5",
+    "timeconv"
+   ],
+   "rule:t1": [
+    "t1",
+    "timeconv"
+   ],
+   "rule:t3": [
+    "t1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "t1",
+   "t3"
+  ],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01143/01143-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01144/01144-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv",
+   "t3",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1",
+    "t3",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01145/01145-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub1__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__sub1__J0": [
+    "extentconv",
+    "sub1__sub1__s1"
+   ],
+   "species:sub1__sub1__s1": [
+    "sub1__sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01146/01146-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__sub1__t1",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:sub1__sub1__t1": [
+    "timeconv"
+   ]
+  },
+  "rules": [
+   "sub1__sub1__t1"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01147/01147-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "sub1__timeconv_times_timeconv"
+  ],
+  "parameters": [
+   "sub1__sub1__t1",
+   "sub1__timeconv",
+   "sub1__timeconv_times_timeconv",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:sub1__timeconv_times_timeconv": [
+    "sub1__timeconv",
+    "timeconv"
+   ],
+   "rule:sub1__sub1__t1": [
+    "sub1__timeconv_times_timeconv"
+   ]
+  },
+  "rules": [
+   "sub1__sub1__t1"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01148/01148-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__sub1__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "sub1__extentconv_times_extentconv",
+   "sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv",
+   "sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv",
+   "sub1__timeconv_times_timeconv"
+  ],
+  "parameters": [
+   "extentconv",
+   "sub1__extentconv",
+   "sub1__extentconv_times_extentconv",
+   "sub1__sub1__extentconv",
+   "sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv",
+   "sub1__sub1__timeconv",
+   "sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv",
+   "sub1__timeconv",
+   "sub1__timeconv_times_timeconv",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__sub1__sub1__J0"
+  ],
+  "references": {
+   "initialAssignment:sub1__extentconv_times_extentconv": [
+    "extentconv",
+    "sub1__extentconv"
+   ],
+   "initialAssignment:sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv": [
+    "sub1__extentconv_times_extentconv",
+    "sub1__sub1__extentconv"
+   ],
+   "initialAssignment:sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv": [
+    "sub1__sub1__timeconv",
+    "sub1__timeconv_times_timeconv"
+   ],
+   "initialAssignment:sub1__timeconv_times_timeconv": [
+    "sub1__timeconv",
+    "timeconv"
+   ],
+   "reaction:sub1__sub1__sub1__J0": [
+    "sub1__sub1__extentconv_times_sub1__extentconv_times_extentconv",
+    "sub1__sub1__sub1__s1",
+    "sub1__sub1__timeconv_times_sub1__timeconv_times_timeconv"
+   ],
+   "species:sub1__sub1__sub1__s1": [
+    "sub1__sub1__sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__sub1__sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01149/01149-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p8"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01150/01150-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p8"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01151/01151-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p8"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01152/01152-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "sub1__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv",
+   "p8"
+  ],
+  "reactions": [],
+  "references": {
+   "event:sub1__E1": [
+    "conv",
+    "p8"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01153/01153-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "z"
+  ],
+  "parameters": [
+   "A__A__Q",
+   "A__A__y",
+   "i",
+   "z"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:z": [
+    "i"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01154/01154-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__t1",
+   "sub1__t2"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01155/01155-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "sub1__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__t1",
+   "sub1__t2"
+  ],
+  "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1",
+    "sub1__t2"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01156/01156-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "sub1__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__t1",
+   "sub1__t2"
+  ],
+  "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1",
+    "sub1__t2"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01157/01157-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "sub1__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__t1",
+   "sub1__t2"
+  ],
+  "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t2"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01158/01158-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "sub1__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__t1",
+   "sub1__t2"
+  ],
+  "reactions": [],
+  "references": {
+   "event:sub1__E0": [
+    "sub1__t1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01159/01159-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__p1"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "sub1__p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01160/01160-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "new_p1"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "new_p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01161/01161-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__p1"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "p1",
+    "sub1__s1"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01162/01162-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p8"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01163/01163-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "p8"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01164/01164-sbml-l3v1.xml": {
+  "compartments": [
+   "submod1__comp",
+   "submod2__comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "submod1__J0",
+   "submod1__J1",
+   "submod2__J0",
+   "submod2__J1"
+  ],
+  "references": {
+   "reaction:submod1__J0": [
+    "submod1__E",
+    "submod1__ES",
+    "submod1__S"
+   ],
+   "reaction:submod1__J1": [
+    "submod1__D",
+    "submod1__E",
+    "submod1__ES"
+   ],
+   "reaction:submod2__J0": [
+    "submod2__E",
+    "submod2__ES",
+    "submod2__S"
+   ],
+   "reaction:submod2__J1": [
+    "submod2__D",
+    "submod2__E",
+    "submod2__ES"
+   ],
+   "species:submod1__D": [
+    "submod1__comp"
+   ],
+   "species:submod1__E": [
+    "submod1__comp"
+   ],
+   "species:submod1__ES": [
+    "submod1__comp"
+   ],
+   "species:submod1__S": [
+    "submod1__comp"
+   ],
+   "species:submod2__D": [
+    "submod2__comp"
+   ],
+   "species:submod2__E": [
+    "submod2__comp"
+   ],
+   "species:submod2__ES": [
+    "submod2__comp"
+   ],
+   "species:submod2__S": [
+    "submod2__comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "submod1__D",
+   "submod1__E",
+   "submod1__ES",
+   "submod1__S",
+   "submod2__D",
+   "submod2__E",
+   "submod2__ES",
+   "submod2__S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01165/01165-sbml-l3v1.xml": {
+  "compartments": [
+   "comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J0",
+   "A__J1"
+  ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "S"
+   ],
+   "reaction:A__J1": [
+    "A__E",
+    "A__ES",
+    "D"
+   ],
+   "species:A__E": [
+    "comp"
+   ],
+   "species:A__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__E",
+   "A__ES",
+   "D",
+   "S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01166/01166-sbml-l3v1.xml": {
+  "compartments": [
+   "comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "J0",
+   "J1"
+  ],
+  "references": {
+   "reaction:J0": [
+    "E",
+    "ES",
+    "S"
+   ],
+   "reaction:J1": [
+    "D",
+    "E",
+    "ES"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:E": [
+    "comp"
+   ],
+   "species:ES": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "D",
+   "E",
+   "ES",
+   "S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01167/01167-sbml-l3v1.xml": {
+  "compartments": [
+   "A__comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J0",
+   "A__J1"
+  ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "A__S"
+   ],
+   "reaction:A__J1": [
+    "A__D",
+    "A__E",
+    "A__ES"
+   ],
+   "species:A__D": [
+    "A__comp"
+   ],
+   "species:A__E": [
+    "A__comp"
+   ],
+   "species:A__ES": [
+    "A__comp"
+   ],
+   "species:A__S": [
+    "A__comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__D",
+   "A__E",
+   "A__ES",
+   "A__S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01168/01168-sbml-l3v1.xml": {
+  "compartments": [
+   "A__comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__A__J0",
+   "A__A__J1",
+   "A__B__J0",
+   "A__B__J1"
+  ],
+  "references": {
+   "reaction:A__A__J0": [
+    "A__A__E",
+    "A__A__ES",
+    "A__S"
+   ],
+   "reaction:A__A__J1": [
+    "A__A__D",
+    "A__A__E",
+    "A__A__ES"
+   ],
+   "reaction:A__B__J0": [
+    "A__B__E",
+    "A__B__ES",
+    "A__S"
+   ],
+   "reaction:A__B__J1": [
+    "A__B__D",
+    "A__B__E",
+    "A__B__ES"
+   ],
+   "species:A__A__D": [
+    "A__comp"
+   ],
+   "species:A__A__E": [
+    "A__comp"
+   ],
+   "species:A__A__ES": [
+    "A__comp"
+   ],
+   "species:A__B__D": [
+    "A__comp"
+   ],
+   "species:A__B__E": [
+    "A__comp"
+   ],
+   "species:A__B__ES": [
+    "A__comp"
+   ],
+   "species:A__S": [
+    "A__comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__A__D",
+   "A__A__E",
+   "A__A__ES",
+   "A__B__D",
+   "A__B__E",
+   "A__B__ES",
+   "A__S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01169/01169-sbml-l3v1.xml": {
+  "compartments": [
+   "A__default_compartment"
+  ],
+  "events": [
+   "A___E0",
+   "A___E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__k1",
+   "A__y",
+   "Q",
+   "R",
+   "U1",
+   "U2",
+   "X",
+   "cf",
+   "extentconv",
+   "timeconv"
+  ],
+  "reactions": [
+   "A___J0"
+  ],
+  "references": {
+   "event:A___E0": [
+    "A__y",
+    "Q",
+    "X",
+    "cf"
+   ],
+   "event:A___E1": [
+    "A__y",
+    "R",
+    "X",
+    "cf"
+   ],
+   "reaction:A___J0": [
+    "A__S1",
+    "A__k1",
+    "extentconv",
+    "timeconv"
+   ],
+   "rule:Q": [
+    "X",
+    "cf"
+   ],
+   "rule:U1": [
+    "X"
+   ],
+   "rule:X": [
+    "cf",
+    "timeconv"
+   ],
+   "species:A__S1": [
+    "A__default_compartment"
+   ]
+  },
+  "rules": [
+   "Q",
+   "U1",
+   "U2",
+   "X"
+  ],
+  "species": [
+   "A__S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01170/01170-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t3",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t3",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01171/01171-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t2",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:t2": [
+    "timeconv"
+   ]
+  },
+  "rules": [
+   "t2"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01172/01172-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t1",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:t1": [
+    "t1",
+    "timeconv"
+   ]
+  },
+  "rules": [
+   "t1"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01173/01173-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t1",
+   "t3",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:t1": [
+    "timeconv"
+   ],
+   "rule:t3": [
+    "t1",
+    "timeconv"
+   ]
+  },
+  "rules": [
+   "t1",
+   "t3"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01174/01174-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "t3"
+  ],
+  "parameters": [
+   "t3",
+   "t4",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:t3": [
+    "timeconv"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01175/01175-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t5",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t5",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01176/01176-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t5",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "s1",
+    "t5",
+    "timeconv"
+   ],
+   "rule:t5": [
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "t5"
+  ],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01177/01177-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   ""
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "t5",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "event:#0": [
+    "t5",
+    "timeconv"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01178/01178-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv",
+   "sub1__p80"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1"
+   ],
+   "rule:sub1__p80": [
+    "extentconv",
+    "sub1__J0"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [
+   "sub1__p80"
+  ],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01179/01179-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "paramconv",
+   "t1",
+   "timeconv"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:t1": [
+    "paramconv",
+    "t1",
+    "timeconv"
+   ]
+  },
+  "rules": [
+   "t1"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01180/01180-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "sub1__p80",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "sub1__s1",
+    "timeconv"
+   ],
+   "rule:sub1__p80": [
+    "sub1__J0",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [
+   "sub1__p80"
+  ],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01181/01181-sbml-l3v1.xml": {
+  "compartments": [
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv",
+   "sub1__p80",
+   "timeconv"
+  ],
+  "reactions": [
+   "sub1__J0"
+  ],
+  "references": {
+   "reaction:sub1__J0": [
+    "extentconv",
+    "sub1__s1",
+    "timeconv"
+   ],
+   "rule:sub1__p80": [
+    "extentconv",
+    "sub1__J0",
+    "timeconv"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [
+   "sub1__p80"
+  ],
+  "species": [
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01182/01182-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv",
+   "sub1__p80",
+   "timeconv"
+  ],
+  "reactions": [
+   "J0"
+  ],
+  "references": {
+   "reaction:J0": [
+    "s1"
+   ],
+   "rule:sub1__p80": [
+    "J0"
+   ],
+   "species:s1": [
+    "C"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [
+   "sub1__p80"
+  ],
+  "species": [
+   "s1",
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01183/01183-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv",
+   "extentpertimeconv",
+   "sub1__p80",
+   "timeconv"
+  ],
+  "reactions": [
+   "J0"
+  ],
+  "references": {
+   "reaction:J0": [
+    "s1"
+   ],
+   "rule:sub1__p80": [
+    "J0",
+    "extentpertimeconv"
+   ],
+   "species:s1": [
+    "C"
+   ],
+   "species:sub1__s1": [
+    "sub1__C"
+   ]
+  },
+  "rules": [
+   "sub1__p80"
+  ],
+  "species": [
+   "s1",
+   "sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01344/01344-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01345/01345-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "A__x"
+  ],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01346/01346-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01347/01347-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0",
+   "A__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01348/01348-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01349/01349-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01350/01350-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01351/01351-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J2",
+   "J1"
+  ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01352/01352-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01353/01353-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01354/01354-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "A__x"
+  ],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01355/01355-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01356/01356-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "A__E0",
+   "A__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01357/01357-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01358/01358-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01359/01359-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01360/01360-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "J1"
+  ],
+  "reactions": [
+   "A__J2"
+  ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01361/01361-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x",
+   "J1"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01362/01362-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01363/01363-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "A__x"
+  ],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01364/01364-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01365/01365-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [
+   "A__E0",
+   "A__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01366/01366-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01367/01367-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01368/01368-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {},
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01369/01369-sbml-l3v1.xml": {
+  "compartments": [
+   "C",
+   "J1"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J2"
+  ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01370/01370-sbml-l3v1.xml": {
+  "compartments": [
+   "J1"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01371/01371-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01372/01372-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "A__x"
+  ],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01373/01373-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01374/01374-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [
+   "A__E0",
+   "A__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01375/01375-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01376/01376-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01377/01377-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01378/01378-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J2"
+  ],
+  "references": {
+   "reaction:A__J2": [
+    "J1",
+    "S1"
+   ],
+   "species:J1": [
+    "C"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "J1",
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01379/01379-sbml-l3v1.xml": {
+  "compartments": [
+   "A_C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:A__x": [
+    "J1"
+   ],
+   "species:J1": [
+    "A_C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "J1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01380/01380-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1_sr"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01381/01381-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "A__x"
+  ],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "initialAssignment:A__x": [
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01382/01382-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01383/01383-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0",
+   "A__E1"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "event:A__E1": [
+    "A__x"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01384/01384-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01385/01385-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [
+   "A__E0"
+  ],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "event:A__E0": [
+    "A__x",
+    "J1_sr"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01386/01386-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01387/01387-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J2",
+   "J1"
+  ],
+  "references": {
+   "reaction:A__J2": [
+    "J1_sr",
+    "S1"
+   ],
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01388/01388-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "A__x"
+  ],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "rule:A__x": [
+    "J1_sr"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [
+   "A__x"
+  ],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01389/01389-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "J1"
+  ],
+  "references": {
+   "reaction:J1": [
+    "S1"
+   ],
+   "species:S1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "S1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01390/01390-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "parameters": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:b": [
+    "a"
+   ],
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:d": [
+    "c"
+   ],
+   "initialAssignment:e": [
+    "d"
+   ],
+   "initialAssignment:f": [
+    "e"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ]
+  },
+  "rules": [],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01391/01391-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:b": [
+    "a"
+   ],
+   "rule:c": [
+    "b"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ],
+   "rule:g": [
+    "f"
+   ]
+  },
+  "rules": [
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01392/01392-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "c",
+   "e",
+   "g"
+  ],
+  "parameters": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:e": [
+    "d"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ],
+   "rule:b": [
+    "a"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:f": [
+    "e"
+   ]
+  },
+  "rules": [
+   "b",
+   "d",
+   "f"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01393/01393-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:b": [
+    "a"
+   ],
+   "rule:c": [
+    "b"
+   ],
+   "rule:d": [
+    "c"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ],
+   "rule:g": [
+    "f"
+   ]
+  },
+  "rules": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01394/01394-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [
+   "c",
+   "d",
+   "g"
+  ],
+  "parameters": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g"
+  ],
+  "reactions": [],
+  "references": {
+   "initialAssignment:c": [
+    "b"
+   ],
+   "initialAssignment:d": [
+    "c"
+   ],
+   "initialAssignment:g": [
+    "f"
+   ],
+   "rule:b": [
+    "a"
+   ],
+   "rule:e": [
+    "d"
+   ],
+   "rule:f": [
+    "e"
+   ]
+  },
+  "rules": [
+   "b",
+   "e",
+   "f"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01467/01467-sbml-l3v1.xml": {
+  "compartments": [],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "conv",
+   "p8"
+  ],
+  "reactions": [],
+  "references": {
+   "rule:p8": [
+    "conv"
+   ]
+  },
+  "rules": [
+   "p8"
+  ],
+  "species": [],
+  "unitDefinitions": []
+ },
+ "semantic/01468/01468-sbml-l3v1.xml": {
+  "compartments": [
+   "sub2__sub1__C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "sub2__sub1__s1"
+   ],
+   "species:sub2__sub1__s1": [
+    "sub2__sub1__C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "sub2__sub1__s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01469/01469-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01470/01470-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01471/01471-sbml-l3v1.xml": {
+  "compartments": [
+   "comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__J0",
+   "A__J1"
+  ],
+  "references": {
+   "reaction:A__J0": [
+    "A__E",
+    "A__ES",
+    "S"
+   ],
+   "reaction:A__J1": [
+    "A__E",
+    "A__ES",
+    "D"
+   ],
+   "species:A__E": [
+    "comp"
+   ],
+   "species:A__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__E",
+   "A__ES",
+   "D",
+   "S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01472/01472-sbml-l3v1.xml": {
+  "compartments": [
+   "comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__submod1__J0",
+   "A__submod1__J1"
+  ],
+  "references": {
+   "reaction:A__submod1__J0": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "S"
+   ],
+   "reaction:A__submod1__J1": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "D"
+   ],
+   "species:A__submod1__E": [
+    "comp"
+   ],
+   "species:A__submod1__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__submod1__E",
+   "A__submod1__ES",
+   "D",
+   "S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01473/01473-sbml-l3v1.xml": {
+  "compartments": [
+   "comp"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [],
+  "reactions": [
+   "A__submod1__J0",
+   "A__submod1__J1"
+  ],
+  "references": {
+   "reaction:A__submod1__J0": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "S"
+   ],
+   "reaction:A__submod1__J1": [
+    "A__submod1__E",
+    "A__submod1__ES",
+    "D"
+   ],
+   "species:A__submod1__E": [
+    "comp"
+   ],
+   "species:A__submod1__ES": [
+    "comp"
+   ],
+   "species:D": [
+    "comp"
+   ],
+   "species:S": [
+    "comp"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "A__submod1__E",
+   "A__submod1__ES",
+   "D",
+   "S"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01474/01474-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "timeconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01475/01475-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "timeconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1",
+    "timeconv"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01476/01476-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "extentconv"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "extentconv",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01477/01477-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "cf"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ },
+ "semantic/01778/01778-sbml-l3v1.xml": {
+  "compartments": [
+   "C"
+  ],
+  "events": [],
+  "functionDefinitions": [],
+  "initialAssignments": [],
+  "parameters": [
+   "cf"
+  ],
+  "reactions": [
+   "sub2__sub1__J0"
+  ],
+  "references": {
+   "reaction:sub2__sub1__J0": [
+    "cf",
+    "s1"
+   ],
+   "species:s1": [
+    "C"
+   ]
+  },
+  "rules": [],
+  "species": [
+   "s1"
+  ],
+  "unitDefinitions": []
+ }
+}

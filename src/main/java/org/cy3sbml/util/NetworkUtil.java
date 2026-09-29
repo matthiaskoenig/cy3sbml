@@ -1,6 +1,10 @@
 package org.cy3sbml.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import org.cy3sbml.SBML;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -68,9 +72,50 @@ public class NetworkUtil {
         return network;
     }
 
-    ////////////////////////////////////////////////////////
+    /**
+     * The network of the collection with the root network SUID that has a node for the
+     * element with the cyId: the base network if it has the node, else the kinetic or the
+     * all network.
+     */
+    public static Optional<CyNetwork> findTargetNetwork(Collection<CyNetwork> networks, Long rootSUID, String cyId) {
+        return networksOfRoot(networks, rootSUID).stream()
+                .filter(n -> AttributeUtil.getNodeByAttribute(n, SBML.ATTR_CYID, cyId) != null)
+                .findFirst();
+    }
+
+    /** The base network of the collection with the root network SUID. */
+    public static Optional<CyNetwork> findBaseNetwork(Collection<CyNetwork> networks, Long rootSUID) {
+        return networksOfRoot(networks, rootSUID).stream().findFirst();
+    }
+
+    /** The networks of the collection, the base network first, then the kinetic and the all network. */
+    private static List<CyNetwork> networksOfRoot(Collection<CyNetwork> networks, Long rootSUID) {
+        List<CyNetwork> candidates = new ArrayList<>();
+        String rootName = null;
+        for (CyNetwork network : networks) {
+            if (network instanceof CySubNetwork subNetwork
+                    && rootSUID.equals(subNetwork.getRootNetwork().getSUID())) {
+                candidates.add(network);
+                CyRootNetwork root = subNetwork.getRootNetwork();
+                rootName = root.getRow(root).get(CyNetwork.NAME, String.class);
+            }
+        }
+        String name = rootName == null ? "" : rootName;
+        candidates.sort(Comparator.comparingInt(n -> subnetworkRank(n, name)));
+        return candidates;
+    }
+
+    private static int subnetworkRank(CyNetwork network, String rootName) {
+        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+        if (rootName.equals(name)) {
+            return 0;
+        }
+        return name != null && name.startsWith(SBML.PREFIX_SUBNETWORK_KINETIC + "__") ? 1 : 2;
+    }
+
+    // ------------------------------------------------------------
     // Selection
-    ////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Select node by metaId.

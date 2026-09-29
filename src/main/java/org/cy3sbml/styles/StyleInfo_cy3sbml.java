@@ -27,13 +27,13 @@ public final class StyleInfo_cy3sbml extends StyleInfo {
     public List<Mapping> createMappings() {
         List<Mapping> mappings = super.createMappings();
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // passthroughMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // discreteMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
         Map<String, String> m3 = new HashMap<>();
         m3.put(SBML.NODETYPE_SPECIES, "#F0F0F0");

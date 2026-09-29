@@ -25,6 +25,7 @@ import org.sbml.jsbml.Parameter;
 import org.sbml.jsbml.RateRule;
 import org.sbml.jsbml.Reaction;
 import org.sbml.jsbml.Rule;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
 import org.sbml.jsbml.SpeciesReference;
 import org.sbml.jsbml.UnitDefinition;
@@ -353,9 +354,7 @@ final class CoreReader implements PackageReader {
                                 network, variableNode, SBML.ATTR_INITIAL_ASSIGNMENT, astNode.toFormula(), String.class);
                     }
                 } else {
-                    logger.warn(String.format(
-                            "Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
-                            variable, assignment));
+                    logMissingVariableNode(variable, assignment);
                 }
                 // referenced nodes in math
                 MathGraphBuilder.createMathNetwork(
@@ -408,9 +407,7 @@ final class CoreReader implements PackageReader {
                     //  An assignment rule can refer to the identifier of a Species, SpeciesReference,
                     //    Compartment, or global Parameter object in the model
                     //    The case SpeciesReference is not handled !
-                    logger.warn(String.format(
-                            "Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
-                            variable, rule));
+                    logMissingVariableNode(variable, rule);
                 }
             }
             AttributeUtil.set(network, n, SBML.LABEL, label, String.class);
@@ -485,9 +482,7 @@ final class CoreReader implements PackageReader {
                         //  Compartment, or global Parameter object in the model
                         //  The case SpeciesReference is not handled !
 
-                        logger.warn(String.format(
-                                "Variable is neither Compartment, Species or Parameter, probably SpeciesReference: %s in %s",
-                                variable, ea));
+                        logMissingVariableNode(variable, ea);
                     }
                 } else {
                     logger.error("Variable not set in EventAssignment: {}", ea);
@@ -496,6 +491,18 @@ final class CoreReader implements PackageReader {
                 // referenced nodes in math
                 MathGraphBuilder.createMathNetwork(context, ea, eaNode, SBML.INTERACTION_REFERENCE_EVENT_ASSIGNMENT);
             }
+        }
+    }
+
+    /**
+     * Logs a variable without node. Species references have no node, they are edges, so a
+     * rule or assignment of their stoichiometry is expected.
+     */
+    private static void logMissingVariableNode(Variable variable, SBase element) {
+        if (variable instanceof SpeciesReference) {
+            logger.debug("The variable {} of {} is a species reference, which has no node.", variable, element);
+        } else {
+            logger.warn("The variable {} of {} has no node.", variable, element);
         }
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="ext2_main"/>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="inner2" comp:source="../ext.xml"/>
+  </comp:listOfExternalModelDefinitions>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="inner">
+      <listOfParameters>
+        <parameter id="p_inner" value="1" constant="true"/>
+      </listOfParameters>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

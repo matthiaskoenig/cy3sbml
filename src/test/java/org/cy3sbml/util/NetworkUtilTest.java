@@ -5,7 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import org.cy3sbml.SBML;
+import org.cy3sbml.TestUtils;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
@@ -113,5 +118,40 @@ class NetworkUtilTest {
         NetworkUtil.selectById(network, "missing");
 
         assertTrue(AttributeUtil.get(network, n1, CyNetwork.SELECTED, Boolean.class));
+    }
+
+    private static CyNetwork network(CyNetwork[] networks, String name) {
+        return Arrays.stream(networks)
+                .filter(n -> name.equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    /** The target is found in the base network of its network collection, also if a file is open twice. */
+    @Test
+    void findsTheNetworkOfTheTargetInItsCollection() throws Exception {
+        CyNetwork[] first = TestUtils.readNetwork("/models/comp/koenig-toymodel/toy_top_level.xml");
+        CyNetwork[] second = TestUtils.readNetwork("/models/comp/koenig-toymodel/toy_top_level.xml");
+        List<CyNetwork> networks = new ArrayList<>(Arrays.asList(first));
+        networks.addAll(Arrays.asList(second));
+        CyNetwork fba = network(second, "toy_fba");
+        Long root = NetworkUtil.getRootNetworkSUID(fba);
+        String cyId = fba.getRow(fba.getNodeList().get(0)).get(SBML.ATTR_CYID, String.class);
+
+        assertEquals(Optional.of(fba), NetworkUtil.findTargetNetwork(networks, root, cyId));
+        assertEquals(Optional.empty(), NetworkUtil.findTargetNetwork(networks, root, "no_node"));
+        assertEquals(Optional.empty(), NetworkUtil.findTargetNetwork(networks, -1L, cyId));
+    }
+
+    /** A link to a model without element opens the base network of its collection. */
+    @Test
+    void findsTheBaseNetworkOfACollection() throws Exception {
+        CyNetwork[] networks = TestUtils.readNetwork("/models/comp/koenig-toymodel/toy_top_level.xml");
+        CyNetwork main = network(networks, "toy_top_level");
+
+        assertEquals(
+                Optional.of(main),
+                NetworkUtil.findBaseNetwork(Arrays.asList(networks), NetworkUtil.getRootNetworkSUID(main)));
+        assertEquals(Optional.empty(), NetworkUtil.findBaseNetwork(Arrays.asList(networks), -1L));
     }
 }

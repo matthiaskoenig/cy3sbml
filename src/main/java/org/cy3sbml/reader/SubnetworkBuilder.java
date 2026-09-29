@@ -33,10 +33,11 @@ final class SubnetworkBuilder {
      * @param rootNetwork root network of the network
      * @param network     network with all nodes and edges of the model
      * @param groups      groups to add to the subnetworks
+     * @param prefix      prefix of the names, e.g. {@link SBML#PREFIX_NETWORK_FLAT}, or null
      * @return the networks in the order all, kinetic, base
      */
-    List<CyNetwork> build(CyRootNetwork rootNetwork, CyNetwork network, Set<CyGroup> groups) {
-        String name = getNetworkName(network);
+    List<CyNetwork> build(CyRootNetwork rootNetwork, CyNetwork network, Set<CyGroup> groups, String prefix) {
+        String name = prefix == null ? getNetworkName(network) : prefix + "__" + getNetworkName(network);
         rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
 
         // all network

@@ -1,13 +1,23 @@
 package org.cy3sbml.reader;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.Set;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.ModelResolution;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.styles.StyleManager;
 import org.cytoscape.group.CyGroupFactory;
@@ -36,9 +46,11 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
-import org.sbml.jsbml.ext.comp.ExternalModelDefinition;
 import org.sbml.jsbml.ext.comp.ModelDefinition;
+import org.sbml.jsbml.ext.comp.Submodel;
+import org.sbml.jsbml.ext.comp.util.CompFlatteningConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,12 +76,20 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final SBMLManager sbmlManager;
 
     private final String fileName;
+    // location of the file, to resolve the relative sources of external model definitions
+    private final URI location;
     private final List<PackageReader> readers;
     private final SubnetworkBuilder subnetworkBuilder;
 
     private SBMLDocument document;
+    // resolves the comp references of the document, shared by the networks of its models
+    private SBaseRefResolver sBaseRefResolver;
 
     private final List<CyNetwork> cyNetworks;
+    // the document of the model of each network collection, by the SUID of the root network
+    private final Map<Long, SBMLDocument> documents = new HashMap<>();
+    // the model of each network collection, by the SUID of the root network
+    private final Map<Long, Model> models = new HashMap<>();
     private TaskMonitor taskMonitor;
 
     private Boolean error = false;
@@ -78,6 +98,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     public SBMLReaderTask(
             InputStream stream,
             String fileName,
+            URI location,
             CyNetworkFactory networkFactory,
             CyGroupFactory cyGroupFactory,
             CyNetworkViewFactory viewFactory,
@@ -88,6 +109,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
 
         this.stream = stream;
         this.fileName = fileName;
+        this.location = location;
         this.networkFactory = networkFactory;
         this.groupFactory = cyGroupFactory;
         this.viewFactory = viewFactory;
@@ -114,7 +136,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     /** Creates the reader without view, style, layout and SBMLManager support, e.g. for tests. */
     public SBMLReaderTask(
             InputStream stream, String fileName, CyNetworkFactory networkFactory, CyGroupFactory groupFactory) {
-        this(stream, fileName, networkFactory, groupFactory, null, null, null, null, null);
+        this(stream, fileName, null, networkFactory, groupFactory);
+    }
+
+    /**
+     * Creates the reader for the file at the location without view, style, layout and
+     * SBMLManager support, e.g. for tests.
+     */
+    public SBMLReaderTask(
+            InputStream stream,
+            String fileName,
+            URI location,
+            CyNetworkFactory networkFactory,
+            CyGroupFactory groupFactory) {
+        this(stream, fileName, location, networkFactory, groupFactory, null, null, null, null, null);
+    }
+
+    /** The location of the file, if known. */
+    public Optional<URI> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     /**
@@ -139,7 +179,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         if (sbmlManager != null) {
             // the existing mapping (of read networks) is updated
             One2ManyMapping<String, Long> mapping = mappingFromNetwork(network, sbmlManager.getMapping(network));
-            sbmlManager.addSBMLForNetwork(document, network, mapping);
+            CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+            sbmlManager.addSBMLForNetwork(documents.getOrDefault(rootNetwork.getSUID(), document), network, mapping);
+            sbmlManager.addSBaseRefResolver(sBaseRefResolver);
+            Model model = models.get(rootNetwork.getSUID());
+            if (model != null) {
+                sbmlManager.addModelForNetwork(network, model);
+            }
             sbmlManager.updateCurrent(network);
         } else {
             logger.warn("No mapping found for SBML network.");
@@ -216,23 +262,22 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             logger.debug("JSBML version: {}", JSBML.getJSBMLVersionString());
             // the XML parser decodes the stream with the encoding of the XML declaration
             document = SBMLReader.read(stream);
+            if (location != null) {
+                document.setLocationURI(location.toString());
+            }
+            sBaseRefResolver = new SBaseRefResolver(new CompModels(document));
 
-            // Models are defined either as the core model or as comp ModelDefinitions.
-            // For every model a separate network is created.
-            if (document.isSetModel()) {
-                createNetworksFromModel(document.getModel());
-            } else {
-                logger.warn("No core model in SBMLDocument! Check model definition.");
+            // one network collection for every model: the main model, the comp model
+            // definitions, the models of external model definitions and the flat model
+            for (ModelSource source : modelSources()) {
+                createNetworksFromModel(source);
             }
-            CompSBMLDocumentPlugin compDoc = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.shortLabel);
-            if (compDoc != null) {
-                readModelDefinitions(compDoc);
-            }
-            // no network of the flattened comp model yet (#401)
 
             if (cancelled) {
                 // a cancelled import returns no networks, not the ones read so far
                 cyNetworks.clear();
+                documents.clear();
+                models.clear();
                 return;
             }
             if (taskMonitor != null) {
@@ -242,6 +287,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             error = true;
             // never return a partial set of networks
             cyNetworks.clear();
+            documents.clear();
+            models.clear();
             // Cytoscape shows the message of the thrown error to the user
             String message = String.format(
                     "cy3sbml could not read the SBML file '%s': %s. Check the file with the SBML validator at "
@@ -271,51 +318,131 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     }
 
     /**
-     * Creates the networks for the comp ModelDefinitions.
-     * ExternalModelDefinitions are not supported, their models must be loaded from the source.
+     * The models of the document, each read into its own network collection: the main
+     * model, the comp model definitions, the models of the external model definitions
+     * (also of the ones in the external files, each model once) and the flat model if the
+     * main model has submodels.
      */
-    private void readModelDefinitions(CompSBMLDocumentPlugin compDoc) {
-        logger.info("<ExternalModelDefinition>");
-        for (ExternalModelDefinition emd : compDoc.getListOfExternalModelDefinitions()) {
-            logger.warn("Model reading from ExternalModelDefinition not supported: {}", emd);
+    private List<ModelSource> modelSources() {
+        List<ModelSource> sources = new ArrayList<>();
+        if (document.isSetModel()) {
+            sources.add(new ModelSource(document.getModel(), document, ModelSource.Kind.MAIN));
+        } else {
+            logger.warn("No core model in SBMLDocument! Check model definition.");
         }
-
-        logger.info("<ModelDefinition>");
-        for (ModelDefinition md : compDoc.getListOfModelDefinitions()) {
-            logger.info("ModelDefinition: {}", md);
-            Model mdModel = md.getModel();
-            if (mdModel != null) {
-                createNetworksFromModel(mdModel);
-                logger.info("creating model for: {}", md.getModel().getId());
-            } else {
-                logger.error("Model could not be read from ModelDefinition: {}", md);
+        if (!(document.getExtension(CompConstants.shortLabel) instanceof CompSBMLDocumentPlugin compDocument)) {
+            return sources;
+        }
+        for (ModelDefinition modelDefinition : compDocument.getListOfModelDefinitions()) {
+            sources.add(new ModelSource(modelDefinition, document, ModelSource.Kind.MODEL_DEFINITION));
+        }
+        // the models read so far, an external model definition can refer back to them
+        Set<Model> externalModels = Collections.newSetFromMap(new IdentityHashMap<>());
+        sources.forEach(source -> externalModels.add(source.model()));
+        for (CompModels.External external : sBaseRefResolver.models().externalModels()) {
+            if (external.resolution() instanceof ModelResolution.Resolved resolved) {
+                if (externalModels.add(resolved.model())) {
+                    sources.add(new ModelSource(resolved.model(), resolved.document(), ModelSource.Kind.EXTERNAL));
+                }
+            } else if (external.resolution() instanceof ModelResolution.Failed failed) {
+                logger.warn(
+                        "The external model definition '{}' could not be read: {}",
+                        external.definition().getId(),
+                        failed.reason());
             }
         }
+        flatModel().ifPresent(sources::add);
+        return sources;
     }
 
     /**
-     * Creates the networks for the given model.
-     * This can be the main model or a comp ModelDefinition.
+     * The flat model of the main model, if it has submodels and all of them can be
+     * instantiated.
+     */
+    private Optional<ModelSource> flatModel() {
+        if (!document.isSetModel() || !hasSubmodels(document.getModel())) {
+            return Optional.empty();
+        }
+        Optional<String> unresolved =
+                unresolvedSubmodel(document.getModel(), List.of(), Collections.newSetFromMap(new IdentityHashMap<>()));
+        if (unresolved.isPresent()) {
+            logger.warn("The flat model is not created, a submodel cannot be instantiated: {}", unresolved.get());
+            return Optional.empty();
+        }
+        try {
+            SBMLDocument flat = new CompFlatteningConverter().flatten(document);
+            return Optional.of(new ModelSource(flat.getModel(), flat, ModelSource.Kind.FLAT));
+        } catch (RuntimeException e) {
+            // the JSBML flattening fails for a model that instantiates itself, for example
+            logger.warn("The flat model could not be created: {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    private static boolean hasSubmodels(Model model) {
+        return model.getExtension(CompConstants.shortLabel) instanceof CompModelPlugin plugin
+                && plugin.getSubmodelCount() > 0;
+    }
+
+    /**
+     * The reason a submodel of the model or of its submodels cannot be instantiated: its
+     * model cannot be resolved, or the submodels instantiate each other.
+     *
+     * @param path the models on the way to the model, to detect a cycle
+     * @param checked the models whose submodels can all be instantiated
+     */
+    // models by identity, JSBML's equals compares the content
+    @SuppressWarnings("ReferenceEquality")
+    private Optional<String> unresolvedSubmodel(Model model, List<Model> path, Set<Model> checked) {
+        if (checked.contains(model)
+                || !(model.getExtension(CompConstants.shortLabel) instanceof CompModelPlugin plugin)) {
+            return Optional.empty();
+        }
+        if (path.stream().anyMatch(m -> m == model)) {
+            return Optional.of(String.format("The submodels of the model '%s' instantiate it again.", model.getId()));
+        }
+        List<Model> next = new ArrayList<>(path);
+        next.add(model);
+        for (Submodel submodel : plugin.getListOfSubmodels()) {
+            ModelResolution resolution = sBaseRefResolver.models().resolve(submodel);
+            if (resolution instanceof ModelResolution.Failed failed) {
+                return Optional.of(failed.reason());
+            }
+            Optional<String> nested =
+                    unresolvedSubmodel(((ModelResolution.Resolved) resolution).model(), next, checked);
+            if (nested.isPresent()) {
+                return nested;
+            }
+        }
+        checked.add(model);
+        return Optional.empty();
+    }
+
+    /**
+     * Creates the networks for the model of the source.
      * <p>
      * The network with all nodes and edges of the model is read by the package
      * readers, then the subnetworks are created from it. Different models can have
      * the same metaIds and ids, so every model is read with its own context.
      */
-    private void createNetworksFromModel(Model model) {
+    private void createNetworksFromModel(ModelSource source) {
         if (cancelled) {
             return;
         }
         CyNetwork network = networkFactory.createNetwork();
-        ConversionContext context = new ConversionContext(document, network, groupFactory);
+        ConversionContext context = new ConversionContext(source.document(), network, groupFactory, sBaseRefResolver);
         for (PackageReader reader : readers) {
-            reader.read(context, model);
+            reader.read(context, source.model());
         }
         if (taskMonitor != null) {
             taskMonitor.setProgress(0.4);
         }
 
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-        cyNetworks.addAll(subnetworkBuilder.build(rootNetwork, network, context.groups()));
+        String prefix = source.kind() == ModelSource.Kind.FLAT ? SBML.PREFIX_NETWORK_FLAT : null;
+        cyNetworks.addAll(subnetworkBuilder.build(rootNetwork, network, context.groups(), prefix));
+        documents.put(rootNetwork.getSUID(), source.document());
+        models.put(rootNetwork.getSUID(), source.model());
     }
 
     /** The reader has no custom UI. */

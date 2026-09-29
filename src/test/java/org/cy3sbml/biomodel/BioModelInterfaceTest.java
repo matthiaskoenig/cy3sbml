@@ -26,6 +26,9 @@ public class BioModelInterfaceTest {
     static final String VALID_BIOMODEL_ID = "BIOMD0000000070";
     static final String VALID_BIOMODEL_PERSON = "gille";
     static final String VALID_BIOMODEL_NAME = "glycolysis";
+    // a glycolysis model the search finds (Teusink2000 yeast glycolysis); BioModels changes
+    // its search index, BIOMD0000000070 is no longer found
+    static final String GLYCOLYSIS_BIOMODEL_ID = "BIOMD0000000064";
     static final String INVALID_BIOMODEL_ID = "BIOMD9999999999";
 
     private final BiomodelsQuery query = BiomodelsQuery.createDefault();
@@ -79,6 +82,6 @@ public class BioModelInterfaceTest {
         List<String> modelIds =
                 result.models().stream().map(BiomodelSummary::id).toList();
         assertEquals(result.matches(), modelIds.size());
-        assertTrue(modelIds.contains(VALID_BIOMODEL_ID), modelIds.toString());
+        assertTrue(modelIds.contains(GLYCOLYSIS_BIOMODEL_ID), modelIds.toString());
     }
 }

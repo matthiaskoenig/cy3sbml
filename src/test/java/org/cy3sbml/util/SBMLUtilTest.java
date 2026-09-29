@@ -473,19 +473,23 @@ class SBMLUtilTest {
     }
 
     @Test
-    void createPortMapIncludesRefs() {
+    void createPortMapIncludesTheSetRefs() {
         Port port = new Port("port1", 3, 1);
         port.setPortRef("portRef1");
         port.setIdRef("idRef1");
         port.setUnitRef("unitRef1");
         port.setMetaIdRef("metaIdRef1");
 
-        Map<String, String> map = SBMLUtil.createPortMap(port);
+        Map<String, String> map = SBMLUtil.createSBaseRefMap(port, null);
 
-        assertEquals("portRef1", map.get(SBML.ATTR_COMP_PORTREF));
-        assertEquals("idRef1", map.get(SBML.ATTR_COMP_IDREF));
-        assertEquals("unitRef1", map.get(SBML.ATTR_COMP_UNITREF));
-        assertEquals("metaIdRef1", map.get(SBML.ATTR_COMP_METAIDREF));
+        assertEquals("portRef1", map.get("portRef"));
+        assertEquals("idRef1", map.get("idRef"));
+        assertEquals("unitRef1", map.get("unitRef"));
+        assertEquals("metaIdRef1", map.get("metaIdRef"));
+
+        Port unset = new Port("port2", 3, 1);
+        unset.setIdRef("idRef2");
+        assertEquals(null, SBMLUtil.createSBaseRefMap(unset, null).get("portRef"));
     }
 
     @Test

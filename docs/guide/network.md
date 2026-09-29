@@ -15,8 +15,11 @@ networks. `<name>` is the model id, or the file name if the model has no id.
 | `Kinetic__<name>` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
 | `All__<name>` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
 
-The `comp` package can define several models in one file. Every model gets its own
-network collection.
+The `comp` package can define several models in one file, and refer to models in other
+files. Every model gets its own network collection: the main model, every model
+definition and every external model. The flattened model of a model with submodels gets
+the collection `Flat__<name>`, with the networks `Flat__<name>`,
+`Kinetic__Flat__<name>` and `All__Flat__<name>`.
 
 ![The Kinetic network of the repressilator model BIOMD0000000012 with the selected species LacI protein](../images/screenshots/kinetic-subnetwork.png)
 
@@ -77,7 +80,9 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `species_geneProduct` | associated species | gene product (fbc) |
 | `association_reaction` | gene product or top and/or node of the association | reaction (fbc) |
 | `association_association` | gene product or and/or node | the and/or node it belongs to (fbc) |
-| `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, replacedElement or replacedBy node | referenced element |
+| `sbaseRef-id`, `sbaseRef-metaId`, `sbaseRef-unit`, `sbaseRef-port` | comp port, deletion, replacedElement or replacedBy node | referenced element in the same model |
+| `sbaseRef-submodel` | comp replacedElement or replacedBy node | its submodel |
+| `sbase-deletion` | comp submodel, or replacedElement of a deletion | deletion |
 | `sbase-replacedElement`, `sbase-replacedBy` | element with the replacement | its replacedElement or replacedBy node |
 
 The column `shared interaction` refines the type for the visual style: a modifier edge
@@ -119,8 +124,10 @@ Package columns:
   `fbc_objective-<objective id>` per objective with the objective coefficient of the
   reactions.
 - `comp`: `comp_portRef`, `comp_idRef`, `comp_unitRef`, `comp_metaIdRef`,
-  `comp_submodelRef`, `comp_modelRef`, `comp_timeConversionFactor`,
-  `comp_extentConversionFactor`.
+  `comp_sBaseRef`, `comp_submodelRef`, `comp_conversionFactor`, `comp_deletion`,
+  `comp_modelRef`, `comp_timeConversionFactor`, `comp_extentConversionFactor`, and the
+  resolved target `comp_targetModel`, `comp_targetId`, `comp_targetType`,
+  `comp_targetMetaId` with `comp_resolution`.
 
 Annotations become columns too. Every resource of an RDF annotation is stored in a column
 named after its identifiers.org collection, with the identifier as value. For models with

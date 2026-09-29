@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.chebi.ChebiAccess;
+import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
@@ -27,7 +28,8 @@ import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.SBMLUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
-import org.sbml.jsbml.ext.comp.Port;
+import org.sbml.jsbml.ext.comp.SBaseRef;
+import org.sbml.jsbml.ext.comp.Submodel;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.qual.Input;
@@ -62,6 +64,8 @@ public class SBaseHTMLFactory {
     private final OlsClient olsClient;
     private final UniprotAccess uniprotAccess;
     private final ChebiAccess chebiAccess;
+    // the comp references of the open documents, null if not known
+    private final CompTargets compTargets;
 
     /**
      * Creates the factory.
@@ -78,11 +82,27 @@ public class SBaseHTMLFactory {
             OlsClient olsClient,
             UniprotAccess uniprotAccess,
             ChebiAccess chebiAccess) {
+        this(baseDir, miriamRegistry, olsClient, uniprotAccess, chebiAccess, null);
+    }
+
+    /**
+     * Creates the factory, which shows the targets of the comp references.
+     *
+     * @param compTargets the comp references of the open documents, may be null
+     */
+    public SBaseHTMLFactory(
+            String baseDir,
+            MiriamRegistry miriamRegistry,
+            OlsClient olsClient,
+            UniprotAccess uniprotAccess,
+            ChebiAccess chebiAccess,
+            CompTargets compTargets) {
         this.baseDir = baseDir;
         this.miriamRegistry = miriamRegistry;
         this.olsClient = olsClient;
         this.uniprotAccess = uniprotAccess;
         this.chebiAccess = chebiAccess;
+        this.compTargets = compTargets;
     }
 
     /**
@@ -243,12 +263,13 @@ public class SBaseHTMLFactory {
      * Creation of class specific attribute information.
      * This mimics the SBMLReaderTaskFactory
      */
-    private static String createSBase(SBase item) {
+    private String createSBase(SBase item) {
         Map<String, String> map;
 
         // core //
         if (item instanceof SBMLDocument sbmlDocument) {
             map = SBMLUtil.createSBMLDocumentMap(sbmlDocument);
+            map.putAll(SBMLUtil.createCompDocumentMap(sbmlDocument, compTargets));
         } else if (item instanceof Model model) {
             map = SBMLUtil.createModelMap(model);
         } else if (item instanceof Compartment compartment) {
@@ -298,8 +319,11 @@ public class SBaseHTMLFactory {
         }
 
         // comp //
-        else if (item instanceof Port port) {
-            map = SBMLUtil.createPortMap(port);
+        else if (item instanceof Submodel submodel) {
+            map = SBMLUtil.createSubmodelMap(submodel, compTargets);
+        } else if (item instanceof SBaseRef ref) {
+            // port, deletion, replaced element, replaced by
+            map = SBMLUtil.createSBaseRefMap(ref, compTargets);
         }
 
         // group //
@@ -309,8 +333,8 @@ public class SBaseHTMLFactory {
 
         // Not supported
         else {
-            logger.warn(MessageFormat.format(
-                    "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item), item));
+            // the elements without own table (lists, species references, ...) show the SBase attributes
+            logger.debug("No object map support for {} <{}>", SBMLUtil.getUnqualifiedClassName(item), item);
             if (item instanceof NamedSBase namedSBase) {
                 map = SBMLUtil.createNamedSBaseMap(namedSBase);
             } else {

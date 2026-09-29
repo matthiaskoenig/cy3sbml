@@ -43,6 +43,12 @@
         },
         {
           "comp_idRef" : "C",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "species",
           "cyId" : "C_port",
           "label" : "C_port",
           "metaId" : "C_port",
@@ -90,11 +96,11 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__ITEM01",
+          "cyId" : "UnitSId__ITEM1",
           "exponent" : 1.0,
           "kind" : "ITEM",
           "label" : "ITEM",
-          "metaId" : "UnitSId__ITEM01",
+          "metaId" : "UnitSId__ITEM1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -134,33 +140,33 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE01",
+          "cyId" : "UnitSId__METRE1",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE01",
+          "metaId" : "UnitSId__METRE1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE012",
+          "cyId" : "UnitSId__METRE2",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE012",
+          "metaId" : "UnitSId__METRE2",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE0123",
+          "cyId" : "UnitSId__METRE3",
           "exponent" : 1.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE0123",
+          "metaId" : "UnitSId__METRE3",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -200,11 +206,11 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__SECOND01",
+          "cyId" : "UnitSId__SECOND1",
           "exponent" : -1.0,
           "kind" : "SECOND",
           "label" : "SECOND",
-          "metaId" : "UnitSId__SECOND01",
+          "metaId" : "UnitSId__SECOND1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -308,6 +314,12 @@
         },
         {
           "comp_idRef" : "extern",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=extern",
+          "comp_targetId" : "extern",
+          "comp_targetMetaId" : "extern",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "compartment",
           "cyId" : "extern_port",
           "label" : "extern_port",
           "metaId" : "extern_port",
@@ -341,6 +353,12 @@
         },
         {
           "comp_idRef" : "vR3",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=vR3",
+          "comp_targetId" : "vR3",
+          "comp_targetMetaId" : "vR3",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "parameter",
           "cyId" : "vR3_port",
           "label" : "vR3_port",
           "metaId" : "vR3_port",
@@ -433,7 +451,7 @@
           }
         },
         {
-          "source" : "UnitSId__ITEM01",
+          "source" : "UnitSId__ITEM1",
           "target" : "UnitSId__item_base",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -473,7 +491,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE01",
+          "source" : "UnitSId__METRE1",
           "target" : "UnitSId__mM",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -483,7 +501,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE012",
+          "source" : "UnitSId__METRE2",
           "target" : "UnitSId__item_per_m3",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -493,7 +511,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE0123",
+          "source" : "UnitSId__METRE3",
           "target" : "UnitSId__m",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -533,7 +551,7 @@
           }
         },
         {
-          "source" : "UnitSId__SECOND01",
+          "source" : "UnitSId__SECOND1",
           "target" : "UnitSId__per_s",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -624,6 +642,12 @@
         },
         {
           "comp_idRef" : "C",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "species",
           "cyId" : "C_port",
           "label" : "C_port",
           "metaId" : "C_port",
@@ -666,6 +690,12 @@
         },
         {
           "comp_idRef" : "extern",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=extern",
+          "comp_targetId" : "extern",
+          "comp_targetMetaId" : "extern",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "compartment",
           "cyId" : "extern_port",
           "label" : "extern_port",
           "metaId" : "extern_port",
@@ -699,6 +729,12 @@
         },
         {
           "comp_idRef" : "vR3",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=vR3",
+          "comp_targetId" : "vR3",
+          "comp_targetMetaId" : "vR3",
+          "comp_targetModel" : "toy_ode_update",
+          "comp_targetType" : "parameter",
           "cyId" : "vR3_port",
           "label" : "vR3_port",
           "metaId" : "vR3_port",

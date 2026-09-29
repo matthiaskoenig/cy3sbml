@@ -46,15 +46,15 @@ public class StyleInfo {
     public List<Mapping> createMappings() {
         List<Mapping> mappings = new ArrayList<>();
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // passthroughMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
         mappings.add(new MappingPassthrough(Mapping.DataType.string, VisualPropertyKey.NODE_LABEL, SBML.LABEL, ""));
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // discreteMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
         Map<String, String> m1 = new HashMap<>();
         m1.put("1", "#3333FF");
@@ -195,6 +195,7 @@ public class StyleInfo {
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_BY, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT, "EQUAL_DASH");
         m11.put(SBML.INTERACTION_COMP_SBASE_DELETION, "EQUAL_DASH");
+        m11.put(SBML.INTERACTION_COMP_SBASEREF_SUBMODEL, "EQUAL_DASH");
         mappings.add(new MappingDiscrete(
                 Mapping.DataType.string, VisualPropertyKey.EDGE_LINE_TYPE, SBML.INTERACTION_ATTR, "SOLID", m11));
 

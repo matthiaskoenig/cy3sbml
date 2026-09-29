@@ -1,7 +1,19 @@
 package org.cy3sbml;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.CompTargets;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
@@ -11,6 +23,7 @@ import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
@@ -25,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * CyActivator creates the single instance and registers it as an OSGi service,
  * so that other apps can look it up.
  */
-public class SBMLManager implements NetworkAboutToBeDestroyedListener {
+public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTargets {
     private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
     private final CyApplicationManager cyApplicationManager;
 
@@ -51,6 +64,10 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     /**
      * Constructor.
      */
+    // resolvers of the comp references of the read documents, which know the external
+    // documents read; not part of the session
+    private final List<SBaseRefResolver> sBaseRefResolvers = new CopyOnWriteArrayList<>();
+
     public SBMLManager(CyApplicationManager cyApplicationManager) {
         logger.debug("SBMLManager created");
         this.cyApplicationManager = cyApplicationManager;
@@ -106,6 +123,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
         if (subnetworks.size() == 1) {
             network2sbml.removeDocument(rootSUID);
+            removeUnusedResolvers();
             logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
             return true;
         } else {
@@ -114,6 +132,77 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
                     rootSUID, subnetworks.size()));
             return false;
         }
+    }
+
+    /**
+     * Adds the resolver the reader resolved the comp references of a document with, so
+     * that the info panel finds the same targets, with the same metaids.
+     */
+    public void addSBaseRefResolver(SBaseRefResolver resolver) {
+        if (sBaseRefResolvers.stream().noneMatch(r -> r == resolver)) {
+            sBaseRefResolvers.add(resolver);
+        }
+    }
+
+    /**
+     * The resolver of the comp references of the document of the element: the one of the
+     * reader that read the document, else a new one (e.g. for a document of a session).
+     *
+     * @return the resolver, null if the element is not part of a document
+     */
+    public SBaseRefResolver getSBaseRefResolver(SBase sbase) {
+        SBMLDocument document = sbase.getSBMLDocument();
+        if (document == null) {
+            return null;
+        }
+        for (SBaseRefResolver resolver : sBaseRefResolvers) {
+            if (resolver.models().owns(document)) {
+                return resolver;
+            }
+        }
+        // a document of a session: a resolver that uses the open documents, created once
+        SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document, openDocuments()));
+        sBaseRefResolvers.add(resolver);
+        return resolver;
+    }
+
+    /** The open documents with a location, by location. */
+    private Map<URI, SBMLDocument> openDocuments() {
+        Map<URI, SBMLDocument> documents = new HashMap<>();
+        for (SBMLDocument document : network2sbml.getDocumentMap().values()) {
+            if (document.isSetLocationURI()) {
+                try {
+                    documents.putIfAbsent(new URI(document.getLocationURI()), document);
+                } catch (URISyntaxException e) {
+                    logger.debug("Location is no URI: {}", document.getLocationURI());
+                }
+            }
+        }
+        return documents;
+    }
+
+    @Override
+    public SBaseRefResolver resolver(SBase sbase) {
+        return getSBaseRefResolver(sbase);
+    }
+
+    /** Stores the model the network collection of the network was created from. */
+    public void addModelForNetwork(CyNetwork network, Model model) {
+        network2sbml.putModel(NetworkUtil.getRootNetworkSUID(network), model);
+    }
+
+    @Override
+    public Optional<Long> rootNetwork(Model model) {
+        return network2sbml.findRootNetwork(model);
+    }
+
+    /** Removes the resolvers whose document has no network anymore. */
+    private void removeUnusedResolvers() {
+        // by identity, JSBML's equals compares the content
+        Set<SBMLDocument> documents = Collections.newSetFromMap(new IdentityHashMap<>());
+        documents.addAll(network2sbml.getDocumentMap().values());
+        sBaseRefResolvers.removeIf(
+                resolver -> !documents.contains(resolver.models().document()));
     }
 
     /**
@@ -236,7 +325,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         return network2sbml.toString();
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Set all information in SBMLManager from given Network2SBMLMapper.
@@ -247,13 +336,15 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         logger.debug("SBMLManager from given mapper");
 
         network2sbml = mapper;
+        // the documents of a session are new documents
+        sBaseRefResolvers.clear();
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();
         updateCurrent(currentNetwork);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Remove the mappings if networks are destroyed.

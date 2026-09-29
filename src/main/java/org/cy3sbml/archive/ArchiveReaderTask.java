@@ -189,9 +189,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
             // CyRootNetwork.addSubNetwork()).
             rootNetwork = ((CySubNetwork) network).getRootNetwork();
 
-            //////////////////////////////////////////////////////////////////
+            // ------------------------------------------------------------
             // Read information from manifest file
-            //////////////////////////////////////////////////////////////////
+            // ------------------------------------------------------------
 
             // reading the archive content is not implemented yet (#116)
 
@@ -200,9 +200,9 @@ public class ArchiveReaderTask extends AbstractTask implements CyNetworkReader {
                 setImageAttribute(n);
             }
 
-            //////////////////////////////////////////////////////////////////
+            // ------------------------------------------------------------
             // Base network
-            //////////////////////////////////////////////////////////////////
+            // ------------------------------------------------------------
 
             // Set name
             String[] tokens = fileName.split("/", -1);

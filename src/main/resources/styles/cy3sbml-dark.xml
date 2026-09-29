@@ -222,6 +222,7 @@
                     <discreteMappingEntry attributeValue="sbase-replacedElement" value="EQUAL_DASH"/>
                     <discreteMappingEntry attributeValue="parameter_reaction" value="SEPARATE_ARROW"/>
                     <discreteMappingEntry attributeValue="sbaseRef-port" value="EQUAL_DASH"/>
+                    <discreteMappingEntry attributeValue="sbaseRef-submodel" value="EQUAL_DASH"/>
                     <discreteMappingEntry attributeValue="reaction-modifier" value="LONG_DASH"/>
                     <discreteMappingEntry attributeValue="variable_eventAssignment" value="DOT"/>
                     <discreteMappingEntry attributeValue="sbase_unitDefinition" value="DOT"/>

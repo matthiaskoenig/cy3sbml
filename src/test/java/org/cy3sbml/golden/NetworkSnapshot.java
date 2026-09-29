@@ -66,6 +66,17 @@ public final class NetworkSnapshot {
 
     private NetworkSnapshot() {}
 
+    /** The URI of the directory of the test resources, e.g. file:/home/user/cy3sbml/target/test-classes/. */
+    private static final String TEST_CLASSES = testClasses();
+
+    private static String testClasses() {
+        try {
+            return NetworkSnapshot.class.getResource("/").toURI().toString();
+        } catch (java.net.URISyntaxException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     /**
      * Create the canonical snapshot of the given networks.
      */
@@ -221,7 +232,8 @@ public final class NetworkSnapshot {
             return FACTORY.booleanNode(b);
         }
         if (value instanceof String s) {
-            return FACTORY.textNode(s);
+            // the location of the test models differs between machines (comp resolution reasons)
+            return FACTORY.textNode(s.replace(TEST_CLASSES, "classpath:/"));
         }
         throw new IllegalArgumentException("Unsupported column value type: " + value.getClass());
     }

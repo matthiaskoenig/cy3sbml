@@ -9,7 +9,7 @@ are listed in [Network model](network.md).
 | core | supported |
 | `qual` (qualitative models) | supported |
 | `fbc` (flux balance constraints), versions 1 and 2 | supported |
-| `comp` (hierarchical model composition) | supported, with the limits below |
+| `comp` (hierarchical model composition) | supported |
 | `groups` | supported |
 | `layout` | not yet supported |
 | other packages, for example `distrib` | read by JSBML, not converted |
@@ -42,17 +42,45 @@ levels, signs, thresholds and transition effects are stored as columns with the 
 
 ## comp (hierarchical model composition)
 
-- Submodels, ports, deletions, replaced elements and replaced-by elements become nodes.
-  Ports, replaced elements and replaced-by elements have edges to the elements they
-  reference. Deletions have no edges yet
-  ([issue #401](https://github.com/matthiaskoenig/cy3sbml/issues/401)).
-- Every model definition in the file gets its own network collection, in addition to the
-  main model.
-- External model definitions are not loaded. Import the referenced files one by one.
-- The flattened model is not created yet
-  ([issue #401](https://github.com/matthiaskoenig/cy3sbml/issues/401)).
+cy3sbml supports the comp package version 1 release 3.
 
-![The All network of a comp test model with submodels, deletions and replaced elements](../images/screenshots/comp-model.png)
+- **Networks.** Every model of the file gets its own network collection: the main model,
+  every model definition, and the model of every external model definition. External
+  model definitions are read from their source, relative to the imported file (also
+  sources like `file:model.xml`), over the web for `http` and `https` sources, and from
+  the external files they reference in turn. If the main model has submodels, the
+  flattened model is created as well, with the name `Flat__<model id>`: every submodel
+  instantiated, deletions removed, replaced elements merged, and the ids prefixed with
+  the submodel path (`sub1__S1`). See [Networks](network.md).
+- **Nodes and edges.** Submodels, ports, deletions, replaced elements and replaced by
+  elements become nodes. A submodel has an edge to each of its deletions, a replaced
+  element and a replaced by element an edge from the element they belong to and one to
+  their submodel. A reference to an element of the same model gets an edge to it.
+- **Targets.** The target of every port, deletion, replaced element and replaced by is
+  resolved, also through ports and nested `sBaseRef`s into the models of further
+  submodels. The target is usually in the model of a submodel, which is another network;
+  the columns `comp_targetModel`, `comp_targetId`, `comp_targetType` and
+  `comp_targetMetaId` name it, and the info panel links to the node in the network of
+  its model. `comp_resolution` says `resolved`, or why the target could not be found.
+- **External files.** A missing or unreadable external file skips its network, and the
+  flat network if a submodel instantiates its model, with a warning in the log. The location of the file is known for a file
+  imported from the file system or a URL.
+
+| comp class | Conversion |
+|---|---|
+| SBMLDocument (`required`, list of external model definitions, list of model definitions) | a network collection per model; the info panel of the document lists the model definitions and external model definitions with their status |
+| ExternalModelDefinition (`id`, `name`, `source`, `modelRef`, `md5`) | the model is read from the source and gets a network collection; a different `md5` checksum is logged |
+| ModelDefinition | a network collection |
+| Model (list of submodels, list of ports) | nodes of the submodels and ports |
+| Submodel (`id`, `name`, `modelRef`, `timeConversionFactor`, `extentConversionFactor`, list of deletions) | node `comp_submodel` with the columns `comp_modelRef`, `comp_timeConversionFactor`, `comp_extentConversionFactor` and the resolution of the model; edges to the deletions |
+| SBaseRef (`portRef`, `idRef`, `unitRef`, `metaIdRef`, `sBaseRef`) | columns `comp_portRef`, `comp_idRef`, `comp_unitRef`, `comp_metaIdRef`, and `comp_sBaseRef` with the chain of nested references, e.g. `submodelRef=A > idRef=B > idRef=y` |
+| Port (`id`, `name`, SBaseRef) | node `comp_port`, edge to the element it exposes |
+| Deletion (`id`, `name`, SBaseRef) | node `comp_deletion`, target columns |
+| ReplacedElement (`submodelRef`, `deletion`, `conversionFactor`, SBaseRef) | node `comp_replacedElement` with `comp_submodelRef`, `comp_deletion`, `comp_conversionFactor` and the target columns; with `deletion`, an edge to the deletion |
+| ReplacedBy (`submodelRef`, SBaseRef) | node `comp_replacedBy` with `comp_submodelRef` and the target columns |
+| SBase (list of replaced elements, replaced by) | on every element |
+
+![The All network of a comp test model: nine submodels with their deletions, the replaced elements linked to their submodels, and the info panel of the submodel C1 with the link to the network of its model](../images/screenshots/comp-model.png)
 
 ## groups
 

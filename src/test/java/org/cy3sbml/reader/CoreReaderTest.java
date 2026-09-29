@@ -5,10 +5,16 @@ import static org.cy3sbml.reader.ReaderTestSupport.nodeById;
 import static org.cy3sbml.reader.ReaderTestSupport.nodesOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import java.util.List;
 import org.cy3sbml.SBML;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
 class CoreReaderTest {
 
@@ -76,5 +82,57 @@ class CoreReaderTest {
 
         assertEquals(1, edgesOfType(network, SBML.INTERACTION_DELAY_EVENT).size());
         assertEquals(1, edgesOfType(network, SBML.INTERACTION_PRIORITY_EVENT).size());
+    }
+
+    /** Rules and assignments may set the stoichiometry of a species reference, which has no node. */
+    @Test
+    void ruleOfSpeciesReferenceIsNoWarning() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+                  <model id="m">
+                    <listOfCompartments>
+                      <compartment id="c" constant="true"/>
+                    </listOfCompartments>
+                    <listOfSpecies>
+                      <species id="S" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
+                               constant="false"/>
+                    </listOfSpecies>
+                    <listOfInitialAssignments>
+                      <initialAssignment symbol="S_stoich">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML"><cn> 2 </cn></math>
+                      </initialAssignment>
+                    </listOfInitialAssignments>
+                    <listOfRules>
+                      <assignmentRule variable="S_stoich">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML"><cn> 2 </cn></math>
+                      </assignmentRule>
+                    </listOfRules>
+                    <listOfReactions>
+                      <reaction id="R" reversible="false">
+                        <listOfReactants>
+                          <speciesReference id="S_stoich" species="S" constant="false"/>
+                        </listOfReactants>
+                      </reaction>
+                    </listOfReactions>
+                  </model>
+                </sbml>
+                """;
+        Logger logger = (Logger) LoggerFactory.getLogger(CoreReader.class);
+        ListAppender<ILoggingEvent> appender = new ListAppender<>();
+        appender.start();
+        logger.addAppender(appender);
+        try {
+            ReaderTestSupport.readString(sbml.strip(), new CoreReader());
+        } finally {
+            logger.detachAppender(appender);
+        }
+
+        assertEquals(
+                List.of(),
+                appender.list.stream()
+                        .filter(e -> e.getLevel().isGreaterOrEqual(Level.WARN))
+                        .map(ILoggingEvent::getFormattedMessage)
+                        .toList());
     }
 }

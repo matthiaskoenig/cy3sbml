@@ -1,5 +1,6 @@
 package org.cy3sbml.util;
 
+import javax.swing.tree.TreeNode;
 import org.sbml.jsbml.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +74,10 @@ public class MappingUtil {
         } else if (sbase instanceof EventAssignment) {
             metaId = eventAssignmentMetaId();
         }
+        // other elements without id, e.g. the replaced elements of the comp package
+        else {
+            metaId = elementMetaId(sbase);
+        }
 
         // create unique and set
         metaId = createUniqueMetaId(doc, metaId);
@@ -91,18 +96,32 @@ public class MappingUtil {
      * @return metaId not in the SBMLDocument.
      */
     public static String createUniqueMetaId(SBMLDocument doc, String metaId) {
-        Integer suffix = 0;
-        while (doc.containsMetaId(metaId)) {
-            metaId = String.format("%s%s", metaId, suffix);
+        String unique = metaId;
+        int suffix = 0;
+        while (doc.containsMetaId(unique)) {
+            unique = metaId + suffix;
             suffix++;
         }
-        return metaId;
+        return unique;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * MetaId of an element without id: the id of the closest parent with an id and the element
+     * name, e.g. {@code p_replacedElement}.
+     */
+    private static String elementMetaId(SBase sbase) {
+        for (TreeNode parent = sbase.getParent(); parent != null; parent = parent.getParent()) {
+            if (parent instanceof SBase parentSBase && !(parent instanceof ListOf<?>) && parentSBase.isSetId()) {
+                return parentSBase.getId() + "_" + sbase.getElementName();
+            }
+        }
+        return sbase.getElementName();
+    }
+
+    // ------------------------------------------------------------
     // METAID FACTORIES
 
-    /// //////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     public static String localParameterId(LocalParameter lp) {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();

@@ -1,16 +1,25 @@
 package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.util.Optional;
 import org.cy3sbml.reader.SBMLReaderTask;
 import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
+import org.cytoscape.io.DataCategory;
+import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +55,7 @@ public class SBMLReaderTaskFactoryTaskTest {
         String fileName = tokens[tokens.length - 1];
         readerTask = new SBMLReaderTask(instream, fileName, networkFactory, groupFactory);
         readerTaskWithViewSupport = new SBMLReaderTask(
-                instream, fileName, networkFactory, groupFactory, networkViewFactory, null, null, null, null);
+                instream, fileName, null, networkFactory, groupFactory, networkViewFactory, null, null, null, null);
     }
 
     @Test
@@ -82,5 +91,50 @@ public class SBMLReaderTaskFactoryTaskTest {
     @Test
     public void run() throws Exception {
         readerTask.run(taskMonitor);
+    }
+
+    /**
+     * Cytoscape passes the reader only the stream and the file name: the location
+     * of the file comes from the file filter, which accepted it just before.
+     */
+    @Test
+    public void taskGetsTheLocationAcceptedByTheFilter() throws Exception {
+        URI uri = URI.create("file:/models/comp/toy_top_level.xml");
+        StreamUtil streamUtil = mock(StreamUtil.class);
+        when(streamUtil.getInputStream(any(URL.class)))
+                .thenAnswer(invocation -> TestUtils.class.getResourceAsStream(SBMLCoreTest.TEST_MODEL_CORE_01));
+        SBMLFileFilter filter = new SBMLFileFilter(streamUtil);
+        ServiceAdapter adapter = new ServiceAdapter(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                new NetworkTestSupport().getNetworkFactory(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        SBMLReaderTaskFactory factory = new SBMLReaderTaskFactory(filter, adapter, null);
+
+        assertTrue(filter.accepts(uri, DataCategory.NETWORK));
+        TaskIterator iterator = factory.createTaskIterator(
+                TestUtils.class.getResourceAsStream(SBMLCoreTest.TEST_MODEL_CORE_01), "toy_top_level.xml");
+
+        SBMLReaderTask task = (SBMLReaderTask) iterator.next();
+        assertEquals(Optional.of(uri), task.getLocation());
+    }
+
+    @Test
+    public void taskHasNoLocationWithoutAcceptedUri() throws Exception {
+        assertEquals(Optional.empty(), readerTask.getLocation());
     }
 }

@@ -81,9 +81,16 @@ flowchart TB
 
 - `SBMLFileFilter` accepts a file if its first lines contain the SBML namespace.
 - `SBMLReaderTaskFactory` creates an `SBMLReaderTask` for every file.
-- `SBMLReaderTask` reads the `SBMLDocument` with JSBML. For the main model and for every
-  comp model definition, it creates a network and a `ConversionContext`, and applies the
-  package readers in a fixed order. A read error aborts the import with one
+- `SBMLReaderTask` reads the `SBMLDocument` with JSBML. For every model source (the main
+  model, every comp model definition, the model of every external model definition, and
+  the flattened model from JSBML's `CompFlatteningConverter`), it creates a network and a
+  `ConversionContext`, and applies the package readers in a fixed order. The location of
+  the file comes from `SBMLFileFilter`, which Cytoscape calls on the same thread before it
+  creates the reader.
+- `org.cy3sbml.comp` resolves the references of the comp package with JSBML only:
+  `CompModels` the model of a submodel (model definitions and external files, read once),
+  `SBaseRefResolver` the target of a port, deletion, replaced element or replaced by.
+  `SBMLManager` keeps the resolver of the reader for the info panel. A read error aborts the import with one
   `SBMLReaderError` and returns no networks.
 - Every `PackageReader` (package-private, in `org.cy3sbml.reader`) converts the objects
   of one package into nodes, edges and columns. `CoreReader` uses `AttributeWriter`,

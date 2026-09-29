@@ -233,6 +233,10 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 }
             }
             newM.putDocument(newNetworkSuid, doc, newNsb2node);
+            Model model = m.getModelMap().get(networkSuid);
+            if (model != null) {
+                newM.putModel(newNetworkSuid, model);
+            }
         }
         return newM;
     }
