@@ -2,7 +2,8 @@
 
 The models use the SBML Level 3 distrib package, version 1: uncertainties on the
 elements of the core, with every kind of uncertainty parameter and span, `var`
-references, units, and a distribution with math and nested parameters. libSBML is
+references, units, and a distribution with math and nested parameters; and a
+comp model whose submodel has uncertainties, for the flattening. libSBML is
 the reference implementation of distrib, so the models are written and validated
 with it; a model with an error is not written.
 
@@ -178,6 +179,42 @@ def uncertainties_model() -> libsbml.SBMLDocument:
     return doc
 
 
+def comp_model() -> libsbml.SBMLDocument:
+    """A submodel with uncertainties that reference its elements, for the flattening."""
+    ns = libsbml.SBMLNamespaces(3, 2)
+    ns.addPackageNamespace("comp", 1)
+    ns.addPackageNamespace("distrib", 1)
+    doc = libsbml.SBMLDocument(ns)
+    doc.setPackageRequired("comp", True)
+    doc.setPackageRequired("distrib", True)
+
+    definition = doc.getPlugin("comp").createModelDefinition()
+    definition.setId("sub")
+    ud = definition.createUnitDefinition()
+    ud.setId("per_s")
+    unit = ud.createUnit()
+    unit.setKind(libsbml.UNIT_KIND_SECOND)
+    unit.setExponent(-1)
+    unit.setScale(0)
+    unit.setMultiplier(1.0)
+    for pid, value in [("sd", 0.2), ("k1", 1.0)]:
+        p = definition.createParameter()
+        p.setId(pid)
+        p.setValue(value)
+        p.setUnits("per_s")
+        p.setConstant(True)
+    u = uncertainty(definition.getParameter("k1"))
+    parameter(u, libsbml.DISTRIB_UNCERTTYPE_STANDARDDEVIATION, var="sd", units="per_s")
+    span(u, libsbml.DISTRIB_UNCERTTYPE_RANGE, "sd", "k1")
+
+    model = doc.createModel()
+    model.setId("distrib_comp")
+    submodel = model.getPlugin("comp").createSubmodel()
+    submodel.setId("A")
+    submodel.setModelRef("sub")
+    return doc
+
+
 def validate(doc: libsbml.SBMLDocument) -> list[str]:
     """The errors of the document (unit consistency is not checked)."""
     doc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
@@ -198,7 +235,10 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    models = {"distrib_uncertainties.xml": uncertainties_model()}
+    models = {
+        "distrib_uncertainties.xml": uncertainties_model(),
+        "distrib_comp.xml": comp_model(),
+    }
     for file_name, doc in models.items():
         errors = validate(doc)
         if errors:

@@ -45,9 +45,9 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
 
 ### Current pin: JSBML fork
 
-The pinned commit `973b9cc3` is on the branch
+The pinned commit `565932ac` is on the branch
 [`cy3sbml`](https://github.com/matthiaskoenig/jsbml/tree/cy3sbml) of the fork
-`matthiaskoenig/jsbml`: the changes of three branches on top of JSBML `master` (`8192a8a7`):
+`matthiaskoenig/jsbml`: the changes of four branches on top of JSBML `master` (`8192a8a7`):
 
 - the branch [`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes)
   (`f9d33e50`) rewrites the flattening of hierarchical models (`CompFlatteningConverter`)
@@ -66,8 +66,11 @@ The pinned commit `973b9cc3` is on the branch
   elements are not registered in the SId namespace of the model (a warning for every
   uncertainty with an id), the type `coeffientOfVariation` that libSBML writes
   ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)) is read as
-  `coefficientOfVariation`, and the offline validation accepts the csymbols of the
-  distribution functions
+  `coefficientOfVariation`, copies of uncertainties keep their parameters, and the offline
+  validation accepts the csymbols of the distribution functions of distrib
+- the branch [`comp-distrib-flattening`](https://github.com/matthiaskoenig/jsbml/tree/comp-distrib-flattening)
+  (on top of `comp-fixes` and `distrib-fixes`) renames the references of the distrib
+  package (`var`, `varLower`, `varUpper`, `units`) in the flattening of hierarchical models
 
 When all are merged into JSBML, update to JSBML `master` again.
 

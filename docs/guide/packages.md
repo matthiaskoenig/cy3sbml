@@ -112,6 +112,8 @@ cy3sbml supports the distrib package version 1.
 - **Distributions in math.** The distribution functions in math, for example
   `normal(mean, sd)`, are shown in the `math` column and the info panel like other
   functions, with the edges from the referenced elements.
+- The flattened model of a comp model keeps the uncertainties, with the references renamed
+  like the ids of the elements (`sub1__sd`).
 - libSBML writes the type `coefficientOfVariation` as `coeffientOfVariation`
   ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)); both are read.
   The draft of distrib with UncertML elements is not read.
