@@ -21,19 +21,26 @@ for example after the model was changed.
 ```xml
 <layout>
   <listOfBoundingBoxes>
-    <boundingBox id="PX" xpos="120.5" ypos="-43.0" height="35.0" width="35.0"/>
+    <boundingBox cyId="PX" id="PX" xpos="120.5" ypos="-43.0" height="35.0" width="35.0"/>
+    <boundingBox cyId="law__v1" xpos="80.0" ypos="12.5" height="35.0" width="35.0"/>
     ...
   </listOfBoundingBoxes>
 </layout>
 ```
 
-The `id` is the SBML id of the node (column `sbml id`).
+The `cyId` identifies the node (column `cyId`): it is the unique id cy3sbml gives every SBML
+element of the model, the metaid of the element if it has one, else an id derived from the
+SBML id or the parent element, for example `law__v1` for the kinetic law of the
+reaction `v1`. The `id` is the SBML id of the node (column `sbml id`), only written for
+nodes of elements with an SBML id.
 
 **Load Layout** reads such a file and moves every node of the current network view whose
-`sbml id` is in the file to the stored position. Nodes without a stored position keep
-their position. The stored sizes are not applied.
+`cyId` is in the file to the stored position. Nodes without a stored position keep
+their position. The stored sizes are not applied. Layout files of cy3sbml versions before
+0.7.0 have only the `id`; their positions are applied to the nodes with this SBML id.
 
-Because the nodes are matched by their SBML id, a layout file can be applied to every
-network of the same model, and to other versions of the model with the same ids. Nodes
-without an SBML id, for example units, which have a `unitSid`, and the fbc `AND` and `OR`
-nodes, are not positioned.
+Because every node is matched by its `cyId`, a layout file positions all nodes, also the
+nodes of elements without SBML id such as kinetic laws, rules, units and the fbc `AND` and
+`OR` nodes. It can be applied to every network of the same model, and to other versions of
+the model with the same ids and metaids. SBML Level 1 has no metaids, so in Level 1 models
+only the nodes with an SBML id are positioned.

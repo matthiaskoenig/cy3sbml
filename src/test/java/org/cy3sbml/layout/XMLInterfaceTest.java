@@ -7,7 +7,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -35,14 +35,24 @@ class XMLInterfaceTest {
                 </layout>
                 """);
 
-        Map<String, CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(file);
+        List<CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(file);
 
-        assertEquals(1, boxes.size());
-        CyBoundingBox box = boxes.get("complete");
-        assertEquals(1.0, box.getXpos());
-        assertEquals(2.0, box.getYpos());
-        assertEquals(3.0, box.getHeight());
-        assertEquals(4.0, box.getWidth());
+        assertEquals(List.of(new CyBoundingBox(null, "complete", 1.0, 2.0, 3.0, 4.0)), boxes);
+    }
+
+    @Test
+    void writesAndReadsTheCyIdAndTheSbmlId() throws Exception {
+        List<CyBoundingBox> boxes = List.of(
+                new CyBoundingBox("meta_S1", "S1", 1.0, 2.0, 3.0, 4.0),
+                new CyBoundingBox("kineticLaw_R1", null, 5.0, 6.0, 7.0, 8.0));
+        File file = tempDir.resolve("layout.xml").toFile();
+
+        XMLInterface.writeXMLFileForLayout(file, boxes);
+
+        String xml = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+        assertTrue(xml.contains("cyId=\"meta_S1\""), xml);
+        assertTrue(xml.contains("id=\"S1\""), xml);
+        assertEquals(boxes, XMLInterface.readLayoutFromXML(file));
     }
 
     @Test
@@ -65,8 +75,8 @@ class XMLInterfaceTest {
                         + "</listOfBoundingBoxes></layout>",
                 StandardCharsets.UTF_8);
 
-        Map<String, CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(layout);
+        List<CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(layout);
 
-        assertTrue(boxes.isEmpty(), "the layout with a DOCTYPE must be rejected: " + boxes.keySet());
+        assertTrue(boxes.isEmpty(), "the layout with a DOCTYPE must be rejected: " + boxes);
     }
 }

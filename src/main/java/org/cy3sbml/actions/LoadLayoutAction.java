@@ -51,6 +51,11 @@ public final class LoadLayoutAction extends AbstractCyAction {
         org.cytoscape.util.swing.FileUtil fileUtil = adapter.fileUtil;
         File xmlFile = fileUtil.getFile(frame, "Load Layout for current CyNetworkView", FileUtil.LOAD, filters);
 
+        if (xmlFile == null) {
+            // file chooser cancelled
+            return;
+        }
+
         LayoutTools layoutTools = new LayoutTools(adapter);
         layoutTools.loadLayoutOfCurrentViewFromFile(xmlFile);
     }

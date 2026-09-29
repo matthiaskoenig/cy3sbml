@@ -2,9 +2,9 @@ package org.cy3sbml.layout;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -27,6 +27,7 @@ public class XMLInterface {
     public static final String BOX_LIST = "listOfBoundingBoxes";
 
     public static final String BOX = "boundingBox";
+    public static final String BOX_CYID = "cyId";
     public static final String BOX_ID = "id";
     public static final String BOX_X = "xpos";
     public static final String BOX_Y = "ypos";
@@ -34,11 +35,6 @@ public class XMLInterface {
     public static final String BOX_WIDTH = "width";
 
     // XML EXPORT //
-
-    public static void writeXMLFileForLayout(String filename, Collection<CyBoundingBox> boxes) {
-        File xmlFile = new File(filename);
-        writeXMLFileForLayout(xmlFile, boxes);
-    }
 
     public static void writeXMLFileForLayout(File xmlFile, Collection<CyBoundingBox> boxes) {
         Document doc = createXMLDocumentFromLayout(boxes);
@@ -68,11 +64,16 @@ public class XMLInterface {
     private static void addDomForBoundingBox(Document doc, Element boxListElement, CyBoundingBox box) {
         Element boxNode = doc.createElement(BOX);
         boxListElement.appendChild(boxNode);
-        boxNode.setAttribute(BOX_ID, box.getNodeId());
-        boxNode.setAttribute(BOX_X, Double.toString(box.getXpos()));
-        boxNode.setAttribute(BOX_Y, Double.toString(box.getYpos()));
-        boxNode.setAttribute(BOX_HEIGHT, Double.toString(box.getHeight()));
-        boxNode.setAttribute(BOX_WIDTH, Double.toString(box.getWidth()));
+        if (box.cyId() != null) {
+            boxNode.setAttribute(BOX_CYID, box.cyId());
+        }
+        if (box.sbmlId() != null) {
+            boxNode.setAttribute(BOX_ID, box.sbmlId());
+        }
+        boxNode.setAttribute(BOX_X, Double.toString(box.x()));
+        boxNode.setAttribute(BOX_Y, Double.toString(box.y()));
+        boxNode.setAttribute(BOX_HEIGHT, Double.toString(box.height()));
+        boxNode.setAttribute(BOX_WIDTH, Double.toString(box.width()));
     }
 
     private static void writeXMLDocumentToFile(Document doc, File xmlFile) {
@@ -88,13 +89,12 @@ public class XMLInterface {
 
     // XML IMPORT //
 
-    public static Map<String, CyBoundingBox> readLayoutFromXML(String filename) {
-        File xmlFile = new File(filename);
-        return readLayoutFromXML(xmlFile);
-    }
-
-    public static Map<String, CyBoundingBox> readLayoutFromXML(File xmlFile) {
-        HashMap<String, CyBoundingBox> boxes = new HashMap<String, CyBoundingBox>();
+    /**
+     * Reads the bounding boxes of the layout file, or returns an empty list if the file cannot
+     * be read.
+     */
+    public static List<CyBoundingBox> readLayoutFromXML(File xmlFile) {
+        List<CyBoundingBox> boxes = new ArrayList<>();
 
         try {
             Document doc = XMLUtil.documentBuilder().parse(xmlFile);
@@ -105,7 +105,7 @@ public class XMLInterface {
                 Node boxNode = boxList.item(k);
                 CyBoundingBox box = readBoundingBoxFromNode(boxNode);
                 if (box != null) {
-                    boxes.put(box.getNodeId(), box);
+                    boxes.add(box);
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -121,7 +121,9 @@ public class XMLInterface {
      */
     private static CyBoundingBox readBoundingBoxFromNode(Node boxNode) {
         NamedNodeMap map = boxNode.getAttributes();
-        String nodeId = attribute(map, BOX_ID);
+        String cyId = attribute(map, BOX_CYID);
+        String sbmlId = attribute(map, BOX_ID);
+        String nodeId = cyId != null ? cyId : sbmlId;
         String xpos = attribute(map, BOX_X);
         String ypos = attribute(map, BOX_Y);
         String height = attribute(map, BOX_HEIGHT);
@@ -132,7 +134,8 @@ public class XMLInterface {
         }
         try {
             return new CyBoundingBox(
-                    nodeId,
+                    cyId,
+                    sbmlId,
                     Double.parseDouble(xpos),
                     Double.parseDouble(ypos),
                     Double.parseDouble(height),
