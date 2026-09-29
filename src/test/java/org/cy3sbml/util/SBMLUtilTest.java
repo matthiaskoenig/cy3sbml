@@ -480,7 +480,7 @@ class SBMLUtilTest {
         port.setUnitRef("unitRef1");
         port.setMetaIdRef("metaIdRef1");
 
-        Map<String, String> map = SBMLUtil.createPortMap(port);
+        Map<String, String> map = SBMLUtil.createSBaseRefMap(port, null);
 
         assertEquals("portRef1", map.get(SBML.ATTR_COMP_PORTREF));
         assertEquals("idRef1", map.get(SBML.ATTR_COMP_IDREF));

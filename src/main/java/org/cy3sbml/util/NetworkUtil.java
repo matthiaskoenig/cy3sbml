@@ -1,6 +1,12 @@
 package org.cy3sbml.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.cy3sbml.SBML;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -66,6 +72,74 @@ public class NetworkUtil {
             }
         }
         return network;
+    }
+
+    /**
+     * The network of the model with the id that has a node for the element with the cyId:
+     * the base network of the model if it has the node, else its kinetic or its all network.
+     * Flat networks are left out, their models have the id of the main model.
+     */
+    public static Optional<CyNetwork> findTargetNetwork(Collection<CyNetwork> networks, String modelId, String cyId) {
+        Map<CyRootNetwork, List<CyNetwork>> byRoot = new LinkedHashMap<>();
+        for (CyNetwork network : networks) {
+            if (network instanceof CySubNetwork subNetwork) {
+                byRoot.computeIfAbsent(subNetwork.getRootNetwork(), root -> new ArrayList<>())
+                        .add(network);
+            }
+        }
+        for (Map.Entry<CyRootNetwork, List<CyNetwork>> entry : byRoot.entrySet()) {
+            CyRootNetwork root = entry.getKey();
+            String rootName = root.getRow(root).get(CyNetwork.NAME, String.class);
+            if (rootName == null || rootName.startsWith(SBML.PREFIX_NETWORK_FLAT + "__")) {
+                continue;
+            }
+            List<CyNetwork> candidates = new ArrayList<>(entry.getValue());
+            boolean ofModel =
+                    candidates.stream().anyMatch(n -> modelId.equals(n.getRow(n).get(SBML.ATTR_ID, String.class)));
+            if (!ofModel) {
+                continue;
+            }
+            // base network first, then kinetic, then all
+            candidates.sort(Comparator.comparingInt(n -> subnetworkRank(n, rootName)));
+            for (CyNetwork candidate : candidates) {
+                if (AttributeUtil.getNodeByAttribute(candidate, SBML.ATTR_CYID, cyId) != null) {
+                    return Optional.of(candidate);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * The base network of the model with the id, flat networks left out.
+     */
+    public static Optional<CyNetwork> findModelNetwork(Collection<CyNetwork> networks, String modelId) {
+        for (CyNetwork network : networks) {
+            if (!(network instanceof CySubNetwork subNetwork)
+                    || !modelId.equals(network.getRow(network).get(SBML.ATTR_ID, String.class))) {
+                continue;
+            }
+            CyRootNetwork root = subNetwork.getRootNetwork();
+            String rootName = root.getRow(root).get(CyNetwork.NAME, String.class);
+            if (rootName == null || rootName.startsWith(SBML.PREFIX_NETWORK_FLAT + "__")) {
+                continue;
+            }
+            // the base network has the name of the collection
+            return networks.stream()
+                    .filter(n -> n instanceof CySubNetwork s && s.getRootNetwork() == root)
+                    .filter(n -> rootName.equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                    .findFirst()
+                    .or(() -> Optional.of(network));
+        }
+        return Optional.empty();
+    }
+
+    private static int subnetworkRank(CyNetwork network, String rootName) {
+        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+        if (rootName.equals(name)) {
+            return 0;
+        }
+        return name != null && name.startsWith(SBML.PREFIX_SUBNETWORK_KINETIC + "__") ? 1 : 2;
     }
 
     ////////////////////////////////////////////////////////

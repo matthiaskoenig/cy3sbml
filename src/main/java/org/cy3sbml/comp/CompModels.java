@@ -67,6 +67,11 @@ public final class CompModels {
         return document;
     }
 
+    /** True if the document is the document of this resolver or one it read. */
+    public boolean owns(SBMLDocument other) {
+        return other == document || documents.values().stream().anyMatch(d -> d == other);
+    }
+
     /** The model the submodel instantiates. */
     public ModelResolution resolve(Submodel submodel) {
         SBMLDocument scope = submodel.getSBMLDocument();

@@ -413,7 +413,8 @@ class SBMLReaderTaskTest {
         Map<String, String> documentOfNetwork = new HashMap<>();
         for (CyNetwork network : task.getNetworks()) {
             SBMLDocument document = sbmlManager.getSBMLDocument(network);
-            String file = document.getLocationURI().substring(document.getLocationURI().lastIndexOf('/') + 1);
+            String file = document.getLocationURI()
+                    .substring(document.getLocationURI().lastIndexOf('/') + 1);
             documentOfNetwork.put(
                     network.getRow(network).get(CyNetwork.NAME, String.class),
                     file + " " + document.isPackageEnabled("comp"));

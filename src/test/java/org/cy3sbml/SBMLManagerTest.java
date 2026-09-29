@@ -1,7 +1,12 @@
 package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
+import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.ModelResolution;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
@@ -14,11 +19,9 @@ import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.SBase;
 
-/**
- * Testing the SBMLManager.
- */
 public class SBMLManagerTest {
 
     private SBMLManager manager;
@@ -135,5 +138,51 @@ public class SBMLManagerTest {
         SBase c2 = manager.getSBaseByCyId("c1_meta", SUID);
         assertNotNull(c2);
         assertEquals(c, c2);
+    }
+
+    /** Reads the comp test model with the external models it references. */
+    private static SBMLDocument readTop() throws Exception {
+        java.net.URL url = SBMLManagerTest.class.getResource("/models/comp/unit/top.xml");
+        SBMLDocument document = new SBMLReader().readSBMLFromStream(url.openStream());
+        document.setLocationURI(url.toURI().toString());
+        return document;
+    }
+
+    @Test
+    public void resolverOfTheReaderIsUsedForItsDocuments() throws Exception {
+        SBMLDocument document = readTop();
+        SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document));
+        ModelResolution.Resolved external =
+                (ModelResolution.Resolved) resolver.models().resolve(document, "ext");
+        CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        manager.addSBMLForNetwork(document, network, MAPPING);
+        manager.addSBaseRefResolver(resolver);
+
+        assertSame(resolver, manager.getSBaseRefResolver(document.getModel()));
+        // an element of an external document the resolver read
+        assertSame(resolver, manager.getSBaseRefResolver(external.model()));
+    }
+
+    @Test
+    public void elementOfAnotherDocumentGetsANewResolver() throws Exception {
+        SBMLDocument document = readTop();
+        manager.addSBaseRefResolver(new SBaseRefResolver(new CompModels(readTop())));
+
+        SBaseRefResolver resolver = manager.getSBaseRefResolver(document.getModel());
+
+        assertSame(document, resolver.models().document());
+    }
+
+    @Test
+    public void resolverIsRemovedWithTheNetworksOfItsDocument() throws Exception {
+        SBMLDocument document = readTop();
+        SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document));
+        CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        manager.addSBMLForNetwork(document, network, MAPPING);
+        manager.addSBaseRefResolver(resolver);
+
+        manager.removeSBMLForNetwork(network);
+
+        assertNotSame(resolver, manager.getSBaseRefResolver(document.getModel()));
     }
 }

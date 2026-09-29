@@ -3,10 +3,12 @@ package org.cy3sbml.gui;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import javax.swing.SwingUtilities;
@@ -19,6 +21,8 @@ import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.*;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.view.model.CyNetworkView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +53,8 @@ public class BrowserHyperlinkListener {
 
     public static final String URL_SELECT_METAID = "http://select-metaid/";
     public static final String URL_SELECT_ID = "http://select-id/";
+    // the node of a comp reference in the network of its model: <model id>/<metaid>
+    public static final String URL_SELECT_TARGET = "http://select-target/";
 
     public static final Map<String, String> EXAMPLE_SBML;
     public static final Set<String> URLS_ACTION;
@@ -203,6 +209,8 @@ public class BrowserHyperlinkListener {
             } else {
                 logger.error(String.format("Action not created for <%s>", s));
             }
+        } else if (s.startsWith(URL_SELECT_TARGET)) {
+            selectTarget(s.substring(URL_SELECT_TARGET.length()));
         } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
             // Only select if current network exists
             CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
@@ -237,6 +245,34 @@ public class BrowserHyperlinkListener {
         // HTML links
         else {
             GUIUtil.openURLinExternalBrowser(s);
+        }
+    }
+
+    /**
+     * Makes the network of the model current and selects the node of the element, for a
+     * link {@code <model id>/<metaid>} to the target of a comp reference, which is usually
+     * in the network of another model. Without metaid, only the network is made current.
+     */
+    private void selectTarget(String path) {
+        int slash = path.indexOf('/');
+        String modelId = slash < 0 ? path : path.substring(0, slash);
+        String cyId = slash < 0 ? "" : path.substring(slash + 1);
+        Set<CyNetwork> networks = adapter.cyNetworkManager.getNetworkSet();
+        Optional<CyNetwork> target = cyId.isEmpty()
+                ? NetworkUtil.findModelNetwork(networks, modelId)
+                : NetworkUtil.findTargetNetwork(networks, modelId, cyId);
+        if (target.isEmpty()) {
+            logger.warn("No network of the model '{}' with the element '{}' is open.", modelId, cyId);
+            return;
+        }
+        CyNetwork network = target.get();
+        adapter.cyApplicationManager.setCurrentNetwork(network);
+        Collection<CyNetworkView> views = adapter.cyNetworkViewManager.getNetworkViews(network);
+        if (views != null && !views.isEmpty()) {
+            adapter.cyApplicationManager.setCurrentNetworkView(views.iterator().next());
+        }
+        if (!cyId.isEmpty()) {
+            NetworkUtil.selectByMetaId(network, cyId);
         }
     }
 }

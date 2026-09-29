@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+import java.util.Optional;
 import org.cy3sbml.SBML;
+import org.cy3sbml.TestUtils;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
@@ -113,5 +116,31 @@ class NetworkUtilTest {
         NetworkUtil.selectById(network, "missing");
 
         assertTrue(AttributeUtil.get(network, n1, CyNetwork.SELECTED, Boolean.class));
+    }
+
+    /** The target of a comp reference is found in the base network of its model, not in the flat one. */
+    @Test
+    void findsTheNetworkOfTheTargetModel() throws Exception {
+        CyNetwork[] networks = TestUtils.readNetwork("/models/comp/koenig-toymodel/toy_top_level.xml");
+        CyNetwork fba = Arrays.stream(networks)
+                .filter(n -> "toy_fba".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .findFirst()
+                .orElseThrow();
+        String cyId = fba.getRow(fba.getNodeList().get(0)).get(SBML.ATTR_CYID, String.class);
+
+        assertEquals(Optional.of(fba), NetworkUtil.findTargetNetwork(Arrays.asList(networks), "toy_fba", cyId));
+        assertEquals(Optional.empty(), NetworkUtil.findTargetNetwork(Arrays.asList(networks), "toy_fba", "no_node"));
+        assertEquals(Optional.empty(), NetworkUtil.findTargetNetwork(Arrays.asList(networks), "no_model", cyId));
+    }
+
+    /** A link to a model without element opens the base network of the model, not the flat one. */
+    @Test
+    void findsTheBaseNetworkOfAModel() throws Exception {
+        CyNetwork[] networks = TestUtils.readNetwork("/models/comp/koenig-toymodel/toy_top_level.xml");
+
+        Optional<CyNetwork> main = NetworkUtil.findModelNetwork(Arrays.asList(networks), "toy_top_level");
+
+        assertEquals("toy_top_level", main.orElseThrow().getRow(main.get()).get(CyNetwork.NAME, String.class));
+        assertEquals(Optional.empty(), NetworkUtil.findModelNetwork(Arrays.asList(networks), "no_model"));
     }
 }

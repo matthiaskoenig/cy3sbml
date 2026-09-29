@@ -1,7 +1,11 @@
 package org.cy3sbml;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
@@ -51,6 +55,10 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
     /**
      * Constructor.
      */
+    // resolvers of the comp references of the read documents, which know the external
+    // documents read; not part of the session
+    private final List<SBaseRefResolver> sBaseRefResolvers = new CopyOnWriteArrayList<>();
+
     public SBMLManager(CyApplicationManager cyApplicationManager) {
         logger.debug("SBMLManager created");
         this.cyApplicationManager = cyApplicationManager;
@@ -106,6 +114,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
         if (subnetworks.size() == 1) {
             network2sbml.removeDocument(rootSUID);
+            removeUnusedResolvers();
             logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
             return true;
         } else {
@@ -114,6 +123,42 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
                     rootSUID, subnetworks.size()));
             return false;
         }
+    }
+
+    /**
+     * Adds the resolver the reader resolved the comp references of a document with, so
+     * that the info panel finds the same targets, with the same metaids.
+     */
+    public void addSBaseRefResolver(SBaseRefResolver resolver) {
+        if (sBaseRefResolvers.stream().noneMatch(r -> r == resolver)) {
+            sBaseRefResolvers.add(resolver);
+        }
+    }
+
+    /**
+     * The resolver of the comp references of the document of the element: the one of the
+     * reader that read the document, else a new one (e.g. for a document of a session).
+     *
+     * @return the resolver, null if the element is not part of a document
+     */
+    public SBaseRefResolver getSBaseRefResolver(SBase sbase) {
+        SBMLDocument document = sbase.getSBMLDocument();
+        if (document == null) {
+            return null;
+        }
+        for (SBaseRefResolver resolver : sBaseRefResolvers) {
+            if (resolver.models().owns(document)) {
+                return resolver;
+            }
+        }
+        return new SBaseRefResolver(new CompModels(document));
+    }
+
+    /** Removes the resolvers whose document has no network anymore. */
+    private void removeUnusedResolvers() {
+        Collection<SBMLDocument> documents = network2sbml.getDocumentMap().values();
+        sBaseRefResolvers.removeIf(resolver ->
+                documents.stream().noneMatch(d -> d == resolver.models().document()));
     }
 
     /**
@@ -247,6 +292,8 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         logger.debug("SBMLManager from given mapper");
 
         network2sbml = mapper;
+        // the documents of a session are new documents
+        sBaseRefResolvers.clear();
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();

@@ -179,6 +179,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             One2ManyMapping<String, Long> mapping = mappingFromNetwork(network, sbmlManager.getMapping(network));
             CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
             sbmlManager.addSBMLForNetwork(documents.getOrDefault(rootNetwork.getSUID(), document), network, mapping);
+            sbmlManager.addSBaseRefResolver(sBaseRefResolver);
             sbmlManager.updateCurrent(network);
         } else {
             logger.warn("No mapping found for SBML network.");
