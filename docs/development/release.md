@@ -53,8 +53,9 @@ of the version in development included.
 3. The workflow `.github/workflows/release.yml` runs for the tag. It checks that
    `release-notes/<version>.md` exists, builds and tests the app and its javadoc with
    `./mvnw -Pjavadoc verify`, checks that `target/cy3sbml-<version>.jar` and
-   `target/cy3sbml-<version>-javadoc.jar` exist, creates the GitHub release with both
-   jars and their MD5 and SHA-1 checksums, and fast-forwards `main` to the tag.
+   `target/cy3sbml-<version>-javadoc.jar` exist, creates the GitHub release with the app
+   jar, the javadoc jar and the `pom.xml` of the release, each with its MD5 and SHA-1
+   checksum, and fast-forwards `main` to the tag.
 4. Upload the jar of the GitHub release to the
    [Cytoscape App Store](https://apps.cytoscape.org/apps/cy3sbml).
 5. Open the pull request that starts the development of the next version.
