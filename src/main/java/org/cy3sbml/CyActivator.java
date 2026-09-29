@@ -427,6 +427,8 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+            // the panel renders the network events of a loaded session before the mapping is restored
+            sbmlManager.addSessionRestoredListener(webViewPanel::updateInformation);
 
             // GUI frames
 

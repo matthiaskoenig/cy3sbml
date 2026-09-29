@@ -182,6 +182,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 logger.error("Could not restore the session file: {}", f.getName(), e);
             }
         }
+        sbmlManager.sessionRestored();
     }
 
     private void loadAppFile(CySession session, File f) {

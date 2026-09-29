@@ -66,6 +66,8 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     /**
      * Constructor.
      */
+    // notified when a session is restored, e.g. the info panel, which rendered before
+    private final List<Runnable> sessionRestoredListeners = new CopyOnWriteArrayList<>();
     // the COMBINE archives the documents were imported from, by root network SUID
     private final Map<Long, ArchiveImport> archives = new ConcurrentHashMap<>();
 
@@ -137,6 +139,26 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
                     "SBMLDocument not removed for rootSUID: %s. Number of associated networks: %s",
                     rootSUID, subnetworks.size()));
             return false;
+        }
+    }
+
+    /**
+     * Adds a listener that is notified when a session is restored: the mapping and the
+     * archives of the session are set. Cytoscape can fire the network events of the loaded
+     * session before, so a view of the mapping (the info panel) updates on this.
+     */
+    public void addSessionRestoredListener(Runnable listener) {
+        sessionRestoredListeners.add(listener);
+    }
+
+    /** Notifies the listeners that a session is restored, called by {@link SessionData}. */
+    void sessionRestored() {
+        for (Runnable listener : sessionRestoredListeners) {
+            try {
+                listener.run();
+            } catch (RuntimeException e) {
+                logger.error("A session restored listener failed", e);
+            }
         }
     }
 

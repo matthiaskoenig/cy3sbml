@@ -15,10 +15,12 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.cy3sbml.archive.ArchiveDirectories;
 import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.archive.CombineArchiveReaderTask;
@@ -160,6 +162,12 @@ class SessionDataTest {
      * SBMLManager, as a loaded session in which the SUIDs are unchanged.
      */
     private static SBMLManager saveAndLoad(SBMLManager manager, CyNetwork network) throws Exception {
+        return saveAndLoad(manager, network, restored -> {});
+    }
+
+    /** As {@link #saveAndLoad(SBMLManager, CyNetwork)}, with a hook on the new manager before the load. */
+    private static SBMLManager saveAndLoad(SBMLManager manager, CyNetwork network, Consumer<SBMLManager> beforeLoad)
+            throws Exception {
         SessionData savingSessionData = new SessionData(manager, new CofactorManager());
         SessionAboutToBeSavedEvent saveEvent = new SessionAboutToBeSavedEvent(mock(CySessionManager.class));
         savingSessionData.saveSessionData(saveEvent);
@@ -177,6 +185,7 @@ class SessionDataTest {
         SessionLoadedEvent loadEvent = new SessionLoadedEvent(mock(CySessionManager.class), loadedSession, "test.cys");
 
         SBMLManager restoredManager = new SBMLManager(mock(CyApplicationManager.class));
+        beforeLoad.accept(restoredManager);
         new SessionData(restoredManager, new CofactorManager()).handleEvent(loadEvent);
         return restoredManager;
     }
@@ -253,9 +262,17 @@ class SessionDataTest {
         Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
         ArchiveImport original = originalManager.getArchive(rootSUID).orElseThrow();
 
-        SBMLManager restoredManager = saveAndLoad(originalManager, network);
+        List<Optional<ArchiveImport>> seenByListener = new ArrayList<>();
+
+        SBMLManager restoredManager = saveAndLoad(
+                originalManager,
+                network,
+                restored ->
+                        restored.addSessionRestoredListener(() -> seenByListener.add(restored.getArchive(rootSUID))));
 
         assertEquals(Optional.of(original), restoredManager.getArchive(rootSUID));
+        // the listeners (the info panel) are notified when everything is restored
+        assertEquals(List.of(Optional.of(original)), seenByListener);
         assertEquals("model.xml", original.location());
     }
 
