@@ -14,8 +14,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
+import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.miriam.MiriamRegistry;
@@ -62,6 +64,8 @@ public class SBaseHTMLFactory {
     public static final String delim = "/";
 
     private final String baseDir;
+    // the archive a document was imported from, null if not known
+    private final Function<SBMLDocument, Optional<ArchiveImport>> archives;
     private final MiriamRegistry miriamRegistry;
     private final OlsClient olsClient;
     private final UniprotAccess uniprotAccess;
@@ -99,6 +103,25 @@ public class SBaseHTMLFactory {
             UniprotAccess uniprotAccess,
             ChebiAccess chebiAccess,
             CompTargets compTargets) {
+        this(baseDir, miriamRegistry, olsClient, uniprotAccess, chebiAccess, compTargets, null);
+    }
+
+    /**
+     * Creates the factory, which shows the targets of the comp references and the COMBINE
+     * archive a document was imported from.
+     *
+     * @param compTargets the comp references of the open documents, may be null
+     * @param archives    the archive of a document, may be null
+     */
+    public SBaseHTMLFactory(
+            String baseDir,
+            MiriamRegistry miriamRegistry,
+            OlsClient olsClient,
+            UniprotAccess uniprotAccess,
+            ChebiAccess chebiAccess,
+            CompTargets compTargets,
+            Function<SBMLDocument, Optional<ArchiveImport>> archives) {
+        this.archives = archives;
         this.baseDir = baseDir;
         this.miriamRegistry = miriamRegistry;
         this.olsClient = olsClient;
@@ -158,6 +181,9 @@ public class SBaseHTMLFactory {
 
         String html = createHeader(sbase);
         html += createSBase(sbase);
+        if (sbase instanceof SBMLDocument document && archives != null) {
+            html += archives.apply(document).map(ArchiveHtml::create).orElse("");
+        }
         html += UncertaintyHtml.create(sbase, compTargets);
         html += createHistory(sbase);
         html += createCVTerms(sbase);

@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
+import org.cy3sbml.archive.ArchiveDirectories;
+import org.cy3sbml.archive.CombineArchiveFileFilter;
+import org.cy3sbml.archive.CombineArchiveReaderTaskFactory;
 import org.cy3sbml.biomodel.BiomodelLoader;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.biomodel.BiomodelsQuery;
@@ -100,6 +103,8 @@ public class CyActivator extends AbstractCyActivator {
             File appDirectory, ServiceAdapter adapter, SBMLManager sbmlManager, CofactorManager cofactorManager) {}
 
     private WebViewPanel webViewPanel;
+    // the directories the COMBINE archives are unpacked into, deleted in shutDown
+    private volatile ArchiveDirectories archiveDirectories;
 
     public CyActivator() {
         super();
@@ -263,10 +268,6 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
         registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
-        // The archive reader (package org.cy3sbml.archive) is not registered: reading the
-        // content of COMBINE archives is not implemented yet (#116), and the reader would
-        // turn every zip file into an empty network.
-
         // SBML file reader. Registered here, before any optional GUI/extension/resource
         // setup runs: Cytoscape only routes .xml imports to its own bundled SBML app
         // (whose jsbml has no biojava) when this factory is not registered.
@@ -278,6 +279,15 @@ public class CyActivator extends AbstractCyActivator {
         sbmlReaderProps.setProperty("readerDescription", "SBML file reader (cy3sbml)");
         sbmlReaderProps.setProperty("readerId", "cy3sbmlNetworkReader");
         registerAllServices(bc, sbmlReaderTaskFactory, sbmlReaderProps);
+
+        // COMBINE archive (OMEX) reader: imports the SBML models of the archive (#116)
+        archiveDirectories = ArchiveDirectories.temporary();
+        CombineArchiveReaderTaskFactory archiveReaderTaskFactory = new CombineArchiveReaderTaskFactory(
+                new CombineArchiveFileFilter(streamUtil), adapter, sbmlManager, archiveDirectories);
+        Properties archiveReaderProps = new Properties();
+        archiveReaderProps.setProperty("readerDescription", "COMBINE archive reader (cy3sbml)");
+        archiveReaderProps.setProperty("readerId", "cy3sbmlArchiveReader");
+        registerAllServices(bc, archiveReaderTaskFactory, archiveReaderProps);
 
         Log.logger.info("cy3sbml core services and SBML reader registered");
 
@@ -387,7 +397,8 @@ public class CyActivator extends AbstractCyActivator {
                     new OlsClient(httpJson),
                     new UniprotAccess(httpJson),
                     new ChebiAccess(httpJson),
-                    sbmlManager);
+                    sbmlManager,
+                    sbmlManager::getArchive);
 
             // load visual styles
             final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK};
@@ -416,6 +427,8 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
             registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
+            // the panel renders the network events of a loaded session before the mapping is restored
+            sbmlManager.addSessionRestoredListener(webViewPanel::updateInformation);
 
             // GUI frames
 
@@ -464,6 +477,9 @@ public class CyActivator extends AbstractCyActivator {
     public void shutDown() {
         if (webViewPanel != null) {
             webViewPanel.close();
+        }
+        if (archiveDirectories != null) {
+            archiveDirectories.deleteAll();
         }
         super.shutDown();
     }

@@ -2,6 +2,7 @@ package org.cy3sbml.golden;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -9,14 +10,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.cy3sbml.TestUtils;
+import org.cy3sbml.archive.ArchiveDirectories;
+import org.cy3sbml.archive.CombineArchiveReaderTask;
+import org.cy3sbml.reader.SBMLReaderTask;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.work.TaskMonitor;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.FieldSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Golden snapshot tests of the networks the SBML reader creates for reference models.
@@ -28,8 +38,8 @@ import org.junit.jupiter.params.provider.FieldSource;
  * described in {@link NetworkSnapshot}.
  * <p>
  * Models left out on purpose: {@code unittests/groups_01.xml} (snapshot above 6 MB, groups
- * are covered by {@code unittests/fbc_01.xml}) and COMBINE archives (read by
- * {@code ArchiveReaderTask}, not by {@code SBMLReaderTask}).
+ * are covered by {@code unittests/fbc_01.xml}). COMBINE archives are read with the archive
+ * reader ({@link #importedArchivesMatchSnapshot}).
  * <p>
  * Regenerate the snapshots after an intended change of the import with
  * <pre>
@@ -100,6 +110,32 @@ public class GoldenModelsTest {
     @FieldSource("MODELS")
     void importedNetworksMatchSnapshot(String model) throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(MODELS_ROOT + model);
+        assertSnapshot(model, networks);
+    }
+
+    /** The networks of the SBML models of a COMBINE archive, read by the archive reader. */
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = {"omex/single.omex", "omex/BIOMD0000000012.omex"})
+    void importedArchivesMatchSnapshot(String archive, @TempDir Path directory) throws Exception {
+        String fileName = archive.substring(archive.lastIndexOf('/') + 1);
+        try (InputStream stream = GoldenModelsTest.class.getResourceAsStream(MODELS_ROOT + archive)) {
+            CombineArchiveReaderTask task = new CombineArchiveReaderTask(
+                    stream,
+                    fileName,
+                    new ArchiveDirectories(directory),
+                    (in, name, location) -> new SBMLReaderTask(
+                            in,
+                            name,
+                            location,
+                            new NetworkTestSupport().getNetworkFactory(),
+                            new GroupTestSupport().getGroupFactory()),
+                    null);
+            task.run(mock(TaskMonitor.class));
+            assertSnapshot(archive, task.getNetworks());
+        }
+    }
+
+    private static void assertSnapshot(String model, CyNetwork[] networks) throws IOException {
         ObjectNode actual = NetworkSnapshot.of(networks);
         Path file = GOLDEN_DIR.resolve(model.replace("/", "__").replaceAll("\\.[^.]*$", "") + ".json");
 

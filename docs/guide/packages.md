@@ -127,5 +127,5 @@ See [Layouts](layouts.md).
 
 ## COMBINE archives
 
-COMBINE archives (OMEX) are not supported yet. See
+The SBML models of COMBINE archives (OMEX) are imported. See
 [Importing SBML](import.md#combine-archives).

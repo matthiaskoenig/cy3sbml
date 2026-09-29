@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.comp.CompModels;
 import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -64,6 +66,11 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     /**
      * Constructor.
      */
+    // notified when a session is restored, e.g. the info panel, which rendered before
+    private final List<Runnable> sessionRestoredListeners = new CopyOnWriteArrayList<>();
+    // the COMBINE archives the documents were imported from, by root network SUID
+    private final Map<Long, ArchiveImport> archives = new ConcurrentHashMap<>();
+
     // resolvers of the comp references of the read documents, which know the external
     // documents read; not part of the session
     private final List<SBaseRefResolver> sBaseRefResolvers = new CopyOnWriteArrayList<>();
@@ -123,6 +130,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
         if (subnetworks.size() == 1) {
             network2sbml.removeDocument(rootSUID);
+            archives.remove(rootSUID);
             removeUnusedResolvers();
             logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
             return true;
@@ -132,6 +140,59 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
                     rootSUID, subnetworks.size()));
             return false;
         }
+    }
+
+    /**
+     * Adds a listener that is notified when a session is restored: the mapping and the
+     * archives of the session are set. Cytoscape can fire the network events of the loaded
+     * session before, so a view of the mapping (the info panel) updates on this.
+     */
+    public void addSessionRestoredListener(Runnable listener) {
+        sessionRestoredListeners.add(listener);
+    }
+
+    /** Notifies the listeners that a session is restored, called by {@link SessionData}. */
+    void sessionRestored() {
+        for (Runnable listener : sessionRestoredListeners) {
+            try {
+                listener.run();
+            } catch (RuntimeException e) {
+                logger.error("A session restored listener failed", e);
+            }
+        }
+    }
+
+    /** Registers the COMBINE archive the document of the root network was imported from. */
+    public void addArchive(Long rootNetworkSUID, ArchiveImport archive) {
+        archives.put(rootNetworkSUID, archive);
+    }
+
+    /** The COMBINE archive the document of the root network was imported from. */
+    public Optional<ArchiveImport> getArchive(Long rootNetworkSUID) {
+        return Optional.ofNullable(archives.get(rootNetworkSUID));
+    }
+
+    /** The COMBINE archive the document was imported from. */
+    // reason: the document instance of a network, SBMLDocument.equals compares the content
+    @SuppressWarnings("ReferenceEquality")
+    public Optional<ArchiveImport> getArchive(SBMLDocument document) {
+        for (Map.Entry<Long, SBMLDocument> entry : network2sbml.getDocumentMap().entrySet()) {
+            if (entry.getValue() == document) {
+                return getArchive(entry.getKey());
+            }
+        }
+        return Optional.empty();
+    }
+
+    /** The archives by root network SUID, for the session. */
+    public Map<Long, ArchiveImport> getArchives() {
+        return Map.copyOf(archives);
+    }
+
+    /** Replaces the archives, on session restore. */
+    public void setArchives(Map<Long, ArchiveImport> archives) {
+        this.archives.clear();
+        this.archives.putAll(archives);
     }
 
     /**
