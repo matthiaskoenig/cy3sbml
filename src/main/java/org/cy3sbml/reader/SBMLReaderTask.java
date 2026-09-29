@@ -442,6 +442,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
         String prefix = source.kind() == ModelSource.Kind.FLAT ? SBML.PREFIX_NETWORK_FLAT : null;
         cyNetworks.addAll(subnetworkBuilder.build(rootNetwork, network, context::createGroups, prefix));
+        // after the subnetworks, the layout networks copy the finished nodes of the model
+        String name = rootNetwork.getRow(rootNetwork).get(CyNetwork.NAME, String.class);
+        cyNetworks.addAll(new LayoutNetworkBuilder(context).build(rootNetwork, name));
         documents.put(rootNetwork.getSUID(), source.document());
         models.put(rootNetwork.getSUID(), source.model());
     }
