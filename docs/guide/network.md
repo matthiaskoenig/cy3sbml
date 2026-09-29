@@ -7,7 +7,7 @@ that an import creates.
 ## Networks
 
 For every model, the import creates one network collection (root network) with three
-networks. `<name>` is the model id, or the file name if the model has no id. After the
+networks, and one more network per layout of the model. `<name>` is the model id, or the file name if the model has no id. After the
 import the base network of the (first) model is selected.
 
 | Network | Content |
@@ -15,6 +15,7 @@ import the base network of the (first) model is selected.
 | `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. SBML groups are added as Cytoscape groups, in every network with the members in the network. |
 | `<name>__kinetic` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
 | `<name>__all` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
+| `<name>__layout_<layout id>` | A layout of the `layout` package: a node per glyph at the position of the glyph, see [Layouts](layouts.md#sbml-layouts). `<layout id>` is the number of the layout (1, 2, ...) if it has no id. |
 
 The `comp` package can define several models in one file, and refer to models in other
 files. Every model gets its own network collection: the main model, every model
@@ -140,7 +141,19 @@ the `fbc` package, the `KEY: value` paragraphs in the notes of species, reaction
 products (the COBRA notes format, for example `GENE_ASSOCIATION`) are stored as columns
 named `KEY`.
 
-The network table has the columns `sbmlNetwork` and `sbmlVersion`.
+The network table has the columns `sbmlNetwork` and `sbmlVersion`; `sbmlNetwork` is
+`sbmlLayout` for the layout networks.
+
+The layout networks have their own columns (not in the other networks):
+
+| Column | Content |
+|---|---|
+| `layout_id` | id of the layout (network table) |
+| `layout_glyph` | id of the glyph of the node (the metaid for a glyph without id), empty for the nodes of reactions without glyph |
+| `layout_glyphType` | `layout:compartmentGlyph`, `layout:speciesGlyph`, `layout:reactionGlyph`, `layout:generalGlyph`, `layout:graphicalObject`, or `layout:generated` for a reaction or transition without glyph |
+| `layout_x`, `layout_y` | centre of the bounding box of the glyph |
+| `layout_width`, `layout_height` | size of the bounding box of the glyph |
+| `layout_role` | role of the reference glyph of a `layout:reference` edge |
 
 ## Mapping to the SBML document
 
