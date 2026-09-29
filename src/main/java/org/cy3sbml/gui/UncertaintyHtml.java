@@ -19,8 +19,10 @@ import org.sbml.jsbml.ext.distrib.Uncertainty;
  * references.
  */
 public final class UncertaintyHtml {
-    private static final String TABLE_START = "<table class=\"table table-striped table-condensed table-hover\">\n"
-            + "<tr><th>type</th><th>value</th><th>units</th><th>definition</th></tr>\n";
+    private static final String TABLE_START = """
+            <table class="table table-striped table-condensed table-hover">
+            <tr><th>type</th><th>value</th><th>units</th><th>definition</th></tr>
+            """;
     private static final String UNSET_BOUND = "?";
     private static final String NESTED_PREFIX = "&nbsp;&nbsp;&#8627;&nbsp;";
 

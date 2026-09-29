@@ -135,10 +135,6 @@ class SessionDataTest {
         assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
     }
 
-    /**
-     * Reads a real SBML model with the SBMLReaderTask into an SBMLManager, saves the
-     * session with the real SessionData API, and restores it into a fresh SBMLManager.
-     */
     /** Imports the model resource with the SBMLReaderTask into the manager, returns the base network. */
     private static CyNetwork importNetwork(String resource, SBMLManager manager) throws Exception {
         CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
@@ -182,6 +178,10 @@ class SessionDataTest {
         return restoredManager;
     }
 
+    /**
+     * Reads a real SBML model with the SBMLReaderTask into an SBMLManager, saves the
+     * session with the real SessionData API, and restores it into a fresh SBMLManager.
+     */
     @Test
     void sessionRoundTripRestoresMapping() throws Exception {
         SBMLManager originalManager = new SBMLManager(mock(CyApplicationManager.class));

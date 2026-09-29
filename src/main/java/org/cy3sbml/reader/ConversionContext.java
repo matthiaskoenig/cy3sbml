@@ -41,7 +41,7 @@ final class ConversionContext {
     private final Map<String, CyNode> metaId2Node = new HashMap<>();
     private final Map<String, CyNode> id2Node = new HashMap<>();
     // edges that represent an SBase (species references), by instance
-    private final Map<SBase, CyEdge> sbase2Edge = new IdentityHashMap<>();
+    private final IdentityHashMap<SBase, CyEdge> sbase2Edge = new IdentityHashMap<>();
     // storage of groups to create in subnetworks
     private final Set<CyGroup> groups = new HashSet<>();
     // base UnitDefinition lookup
