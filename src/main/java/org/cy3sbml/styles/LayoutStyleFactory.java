@@ -5,7 +5,9 @@ import org.cy3sbml.SBML;
 import org.cytoscape.view.model.VisualProperty;
 import org.cytoscape.view.presentation.property.BasicVisualLexicon;
 import org.cytoscape.view.presentation.property.NodeShapeVisualProperty;
-import org.cytoscape.view.presentation.property.values.NodeShape;
+import org.cytoscape.view.presentation.property.values.Justification;
+import org.cytoscape.view.presentation.property.values.ObjectPosition;
+import org.cytoscape.view.presentation.property.values.Position;
 import org.cytoscape.view.vizmap.VisualMappingFunction;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualPropertyDependency;
@@ -21,8 +23,8 @@ import org.cytoscape.view.vizmap.mappings.DiscreteMapping;
  * <ul>
  * <li>width and height are the {@code layout_width} and {@code layout_height} of the node
  * (the base style locks them to one size),</li>
- * <li>compartments are round rectangles, and the compartment glyphs are transparent and
- * behind the other nodes.</li>
+ * <li>compartments are round rectangles with the label at the top, and the compartment glyphs
+ * are transparent and behind the other nodes.</li>
  * </ul>
  */
 public final class LayoutStyleFactory {
@@ -32,6 +34,9 @@ public final class LayoutStyleFactory {
     static final Double COMPARTMENT_Z = -1.0;
     /** Transparency of the compartment glyphs, 0 (transparent) to 255 (opaque). */
     static final Integer COMPARTMENT_TRANSPARENCY = 60;
+    /** Label of the compartment glyphs: inside at the top, not over the nodes in the centre. */
+    static final ObjectPosition COMPARTMENT_LABEL_POSITION =
+            new ObjectPosition(Position.NORTH, Position.NORTH, Justification.JUSTIFY_CENTER, 0.0, 5.0);
 
     private final VisualStyleFactory styleFactory;
     private final VisualMappingFunctionFactory passthrough;
@@ -71,7 +76,10 @@ public final class LayoutStyleFactory {
         style.addVisualMappingFunction(passthrough.createVisualMappingFunction(
                 SBML.ATTR_LAYOUT_HEIGHT, Double.class, BasicVisualLexicon.NODE_HEIGHT));
 
-        style.addVisualMappingFunction(shapes(base));
+        style.addVisualMappingFunction(
+                withCompartment(base, BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ROUND_RECTANGLE));
+        style.addVisualMappingFunction(
+                withCompartment(base, BasicVisualLexicon.NODE_LABEL_POSITION, COMPARTMENT_LABEL_POSITION));
         DiscreteMapping<String, Double> z = discrete(SBML.ATTR_LAYOUT_GLYPH_TYPE, BasicVisualLexicon.NODE_Z_LOCATION);
         z.putMapValue(SBML.NODETYPE_LAYOUT_COMPARTMENTGLYPH, COMPARTMENT_Z);
         style.addVisualMappingFunction(z);
@@ -82,18 +90,22 @@ public final class LayoutStyleFactory {
         return style;
     }
 
-    /** The node shapes of the base style, with round rectangles for the compartments. */
-    private DiscreteMapping<String, NodeShape> shapes(VisualStyle base) {
-        DiscreteMapping<String, NodeShape> shapes = discrete(SBML.NODETYPE_ATTR, BasicVisualLexicon.NODE_SHAPE);
-        VisualMappingFunction<?, NodeShape> baseShapes = base.getVisualMappingFunction(BasicVisualLexicon.NODE_SHAPE);
-        if (baseShapes instanceof DiscreteMapping<?, NodeShape> baseMapping
-                && SBML.NODETYPE_ATTR.equals(baseMapping.getMappingColumnName())) {
-            for (Map.Entry<?, NodeShape> entry : baseMapping.getAll().entrySet()) {
-                shapes.putMapValue(String.valueOf(entry.getKey()), entry.getValue());
+    /**
+     * The mapping of the node type of the base style for the property, with the value for the
+     * compartments.
+     */
+    private <V> DiscreteMapping<String, V> withCompartment(
+            VisualStyle base, VisualProperty<V> property, V compartment) {
+        DiscreteMapping<String, V> mapping = discrete(SBML.NODETYPE_ATTR, property);
+        VisualMappingFunction<?, V> baseMapping = base.getVisualMappingFunction(property);
+        if (baseMapping instanceof DiscreteMapping<?, V> baseDiscrete
+                && SBML.NODETYPE_ATTR.equals(baseDiscrete.getMappingColumnName())) {
+            for (Map.Entry<?, V> entry : baseDiscrete.getAll().entrySet()) {
+                mapping.putMapValue(String.valueOf(entry.getKey()), entry.getValue());
             }
         }
-        shapes.putMapValue(SBML.NODETYPE_COMPARTMENT, NodeShapeVisualProperty.ROUND_RECTANGLE);
-        return shapes;
+        mapping.putMapValue(SBML.NODETYPE_COMPARTMENT, compartment);
+        return mapping;
     }
 
     private <V> DiscreteMapping<String, V> discrete(String column, VisualProperty<V> property) {

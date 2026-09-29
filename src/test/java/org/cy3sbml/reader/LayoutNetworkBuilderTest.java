@@ -131,8 +131,8 @@ class LayoutNetworkBuilderTest {
 
         assertEquals(new GlyphBox(50, 50, 60, 20), box(layout, glyphs.get("sg_A")));
         assertEquals(new GlyphBox(50, 250, 60, 20), box(layout, glyphs.get("sg_A2")));
-        // zero size is the default size
-        assertEquals(new GlyphBox(175, 35, 30, 30), box(layout, glyphs.get("sg_E")));
+        // zero size is a point with the default size
+        assertEquals(new GlyphBox(160, 20, 30, 30), box(layout, glyphs.get("sg_E")));
     }
 
     @Test
@@ -264,6 +264,10 @@ class LayoutNetworkBuilderTest {
         assertEquals(4, edgesOfR1);
     }
 
+    /**
+     * A reaction without glyph is a small unlabeled node between its participants, connected
+     * to the alias of every participant nearest to it.
+     */
     @Test
     void reactionWithoutGlyphIsAGeneratedNodeBetweenItsParticipants() throws Exception {
         CyNetwork layout = layout1();
@@ -272,15 +276,18 @@ class LayoutNetworkBuilderTest {
         assertNotNull(generated);
         assertEquals(SBML.NODETYPE_REACTION, layout.getRow(generated).get(SBML.NODETYPE_ATTR, String.class));
         assertNull(layout.getRow(generated).get(SBML.ATTR_LAYOUT_GLYPH, String.class));
+        assertEquals("", layout.getRow(generated).get(SBML.LABEL, String.class));
+        // sg_A (50, 50) and sg_A2 (50, 250) are equally near to the centroid of all glyphs of
+        // the participants (143.3, 150): the first alias, the node is between sg_A and sg_B
         GlyphBox box = box(layout, generated);
-        assertEquals((50 + 50 + 330) / 3.0, box.x(), 1e-9);
-        assertEquals((50 + 250 + 150) / 3.0, box.y(), 1e-9);
-        assertEquals(20, box.width());
-        assertEquals(20, box.height());
+        assertEquals((50 + 330) / 2.0, box.x(), 1e-9);
+        assertEquals((50 + 150) / 2.0, box.y(), 1e-9);
+        assertEquals(LayoutNetworkBuilder.GENERATED_SIZE, box.width());
+        assertEquals(LayoutNetworkBuilder.GENERATED_SIZE, box.height());
         Set<String> edges = edges(layout, keys(layout));
         assertTrue(edges.contains("R2 -> sg_B " + SBML.INTERACTION_REACTION_REACTANT), edges::toString);
         assertTrue(edges.contains("R2 -> sg_A " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
-        assertTrue(edges.contains("R2 -> sg_A2 " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
+        assertFalse(edges.contains("R2 -> sg_A2 " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
     }
 
     @Test
@@ -302,6 +309,7 @@ class LayoutNetworkBuilderTest {
         assertEquals("highlight", layout.getRow(edge).get(SBML.ATTR_LAYOUT_ROLE, String.class));
     }
 
+    /** Reaction glyphs without species reference glyphs are connected to the nearest glyph of every participant. */
     @Test
     void reactionGlyphWithoutSpeciesReferenceGlyphsHasTheEdgesOfTheModel() throws Exception {
         Map<String, CyNetwork> networks = byName(read("/models/layout/hsa00450_L3V1_layoutV1.xml"));

@@ -15,18 +15,26 @@ import org.sbml.jsbml.ext.layout.Point;
  * @param height height of the bounding box
  */
 record GlyphBox(double x, double y, double width, double height) {
-    /** Width and height of a glyph without (positive) dimensions. */
+    /** Width and height of a glyph without (positive) dimensions, see {@link #of(GraphicalObject, double)}. */
     static final double DEFAULT_SIZE = 30.0;
+
+    /** The box of the glyph with the default size {@link #DEFAULT_SIZE}, see {@link #of(GraphicalObject, double)}. */
+    static GlyphBox of(GraphicalObject glyph) {
+        return of(glyph, DEFAULT_SIZE);
+    }
 
     /**
      * The box of the bounding box of the glyph. A missing position is the origin, a missing
-     * or non-positive width or height is {@link #DEFAULT_SIZE}.
+     * or non-positive width or height is the default size. A glyph without width and height
+     * is a point (e.g. the reaction glyphs of the KEGG layouts): its position is the centre.
+     *
+     * @param defaultSize width and height of a glyph without them
      */
-    static GlyphBox of(GraphicalObject glyph) {
+    static GlyphBox of(GraphicalObject glyph, double defaultSize) {
         double left = 0;
         double top = 0;
-        double width = DEFAULT_SIZE;
-        double height = DEFAULT_SIZE;
+        double width = Double.NaN;
+        double height = Double.NaN;
         if (glyph.isSetBoundingBox()) {
             BoundingBox box = glyph.getBoundingBox();
             if (box.isSetPosition()) {
@@ -36,11 +44,21 @@ record GlyphBox(double x, double y, double width, double height) {
             }
             if (box.isSetDimensions()) {
                 Dimensions dimensions = box.getDimensions();
-                width = sizeOr(dimensions.getWidth());
-                height = sizeOr(dimensions.getHeight());
+                width = size(dimensions.getWidth());
+                height = size(dimensions.getHeight());
             }
         }
+        if (Double.isNaN(width) && Double.isNaN(height)) {
+            return new GlyphBox(left, top, defaultSize, defaultSize);
+        }
+        width = Double.isNaN(width) ? defaultSize : width;
+        height = Double.isNaN(height) ? defaultSize : height;
         return new GlyphBox(left + width / 2, top + height / 2, width, height);
+    }
+
+    /** Distance between the centres of the boxes. */
+    double distance(GlyphBox other) {
+        return Math.hypot(x - other.x, y - other.y);
     }
 
     /** The box of the given size at the mean of the centres of the boxes. */
@@ -55,7 +73,8 @@ record GlyphBox(double x, double y, double width, double height) {
         return Double.isNaN(value) ? fallback : value;
     }
 
-    private static double sizeOr(double size) {
-        return Double.isNaN(size) || size <= 0 ? DEFAULT_SIZE : size;
+    // NaN for an unset or non-positive size
+    private static double size(double size) {
+        return size > 0 ? size : Double.NaN;
     }
 }

@@ -21,17 +21,19 @@ class GlyphBoxTest {
     }
 
     @Test
-    void missingBoundingBoxGivesTheDefaults() {
-        assertEquals(new GlyphBox(15, 15, 30, 30), GlyphBox.of(glyph()));
+    void missingBoundingBoxIsAPointAtTheOrigin() {
+        assertEquals(new GlyphBox(0, 0, 30, 30), GlyphBox.of(glyph()));
     }
 
+    /** A glyph without dimensions is a point: its position is the centre (KEGG reaction glyphs). */
     @Test
-    void missingDimensionsGiveTheDefaultSize() {
+    void positionWithoutDimensionsIsTheCentre() {
         SpeciesGlyph glyph = glyph();
         BoundingBox box = glyph.createBoundingBox();
         box.setPosition(new Point(10, 20, 0, 3, 1));
 
-        assertEquals(new GlyphBox(25, 35, 30, 30), GlyphBox.of(glyph));
+        assertEquals(new GlyphBox(10, 20, 30, 30), GlyphBox.of(glyph));
+        assertEquals(new GlyphBox(10, 20, 12, 12), GlyphBox.of(glyph, 12));
     }
 
     @Test
@@ -49,16 +51,25 @@ class GlyphBoxTest {
         box.setPosition(new Point(3, 1));
         box.setDimensions(new Dimensions(3, 1));
 
-        assertEquals(new GlyphBox(15, 15, 30, 30), GlyphBox.of(glyph));
+        assertEquals(new GlyphBox(0, 0, 30, 30), GlyphBox.of(glyph));
     }
 
     @Test
-    void zeroSizeIsTheDefaultSize() {
+    void zeroSizeIsAPoint() {
         SpeciesGlyph glyph = glyph();
         BoundingBox box = glyph.createBoundingBox(0, 0, 0);
         box.setPosition(new Point(10, 20, 0, 3, 1));
 
-        assertEquals(new GlyphBox(25, 35, 30, 30), GlyphBox.of(glyph));
+        assertEquals(new GlyphBox(10, 20, 30, 30), GlyphBox.of(glyph));
+    }
+
+    @Test
+    void missingWidthIsTheDefaultWidth() {
+        SpeciesGlyph glyph = glyph();
+        BoundingBox box = glyph.createBoundingBox(0, 20, 0);
+        box.setPosition(new Point(10, 20, 0, 3, 1));
+
+        assertEquals(new GlyphBox(25, 30, 30, 20), GlyphBox.of(glyph));
     }
 
     @Test

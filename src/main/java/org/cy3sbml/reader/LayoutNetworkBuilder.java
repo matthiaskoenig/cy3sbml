@@ -60,8 +60,8 @@ final class LayoutNetworkBuilder {
     /** Node types of the reactions and transitions. */
     private static final Set<String> REACTION_TYPES = Set.of(SBML.NODETYPE_REACTION, SBML.NODETYPE_QUAL_TRANSITION);
 
-    /** Width and height of a generated node. */
-    static final double GENERATED_SIZE = 20.0;
+    /** Width and height of a generated node and of a reaction glyph without dimensions. */
+    static final double GENERATED_SIZE = 12.0;
 
     private final ConversionContext context;
 
@@ -217,7 +217,8 @@ final class LayoutNetworkBuilder {
             nodeOfGlyph.put(glyph, node);
             setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH, glyphKey(glyph), String.class);
             setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH_TYPE, glyphType, String.class);
-            setBox(node, GlyphBox.of(glyph));
+            // reaction glyphs are small, often only a position (KEGG layouts)
+            setBox(node, GlyphBox.of(glyph, glyph instanceof ReactionGlyph ? GENERATED_SIZE : GlyphBox.DEFAULT_SIZE));
             return node;
         }
 
@@ -342,14 +343,28 @@ final class LayoutNetworkBuilder {
             return edges.size() == 1 ? Optional.of(edges.get(0)) : Optional.empty();
         }
 
-        /** Edges from the node of a reaction or transition to all glyphs of its participants. */
+        /**
+         * Edges from the node of a reaction or transition to its participants, to the glyph of
+         * every participant nearest to the node.
+         */
         private void participantEdges(CyNode reaction, CyNode reactionNode) {
+            GlyphBox box = boxes.get(reactionNode);
             for (CyEdge modelEdge : participantModelEdges(reaction)) {
-                CyNode participant = other(modelEdge, reaction);
-                for (CyNode glyph : glyphsOfNode.getOrDefault(participant, List.of())) {
-                    copyEdge(modelEdge, reaction, reactionNode, glyph);
+                nearestGlyph(other(modelEdge, reaction), box)
+                        .ifPresent(glyph -> copyEdge(modelEdge, reaction, reactionNode, glyph));
+            }
+        }
+
+        /** The glyph of the node nearest to the box, the first of equally near glyphs. */
+        private Optional<CyNode> nearestGlyph(CyNode node, GlyphBox box) {
+            CyNode nearest = null;
+            for (CyNode glyph : glyphsOfNode.getOrDefault(node, List.of())) {
+                if (nearest == null
+                        || boxes.get(glyph).distance(box) < boxes.get(nearest).distance(box)) {
+                    nearest = glyph;
                 }
             }
+            return Optional.ofNullable(nearest);
         }
 
         private List<CyEdge> participantModelEdges(CyNode reaction) {
@@ -362,7 +377,8 @@ final class LayoutNetworkBuilder {
 
         /**
          * A generated node for every reaction and transition without glyph whose participants
-         * have glyphs, at the centroid of the glyphs of the participants.
+         * have glyphs: a small node without label between the glyph of every participant
+         * nearest to the centroid of all glyphs of the participants, connected to them.
          */
         private void generatedReactions() {
             CyNetwork modelNetwork = context.network();
@@ -372,19 +388,28 @@ final class LayoutNetworkBuilder {
                                 modelNetwork.getRow(reaction).get(SBML.NODETYPE_ATTR, String.class))) {
                     continue;
                 }
-                List<GlyphBox> participantBoxes = new ArrayList<>();
-                for (CyEdge modelEdge : participantModelEdges(reaction)) {
-                    for (CyNode glyph : glyphsOfNode.getOrDefault(other(modelEdge, reaction), List.of())) {
-                        participantBoxes.add(boxes.get(glyph));
-                    }
-                }
-                if (participantBoxes.isEmpty()) {
+                List<CyNode> participants = participantModelEdges(reaction).stream()
+                        .map(e -> other(e, reaction))
+                        .distinct()
+                        .toList();
+                List<GlyphBox> allGlyphs = participants.stream()
+                        .flatMap(p -> glyphsOfNode.getOrDefault(p, List.of()).stream())
+                        .map(boxes::get)
+                        .toList();
+                if (allGlyphs.isEmpty()) {
                     continue;
                 }
+                GlyphBox centre = GlyphBox.centroid(allGlyphs, GENERATED_SIZE);
+                List<GlyphBox> nearest = participants.stream()
+                        .flatMap(p -> nearestGlyph(p, centre).stream())
+                        .map(boxes::get)
+                        .toList();
                 CyNode node = network.addNode();
                 represent(node, reaction);
+                // not drawn in the layout: no label
+                AttributeUtil.set(network, node, SBML.LABEL, "", String.class);
                 setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH_TYPE, SBML.NODETYPE_LAYOUT_GENERATED, String.class);
-                setBox(node, GlyphBox.centroid(participantBoxes, GENERATED_SIZE));
+                setBox(node, GlyphBox.centroid(nearest, GENERATED_SIZE));
                 participantEdges(reaction, node);
             }
         }

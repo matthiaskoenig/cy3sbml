@@ -19,6 +19,7 @@ import org.cytoscape.view.model.VisualProperty;
 import org.cytoscape.view.presentation.property.BasicVisualLexicon;
 import org.cytoscape.view.presentation.property.NodeShapeVisualProperty;
 import org.cytoscape.view.presentation.property.values.NodeShape;
+import org.cytoscape.view.presentation.property.values.ObjectPosition;
 import org.cytoscape.view.vizmap.VisualMappingFunction;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualPropertyDependency;
@@ -133,5 +134,16 @@ class LayoutStyleFactoryTest {
         verify(transparency)
                 .putMapValue(
                         eq(SBML.NODETYPE_LAYOUT_COMPARTMENTGLYPH), eq(LayoutStyleFactory.COMPARTMENT_TRANSPARENCY));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void compartmentLabelsAreAtTheTopOfTheCompartmentGlyphs() {
+        factory.create(base);
+
+        DiscreteMapping<String, ObjectPosition> positions =
+                (DiscreteMapping<String, ObjectPosition>) created.get(BasicVisualLexicon.NODE_LABEL_POSITION);
+        verify(positions).putMapValue(SBML.NODETYPE_COMPARTMENT, LayoutStyleFactory.COMPARTMENT_LABEL_POSITION);
+        verify(copy).addVisualMappingFunction(positions);
     }
 }
