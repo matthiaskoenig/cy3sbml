@@ -37,8 +37,9 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Build and test
+        # the javadoc profile checks that the javadoc builds (the release packages it)
         shell: bash
-        run: ./mvnw --batch-mode --no-transfer-progress verify
+        run: ./mvnw --batch-mode --no-transfer-progress -Pjavadoc verify
       - name: Publish the test report
         # creating the check run needs checks: write, which the token of a pull
         # request from a fork never has; the report is informational, so the

@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The SBMLManager class manages mappings between SBMLDocuments & CyNetworks.
+ * The SBMLManager class manages mappings between SBMLDocuments and CyNetworks.
  * <p>
  * The SBMLManager provides the entry point to interact with SBMLDocuments.
  * All access to SBMLDocuments should go via the SBMLManager.
@@ -92,7 +92,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     }
 
     /**
-     * Access to the SBML <-> network mapper.
+     * Access to the SBML to network mapper.
      * The mapper should not be modified.
      */
     public Network2SBMLMapper getNetwork2SBMLMapper() {

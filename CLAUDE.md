@@ -17,6 +17,7 @@ Requires JDK 17. JavaFX (the GUI uses JavaFX `WebView`) comes from Maven Central
 ./mvnw test -Dtest=IOUtilTest#testName    # single test method
 ./mvnw test -Pall-tests                   # all tests incl. network and model suites (slow, needs network)
 ./mvnw test -Dtest.groups=network -Dtest.excludedGroups=  # only the network tests
+./mvnw -Pjavadoc package -DskipTests      # also the javadoc jar: target/cy3sbml-<version>-javadoc.jar
 ```
 
 - Tests are JUnit 6 + Mockito. Test classes run in parallel (`src/test/resources/junit-platform.properties`); a test class that changes global state (system properties) needs `@Isolated`. `JsbmlSetupListener` sets up JSBML once before the tests, as `CyActivator` does via `JsbmlSetup` (JSBML's `ParserManager` singleton is not thread-safe).
@@ -24,6 +25,7 @@ Requires JDK 17. JavaFX (the GUI uses JavaFX `WebView`) comes from Maven Central
 - `GoldenModelsTest` (`src/test/java/org/cy3sbml/golden/`) pins the networks `SBMLReaderTask` creates for a set of reference models against a JSON snapshot per model in `src/test/resources/golden/`. After an intended change to the import, regenerate them with `./mvnw -B -q test -Dtest=GoldenModelsTest -Dgolden.update=true` and review the diff before committing.
 - Test logging: JSBML logs through the log4j 1.x API, which `log4j-over-slf4j` routes to slf4j, so logback configures all logging (app: `src/main/resources/logback.xml`, tests: `src/test/resources/logback-test.xml`). `logback-test.xml` raises the loggers that warn on the deliberate test inputs to ERROR and drops the errors the tests cause on purpose (`ExpectedMessageFilter`), so `./mvnw -B -q verify` prints no warnings; a new warning in the test output needs a look.
 - Java formatting is enforced by Spotless (`palantir-java-format`); run `./mvnw -q spotless:apply` and see the pre-commit hook in `docs/development/quality.md`.
+- The `javadoc` profile builds the javadoc jar with doclint (all checks but missing comments, warnings fail the build). CI and the release workflow build with it, and the release attaches the javadoc jar. It needs a full JDK with the `javadoc` tool.
 - The `lint` profile compiles with Error Prone and `-Xlint:all,-processing,-serial -Werror`. Error Prone needs JDK 21 or newer to run, so point `JAVA_HOME` at a JDK 21+ install for it: `JAVA_HOME=<jdk21> ./mvnw -B -Plint clean verify` (the code still compiles and runs on the pinned JDK 17 otherwise).
 
 ### Running in Cytoscape
