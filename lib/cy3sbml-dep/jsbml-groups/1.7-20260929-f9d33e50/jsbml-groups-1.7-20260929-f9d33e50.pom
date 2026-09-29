@@ -4,6 +4,6 @@
   <groupId>cy3sbml-dep</groupId>
   <artifactId>jsbml-groups</artifactId>
   <version>1.7-20260929-f9d33e50</version>
-  <!-- built from /home/mkoenig/git/jsbml/commit/f9d33e50958f1e07da73f30e8378df6f7a038ac6
+  <!-- built from https://github.com/matthiaskoenig/jsbml/commit/f9d33e50958f1e07da73f30e8378df6f7a038ac6
     by scripts/update_jsbml.py, without the test classes -->
 </project>
