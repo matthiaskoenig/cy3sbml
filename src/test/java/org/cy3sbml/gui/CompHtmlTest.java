@@ -41,9 +41,9 @@ class CompHtmlTest {
 
         String html = info(document, plugin.getReplacedElement(0));
 
-        assertTrue(html.contains("submodelRef=A &gt; idRef=x"), html);
+        assertTrue(html.contains("submodelRef=A &gt; idRef=x2"), html);
         assertTrue(html.contains(">cf<"), html);
-        assertTrue(html.contains(BrowserHyperlinkListener.URL_SELECT_TARGET + "mdA/meta_x"), html);
+        assertTrue(html.contains(BrowserHyperlinkListener.URL_SELECT_TARGET + "mdA/x2"), html);
     }
 
     @Test

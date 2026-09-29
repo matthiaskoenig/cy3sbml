@@ -120,7 +120,7 @@ class CompReaderTest {
 
         assertEquals("cf", attribute(network, replacedElement, SBML.ATTR_COMP_CONVERSION_FACTOR));
         assertEquals("A", attribute(network, replacedElement, SBML.ATTR_COMP_SUBMODELREF));
-        assertEquals("x", attribute(network, replacedElement, SBML.ATTR_COMP_TARGET_ID));
+        assertEquals("x2", attribute(network, replacedElement, SBML.ATTR_COMP_TARGET_ID));
         assertEquals("mdA", attribute(network, replacedElement, SBML.ATTR_COMP_TARGET_MODEL));
         assertEquals(
                 List.of(ReaderTestSupport.nodeById(context, "A")),

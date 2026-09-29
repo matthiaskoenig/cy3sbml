@@ -18,7 +18,7 @@
       <species id="S2" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
                constant="false">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:submodelRef="A" comp:idRef="x" comp:conversionFactor="cf"/>
+          <comp:replacedElement comp:submodelRef="A" comp:idRef="x2" comp:conversionFactor="cf"/>
         </comp:listOfReplacedElements>
       </species>
       <species id="S3" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
@@ -71,6 +71,7 @@
       </listOfUnitDefinitions>
       <listOfParameters>
         <parameter metaid="meta_x" id="x" constant="true"/>
+        <parameter id="x2" constant="true"/>
       </listOfParameters>
       <comp:listOfSubmodels>
         <comp:submodel comp:id="B" comp:modelRef="mdB"/>
