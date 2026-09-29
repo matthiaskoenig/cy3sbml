@@ -22,8 +22,9 @@ Success criteria:
 - `toy_top_level.xml` (4 relative external model definitions) and the Watanabe2014 models
   (`file:<name>.xml` sources) import in Cytoscape with one network collection per model,
   including the external ones, and a flattened network.
-- The flattened networks of the comp cases of the SBML test suite match the flattened
-  reference models shipped with the test suite (element ids per type).
+- The flattened models of the comp cases of the SBML test suite match the libSBML
+  flattening (element ids per type). The SBML test suite ships no flattened models, so a
+  script in `tools` writes the libSBML reference.
 - Every comp class and attribute of the specification is listed in the docs with its
   conversion.
 - `./mvnw -B -q verify` passes without warnings, the lint profile passes, the docs build
@@ -55,7 +56,8 @@ Work:
 - Branch `comp-fixes` in `matthiaskoenig/jsbml` (from `sbmlteam/jsbml` `master`), pull request
   to `sbmlteam/jsbml`. JSBML compiles for Java 7, the fixes do so too.
 - Fix the defects above and every further defect the comp cases of the SBML test suite
-  expose, each with a JSBML JUnit test.
+  expose, each with a JSBML JUnit test. Baseline with the pinned JSBML against libSBML on
+  124 cases: 65 identical, 20 different, 39 exceptions.
 - `scripts/update_jsbml.py` gets a `--repository` option (default
   `https://github.com/sbmlteam/jsbml`); the `update-jsbml` workflow gets the same input.
   `jsbml.version` keeps the format `1.7-<commit-date>-<short-sha>`.
@@ -73,8 +75,6 @@ and then `InputStreamTaskFactory.createTaskIterator(InputStream, String)` on the
   it only if its file name equals the input name. It passes it to `SBMLReaderTask` as a
   nullable `URI location` (constructor parameter).
 - `SBMLReaderTask` calls `document.setLocationURI(location)` after reading.
-- `GUIUtil.loadExampleFromResource` also copies the resources that the example references as
-  external sources into the temporary directory.
 - Without a location, a relative source is not loaded; the warning names the source and says
   that the file location is unknown. Absolute `file:` and `http(s):` sources load.
 
@@ -113,8 +113,11 @@ Resolves the element an `SBaseRef` points to, per the specification:
 
 Restructured, one method per comp class, typed lookups instead of linear attribute scans.
 
-- `ConversionContext` gets separate lookups for the PortSId and UnitSId namespaces next to
-  SId and metaid.
+- The resolver returns the target object, so the node of a target in the same model is found
+  by its metaid. `ConversionContext.nodeById` holds only SIds: unit definitions (UnitSId) and
+  ports (PortSId) are left out, so their ids no longer shadow SIds.
+- The resolver sets a metaid on every resolved target (`MappingUtil.setSBaseMetaId`), so the
+  target metaid is known before the network of the target model is read.
 - Nodes (unchanged types): submodel, deletion, port, replaced element, replaced by.
 - Edges:
   - port to its target (unchanged, now via the resolver, also for nested references),
@@ -154,9 +157,10 @@ Restructured, one method per comp class, typed lookups instead of linear attribu
 - `SBaseHTMLFactory` gets sections for `Submodel`, `Deletion`, `ReplacedElement`,
   `ReplacedBy`, `ModelDefinition` and `ExternalModelDefinition` (source, md5, load status),
   in addition to `Port`.
-- A resolved target is shown as a link. The link action selects the target node in the network
-  of the target model and makes that network current (new action in
-  `BrowserHyperlinkListener`, run on the event dispatch thread).
+- A resolved target is shown as a link `http://select-target/<model id>/<metaid>`. The link
+  action finds the base network of the model with this id that has a node with this metaid,
+  makes it current and selects the node (new action in `BrowserHyperlinkListener`, run on the
+  event dispatch thread).
 
 ## 8. Specification coverage
 
@@ -187,8 +191,9 @@ conversion:
   flattened networks; import without location.
 - Golden snapshots: `toy_top_level` and Watanabe with external models; regenerate the comp
   snapshots and review the diff.
-- `SBMLTestSuiteTest` (models group): the flattened network of each comp case matches the
-  shipped flattened reference.
+- `SBMLTestSuiteTest` (models group): the flattened model of each comp case matches the
+  libSBML reference `src/test/corpora/models/sbml-test-suite/comp-flat-reference.json`,
+  written by `tools/pycysbml/comp_flat_reference.py`.
 - End to end in Cytoscape 3.10.4 (JDK 17): import `toy_top_level.xml` and a Watanabe model,
   check the collections, the flattened network and the info panel links; update the screenshot
   `docs/images/screenshots/comp-model.png`.
