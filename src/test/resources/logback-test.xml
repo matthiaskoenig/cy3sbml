@@ -11,6 +11,9 @@
             <message>appDirectory is not set in ResourceExtractor</message>
             <!-- SBMLReaderTaskTest: a broken file, a reader that fails on the second model -->
             <message>cy3sbml could not read the SBML file '(broken|01134-sbml-l3v1)\.xml': .*</message>
+            <!-- CompModelsTest: a wrong md5 checksum, a missing external file -->
+            <message>The md5 checksum of .*/models/comp/unit/ext\.xml is .* The file may have changed\.</message>
+            <message>The file .*/models/comp/unit/missing\.xml does not exist\.</message>
         </filter>
         <encoder>
             <pattern>%-5level \(%logger{36}\) - %msg%n</pattern>

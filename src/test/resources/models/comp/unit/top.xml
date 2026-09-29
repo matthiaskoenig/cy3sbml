@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="top">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="sub_ext" comp:modelRef="ext"/>
+      <comp:submodel comp:id="sub_inner" comp:modelRef="inner"/>
+      <comp:submodel comp:id="sub_inner2" comp:modelRef="inner2"/>
+      <comp:submodel comp:id="sub_local" comp:modelRef="local"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="ext" comp:source="file:ext.xml"/>
+    <comp:externalModelDefinition comp:id="inner" comp:source="sub/ext2.xml" comp:modelRef="inner"/>
+    <comp:externalModelDefinition comp:id="inner2" comp:source="sub/ext2.xml" comp:modelRef="inner2"/>
+    <comp:externalModelDefinition comp:id="missing" comp:source="missing.xml"/>
+    <comp:externalModelDefinition comp:id="unknown" comp:source="ext.xml" comp:modelRef="unknown"/>
+    <comp:externalModelDefinition comp:id="md5" comp:source="ext.xml" comp:md5="00000000000000000000000000000000"/>
+  </comp:listOfExternalModelDefinitions>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="local">
+      <listOfParameters>
+        <parameter id="p_local" value="1" constant="true"/>
+      </listOfParameters>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>
