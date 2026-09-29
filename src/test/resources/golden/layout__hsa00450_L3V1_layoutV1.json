@@ -2246,9 +2246,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -2259,9 +2263,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -2272,9 +2280,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_1",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -2285,9 +2297,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 1.0
           }
         },
@@ -2298,9 +2314,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03595",
             "metaId" : "meta_mod_rnR03595",
+            "name" : "mod_rnR03595",
+            "sbml id" : "mod_rnR03595",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03595"
           }
         },
         {
@@ -2310,9 +2330,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_1",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -2323,9 +2347,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -2346,9 +2374,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 5.0
           }
         },
@@ -2359,9 +2391,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 3.0
           }
         },
@@ -2372,9 +2408,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -2385,9 +2425,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05684",
             "metaId" : "meta_cpdC05684",
+            "name" : "cpd:C05684",
+            "sbml id" : "cpdC05684",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05684",
             "stoichiometry" : 1.0
           }
         },
@@ -2398,9 +2442,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 3.0
           }
         },
@@ -2411,9 +2459,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 3.0
           }
         },
@@ -2424,9 +2476,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03596",
             "metaId" : "meta_mod_rnR03596",
+            "name" : "mod_rnR03596",
+            "sbml id" : "mod_rnR03596",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03596"
           }
         },
         {
@@ -2446,9 +2502,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00030",
             "metaId" : "meta_cpdC00030",
+            "name" : "cpd:C00030",
+            "sbml id" : "cpdC00030",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00030",
             "stoichiometry" : 1.0
           }
         },
@@ -2459,9 +2519,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00028",
             "metaId" : "meta_cpdC00028",
+            "name" : "cpd:C00028",
+            "sbml id" : "cpdC00028",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00028",
             "stoichiometry" : 1.0
           }
         },
@@ -2472,9 +2536,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00041",
             "metaId" : "meta_cpdC00041",
+            "name" : "cpd:C00041",
+            "sbml id" : "cpdC00041",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00041",
             "stoichiometry" : 1.0
           }
         },
@@ -2485,9 +2553,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05688",
             "metaId" : "meta_cpdC05688",
+            "name" : "cpd:C05688",
+            "sbml id" : "cpdC05688",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05688",
             "stoichiometry" : 1.0
           }
         },
@@ -2498,9 +2570,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03599",
             "metaId" : "meta_mod_rnR03599",
+            "name" : "mod_rnR03599",
+            "sbml id" : "mod_rnR03599",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03599"
           }
         },
         {
@@ -2510,9 +2586,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_2",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_2",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -2533,9 +2613,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04770",
             "metaId" : "meta_mod_rnR04770",
+            "name" : "mod_rnR04770",
+            "sbml id" : "mod_rnR04770",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04770"
           }
         },
         {
@@ -2545,9 +2629,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_2",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -2558,9 +2646,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_1",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -2571,9 +2663,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -2584,9 +2680,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -2597,9 +2697,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00109",
             "metaId" : "meta_cpdC00109",
+            "name" : "cpd:C00109",
+            "sbml id" : "cpdC00109",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00109",
             "stoichiometry" : 1.0
           }
         },
@@ -2620,9 +2724,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020_1",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -2633,9 +2741,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_1",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -2646,9 +2758,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -2659,9 +2775,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04773",
             "metaId" : "meta_mod_rnR04773",
+            "name" : "mod_rnR04773",
+            "sbml id" : "mod_rnR04773",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04773"
           }
         },
         {
@@ -2671,9 +2791,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -2684,9 +2808,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05336",
             "metaId" : "meta_cpdC05336",
+            "name" : "cpd:C05336",
+            "sbml id" : "cpdC05336",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05336",
             "stoichiometry" : 1.0
           }
         },
@@ -2707,9 +2835,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01647",
             "metaId" : "meta_cpdC01647",
+            "name" : "cpd:C01647",
+            "sbml id" : "cpdC01647",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01647",
             "stoichiometry" : 1.0
           }
         },
@@ -2720,9 +2852,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_3",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -2733,9 +2869,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05686",
             "metaId" : "meta_cpdC05686",
+            "name" : "cpd:C05686",
+            "sbml id" : "cpdC05686",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05686",
             "stoichiometry" : 1.0
           }
         },
@@ -2746,9 +2886,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04929",
             "metaId" : "meta_mod_rnR04929",
+            "name" : "mod_rnR04929",
+            "sbml id" : "mod_rnR04929",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04929"
           }
         },
         {
@@ -2758,9 +2902,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013_1",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -2771,9 +2919,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05697",
             "metaId" : "meta_cpdC05697",
+            "name" : "cpd:C05697",
+            "sbml id" : "cpdC05697",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05697",
             "stoichiometry" : 1.0
           }
         },
@@ -2794,9 +2946,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00008",
             "metaId" : "meta_cpdC00008",
+            "name" : "cpd:C00008",
+            "sbml id" : "cpdC00008",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00008",
             "stoichiometry" : 1.0
           }
         },
@@ -2807,9 +2963,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_2",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -2820,9 +2980,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C06481",
             "metaId" : "meta_cpdC06481",
+            "name" : "cpd:C06481",
+            "sbml id" : "cpdC06481",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C06481",
             "stoichiometry" : 1.0
           }
         },
@@ -2833,9 +2997,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638_1",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -2846,9 +3014,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08223",
             "metaId" : "meta_mod_rnR08223",
+            "name" : "mod_rnR08223",
+            "sbml id" : "mod_rnR08223",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08223"
           }
         },
         {
@@ -2868,9 +3040,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_4",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_4",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -2881,9 +3057,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C06482",
             "metaId" : "meta_cpdC06482",
+            "name" : "cpd:C06482",
+            "sbml id" : "cpdC06482",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C06482",
             "stoichiometry" : 1.0
           }
         },
@@ -2894,9 +3074,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -2907,9 +3091,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009_1",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 2.0
           }
         },
@@ -2920,9 +3108,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08224",
             "metaId" : "meta_mod_rnR08224",
+            "name" : "mod_rnR08224",
+            "sbml id" : "mod_rnR08224",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08224"
           }
         },
         {
@@ -2932,9 +3124,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172_1",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -2955,9 +3151,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_2",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -2968,9 +3168,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09365",
             "metaId" : "meta_mod_rnR09365",
+            "name" : "mod_rnR09365",
+            "sbml id" : "mod_rnR09365",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09365"
           }
         },
         {
@@ -2980,9 +3184,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C04489",
             "metaId" : "meta_cpdC04489",
+            "name" : "cpd:C04489",
+            "sbml id" : "cpdC04489",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C04489",
             "stoichiometry" : 1.0
           }
         },
@@ -2993,9 +3201,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05698",
             "metaId" : "meta_cpdC05698",
+            "name" : "cpd:C05698",
+            "sbml id" : "cpdC05698",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05698",
             "stoichiometry" : 1.0
           }
         },
@@ -3006,9 +3218,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C04144",
             "metaId" : "meta_cpdC04144",
+            "name" : "cpd:C04144",
+            "sbml id" : "cpdC04144",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C04144",
             "stoichiometry" : 1.0
           }
         },
@@ -3029,9 +3245,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_3",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -3042,9 +3262,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_1",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -3055,9 +3279,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014_1",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -3068,9 +3296,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00022",
             "metaId" : "meta_cpdC00022",
+            "name" : "cpd:C00022",
+            "sbml id" : "cpdC00022",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00022",
             "stoichiometry" : 1.0
           }
         },
@@ -3081,9 +3313,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09366",
             "metaId" : "meta_mod_rnR09366",
+            "name" : "mod_rnR09366",
+            "sbml id" : "mod_rnR09366",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09366"
           }
         },
         {
@@ -3093,9 +3329,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         },
@@ -3116,9 +3356,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C02535",
             "metaId" : "meta_cpdC02535",
+            "name" : "cpd:C02535",
+            "sbml id" : "cpdC02535",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C02535",
             "stoichiometry" : 1.0
           }
         },
@@ -3129,9 +3373,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09370",
             "metaId" : "meta_mod_rnR09370",
+            "name" : "mod_rnR09370",
+            "sbml id" : "mod_rnR09370",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09370"
           }
         },
         {
@@ -3141,9 +3389,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00019",
             "metaId" : "meta_cpdC00019",
+            "name" : "cpd:C00019",
+            "sbml id" : "cpdC00019",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00019",
             "stoichiometry" : 1.0
           }
         },
@@ -3154,9 +3406,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00021",
             "metaId" : "meta_cpdC00021",
+            "name" : "cpd:C00021",
+            "sbml id" : "cpdC00021",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00021",
             "stoichiometry" : 1.0
           }
         },
@@ -3167,9 +3423,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18872",
             "metaId" : "meta_cpdC18872",
+            "name" : "cpd:C18872",
+            "sbml id" : "cpdC18872",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18872",
             "stoichiometry" : 1.0
           }
         },
@@ -3190,9 +3450,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080_1",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 2.0
           }
         },
@@ -3203,9 +3467,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_5",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_5",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 2.0
           }
         },
@@ -3216,9 +3484,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C18902",
             "metaId" : "meta_cpdC18902",
+            "name" : "cpd:C18902",
+            "sbml id" : "cpdC18902",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C18902",
             "stoichiometry" : 1.0
           }
         },
@@ -3229,9 +3501,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_2",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -3242,9 +3518,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006_1",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 2.0
           }
         },
@@ -3255,9 +3535,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005_1",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 2.0
           }
         },
@@ -3268,9 +3552,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09372",
             "metaId" : "meta_mod_rnR09372",
+            "name" : "mod_rnR09372",
+            "sbml id" : "mod_rnR09372",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09372"
           }
         },
         {
@@ -3290,9 +3578,13 @@
           "interaction" : "reaction-modifier",
           "attributes" : {
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09373",
             "metaId" : "meta_mod_rnR09373",
+            "name" : "mod_rnR09373",
+            "sbml id" : "mod_rnR09373",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09373"
           }
         },
         {
@@ -3302,9 +3594,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00073",
             "metaId" : "meta_cpdC00073",
+            "name" : "cpd:C00073",
+            "sbml id" : "cpdC00073",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00073",
             "stoichiometry" : 1.0
           }
         },
@@ -3315,9 +3611,13 @@
           "interaction" : "reaction-product",
           "attributes" : {
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18904",
             "metaId" : "meta_cpdC18904",
+            "name" : "cpd:C18904",
+            "sbml id" : "cpdC18904",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18904",
             "stoichiometry" : 1.0
           }
         },
@@ -3328,9 +3628,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01180",
             "metaId" : "meta_cpdC01180",
+            "name" : "cpd:C01180",
+            "sbml id" : "cpdC01180",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01180",
             "stoichiometry" : 1.0
           }
         },
@@ -3341,9 +3645,13 @@
           "interaction" : "reaction-reactant",
           "attributes" : {
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689_1",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         },
@@ -5579,9 +5887,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -5593,9 +5905,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -5607,9 +5923,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_1",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -5621,9 +5941,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 1.0
           }
         },
@@ -5635,9 +5959,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03595",
             "metaId" : "meta_mod_rnR03595",
+            "name" : "mod_rnR03595",
+            "sbml id" : "mod_rnR03595",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03595"
           }
         },
         {
@@ -5648,9 +5976,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_1",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -5662,9 +5994,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -5687,9 +6023,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 5.0
           }
         },
@@ -5701,9 +6041,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 3.0
           }
         },
@@ -5715,9 +6059,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -5729,9 +6077,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05684",
             "metaId" : "meta_cpdC05684",
+            "name" : "cpd:C05684",
+            "sbml id" : "cpdC05684",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05684",
             "stoichiometry" : 1.0
           }
         },
@@ -5743,9 +6095,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 3.0
           }
         },
@@ -5757,9 +6113,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 3.0
           }
         },
@@ -5771,9 +6131,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03596",
             "metaId" : "meta_mod_rnR03596",
+            "name" : "mod_rnR03596",
+            "sbml id" : "mod_rnR03596",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03596"
           }
         },
         {
@@ -5795,9 +6159,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00030",
             "metaId" : "meta_cpdC00030",
+            "name" : "cpd:C00030",
+            "sbml id" : "cpdC00030",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00030",
             "stoichiometry" : 1.0
           }
         },
@@ -5809,9 +6177,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00028",
             "metaId" : "meta_cpdC00028",
+            "name" : "cpd:C00028",
+            "sbml id" : "cpdC00028",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00028",
             "stoichiometry" : 1.0
           }
         },
@@ -5823,9 +6195,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00041",
             "metaId" : "meta_cpdC00041",
+            "name" : "cpd:C00041",
+            "sbml id" : "cpdC00041",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00041",
             "stoichiometry" : 1.0
           }
         },
@@ -5837,9 +6213,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05688",
             "metaId" : "meta_cpdC05688",
+            "name" : "cpd:C05688",
+            "sbml id" : "cpdC05688",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05688",
             "stoichiometry" : 1.0
           }
         },
@@ -5851,9 +6231,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03599",
             "metaId" : "meta_mod_rnR03599",
+            "name" : "mod_rnR03599",
+            "sbml id" : "mod_rnR03599",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03599"
           }
         },
         {
@@ -5864,9 +6248,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_2",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_2",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -5889,9 +6277,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04770",
             "metaId" : "meta_mod_rnR04770",
+            "name" : "mod_rnR04770",
+            "sbml id" : "mod_rnR04770",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04770"
           }
         },
         {
@@ -5902,9 +6294,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_2",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -5916,9 +6312,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_1",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -5930,9 +6330,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -5944,9 +6348,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -5958,9 +6366,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00109",
             "metaId" : "meta_cpdC00109",
+            "name" : "cpd:C00109",
+            "sbml id" : "cpdC00109",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00109",
             "stoichiometry" : 1.0
           }
         },
@@ -5983,9 +6395,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020_1",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -5997,9 +6413,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_1",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -6011,9 +6431,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -6025,9 +6449,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04773",
             "metaId" : "meta_mod_rnR04773",
+            "name" : "mod_rnR04773",
+            "sbml id" : "mod_rnR04773",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04773"
           }
         },
         {
@@ -6038,9 +6466,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -6052,9 +6484,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05336",
             "metaId" : "meta_cpdC05336",
+            "name" : "cpd:C05336",
+            "sbml id" : "cpdC05336",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05336",
             "stoichiometry" : 1.0
           }
         },
@@ -6077,9 +6513,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01647",
             "metaId" : "meta_cpdC01647",
+            "name" : "cpd:C01647",
+            "sbml id" : "cpdC01647",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01647",
             "stoichiometry" : 1.0
           }
         },
@@ -6091,9 +6531,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_3",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -6105,9 +6549,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05686",
             "metaId" : "meta_cpdC05686",
+            "name" : "cpd:C05686",
+            "sbml id" : "cpdC05686",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05686",
             "stoichiometry" : 1.0
           }
         },
@@ -6119,9 +6567,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04929",
             "metaId" : "meta_mod_rnR04929",
+            "name" : "mod_rnR04929",
+            "sbml id" : "mod_rnR04929",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04929"
           }
         },
         {
@@ -6132,9 +6584,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013_1",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -6146,9 +6602,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05697",
             "metaId" : "meta_cpdC05697",
+            "name" : "cpd:C05697",
+            "sbml id" : "cpdC05697",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05697",
             "stoichiometry" : 1.0
           }
         },
@@ -6171,9 +6631,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00008",
             "metaId" : "meta_cpdC00008",
+            "name" : "cpd:C00008",
+            "sbml id" : "cpdC00008",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00008",
             "stoichiometry" : 1.0
           }
         },
@@ -6185,9 +6649,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_2",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -6199,9 +6667,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C06481",
             "metaId" : "meta_cpdC06481",
+            "name" : "cpd:C06481",
+            "sbml id" : "cpdC06481",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C06481",
             "stoichiometry" : 1.0
           }
         },
@@ -6213,9 +6685,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638_1",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -6227,9 +6703,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08223",
             "metaId" : "meta_mod_rnR08223",
+            "name" : "mod_rnR08223",
+            "sbml id" : "mod_rnR08223",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08223"
           }
         },
         {
@@ -6251,9 +6731,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_4",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_4",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -6265,9 +6749,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C06482",
             "metaId" : "meta_cpdC06482",
+            "name" : "cpd:C06482",
+            "sbml id" : "cpdC06482",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C06482",
             "stoichiometry" : 1.0
           }
         },
@@ -6279,9 +6767,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -6293,9 +6785,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009_1",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 2.0
           }
         },
@@ -6307,9 +6803,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08224",
             "metaId" : "meta_mod_rnR08224",
+            "name" : "mod_rnR08224",
+            "sbml id" : "mod_rnR08224",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08224"
           }
         },
         {
@@ -6320,9 +6820,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172_1",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -6345,9 +6849,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_2",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -6359,9 +6867,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09365",
             "metaId" : "meta_mod_rnR09365",
+            "name" : "mod_rnR09365",
+            "sbml id" : "mod_rnR09365",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09365"
           }
         },
         {
@@ -6372,9 +6884,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C04489",
             "metaId" : "meta_cpdC04489",
+            "name" : "cpd:C04489",
+            "sbml id" : "cpdC04489",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C04489",
             "stoichiometry" : 1.0
           }
         },
@@ -6386,9 +6902,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05698",
             "metaId" : "meta_cpdC05698",
+            "name" : "cpd:C05698",
+            "sbml id" : "cpdC05698",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05698",
             "stoichiometry" : 1.0
           }
         },
@@ -6400,9 +6920,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C04144",
             "metaId" : "meta_cpdC04144",
+            "name" : "cpd:C04144",
+            "sbml id" : "cpdC04144",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C04144",
             "stoichiometry" : 1.0
           }
         },
@@ -6425,9 +6949,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_3",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -6439,9 +6967,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_1",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -6453,9 +6985,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014_1",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -6467,9 +7003,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00022",
             "metaId" : "meta_cpdC00022",
+            "name" : "cpd:C00022",
+            "sbml id" : "cpdC00022",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00022",
             "stoichiometry" : 1.0
           }
         },
@@ -6481,9 +7021,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09366",
             "metaId" : "meta_mod_rnR09366",
+            "name" : "mod_rnR09366",
+            "sbml id" : "mod_rnR09366",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09366"
           }
         },
         {
@@ -6494,9 +7038,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         },
@@ -6519,9 +7067,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C02535",
             "metaId" : "meta_cpdC02535",
+            "name" : "cpd:C02535",
+            "sbml id" : "cpdC02535",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C02535",
             "stoichiometry" : 1.0
           }
         },
@@ -6533,9 +7085,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09370",
             "metaId" : "meta_mod_rnR09370",
+            "name" : "mod_rnR09370",
+            "sbml id" : "mod_rnR09370",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09370"
           }
         },
         {
@@ -6546,9 +7102,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00019",
             "metaId" : "meta_cpdC00019",
+            "name" : "cpd:C00019",
+            "sbml id" : "cpdC00019",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00019",
             "stoichiometry" : 1.0
           }
         },
@@ -6560,9 +7120,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00021",
             "metaId" : "meta_cpdC00021",
+            "name" : "cpd:C00021",
+            "sbml id" : "cpdC00021",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00021",
             "stoichiometry" : 1.0
           }
         },
@@ -6574,9 +7138,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18872",
             "metaId" : "meta_cpdC18872",
+            "name" : "cpd:C18872",
+            "sbml id" : "cpdC18872",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18872",
             "stoichiometry" : 1.0
           }
         },
@@ -6599,9 +7167,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080_1",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 2.0
           }
         },
@@ -6613,9 +7185,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_5",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_5",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 2.0
           }
         },
@@ -6627,9 +7203,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C18902",
             "metaId" : "meta_cpdC18902",
+            "name" : "cpd:C18902",
+            "sbml id" : "cpdC18902",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C18902",
             "stoichiometry" : 1.0
           }
         },
@@ -6641,9 +7221,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_2",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -6655,9 +7239,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006_1",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 2.0
           }
         },
@@ -6669,9 +7257,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005_1",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 2.0
           }
         },
@@ -6683,9 +7275,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09372",
             "metaId" : "meta_mod_rnR09372",
+            "name" : "mod_rnR09372",
+            "sbml id" : "mod_rnR09372",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09372"
           }
         },
         {
@@ -6707,9 +7303,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09373",
             "metaId" : "meta_mod_rnR09373",
+            "name" : "mod_rnR09373",
+            "sbml id" : "mod_rnR09373",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09373"
           }
         },
         {
@@ -6720,9 +7320,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00073",
             "metaId" : "meta_cpdC00073",
+            "name" : "cpd:C00073",
+            "sbml id" : "cpdC00073",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00073",
             "stoichiometry" : 1.0
           }
         },
@@ -6734,9 +7338,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18904",
             "metaId" : "meta_cpdC18904",
+            "name" : "cpd:C18904",
+            "sbml id" : "cpdC18904",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18904",
             "stoichiometry" : 1.0
           }
         },
@@ -6748,9 +7356,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01180",
             "metaId" : "meta_cpdC01180",
+            "name" : "cpd:C01180",
+            "sbml id" : "cpdC01180",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01180",
             "stoichiometry" : 1.0
           }
         },
@@ -6762,9 +7374,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689_1",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         },
@@ -8330,9 +8946,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -8344,9 +8964,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -8358,9 +8982,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_1",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -8372,9 +9000,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 1.0
           }
         },
@@ -8386,9 +9018,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03595",
             "metaId" : "meta_mod_rnR03595",
+            "name" : "mod_rnR03595",
+            "sbml id" : "mod_rnR03595",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03595"
           }
         },
         {
@@ -8399,9 +9035,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_1",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_1",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -8413,9 +9053,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -8427,9 +9071,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 5.0
           }
         },
@@ -8441,9 +9089,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 3.0
           }
         },
@@ -8455,9 +9107,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -8469,9 +9125,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05684",
             "metaId" : "meta_cpdC05684",
+            "name" : "cpd:C05684",
+            "sbml id" : "cpdC05684",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05684",
             "stoichiometry" : 1.0
           }
         },
@@ -8483,9 +9143,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 3.0
           }
         },
@@ -8497,9 +9161,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 3.0
           }
         },
@@ -8511,9 +9179,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03596",
             "metaId" : "meta_mod_rnR03596",
+            "name" : "mod_rnR03596",
+            "sbml id" : "mod_rnR03596",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03596"
           }
         },
         {
@@ -8524,9 +9196,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00030",
             "metaId" : "meta_cpdC00030",
+            "name" : "cpd:C00030",
+            "sbml id" : "cpdC00030",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00030",
             "stoichiometry" : 1.0
           }
         },
@@ -8538,9 +9214,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00028",
             "metaId" : "meta_cpdC00028",
+            "name" : "cpd:C00028",
+            "sbml id" : "cpdC00028",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00028",
             "stoichiometry" : 1.0
           }
         },
@@ -8552,9 +9232,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00041",
             "metaId" : "meta_cpdC00041",
+            "name" : "cpd:C00041",
+            "sbml id" : "cpdC00041",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00041",
             "stoichiometry" : 1.0
           }
         },
@@ -8566,9 +9250,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05688",
             "metaId" : "meta_cpdC05688",
+            "name" : "cpd:C05688",
+            "sbml id" : "cpdC05688",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05688",
             "stoichiometry" : 1.0
           }
         },
@@ -8580,9 +9268,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR03599",
             "metaId" : "meta_mod_rnR03599",
+            "name" : "mod_rnR03599",
+            "sbml id" : "mod_rnR03599",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR03599"
           }
         },
         {
@@ -8593,9 +9285,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C01528",
             "metaId" : "meta_cpdC01528_2",
+            "name" : "cpd:C01528",
+            "sbml id" : "cpdC01528_2",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C01528",
             "stoichiometry" : 1.0
           }
         },
@@ -8607,9 +9303,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04770",
             "metaId" : "meta_mod_rnR04770",
+            "name" : "mod_rnR04770",
+            "sbml id" : "mod_rnR04770",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04770"
           }
         },
         {
@@ -8620,9 +9320,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_2",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -8634,9 +9338,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_1",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -8648,9 +9356,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -8662,9 +9374,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -8676,9 +9392,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00109",
             "metaId" : "meta_cpdC00109",
+            "name" : "cpd:C00109",
+            "sbml id" : "cpdC00109",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00109",
             "stoichiometry" : 1.0
           }
         },
@@ -8690,9 +9410,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00020",
             "metaId" : "meta_cpdC00020_1",
+            "name" : "cpd:C00020",
+            "sbml id" : "cpdC00020_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00020",
             "stoichiometry" : 1.0
           }
         },
@@ -8704,9 +9428,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_1",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -8718,9 +9446,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -8732,9 +9464,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04773",
             "metaId" : "meta_mod_rnR04773",
+            "name" : "mod_rnR04773",
+            "sbml id" : "mod_rnR04773",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04773"
           }
         },
         {
@@ -8745,9 +9481,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -8759,9 +9499,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05336",
             "metaId" : "meta_cpdC05336",
+            "name" : "cpd:C05336",
+            "sbml id" : "cpdC05336",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05336",
             "stoichiometry" : 1.0
           }
         },
@@ -8773,9 +9517,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01647",
             "metaId" : "meta_cpdC01647",
+            "name" : "cpd:C01647",
+            "sbml id" : "cpdC01647",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01647",
             "stoichiometry" : 1.0
           }
         },
@@ -8787,9 +9535,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_3",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -8801,9 +9553,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05686",
             "metaId" : "meta_cpdC05686",
+            "name" : "cpd:C05686",
+            "sbml id" : "cpdC05686",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05686",
             "stoichiometry" : 1.0
           }
         },
@@ -8815,9 +9571,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR04929",
             "metaId" : "meta_mod_rnR04929",
+            "name" : "mod_rnR04929",
+            "sbml id" : "mod_rnR04929",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR04929"
           }
         },
         {
@@ -8828,9 +9588,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00013",
             "metaId" : "meta_cpdC00013_1",
+            "name" : "cpd:C00013",
+            "sbml id" : "cpdC00013_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00013",
             "stoichiometry" : 1.0
           }
         },
@@ -8842,9 +9606,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05697",
             "metaId" : "meta_cpdC05697",
+            "name" : "cpd:C05697",
+            "sbml id" : "cpdC05697",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05697",
             "stoichiometry" : 1.0
           }
         },
@@ -8856,9 +9624,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00008",
             "metaId" : "meta_cpdC00008",
+            "name" : "cpd:C00008",
+            "sbml id" : "cpdC00008",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00008",
             "stoichiometry" : 1.0
           }
         },
@@ -8870,9 +9642,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00002",
             "metaId" : "meta_cpdC00002_2",
+            "name" : "cpd:C00002",
+            "sbml id" : "cpdC00002_2",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00002",
             "stoichiometry" : 1.0
           }
         },
@@ -8884,9 +9660,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C06481",
             "metaId" : "meta_cpdC06481",
+            "name" : "cpd:C06481",
+            "sbml id" : "cpdC06481",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C06481",
             "stoichiometry" : 1.0
           }
         },
@@ -8898,9 +9678,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638_1",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -8912,9 +9696,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08223",
             "metaId" : "meta_mod_rnR08223",
+            "name" : "mod_rnR08223",
+            "sbml id" : "mod_rnR08223",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08223"
           }
         },
         {
@@ -8925,9 +9713,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_4",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_4",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -8939,9 +9731,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C06482",
             "metaId" : "meta_cpdC06482",
+            "name" : "cpd:C06482",
+            "sbml id" : "cpdC06482",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C06482",
             "stoichiometry" : 1.0
           }
         },
@@ -8953,9 +9749,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C16638",
             "metaId" : "meta_cpdC16638",
+            "name" : "cpd:C16638",
+            "sbml id" : "cpdC16638",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C16638",
             "stoichiometry" : 1.0
           }
         },
@@ -8967,9 +9767,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00009",
             "metaId" : "meta_cpdC00009_1",
+            "name" : "cpd:C00009",
+            "sbml id" : "cpdC00009_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00009",
             "stoichiometry" : 2.0
           }
         },
@@ -8981,9 +9785,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR08224",
             "metaId" : "meta_mod_rnR08224",
+            "name" : "mod_rnR08224",
+            "sbml id" : "mod_rnR08224",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR08224"
           }
         },
         {
@@ -8994,9 +9802,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05172",
             "metaId" : "meta_cpdC05172_1",
+            "name" : "cpd:C05172",
+            "sbml id" : "cpdC05172_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05172",
             "stoichiometry" : 1.0
           }
         },
@@ -9008,9 +9820,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05335",
             "metaId" : "meta_cpdC05335_2",
+            "name" : "cpd:C05335",
+            "sbml id" : "cpdC05335_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05335",
             "stoichiometry" : 1.0
           }
         },
@@ -9022,9 +9838,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09365",
             "metaId" : "meta_mod_rnR09365",
+            "name" : "mod_rnR09365",
+            "sbml id" : "mod_rnR09365",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09365"
           }
         },
         {
@@ -9035,9 +9855,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C04489",
             "metaId" : "meta_cpdC04489",
+            "name" : "cpd:C04489",
+            "sbml id" : "cpdC04489",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C04489",
             "stoichiometry" : 1.0
           }
         },
@@ -9049,9 +9873,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05698",
             "metaId" : "meta_cpdC05698",
+            "name" : "cpd:C05698",
+            "sbml id" : "cpdC05698",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05698",
             "stoichiometry" : 1.0
           }
         },
@@ -9063,9 +9891,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C04144",
             "metaId" : "meta_cpdC04144",
+            "name" : "cpd:C04144",
+            "sbml id" : "cpdC04144",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C04144",
             "stoichiometry" : 1.0
           }
         },
@@ -9077,9 +9909,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_3",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_3",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 1.0
           }
         },
@@ -9091,9 +9927,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_1",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -9105,9 +9945,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00014",
             "metaId" : "meta_cpdC00014_1",
+            "name" : "cpd:C00014",
+            "sbml id" : "cpdC00014_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00014",
             "stoichiometry" : 1.0
           }
         },
@@ -9119,9 +9963,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00022",
             "metaId" : "meta_cpdC00022",
+            "name" : "cpd:C00022",
+            "sbml id" : "cpdC00022",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00022",
             "stoichiometry" : 1.0
           }
         },
@@ -9133,9 +9981,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09366",
             "metaId" : "meta_mod_rnR09366",
+            "name" : "mod_rnR09366",
+            "sbml id" : "mod_rnR09366",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09366"
           }
         },
         {
@@ -9146,9 +9998,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         },
@@ -9160,9 +10016,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C02535",
             "metaId" : "meta_cpdC02535",
+            "name" : "cpd:C02535",
+            "sbml id" : "cpdC02535",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C02535",
             "stoichiometry" : 1.0
           }
         },
@@ -9174,9 +10034,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09370",
             "metaId" : "meta_mod_rnR09370",
+            "name" : "mod_rnR09370",
+            "sbml id" : "mod_rnR09370",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09370"
           }
         },
         {
@@ -9187,9 +10051,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00019",
             "metaId" : "meta_cpdC00019",
+            "name" : "cpd:C00019",
+            "sbml id" : "cpdC00019",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00019",
             "stoichiometry" : 1.0
           }
         },
@@ -9201,9 +10069,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00021",
             "metaId" : "meta_cpdC00021",
+            "name" : "cpd:C00021",
+            "sbml id" : "cpdC00021",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00021",
             "stoichiometry" : 1.0
           }
         },
@@ -9215,9 +10087,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18872",
             "metaId" : "meta_cpdC18872",
+            "name" : "cpd:C18872",
+            "sbml id" : "cpdC18872",
             "sbo" : "SBO:0000010",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18872",
             "stoichiometry" : 1.0
           }
         },
@@ -9229,9 +10105,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00080",
             "metaId" : "meta_cpdC00080_1",
+            "name" : "cpd:C00080",
+            "sbml id" : "cpdC00080_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00080",
             "stoichiometry" : 2.0
           }
         },
@@ -9243,9 +10123,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00001",
             "metaId" : "meta_cpdC00001_5",
+            "name" : "cpd:C00001",
+            "sbml id" : "cpdC00001_5",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00001",
             "stoichiometry" : 2.0
           }
         },
@@ -9257,9 +10141,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C18902",
             "metaId" : "meta_cpdC18902",
+            "name" : "cpd:C18902",
+            "sbml id" : "cpdC18902",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C18902",
             "stoichiometry" : 1.0
           }
         },
@@ -9271,9 +10159,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C05703",
             "metaId" : "meta_cpdC05703_2",
+            "name" : "cpd:C05703",
+            "sbml id" : "cpdC05703_2",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C05703",
             "stoichiometry" : 1.0
           }
         },
@@ -9285,9 +10177,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00006",
             "metaId" : "meta_cpdC00006_1",
+            "name" : "cpd:C00006",
+            "sbml id" : "cpdC00006_1",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00006",
             "stoichiometry" : 2.0
           }
         },
@@ -9299,9 +10195,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C00005",
             "metaId" : "meta_cpdC00005_1",
+            "name" : "cpd:C00005",
+            "sbml id" : "cpdC00005_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C00005",
             "stoichiometry" : 2.0
           }
         },
@@ -9313,9 +10213,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09372",
             "metaId" : "meta_mod_rnR09372",
+            "name" : "mod_rnR09372",
+            "sbml id" : "mod_rnR09372",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09372"
           }
         },
         {
@@ -9326,9 +10230,13 @@
           "attributes" : {
             "interaction" : "reaction-activator",
             "interaction type" : "reaction-modifier",
+            "label" : "mod_rnR09373",
             "metaId" : "meta_mod_rnR09373",
+            "name" : "mod_rnR09373",
+            "sbml id" : "mod_rnR09373",
             "sbo" : "SBO:0000460",
-            "shared interaction" : "reaction-activator"
+            "shared interaction" : "reaction-activator",
+            "shared name" : "mod_rnR09373"
           }
         },
         {
@@ -9339,9 +10247,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C00073",
             "metaId" : "meta_cpdC00073",
+            "name" : "cpd:C00073",
+            "sbml id" : "cpdC00073",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C00073",
             "stoichiometry" : 1.0
           }
         },
@@ -9353,9 +10265,13 @@
           "attributes" : {
             "interaction" : "reaction-product",
             "interaction type" : "reaction-product",
+            "label" : "cpd:C18904",
             "metaId" : "meta_cpdC18904",
+            "name" : "cpd:C18904",
+            "sbml id" : "cpdC18904",
             "sbo" : "SBO:0000011",
             "shared interaction" : "reaction-product",
+            "shared name" : "cpd:C18904",
             "stoichiometry" : 1.0
           }
         },
@@ -9367,9 +10283,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C01180",
             "metaId" : "meta_cpdC01180",
+            "name" : "cpd:C01180",
+            "sbml id" : "cpdC01180",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C01180",
             "stoichiometry" : 1.0
           }
         },
@@ -9381,9 +10301,13 @@
           "attributes" : {
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "cpd:C05689",
             "metaId" : "meta_cpdC05689_1",
+            "name" : "cpd:C05689",
+            "sbml id" : "cpdC05689_1",
             "sbo" : "SBO:0000015",
             "shared interaction" : "reaction-reactant",
+            "shared name" : "cpd:C05689",
             "stoichiometry" : 1.0
           }
         }

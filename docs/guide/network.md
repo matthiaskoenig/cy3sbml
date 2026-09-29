@@ -112,6 +112,7 @@ These columns are set on nodes, when the SBML object has the value:
 | `math` | formula of rules, assignments, kinetic laws and function definitions |
 | `variable` | variable of a rule or assignment |
 | `stoichiometry` | stoichiometry, on reactant and product edges |
+| `sbml id`, `shared name`, `metaId`, `sbo` | on reactant, product and modifier edges: the attributes of the species reference |
 | `kind`, `exponent`, `scale`, `multiplier` | unit attributes |
 
 Package columns:

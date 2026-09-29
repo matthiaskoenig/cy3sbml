@@ -156,4 +156,18 @@ class CoreReaderTest {
                 SBML.INTERACTION_REACTION_PRODUCT, network.getRow(product).get(SBML.INTERACTION_ATTR, String.class));
         assertEquals(nodeById(context, "S2"), product.getTarget());
     }
+
+    @Test
+    void speciesReferenceEdgeHasTheIdOfTheSpeciesReference() throws Exception {
+        SBMLDocument document = ReaderTestSupport.readDocument("/models/distrib/distrib_uncertainties.xml");
+        ConversionContext context = ReaderTestSupport.read(document, new CoreReader());
+        CyNetwork network = context.network();
+        Reaction reaction = document.getModel().getReaction("J0");
+
+        // <speciesReference id="sr1" species="S1">, <speciesReference species="S2"> (no id)
+        CyEdge reactant = context.edgeOf(reaction.getReactant(0)).orElseThrow();
+        CyEdge product = context.edgeOf(reaction.getProduct(0)).orElseThrow();
+        assertEquals("sr1", network.getRow(reactant).get(SBML.ATTR_ID, String.class));
+        assertEquals(null, network.getRow(product).get(SBML.ATTR_ID, String.class));
+    }
 }

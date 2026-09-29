@@ -231,6 +231,8 @@
             "distrib_uncertainty" : "standardDeviation=0.5",
             "distrib_uncertaintyCount" : 1,
             "interaction type" : "reaction-reactant",
+            "label" : "sr1",
+            "sbml id" : "sr1",
             "shared interaction" : "reaction-reactant",
             "stoichiometry" : 1.0
           }
@@ -619,6 +621,8 @@
             "distrib_uncertaintyCount" : 1,
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "sr1",
+            "sbml id" : "sr1",
             "shared interaction" : "reaction-reactant",
             "stoichiometry" : 1.0
           }
@@ -836,6 +840,8 @@
             "distrib_uncertaintyCount" : 1,
             "interaction" : "reaction-reactant",
             "interaction type" : "reaction-reactant",
+            "label" : "sr1",
+            "sbml id" : "sr1",
             "shared interaction" : "reaction-reactant",
             "stoichiometry" : 1.0
           }
