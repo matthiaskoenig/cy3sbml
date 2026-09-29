@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
@@ -202,6 +203,8 @@ class SessionDataTest {
         assertEquals(
                 originalValueCount,
                 restoredMapping.getValues(restoredMapping.keySet()).size());
+        // the model of the network collection, for the links to comp targets
+        assertEquals(Optional.of(rootSUID), restoredManager.rootNetwork(restoredDocument.getModel()));
     }
 
     @Test

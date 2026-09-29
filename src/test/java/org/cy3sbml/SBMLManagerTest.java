@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.util.Optional;
 import org.cy3sbml.comp.CompModels;
 import org.cy3sbml.comp.ModelResolution;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -184,5 +185,45 @@ public class SBMLManagerTest {
         manager.removeSBMLForNetwork(network);
 
         assertNotSame(resolver, manager.getSBaseRefResolver(document.getModel()));
+    }
+
+    /** The network collection of a model is found by the model object, not its id. */
+    @Test
+    public void rootNetworkOfAModel() throws Exception {
+        SBMLDocument first = readTop();
+        SBMLDocument second = readTop();
+        CyNetwork firstNetwork = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        CyNetwork secondNetwork = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        manager.addSBMLForNetwork(first, firstNetwork, MAPPING);
+        manager.addModelForNetwork(firstNetwork, first.getModel());
+        manager.addSBMLForNetwork(second, secondNetwork, MAPPING);
+        manager.addModelForNetwork(secondNetwork, second.getModel());
+
+        assertEquals(
+                Optional.of(NetworkUtil.getRootNetworkSUID(secondNetwork)), manager.rootNetwork(second.getModel()));
+        assertEquals(Optional.empty(), manager.rootNetwork(readTop().getModel()));
+    }
+
+    /**
+     * Without the resolver of the reader (a restored session), the resolver of a document is
+     * created once and uses the open documents instead of reading their files again.
+     */
+    @Test
+    public void resolverOfARestoredDocumentUsesTheOpenDocuments() throws Exception {
+        SBMLDocument document = readTop();
+        SBaseRefResolver reader = new SBaseRefResolver(new CompModels(document));
+        ModelResolution.Resolved external =
+                (ModelResolution.Resolved) reader.models().resolve(document, "ext");
+        CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        CyNetwork externalNetwork = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        manager.addSBMLForNetwork(document, network, MAPPING);
+        manager.addSBMLForNetwork(external.document(), externalNetwork, MAPPING);
+
+        SBaseRefResolver resolver = manager.getSBaseRefResolver(document.getModel());
+
+        assertSame(resolver, manager.getSBaseRefResolver(document.getModel()));
+        ModelResolution.Resolved restored =
+                (ModelResolution.Resolved) resolver.models().resolve(document, "ext");
+        assertSame(external.model(), restored.model());
     }
 }

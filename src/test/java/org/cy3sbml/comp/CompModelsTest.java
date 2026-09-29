@@ -184,4 +184,17 @@ class CompModelsTest {
 
         assertEquals(URI.create("https://example.org/models/sub/ext2.xml"), CompModels.sourceUri(definition));
     }
+
+    /** An external file that is no SBML, e.g. the HTML page of a proxy, is a failure with a reason. */
+    @Test
+    void failsForSourceThatIsNoSbml() throws Exception {
+        SBMLDocument document = read("/models/comp/unit/top.xml");
+        CompSBMLDocumentPlugin plugin = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.shortLabel);
+        ExternalModelDefinition definition = plugin.createExternalModelDefinition("html");
+        definition.setSource("not_sbml.xml");
+
+        String reason = failure(new CompModels(document).resolve(document, "html"));
+
+        assertTrue(reason.contains("not_sbml.xml") && reason.contains("SBML"), reason);
+    }
 }

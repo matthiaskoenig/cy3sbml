@@ -45,7 +45,7 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
 
 ### Current pin: JSBML fork
 
-The pinned commit `e017c043` is on the branch
+The pinned commit `f9d33e50` is on the branch
 [`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes) of the fork
 `matthiaskoenig/jsbml`, one commit on top of JSBML `master` (`8192a8a7`). It rewrites
 the flattening of hierarchical models (`CompFlatteningConverter`) and fixes the

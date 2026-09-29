@@ -125,4 +125,14 @@ public class SBMLFileFilterTest {
         assertEquals(Optional.empty(), taken.get());
         assertEquals(Optional.of(MODEL_URI), filter.takeAcceptedUri("toy_top_level.xml"));
     }
+
+    /** For an import from a URL, Cytoscape passes the URL as input name. */
+    @Test
+    public void acceptedUriIsTakenForItsUrl() throws Exception {
+        URI url = URI.create("https://example.org/models/top.xml");
+        SBMLFileFilter filter = sbmlFilter();
+        assertTrue(filter.accepts(url, DataCategory.NETWORK));
+
+        assertEquals(Optional.of(url), filter.takeAcceptedUri(url.toString()));
+    }
 }

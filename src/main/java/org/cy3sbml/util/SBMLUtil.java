@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
+import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.ModelResolution;
 import org.cy3sbml.comp.SBaseRefResolution;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -757,6 +759,7 @@ public class SBMLUtil {
 
     // COMP
 
+    // <root network SUID>/<metaid>
     private static final String LINK_TARGET_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_TARGET
             + "%s/%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\""
             + " title=\"Link to the node in the network of its model.\"></span></a>";
@@ -764,9 +767,9 @@ public class SBMLUtil {
     /**
      * Submodel map: the referenced model, with a link to its network, and the conversion factors.
      *
-     * @param resolver resolves the model reference, may be null
+     * @param targets the comp references of the open documents, may be null
      */
-    public static Map<String, String> createSubmodelMap(Submodel submodel, SBaseRefResolver resolver) {
+    public static Map<String, String> createSubmodelMap(Submodel submodel, CompTargets targets) {
         Map<String, String> map = createNamedSBaseMap(submodel);
         putIfSet(map, "modelRef", submodel.isSetModelRef() ? submodel.getModelRef() : null);
         putIfSet(
@@ -778,8 +781,9 @@ public class SBMLUtil {
                 "extentConversionFactor",
                 submodel.isSetExtentConversionFactor() ? submodel.getExtentConversionFactor() : null);
         map.put("deletions", Integer.toString(submodel.getDeletionCount()));
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(submodel);
         if (resolver != null) {
-            map.put("model", modelHtml(resolver.models().resolve(submodel)));
+            map.put("model", modelHtml(resolver.models().resolve(submodel), targets));
         }
         return map;
     }
@@ -789,9 +793,9 @@ public class SBMLUtil {
      * set, the chain of the reference, and its target with a link to the node in the
      * network of the target model.
      *
-     * @param resolver resolves the target, may be null
+     * @param targets the comp references of the open documents, may be null
      */
-    public static Map<String, String> createSBaseRefMap(SBaseRef ref, SBaseRefResolver resolver) {
+    public static Map<String, String> createSBaseRefMap(SBaseRef ref, CompTargets targets) {
         Map<String, String> map = ref instanceof NamedSBase named ? createNamedSBaseMap(named) : createSBaseMap(ref);
         if (ref instanceof ReplacedElement replacedElement) {
             putIfSet(map, "submodelRef", replacedElement.isSetSubmodelRef() ? replacedElement.getSubmodelRef() : null);
@@ -811,8 +815,9 @@ public class SBMLUtil {
             map.put("reference", HtmlUtil.escape(SBaseRefResolver.describe(ref)));
         }
         boolean replacesDeletion = ref instanceof ReplacedElement re && re.isSetDeletion();
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(ref);
         if (resolver != null && !replacesDeletion) {
-            map.put("target", targetHtml(resolver.resolve(ref)));
+            map.put("target", targetHtml(resolver.resolve(ref), targets));
         }
         return map;
     }
@@ -828,15 +833,16 @@ public class SBMLUtil {
      * The model definitions and external model definitions of the document, with the
      * model of each external model definition or why it could not be read.
      *
-     * @param resolver resolves the external model definitions, may be null
+     * @param targets the comp references of the open documents, may be null
      */
-    public static Map<String, String> createCompDocumentMap(SBMLDocument document, SBaseRefResolver resolver) {
+    public static Map<String, String> createCompDocumentMap(SBMLDocument document, CompTargets targets) {
         Map<String, String> map = new LinkedHashMap<>();
         if (!(document.getExtension(CompConstants.shortLabel) instanceof CompSBMLDocumentPlugin plugin)) {
             return map;
         }
+        SBaseRefResolver resolver = targets == null ? null : targets.resolver(document);
         for (ModelDefinition modelDefinition : plugin.getListOfModelDefinitions()) {
-            map.put("model definition " + modelDefinition.getId(), modelLink(modelDefinition.getId()));
+            map.put("model definition " + modelDefinition.getId(), modelLink(modelDefinition, targets));
         }
         for (ExternalModelDefinition external : plugin.getListOfExternalModelDefinitions()) {
             String source = HtmlUtil.escape(external.getSource());
@@ -844,27 +850,41 @@ public class SBMLUtil {
                 source += " (" + external.getModelRef() + ")";
             }
             if (resolver != null) {
-                source += ": " + modelHtml(resolver.models().resolve(document, external.getId()));
+                source += ": " + modelHtml(resolver.models().resolve(document, external.getId()), targets);
             }
             map.put("external model definition " + external.getId(), source);
         }
         return map;
     }
 
-    private static String modelHtml(ModelResolution resolution) {
+    private static String modelHtml(ModelResolution resolution, CompTargets targets) {
         if (resolution instanceof ModelResolution.Resolved resolved) {
-            return modelLink(resolved.model().getId());
+            return modelLink(resolved.model(), targets);
         }
         return String.format(
                 "<span class=\"text-danger\">%s</span>",
                 HtmlUtil.escape(((ModelResolution.Failed) resolution).reason()));
     }
 
-    private static String modelLink(String modelId) {
-        return HtmlUtil.escape(modelId) + String.format(LINK_TARGET_TEMPLATE, modelId, "");
+    /** The name of the model, with a link to its network collection if there is one. */
+    private static String modelLink(Model model, CompTargets targets) {
+        String name = HtmlUtil.escape(modelName(model));
+        return networkLink(model, "", targets).map(link -> name + link).orElse(name);
     }
 
-    private static String targetHtml(SBaseRefResolution resolution) {
+    private static String modelName(Model model) {
+        return model.isSetId() ? model.getId() : "main model";
+    }
+
+    /** The link to the node with the metaid in the network collection of the model. */
+    private static Optional<String> networkLink(Model model, String metaId, CompTargets targets) {
+        if (targets == null) {
+            return Optional.empty();
+        }
+        return targets.rootNetwork(model).map(root -> String.format(LINK_TARGET_TEMPLATE, root, metaId));
+    }
+
+    private static String targetHtml(SBaseRefResolution resolution, CompTargets targets) {
         if (resolution instanceof SBaseRefResolution.Resolved resolved) {
             SBase target = resolved.target();
             String name = target.isSetId() ? target.getId() : target.getMetaId();
@@ -872,8 +892,8 @@ public class SBMLUtil {
                     "%s <b>%s</b> in model %s%s",
                     target.getElementName(),
                     HtmlUtil.escape(name),
-                    HtmlUtil.escape(resolved.model().getId()),
-                    String.format(LINK_TARGET_TEMPLATE, resolved.model().getId(), target.getMetaId()));
+                    HtmlUtil.escape(modelName(resolved.model())),
+                    networkLink(resolved.model(), target.getMetaId(), targets).orElse(""));
         }
         return String.format(
                 "<span class=\"text-danger\">%s</span>",

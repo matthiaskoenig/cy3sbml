@@ -96,7 +96,7 @@ class SBaseRefResolverTest {
     void deletionResolvesMetaIdRef() {
         Resolved resolved = resolved(resolver.resolve(deletion("del_meta")));
 
-        assertSame(modelDefinition("mdA").getParameter("x"), resolved.target());
+        assertSame(modelDefinition("mdA").getParameter("w"), resolved.target());
     }
 
     @Test
@@ -110,7 +110,7 @@ class SBaseRefResolverTest {
     void deletionResolvesNestedReference() {
         Resolved resolved = resolved(resolver.resolve(deletion("del_nested")));
 
-        assertSame(modelDefinition("mdB").getParameter("y"), resolved.target());
+        assertSame(modelDefinition("mdB").getParameter("y2"), resolved.target());
     }
 
     @Test
@@ -154,11 +154,11 @@ class SBaseRefResolverTest {
 
     @Test
     void resolvedTargetGetsMetaId() {
-        assertFalse(modelDefinition("mdB").getParameter("y").isSetMetaId());
+        assertFalse(modelDefinition("mdB").getParameter("y2").isSetMetaId());
 
         resolved(resolver.resolve(deletion("del_nested")));
 
-        assertTrue(modelDefinition("mdB").getParameter("y").isSetMetaId());
+        assertTrue(modelDefinition("mdB").getParameter("y2").isSetMetaId());
     }
 
     @Test
@@ -167,6 +167,18 @@ class SBaseRefResolverTest {
                 (CompSBasePlugin) document.getModel().getParameter("q").getExtension(CompConstants.shortLabel);
 
         assertEquals("submodelRef=A > idRef=B > idRef=y", SBaseRefResolver.describe(plugin.getReplacedBy()));
-        assertEquals("metaIdRef=meta_x", SBaseRefResolver.describe(deletion("del_meta")));
+        assertEquals("metaIdRef=meta_w", SBaseRefResolver.describe(deletion("del_meta")));
+    }
+
+    /** A reference to an element that a deletion of a submodel on the way removes is unresolved. */
+    @Test
+    void deletedTargetIsUnresolved() {
+        CompSBasePlugin plugin =
+                (CompSBasePlugin) document.getModel().getParameter("r").getExtension(CompConstants.shortLabel);
+
+        String reason = unresolved(resolver.resolve(plugin.getReplacedElement(0)));
+
+        assertTrue(reason.contains("del_z"), reason);
+        assertTrue(reason.contains("deleted"), reason);
     }
 }

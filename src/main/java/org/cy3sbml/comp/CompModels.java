@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -49,20 +50,43 @@ public final class CompModels {
     /** Base of the sources of a document without location, to detect relative sources. */
     private static final URI UNKNOWN_LOCATION = URI.create("unknown-location:/");
 
+    /** Start of the namespaces of all SBML levels and versions. */
+    private static final String SBML_NAMESPACE = "http://www.sbml.org/sbml/";
+
     private final SBMLDocument document;
     // documents read from the sources, and the reasons of the sources that could not be read
     private final Map<URI, SBMLDocument> documents = new HashMap<>();
     private final Map<URI, String> failures = new HashMap<>();
     // md5 checksums of the sources
     private final Map<URI, String> md5s = new HashMap<>();
+    // the reason of the last failed read that is not remembered
+    private String lastFailure;
     // the document and the documents read, by identity (JSBML's equals compares the content)
     private final Set<SBMLDocument> ownDocuments = Collections.newSetFromMap(new IdentityHashMap<>());
     private HttpJson http;
 
     /** Resolver for the model references of the document and the documents it loads. */
     public CompModels(SBMLDocument document) {
+        this(document, Map.of());
+    }
+
+    /**
+     * Resolver that uses the given open documents for their locations instead of reading
+     * the files again, e.g. the documents of a restored session.
+     */
+    public CompModels(SBMLDocument document, Map<URI, SBMLDocument> openDocuments) {
+        documents.putAll(openDocuments);
+        ownDocuments.addAll(openDocuments.values());
         this.document = document;
         ownDocuments.add(document);
+        if (document.isSetLocationURI()) {
+            // a source that refers back to the file itself is this document
+            try {
+                documents.put(new URI(document.getLocationURI()), document);
+            } catch (URISyntaxException e) {
+                logger.warn("The location '{}' is no valid URI.", document.getLocationURI());
+            }
+        }
     }
 
     /** The document whose model references are resolved. */
@@ -177,7 +201,7 @@ public final class CompModels {
         }
         SBMLDocument external = load(source);
         if (external == null) {
-            return new Failed(failures.get(source));
+            return new Failed(failures.getOrDefault(source, lastFailure));
         }
         if (definition.isSetMd5()) {
             checkMd5(definition, source);
@@ -209,7 +233,11 @@ public final class CompModels {
         return UNKNOWN_LOCATION.getScheme().equals(source.getScheme()) ? null : source;
     }
 
-    /** Reads the document at the URI once, with its location set; null if it cannot be read. */
+    /**
+     * Reads the document at the URI once, with its location set; null if it cannot be
+     * read, with the reason in {@link #failures}. Only a missing file and invalid content are
+     * remembered, a failed read (e.g. a network problem) is tried again the next time.
+     */
     private SBMLDocument load(URI source) {
         if (documents.containsKey(source)) {
             return documents.get(source);
@@ -217,8 +245,14 @@ public final class CompModels {
         if (failures.containsKey(source)) {
             return null;
         }
+        String reason;
+        boolean permanent = true;
         try {
             byte[] content = read(source);
+            if (!new String(content, 0, Math.min(content.length, 4096), StandardCharsets.UTF_8)
+                    .contains(SBML_NAMESPACE)) {
+                throw new XMLStreamException("the file has no SBML namespace");
+            }
             md5s.put(source, md5(content));
             SBMLDocument loaded = new SBMLReader().readSBMLFromStream(new ByteArrayInputStream(content));
             loaded.setLocationURI(source.toString());
@@ -226,20 +260,31 @@ public final class CompModels {
             ownDocuments.add(loaded);
             return loaded;
         } catch (NoSuchFileException e) {
-            failures.put(source, String.format("The file %s does not exist.", source));
+            reason = String.format("The file %s does not exist.", source);
         } catch (IOException e) {
-            failures.put(source, String.format("%s could not be read: %s", source, e.getMessage()));
+            reason = String.format("%s could not be read: %s", source, e.getMessage());
+            permanent = false;
         } catch (XMLStreamException | RuntimeException e) {
             // JSBML throws runtime exceptions for some invalid SBML
-            failures.put(source, String.format("%s is no valid SBML: %s", source, e.getMessage()));
+            reason = String.format("%s is no valid SBML: %s", source, e.getMessage());
         }
-        logger.warn(failures.get(source));
+        logger.warn(reason);
+        if (permanent) {
+            failures.put(source, reason);
+        } else {
+            lastFailure = reason;
+        }
         return null;
     }
 
     private byte[] read(URI source) throws IOException {
         if ("file".equalsIgnoreCase(source.getScheme())) {
-            return Files.readAllBytes(Path.of(source));
+            try {
+                return Files.readAllBytes(Path.of(source));
+            } catch (IllegalArgumentException e) {
+                // e.g. a file URI with an authority (file://server/share/model.xml)
+                throw new IOException("unsupported file URI", e);
+            }
         }
         if (http == null) {
             http = HttpJson.createDefault();

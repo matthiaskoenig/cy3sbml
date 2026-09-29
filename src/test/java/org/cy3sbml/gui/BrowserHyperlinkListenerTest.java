@@ -16,6 +16,7 @@ import java.util.List;
 import org.cy3sbml.SBML;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.TestUtils;
+import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkManager;
@@ -125,7 +126,8 @@ class BrowserHyperlinkListenerTest {
         BrowserHyperlinkListener listener =
                 new BrowserHyperlinkListener(adapter, null, null, null, null, Runnable::run);
 
-        listener.linkActivated(URI.create(BrowserHyperlinkListener.URL_SELECT_TARGET + "toy_fba/" + cyId)
+        listener.linkActivated(URI.create(
+                        BrowserHyperlinkListener.URL_SELECT_TARGET + NetworkUtil.getRootNetworkSUID(fba) + "/" + cyId)
                 .toURL());
 
         verify(applicationManager).setCurrentNetwork(fba);

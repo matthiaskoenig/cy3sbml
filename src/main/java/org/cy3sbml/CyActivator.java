@@ -388,7 +388,7 @@ public class CyActivator extends AbstractCyActivator {
                     new OlsClient(httpJson),
                     new UniprotAccess(httpJson),
                     new ChebiAccess(httpJson),
-                    sbmlManager::getSBaseRefResolver);
+                    sbmlManager);
 
             // load visual styles
             final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK};

@@ -1,10 +1,13 @@
 package org.cy3sbml.comp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import javax.swing.tree.TreeNode;
 import org.cy3sbml.comp.ModelResolution.Failed;
 import org.cy3sbml.comp.SBaseRefResolution.Resolved;
@@ -64,6 +67,11 @@ public final class SBaseRefResolver {
         }
         ModelResolution.Resolved model = (ModelResolution.Resolved) scope;
         SBaseRefResolution resolution = resolve(model.model(), model.document(), ref, new ArrayList<>(), 0);
+        if (resolution instanceof Resolved resolved && !(ref instanceof Deletion)) {
+            resolution = deleted(ref, resolved)
+                    .<SBaseRefResolution>map(Unresolved::new)
+                    .orElse(resolution);
+        }
         if (resolution instanceof Resolved resolved) {
             SBMLDocument document = resolved.target().getSBMLDocument();
             MappingUtil.setSBaseMetaId(document != null ? document : model.document(), resolved.target());
@@ -88,6 +96,41 @@ public final class SBaseRefResolver {
         return String.join(" > ", parts);
     }
 
+    /**
+     * Why the resolved target does not exist in the instantiated model: a deletion of a
+     * submodel on the way removes the target or a submodel after it.
+     *
+     * @return the reason, empty if the target is not deleted
+     */
+    private Optional<String> deleted(SBaseRef ref, Resolved resolved) {
+        List<Submodel> submodels = new ArrayList<>();
+        Submodel first = scopeSubmodel(ref);
+        if (first != null) {
+            submodels.add(first);
+        }
+        submodels.addAll(resolved.path());
+        for (int i = 0; i < submodels.size(); i++) {
+            // by identity, JSBML's equals compares the content
+            Set<SBase> removed = Collections.newSetFromMap(new IdentityHashMap<>());
+            removed.addAll(submodels.subList(i + 1, submodels.size()));
+            removed.add(resolved.target());
+            Submodel submodel = submodels.get(i);
+            for (Deletion deletion : submodel.getListOfDeletions()) {
+                if (resolve(deletion) instanceof Resolved deletionTarget && removed.contains(deletionTarget.target())) {
+                    String name = deletion.isSetId() ? deletion.getId() : describe(deletion);
+                    return Optional.of(String.format(
+                            "'%s' is deleted by the deletion '%s' of the submodel '%s'.",
+                            deletionTarget.target().isSetId()
+                                    ? deletionTarget.target().getId()
+                                    : deletionTarget.target().getMetaId(),
+                            name,
+                            submodel.getId()));
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     /** The model the reference points into, with its document. */
     private ModelResolution scope(SBaseRef ref) {
         if (ref instanceof Port) {
@@ -96,24 +139,31 @@ public final class SBaseRefResolver {
                     ? new Failed("The port is not part of a model.")
                     : new ModelResolution.Resolved(model, ref.getSBMLDocument());
         }
-        Submodel submodel = null;
-        if (ref instanceof Deletion) {
-            submodel = parentSubmodel(ref);
-        } else {
-            String submodelRef = submodelRef(ref);
-            Model model = ref.getModel();
-            CompModelPlugin plugin = model == null ? null : compModelPlugin(model);
-            if (submodelRef != null && plugin != null) {
-                submodel = plugin.getSubmodel(submodelRef);
-            }
-            if (submodel == null) {
-                return new Failed(String.format("There is no submodel '%s'.", submodelRef));
-            }
-        }
+        Submodel submodel = scopeSubmodel(ref);
         if (submodel == null) {
-            return new Failed("The deletion is not part of a submodel.");
+            return new Failed(
+                    ref instanceof Deletion
+                            ? "The deletion is not part of a submodel."
+                            : String.format("There is no submodel '%s'.", submodelRef(ref)));
         }
         return models.resolve(submodel);
+    }
+
+    /**
+     * The submodel the reference points into: the submodel of a deletion, the submodel
+     * with the submodelRef of a replaced element or replaced by, null for a port.
+     */
+    private static Submodel scopeSubmodel(SBaseRef ref) {
+        if (ref instanceof Port) {
+            return null;
+        }
+        if (ref instanceof Deletion) {
+            return parentSubmodel(ref);
+        }
+        String submodelRef = submodelRef(ref);
+        Model model = ref.getModel();
+        CompModelPlugin plugin = model == null ? null : compModelPlugin(model);
+        return submodelRef == null || plugin == null ? null : plugin.getSubmodel(submodelRef);
     }
 
     private SBaseRefResolution resolve(

@@ -73,7 +73,7 @@ public class SBMLFileFilter extends BasicCyFileFilter {
      * <p>
      * Cytoscape's reader manager calls {@link #accepts(URI, DataCategory)} and then
      * creates the reader for the stream of the URI on the same thread, with the file
-     * name as input name. The reader needs the location of the file to resolve the
+     * name (file import) or the URL (URL import) as input name. The reader needs the location of the file to resolve the
      * relative sources of external model definitions.
      */
     public Optional<URI> takeAcceptedUri(String inputName) {
@@ -82,9 +82,10 @@ public class SBMLFileFilter extends BasicCyFileFilter {
         if (uri == null || inputName == null || uri.getPath() == null) {
             return Optional.empty();
         }
+        // the file name for a file, the URL for an import from a URL
         String path = uri.getPath();
         String fileName = path.substring(path.lastIndexOf('/') + 1);
-        return inputName.equals(fileName) ? Optional.of(uri) : Optional.empty();
+        return inputName.equals(fileName) || inputName.equals(uri.toString()) ? Optional.of(uri) : Optional.empty();
     }
 
     /**

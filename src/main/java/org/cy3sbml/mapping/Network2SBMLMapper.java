@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,8 @@ public class Network2SBMLMapper implements Serializable {
     private Map<Long, SBMLDocument> documentMap;
     private Map<Long, One2ManyMapping<String, Long>> sbase2nodeMappingMap;
     private Map<Long, One2ManyMapping<Long, String>> node2sbaseMappingMap;
+    // the model of each root network; null in sessions of older versions
+    private Map<Long, Model> modelMap;
 
     public Network2SBMLMapper() {
         logger.debug("Network2SBMLMapper created");
@@ -47,6 +51,39 @@ public class Network2SBMLMapper implements Serializable {
         documentMap = new HashMap<>();
         sbase2nodeMappingMap = new HashMap<>();
         node2sbaseMappingMap = new HashMap<>();
+        modelMap = new HashMap<>();
+    }
+
+    /** The model map, created for a mapper of a session of an older version. */
+    private Map<Long, Model> modelMap() {
+        if (modelMap == null) {
+            modelMap = new HashMap<>();
+        }
+        return modelMap;
+    }
+
+    /** Stores the model the root network was created from. */
+    public synchronized void putModel(Long rootSUID, Model model) {
+        modelMap().put(rootSUID, model);
+    }
+
+    /** The models of the root networks; a defensive copy. */
+    public synchronized Map<Long, Model> getModelMap() {
+        return new HashMap<>(modelMap());
+    }
+
+    /**
+     * The root network created from the model object; by identity, as JSBML's equals
+     * compares the content.
+     */
+    @SuppressWarnings("ReferenceEquality")
+    public synchronized Optional<Long> findRootNetwork(Model model) {
+        for (Map.Entry<Long, Model> entry : modelMap().entrySet()) {
+            if (entry.getValue() == model) {
+                return Optional.of(entry.getKey());
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -71,6 +108,7 @@ public class Network2SBMLMapper implements Serializable {
         documentMap.remove(rootSUID);
         sbase2nodeMappingMap.remove(rootSUID);
         node2sbaseMappingMap.remove(rootSUID);
+        modelMap().remove(rootSUID);
     }
 
     /**

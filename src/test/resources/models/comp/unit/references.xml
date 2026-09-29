@@ -30,6 +30,14 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="cf" value="2" constant="true"/>
+      <!-- replaces z of submodel A > B, which mdA deletes -->
+      <parameter id="r" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:submodelRef="A" comp:idRef="B">
+            <comp:sBaseRef comp:idRef="z"/>
+          </comp:replacedElement>
+        </comp:listOfReplacedElements>
+      </parameter>
       <parameter id="q" constant="true">
         <comp:replacedBy comp:submodelRef="A" comp:idRef="B">
           <comp:sBaseRef comp:idRef="y"/>
@@ -39,10 +47,10 @@
     <comp:listOfSubmodels>
       <comp:submodel comp:id="A" comp:modelRef="mdA">
         <comp:listOfDeletions>
-          <comp:deletion comp:id="del_meta" comp:metaIdRef="meta_x"/>
+          <comp:deletion comp:id="del_meta" comp:metaIdRef="meta_w"/>
           <comp:deletion comp:id="del_unit" comp:unitRef="u"/>
           <comp:deletion comp:id="del_nested" comp:idRef="B">
-            <comp:sBaseRef comp:idRef="y"/>
+            <comp:sBaseRef comp:idRef="y2"/>
           </comp:deletion>
           <comp:deletion comp:id="del_missing" comp:idRef="missing"/>
           <comp:deletion comp:id="del_no_submodel" comp:idRef="x">
@@ -72,9 +80,14 @@
       <listOfParameters>
         <parameter metaid="meta_x" id="x" constant="true"/>
         <parameter id="x2" constant="true"/>
+        <parameter metaid="meta_w" id="w" constant="true"/>
       </listOfParameters>
       <comp:listOfSubmodels>
-        <comp:submodel comp:id="B" comp:modelRef="mdB"/>
+        <comp:submodel comp:id="B" comp:modelRef="mdB">
+          <comp:listOfDeletions>
+            <comp:deletion comp:id="del_z" comp:idRef="z"/>
+          </comp:listOfDeletions>
+        </comp:submodel>
       </comp:listOfSubmodels>
       <comp:listOfPorts>
         <comp:port comp:id="pa_x" comp:idRef="x"/>
@@ -83,6 +96,8 @@
     <comp:modelDefinition id="mdB">
       <listOfParameters>
         <parameter id="y" constant="true"/>
+        <parameter id="z" constant="true"/>
+        <parameter id="y2" constant="true"/>
       </listOfParameters>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>

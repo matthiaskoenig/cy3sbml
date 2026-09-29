@@ -90,11 +90,11 @@ class CompReaderTest {
         CyNode deletion = ReaderTestSupport.nodeById(context, "del_nested");
 
         assertEquals("mdB", attribute(network, deletion, SBML.ATTR_COMP_TARGET_MODEL));
-        assertEquals("y", attribute(network, deletion, SBML.ATTR_COMP_TARGET_ID));
+        assertEquals("y2", attribute(network, deletion, SBML.ATTR_COMP_TARGET_ID));
         assertEquals("parameter", attribute(network, deletion, SBML.ATTR_COMP_TARGET_TYPE));
         assertNotNull(attribute(network, deletion, SBML.ATTR_COMP_TARGET_METAID));
         assertEquals(SBML.COMP_RESOLVED, attribute(network, deletion, SBML.ATTR_COMP_RESOLUTION));
-        assertEquals("idRef=B > idRef=y", attribute(network, deletion, SBML.ATTR_COMP_SBASEREF));
+        assertEquals("idRef=B > idRef=y2", attribute(network, deletion, SBML.ATTR_COMP_SBASEREF));
     }
 
     @Test

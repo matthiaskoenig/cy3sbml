@@ -249,20 +249,27 @@ public class BrowserHyperlinkListener {
     }
 
     /**
-     * Makes the network of the model current and selects the node of the element, for a
-     * link {@code <model id>/<metaid>} to the target of a comp reference, which is usually
-     * in the network of another model. Without metaid, only the network is made current.
+     * Makes the network of the collection current and selects the node of the element,
+     * for a link {@code <root network SUID>/<metaid>} to the target of a comp reference,
+     * which is usually in another network collection. Without metaid, only the base
+     * network of the collection is made current.
      */
     private void selectTarget(String path) {
         int slash = path.indexOf('/');
-        String modelId = slash < 0 ? path : path.substring(0, slash);
         String cyId = slash < 0 ? "" : path.substring(slash + 1);
+        Long rootSUID;
+        try {
+            rootSUID = Long.valueOf(slash < 0 ? path : path.substring(0, slash));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid target link: {}", path);
+            return;
+        }
         Set<CyNetwork> networks = adapter.cyNetworkManager.getNetworkSet();
         Optional<CyNetwork> target = cyId.isEmpty()
-                ? NetworkUtil.findModelNetwork(networks, modelId)
-                : NetworkUtil.findTargetNetwork(networks, modelId, cyId);
+                ? NetworkUtil.findBaseNetwork(networks, rootSUID)
+                : NetworkUtil.findTargetNetwork(networks, rootSUID, cyId);
         if (target.isEmpty()) {
-            logger.warn("No network of the model '{}' with the element '{}' is open.", modelId, cyId);
+            logger.warn("The network of the link '{}' is not open anymore.", path);
             return;
         }
         CyNetwork network = target.get();

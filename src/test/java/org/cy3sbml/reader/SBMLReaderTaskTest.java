@@ -352,6 +352,14 @@ class SBMLReaderTaskTest {
         assertEquals(List.of("top", "local", "ext_main", "inner", "Flat__top"), collectionNames(task));
     }
 
+    /** inst_a.xml and inst_b.xml instantiate each other: both networks, no flat network. */
+    @Test
+    void instantiationCycleThroughFilesSkipsTheFlatNetwork() throws Exception {
+        SBMLReaderTask task = readWithLocation("/models/comp/unit/inst_a.xml", true);
+
+        assertEquals(List.of("inst_a", "inst_b"), collectionNames(task));
+    }
+
     @Test
     void submodelThatCannotBeInstantiatedSkipsTheFlatNetwork() throws Exception {
         SBMLReaderTask task = readWithLocation("/models/comp/unit/cycle_a.xml", true);

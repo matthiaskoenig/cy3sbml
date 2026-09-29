@@ -12,11 +12,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.chebi.ChebiAccess;
-import org.cy3sbml.comp.SBaseRefResolver;
+import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.miriam.Namespace;
 import org.cy3sbml.miriam.RegistryUtil;
@@ -65,8 +64,8 @@ public class SBaseHTMLFactory {
     private final OlsClient olsClient;
     private final UniprotAccess uniprotAccess;
     private final ChebiAccess chebiAccess;
-    // the resolver of the comp references of the document of an element, may return null
-    private final Function<SBase, SBaseRefResolver> resolvers;
+    // the comp references of the open documents, null if not known
+    private final CompTargets compTargets;
 
     /**
      * Creates the factory.
@@ -83,13 +82,13 @@ public class SBaseHTMLFactory {
             OlsClient olsClient,
             UniprotAccess uniprotAccess,
             ChebiAccess chebiAccess) {
-        this(baseDir, miriamRegistry, olsClient, uniprotAccess, chebiAccess, sbase -> null);
+        this(baseDir, miriamRegistry, olsClient, uniprotAccess, chebiAccess, null);
     }
 
     /**
      * Creates the factory, which shows the targets of the comp references.
      *
-     * @param resolvers the resolver of the comp references of the document of an element
+     * @param compTargets the comp references of the open documents, may be null
      */
     public SBaseHTMLFactory(
             String baseDir,
@@ -97,13 +96,13 @@ public class SBaseHTMLFactory {
             OlsClient olsClient,
             UniprotAccess uniprotAccess,
             ChebiAccess chebiAccess,
-            Function<SBase, SBaseRefResolver> resolvers) {
+            CompTargets compTargets) {
         this.baseDir = baseDir;
         this.miriamRegistry = miriamRegistry;
         this.olsClient = olsClient;
         this.uniprotAccess = uniprotAccess;
         this.chebiAccess = chebiAccess;
-        this.resolvers = resolvers;
+        this.compTargets = compTargets;
     }
 
     /**
@@ -270,7 +269,7 @@ public class SBaseHTMLFactory {
         // core //
         if (item instanceof SBMLDocument sbmlDocument) {
             map = SBMLUtil.createSBMLDocumentMap(sbmlDocument);
-            map.putAll(SBMLUtil.createCompDocumentMap(sbmlDocument, resolvers.apply(sbmlDocument)));
+            map.putAll(SBMLUtil.createCompDocumentMap(sbmlDocument, compTargets));
         } else if (item instanceof Model model) {
             map = SBMLUtil.createModelMap(model);
         } else if (item instanceof Compartment compartment) {
@@ -321,10 +320,10 @@ public class SBaseHTMLFactory {
 
         // comp //
         else if (item instanceof Submodel submodel) {
-            map = SBMLUtil.createSubmodelMap(submodel, resolvers.apply(submodel));
+            map = SBMLUtil.createSubmodelMap(submodel, compTargets);
         } else if (item instanceof SBaseRef ref) {
             // port, deletion, replaced element, replaced by
-            map = SBMLUtil.createSBaseRefMap(ref, resolvers.apply(ref));
+            map = SBMLUtil.createSBaseRefMap(ref, compTargets);
         }
 
         // group //

@@ -1,12 +1,18 @@
 package org.cy3sbml;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
@@ -17,6 +23,7 @@ import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
@@ -31,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * CyActivator creates the single instance and registers it as an OSGi service,
  * so that other apps can look it up.
  */
-public class SBMLManager implements NetworkAboutToBeDestroyedListener {
+public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTargets {
     private static final Logger logger = LoggerFactory.getLogger(SBMLManager.class);
     private final CyApplicationManager cyApplicationManager;
 
@@ -153,7 +160,40 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
                 return resolver;
             }
         }
-        return new SBaseRefResolver(new CompModels(document));
+        // a document of a session: a resolver that uses the open documents, created once
+        SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document, openDocuments()));
+        sBaseRefResolvers.add(resolver);
+        return resolver;
+    }
+
+    /** The open documents with a location, by location. */
+    private Map<URI, SBMLDocument> openDocuments() {
+        Map<URI, SBMLDocument> documents = new HashMap<>();
+        for (SBMLDocument document : network2sbml.getDocumentMap().values()) {
+            if (document.isSetLocationURI()) {
+                try {
+                    documents.putIfAbsent(new URI(document.getLocationURI()), document);
+                } catch (URISyntaxException e) {
+                    logger.debug("Location is no URI: {}", document.getLocationURI());
+                }
+            }
+        }
+        return documents;
+    }
+
+    @Override
+    public SBaseRefResolver resolver(SBase sbase) {
+        return getSBaseRefResolver(sbase);
+    }
+
+    /** Stores the model the network collection of the network was created from. */
+    public void addModelForNetwork(CyNetwork network, Model model) {
+        network2sbml.putModel(NetworkUtil.getRootNetworkSUID(network), model);
+    }
+
+    @Override
+    public Optional<Long> rootNetwork(Model model) {
+        return network2sbml.findRootNetwork(model);
     }
 
     /** Removes the resolvers whose document has no network anymore. */

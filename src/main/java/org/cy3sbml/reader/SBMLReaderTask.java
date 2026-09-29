@@ -88,6 +88,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final List<CyNetwork> cyNetworks;
     // the document of the model of each network collection, by the SUID of the root network
     private final Map<Long, SBMLDocument> documents = new HashMap<>();
+    // the model of each network collection, by the SUID of the root network
+    private final Map<Long, Model> models = new HashMap<>();
     private TaskMonitor taskMonitor;
 
     private Boolean error = false;
@@ -180,6 +182,10 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
             sbmlManager.addSBMLForNetwork(documents.getOrDefault(rootNetwork.getSUID(), document), network, mapping);
             sbmlManager.addSBaseRefResolver(sBaseRefResolver);
+            Model model = models.get(rootNetwork.getSUID());
+            if (model != null) {
+                sbmlManager.addModelForNetwork(network, model);
+            }
             sbmlManager.updateCurrent(network);
         } else {
             logger.warn("No mapping found for SBML network.");
@@ -271,6 +277,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 // a cancelled import returns no networks, not the ones read so far
                 cyNetworks.clear();
                 documents.clear();
+                models.clear();
                 return;
             }
             if (taskMonitor != null) {
@@ -281,6 +288,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             // never return a partial set of networks
             cyNetworks.clear();
             documents.clear();
+            models.clear();
             // Cytoscape shows the message of the thrown error to the user
             String message = String.format(
                     "cy3sbml could not read the SBML file '%s': %s. Check the file with the SBML validator at "
@@ -328,7 +336,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         for (ModelDefinition modelDefinition : compDocument.getListOfModelDefinitions()) {
             sources.add(new ModelSource(modelDefinition, document, ModelSource.Kind.MODEL_DEFINITION));
         }
+        // the models read so far, an external model definition can refer back to them
         Set<Model> externalModels = Collections.newSetFromMap(new IdentityHashMap<>());
+        sources.forEach(source -> externalModels.add(source.model()));
         for (CompModels.External external : sBaseRefResolver.models().externalModels()) {
             if (external.resolution() instanceof ModelResolution.Resolved resolved) {
                 if (externalModels.add(resolved.model())) {
@@ -354,7 +364,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             return Optional.empty();
         }
         Optional<String> unresolved =
-                unresolvedSubmodel(document.getModel(), Collections.newSetFromMap(new IdentityHashMap<>()));
+                unresolvedSubmodel(document.getModel(), List.of(), Collections.newSetFromMap(new IdentityHashMap<>()));
         if (unresolved.isPresent()) {
             logger.warn("The flat model is not created, a submodel cannot be instantiated: {}", unresolved.get());
             return Optional.empty();
@@ -374,21 +384,37 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 && plugin.getSubmodelCount() > 0;
     }
 
-    /** The reason a submodel of the model or of its submodels cannot be instantiated. */
-    private Optional<String> unresolvedSubmodel(Model model, Set<Model> visited) {
-        if (!visited.add(model) || !(model.getExtension(CompConstants.shortLabel) instanceof CompModelPlugin plugin)) {
+    /**
+     * The reason a submodel of the model or of its submodels cannot be instantiated: its
+     * model cannot be resolved, or the submodels instantiate each other.
+     *
+     * @param path the models on the way to the model, to detect a cycle
+     * @param checked the models whose submodels can all be instantiated
+     */
+    // models by identity, JSBML's equals compares the content
+    @SuppressWarnings("ReferenceEquality")
+    private Optional<String> unresolvedSubmodel(Model model, List<Model> path, Set<Model> checked) {
+        if (checked.contains(model)
+                || !(model.getExtension(CompConstants.shortLabel) instanceof CompModelPlugin plugin)) {
             return Optional.empty();
         }
+        if (path.stream().anyMatch(m -> m == model)) {
+            return Optional.of(String.format("The submodels of the model '%s' instantiate it again.", model.getId()));
+        }
+        List<Model> next = new ArrayList<>(path);
+        next.add(model);
         for (Submodel submodel : plugin.getListOfSubmodels()) {
             ModelResolution resolution = sBaseRefResolver.models().resolve(submodel);
             if (resolution instanceof ModelResolution.Failed failed) {
                 return Optional.of(failed.reason());
             }
-            Optional<String> nested = unresolvedSubmodel(((ModelResolution.Resolved) resolution).model(), visited);
+            Optional<String> nested =
+                    unresolvedSubmodel(((ModelResolution.Resolved) resolution).model(), next, checked);
             if (nested.isPresent()) {
                 return nested;
             }
         }
+        checked.add(model);
         return Optional.empty();
     }
 
@@ -416,6 +442,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
         String prefix = source.kind() == ModelSource.Kind.FLAT ? SBML.PREFIX_NETWORK_FLAT : null;
         cyNetworks.addAll(subnetworkBuilder.build(rootNetwork, network, context.groups(), prefix));
         documents.put(rootNetwork.getSUID(), source.document());
+        models.put(rootNetwork.getSUID(), source.model());
     }
 
     /** The reader has no custom UI. */
