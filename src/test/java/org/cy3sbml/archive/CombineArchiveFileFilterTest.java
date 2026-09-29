@@ -62,7 +62,7 @@ class CombineArchiveFileFilterTest {
     void acceptsArchivesWithACombineExtension() throws Exception {
         assertTrue(filter.accepts(copy("model.omex"), DataCategory.NETWORK));
         assertTrue(filter.accepts(copy("model.sedx"), DataCategory.NETWORK));
-        assertTrue(filter.accepts(copy("MODEL.OMEX"), DataCategory.NETWORK));
+        assertTrue(filter.accepts(copy("UPPER_CASE.OMEX"), DataCategory.NETWORK));
     }
 
     @Test
