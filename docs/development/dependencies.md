@@ -67,10 +67,12 @@ The pinned commit `565932ac` is on the branch
   uncertainty with an id), the type `coeffientOfVariation` that libSBML writes
   ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)) is read as
   `coefficientOfVariation`, copies of uncertainties keep their parameters, and the offline
-  validation accepts the csymbols of the distribution functions of distrib
+  validation accepts the csymbols of the distribution functions of distrib, proposed to
+  JSBML in [sbmlteam/jsbml#326](https://github.com/sbmlteam/jsbml/pull/326)
 - the branch [`comp-distrib-flattening`](https://github.com/matthiaskoenig/jsbml/tree/comp-distrib-flattening)
   (on top of `comp-fixes` and `distrib-fixes`) renames the references of the distrib
-  package (`var`, `varLower`, `varUpper`, `units`) in the flattening of hierarchical models
+  package (`var`, `varLower`, `varUpper`, `units`) in the flattening of hierarchical models,
+  proposed to JSBML in [sbmlteam/jsbml#327](https://github.com/sbmlteam/jsbml/pull/327)
 
 When all are merged into JSBML, update to JSBML `master` again.
 
