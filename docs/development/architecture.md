@@ -54,7 +54,8 @@ flowchart TB
   every SBML object to the SUIDs of its nodes (`mapping.Network2SBMLMapper`,
   `One2ManyMapping`). All access to the SBML document of a network goes through it. It
   is registered as the OSGi service `org.cy3sbml.SBMLManager`, so other apps can use it.
-- `CofactorManager` splits and merges [cofactor nodes](../guide/cofactors.md).
+- `CofactorManager` splits and merges cofactor nodes. Its action is not registered until
+  it is complete ([#405](https://github.com/matthiaskoenig/cy3sbml/issues/405)).
 - `SessionData` writes the mappings of `SBMLManager` and `CofactorManager` and the SBML
   files into Cytoscape session files, and restores them when a session is loaded.
 - `StyleManager` loads the visual styles from `src/main/resources/styles`.
@@ -144,7 +145,7 @@ thread.
 
 | Package | Content |
 |---|---|
-| `actions` | toolbar actions: panel, import, examples, BioModels, help, cofactors, layouts |
+| `actions` | toolbar actions: panel, import, examples, BioModels, help, layouts |
 | `archive` | COMBINE archive reader, not functional and not registered yet (#116) |
 | `biomodel` | BioModels search and import dialog |
 | `cofactors` | cofactor splitting and merging |

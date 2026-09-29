@@ -21,8 +21,7 @@ information and the annotations of the selected object in a panel next to the ne
 - Visual styles for SBML networks, a light one and a dark one. See [Styles](guide/styles.md).
 - Example models, and search and import of models from
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
-- Saving and loading of node positions, and splitting of cofactor nodes.
-  See [Layouts](guide/layouts.md) and [Cofactor nodes](guide/cofactors.md).
+- Saving and loading of node positions. See [Layouts](guide/layouts.md).
 
 Not supported yet: the SBML `layout` package, COMBINE archives (OMEX), and a built-in
 SBML validator. See [Validation](guide/validation.md) and

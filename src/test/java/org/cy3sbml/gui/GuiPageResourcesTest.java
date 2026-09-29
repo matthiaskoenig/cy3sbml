@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URI;
@@ -9,8 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -68,5 +71,14 @@ class GuiPageResourcesTest {
                 && !reference.startsWith("#")
                 && !reference.contains("%s")
                 && !reference.contains("{");
+    }
+
+    /** The cofactor splitting is hidden until it is complete (#405). */
+    @Test
+    void helpDoesNotShowTheCofactorSplitting() throws Exception {
+        URL pageUrl = GuiPageResourcesTest.class.getResource("/gui/help.html");
+        String html = Files.readString(Path.of(pageUrl.toURI())).replaceAll("(?s)<!--.*?-->", "");
+
+        assertFalse(html.toLowerCase(Locale.ROOT).contains("cofactor"), html);
     }
 }
