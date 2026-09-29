@@ -1,8 +1,10 @@
 package org.cy3sbml.reader;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
@@ -64,6 +66,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final SBMLManager sbmlManager;
 
     private final String fileName;
+    // location of the file, to resolve the relative sources of external model definitions
+    private final URI location;
     private final List<PackageReader> readers;
     private final SubnetworkBuilder subnetworkBuilder;
 
@@ -78,6 +82,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     public SBMLReaderTask(
             InputStream stream,
             String fileName,
+            URI location,
             CyNetworkFactory networkFactory,
             CyGroupFactory cyGroupFactory,
             CyNetworkViewFactory viewFactory,
@@ -88,6 +93,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
 
         this.stream = stream;
         this.fileName = fileName;
+        this.location = location;
         this.networkFactory = networkFactory;
         this.groupFactory = cyGroupFactory;
         this.viewFactory = viewFactory;
@@ -114,7 +120,25 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     /** Creates the reader without view, style, layout and SBMLManager support, e.g. for tests. */
     public SBMLReaderTask(
             InputStream stream, String fileName, CyNetworkFactory networkFactory, CyGroupFactory groupFactory) {
-        this(stream, fileName, networkFactory, groupFactory, null, null, null, null, null);
+        this(stream, fileName, null, networkFactory, groupFactory);
+    }
+
+    /**
+     * Creates the reader for the file at the location without view, style, layout and
+     * SBMLManager support, e.g. for tests.
+     */
+    public SBMLReaderTask(
+            InputStream stream,
+            String fileName,
+            URI location,
+            CyNetworkFactory networkFactory,
+            CyGroupFactory groupFactory) {
+        this(stream, fileName, location, networkFactory, groupFactory, null, null, null, null, null);
+    }
+
+    /** The location of the file, if known. */
+    public Optional<URI> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     /**
@@ -216,6 +240,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             logger.debug("JSBML version: {}", JSBML.getJSBMLVersionString());
             // the XML parser decodes the stream with the encoding of the XML declaration
             document = SBMLReader.read(stream);
+            if (location != null) {
+                document.setLocationURI(location.toString());
+            }
 
             // Models are defined either as the core model or as comp ModelDefinitions.
             // For every model a separate network is created.

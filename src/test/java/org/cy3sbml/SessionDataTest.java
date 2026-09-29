@@ -148,6 +148,7 @@ class SessionDataTest {
             SBMLReaderTask readerTask = new SBMLReaderTask(
                     instream,
                     "fbc_01.xml",
+                    null,
                     networkFactory,
                     groupFactory,
                     viewFactory,
