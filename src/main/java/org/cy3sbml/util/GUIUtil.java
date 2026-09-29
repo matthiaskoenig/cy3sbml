@@ -5,6 +5,7 @@ import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBMLManager;
@@ -20,8 +21,9 @@ public class GUIUtil {
     private static final Logger logger = LoggerFactory.getLogger(GUIUtil.class);
 
     /**
-     * Loads an SBML example file from the given resource.
-     * Needs access to the LoadNetworkFileTaskFactory and the SynchronousTaskManager.
+     * Loads an SBML example file from the given resource: copies it into a temporary file,
+     * named like the resource, and loads the file in a Cytoscape task. Does not wait for the
+     * load, so it can be called on the Swing event dispatch thread.
      */
     public static void loadExampleFromResource(ServiceAdapter adapter, String resource) {
         try (InputStream instream = GUIUtil.class.getResourceAsStream(resource)) {
@@ -29,15 +31,16 @@ public class GUIUtil {
                 logger.warn("Could not find example resource: {}", resource);
                 return;
             }
-            File tempFile = File.createTempFile("tmp-example", ".xml");
-            tempFile.deleteOnExit();
-            try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                instream.transferTo(out);
-            }
+            String name = resource.substring(resource.lastIndexOf('/') + 1);
+            Path directory = Files.createTempDirectory("cy3sbml-example");
+            // deleted on exit in reverse order: the file before its directory
+            directory.toFile().deleteOnExit();
+            Path file = directory.resolve(name);
+            file.toFile().deleteOnExit();
+            Files.copy(instream, file);
 
-            // read the file
-            TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(tempFile);
-            adapter.synchronousTaskManager.execute(iterator);
+            TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(file.toFile());
+            adapter.dialogTaskManager.execute(iterator);
         } catch (IOException e) {
             logger.warn("Could not read example: {}", resource, e);
         } catch (RuntimeException e) {

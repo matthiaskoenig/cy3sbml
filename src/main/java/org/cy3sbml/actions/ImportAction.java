@@ -51,7 +51,7 @@ public final class ImportAction extends AbstractCyAction {
             for (int i = 0; i < files.length; i++) {
                 logger.info("Load: {}", files[i].getName());
                 TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(files[i]);
-                adapter.synchronousTaskManager.execute(iterator);
+                adapter.dialogTaskManager.execute(iterator);
             }
         }
     }

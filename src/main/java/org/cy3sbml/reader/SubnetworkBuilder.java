@@ -1,5 +1,7 @@
 package org.cy3sbml.reader;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -115,9 +117,30 @@ final class SubnetworkBuilder {
         // name of root network
         String name = network.getRow(network).get(SBML.ATTR_ID, String.class);
         if (name == null) {
-            String[] tokens = fileName.split("/\\\\", -1);
-            name = tokens[tokens.length - 1];
+            name = fileName(fileName);
         }
         return name;
+    }
+
+    /**
+     * Returns the file name of the given input name: Cytoscape passes the file name for a
+     * file and the URL for a URL; a path or URL is reduced to its last segment.
+     */
+    static String fileName(String inputName) {
+        if (inputName == null) {
+            return "";
+        }
+        String path = inputName;
+        try {
+            URI uri = new URI(inputName);
+            // a scheme of one letter is a Windows drive
+            if (uri.getScheme() != null && uri.getScheme().length() > 1 && uri.getPath() != null) {
+                path = uri.getPath();
+            }
+        } catch (URISyntaxException e) {
+            // not a URI, e.g. a Windows path
+        }
+        String name = path.substring(Math.max(path.lastIndexOf('/'), path.lastIndexOf('\\')) + 1);
+        return name.isEmpty() ? inputName : name;
     }
 }

@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
+import org.cy3sbml.biomodel.BiomodelLoader;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.biomodel.BiomodelsQuery;
+import org.cy3sbml.biomodel.SearchBioModel;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.gui.SBaseHTMLFactory;
@@ -46,7 +48,6 @@ import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingManager;
-import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.osgi.framework.Bundle;
@@ -206,8 +207,6 @@ public class CyActivator extends AbstractCyActivator {
 
         DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
         @SuppressWarnings("rawtypes")
-        SynchronousTaskManager synchronousTaskManager = getService(bc, SynchronousTaskManager.class);
-        @SuppressWarnings("rawtypes")
         TaskManager taskManager = getService(bc, TaskManager.class);
 
         CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
@@ -239,7 +238,6 @@ public class CyActivator extends AbstractCyActivator {
                 visualMappingManager,
                 cyLayoutAlgorithmManager,
                 dialogTaskManager,
-                synchronousTaskManager,
                 taskManager,
                 cyNetworkFactory,
                 cyGroupFactory,
@@ -400,8 +398,16 @@ public class CyActivator extends AbstractCyActivator {
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 
             // BioModels search and import dialog
-            BiomodelsDialog biomodelsDialog =
-                    new BiomodelsDialog(adapter, new BiomodelsQuery(httpJson, BiomodelsQuery.BIOMODELS_URL));
+            BiomodelsQuery biomodelsQuery = new BiomodelsQuery(httpJson, BiomodelsQuery.BIOMODELS_URL);
+            BiomodelLoader biomodelLoader = new BiomodelLoader(
+                    biomodelsQuery,
+                    adapter.cy3sbmlDirectory.toPath().resolve("biomodels"),
+                    adapter.loadNetworkFileTaskFactory);
+            BiomodelsDialog biomodelsDialog = new BiomodelsDialog(
+                    adapter.cySwingApplication.getJFrame(),
+                    new SearchBioModel(biomodelsQuery),
+                    adapter.openBrowser::openURL,
+                    ids -> adapter.dialogTaskManager.execute(biomodelLoader.createTaskIterator(ids)));
 
             // panels
             webViewPanel = new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);

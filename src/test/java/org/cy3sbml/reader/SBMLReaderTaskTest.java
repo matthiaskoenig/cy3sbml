@@ -16,6 +16,8 @@ import static org.mockito.Mockito.verify;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLReaderError;
@@ -25,6 +27,8 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
 
@@ -197,5 +201,58 @@ class SBMLReaderTaskTest {
             assertTrue(task.getError());
             assertEquals(0, task.getNetworks().length);
         }
+    }
+
+    /** Reads the given model without id, from an input with the given name, and returns the network names. */
+    private static List<String> networkNamesOfModelWithoutId(String inputName) throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+                  <model>
+                    <listOfCompartments>
+                      <compartment id="c" constant="true"/>
+                    </listOfCompartments>
+                  </model>
+                </sbml>
+                """;
+        SBMLReaderTask task = new SBMLReaderTask(
+                new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.UTF_8)),
+                inputName,
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+        task.run(mock(TaskMonitor.class));
+
+        CyNetwork network = task.getNetworks()[0];
+        CyRootNetwork root = ((CySubNetwork) network).getRootNetwork();
+        List<String> names = new ArrayList<>();
+        names.add(root.getRow(root).get(CyNetwork.NAME, String.class));
+        for (CyNetwork subnetwork : task.getNetworks()) {
+            names.add(subnetwork.getRow(subnetwork).get(CyNetwork.NAME, String.class));
+        }
+        return names;
+    }
+
+    @Test
+    void modelWithoutIdIsNamedByTheFileName() throws Exception {
+        List<String> expected = List.of("model.xml", "All__model.xml", "Kinetic__model.xml", "model.xml");
+
+        // Import > Network from File passes the file name
+        assertEquals(expected, networkNamesOfModelWithoutId("model.xml"));
+        // Import > Network from URL passes the URL
+        assertEquals(expected, networkNamesOfModelWithoutId("https://example.org/models/model.xml"));
+        assertEquals(expected, networkNamesOfModelWithoutId("file:/home/user/models/model.xml"));
+        assertEquals(expected, networkNamesOfModelWithoutId("C:\\Users\\user\\model.xml"));
+    }
+
+    @Test
+    void fileNameOfInputName() {
+        assertEquals("model.xml", SubnetworkBuilder.fileName("model.xml"));
+        assertEquals("model.xml", SubnetworkBuilder.fileName("/home/user/models/model.xml"));
+        assertEquals("model.xml", SubnetworkBuilder.fileName("file:/home/user/my%20models/model.xml"));
+        assertEquals("my model.xml", SubnetworkBuilder.fileName("file:/home/user/my%20model.xml"));
+        assertEquals("BIOMD1", SubnetworkBuilder.fileName("https://example.org/model/download/BIOMD1?filename=x.xml"));
+        assertEquals("model.xml", SubnetworkBuilder.fileName("C:\\Users\\user\\model.xml"));
+        assertEquals("https://example.org/", SubnetworkBuilder.fileName("https://example.org/"));
+        assertEquals("", SubnetworkBuilder.fileName(null));
     }
 }

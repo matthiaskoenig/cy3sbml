@@ -37,7 +37,6 @@ class BrowserHyperlinkListenerTest {
                 null,
                 null,
                 null,
-                null,
                 null);
         List<Runnable> dispatched = new ArrayList<>();
         BrowserHyperlinkListener listener =

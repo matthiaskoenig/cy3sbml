@@ -63,19 +63,22 @@ public class BioModelInterfaceTest {
     }
 
     @Test
-    public void searchByPerson() {
-        BiomodelsQueryResult result = query.performSearchQuery(VALID_BIOMODEL_PERSON);
+    public void searchByPerson() throws IOException {
+        BiomodelsSearchResult result = query.search(VALID_BIOMODEL_PERSON);
 
-        assertTrue(result.success());
-        assertFalse(result.getBiomodelIdsFromSearch().isEmpty(), "More than 0 models have to exist.");
+        assertFalse(result.models().isEmpty(), "More than 0 models have to exist.");
     }
 
     @Test
-    public void searchByName() {
-        BiomodelsQueryResult result = query.performSearchQuery(VALID_BIOMODEL_NAME);
+    public void searchByName() throws IOException {
+        BiomodelsSearchResult result = query.search(VALID_BIOMODEL_NAME);
 
-        assertTrue(result.success());
-        List<String> modelIds = result.getBiomodelIdsFromSearch();
-        assertFalse(modelIds.isEmpty(), "More than 0 models have to exist.");
+        // more models than fit on one page of search results
+        assertTrue(result.matches() > BiomodelsQuery.PAGE_SIZE, "matches: " + result.matches());
+        assertTrue(result.isComplete());
+        List<String> modelIds =
+                result.models().stream().map(BiomodelSummary::id).toList();
+        assertEquals(result.matches(), modelIds.size());
+        assertTrue(modelIds.contains(VALID_BIOMODEL_ID), modelIds.toString());
     }
 }
