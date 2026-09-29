@@ -59,6 +59,39 @@ h1, h2, h3, h4, td, th {
     color: grey;
 }
 
+/* inline SVG icons, see the icon fragments in linktemplate.html */
+.icon {
+    display: inline-block;
+    /* scale with the surrounding text, not the 12px of the rule for all elements */
+    font-size: inherit;
+    width: 1.4em;
+    height: 1.4em;
+    vertical-align: -0.3em;
+    fill: currentColor;
+}
+h2 > .icon {
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.05em;
+}
+.icon-true {
+    color: #198754;
+}
+.icon-false,
+.icon-warning {
+    color: #dc3545;
+}
+.icon-spin {
+    width: 3em;
+    height: 3em;
+    vertical-align: middle;
+    animation: icon-spin 1s linear infinite;
+}
+@keyframes icon-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 .icon-invisible {
     visibility: hidden;
 }
@@ -276,4 +309,20 @@ h3.valid, h3.invalid, h3.valid-warning {
     display: inline-block;
     margin-right: 4px;
     vertical-align: middle;
+}
+/* JavaFX WebView draws its default scrollbars over the page, which hides the
+   right edge of the text; styled scrollbars take their width from the layout */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }

@@ -34,7 +34,7 @@ public class PanelUpdater implements Runnable {
             + "or <code>mole</code> which are not part of the model.</p>";
 
     private static final String TEXT_LOAD_WEBSERVICE = "<h2>Web Services</h2>"
-            + "<p><i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i>\n"
+            + "<p>" + GUIConstants.ICON_SPINNER + "\n"
             + "Loading information from WebServices ...</p>";
 
     static final String TEXT_NO_SBML =

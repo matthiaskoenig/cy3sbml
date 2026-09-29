@@ -13,6 +13,7 @@ import org.cy3sbml.comp.ModelResolution;
 import org.cy3sbml.comp.SBaseRefResolution;
 import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.gui.BrowserHyperlinkListener;
+import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.SBasePlugin;
@@ -164,10 +165,10 @@ public class SBMLUtil {
     public static final String ATTR_INITIAL_AMOUNT = "amount";
     public static final String ATTR_CHARGE = "charge";
 
-    private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID
-            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>";
+    private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID + "%s\">"
+            + GUIConstants.ICON_LINK.replace("{title}", "Link to node.") + "</a>";
     private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID
-            + "%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\" title=\"Link to node.\"></span></a>";
+            + "%s\">" + GUIConstants.ICON_LINK.replace("{title}", "Link to node.") + "</a>";
 
     /** HTML of an attribute that is not set: an empty cell. */
     private static final String UNSET = "";
@@ -761,8 +762,8 @@ public class SBMLUtil {
 
     // <root network SUID>/<metaid>
     private static final String LINK_TARGET_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_TARGET
-            + "%s/%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\""
-            + " title=\"Link to the node in the network of its model.\"></span></a>";
+            + "%s/%s\">" + GUIConstants.ICON_LINK.replace("{title}", "Link to the node in the network of its model.")
+            + "</a>";
 
     /**
      * Submodel map: the referenced model, with a link to its network, and the conversion factors.

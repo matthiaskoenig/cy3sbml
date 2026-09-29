@@ -186,4 +186,75 @@ class SBaseHTMLFactoryTest {
         assertEquals("x&lt;/i&gt; y", SBaseHTMLFactory.ontologyTextHTML("x</i> y"));
         assertEquals("&lt;b&gt;&lt;i&gt;x&lt;/b&gt;&lt;/i&gt;", SBaseHTMLFactory.ontologyTextHTML("<b><i>x</b></i>"));
     }
+
+    /**
+     * The creators of a model history in vCard4 (written e.g. by sbmlutils) are shown (#397).
+     */
+    @Test
+    void historyShowsVCard4Creators() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+                  <model metaid="meta_m" id="m">
+                    <annotation>
+                      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          xmlns:vCard4="http://www.w3.org/2006/vcard/ns#">
+                        <rdf:Description rdf:about="#meta_m">
+                          <dcterms:creator>
+                            <rdf:Bag>
+                              <rdf:li rdf:parseType="Resource">
+                                <vCard4:hasName rdf:parseType="Resource">
+                                  <vCard4:family-name>König</vCard4:family-name>
+                                  <vCard4:given-name>Matthias</vCard4:given-name>
+                                </vCard4:hasName>
+                                <vCard4:hasEmail>koenigmx@hu-berlin.de</vCard4:hasEmail>
+                                <vCard4:organization-name>Humboldt &amp; University</vCard4:organization-name>
+                              </rdf:li>
+                            </rdf:Bag>
+                          </dcterms:creator>
+                          <dcterms:created rdf:parseType="Resource">
+                            <dcterms:W3CDTF>2024-05-06T07:08:09Z</dcterms:W3CDTF>
+                          </dcterms:created>
+                          <dcterms:modified rdf:parseType="Resource">
+                            <dcterms:W3CDTF>2025-01-02T03:04:05Z</dcterms:W3CDTF>
+                          </dcterms:modified>
+                        </rdf:Description>
+                      </rdf:RDF>
+                    </annotation>
+                  </model>
+                </sbml>
+                """;
+        SBMLDocument document = SBMLReader.read(sbml);
+
+        String html = htmlFactory.createInfo(document);
+
+        assertTrue(
+                html.contains("Matthias König (<a href=\"mailto:koenigmx@hu-berlin.de\">koenigmx@hu-berlin.de</a>),"
+                        + " Humboldt &amp; University<br />"),
+                html);
+        assertTrue(html.contains("created: 2024-05-06T07:08:09Z"), html);
+        assertTrue(html.contains("modified: 2025-01-02T03:04:05Z"), html);
+    }
+
+    /**
+     * Booleans are shown as a green check and a red cross, inline SVG icons which need no
+     * icon font (#440).
+     */
+    @Test
+    void booleansAreInlineSvgIcons() {
+        String trueHtml = SBaseHTMLFactory.booleanHTML(true);
+        String falseHtml = SBaseHTMLFactory.booleanHTML(false);
+
+        assertTrue(trueHtml.startsWith("<svg class=\"icon icon-true\""), trueHtml);
+        assertTrue(trueHtml.contains("<title>true</title>"), trueHtml);
+        assertTrue(falseHtml.startsWith("<svg class=\"icon icon-false\""), falseHtml);
+        assertTrue(falseHtml.contains("<title>false</title>"), falseHtml);
+    }
 }

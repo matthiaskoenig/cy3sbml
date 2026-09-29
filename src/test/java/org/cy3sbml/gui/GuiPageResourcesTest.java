@@ -21,6 +21,8 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 class GuiPageResourcesTest {
     private static final Pattern REFERENCE = Pattern.compile("(?:src|href)=\"([^\"]+)\"");
+    private static final Pattern REMOTE_RESOURCE =
+            Pattern.compile("<(?:link|script)\\b[^>]*(?:src|href)=\"(?:https?:)?//[^\"]*\"[^>]*>");
 
     @ParameterizedTest
     @ValueSource(strings = {"help.html", "examples.html", "icons.html", "linktemplate.html"})
@@ -40,6 +42,24 @@ class GuiPageResourcesTest {
             }
         }
         assertEquals(List.of(), missing);
+    }
+
+    /**
+     * The pages of the info panel render without network access: they load no stylesheets or
+     * scripts from the web, e.g. no icon fonts from a CDN (#440).
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"help.html", "examples.html", "linktemplate.html"})
+    void noRemoteStylesheetsOrScripts(String page) throws Exception {
+        URL pageUrl = GuiPageResourcesTest.class.getResource("/gui/" + page);
+        assertNotNull(pageUrl, page);
+        String html = Files.readString(Path.of(pageUrl.toURI())).replaceAll("(?s)<!--.*?-->", "");
+        List<String> remote = new ArrayList<>();
+        Matcher matcher = REMOTE_RESOURCE.matcher(html);
+        while (matcher.find()) {
+            remote.add(matcher.group());
+        }
+        assertEquals(List.of(), remote);
     }
 
     private static boolean isLocalFile(String reference) {

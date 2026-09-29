@@ -20,23 +20,28 @@ TARGET_DIR: Path = (
 )
 # BioModels returns at most 100 results per search page
 PAGE_SIZE: int = 100
-TIMEOUT: float = 60.0
+PAGE_ATTEMPTS: int = 5
+TIMEOUT: float = 180.0
 
 
-def list_curated_models() -> list[str]:
-    """List the ids of all manually curated BioModels.
+def search_page(offset: int) -> tuple[int, list[str]]:
+    """Search one page of the manually curated BioModels.
+
+    BioModels sometimes answers a page with no results and zero matches, so an
+    empty page is retried before it is accepted.
+
+    Args:
+        offset: index of the first result of the page.
 
     Returns:
-        The BioModels ids, e.g. "BIOMD0000000001", in ascending order.
+        The total number of matches and the BioModels ids of the page.
     """
-    model_ids: list[str] = []
-    matches: int | None = None
-    while matches is None or len(model_ids) < matches:
+    for _ in range(PAGE_ATTEMPTS):
         response = requests.get(
             f"{BIOMODELS_URL}/search",
             params={
                 "query": CURATED_QUERY,
-                "offset": len(model_ids),
+                "offset": offset,
                 "numResults": PAGE_SIZE,
                 "sort": "id-asc",
                 "format": "json",
@@ -45,11 +50,29 @@ def list_curated_models() -> list[str]:
         )
         response.raise_for_status()
         result = response.json()
-        matches = int(result["matches"])
-        page = [model["id"] for model in result["models"]]
-        if not page:
-            break
+        page: list[str] = [str(model["id"]) for model in result["models"]]
+        if page:
+            return int(result["matches"]), page
+    raise RuntimeError(
+        f"BioModels search returned no results at offset {offset} "
+        f"after {PAGE_ATTEMPTS} attempts"
+    )
+
+
+def list_curated_models() -> list[str]:
+    """List the ids of all manually curated BioModels.
+
+    Returns:
+        The BioModels ids, e.g. "BIOMD0000000001", in ascending order.
+    """
+    matches, model_ids = search_page(offset=0)
+    while len(model_ids) < matches:
+        _, page = search_page(offset=len(model_ids))
         model_ids.extend(page)
+    if len(set(model_ids)) != matches:
+        raise RuntimeError(
+            f"BioModels search listed {len(set(model_ids))} models, expected {matches}"
+        )
     return model_ids
 
 
