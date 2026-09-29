@@ -105,12 +105,12 @@ public class RegistryUtil {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // Small helpers for identifiers.org resource URIs (http(s)://identifiers.org/... and
     // urn:miriam:... URNs), replacing the org.identifiers.registry:registry-lib dependency
     // (org.identifiers.registry.RegistryUtilities) previously used from AnnotationUtil and
     // SBaseHTMLFactory.
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Whether the given resource URI is an identifiers.org URI or a urn:miriam URN, the forms

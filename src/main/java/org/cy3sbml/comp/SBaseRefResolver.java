@@ -44,7 +44,8 @@ public final class SBaseRefResolver {
     private static final int MAX_DEPTH = 100;
 
     private final CompModels models;
-    private final Map<Model, ModelIndex> indexes = new IdentityHashMap<>();
+    // by identity, JSBML's equals compares the content
+    private final IdentityHashMap<Model, ModelIndex> indexes = new IdentityHashMap<>();
 
     public SBaseRefResolver(CompModels models) {
         this.models = models;

@@ -28,6 +28,8 @@ public class SBMLFileFilter extends BasicCyFileFilter {
      * {@link #accepts(URI, DataCategory)} on the same thread just before, see
      * {@link #takeAcceptedUri(String)}.
      */
+    // per filter: the reader factory takes the URI from the filter it was created with
+    @SuppressWarnings("ThreadLocalUsage")
     private final ThreadLocal<URI> acceptedUri = new ThreadLocal<>();
 
     /**

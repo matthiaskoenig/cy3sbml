@@ -224,14 +224,14 @@ public class TestUtils {
         logMemory(fileName);
     }
 
-    /**
-     * Opens the classpath resource of a model found by {@link #findResources}.
-     */
     /** The location of the classpath resource. */
     private static URI location(String resource) throws URISyntaxException {
         return TestUtils.class.getResource(resource).toURI();
     }
 
+    /**
+     * Opens the classpath resource of a model found by {@link #findResources}.
+     */
     private static InputStream openModel(String resource) {
         InputStream instream = TestUtils.class.getResourceAsStream(resource);
         assertNotNull(instream, "Resource not found: " + resource);

@@ -125,8 +125,8 @@ public class NetworkUtil {
                 continue;
             }
             // the base network has the name of the collection
-            return networks.stream()
-                    .filter(n -> n instanceof CySubNetwork s && s.getRootNetwork() == root)
+            return root.getSubNetworkList().stream()
+                    .<CyNetwork>map(n -> n)
                     .filter(n -> rootName.equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
                     .findFirst()
                     .or(() -> Optional.of(network));
@@ -142,9 +142,9 @@ public class NetworkUtil {
         return name != null && name.startsWith(SBML.PREFIX_SUBNETWORK_KINETIC + "__") ? 1 : 2;
     }
 
-    ////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // Selection
-    ////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Select node by metaId.

@@ -130,7 +130,7 @@ public final class WebViewPanel extends JFXPanel
         return (cytoPanelEast.getState() != CytoPanelState.HIDE);
     }
 
-    /// //////////////// ACTIVATION HANDLING ///////////////////////////////////
+    // //////////////// ACTIVATION HANDLING
 
     public void activate() {
         // If the state of the cytoPanelWest is HIDE, show it
@@ -166,7 +166,7 @@ public final class WebViewPanel extends JFXPanel
         }
     }
 
-    /// //////////////// INFORMATION DISPLAY ///////////////////////////////////
+    // //////////////// INFORMATION DISPLAY
 
     /**
      * Shows the static help page.
@@ -250,7 +250,7 @@ public final class WebViewPanel extends JFXPanel
 
     @Override
 
-    /////////////////// EVENT HANDLING ///////////////////////////////////
+    // EVENT HANDLING
 
     /*
      * Handle node selection events in the table/network.

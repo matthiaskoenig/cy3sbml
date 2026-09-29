@@ -260,7 +260,7 @@ public final class BiomodelsDialog extends JDialog {
         }
     }
 
-    /// ////// BACKGROUND WORK ////////////
+    // ////// BACKGROUND WORK
 
     /**
      * Runs the given web service access off the event dispatch thread while the dialog
@@ -356,7 +356,7 @@ public final class BiomodelsDialog extends JDialog {
         }.execute();
     }
 
-    /// ////// SEARCH MODELS ////////////
+    // ////// SEARCH MODELS
     public void searchBioModels() {
         SearchContent searchContent = getSearchContent();
         logger.info("Search BioModels: {}", searchContent.namesToString(" "));
@@ -380,7 +380,7 @@ public final class BiomodelsDialog extends JDialog {
                 Map.of(SearchContent.CONTENT_NAME, nameField.getText(), SearchContent.CONTENT_MODE, mode));
     }
 
-    /// ////// UPDATE GUI ////////////
+    // ////// UPDATE GUI
 
     /**
      * Shows the given search result, none if null, and looks up the details of parsed ids.
@@ -498,7 +498,7 @@ public final class BiomodelsDialog extends JDialog {
         return found;
     }
 
-    /// ////// SELECT MODELS ////////////
+    // ////// SELECT MODELS
 
     /**
      * Looks up the details of the selected models and scrolls to the model selected last.
@@ -523,7 +523,7 @@ public final class BiomodelsDialog extends JDialog {
         return selected;
     }
 
-    /// ////// LOAD MODELS ////////////
+    // ////// LOAD MODELS
     public void loadSelectedBioModelsAndDisposeDialog() {
         if (!biomodelsList.isSelectionEmpty()) {
             loadBioModelsAndDisposeDialog(getListOfSelectedModelIds());

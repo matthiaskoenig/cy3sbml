@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,8 +43,7 @@ public final class FlatReference {
     public static Stream<Map.Entry<String, JsonNode>> entries(Path json) throws Exception {
         JsonNode root = new ObjectMapper().readTree(json.toFile());
         List<Map.Entry<String, JsonNode>> entries = new ArrayList<>();
-        for (Iterator<Map.Entry<String, JsonNode>> it = root.fields(); it.hasNext(); ) {
-            Map.Entry<String, JsonNode> entry = it.next();
+        for (Map.Entry<String, JsonNode> entry : root.properties()) {
             if (!entry.getKey().startsWith("_")) {
                 entries.add(entry);
             }
@@ -66,13 +64,10 @@ public final class FlatReference {
     /** The reference entry in the form of {@link #summary(Model)}. */
     public static Map<String, Object> expected(JsonNode entry) {
         Map<String, Object> summary = new TreeMap<>();
-        for (Iterator<Map.Entry<String, JsonNode>> it = entry.fields(); it.hasNext(); ) {
-            Map.Entry<String, JsonNode> field = it.next();
+        for (Map.Entry<String, JsonNode> field : entry.properties()) {
             if (REFERENCES.equals(field.getKey())) {
                 Map<String, List<String>> references = new TreeMap<>();
-                field.getValue()
-                        .fields()
-                        .forEachRemaining(ref -> references.put(ref.getKey(), strings(ref.getValue())));
+                field.getValue().properties().forEach(ref -> references.put(ref.getKey(), strings(ref.getValue())));
                 summary.put(REFERENCES, references);
             } else {
                 summary.put(field.getKey(), strings(field.getValue()));

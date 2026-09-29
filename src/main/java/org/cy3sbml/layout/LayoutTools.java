@@ -30,9 +30,9 @@ public class LayoutTools {
         this.adapter = adapter;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // SAVE LAYOUTS
-    ///////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Save layout of current view in file.
@@ -67,10 +67,10 @@ public class LayoutTools {
         XMLInterface.writeXMLFileForLayout(file, boxes);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // LOAD LAYOUTS
 
-    /// ////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     public void loadLayoutOfCurrentViewFromFile(File file) {
         CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
         if (view != null) {

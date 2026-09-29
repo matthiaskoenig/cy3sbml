@@ -118,10 +118,10 @@ public class MappingUtil {
         return sbase.getElementName();
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // METAID FACTORIES
 
-    /// //////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     public static String localParameterId(LocalParameter lp) {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();

@@ -1,8 +1,10 @@
 package org.cy3sbml;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.cy3sbml.comp.CompModels;
 import org.cy3sbml.comp.SBaseRefResolver;
@@ -156,9 +158,11 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
 
     /** Removes the resolvers whose document has no network anymore. */
     private void removeUnusedResolvers() {
-        Collection<SBMLDocument> documents = network2sbml.getDocumentMap().values();
-        sBaseRefResolvers.removeIf(resolver ->
-                documents.stream().noneMatch(d -> d == resolver.models().document()));
+        // by identity, JSBML's equals compares the content
+        Set<SBMLDocument> documents = Collections.newSetFromMap(new IdentityHashMap<>());
+        documents.addAll(network2sbml.getDocumentMap().values());
+        sBaseRefResolvers.removeIf(
+                resolver -> !documents.contains(resolver.models().document()));
     }
 
     /**
@@ -281,7 +285,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         return network2sbml.toString();
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Set all information in SBMLManager from given Network2SBMLMapper.
@@ -300,7 +304,7 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener {
         updateCurrent(currentNetwork);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
 
     /**
      * Remove the mappings if networks are destroyed.

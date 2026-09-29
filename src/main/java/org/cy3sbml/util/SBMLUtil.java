@@ -146,9 +146,9 @@ public class SBMLUtil {
         return name;
     }
 
-    ////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // Attribute maps
-    /// /////////////////////////////////////////////////////////
+    // ------------------------------------------------------------
     // necessary to overwrite the SBML constants as long
     //  as not fixed in BaseReader
     public static final String TEMPLATE_ALGEBRAIC_RULE = "<~>";
@@ -682,7 +682,7 @@ public class SBMLUtil {
         return map;
     }
 
-    /// QUAL ///
+    // QUAL
 
     /**
      * QualitativeSpecies map.
@@ -745,7 +745,7 @@ public class SBMLUtil {
         return map;
     }
 
-    /// FBC ///
+    // FBC
 
     /**
      * GeneProduct map.
@@ -755,7 +755,7 @@ public class SBMLUtil {
         return map;
     }
 
-    /// COMP ///
+    // COMP
 
     private static final String LINK_TARGET_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_TARGET
             + "%s/%s\"><span class=\"fa fa-link\" aria-hidden=\"true\" style=\"color:black\""
@@ -880,7 +880,7 @@ public class SBMLUtil {
                 HtmlUtil.escape(((SBaseRefResolution.Unresolved) resolution).reason()));
     }
 
-    /// GROUP ///
+    // GROUP
 
     /**
      * Group map.

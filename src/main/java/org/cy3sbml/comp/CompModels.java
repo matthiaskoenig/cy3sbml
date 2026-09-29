@@ -55,11 +55,14 @@ public final class CompModels {
     private final Map<URI, String> failures = new HashMap<>();
     // md5 checksums of the sources
     private final Map<URI, String> md5s = new HashMap<>();
+    // the document and the documents read, by identity (JSBML's equals compares the content)
+    private final Set<SBMLDocument> ownDocuments = Collections.newSetFromMap(new IdentityHashMap<>());
     private HttpJson http;
 
     /** Resolver for the model references of the document and the documents it loads. */
     public CompModels(SBMLDocument document) {
         this.document = document;
+        ownDocuments.add(document);
     }
 
     /** The document whose model references are resolved. */
@@ -69,7 +72,7 @@ public final class CompModels {
 
     /** True if the document is the document of this resolver or one it read. */
     public boolean owns(SBMLDocument other) {
-        return other == document || documents.values().stream().anyMatch(d -> d == other);
+        return ownDocuments.contains(other);
     }
 
     /** The model the submodel instantiates. */
@@ -220,6 +223,7 @@ public final class CompModels {
             SBMLDocument loaded = new SBMLReader().readSBMLFromStream(new ByteArrayInputStream(content));
             loaded.setLocationURI(source.toString());
             documents.put(source, loaded);
+            ownDocuments.add(loaded);
             return loaded;
         } catch (NoSuchFileException e) {
             failures.put(source, String.format("The file %s does not exist.", source));

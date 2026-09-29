@@ -175,6 +175,8 @@ final class CompReader implements PackageReader {
      * The attributes of the reference and its resolved target, and the edge to the target
      * if it is in the model read.
      */
+    // the target is in the model read if it is in the same model object, not an equal one
+    @SuppressWarnings("ReferenceEquality")
     private static void writeTarget(ConversionContext context, Model model, CyNode node, SBaseRef ref) {
         CyNetwork network = context.network();
         AttributeWriter.setSBaseRefAttributes(network, node, ref);

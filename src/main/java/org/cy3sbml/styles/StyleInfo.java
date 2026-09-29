@@ -46,15 +46,15 @@ public class StyleInfo {
     public List<Mapping> createMappings() {
         List<Mapping> mappings = new ArrayList<>();
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // passthroughMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
         mappings.add(new MappingPassthrough(Mapping.DataType.string, VisualPropertyKey.NODE_LABEL, SBML.LABEL, ""));
 
-        ////////////////////////////////
+        // ------------------------------------------------------------
         // discreteMapping
-        ////////////////////////////////
+        // ------------------------------------------------------------
 
         Map<String, String> m1 = new HashMap<>();
         m1.put("1", "#3333FF");
