@@ -3,7 +3,7 @@
     {
       "name" : "All__toy_top_level",
       "nodeCount" : 81,
-      "edgeCount" : 70,
+      "edgeCount" : 117,
       "attributes" : {
         "areaUnits" : "m2",
         "extentUnits" : "item",
@@ -78,11 +78,11 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__ITEM01",
+          "cyId" : "UnitSId__ITEM1",
           "exponent" : 1.0,
           "kind" : "ITEM",
           "label" : "ITEM",
-          "metaId" : "UnitSId__ITEM01",
+          "metaId" : "UnitSId__ITEM1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -122,33 +122,33 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE01",
+          "cyId" : "UnitSId__METRE1",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE01",
+          "metaId" : "UnitSId__METRE1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE012",
+          "cyId" : "UnitSId__METRE2",
           "exponent" : -3.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE012",
+          "metaId" : "UnitSId__METRE2",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__METRE0123",
+          "cyId" : "UnitSId__METRE3",
           "exponent" : 1.0,
           "kind" : "METRE",
           "label" : "METRE",
-          "metaId" : "UnitSId__METRE0123",
+          "metaId" : "UnitSId__METRE3",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -188,11 +188,11 @@
           "scale" : 0
         },
         {
-          "cyId" : "UnitSId__SECOND01",
+          "cyId" : "UnitSId__SECOND1",
           "exponent" : -1.0,
           "kind" : "SECOND",
           "label" : "SECOND",
-          "metaId" : "UnitSId__SECOND01",
+          "metaId" : "UnitSId__SECOND1",
           "multiplier" : 1.0,
           "sbml type" : "unit",
           "sbml type ext" : "unit",
@@ -280,6 +280,7 @@
         },
         {
           "comp_modelRef" : "toy_ode_bounds",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
           "cyId" : "bounds",
           "label" : "bounds",
           "metaId" : "bounds",
@@ -322,6 +323,7 @@
         },
         {
           "comp_modelRef" : "toy_fba",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
           "cyId" : "fba",
           "label" : "fba",
           "metaId" : "fba",
@@ -332,6 +334,7 @@
         },
         {
           "comp_modelRef" : "toy_ode_model",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
           "cyId" : "model",
           "label" : "model",
           "metaId" : "model",
@@ -366,6 +369,7 @@
         },
         {
           "comp_modelRef" : "toy_ode_update",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
           "cyId" : "update",
           "label" : "update",
           "metaId" : "update",
@@ -390,375 +394,470 @@
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=C_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "C_replacedElement0",
           "label" : "<fba:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > portRef=C_port",
           "comp_submodelRef" : "model",
-          "cyId" : "",
+          "cyId" : "C_replacedElement",
           "label" : "<model:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=C_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "C_replacedElement1",
           "label" : "<update:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "R3_port",
-          "cyId" : "",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=R3_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "R3_replacedBy",
           "label" : "<fba:R3_port>",
           "sbml type" : "comp_replacedBy",
           "sbml type ext" : "comp_replacedBy"
         },
         {
           "comp_portRef" : "cell_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=cell_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "cell_replacedElement",
           "label" : "<fba:cell_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=extern_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement0",
           "label" : "<fba:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > portRef=extern_port",
           "comp_submodelRef" : "model",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement",
           "label" : "<model:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=extern_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement1",
           "label" : "<update:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "ub_R1_port",
-          "comp_submodelRef" : "bounds",
-          "cyId" : "",
-          "label" : "<bounds:ub_R1_port>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_portRef" : "ub_R1_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=ub_R1_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "ub_R1_replacedElement",
           "label" : "<fba:ub_R1_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_portRef" : "ub_R1_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > portRef=ub_R1_port",
+          "comp_submodelRef" : "bounds",
+          "cyId" : "ub_R1_replacedElement0",
+          "label" : "<bounds:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
           "comp_portRef" : "vR3_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=vR3_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "vR3_replacedElement",
           "label" : "<update:vR3_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
-          "label" : "<bounds:item_per_m3>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "item_per_s",
-          "cyId" : "",
-          "label" : "<bounds:item_per_s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "kg",
-          "cyId" : "",
-          "label" : "<bounds:kg>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m",
-          "cyId" : "",
-          "label" : "<bounds:m>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m2",
-          "cyId" : "",
-          "label" : "<bounds:m2>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m3",
-          "cyId" : "",
-          "label" : "<bounds:m3>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "mM",
-          "cyId" : "",
-          "label" : "<bounds:mM>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "per_s",
-          "cyId" : "",
-          "label" : "<bounds:per_s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "s",
-          "cyId" : "",
-          "label" : "<bounds:s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=item_per_m3",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement0",
           "label" : "<fba:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=item_per_s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement0",
           "label" : "<fba:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=kg",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement0",
           "label" : "<fba:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement0",
           "label" : "<fba:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m2",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement0",
           "label" : "<fba:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m3",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement0",
           "label" : "<fba:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=mM",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement0",
           "label" : "<fba:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=per_s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement0",
           "label" : "<fba:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement0",
           "label" : "<fba:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=item_per_m3",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "item_per_m3_replacedElement",
+          "label" : "<bounds:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=item_per_s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "item_per_s_replacedElement",
+          "label" : "<bounds:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=kg",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "kg",
+          "cyId" : "kg_replacedElement",
+          "label" : "<bounds:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m",
+          "cyId" : "m_replacedElement",
+          "label" : "<bounds:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m2",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m2",
+          "cyId" : "m2_replacedElement",
+          "label" : "<bounds:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m3",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m3",
+          "cyId" : "m3_replacedElement",
+          "label" : "<bounds:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=mM",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "mM",
+          "cyId" : "mM_replacedElement",
+          "label" : "<bounds:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=per_s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "per_s",
+          "cyId" : "per_s_replacedElement",
+          "label" : "<bounds:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "s",
+          "cyId" : "s_replacedElement",
+          "label" : "<bounds:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=item_per_m3",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement2",
           "label" : "<model:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=item_per_s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement2",
           "label" : "<model:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=kg",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement2",
           "label" : "<model:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement2",
           "label" : "<model:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m2",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement2",
           "label" : "<model:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m3",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement2",
           "label" : "<model:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=mM",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement2",
           "label" : "<model:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=per_s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement2",
           "label" : "<model:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement2",
           "label" : "<model:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=item_per_m3",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement1",
           "label" : "<update:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=item_per_s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement1",
           "label" : "<update:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=kg",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement1",
           "label" : "<update:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement1",
           "label" : "<update:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m2",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement1",
           "label" : "<update:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m3",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement1",
           "label" : "<update:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=mM",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement1",
           "label" : "<update:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=per_s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement1",
           "label" : "<update:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement1",
           "label" : "<update:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
@@ -787,7 +886,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"C_replacedElement0\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -797,7 +896,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"C_replacedElement\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -807,7 +906,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"C_replacedElement1\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -848,7 +947,7 @@
         },
         {
           "source" : "R3",
-          "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "{\"comp_portRef\":\"R3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=R3_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"R3_replacedBy\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
           "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
@@ -877,7 +976,7 @@
           }
         },
         {
-          "source" : "UnitSId__ITEM01",
+          "source" : "UnitSId__ITEM1",
           "target" : "UnitSId__item_base",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -917,7 +1016,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE01",
+          "source" : "UnitSId__METRE1",
           "target" : "UnitSId__mM",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -927,7 +1026,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE012",
+          "source" : "UnitSId__METRE2",
           "target" : "UnitSId__item_per_m3",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -937,7 +1036,7 @@
           }
         },
         {
-          "source" : "UnitSId__METRE0123",
+          "source" : "UnitSId__METRE3",
           "target" : "UnitSId__m",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -977,7 +1076,7 @@
           }
         },
         {
-          "source" : "UnitSId__SECOND01",
+          "source" : "UnitSId__SECOND1",
           "target" : "UnitSId__per_s",
           "directed" : true,
           "interaction" : "unit_unitDefinition",
@@ -988,7 +1087,7 @@
         },
         {
           "source" : "UnitSId__item_per_m3",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<bounds:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=item_per_m3\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement0\",\"label\":\"<fba:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -998,7 +1097,7 @@
         },
         {
           "source" : "UnitSId__item_per_m3",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<fba:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=item_per_m3\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement\",\"label\":\"<bounds:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1008,7 +1107,7 @@
         },
         {
           "source" : "UnitSId__item_per_m3",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<model:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=item_per_m3\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement2\",\"label\":\"<model:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1018,7 +1117,7 @@
         },
         {
           "source" : "UnitSId__item_per_m3",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"\",\"label\":\"<update:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=item_per_m3\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement1\",\"label\":\"<update:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1028,7 +1127,7 @@
         },
         {
           "source" : "UnitSId__item_per_s",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<bounds:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=item_per_s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement0\",\"label\":\"<fba:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1038,7 +1137,7 @@
         },
         {
           "source" : "UnitSId__item_per_s",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<fba:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=item_per_s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement\",\"label\":\"<bounds:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1048,7 +1147,7 @@
         },
         {
           "source" : "UnitSId__item_per_s",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<model:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=item_per_s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement2\",\"label\":\"<model:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1058,7 +1157,7 @@
         },
         {
           "source" : "UnitSId__item_per_s",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"\",\"label\":\"<update:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=item_per_s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement1\",\"label\":\"<update:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1068,7 +1167,7 @@
         },
         {
           "source" : "UnitSId__kg",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<bounds:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=kg\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement0\",\"label\":\"<fba:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1078,7 +1177,7 @@
         },
         {
           "source" : "UnitSId__kg",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<fba:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=kg\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement\",\"label\":\"<bounds:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1088,7 +1187,7 @@
         },
         {
           "source" : "UnitSId__kg",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<model:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=kg\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement2\",\"label\":\"<model:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1098,7 +1197,7 @@
         },
         {
           "source" : "UnitSId__kg",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"kg\",\"cyId\":\"\",\"label\":\"<update:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=kg\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement1\",\"label\":\"<update:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1108,7 +1207,7 @@
         },
         {
           "source" : "UnitSId__m",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<bounds:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement0\",\"label\":\"<fba:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1118,7 +1217,7 @@
         },
         {
           "source" : "UnitSId__m",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<fba:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement\",\"label\":\"<bounds:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1128,7 +1227,7 @@
         },
         {
           "source" : "UnitSId__m",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<model:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement2\",\"label\":\"<model:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1138,7 +1237,7 @@
         },
         {
           "source" : "UnitSId__m",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m\",\"cyId\":\"\",\"label\":\"<update:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement1\",\"label\":\"<update:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1148,7 +1247,7 @@
         },
         {
           "source" : "UnitSId__m2",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<bounds:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m2\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement0\",\"label\":\"<fba:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1158,7 +1257,7 @@
         },
         {
           "source" : "UnitSId__m2",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<fba:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m2\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement\",\"label\":\"<bounds:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1168,7 +1267,7 @@
         },
         {
           "source" : "UnitSId__m2",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<model:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m2\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement2\",\"label\":\"<model:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1178,7 +1277,7 @@
         },
         {
           "source" : "UnitSId__m2",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m2\",\"cyId\":\"\",\"label\":\"<update:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m2\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement1\",\"label\":\"<update:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1188,7 +1287,7 @@
         },
         {
           "source" : "UnitSId__m3",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<bounds:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m3\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement0\",\"label\":\"<fba:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1198,7 +1297,7 @@
         },
         {
           "source" : "UnitSId__m3",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<fba:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m3\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement\",\"label\":\"<bounds:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1208,7 +1307,7 @@
         },
         {
           "source" : "UnitSId__m3",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<model:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m3\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement2\",\"label\":\"<model:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1218,7 +1317,7 @@
         },
         {
           "source" : "UnitSId__m3",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m3\",\"cyId\":\"\",\"label\":\"<update:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m3\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement1\",\"label\":\"<update:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1228,7 +1327,7 @@
         },
         {
           "source" : "UnitSId__mM",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<bounds:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=mM\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement0\",\"label\":\"<fba:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1238,7 +1337,7 @@
         },
         {
           "source" : "UnitSId__mM",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<fba:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=mM\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement\",\"label\":\"<bounds:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1248,7 +1347,7 @@
         },
         {
           "source" : "UnitSId__mM",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<model:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=mM\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement2\",\"label\":\"<model:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1258,7 +1357,7 @@
         },
         {
           "source" : "UnitSId__mM",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"mM\",\"cyId\":\"\",\"label\":\"<update:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=mM\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement1\",\"label\":\"<update:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1268,7 +1367,7 @@
         },
         {
           "source" : "UnitSId__per_s",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<bounds:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=per_s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement0\",\"label\":\"<fba:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1278,7 +1377,7 @@
         },
         {
           "source" : "UnitSId__per_s",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<fba:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=per_s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement\",\"label\":\"<bounds:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1288,7 +1387,7 @@
         },
         {
           "source" : "UnitSId__per_s",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<model:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=per_s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement2\",\"label\":\"<model:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1298,7 +1397,7 @@
         },
         {
           "source" : "UnitSId__per_s",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"per_s\",\"cyId\":\"\",\"label\":\"<update:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=per_s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement1\",\"label\":\"<update:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1308,7 +1407,7 @@
         },
         {
           "source" : "UnitSId__s",
-          "target" : "{\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<bounds:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement0\",\"label\":\"<fba:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1318,7 +1417,7 @@
         },
         {
           "source" : "UnitSId__s",
-          "target" : "{\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<fba:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement\",\"label\":\"<bounds:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1328,7 +1427,7 @@
         },
         {
           "source" : "UnitSId__s",
-          "target" : "{\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<model:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement2\",\"label\":\"<model:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1338,7 +1437,7 @@
         },
         {
           "source" : "UnitSId__s",
-          "target" : "{\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"s\",\"cyId\":\"\",\"label\":\"<update:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement1\",\"label\":\"<update:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1358,7 +1457,7 @@
         },
         {
           "source" : "cell",
-          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"cell_replacedElement\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1378,7 +1477,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"extern_replacedElement0\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1388,7 +1487,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"extern_replacedElement\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1398,7 +1497,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"extern_replacedElement1\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1418,7 +1517,7 @@
         },
         {
           "source" : "ub_R1",
-          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"ub_R1_replacedElement\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1428,7 +1527,7 @@
         },
         {
           "source" : "ub_R1",
-          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > portRef=ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"ub_R1_replacedElement0\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1458,12 +1557,482 @@
         },
         {
           "source" : "vR3",
-          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"vR3_replacedElement\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
             "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"C_replacedElement0\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"C_replacedElement\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"C_replacedElement1\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"R3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=R3_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"R3_replacedBy\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"cell_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"cell_replacedElement\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"extern_replacedElement0\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"extern_replacedElement\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"extern_replacedElement1\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"ub_R1_replacedElement\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > portRef=ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"ub_R1_replacedElement0\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"vR3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"vR3_replacedElement\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=item_per_m3\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement0\",\"label\":\"<fba:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=item_per_s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement0\",\"label\":\"<fba:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=kg\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement0\",\"label\":\"<fba:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m2\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement0\",\"label\":\"<fba:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m3\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement0\",\"label\":\"<fba:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=mM\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement0\",\"label\":\"<fba:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=m\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement0\",\"label\":\"<fba:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=per_s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement0\",\"label\":\"<fba:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > unitRef=s\",\"comp_submodelRef\":\"fba\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement0\",\"label\":\"<fba:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "fba",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=item_per_m3\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement\",\"label\":\"<bounds:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=item_per_s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement\",\"label\":\"<bounds:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=kg\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement\",\"label\":\"<bounds:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m2\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement\",\"label\":\"<bounds:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m3\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement\",\"label\":\"<bounds:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=mM\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement\",\"label\":\"<bounds:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=m\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement\",\"label\":\"<bounds:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=per_s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement\",\"label\":\"<bounds:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > unitRef=s\",\"comp_submodelRef\":\"bounds\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement\",\"label\":\"<bounds:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "bounds",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=item_per_m3\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement2\",\"label\":\"<model:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=item_per_s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement2\",\"label\":\"<model:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=kg\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement2\",\"label\":\"<model:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m2\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement2\",\"label\":\"<model:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m3\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement2\",\"label\":\"<model:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=mM\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement2\",\"label\":\"<model:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=m\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement2\",\"label\":\"<model:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=per_s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement2\",\"label\":\"<model:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > unitRef=s\",\"comp_submodelRef\":\"model\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement2\",\"label\":\"<model:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "model",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=item_per_m3\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_m3\",\"cyId\":\"item_per_m3_replacedElement1\",\"label\":\"<update:item_per_m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=item_per_s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"item_per_s\",\"cyId\":\"item_per_s_replacedElement1\",\"label\":\"<update:item_per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=kg\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"kg\",\"cyId\":\"kg_replacedElement1\",\"label\":\"<update:kg>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m2\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m2\",\"cyId\":\"m2_replacedElement1\",\"label\":\"<update:m2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m3\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m3\",\"cyId\":\"m3_replacedElement1\",\"label\":\"<update:m3>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=mM\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"mM\",\"cyId\":\"mM_replacedElement1\",\"label\":\"<update:mM>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=m\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"m\",\"cyId\":\"m_replacedElement1\",\"label\":\"<update:m>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=per_s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"per_s\",\"cyId\":\"per_s_replacedElement1\",\"label\":\"<update:per_s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > unitRef=s\",\"comp_submodelRef\":\"update\",\"comp_unitRef\":\"s\",\"cyId\":\"s_replacedElement1\",\"label\":\"<update:s>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "update",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
           }
         }
       ]
@@ -1582,375 +2151,470 @@
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=C_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "C_replacedElement0",
           "label" : "<fba:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > portRef=C_port",
           "comp_submodelRef" : "model",
-          "cyId" : "",
+          "cyId" : "C_replacedElement",
           "label" : "<model:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "C_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=C_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "C_replacedElement1",
           "label" : "<update:C_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "R3_port",
-          "cyId" : "",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=R3_port",
+          "comp_submodelRef" : "fba",
+          "cyId" : "R3_replacedBy",
           "label" : "<fba:R3_port>",
           "sbml type" : "comp_replacedBy",
           "sbml type ext" : "comp_replacedBy"
         },
         {
           "comp_portRef" : "cell_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=cell_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "cell_replacedElement",
           "label" : "<fba:cell_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=extern_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement0",
           "label" : "<fba:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > portRef=extern_port",
           "comp_submodelRef" : "model",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement",
           "label" : "<model:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "extern_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=extern_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "extern_replacedElement1",
           "label" : "<update:extern_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "ub_R1_port",
-          "comp_submodelRef" : "bounds",
-          "cyId" : "",
-          "label" : "<bounds:ub_R1_port>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_portRef" : "ub_R1_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > portRef=ub_R1_port",
           "comp_submodelRef" : "fba",
-          "cyId" : "",
+          "cyId" : "ub_R1_replacedElement",
           "label" : "<fba:ub_R1_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_portRef" : "ub_R1_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > portRef=ub_R1_port",
+          "comp_submodelRef" : "bounds",
+          "cyId" : "ub_R1_replacedElement0",
+          "label" : "<bounds:ub_R1_port>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
           "comp_portRef" : "vR3_port",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > portRef=vR3_port",
           "comp_submodelRef" : "update",
-          "cyId" : "",
+          "cyId" : "vR3_replacedElement",
           "label" : "<update:vR3_port>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
-          "label" : "<bounds:item_per_m3>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "item_per_s",
-          "cyId" : "",
-          "label" : "<bounds:item_per_s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "kg",
-          "cyId" : "",
-          "label" : "<bounds:kg>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m",
-          "cyId" : "",
-          "label" : "<bounds:m>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m2",
-          "cyId" : "",
-          "label" : "<bounds:m2>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "m3",
-          "cyId" : "",
-          "label" : "<bounds:m3>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "mM",
-          "cyId" : "",
-          "label" : "<bounds:mM>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "per_s",
-          "cyId" : "",
-          "label" : "<bounds:per_s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
-          "comp_submodelRef" : "bounds",
-          "comp_unitRef" : "s",
-          "cyId" : "",
-          "label" : "<bounds:s>",
-          "sbml type" : "comp_replacedElement",
-          "sbml type ext" : "comp_replacedElement"
-        },
-        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=item_per_m3",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement0",
           "label" : "<fba:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=item_per_s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement0",
           "label" : "<fba:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=kg",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement0",
           "label" : "<fba:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement0",
           "label" : "<fba:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m2",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement0",
           "label" : "<fba:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=m3",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement0",
           "label" : "<fba:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=mM",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement0",
           "label" : "<fba:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=per_s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement0",
           "label" : "<fba:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=fba > unitRef=s",
           "comp_submodelRef" : "fba",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement0",
           "label" : "<fba:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=item_per_m3",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_m3",
+          "cyId" : "item_per_m3_replacedElement",
+          "label" : "<bounds:item_per_m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=item_per_s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "item_per_s",
+          "cyId" : "item_per_s_replacedElement",
+          "label" : "<bounds:item_per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=kg",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "kg",
+          "cyId" : "kg_replacedElement",
+          "label" : "<bounds:kg>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m",
+          "cyId" : "m_replacedElement",
+          "label" : "<bounds:m>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m2",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m2",
+          "cyId" : "m2_replacedElement",
+          "label" : "<bounds:m2>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=m3",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "m3",
+          "cyId" : "m3_replacedElement",
+          "label" : "<bounds:m3>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=mM",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "mM",
+          "cyId" : "mM_replacedElement",
+          "label" : "<bounds:mM>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=per_s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "per_s",
+          "cyId" : "per_s_replacedElement",
+          "label" : "<bounds:per_s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=bounds > unitRef=s",
+          "comp_submodelRef" : "bounds",
+          "comp_unitRef" : "s",
+          "cyId" : "s_replacedElement",
+          "label" : "<bounds:s>",
+          "sbml type" : "comp_replacedElement",
+          "sbml type ext" : "comp_replacedElement"
+        },
+        {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=item_per_m3",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement2",
           "label" : "<model:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=item_per_s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement2",
           "label" : "<model:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=kg",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement2",
           "label" : "<model:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement2",
           "label" : "<model:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m2",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement2",
           "label" : "<model:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=m3",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement2",
           "label" : "<model:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=mM",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement2",
           "label" : "<model:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=per_s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement2",
           "label" : "<model:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=model > unitRef=s",
           "comp_submodelRef" : "model",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement2",
           "label" : "<model:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=item_per_m3",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "item_per_m3",
-          "cyId" : "",
+          "cyId" : "item_per_m3_replacedElement1",
           "label" : "<update:item_per_m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=item_per_s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "item_per_s",
-          "cyId" : "",
+          "cyId" : "item_per_s_replacedElement1",
           "label" : "<update:item_per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=kg",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "kg",
-          "cyId" : "",
+          "cyId" : "kg_replacedElement1",
           "label" : "<update:kg>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m",
-          "cyId" : "",
+          "cyId" : "m_replacedElement1",
           "label" : "<update:m>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m2",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m2",
-          "cyId" : "",
+          "cyId" : "m2_replacedElement1",
           "label" : "<update:m2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=m3",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "m3",
-          "cyId" : "",
+          "cyId" : "m3_replacedElement1",
           "label" : "<update:m3>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=mM",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "mM",
-          "cyId" : "",
+          "cyId" : "mM_replacedElement1",
           "label" : "<update:mM>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=per_s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "per_s",
-          "cyId" : "",
+          "cyId" : "per_s_replacedElement1",
           "label" : "<update:per_s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
+          "comp_resolution" : "The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=update > unitRef=s",
           "comp_submodelRef" : "update",
           "comp_unitRef" : "s",
-          "cyId" : "",
+          "cyId" : "s_replacedElement1",
           "label" : "<update:s>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
@@ -1970,7 +2634,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=C_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"C_replacedElement0\",\"label\":\"<fba:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1981,7 +2645,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=C_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"C_replacedElement\",\"label\":\"<model:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -1992,7 +2656,7 @@
         },
         {
           "source" : "C",
-          "target" : "{\"comp_portRef\":\"C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"C_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=C_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"C_replacedElement1\",\"label\":\"<update:C_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2037,7 +2701,7 @@
         },
         {
           "source" : "R3",
-          "target" : "{\"comp_portRef\":\"R3_port\",\"cyId\":\"\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "{\"comp_portRef\":\"R3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=R3_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"R3_replacedBy\",\"label\":\"<fba:R3_port>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
           "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
@@ -2048,7 +2712,7 @@
         },
         {
           "source" : "cell",
-          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"cell_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=cell_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"cell_replacedElement\",\"label\":\"<fba:cell_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2059,7 +2723,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=extern_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"extern_replacedElement0\",\"label\":\"<fba:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2070,7 +2734,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_model.xml' of the external model definition 'toy_ode_model' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=model > portRef=extern_port\",\"comp_submodelRef\":\"model\",\"cyId\":\"extern_replacedElement\",\"label\":\"<model:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2081,7 +2745,7 @@
         },
         {
           "source" : "extern",
-          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"extern_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=extern_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"extern_replacedElement1\",\"label\":\"<update:extern_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2092,7 +2756,7 @@
         },
         {
           "source" : "ub_R1",
-          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_fba.xml' of the external model definition 'toy_fba' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=fba > portRef=ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"ub_R1_replacedElement\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2103,7 +2767,7 @@
         },
         {
           "source" : "ub_R1",
-          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_submodelRef\":\"fba\",\"cyId\":\"\",\"label\":\"<fba:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"ub_R1_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_bounds.xml' of the external model definition 'toy_ode_bounds' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=bounds > portRef=ub_R1_port\",\"comp_submodelRef\":\"bounds\",\"cyId\":\"ub_R1_replacedElement0\",\"label\":\"<bounds:ub_R1_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -2125,7 +2789,7 @@
         },
         {
           "source" : "vR3",
-          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"vR3_port\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'toy_ode_update.xml' of the external model definition 'toy_ode_update' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=update > portRef=vR3_port\",\"comp_submodelRef\":\"update\",\"cyId\":\"vR3_replacedElement\",\"label\":\"<update:vR3_port>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {

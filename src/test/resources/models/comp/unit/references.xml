@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The main model instantiates mdA as submodel A, mdA instantiates mdB as submodel B.
+     Test model of SBaseRefResolverTest and CompReaderTest. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1"
+      level="3" version="1" comp:required="true">
+  <model id="main">
+    <listOfCompartments>
+      <compartment id="c" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
+               constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:submodelRef="A" comp:portRef="pa_x"/>
+        </comp:listOfReplacedElements>
+      </species>
+      <species id="S2" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
+               constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:submodelRef="A" comp:idRef="x" comp:conversionFactor="cf"/>
+        </comp:listOfReplacedElements>
+      </species>
+      <species id="S3" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
+               constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:submodelRef="A" comp:deletion="del_unit"/>
+        </comp:listOfReplacedElements>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="cf" value="2" constant="true"/>
+      <parameter id="q" constant="true">
+        <comp:replacedBy comp:submodelRef="A" comp:idRef="B">
+          <comp:sBaseRef comp:idRef="y"/>
+        </comp:replacedBy>
+      </parameter>
+    </listOfParameters>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="A" comp:modelRef="mdA">
+        <comp:listOfDeletions>
+          <comp:deletion comp:id="del_meta" comp:metaIdRef="meta_x"/>
+          <comp:deletion comp:id="del_unit" comp:unitRef="u"/>
+          <comp:deletion comp:id="del_nested" comp:idRef="B">
+            <comp:sBaseRef comp:idRef="y"/>
+          </comp:deletion>
+          <comp:deletion comp:id="del_missing" comp:idRef="missing"/>
+          <comp:deletion comp:id="del_no_submodel" comp:idRef="x">
+            <comp:sBaseRef comp:idRef="y"/>
+          </comp:deletion>
+          <comp:deletion comp:id="del_base_unit" comp:unitRef="second"/>
+          <comp:deletion comp:id="del_unit_id" comp:idRef="u"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+      <comp:submodel comp:id="Z" comp:modelRef="no_such_model"/>
+    </comp:listOfSubmodels>
+    <comp:listOfPorts>
+      <comp:port comp:id="p_S" comp:idRef="S"/>
+      <!-- ports have their own namespace, the port S does not hide the species S -->
+      <comp:port comp:id="S" comp:idRef="c"/>
+    </comp:listOfPorts>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="mdA">
+      <listOfUnitDefinitions>
+        <unitDefinition id="u">
+          <listOfUnits>
+            <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+          </listOfUnits>
+        </unitDefinition>
+      </listOfUnitDefinitions>
+      <listOfParameters>
+        <parameter metaid="meta_x" id="x" constant="true"/>
+      </listOfParameters>
+      <comp:listOfSubmodels>
+        <comp:submodel comp:id="B" comp:modelRef="mdB"/>
+      </comp:listOfSubmodels>
+      <comp:listOfPorts>
+        <comp:port comp:id="pa_x" comp:idRef="x"/>
+      </comp:listOfPorts>
+    </comp:modelDefinition>
+    <comp:modelDefinition id="mdB">
+      <listOfParameters>
+        <parameter id="y" constant="true"/>
+      </listOfParameters>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

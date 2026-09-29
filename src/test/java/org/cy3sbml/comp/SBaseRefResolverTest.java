@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
-import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
@@ -23,89 +22,15 @@ import org.sbml.jsbml.ext.comp.Submodel;
 
 class SBaseRefResolverTest {
 
-    /**
-     * The main model instantiates mdA as submodel A, mdA instantiates mdB as submodel B.
-     */
-    private static final String SBML = """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
-                  xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1"
-                  level="3" version="1" comp:required="true">
-              <model id="main">
-                <listOfCompartments>
-                  <compartment id="c" constant="true"/>
-                </listOfCompartments>
-                <listOfSpecies>
-                  <species id="S" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false"
-                           constant="false">
-                    <comp:listOfReplacedElements>
-                      <comp:replacedElement comp:submodelRef="A" comp:portRef="pa_x"/>
-                    </comp:listOfReplacedElements>
-                  </species>
-                </listOfSpecies>
-                <listOfParameters>
-                  <parameter id="q" constant="true">
-                    <comp:replacedBy comp:submodelRef="A" comp:idRef="B">
-                      <comp:sBaseRef comp:idRef="y"/>
-                    </comp:replacedBy>
-                  </parameter>
-                </listOfParameters>
-                <comp:listOfSubmodels>
-                  <comp:submodel comp:id="A" comp:modelRef="mdA">
-                    <comp:listOfDeletions>
-                      <comp:deletion comp:id="del_meta" comp:metaIdRef="meta_x"/>
-                      <comp:deletion comp:id="del_unit" comp:unitRef="u"/>
-                      <comp:deletion comp:id="del_nested" comp:idRef="B">
-                        <comp:sBaseRef comp:idRef="y"/>
-                      </comp:deletion>
-                      <comp:deletion comp:id="del_missing" comp:idRef="missing"/>
-                      <comp:deletion comp:id="del_no_submodel" comp:idRef="x">
-                        <comp:sBaseRef comp:idRef="y"/>
-                      </comp:deletion>
-                      <comp:deletion comp:id="del_base_unit" comp:unitRef="second"/>
-                      <comp:deletion comp:id="del_unit_id" comp:idRef="u"/>
-                    </comp:listOfDeletions>
-                  </comp:submodel>
-                  <comp:submodel comp:id="Z" comp:modelRef="no_such_model"/>
-                </comp:listOfSubmodels>
-                <comp:listOfPorts>
-                  <comp:port comp:id="p_S" comp:idRef="S"/>
-                </comp:listOfPorts>
-              </model>
-              <comp:listOfModelDefinitions>
-                <comp:modelDefinition id="mdA">
-                  <listOfUnitDefinitions>
-                    <unitDefinition id="u">
-                      <listOfUnits>
-                        <unit kind="second" exponent="1" scale="0" multiplier="1"/>
-                      </listOfUnits>
-                    </unitDefinition>
-                  </listOfUnitDefinitions>
-                  <listOfParameters>
-                    <parameter metaid="meta_x" id="x" constant="true"/>
-                  </listOfParameters>
-                  <comp:listOfSubmodels>
-                    <comp:submodel comp:id="B" comp:modelRef="mdB"/>
-                  </comp:listOfSubmodels>
-                  <comp:listOfPorts>
-                    <comp:port comp:id="pa_x" comp:idRef="x"/>
-                  </comp:listOfPorts>
-                </comp:modelDefinition>
-                <comp:modelDefinition id="mdB">
-                  <listOfParameters>
-                    <parameter id="y" constant="true"/>
-                  </listOfParameters>
-                </comp:modelDefinition>
-              </comp:listOfModelDefinitions>
-            </sbml>
-            """;
+    /** The main model instantiates mdA as submodel A, mdA instantiates mdB as submodel B. */
+    static final String RESOURCE = "/models/comp/unit/references.xml";
 
     private SBMLDocument document;
     private SBaseRefResolver resolver;
 
     @BeforeEach
     void setUp() throws Exception {
-        document = new SBMLReader().readSBMLFromString(SBML.strip());
+        document = CompModelsTest.read(RESOURCE);
         resolver = new SBaseRefResolver(new CompModels(document));
     }
 

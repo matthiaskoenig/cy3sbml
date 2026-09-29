@@ -50,6 +50,11 @@ public final class SBaseRefResolver {
         this.models = models;
     }
 
+    /** The resolver of the model references the SBaseRefs are resolved with. */
+    public CompModels models() {
+        return models;
+    }
+
     /** The element the reference points to. */
     public SBaseRefResolution resolve(SBaseRef ref) {
         ModelResolution scope = scope(ref);

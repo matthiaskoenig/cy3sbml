@@ -3,7 +3,7 @@
     {
       "name" : "All__case01134",
       "nodeCount" : 10,
-      "edgeCount" : 6,
+      "edgeCount" : 8,
       "attributes" : {
         "label" : "case01134",
         "name" : "All__case01134",
@@ -28,6 +28,12 @@
         },
         {
           "comp_idRef" : "sub3",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C0",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "compartment",
           "cyId" : "C2_port",
           "label" : "C2_port",
           "metaId" : "C2_port",
@@ -37,6 +43,12 @@
         },
         {
           "comp_idRef" : "C",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C",
+          "comp_targetModel" : "case01134",
+          "comp_targetType" : "compartment",
           "cyId" : "C_port",
           "label" : "C_port",
           "metaId" : "C_port",
@@ -61,6 +73,8 @@
         },
         {
           "comp_modelRef" : "moddef1",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef1",
           "cyId" : "sub1",
           "label" : "sub1",
           "metaId" : "sub1",
@@ -70,6 +84,8 @@
         },
         {
           "comp_modelRef" : "moddef2",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef2",
           "cyId" : "sub2",
           "label" : "sub2",
           "metaId" : "sub2",
@@ -79,6 +95,8 @@
         },
         {
           "comp_modelRef" : "moddef3",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef3",
           "cyId" : "sub3",
           "label" : "sub3",
           "metaId" : "sub3",
@@ -88,23 +106,42 @@
         },
         {
           "comp_idRef" : "sub1",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub2 > idRef=sub1 > idRef=C",
           "comp_submodelRef" : "sub2",
-          "cyId" : "",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C0",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "compartment",
+          "cyId" : "C_replacedElement",
           "label" : "<sub2:sub1>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_idRef" : "sub1",
-          "cyId" : "",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub2 > idRef=sub1 > idRef=S1",
+          "comp_submodelRef" : "sub2",
+          "comp_targetId" : "S1",
+          "comp_targetMetaId" : "S10",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "species",
+          "cyId" : "S1_replacedBy",
           "label" : "<sub2:sub1>",
           "sbml type" : "comp_replacedBy",
           "sbml type ext" : "comp_replacedBy"
         },
         {
           "comp_idRef" : "sub2",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=S1",
           "comp_submodelRef" : "sub3",
-          "cyId" : "",
+          "comp_targetId" : "S1",
+          "comp_targetMetaId" : "S10",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "species",
+          "cyId" : "S1_replacedElement",
           "label" : "<sub3:sub2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
@@ -113,22 +150,12 @@
       "edges" : [
         {
           "source" : "C",
-          "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=C\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"C\",\"comp_targetMetaId\":\"C0\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"compartment\",\"cyId\":\"C_replacedElement\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
             "shared interaction" : "sbase-replacedElement"
-          }
-        },
-        {
-          "source" : "C2_port",
-          "target" : "sub3",
-          "directed" : true,
-          "interaction" : "sbaseRef-id",
-          "attributes" : {
-            "interaction type" : "sbaseRef-id",
-            "shared interaction" : "sbaseRef-id"
           }
         },
         {
@@ -153,7 +180,7 @@
         },
         {
           "source" : "S1",
-          "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedBy\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
           "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
@@ -163,12 +190,42 @@
         },
         {
           "source" : "S1",
-          "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_idRef\":\"sub2\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub3\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedElement\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
             "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=C\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"C\",\"comp_targetMetaId\":\"C0\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"compartment\",\"cyId\":\"C_replacedElement\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "sub2",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedBy\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "sub2",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_idRef\":\"sub2\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub3\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedElement\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "sub3",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
           }
         }
       ]
@@ -241,10 +298,10 @@
       "nodes" : [
         {
           "constant" : false,
-          "cyId" : "C01",
+          "cyId" : "C1",
           "derivedUnits" : "",
           "label" : "C",
-          "metaId" : "C01",
+          "metaId" : "C1",
           "sbml id" : "C",
           "sbml type" : "compartment",
           "sbml type ext" : "compartment",
@@ -256,10 +313,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S101",
+          "cyId" : "S11",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S101",
+          "metaId" : "S11",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 9.0,
@@ -269,6 +326,8 @@
         },
         {
           "comp_modelRef" : "moddef1",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef1",
           "cyId" : "sub10",
           "label" : "sub1",
           "metaId" : "sub10",
@@ -304,10 +363,10 @@
       "nodes" : [
         {
           "constant" : false,
-          "cyId" : "C012",
+          "cyId" : "C2",
           "derivedUnits" : "",
           "label" : "C",
-          "metaId" : "C012",
+          "metaId" : "C2",
           "sbml id" : "C",
           "sbml type" : "compartment",
           "sbml type ext" : "compartment",
@@ -319,10 +378,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S1012",
+          "cyId" : "S12",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S1012",
+          "metaId" : "S12",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 11.0,
@@ -332,15 +391,19 @@
         },
         {
           "comp_modelRef" : "moddef1",
-          "cyId" : "sub101",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef1",
+          "cyId" : "sub11",
           "label" : "sub1",
-          "metaId" : "sub101",
+          "metaId" : "sub11",
           "sbml id" : "sub1",
           "sbml type" : "comp_submodel",
           "sbml type ext" : "comp_submodel"
         },
         {
           "comp_modelRef" : "moddef2",
+          "comp_resolution" : "resolved",
+          "comp_targetModel" : "moddef2",
           "cyId" : "sub20",
           "label" : "sub2",
           "metaId" : "sub20",
@@ -385,6 +448,12 @@
         },
         {
           "comp_idRef" : "sub3",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C0",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "compartment",
           "cyId" : "C2_port",
           "label" : "C2_port",
           "metaId" : "C2_port",
@@ -394,6 +463,12 @@
         },
         {
           "comp_idRef" : "C",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "idRef=C",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C",
+          "comp_targetModel" : "case01134",
+          "comp_targetType" : "compartment",
           "cyId" : "C_port",
           "label" : "C_port",
           "metaId" : "C_port",
@@ -418,23 +493,42 @@
         },
         {
           "comp_idRef" : "sub1",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub2 > idRef=sub1 > idRef=C",
           "comp_submodelRef" : "sub2",
-          "cyId" : "",
+          "comp_targetId" : "C",
+          "comp_targetMetaId" : "C0",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "compartment",
+          "cyId" : "C_replacedElement",
           "label" : "<sub2:sub1>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_idRef" : "sub1",
-          "cyId" : "",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub2 > idRef=sub1 > idRef=S1",
+          "comp_submodelRef" : "sub2",
+          "comp_targetId" : "S1",
+          "comp_targetMetaId" : "S10",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "species",
+          "cyId" : "S1_replacedBy",
           "label" : "<sub2:sub1>",
           "sbml type" : "comp_replacedBy",
           "sbml type ext" : "comp_replacedBy"
         },
         {
           "comp_idRef" : "sub2",
+          "comp_resolution" : "resolved",
+          "comp_sBaseRef" : "submodelRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=S1",
           "comp_submodelRef" : "sub3",
-          "cyId" : "",
+          "comp_targetId" : "S1",
+          "comp_targetMetaId" : "S10",
+          "comp_targetModel" : "moddef1",
+          "comp_targetType" : "species",
+          "cyId" : "S1_replacedElement",
           "label" : "<sub3:sub2>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
@@ -443,7 +537,7 @@
       "edges" : [
         {
           "source" : "C",
-          "target" : "{\"comp_idRef\":\"sub1\",\"comp_submodelRef\":\"sub2\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=C\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"C\",\"comp_targetMetaId\":\"C0\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"compartment\",\"cyId\":\"C_replacedElement\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -476,7 +570,7 @@
         },
         {
           "source" : "S1",
-          "target" : "{\"comp_idRef\":\"sub1\",\"cyId\":\"\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
+          "target" : "{\"comp_idRef\":\"sub1\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub2\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedBy\",\"label\":\"<sub2:sub1>\",\"sbml type\":\"comp_replacedBy\",\"sbml type ext\":\"comp_replacedBy\"}",
           "directed" : true,
           "interaction" : "sbase-replacedBy",
           "attributes" : {
@@ -487,7 +581,7 @@
         },
         {
           "source" : "S1",
-          "target" : "{\"comp_idRef\":\"sub2\",\"comp_submodelRef\":\"sub3\",\"cyId\":\"\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_idRef\":\"sub2\",\"comp_resolution\":\"resolved\",\"comp_sBaseRef\":\"submodelRef=sub3 > idRef=sub2 > idRef=sub1 > idRef=S1\",\"comp_submodelRef\":\"sub3\",\"comp_targetId\":\"S1\",\"comp_targetMetaId\":\"S10\",\"comp_targetModel\":\"moddef1\",\"comp_targetType\":\"species\",\"cyId\":\"S1_replacedElement\",\"label\":\"<sub3:sub2>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -559,10 +653,10 @@
       "nodes" : [
         {
           "constant" : false,
-          "cyId" : "C01",
+          "cyId" : "C1",
           "derivedUnits" : "",
           "label" : "C",
-          "metaId" : "C01",
+          "metaId" : "C1",
           "sbml id" : "C",
           "sbml type" : "compartment",
           "sbml type ext" : "compartment",
@@ -574,10 +668,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S101",
+          "cyId" : "S11",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S101",
+          "metaId" : "S11",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 9.0,
@@ -610,10 +704,10 @@
       "nodes" : [
         {
           "constant" : false,
-          "cyId" : "C012",
+          "cyId" : "C2",
           "derivedUnits" : "",
           "label" : "C",
-          "metaId" : "C012",
+          "metaId" : "C2",
           "sbml id" : "C",
           "sbml type" : "compartment",
           "sbml type ext" : "compartment",
@@ -625,10 +719,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S1012",
+          "cyId" : "S12",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S1012",
+          "metaId" : "S12",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 11.0,
@@ -715,10 +809,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S101",
+          "cyId" : "S11",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S101",
+          "metaId" : "S11",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 9.0,
@@ -741,10 +835,10 @@
           "boundaryCondition" : false,
           "compartmentCode" : 1,
           "constant" : false,
-          "cyId" : "S1012",
+          "cyId" : "S12",
           "hasOnlySubstanceUnits" : false,
           "label" : "S1",
-          "metaId" : "S1012",
+          "metaId" : "S12",
           "sbml compartment" : "C",
           "sbml id" : "S1",
           "sbml initial amount" : 11.0,

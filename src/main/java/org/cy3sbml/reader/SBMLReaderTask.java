@@ -10,6 +10,8 @@ import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.comp.CompModels;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.styles.StyleManager;
 import org.cytoscape.group.CyGroupFactory;
@@ -72,6 +74,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     private final SubnetworkBuilder subnetworkBuilder;
 
     private SBMLDocument document;
+    // resolves the comp references of the document, shared by the networks of its models
+    private SBaseRefResolver sBaseRefResolver;
 
     private final List<CyNetwork> cyNetworks;
     private TaskMonitor taskMonitor;
@@ -243,6 +247,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             if (location != null) {
                 document.setLocationURI(location.toString());
             }
+            sBaseRefResolver = new SBaseRefResolver(new CompModels(document));
 
             // Models are defined either as the core model or as comp ModelDefinitions.
             // For every model a separate network is created.
@@ -333,7 +338,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             return;
         }
         CyNetwork network = networkFactory.createNetwork();
-        ConversionContext context = new ConversionContext(document, network, groupFactory);
+        ConversionContext context = new ConversionContext(document, network, groupFactory, sBaseRefResolver);
         for (PackageReader reader : readers) {
             reader.read(context, model);
         }

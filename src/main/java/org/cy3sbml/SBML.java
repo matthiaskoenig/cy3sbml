@@ -107,9 +107,23 @@ public class SBML {
     public static final String ATTR_COMP_METAIDREF = "comp_metaIdRef";
     public static final String ATTR_COMP_SUBMODELREF = "comp_submodelRef";
 
+    // the chain of a nested SBaseRef, e.g. "submodelRef=A > idRef=B > idRef=y"
+    public static final String ATTR_COMP_SBASEREF = "comp_sBaseRef";
+    public static final String ATTR_COMP_CONVERSION_FACTOR = "comp_conversionFactor";
+    public static final String ATTR_COMP_DELETION = "comp_deletion";
+
     public static final String ATTR_COMP_MODELREF = "comp_modelRef";
     public static final String ATTR_COMP_TIME_CONVERSION_FACTOR = "comp_timeConversionFactor";
     public static final String ATTR_COMP_EXTENT_CONVERSION_FACTOR = "comp_extentConversionFactor";
+
+    // the resolved target of an SBaseRef or model reference, which can be in another model
+    public static final String ATTR_COMP_TARGET_MODEL = "comp_targetModel";
+    public static final String ATTR_COMP_TARGET_ID = "comp_targetId";
+    public static final String ATTR_COMP_TARGET_METAID = "comp_targetMetaId";
+    public static final String ATTR_COMP_TARGET_TYPE = "comp_targetType";
+    // COMP_RESOLVED, or why the reference could not be resolved
+    public static final String ATTR_COMP_RESOLUTION = "comp_resolution";
+    public static final String COMP_RESOLVED = "resolved";
 
     // ----------------------
     // Node types
@@ -208,6 +222,7 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASE_REPLACED_ELEMENT = "sbase-replacedElement";
     public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
     public static final String INTERACTION_COMP_SBASE_DELETION = "sbase-deletion";
+    public static final String INTERACTION_COMP_SBASEREF_SUBMODEL = "sbaseRef-submodel";
 
     // -------------------------------------------------------------------------
     // Visualization attributes
@@ -328,7 +343,8 @@ public class SBML {
             SBML.INTERACTION_COMP_SBASEREF_PORT,
             SBML.INTERACTION_COMP_SBASE_REPLACED_BY,
             SBML.INTERACTION_COMP_SBASE_REPLACED_ELEMENT,
-            SBML.INTERACTION_COMP_SBASE_DELETION);
+            SBML.INTERACTION_COMP_SBASE_DELETION,
+            SBML.INTERACTION_COMP_SBASEREF_SUBMODEL);
 
     // -------------------------------------------------------------------------
     // Default Layout

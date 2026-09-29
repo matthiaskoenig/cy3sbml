@@ -3,7 +3,7 @@
     {
       "name" : "All__testHier",
       "nodeCount" : 18,
-      "edgeCount" : 11,
+      "edgeCount" : 19,
       "attributes" : {
         "label" : "testHier",
         "metaId" : "iBioSim1",
@@ -15,6 +15,7 @@
       "nodes" : [
         {
           "comp_modelRef" : "represCirc",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
           "cyId" : "iBioSim2",
           "label" : "C1",
           "metaId" : "iBioSim2",
@@ -24,6 +25,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
           "cyId" : "iBioSim3",
           "label" : "C2",
           "metaId" : "iBioSim3",
@@ -33,6 +35,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
           "cyId" : "iBioSim4",
           "label" : "C3",
           "metaId" : "iBioSim4",
@@ -42,6 +45,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
           "cyId" : "iBioSim5",
           "label" : "C4",
           "metaId" : "iBioSim5",
@@ -63,6 +67,9 @@
           "value" : 1.0
         },
         {
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
           "cyId" : "Deletion",
           "label" : "Deletion",
           "metaId" : "Deletion",
@@ -70,6 +77,9 @@
           "sbml type ext" : "comp_deletion"
         },
         {
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
           "cyId" : "Deletion0",
           "label" : "Deletion0",
           "metaId" : "Deletion0",
@@ -77,16 +87,22 @@
           "sbml type ext" : "comp_deletion"
         },
         {
-          "cyId" : "Deletion01",
-          "label" : "Deletion01",
-          "metaId" : "Deletion01",
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
+          "cyId" : "Deletion1",
+          "label" : "Deletion1",
+          "metaId" : "Deletion1",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
         },
         {
-          "cyId" : "Deletion012",
-          "label" : "Deletion012",
-          "metaId" : "Deletion012",
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
+          "cyId" : "Deletion2",
+          "label" : "Deletion2",
+          "metaId" : "Deletion2",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
         },
@@ -131,6 +147,8 @@
         },
         {
           "comp_idRef" : "C5",
+          "comp_resolution" : "There is no element 'C5' in the model 'testHier'.",
+          "comp_sBaseRef" : "idRef=C5 > portRef=input__GFP",
           "cyId" : "input__GFP__C5",
           "label" : "input__GFP__C5",
           "metaId" : "input__GFP__C5",
@@ -149,38 +167,86 @@
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C1 > portRef=input__GFP",
           "comp_submodelRef" : "C1",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement",
           "label" : "<C1:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C2 > portRef=input__GFP",
           "comp_submodelRef" : "C2",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement0",
           "label" : "<C2:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C3 > portRef=input__GFP",
           "comp_submodelRef" : "C3",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement1",
           "label" : "<C3:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C4 > portRef=input__GFP",
           "comp_submodelRef" : "C4",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement2",
           "label" : "<C4:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         }
       ],
       "edges" : [
+        {
+          "source" : "C1",
+          "target" : "Deletion",
+          "directed" : true,
+          "interaction" : "sbase-deletion",
+          "attributes" : {
+            "interaction type" : "sbase-deletion",
+            "shared interaction" : "sbase-deletion"
+          }
+        },
+        {
+          "source" : "C2",
+          "target" : "Deletion0",
+          "directed" : true,
+          "interaction" : "sbase-deletion",
+          "attributes" : {
+            "interaction type" : "sbase-deletion",
+            "shared interaction" : "sbase-deletion"
+          }
+        },
+        {
+          "source" : "C3",
+          "target" : "Deletion1",
+          "directed" : true,
+          "interaction" : "sbase-deletion",
+          "attributes" : {
+            "interaction type" : "sbase-deletion",
+            "shared interaction" : "sbase-deletion"
+          }
+        },
+        {
+          "source" : "C4",
+          "target" : "Deletion2",
+          "directed" : true,
+          "interaction" : "sbase-deletion",
+          "attributes" : {
+            "interaction type" : "sbase-deletion",
+            "shared interaction" : "sbase-deletion"
+          }
+        },
         {
           "source" : "GFP_Degradation",
           "target" : "Cell",
@@ -254,7 +320,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C1 > portRef=input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"GFP_Total_replacedElement\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -264,7 +330,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C2 > portRef=input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"GFP_Total_replacedElement0\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -274,7 +340,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C3 > portRef=input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"GFP_Total_replacedElement1\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -284,12 +350,52 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C4 > portRef=input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"GFP_Total_replacedElement2\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
             "interaction type" : "sbase-replacedElement",
             "shared interaction" : "sbase-replacedElement"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C1 > portRef=input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"GFP_Total_replacedElement\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "C1",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C2 > portRef=input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"GFP_Total_replacedElement0\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "C2",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C3 > portRef=input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"GFP_Total_replacedElement1\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "C3",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
+          }
+        },
+        {
+          "source" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C4 > portRef=input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"GFP_Total_replacedElement2\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "C4",
+          "directed" : true,
+          "interaction" : "sbaseRef-submodel",
+          "attributes" : {
+            "interaction type" : "sbaseRef-submodel",
+            "shared interaction" : "sbaseRef-submodel"
           }
         }
       ]
@@ -316,6 +422,9 @@
           "value" : 1.0
         },
         {
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
           "cyId" : "Deletion",
           "label" : "Deletion",
           "metaId" : "Deletion",
@@ -323,6 +432,9 @@
           "sbml type ext" : "comp_deletion"
         },
         {
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
           "cyId" : "Deletion0",
           "label" : "Deletion0",
           "metaId" : "Deletion0",
@@ -330,16 +442,22 @@
           "sbml type ext" : "comp_deletion"
         },
         {
-          "cyId" : "Deletion01",
-          "label" : "Deletion01",
-          "metaId" : "Deletion01",
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
+          "cyId" : "Deletion1",
+          "label" : "Deletion1",
+          "metaId" : "Deletion1",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
         },
         {
-          "cyId" : "Deletion012",
-          "label" : "Deletion012",
-          "metaId" : "Deletion012",
+          "comp_portRef" : "reaction__Degradation_GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "portRef=reaction__Degradation_GFP",
+          "cyId" : "Deletion2",
+          "label" : "Deletion2",
+          "metaId" : "Deletion2",
           "sbml type" : "comp_deletion",
           "sbml type ext" : "comp_deletion"
         },
@@ -384,6 +502,8 @@
         },
         {
           "comp_idRef" : "C5",
+          "comp_resolution" : "There is no element 'C5' in the model 'testHier'.",
+          "comp_sBaseRef" : "idRef=C5 > portRef=input__GFP",
           "cyId" : "input__GFP__C5",
           "label" : "input__GFP__C5",
           "metaId" : "input__GFP__C5",
@@ -402,32 +522,40 @@
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C1 > portRef=input__GFP",
           "comp_submodelRef" : "C1",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement",
           "label" : "<C1:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C2 > portRef=input__GFP",
           "comp_submodelRef" : "C2",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement0",
           "label" : "<C2:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C3 > portRef=input__GFP",
           "comp_submodelRef" : "C3",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement1",
           "label" : "<C3:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
         },
         {
           "comp_portRef" : "input__GFP",
+          "comp_resolution" : "The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.",
+          "comp_sBaseRef" : "submodelRef=C4 > portRef=input__GFP",
           "comp_submodelRef" : "C4",
-          "cyId" : "",
+          "cyId" : "GFP_Total_replacedElement2",
           "label" : "<C4:input__GFP>",
           "sbml type" : "comp_replacedElement",
           "sbml type ext" : "comp_replacedElement"
@@ -514,7 +642,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C1 > portRef=input__GFP\",\"comp_submodelRef\":\"C1\",\"cyId\":\"GFP_Total_replacedElement\",\"label\":\"<C1:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -525,7 +653,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C2 > portRef=input__GFP\",\"comp_submodelRef\":\"C2\",\"cyId\":\"GFP_Total_replacedElement0\",\"label\":\"<C2:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -536,7 +664,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C3 > portRef=input__GFP\",\"comp_submodelRef\":\"C3\",\"cyId\":\"GFP_Total_replacedElement1\",\"label\":\"<C3:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {
@@ -547,7 +675,7 @@
         },
         {
           "source" : "GFP_Total",
-          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
+          "target" : "{\"comp_portRef\":\"input__GFP\",\"comp_resolution\":\"The location of the file is not known, so the relative source 'file:represCirc.xml' of the external model definition 'represCirc' cannot be found. Import the file from the file system.\",\"comp_sBaseRef\":\"submodelRef=C4 > portRef=input__GFP\",\"comp_submodelRef\":\"C4\",\"cyId\":\"GFP_Total_replacedElement2\",\"label\":\"<C4:input__GFP>\",\"sbml type\":\"comp_replacedElement\",\"sbml type ext\":\"comp_replacedElement\"}",
           "directed" : true,
           "interaction" : "sbase-replacedElement",
           "attributes" : {

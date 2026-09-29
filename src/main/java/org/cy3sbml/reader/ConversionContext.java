@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.cy3sbml.SBML;
+import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.MappingUtil;
 import org.cytoscape.group.CyGroup;
@@ -20,6 +21,7 @@ import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.UnitDefinition;
+import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.groups.Group;
 
 /**
@@ -33,6 +35,7 @@ final class ConversionContext {
     private final SBMLDocument document;
     private final CyNetwork network;
     private final CyGroupFactory groupFactory;
+    private final SBaseRefResolver sBaseRefResolver;
 
     private final Map<String, CyNode> metaId2Node = new HashMap<>();
     private final Map<String, CyNode> id2Node = new HashMap<>();
@@ -45,11 +48,15 @@ final class ConversionContext {
      * Creates the context for the network.
      *
      * @param document document of the model, used to create unique metaIds
+     * @param sBaseRefResolver resolver of the comp references, shared by the models of the
+     *     document
      */
-    ConversionContext(SBMLDocument document, CyNetwork network, CyGroupFactory groupFactory) {
+    ConversionContext(
+            SBMLDocument document, CyNetwork network, CyGroupFactory groupFactory, SBaseRefResolver sBaseRefResolver) {
         this.document = document;
         this.network = network;
         this.groupFactory = groupFactory;
+        this.sBaseRefResolver = sBaseRefResolver;
     }
 
     CyNetwork network() {
@@ -73,12 +80,13 @@ final class ConversionContext {
         AttributeUtil.set(network, n, SBML.ATTR_CYID, metaId, String.class);
         AttributeUtil.set(network, n, SBML.NODETYPE_ATTR, sbmlType, String.class);
         AttributeUtil.set(network, n, SBML.LABEL, metaId, String.class);
-        // store nodes
+        // store nodes, only SIds: unit definitions (UnitSId) and ports (PortSId) have their own namespaces
         metaId2Node.put(metaId, n);
-        if (sbase instanceof NamedSBase nsb) {
-            if (nsb.isSetId()) {
-                id2Node.put(nsb.getId(), n);
-            }
+        if (sbase instanceof NamedSBase nsb
+                && nsb.isSetId()
+                && !(sbase instanceof UnitDefinition)
+                && !(sbase instanceof Port)) {
+            id2Node.put(nsb.getId(), n);
         }
         return n;
     }
@@ -123,6 +131,12 @@ final class ConversionContext {
         return cyGroup;
     }
 
+    /** Resolver of the comp references of the document. */
+    SBaseRefResolver sBaseRefResolver() {
+        return sBaseRefResolver;
+    }
+
+    /** The node of the element with the SId. */
     Optional<CyNode> nodeById(String id) {
         return Optional.ofNullable(id2Node.get(id));
     }

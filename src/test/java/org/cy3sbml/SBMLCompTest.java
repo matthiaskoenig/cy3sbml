@@ -36,7 +36,8 @@ public class SBMLCompTest {
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(81, network.getNodeCount());
-        assertEquals(70, network.getEdgeCount());
+        // 70 edges and one from each of the 46 replaced elements and the replaced by to its submodel
+        assertEquals(117, network.getEdgeCount());
     }
 
     /**
@@ -48,6 +49,7 @@ public class SBMLCompTest {
         CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(10, network.getNodeCount());
-        assertEquals(6, network.getEdgeCount());
+        // 6 edges and one from each of the two replacements to its submodel
+        assertEquals(8, network.getEdgeCount());
     }
 }
