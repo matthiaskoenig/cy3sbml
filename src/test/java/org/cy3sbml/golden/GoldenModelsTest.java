@@ -54,7 +54,7 @@ public class GoldenModelsTest {
     private static final boolean UPDATE = Boolean.getBoolean("golden.update");
 
     /** Model resources below {@code /models/} that are pinned by a snapshot. */
-    static final List<String> MODELS = List.of(
+    public static final List<String> MODELS = List.of(
             // unittests: all
             "unittests/01134-sbml-l3v1.xml",
             "unittests/comp_01.xml",

@@ -231,9 +231,8 @@ final class FbcReader implements PackageReader {
             boolean isAnd = operator instanceof And;
             String nodeType = isAnd ? SBML.NODETYPE_FBC_AND : SBML.NODETYPE_FBC_OR;
 
-            CyNode operatorNode = network.addNode();
+            CyNode operatorNode = context.createNode(operator, nodeType);
             AttributeUtil.set(network, operatorNode, SBML.LABEL, isAnd ? "AND" : "OR", String.class);
-            AttributeUtil.set(network, operatorNode, SBML.NODETYPE_ATTR, nodeType, String.class);
             context.createEdge(operatorNode, parentNode, interaction);
 
             for (Association child : operator.getListOfAssociations()) {

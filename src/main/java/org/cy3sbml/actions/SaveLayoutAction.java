@@ -52,6 +52,11 @@ public final class SaveLayoutAction extends AbstractCyAction {
         FileUtil fileUtil = adapter.fileUtil;
         File xmlFile = fileUtil.getFile(frame, "Save Layout in XML", FileUtil.SAVE, filters);
 
+        if (xmlFile == null) {
+            // file chooser cancelled
+            return;
+        }
+
         LayoutTools layoutTools = new LayoutTools(adapter);
         layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
     }
