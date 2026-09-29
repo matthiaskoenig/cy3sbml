@@ -128,6 +128,9 @@ Package columns:
   `comp_modelRef`, `comp_timeConversionFactor`, `comp_extentConversionFactor`, and the
   resolved target `comp_targetModel`, `comp_targetId`, `comp_targetType`,
   `comp_targetMetaId` with `comp_resolution`.
+- `distrib`: `distrib_uncertainty` and `distrib_uncertaintyCount` on the node of every
+  element with uncertainties, and on the edges of species references. See
+  [distrib](packages.md#distrib-distributions).
 
 Annotations become columns too. Every resource of an RDF annotation is stored in a column
 named after its identifiers.org collection, with the identifier as value. For models with

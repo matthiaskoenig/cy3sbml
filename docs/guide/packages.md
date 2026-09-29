@@ -1,6 +1,6 @@
 # Supported SBML packages
 
-cy3sbml reads SBML Level 1, 2 and 3 in all versions with JSBML. The SBML core and four
+cy3sbml reads SBML Level 1, 2 and 3 in all versions with JSBML. The SBML core and five
 Level 3 packages are converted into the network. The node and edge types of each package
 are listed in [Network model](network.md).
 
@@ -11,8 +11,9 @@ are listed in [Network model](network.md).
 | `fbc` (flux balance constraints), versions 1 and 2 | supported |
 | `comp` (hierarchical model composition) | supported |
 | `groups` | supported |
+| `distrib` (distributions), version 1 | supported |
 | `layout` | not yet supported |
-| other packages, for example `distrib` | read by JSBML, not converted |
+| other packages, for example `multi` | read by JSBML, not converted |
 
 ## core
 
@@ -87,6 +88,33 @@ cy3sbml supports the comp package version 1 release 3.
 Every group becomes a Cytoscape group of the nodes of its members in the base and the
 kinetic network. The SBO term, notes and annotation of a list of members are applied to
 the members that do not have their own.
+
+## distrib (distributions)
+
+cy3sbml supports the distrib package version 1.
+
+- **Uncertainties.** Every SBML element can have uncertainties, each with uncertainty
+  parameters (for example `mean`, `standardDeviation`, a `distribution`, or an
+  `externalParameter`) and spans (for example a `confidenceInterval` or a `range`).
+  They do not become nodes. The node of the element gets the columns
+  `distrib_uncertainty`, a summary of its uncertainties, and `distrib_uncertaintyCount`,
+  their number; for a species reference, its reactant or product edge gets them. The
+  summary lists the parameters of an uncertainty separated by `;`, the uncertainties
+  separated by `|` and prefixed with their id, for example
+  `u1: mean=4.2; confidenceInterval=[3.5, 4.9] | u2: standardDeviation=sd_k1`: a value
+  with its units, a `var` (the id of the element with the value), the bounds of a span
+  (`?` for a bound that is not set), or the math of a distribution, and nested parameters
+  in parentheses.
+- **Info panel.** The info panel of the element shows its uncertainties: the id and name
+  of each uncertainty and a table with the type, value, units and definition URL of every
+  parameter and span, nested parameters indented below their parent. A `var` has a link
+  to the node of the element it references.
+- **Distributions in math.** The distribution functions in math, for example
+  `normal(mean, sd)`, are shown in the `math` column and the info panel like other
+  functions, with the edges from the referenced elements.
+- libSBML writes the type `coefficientOfVariation` as `coeffientOfVariation`
+  ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)); both are read.
+  The draft of distrib with UncertML elements is not read.
 
 ## layout
 
