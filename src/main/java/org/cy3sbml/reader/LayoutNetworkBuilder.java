@@ -2,14 +2,17 @@ package org.cy3sbml.reader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import org.cy3sbml.SBML;
 import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.MappingUtil;
 import org.cytoscape.model.CyColumn;
+import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -17,13 +20,17 @@ import org.cytoscape.model.CyRow;
 import org.cytoscape.model.CyTable;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.ext.layout.AbstractReferenceGlyph;
 import org.sbml.jsbml.ext.layout.CompartmentGlyph;
 import org.sbml.jsbml.ext.layout.GeneralGlyph;
 import org.sbml.jsbml.ext.layout.GraphicalObject;
 import org.sbml.jsbml.ext.layout.Layout;
 import org.sbml.jsbml.ext.layout.ReactionGlyph;
+import org.sbml.jsbml.ext.layout.ReferenceGlyph;
 import org.sbml.jsbml.ext.layout.SpeciesGlyph;
+import org.sbml.jsbml.ext.layout.SpeciesReferenceGlyph;
+import org.sbml.jsbml.ext.layout.SpeciesReferenceRole;
 import org.sbml.jsbml.ext.layout.TextGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +46,22 @@ import org.slf4j.LoggerFactory;
  */
 final class LayoutNetworkBuilder {
     private static final Logger logger = LoggerFactory.getLogger(LayoutNetworkBuilder.class);
+
+    /** Interaction types of the edges between a reaction or transition and its participants. */
+    static final Set<String> PARTICIPANT_INTERACTIONS = Set.of(
+            SBML.INTERACTION_REACTION_REACTANT,
+            SBML.INTERACTION_REACTION_PRODUCT,
+            SBML.INTERACTION_REACTION_MODIFIER,
+            SBML.INTERACTION_REACTION_ACTIVATOR,
+            SBML.INTERACTION_REACTION_INHIBITOR,
+            SBML.INTERACTION_QUAL_TRANSITION_INPUT,
+            SBML.INTERACTION_QUAL_TRANSITION_OUTPUT);
+
+    /** Node types of the reactions and transitions. */
+    private static final Set<String> REACTION_TYPES = Set.of(SBML.NODETYPE_REACTION, SBML.NODETYPE_QUAL_TRANSITION);
+
+    /** Width and height of a generated node. */
+    static final double GENERATED_SIZE = 20.0;
 
     private final ConversionContext context;
 
@@ -97,8 +120,14 @@ final class LayoutNetworkBuilder {
         private final CySubNetwork network;
         // glyph nodes by glyph id, glyph ids are unique in a layout
         private final Map<String, CyNode> glyphNodes = new HashMap<>();
+        // glyph nodes by glyph instance, also of the glyphs without id
+        private final Map<GraphicalObject, CyNode> nodeOfGlyph = new IdentityHashMap<>();
         // the glyph nodes of every represented node of the network of the model
         private final Map<CyNode, List<CyNode>> glyphsOfNode = new LinkedHashMap<>();
+        // the represented node of the network of the model of every glyph node
+        private final Map<CyNode, CyNode> representedBy = new HashMap<>();
+        private final Map<CyNode, GlyphBox> boxes = new HashMap<>();
+        private final List<GeneralGlyph> generalGlyphs = new ArrayList<>();
 
         LayoutGraph(CyRootNetwork rootNetwork, CySubNetwork network) {
             this.rootNetwork = rootNetwork;
@@ -119,6 +148,13 @@ final class LayoutNetworkBuilder {
                 additionalGlyph(glyph);
             }
             labels(layout);
+            for (ReactionGlyph glyph : layout.getListOfReactionGlyphs()) {
+                reactionGlyphEdges(glyph);
+            }
+            for (GeneralGlyph glyph : generalGlyphs) {
+                referenceGlyphEdges(glyph);
+            }
+            generatedReactions();
         }
 
         /** Additional graphical objects, with the sub glyphs of general glyphs. */
@@ -128,6 +164,9 @@ final class LayoutNetworkBuilder {
                 return;
             }
             glyphNode(glyph, glyphType(glyph));
+            if (glyph instanceof GeneralGlyph generalGlyph) {
+                generalGlyphs.add(generalGlyph);
+            }
             if (glyph instanceof GeneralGlyph generalGlyph && generalGlyph.isSetListOfSubGlyphs()) {
                 for (GraphicalObject subGlyph : generalGlyph.getListOfSubGlyphs()) {
                     additionalGlyph(subGlyph);
@@ -175,6 +214,7 @@ final class LayoutNetworkBuilder {
             if (glyph.isSetId()) {
                 glyphNodes.put(glyph.getId(), node);
             }
+            nodeOfGlyph.put(glyph, node);
             setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH, glyphKey(glyph), String.class);
             setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH_TYPE, glyphType, String.class);
             setBox(node, GlyphBox.of(glyph));
@@ -215,13 +255,177 @@ final class LayoutNetworkBuilder {
             network.getRow(node)
                     .set(CyNetwork.NAME, shared.getRow(node.getSUID()).get(SBML.ATTR_NAME, String.class));
             glyphsOfNode.computeIfAbsent(modelNode, n -> new ArrayList<>()).add(node);
+            representedBy.put(node, modelNode);
         }
 
         private void setBox(CyNode node, GlyphBox box) {
+            boxes.put(node, box);
             setLocal(network, node, SBML.ATTR_LAYOUT_X, box.x(), Double.class);
             setLocal(network, node, SBML.ATTR_LAYOUT_Y, box.y(), Double.class);
             setLocal(network, node, SBML.ATTR_LAYOUT_WIDTH, box.width(), Double.class);
             setLocal(network, node, SBML.ATTR_LAYOUT_HEIGHT, box.height(), Double.class);
+        }
+
+        // ------------------------------------------------------------
+        // edges
+        // ------------------------------------------------------------
+
+        /**
+         * The edges of a reaction glyph: one per species reference glyph, or, without species
+         * reference glyphs, the edges of its reaction to all glyphs of the participants.
+         */
+        private void reactionGlyphEdges(ReactionGlyph glyph) {
+            CyNode node = nodeOfGlyph.get(glyph);
+            if (glyph.isSetListOfSpeciesReferenceGlyphs() && glyph.getSpeciesReferenceGlyphCount() > 0) {
+                for (SpeciesReferenceGlyph speciesReferenceGlyph : glyph.getListOfSpeciesReferenceGlyphs()) {
+                    speciesReferenceEdge(node, speciesReferenceGlyph);
+                }
+            } else if (representedBy.containsKey(node)) {
+                participantEdges(representedBy.get(node), node);
+            }
+        }
+
+        /**
+         * The edge of a species reference glyph between the reaction glyph and the species
+         * glyph: a copy of the edge of the model it stands for, else an edge of the role.
+         */
+        private void speciesReferenceEdge(CyNode reactionNode, SpeciesReferenceGlyph glyph) {
+            CyNode speciesNode = glyph.isSetSpeciesGlyph() ? glyphNodes.get(glyph.getSpeciesGlyph()) : null;
+            if (speciesNode == null) {
+                logger.debug(
+                        "The species glyph of the species reference glyph '{}' is not in the layout.", glyph.getId());
+                return;
+            }
+            SpeciesReferenceRole role = glyph.isSetSpeciesReferenceRole() ? glyph.getSpeciesReferenceRole() : null;
+            CyNode reaction = representedBy.get(reactionNode);
+            Optional<CyEdge> modelEdge = modelEdge(glyph, reaction, representedBy.get(speciesNode), role);
+            if (modelEdge.isPresent()) {
+                copyEdge(modelEdge.get(), reaction, reactionNode, speciesNode);
+                return;
+            }
+            boolean transition = reaction != null
+                    && SBML.NODETYPE_QUAL_TRANSITION.equals(
+                            context.network().getRow(reaction).get(SBML.NODETYPE_ATTR, String.class));
+            // all edges of a reaction or transition start at it, as in the network of the model
+            CyEdge edge = network.addEdge(reactionNode, speciesNode, true);
+            AttributeUtil.set(network, edge, SBML.INTERACTION_ATTR, roleInteraction(role, transition), String.class);
+        }
+
+        /**
+         * The edge of the model of a species reference glyph: the edge of its species
+         * reference, else the edge between the reaction and the species that fits the role,
+         * else the only edge between them.
+         */
+        private Optional<CyEdge> modelEdge(
+                SpeciesReferenceGlyph glyph, CyNode reaction, CyNode species, SpeciesReferenceRole role) {
+            if (glyph.isSetSpeciesReference() && glyph.getModel() != null) {
+                SBase speciesReference = glyph.getModel().findNamedSBase(glyph.getSpeciesReference());
+                Optional<CyEdge> edge = speciesReference == null ? Optional.empty() : context.edgeOf(speciesReference);
+                if (edge.isPresent()) {
+                    return edge;
+                }
+            }
+            if (reaction == null || species == null) {
+                return Optional.empty();
+            }
+            CyNetwork modelNetwork = context.network();
+            List<CyEdge> edges = modelNetwork.getConnectingEdgeList(reaction, species, CyEdge.Type.ANY).stream()
+                    .filter(e -> PARTICIPANT_INTERACTIONS.contains(interaction(modelNetwork, e)))
+                    .toList();
+            Set<String> fitting = roleInteractions(role);
+            List<CyEdge> fits = edges.stream()
+                    .filter(e -> fitting.contains(interaction(modelNetwork, e)))
+                    .toList();
+            if (fits.size() == 1) {
+                return Optional.of(fits.get(0));
+            }
+            return edges.size() == 1 ? Optional.of(edges.get(0)) : Optional.empty();
+        }
+
+        /** Edges from the node of a reaction or transition to all glyphs of its participants. */
+        private void participantEdges(CyNode reaction, CyNode reactionNode) {
+            for (CyEdge modelEdge : participantModelEdges(reaction)) {
+                CyNode participant = other(modelEdge, reaction);
+                for (CyNode glyph : glyphsOfNode.getOrDefault(participant, List.of())) {
+                    copyEdge(modelEdge, reaction, reactionNode, glyph);
+                }
+            }
+        }
+
+        private List<CyEdge> participantModelEdges(CyNode reaction) {
+            CyNetwork modelNetwork = context.network();
+            return modelNetwork.getAdjacentEdgeList(reaction, CyEdge.Type.ANY).stream()
+                    .filter(e -> PARTICIPANT_INTERACTIONS.contains(interaction(modelNetwork, e)))
+                    .filter(e -> !other(e, reaction).equals(reaction))
+                    .toList();
+        }
+
+        /**
+         * A generated node for every reaction and transition without glyph whose participants
+         * have glyphs, at the centroid of the glyphs of the participants.
+         */
+        private void generatedReactions() {
+            CyNetwork modelNetwork = context.network();
+            for (CyNode reaction : modelNetwork.getNodeList()) {
+                if (glyphsOfNode.containsKey(reaction)
+                        || !REACTION_TYPES.contains(
+                                modelNetwork.getRow(reaction).get(SBML.NODETYPE_ATTR, String.class))) {
+                    continue;
+                }
+                List<GlyphBox> participantBoxes = new ArrayList<>();
+                for (CyEdge modelEdge : participantModelEdges(reaction)) {
+                    for (CyNode glyph : glyphsOfNode.getOrDefault(other(modelEdge, reaction), List.of())) {
+                        participantBoxes.add(boxes.get(glyph));
+                    }
+                }
+                if (participantBoxes.isEmpty()) {
+                    continue;
+                }
+                CyNode node = network.addNode();
+                represent(node, reaction);
+                setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH_TYPE, SBML.NODETYPE_LAYOUT_GENERATED, String.class);
+                setBox(node, GlyphBox.centroid(participantBoxes, GENERATED_SIZE));
+                participantEdges(reaction, node);
+            }
+        }
+
+        /** The edges of the reference glyphs of a general glyph to the referenced glyphs. */
+        private void referenceGlyphEdges(GeneralGlyph glyph) {
+            CyNode node = nodeOfGlyph.get(glyph);
+            if (!glyph.isSetListOfReferenceGlyphs()) {
+                return;
+            }
+            for (ReferenceGlyph referenceGlyph : glyph.getListOfReferenceGlyphs()) {
+                CyNode target = referenceGlyph.isSetGlyph() ? glyphNodes.get(referenceGlyph.getGlyph()) : null;
+                if (target == null) {
+                    logger.debug("The glyph of the reference glyph '{}' is not in the layout.", referenceGlyph.getId());
+                    continue;
+                }
+                CyEdge edge = network.addEdge(node, target, true);
+                AttributeUtil.set(
+                        network, edge, SBML.INTERACTION_ATTR, SBML.INTERACTION_LAYOUT_REFERENCE, String.class);
+                setLocal(
+                        network,
+                        edge,
+                        SBML.ATTR_LAYOUT_ROLE,
+                        referenceGlyph.isSetRole() ? referenceGlyph.getRole() : null,
+                        String.class);
+            }
+        }
+
+        /**
+         * Adds a copy of the edge of the model between the reaction and a participant, with
+         * the direction of the model edge (from the reaction), between the node of the
+         * reaction and the glyph of the participant.
+         */
+        private void copyEdge(CyEdge modelEdge, CyNode reaction, CyNode reactionNode, CyNode participantNode) {
+            CyEdge edge = modelEdge.getSource().equals(reaction)
+                    ? network.addEdge(reactionNode, participantNode, true)
+                    : network.addEdge(participantNode, reactionNode, true);
+            CyTable shared = rootNetwork.getSharedEdgeTable();
+            copyRow(shared, shared.getRow(modelEdge.getSUID()), shared.getRow(edge.getSUID()));
+            network.getRow(edge)
+                    .set(CyNetwork.NAME, shared.getRow(edge.getSUID()).get(SBML.ATTR_NAME, String.class));
         }
 
         /**
@@ -255,6 +459,52 @@ final class LayoutNetworkBuilder {
             }
             return Optional.empty();
         }
+    }
+
+    private static String interaction(CyNetwork network, CyEdge edge) {
+        return network.getRow(edge).get(SBML.INTERACTION_ATTR, String.class);
+    }
+
+    private static CyNode other(CyEdge edge, CyNode node) {
+        return edge.getSource().equals(node) ? edge.getTarget() : edge.getSource();
+    }
+
+    /** The interactions of the model edges that fit the role, all for an undefined role. */
+    private static Set<String> roleInteractions(SpeciesReferenceRole role) {
+        if (role == null) {
+            return PARTICIPANT_INTERACTIONS;
+        }
+        return switch (role) {
+            case SUBSTRATE, SIDESUBSTRATE ->
+                Set.of(SBML.INTERACTION_REACTION_REACTANT, SBML.INTERACTION_QUAL_TRANSITION_INPUT);
+            case PRODUCT, SIDEPRODUCT ->
+                Set.of(SBML.INTERACTION_REACTION_PRODUCT, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT);
+            case MODIFIER, ACTIVATOR, INHIBITOR ->
+                Set.of(
+                        SBML.INTERACTION_REACTION_MODIFIER,
+                        SBML.INTERACTION_REACTION_ACTIVATOR,
+                        SBML.INTERACTION_REACTION_INHIBITOR,
+                        SBML.INTERACTION_QUAL_TRANSITION_INPUT);
+            case UNDEFINED -> PARTICIPANT_INTERACTIONS;
+        };
+    }
+
+    /** The interaction of an edge of a species reference glyph without edge in the model. */
+    private static String roleInteraction(SpeciesReferenceRole role, boolean transition) {
+        if (role == SpeciesReferenceRole.PRODUCT || role == SpeciesReferenceRole.SIDEPRODUCT) {
+            return transition ? SBML.INTERACTION_QUAL_TRANSITION_OUTPUT : SBML.INTERACTION_REACTION_PRODUCT;
+        }
+        if (transition) {
+            return SBML.INTERACTION_QUAL_TRANSITION_INPUT;
+        }
+        if (role == SpeciesReferenceRole.SUBSTRATE || role == SpeciesReferenceRole.SIDESUBSTRATE) {
+            return SBML.INTERACTION_REACTION_REACTANT;
+        } else if (role == SpeciesReferenceRole.ACTIVATOR) {
+            return SBML.INTERACTION_REACTION_ACTIVATOR;
+        } else if (role == SpeciesReferenceRole.INHIBITOR) {
+            return SBML.INTERACTION_REACTION_INHIBITOR;
+        }
+        return SBML.INTERACTION_REACTION_MODIFIER;
     }
 
     /** Copies the values of all columns but the primary key from one row of the table to another. */

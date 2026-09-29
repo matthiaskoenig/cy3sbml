@@ -24,7 +24,6 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
 import org.cytoscape.model.NetworkTestSupport;
-import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
 
@@ -219,12 +218,146 @@ class LayoutNetworkBuilderTest {
         }
     }
 
+    /** All edges of a reaction start at the reaction, as in the network of the model. */
+    @Test
+    void speciesReferenceGlyphsAreEdgesOfTheirModelEdge() throws Exception {
+        CyNetwork layout = layout1();
+
+        Set<String> edges = edges(layout, keys(layout));
+        assertTrue(edges.contains("rg_R1 -> sg_A " + SBML.INTERACTION_REACTION_REACTANT), edges::toString);
+        // without species reference: the edge between the nodes
+        assertTrue(edges.contains("rg_R1 -> sg_B " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
+        // the role inhibitor of the modifier edge
+        assertTrue(edges.contains("rg_R1 -> sg_E " + SBML.INTERACTION_REACTION_MODIFIER), edges::toString);
+    }
+
+    @Test
+    void edgeOfASpeciesReferenceGlyphIsACopyOfTheModelEdge() throws Exception {
+        CyNetwork layout = layout1();
+        Map<CyNode, String> keys = keys(layout);
+
+        CyEdge edge = layout.getEdgeList().stream()
+                .filter(e -> "rg_R1".equals(keys.get(e.getSource())) && "sg_A".equals(keys.get(e.getTarget())))
+                .findFirst()
+                .orElseThrow();
+        assertEquals("sr_A", layout.getRow(edge).get(SBML.ATTR_ID, String.class));
+    }
+
+    @Test
+    void speciesReferenceGlyphWithoutModelEdgeIsAnEdgeOfTheRole() throws Exception {
+        CyNetwork layout = layout1();
+
+        Set<String> edges = edges(layout, keys(layout));
+        assertTrue(edges.contains("rg_R1 -> sg_X " + SBML.INTERACTION_REACTION_ACTIVATOR), edges::toString);
+    }
+
+    @Test
+    void speciesReferenceGlyphOfAMissingSpeciesGlyphIsNoEdge() throws Exception {
+        CyNetwork layout = layout1();
+        Map<CyNode, String> keys = keys(layout);
+
+        long edgesOfR1 = layout.getEdgeList().stream()
+                .filter(e -> "rg_R1".equals(keys.get(e.getSource())) || "rg_R1".equals(keys.get(e.getTarget())))
+                .count();
+        assertEquals(4, edgesOfR1);
+    }
+
+    @Test
+    void reactionWithoutGlyphIsAGeneratedNodeBetweenItsParticipants() throws Exception {
+        CyNetwork layout = layout1();
+        CyNode generated = generatedNodes(layout).get("R2");
+
+        assertNotNull(generated);
+        assertEquals(SBML.NODETYPE_REACTION, layout.getRow(generated).get(SBML.NODETYPE_ATTR, String.class));
+        assertNull(layout.getRow(generated).get(SBML.ATTR_LAYOUT_GLYPH, String.class));
+        GlyphBox box = box(layout, generated);
+        assertEquals((50 + 50 + 330) / 3.0, box.x(), 1e-9);
+        assertEquals((50 + 250 + 150) / 3.0, box.y(), 1e-9);
+        assertEquals(20, box.width());
+        assertEquals(20, box.height());
+        Set<String> edges = edges(layout, keys(layout));
+        assertTrue(edges.contains("R2 -> sg_B " + SBML.INTERACTION_REACTION_REACTANT), edges::toString);
+        assertTrue(edges.contains("R2 -> sg_A " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
+        assertTrue(edges.contains("R2 -> sg_A2 " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
+    }
+
+    @Test
+    void reactionWithAGlyphIsNotGenerated() throws Exception {
+        assertEquals(Set.of("R2"), generatedNodes(layout1()).keySet());
+    }
+
+    @Test
+    void referenceGlyphsOfAGeneralGlyphAreEdges() throws Exception {
+        CyNetwork layout = layout1();
+        Map<CyNode, String> keys = keys(layout);
+
+        Set<String> edges = edges(layout, keys);
+        assertTrue(edges.contains("gg_1 -> sg_B " + SBML.INTERACTION_LAYOUT_REFERENCE), edges::toString);
+        CyEdge edge = layout.getEdgeList().stream()
+                .filter(e -> "gg_1".equals(keys.get(e.getSource())))
+                .findFirst()
+                .orElseThrow();
+        assertEquals("highlight", layout.getRow(edge).get(SBML.ATTR_LAYOUT_ROLE, String.class));
+    }
+
+    @Test
+    void reactionGlyphWithoutSpeciesReferenceGlyphsHasTheEdgesOfTheModel() throws Exception {
+        Map<String, CyNetwork> networks = byName(read("/models/layout/hsa00450_L3V1_layoutV1.xml"));
+        CyNetwork layout = layoutNetworks(networks).get(0);
+        CyNetwork all = allNetwork(networks);
+        Map<String, Integer> glyphsOfCyId = new HashMap<>();
+        for (CyNode node : layout.getNodeList()) {
+            glyphsOfCyId.merge(layout.getRow(node).get(SBML.ATTR_CYID, String.class), 1, Integer::sum);
+        }
+
+        int reactionGlyphs = 0;
+        for (CyNode node : layout.getNodeList()) {
+            if (!SBML.NODETYPE_LAYOUT_REACTIONGLYPH.equals(
+                    layout.getRow(node).get(SBML.ATTR_LAYOUT_GLYPH_TYPE, String.class))) {
+                continue;
+            }
+            reactionGlyphs++;
+            CyNode reaction = nodeByCyId(all, layout.getRow(node).get(SBML.ATTR_CYID, String.class));
+            int expected = 0;
+            for (CyEdge edge : all.getAdjacentEdgeList(reaction, CyEdge.Type.ANY)) {
+                String type = all.getRow(edge).get(SBML.INTERACTION_ATTR, String.class);
+                if (LayoutNetworkBuilder.PARTICIPANT_INTERACTIONS.contains(type)) {
+                    CyNode participant = edge.getSource().equals(reaction) ? edge.getTarget() : edge.getSource();
+                    expected +=
+                            glyphsOfCyId.getOrDefault(all.getRow(participant).get(SBML.ATTR_CYID, String.class), 0);
+                }
+            }
+            assertEquals(
+                    expected, layout.getAdjacentEdgeList(node, CyEdge.Type.ANY).size());
+        }
+        assertEquals(13, reactionGlyphs);
+        assertFalse(layout.getEdgeList().isEmpty());
+    }
+
+    @Test
+    void transitionsWithoutGlyphAreGenerated() throws Exception {
+        CyNetwork layout = layoutNetworks(byName(read("layout_01.xml"))).get(0);
+        Map<String, CyNode> generated = generatedNodes(layout);
+
+        assertFalse(generated.isEmpty());
+        Set<String> types = new HashSet<>();
+        for (CyNode node : generated.values()) {
+            assertEquals(SBML.NODETYPE_QUAL_TRANSITION, layout.getRow(node).get(SBML.NODETYPE_ATTR, String.class));
+            for (CyEdge edge : layout.getAdjacentEdgeList(node, CyEdge.Type.ANY)) {
+                types.add(layout.getRow(edge).get(SBML.INTERACTION_ATTR, String.class));
+            }
+        }
+        assertEquals(Set.of(SBML.INTERACTION_QUAL_TRANSITION_INPUT, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT), types);
+    }
+
     // ------------------------------------------------------------
     // support
     // ------------------------------------------------------------
 
-    static CyNetwork[] read(String fileName) throws Exception {
-        String resource = "/models/unittests/" + fileName;
+    /** Reads the unit test model with the file name, or the model resource with an absolute path. */
+    static CyNetwork[] read(String model) throws Exception {
+        String resource = model.startsWith("/") ? model : "/models/unittests/" + model;
+        String fileName = resource.substring(resource.lastIndexOf('/') + 1);
         try (InputStream stream = LayoutNetworkBuilderTest.class.getResourceAsStream(resource)) {
             assertNotNull(stream, resource);
             SBMLReaderTask task = new SBMLReaderTask(
@@ -326,7 +459,21 @@ class LayoutNetworkBuilderTest {
         return edges;
     }
 
-    static boolean isSubnetworkOfTheModel(CyNetwork layout, CyNetwork all) {
-        return ((CySubNetwork) layout).getRootNetwork().equals(((CySubNetwork) all).getRootNetwork());
+    /** The glyph key of every node, the SBML id for the generated nodes. */
+    static Map<CyNode, String> keys(CyNetwork layout) {
+        Map<CyNode, String> keys = new HashMap<>();
+        for (CyNode node : layout.getNodeList()) {
+            CyRow row = layout.getRow(node);
+            String glyph = row.get(SBML.ATTR_LAYOUT_GLYPH, String.class);
+            keys.put(node, glyph != null ? glyph : row.get(SBML.ATTR_ID, String.class));
+        }
+        return keys;
+    }
+
+    static CyNode nodeByCyId(CyNetwork network, String cyId) {
+        return network.getNodeList().stream()
+                .filter(n -> cyId.equals(network.getRow(n).get(SBML.ATTR_CYID, String.class)))
+                .findFirst()
+                .orElseThrow();
     }
 }

@@ -101,6 +101,12 @@
                   <layout:dimensions layout:width="20" layout:height="120"/>
                 </layout:boundingBox>
               </layout:speciesReferenceGlyph>
+              <layout:speciesReferenceGlyph layout:id="srg_X" layout:speciesGlyph="sg_X" layout:role="activator">
+                <layout:boundingBox>
+                  <layout:position layout:x="190" layout:y="160"/>
+                  <layout:dimensions layout:width="110" layout:height="100"/>
+                </layout:boundingBox>
+              </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="srg_missing" layout:speciesGlyph="nope" layout:role="product">
                 <layout:boundingBox>
                   <layout:position layout:x="190" layout:y="150"/>
