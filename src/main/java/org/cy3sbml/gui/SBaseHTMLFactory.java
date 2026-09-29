@@ -265,7 +265,8 @@ public class SBaseHTMLFactory {
             }
             String creator = String.join(" ", parts);
             if (c.isSetOrganisation()) {
-                creator += ", " + HtmlUtil.escape(c.getOrganisation());
+                String organisation = HtmlUtil.escape(c.getOrganisation());
+                creator = creator.isEmpty() ? organisation : creator + ", " + organisation;
             }
             html += creator + "<br />\n";
         }

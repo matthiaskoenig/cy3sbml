@@ -5,7 +5,17 @@
       "nodeCount" : 13,
       "edgeCount" : 14,
       "attributes" : {
-        "name" : "Koenig_demo_v02"
+        "areaUnits" : "area",
+        "extentUnits" : "extent",
+        "label" : "Koenig_demo_v02",
+        "lengthUnits" : "length",
+        "name" : "Koenig_demo_v02",
+        "sbml id" : "Koenig_demo_v02",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "timeUnits" : "time_unit",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {
@@ -2241,7 +2251,17 @@
       "nodeCount" : 36,
       "edgeCount" : 69,
       "attributes" : {
-        "name" : "Koenig_demo_v02__kinetic"
+        "areaUnits" : "area",
+        "extentUnits" : "extent",
+        "label" : "Koenig_demo_v02",
+        "lengthUnits" : "length",
+        "name" : "Koenig_demo_v02__kinetic",
+        "sbml id" : "Koenig_demo_v02",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "timeUnits" : "time_unit",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {

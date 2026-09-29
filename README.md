@@ -6,14 +6,15 @@
 [![Cytoscape App Store](https://img.shields.io/badge/Cytoscape-App%20Store-blue)](https://apps.cytoscape.org/apps/cy3sbml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-`cy3sbml` is a [Cytoscape 3](https://cytoscape.org) app that imports SBML models as networks, using
-[JSBML](https://github.com/sbmlteam/jsbml) to support all SBML levels and versions plus the `qual`, `comp`,
-`fbc` and `groups` packages. It renders species, reactions, kinetics and annotations as Cytoscape
-nodes, edges and styles, and provides one-click links to [BioModels](https://www.biomodels.org),
+`cy3sbml` is a [Cytoscape 3](https://cytoscape.org) app that imports SBML models as networks. It
+uses [JSBML](https://github.com/sbmlteam/jsbml) to read all SBML levels and versions, with the
+`qual`, `fbc`, `comp`, `groups`, `distrib` and `layout` packages. Every SBML object becomes a node,
+the relations between the objects become edges, and every layout of the `layout` package becomes a
+network with the drawn positions. A panel next to the network shows the SBML information and the
+annotations of the selected object, with links to [BioModels](https://www.biomodels.org),
 [identifiers.org](https://identifiers.org/) and the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/index).
-Models can be imported from SBML files or searched and imported from the BioModels database.
-The SBML models of COMBINE archives (OMEX) are imported as well, and every layout of the SBML
-`layout` package becomes a network with the drawn positions.
+Models are imported from SBML files, from COMBINE archives (OMEX), or searched and imported from
+the BioModels database.
 
 ![cy3sbml in Cytoscape: the base network of the fbc model mini_textbook with the information of the reaction R_PFK](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshots/main-window-fbc-model.png)
 
@@ -40,10 +41,10 @@ To cite a specific version of the software, use its archive on Zenodo:
 ## License
 
 - Source code: [MIT](https://opensource.org/license/MIT)
-- Documentation: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+- Documentation: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Funding
 
-Matthias König was supported by the Federal Ministry of Education and Research (BMBF, Germany) within LiSyM by grant number 031L0054 and ATLAS by grant number 031L0304B and by the German Research Foundation (DFG) within the Research Unit Program FOR 5151 QuaLiPerF (Quantifying Liver Perfusion-Function Relationship in Complex Resection - A Systems Medicine Approach) by grant number 436883643 and by grant number 465194077 (Priority Programme SPP 2311, Subproject SimLivA). This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B). MK was supported by the National Resource for Network Biology [NRNB](http://nrnb.org) within the [NRNB Academy Summer Session 2015](http://nrnb.org/gsoc.html). The project received support from [Google Summer of Code](https://summerofcode.withgoogle.com/).
+Matthias König was supported by the Federal Ministry of Education and Research (BMBF, Germany) within LiSyM by grant number 031L0054 and ATLAS by grant number 031L0304B and by the German Research Foundation (DFG) within the Research Unit Program FOR 5151 QuaLiPerF (Quantifying Liver Perfusion-Function Relationship in Complex Resection - A Systems Medicine Approach) by grant number 436883643 and by grant number 465194077 (Priority Programme SPP 2311, Subproject SimLivA). This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B). MK was supported by the National Resource for Network Biology [NRNB](https://nrnb.org) within the NRNB Academy Summer Session 2015. The project received support from [Google Summer of Code](https://summerofcode.withgoogle.com/).
 
 &copy; 2012-2026 Matthias König, [Systems Medicine of the Liver](https://livermetabolism.com)

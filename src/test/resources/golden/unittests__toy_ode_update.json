@@ -5,7 +5,19 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "toy_ode_update"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE metabolite update submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_8b8842adcc30469d8e8b93cf8f8e3716",
+        "name" : "toy_ode_update",
+        "sbml id" : "toy_ode_update",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -677,7 +689,19 @@
       "nodeCount" : 8,
       "edgeCount" : 8,
       "attributes" : {
-        "name" : "toy_ode_update__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE metabolite update submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_8b8842adcc30469d8e8b93cf8f8e3716",
+        "name" : "toy_ode_update__kinetic",
+        "sbml id" : "toy_ode_update",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {

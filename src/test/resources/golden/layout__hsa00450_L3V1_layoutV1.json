@@ -5,7 +5,16 @@
       "nodeCount" : 74,
       "edgeCount" : 77,
       "attributes" : {
-        "name" : "path_hsa00450"
+        "kegg.pathway" : "hsa00450",
+        "label" : "Selenocompound metabolism",
+        "metaId" : "meta_path_hsa00450",
+        "name" : "path_hsa00450",
+        "sbml id" : "path_hsa00450",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {
@@ -6587,7 +6596,16 @@
       "nodeCount" : 75,
       "edgeCount" : 151,
       "attributes" : {
-        "name" : "path_hsa00450__kinetic"
+        "kegg.pathway" : "hsa00450",
+        "label" : "Selenocompound metabolism",
+        "metaId" : "meta_path_hsa00450",
+        "name" : "path_hsa00450__kinetic",
+        "sbml id" : "path_hsa00450",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {
@@ -10318,8 +10336,16 @@
       "nodeCount" : 51,
       "edgeCount" : 41,
       "attributes" : {
+        "kegg.pathway" : "hsa00450",
+        "label" : "Selenocompound metabolism",
+        "metaId" : "meta_path_hsa00450",
         "name" : "path_hsa00450__layout_1",
-        "sbmlNetwork" : "sbmlLayout"
+        "sbml id" : "path_hsa00450",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {

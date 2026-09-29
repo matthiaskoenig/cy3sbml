@@ -5,7 +5,17 @@
       "nodeCount" : 7,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "Scheper1999"
+        "biomodels.db" : "BIOMD0000000024",
+        "go" : "GO:0042752",
+        "kegg.pathway" : "dme04711",
+        "label" : "Scheper1999_CircClock",
+        "metaId" : "metaid_0000002",
+        "name" : "Scheper1999",
+        "pubmed" : "9870936",
+        "sbml id" : "Scheper1999",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V1",
+        "taxonomy" : "7227"
       },
       "nodes" : [
         {
@@ -956,7 +966,17 @@
       "nodeCount" : 20,
       "edgeCount" : 41,
       "attributes" : {
-        "name" : "Scheper1999__kinetic"
+        "biomodels.db" : "BIOMD0000000024",
+        "go" : "GO:0042752",
+        "kegg.pathway" : "dme04711",
+        "label" : "Scheper1999_CircClock",
+        "metaId" : "metaid_0000002",
+        "name" : "Scheper1999__kinetic",
+        "pubmed" : "9870936",
+        "sbml id" : "Scheper1999",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V1",
+        "taxonomy" : "7227"
       },
       "nodes" : [
         {

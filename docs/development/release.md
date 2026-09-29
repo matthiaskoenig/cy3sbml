@@ -17,8 +17,8 @@ The branch and tag rules are GitHub rulesets, stored as JSON in `.github/ruleset
 - `tags.json`: tags cannot be deleted or moved.
 
 `.github/rulesets/apply.sh` applies the rulesets and the merge settings of the
-repository (squash and rebase merges, no merge commits, auto-merge, deletion of merged
-branches) with the GitHub CLI. It needs admin rights on the repository and updates
+repository (squash and rebase merges, no merge commits, auto-merge, updating pull request
+branches, deletion of merged branches) with the GitHub CLI. It needs admin rights on the repository and updates
 existing rulesets. A change of the JSON files takes effect only after `apply.sh` is run
 again:
 
@@ -27,14 +27,21 @@ gh auth login
 .github/rulesets/apply.sh matthiaskoenig/cy3sbml
 ```
 
+## Versions and release notes
+
+The version in `pom.xml` on `develop` is always the next release, without a `-SNAPSHOT`
+suffix. After a release, a pull request starts the development of the next version: it
+sets the version in `pom.xml`, for example `0.7.0`, and adds the release notes
+`release-notes/<version>.md`, for example `release-notes/0.7.0.md`. Every pull request
+with a user visible change adds its note to this file. The release notes are the text of
+the GitHub release and appear on the [Release notes](../release-notes.md) page, the notes
+of the version in development included.
+
 ## Release a version
 
-1. Open a pull request that sets the release version in `pom.xml`, for example `0.6.0`.
-2. In the same pull request, write the release notes in
-   `release-notes/<version>.md`, for example `release-notes/0.6.0.md`. They are the text
-   of the GitHub release and appear on the [Release notes](../release-notes.md) page.
-3. Merge the pull request into `develop`.
-4. Tag the merged commit on `develop` and push the tag:
+1. Open a pull request that completes the release notes `release-notes/<version>.md` and
+   updates the documentation, and merge it into `develop`.
+2. Tag the merged commit on `develop` and push the tag:
 
     ```bash
     git checkout develop
@@ -43,13 +50,13 @@ gh auth login
     git push origin v<version>
     ```
 
-5. The workflow `.github/workflows/release.yml` runs for the tag. It builds and tests
-   the app with `./mvnw verify`, checks that `release-notes/<version>.md` and
-   `target/cy3sbml-<version>.jar` exist, creates the GitHub release with the jar and its
-   MD5 and SHA-1 checksums, and fast-forwards `main` to the tag.
-6. Upload the jar of the GitHub release to the
+3. The workflow `.github/workflows/release.yml` runs for the tag. It checks that
+   `release-notes/<version>.md` exists, builds and tests the app with `./mvnw verify`,
+   checks that `target/cy3sbml-<version>.jar` exists, creates the GitHub release with
+   the jar and its MD5 and SHA-1 checksums, and fast-forwards `main` to the tag.
+4. Upload the jar of the GitHub release to the
    [Cytoscape App Store](https://apps.cytoscape.org/apps/cy3sbml).
-7. Open a pull request that sets the next development version in `pom.xml`.
+5. Open the pull request that starts the development of the next version.
 
 The documentation is published from `develop` by the workflow
 `.github/workflows/docs.yml` to <https://matthiaskoenig.github.io/cy3sbml/>.

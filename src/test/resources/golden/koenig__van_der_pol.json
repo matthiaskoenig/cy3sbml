@@ -5,7 +5,11 @@
       "nodeCount" : 4,
       "edgeCount" : 4,
       "attributes" : {
-        "name" : "van_der_pol"
+        "label" : "van_der_pol",
+        "name" : "van_der_pol",
+        "sbml id" : "van_der_pol",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -344,7 +348,11 @@
       "nodeCount" : 8,
       "edgeCount" : 12,
       "attributes" : {
-        "name" : "van_der_pol__kinetic"
+        "label" : "van_der_pol",
+        "name" : "van_der_pol__kinetic",
+        "sbml id" : "van_der_pol",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

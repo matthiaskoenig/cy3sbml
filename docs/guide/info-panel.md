@@ -12,9 +12,8 @@ The panel follows the selection in the current network:
   imported from a COMBINE archive, it shows the archive and its files as well, see
   [COMBINE archives](import.md#combine-archives).
 - If nodes are selected, it shows the SBML object of the first selected node.
-- Some nodes have no SBML object, for example the `AND` and `OR` nodes of fbc gene
-  associations, or base units like `mole` that are not defined in the model. The panel
-  then shows "No information".
+- The nodes of base units like `mole` that are not defined in the model have no SBML
+  object. The panel then shows "No information".
 - If the current network was not imported by cy3sbml, the panel shows that no SBML
   document is associated with it.
 
@@ -24,14 +23,18 @@ For the selected object, the panel shows in this order:
 2. A table with the SBML attributes of the object, for example the formula of the kinetic
    law of a reaction, or the initial values of a species. Ids of referenced objects,
    for example the compartment of a species, have a link icon. Clicking it selects the
-   node of the referenced object.
-   For a reaction, the table also shows:
+   node of the referenced object. For a reaction, the table also shows:
+
     - the equation, for example `2 A + B ⇌ C; E`: the reactants and products with their
       stoichiometries, `⇌` for a reversible and `→` for an irreversible reaction, `∅` for
       no reactants or products, and the modifiers after the semicolon. A stoichiometry
       that is not set but determined by a rule shows the id of the species reference;
     - the coefficient of the reaction in each fbc objective of the model, in the row
       `fbc_objective-<objective id>`, like the network column of the same name.
+
+    For a group, the table lists the members with their element name, their reference and
+    a link to their node.
+
 3. The uncertainties of the object (distrib package), see
    [distrib](packages.md#distrib-distributions).
 4. The model history: creators with email and organisation, the creation date and the

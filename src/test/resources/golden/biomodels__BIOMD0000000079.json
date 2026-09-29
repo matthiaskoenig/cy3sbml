@@ -5,7 +5,16 @@
       "nodeCount" : 9,
       "edgeCount" : 9,
       "attributes" : {
-        "name" : "Model_0"
+        "biomodels.db" : "BIOMD0000000079",
+        "go" : "GO:0040014",
+        "label" : "Goldbeter2006_weightCycling",
+        "metaId" : "metaid_0000002",
+        "name" : "Model_0",
+        "pubmed" : "16595882",
+        "sbml id" : "Model_0",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {
@@ -1083,7 +1092,16 @@
       "nodeCount" : 32,
       "edgeCount" : 37,
       "attributes" : {
-        "name" : "Model_0__kinetic"
+        "biomodels.db" : "BIOMD0000000079",
+        "go" : "GO:0040014",
+        "label" : "Goldbeter2006_weightCycling",
+        "metaId" : "metaid_0000002",
+        "name" : "Model_0__kinetic",
+        "pubmed" : "16595882",
+        "sbml id" : "Model_0",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {

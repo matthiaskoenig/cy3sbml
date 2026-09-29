@@ -5,7 +5,12 @@
       "nodeCount" : 49,
       "edgeCount" : 54,
       "attributes" : {
-        "name" : "MODEL_01186"
+        "label" : "MODEL_01186",
+        "metaId" : "meta_MODEL_01186",
+        "name" : "MODEL_01186",
+        "sbml id" : "MODEL_01186",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -3352,7 +3357,12 @@
       "nodeCount" : 50,
       "edgeCount" : 77,
       "attributes" : {
-        "name" : "MODEL_01186__kinetic"
+        "label" : "MODEL_01186",
+        "metaId" : "meta_MODEL_01186",
+        "name" : "MODEL_01186__kinetic",
+        "sbml id" : "MODEL_01186",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

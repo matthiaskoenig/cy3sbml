@@ -5,7 +5,12 @@
       "nodeCount" : 3,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "case00039"
+        "label" : "case00039",
+        "metaId" : "_case00039",
+        "name" : "case00039",
+        "sbml id" : "case00039",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V5"
       },
       "nodes" : [
         {
@@ -412,7 +417,12 @@
       "nodeCount" : 8,
       "edgeCount" : 11,
       "attributes" : {
-        "name" : "case00039__kinetic"
+        "label" : "case00039",
+        "metaId" : "_case00039",
+        "name" : "case00039__kinetic",
+        "sbml id" : "case00039",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V5"
       },
       "nodes" : [
         {

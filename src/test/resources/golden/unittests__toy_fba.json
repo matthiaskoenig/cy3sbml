@@ -5,7 +5,20 @@
       "nodeCount" : 7,
       "edgeCount" : 6,
       "attributes" : {
-        "name" : "toy_fba"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "FBA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_61c18d77d07d44ada462bd945a2c8403",
+        "name" : "toy_fba",
+        "sbml id" : "toy_fba",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000624",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -1242,7 +1255,20 @@
       "nodeCount" : 18,
       "edgeCount" : 24,
       "attributes" : {
-        "name" : "toy_fba__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "FBA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_61c18d77d07d44ada462bd945a2c8403",
+        "name" : "toy_fba__kinetic",
+        "sbml id" : "toy_fba",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000624",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {

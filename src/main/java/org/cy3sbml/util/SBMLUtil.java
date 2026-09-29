@@ -701,9 +701,8 @@ public class SBMLUtil {
         String maxLevel = qs.isSetMaxLevel() ? ((Integer) qs.getMaxLevel()).toString() : UNSET;
         String constant = qs.isSetConstant() ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : UNSET;
         map.put(ATTR_COMPARTMENT, compartment);
-        map.put(
-                String.format("%s/%s", SBML.ATTR_QUAL_INITIAL_LEVEL, SBML.ATTR_QUAL_MAX_LEVEL),
-                String.format("%s/%s", initialLevel, maxLevel));
+        map.put(SBML.ATTR_QUAL_INITIAL_LEVEL, initialLevel);
+        map.put(SBML.ATTR_QUAL_MAX_LEVEL, maxLevel);
         map.put(SBML.ATTR_CONSTANT, constant);
         return map;
     }

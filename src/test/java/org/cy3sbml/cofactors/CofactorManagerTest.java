@@ -1,10 +1,12 @@
 package org.cy3sbml.cofactors;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -311,16 +313,39 @@ class CofactorManagerTest {
     }
 
     @Test
-    void clonesAreFannedOutAtTheirNeighbor() {
-        double[] center = {0, 0};
-        double[] origin = {100, 0};
+    void clonesInOneDirectionAreSpreadAroundIt() {
+        double sep = CofactorManager.CLONE_ANGLE;
 
-        double[] first = CofactorManager.clonePosition(center, origin, 0);
-        double[] second = CofactorManager.clonePosition(center, origin, 1);
+        double[] spread = CofactorManager.spreadAngles(new double[] {0.1, 0.1, 0.1}, sep);
 
-        assertEquals(CofactorManager.CLONE_DISTANCE, first[0], 1e-9);
-        assertEquals(0.0, first[1], 1e-9);
-        assertEquals(CofactorManager.CLONE_DISTANCE, Math.hypot(second[0], second[1]), 1e-9);
-        assertTrue(second[1] > 0);
+        Arrays.sort(spread);
+        assertEquals(sep, spread[1] - spread[0], 1e-9);
+        assertEquals(sep, spread[2] - spread[1], 1e-9);
+        // the mean direction is kept
+        assertEquals(0.3, spread[0] + spread[1] + spread[2], 1e-9);
+    }
+
+    @Test
+    void clonesInDifferentDirectionsKeepTheirAngles() {
+        double[] angles = {0.0, Math.PI / 2, Math.PI};
+
+        assertArrayEquals(angles, CofactorManager.spreadAngles(angles, CofactorManager.CLONE_ANGLE), 1e-9);
+    }
+
+    @Test
+    void clonesAroundTheNegativeXAxisAreSpreadWithoutWrapping() {
+        // close to +pi and -pi, i.e. 0.02 apart
+        double[] spread = CofactorManager.spreadAngles(new double[] {Math.PI - 0.01, -Math.PI + 0.01}, 0.5);
+
+        double difference = Math.abs(Math.IEEEremainder(spread[0] - spread[1], 2 * Math.PI));
+        assertEquals(0.5, difference, 1e-9);
+    }
+
+    @Test
+    void clonesAtOneNeighborDoNotOverlap() {
+        // clones of about 40 in the styles
+        double chord = 2 * CofactorManager.CLONE_DISTANCE * Math.sin(CofactorManager.CLONE_ANGLE / 2);
+        assertTrue(chord >= 50, String.valueOf(chord));
+        assertEquals(Math.PI, CofactorManager.direction(new double[] {0, 0}, new double[] {-1, 0}), 1e-9);
     }
 }

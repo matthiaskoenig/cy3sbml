@@ -34,10 +34,11 @@ levels, signs, thresholds and transition effects are stored as columns with the 
 - Species get the columns `fbc_charge` and `fbc_chemicalFormula`.
 - Reactions get the columns `fbc_lowerFluxBound` and `fbc_upperFluxBound` with the ids of
   the bound parameters, and an edge from each bound parameter. The flux bounds of fbc
-  version 1 are read as well.
+  version 1 are read as well; they are values, so the columns hold the value and there
+  is no edge.
 - Every objective becomes a column `fbc_objective-<objective id>` with the coefficients
   of its reactions. The active objective is not marked.
-- Gene products become nodes. Gene product associations become a tree of `AND` and `OR`
+- Gene products become nodes, labelled with their `label`. Gene product associations become a tree of `AND` and `OR`
   nodes that ends in the reaction. The gene associations of fbc version 1 are not read.
 - The COBRA key value pairs in the notes, for example `GENE_ASSOCIATION`, become columns.
 
@@ -64,8 +65,9 @@ cy3sbml supports the comp package version 1 release 3.
   `comp_targetMetaId` name it, and the info panel links to the node in the network of
   its model. `comp_resolution` says `resolved`, or why the target could not be found.
 - **External files.** A missing or unreadable external file skips its network, and the
-  flat network if a submodel instantiates its model, with a warning in the log. The location of the file is known for a file
-  imported from the file system or a URL.
+  flat network if a submodel instantiates its model, with a warning in the log. External
+  files are found for a file imported from the file system or a URL, whose location is
+  known.
 
 | comp class | Conversion |
 |---|---|
@@ -81,7 +83,7 @@ cy3sbml supports the comp package version 1 release 3.
 | ReplacedBy (`submodelRef`, SBaseRef) | node `comp_replacedBy` with `comp_submodelRef` and the target columns |
 | SBase (list of replaced elements, replaced by) | on every element |
 
-![The All network of a comp test model: nine submodels with their deletions, the replaced elements linked to their submodels, and the info panel of the submodel C1 with the link to the network of its model](../images/screenshots/comp-model.png)
+![The network testHier__all of a comp test model: nine submodels with their deletions, the replaced elements linked to their submodels, and the info panel of the submodel C1 with the link to the network of its model](../images/screenshots/comp-model.png)
 
 ## groups
 
@@ -114,6 +116,9 @@ cy3sbml supports the distrib package version 1.
   of each uncertainty and a table with the type, value, units and definition URL of every
   parameter and span, nested parameters indented below their parent. A `var` has a link
   to the node of the element it references.
+
+    ![The info panel of the parameter k1 with an uncertainty: a standard deviation and a range that reference the parameter sd_k1, and a normal distribution with a skew](../images/screenshots/info-panel-distrib.png){ width="400" }
+
 - **Distributions in math.** The distribution functions in math, for example
   `normal(mean, sd)`, are shown in the `math` column and the info panel like other
   functions, with the edges from the referenced elements.

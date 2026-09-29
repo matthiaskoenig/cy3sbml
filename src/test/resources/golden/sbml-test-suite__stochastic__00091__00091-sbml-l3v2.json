@@ -5,7 +5,12 @@
       "nodeCount" : 1,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "doc0"
+        "label" : "doc0",
+        "metaId" : "doc0",
+        "name" : "doc0",
+        "sbml id" : "doc0",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
         {
@@ -221,7 +226,12 @@
       "nodeCount" : 5,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "doc0__kinetic"
+        "label" : "doc0",
+        "metaId" : "doc0",
+        "name" : "doc0__kinetic",
+        "sbml id" : "doc0",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
         {

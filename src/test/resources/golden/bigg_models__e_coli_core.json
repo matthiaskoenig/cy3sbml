@@ -5,7 +5,12 @@
       "nodeCount" : 363,
       "edgeCount" : 593,
       "attributes" : {
-        "name" : "e_coli_core"
+        "fbc_strict" : true,
+        "label" : "e_coli_core",
+        "name" : "e_coli_core",
+        "sbml id" : "e_coli_core",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -30097,7 +30102,12 @@
       "nodeCount" : 370,
       "edgeCount" : 855,
       "attributes" : {
-        "name" : "e_coli_core__kinetic"
+        "fbc_strict" : true,
+        "label" : "e_coli_core",
+        "name" : "e_coli_core__kinetic",
+        "sbml id" : "e_coli_core",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

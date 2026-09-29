@@ -5,7 +5,18 @@
       "nodeCount" : 7,
       "edgeCount" : 6,
       "attributes" : {
-        "name" : "BIOMD0000000006"
+        "biomodels.db" : "BIOMD0000000006",
+        "kegg.pathway" : "sce04111",
+        "label" : "Tyson1991 - Cell Cycle 2 var",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000006",
+        "obo.go" : "GO:0000278",
+        "pubmed" : "1831270",
+        "reactome" : "REACT_152",
+        "sbml id" : "BIOMD0000000006",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "33154"
       },
       "nodes" : [
         {
@@ -820,7 +831,18 @@
       "nodeCount" : 20,
       "edgeCount" : 36,
       "attributes" : {
-        "name" : "BIOMD0000000006__kinetic"
+        "biomodels.db" : "BIOMD0000000006",
+        "kegg.pathway" : "sce04111",
+        "label" : "Tyson1991 - Cell Cycle 2 var",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000006__kinetic",
+        "obo.go" : "GO:0000278",
+        "pubmed" : "1831270",
+        "reactome" : "REACT_152",
+        "sbml id" : "BIOMD0000000006",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "33154"
       },
       "nodes" : [
         {

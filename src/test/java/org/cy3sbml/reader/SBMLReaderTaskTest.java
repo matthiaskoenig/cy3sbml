@@ -147,6 +147,34 @@ class SBMLReaderTaskTest {
         }
     }
 
+    /**
+     * The model attributes are in the network table of every network of the model, also of
+     * the base network that is selected after the import; a layout network keeps its type.
+     */
+    @Test
+    void everyNetworkOfTheModelHasTheModelAttributes() throws Exception {
+        SBMLReaderTask task;
+        try (InputStream stream = getClass().getResourceAsStream("/models/unittests/layout_02.xml")) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "layout_02.xml",
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory());
+            task.run(mock(TaskMonitor.class));
+        }
+
+        // base, kinetic, all and the networks of the two layouts
+        assertEquals(5, task.getNetworks().length);
+        for (CyNetwork network : task.getNetworks()) {
+            CyRow row = network.getRow(network);
+            String name = row.get(CyNetwork.NAME, String.class);
+            assertEquals("L3 V1", row.get(SBML.LEVEL_VERSION, String.class), name);
+            String type =
+                    name.contains(SBML.SUFFIX_SUBNETWORK_LAYOUT) ? SBML.NETWORKTYPE_LAYOUT : SBML.NETWORKTYPE_SBML;
+            assertEquals(type, row.get(SBML.NETWORKTYPE_ATTR, String.class), name);
+        }
+    }
+
     @Test
     void readerReadsCompModelWithReplacementsInSubmodels() throws Exception {
         String resource = "/models/comp/Watanabe2014/test_replacement_4.xml";

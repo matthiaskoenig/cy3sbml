@@ -6,14 +6,15 @@ that an import creates.
 
 ## Networks
 
-For every model, the import creates one network collection (root network) with three
-networks, and one more network per layout of the model. `<name>` is the model id, or the file name if the model has no id. After the
-import the base network of the (first) model is selected.
+For every model, the import creates one network collection (root network) `<name>` with
+three networks, and one more network per layout of the model. `<name>` is the model id, or the
+file name if the model has no id. After the import, the base network of the main model is
+the current network.
 
 | Network | Content |
 |---|---|
-| `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. SBML groups are added as Cytoscape groups, in every network with the members in the network. |
-| `<name>__kinetic` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
+| `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. The SBML groups are Cytoscape groups in the base, kinetic and all network, each with its members in the network, see [groups](packages.md#groups). |
+| `<name>__kinetic` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replaced elements, replaced by elements and deletions, with the edges between them, for example to the compartment, from the flux bound parameters and from the objects referenced in the math. |
 | `<name>__all` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
 | `<name>__layout_<layout id>` | A layout of the `layout` package: a node per glyph at the position of the glyph, see [Layouts](layouts.md#sbml-layouts). `<layout id>` is the number of the layout (1, 2, ...) if it has no id. |
 
@@ -23,7 +24,7 @@ definition and every external model. The flattened model of a model with submode
 the collection `Flat__<name>`, with the networks `Flat__<name>`,
 `Flat__<name>__kinetic` and `Flat__<name>__all`.
 
-![The Kinetic network of the repressilator model BIOMD0000000012 with the selected species LacI protein](../images/screenshots/kinetic-subnetwork.png)
+![The kinetic network BIOMD0000000012__kinetic of the repressilator model with the selected species LacI protein](../images/screenshots/kinetic-subnetwork.png)
 
 ## Node types
 
@@ -52,6 +53,10 @@ The type of a node is in the column `sbml type`.
 | `comp_replacedElement`, `comp_replacedBy` | ReplacedElement, ReplacedBy (comp) | kinetic, all |
 | `comp_deletion` | Deletion (comp) | kinetic, all |
 | `group` | Group (groups) | as Cytoscape group in base, kinetic and all |
+| `layout:speciesGlyph`, `layout:reactionGlyph`, `layout:compartmentGlyph`, `layout:generalGlyph`, `layout:graphicalObject` | glyph whose element is not in the model (layout) | layout |
+
+In a layout network, the node of a glyph of an element has the columns of the node of the
+element, including `sbml type`.
 
 The column `sbml type ext` refines the type for the visual style: reactions are
 `reaction reversible` or `reaction irreversible`.
@@ -86,6 +91,12 @@ The type of an edge is in the column `interaction type`. All edges are directed.
 | `sbaseRef-submodel` | comp replacedElement or replacedBy node | its submodel |
 | `sbase-deletion` | comp submodel, or replacedElement of a deletion | deletion |
 | `sbase-replacedElement`, `sbase-replacedBy` | element with the replacement | its replacedElement or replacedBy node |
+| `layout:reference` | general glyph (layout) | glyph of one of its reference glyphs |
+
+In a layout network, the edges between a reaction and its species are copies of the edges of
+the model with their type and columns. An edge of a species reference glyph without edge in
+the model gets the type of its role, for example `reaction-product` or `reaction-inhibitor`.
+See [Layouts](layouts.md#sbml-layouts).
 
 The column `shared interaction` refines the type for the visual style: a modifier edge
 whose SBO term is an inhibitor term (for example SBO:0000020) is `reaction-inhibitor`,
@@ -98,24 +109,28 @@ These columns are set on nodes, when the SBML object has the value:
 
 | Column | Content |
 |---|---|
-| `sbml id` | SBML id (units and unit definitions use `unitSid`, ports use `portSid`) |
+| `sbml id` | SBML id; the ids of unit definitions are in the column `unitSid` and the ids of ports in `portSid`, because they have their own namespaces |
 | `shared name`, `name` | SBML name |
-| `label` | name, or id if the object has no name; the node label of the style |
+| `label` | name, or id if the object has no name (the kind for units, the label for fbc gene products); the node label of the style |
 | `metaId` | SBML metaid |
 | `sbo` | SBO term, for example `SBO:0000247` |
 | `cyId` | unique id that maps the node to its SBML object |
 | `sbml compartment` | compartment of a species or reaction |
 | `compartmentCode` | number of the compartment (1, 2, ...), used for the border color |
 | `sbml initial concentration`, `sbml initial amount`, `sbml charge` | species values |
-| `boundaryCondition`, `hasOnlySubstanceUnits`, `conversionFactor` | species attributes |
+| `boundaryCondition`, `hasOnlySubstanceUnits`, `conversionFactor`, `substanceUnits` | species attributes |
 | `constant`, `value`, `units`, `derivedUnits` | attributes of quantities |
 | `size`, `spatialDimensions` | compartment attributes |
 | `reversible`, `fast`, `kineticLaw` | reaction attributes; `kineticLaw` holds the formula |
-| `math` | formula of rules, assignments, kinetic laws and function definitions, with the inline units of numbers after the number (`1 dimensionless`) |
+| `math` | formula of rules, initial and event assignments, kinetic laws, constraints and function definitions, with the inline units of numbers after the number (`1 dimensionless`) |
 | `variable` | variable of a rule or assignment |
-| `stoichiometry` | stoichiometry, on reactant and product edges |
+| `initialAssignment` | on the variable of an initial assignment: the formula of the assignment |
+| `message` | message of a constraint |
+| `useValuesFromTriggerTime` | event attribute |
+| `stoichiometry` | stoichiometry, on reactant and product edges (1 if not set) |
 | `sbml id`, `shared name`, `metaId`, `sbo` | on reactant, product and modifier edges: the attributes of the species reference |
 | `kind`, `exponent`, `scale`, `multiplier` | unit attributes |
+| `cofactorClone` | `true` for the clones of a split node, see [Cofactor nodes](cofactors.md) |
 
 Package columns:
 
@@ -141,8 +156,13 @@ the `fbc` package, the `KEY: value` paragraphs in the notes of species, reaction
 products (the COBRA notes format, for example `GENE_ASSOCIATION`) are stored as columns
 named `KEY`.
 
-The network table has the columns `sbmlNetwork` and `sbmlVersion`; `sbmlNetwork` is
-`sbmlLayout` for the layout networks.
+The model is stored in the network table, in the row of the `__all` network: the columns
+`sbmlNetwork` (`sbml`), `sbmlVersion` (for example `L3 V1`), the id, name, metaid, SBO term
+and annotations of the model, and the model attributes `substanceUnits`, `timeUnits`,
+`volumeUnits`, `areaUnits`, `lengthUnits`, `extentUnits` and `conversionFactor`. The base and
+the kinetic network have only their name. The layout networks have `sbmlNetwork`
+`sbmlLayout`. The root network of a model imported
+from a COMBINE archive has the column `archive` with the name of the archive.
 
 The layout networks have their own columns (not in the other networks):
 

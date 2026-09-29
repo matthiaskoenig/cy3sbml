@@ -5,7 +5,17 @@
       "nodeCount" : 54,
       "edgeCount" : 57,
       "attributes" : {
-        "name" : "MODEL1411240000"
+        "biomodels.db" : "BIOMD0000000562",
+        "go" : "GO:0033209",
+        "label" : "Chaouiya2013 - EGF and TNFalpha mediated signalling pathway",
+        "mamo" : "MAMO_0000030",
+        "metaId" : "_47f3d7b1-7b24-4193-8878-6fed9eca24f0",
+        "name" : "MODEL1411240000",
+        "pubmed" : "24321545",
+        "sbml id" : "MODEL1411240000",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {
@@ -3295,7 +3305,17 @@
       "nodeCount" : 55,
       "edgeCount" : 85,
       "attributes" : {
-        "name" : "MODEL1411240000__kinetic"
+        "biomodels.db" : "BIOMD0000000562",
+        "go" : "GO:0033209",
+        "label" : "Chaouiya2013 - EGF and TNFalpha mediated signalling pathway",
+        "mamo" : "MAMO_0000030",
+        "metaId" : "_47f3d7b1-7b24-4193-8878-6fed9eca24f0",
+        "name" : "MODEL1411240000__kinetic",
+        "pubmed" : "24321545",
+        "sbml id" : "MODEL1411240000",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {

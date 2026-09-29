@@ -5,7 +5,29 @@
       "nodeCount" : 67,
       "edgeCount" : 199,
       "attributes" : {
-        "name" : "galactose_30"
+        "areaUnits" : "m2",
+        "bto" : "BTO:0000575",
+        "extentUnits" : "mole",
+        "fbc_strict" : false,
+        "fma" : "FMA:14515",
+        "go" : "GO:0019388",
+        "kegg.pathway" : "map00052",
+        "label" : "galactose_30",
+        "lengthUnits" : "m",
+        "metaId" : "meta_51a61e9089694a4db59b1912d391bd4f",
+        "metacyc" : "PWY-6317",
+        "name" : "galactose_30",
+        "pw" : "PW:0000042",
+        "reactome" : "REACTOME:R-HSA-70370.1",
+        "sbml id" : "galactose_30",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "smpdb" : "SMP00043",
+        "substanceUnits" : "mole",
+        "taxonomy" : "9606",
+        "timeUnits" : "s",
+        "uberon" : "UBERON:2107",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -19897,7 +19919,29 @@
       "nodeCount" : 330,
       "edgeCount" : 801,
       "attributes" : {
-        "name" : "galactose_30__kinetic"
+        "areaUnits" : "m2",
+        "bto" : "BTO:0000575",
+        "extentUnits" : "mole",
+        "fbc_strict" : false,
+        "fma" : "FMA:14515",
+        "go" : "GO:0019388",
+        "kegg.pathway" : "map00052",
+        "label" : "galactose_30",
+        "lengthUnits" : "m",
+        "metaId" : "meta_51a61e9089694a4db59b1912d391bd4f",
+        "metacyc" : "PWY-6317",
+        "name" : "galactose_30__kinetic",
+        "pw" : "PW:0000042",
+        "reactome" : "REACTOME:R-HSA-70370.1",
+        "sbml id" : "galactose_30",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "smpdb" : "SMP00043",
+        "substanceUnits" : "mole",
+        "taxonomy" : "9606",
+        "timeUnits" : "s",
+        "uberon" : "UBERON:2107",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {

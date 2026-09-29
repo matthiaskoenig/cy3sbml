@@ -5,7 +5,12 @@
       "nodeCount" : 0,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "small"
+        "label" : "small",
+        "metaId" : "iBioSim1",
+        "name" : "small",
+        "sbml id" : "small",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [ ],
       "edges" : [ ]
@@ -431,7 +436,12 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "small__kinetic"
+        "label" : "small",
+        "metaId" : "iBioSim1",
+        "name" : "small__kinetic",
+        "sbml id" : "small",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -483,9 +493,13 @@
       "nodeCount" : 37,
       "edgeCount" : 0,
       "attributes" : {
+        "label" : "small",
         "layout_id" : "iBioSim",
+        "metaId" : "iBioSim1",
         "name" : "small__layout_iBioSim",
-        "sbmlNetwork" : "sbmlLayout"
+        "sbml id" : "small",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

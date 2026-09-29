@@ -5,7 +5,11 @@
       "nodeCount" : 5,
       "edgeCount" : 4,
       "attributes" : {
-        "name" : "groups_02"
+        "label" : "groups of mixed, nested and overlapping members",
+        "name" : "groups_02",
+        "sbml id" : "groups_02",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -400,7 +404,11 @@
       "nodeCount" : 10,
       "edgeCount" : 13,
       "attributes" : {
-        "name" : "groups_02__kinetic"
+        "label" : "groups of mixed, nested and overlapping members",
+        "name" : "groups_02__kinetic",
+        "sbml id" : "groups_02",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

@@ -5,7 +5,18 @@
       "nodeCount" : 39,
       "edgeCount" : 12,
       "attributes" : {
-        "name" : "BMID000000017713"
+        "biomodels.db" : "BMID000000017713",
+        "kegg.pathway" : "hsa03030",
+        "label" : "DNA replication",
+        "metaId" : "meta_path_hsa03030",
+        "name" : "BMID000000017713",
+        "sbml id" : "BMID000000017713",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {
@@ -2395,7 +2406,18 @@
       "nodeCount" : 40,
       "edgeCount" : 45,
       "attributes" : {
-        "name" : "BMID000000017713__kinetic"
+        "biomodels.db" : "BMID000000017713",
+        "kegg.pathway" : "hsa03030",
+        "label" : "DNA replication",
+        "metaId" : "meta_path_hsa03030",
+        "name" : "BMID000000017713__kinetic",
+        "sbml id" : "BMID000000017713",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {
@@ -3748,9 +3770,19 @@
       "nodeCount" : 39,
       "edgeCount" : 12,
       "attributes" : {
+        "biomodels.db" : "BMID000000017713",
+        "kegg.pathway" : "hsa03030",
+        "label" : "DNA replication",
         "layout_id" : "keggLayout",
+        "metaId" : "meta_path_hsa03030",
         "name" : "BMID000000017713__layout_keggLayout",
-        "sbmlNetwork" : "sbmlLayout"
+        "sbml id" : "BMID000000017713",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "taxonomy" : "9606",
+        "timeUnits" : "time",
+        "volumeUnits" : "volume"
       },
       "nodes" : [
         {

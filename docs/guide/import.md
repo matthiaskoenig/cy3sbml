@@ -1,7 +1,8 @@
 # Importing SBML
 
 cy3sbml registers an SBML reader in Cytoscape. Every way of loading a network file in
-Cytoscape uses it for SBML files. An import creates three networks per model, see
+Cytoscape uses it for SBML files. An import creates a network collection per model with
+three networks, and one more network per layout of the `layout` package, see
 [Network model](network.md).
 
 ## Which files are read as SBML
@@ -27,7 +28,9 @@ Use one of these ways:
   `network load file file=<path>`.
 
 After the import, cy3sbml applies its visual style and the force-directed layout to every
-network view. See [Styles](styles.md) and [Layouts](layouts.md).
+network view; the views of the layout networks get the layout style and the positions of the
+glyphs. The base network of the main model is shown. See [Styles](styles.md) and
+[Layouts](layouts.md).
 
 ## Example models
 
@@ -40,14 +43,16 @@ cover:
   insulin secretion,
 - physiologically based pharmacokinetic (PBPK/PD) models of glimepiride and rivaroxaban,
   with their liver, kidney and intestine submodels, which use the `comp` package,
-- qualitative signaling models (`qual` package),
-- constraint-based models (`fbc` package) from BiGG, for example `e_coli_core`.
+- qualitative signaling models (`qual` package), among them the KEGG pathway `hsa04360`
+  with a layout of the `layout` package,
+- large-scale models: constraint-based models (`fbc` package) from BiGG, for example
+  `e_coli_core`, and HepatoNet1, a reconstruction of human liver metabolism.
 
 ![The example models in the cy3sbml panel](../images/screenshots/examples-panel.png){ width="400" }
 
 ## BioModels
 
-Click **Biomodel Import** in the toolbar to open the dialog **CySBML BioModel Import**.
+Click **BioModels Import** in the toolbar to open the dialog **cy3sbml BioModels Import**.
 It loads models from [BioModels](https://www.biomodels.org) in two ways:
 
 - **Search:** type search terms in the **Name** field and click **Search** (or press
@@ -76,11 +81,11 @@ as a file.
 ## Several models in one file
 
 A file with the `comp` package can hold model definitions in addition to the main model,
-and refer to models in other files with external model definitions. cy3sbml creates the
-three networks for the main model, for every model definition, for the model of every
-external model definition, and for the flattened model. The external files are found
-relative to the imported file, so import a file with external model definitions from
-the file system or from a URL, next to the files it refers to. See
+and refer to models in other files with external model definitions. cy3sbml creates a
+network collection for the main model, for every model definition, for the model of every
+external model definition, and, if the main model has submodels, for the flattened model.
+The external files are found relative to the location of the imported file, so keep them
+next to it and import it from the file system or from a URL. See
 [Supported SBML packages](packages.md#comp-hierarchical-model-composition).
 
 ## COMBINE archives
@@ -102,6 +107,8 @@ drag and drop, or CyREST.
   description and creators from its metadata, and its files with their format; the
   imported file is bold. The root network has the column `archive` with the name of the
   archive. Both are kept in saved sessions.
+
+![The info panel of the SBML document of BIOMD0000000012.omex: the archive with its description and its files, the imported SBML file in bold](../images/screenshots/info-panel-archive.png){ width="400" }
 
 An archive without SBML files, a damaged archive, or an SBML file of the archive that
 cannot be read is reported; the other models of the archive are still imported.

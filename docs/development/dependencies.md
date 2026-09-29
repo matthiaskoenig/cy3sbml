@@ -7,21 +7,26 @@ dependency is updated.
 |---|---|---|
 | Maven dependencies and plugins | Maven Central | Dependabot pull requests, weekly |
 | Cytoscape API (`org.cytoscape:*`) | NRNB Nexus (`cytoscape_releases`, `cytoscape_thirdparty`), `provided` scope | Patch versions by Dependabot. Minor and major versions by hand, they set the minimum Cytoscape version |
+| JavaFX (`org.openjfx:*`) | Maven Central, `provided` scope (Cytoscape provides it at runtime) | Minor and patch versions by Dependabot. Major versions by hand, they need a newer JDK |
+| OSGi API (`org.osgi:*`) | Maven Central, `provided` scope | Minor and patch versions by Dependabot. Major versions by hand, they must match the OSGi framework of Cytoscape (R7 in Cytoscape 3.10) |
 | JSBML and its package modules | Built from source into `lib/cy3sbml-dep` | [Update JSBML](#update-jsbml) |
 | jtidy (`cy3sbml-dep:jtidy:r938`) | `lib/cy3sbml-dep`, the HTML Tidy library used by `jsbml-tidy` | By hand, the version JSBML builds with |
 | GitHub Actions | GitHub | Dependabot pull requests, weekly |
 | Python helpers (`tools/`) | PyPI, locked in `tools/uv.lock` | Dependabot pull requests, weekly |
 
-The build fails for SNAPSHOT dependencies and duplicate classes (Maven Enforcer). The
-`maven-bundle-plugin` embeds every dependency that is not `provided` or `test` into
-the app jar, with its transitive dependencies. Test a new runtime dependency in
-Cytoscape, to catch class loading problems in OSGi.
+The repositories are Maven Central, the two NRNB repositories and `lib/cy3sbml-dep`.
+The build fails for SNAPSHOT dependencies, duplicate classes, a Java older than 17 and a
+Maven older than 3.9 (Maven Enforcer). The `maven-bundle-plugin` embeds every dependency
+that is not `provided` or `test` into the app jar, with its transitive dependencies, as
+a nested jar. The JSBML jars are the exception, see below. Test a new runtime dependency
+in Cytoscape, to catch class loading problems in OSGi.
 
 ## JSBML
 
 cy3sbml reads SBML with [JSBML](https://github.com/sbmlteam/jsbml). cy3sbml does not
 use the JSBML release on Maven Central (1.6.1), because it needs fixes that exist only
-on the `master` branch of JSBML. The jars are built from one JSBML commit instead:
+on the `master` branch of JSBML or in a fork of it (see [Current pin](#current-pin-jsbml-fork)).
+The jars are built from one JSBML commit instead:
 
 - `lib/cy3sbml-dep` is a Maven repository inside the project (the `in-project`
   repository in `pom.xml`). It has one directory per jar: `jsbml` (the core), and
@@ -29,10 +34,10 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
   `jsbml-distrib` and `jsbml-tidy`. Each holds the jar, a POM without dependencies, and
   their SHA-1 checksums.
 - The property `jsbml.version` in `pom.xml` pins the commit, as
-  `<JSBML version>-<commit date>-<short sha>`. For example `1.7-20260907-8192a8a7` is
-  commit [`8192a8a7`](https://github.com/sbmlteam/jsbml/commit/8192a8a7) of
-  2026-09-07. The property `jsbml.osgi.version` holds the same version as an OSGi
-  version (`1.7.0.20260907-8192a8a7`). The app exports the `org.sbml.jsbml.*` packages
+  `<JSBML version>-<commit date>-<short sha>`. For example `1.7-20260929-565932ac` is
+  commit [`565932ac`](https://github.com/matthiaskoenig/jsbml/commit/565932ac) of
+  2026-09-29. The property `jsbml.osgi.version` holds the same version as an OSGi
+  version (`1.7.0.20260929-565932ac`). The app exports the `org.sbml.jsbml.*` packages
   with this version, because JSBML types are part of the `SBMLManager` service API.
 - The jars contain no test classes. JSBML's Ant build puts its JUnit test classes and
   test data into the jars, next to the production classes, and the update script
@@ -57,7 +62,7 @@ The pinned commit `565932ac` is on the branch
   [sbmlteam/jsbml#324](https://github.com/sbmlteam/jsbml/pull/324)
 - `8ceccc9b` adds the JSON resources to the core jar of JSBML's Ant build; without
   `SBMLErrors.json`, `SBMLErrorFactory` fails with a `NullPointerException` for every error
-  it creates (branch
+  it creates (the same change is the branch
   [`jar-json-resources`](https://github.com/matthiaskoenig/jsbml/tree/jar-json-resources)
   on top of JSBML `master`)
 - the branch [`distrib-fixes`](https://github.com/matthiaskoenig/jsbml/tree/distrib-fixes)
@@ -66,8 +71,9 @@ The pinned commit `565932ac` is on the branch
   elements are not registered in the SId namespace of the model (a warning for every
   uncertainty with an id), the type `coeffientOfVariation` that libSBML writes
   ([sbmlteam/libsbml#492](https://github.com/sbmlteam/libsbml/issues/492)) is read as
-  `coefficientOfVariation`, copies of uncertainties keep their parameters, and the offline
-  validation accepts the csymbols of the distribution functions of distrib, proposed to
+  `coefficientOfVariation`, copies of uncertainties keep their parameters and the upper
+  value of their spans, and the offline validation accepts the csymbols of the
+  distribution functions of distrib version 1, proposed to
   JSBML in [sbmlteam/jsbml#326](https://github.com/sbmlteam/jsbml/pull/326)
 - the branch [`comp-distrib-flattening`](https://github.com/matthiaskoenig/jsbml/tree/comp-distrib-flattening)
   (on top of `comp-fixes` and `distrib-fixes`) renames the references of the distrib
@@ -102,8 +108,8 @@ changes nothing.
 
 ### Locally
 
-The script needs Git, [uv](https://docs.astral.sh/uv/) and a JDK 17. JSBML compiles
-for Java 7, which JDK 20 and newer cannot compile for. If `JAVA_HOME` is set, the
+The script needs Git, [uv](https://docs.astral.sh/uv/) and a JDK 17 to 19, best a
+JDK 17. JSBML compiles for Java 7, which JDK 20 and newer cannot compile for. If `JAVA_HOME` is set, the
 script uses its `javac`, otherwise the `javac` on the `PATH`. You do not need Ant: the
 script downloads Apache Ant once, checks it against the published SHA-512, and keeps
 it in `~/.cache/cy3sbml`.
@@ -140,15 +146,18 @@ The script does these steps:
 Commit `lib/cy3sbml-dep` and `pom.xml`, and open a pull request.
 
 `--force` rebuilds the pinned commit. Use it after a change to the script.
-`--summary <file>` writes the printed summary to a Markdown file.
+`--summary <file>` writes the printed summary to a Markdown file. `--check` runs a
+self-check of the helper functions without building anything, as the CI `python` check
+does.
 
 ### Check the update
 
 - CI passes, in particular `GoldenModelsTest`. It compares the networks created from the
   reference models with snapshots. A change in JSBML that changes the import makes it
   fail. Check the diff, then update the snapshots, see [Testing](testing.md).
-- `BundleJarContentIT` checks the app jar: no JUnit classes or imports, the JSBML
-  export version, SBO and jtidy.
+- `BundleJarContentIT` checks the app jar: no JUnit classes or imports, the export of
+  `org.sbml.jsbml.*` with the JSBML version, SBO with its OBO resource, and `jsbml-tidy`
+  with the nested jtidy jar.
 - Import some models in Cytoscape, and check the info panel and the validation.
 - Add the update, with the JSBML fixes it brings, to the release notes of the next
   version (`release-notes/<version>.md`).

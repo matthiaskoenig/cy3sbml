@@ -1,21 +1,22 @@
 # Code quality
 
-Four checks keep the code consistent. The CI runs them on every pull request, and they
-are required for merging into `develop`.
+Four checks keep the code consistent. The CI (`.github/workflows/ci.yml`) runs them on
+every pull request. `format`, `lint` and `tests`, together with the documentation check
+`docs`, are required for merging into `develop`.
 
 | Check | Tool | Command |
 |---|---|---|
 | `format` | Spotless with palantir-java-format | `./mvnw spotless:check` |
 | `lint` | Error Prone and `javac` warnings | `./mvnw -Plint -DskipTests test-compile` (JDK 21) |
 | `tests` | JUnit tests and the packaged jar test | `./mvnw verify` |
-| `python` | ruff and ty on the Python helpers | see [Python](#python) |
+| `python` | ruff and ty on the Python helpers, self-checks of the scripts | see [Python](#python) |
 
 ## Formatting
 
 The Java code is formatted with [Spotless](https://github.com/diffplug/spotless) and
 [palantir-java-format](https://github.com/palantir/palantir-java-format). Spotless also
-removes unused imports, orders the imports, trims trailing whitespace, and sorts
-`pom.xml`.
+removes unused imports, orders the imports, trims trailing whitespace, ends every file
+with a newline, and sorts `pom.xml`.
 
 ```bash
 ./mvnw -B -q spotless:apply    # format the code
@@ -74,6 +75,9 @@ uv run --project tools ruff format --check  # check the formatting, as the CI do
 uv run --project tools ty check             # type check
 ```
 
+The CI also runs the self-checks of the scripts, `python scripts/release_notes.py --check`
+and `python scripts/update_jsbml.py --check`, through the same project.
+
 ty reports every diagnostic as an error, including a value of an untyped library or of
 `Any` that flows into an annotated variable or return. Narrow such a value with a check
 at the boundary, instead of suppressing the diagnostic.
@@ -82,13 +86,10 @@ at the boundary, instead of suppressing the diagnostic.
 
 Every change needs tests that cover it. Tests that need the network carry
 `@Tag("network")`, long running model suites carry `@Tag("models")`; both are excluded
-by default. A change of the import changes the golden snapshots; regenerate them with
-
-```bash
-./mvnw -B -q test -Dtest=GoldenModelsTest -Dgolden.update=true
-```
-
-and review the diff. See [Testing](testing.md).
+by default. A change of the import changes the golden snapshots, which are regenerated
+and reviewed as described in [Testing](testing.md#golden-snapshot-tests).
+`./mvnw -B -q verify` prints no warnings; a new warning in the test output needs a look,
+see [Test logging](testing.md#test-logging).
 
 ## Conventions
 
@@ -97,3 +98,4 @@ and review the diff. See [Testing](testing.md).
 - Access the SBML document of a network only through `SBMLManager`.
 - Create new objects in `CyActivator` and pass them to the classes that need them. The
   code has no static singletons.
+- Pass the Cytoscape services that an action or task needs through `ServiceAdapter`.

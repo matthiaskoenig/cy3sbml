@@ -5,7 +5,15 @@
       "nodeCount" : 50,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "path_sce03040"
+        "kegg.pathway" : "sce03040",
+        "label" : "Spliceosome",
+        "metaId" : "meta_path_sce03040",
+        "name" : "path_sce03040",
+        "obo.go" : "GO:0005681",
+        "sbml id" : "path_sce03040",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {
@@ -2253,7 +2261,15 @@
       "nodeCount" : 51,
       "edgeCount" : 50,
       "attributes" : {
-        "name" : "path_sce03040__kinetic"
+        "kegg.pathway" : "sce03040",
+        "label" : "Spliceosome",
+        "metaId" : "meta_path_sce03040",
+        "name" : "path_sce03040__kinetic",
+        "obo.go" : "GO:0005681",
+        "sbml id" : "path_sce03040",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {
@@ -3680,8 +3696,15 @@
       "nodeCount" : 56,
       "edgeCount" : 0,
       "attributes" : {
+        "kegg.pathway" : "sce03040",
+        "label" : "Spliceosome",
+        "metaId" : "meta_path_sce03040",
         "name" : "path_sce03040__layout_1",
-        "sbmlNetwork" : "sbmlLayout"
+        "obo.go" : "GO:0005681",
+        "sbml id" : "path_sce03040",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {

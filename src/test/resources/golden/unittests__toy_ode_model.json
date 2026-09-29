@@ -5,7 +5,19 @@
       "nodeCount" : 3,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "toy_ode_model"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE/SSA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_e27eca168d4d4b11a77c0e92141c6114",
+        "name" : "toy_ode_model",
+        "sbml id" : "toy_ode_model",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -744,7 +756,19 @@
       "nodeCount" : 8,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "toy_ode_model__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE/SSA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_e27eca168d4d4b11a77c0e92141c6114",
+        "name" : "toy_ode_model__kinetic",
+        "sbml id" : "toy_ode_model",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
