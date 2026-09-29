@@ -51,8 +51,9 @@ The pinned commit `f9d33e50` is on the branch
 the flattening of hierarchical models (`CompFlatteningConverter`) and fixes the
 resolution of external model definitions, which cy3sbml needs for the comp package
 ([#401](https://github.com/matthiaskoenig/cy3sbml/issues/401),
-[#220](https://github.com/matthiaskoenig/cy3sbml/issues/220)). When the fix is merged
-into JSBML, update to JSBML `master` again.
+[#220](https://github.com/matthiaskoenig/cy3sbml/issues/220)), proposed to JSBML in
+[sbmlteam/jsbml#324](https://github.com/sbmlteam/jsbml/pull/324). When it is merged, update
+to JSBML `master` again.
 
 ## Update JSBML
 
