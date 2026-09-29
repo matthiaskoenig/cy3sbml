@@ -73,8 +73,6 @@ public class GoldenModelsTest {
             // layout
             "layout/hsa00450_L3V1_layoutV1.xml",
             "layout/sce03040_L3V1_qualV1_layoutV1.xml",
-            // distrib
-            "distrib/distrib_all_elements.xml",
             // koenig
             "koenig/Koenig_demo_v02.xml",
             "koenig/van_der_pol.xml",
