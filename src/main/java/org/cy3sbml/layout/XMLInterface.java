@@ -29,6 +29,7 @@ public class XMLInterface {
     public static final String BOX = "boundingBox";
     public static final String BOX_CYID = "cyId";
     public static final String BOX_ID = "id";
+    public static final String BOX_GLYPH = "glyph";
     public static final String BOX_X = "xpos";
     public static final String BOX_Y = "ypos";
     public static final String BOX_HEIGHT = "height";
@@ -69,6 +70,9 @@ public class XMLInterface {
         }
         if (box.sbmlId() != null) {
             boxNode.setAttribute(BOX_ID, box.sbmlId());
+        }
+        if (box.glyph() != null) {
+            boxNode.setAttribute(BOX_GLYPH, box.glyph());
         }
         boxNode.setAttribute(BOX_X, Double.toString(box.x()));
         boxNode.setAttribute(BOX_Y, Double.toString(box.y()));
@@ -136,6 +140,7 @@ public class XMLInterface {
             return new CyBoundingBox(
                     cyId,
                     sbmlId,
+                    attribute(map, BOX_GLYPH),
                     Double.parseDouble(xpos),
                     Double.parseDouble(ypos),
                     Double.parseDouble(height),

@@ -37,14 +37,14 @@ class XMLInterfaceTest {
 
         List<CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(file);
 
-        assertEquals(List.of(new CyBoundingBox(null, "complete", 1.0, 2.0, 3.0, 4.0)), boxes);
+        assertEquals(List.of(new CyBoundingBox(null, "complete", null, 1.0, 2.0, 3.0, 4.0)), boxes);
     }
 
     @Test
     void writesAndReadsTheCyIdAndTheSbmlId() throws Exception {
         List<CyBoundingBox> boxes = List.of(
-                new CyBoundingBox("meta_S1", "S1", 1.0, 2.0, 3.0, 4.0),
-                new CyBoundingBox("kineticLaw_R1", null, 5.0, 6.0, 7.0, 8.0));
+                new CyBoundingBox("meta_S1", "S1", null, 1.0, 2.0, 3.0, 4.0),
+                new CyBoundingBox("kineticLaw_R1", null, null, 5.0, 6.0, 7.0, 8.0));
         File file = tempDir.resolve("layout.xml").toFile();
 
         XMLInterface.writeXMLFileForLayout(file, boxes);
@@ -52,6 +52,21 @@ class XMLInterfaceTest {
         String xml = Files.readString(file.toPath(), StandardCharsets.UTF_8);
         assertTrue(xml.contains("cyId=\"meta_S1\""), xml);
         assertTrue(xml.contains("id=\"S1\""), xml);
+        assertEquals(boxes, XMLInterface.readLayoutFromXML(file));
+    }
+
+    /** The nodes of a layout network (#71) have the glyph, aliases have the same cyId. */
+    @Test
+    void writesAndReadsTheGlyph() throws Exception {
+        List<CyBoundingBox> boxes = List.of(
+                new CyBoundingBox("A", "A", "sg_A", 1.0, 2.0, 3.0, 4.0),
+                new CyBoundingBox("A", "A", "sg_A2", 5.0, 6.0, 7.0, 8.0));
+        File file = tempDir.resolve("layout.xml").toFile();
+
+        XMLInterface.writeXMLFileForLayout(file, boxes);
+
+        String xml = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+        assertTrue(xml.contains("glyph=\"sg_A2\""), xml);
         assertEquals(boxes, XMLInterface.readLayoutFromXML(file));
     }
 
