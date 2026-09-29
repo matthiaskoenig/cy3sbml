@@ -9,6 +9,8 @@ uv run --project tools python tools/pycysbml/biomodels_download.py  # corpora/mo
 uv run --project tools python tools/pycysbml/graph_to_sbml.py       # resources/models/styles/graph.xml
 uv run --project tools python tools/pycysbml/distrib_models.py \
     src/test/resources/models/distrib                               # distrib test models
+uv run --project tools python tools/pycysbml/omex_models.py \
+    src/test/resources/models/omex                                  # COMBINE archive test models
 ```
 
 libSBML comes from `python-libsbml-experimental`, the libSBML build with all SBML Level 3
