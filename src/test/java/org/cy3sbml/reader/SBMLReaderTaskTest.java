@@ -498,6 +498,9 @@ class SBMLReaderTaskTest {
         assertTrue(laidOut.contains(views.get("layout_02")));
         verify(vmm).setVisualStyle(layoutStyle, layoutView);
         verify(vmm).setVisualStyle(style, views.get("layout_02"));
+        // the layout task does not apply the style to the views of the layout networks
+        verify(layoutStyle).apply(layoutView);
+        verify(style).apply(views.get("layout_02"));
         CyNetwork layout = layoutView.getModel();
         for (CyNode node : layout.getNodeList()) {
             View<CyNode> nodeView = layoutView.getNodeView(node);

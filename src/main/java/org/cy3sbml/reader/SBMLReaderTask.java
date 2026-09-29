@@ -212,6 +212,9 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             }
             if (style != null) {
                 visualMappingManager.setVisualStyle(style, view);
+                // Cytoscape applies the style of a view created by a reader only if it is the
+                // default style, and the layout task is not run for layout networks
+                style.apply(view);
             }
         }
 
