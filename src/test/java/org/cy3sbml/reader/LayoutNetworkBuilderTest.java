@@ -421,6 +421,112 @@ class LayoutNetworkBuilderTest {
                 networks.keySet()::toString);
     }
 
+    private static final String TWO_REACTIONS = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+                xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" layout:required="false">
+              <model id="m">
+                <listOfCompartments>
+                  <compartment id="c" constant="true"/>
+                </listOfCompartments>
+                <listOfSpecies>
+                  <species id="A" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+                  <species id="B" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+                </listOfSpecies>
+                <listOfReactions>
+                  <reaction id="R1" reversible="false">
+                    <listOfReactants><speciesReference id="r1_A" species="A" constant="true"/></listOfReactants>
+                  </reaction>
+                  <reaction id="R2" reversible="false">
+                    <listOfProducts><speciesReference id="r2_A" species="A" constant="true"/></listOfProducts>
+                  </reaction>
+                </listOfReactions>
+                <layout:listOfLayouts>
+                  <layout:layout layout:id="l">
+                    <layout:dimensions layout:width="100" layout:height="100"/>
+                    <layout:listOfSpeciesGlyphs>
+                      <layout:speciesGlyph layout:id="sg_A" layout:species="A">
+                        <layout:boundingBox>
+                          <layout:position layout:x="0" layout:y="0"/>
+                          <layout:dimensions layout:width="10" layout:height="10"/>
+                        </layout:boundingBox>
+                      </layout:speciesGlyph>
+                    </layout:listOfSpeciesGlyphs>
+                    <layout:listOfReactionGlyphs>
+                      <layout:reactionGlyph layout:id="rg_R1" layout:reaction="R1">
+                        <layout:boundingBox>
+                          <layout:position layout:x="50" layout:y="0"/>
+                          <layout:dimensions layout:width="10" layout:height="10"/>
+                        </layout:boundingBox>
+                        <layout:listOfSpeciesReferenceGlyphs>
+                          <layout:speciesReferenceGlyph layout:id="srg_1" layout:speciesReference="r2_A" layout:speciesGlyph="sg_A" layout:role="product">
+                            <layout:boundingBox>
+                              <layout:position layout:x="10" layout:y="5"/>
+                              <layout:dimensions layout:width="40" layout:height="1"/>
+                            </layout:boundingBox>
+                          </layout:speciesReferenceGlyph>
+                        </layout:listOfSpeciesReferenceGlyphs>
+                      </layout:reactionGlyph>
+                      <layout:reactionGlyph layout:id="rg_none">
+                        <layout:boundingBox>
+                          <layout:position layout:x="50" layout:y="50"/>
+                          <layout:dimensions layout:width="10" layout:height="10"/>
+                        </layout:boundingBox>
+                        <layout:listOfSpeciesReferenceGlyphs>
+                          <layout:speciesReferenceGlyph layout:id="srg_2" layout:speciesReference="r2_A" layout:speciesGlyph="sg_A" layout:role="product">
+                            <layout:boundingBox>
+                              <layout:position layout:x="10" layout:y="5"/>
+                              <layout:dimensions layout:width="40" layout:height="50"/>
+                            </layout:boundingBox>
+                          </layout:speciesReferenceGlyph>
+                        </layout:listOfSpeciesReferenceGlyphs>
+                      </layout:reactionGlyph>
+                    </layout:listOfReactionGlyphs>
+                  </layout:layout>
+                </layout:listOfLayouts>
+              </model>
+            </sbml>
+            """;
+
+    /**
+     * The species reference of a species reference glyph that belongs to another reaction
+     * than the one of its reaction glyph is not its edge: the edge starts at the reaction glyph.
+     */
+    @Test
+    void speciesReferenceOfAnotherReactionIsNotTheEdge() throws Exception {
+        CyNetwork layout = layoutNetworks(byName(readString(TWO_REACTIONS))).get(0);
+
+        Set<String> edges = edges(layout, keys(layout));
+        // R1 has A as reactant: the edge between R1 and A
+        assertTrue(edges.contains("rg_R1 -> sg_A " + SBML.INTERACTION_REACTION_REACTANT), edges::toString);
+        // a reaction glyph without reaction: the edge of the role, from the reaction glyph
+        assertTrue(edges.contains("rg_none -> sg_A " + SBML.INTERACTION_REACTION_PRODUCT), edges::toString);
+        for (CyEdge edge : layout.getEdgeList()) {
+            String type = SBML.NODETYPE_LAYOUT_SPECIESGLYPH;
+            assertNotEquals(
+                    type,
+                    layout.getRow(edge.getSource()).get(SBML.ATTR_LAYOUT_GLYPH_TYPE, String.class),
+                    edges::toString);
+        }
+    }
+
+    /** The generated node is connected to the glyphs it is placed between. */
+    @Test
+    void generatedNodeIsConnectedToTheGlyphsItIsPlacedBetween() throws Exception {
+        CyNetwork layout = layout1();
+        CyNode generated = generatedNodes(layout).get("R2");
+        GlyphBox box = box(layout, generated);
+        Map<CyNode, String> keys = keys(layout);
+
+        List<GlyphBox> targets = layout.getAdjacentEdgeList(generated, CyEdge.Type.ANY).stream()
+                .map(e -> e.getSource().equals(generated) ? e.getTarget() : e.getSource())
+                .map(n -> box(layout, n))
+                .toList();
+        GlyphBox centroid = GlyphBox.centroid(targets, LayoutNetworkBuilder.GENERATED_SIZE);
+        assertEquals(box.x(), centroid.x(), 1e-9, keys.toString());
+        assertEquals(box.y(), centroid.y(), 1e-9, keys.toString());
+    }
+
     // ------------------------------------------------------------
     // support
     // ------------------------------------------------------------
@@ -439,6 +545,16 @@ class LayoutNetworkBuilderTest {
             task.run(mock(TaskMonitor.class));
             return task.getNetworks();
         }
+    }
+
+    static CyNetwork[] readString(String sbml) throws Exception {
+        SBMLReaderTask task = new SBMLReaderTask(
+                new ByteArrayInputStream(sbml.strip().getBytes(StandardCharsets.UTF_8)),
+                "model.xml",
+                new NetworkTestSupport().getNetworkFactory(),
+                new GroupTestSupport().getGroupFactory());
+        task.run(mock(TaskMonitor.class));
+        return task.getNetworks();
     }
 
     static CyNetwork layout1() throws Exception {

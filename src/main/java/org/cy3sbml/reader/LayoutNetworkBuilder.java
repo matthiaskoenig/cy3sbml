@@ -314,20 +314,22 @@ final class LayoutNetworkBuilder {
 
         /**
          * The edge of the model of a species reference glyph: the edge of its species
-         * reference, else the edge between the reaction and the species that fits the role,
-         * else the only edge between them.
+         * reference if it connects the reaction and the species, else the edge between them
+         * that fits the role, else the only edge between them.
          */
         private Optional<CyEdge> modelEdge(
                 SpeciesReferenceGlyph glyph, CyNode reaction, CyNode species, SpeciesReferenceRole role) {
+            // without the reaction and the species in the model there is no edge between them
+            if (reaction == null || species == null) {
+                return Optional.empty();
+            }
             if (glyph.isSetSpeciesReference() && glyph.getModel() != null) {
                 SBase speciesReference = glyph.getModel().findNamedSBase(glyph.getSpeciesReference());
                 Optional<CyEdge> edge = speciesReference == null ? Optional.empty() : context.edgeOf(speciesReference);
-                if (edge.isPresent()) {
+                // the species reference of another reaction or species is not the edge
+                if (edge.isPresent() && connects(edge.get(), reaction, species)) {
                     return edge;
                 }
-            }
-            if (reaction == null || species == null) {
-                return Optional.empty();
             }
             CyNetwork modelNetwork = context.network();
             List<CyEdge> edges = modelNetwork.getConnectingEdgeList(reaction, species, CyEdge.Type.ANY).stream()
@@ -400,17 +402,25 @@ final class LayoutNetworkBuilder {
                     continue;
                 }
                 GlyphBox centre = GlyphBox.centroid(allGlyphs, GENERATED_SIZE);
-                List<GlyphBox> nearest = participants.stream()
-                        .flatMap(p -> nearestGlyph(p, centre).stream())
-                        .map(boxes::get)
-                        .toList();
+                // the nearest glyph of every participant, by participant model edge
+                Map<CyEdge, CyNode> nearest = new LinkedHashMap<>();
+                for (CyEdge modelEdge : participantModelEdges(reaction)) {
+                    nearestGlyph(other(modelEdge, reaction), centre).ifPresent(g -> nearest.put(modelEdge, g));
+                }
                 CyNode node = network.addNode();
                 represent(node, reaction);
                 // not drawn in the layout: no label
                 AttributeUtil.set(network, node, SBML.LABEL, "", String.class);
                 setLocal(network, node, SBML.ATTR_LAYOUT_GLYPH_TYPE, SBML.NODETYPE_LAYOUT_GENERATED, String.class);
-                setBox(node, GlyphBox.centroid(nearest, GENERATED_SIZE));
-                participantEdges(reaction, node);
+                setBox(
+                        node,
+                        GlyphBox.centroid(
+                                nearest.values().stream()
+                                        .distinct()
+                                        .map(boxes::get)
+                                        .toList(),
+                                GENERATED_SIZE));
+                nearest.forEach((modelEdge, glyph) -> copyEdge(modelEdge, reaction, node, glyph));
             }
         }
 
@@ -488,6 +498,11 @@ final class LayoutNetworkBuilder {
 
     private static String interaction(CyNetwork network, CyEdge edge) {
         return network.getRow(edge).get(SBML.INTERACTION_ATTR, String.class);
+    }
+
+    private static boolean connects(CyEdge edge, CyNode node, CyNode other) {
+        return (edge.getSource().equals(node) && edge.getTarget().equals(other))
+                || (edge.getSource().equals(other) && edge.getTarget().equals(node));
     }
 
     private static CyNode other(CyEdge edge, CyNode node) {
