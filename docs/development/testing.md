@@ -26,7 +26,7 @@ Two groups of tests are excluded by default with JUnit tags:
 | Tag | Tests | Why excluded |
 |---|---|---|
 | `network` | tests that call web services: OLS, UniProt, ChEBI, the identifiers.org registry, BioModels | need network access, and fail when a service is down |
-| `models` | `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest`: the import of the SBML Test Suite, of the curated BioModels and of the BiGG models | take a long time |
+| `models` | `SBMLTestSuiteTest`, `BioModelsTest`, `BiGGTest`: the import of the SBML Test Suite, of the curated BioModels and of the BiGG models; `CompFlatteningSuiteTest`: the flattening of the comp cases of the SBML Test Suite | take a long time |
 
 Select the tags with the properties `test.groups` and `test.excludedGroups`:
 
@@ -56,6 +56,29 @@ git diff src/test/resources/golden
 ```
 
 Commit the changed snapshots with the code change.
+
+The tests read a model with its location, as Cytoscape does for a file, so the snapshots
+also pin the networks of external model definitions and of the flattened comp model.
+
+## Flattening of comp models
+
+The flattened comp model comes from JSBML's `CompFlatteningConverter`. The tests compare
+it with the flattening of libSBML, the reference implementation: the ids of the elements
+per type and the ids each element references (math, species of reactions, compartment of
+species). `tools/pycysbml/comp_flat_reference.py` writes the libSBML result:
+
+- `src/test/resources/models/comp/comp-flat-reference.json`, checked by
+  `CompFlatteningReferenceTest`,
+- `src/test/corpora/models/sbml-test-suite/comp-flat-reference.json` for the 123 comp
+  cases of the SBML Test Suite, checked by `CompFlatteningSuiteTest` (`models` suite).
+
+```bash
+uv run --project tools python tools/pycysbml/comp_flat_reference.py \
+    src/test/corpora/models/sbml-test-suite/semantic \
+    src/test/corpora/models/sbml-test-suite/comp-flat-reference.json --pattern '*-sbml-l3v1.xml'
+uv run --project tools python tools/pycysbml/comp_flat_reference.py \
+    src/test/resources/models/comp src/test/resources/models/comp/comp-flat-reference.json
+```
 
 ## Packaged jar test
 

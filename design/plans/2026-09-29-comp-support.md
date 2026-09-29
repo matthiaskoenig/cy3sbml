@@ -8,7 +8,7 @@
 
 **Tech Stack:** Java 17, JSBML 1.7 (fork commit), Cytoscape 3.10 API, JUnit 6, Mockito, python-libsbml (reference data only).
 
-**Spec:** `docs/superpowers/specs/2026-09-29-comp-support-design.md`
+**Spec:** `design/specs/2026-09-29-comp-support-design.md`
 
 ## Global Constraints
 

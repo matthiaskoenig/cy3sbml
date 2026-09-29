@@ -75,9 +75,12 @@ as a file.
 
 ## Several models in one file
 
-A file with the `comp` package can hold model definitions in addition to the main model.
-cy3sbml creates the three networks for the main model and for every model definition.
-External model definitions are not loaded, see
+A file with the `comp` package can hold model definitions in addition to the main model,
+and refer to models in other files with external model definitions. cy3sbml creates the
+three networks for the main model, for every model definition, for the model of every
+external model definition, and for the flattened model. The external files are found
+relative to the imported file, so import a file with external model definitions from
+the file system or from a URL, next to the files it refers to. See
 [Supported SBML packages](packages.md#comp-hierarchical-model-composition).
 
 ## COMBINE archives
