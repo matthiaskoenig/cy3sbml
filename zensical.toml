@@ -20,7 +20,6 @@ nav = [
     { "Validation" = "guide/validation.md" },
     { "Styles" = "guide/styles.md" },
     { "Layouts" = "guide/layouts.md" },
-    { "Cofactor nodes" = "guide/cofactors.md" },
     { "Supported SBML packages" = "guide/packages.md" },
   ] },
   { "Development" = [

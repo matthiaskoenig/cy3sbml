@@ -3,7 +3,6 @@ package org.cy3sbml;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Properties;
 import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
@@ -427,15 +426,11 @@ public class CyActivator extends AbstractCyActivator {
             ImportAction importAction = new ImportAction(adapter);
             registerService(bc, importAction, CyAction.class, new Properties());
 
-            SBMLEnableTaskFactory sbmlEnableTaskFactory = new SBMLEnableTaskFactory();
-
             ExamplesAction examplesAction = new ExamplesAction(webViewPanel);
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
-            CofactorAction cofactorAction =
-                    new CofactorAction(new HashMap<>(), adapter, sbmlEnableTaskFactory, cofactorManager, sbmlManager);
-            registerService(bc, cofactorAction, CyAction.class, new Properties());
-            registerService(bc, cofactorAction, SetCurrentNetworkListener.class, new Properties());
+            // The cofactor splitting (CofactorAction) is not registered until it is complete
+            // (#405); CofactorManager restores the cofactors of sessions saved with it.
 
             BiomodelsAction biomodelsAction = new BiomodelsAction(biomodelsDialog);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());
