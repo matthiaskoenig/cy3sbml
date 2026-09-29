@@ -245,7 +245,7 @@ class SBMLReaderTaskTest {
 
     @Test
     void modelWithoutIdIsNamedByTheFileName() throws Exception {
-        List<String> expected = List.of("model.xml", "All__model.xml", "Kinetic__model.xml", "model.xml");
+        List<String> expected = List.of("model.xml", "model.xml", "model.xml__kinetic", "model.xml__all");
 
         // Import > Network from File passes the file name
         assertEquals(expected, networkNamesOfModelWithoutId("model.xml"));
@@ -324,7 +324,7 @@ class SBMLReaderTaskTest {
         reference.get("koenig-toymodel/toy_top_level.xml").get("species").forEach(id -> expected.add(id.asText()));
 
         CyNetwork flat = Arrays.stream(task.getNetworks())
-                .filter(n -> "All__Flat__toy_top_level".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .filter(n -> "Flat__toy_top_level__all".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
                 .findFirst()
                 .orElseThrow();
         List<String> species = flat.getNodeList().stream()

@@ -88,7 +88,7 @@ class GroupsSubnetworksTest {
                         "g_reactions", Set.of("R1", "R2"),
                         "g_overlap", Set.of("R2", "S2"),
                         "g_nested", Set.of("g_reactions", "S3")),
-                members(networks.get("All__groups_02")));
+                members(networks.get("groups_02__all")));
         // the base network has species and reactions, no parameters and compartments
         assertEquals(
                 Map.of(

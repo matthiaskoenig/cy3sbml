@@ -57,19 +57,28 @@ public class NetworkUtil {
     }
 
     /**
-     * Returns the network which starts with a given SubNetwork prefix.
+     * Returns the subnetwork with the given suffix, e.g. {@link SBML#SUFFIX_SUBNETWORK_KINETIC}:
+     * the first network named like its root network plus the suffix.
      * Returns null if no such network exists.
      */
-    public static CyNetwork getNetworkBySubNetworkPrefix(CyNetwork[] networks, String prefixSubnetwork) {
-        CyNetwork network = null;
-        for (CyNetwork n : networks) {
-            String networkName = AttributeUtil.get(n, n, CyNetwork.NAME, String.class);
-            if (networkName.startsWith(prefixSubnetwork)) {
-                network = n;
-                break;
+    public static CyNetwork getSubnetwork(CyNetwork[] networks, String suffix) {
+        for (CyNetwork network : networks) {
+            if (isSubnetwork(network, suffix)) {
+                return network;
             }
         }
-        return network;
+        return null;
+    }
+
+    /** True if the network is named like its root network plus the suffix. */
+    private static boolean isSubnetwork(CyNetwork network, String suffix) {
+        if (!(network instanceof CySubNetwork subNetwork)) {
+            return false;
+        }
+        CyRootNetwork root = subNetwork.getRootNetwork();
+        String rootName = root.getRow(root).get(CyNetwork.NAME, String.class);
+        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
+        return rootName != null && (rootName + suffix).equals(name);
     }
 
     /**
@@ -91,26 +100,21 @@ public class NetworkUtil {
     /** The networks of the collection, the base network first, then the kinetic and the all network. */
     private static List<CyNetwork> networksOfRoot(Collection<CyNetwork> networks, Long rootSUID) {
         List<CyNetwork> candidates = new ArrayList<>();
-        String rootName = null;
         for (CyNetwork network : networks) {
             if (network instanceof CySubNetwork subNetwork
                     && rootSUID.equals(subNetwork.getRootNetwork().getSUID())) {
                 candidates.add(network);
-                CyRootNetwork root = subNetwork.getRootNetwork();
-                rootName = root.getRow(root).get(CyNetwork.NAME, String.class);
             }
         }
-        String name = rootName == null ? "" : rootName;
-        candidates.sort(Comparator.comparingInt(n -> subnetworkRank(n, name)));
+        candidates.sort(Comparator.comparingInt(NetworkUtil::subnetworkRank));
         return candidates;
     }
 
-    private static int subnetworkRank(CyNetwork network, String rootName) {
-        String name = network.getRow(network).get(CyNetwork.NAME, String.class);
-        if (rootName.equals(name)) {
+    private static int subnetworkRank(CyNetwork network) {
+        if (isSubnetwork(network, SBML.SUFFIX_SUBNETWORK_BASE)) {
             return 0;
         }
-        return name != null && name.startsWith(SBML.PREFIX_SUBNETWORK_KINETIC + "__") ? 1 : 2;
+        return isSubnetwork(network, SBML.SUFFIX_SUBNETWORK_KINETIC) ? 1 : 2;
     }
 
     // ------------------------------------------------------------

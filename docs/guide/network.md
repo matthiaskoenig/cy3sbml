@@ -7,19 +7,20 @@ that an import creates.
 ## Networks
 
 For every model, the import creates one network collection (root network) with three
-networks. `<name>` is the model id, or the file name if the model has no id.
+networks. `<name>` is the model id, or the file name if the model has no id. After the
+import the base network of the (first) model is selected.
 
 | Network | Content |
 |---|---|
 | `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. SBML groups are added as Cytoscape groups, in every network with the members in the network. |
-| `Kinetic__<name>` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
-| `All__<name>` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
+| `<name>__kinetic` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
+| `<name>__all` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
 
 The `comp` package can define several models in one file, and refer to models in other
 files. Every model gets its own network collection: the main model, every model
 definition and every external model. The flattened model of a model with submodels gets
 the collection `Flat__<name>`, with the networks `Flat__<name>`,
-`Kinetic__Flat__<name>` and `All__Flat__<name>`.
+`Flat__<name>__kinetic` and `Flat__<name>__all`.
 
 ![The Kinetic network of the repressilator model BIOMD0000000012 with the selected species LacI protein](../images/screenshots/kinetic-subnetwork.png)
 

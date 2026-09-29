@@ -1,12 +1,120 @@
 {
   "networks" : [
     {
-      "name" : "All__van_der_pol",
+      "name" : "van_der_pol",
+      "nodeCount" : 4,
+      "edgeCount" : 4,
+      "attributes" : {
+        "name" : "van_der_pol"
+      },
+      "nodes" : [
+        {
+          "cyId" : "J1",
+          "derivedUnits" : "invalid",
+          "fast" : false,
+          "kineticLaw" : "y",
+          "label" : "J1",
+          "metaId" : "J1",
+          "reversible" : true,
+          "sbml id" : "J1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "cyId" : "J2",
+          "derivedUnits" : "invalid",
+          "fast" : false,
+          "kineticLaw" : "mu*(1-x^2)*y-x",
+          "label" : "J2",
+          "metaId" : "J2",
+          "reversible" : true,
+          "sbml id" : "J2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "x",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "x",
+          "metaId" : "x",
+          "sbml compartment" : "default_compartment",
+          "sbml id" : "x",
+          "sbml type" : "species",
+          "sbml type ext" : "species"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "y",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "y",
+          "metaId" : "y",
+          "sbml compartment" : "default_compartment",
+          "sbml id" : "y",
+          "sbml type" : "species",
+          "sbml type ext" : "species"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "J1",
+          "target" : "x",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J1",
+          "target" : "y",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "J2",
+          "target" : "x",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "J2",
+          "target" : "y",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "van_der_pol__all",
       "nodeCount" : 8,
       "edgeCount" : 12,
       "attributes" : {
         "label" : "van_der_pol",
-        "name" : "All__van_der_pol",
+        "name" : "van_der_pol__all",
         "sbml id" : "van_der_pol",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -232,11 +340,11 @@
       ]
     },
     {
-      "name" : "Kinetic__van_der_pol",
+      "name" : "van_der_pol__kinetic",
       "nodeCount" : 8,
       "edgeCount" : 12,
       "attributes" : {
-        "name" : "Kinetic__van_der_pol"
+        "name" : "van_der_pol__kinetic"
       },
       "nodes" : [
         {
@@ -465,114 +573,6 @@
             "interaction" : "reference_kineticLaw",
             "interaction type" : "reference_kineticLaw",
             "shared interaction" : "reference_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "van_der_pol",
-      "nodeCount" : 4,
-      "edgeCount" : 4,
-      "attributes" : {
-        "name" : "van_der_pol"
-      },
-      "nodes" : [
-        {
-          "cyId" : "J1",
-          "derivedUnits" : "invalid",
-          "fast" : false,
-          "kineticLaw" : "y",
-          "label" : "J1",
-          "metaId" : "J1",
-          "reversible" : true,
-          "sbml id" : "J1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "cyId" : "J2",
-          "derivedUnits" : "invalid",
-          "fast" : false,
-          "kineticLaw" : "mu*(1-x^2)*y-x",
-          "label" : "J2",
-          "metaId" : "J2",
-          "reversible" : true,
-          "sbml id" : "J2",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "x",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "x",
-          "metaId" : "x",
-          "sbml compartment" : "default_compartment",
-          "sbml id" : "x",
-          "sbml type" : "species",
-          "sbml type ext" : "species"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "y",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "y",
-          "metaId" : "y",
-          "sbml compartment" : "default_compartment",
-          "sbml id" : "y",
-          "sbml type" : "species",
-          "sbml type ext" : "species"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "J1",
-          "target" : "x",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "J1",
-          "target" : "y",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "J2",
-          "target" : "x",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "J2",
-          "target" : "y",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

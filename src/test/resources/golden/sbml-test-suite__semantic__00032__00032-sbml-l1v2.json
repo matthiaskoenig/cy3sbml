@@ -1,12 +1,55 @@
 {
   "networks" : [
     {
-      "name" : "All__case00032",
+      "name" : "case00032",
+      "nodeCount" : 2,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "case00032"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.015,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.015
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "",
+          "derivedUnits" : "substance",
+          "label" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "case00032__all",
       "nodeCount" : 6,
       "edgeCount" : 11,
       "attributes" : {
         "label" : "case00032",
-        "name" : "All__case00032",
+        "name" : "case00032__all",
         "sbml id" : "case00032",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L1 V2",
@@ -200,11 +243,11 @@
       ]
     },
     {
-      "name" : "Kinetic__case00032",
+      "name" : "case00032__kinetic",
       "nodeCount" : 6,
       "edgeCount" : 8,
       "attributes" : {
-        "name" : "Kinetic__case00032"
+        "name" : "case00032__kinetic"
       },
       "nodes" : [
         {
@@ -370,49 +413,6 @@
           }
         }
       ]
-    },
-    {
-      "name" : "case00032",
-      "nodeCount" : 2,
-      "edgeCount" : 0,
-      "attributes" : {
-        "name" : "case00032"
-      },
-      "nodes" : [
-        {
-          "compartmentCode" : 1,
-          "cyId" : "",
-          "derivedUnits" : "substance",
-          "label" : "S1",
-          "name" : "S1",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S1",
-          "sbml initial amount" : 0.015,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S1",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 0.015
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "",
-          "derivedUnits" : "substance",
-          "label" : "S2",
-          "name" : "S2",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S2",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S2",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [ ]
     }
   ],
   "groups" : [ ]

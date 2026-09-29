@@ -1,13 +1,40 @@
 {
   "networks" : [
     {
-      "name" : "All__doc0",
+      "name" : "doc0",
+      "nodeCount" : 1,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "doc0"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "X",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "X",
+          "metaId" : "X",
+          "sbml compartment" : "C",
+          "sbml id" : "X",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "doc0__all",
       "nodeCount" : 8,
       "edgeCount" : 8,
       "attributes" : {
         "label" : "doc0",
         "metaId" : "doc0",
-        "name" : "All__doc0",
+        "name" : "doc0__all",
         "sbml id" : "doc0",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V2"
@@ -190,11 +217,11 @@
       ]
     },
     {
-      "name" : "Kinetic__doc0",
+      "name" : "doc0__kinetic",
       "nodeCount" : 5,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "Kinetic__doc0"
+        "name" : "doc0__kinetic"
       },
       "nodes" : [
         {
@@ -283,33 +310,6 @@
           }
         }
       ]
-    },
-    {
-      "name" : "doc0",
-      "nodeCount" : 1,
-      "edgeCount" : 0,
-      "attributes" : {
-        "name" : "doc0"
-      },
-      "nodes" : [
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "X",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "X",
-          "metaId" : "X",
-          "sbml compartment" : "C",
-          "sbml id" : "X",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [ ]
     }
   ],
   "groups" : [ ]

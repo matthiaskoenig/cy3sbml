@@ -1,7 +1,946 @@
 {
   "networks" : [
     {
-      "name" : "All__BIOMD0000000001",
+      "name" : "BIOMD0000000001",
+      "nodeCount" : 29,
+      "edgeCount" : 34,
+      "attributes" : {
+        "name" : "BIOMD0000000001"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000006",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "Active",
+          "metaId" : "_000006",
+          "name" : "Active",
+          "sbml compartment" : "comp1",
+          "sbml id" : "A",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000420",
+          "shared name" : "Active",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000005",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "ActiveACh",
+          "metaId" : "_000005",
+          "name" : "ActiveACh",
+          "sbml compartment" : "comp1",
+          "sbml id" : "AL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "ActiveACh",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000014",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "ActiveACh2",
+          "metaId" : "_000014",
+          "name" : "ActiveACh2",
+          "sbml compartment" : "comp1",
+          "sbml id" : "ALL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "ActiveACh2",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000008",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "Basal",
+          "metaId" : "_000008",
+          "name" : "Basal",
+          "sbml compartment" : "comp1",
+          "sbml id" : "B",
+          "sbml initial amount" : 1.6605778811E-21,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000420",
+          "shared name" : "Basal",
+          "value" : 1.6605778811E-21
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000007",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "BasalACh",
+          "metaId" : "_000007",
+          "name" : "BasalACh",
+          "sbml compartment" : "comp1",
+          "sbml id" : "BL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "BasalACh",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000003",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "BasalACh2",
+          "metaId" : "_000003",
+          "name" : "BasalACh2",
+          "sbml compartment" : "comp1",
+          "sbml id" : "BLL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "BasalACh2",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000010",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "Desensitised",
+          "metaId" : "_000010",
+          "name" : "Desensitised",
+          "sbml compartment" : "comp1",
+          "sbml id" : "D",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000420",
+          "shared name" : "Desensitised",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000012",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "DesensitisedACh",
+          "metaId" : "_000012",
+          "name" : "DesensitisedACh",
+          "sbml compartment" : "comp1",
+          "sbml id" : "DL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "DesensitisedACh",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000009",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "DesensitisedACh2",
+          "metaId" : "_000009",
+          "name" : "DesensitisedACh2",
+          "sbml compartment" : "comp1",
+          "sbml id" : "DLL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "DesensitisedACh2",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000013",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "Intermediate",
+          "metaId" : "_000013",
+          "name" : "Intermediate",
+          "sbml compartment" : "comp1",
+          "sbml id" : "I",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000420",
+          "shared name" : "Intermediate",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000004",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "IntermediateACh",
+          "metaId" : "_000004",
+          "name" : "IntermediateACh",
+          "sbml compartment" : "comp1",
+          "sbml id" : "IL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "IntermediateACh",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "_000011",
+          "derivedUnits" : "substance",
+          "go" : "GO:0005892",
+          "interpro" : "IPR002394",
+          "label" : "IntermediateACh2",
+          "metaId" : "_000011",
+          "name" : "IntermediateACh2",
+          "sbml compartment" : "comp1",
+          "sbml id" : "ILL",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000297",
+          "shared name" : "IntermediateACh2",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "_000016",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_0*B-kr_0*BL)",
+          "label" : "React0",
+          "metaId" : "_000016",
+          "name" : "React0",
+          "reversible" : true,
+          "sbml id" : "React0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React0"
+        },
+        {
+          "cyId" : "_000017",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_1*BL-kr_1*BLL)",
+          "label" : "React1",
+          "metaId" : "_000017",
+          "name" : "React1",
+          "reversible" : true,
+          "sbml id" : "React1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React1"
+        },
+        {
+          "cyId" : "_000026",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_10*AL-kr_10*IL)",
+          "label" : "React10",
+          "metaId" : "_000026",
+          "name" : "React10",
+          "reversible" : true,
+          "sbml id" : "React10",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React10"
+        },
+        {
+          "cyId" : "_000027",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_11*ALL-kr_11*ILL)",
+          "label" : "React11",
+          "metaId" : "_000027",
+          "name" : "React11",
+          "reversible" : true,
+          "sbml id" : "React11",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React11"
+        },
+        {
+          "cyId" : "_000028",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_12*D-kr_12*DL)",
+          "label" : "React12",
+          "metaId" : "_000028",
+          "name" : "React12",
+          "reversible" : true,
+          "sbml id" : "React12",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React12"
+        },
+        {
+          "cyId" : "_000029",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_13*DL-kr_13*DLL)",
+          "label" : "React13",
+          "metaId" : "_000029",
+          "name" : "React13",
+          "reversible" : true,
+          "sbml id" : "React13",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React13"
+        },
+        {
+          "cyId" : "_000030",
+          "kineticLaw" : "comp1*(kf_14*I-kr_14*D)",
+          "label" : "React14",
+          "metaId" : "_000030",
+          "name" : "React14",
+          "reversible" : true,
+          "sbml id" : "React14",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React14"
+        },
+        {
+          "cyId" : "_000031",
+          "kineticLaw" : "comp1*(kf_15*IL-kr_15*DL)",
+          "label" : "React15",
+          "metaId" : "_000031",
+          "name" : "React15",
+          "reversible" : true,
+          "sbml id" : "React15",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React15"
+        },
+        {
+          "cyId" : "_000032",
+          "kineticLaw" : "comp1*(kf_16*ILL-kr_16*DLL)",
+          "label" : "React16",
+          "metaId" : "_000032",
+          "name" : "React16",
+          "reversible" : true,
+          "sbml id" : "React16",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React16"
+        },
+        {
+          "cyId" : "_000018",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_2*BLL-kr_2*ALL)",
+          "label" : "React2",
+          "metaId" : "_000018",
+          "name" : "React2",
+          "reversible" : true,
+          "sbml id" : "React2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React2"
+        },
+        {
+          "cyId" : "_000019",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_3*A-kr_3*AL)",
+          "label" : "React3",
+          "metaId" : "_000019",
+          "name" : "React3",
+          "reversible" : true,
+          "sbml id" : "React3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React3"
+        },
+        {
+          "cyId" : "_000020",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_4*AL-kr_4*ALL)",
+          "label" : "React4",
+          "metaId" : "_000020",
+          "name" : "React4",
+          "reversible" : true,
+          "sbml id" : "React4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React4"
+        },
+        {
+          "cyId" : "_000021",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_5*B-kr_5*A)",
+          "label" : "React5",
+          "metaId" : "_000021",
+          "name" : "React5",
+          "reversible" : true,
+          "sbml id" : "React5",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React5"
+        },
+        {
+          "cyId" : "_000022",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_6*BL-kr_6*AL)",
+          "label" : "React6",
+          "metaId" : "_000022",
+          "name" : "React6",
+          "reversible" : true,
+          "sbml id" : "React6",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React6"
+        },
+        {
+          "cyId" : "_000023",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_7*I-kr_7*IL)",
+          "label" : "React7",
+          "metaId" : "_000023",
+          "name" : "React7",
+          "reversible" : true,
+          "sbml id" : "React7",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React7"
+        },
+        {
+          "cyId" : "_000024",
+          "go" : "GO:0042166",
+          "kineticLaw" : "comp1*(kf_8*IL-kr_8*ILL)",
+          "label" : "React8",
+          "metaId" : "_000024",
+          "name" : "React8",
+          "reversible" : true,
+          "sbml id" : "React8",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000177",
+          "shared name" : "React8"
+        },
+        {
+          "cyId" : "_000025",
+          "go" : "GO:0004889",
+          "kineticLaw" : "comp1*(kf_9*A-kr_9*I)",
+          "label" : "React9",
+          "metaId" : "_000025",
+          "name" : "React9",
+          "reversible" : true,
+          "sbml id" : "React9",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "sbo" : "SBO:0000181",
+          "shared name" : "React9"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "React0",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323321",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React0",
+          "target" : "BL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323334",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React1",
+          "target" : "BL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323358",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React1",
+          "target" : "BLL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323370",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React10",
+          "target" : "AL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323701",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React10",
+          "target" : "IL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323713",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React11",
+          "target" : "ALL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323737",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React11",
+          "target" : "ILL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323749",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React12",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323773",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React12",
+          "target" : "DL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323785",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React13",
+          "target" : "DL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323810",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React13",
+          "target" : "DLL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323822",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React14",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323858",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React14",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323846",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React15",
+          "target" : "DL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323894",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React15",
+          "target" : "IL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323882",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React16",
+          "target" : "DLL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323932",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React16",
+          "target" : "ILL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323921",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React2",
+          "target" : "ALL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323406",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React2",
+          "target" : "BLL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323394",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React3",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323431",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React3",
+          "target" : "AL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323443",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React4",
+          "target" : "AL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323468",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React4",
+          "target" : "ALL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323481",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React5",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323520",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React5",
+          "target" : "B",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323507",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React6",
+          "target" : "AL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323559",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React6",
+          "target" : "BL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323546",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React7",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323585",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React7",
+          "target" : "IL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323598",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React8",
+          "target" : "IL",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323624",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React8",
+          "target" : "ILL",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323637",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React9",
+          "target" : "A",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_323663",
+            "sbo" : "SBO:0000010",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "React9",
+          "target" : "I",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_323676",
+            "sbo" : "SBO:0000011",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "BIOMD0000000001__all",
       "nodeCount" : 91,
       "edgeCount" : 165,
       "attributes" : {
@@ -9,7 +948,7 @@
         "go" : "GO:0019226",
         "label" : "Edelstein1996 - EPSP ACh event",
         "metaId" : "_000001",
-        "name" : "All__BIOMD0000000001",
+        "name" : "BIOMD0000000001__all",
         "pubmed" : "8983160",
         "sbml id" : "BIOMD0000000001",
         "sbmlNetwork" : "sbml",
@@ -2879,950 +3818,11 @@
       ]
     },
     {
-      "name" : "BIOMD0000000001",
-      "nodeCount" : 29,
-      "edgeCount" : 34,
-      "attributes" : {
-        "name" : "BIOMD0000000001"
-      },
-      "nodes" : [
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000006",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "Active",
-          "metaId" : "_000006",
-          "name" : "Active",
-          "sbml compartment" : "comp1",
-          "sbml id" : "A",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000420",
-          "shared name" : "Active",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000005",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "ActiveACh",
-          "metaId" : "_000005",
-          "name" : "ActiveACh",
-          "sbml compartment" : "comp1",
-          "sbml id" : "AL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "ActiveACh",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000014",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "ActiveACh2",
-          "metaId" : "_000014",
-          "name" : "ActiveACh2",
-          "sbml compartment" : "comp1",
-          "sbml id" : "ALL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "ActiveACh2",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000008",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "Basal",
-          "metaId" : "_000008",
-          "name" : "Basal",
-          "sbml compartment" : "comp1",
-          "sbml id" : "B",
-          "sbml initial amount" : 1.6605778811E-21,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000420",
-          "shared name" : "Basal",
-          "value" : 1.6605778811E-21
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000007",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "BasalACh",
-          "metaId" : "_000007",
-          "name" : "BasalACh",
-          "sbml compartment" : "comp1",
-          "sbml id" : "BL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "BasalACh",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000003",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "BasalACh2",
-          "metaId" : "_000003",
-          "name" : "BasalACh2",
-          "sbml compartment" : "comp1",
-          "sbml id" : "BLL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "BasalACh2",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000010",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "Desensitised",
-          "metaId" : "_000010",
-          "name" : "Desensitised",
-          "sbml compartment" : "comp1",
-          "sbml id" : "D",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000420",
-          "shared name" : "Desensitised",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000012",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "DesensitisedACh",
-          "metaId" : "_000012",
-          "name" : "DesensitisedACh",
-          "sbml compartment" : "comp1",
-          "sbml id" : "DL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "DesensitisedACh",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000009",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "DesensitisedACh2",
-          "metaId" : "_000009",
-          "name" : "DesensitisedACh2",
-          "sbml compartment" : "comp1",
-          "sbml id" : "DLL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "DesensitisedACh2",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000013",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "Intermediate",
-          "metaId" : "_000013",
-          "name" : "Intermediate",
-          "sbml compartment" : "comp1",
-          "sbml id" : "I",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000420",
-          "shared name" : "Intermediate",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000004",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "IntermediateACh",
-          "metaId" : "_000004",
-          "name" : "IntermediateACh",
-          "sbml compartment" : "comp1",
-          "sbml id" : "IL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "IntermediateACh",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "_000011",
-          "derivedUnits" : "substance",
-          "go" : "GO:0005892",
-          "interpro" : "IPR002394",
-          "label" : "IntermediateACh2",
-          "metaId" : "_000011",
-          "name" : "IntermediateACh2",
-          "sbml compartment" : "comp1",
-          "sbml id" : "ILL",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000297",
-          "shared name" : "IntermediateACh2",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "_000016",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_0*B-kr_0*BL)",
-          "label" : "React0",
-          "metaId" : "_000016",
-          "name" : "React0",
-          "reversible" : true,
-          "sbml id" : "React0",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React0"
-        },
-        {
-          "cyId" : "_000017",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_1*BL-kr_1*BLL)",
-          "label" : "React1",
-          "metaId" : "_000017",
-          "name" : "React1",
-          "reversible" : true,
-          "sbml id" : "React1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React1"
-        },
-        {
-          "cyId" : "_000026",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_10*AL-kr_10*IL)",
-          "label" : "React10",
-          "metaId" : "_000026",
-          "name" : "React10",
-          "reversible" : true,
-          "sbml id" : "React10",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React10"
-        },
-        {
-          "cyId" : "_000027",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_11*ALL-kr_11*ILL)",
-          "label" : "React11",
-          "metaId" : "_000027",
-          "name" : "React11",
-          "reversible" : true,
-          "sbml id" : "React11",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React11"
-        },
-        {
-          "cyId" : "_000028",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_12*D-kr_12*DL)",
-          "label" : "React12",
-          "metaId" : "_000028",
-          "name" : "React12",
-          "reversible" : true,
-          "sbml id" : "React12",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React12"
-        },
-        {
-          "cyId" : "_000029",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_13*DL-kr_13*DLL)",
-          "label" : "React13",
-          "metaId" : "_000029",
-          "name" : "React13",
-          "reversible" : true,
-          "sbml id" : "React13",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React13"
-        },
-        {
-          "cyId" : "_000030",
-          "kineticLaw" : "comp1*(kf_14*I-kr_14*D)",
-          "label" : "React14",
-          "metaId" : "_000030",
-          "name" : "React14",
-          "reversible" : true,
-          "sbml id" : "React14",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React14"
-        },
-        {
-          "cyId" : "_000031",
-          "kineticLaw" : "comp1*(kf_15*IL-kr_15*DL)",
-          "label" : "React15",
-          "metaId" : "_000031",
-          "name" : "React15",
-          "reversible" : true,
-          "sbml id" : "React15",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React15"
-        },
-        {
-          "cyId" : "_000032",
-          "kineticLaw" : "comp1*(kf_16*ILL-kr_16*DLL)",
-          "label" : "React16",
-          "metaId" : "_000032",
-          "name" : "React16",
-          "reversible" : true,
-          "sbml id" : "React16",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React16"
-        },
-        {
-          "cyId" : "_000018",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_2*BLL-kr_2*ALL)",
-          "label" : "React2",
-          "metaId" : "_000018",
-          "name" : "React2",
-          "reversible" : true,
-          "sbml id" : "React2",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React2"
-        },
-        {
-          "cyId" : "_000019",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_3*A-kr_3*AL)",
-          "label" : "React3",
-          "metaId" : "_000019",
-          "name" : "React3",
-          "reversible" : true,
-          "sbml id" : "React3",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React3"
-        },
-        {
-          "cyId" : "_000020",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_4*AL-kr_4*ALL)",
-          "label" : "React4",
-          "metaId" : "_000020",
-          "name" : "React4",
-          "reversible" : true,
-          "sbml id" : "React4",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React4"
-        },
-        {
-          "cyId" : "_000021",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_5*B-kr_5*A)",
-          "label" : "React5",
-          "metaId" : "_000021",
-          "name" : "React5",
-          "reversible" : true,
-          "sbml id" : "React5",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React5"
-        },
-        {
-          "cyId" : "_000022",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_6*BL-kr_6*AL)",
-          "label" : "React6",
-          "metaId" : "_000022",
-          "name" : "React6",
-          "reversible" : true,
-          "sbml id" : "React6",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React6"
-        },
-        {
-          "cyId" : "_000023",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_7*I-kr_7*IL)",
-          "label" : "React7",
-          "metaId" : "_000023",
-          "name" : "React7",
-          "reversible" : true,
-          "sbml id" : "React7",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React7"
-        },
-        {
-          "cyId" : "_000024",
-          "go" : "GO:0042166",
-          "kineticLaw" : "comp1*(kf_8*IL-kr_8*ILL)",
-          "label" : "React8",
-          "metaId" : "_000024",
-          "name" : "React8",
-          "reversible" : true,
-          "sbml id" : "React8",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000177",
-          "shared name" : "React8"
-        },
-        {
-          "cyId" : "_000025",
-          "go" : "GO:0004889",
-          "kineticLaw" : "comp1*(kf_9*A-kr_9*I)",
-          "label" : "React9",
-          "metaId" : "_000025",
-          "name" : "React9",
-          "reversible" : true,
-          "sbml id" : "React9",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "sbo" : "SBO:0000181",
-          "shared name" : "React9"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "React0",
-          "target" : "B",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323321",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React0",
-          "target" : "BL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323334",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React1",
-          "target" : "BL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323358",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React1",
-          "target" : "BLL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323370",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React10",
-          "target" : "AL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323701",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React10",
-          "target" : "IL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323713",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React11",
-          "target" : "ALL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323737",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React11",
-          "target" : "ILL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323749",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React12",
-          "target" : "D",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323773",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React12",
-          "target" : "DL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323785",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React13",
-          "target" : "DL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323810",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React13",
-          "target" : "DLL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323822",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React14",
-          "target" : "D",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323858",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React14",
-          "target" : "I",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323846",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React15",
-          "target" : "DL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323894",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React15",
-          "target" : "IL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323882",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React16",
-          "target" : "DLL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323932",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React16",
-          "target" : "ILL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323921",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React2",
-          "target" : "ALL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323406",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React2",
-          "target" : "BLL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323394",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React3",
-          "target" : "A",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323431",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React3",
-          "target" : "AL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323443",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React4",
-          "target" : "AL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323468",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React4",
-          "target" : "ALL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323481",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React5",
-          "target" : "A",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323520",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React5",
-          "target" : "B",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323507",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React6",
-          "target" : "AL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323559",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React6",
-          "target" : "BL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323546",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React7",
-          "target" : "I",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323585",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React7",
-          "target" : "IL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323598",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React8",
-          "target" : "IL",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323624",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React8",
-          "target" : "ILL",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323637",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React9",
-          "target" : "A",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_323663",
-            "sbo" : "SBO:0000010",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "React9",
-          "target" : "I",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_323676",
-            "sbo" : "SBO:0000011",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        }
-      ]
-    },
-    {
-      "name" : "Kinetic__BIOMD0000000001",
+      "name" : "BIOMD0000000001__kinetic",
       "nodeCount" : 82,
       "edgeCount" : 148,
       "attributes" : {
-        "name" : "Kinetic__BIOMD0000000001"
+        "name" : "BIOMD0000000001__kinetic"
       },
       "nodes" : [
         {

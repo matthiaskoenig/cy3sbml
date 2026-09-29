@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
  * Merging looks the removed cofactor node back up in the root network (it is only
  * removed from the subnetwork view, see {@code CofactorManager.splitCofactorNode}). That
  * only works when the node also stays alive in the root network's base network, exactly
- * like the real "All__" and "Kinetic__"/base subnetworks the reader creates: nodes are
+ * like the real "__all" and "__kinetic"/base subnetworks the reader creates: nodes are
  * added on the root's base network first, then a second, non-base subnetwork is created
  * from that subset. The test mirrors that shape rather than adding nodes directly to a
  * bare, single subnetwork.

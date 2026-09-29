@@ -76,7 +76,7 @@ flowchart TB
     end
     PR -->|nodes, edges, columns| CC[ConversionContext]
     CC --> SB[SubnetworkBuilder]
-    SB --> N["All__name, Kinetic__name, name"]
+    SB --> N["name, name__kinetic, name__all"]
     N -->|buildCyNetworkView| SM[SBMLManager]
 ```
 

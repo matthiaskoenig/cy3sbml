@@ -1,7 +1,99 @@
 {
   "networks" : [
     {
-      "name" : "All__toy_ode_model",
+      "name" : "toy_ode_model",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "toy_ode_model"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "C",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "C",
+          "metaId" : "C",
+          "name" : "C",
+          "sbml compartment" : "extern",
+          "sbml id" : "C",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "C",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "D",
+          "derivedUnits" : "item",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "D",
+          "metaId" : "D",
+          "name" : "D",
+          "sbml compartment" : "extern",
+          "sbml id" : "D",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "D",
+          "substanceUnits" : "item",
+          "units" : "item",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "R4",
+          "derivedUnits" : "item_per_s",
+          "fast" : false,
+          "kineticLaw" : "k_R4*C",
+          "label" : "C -> D",
+          "metaId" : "R4",
+          "name" : "C -> D",
+          "reversible" : false,
+          "sbml compartment" : "extern",
+          "sbml id" : "R4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "C -> D"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R4",
+          "target" : "C",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R4",
+          "target" : "D",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "toy_ode_model__all",
       "nodeCount" : 31,
       "edgeCount" : 27,
       "attributes" : {
@@ -10,7 +102,7 @@
         "label" : "ODE/SSA submodel",
         "lengthUnits" : "m",
         "metaId" : "meta_e27eca168d4d4b11a77c0e92141c6114",
-        "name" : "All__toy_ode_model",
+        "name" : "toy_ode_model__all",
         "sbml id" : "toy_ode_model",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -648,11 +740,11 @@
       ]
     },
     {
-      "name" : "Kinetic__toy_ode_model",
+      "name" : "toy_ode_model__kinetic",
       "nodeCount" : 8,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "Kinetic__toy_ode_model"
+        "name" : "toy_ode_model__kinetic"
       },
       "nodes" : [
         {
@@ -894,98 +986,6 @@
             "interaction" : "reference_kineticLaw",
             "interaction type" : "reference_kineticLaw",
             "shared interaction" : "reference_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "toy_ode_model",
-      "nodeCount" : 3,
-      "edgeCount" : 2,
-      "attributes" : {
-        "name" : "toy_ode_model"
-      },
-      "nodes" : [
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "C",
-          "derivedUnits" : "item",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "C",
-          "metaId" : "C",
-          "name" : "C",
-          "sbml compartment" : "extern",
-          "sbml id" : "C",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "C",
-          "substanceUnits" : "item",
-          "units" : "item",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "D",
-          "derivedUnits" : "item",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "D",
-          "metaId" : "D",
-          "name" : "D",
-          "sbml compartment" : "extern",
-          "sbml id" : "D",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "D",
-          "substanceUnits" : "item",
-          "units" : "item",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "R4",
-          "derivedUnits" : "item_per_s",
-          "fast" : false,
-          "kineticLaw" : "k_R4*C",
-          "label" : "C -> D",
-          "metaId" : "R4",
-          "name" : "C -> D",
-          "reversible" : false,
-          "sbml compartment" : "extern",
-          "sbml id" : "R4",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "C -> D"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "R4",
-          "target" : "C",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R4",
-          "target" : "D",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

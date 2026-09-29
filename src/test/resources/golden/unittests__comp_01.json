@@ -1,13 +1,798 @@
 {
   "networks" : [
     {
-      "name" : "All__repressilator",
+      "name" : "repressilator",
+      "nodeCount" : 28,
+      "edgeCount" : 29,
+      "attributes" : {
+        "name" : "repressilator"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim2",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "CI",
+          "metaId" : "iBioSim2",
+          "sbml compartment" : "Cell",
+          "sbml id" : "CI",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim32",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "Cell__RNAP",
+          "metaId" : "iBioSim32",
+          "name" : "Cell__RNAP",
+          "sbml compartment" : "Cell",
+          "sbml id" : "Cell__RNAP",
+          "sbml initial amount" : 30.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Cell__RNAP",
+          "value" : 30.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim33",
+          "fast" : false,
+          "kineticLaw" : "Degradation_CI_kd*CI",
+          "label" : "Degradation_CI",
+          "metaId" : "iBioSim33",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "Degradation_CI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim34",
+          "fast" : false,
+          "kineticLaw" : "Degradation_GFP_kd*GFP",
+          "label" : "Degradation_GFP",
+          "metaId" : "iBioSim34",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "Degradation_GFP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim35",
+          "fast" : false,
+          "kineticLaw" : "Degradation_LacI_kd*LacI",
+          "label" : "Degradation_LacI",
+          "metaId" : "iBioSim35",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "Degradation_LacI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim36",
+          "fast" : false,
+          "kineticLaw" : "Degradation_TetR_kd*TetR",
+          "label" : "Degradation_TetR",
+          "metaId" : "iBioSim36",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "Degradation_TetR",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim5",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "GFP",
+          "metaId" : "iBioSim5",
+          "sbml compartment" : "Cell",
+          "sbml id" : "GFP",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim3",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "LacI",
+          "metaId" : "iBioSim3",
+          "sbml compartment" : "Cell",
+          "sbml id" : "LacI",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim7",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P0",
+          "metaId" : "iBioSim7",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P0",
+          "sbml initial amount" : 2.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim28",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P0_CI_bound",
+          "metaId" : "iBioSim28",
+          "name" : "P0_CI_bound",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P0_CI_bound",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P0_CI_bound",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim12",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P0_RNAP",
+          "metaId" : "iBioSim12",
+          "name" : "P0_RNAP",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P0_RNAP",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P0_RNAP",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim9",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P1",
+          "metaId" : "iBioSim9",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P1",
+          "sbml initial amount" : 2.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim10",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P1_LacI_bound",
+          "metaId" : "iBioSim10",
+          "name" : "P1_LacI_bound",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P1_LacI_bound",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P1_LacI_bound",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim8",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P1_RNAP",
+          "metaId" : "iBioSim8",
+          "name" : "P1_RNAP",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P1_RNAP",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P1_RNAP",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim11",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P2",
+          "metaId" : "iBioSim11",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P2",
+          "sbml initial amount" : 2.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 2.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim29",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P2_RNAP",
+          "metaId" : "iBioSim29",
+          "name" : "P2_RNAP",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P2_RNAP",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P2_RNAP",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim30",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "P2_TetR_bound",
+          "metaId" : "iBioSim30",
+          "name" : "P2_TetR_bound",
+          "sbml compartment" : "Cell",
+          "sbml id" : "P2_TetR_bound",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P2_TetR_bound",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim31",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "RNAP",
+          "metaId" : "iBioSim31",
+          "name" : "RNAP",
+          "sbml compartment" : "Cell",
+          "sbml id" : "RNAP",
+          "sbml initial amount" : 30.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "RNAP",
+          "value" : 30.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim42",
+          "fast" : false,
+          "kineticLaw" : "R_P0_RNAP_ko_f*RNAP*P0-R_P0_RNAP_ko_r*P0_RNAP",
+          "label" : "R_P0_RNAP",
+          "metaId" : "iBioSim42",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_P0_RNAP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim40",
+          "fast" : false,
+          "kineticLaw" : "R_P1_RNAP_ko_f*RNAP*P1-R_P1_RNAP_ko_r*P1_RNAP",
+          "label" : "R_P1_RNAP",
+          "metaId" : "iBioSim40",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_P1_RNAP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim44",
+          "fast" : false,
+          "kineticLaw" : "R_P2_RNAP_ko_f*RNAP*P2-R_P2_RNAP_ko_r*P2_RNAP",
+          "label" : "R_P2_RNAP",
+          "metaId" : "iBioSim44",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_P2_RNAP",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim38",
+          "fast" : false,
+          "kineticLaw" : "R_constitutive_production_P0_ko*P0_RNAP",
+          "label" : "R_constitutive_production_P0",
+          "metaId" : "iBioSim38",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_constitutive_production_P0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim37",
+          "fast" : false,
+          "kineticLaw" : "R_constitutive_production_P1_ko*P1_RNAP",
+          "label" : "R_constitutive_production_P1",
+          "metaId" : "iBioSim37",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_constitutive_production_P1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim39",
+          "fast" : false,
+          "kineticLaw" : "R_constitutive_production_P2_ko*P2_RNAP",
+          "label" : "R_constitutive_production_P2",
+          "metaId" : "iBioSim39",
+          "reversible" : false,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_constitutive_production_P2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim43",
+          "derivedUnits" : "invalid",
+          "fast" : false,
+          "kineticLaw" : "R_repression_binding_P0_CI_kr_f*R_repression_binding_P0_CI_Kr^(R_repression_binding_P0_CI_nc-1)*CI^R_repression_binding_P0_CI_nc*P0-R_repression_binding_P0_CI_kr_r*P0_CI_bound",
+          "label" : "R_repression_binding_P0_CI",
+          "metaId" : "iBioSim43",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_repression_binding_P0_CI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim41",
+          "derivedUnits" : "invalid",
+          "fast" : false,
+          "kineticLaw" : "R_repression_binding_P1_LacI_kr_f*R_repression_binding_P1_LacI_Kr^(R_repression_binding_P1_LacI_nc-1)*LacI^R_repression_binding_P1_LacI_nc*P1-R_repression_binding_P1_LacI_kr_r*P1_LacI_bound",
+          "label" : "R_repression_binding_P1_LacI",
+          "metaId" : "iBioSim41",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_repression_binding_P1_LacI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "iBioSim45",
+          "derivedUnits" : "invalid",
+          "fast" : false,
+          "kineticLaw" : "R_repression_binding_P2_TetR_kr_f*R_repression_binding_P2_TetR_Kr^(R_repression_binding_P2_TetR_nc-1)*TetR^R_repression_binding_P2_TetR_nc*P2-R_repression_binding_P2_TetR_kr_r*P2_TetR_bound",
+          "label" : "R_repression_binding_P2_TetR",
+          "metaId" : "iBioSim45",
+          "reversible" : true,
+          "sbml compartment" : "Cell",
+          "sbml id" : "R_repression_binding_P2_TetR",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "iBioSim4",
+          "derivedUnits" : "",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "TetR",
+          "metaId" : "iBioSim4",
+          "sbml compartment" : "Cell",
+          "sbml id" : "TetR",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Degradation_CI",
+          "target" : "CI",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Degradation_GFP",
+          "target" : "GFP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Degradation_LacI",
+          "target" : "LacI",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Degradation_TetR",
+          "target" : "TetR",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P0_RNAP",
+          "target" : "P0",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P0_RNAP",
+          "target" : "P0_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P0_RNAP",
+          "target" : "RNAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P1_RNAP",
+          "target" : "P1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P1_RNAP",
+          "target" : "P1_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P1_RNAP",
+          "target" : "RNAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P2_RNAP",
+          "target" : "P2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P2_RNAP",
+          "target" : "P2_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_P2_RNAP",
+          "target" : "RNAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P0",
+          "target" : "LacI",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 10.0
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P0",
+          "target" : "P0_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P1",
+          "target" : "P1_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P1",
+          "target" : "TetR",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 10.0
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P2",
+          "target" : "CI",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 10.0
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P2",
+          "target" : "GFP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 10.0
+          }
+        },
+        {
+          "source" : "R_constitutive_production_P2",
+          "target" : "P2_RNAP",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "R_repression_binding_P0_CI",
+          "target" : "CI",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P0_CI",
+          "target" : "P0",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P0_CI",
+          "target" : "P0_CI_bound",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P1_LacI",
+          "target" : "LacI",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P1_LacI",
+          "target" : "P1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P1_LacI",
+          "target" : "P1_LacI_bound",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P2_TetR",
+          "target" : "P2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P2_TetR",
+          "target" : "P2_TetR_bound",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R_repression_binding_P2_TetR",
+          "target" : "TetR",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "repressilator__all",
       "nodeCount" : 94,
       "edgeCount" : 177,
       "attributes" : {
         "label" : "Created by iBioSim flatten routine",
         "metaId" : "iBioSim1",
-        "name" : "All__repressilator",
+        "name" : "repressilator__all",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -2967,11 +3752,11 @@
       ]
     },
     {
-      "name" : "Kinetic__repressilator",
+      "name" : "repressilator__kinetic",
       "nodeCount" : 85,
       "edgeCount" : 147,
       "attributes" : {
-        "name" : "Kinetic__repressilator"
+        "name" : "repressilator__kinetic"
       },
       "nodes" : [
         {
@@ -5680,791 +6465,6 @@
             "interaction" : "sbaseRef-id",
             "interaction type" : "sbaseRef-id",
             "shared interaction" : "sbaseRef-id"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "repressilator",
-      "nodeCount" : 28,
-      "edgeCount" : 29,
-      "attributes" : {
-        "name" : "repressilator"
-      },
-      "nodes" : [
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim2",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "CI",
-          "metaId" : "iBioSim2",
-          "sbml compartment" : "Cell",
-          "sbml id" : "CI",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim32",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "Cell__RNAP",
-          "metaId" : "iBioSim32",
-          "name" : "Cell__RNAP",
-          "sbml compartment" : "Cell",
-          "sbml id" : "Cell__RNAP",
-          "sbml initial amount" : 30.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "Cell__RNAP",
-          "value" : 30.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim33",
-          "fast" : false,
-          "kineticLaw" : "Degradation_CI_kd*CI",
-          "label" : "Degradation_CI",
-          "metaId" : "iBioSim33",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "Degradation_CI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim34",
-          "fast" : false,
-          "kineticLaw" : "Degradation_GFP_kd*GFP",
-          "label" : "Degradation_GFP",
-          "metaId" : "iBioSim34",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "Degradation_GFP",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim35",
-          "fast" : false,
-          "kineticLaw" : "Degradation_LacI_kd*LacI",
-          "label" : "Degradation_LacI",
-          "metaId" : "iBioSim35",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "Degradation_LacI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim36",
-          "fast" : false,
-          "kineticLaw" : "Degradation_TetR_kd*TetR",
-          "label" : "Degradation_TetR",
-          "metaId" : "iBioSim36",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "Degradation_TetR",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim5",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "GFP",
-          "metaId" : "iBioSim5",
-          "sbml compartment" : "Cell",
-          "sbml id" : "GFP",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim3",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "LacI",
-          "metaId" : "iBioSim3",
-          "sbml compartment" : "Cell",
-          "sbml id" : "LacI",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim7",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P0",
-          "metaId" : "iBioSim7",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P0",
-          "sbml initial amount" : 2.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 2.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim28",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P0_CI_bound",
-          "metaId" : "iBioSim28",
-          "name" : "P0_CI_bound",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P0_CI_bound",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P0_CI_bound",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim12",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P0_RNAP",
-          "metaId" : "iBioSim12",
-          "name" : "P0_RNAP",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P0_RNAP",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P0_RNAP",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim9",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P1",
-          "metaId" : "iBioSim9",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P1",
-          "sbml initial amount" : 2.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 2.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim10",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P1_LacI_bound",
-          "metaId" : "iBioSim10",
-          "name" : "P1_LacI_bound",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P1_LacI_bound",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P1_LacI_bound",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim8",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P1_RNAP",
-          "metaId" : "iBioSim8",
-          "name" : "P1_RNAP",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P1_RNAP",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P1_RNAP",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim11",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P2",
-          "metaId" : "iBioSim11",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P2",
-          "sbml initial amount" : 2.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 2.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim29",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P2_RNAP",
-          "metaId" : "iBioSim29",
-          "name" : "P2_RNAP",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P2_RNAP",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P2_RNAP",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim30",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "P2_TetR_bound",
-          "metaId" : "iBioSim30",
-          "name" : "P2_TetR_bound",
-          "sbml compartment" : "Cell",
-          "sbml id" : "P2_TetR_bound",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P2_TetR_bound",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim31",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "RNAP",
-          "metaId" : "iBioSim31",
-          "name" : "RNAP",
-          "sbml compartment" : "Cell",
-          "sbml id" : "RNAP",
-          "sbml initial amount" : 30.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "RNAP",
-          "value" : 30.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim42",
-          "fast" : false,
-          "kineticLaw" : "R_P0_RNAP_ko_f*RNAP*P0-R_P0_RNAP_ko_r*P0_RNAP",
-          "label" : "R_P0_RNAP",
-          "metaId" : "iBioSim42",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_P0_RNAP",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim40",
-          "fast" : false,
-          "kineticLaw" : "R_P1_RNAP_ko_f*RNAP*P1-R_P1_RNAP_ko_r*P1_RNAP",
-          "label" : "R_P1_RNAP",
-          "metaId" : "iBioSim40",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_P1_RNAP",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim44",
-          "fast" : false,
-          "kineticLaw" : "R_P2_RNAP_ko_f*RNAP*P2-R_P2_RNAP_ko_r*P2_RNAP",
-          "label" : "R_P2_RNAP",
-          "metaId" : "iBioSim44",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_P2_RNAP",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim38",
-          "fast" : false,
-          "kineticLaw" : "R_constitutive_production_P0_ko*P0_RNAP",
-          "label" : "R_constitutive_production_P0",
-          "metaId" : "iBioSim38",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_constitutive_production_P0",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim37",
-          "fast" : false,
-          "kineticLaw" : "R_constitutive_production_P1_ko*P1_RNAP",
-          "label" : "R_constitutive_production_P1",
-          "metaId" : "iBioSim37",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_constitutive_production_P1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim39",
-          "fast" : false,
-          "kineticLaw" : "R_constitutive_production_P2_ko*P2_RNAP",
-          "label" : "R_constitutive_production_P2",
-          "metaId" : "iBioSim39",
-          "reversible" : false,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_constitutive_production_P2",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim43",
-          "derivedUnits" : "invalid",
-          "fast" : false,
-          "kineticLaw" : "R_repression_binding_P0_CI_kr_f*R_repression_binding_P0_CI_Kr^(R_repression_binding_P0_CI_nc-1)*CI^R_repression_binding_P0_CI_nc*P0-R_repression_binding_P0_CI_kr_r*P0_CI_bound",
-          "label" : "R_repression_binding_P0_CI",
-          "metaId" : "iBioSim43",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_repression_binding_P0_CI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim41",
-          "derivedUnits" : "invalid",
-          "fast" : false,
-          "kineticLaw" : "R_repression_binding_P1_LacI_kr_f*R_repression_binding_P1_LacI_Kr^(R_repression_binding_P1_LacI_nc-1)*LacI^R_repression_binding_P1_LacI_nc*P1-R_repression_binding_P1_LacI_kr_r*P1_LacI_bound",
-          "label" : "R_repression_binding_P1_LacI",
-          "metaId" : "iBioSim41",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_repression_binding_P1_LacI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "iBioSim45",
-          "derivedUnits" : "invalid",
-          "fast" : false,
-          "kineticLaw" : "R_repression_binding_P2_TetR_kr_f*R_repression_binding_P2_TetR_Kr^(R_repression_binding_P2_TetR_nc-1)*TetR^R_repression_binding_P2_TetR_nc*P2-R_repression_binding_P2_TetR_kr_r*P2_TetR_bound",
-          "label" : "R_repression_binding_P2_TetR",
-          "metaId" : "iBioSim45",
-          "reversible" : true,
-          "sbml compartment" : "Cell",
-          "sbml id" : "R_repression_binding_P2_TetR",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "iBioSim4",
-          "derivedUnits" : "",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "TetR",
-          "metaId" : "iBioSim4",
-          "sbml compartment" : "Cell",
-          "sbml id" : "TetR",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "Degradation_CI",
-          "target" : "CI",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Degradation_GFP",
-          "target" : "GFP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Degradation_LacI",
-          "target" : "LacI",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Degradation_TetR",
-          "target" : "TetR",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P0_RNAP",
-          "target" : "P0",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P0_RNAP",
-          "target" : "P0_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P0_RNAP",
-          "target" : "RNAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P1_RNAP",
-          "target" : "P1",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P1_RNAP",
-          "target" : "P1_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P1_RNAP",
-          "target" : "RNAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P2_RNAP",
-          "target" : "P2",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P2_RNAP",
-          "target" : "P2_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_P2_RNAP",
-          "target" : "RNAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P0",
-          "target" : "LacI",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 10.0
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P0",
-          "target" : "P0_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P1",
-          "target" : "P1_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P1",
-          "target" : "TetR",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 10.0
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P2",
-          "target" : "CI",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 10.0
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P2",
-          "target" : "GFP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 10.0
-          }
-        },
-        {
-          "source" : "R_constitutive_production_P2",
-          "target" : "P2_RNAP",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "R_repression_binding_P0_CI",
-          "target" : "CI",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P0_CI",
-          "target" : "P0",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P0_CI",
-          "target" : "P0_CI_bound",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P1_LacI",
-          "target" : "LacI",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P1_LacI",
-          "target" : "P1",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P1_LacI",
-          "target" : "P1_LacI_bound",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P2_TetR",
-          "target" : "P2",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P2_TetR",
-          "target" : "P2_TetR_bound",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R_repression_binding_P2_TetR",
-          "target" : "TetR",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
           }
         }
       ]

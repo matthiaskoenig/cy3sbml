@@ -1,7 +1,17 @@
 {
   "networks" : [
     {
-      "name" : "All__model_0000001",
+      "name" : "model_0000001",
+      "nodeCount" : 0,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "model_0000001"
+      },
+      "nodes" : [ ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "model_0000001__all",
       "nodeCount" : 15,
       "edgeCount" : 19,
       "attributes" : {
@@ -9,7 +19,7 @@
         "go" : "GO:0019228",
         "label" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
         "metaId" : "metaid_0000002",
-        "name" : "All__model_0000001",
+        "name" : "model_0000001__all",
         "pubmed" : "15484883",
         "sbml id" : "model_0000001",
         "sbmlNetwork" : "sbml",
@@ -367,11 +377,11 @@
       ]
     },
     {
-      "name" : "Kinetic__model_0000001",
+      "name" : "model_0000001__kinetic",
       "nodeCount" : 12,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "Kinetic__model_0000001"
+        "name" : "model_0000001__kinetic"
       },
       "nodes" : [
         {
@@ -611,16 +621,6 @@
           }
         }
       ]
-    },
-    {
-      "name" : "model_0000001",
-      "nodeCount" : 0,
-      "edgeCount" : 0,
-      "attributes" : {
-        "name" : "model_0000001"
-      },
-      "nodes" : [ ],
-      "edges" : [ ]
     }
   ],
   "groups" : [ ]

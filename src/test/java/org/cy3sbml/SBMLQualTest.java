@@ -19,7 +19,7 @@ public class SBMLQualTest {
     @Test
     public void testQual() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_QUAL);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(55, network.getNodeCount());
         assertEquals(85, network.getEdgeCount());

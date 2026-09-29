@@ -66,17 +66,17 @@ public class SBMLCoreTest {
         assertNotNull(networks);
         assertTrue(networks.length >= 1);
 
-        CyNetwork baseNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+        CyNetwork baseNetwork = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_BASE);
         assertNotNull(baseNetwork);
-        assertEquals(91, baseNetwork.getNodeCount());
-        assertEquals(165, baseNetwork.getEdgeCount());
+        assertEquals(29, baseNetwork.getNodeCount());
+        assertEquals(34, baseNetwork.getEdgeCount());
 
-        CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork kineticNetwork = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
         assertEquals(82, kineticNetwork.getNodeCount());
         assertEquals(148, kineticNetwork.getEdgeCount());
 
-        CyNetwork allNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
+        CyNetwork allNetwork = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(allNetwork);
         assertEquals(91, allNetwork.getNodeCount());
         assertEquals(165, allNetwork.getEdgeCount());
@@ -102,7 +102,7 @@ public class SBMLCoreTest {
     @Test
     public void testCoreEdges() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
         // 2 directed edges
@@ -149,7 +149,7 @@ public class SBMLCoreTest {
     @Test
     public void testCoreSpecies() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_BASE);
         assertNotNull(network);
 
         // Test species node
@@ -172,7 +172,7 @@ public class SBMLCoreTest {
     @Test
     public void testCoreCompartment() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
         // <compartment id="comp1" name="compartment1" metaid="_000002" sboTerm="SBO:0000290" size="1E-16">
@@ -193,7 +193,7 @@ public class SBMLCoreTest {
     @Test
     public void testCoreParameter() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
         //   <parameter id="kf_0" constant="false" metaid="metaid_0000037" value="3000" sboTerm="SBO:0000035"/>
@@ -214,7 +214,7 @@ public class SBMLCoreTest {
     @Test
     public void testCoreReaction() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(network);
 
         // <reaction id="React0" name="React0" metaid="_000016" sboTerm="SBO:0000177">
@@ -253,10 +253,10 @@ public class SBMLCoreTest {
     @Test
     public void testCoreNameSharing() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_CORE_01);
-        CyNetwork kineticNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_KINETIC);
+        CyNetwork kineticNetwork = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC);
         assertNotNull(kineticNetwork);
 
-        CyNetwork baseNetwork = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+        CyNetwork baseNetwork = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_BASE);
         assertNotNull(baseNetwork);
 
         // <reaction id="React0" name="React0" metaid="_000016" sboTerm="SBO:0000177">
