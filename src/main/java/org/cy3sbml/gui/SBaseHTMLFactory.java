@@ -34,7 +34,10 @@ import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.SBaseRef;
 import org.sbml.jsbml.ext.comp.Submodel;
+import org.sbml.jsbml.ext.fbc.FBCConstants;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraint;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraintComponent;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
@@ -184,6 +187,7 @@ public class SBaseHTMLFactory {
             html += archives.apply(document).map(ArchiveHtml::create).orElse("");
         }
         html += UncertaintyHtml.create(sbase, compTargets);
+        html += KeyValuePairHtml.create(sbase);
         html += createHistory(sbase);
         html += createCVTerms(sbase);
         html += createNonRDFAnnotation(sbase);
@@ -361,6 +365,10 @@ public class SBaseHTMLFactory {
         // fbc //
         else if (item instanceof GeneProduct geneProduct) {
             map = SBMLUtil.createGeneProductMap(geneProduct);
+        } else if (item instanceof UserDefinedConstraint constraint) {
+            map = SBMLUtil.createUserDefinedConstraintMap(constraint);
+        } else if (item instanceof UserDefinedConstraintComponent component) {
+            map = SBMLUtil.createUserDefinedConstraintComponentMap(component);
         }
 
         // comp //
@@ -667,11 +675,12 @@ public class SBaseHTMLFactory {
             String text = "";
             XMLNode xmlNode = annotation.getNonRDFannotation();
             if (xmlNode != null) {
-                // get all children which are not RDF
+                // get all children which are not RDF, and not the key-value pairs (fbc v3),
+                // which have their own table
                 for (int i = 0; i < xmlNode.getChildCount(); i++) {
                     XMLNode child = xmlNode.getChildAt(i);
                     String name = child.getName();
-                    if (!"RDF".equals(name)) {
+                    if (!"RDF".equals(name) && !isKeyValuePairs(child)) {
                         try {
                             String xml = XMLNode.convertXMLNodeToString(child);
                             // Handle special case of whitespaces/empty text nodes
@@ -697,6 +706,12 @@ public class SBaseHTMLFactory {
             }
         }
         return html;
+    }
+
+    /** Whether the annotation element is the list of key-value pairs of fbc v3. */
+    private static boolean isKeyValuePairs(XMLNode node) {
+        return FBCConstants.listOfKeyValuePairs.equals(node.getName())
+                && FBCConstants.KEY_VALUE_PAIR_NAMESPACE.equals(node.getURI());
     }
 
     /**

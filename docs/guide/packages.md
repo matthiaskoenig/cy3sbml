@@ -8,7 +8,7 @@ are listed in [Network model](network.md).
 |---|---|
 | core | supported |
 | `qual` (qualitative models) | supported |
-| `fbc` (flux balance constraints), versions 1 and 2 | supported |
+| `fbc` (flux balance constraints), versions 1, 2 and 3 | supported |
 | `comp` (hierarchical model composition) | supported |
 | `groups` | supported |
 | `distrib` (distributions), version 1 | supported |
@@ -31,15 +31,29 @@ levels, signs, thresholds and transition effects are stored as columns with the 
 
 ## fbc
 
-- Species get the columns `fbc_charge` and `fbc_chemicalFormula`.
+- Species get the columns `fbc_charge` and `fbc_chemicalFormula`. The charge is an
+  integer column in fbc version 1 and 2 and a floating point column in fbc version 3,
+  following the type of the attribute in the package version.
 - Reactions get the columns `fbc_lowerFluxBound` and `fbc_upperFluxBound` with the ids of
   the bound parameters, and an edge from each bound parameter. The flux bounds of fbc
   version 1 are read as well; they are values, so the columns hold the value and there
   is no edge.
 - Every objective becomes a column `fbc_objective-<objective id>` with the coefficients
-  of its reactions. The active objective is not marked.
+  of its reactions. The active objective is not marked. The variable type of a flux
+  objective (fbc version 3, `linear` or `quadratic`) is in the column
+  `fbc_objective-<objective id>_variableType`.
 - Gene products become nodes, labelled with their `label`. Gene product associations become a tree of `AND` and `OR`
   nodes that ends in the reaction. The gene associations of fbc version 1 are not read.
+- User defined constraints (fbc version 3), `lowerBound <= sum of components <= upperBound`,
+  become `fbc_userDefinedConstraint` nodes in the kinetic and all network, with the ids of
+  the bound parameters in the columns `fbc_lowerBound` and `fbc_upperBound`, and an edge
+  from every parameter of the constraint (the bounds and the coefficients). Every component, `coefficient * variable` or
+  `coefficient * variable * variable2`, is an edge from the reaction or parameter of its
+  variable (and one from its second variable) to the constraint, with the id of the
+  coefficient parameter in `fbc_coefficient` and the variable type in `fbc_variableType`.
+  The info panel shows the constraint as a formula with the values of the parameters.
+- The key-value pairs of any element (fbc version 3, a `listOfKeyValuePairs` in the
+  annotation) are shown in the info panel as a table of key, value and URI.
 - The COBRA key value pairs in the notes, for example `GENE_ASSOCIATION`, become columns.
 
 ## comp (hierarchical model composition)

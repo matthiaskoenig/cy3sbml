@@ -29,19 +29,28 @@ For the selected object, the panel shows in this order:
       stoichiometries, `⇌` for a reversible and `→` for an irreversible reaction, `∅` for
       no reactants or products, and the modifiers after the semicolon. A stoichiometry
       that is not set but determined by a rule shows the id of the species reference;
+    - the fbc flux bound parameters with their values and links to their nodes, for
+      example `ub = 1000`;
     - the coefficient of the reaction in each fbc objective of the model, in the row
-      `fbc_objective-<objective id>`, like the network column of the same name.
+      `fbc_objective-<objective id>`, like the network column of the same name, and the
+      variable type of fbc version 3 in the row `fbc_objective-<objective id>_variableType`.
+
+    For an fbc user defined constraint, the table shows the bound parameters with their
+    values, the constraint, for example `five ≤ one · RGLX + negone · RBTK ≤ five`, and a
+    row per component with its variable type and links to the nodes of its variables.
 
     For a group, the table lists the members with their element name, their reference and
     a link to their node.
 
 3. The uncertainties of the object (distrib package), see
    [distrib](packages.md#distrib-distributions).
-4. The model history: creators with email and organisation, the creation date and the
+4. The key-value pairs of the object (fbc version 3): key, value and the URI that defines
+   the key.
+5. The model history: creators with email and organisation, the creation date and the
    modification dates.
-5. The annotations (see below).
-6. Annotations that are not RDF, for example SABIO-RK data, as formatted XML.
-7. The notes.
+6. The annotations (see below).
+7. Annotations that are not RDF, for example SABIO-RK data, as formatted XML.
+8. The notes.
 
 Links to external web pages open in the web browser of the system.
 

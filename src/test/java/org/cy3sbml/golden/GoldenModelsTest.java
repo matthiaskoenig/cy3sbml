@@ -75,9 +75,10 @@ public class GoldenModelsTest {
             "comp/Watanabe2014/test_replacement_9.xml",
             "comp/Watanabe2014/test_replacement_1.xml",
             "comp/Watanabe2014/test_replacement_4.xml",
-            // fbc: v1 and v2
+            // fbc: v1, v2 and v3
             "fbc/JSBML_testcase_L3V1_fbcV1.xml",
             "fbc/Mini_textbook_L3V1_fbcV2.xml",
+            "fbc/fbc_v3_example_L3V1_fbcV3.xml",
             // qual
             "qual/BMID000000017713_L3V1_qualV1_layoutV1.xml",
             "qual/sce04070_L3V1_qualV1_layoutV1.xml",

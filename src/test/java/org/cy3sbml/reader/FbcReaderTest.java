@@ -168,4 +168,127 @@ class FbcReaderTest {
         assertNull(ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
         assertEquals("10.0", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
     }
+
+    private static final String FBC_V3_MODEL = "/models/fbc/fbc_v3_example_L3V1_fbcV3.xml";
+
+    @Test
+    void readsFbcV2ContentOfFbcV3Model() throws Exception {
+        ConversionContext context = ReaderTestSupport.readResource(FBC_V3_MODEL, new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        assertEquals(3, nodesOfType(network, SBML.NODETYPE_FBC_GENEPRODUCT).size());
+        CyNode species = nodeById(context, "A");
+        assertEquals("C6H12O6", ReaderTestSupport.attribute(network, species, SBML.ATTR_FBC_CHEMICAL_FORMULA));
+        // the charge of fbc v3 is a double
+        assertEquals(-1.0, network.getRow(species).get(SBML.ATTR_FBC_CHARGE, Double.class));
+        CyNode reaction = nodeById(context, "RGLX");
+        assertEquals("zero", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_LOWER_FLUX_BOUND));
+        assertEquals("ub", ReaderTestSupport.attribute(network, reaction, SBML.ATTR_FBC_UPPER_FLUX_BOUND));
+        assertEquals(
+                6, edgesOfType(network, SBML.INTERACTION_PARAMETER_REACTION).size());
+        // RGLX: g1 and g2, RBTK: g3 or g1
+        assertEquals(1, nodesOfType(network, SBML.NODETYPE_FBC_AND).size());
+        assertEquals(1, nodesOfType(network, SBML.NODETYPE_FBC_OR).size());
+    }
+
+    @Test
+    void readsVariableTypesOfFluxObjectives() throws Exception {
+        ConversionContext context = ReaderTestSupport.readResource(FBC_V3_MODEL, new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        CyNode rglx = nodeById(context, "RGLX");
+        assertEquals(1.0, network.getRow(rglx).get("fbc_objective-obj_quadratic", Double.class));
+        assertEquals(
+                "quadratic", ReaderTestSupport.attribute(network, rglx, "fbc_objective-obj_quadratic_variableType"));
+        CyNode rgdp = nodeById(context, "RGDP");
+        assertEquals("linear", ReaderTestSupport.attribute(network, rgdp, "fbc_objective-obj_linear_variableType"));
+        assertNull(ReaderTestSupport.attribute(network, rgdp, "fbc_objective-obj_quadratic_variableType"));
+    }
+
+    @Test
+    void readsUserDefinedConstraints() throws Exception {
+        ConversionContext context = ReaderTestSupport.readResource(FBC_V3_MODEL, new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        assertEquals(
+                3,
+                nodesOfType(network, SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT).size());
+        CyNode uc1 = nodeById(context, "uc1");
+        assertEquals("RGLX - RBTK = 5", ReaderTestSupport.attribute(network, uc1, SBML.LABEL));
+        assertEquals("five", ReaderTestSupport.attribute(network, uc1, SBML.ATTR_FBC_LOWER_BOUND));
+        assertEquals("five", ReaderTestSupport.attribute(network, uc1, SBML.ATTR_FBC_UPPER_BOUND));
+        CyNode uc2 = nodeById(context, "uc2");
+        assertEquals("uc2", ReaderTestSupport.attribute(network, uc2, SBML.LABEL));
+
+        // an edge from every parameter of a constraint, bounds and coefficients, once:
+        // uc1 five (lower and upper bound), one, negone; uc2 two (lower bound and
+        // coefficient), inf, negone; uc3 zero, ub, one
+        List<CyEdge> parameterEdges = edgesOfType(network, SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT);
+        assertEquals(9, parameterEdges.size());
+        assertEquals(
+                Set.of(nodeById(context, "two"), nodeById(context, "inf"), nodeById(context, "negone")),
+                parameterEdges.stream()
+                        .filter(e -> e.getTarget().equals(uc2))
+                        .map(CyEdge::getSource)
+                        .collect(Collectors.toSet()));
+
+        // an edge per variable of a component: uc1 2, uc2 2, uc3 2 (variable and variable2)
+        List<CyEdge> variableEdges = edgesOfType(network, SBML.INTERACTION_FBC_VARIABLE_USER_DEFINED_CONSTRAINT);
+        assertEquals(6, variableEdges.size());
+        CyEdge p1var = variableEdges.stream()
+                .filter(e -> e.getSource().equals(nodeById(context, "p1var")))
+                .findFirst()
+                .orElseThrow();
+        assertEquals(uc2, p1var.getTarget());
+        assertEquals("two", network.getRow(p1var).get(SBML.ATTR_FBC_COEFFICIENT, String.class));
+        assertEquals("linear", network.getRow(p1var).get(SBML.ATTR_FBC_VARIABLE_TYPE, String.class));
+
+        CyNode uc3 = nodeById(context, "uc3");
+        List<CyEdge> quadratic =
+                variableEdges.stream().filter(e -> e.getTarget().equals(uc3)).toList();
+        assertEquals(
+                Set.of(nodeById(context, "RGLX"), nodeById(context, "RBTK")),
+                quadratic.stream().map(CyEdge::getSource).collect(Collectors.toSet()));
+        for (CyEdge edge : quadratic) {
+            assertEquals("one", network.getRow(edge).get(SBML.ATTR_FBC_COEFFICIENT, String.class));
+            assertEquals("quadratic", network.getRow(edge).get(SBML.ATTR_FBC_VARIABLE_TYPE, String.class));
+        }
+    }
+
+    @Test
+    void skipsComponentVariablesWithoutNode() throws Exception {
+        String sbml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+                    xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version3" fbc:required="false">
+                  <model id="m" fbc:strict="false">
+                    <listOfParameters>
+                      <parameter id="one" value="1" constant="true"/>
+                    </listOfParameters>
+                    <fbc:listOfUserDefinedConstraints>
+                      <fbc:userDefinedConstraint fbc:lowerBound="one" fbc:upperBound="missing">
+                        <fbc:listOfUserDefinedConstraintComponents>
+                          <fbc:userDefinedConstraintComponent fbc:coefficient="one" fbc:variable="missing"
+                              fbc:variableType="linear"/>
+                        </fbc:listOfUserDefinedConstraintComponents>
+                      </fbc:userDefinedConstraint>
+                    </fbc:listOfUserDefinedConstraints>
+                  </model>
+                </sbml>
+                """;
+        ConversionContext context = ReaderTestSupport.readString(sbml.strip(), new CoreReader(), new FbcReader());
+        CyNetwork network = context.network();
+
+        List<CyNode> constraints = nodesOfType(network, SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT);
+        assertEquals(1, constraints.size());
+        assertEquals("UDC", ReaderTestSupport.attribute(network, constraints.get(0), SBML.LABEL));
+        assertEquals(
+                1,
+                edgesOfType(network, SBML.INTERACTION_FBC_PARAMETER_USER_DEFINED_CONSTRAINT)
+                        .size());
+        assertEquals(
+                0,
+                edgesOfType(network, SBML.INTERACTION_FBC_VARIABLE_USER_DEFINED_CONSTRAINT)
+                        .size());
+    }
 }

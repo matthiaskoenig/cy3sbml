@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.comp.CompTargets;
@@ -32,6 +33,8 @@ import org.sbml.jsbml.ext.fbc.FBCSpeciesPlugin;
 import org.sbml.jsbml.ext.fbc.FluxObjective;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.fbc.Objective;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraint;
+import org.sbml.jsbml.ext.fbc.UserDefinedConstraintComponent;
 import org.sbml.jsbml.ext.groups.Group;
 import org.sbml.jsbml.ext.groups.ListOfMembers;
 import org.sbml.jsbml.ext.groups.Member;
@@ -164,6 +167,11 @@ public class SBMLUtil {
     public static final String ATTR_INITIAL_CONCENTRATION = "initialConcentration";
     public static final String ATTR_INITIAL_AMOUNT = "amount";
     public static final String ATTR_CHARGE = "charge";
+    private static final String ATTR_CONSTRAINT = "constraint";
+    private static final String ATTR_COMPONENT = "component";
+    private static final String ATTR_COEFFICIENT = "coefficient";
+    private static final String ATTR_VARIABLE = "variable";
+    private static final String ATTR_VARIABLE2 = "variable2";
 
     private static final String LINK_ID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_ID + "%s\">"
             + GUIConstants.ICON_LINK.replace("{title}", "Link to node.") + "</a>";
@@ -397,7 +405,8 @@ public class SBMLUtil {
         if (fbcSpecies != null) {
             String charge = UNSET;
             if (fbcSpecies.isSetCharge()) {
-                charge = ((Integer) fbcSpecies.getCharge()).toString();
+                // a double in fbc v3, an integer before
+                charge = numberString(fbcSpecies.getChargeAsDouble());
             }
             map.put(SBML.ATTR_FBC_CHARGE, charge);
 
@@ -442,17 +451,15 @@ public class SBMLUtil {
         // fbc
         FBCReactionPlugin fbcReaction = (FBCReactionPlugin) r.getExtension(FBCConstants.shortLabel);
         if (fbcReaction != null) {
-            String lowerFluxBound = UNSET;
-            if (fbcReaction.isSetLowerFluxBound()) {
-                lowerFluxBound = fbcReaction.getLowerFluxBound();
-            }
-            map.put(SBML.ATTR_FBC_LOWER_FLUX_BOUND, lowerFluxBound);
-
-            String upperFluxBound = UNSET;
-            if (fbcReaction.isSetUpperFluxBound()) {
-                upperFluxBound = fbcReaction.getUpperFluxBound();
-            }
-            map.put(SBML.ATTR_FBC_UPPER_FLUX_BOUND, upperFluxBound);
+            // the bound parameters with their values and links, like the bounds of constraints
+            map.put(
+                    SBML.ATTR_FBC_LOWER_FLUX_BOUND,
+                    parameterHtml(
+                            r.getModel(), fbcReaction.isSetLowerFluxBound() ? fbcReaction.getLowerFluxBound() : null));
+            map.put(
+                    SBML.ATTR_FBC_UPPER_FLUX_BOUND,
+                    parameterHtml(
+                            r.getModel(), fbcReaction.isSetUpperFluxBound() ? fbcReaction.getUpperFluxBound() : null));
         }
         map.putAll(fluxObjectiveMap(r));
         return map;
@@ -536,6 +543,11 @@ public class SBMLUtil {
                     map.put(
                             String.format(SBML.ATTR_FBC_OBJECTIVE_TEMPLATE, objective.getId()),
                             Double.toString(fluxObjective.getCoefficient()));
+                    if (fluxObjective.isSetVariableType()) {
+                        map.put(
+                                String.format(SBML.ATTR_FBC_OBJECTIVE_VARIABLE_TYPE_TEMPLATE, objective.getId()),
+                                fluxObjective.getVariableType().toString());
+                    }
                 }
             }
         }
@@ -758,6 +770,97 @@ public class SBMLUtil {
     public static Map<String, String> createGeneProductMap(GeneProduct gp) {
         Map<String, String> map = createNamedSBaseMap(gp);
         return map;
+    }
+
+    /**
+     * UserDefinedConstraint map (fbc v3): the bound parameters, the constraint
+     * {@code lowerBound <= sum of the components <= upperBound} and a row per component.
+     */
+    public static Map<String, String> createUserDefinedConstraintMap(UserDefinedConstraint udc) {
+        Map<String, String> map = createNamedSBaseMap(udc);
+        Model model = udc.getModel();
+        String lowerBound = udc.isSetLowerBound() ? udc.getLowerBound() : null;
+        String upperBound = udc.isSetUpperBound() ? udc.getUpperBound() : null;
+        map.put(SBML.ATTR_FBC_LOWER_BOUND, parameterHtml(model, lowerBound));
+        map.put(SBML.ATTR_FBC_UPPER_BOUND, parameterHtml(model, upperBound));
+
+        List<String> terms = new ArrayList<>();
+        for (UserDefinedConstraintComponent component : udc.getListOfUserDefinedConstraintComponents()) {
+            terms.add(componentTerm(component));
+        }
+        String sum = terms.isEmpty() ? "0" : String.join(" + ", terms);
+        map.put(
+                ATTR_CONSTRAINT,
+                HtmlUtil.escape(lowerBound != null ? lowerBound : "?") + " &le; " + sum + " &le; "
+                        + HtmlUtil.escape(upperBound != null ? upperBound : "?"));
+
+        int k = 0;
+        for (UserDefinedConstraintComponent component : udc.getListOfUserDefinedConstraintComponents()) {
+            k++;
+            String key = ATTR_COMPONENT + " " + (component.isSetId() ? component.getId() : Integer.toString(k));
+            String variableType = component.isSetVariableType() ? " (" + component.getVariableType() + ")" : "";
+            map.put(key, componentTerm(component) + variableType + variableLinks(component));
+        }
+        return map;
+    }
+
+    /**
+     * UserDefinedConstraintComponent map (fbc v3).
+     */
+    public static Map<String, String> createUserDefinedConstraintComponentMap(
+            UserDefinedConstraintComponent component) {
+        Map<String, String> map = createNamedSBaseMap(component);
+        Model model = component.getModel();
+        map.put(
+                ATTR_COEFFICIENT,
+                parameterHtml(model, component.isSetCoefficient() ? component.getCoefficient() : null));
+        map.put(ATTR_VARIABLE, sidHtml(component.isSetVariable() ? component.getVariable() : null));
+        map.put(ATTR_VARIABLE2, sidHtml(component.isSetVariable2() ? component.getVariable2() : null));
+        map.put(
+                SBML.ATTR_FBC_VARIABLE_TYPE,
+                component.isSetVariableType() ? component.getVariableType().toString() : UNSET);
+        return map;
+    }
+
+    /** The term of a component, {@code coefficient * variable [* variable2]}. */
+    private static String componentTerm(UserDefinedConstraintComponent component) {
+        List<String> factors = new ArrayList<>(3);
+        factors.add(component.isSetCoefficient() ? component.getCoefficient() : "?");
+        factors.add(component.isSetVariable() ? component.getVariable() : "?");
+        if (component.isSetVariable2()) {
+            factors.add(component.getVariable2());
+        }
+        return factors.stream().map(HtmlUtil::escape).collect(Collectors.joining(" &middot; "));
+    }
+
+    /** The links to the nodes of the variables of a component. */
+    private static String variableLinks(UserDefinedConstraintComponent component) {
+        String links = "";
+        if (component.isSetVariable()) {
+            links += String.format(LINK_ID_TEMPLATE, component.getVariable());
+        }
+        if (component.isSetVariable2()) {
+            links += String.format(LINK_ID_TEMPLATE, component.getVariable2());
+        }
+        return links;
+    }
+
+    /** The SId with a link to its node, {@link #UNSET} for null. */
+    private static String sidHtml(String sid) {
+        return sid == null ? UNSET : HtmlUtil.escape(sid) + String.format(LINK_ID_TEMPLATE, sid);
+    }
+
+    /**
+     * The id of a parameter with its value, e.g. {@code five = 5}, and a link to its node,
+     * {@link #UNSET} for null.
+     */
+    private static String parameterHtml(Model model, String sid) {
+        if (sid == null) {
+            return UNSET;
+        }
+        Parameter parameter = model != null ? model.getParameter(sid) : null;
+        String value = parameter != null && parameter.isSetValue() ? " = " + numberString(parameter.getValue()) : "";
+        return HtmlUtil.escape(sid) + value + String.format(LINK_ID_TEMPLATE, sid);
     }
 
     // COMP

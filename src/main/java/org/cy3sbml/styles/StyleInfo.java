@@ -98,6 +98,7 @@ public class StyleInfo {
         m4.put(SBML.NODETYPE_INITIAL_ASSIGNMENT, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_KINETIC_LAW, "Liberation Sans Bold,plain,12");
         m4.put(SBML.NODETYPE_QUAL_TRANSITION, "Liberation Sans Bold,plain,12");
+        m4.put(SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT, "Liberation Sans Bold,plain,12");
         mappings.add(new MappingDiscrete(
                 Mapping.DataType.string,
                 VisualPropertyKey.NODE_LABEL_FONT_FACE,
@@ -118,6 +119,7 @@ public class StyleInfo {
         m5.put(SBML.NODETYPE_QUAL_SPECIES, "40");
         m5.put(SBML.NODETYPE_QUAL_TRANSITION, "15");
         m5.put(SBML.NODETYPE_FBC_GENEPRODUCT, "40");
+        m5.put(SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT, "30");
         m5.put(SBML.NODETYPE_UNIT_DEFINITION, "30");
         m5.put(SBML.NODETYPE_UNIT, "20");
         m5.put(SBML.NODETYPE_EVENT, "40");
@@ -139,6 +141,7 @@ public class StyleInfo {
         m6.put(SBML.NODETYPE_RATE_RULE, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_KINETIC_LAW, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_QUAL_TRANSITION, "N,S,c,0.00,0.00");
+        m6.put(SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT, "N,S,c,0.00,0.00");
 
         m6.put(SBML.NODETYPE_COMP_PORT, "N,S,c,0.00,0.00");
         m6.put(SBML.NODETYPE_COMP_REPLACED_BY, "N,S,c,0.00,0.00");
@@ -158,6 +161,7 @@ public class StyleInfo {
         m7.put(SBML.NODETYPE_LOCAL_PARAMETER, "DIAMOND");
         m7.put(SBML.NODETYPE_QUAL_TRANSITION, "RECTANGLE");
         m7.put(SBML.NODETYPE_FBC_GENEPRODUCT, "TRIANGLE");
+        m7.put(SBML.NODETYPE_FBC_USER_DEFINED_CONSTRAINT, "OCTAGON");
         m7.put(SBML.NODETYPE_UNIT_DEFINITION, "PARALLELOGRAM");
         m7.put(SBML.NODETYPE_UNIT, "PARALLELOGRAM");
         m7.put(SBML.NODETYPE_EVENT, "HEXAGON");
