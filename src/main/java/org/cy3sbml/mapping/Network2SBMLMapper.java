@@ -98,6 +98,32 @@ public class Network2SBMLMapper implements Serializable {
     }
 
     /**
+     * Maps a node created after the import (a cofactor clone) to the SBase of its cyId.
+     */
+    public synchronized void putNode(Long rootSUID, String cyId, Long nodeSUID) {
+        One2ManyMapping<String, Long> sbase2node = sbase2nodeMappingMap.get(rootSUID);
+        if (sbase2node == null || cyId == null) {
+            return;
+        }
+        sbase2node.put(cyId, nodeSUID);
+        node2sbaseMappingMap.get(rootSUID).put(nodeSUID, cyId);
+    }
+
+    /**
+     * Removes the mapping of a node, e.g. of a cofactor clone that is merged.
+     */
+    public synchronized void removeNode(Long rootSUID, Long nodeSUID) {
+        One2ManyMapping<Long, String> node2sbase = node2sbaseMappingMap.get(rootSUID);
+        if (node2sbase == null) {
+            return;
+        }
+        for (String cyId : node2sbase.getValues(nodeSUID)) {
+            sbase2nodeMappingMap.get(rootSUID).removeValue(cyId, nodeSUID);
+        }
+        node2sbase.remove(nodeSUID);
+    }
+
+    /**
      * Removes the document for a given root network SUID.
      * This removes the mapping for all subnetworks of the given root network SUID.
      *

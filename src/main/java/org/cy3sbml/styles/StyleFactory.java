@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.xml.parsers.ParserConfigurationException;
 import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.XMLUtil;
@@ -73,7 +74,7 @@ public class StyleFactory {
                                 // create mapping node
                                 Element eMap = doc.createElement("passthroughMapping");
                                 eMap.setAttribute(
-                                        "attributeType", m.getDataType().toString());
+                                        "attributeType", m.getDataType().attributeType());
                                 eMap.setAttribute("attributeName", m.getAttributeName());
                                 nvp.appendChild(eMap);
 
@@ -82,12 +83,12 @@ public class StyleFactory {
                                 // create mapping node
                                 Element eMap = doc.createElement("discreteMapping");
                                 eMap.setAttribute(
-                                        "attributeType", m.getDataType().toString());
+                                        "attributeType", m.getDataType().attributeType());
                                 eMap.setAttribute("attributeName", m.getAttributeName());
                                 nvp.appendChild(eMap);
 
-                                // create mapping entries
-                                Map<String, String> map = ((MappingDiscrete) m).getMap();
+                                // create mapping entries, sorted for a stable file
+                                Map<String, String> map = new TreeMap<>(((MappingDiscrete) m).getMap());
                                 for (String attributeValue : map.keySet()) {
                                     String value = map.get(attributeValue);
                                     Element eEntry = doc.createElement("discreteMappingEntry");

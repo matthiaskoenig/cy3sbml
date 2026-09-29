@@ -1,8 +1,8 @@
 package org.cy3sbml.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.net.URL;
@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
@@ -26,6 +25,7 @@ class GuiPageResourcesTest {
     private static final Pattern REFERENCE = Pattern.compile("(?:src|href)=\"([^\"]+)\"");
     private static final Pattern REMOTE_RESOURCE =
             Pattern.compile("<(?:link|script)\\b[^>]*(?:src|href)=\"(?:https?:)?//[^\"]*\"[^>]*>");
+    private static final Pattern ACTION_LINK = Pattern.compile("href=\"(https://cy3sbml-[^\"]+)\"");
 
     @ParameterizedTest
     @ValueSource(strings = {"help.html", "examples.html", "icons.html", "linktemplate.html"})
@@ -73,12 +73,21 @@ class GuiPageResourcesTest {
                 && !reference.contains("{");
     }
 
-    /** The cofactor splitting is hidden until it is complete (#405). */
+    /** Every action link of the help page runs an action of the panel. */
     @Test
-    void helpDoesNotShowTheCofactorSplitting() throws Exception {
+    void helpActionLinksAreHandled() throws Exception {
         URL pageUrl = GuiPageResourcesTest.class.getResource("/gui/help.html");
         String html = Files.readString(Path.of(pageUrl.toURI())).replaceAll("(?s)<!--.*?-->", "");
+        List<String> actions = new ArrayList<>();
+        Matcher matcher = ACTION_LINK.matcher(html);
+        while (matcher.find()) {
+            actions.add(matcher.group(1));
+        }
 
-        assertFalse(html.toLowerCase(Locale.ROOT).contains("cofactor"), html);
+        assertTrue(actions.contains(BrowserHyperlinkListener.URL_COFACTOR_SPLIT), html);
+        assertTrue(actions.contains(BrowserHyperlinkListener.URL_COFACTOR_MERGE), html);
+        for (String action : actions) {
+            assertTrue(BrowserHyperlinkListener.URLS_ACTION.contains(action), action);
+        }
     }
 }

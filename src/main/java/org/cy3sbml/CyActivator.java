@@ -30,6 +30,7 @@ import org.cytoscape.application.events.SetCurrentNetworkListener;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
+import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetworkFactory;
@@ -264,7 +265,8 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, sbmlManager, SBMLManager.class, new Properties());
 
         // Cofactor manager
-        CofactorManager cofactorManager = new CofactorManager();
+        CofactorManager cofactorManager = new CofactorManager(sbmlManager, getService(bc, CyEventHelper.class));
+        registerService(bc, cofactorManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
         // Session loading & saving
         SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
@@ -450,8 +452,13 @@ public class CyActivator extends AbstractCyActivator {
             ExamplesAction examplesAction = new ExamplesAction(webViewPanel);
             registerService(bc, examplesAction, CyAction.class, new Properties());
 
-            // The cofactor splitting (CofactorAction) is not registered until it is complete
-            // (#405); CofactorManager restores the cofactors of sessions saved with it.
+            SplitCofactorsAction splitCofactorsAction = new SplitCofactorsAction(adapter, sbmlManager, cofactorManager);
+            registerService(bc, splitCofactorsAction, CyAction.class, new Properties());
+            registerService(bc, splitCofactorsAction, SetCurrentNetworkListener.class, new Properties());
+
+            MergeCofactorsAction mergeCofactorsAction = new MergeCofactorsAction(adapter, sbmlManager, cofactorManager);
+            registerService(bc, mergeCofactorsAction, CyAction.class, new Properties());
+            registerService(bc, mergeCofactorsAction, SetCurrentNetworkListener.class, new Properties());
 
             BiomodelsAction biomodelsAction = new BiomodelsAction(biomodelsDialog);
             registerService(bc, biomodelsAction, CyAction.class, new Properties());

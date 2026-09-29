@@ -72,6 +72,14 @@ public class StyleInfo {
                 "#000000",
                 m1));
 
+        // the clones of split cofactor nodes have a dashed border
+        mappings.add(new MappingDiscrete(
+                Mapping.DataType.bool,
+                VisualPropertyKey.NODE_BORDER_STROKE,
+                SBML.ATTR_COFACTOR_CLONE,
+                "SOLID",
+                Map.of("true", "EQUAL_DASH")));
+
         Map<String, String> m2 = new HashMap<>();
         m2.put(SBML.NODETYPE_SPECIES, "16");
         m2.put(SBML.NODETYPE_QUAL_SPECIES, "16");

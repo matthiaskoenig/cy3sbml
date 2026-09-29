@@ -109,7 +109,8 @@ public class BundleJarContentIT {
         assertHasEntry("gui/images/help.png");
         assertHasEntry("gui/images/examples.png");
         assertHasEntry("gui/images/changestate.png");
-        assertHasEntry("gui/images/cofactor.png");
+        assertHasEntry("gui/images/cofactor-split.png");
+        assertHasEntry("gui/images/cofactor-merge.png");
         assertHasEntry("gui/images/layout-load.png");
         assertHasEntry("gui/images/layout-save.png");
         assertHasEntry("gui/images/favicon.ico");
