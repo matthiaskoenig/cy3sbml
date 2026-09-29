@@ -71,7 +71,7 @@ public final class CombineArchive {
             throw new CombineArchiveException(
                     String.format("The file %s is not a COMBINE archive: it has no %s.", name, MANIFEST));
         }
-        List<ArchiveInfo.Entry> entries = readManifest(manifest, name);
+        List<ArchiveInfo.Entry> entries = readManifest(manifest, name, root);
         Metadata metadata = readMetadata(root, name, entries);
         ArchiveInfo info =
                 new ArchiveInfo(name, metadata.title(), metadata.description(), metadata.creators(), entries);
@@ -118,7 +118,8 @@ public final class CombineArchive {
     }
 
     /** The entries of the manifest, without the archive itself and the manifest. */
-    private static List<ArchiveInfo.Entry> readManifest(Path manifest, String name) throws CombineArchiveException {
+    private static List<ArchiveInfo.Entry> readManifest(Path manifest, String name, Path root)
+            throws CombineArchiveException {
         Document document;
         try {
             document = documentBuilder().parse(manifest.toFile());
@@ -137,6 +138,11 @@ public final class CombineArchive {
                     || format.endsWith(MANIFEST_FORMAT)
                     || format.endsWith(ARCHIVE_FORMAT)) {
                 continue;
+            }
+            Path target = root.resolve(location).normalize();
+            if (!target.startsWith(root) || target.equals(root)) {
+                throw new CombineArchiveException(
+                        String.format("The archive %s has the entry '%s' outside the archive.", name, location));
             }
             entries.add(new ArchiveInfo.Entry(
                     location,

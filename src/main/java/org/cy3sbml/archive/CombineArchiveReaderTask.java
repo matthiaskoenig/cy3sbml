@@ -31,7 +31,8 @@ import org.slf4j.LoggerFactory;
  * the archive can reference each other (comp external model definitions).
  * <p>
  * An SBML file that cannot be read is reported and skipped; the task fails if none can be
- * read.
+ * read. The unpacked files are deleted when the task is done: the SBML reader reads the
+ * external models of a document during the import.
  */
 public class CombineArchiveReaderTask extends AbstractTask implements CyNetworkReader {
     private static final Logger logger = LoggerFactory.getLogger(CombineArchiveReaderTask.class);
@@ -81,6 +82,15 @@ public class CombineArchiveReaderTask extends AbstractTask implements CyNetworkR
     public void run(TaskMonitor taskMonitor) throws Exception {
         taskMonitor.setTitle("cy3sbml COMBINE archive reader");
         Path directory = directories.newDirectory(fileName);
+        try {
+            readArchive(directory, taskMonitor);
+        } finally {
+            // the SBML reader has read the files, the external models included
+            directories.delete(directory);
+        }
+    }
+
+    private void readArchive(Path directory, TaskMonitor taskMonitor) throws Exception {
         try {
             info = CombineArchive.extract(stream, fileName, directory);
         } catch (CombineArchiveException e) {

@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The directories COMBINE archives are unpacked into: one new directory per import below
  * a root, so that the SBML files of an archive can reference each other by their relative
- * paths. The root is deleted when the app stops.
+ * paths. The directory of an import is deleted when the import is done, the root when the
+ * app stops.
  */
 public final class ArchiveDirectories {
     private static final Logger logger = LoggerFactory.getLogger(ArchiveDirectories.class);
@@ -40,17 +41,26 @@ public final class ArchiveDirectories {
         return Files.createTempDirectory(root, prefix);
     }
 
+    /** Deletes the directory of an archive with its files. */
+    public synchronized void delete(Path directory) {
+        deleteRecursively(directory);
+    }
+
     /** Deletes the root with all unpacked archives. */
     public synchronized void deleteAll() {
-        if (!Files.exists(root)) {
+        deleteRecursively(root);
+    }
+
+    private static void deleteRecursively(Path directory) {
+        if (!Files.exists(directory)) {
             return;
         }
-        try (Stream<Path> paths = Files.walk(root)) {
+        try (Stream<Path> paths = Files.walk(directory)) {
             for (Path path : paths.sorted(Comparator.reverseOrder()).toList()) {
                 Files.deleteIfExists(path);
             }
         } catch (IOException e) {
-            logger.warn("The unpacked archives in {} could not be deleted: {}", root, e.getMessage());
+            logger.warn("The unpacked archive in {} could not be deleted: {}", directory, e.getMessage());
         }
     }
 }

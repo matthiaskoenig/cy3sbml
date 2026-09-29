@@ -172,4 +172,17 @@ class CombineArchiveTest {
         assertEquals("text/csv", ArchiveInfo.formatLabel("https://purl.org/NET/mediatypes/text/csv"));
         assertEquals("image/png", ArchiveInfo.formatLabel("http://purl.org/NET/mediatypes/image/png"));
     }
+
+    @Test
+    void manifestLocationOutsideTheArchiveIsRejected() throws Exception {
+        Files.writeString(directory.resolve("outside.xml"), "<sbml/>");
+        InputStream stream = zip(Map.of(
+                "manifest.xml",
+                manifest("<content location=\"../outside.xml\" format=\"" + SBML_L3V1 + "\" master=\"true\"/>")));
+
+        CombineArchiveException e = assertThrows(
+                CombineArchiveException.class,
+                () -> CombineArchive.extract(stream, "a.omex", directory.resolve("archive")));
+        assertEquals("The archive a.omex has the entry '../outside.xml' outside the archive.", e.getMessage());
+    }
 }

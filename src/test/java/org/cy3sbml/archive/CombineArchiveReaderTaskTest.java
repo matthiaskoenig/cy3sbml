@@ -1,7 +1,6 @@
 package org.cy3sbml.archive;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -23,19 +22,25 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.cy3sbml.SBML;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.comp.ModelResolution;
 import org.cy3sbml.reader.SBMLReaderTask;
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.sbml.jsbml.SBMLDocument;
 
 class CombineArchiveReaderTaskTest {
     @TempDir
@@ -153,16 +158,71 @@ class CombineArchiveReaderTaskTest {
                         eq(TaskMonitor.Level.ERROR), startsWith("cy3sbml could not read the SBML file 'broken.xml'"));
     }
 
+    private List<Path> leftovers() throws Exception {
+        Path root = temp.resolve("archives");
+        if (!Files.exists(root)) {
+            return List.of();
+        }
+        try (var paths = Files.list(root)) {
+            return paths.toList();
+        }
+    }
+
     @Test
-    void everyImportHasItsOwnDirectory() throws Exception {
+    void importLeavesNoFilesBehind() throws Exception {
         read("single.omex");
         read("single.omex");
 
-        try (var directoriesOfImports = Files.list(temp.resolve("archives"))) {
-            List<Path> list = directoriesOfImports.toList();
-            assertEquals(2, list.size());
-            assertNotEquals(list.get(0), list.get(1));
+        assertEquals(List.of(), leftovers());
+    }
+
+    @Test
+    void failedImportLeavesNoFilesBehind() throws Exception {
+        assertThrows(SBMLReaderError.class, () -> read("no_sbml.omex"));
+
+        assertEquals(List.of(), leftovers());
+    }
+
+    /**
+     * The unpacked files are deleted after the import: the comp resolver the info panel
+     * uses already holds the external models of the archive.
+     */
+    @Test
+    void externalModelsResolveAfterTheFilesAreDeleted() throws Exception {
+        SBMLManager manager = new SBMLManager(mock(CyApplicationManager.class));
+        CyNetworkViewFactory viewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+        CombineArchiveReaderTask task;
+        try (InputStream stream = CombineArchiveReaderTaskTest.class.getResourceAsStream("/models/omex/comp.omex")) {
+            task = new CombineArchiveReaderTask(
+                    stream,
+                    "comp.omex",
+                    directories,
+                    (in, fileName, location) -> new SBMLReaderTask(
+                            in,
+                            fileName,
+                            location,
+                            networkFactory,
+                            new GroupTestSupport().getGroupFactory(),
+                            viewFactory,
+                            null,
+                            null,
+                            null,
+                            manager),
+                    manager);
+            task.run(monitor);
         }
+        CyNetwork top = Arrays.stream(task.getNetworks())
+                .filter(n -> "All__top".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .findFirst()
+                .orElseThrow();
+        task.buildCyNetworkView(top);
+        assertEquals(List.of(), leftovers());
+
+        SBMLDocument document = manager.getSBMLDocument(top);
+        ModelResolution resolution =
+                manager.getSBaseRefResolver(document).models().resolve(document, "sub_def");
+
+        assertTrue(resolution instanceof ModelResolution.Resolved, resolution.toString());
     }
 
     @Test
