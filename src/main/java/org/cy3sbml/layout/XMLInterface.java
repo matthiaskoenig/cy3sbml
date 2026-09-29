@@ -37,15 +37,14 @@ public class XMLInterface {
 
     // XML EXPORT //
 
-    public static void writeXMLFileForLayout(File xmlFile, Collection<CyBoundingBox> boxes) {
-        Document doc = createXMLDocumentFromLayout(boxes);
-        writeXMLDocumentToFile(doc, xmlFile);
-    }
-
-    private static Document createXMLDocumentFromLayout(Collection<CyBoundingBox> boxes) {
-        Document doc = null;
+    /**
+     * Writes the bounding boxes to the layout file.
+     *
+     * @throws IOException if the file could not be written
+     */
+    public static void writeXMLFileForLayout(File xmlFile, Collection<CyBoundingBox> boxes) throws IOException {
         try {
-            doc = XMLUtil.documentBuilder().newDocument();
+            Document doc = XMLUtil.documentBuilder().newDocument();
             Element rootElement = doc.createElement(LAYOUT);
             doc.appendChild(rootElement);
 
@@ -55,11 +54,11 @@ public class XMLInterface {
             for (CyBoundingBox box : boxes) {
                 addDomForBoundingBox(doc, boxListNode, box);
             }
-        } catch (ParserConfigurationException e) {
-            doc = null;
-            logger.error("Problems with xml parsing.", e);
+            Transformer transformer = XMLUtil.transformer();
+            transformer.transform(new DOMSource(doc), new StreamResult(xmlFile));
+        } catch (ParserConfigurationException | TransformerException e) {
+            throw new IOException("The layout could not be written to " + xmlFile + ": " + e.getMessage(), e);
         }
-        return doc;
     }
 
     private static void addDomForBoundingBox(Document doc, Element boxListElement, CyBoundingBox box) {
@@ -78,17 +77,6 @@ public class XMLInterface {
         boxNode.setAttribute(BOX_Y, Double.toString(box.y()));
         boxNode.setAttribute(BOX_HEIGHT, Double.toString(box.height()));
         boxNode.setAttribute(BOX_WIDTH, Double.toString(box.width()));
-    }
-
-    private static void writeXMLDocumentToFile(Document doc, File xmlFile) {
-        try {
-            Transformer transformer = XMLUtil.transformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            logger.error("Problems writing layout", e);
-        }
     }
 
     // XML IMPORT //

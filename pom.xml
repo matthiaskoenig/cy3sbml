@@ -128,6 +128,13 @@
             <version>${cytoscape.api.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- NodeList arguments of the automation commands -->
+        <dependency>
+            <groupId>org.cytoscape</groupId>
+            <artifactId>command-executor-api</artifactId>
+            <version>${cytoscape.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.cytoscape</groupId>
             <artifactId>layout-api</artifactId>

@@ -37,7 +37,7 @@ class LayoutRoundTripTest {
     Path tempDir;
 
     @Test
-    void savingAndReloadingRestoresTheOriginalNodePositions() {
+    void savingAndReloadingRestoresTheOriginalNodePositions() throws Exception {
         CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
         CyNetworkViewFactory viewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
 

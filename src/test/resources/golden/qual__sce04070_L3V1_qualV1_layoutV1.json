@@ -11,6 +11,7 @@
         "name" : "path_sce04070",
         "sbml id" : "path_sce04070",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },
@@ -1607,6 +1608,7 @@
         "name" : "path_sce04070__all",
         "sbml id" : "path_sce04070",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "Phosphatidylinositol signaling system",
         "taxonomy" : "559292"
@@ -3550,6 +3552,7 @@
         "name" : "path_sce04070__kinetic",
         "sbml id" : "path_sce04070",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },
@@ -5578,6 +5581,7 @@
         "name" : "path_sce04070__layout_1",
         "sbml id" : "path_sce04070",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },

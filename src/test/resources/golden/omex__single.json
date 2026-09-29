@@ -9,6 +9,7 @@
         "name" : "single",
         "sbml id" : "single",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -92,6 +93,7 @@
         "name" : "single__all",
         "sbml id" : "single",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -254,6 +256,7 @@
         "name" : "single__kinetic",
         "sbml id" : "single",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

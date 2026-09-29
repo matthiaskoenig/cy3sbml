@@ -10,6 +10,7 @@
         "name" : "MODEL_01186",
         "sbml id" : "MODEL_01186",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1477,6 +1478,7 @@
         "name" : "MODEL_01186__all",
         "sbml id" : "MODEL_01186",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -3362,6 +3364,7 @@
         "name" : "MODEL_01186__kinetic",
         "sbml id" : "MODEL_01186",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

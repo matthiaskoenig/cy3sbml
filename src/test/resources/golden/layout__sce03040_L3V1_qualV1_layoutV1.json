@@ -12,6 +12,7 @@
         "obo.go" : "GO:0005681",
         "sbml id" : "path_sce03040",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },
@@ -882,6 +883,7 @@
         "obo.go" : "GO:0005681",
         "sbml id" : "path_sce03040",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "Spliceosome",
         "taxonomy" : "559292"
@@ -2268,6 +2270,7 @@
         "obo.go" : "GO:0005681",
         "sbml id" : "path_sce03040",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },
@@ -3703,6 +3706,7 @@
         "obo.go" : "GO:0005681",
         "sbml id" : "path_sce03040",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "559292"
       },

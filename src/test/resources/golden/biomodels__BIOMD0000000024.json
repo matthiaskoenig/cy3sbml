@@ -14,6 +14,7 @@
         "pubmed" : "9870936",
         "sbml id" : "Scheper1999",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V1",
         "taxonomy" : "7227"
       },
@@ -266,6 +267,7 @@
         "pubmed" : "9870936",
         "sbml id" : "Scheper1999",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V1",
         "shared name" : "Scheper1999_CircClock",
         "taxonomy" : "7227"
@@ -975,6 +977,7 @@
         "pubmed" : "9870936",
         "sbml id" : "Scheper1999",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V1",
         "taxonomy" : "7227"
       },

@@ -10,6 +10,7 @@
         "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
         "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V4"
       },
       "nodes" : [
@@ -1434,6 +1435,7 @@
         "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__all",
         "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V4",
         "shared name" : "Yeast glycolysis model of Pritchard and Kell"
       },
@@ -7151,6 +7153,7 @@
         "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__kinetic",
         "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V4"
       },
       "nodes" : [

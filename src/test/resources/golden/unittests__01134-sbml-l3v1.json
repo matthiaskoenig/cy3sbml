@@ -9,6 +9,7 @@
         "name" : "Flat__case01134",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -114,6 +115,7 @@
         "name" : "Flat__case01134__all",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "case01134"
       },
@@ -372,6 +374,7 @@
         "name" : "Flat__case01134__kinetic",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -635,6 +638,7 @@
         "name" : "case01134",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -665,6 +669,7 @@
         "name" : "case01134__all",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "case01134"
       },
@@ -895,6 +900,7 @@
         "name" : "case01134__kinetic",
         "sbml id" : "case01134",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1066,6 +1072,7 @@
         "name" : "moddef1",
         "sbml id" : "moddef1",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1096,6 +1103,7 @@
         "name" : "moddef1__all",
         "sbml id" : "moddef1",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1150,6 +1158,7 @@
         "name" : "moddef1__kinetic",
         "sbml id" : "moddef1",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1205,6 +1214,7 @@
         "name" : "moddef2",
         "sbml id" : "moddef2",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1235,6 +1245,7 @@
         "name" : "moddef2__all",
         "sbml id" : "moddef2",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1300,6 +1311,7 @@
         "name" : "moddef2__kinetic",
         "sbml id" : "moddef2",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1355,6 +1367,7 @@
         "name" : "moddef3",
         "sbml id" : "moddef3",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1385,6 +1398,7 @@
         "name" : "moddef3__all",
         "sbml id" : "moddef3",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -1461,6 +1475,7 @@
         "name" : "moddef3__kinetic",
         "sbml id" : "moddef3",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

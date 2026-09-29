@@ -10,6 +10,7 @@
         "name" : "repressilator",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"
@@ -802,6 +803,7 @@
         "name" : "repressilator__all",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "Created by iBioSim flatten routine",
         "substanceUnits" : "mole",
@@ -3768,6 +3770,7 @@
         "name" : "repressilator__kinetic",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"
@@ -6494,6 +6497,7 @@
         "name" : "repressilator__layout_iBioSim",
         "sbml id" : "repressilator",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1",
         "substanceUnits" : "mole",
         "volumeUnits" : "litre"

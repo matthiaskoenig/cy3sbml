@@ -12,6 +12,7 @@
         "obo.go" : "GO:0007411",
         "sbml id" : "path_hsa04360",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "9606"
       },
@@ -4219,6 +4220,7 @@
         "obo.go" : "GO:0007411",
         "sbml id" : "path_hsa04360",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "Axon guidance",
         "taxonomy" : "9606"
@@ -8971,6 +8973,7 @@
         "obo.go" : "GO:0007411",
         "sbml id" : "path_hsa04360",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "9606"
       },
@@ -13929,6 +13932,7 @@
         "obo.go" : "GO:0007411",
         "sbml id" : "path_hsa04360",
         "sbmlNetwork" : "sbmlLayout",
+        "sbmlSubnetwork" : "layout",
         "sbmlVersion" : "L3 V1",
         "taxonomy" : "9606"
       },

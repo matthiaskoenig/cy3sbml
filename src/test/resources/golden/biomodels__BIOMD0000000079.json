@@ -13,6 +13,7 @@
         "pubmed" : "16595882",
         "sbml id" : "Model_0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "9606"
       },
@@ -279,6 +280,7 @@
         "pubmed" : "16595882",
         "sbml id" : "Model_0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V4",
         "shared name" : "Goldbeter2006_weightCycling",
         "taxonomy" : "9606"
@@ -1100,6 +1102,7 @@
         "pubmed" : "16595882",
         "sbml id" : "Model_0",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "9606"
       },

@@ -1,0 +1,20 @@
+[project]
+name = "cy3sbml-examples"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "py4cytoscape>=1.13.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.9",
+    "ty>=0.0.84",
+]
+
+# the examples are checked with ruff (ruff.toml of the repository) and ty, see README.md
+[tool.ty.environment]
+python-version = "3.11"
+
+[tool.ty.rules]
+all = "error"

@@ -11,6 +11,7 @@
         "name" : "fbc_v3_example",
         "sbml id" : "fbc_v3_example",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
@@ -330,6 +331,7 @@
         "name" : "fbc_v3_example__all",
         "sbml id" : "fbc_v3_example",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V1",
         "shared name" : "fbc version 3 example"
       },
@@ -1041,6 +1043,7 @@
         "name" : "fbc_v3_example__kinetic",
         "sbml id" : "fbc_v3_example",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V1"
       },
       "nodes" : [

@@ -13,6 +13,7 @@
         "pubmed" : "8983160",
         "sbml id" : "BIOMD0000000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "7787"
       },
@@ -961,6 +962,7 @@
         "pubmed" : "8983160",
         "sbml id" : "BIOMD0000000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L2 V4",
         "shared name" : "Edelstein1996 - EPSP ACh event",
         "taxonomy" : "7787"
@@ -3839,6 +3841,7 @@
         "pubmed" : "8983160",
         "sbml id" : "BIOMD0000000001",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L2 V4",
         "taxonomy" : "7787"
       },

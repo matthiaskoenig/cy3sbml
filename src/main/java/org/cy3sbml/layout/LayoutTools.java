@@ -1,6 +1,7 @@
 package org.cy3sbml.layout;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +44,10 @@ public class LayoutTools {
 
     /**
      * Save layout of current view in file.
+     *
+     * @throws IOException if the file could not be written
      */
-    public void saveLayoutOfCurrentViewInFile(File file) {
+    public void saveLayoutOfCurrentViewInFile(File file) throws IOException {
         CyNetworkView view = adapter.cyApplicationManager.getCurrentNetworkView();
         if (view != null) {
             saveLayoutOfViewInFile(view, file);
@@ -54,8 +57,11 @@ public class LayoutTools {
     /**
      * Save layout of given view in file.
      * Nodes without cyId and SBML id (not created by cy3sbml) are not saved.
+     *
+     * @return the number of saved node positions
+     * @throws IOException if the file could not be written
      */
-    public void saveLayoutOfViewInFile(CyNetworkView view, File file) {
+    public int saveLayoutOfViewInFile(CyNetworkView view, File file) throws IOException {
         CyNetwork network = view.getModel();
         List<CyBoundingBox> boxes = new ArrayList<>();
         for (CyNode node : network.getNodeList()) {
@@ -76,6 +82,7 @@ public class LayoutTools {
         }
         XMLInterface.writeXMLFileForLayout(file, boxes);
         logger.info("Layout of {}/{} nodes saved in {}", boxes.size(), network.getNodeCount(), file);
+        return boxes.size();
     }
 
     // ------------------------------------------------------------

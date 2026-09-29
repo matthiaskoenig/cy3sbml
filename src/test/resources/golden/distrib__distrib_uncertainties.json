@@ -9,6 +9,7 @@
         "name" : "distrib_uncertainties",
         "sbml id" : "distrib_uncertainties",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "base",
         "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
@@ -100,6 +101,7 @@
         "name" : "distrib_uncertainties__all",
         "sbml id" : "distrib_uncertainties",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "all",
         "sbmlVersion" : "L3 V2",
         "shared name" : "distrib uncertainties"
       },
@@ -542,6 +544,7 @@
         "name" : "distrib_uncertainties__kinetic",
         "sbml id" : "distrib_uncertainties",
         "sbmlNetwork" : "sbml",
+        "sbmlSubnetwork" : "kinetic",
         "sbmlVersion" : "L3 V2"
       },
       "nodes" : [
