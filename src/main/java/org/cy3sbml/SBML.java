@@ -132,6 +132,21 @@ public class SBML {
     public static final String ATTR_COMP_RESOLUTION = "comp_resolution";
     public static final String COMP_RESOLVED = "resolved";
 
+    // layout: columns of the layout networks, the node and edge columns are local to them
+    // id of the layout of a layout network (network table)
+    public static final String ATTR_LAYOUT_ID = "layout_id";
+    // id of the glyph of a node, empty for the generated nodes
+    public static final String ATTR_LAYOUT_GLYPH = "layout_glyph";
+    // NODETYPE_LAYOUT_* of the glyph of a node
+    public static final String ATTR_LAYOUT_GLYPH_TYPE = "layout_glyphType";
+    // centre and size of the bounding box of the glyph
+    public static final String ATTR_LAYOUT_X = "layout_x";
+    public static final String ATTR_LAYOUT_Y = "layout_y";
+    public static final String ATTR_LAYOUT_WIDTH = "layout_width";
+    public static final String ATTR_LAYOUT_HEIGHT = "layout_height";
+    // role of a reference glyph of a general glyph
+    public static final String ATTR_LAYOUT_ROLE = "layout_role";
+
     // ----------------------
     // Node types
     // ----------------------
@@ -171,6 +186,11 @@ public class SBML {
     // layout
     public static final String NODETYPE_LAYOUT_SPECIESGLYPH = "layout:speciesGlyph";
     public static final String NODETYPE_LAYOUT_REACTIONGLYPH = "layout:reactionGlyph";
+    public static final String NODETYPE_LAYOUT_COMPARTMENTGLYPH = "layout:compartmentGlyph";
+    public static final String NODETYPE_LAYOUT_GENERALGLYPH = "layout:generalGlyph";
+    public static final String NODETYPE_LAYOUT_GRAPHICALOBJECT = "layout:graphicalObject";
+    // node of a reaction or transition without glyph, placed between its participants
+    public static final String NODETYPE_LAYOUT_GENERATED = "layout:generated";
 
     // group
     public static final String NODETYPE_GROUP = "group";
@@ -230,6 +250,9 @@ public class SBML {
     public static final String INTERACTION_COMP_SBASE_REPLACED_BY = "sbase-replacedBy";
     public static final String INTERACTION_COMP_SBASE_DELETION = "sbase-deletion";
     public static final String INTERACTION_COMP_SBASEREF_SUBMODEL = "sbaseRef-submodel";
+
+    // layout: reference glyph of a general glyph
+    public static final String INTERACTION_LAYOUT_REFERENCE = "layout:reference";
 
     // -------------------------------------------------------------------------
     // Visualization attributes
@@ -361,11 +384,15 @@ public class SBML {
     // Styles
     public static final String STYLE_CY3SBML = "cy3sbml";
     public static final String STYLE_CY3SBML_DARK = "cy3sbml-dark";
+    // suffix of the style of the layout networks derived from a style
+    public static final String STYLE_SUFFIX_LAYOUT = "-layout";
 
     // Subnetworks: suffixes of the network names, the base network has the name of the root network
     public static final String SUFFIX_SUBNETWORK_ALL = "__all";
     public static final String SUFFIX_SUBNETWORK_KINETIC = "__kinetic";
     public static final String SUFFIX_SUBNETWORK_BASE = "";
+    // followed by the id of the layout (its index from 1 if it has no id)
+    public static final String SUFFIX_SUBNETWORK_LAYOUT = "__layout_";
     // prefix of the network collection of the flat comp model
     public static final String PREFIX_NETWORK_FLAT = "Flat";
 

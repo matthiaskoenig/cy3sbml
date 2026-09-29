@@ -25,7 +25,8 @@ import org.slf4j.LoggerFactory;
  * The nodes are matched by their {@code cyId}, which is unique for every node of an SBML
  * network and the same in every import of the model, also for the nodes of elements without
  * SBML id (rules, kinetic laws, units, math, ...). The positions of old layout files, which
- * have only the SBML id, are matched by the SBML id.
+ * have only the SBML id, are matched by the SBML id. The glyph nodes of a layout network, where
+ * the glyphs of one element (aliases) have the same {@code cyId}, are matched by the glyph.
  */
 public class LayoutTools {
     private static final Logger logger = LoggerFactory.getLogger(LayoutTools.class);
@@ -67,6 +68,7 @@ public class LayoutTools {
             boxes.add(new CyBoundingBox(
                     cyId,
                     sbmlId,
+                    attribute(network, node, SBML.ATTR_LAYOUT_GLYPH),
                     nodeView.getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION),
                     nodeView.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION),
                     nodeView.getVisualProperty(BasicVisualLexicon.NODE_HEIGHT),
@@ -97,10 +99,13 @@ public class LayoutTools {
      */
     public int loadLayoutForViewFromFile(CyNetworkView view, File file) {
         List<CyBoundingBox> boxes = XMLInterface.readLayoutFromXML(file);
+        Map<String, CyBoundingBox> byGlyph = new HashMap<>();
         Map<String, CyBoundingBox> byCyId = new HashMap<>();
         Map<String, CyBoundingBox> bySbmlId = new HashMap<>();
         for (CyBoundingBox box : boxes) {
-            if (box.cyId() != null) {
+            if (box.glyph() != null) {
+                byGlyph.put(box.glyph(), box);
+            } else if (box.cyId() != null) {
                 byCyId.put(box.cyId(), box);
             } else {
                 bySbmlId.put(box.sbmlId(), box);
@@ -110,8 +115,10 @@ public class LayoutTools {
         CyNetwork network = view.getModel();
         int positioned = 0;
         for (CyNode node : network.getNodeList()) {
-            CyBoundingBox box = byCyId.get(attribute(network, node, SBML.ATTR_CYID));
-            if (box == null) {
+            String glyph = attribute(network, node, SBML.ATTR_LAYOUT_GLYPH);
+            CyBoundingBox box =
+                    glyph != null ? byGlyph.get(glyph) : byCyId.get(attribute(network, node, SBML.ATTR_CYID));
+            if (box == null && glyph == null) {
                 box = bySbmlId.get(attribute(network, node, SBML.ATTR_ID));
             }
             View<CyNode> nodeView = view.getNodeView(node);

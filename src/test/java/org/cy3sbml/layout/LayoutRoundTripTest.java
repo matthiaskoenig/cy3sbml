@@ -1,12 +1,19 @@
 package org.cy3sbml.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import org.cy3sbml.SBML;
+import org.cy3sbml.reader.SBMLReaderTask;
 import org.cy3sbml.util.AttributeUtil;
 import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
@@ -15,6 +22,7 @@ import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.View;
 import org.cytoscape.view.presentation.property.BasicVisualLexicon;
+import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -63,5 +71,49 @@ class LayoutRoundTripTest {
         assertEquals(20.0, view1.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION));
         assertEquals(30.0, view2.getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION));
         assertEquals(40.0, view2.getVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION));
+    }
+
+    /**
+     * The aliases of a layout network (#71), glyph nodes with the same cyId, get their own
+     * positions back.
+     */
+    @Test
+    void aliasesOfALayoutNetworkGetTheirOwnPositions() throws Exception {
+        SBMLReaderTask task;
+        try (InputStream stream = getClass().getResourceAsStream("/models/unittests/layout_02.xml")) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "layout_02.xml",
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory());
+            task.run(mock(TaskMonitor.class));
+        }
+        CyNetwork layout = Arrays.stream(task.getNetworks())
+                .filter(n -> "layout_02__layout_layout1".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .findFirst()
+                .orElseThrow();
+        CyNetworkView view =
+                new NetworkViewTestSupport().getNetworkViewFactory().createNetworkView(layout);
+        Map<CyNode, Double> positions = new HashMap<>();
+        double x = 0;
+        for (CyNode node : layout.getNodeList()) {
+            x += 10;
+            view.getNodeView(node).setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, x);
+            positions.put(node, x);
+        }
+        LayoutTools layoutTools = new LayoutTools(null);
+        File file = tempDir.resolve("layout.xml").toFile();
+        layoutTools.saveLayoutOfViewInFile(view, file);
+        for (CyNode node : layout.getNodeList()) {
+            view.getNodeView(node).setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, -1.0);
+        }
+
+        int positioned = layoutTools.loadLayoutForViewFromFile(view, file);
+
+        assertEquals(layout.getNodeCount(), positioned);
+        for (CyNode node : layout.getNodeList()) {
+            assertEquals(
+                    positions.get(node), view.getNodeView(node).getVisualProperty(BasicVisualLexicon.NODE_X_LOCATION));
+        }
     }
 }

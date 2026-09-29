@@ -19,20 +19,27 @@ public class StyleManager implements SessionLoadedListener {
     private final LoadVizmapFileTaskFactory loadVizmapFileTaskFactory;
     private final VisualMappingManager vmm;
     private final String[] styles;
+    private final LayoutStyleFactory layoutStyleFactory;
 
     /**
-     * Constructor.
+     * @param styles             names of the styles, loaded from the resources
+     * @param layoutStyleFactory creates the layout style of every style
      */
     public StyleManager(
-            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory, VisualMappingManager vmm, String[] styles) {
+            LoadVizmapFileTaskFactory loadVizmapFileTaskFactory,
+            VisualMappingManager vmm,
+            String[] styles,
+            LayoutStyleFactory layoutStyleFactory) {
         logger.debug("StyleManager created");
         this.loadVizmapFileTaskFactory = loadVizmapFileTaskFactory;
         this.vmm = vmm;
         this.styles = styles;
+        this.layoutStyleFactory = layoutStyleFactory;
     }
 
     /**
-     * Load the visual styles of the app.
+     * Load the visual styles of the app and add the layout style of every style (#71), if
+     * they do not exist yet (e.g. from a session).
      */
     public void loadStyles() {
         for (String styleName : styles) {
@@ -44,7 +51,21 @@ public class StyleManager implements SessionLoadedListener {
             if (!styleName.equals(style.getTitle())) {
                 loadVizmapFileTaskFactory.loadStyles(styleStream);
             }
+            addLayoutStyle(styleName);
         }
+    }
+
+    /** Adds the layout style of the style, if the style exists and its layout style not. */
+    private void addLayoutStyle(String styleName) {
+        String layoutStyleName = LayoutStyleFactory.layoutStyleName(styleName);
+        VisualStyle base = getVisualStyleByName(vmm, styleName);
+        if (!styleName.equals(base.getTitle())
+                || layoutStyleName.equals(
+                        getVisualStyleByName(vmm, layoutStyleName).getTitle())) {
+            return;
+        }
+        logger.info("Add visual style: {}", layoutStyleName);
+        vmm.addVisualStyle(layoutStyleFactory.create(base));
     }
 
     /**

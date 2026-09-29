@@ -5,11 +5,17 @@ cy3sbml adds two visual styles to Cytoscape when it starts:
 - `cy3sbml`: a light style, the default,
 - `cy3sbml-dark`: the same mapping on a dark background.
 
+For the layout networks (see [Layouts](layouts.md#sbml-layouts)) cy3sbml adds a layout
+variant of each style, `cy3sbml-layout` and `cy3sbml-dark-layout`: the same mappings, with
+the node width and height from the columns `layout_width` and `layout_height`, and the
+compartments as transparent round rectangles behind the other nodes, with the label at the
+top.
+
 A style is only added if Cytoscape has no style with this name yet, so a style you changed
 and saved in a session is kept.
 
 Every imported network view gets the style named by the property `cy3sbml.visualStyle`
-(default `cy3sbml`). The property is stored in the file
+(default `cy3sbml`), the views of the layout networks its layout variant. The property is stored in the file
 `~/CytoscapeConfiguration/cy3sbml.props`; it is not listed in **Edit → Preferences →
 Properties...**. To use the dark style for new imports, quit Cytoscape, change the line
 to `cy3sbml.visualStyle=cy3sbml-dark`, and start Cytoscape again. To change the style of

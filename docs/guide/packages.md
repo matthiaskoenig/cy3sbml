@@ -1,6 +1,6 @@
 # Supported SBML packages
 
-cy3sbml reads SBML Level 1, 2 and 3 in all versions with JSBML. The SBML core and five
+cy3sbml reads SBML Level 1, 2 and 3 in all versions with JSBML. The SBML core and six
 Level 3 packages are converted into the network. The node and edge types of each package
 are listed in [Network model](network.md).
 
@@ -12,7 +12,7 @@ are listed in [Network model](network.md).
 | `comp` (hierarchical model composition) | supported |
 | `groups` | supported |
 | `distrib` (distributions), version 1 | supported |
-| `layout` | not yet supported |
+| `layout`, version 1 | supported (no curves) |
 | other packages, for example `multi` | read by JSBML, not converted |
 
 ## core
@@ -125,10 +125,11 @@ cy3sbml supports the distrib package version 1.
 
 ## layout
 
-The layout package is not imported yet
-([issue #71](https://github.com/matthiaskoenig/cy3sbml/issues/71)). If a model has
-layouts, a warning is written to the log file, and the force-directed layout is used.
-See [Layouts](layouts.md).
+Every layout becomes a network `<name>__layout_<layout id>` with a node per glyph at the
+position and in the size of the glyph; the several glyphs of one element (aliases) are
+nodes with the columns of the element. The curves of the glyphs are not drawn, edges are
+straight lines, and the `render` package is not read. See
+[Layouts](layouts.md#sbml-layouts).
 
 ## COMBINE archives
 

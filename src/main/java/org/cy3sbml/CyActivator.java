@@ -20,6 +20,7 @@ import org.cy3sbml.gui.WebViewPanel;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.reader.JsbmlSetup;
+import org.cy3sbml.styles.LayoutStyleFactory;
 import org.cy3sbml.styles.StyleManager;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HttpJson;
@@ -49,7 +50,9 @@ import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.events.NetworkViewAboutToBeDestroyedListener;
 import org.cytoscape.view.model.events.NetworkViewAddedListener;
+import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.osgi.framework.Bundle;
@@ -403,8 +406,13 @@ public class CyActivator extends AbstractCyActivator {
             // load visual styles
             final String[] styles = {SBML.STYLE_CY3SBML, SBML.STYLE_CY3SBML_DARK};
             LoadVizmapFileTaskFactory loadVizmapFileTaskFactory = getService(bc, LoadVizmapFileTaskFactory.class);
-            StyleManager styleManager =
-                    new StyleManager(loadVizmapFileTaskFactory, adapter.visualMappingManager, styles);
+            // the layout networks get a layout variant of every style (#71)
+            LayoutStyleFactory layoutStyleFactory = new LayoutStyleFactory(
+                    getService(bc, VisualStyleFactory.class),
+                    getService(bc, VisualMappingFunctionFactory.class, "(mapping.type=passthrough)"),
+                    getService(bc, VisualMappingFunctionFactory.class, "(mapping.type=discrete)"));
+            StyleManager styleManager = new StyleManager(
+                    loadVizmapFileTaskFactory, adapter.visualMappingManager, styles, layoutStyleFactory);
             styleManager.loadStyles();
             registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
 

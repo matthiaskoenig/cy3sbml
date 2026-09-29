@@ -10,7 +10,7 @@ information and the annotations of the selected object in a panel next to the ne
 ## Features
 
 - Import of all SBML levels and versions, including the packages `qual`, `fbc`, `comp`,
-  `groups` and `distrib`. See [Supported SBML packages](guide/packages.md).
+  `groups`, `distrib` and `layout`. See [Supported SBML packages](guide/packages.md).
 - Three networks per model: the reaction network, a kinetic network with parameters,
   rules and kinetic laws, and a network with all SBML objects.
   See [Network model](guide/network.md).
@@ -21,12 +21,13 @@ information and the annotations of the selected object in a panel next to the ne
 - Visual styles for SBML networks, a light one and a dark one. See [Styles](guide/styles.md).
 - Example models, and search and import of models from
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
-- Saving and loading of node positions. See [Layouts](guide/layouts.md).
+- The layouts of the SBML `layout` package as networks with the drawn positions, and
+  saving and loading of node positions. See [Layouts](guide/layouts.md).
 
 - Import of the SBML models of COMBINE archives (OMEX). See
   [Importing SBML](guide/import.md#combine-archives).
 
-Not supported yet: the SBML `layout` package and a built-in SBML validator. See [Validation](guide/validation.md) and
+Not supported yet: a built-in SBML validator. See [Validation](guide/validation.md) and
 [Supported SBML packages](guide/packages.md).
 
 ## Getting started

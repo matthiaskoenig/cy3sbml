@@ -77,6 +77,9 @@ flowchart TB
     PR -->|nodes, edges, columns| CC[ConversionContext]
     CC --> SB[SubnetworkBuilder]
     SB --> N["name, name__kinetic, name__all"]
+    CC --> LB[LayoutNetworkBuilder]
+    LB --> LN["name__layout_id per layout"]
+    LN -->|buildCyNetworkView| SM
     N -->|buildCyNetworkView| SM[SBMLManager]
 ```
 
@@ -109,8 +112,16 @@ flowchart TB
 - `SubnetworkBuilder` names the networks, creates the kinetic and the base network
   from the node and edge type lists in `SBML` (`kineticNodeTypes`, `coreNodeTypes`, ...)
   and their groups.
+- `LayoutReader` registers the layouts of the model in the context; after the subnetworks,
+  `LayoutNetworkBuilder` creates one layout network per layout (#71): a node per glyph
+  with a copy of the shared columns of the node of its element (aliases have the same
+  `cyId`), the geometry in local columns (`layout_x`, ... from `GlyphBox`), edges from the
+  species reference glyphs or copied from the model edges, and small nodes for the
+  reactions without glyph. A failing layout is logged and left out.
 - `buildCyNetworkView` registers the document and the node mapping in `SBMLManager`,
-  applies the style and the force-directed layout.
+  applies the style and the force-directed layout; the views of the layout networks get
+  the positions of the glyphs and the layout style (`styles.LayoutStyleFactory`, derived
+  in code from every cy3sbml style by `StyleManager`).
 
 `SBML` holds the constants for node types, edge types, column names and network prefixes.
 Use them instead of string literals.
@@ -154,7 +165,7 @@ thread.
 | `archive` | COMBINE archive reader: `CombineArchive` unpacks an archive and reads its manifest and metadata (`ArchiveInfo`), `CombineArchiveReaderTask` reads its SBML models with `SBMLReaderTask`; `SBMLManager` keeps the archive of every document for the info panel and the session |
 | `biomodel` | BioModels search and import dialog |
 | `cofactors` | cofactor splitting and merging |
-| `layout` | saving and loading node positions as XML |
+| `layout` | saving and loading node positions as XML (the SBML layout package is read in `reader`) |
 | `miriam` | identifiers.org registry |
 | `ols`, `uniprot`, `chebi` | web service clients |
 | `cache` | in-memory cache of the web service clients |

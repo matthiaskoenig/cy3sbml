@@ -23,6 +23,7 @@ import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.UnitDefinition;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.layout.Layout;
 
 /**
  * State of the conversion of one SBML model into one network.
@@ -44,6 +45,8 @@ final class ConversionContext {
     // SBML groups, created as Cytoscape groups in the network and its subnetworks
     private final List<Group> groups = new ArrayList<>();
     private final Map<Group, CyGroup> cyGroups = new LinkedHashMap<>();
+    // layouts of the model, created as layout networks by LayoutNetworkBuilder
+    private final List<Layout> layouts = new ArrayList<>();
     // base UnitDefinition lookup
     private final Map<String, UnitDefinition> baseUnitDefinitions = new HashMap<>();
 
@@ -64,6 +67,11 @@ final class ConversionContext {
 
     CyNetwork network() {
         return network;
+    }
+
+    /** Document of the model. */
+    SBMLDocument document() {
+        return document;
     }
 
     /**
@@ -147,6 +155,19 @@ final class ConversionContext {
             cyGroups.putAll(created);
         }
         return created;
+    }
+
+    /**
+     * Registers the layout, whose layout network {@link LayoutNetworkBuilder} creates after the
+     * subnetworks.
+     */
+    void addLayout(Layout layout) {
+        layouts.add(layout);
+    }
+
+    /** The registered layouts in document order. */
+    List<Layout> layouts() {
+        return Collections.unmodifiableList(layouts);
     }
 
     /** Resolver of the comp references of the document. */
