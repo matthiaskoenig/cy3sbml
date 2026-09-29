@@ -60,8 +60,10 @@ the sub glyphs of general glyphs. Text glyphs are labels (below), not nodes.
     `layout:generated`
   - `layout_x`, `layout_y` (Double): the centre of the bounding box
   - `layout_width`, `layout_height` (Double): the dimensions of the bounding box
-- Missing geometry: a glyph without bounding box, position or dimensions gets the default
-  width/height 30 and position 0,0 for the missing parts (as cy2sbml), a debug log line.
+- Missing geometry: a missing position is 0,0; a glyph without (positive) width and height
+  is a point, its position is the centre, with the default size 30 (12 for reaction glyphs,
+  the KEGG layouts give reaction glyphs only a position); a missing width or height alone
+  is the default size.
 - Labels (`label` column): the text of a text glyph whose `graphicalObject` is the glyph
   (`text`, else the name or id of `originOfText`); several text glyphs are joined with a
   space. Without text glyph the label of the represented node, else the glyph name or id.
@@ -70,29 +72,31 @@ the sub glyphs of general glyphs. Text glyphs are labels (below), not nodes.
 ### Edges
 
 - **Species reference glyphs**: an edge between the reaction glyph node and the species
-  glyph node. The edge of the model (`__all`) between the represented reaction node and
-  species node is the *model edge*: the species reference of the glyph
-  (`getSpeciesReference`) if set and found (`ConversionContext.edgeOf`), else the one edge
-  between the two nodes whose interaction type fits the role, else the only edge between the
-  two nodes. The layout edge has the direction and a copy of the shared columns of the model
-  edge. Without model edge the role gives type and direction: `substrate`, `sidesubstrate`
-  -> species to reaction, `reactant_reaction` (`input_transition` for a transition);
-  `product`, `sideproduct` -> reaction to species, `reaction_product`
-  (`transition_output`); `modifier`, `activator`, `inhibitor`, `undefined` or unset ->
-  species to reaction, `modifier_reaction` / `reaction-activator` / `reaction-inhibitor`
-  (`input_transition`). A species reference glyph without resolvable species glyph is
+  glyph node. All edges start at the reaction/transition node, as the model edges of
+  cy3sbml do (`reaction-reactant`, `reaction-product`, ...). The edge of the model
+  (`__all`) between the represented reaction node and species node is the *model edge*:
+  the species reference of the glyph (`getSpeciesReference`) if set and found
+  (`ConversionContext.edgeOf`), else the one edge between the two nodes whose interaction
+  type fits the role, else the only edge between the two nodes. The layout edge is a copy
+  of the shared columns of the model edge. Without model edge the role gives the type:
+  `substrate`, `sidesubstrate` -> `reaction-reactant` (`input_transition` for a
+  transition); `product`, `sideproduct` -> `reaction-product` (`transition_output`);
+  `activator`, `inhibitor` -> `reaction-activator`, `reaction-inhibitor`; `modifier`,
+  `undefined` or unset -> `reaction-modifier` (`input_transition`). A species reference glyph without resolvable species glyph is
   skipped with a debug log line.
-- **Reaction glyphs without species reference glyphs** (cy2sbml): for every model edge of
-  the represented reaction/transition to a participant node (the edges with the interaction
+- **Reaction glyphs without species reference glyphs**: for every model edge of the
+  represented reaction/transition to a participant node (the edges with the interaction
   types reactant, product, modifier, activator, inhibitor, qual input and output), an edge
-  from the reaction glyph node to every glyph node of the participant, with the direction and
-  shared columns of the model edge.
+  from the reaction glyph node to the glyph of the participant nearest to the reaction glyph
+  (cy2sbml connected all aliases, which gives a tangle of edges in the KEGG layouts), with
+  the shared columns of the model edge.
 - **Reactions and transitions without glyph** (e.g. the KEGG qual layouts have only species
   glyphs): if at least one participant has a glyph node, a generated node represents the
   reaction/transition (copy of its node like a glyph node, `layout_glyphType` =
-  `layout:generated`, `layout_glyph` empty), at the centroid of the centres of all glyph
-  nodes of its participants, size 20 x 20 (`layout_width`/`layout_height`); edges as for a
-  reaction glyph without species reference glyphs. Participants without glyph are left out.
+  `layout:generated`, no `layout_glyph`, empty label: the layout does not draw it). For
+  every participant the glyph nearest to the centroid of all glyphs of the participants is
+  chosen; the node is at the centroid of the chosen glyphs, size 12 x 12, with an edge to
+  each of them. Participants without glyph are left out.
 - **General glyphs**: a reference glyph (`ReferenceGlyph`) with a glyph gives an edge from
   the general glyph node to the node of the referenced glyph, interaction type
   `layout:reference` (role in the column `layout_role`).
@@ -119,6 +123,9 @@ the sub glyphs of general glyphs. Text glyphs are labels (below), not nodes.
 - every node view gets `NODE_X_LOCATION`/`NODE_Y_LOCATION` from `layout_x`/`layout_y`
   (plain values, so the user can move the nodes);
 - no force-directed layout (also when `doLayout` is set);
+- the style is applied to the view (`VisualStyle.apply`): Cytoscape applies the style of a
+  reader's view only if it is the default style, and for the other views the layout task
+  did it;
 - Cytoscape fits the content afterwards (`GenerateNetworkViewsTask`).
 
 ### Styles
@@ -130,6 +137,7 @@ with the `VisualStyleFactory` as a copy of the base style, and then:
 - the `nodeSizeLocked` dependency off, `NODE_WIDTH`/`NODE_HEIGHT` passthrough mappings of
   `layout_width`/`layout_height`;
 - `NODE_SHAPE`: the base mapping, with `ROUND_RECTANGLE` for `compartment`;
+- `NODE_LABEL_POSITION`: the base mapping, with the label of `compartment` inside at the top;
 - `NODE_Z_LOCATION`: discrete mapping of `layout_glyphType`, compartment glyphs behind
   (`-1`), everything else in front (default `0`);
 - compartment glyph fill with transparency (value chosen in Cytoscape so species stay
