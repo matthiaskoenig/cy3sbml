@@ -23,7 +23,8 @@ information and the annotations of the selected object in a panel next to the ne
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
 - The layouts of the SBML `layout` package as networks with the drawn positions, and
   saving and loading of node positions. See [Layouts](guide/layouts.md).
-
+- Splitting of cofactor nodes into one node per edge, and merging them back.
+  See [Cofactor nodes](guide/cofactors.md).
 - Import of the SBML models of COMBINE archives (OMEX). See
   [Importing SBML](guide/import.md#combine-archives).
 

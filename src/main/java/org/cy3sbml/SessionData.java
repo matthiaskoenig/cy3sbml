@@ -22,6 +22,7 @@ import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.IOUtil;
+import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -276,7 +277,7 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     /**
      * Updates the changed SUIDs in the cofactor data structure.
      * <p>
-     * SUIDs of networks and nodes that no longer exist are skipped.
+     * SUIDs of networks, nodes and edges that no longer exist are skipped.
      */
     static Network2CofactorMapper updateSUIDsInCofactorMapper(CySession s, Network2CofactorMapper m) {
         logger.debug("Update SUIDs in Network2CofactorMapper");
@@ -287,17 +288,27 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             if (newNetworkSUID == null) {
                 continue;
             }
-            One2ManyMapping<Long, Long> cofactor2clones = m.getCofactor2CloneMapping(networkSUID);
-            for (Long cofactorSUID : cofactor2clones.keySet()) {
+            for (Long cofactorSUID : m.getCofactors(networkSUID)) {
                 Long newCofactorSUID = newSUID(s, cofactorSUID, CyNode.class);
                 if (newCofactorSUID == null) {
                     continue;
                 }
-                for (Long cloneSUID : cofactor2clones.getValues(cofactorSUID)) {
+                for (Long cloneSUID : m.getClones(networkSUID, cofactorSUID)) {
                     Long newCloneSUID = newSUID(s, cloneSUID, CyNode.class);
                     if (newCloneSUID != null) {
-                        newM.put(newNetworkSUID, newCofactorSUID, newCloneSUID);
+                        newM.putClone(newNetworkSUID, newCofactorSUID, newCloneSUID);
                     }
+                }
+                double[] position = m.getPosition(networkSUID, cofactorSUID);
+                if (position != null) {
+                    newM.putPosition(newNetworkSUID, newCofactorSUID, position[0], position[1]);
+                }
+            }
+            for (Map.Entry<Long, Long> entry : m.getCloneEdges(networkSUID).entrySet()) {
+                Long newCloneEdgeSUID = newSUID(s, entry.getKey(), CyEdge.class);
+                Long newEdgeSUID = newSUID(s, entry.getValue(), CyEdge.class);
+                if (newCloneEdgeSUID != null && newEdgeSUID != null) {
+                    newM.putCloneEdge(newNetworkSUID, newCloneEdgeSUID, newEdgeSUID);
                 }
             }
         }

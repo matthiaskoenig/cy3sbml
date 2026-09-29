@@ -18,9 +18,11 @@ import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.subnetwork.CyRootNetwork;
@@ -279,6 +281,22 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
      */
     public One2ManyMapping<String, Long> getMapping(Long rootNetworkSUID) {
         return network2sbml.getSBase2CyNodeMapping(rootNetworkSUID);
+    }
+
+    /**
+     * Maps a node added to the network after the import (a cofactor clone) to the SBase
+     * of its cyId, so that the node shows the information of the SBase.
+     */
+    public void addNodeMapping(CyNetwork network, CyNode node) {
+        String cyId = AttributeUtil.get(network, node, SBML.ATTR_CYID, String.class);
+        network2sbml.putNode(NetworkUtil.getRootNetworkSUID(network), cyId, node.getSUID());
+    }
+
+    /**
+     * Removes the mapping of a node added with {@link #addNodeMapping}.
+     */
+    public void removeNodeMapping(CyNetwork network, CyNode node) {
+        network2sbml.removeNode(NetworkUtil.getRootNetworkSUID(network), node.getSUID());
     }
 
     /**

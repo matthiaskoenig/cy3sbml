@@ -32,6 +32,9 @@ public class SBML {
     // unique id created for SBase objects (used for mapping)
     public static final String ATTR_CYID = "cyId";
 
+    // true for the clones of a split cofactor node (cofactors.CofactorManager)
+    public static final String ATTR_COFACTOR_CLONE = "cofactorClone";
+
     // -----------------------
     // Node & edge attributes
     // -----------------------

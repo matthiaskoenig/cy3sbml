@@ -20,7 +20,8 @@ public class GUIConstants {
     public static final String ICON_IMPORT = "/gui/images/import.png";
 
     public static final String ICON_EXAMPLES = "/gui/images/examples.png";
-    public static final String ICON_COFACTOR = "/gui/images/cofactor.png";
+    public static final String ICON_COFACTOR_SPLIT = "/gui/images/cofactor-split.png";
+    public static final String ICON_COFACTOR_MERGE = "/gui/images/cofactor-merge.png";
     public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
     public static final String ICON_BIOMODELS_DEPRECATED = "/gui/images/biomodels_deprecated.png";
     public static final String ICON_HELP = "/gui/images/help.png";
@@ -34,14 +35,16 @@ public class GUIConstants {
     public static final float GRAVITY_BIOMODELS = (float) 110.0;
     public static final float GRAVITY_HELP = (float) 112.0;
 
-    public static final float GRAVITY_LOCATION = (float) 113.0;
+    public static final float GRAVITY_COFACTOR_SPLIT = (float) 113.0;
+    public static final float GRAVITY_COFACTOR_MERGE = (float) 113.5;
     public static final float GRAVITY_LOADLAYOUT = (float) 114.0;
     public static final float GRAVITY_SAVELAYOUT = (float) 120.0;
 
     public static final String DESCRIPTION_CHANGESTATE = "Hide|show panel";
     public static final String DESCRIPTION_IMPORT = "Import SBML";
     public static final String DESCRIPTION_EXAMPLES = "SBML examples";
-    public static final String DESCRIPTION_COFACTOR = "Cofactor nodes";
+    public static final String DESCRIPTION_COFACTOR_SPLIT = "Split cofactor nodes";
+    public static final String DESCRIPTION_COFACTOR_MERGE = "Merge cofactor nodes";
     public static final String DESCRIPTION_BIOMODELS = "Biomodel Import";
     public static final String DESCRIPTION_HELP = "Help";
     public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";

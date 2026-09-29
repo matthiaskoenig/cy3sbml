@@ -17,8 +17,20 @@ public class Mapping {
     }
 
     public enum DataType {
-        integer,
-        string
+        integer("integer"),
+        string("string"),
+        bool("boolean");
+
+        private final String attributeType;
+
+        DataType(String attributeType) {
+            this.attributeType = attributeType;
+        }
+
+        /** The attributeType of the mapping in the style file. */
+        public String attributeType() {
+            return attributeType;
+        }
     }
 
     public Mapping(

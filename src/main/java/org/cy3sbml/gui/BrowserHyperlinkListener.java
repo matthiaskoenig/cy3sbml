@@ -44,7 +44,8 @@ public class BrowserHyperlinkListener {
     public static final String URL_EXAMPLES = "https://cy3sbml-examples";
     public static final String URL_BIOMODELS = "https://cy3sbml-biomodels";
     public static final String URL_HELP = "https://cy3sbml-help";
-    public static final String URL_COFACTOR_NODES = "https://cy3sbml-cofactor";
+    public static final String URL_COFACTOR_SPLIT = "https://cy3sbml-cofactor-split";
+    public static final String URL_COFACTOR_MERGE = "https://cy3sbml-cofactor-merge";
     public static final String URL_LOADLAYOUT = "https://cy3sbml-layoutload";
     public static final String URL_SAVELAYOUT = "https://cy3sbml-layoutsave";
 
@@ -92,7 +93,8 @@ public class BrowserHyperlinkListener {
         set.add(URL_EXAMPLES);
         set.add(URL_BIOMODELS);
         set.add(URL_HELP);
-        set.add(URL_COFACTOR_NODES);
+        set.add(URL_COFACTOR_SPLIT);
+        set.add(URL_COFACTOR_MERGE);
         set.add(URL_SAVELAYOUT);
         set.add(URL_LOADLAYOUT);
         URLS_ACTION = Collections.unmodifiableSet(set);
@@ -176,11 +178,13 @@ public class BrowserHyperlinkListener {
     private void processURL(String s) {
         // Cytoscape Action
         if (URLS_ACTION.contains(s)) {
-            if (s.equals(URL_COFACTOR_NODES)) {
-                CofactorAction.runCofactorAction(adapter, cofactorManager);
-                return;
-            }
             AbstractCyAction action = null;
+            if (s.equals(URL_COFACTOR_SPLIT)) {
+                action = new SplitCofactorsAction(adapter, sbmlManager, cofactorManager);
+            }
+            if (s.equals(URL_COFACTOR_MERGE)) {
+                action = new MergeCofactorsAction(adapter, sbmlManager, cofactorManager);
+            }
             if (s.equals(URL_CHANGESTATE)) {
                 action = new ChangeStateAction(webViewPanel);
             }

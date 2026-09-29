@@ -43,6 +43,14 @@ public class One2ManyMapping<T1, T2> implements Serializable {
         map.remove(key);
     }
 
+    /** Removes one value of the key, and the key if it has no values left. */
+    public synchronized void removeValue(T1 key, T2 value) {
+        HashSet<T2> values = map.get(key);
+        if (values != null && values.remove(value) && values.isEmpty()) {
+            map.remove(key);
+        }
+    }
+
     public synchronized Set<T2> getValues(T1 key) {
         HashSet<T2> values = map.get(key);
         return values == null ? new HashSet<>() : new HashSet<>(values);

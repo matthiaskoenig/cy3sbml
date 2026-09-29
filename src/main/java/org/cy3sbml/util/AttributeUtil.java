@@ -91,12 +91,15 @@ public class AttributeUtil {
      * Copy node attributes.
      * <p>
      * Gets all node attributes from the DefaultNodeTable and copies from
-     * source to target node.
+     * source to target node, except the SUID.
      */
     public static void copyNodeAttributes(CyNetwork network, CyNode source, CyNode target) {
         CyTable table = network.getDefaultNodeTable();
         Collection<CyColumn> columns = table.getColumns();
         for (CyColumn column : columns) {
+            if (column.isPrimaryKey()) {
+                continue;
+            }
             String columnName = column.getName();
 
             AttributeUtil.set(
@@ -112,12 +115,15 @@ public class AttributeUtil {
      * Copy edge attributes.
      * <p>
      * Gets all edge attributes from DefaultEdgeTable and copies from source
-     * to target edge.
+     * to target edge, except the SUID.
      */
     public static void copyEdgeAttributes(CyNetwork network, CyEdge source, CyEdge target) {
         CyTable table = network.getDefaultEdgeTable();
         Collection<CyColumn> columns = table.getColumns();
         for (CyColumn column : columns) {
+            if (column.isPrimaryKey()) {
+                continue;
+            }
             String columnName = column.getName();
 
             AttributeUtil.set(

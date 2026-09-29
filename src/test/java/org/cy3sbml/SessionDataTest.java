@@ -1,5 +1,6 @@
 package org.cy3sbml;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,8 +34,10 @@ import org.cy3sbml.util.DistribUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.ding.NetworkViewTestSupport;
+import org.cytoscape.event.DummyCyEventHelper;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
+import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNode;
@@ -66,6 +69,11 @@ class SessionDataTest {
     private static final long NEW_CLONE = 103L;
     // node deleted after the import, not part of the loaded session
     private static final long STALE_NODE = 4L;
+    private static final long EDGE = 5L;
+    private static final long NEW_EDGE = 105L;
+    private static final long CLONE_EDGE = 6L;
+    private static final long NEW_CLONE_EDGE = 106L;
+    private static final long STALE_CLONE_EDGE = 7L;
 
     @TempDir
     Path tempDir;
@@ -82,6 +90,16 @@ class SessionDataTest {
         CyNode clone = node(NEW_CLONE);
         when(session.getObject(NODE, CyNode.class)).thenReturn(node);
         when(session.getObject(CLONE, CyNode.class)).thenReturn(clone);
+        CyEdge edge = edge(NEW_EDGE);
+        CyEdge cloneEdge = edge(NEW_CLONE_EDGE);
+        when(session.getObject(EDGE, CyEdge.class)).thenReturn(edge);
+        when(session.getObject(CLONE_EDGE, CyEdge.class)).thenReturn(cloneEdge);
+    }
+
+    private static CyEdge edge(long suid) {
+        CyEdge edge = mock(CyEdge.class);
+        when(edge.getSUID()).thenReturn(suid);
+        return edge;
     }
 
     private static CyNode node(long suid) {
@@ -114,15 +132,18 @@ class SessionDataTest {
 
     private static Network2CofactorMapper cofactorMapperWithStaleClone() {
         Network2CofactorMapper mapper = new Network2CofactorMapper();
-        mapper.put(NETWORK, NODE, CLONE);
-        mapper.put(NETWORK, NODE, STALE_NODE);
+        mapper.putClone(NETWORK, NODE, CLONE);
+        mapper.putClone(NETWORK, NODE, STALE_NODE);
+        mapper.putCloneEdge(NETWORK, CLONE_EDGE, EDGE);
+        mapper.putCloneEdge(NETWORK, STALE_CLONE_EDGE, EDGE);
+        mapper.putPosition(NETWORK, NODE, 1.0, 2.0);
         return mapper;
     }
 
     @Test
     void restoresMappingsAndSkipsStaleSUIDs() throws Exception {
         SBMLManager sbmlManager = new SBMLManager(mock(CyApplicationManager.class));
-        CofactorManager cofactorManager = new CofactorManager();
+        CofactorManager cofactorManager = cofactorManager();
         SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
 
         sessionData.handleEvent(event(
@@ -135,9 +156,14 @@ class SessionDataTest {
         assertEquals(Set.of("s1"), nodes.keySet());
         assertEquals(Set.of(NEW_NODE), nodes.getValues("s1"));
 
-        One2ManyMapping<Long, Long> clones =
-                cofactorManager.getNetwork2CofactorMapper().getCofactor2CloneMapping(NEW_NETWORK);
-        assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
+        Network2CofactorMapper cofactors = cofactorManager.getNetwork2CofactorMapper();
+        assertEquals(Set.of(NEW_CLONE), cofactors.getClones(NEW_NETWORK, NEW_NODE));
+        assertEquals(Map.of(NEW_CLONE_EDGE, NEW_EDGE), cofactors.getCloneEdges(NEW_NETWORK));
+        assertArrayEquals(new double[] {1.0, 2.0}, cofactors.getPosition(NEW_NETWORK, NEW_NODE));
+    }
+
+    private static CofactorManager cofactorManager() {
+        return new CofactorManager(mock(SBMLManager.class), new DummyCyEventHelper());
     }
 
     /** Imports the model resource with the SBMLReaderTask into the manager, returns the base network. */
@@ -168,7 +194,7 @@ class SessionDataTest {
     /** As {@link #saveAndLoad(SBMLManager, CyNetwork)}, with a hook on the new manager before the load. */
     private static SBMLManager saveAndLoad(SBMLManager manager, CyNetwork network, Consumer<SBMLManager> beforeLoad)
             throws Exception {
-        SessionData savingSessionData = new SessionData(manager, new CofactorManager());
+        SessionData savingSessionData = new SessionData(manager, cofactorManager());
         SessionAboutToBeSavedEvent saveEvent = new SessionAboutToBeSavedEvent(mock(CySessionManager.class));
         savingSessionData.saveSessionData(saveEvent);
         List<File> savedFiles = saveEvent.getAppFileListMap().get("cy3sbml");
@@ -186,7 +212,7 @@ class SessionDataTest {
 
         SBMLManager restoredManager = new SBMLManager(mock(CyApplicationManager.class));
         beforeLoad.accept(restoredManager);
-        new SessionData(restoredManager, new CofactorManager()).handleEvent(loadEvent);
+        new SessionData(restoredManager, cofactorManager()).handleEvent(loadEvent);
         return restoredManager;
     }
 
@@ -295,15 +321,14 @@ class SessionDataTest {
         doThrow(new IllegalStateException("SBMLManager failure"))
                 .when(sbmlManager)
                 .setSBML2NetworkMapper(any());
-        CofactorManager cofactorManager = new CofactorManager();
+        CofactorManager cofactorManager = cofactorManager();
         SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
 
         sessionData.handleEvent(event(
                 serialize("Network2SBMLMapper.ser", sbmlMapperWithStaleNode()),
                 serialize("Network2Cofactors.ser", cofactorMapperWithStaleClone())));
 
-        One2ManyMapping<Long, Long> clones =
-                cofactorManager.getNetwork2CofactorMapper().getCofactor2CloneMapping(NEW_NETWORK);
-        assertEquals(Set.of(NEW_CLONE), clones.getValues(NEW_NODE));
+        assertEquals(
+                Set.of(NEW_CLONE), cofactorManager.getNetwork2CofactorMapper().getClones(NEW_NETWORK, NEW_NODE));
     }
 }
