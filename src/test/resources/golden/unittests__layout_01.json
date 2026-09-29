@@ -13904,7 +13904,7 @@
     {
       "name" : "path_hsa04360__layout_1",
       "nodeCount" : 157,
-      "edgeCount" : 212,
+      "edgeCount" : 140,
       "attributes" : {
         "name" : "path_hsa04360__layout_1",
         "sbmlNetwork" : "sbmlLayout"
@@ -16159,10 +16159,10 @@
         },
         {
           "cyId" : "tr",
-          "label" : "tr",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 575.0,
           "layout_y" : 112.25,
           "metaId" : "tr",
@@ -16173,10 +16173,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_87bd513a-ed52-44c8-adb5-0bd20f80bc9f",
-          "label" : "tr_1",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 129.75,
           "metaId" : "_87bd513a-ed52-44c8-adb5-0bd20f80bc9f",
@@ -16188,12 +16188,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_e337af87-457f-4acb-9a64-3e5051c216e0",
-          "label" : "tr_10",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 366.0,
-          "layout_y" : 494.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 220.0,
+          "layout_y" : 346.5,
           "metaId" : "_e337af87-457f-4acb-9a64-3e5051c216e0",
           "sbml id" : "tr_10",
           "sbml type" : "qual_transition",
@@ -16203,10 +16203,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_2cd18146-8445-466f-9902-093aa8d74f7a",
-          "label" : "tr_11",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 411.0,
           "layout_y" : 295.0,
           "metaId" : "_2cd18146-8445-466f-9902-093aa8d74f7a",
@@ -16218,10 +16218,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_d1bf2618-b818-49dd-bd80-1c6ae28a50a1",
-          "label" : "tr_12",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 411.0,
           "layout_y" : 337.5,
           "metaId" : "_d1bf2618-b818-49dd-bd80-1c6ae28a50a1",
@@ -16233,10 +16233,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_677dc99a-877c-4e7f-9e0f-107c6c7df5f7",
-          "label" : "tr_13",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 280.0,
           "metaId" : "_677dc99a-877c-4e7f-9e0f-107c6c7df5f7",
@@ -16248,10 +16248,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_96d1cafb-fcf3-47a8-a7dc-9351ab63a1d7",
-          "label" : "tr_14",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 292.5,
           "metaId" : "_96d1cafb-fcf3-47a8-a7dc-9351ab63a1d7",
@@ -16263,10 +16263,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_22038387-5dba-482f-a082-8081db884a58",
-          "label" : "tr_15",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 303.5,
           "metaId" : "_22038387-5dba-482f-a082-8081db884a58",
@@ -16278,12 +16278,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_a2d5763a-461f-4368-a2a7-28988515ff05",
-          "label" : "tr_16",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 637.5,
-          "layout_y" : 370.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 303.5,
           "metaId" : "_a2d5763a-461f-4368-a2a7-28988515ff05",
           "sbml id" : "tr_16",
           "sbml type" : "qual_transition",
@@ -16293,12 +16293,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_c6bc8957-9b23-4023-aa27-71a7ad469bef",
-          "label" : "tr_17",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 690.8,
-          "layout_y" : 324.9,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 303.5,
           "metaId" : "_c6bc8957-9b23-4023-aa27-71a7ad469bef",
           "sbml id" : "tr_17",
           "sbml type" : "qual_transition",
@@ -16308,12 +16308,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_74242783-3a8f-4aa4-a313-6b8d8ea030de",
-          "label" : "tr_18",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 693.142857143,
-          "layout_y" : 461.214285714,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 618.5,
           "metaId" : "_74242783-3a8f-4aa4-a313-6b8d8ea030de",
           "sbml id" : "tr_18",
           "sbml type" : "qual_transition",
@@ -16323,12 +16323,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_3f65c8ab-60ff-47ad-801b-cb4aaf0ab3e2",
-          "label" : "tr_19",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 707.2,
-          "layout_y" : 468.9,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 554.0,
           "metaId" : "_3f65c8ab-60ff-47ad-801b-cb4aaf0ab3e2",
           "sbml id" : "tr_19",
           "sbml type" : "qual_transition",
@@ -16338,10 +16338,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_04c43bb1-f8c2-4a6f-8839-3793b4a2d673",
-          "label" : "tr_2",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 94.25,
           "metaId" : "_04c43bb1-f8c2-4a6f-8839-3793b4a2d673",
@@ -16353,12 +16353,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_e80904df-da82-40cd-b90f-8b7105b40ba9",
-          "label" : "tr_20",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 436.0,
-          "layout_y" : 306.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 534.0,
+          "layout_y" : 322.0,
           "metaId" : "_e80904df-da82-40cd-b90f-8b7105b40ba9",
           "sbml id" : "tr_20",
           "sbml type" : "qual_transition",
@@ -16368,12 +16368,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_7c5d83c1-20d8-4472-9412-f39bbfb6cb48",
-          "label" : "tr_21",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 436.0,
-          "layout_y" : 314.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 534.0,
+          "layout_y" : 334.5,
           "metaId" : "_7c5d83c1-20d8-4472-9412-f39bbfb6cb48",
           "sbml id" : "tr_21",
           "sbml type" : "qual_transition",
@@ -16383,11 +16383,11 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_f6ce5a30-f62b-4a4d-93c5-9bc3bcff35d8",
-          "label" : "tr_22",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 411.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 451.5,
           "layout_y" : 420.5,
           "metaId" : "_f6ce5a30-f62b-4a4d-93c5-9bc3bcff35d8",
           "sbml id" : "tr_22",
@@ -16398,11 +16398,11 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_13ede4f6-4ec7-4f4f-981c-ce01d46f396f",
-          "label" : "tr_23",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 409.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 453.0,
           "layout_y" : 420.5,
           "metaId" : "_13ede4f6-4ec7-4f4f-981c-ce01d46f396f",
           "sbml id" : "tr_23",
@@ -16413,11 +16413,11 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_e6adaf6f-3d38-4703-b5af-1c186631385b",
-          "label" : "tr_24",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 411.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 451.5,
           "layout_y" : 420.5,
           "metaId" : "_e6adaf6f-3d38-4703-b5af-1c186631385b",
           "sbml id" : "tr_24",
@@ -16428,11 +16428,11 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_3c4991d4-1af4-4d5d-9ffd-62d050c9b28e",
-          "label" : "tr_25",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 409.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 453.0,
           "layout_y" : 420.5,
           "metaId" : "_3c4991d4-1af4-4d5d-9ffd-62d050c9b28e",
           "sbml id" : "tr_25",
@@ -16443,10 +16443,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_26d653d5-879e-4f43-a1b8-0e7089c3f271",
-          "label" : "tr_26",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 478.5,
           "metaId" : "_26d653d5-879e-4f43-a1b8-0e7089c3f271",
@@ -16458,10 +16458,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_57c2236e-56c6-486c-bb49-546d4685425f",
-          "label" : "tr_27",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 490.0,
           "metaId" : "_57c2236e-56c6-486c-bb49-546d4685425f",
@@ -16473,10 +16473,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_d6019dff-cda7-424e-8169-6d4bde90d688",
-          "label" : "tr_28",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 490.0,
           "metaId" : "_d6019dff-cda7-424e-8169-6d4bde90d688",
@@ -16488,10 +16488,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_20af1d72-b5ef-491f-adae-0de23193c0f0",
-          "label" : "tr_29",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 501.5,
           "metaId" : "_20af1d72-b5ef-491f-adae-0de23193c0f0",
@@ -16503,12 +16503,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_775569e6-c1e8-4b4a-a34e-8900f966075f",
-          "label" : "tr_3",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 641.6,
-          "layout_y" : 343.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 161.0,
           "metaId" : "_775569e6-c1e8-4b4a-a34e-8900f966075f",
           "sbml id" : "tr_3",
           "sbml type" : "qual_transition",
@@ -16518,10 +16518,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_e5a23c89-9395-4e4f-8990-478885453fc5",
-          "label" : "tr_30",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 484.0,
           "metaId" : "_e5a23c89-9395-4e4f-8990-478885453fc5",
@@ -16533,10 +16533,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_c478d029-83b5-4a36-9cdd-67bce9da1cd4",
-          "label" : "tr_31",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 495.5,
           "metaId" : "_c478d029-83b5-4a36-9cdd-67bce9da1cd4",
@@ -16548,10 +16548,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_47fb3fe5-2ed9-4743-b8fa-59ce03c30f3a",
-          "label" : "tr_32",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 623.0,
           "metaId" : "_47fb3fe5-2ed9-4743-b8fa-59ce03c30f3a",
@@ -16563,10 +16563,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_db5efcd5-a717-4f70-a223-90b7d2583f4b",
-          "label" : "tr_33",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 492.0,
           "layout_y" : 641.5,
           "metaId" : "_db5efcd5-a717-4f70-a223-90b7d2583f4b",
@@ -16578,12 +16578,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_d06b3d75-614c-4a59-ac5b-e885ce9109ae",
-          "label" : "tr_34",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 624.8,
-          "layout_y" : 450.3,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 575.0,
+          "layout_y" : 612.5,
           "metaId" : "_d06b3d75-614c-4a59-ac5b-e885ce9109ae",
           "sbml id" : "tr_34",
           "sbml type" : "qual_transition",
@@ -16593,12 +16593,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_21539b89-a832-4799-881a-215a3367770b",
-          "label" : "tr_35",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 693.142857143,
-          "layout_y" : 461.214285714,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 618.5,
           "metaId" : "_21539b89-a832-4799-881a-215a3367770b",
           "sbml id" : "tr_35",
           "sbml type" : "qual_transition",
@@ -16608,12 +16608,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_958dfdf1-3e37-4c8d-8891-e4c2b5e9fba3",
-          "label" : "tr_36",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 575.333333333,
-          "layout_y" : 673.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 575.0,
+          "layout_y" : 626.5,
           "metaId" : "_958dfdf1-3e37-4c8d-8891-e4c2b5e9fba3",
           "sbml id" : "tr_36",
           "sbml type" : "qual_transition",
@@ -16623,12 +16623,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_f161e533-4bd9-4a0a-a154-b6365dc3eeed",
-          "label" : "tr_37",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 693.142857143,
-          "layout_y" : 461.214285714,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 618.5,
           "metaId" : "_f161e533-4bd9-4a0a-a154-b6365dc3eeed",
           "sbml id" : "tr_37",
           "sbml type" : "qual_transition",
@@ -16638,10 +16638,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_dafb4cef-b1e8-40c0-a395-c5735f26ec1c",
-          "label" : "tr_38",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 718.0,
           "metaId" : "_dafb4cef-b1e8-40c0-a395-c5735f26ec1c",
@@ -16653,12 +16653,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_6196f597-60a3-4de0-98c0-c7146e2a1cc5",
-          "label" : "tr_39",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 637.5,
-          "layout_y" : 477.75,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 518.0,
           "metaId" : "_6196f597-60a3-4de0-98c0-c7146e2a1cc5",
           "sbml id" : "tr_39",
           "sbml type" : "qual_transition",
@@ -16668,12 +16668,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_d49091de-4ffa-44a8-8c38-4acb00ffaa9a",
-          "label" : "tr_4",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 674.4,
-          "layout_y" : 343.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 161.0,
           "metaId" : "_d49091de-4ffa-44a8-8c38-4acb00ffaa9a",
           "sbml id" : "tr_4",
           "sbml type" : "qual_transition",
@@ -16683,12 +16683,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_b3cdf04c-ad07-4b79-bb5d-4c3c7fe4c1d0",
-          "label" : "tr_40",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 575.333333333,
-          "layout_y" : 706.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 534.0,
+          "layout_y" : 736.0,
           "metaId" : "_b3cdf04c-ad07-4b79-bb5d-4c3c7fe4c1d0",
           "sbml id" : "tr_40",
           "sbml type" : "qual_transition",
@@ -16698,12 +16698,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_bc79d0e6-7068-48a4-bd28-1cb8700efe19",
-          "label" : "tr_41",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 603.333333333,
-          "layout_y" : 715.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 576.0,
+          "layout_y" : 750.5,
           "metaId" : "_bc79d0e6-7068-48a4-bd28-1cb8700efe19",
           "sbml id" : "tr_41",
           "sbml type" : "qual_transition",
@@ -16713,10 +16713,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_aaf2cae6-58ef-4a0a-88e7-3ea43d72999b",
-          "label" : "tr_42",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 789.5,
           "metaId" : "_aaf2cae6-58ef-4a0a-88e7-3ea43d72999b",
@@ -16728,10 +16728,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_62bc18c8-4d39-4e92-8b68-bf42d710b684",
-          "label" : "tr_43",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 806.0,
           "metaId" : "_62bc18c8-4d39-4e92-8b68-bf42d710b684",
@@ -16743,12 +16743,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_4fe0b48d-34f7-42ae-98a1-c6c47a20bdf7",
-          "label" : "tr_44",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 616.5,
-          "layout_y" : 323.625,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 575.0,
+          "layout_y" : 209.75,
           "metaId" : "_4fe0b48d-34f7-42ae-98a1-c6c47a20bdf7",
           "sbml id" : "tr_44",
           "sbml type" : "qual_transition",
@@ -16758,12 +16758,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_160d68f1-1529-4a6a-a963-727b7aecbc9b",
-          "label" : "tr_45",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 357.666666667,
-          "layout_y" : 405.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 248.5,
+          "layout_y" : 398.5,
           "metaId" : "_160d68f1-1529-4a6a-a963-727b7aecbc9b",
           "sbml id" : "tr_45",
           "sbml type" : "qual_transition",
@@ -16773,12 +16773,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_91812f3b-b120-4add-b509-540889470323",
-          "label" : "tr_46",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 641.6,
-          "layout_y" : 389.7,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 276.5,
           "metaId" : "_91812f3b-b120-4add-b509-540889470323",
           "sbml id" : "tr_46",
           "sbml type" : "qual_transition",
@@ -16788,12 +16788,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_76c9d0be-3594-4f3d-8b9b-3a037e13e4f2",
-          "label" : "tr_47",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 630.666666667,
-          "layout_y" : 354.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 287.5,
           "metaId" : "_76c9d0be-3594-4f3d-8b9b-3a037e13e4f2",
           "sbml id" : "tr_47",
           "sbml type" : "qual_transition",
@@ -16803,12 +16803,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_186a002d-855f-43b9-83e9-4d07f726dec9",
-          "label" : "tr_48",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 491.333333333,
-          "layout_y" : 318.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 340.5,
           "metaId" : "_186a002d-855f-43b9-83e9-4d07f726dec9",
           "sbml id" : "tr_48",
           "sbml type" : "qual_transition",
@@ -16818,12 +16818,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_814c6936-c32b-4c02-860c-e5005879a887",
-          "label" : "tr_49",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 630.666666667,
-          "layout_y" : 416.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 489.5,
           "metaId" : "_814c6936-c32b-4c02-860c-e5005879a887",
           "sbml id" : "tr_49",
           "sbml type" : "qual_transition",
@@ -16833,12 +16833,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_c8e1c9d4-c65d-411f-b4f6-9616dd4c877a",
-          "label" : "tr_5",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 690.8,
-          "layout_y" : 324.9,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 303.5,
           "metaId" : "_c8e1c9d4-c65d-411f-b4f6-9616dd4c877a",
           "sbml id" : "tr_5",
           "sbml type" : "qual_transition",
@@ -16848,10 +16848,10 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_709f658a-9b08-4169-b4a1-c2257cee4c57",
-          "label" : "tr_50",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 492.0,
           "layout_y" : 518.0,
           "metaId" : "_709f658a-9b08-4169-b4a1-c2257cee4c57",
@@ -16863,12 +16863,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_360afa3c-470b-4995-b8c7-9a6f7a14ca3a",
-          "label" : "tr_51",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 603.333333333,
-          "layout_y" : 693.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 656.0,
           "metaId" : "_360afa3c-470b-4995-b8c7-9a6f7a14ca3a",
           "sbml id" : "tr_51",
           "sbml type" : "qual_transition",
@@ -16878,12 +16878,12 @@
         {
           "biomodels.sbo" : "SBO:0000169",
           "cyId" : "_c34b748e-ca35-4b51-a653-bfe8300a7288",
-          "label" : "tr_52",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 624.8,
-          "layout_y" : 469.7,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 575.0,
+          "layout_y" : 661.0,
           "metaId" : "_c34b748e-ca35-4b51-a653-bfe8300a7288",
           "sbml id" : "tr_52",
           "sbml type" : "qual_transition",
@@ -16893,12 +16893,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_00625dff-2438-42cf-94c8-25c56defea41",
-          "label" : "tr_53",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 436.0,
-          "layout_y" : 489.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 534.0,
+          "layout_y" : 585.0,
           "metaId" : "_00625dff-2438-42cf-94c8-25c56defea41",
           "sbml id" : "tr_53",
           "sbml type" : "qual_transition",
@@ -16908,10 +16908,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_0efcf522-2854-46aa-9fa4-1f5f6da4e1fb",
-          "label" : "tr_54",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 699.0,
           "layout_y" : 549.5,
           "metaId" : "_0efcf522-2854-46aa-9fa4-1f5f6da4e1fb",
@@ -16923,10 +16923,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_9ebc52a7-b5ef-4208-8aae-cb33d6a30c38",
-          "label" : "tr_55",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 699.0,
           "layout_y" : 563.5,
           "metaId" : "_9ebc52a7-b5ef-4208-8aae-cb33d6a30c38",
@@ -16938,10 +16938,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_052a1c54-e2df-4126-bce5-491e97a72640",
-          "label" : "tr_56",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 699.0,
           "layout_y" : 577.5,
           "metaId" : "_052a1c54-e2df-4126-bce5-491e97a72640",
@@ -16953,10 +16953,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_ea9356c3-f957-4e72-bdaf-22df2fa8bafe",
-          "label" : "tr_57",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 575.0,
           "layout_y" : 599.0,
           "metaId" : "_ea9356c3-f957-4e72-bdaf-22df2fa8bafe",
@@ -16968,12 +16968,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_2538e8ce-fef4-4e8f-9b74-9b3089c85ea3",
-          "label" : "tr_58",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 759.0,
-          "layout_y" : 550.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 778.0,
+          "layout_y" : 618.5,
           "metaId" : "_2538e8ce-fef4-4e8f-9b74-9b3089c85ea3",
           "sbml id" : "tr_58",
           "sbml type" : "qual_transition",
@@ -16983,10 +16983,10 @@
         {
           "biomodels.sbo" : "SBO:0000216",
           "cyId" : "_fab5550f-b69e-4e87-8e5f-14dc67578cb5",
-          "label" : "tr_59",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 854.0,
           "layout_y" : 618.5,
           "metaId" : "_fab5550f-b69e-4e87-8e5f-14dc67578cb5",
@@ -16998,10 +16998,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_b5a9b705-be45-4bc0-b629-db026c87b025",
-          "label" : "tr_6",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 164.25,
           "metaId" : "_b5a9b705-be45-4bc0-b629-db026c87b025",
@@ -17013,10 +17013,10 @@
         {
           "biomodels.sbo" : "SBO:0000177",
           "cyId" : "_9f8a4577-101b-4cb0-a4ad-5c21f54c2275",
-          "label" : "tr_60",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 440.5,
           "layout_y" : 218.5,
           "metaId" : "_9f8a4577-101b-4cb0-a4ad-5c21f54c2275",
@@ -17028,10 +17028,10 @@
         {
           "biomodels.sbo" : "SBO:0000177",
           "cyId" : "_7a8e5fac-32d8-43e5-86fd-83c0bebffe00",
-          "label" : "tr_61",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 293.5,
           "layout_y" : 361.5,
           "metaId" : "_7a8e5fac-32d8-43e5-86fd-83c0bebffe00",
@@ -17043,10 +17043,10 @@
         {
           "biomodels.sbo" : "SBO:0000177",
           "cyId" : "_503f70f8-2229-4f56-a415-018bcccb4834",
-          "label" : "tr_62",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 575.0,
           "layout_y" : 585.0,
           "metaId" : "_503f70f8-2229-4f56-a415-018bcccb4834",
@@ -17058,10 +17058,10 @@
         {
           "biomodels.sbo" : "SBO:0000177",
           "cyId" : "_79938878-7e1a-4241-a3d8-43979ca97a9c",
-          "label" : "tr_63",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 534.0,
           "layout_y" : 636.0,
           "metaId" : "_79938878-7e1a-4241-a3d8-43979ca97a9c",
@@ -17073,10 +17073,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_0618edd9-0944-4706-8731-1728f135361e",
-          "label" : "tr_64",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 699.0,
           "layout_y" : 108.5,
           "metaId" : "_0618edd9-0944-4706-8731-1728f135361e",
@@ -17088,12 +17088,12 @@
         {
           "biomodels.sbo" : "SBO:0000344",
           "cyId" : "_8cf207d8-f558-47cf-99bb-8b2e6a40d0a8",
-          "label" : "tr_65",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 712.666666667,
-          "layout_y" : 490.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 340.5,
           "metaId" : "_8cf207d8-f558-47cf-99bb-8b2e6a40d0a8",
           "sbml id" : "tr_65",
           "sbml type" : "qual_transition",
@@ -17103,12 +17103,12 @@
         {
           "biomodels.sbo" : "SBO:0000344",
           "cyId" : "_951d3156-86b8-437a-a3d0-1d3f692adb22",
-          "label" : "tr_66",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 580.25,
-          "layout_y" : 566.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 699.0,
+          "layout_y" : 789.5,
           "metaId" : "_951d3156-86b8-437a-a3d0-1d3f692adb22",
           "sbml id" : "tr_66",
           "sbml type" : "qual_transition",
@@ -17118,10 +17118,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_78dec76b-9ff0-4712-87a4-469a7ea1ae46",
-          "label" : "tr_67",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 411.0,
           "layout_y" : 703.0,
           "metaId" : "_78dec76b-9ff0-4712-87a4-469a7ea1ae46",
@@ -17133,12 +17133,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_27a9ab2b-62d3-4fed-8417-b7ac7918e0ac",
-          "label" : "tr_68",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 491.333333333,
-          "layout_y" : 474.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 617.0,
+          "layout_y" : 563.5,
           "metaId" : "_27a9ab2b-62d3-4fed-8417-b7ac7918e0ac",
           "sbml id" : "tr_68",
           "sbml type" : "qual_transition",
@@ -17148,12 +17148,12 @@
         {
           "biomodels.sbo" : "SBO:0000344",
           "cyId" : "_fde2bd1a-f847-46d4-ae20-552f135155aa",
-          "label" : "tr_69",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 444.333333333,
-          "layout_y" : 641.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 575.0,
+          "layout_y" : 789.5,
           "metaId" : "_fde2bd1a-f847-46d4-ae20-552f135155aa",
           "sbml id" : "tr_69",
           "sbml type" : "qual_transition",
@@ -17163,12 +17163,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_41c88dca-0889-4489-88da-c32935e5399f",
-          "label" : "tr_7",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 382.0,
-          "layout_y" : 300.833333333,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 285.0,
+          "layout_y" : 281.0,
           "metaId" : "_41c88dca-0889-4489-88da-c32935e5399f",
           "sbml id" : "tr_7",
           "sbml type" : "qual_transition",
@@ -17178,12 +17178,12 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_59adad9e-1c30-4339-a663-c02ac45db13b",
-          "label" : "tr_8",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 382.0,
-          "layout_y" : 382.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 285.0,
+          "layout_y" : 292.0,
           "metaId" : "_59adad9e-1c30-4339-a663-c02ac45db13b",
           "sbml id" : "tr_8",
           "sbml type" : "qual_transition",
@@ -17193,10 +17193,10 @@
         {
           "biomodels.sbo" : "SBO:0000170",
           "cyId" : "_55abd111-0b66-4729-bcef-93914224599f",
-          "label" : "tr_9",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 293.5,
           "layout_y" : 346.5,
           "metaId" : "_55abd111-0b66-4729-bcef-93914224599f",
@@ -17278,19 +17278,6 @@
             "sbml id" : "in_10",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_PTK2",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PTK2",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_10",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -17481,64 +17468,6 @@
           }
         },
         {
-          "source" : "tr_16",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_16",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_16",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_17",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_17",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_17",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_17",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
           "source" : "tr_17",
           "target" : "qual_RHOA",
           "directed" : true,
@@ -17568,19 +17497,6 @@
           }
         },
         {
-          "source" : "tr_17",
-          "target" : "qual_ROCK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_ROCK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_17",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_18",
           "target" : "qual_PAK",
           "directed" : true,
@@ -17591,80 +17507,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_18",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_18",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_18",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_18",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_18",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_18",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_18",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_18",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_18",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -17697,48 +17539,6 @@
             "sbml id" : "in_19",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_CDC42",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_19",
-            "qual_qualitativeSpecies" : "qual_CDC42",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_19",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_19",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_19",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -17813,19 +17613,6 @@
           }
         },
         {
-          "source" : "tr_20",
-          "target" : "qual_RASA1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RASA1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_20",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_21",
           "target" : "qual_EPHB",
           "directed" : true,
@@ -17839,19 +17626,6 @@
             "sbml id" : "in_21",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_21",
-          "target" : "qual_RASA1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RASA1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_21",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -17897,19 +17671,6 @@
           }
         },
         {
-          "source" : "tr_22",
-          "target" : "qual_CXCR4",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_CXCR4",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_22",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_23",
           "target" : "qual_CXCR4",
           "directed" : true,
@@ -17923,35 +17684,6 @@
             "sbml id" : "in_23",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_CXCR4",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_23",
-            "qual_qualitativeSpecies" : "qual_CXCR4",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_23",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_GNAI",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_GNAI",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_23",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -17997,19 +17729,6 @@
           }
         },
         {
-          "source" : "tr_24",
-          "target" : "qual_CXCR4",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_CXCR4",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_24",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_25",
           "target" : "qual_CXCR4",
           "directed" : true,
@@ -18023,35 +17742,6 @@
             "sbml id" : "in_25",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_25",
-          "target" : "qual_CXCR4",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_25",
-            "qual_qualitativeSpecies" : "qual_CXCR4",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_25",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_25",
-          "target" : "qual_GNAI",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_GNAI",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_25",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -18213,45 +17903,6 @@
           }
         },
         {
-          "source" : "tr_3",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_3",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_3",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_3",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_3",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_3",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_30",
           "target" : "qual_ROBO2",
           "directed" : true,
@@ -18397,45 +18048,6 @@
           }
         },
         {
-          "source" : "tr_34",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_34",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_34",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_34",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_34",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_34",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_35",
           "target" : "qual_PAK",
           "directed" : true,
@@ -18446,80 +18058,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_35",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_35",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_35",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_35",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_35",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_35",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_35",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_35",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_35",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_35",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_35",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_35",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_35",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_35",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -18568,19 +18106,6 @@
           }
         },
         {
-          "source" : "tr_36",
-          "target" : "qual_RND1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RND1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_36",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_37",
           "target" : "qual_PAK",
           "directed" : true,
@@ -18591,80 +18116,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_37",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_37",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_37",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_37",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_37",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_37",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_37",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_37",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_37",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_37",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_37",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_37",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_37",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_37",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -18742,32 +18193,6 @@
           }
         },
         {
-          "source" : "tr_39",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_39",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_39",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_39",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_4",
           "target" : "qual_ABLIM",
           "directed" : true,
@@ -18778,54 +18203,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_4",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_4",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_4",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_4",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_4",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_4",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_4",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -18874,19 +18251,6 @@
           }
         },
         {
-          "source" : "tr_40",
-          "target" : "qual_RND1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RND1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_40",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_41",
           "target" : "qual_ARHGEF12",
           "directed" : true,
@@ -18897,22 +18261,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_41",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_41",
-          "target" : "qual_RND1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_41",
-            "qual_qualitativeSpecies" : "qual_RND1",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_41",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -19004,32 +18352,6 @@
         },
         {
           "source" : "tr_44",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_44",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_44",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_44",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_44",
           "target" : "qual_undefined",
           "directed" : true,
           "interaction" : "input_transition",
@@ -19042,19 +18364,6 @@
             "sbml id" : "in_44",
             "sbo" : "SBO:0000169",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_45",
-          "target" : "qual_GNAI",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_GNAI",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_45",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -19112,58 +18421,6 @@
             "qual_qualitativeSpecies" : "qual_RAC",
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_46",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_46",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_46",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_46",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_46",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_46",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_46",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_47",
-          "target" : "qual_CDC42",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_CDC42",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_47",
             "shared interaction" : "transition_output"
           }
         },
@@ -19226,35 +18483,6 @@
           }
         },
         {
-          "source" : "tr_48",
-          "target" : "qual_RASA1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_48",
-            "qual_qualitativeSpecies" : "qual_RASA1",
-            "qual_sign" : "negative",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_48",
-            "sbo" : "SBO:0000169",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_49",
-          "target" : "qual_CDC42",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_CDC42",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_49",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_49",
           "target" : "qual_CDC42",
           "directed" : true,
@@ -19297,51 +18525,6 @@
             "sbml id" : "in_5",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_5",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_5",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_RHOA",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_5",
-            "qual_qualitativeSpecies" : "qual_RHOA",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_5",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_ROCK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_ROCK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_5",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -19416,19 +18599,6 @@
           }
         },
         {
-          "source" : "tr_51",
-          "target" : "qual_RND1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RND1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_51",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_52",
           "target" : "qual_PLXNB",
           "directed" : true,
@@ -19455,61 +18625,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_52",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_52",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_52",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_52",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_52",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_52",
-          "target" : "qual_RAC",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RAC",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_52",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_53",
-          "target" : "qual_FYN",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_53",
-            "qual_qualitativeSpecies" : "qual_FYN",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_53",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -19668,38 +18783,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_58",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_58",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_58",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_58",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_58",
-          "target" : "qual_PAK",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_58",
-            "qual_qualitativeSpecies" : "qual_PAK",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_58",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -19932,19 +19015,6 @@
         },
         {
           "source" : "tr_65",
-          "target" : "qual_MAPK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_MAPK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_65",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_65",
           "target" : "qual_NRAS",
           "directed" : true,
           "interaction" : "input_transition",
@@ -19969,34 +19039,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_66",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_66",
-          "target" : "qual_MAPK",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_MAPK",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_66",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_66",
-          "target" : "qual_PTK2",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_66",
-            "qual_qualitativeSpecies" : "qual_PTK2",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_66",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -20073,22 +19115,6 @@
           }
         },
         {
-          "source" : "tr_68",
-          "target" : "qual_FYN",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_68",
-            "qual_qualitativeSpecies" : "qual_FYN",
-            "qual_sign" : "positive",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_68",
-            "sbo" : "SBO:0000170",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
           "source" : "tr_69",
           "target" : "qual_ITGB1",
           "directed" : true,
@@ -20101,19 +19127,6 @@
             "qual_transitionEffect" : "none",
             "sbml id" : "in_69",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_69",
-          "target" : "qual_PTK2",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PTK2",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_69",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -20159,19 +19172,6 @@
           }
         },
         {
-          "source" : "tr_7",
-          "target" : "qual_RASA1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_RASA1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_7",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_8",
           "target" : "qual_EFNA",
           "directed" : true,
@@ -20185,19 +19185,6 @@
             "sbml id" : "in_8",
             "sbo" : "SBO:0000170",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_FYN",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_FYN",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_8",
-            "shared interaction" : "transition_output"
           }
         },
         {

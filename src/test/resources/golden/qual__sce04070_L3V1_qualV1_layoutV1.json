@@ -5556,7 +5556,7 @@
     {
       "name" : "path_sce04070__layout_1",
       "nodeCount" : 67,
-      "edgeCount" : 100,
+      "edgeCount" : 48,
       "attributes" : {
         "name" : "path_sce04070__layout_1",
         "sbmlNetwork" : "sbmlLayout"
@@ -6580,12 +6580,12 @@
         },
         {
           "cyId" : "tr",
-          "label" : "tr",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 620.0,
-          "layout_y" : 448.25,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 462.0,
+          "layout_y" : 604.0,
           "metaId" : "tr",
           "sbml id" : "tr",
           "sbml type" : "qual_transition",
@@ -6593,12 +6593,12 @@
         },
         {
           "cyId" : "tr_1",
-          "label" : "tr_1",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 680.5,
-          "layout_y" : 506.75,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 583.0,
+          "layout_y" : 721.0,
           "metaId" : "tr_1",
           "sbml id" : "tr_1",
           "sbml type" : "qual_transition",
@@ -6606,12 +6606,12 @@
         },
         {
           "cyId" : "tr_10",
-          "label" : "tr_10",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 1065.0,
-          "layout_y" : 493.833333333,
+          "layout_y" : 496.5,
           "metaId" : "tr_10",
           "sbml id" : "tr_10",
           "sbml type" : "qual_transition",
@@ -6619,12 +6619,12 @@
         },
         {
           "cyId" : "tr_11",
-          "label" : "tr_11",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 910.0,
-          "layout_y" : 586.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 755.0,
+          "layout_y" : 704.5,
           "metaId" : "tr_11",
           "sbml id" : "tr_11",
           "sbml type" : "qual_transition",
@@ -6632,12 +6632,12 @@
         },
         {
           "cyId" : "tr_12",
-          "label" : "tr_12",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 910.0,
-          "layout_y" : 586.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 755.0,
+          "layout_y" : 704.5,
           "metaId" : "tr_12",
           "sbml id" : "tr_12",
           "sbml type" : "qual_transition",
@@ -6645,12 +6645,12 @@
         },
         {
           "cyId" : "tr_13",
-          "label" : "tr_13",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 779.4,
-          "layout_y" : 435.9,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 739.0,
+          "layout_y" : 524.0,
           "metaId" : "tr_13",
           "sbml id" : "tr_13",
           "sbml type" : "qual_transition",
@@ -6658,12 +6658,12 @@
         },
         {
           "cyId" : "tr_14",
-          "label" : "tr_14",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 779.4,
-          "layout_y" : 435.9,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 739.0,
+          "layout_y" : 524.0,
           "metaId" : "tr_14",
           "sbml id" : "tr_14",
           "sbml type" : "qual_transition",
@@ -6671,12 +6671,12 @@
         },
         {
           "cyId" : "tr_15",
-          "label" : "tr_15",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 759.0,
-          "layout_y" : 388.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 703.0,
+          "layout_y" : 292.5,
           "metaId" : "tr_15",
           "sbml id" : "tr_15",
           "sbml type" : "qual_transition",
@@ -6684,12 +6684,12 @@
         },
         {
           "cyId" : "tr_16",
-          "label" : "tr_16",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 759.0,
-          "layout_y" : 388.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 703.0,
+          "layout_y" : 292.5,
           "metaId" : "tr_16",
           "sbml id" : "tr_16",
           "sbml type" : "qual_transition",
@@ -6697,12 +6697,12 @@
         },
         {
           "cyId" : "tr_17",
-          "label" : "tr_17",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 759.0,
-          "layout_y" : 388.166666667,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 703.0,
+          "layout_y" : 292.5,
           "metaId" : "tr_17",
           "sbml id" : "tr_17",
           "sbml type" : "qual_transition",
@@ -6710,10 +6710,10 @@
         },
         {
           "cyId" : "tr_18",
-          "label" : "tr_18",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 746.5,
           "layout_y" : 765.0,
           "metaId" : "tr_18",
@@ -6723,12 +6723,12 @@
         },
         {
           "cyId" : "tr_19",
-          "label" : "tr_19",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 674.75,
-          "layout_y" : 339.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 562.5,
+          "layout_y" : 242.0,
           "metaId" : "tr_19",
           "sbml id" : "tr_19",
           "sbml type" : "qual_transition",
@@ -6736,10 +6736,10 @@
         },
         {
           "cyId" : "tr_2",
-          "label" : "tr_2",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 324.0,
           "layout_y" : 745.5,
           "metaId" : "tr_2",
@@ -6749,12 +6749,12 @@
         },
         {
           "cyId" : "tr_20",
-          "label" : "tr_20",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 621.25,
-          "layout_y" : 380.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 455.5,
+          "layout_y" : 325.0,
           "metaId" : "tr_20",
           "sbml id" : "tr_20",
           "sbml type" : "qual_transition",
@@ -6762,10 +6762,10 @@
         },
         {
           "cyId" : "tr_21",
-          "label" : "tr_21",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 205.5,
           "layout_y" : 493.0,
           "metaId" : "tr_21",
@@ -6775,10 +6775,10 @@
         },
         {
           "cyId" : "tr_22",
-          "label" : "tr_22",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 326.5,
           "layout_y" : 610.0,
           "metaId" : "tr_22",
@@ -6788,12 +6788,12 @@
         },
         {
           "cyId" : "tr_23",
-          "label" : "tr_23",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 912.0,
-          "layout_y" : 441.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 959.0,
+          "layout_y" : 365.5,
           "metaId" : "tr_23",
           "sbml id" : "tr_23",
           "sbml type" : "qual_transition",
@@ -6801,10 +6801,10 @@
         },
         {
           "cyId" : "tr_3",
-          "label" : "tr_3",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 315.0,
           "layout_y" : 274.5,
           "metaId" : "tr_3",
@@ -6814,12 +6814,12 @@
         },
         {
           "cyId" : "tr_4",
-          "label" : "tr_4",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 621.25,
-          "layout_y" : 380.5,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 455.5,
+          "layout_y" : 325.0,
           "metaId" : "tr_4",
           "sbml id" : "tr_4",
           "sbml type" : "qual_transition",
@@ -6827,12 +6827,12 @@
         },
         {
           "cyId" : "tr_5",
-          "label" : "tr_5",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 674.75,
-          "layout_y" : 339.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 562.5,
+          "layout_y" : 242.0,
           "metaId" : "tr_5",
           "sbml id" : "tr_5",
           "sbml type" : "qual_transition",
@@ -6840,10 +6840,10 @@
         },
         {
           "cyId" : "tr_6",
-          "label" : "tr_6",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 312.5,
           "layout_y" : 539.0,
           "metaId" : "tr_6",
@@ -6853,12 +6853,12 @@
         },
         {
           "cyId" : "tr_7",
-          "label" : "tr_7",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 1065.0,
-          "layout_y" : 493.833333333,
+          "layout_y" : 496.5,
           "metaId" : "tr_7",
           "sbml id" : "tr_7",
           "sbml type" : "qual_transition",
@@ -6866,12 +6866,12 @@
         },
         {
           "cyId" : "tr_8",
-          "label" : "tr_8",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
           "layout_x" : 1065.0,
-          "layout_y" : 493.833333333,
+          "layout_y" : 496.5,
           "metaId" : "tr_8",
           "sbml id" : "tr_8",
           "sbml type" : "qual_transition",
@@ -6879,12 +6879,12 @@
         },
         {
           "cyId" : "tr_9",
-          "label" : "tr_9",
+          "label" : "",
           "layout_glyphType" : "layout:generated",
-          "layout_height" : 20.0,
-          "layout_width" : 20.0,
-          "layout_x" : 910.0,
-          "layout_y" : 586.0,
+          "layout_height" : 12.0,
+          "layout_width" : 12.0,
+          "layout_x" : 755.0,
+          "layout_y" : 704.5,
           "metaId" : "tr_9",
           "sbml id" : "tr_9",
           "sbml type" : "qual_transition",
@@ -6892,36 +6892,6 @@
         }
       ],
       "edges" : [
-        {
-          "source" : "tr",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in",
-            "shared interaction" : "input_transition"
-          }
-        },
         {
           "source" : "tr",
           "target" : "qual_PLC1",
@@ -6979,66 +6949,6 @@
           }
         },
         {
-          "source" : "tr_1",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_1",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_1",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_1",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_1",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_1",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_10",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_10",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_10",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_10",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
           "source" : "tr_10",
           "target" : "qual_INM",
           "directed" : true,
@@ -7063,58 +6973,6 @@
             "qual_qualitativeSpecies" : "qual_INM",
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_10",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_10",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_10",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_11",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_11",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_11",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_11",
             "shared interaction" : "transition_output"
           }
         },
@@ -7161,32 +7019,6 @@
         },
         {
           "source" : "tr_12",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_12",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_12",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_12",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_12",
           "target" : "qual_PIS1",
           "directed" : true,
           "interaction" : "input_transition",
@@ -7215,49 +7047,6 @@
         },
         {
           "source" : "tr_13",
-          "target" : "qual_INP5",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INP5",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_13",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_13",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_13",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_13",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_13",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_13",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_13",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_13",
           "target" : "qual_PLC1",
           "directed" : true,
           "interaction" : "input_transition",
@@ -7288,47 +7077,6 @@
         },
         {
           "source" : "tr_14",
-          "target" : "qual_INP5",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_14",
-            "qual_qualitativeSpecies" : "qual_INP5",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_14",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_14",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_14",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_14",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_14",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_14",
           "target" : "qual_PLC1",
           "directed" : true,
           "interaction" : "transition_output",
@@ -7353,62 +7101,6 @@
             "qual_transitionEffect" : "none",
             "sbml id" : "in_15",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_15",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_15",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_15",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_15",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_15",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_15",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -7443,62 +7135,6 @@
           "source" : "tr_16",
           "target" : "qual_PLC1",
           "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_16",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_16",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_16",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_16",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_16",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_16",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -7521,62 +7157,6 @@
             "qual_transitionEffect" : "none",
             "sbml id" : "in_17",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_17",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_17",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_17",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_17",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_17",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_17",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -7649,36 +7229,6 @@
           }
         },
         {
-          "source" : "tr_19",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_19",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_19",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_19",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_19",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
           "source" : "tr_2",
           "target" : "qual_PIS1",
           "directed" : true,
@@ -7717,36 +7267,6 @@
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_20",
             "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_20",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_20",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_20",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_20",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_20",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_20",
-            "shared interaction" : "input_transition"
           }
         },
         {
@@ -7835,62 +7355,6 @@
         },
         {
           "source" : "tr_23",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_23",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_23",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_23",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_23",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_23",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_23",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_23",
           "target" : "qual_PLC1",
           "directed" : true,
           "interaction" : "input_transition",
@@ -7961,32 +7425,6 @@
           }
         },
         {
-          "source" : "tr_4",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_4",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_4",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
           "source" : "tr_5",
           "target" : "qual_MSS4",
           "directed" : true,
@@ -7999,32 +7437,6 @@
             "qual_transitionEffect" : "none",
             "sbml id" : "in_5",
             "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_5",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_5",
-            "shared interaction" : "transition_output"
           }
         },
         {
@@ -8087,62 +7499,6 @@
           "source" : "tr_7",
           "target" : "qual_INM",
           "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_7",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_7",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_7",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_7",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_7",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_7",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
@@ -8171,94 +7527,12 @@
           "source" : "tr_8",
           "target" : "qual_INM",
           "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_8",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_8",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_8",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_8",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
           "interaction" : "transition_output",
           "attributes" : {
             "interaction type" : "transition_output",
             "qual_qualitativeSpecies" : "qual_INM",
             "qual_transitionEffect" : "assignmentLevel",
             "sbml id" : "out_8",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_8",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_8",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_9",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_9",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_9",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_9",
             "shared interaction" : "transition_output"
           }
         },
