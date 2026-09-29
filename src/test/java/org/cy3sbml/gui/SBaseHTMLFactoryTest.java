@@ -74,7 +74,7 @@ class SBaseHTMLFactoryTest {
         String html = htmlFactory.createInfo(species);
 
         assertFalse(html.contains("<td/>"), html);
-        String[] rows = html.split("<tr>");
+        String[] rows = html.split("<tr>", -1);
         assertTrue(rows.length > 1, html);
         for (int k = 1; k < rows.length; k++) {
             String row = rows[k].substring(0, rows[k].indexOf("</tr>"));
