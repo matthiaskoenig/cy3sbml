@@ -19,7 +19,17 @@ h1, h2, h3, h4, td, th {
 }
 
 .table td:first-child {
-    width: 38%;
+    width: 45%;
+}
+
+/* the icon of an action (help and examples pages) and the name of the action */
+.table td.action {
+    width: 50px;
+    text-align: center;
+}
+
+.table td.name {
+    width: 32%;
 }
 
 /* lists in a cell, e.g. the members of a group, without the wide default indent */

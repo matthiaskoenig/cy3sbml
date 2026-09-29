@@ -5,7 +5,12 @@
       "nodeCount" : 82,
       "edgeCount" : 105,
       "attributes" : {
-        "name" : "mini_textbook"
+        "fbc_strict" : true,
+        "label" : "mini_textbook",
+        "name" : "mini_textbook",
+        "sbml id" : "mini_textbook",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -5177,7 +5182,12 @@
       "nodeCount" : 89,
       "edgeCount" : 164,
       "attributes" : {
-        "name" : "mini_textbook__kinetic"
+        "fbc_strict" : true,
+        "label" : "mini_textbook",
+        "name" : "mini_textbook__kinetic",
+        "sbml id" : "mini_textbook",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

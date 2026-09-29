@@ -5,7 +5,16 @@
       "nodeCount" : 0,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "model_0000001"
+        "biomodels.db" : "BIOMD0000000141",
+        "go" : "GO:0019228",
+        "label" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
+        "metaId" : "metaid_0000002",
+        "name" : "model_0000001",
+        "pubmed" : "15484883",
+        "sbml id" : "model_0000001",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "40674"
       },
       "nodes" : [ ],
       "edges" : [ ]
@@ -381,7 +390,16 @@
       "nodeCount" : 12,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "model_0000001__kinetic"
+        "biomodels.db" : "BIOMD0000000141",
+        "go" : "GO:0019228",
+        "label" : "Izhikevich2004_SpikingNeurons_Class1Excitable",
+        "metaId" : "metaid_0000002",
+        "name" : "model_0000001__kinetic",
+        "pubmed" : "15484883",
+        "sbml id" : "model_0000001",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "40674"
       },
       "nodes" : [
         {

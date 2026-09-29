@@ -5,7 +5,17 @@
       "nodeCount" : 18,
       "edgeCount" : 18,
       "attributes" : {
-        "name" : "BIOMD0000000012"
+        "biomodels.db" : "BIOMD0000000012",
+        "go" : "GO:0040029",
+        "label" : "Elowitz2000 - Repressilator",
+        "mamo" : "MAMO_0000046",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000012",
+        "pubmed" : "10659856",
+        "sbml id" : "BIOMD0000000012",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V3",
+        "taxonomy" : "562"
       },
       "nodes" : [
         {
@@ -2344,7 +2354,17 @@
       "nodeCount" : 56,
       "edgeCount" : 96,
       "attributes" : {
-        "name" : "BIOMD0000000012__kinetic"
+        "biomodels.db" : "BIOMD0000000012",
+        "go" : "GO:0040029",
+        "label" : "Elowitz2000 - Repressilator",
+        "mamo" : "MAMO_0000046",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000012__kinetic",
+        "pubmed" : "10659856",
+        "sbml id" : "BIOMD0000000012",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V3",
+        "taxonomy" : "562"
       },
       "nodes" : [
         {

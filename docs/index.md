@@ -12,32 +12,37 @@ information and the annotations of the selected object in a panel next to the ne
 - Import of all SBML levels and versions, including the packages `qual`, `fbc`, `comp`,
   `groups`, `distrib` and `layout`. See [Supported SBML packages](guide/packages.md).
 - Three networks per model: the reaction network, a kinetic network with parameters,
-  rules and kinetic laws, and a network with all SBML objects.
-  See [Network model](guide/network.md).
+  rules and kinetic laws, and a network with all SBML objects, plus one network per layout
+  of the `layout` package. See [Network model](guide/network.md).
 - A panel with the SBML attributes, the annotations, the history and the notes of the
   selected object. Annotations are resolved with the identifiers.org registry, the
   Ontology Lookup Service, UniProt and ChEBI. See
   [Info panel and annotations](guide/info-panel.md).
-- Visual styles for SBML networks, a light one and a dark one. See [Styles](guide/styles.md).
+- Visual styles for SBML networks, a light one and a dark one, each with a variant for the
+  layout networks. See [Styles](guide/styles.md).
 - Example models, and search and import of models from
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
 - The layouts of the SBML `layout` package as networks with the drawn positions, and
-  saving and loading of node positions. See [Layouts](guide/layouts.md).
+  saving and loading of the node positions of a network. See [Layouts](guide/layouts.md).
 - Splitting of cofactor nodes into one node per edge, and merging them back.
   See [Cofactor nodes](guide/cofactors.md).
 - Import of the SBML models of COMBINE archives (OMEX). See
   [Importing SBML](guide/import.md#combine-archives).
 
-Not supported yet: a built-in SBML validator. See [Validation](guide/validation.md) and
-[Supported SBML packages](guide/packages.md).
+cy3sbml has no built-in SBML validator, see [Validation](guide/validation.md). The SBML
+packages that are not converted are listed in [Supported SBML packages](guide/packages.md).
 
 ## Getting started
 
 1. Install cy3sbml from the Cytoscape App Store, see [Installation](installation.md).
 2. Click the **SBML examples** button in the Cytoscape toolbar and load one of the
    example models, or import your own SBML file with **Import SBML**.
-3. Select nodes in the network. The **cy3sbml** panel on the right shows the
-   information of the selected object.
+3. After the import, the base network of the model is shown. The **Network** panel lists
+   it with the other networks of the model (`<name>__kinetic`, `<name>__all`) in the
+   collection of the model.
+4. Select nodes in the network. The **cy3sbml** panel on the right shows the
+   information of the selected object. **Help** in the toolbar shows the help page with
+   all toolbar buttons of cy3sbml.
 
 ## Links
 

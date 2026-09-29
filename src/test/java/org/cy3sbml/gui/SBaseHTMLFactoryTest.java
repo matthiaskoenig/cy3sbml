@@ -14,6 +14,9 @@ import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.CVTerm;
+import org.sbml.jsbml.Creator;
+import org.sbml.jsbml.History;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.SBase;
@@ -52,6 +55,31 @@ class SBaseHTMLFactoryTest {
         // the SBO term is shown as an annotation, but not added to the model
         assertEquals(0, species.getCVTermCount());
         assertTrue(html.contains("SBO:0000247"), html);
+    }
+
+    /**
+     * Every row of the attribute table has two cells, the name and the value: a third (empty)
+     * cell takes a share of the fixed table layout and squeezes the values.
+     */
+    @Test
+    void attributeRowsHaveTwoCells() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", "species 1", 3, 1);
+
+        String html = htmlFactory.createInfo(species);
+
+        assertFalse(html.contains("<td/>"), html);
+        String[] rows = html.split("<tr>");
+        assertTrue(rows.length > 1, html);
+        for (int k = 1; k < rows.length; k++) {
+            String row = rows[k].substring(0, rows[k].indexOf("</tr>"));
+            assertEquals(2, row.split("<td>", -1).length - 1, row);
+        }
     }
 
     /**
@@ -185,6 +213,30 @@ class SBaseHTMLFactoryTest {
         assertEquals("H&lt;sub&gt;2 O", SBaseHTMLFactory.ontologyTextHTML("H<sub>2 O"));
         assertEquals("x&lt;/i&gt; y", SBaseHTMLFactory.ontologyTextHTML("x</i> y"));
         assertEquals("&lt;b&gt;&lt;i&gt;x&lt;/b&gt;&lt;/i&gt;", SBaseHTMLFactory.ontologyTextHTML("<b><i>x</b></i>"));
+    }
+
+    /**
+     * A creator with only an organisation is shown without the separator of a missing name.
+     */
+    @Test
+    void historyShowsCreatorWithOnlyOrganisation() throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Model model = new Model("m", 3, 1);
+        model.setMetaId("meta_m");
+        History history = new History();
+        Creator creator = new Creator();
+        creator.setOrganisation("ZBIT");
+        history.addCreator(creator);
+        model.setHistory(history);
+
+        String html = htmlFactory.createInfo(model);
+
+        assertTrue(html.contains("<p class=\"cvterm\">ZBIT<br />"), html);
     }
 
     /**

@@ -45,7 +45,7 @@ public class GUIConstants {
     public static final String DESCRIPTION_EXAMPLES = "SBML examples";
     public static final String DESCRIPTION_COFACTOR_SPLIT = "Split cofactor nodes";
     public static final String DESCRIPTION_COFACTOR_MERGE = "Merge cofactor nodes";
-    public static final String DESCRIPTION_BIOMODELS = "Biomodel Import";
+    public static final String DESCRIPTION_BIOMODELS = "BioModels Import";
     public static final String DESCRIPTION_HELP = "Help";
     public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";
     public static final String DESCRIPTION_SAVELAYOUT = "Save Layout";

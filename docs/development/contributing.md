@@ -33,11 +33,14 @@ existing issue first. If there is none, open a new issue with:
    ([Testing](testing.md)), and run `./mvnw verify` and the checks in
    [Code quality](quality.md).
 5. Check the change in Cytoscape if it affects the import or the GUI.
-6. Open a pull request against `develop`. Describe the change and how you tested it.
+6. Add a user visible change to the release notes of the next version
+   (`release-notes/<version>.md`), and update the user guide in `docs/guide/` if needed.
+7. Open a pull request against `develop`. Describe the change and how you tested it.
+   The pull request template has a checklist of these steps.
 
-The pull request needs the checks `tests`, `format`, `lint` and `docs` to pass, and is
-merged with squash or rebase, so `develop` has a linear history. See
-[Release process](release.md#branches).
+The pull request needs the checks `tests`, `format`, `lint` and `docs` to pass (the CI
+also runs `python`), and is merged with squash or rebase, so `develop` has a linear
+history. See [Release process](release.md#branches).
 
 For changes of the documentation only, an issue is not needed.
 

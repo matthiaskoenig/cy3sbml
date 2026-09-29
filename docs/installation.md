@@ -54,6 +54,8 @@ it (check box), and update it (arrow, green if a new version is available).
 
 ## Files written by cy3sbml
 
-cy3sbml writes its log file and its extracted resources into
-`~/CytoscapeConfiguration/cy3sbml/`. The log file is named `cy3sbml-v<version>.log`.
-Attach it to bug reports.
+cy3sbml writes its log file, the resources of the info panel, and the models downloaded
+from BioModels (folder `biomodels`) into `~/CytoscapeConfiguration/cy3sbml/`. The log file is
+named `cy3sbml-v<version>.log`. Attach it to bug reports. The setting of cy3sbml, the visual
+style of new imports, is in `~/CytoscapeConfiguration/cy3sbml.props`, see
+[Styles](guide/styles.md).

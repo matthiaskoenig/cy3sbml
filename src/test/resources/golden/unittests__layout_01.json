@@ -5,7 +5,15 @@
       "nodeCount" : 137,
       "edgeCount" : 140,
       "attributes" : {
-        "name" : "path_hsa04360"
+        "kegg.pathway" : "hsa04360",
+        "label" : "Axon guidance",
+        "metaId" : "meta_path_hsa04360",
+        "name" : "path_hsa04360",
+        "obo.go" : "GO:0007411",
+        "sbml id" : "path_hsa04360",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {
@@ -8956,7 +8964,15 @@
       "nodeCount" : 138,
       "edgeCount" : 207,
       "attributes" : {
-        "name" : "path_hsa04360__kinetic"
+        "kegg.pathway" : "hsa04360",
+        "label" : "Axon guidance",
+        "metaId" : "meta_path_hsa04360",
+        "name" : "path_hsa04360__kinetic",
+        "obo.go" : "GO:0007411",
+        "sbml id" : "path_hsa04360",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {
@@ -13906,8 +13922,15 @@
       "nodeCount" : 157,
       "edgeCount" : 140,
       "attributes" : {
+        "kegg.pathway" : "hsa04360",
+        "label" : "Axon guidance",
+        "metaId" : "meta_path_hsa04360",
         "name" : "path_hsa04360__layout_1",
-        "sbmlNetwork" : "sbmlLayout"
+        "obo.go" : "GO:0007411",
+        "sbml id" : "path_hsa04360",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "9606"
       },
       "nodes" : [
         {

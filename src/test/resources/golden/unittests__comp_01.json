@@ -5,7 +5,14 @@
       "nodeCount" : 28,
       "edgeCount" : 29,
       "attributes" : {
-        "name" : "repressilator"
+        "label" : "Created by iBioSim flatten routine",
+        "metaId" : "iBioSim1",
+        "name" : "repressilator",
+        "sbml id" : "repressilator",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "mole",
+        "volumeUnits" : "litre"
       },
       "nodes" : [
         {
@@ -3756,7 +3763,14 @@
       "nodeCount" : 85,
       "edgeCount" : 147,
       "attributes" : {
-        "name" : "repressilator__kinetic"
+        "label" : "Created by iBioSim flatten routine",
+        "metaId" : "iBioSim1",
+        "name" : "repressilator__kinetic",
+        "sbml id" : "repressilator",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "mole",
+        "volumeUnits" : "litre"
       },
       "nodes" : [
         {
@@ -6474,9 +6488,15 @@
       "nodeCount" : 29,
       "edgeCount" : 29,
       "attributes" : {
+        "label" : "Created by iBioSim flatten routine",
         "layout_id" : "iBioSim",
+        "metaId" : "iBioSim1",
         "name" : "repressilator__layout_iBioSim",
-        "sbmlNetwork" : "sbmlLayout"
+        "sbml id" : "repressilator",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "mole",
+        "volumeUnits" : "litre"
       },
       "nodes" : [
         {

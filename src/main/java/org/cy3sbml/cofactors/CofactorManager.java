@@ -1,9 +1,11 @@
 package org.cy3sbml.cofactors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +45,10 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
 
     /** Distance of a clone from its neighbor in the network view. */
-    static final double CLONE_DISTANCE = 60.0;
+    static final double CLONE_DISTANCE = 70.0;
+
+    /** Angle between the clones at one neighbor; with the distance, the clones do not overlap. */
+    static final double CLONE_ANGLE = Math.toRadians(45);
 
     private final SBMLManager sbmlManager;
     private final CyEventHelper eventHelper;
@@ -316,14 +321,16 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
     // ------------------------------------------------------------
 
     /**
-     * Places every clone on the line from its neighbor to the position of the split node,
-     * {@link #CLONE_DISTANCE} away from the neighbor; several clones at one neighbor are
-     * fanned out.
+     * Places every clone {@link #CLONE_DISTANCE} away from its neighbor, in the direction of
+     * the position of the split node; the clones at one neighbor, also of different split
+     * nodes, are spread to at least {@link #CLONE_ANGLE} apart, so they do not overlap.
      */
     private void placeClones(CyNetwork network, CyNetworkView view, List<CyNode> clones) {
         eventHelper.flushPayloadEvents();
         Set<CyNode> newClones = new HashSet<>(clones);
-        Map<CyNode, Integer> clonesAtNeighbor = new HashMap<>();
+        Map<CyNode, double[]> centers = new HashMap<>();
+        Map<CyNode, List<CyNode>> clonesAtNeighbor = new LinkedHashMap<>();
+        Map<CyNode, Double> directions = new HashMap<>();
         for (CyNode clone : clones) {
             Long cofactor = mapper.getCofactor(network.getSUID(), clone.getSUID());
             double[] origin = mapper.getPosition(network.getSUID(), cofactor);
@@ -340,24 +347,83 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
                 setPosition(view, clone, origin);
                 continue;
             }
-            int index = clonesAtNeighbor.merge(neighbor, 1, Integer::sum) - 1;
-            setPosition(view, clone, clonePosition(center, origin, index));
+            centers.put(neighbor, center);
+            clonesAtNeighbor.computeIfAbsent(neighbor, k -> new ArrayList<>()).add(clone);
+            directions.put(clone, direction(center, origin));
+        }
+        for (Map.Entry<CyNode, List<CyNode>> entry : clonesAtNeighbor.entrySet()) {
+            double[] center = centers.get(entry.getKey());
+            List<CyNode> atNeighbor = entry.getValue();
+            double[] angles = new double[atNeighbor.size()];
+            for (int k = 0; k < angles.length; k++) {
+                angles[k] = directions.get(atNeighbor.get(k));
+            }
+            double[] spread = spreadAngles(angles, CLONE_ANGLE);
+            for (int k = 0; k < spread.length; k++) {
+                setPosition(view, atNeighbor.get(k), new double[] {
+                    center[0] + CLONE_DISTANCE * Math.cos(spread[k]), center[1] + CLONE_DISTANCE * Math.sin(spread[k])
+                });
+            }
         }
     }
 
-    /**
-     * The position of the index-th clone at a neighbor at center for a node at origin.
-     */
-    static double[] clonePosition(double[] center, double[] origin, int index) {
+    /** The direction (angle) from center to origin, 0 if both are the same point. */
+    static double direction(double[] center, double[] origin) {
         double dx = origin[0] - center[0];
         double dy = origin[1] - center[1];
-        double distance = Math.hypot(dx, dy);
-        double angle = distance > 0 ? Math.atan2(dy, dx) : 0.0;
-        // alternate the clones of one neighbor to both sides: 0, +30, -30, +60, ...
-        int step = (index + 1) / 2;
-        angle += (index % 2 == 1 ? 1 : -1) * step * Math.toRadians(30);
-        return new double[] {center[0] + CLONE_DISTANCE * Math.cos(angle), center[1] + CLONE_DISTANCE * Math.sin(angle)
-        };
+        return dx == 0 && dy == 0 ? 0.0 : Math.atan2(dy, dx);
+    }
+
+    /**
+     * Spreads the angles (radians) of the clones at one neighbor to at least the separation
+     * apart, keeping their order around the neighbor and their mean direction; angles that
+     * are already far enough apart are kept.
+     *
+     * @return the spread angles, in the order of the given angles
+     */
+    static double[] spreadAngles(double[] angles, double separation) {
+        int n = angles.length;
+        if (n < 2) {
+            return angles.clone();
+        }
+        double sep = Math.min(separation, 2 * Math.PI / n);
+        Integer[] order = new Integer[n];
+        double[] normalized = new double[n];
+        for (int k = 0; k < n; k++) {
+            order[k] = k;
+            normalized[k] = ((angles[k] % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        }
+        Arrays.sort(order, (a, b) -> Double.compare(normalized[a], normalized[b]));
+        // start after the largest gap, so the angles increase without a wrap around
+        int start = 0;
+        double largestGap = -1;
+        for (int k = 0; k < n; k++) {
+            double next = k + 1 < n ? normalized[order[k + 1]] : normalized[order[0]] + 2 * Math.PI;
+            double gap = next - normalized[order[k]];
+            if (gap > largestGap) {
+                largestGap = gap;
+                start = (k + 1) % n;
+            }
+        }
+        double[] unwrapped = new double[n];
+        for (int k = 0; k < n; k++) {
+            int index = order[(start + k) % n];
+            unwrapped[k] = normalized[index] + (start + k >= n ? 2 * Math.PI : 0);
+        }
+        double[] spread = unwrapped.clone();
+        for (int k = 1; k < n; k++) {
+            spread[k] = Math.max(spread[k], spread[k - 1] + sep);
+        }
+        // keep the mean direction of the clones
+        double shift = 0;
+        for (int k = 0; k < n; k++) {
+            shift += (unwrapped[k] - spread[k]) / n;
+        }
+        double[] result = new double[n];
+        for (int k = 0; k < n; k++) {
+            result[order[(start + k) % n]] = spread[k] + shift;
+        }
+        return result;
     }
 
     private static double[] centroid(CyNetworkView view, List<CyNode> nodes) {

@@ -5,7 +5,19 @@
       "nodeCount" : 0,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "toy_ode_bounds"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE bound calculation submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_b9ccc52826d147e69c637e60d986fe5c",
+        "name" : "toy_ode_bounds",
+        "sbml id" : "toy_ode_bounds",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [ ],
       "edges" : [ ]
@@ -477,7 +489,19 @@
       "nodeCount" : 4,
       "edgeCount" : 4,
       "attributes" : {
-        "name" : "toy_ode_bounds__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE bound calculation submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_b9ccc52826d147e69c637e60d986fe5c",
+        "name" : "toy_ode_bounds__kinetic",
+        "sbml id" : "toy_ode_bounds",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {

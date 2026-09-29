@@ -5,7 +5,11 @@
       "nodeCount" : 6,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "Flat__case01134"
+        "label" : "case01134",
+        "name" : "Flat__case01134",
+        "sbml id" : "case01134",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -364,7 +368,11 @@
       "nodeCount" : 13,
       "edgeCount" : 6,
       "attributes" : {
-        "name" : "Flat__case01134__kinetic"
+        "label" : "case01134",
+        "name" : "Flat__case01134__kinetic",
+        "sbml id" : "case01134",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -623,7 +631,11 @@
       "nodeCount" : 1,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "case01134"
+        "label" : "case01134",
+        "name" : "case01134",
+        "sbml id" : "case01134",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -879,7 +891,11 @@
       "nodeCount" : 7,
       "edgeCount" : 5,
       "attributes" : {
-        "name" : "case01134__kinetic"
+        "label" : "case01134",
+        "name" : "case01134__kinetic",
+        "sbml id" : "case01134",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1046,7 +1062,11 @@
       "nodeCount" : 1,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "moddef1"
+        "label" : "moddef1",
+        "name" : "moddef1",
+        "sbml id" : "moddef1",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1126,7 +1146,11 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "moddef1__kinetic"
+        "label" : "moddef1",
+        "name" : "moddef1__kinetic",
+        "sbml id" : "moddef1",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1177,7 +1201,11 @@
       "nodeCount" : 1,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "moddef2"
+        "label" : "moddef2",
+        "name" : "moddef2",
+        "sbml id" : "moddef2",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1268,7 +1296,11 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "moddef2__kinetic"
+        "label" : "moddef2",
+        "name" : "moddef2__kinetic",
+        "sbml id" : "moddef2",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1319,7 +1351,11 @@
       "nodeCount" : 1,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "moddef3"
+        "label" : "moddef3",
+        "name" : "moddef3",
+        "sbml id" : "moddef3",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -1421,7 +1457,11 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "moddef3__kinetic"
+        "label" : "moddef3",
+        "name" : "moddef3__kinetic",
+        "sbml id" : "moddef3",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

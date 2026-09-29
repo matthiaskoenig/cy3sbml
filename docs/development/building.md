@@ -13,7 +13,7 @@ documentation of Cytoscape app development is in the
 - Cytoscape 3.10 to run the app.
 
 Maven does not need to be installed: the repository has the Maven Wrapper (`./mvnw`, on
-Windows `mvnw.cmd`), which downloads Maven 3.9.11. JavaFX is a `provided` Maven
+Windows `mvnw.cmd`), which downloads the pinned Maven version (3.9.16) on first use. JavaFX is a `provided` Maven
 dependency for compiling and testing; at runtime Cytoscape provides it.
 
 ## Build
@@ -32,16 +32,18 @@ The default branch is `develop`. The build writes the app jar to
 
 ## Dependencies
 
-- The Cytoscape API artifacts (API version 3.10.0) come from the NRNB Nexus repositories
-  and have `provided` scope.
+- The Cytoscape API artifacts (API version 3.10.0, the minimum Cytoscape version) come
+  from the NRNB Nexus repositories and have `provided` scope.
 - JSBML and its package modules are not taken from Maven Central. The jars are in
   `lib/cy3sbml-dep`, a Maven repository inside the project, pinned to one JSBML commit
-  (property `jsbml.version` in `pom.xml`). See [Dependencies](dependencies.md).
+  (property `jsbml.version` in `pom.xml`).
 - The `maven-bundle-plugin` embeds all dependencies that are not `provided` or `test`,
   with their transitive dependencies, into the bundle jar, and marks the imports as
   optional. A new runtime dependency ends up in the jar automatically. Test the app in
   Cytoscape after adding one, to catch class loading problems in OSGi.
-- The build fails for SNAPSHOT dependencies and duplicate classes (Maven Enforcer).
+
+See [Dependencies](dependencies.md) for the sources of all dependencies and how they are
+updated.
 
 ## Run in Cytoscape
 
@@ -80,9 +82,3 @@ cytoscape.bat debug       # Windows
 Cytoscape then prints `Listening for transport dt_socket at address: 12345`. Attach a
 remote JVM debugger of your IDE to `localhost:12345`, for example a **Remote JVM Debug**
 run configuration in IntelliJ IDEA.
-
-## Update dependencies
-
-Dependabot updates the Maven dependencies, the GitHub Actions and the Python helpers.
-JSBML is updated with `scripts/update_jsbml.py` or the *update JSBML* workflow. See
-[Dependencies](dependencies.md).

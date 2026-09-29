@@ -5,7 +5,11 @@
       "nodeCount" : 3,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "single"
+        "label" : "single",
+        "name" : "single",
+        "sbml id" : "single",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {
@@ -246,7 +250,11 @@
       "nodeCount" : 6,
       "edgeCount" : 7,
       "attributes" : {
-        "name" : "single__kinetic"
+        "label" : "single",
+        "name" : "single__kinetic",
+        "sbml id" : "single",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1"
       },
       "nodes" : [
         {

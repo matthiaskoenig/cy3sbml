@@ -83,7 +83,16 @@ class SBMLUtilTest {
 
         Map<String, String> map = SBMLUtil.createQualitativeSpeciesMap(qs);
 
-        assertEquals("1/2", map.get(SBML.ATTR_QUAL_INITIAL_LEVEL + "/" + SBML.ATTR_QUAL_MAX_LEVEL));
+        assertEquals("1", map.get(SBML.ATTR_QUAL_INITIAL_LEVEL));
+        assertEquals("2", map.get(SBML.ATTR_QUAL_MAX_LEVEL));
+    }
+
+    @Test
+    void qualitativeSpeciesMapShowsUnsetLevelsAsEmptyCells() {
+        Map<String, String> map = SBMLUtil.createQualitativeSpeciesMap(new QualitativeSpecies("s1", 3, 1));
+
+        assertEquals("", map.get(SBML.ATTR_QUAL_INITIAL_LEVEL));
+        assertEquals("", map.get(SBML.ATTR_QUAL_MAX_LEVEL));
     }
 
     @Test

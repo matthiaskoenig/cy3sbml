@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import org.cy3sbml.SBML;
+import org.cytoscape.model.CyColumn;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -17,6 +18,8 @@ import org.cytoscape.model.subnetwork.CyRootNetwork;
  * Names the network read from a model and creates its kinetic and base subnetworks.
  */
 final class SubnetworkBuilder {
+    private static final Set<String> NOT_COPIED =
+            Set.of(CyNetwork.SUID, CyNetwork.NAME, CyRootNetwork.SHARED_NAME, CyNetwork.SELECTED);
     private final String fileName;
 
     /**
@@ -52,10 +55,44 @@ final class SubnetworkBuilder {
         CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
         baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, name + SBML.SUFFIX_SUBNETWORK_BASE);
 
+        // the model attributes are written to the network with all nodes
+        copyNetworkAttributes(network, kineticNetwork);
+        copyNetworkAttributes(network, baseNetwork);
+
         // every network has its own groups (#171)
         groups.accept(baseNetwork);
         groups.accept(kineticNetwork);
         return List.of(baseNetwork, kineticNetwork, network);
+    }
+
+    /**
+     * Copies the values of the network table row of one network of a model (the model
+     * attributes) to another network of the model, except the name, the selection and
+     * the hidden columns; values the target already has are kept.
+     */
+    static void copyNetworkAttributes(CyNetwork from, CyNetwork to) {
+        CyRow source = from.getRow(from);
+        CyRow target = to.getRow(to);
+        for (CyColumn column : source.getTable().getColumns()) {
+            String name = column.getName();
+            if (NOT_COPIED.contains(name) || name.startsWith("__")) {
+                continue;
+            }
+            Object value = source.getRaw(name);
+            if (value == null) {
+                continue;
+            }
+            if (target.getTable().getColumn(name) == null) {
+                if (column.getType() == List.class) {
+                    target.getTable().createListColumn(name, column.getListElementType(), false);
+                } else {
+                    target.getTable().createColumn(name, column.getType(), false);
+                }
+            }
+            if (target.getRaw(name) == null) {
+                target.set(name, value);
+            }
+        }
     }
 
     /**

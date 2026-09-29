@@ -28,6 +28,6 @@ registry.
 ## Import warnings
 
 Content that cy3sbml cannot convert is skipped with a warning in the log file
-(`~/CytoscapeConfiguration/cy3sbml/cy3sbml-v<version>.log`), for example an SBML
-layout, or an external file of the `comp` package that cannot be read. See
-[Supported SBML packages](packages.md).
+(`~/CytoscapeConfiguration/cy3sbml/cy3sbml-v<version>.log`), for example the gene
+associations of `fbc` version 1, a layout that cannot be read, or an external file of the
+`comp` package that cannot be read. See [Supported SBML packages](packages.md).

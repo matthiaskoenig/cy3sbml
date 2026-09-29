@@ -8,7 +8,9 @@ they are read as the classpath resources `/models/bigg_models/...` and so on.
 
 The test classes run in parallel, the tests of one class on one thread
 (`src/test/resources/junit-platform.properties`). A test class that changes global state,
-such as system properties, is annotated with `@Isolated`.
+such as system properties, is annotated with `@Isolated`. `JsbmlSetupListener` sets up
+JSBML once before the tests, as `CyActivator` does with `JsbmlSetup`, because JSBML's
+`ParserManager` singleton is not thread-safe.
 
 ## Run the tests
 
@@ -42,11 +44,13 @@ network.
 
 ## Golden snapshot tests
 
-`GoldenModelsTest` pins the result of the import. For a list of reference models (for example
-the unit test models, models with `comp`, `fbc`, `qual`, `layout` and `distrib`, and
-models from BioModels, the SBML Test Suite and BiGG), it
-imports the model and compares the networks, nodes, edges and table values with a JSON
-snapshot in `src/test/resources/golden/`. The columns `SUID` and `selected` are left out.
+`GoldenModelsTest` (with `NetworkSnapshot`) pins the result of the import. For a list of
+reference models (for example the unit test models, models with `comp`, `fbc`, `qual`,
+`layout` and `distrib`, models from BioModels, the SBML Test Suite and BiGG, and two
+COMBINE archives, read with the archive reader), it imports the model and compares the
+networks, nodes, edges, groups and table values with a JSON snapshot per model in
+`src/test/resources/golden/`. The columns `SUID` and `selected` and the SUID reference
+columns are left out.
 
 If you change the import on purpose, regenerate the snapshots and review the diff:
 
@@ -58,7 +62,8 @@ git diff src/test/resources/golden
 Commit the changed snapshots with the code change.
 
 The tests read a model with its location, as Cytoscape does for a file, so the snapshots
-also pin the networks of external model definitions and of the flattened comp model.
+also pin the networks of external model definitions, of the flattened comp model and of
+the layouts.
 
 ## Flattening of comp models
 
@@ -80,14 +85,42 @@ uv run --project tools python tools/pycysbml/comp_flat_reference.py \
     src/test/resources/models/comp src/test/resources/models/comp/comp-flat-reference.json
 ```
 
+## Test models
+
+The test models are in `src/test/resources/models`, grouped by source or package (`comp`,
+`distrib`, `fbc`, `layout`, `omex`, `qual`, `unittests`, ...). The Python helpers in
+`tools/pycysbml` download or write some of them; run them with
+`uv run --project tools python tools/pycysbml/<script>.py`, the arguments are in the
+docstring of every script:
+
+| Script | Writes |
+|---|---|
+| `bigg_download.py` | the BiGG models of `BiGGTest` in `src/test/corpora/models/bigg_models` |
+| `biomodels_download.py` | the curated BioModels of `BioModelsTest` in `src/test/corpora/models/biomodels` |
+| `comp_flat_reference.py` | the libSBML flattening of the comp models, see [Flattening of comp models](#flattening-of-comp-models) |
+| `distrib_models.py` | the distrib models in `models/distrib`, written and validated with libSBML |
+| `omex_models.py` | the COMBINE archives in `models/omex`, written with pymetadata |
+| `graph_to_sbml.py` | `models/styles/graph.xml`, the test model of the visual styles, from Antimony |
+
+## Test logging
+
+JSBML logs through the log4j 1.x API, which `log4j-over-slf4j` routes to slf4j, so
+logback configures all logging: `src/main/resources/logback.xml` for the app,
+`src/test/resources/logback-test.xml` for the tests. `logback-test.xml` raises the
+loggers that warn on the deliberate test inputs to `ERROR`, and `ExpectedMessageFilter`
+drops the errors the tests cause on purpose. So `./mvnw -B -q verify` prints no
+warnings, and a new warning in the test output needs a look.
+
 ## Packaged jar test
 
 `BundleJarContentIT` is an integration test that runs with the Maven Failsafe plugin in
 the `verify` phase, after the jar is built. It opens `target/cy3sbml-<version>.jar`
 itself and checks that the jar contains the resources the app needs at runtime: the GUI
-templates and images, the JavaScript extension jar, the styles, and the JSBML classes and
-resources, for example `org/sbml/jsbml/SBO.class`. A unit test cannot find such a
-packaging error, because `target/classes` still has all files.
+templates and images, the JavaScript extension jar, the styles, the bundled MIRIAM
+registry, and the JSBML classes and resources, for example `org/sbml/jsbml/SBO.class`. It
+also checks the manifest: the activator, the export of `org.sbml.jsbml.*` with the JSBML
+version, and no JUnit classes or imports. A unit test cannot find such a packaging error,
+because `target/classes` still has all files.
 
 ## Continuous integration
 
@@ -97,9 +130,10 @@ and `main`:
 - `test`: `./mvnw verify` on Ubuntu and Windows with Temurin 17. It publishes the test
   report and, on Ubuntu, the JaCoCo coverage report. The check `tests` sums up the
   result of both systems.
-- `format` and `lint`, see [Code quality](quality.md).
+- `format`, `lint` and `python`, see [Code quality](quality.md).
 
-The workflow `.github/workflows/docs.yml` builds this documentation (check `docs`).
+The workflow `.github/workflows/docs.yml` builds this documentation (check `docs`) and
+publishes it from `develop`.
 
 ## Test in Cytoscape
 

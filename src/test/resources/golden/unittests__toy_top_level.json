@@ -5,7 +5,20 @@
       "nodeCount" : 10,
       "edgeCount" : 9,
       "attributes" : {
-        "name" : "Flat__toy_top_level"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "Flat__toy_top_level",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -1534,7 +1547,20 @@
       "nodeCount" : 23,
       "edgeCount" : 35,
       "attributes" : {
-        "name" : "Flat__toy_top_level__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "Flat__toy_top_level__kinetic",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -2290,7 +2316,20 @@
       "nodeCount" : 7,
       "edgeCount" : 6,
       "attributes" : {
-        "name" : "toy_fba"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "FBA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_61c18d77d07d44ada462bd945a2c8403",
+        "name" : "toy_fba",
+        "sbml id" : "toy_fba",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000624",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -3527,7 +3566,20 @@
       "nodeCount" : 18,
       "edgeCount" : 24,
       "attributes" : {
-        "name" : "toy_fba__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "fbc_strict" : false,
+        "label" : "FBA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_61c18d77d07d44ada462bd945a2c8403",
+        "name" : "toy_fba__kinetic",
+        "sbml id" : "toy_fba",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000624",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -4108,7 +4160,19 @@
       "nodeCount" : 0,
       "edgeCount" : 0,
       "attributes" : {
-        "name" : "toy_ode_bounds"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE bound calculation submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_b9ccc52826d147e69c637e60d986fe5c",
+        "name" : "toy_ode_bounds",
+        "sbml id" : "toy_ode_bounds",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [ ],
       "edges" : [ ]
@@ -4580,7 +4644,19 @@
       "nodeCount" : 4,
       "edgeCount" : 4,
       "attributes" : {
-        "name" : "toy_ode_bounds__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE bound calculation submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_b9ccc52826d147e69c637e60d986fe5c",
+        "name" : "toy_ode_bounds__kinetic",
+        "sbml id" : "toy_ode_bounds",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -4689,7 +4765,19 @@
       "nodeCount" : 3,
       "edgeCount" : 2,
       "attributes" : {
-        "name" : "toy_ode_model"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE/SSA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_e27eca168d4d4b11a77c0e92141c6114",
+        "name" : "toy_ode_model",
+        "sbml id" : "toy_ode_model",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -5428,7 +5516,19 @@
       "nodeCount" : 8,
       "edgeCount" : 10,
       "attributes" : {
-        "name" : "toy_ode_model__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE/SSA submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_e27eca168d4d4b11a77c0e92141c6114",
+        "name" : "toy_ode_model__kinetic",
+        "sbml id" : "toy_ode_model",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -5679,7 +5779,19 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "toy_ode_update"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE metabolite update submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_8b8842adcc30469d8e8b93cf8f8e3716",
+        "name" : "toy_ode_update",
+        "sbml id" : "toy_ode_update",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -6351,7 +6463,19 @@
       "nodeCount" : 8,
       "edgeCount" : 8,
       "attributes" : {
-        "name" : "toy_ode_update__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "ODE metabolite update submodel",
+        "lengthUnits" : "m",
+        "metaId" : "meta_8b8842adcc30469d8e8b93cf8f8e3716",
+        "name" : "toy_ode_update__kinetic",
+        "sbml id" : "toy_ode_update",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -6575,7 +6699,19 @@
       "nodeCount" : 2,
       "edgeCount" : 1,
       "attributes" : {
-        "name" : "toy_top_level"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "toy_top_level",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {
@@ -8862,7 +8998,19 @@
       "nodeCount" : 54,
       "edgeCount" : 16,
       "attributes" : {
-        "name" : "toy_top_level__kinetic"
+        "areaUnits" : "m2",
+        "extentUnits" : "item",
+        "label" : "Top level model",
+        "lengthUnits" : "m",
+        "metaId" : "meta_6ecfb68690ff43c68c1de5d28cdfabad",
+        "name" : "toy_top_level__kinetic",
+        "sbml id" : "toy_top_level",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "sbo" : "SBO:0000062",
+        "substanceUnits" : "item",
+        "timeUnits" : "s",
+        "volumeUnits" : "m3"
       },
       "nodes" : [
         {

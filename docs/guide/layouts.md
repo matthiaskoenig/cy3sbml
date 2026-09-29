@@ -14,18 +14,21 @@ network `<name>__layout_<layout id>` in the collection of the model, whose view 
 layout as it is drawn. Every glyph is a node at the position and in the size of its
 bounding box, with the style `cy3sbml-layout` (`cy3sbml-dark-layout` for the dark style).
 
+![The layout network path_hsa04360__layout_1 of the KEGG pathway axon guidance (hsa04360) with the selected qualitative species EPHA](../images/screenshots/layout-network.png)
+
 - **Aliases.** A layout can draw an element several times, for example a protein that
   appears in several places of a KEGG pathway. Every glyph is a node of its own, with the
   columns of the element (same `cyId`, `sbml id`, name, ...), so selecting any of them
   shows the element in the [info panel](info-panel.md).
-- **Glyphs.** Compartment glyphs are drawn as transparent round rectangles behind the
-  other nodes. Species, reaction and general glyphs are nodes, and the text glyphs are
+- **Glyphs.** Compartment glyphs are drawn as semi-transparent round rectangles behind
+  the other nodes. Species, reaction and general glyphs are nodes, and the text glyphs are
   the labels of the glyphs they belong to. A glyph whose element is not in the model is a
   node of its own; selecting it shows the glyph.
 - **Edges.** The species reference glyphs of a reaction glyph become the edges between the
   reaction and the species, with the type and the columns of the reactant, product or
-  modifier edge of the model. A reaction glyph without species reference glyphs is
-  connected to the nearest glyph of every participant. The reference glyphs of a general
+  modifier edge of the model; without such an edge, the edge gets the type of the role of
+  the glyph, for example `reaction-inhibitor`. A reaction glyph without species reference
+  glyphs is connected to the nearest glyph of every participant. The reference glyphs of a general
   glyph are edges of the type `layout:reference`.
 - **Reactions without glyph.** Many layouts draw only the species (for example the KEGG
   layouts of qualitative models). A reaction or transition without glyph is a small node
@@ -65,8 +68,8 @@ nodes of elements with an SBML id. The nodes of a layout network also have the `
 (column `layout_glyph`), because the aliases of an element have the same `cyId`.
 
 **Load Layout** reads such a file and moves every node of the current network view whose
-`cyId` (`glyph` for the nodes of a layout network) is in the file to the stored position. Nodes without a stored position keep
-their position. The stored sizes are not applied. Layout files of cy3sbml versions before
+`cyId` (`glyph` for the nodes of a layout network) is in the file to the stored position.
+Nodes without a stored position keep their position. The stored sizes are not applied. Layout files of cy3sbml versions before
 0.7.0 have only the `id`; their positions are applied to the nodes with this SBML id.
 
 Because every node is matched by its `cyId`, a layout file positions all nodes, also the

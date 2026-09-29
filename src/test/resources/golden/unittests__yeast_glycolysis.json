@@ -5,7 +5,12 @@
       "nodeCount" : 44,
       "edgeCount" : 63,
       "attributes" : {
-        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell"
+        "label" : "Yeast glycolysis model of Pritchard and Kell",
+        "metaId" : "COPASI0",
+        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
+        "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4"
       },
       "nodes" : [
         {
@@ -7141,7 +7146,12 @@
       "nodeCount" : 168,
       "edgeCount" : 348,
       "attributes" : {
-        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__kinetic"
+        "label" : "Yeast glycolysis model of Pritchard and Kell",
+        "metaId" : "COPASI0",
+        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__kinetic",
+        "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4"
       },
       "nodes" : [
         {

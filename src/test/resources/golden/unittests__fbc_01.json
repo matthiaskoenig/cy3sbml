@@ -5,7 +5,19 @@
       "nodeCount" : 358,
       "edgeCount" : 588,
       "attributes" : {
-        "name" : "e_coli_core"
+        "bigg.model" : "e_coli_core",
+        "doi" : "10.1128/ecosalplus.10.2.1",
+        "extentUnits" : "substance",
+        "fbc_strict" : true,
+        "label" : "Escherichia coli str. K-12 substr. MG1655",
+        "metaId" : "e_coli_core",
+        "name" : "e_coli_core",
+        "sbml id" : "e_coli_core",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "taxonomy" : "511145",
+        "timeUnits" : "time"
       },
       "nodes" : [
         {
@@ -28353,7 +28365,19 @@
       "nodeCount" : 365,
       "edgeCount" : 850,
       "attributes" : {
-        "name" : "e_coli_core__kinetic"
+        "bigg.model" : "e_coli_core",
+        "doi" : "10.1128/ecosalplus.10.2.1",
+        "extentUnits" : "substance",
+        "fbc_strict" : true,
+        "label" : "Escherichia coli str. K-12 substr. MG1655",
+        "metaId" : "e_coli_core",
+        "name" : "e_coli_core__kinetic",
+        "sbml id" : "e_coli_core",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "substanceUnits" : "substance",
+        "taxonomy" : "511145",
+        "timeUnits" : "time"
       },
       "nodes" : [
         {

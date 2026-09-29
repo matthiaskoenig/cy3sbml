@@ -6,6 +6,6 @@
 
 - [ ] the pull request targets `develop`
 - [ ] tests were added or updated for the change
-- [ ] `mvn verify` passes locally
-- [ ] `mvn spotless:apply` was run
+- [ ] `./mvnw verify` passes locally
+- [ ] `./mvnw spotless:apply` was run
 - [ ] user visible changes are in `release-notes/` and, if needed, in `docs/`

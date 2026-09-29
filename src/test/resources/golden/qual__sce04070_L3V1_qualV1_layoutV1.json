@@ -5,7 +5,14 @@
       "nodeCount" : 62,
       "edgeCount" : 48,
       "attributes" : {
-        "name" : "path_sce04070"
+        "kegg.pathway" : "sce04070",
+        "label" : "Phosphatidylinositol signaling system",
+        "metaId" : "meta_path_sce04070",
+        "name" : "path_sce04070",
+        "sbml id" : "path_sce04070",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {
@@ -3537,7 +3544,14 @@
       "nodeCount" : 63,
       "edgeCount" : 86,
       "attributes" : {
-        "name" : "path_sce04070__kinetic"
+        "kegg.pathway" : "sce04070",
+        "label" : "Phosphatidylinositol signaling system",
+        "metaId" : "meta_path_sce04070",
+        "name" : "path_sce04070__kinetic",
+        "sbml id" : "path_sce04070",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {
@@ -5558,8 +5572,14 @@
       "nodeCount" : 67,
       "edgeCount" : 48,
       "attributes" : {
+        "kegg.pathway" : "sce04070",
+        "label" : "Phosphatidylinositol signaling system",
+        "metaId" : "meta_path_sce04070",
         "name" : "path_sce04070__layout_1",
-        "sbmlNetwork" : "sbmlLayout"
+        "sbml id" : "path_sce04070",
+        "sbmlNetwork" : "sbmlLayout",
+        "sbmlVersion" : "L3 V1",
+        "taxonomy" : "559292"
       },
       "nodes" : [
         {

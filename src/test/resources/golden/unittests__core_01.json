@@ -5,7 +5,16 @@
       "nodeCount" : 29,
       "edgeCount" : 34,
       "attributes" : {
-        "name" : "BIOMD0000000001"
+        "biomodels.db" : "BIOMD0000000001",
+        "go" : "GO:0019226",
+        "label" : "Edelstein1996 - EPSP ACh event",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000001",
+        "pubmed" : "8983160",
+        "sbml id" : "BIOMD0000000001",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "7787"
       },
       "nodes" : [
         {
@@ -3822,7 +3831,16 @@
       "nodeCount" : 82,
       "edgeCount" : 148,
       "attributes" : {
-        "name" : "BIOMD0000000001__kinetic"
+        "biomodels.db" : "BIOMD0000000001",
+        "go" : "GO:0019226",
+        "label" : "Edelstein1996 - EPSP ACh event",
+        "metaId" : "_000001",
+        "name" : "BIOMD0000000001__kinetic",
+        "pubmed" : "8983160",
+        "sbml id" : "BIOMD0000000001",
+        "sbmlNetwork" : "sbml",
+        "sbmlVersion" : "L2 V4",
+        "taxonomy" : "7787"
       },
       "nodes" : [
         {

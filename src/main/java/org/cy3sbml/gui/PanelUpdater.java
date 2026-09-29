@@ -27,11 +27,8 @@ public class PanelUpdater implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(PanelUpdater.class);
 
     static final String TEXT_NO_SBML_NODE = "<h2>No information</h2>"
-            + "<p>No SBML object registered for node in ObjectMapper.</p>"
-            + "<p>Some nodes do not have SBase objects associated, e.g. "
-            + "the <code>AND</code> and <code>OR</code> nodes in the FBC package.</p>"
-            + "<p>Other examples are the base units like <code>dimensionless</code> "
-            + "or <code>mole</code> which are not part of the model.</p>";
+            + "<p>The node has no SBML element, for example a base unit like "
+            + "<code>dimensionless</code> or <code>mole</code>, which is not defined in the model.</p>";
 
     private static final String TEXT_LOAD_WEBSERVICE = "<h2>Web Services</h2>"
             + "<p>" + GUIConstants.ICON_SPINNER + "\n"
