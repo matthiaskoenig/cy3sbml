@@ -65,24 +65,30 @@ class NetworkUtilTest {
     }
 
     @Test
-    void getNetworkBySubNetworkPrefixFindsMatchingNetwork() {
+    void getSubnetworkFindsTheNetworkNamedLikeItsRootWithTheSuffix() {
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-        CyNetwork other = rootNetwork.addSubNetwork();
-        AttributeUtil.set(network, network, CyNetwork.NAME, "All__model", String.class);
-        AttributeUtil.set(other, other, CyNetwork.NAME, "Kinetic__model", String.class);
+        CyNetwork kinetic = rootNetwork.addSubNetwork();
+        CyNetwork base = rootNetwork.addSubNetwork();
+        AttributeUtil.set(rootNetwork, rootNetwork, CyNetwork.NAME, "model", String.class);
+        AttributeUtil.set(network, network, CyNetwork.NAME, "model__all", String.class);
+        AttributeUtil.set(kinetic, kinetic, CyNetwork.NAME, "model__kinetic", String.class);
+        AttributeUtil.set(base, base, CyNetwork.NAME, "model", String.class);
+        CyNetwork[] networks = {network, kinetic, base};
 
-        CyNetwork[] networks = {network, other};
-        CyNetwork found = NetworkUtil.getNetworkBySubNetworkPrefix(networks, "Kinetic__");
-
-        assertEquals(other, found);
+        assertEquals(network, NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL));
+        assertEquals(kinetic, NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC));
+        assertEquals(base, NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_BASE));
     }
 
     @Test
-    void getNetworkBySubNetworkPrefixReturnsNullWhenNoMatch() {
-        AttributeUtil.set(network, network, CyNetwork.NAME, "All__model", String.class);
+    void getSubnetworkReturnsNullWhenNoMatch() {
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+        AttributeUtil.set(rootNetwork, rootNetwork, CyNetwork.NAME, "model", String.class);
+        AttributeUtil.set(network, network, CyNetwork.NAME, "model__all", String.class);
         CyNetwork[] networks = {network};
 
-        assertNull(NetworkUtil.getNetworkBySubNetworkPrefix(networks, "Kinetic__"));
+        assertNull(NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_KINETIC));
+        assertNull(NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_BASE));
     }
 
     @Test

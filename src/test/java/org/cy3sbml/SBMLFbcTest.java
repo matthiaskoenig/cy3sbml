@@ -21,7 +21,7 @@ public class SBMLFbcTest {
     @Test
     public void testFbcSpecies() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_FBC);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_BASE);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(376, network.getNodeCount());
         assertEquals(864, network.getEdgeCount());

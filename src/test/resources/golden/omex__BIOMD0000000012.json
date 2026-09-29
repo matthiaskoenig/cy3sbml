@@ -1,7 +1,538 @@
 {
   "networks" : [
     {
-      "name" : "All__BIOMD0000000012",
+      "name" : "BIOMD0000000012",
+      "nodeCount" : 18,
+      "edgeCount" : 18,
+      "attributes" : {
+        "name" : "BIOMD0000000012"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "PX",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "LacI protein",
+          "metaId" : "PX",
+          "name" : "LacI protein",
+          "sbml compartment" : "cell",
+          "sbml id" : "PX",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000252",
+          "shared name" : "LacI protein",
+          "uniprot" : "P03023",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "PY",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "TetR protein",
+          "metaId" : "PY",
+          "name" : "TetR protein",
+          "sbml compartment" : "cell",
+          "sbml id" : "PY",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000252",
+          "shared name" : "TetR protein",
+          "uniprot" : "P04483",
+          "value" : 0.0
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "PZ",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "label" : "cI protein",
+          "metaId" : "PZ",
+          "name" : "cI protein",
+          "sbml compartment" : "cell",
+          "sbml id" : "PZ",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000252",
+          "shared name" : "cI protein",
+          "uniprot" : "P03034",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "_905823",
+          "go" : "GO:0006402",
+          "kineticLaw" : "kd_mRNA*X",
+          "label" : "degradation of LacI transcripts",
+          "metaId" : "_905823",
+          "name" : "degradation of LacI transcripts",
+          "reversible" : false,
+          "sbml id" : "Reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of LacI transcripts"
+        },
+        {
+          "cyId" : "_906002",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006351",
+          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PZ^n)",
+          "label" : "transcription of LacI",
+          "metaId" : "_906002",
+          "name" : "transcription of LacI",
+          "reversible" : false,
+          "sbml id" : "Reaction10",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000183",
+          "shared name" : "transcription of LacI"
+        },
+        {
+          "cyId" : "_906022",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006351",
+          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PX^n)",
+          "label" : "transcription of TetR",
+          "metaId" : "_906022",
+          "name" : "transcription of TetR",
+          "reversible" : false,
+          "sbml id" : "Reaction11",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000183",
+          "shared name" : "transcription of TetR"
+        },
+        {
+          "cyId" : "_906042",
+          "derivedUnits" : "invalid",
+          "go" : "GO:0006351",
+          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PY^n)",
+          "label" : "transcription of CI",
+          "metaId" : "_906042",
+          "name" : "transcription of CI",
+          "reversible" : false,
+          "sbml id" : "Reaction12",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000183",
+          "shared name" : "transcription of CI"
+        },
+        {
+          "cyId" : "_905842",
+          "go" : "GO:0006402",
+          "kineticLaw" : "kd_mRNA*Y",
+          "label" : "degradation of TetR transcripts",
+          "metaId" : "_905842",
+          "name" : "degradation of TetR transcripts",
+          "reversible" : false,
+          "sbml id" : "Reaction2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of TetR transcripts"
+        },
+        {
+          "cyId" : "_905862",
+          "go" : "GO:0006402",
+          "kineticLaw" : "kd_mRNA*Z",
+          "label" : "degradation of CI transcripts",
+          "metaId" : "_905862",
+          "name" : "degradation of CI transcripts",
+          "reversible" : false,
+          "sbml id" : "Reaction3",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of CI transcripts"
+        },
+        {
+          "cyId" : "_905882",
+          "go" : "GO:0006412",
+          "kineticLaw" : "k_tl*X",
+          "label" : "translation of LacI",
+          "metaId" : "_905882",
+          "name" : "translation of LacI",
+          "reversible" : false,
+          "sbml id" : "Reaction4",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000184",
+          "shared name" : "translation of LacI"
+        },
+        {
+          "cyId" : "_905903",
+          "go" : "GO:0006412",
+          "kineticLaw" : "k_tl*Y",
+          "label" : "translation of TetR",
+          "metaId" : "_905903",
+          "name" : "translation of TetR",
+          "reversible" : false,
+          "sbml id" : "Reaction5",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000184",
+          "shared name" : "translation of TetR"
+        },
+        {
+          "cyId" : "_905923",
+          "go" : "GO:0006412",
+          "kineticLaw" : "k_tl*Z",
+          "label" : "translation of CI",
+          "metaId" : "_905923",
+          "name" : "translation of CI",
+          "reversible" : false,
+          "sbml id" : "Reaction6",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000184",
+          "shared name" : "translation of CI"
+        },
+        {
+          "cyId" : "_905943",
+          "go" : "GO:0030163",
+          "kineticLaw" : "kd_prot*PX",
+          "label" : "degradation of LacI",
+          "metaId" : "_905943",
+          "name" : "degradation of LacI",
+          "reversible" : false,
+          "sbml id" : "Reaction7",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of LacI"
+        },
+        {
+          "cyId" : "_905962",
+          "go" : "GO:0030163",
+          "kineticLaw" : "kd_prot*PY",
+          "label" : "degradation of TetR",
+          "metaId" : "_905962",
+          "name" : "degradation of TetR",
+          "reversible" : false,
+          "sbml id" : "Reaction8",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of TetR"
+        },
+        {
+          "cyId" : "_905982",
+          "go" : "GO:0030163",
+          "kineticLaw" : "kd_prot*PZ",
+          "label" : "degradation of CI",
+          "metaId" : "_905982",
+          "name" : "degradation of CI",
+          "reversible" : false,
+          "sbml id" : "Reaction9",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "sbo" : "SBO:0000179",
+          "shared name" : "degradation of CI"
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "_905769",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "kegg.compound" : "C00046",
+          "label" : "LacI mRNA",
+          "metaId" : "_905769",
+          "name" : "LacI mRNA",
+          "sbml compartment" : "cell",
+          "sbml id" : "X",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000250",
+          "shared name" : "LacI mRNA",
+          "uniprot" : "P03023",
+          "value" : 0.0
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "_905781",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "kegg.compound" : "C00046",
+          "label" : "TetR mRNA",
+          "metaId" : "_905781",
+          "name" : "TetR mRNA",
+          "sbml compartment" : "cell",
+          "sbml id" : "Y",
+          "sbml initial amount" : 20.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000250",
+          "shared name" : "TetR mRNA",
+          "uniprot" : "P04483",
+          "value" : 20.0
+        },
+        {
+          "chebi" : "CHEBI:33699",
+          "compartmentCode" : 1,
+          "cyId" : "_905802",
+          "derivedUnits" : "substance",
+          "hasOnlySubstanceUnits" : true,
+          "kegg.compound" : "C00046",
+          "label" : "cI mRNA",
+          "metaId" : "_905802",
+          "name" : "cI mRNA",
+          "sbml compartment" : "cell",
+          "sbml id" : "Z",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "sbo" : "SBO:0000250",
+          "shared name" : "cI mRNA",
+          "uniprot" : "P03034",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "Reaction1",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_420973",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction10",
+          "target" : "PZ",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-inhibitor",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421244",
+            "sbo" : "SBO:0000536",
+            "shared interaction" : "reaction-inhibitor"
+          }
+        },
+        {
+          "source" : "Reaction10",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421232",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction11",
+          "target" : "PX",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-inhibitor",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421280",
+            "sbo" : "SBO:0000536",
+            "shared interaction" : "reaction-inhibitor"
+          }
+        },
+        {
+          "source" : "Reaction11",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421268",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction12",
+          "target" : "PY",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-inhibitor",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421317",
+            "sbo" : "SBO:0000536",
+            "shared interaction" : "reaction-inhibitor"
+          }
+        },
+        {
+          "source" : "Reaction12",
+          "target" : "Z",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421304",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction2",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_420999",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction3",
+          "target" : "Z",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_421025",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "PX",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421051",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction4",
+          "target" : "X",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-activator",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421064",
+            "sbo" : "SBO:0000461",
+            "shared interaction" : "reaction-activator"
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "PY",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421088",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction5",
+          "target" : "Y",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-activator",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421100",
+            "sbo" : "SBO:0000461",
+            "shared interaction" : "reaction-activator"
+          }
+        },
+        {
+          "source" : "Reaction6",
+          "target" : "PZ",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "metaId" : "_421124",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction6",
+          "target" : "Z",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-activator",
+            "interaction type" : "reaction-modifier",
+            "metaId" : "_421136",
+            "sbo" : "SBO:0000461",
+            "shared interaction" : "reaction-activator"
+          }
+        },
+        {
+          "source" : "Reaction7",
+          "target" : "PX",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_421160",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction8",
+          "target" : "PY",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_421184",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Reaction9",
+          "target" : "PZ",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "metaId" : "_421208",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "BIOMD0000000012__all",
       "nodeCount" : 62,
       "edgeCount" : 99,
       "attributes" : {
@@ -10,7 +541,7 @@
         "label" : "Elowitz2000 - Repressilator",
         "mamo" : "MAMO_0000046",
         "metaId" : "_000001",
-        "name" : "All__BIOMD0000000012",
+        "name" : "BIOMD0000000012__all",
         "pubmed" : "10659856",
         "sbml id" : "BIOMD0000000012",
         "sbmlNetwork" : "sbml",
@@ -1809,542 +2340,11 @@
       ]
     },
     {
-      "name" : "BIOMD0000000012",
-      "nodeCount" : 18,
-      "edgeCount" : 18,
-      "attributes" : {
-        "name" : "BIOMD0000000012"
-      },
-      "nodes" : [
-        {
-          "compartmentCode" : 1,
-          "cyId" : "PX",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "LacI protein",
-          "metaId" : "PX",
-          "name" : "LacI protein",
-          "sbml compartment" : "cell",
-          "sbml id" : "PX",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000252",
-          "shared name" : "LacI protein",
-          "uniprot" : "P03023",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "PY",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "TetR protein",
-          "metaId" : "PY",
-          "name" : "TetR protein",
-          "sbml compartment" : "cell",
-          "sbml id" : "PY",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000252",
-          "shared name" : "TetR protein",
-          "uniprot" : "P04483",
-          "value" : 0.0
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "PZ",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "label" : "cI protein",
-          "metaId" : "PZ",
-          "name" : "cI protein",
-          "sbml compartment" : "cell",
-          "sbml id" : "PZ",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000252",
-          "shared name" : "cI protein",
-          "uniprot" : "P03034",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "_905823",
-          "go" : "GO:0006402",
-          "kineticLaw" : "kd_mRNA*X",
-          "label" : "degradation of LacI transcripts",
-          "metaId" : "_905823",
-          "name" : "degradation of LacI transcripts",
-          "reversible" : false,
-          "sbml id" : "Reaction1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of LacI transcripts"
-        },
-        {
-          "cyId" : "_906002",
-          "derivedUnits" : "invalid",
-          "go" : "GO:0006351",
-          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PZ^n)",
-          "label" : "transcription of LacI",
-          "metaId" : "_906002",
-          "name" : "transcription of LacI",
-          "reversible" : false,
-          "sbml id" : "Reaction10",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000183",
-          "shared name" : "transcription of LacI"
-        },
-        {
-          "cyId" : "_906022",
-          "derivedUnits" : "invalid",
-          "go" : "GO:0006351",
-          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PX^n)",
-          "label" : "transcription of TetR",
-          "metaId" : "_906022",
-          "name" : "transcription of TetR",
-          "reversible" : false,
-          "sbml id" : "Reaction11",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000183",
-          "shared name" : "transcription of TetR"
-        },
-        {
-          "cyId" : "_906042",
-          "derivedUnits" : "invalid",
-          "go" : "GO:0006351",
-          "kineticLaw" : "a0_tr+a_tr*KM^n/(KM^n+PY^n)",
-          "label" : "transcription of CI",
-          "metaId" : "_906042",
-          "name" : "transcription of CI",
-          "reversible" : false,
-          "sbml id" : "Reaction12",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000183",
-          "shared name" : "transcription of CI"
-        },
-        {
-          "cyId" : "_905842",
-          "go" : "GO:0006402",
-          "kineticLaw" : "kd_mRNA*Y",
-          "label" : "degradation of TetR transcripts",
-          "metaId" : "_905842",
-          "name" : "degradation of TetR transcripts",
-          "reversible" : false,
-          "sbml id" : "Reaction2",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of TetR transcripts"
-        },
-        {
-          "cyId" : "_905862",
-          "go" : "GO:0006402",
-          "kineticLaw" : "kd_mRNA*Z",
-          "label" : "degradation of CI transcripts",
-          "metaId" : "_905862",
-          "name" : "degradation of CI transcripts",
-          "reversible" : false,
-          "sbml id" : "Reaction3",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of CI transcripts"
-        },
-        {
-          "cyId" : "_905882",
-          "go" : "GO:0006412",
-          "kineticLaw" : "k_tl*X",
-          "label" : "translation of LacI",
-          "metaId" : "_905882",
-          "name" : "translation of LacI",
-          "reversible" : false,
-          "sbml id" : "Reaction4",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000184",
-          "shared name" : "translation of LacI"
-        },
-        {
-          "cyId" : "_905903",
-          "go" : "GO:0006412",
-          "kineticLaw" : "k_tl*Y",
-          "label" : "translation of TetR",
-          "metaId" : "_905903",
-          "name" : "translation of TetR",
-          "reversible" : false,
-          "sbml id" : "Reaction5",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000184",
-          "shared name" : "translation of TetR"
-        },
-        {
-          "cyId" : "_905923",
-          "go" : "GO:0006412",
-          "kineticLaw" : "k_tl*Z",
-          "label" : "translation of CI",
-          "metaId" : "_905923",
-          "name" : "translation of CI",
-          "reversible" : false,
-          "sbml id" : "Reaction6",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000184",
-          "shared name" : "translation of CI"
-        },
-        {
-          "cyId" : "_905943",
-          "go" : "GO:0030163",
-          "kineticLaw" : "kd_prot*PX",
-          "label" : "degradation of LacI",
-          "metaId" : "_905943",
-          "name" : "degradation of LacI",
-          "reversible" : false,
-          "sbml id" : "Reaction7",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of LacI"
-        },
-        {
-          "cyId" : "_905962",
-          "go" : "GO:0030163",
-          "kineticLaw" : "kd_prot*PY",
-          "label" : "degradation of TetR",
-          "metaId" : "_905962",
-          "name" : "degradation of TetR",
-          "reversible" : false,
-          "sbml id" : "Reaction8",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of TetR"
-        },
-        {
-          "cyId" : "_905982",
-          "go" : "GO:0030163",
-          "kineticLaw" : "kd_prot*PZ",
-          "label" : "degradation of CI",
-          "metaId" : "_905982",
-          "name" : "degradation of CI",
-          "reversible" : false,
-          "sbml id" : "Reaction9",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "sbo" : "SBO:0000179",
-          "shared name" : "degradation of CI"
-        },
-        {
-          "chebi" : "CHEBI:33699",
-          "compartmentCode" : 1,
-          "cyId" : "_905769",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "kegg.compound" : "C00046",
-          "label" : "LacI mRNA",
-          "metaId" : "_905769",
-          "name" : "LacI mRNA",
-          "sbml compartment" : "cell",
-          "sbml id" : "X",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000250",
-          "shared name" : "LacI mRNA",
-          "uniprot" : "P03023",
-          "value" : 0.0
-        },
-        {
-          "chebi" : "CHEBI:33699",
-          "compartmentCode" : 1,
-          "cyId" : "_905781",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "kegg.compound" : "C00046",
-          "label" : "TetR mRNA",
-          "metaId" : "_905781",
-          "name" : "TetR mRNA",
-          "sbml compartment" : "cell",
-          "sbml id" : "Y",
-          "sbml initial amount" : 20.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000250",
-          "shared name" : "TetR mRNA",
-          "uniprot" : "P04483",
-          "value" : 20.0
-        },
-        {
-          "chebi" : "CHEBI:33699",
-          "compartmentCode" : 1,
-          "cyId" : "_905802",
-          "derivedUnits" : "substance",
-          "hasOnlySubstanceUnits" : true,
-          "kegg.compound" : "C00046",
-          "label" : "cI mRNA",
-          "metaId" : "_905802",
-          "name" : "cI mRNA",
-          "sbml compartment" : "cell",
-          "sbml id" : "Z",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "sbo" : "SBO:0000250",
-          "shared name" : "cI mRNA",
-          "uniprot" : "P03034",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "Reaction1",
-          "target" : "X",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_420973",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction10",
-          "target" : "PZ",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-inhibitor",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421244",
-            "sbo" : "SBO:0000536",
-            "shared interaction" : "reaction-inhibitor"
-          }
-        },
-        {
-          "source" : "Reaction10",
-          "target" : "X",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421232",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction11",
-          "target" : "PX",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-inhibitor",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421280",
-            "sbo" : "SBO:0000536",
-            "shared interaction" : "reaction-inhibitor"
-          }
-        },
-        {
-          "source" : "Reaction11",
-          "target" : "Y",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421268",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction12",
-          "target" : "PY",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-inhibitor",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421317",
-            "sbo" : "SBO:0000536",
-            "shared interaction" : "reaction-inhibitor"
-          }
-        },
-        {
-          "source" : "Reaction12",
-          "target" : "Z",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421304",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction2",
-          "target" : "Y",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_420999",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction3",
-          "target" : "Z",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_421025",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction4",
-          "target" : "PX",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421051",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction4",
-          "target" : "X",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-activator",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421064",
-            "sbo" : "SBO:0000461",
-            "shared interaction" : "reaction-activator"
-          }
-        },
-        {
-          "source" : "Reaction5",
-          "target" : "PY",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421088",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction5",
-          "target" : "Y",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-activator",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421100",
-            "sbo" : "SBO:0000461",
-            "shared interaction" : "reaction-activator"
-          }
-        },
-        {
-          "source" : "Reaction6",
-          "target" : "PZ",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "metaId" : "_421124",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction6",
-          "target" : "Z",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-activator",
-            "interaction type" : "reaction-modifier",
-            "metaId" : "_421136",
-            "sbo" : "SBO:0000461",
-            "shared interaction" : "reaction-activator"
-          }
-        },
-        {
-          "source" : "Reaction7",
-          "target" : "PX",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_421160",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction8",
-          "target" : "PY",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_421184",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Reaction9",
-          "target" : "PZ",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "metaId" : "_421208",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        }
-      ]
-    },
-    {
-      "name" : "Kinetic__BIOMD0000000012",
+      "name" : "BIOMD0000000012__kinetic",
       "nodeCount" : 56,
       "edgeCount" : 96,
       "attributes" : {
-        "name" : "Kinetic__BIOMD0000000012"
+        "name" : "BIOMD0000000012__kinetic"
       },
       "nodes" : [
         {

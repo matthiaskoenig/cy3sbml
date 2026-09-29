@@ -1,13 +1,99 @@
 {
   "networks" : [
     {
-      "name" : "All__case00072",
+      "name" : "case00072",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "case00072"
+      },
+      "nodes" : [
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "reaction1",
+          "kineticLaw" : "compartment*k1*S1",
+          "label" : "reaction1",
+          "metaId" : "reaction1",
+          "name" : "reaction1",
+          "reversible" : false,
+          "sbml id" : "reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "reaction1"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "reaction1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "case00072__all",
       "nodeCount" : 16,
       "edgeCount" : 20,
       "attributes" : {
         "label" : "case00072",
         "metaId" : "_case00072",
-        "name" : "All__case00072",
+        "name" : "case00072__all",
         "sbml id" : "case00072",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V2",
@@ -412,11 +498,11 @@
       ]
     },
     {
-      "name" : "Kinetic__case00072",
+      "name" : "case00072__kinetic",
       "nodeCount" : 6,
       "edgeCount" : 8,
       "attributes" : {
-        "name" : "Kinetic__case00072"
+        "name" : "case00072__kinetic"
       },
       "nodes" : [
         {
@@ -596,92 +682,6 @@
             "interaction" : "reaction_kineticLaw",
             "interaction type" : "reaction_kineticLaw",
             "shared interaction" : "reaction_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "case00072",
-      "nodeCount" : 3,
-      "edgeCount" : 2,
-      "attributes" : {
-        "name" : "case00072"
-      },
-      "nodes" : [
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S1",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S1",
-          "metaId" : "S1",
-          "name" : "S1",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S1",
-          "sbml initial amount" : 1.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S1",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 1.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S2",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S2",
-          "metaId" : "S2",
-          "name" : "S2",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S2",
-          "sbml initial amount" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S2",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "reaction1",
-          "kineticLaw" : "compartment*k1*S1",
-          "label" : "reaction1",
-          "metaId" : "reaction1",
-          "name" : "reaction1",
-          "reversible" : false,
-          "sbml id" : "reaction1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "reaction1"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "reaction1",
-          "target" : "S1",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "reaction1",
-          "target" : "S2",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

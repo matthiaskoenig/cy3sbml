@@ -34,29 +34,28 @@ final class SubnetworkBuilder {
      * @param network     network with all nodes and edges of the model
      * @param groups      creates the groups of the model in a subnetwork
      * @param prefix      prefix of the names, e.g. {@link SBML#PREFIX_NETWORK_FLAT}, or null
-     * @return the networks in the order all, kinetic, base
+     * @return the networks in the order base, kinetic, all; Cytoscape makes the first
+     *     network of an import the current network
      */
     List<CyNetwork> build(CyRootNetwork rootNetwork, CyNetwork network, Consumer<CyNetwork> groups, String prefix) {
         String name = prefix == null ? getNetworkName(network) : prefix + "__" + getNetworkName(network);
-        rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
+        rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, name);
 
         // all network
-        network.getRow(network).set(CyNetwork.NAME, String.format("%s__%s", SBML.PREFIX_SUBNETWORK_ALL, name));
+        network.getRow(network).set(CyNetwork.NAME, name + SBML.SUFFIX_SUBNETWORK_ALL);
 
         // Kinetic network
         CyNetwork kineticNetwork = addSubNetwork(rootNetwork, network, SBML.kineticNodeTypes, SBML.kineticEdgeTypes);
-        kineticNetwork
-                .getRow(kineticNetwork)
-                .set(CyNetwork.NAME, String.format("%s__%s", SBML.PREFIX_SUBNETWORK_KINETIC, name));
+        kineticNetwork.getRow(kineticNetwork).set(CyNetwork.NAME, name + SBML.SUFFIX_SUBNETWORK_KINETIC);
 
         // base network
         CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
-        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, name);
+        baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, name + SBML.SUFFIX_SUBNETWORK_BASE);
 
         // every network has its own groups (#171)
         groups.accept(baseNetwork);
         groups.accept(kineticNetwork);
-        return List.of(network, kineticNetwork, baseNetwork);
+        return List.of(baseNetwork, kineticNetwork, network);
     }
 
     /**

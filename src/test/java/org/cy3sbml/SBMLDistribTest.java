@@ -18,7 +18,7 @@ class SBMLDistribTest {
     @Test
     void importWritesTheUncertainties() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_DISTRIB);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(network);
 
         CyNode node = TestUtils.findNodeById("C", network);
@@ -31,7 +31,7 @@ class SBMLDistribTest {
     void flatModelHasTheRenamedUncertainties() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork("/models/distrib/distrib_comp.xml");
         CyNetwork flat = Arrays.stream(networks)
-                .filter(n -> "All__Flat__distrib_comp".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .filter(n -> "Flat__distrib_comp__all".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
                 .findFirst()
                 .orElseThrow();
 

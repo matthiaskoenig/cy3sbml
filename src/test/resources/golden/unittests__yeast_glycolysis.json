@@ -1,13 +1,1432 @@
 {
   "networks" : [
     {
-      "name" : "All__Yeast_glycolysis_model_of_Pritchard_and_Kell",
+      "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
+      "nodeCount" : 44,
+      "edgeCount" : 63,
+      "attributes" : {
+        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell"
+      },
+      "nodes" : [
+        {
+          "cyId" : "ADH",
+          "kineticLaw" : "compartment*ADH_Vmax*(EtOH*NAD/(ADH_Ketoh*ADH_Kinad)-AcAld*NADH/(ADH_Ketoh*ADH_Kinad*ADH_Keq))/(1+NAD/ADH_Kinad+EtOH*ADH_Knad/(ADH_Kinad*ADH_Ketoh)+AcAld*ADH_Knadh/(ADH_Kinadh*ADH_Kacald)+NADH/ADH_Kinadh+EtOH*NAD/(ADH_Kinad*ADH_Ketoh)+NAD*AcAld*ADH_Knadh/(ADH_Kinad*ADH_Kinadh*ADH_Kacald)+EtOH*NADH*ADH_Knad/(ADH_Kinad*ADH_Kinadh*ADH_Ketoh)+AcAld*NADH/(ADH_Kacald*ADH_Kinadh)+EtOH*NAD*AcAld/(ADH_Kinad*ADH_Kiacald*ADH_Ketoh)+EtOH*AcAld*NADH/(ADH_Kietoh*ADH_Kinadh*ADH_Kacald))",
+          "label" : "ADH",
+          "metaId" : "ADH",
+          "name" : "ADH",
+          "reversible" : true,
+          "sbml id" : "ADH",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "ADH"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "ADP",
+          "derivedUnits" : "substance",
+          "label" : "ADP",
+          "metaId" : "ADP",
+          "name" : "ADP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "ADP",
+          "sbml initial concentration" : 1.28198768169,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "ADP",
+          "value" : 1.28198768169
+        },
+        {
+          "cyId" : "AK",
+          "kineticLaw" : "compartment*(AK_k1*ADP^2-AK_k2*ATP*AMP)",
+          "label" : "AK",
+          "metaId" : "AK",
+          "name" : "AK",
+          "reversible" : true,
+          "sbml id" : "AK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "AK"
+        },
+        {
+          "cyId" : "ALD",
+          "kineticLaw" : "compartment*ALD_Vmax*(F16bP/ALD_Kf16bp-DHAP*GAP/(ALD_Kf16bp*ALD_Keq))/(1+F16bP/ALD_Kf16bp+DHAP/ALD_Kdhap+GAP/ALD_Kgap+F16bP*GAP/(ALD_Kf16bp*ALD_Kigap)+DHAP*GAP/(ALD_Kdhap*ALD_Kgap))",
+          "label" : "ALD",
+          "metaId" : "ALD",
+          "name" : "ALD",
+          "reversible" : true,
+          "sbml id" : "ALD",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "ALD"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "AMP",
+          "derivedUnits" : "substance",
+          "label" : "AMP",
+          "metaId" : "AMP",
+          "name" : "AMP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "AMP",
+          "sbml initial concentration" : 0.29288485332,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "AMP",
+          "value" : 0.29288485332
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "ATP",
+          "derivedUnits" : "substance",
+          "label" : "ATP",
+          "metaId" : "ATP",
+          "name" : "ATP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "ATP",
+          "sbml initial concentration" : 2.52512746499,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "ATP",
+          "value" : 2.52512746499
+        },
+        {
+          "cyId" : "ATPase",
+          "kineticLaw" : "compartment*ATPase_Katpase*ATP",
+          "label" : "ATPase",
+          "metaId" : "ATPase",
+          "name" : "ATPase",
+          "reversible" : false,
+          "sbml id" : "ATPase",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "ATPase"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "AcAld",
+          "derivedUnits" : "substance",
+          "label" : "AcAld",
+          "metaId" : "AcAld",
+          "name" : "AcAld",
+          "sbml compartment" : "compartment",
+          "sbml id" : "AcAld",
+          "sbml initial concentration" : 0.178140579851,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "AcAld",
+          "value" : 0.178140579851
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "BPG",
+          "derivedUnits" : "substance",
+          "label" : "BPG",
+          "metaId" : "BPG",
+          "name" : "BPG",
+          "sbml compartment" : "compartment",
+          "sbml id" : "BPG",
+          "sbml initial concentration" : 7.36873499866E-4,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "BPG",
+          "value" : 7.36873499866E-4
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "CO2",
+          "derivedUnits" : "substance",
+          "label" : "CO2",
+          "metaId" : "CO2",
+          "name" : "CO2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "CO2",
+          "sbml initial concentration" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "CO2",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "DHAP",
+          "derivedUnits" : "substance",
+          "label" : "DHAP",
+          "metaId" : "DHAP",
+          "name" : "DHAP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "DHAP",
+          "sbml initial concentration" : 1.004152549,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "DHAP",
+          "value" : 1.004152549
+        },
+        {
+          "cyId" : "ENO",
+          "kineticLaw" : "compartment*ENO_Vmax*(P2G/ENO_Kp2g-PEP/(ENO_Kp2g*ENO_Keq))/(1+P2G/ENO_Kp2g+PEP/ENO_Kpep)",
+          "label" : "ENO",
+          "metaId" : "ENO",
+          "name" : "ENO",
+          "reversible" : true,
+          "sbml id" : "ENO",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "ENO"
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "EtOH",
+          "derivedUnits" : "substance",
+          "label" : "EtOH",
+          "metaId" : "EtOH",
+          "name" : "EtOH",
+          "sbml compartment" : "compartment",
+          "sbml id" : "EtOH",
+          "sbml initial concentration" : 50.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "EtOH",
+          "value" : 50.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "F16bP",
+          "derivedUnits" : "substance",
+          "label" : "F16bP",
+          "metaId" : "F16bP",
+          "name" : "F16bP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "F16bP",
+          "sbml initial concentration" : 6.22132076069,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F16bP",
+          "value" : 6.22132076069
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "F26bP",
+          "derivedUnits" : "substance",
+          "label" : "F26bP",
+          "metaId" : "F26bP",
+          "name" : "F26bP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "F26bP",
+          "sbml initial concentration" : 0.02,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F26bP",
+          "value" : 0.02
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "F6P",
+          "derivedUnits" : "substance",
+          "label" : "F6P",
+          "metaId" : "F6P",
+          "name" : "F6P",
+          "sbml compartment" : "compartment",
+          "sbml id" : "F6P",
+          "sbml initial concentration" : 0.624976405532,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "F6P",
+          "value" : 0.624976405532
+        },
+        {
+          "cyId" : "G3PDH",
+          "kineticLaw" : "compartment*G3PDH_Vmax*(DHAP/G3PDH_Kdhap*NADH/G3PDH_Knadh-Glycerol/G3PDH_Kdhap*NAD/G3PDH_Knadh*1/G3PDH_Keq)/((1+DHAP/G3PDH_Kdhap+Glycerol/G3PDH_Kglycerol)*(1+NADH/G3PDH_Knadh+NAD/G3PDH_Knad))",
+          "label" : "G3PDH",
+          "metaId" : "G3PDH",
+          "name" : "G3PDH",
+          "reversible" : false,
+          "sbml id" : "G3PDH",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "G3PDH"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "G6P",
+          "derivedUnits" : "substance",
+          "label" : "G6P",
+          "metaId" : "G6P",
+          "name" : "G6P",
+          "sbml compartment" : "compartment",
+          "sbml id" : "G6P",
+          "sbml initial concentration" : 2.67504014045,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "G6P",
+          "value" : 2.67504014045
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "GAP",
+          "derivedUnits" : "substance",
+          "label" : "GAP",
+          "metaId" : "GAP",
+          "name" : "GAP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "GAP",
+          "sbml initial concentration" : 0.0451809175781,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "GAP",
+          "value" : 0.0451809175781
+        },
+        {
+          "cyId" : "GAPDH",
+          "kineticLaw" : "compartment*GAPDH_C*(GAPDH_Vmaxf*GAP*NAD/(GAPDH_Kgap*GAPDH_Knad)-GAPDH_Vmaxr*BPG*NADH/(GAPDH_Kbpg*GAPDH_Knadh))/((1+GAP/GAPDH_Kgap+BPG/GAPDH_Kbpg)*(1+NAD/GAPDH_Knad+NADH/GAPDH_Knadh))",
+          "label" : "GAPDH",
+          "metaId" : "GAPDH",
+          "name" : "GAPDH",
+          "reversible" : true,
+          "sbml id" : "GAPDH",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "GAPDH"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "GLCi",
+          "derivedUnits" : "substance",
+          "label" : "GLCi",
+          "metaId" : "GLCi",
+          "name" : "GLCi",
+          "sbml compartment" : "compartment",
+          "sbml id" : "GLCi",
+          "sbml initial concentration" : 0.0976522310646,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "GLCi",
+          "value" : 0.0976522310646
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "GLCo",
+          "derivedUnits" : "substance",
+          "label" : "GLCo",
+          "metaId" : "GLCo",
+          "name" : "GLCo",
+          "sbml compartment" : "compartment",
+          "sbml id" : "GLCo",
+          "sbml initial concentration" : 2.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "GLCo",
+          "value" : 2.0
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "Glycerol",
+          "derivedUnits" : "substance",
+          "label" : "Glycerol",
+          "metaId" : "Glycerol",
+          "name" : "Glycerol",
+          "sbml compartment" : "compartment",
+          "sbml id" : "Glycerol",
+          "sbml initial concentration" : 0.15,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Glycerol",
+          "value" : 0.15
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "Glycogen",
+          "derivedUnits" : "substance",
+          "label" : "Glycogen",
+          "metaId" : "Glycogen",
+          "name" : "Glycogen",
+          "sbml compartment" : "compartment",
+          "sbml id" : "Glycogen",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Glycogen",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "Glycogen_Branch",
+          "kineticLaw" : "compartment*Glycogen_Branch_KGLYCOGEN",
+          "label" : "Glycogen Branch",
+          "metaId" : "Glycogen_Branch",
+          "name" : "Glycogen Branch",
+          "reversible" : false,
+          "sbml id" : "Glycogen_Branch",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "Glycogen Branch"
+        },
+        {
+          "cyId" : "HK",
+          "kineticLaw" : "compartment*HK_Vmax*(GLCi*ATP/(HK_Kglc*HK_Katp)-G6P*ADP/(HK_Kglc*HK_Katp*HK_Keq))/((1+GLCi/HK_Kglc+G6P/HK_Kg6p)*(1+ATP/HK_Katp+ADP/HK_Kadp))",
+          "label" : "HK",
+          "metaId" : "HK",
+          "name" : "HK",
+          "reversible" : true,
+          "sbml id" : "HK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "HK"
+        },
+        {
+          "cyId" : "HXT",
+          "kineticLaw" : "compartment*HXT_Vmax*(GLCo-GLCi)/HXT_Kglc/(1+(GLCo+GLCi)/HXT_Kglc+HXT_Ki*GLCo*GLCi/HXT_Kglc^2)",
+          "label" : "HXT",
+          "metaId" : "HXT",
+          "name" : "HXT",
+          "reversible" : true,
+          "sbml id" : "HXT",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "HXT"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "NAD",
+          "derivedUnits" : "substance",
+          "label" : "NAD",
+          "metaId" : "NAD",
+          "name" : "NAD",
+          "sbml compartment" : "compartment",
+          "sbml id" : "NAD",
+          "sbml initial concentration" : 1.50329030202,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "NAD",
+          "value" : 1.50329030202
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "NADH",
+          "derivedUnits" : "substance",
+          "label" : "NADH",
+          "metaId" : "NADH",
+          "name" : "NADH",
+          "sbml compartment" : "compartment",
+          "sbml id" : "NADH",
+          "sbml initial concentration" : 0.0867096979847,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "NADH",
+          "value" : 0.0867096979847
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "P2G",
+          "derivedUnits" : "substance",
+          "label" : "P2G",
+          "metaId" : "P2G",
+          "name" : "P2G",
+          "sbml compartment" : "compartment",
+          "sbml id" : "P2G",
+          "sbml initial concentration" : 0.127695817387,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P2G",
+          "value" : 0.127695817387
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "P3G",
+          "derivedUnits" : "substance",
+          "label" : "P3G",
+          "metaId" : "P3G",
+          "name" : "P3G",
+          "sbml compartment" : "compartment",
+          "sbml id" : "P3G",
+          "sbml initial concentration" : 0.885688538361,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "P3G",
+          "value" : 0.885688538361
+        },
+        {
+          "cyId" : "PDC",
+          "kineticLaw" : "compartment*PDC_Vmax*(PYR/PDC_Kpyr)^PDC_nH/(1+(PYR/PDC_Kpyr)^PDC_nH)",
+          "label" : "PDC",
+          "metaId" : "PDC",
+          "name" : "PDC",
+          "reversible" : false,
+          "sbml id" : "PDC",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "PDC"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "PEP",
+          "derivedUnits" : "substance",
+          "label" : "PEP",
+          "metaId" : "PEP",
+          "name" : "PEP",
+          "sbml compartment" : "compartment",
+          "sbml id" : "PEP",
+          "sbml initial concentration" : 0.0632352144937,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "PEP",
+          "value" : 0.0632352144937
+        },
+        {
+          "cyId" : "PFK",
+          "kineticLaw" : "compartment*PFK_Vmax*PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp*(1+F6P/PFK_Kf6p+ATP/PFK_Katp+PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp)/((1+F6P/PFK_Kf6p+ATP/PFK_Katp+PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp)^2+PFK_L0*((1+PFK_Ciatp*ATP/PFK_Kiatp)/(1+ATP/PFK_Kiatp))^2*((1+PFK_Camp*AMP/PFK_Kamp)/(1+AMP/PFK_Kamp))^2*((1+PFK_Cf26*F26bP/PFK_Kf26+PFK_Cf16*F16bP/PFK_Kf16)/(1+F26bP/PFK_Kf26+F16bP/PFK_Kf16))^2*(1+PFK_Catp*ATP/PFK_Katp)^2)",
+          "label" : "PFK",
+          "metaId" : "PFK",
+          "name" : "PFK",
+          "reversible" : false,
+          "sbml id" : "PFK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "PFK"
+        },
+        {
+          "cyId" : "PGI",
+          "kineticLaw" : "compartment*PGI_Vmax*(G6P/PGI_Kg6p-F6P/(PGI_Kg6p*PGI_Keq))/(1+G6P/PGI_Kg6p+F6P/PGI_Kf6p)",
+          "label" : "PGI",
+          "metaId" : "PGI",
+          "name" : "PGI",
+          "reversible" : true,
+          "sbml id" : "PGI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "PGI"
+        },
+        {
+          "cyId" : "PGK",
+          "kineticLaw" : "compartment*PGK_Vmax*(PGK_Keq*BPG*ADP-P3G*ATP)/(PGK_Kp3g*PGK_Katp)/((1+BPG/PGK_Kbpg+P3G/PGK_Kp3g)*(1+ADP/PGK_Kadp+ATP/PGK_Katp))",
+          "label" : "PGK",
+          "metaId" : "PGK",
+          "name" : "PGK",
+          "reversible" : true,
+          "sbml id" : "PGK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "PGK"
+        },
+        {
+          "cyId" : "PGM",
+          "kineticLaw" : "compartment*PGM_Vmax*(P3G/PGM_Kp3g-P2G/(PGM_Kp3g*PGM_Keq))/(1+P3G/PGM_Kp3g+P2G/PGM_Kp2g)",
+          "label" : "PGM",
+          "metaId" : "PGM",
+          "name" : "PGM",
+          "reversible" : true,
+          "sbml id" : "PGM",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "PGM"
+        },
+        {
+          "cyId" : "PYK",
+          "kineticLaw" : "compartment*PYK_Vmax*(PEP*ADP/(PYK_Kpep*PYK_Kadp)-PYR*ATP/(PYK_Kpep*PYK_Kadp*PYK_Keq))/((1+PEP/PYK_Kpep+PYR/PYK_Kpyr)*(1+ADP/PYK_Kadp+ATP/PYK_Katp))",
+          "label" : "PYK",
+          "metaId" : "PYK",
+          "name" : "PYK",
+          "reversible" : true,
+          "sbml id" : "PYK",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "PYK"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "PYR",
+          "derivedUnits" : "substance",
+          "label" : "PYR",
+          "metaId" : "PYR",
+          "name" : "PYR",
+          "sbml compartment" : "compartment",
+          "sbml id" : "PYR",
+          "sbml initial concentration" : 1.81531251193,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "PYR",
+          "value" : 1.81531251193
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "Succinate",
+          "derivedUnits" : "substance",
+          "label" : "Succinate",
+          "metaId" : "Succinate",
+          "name" : "Succinate",
+          "sbml compartment" : "compartment",
+          "sbml id" : "Succinate",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Succinate",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "Succinate_Branch",
+          "kineticLaw" : "compartment*Succinate_Branch_k*AcAld",
+          "label" : "Succinate Branch",
+          "metaId" : "Succinate_Branch",
+          "name" : "Succinate Branch",
+          "reversible" : false,
+          "sbml id" : "Succinate_Branch",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "Succinate Branch"
+        },
+        {
+          "cyId" : "TPI",
+          "kineticLaw" : "compartment*(TPI_k1*DHAP-TPI_k2*GAP)",
+          "label" : "TPI",
+          "metaId" : "TPI",
+          "name" : "TPI",
+          "reversible" : true,
+          "sbml id" : "TPI",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction reversible",
+          "shared name" : "TPI"
+        },
+        {
+          "boundaryCondition" : true,
+          "compartmentCode" : 1,
+          "constant" : true,
+          "cyId" : "Trehalose",
+          "derivedUnits" : "substance",
+          "label" : "Trehalose",
+          "metaId" : "Trehalose",
+          "name" : "Trehalose",
+          "sbml compartment" : "compartment",
+          "sbml id" : "Trehalose",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "Trehalose",
+          "value" : 0.0
+        },
+        {
+          "cyId" : "Trehalose_Branch",
+          "kineticLaw" : "compartment*Trehalose_Branch_Ktrehalose",
+          "label" : "Trehalose Branch",
+          "metaId" : "Trehalose_Branch",
+          "name" : "Trehalose Branch",
+          "reversible" : false,
+          "sbml id" : "Trehalose_Branch",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "Trehalose Branch"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "ADH",
+          "target" : "AcAld",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ADH",
+          "target" : "EtOH",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ADH",
+          "target" : "NAD",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ADH",
+          "target" : "NADH",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "AK",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "AK",
+          "target" : "AMP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "AK",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ALD",
+          "target" : "DHAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ALD",
+          "target" : "F16bP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ALD",
+          "target" : "GAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ATPase",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ATPase",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ENO",
+          "target" : "P2G",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "ENO",
+          "target" : "PEP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "G3PDH",
+          "target" : "DHAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "G3PDH",
+          "target" : "Glycerol",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "G3PDH",
+          "target" : "NAD",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "G3PDH",
+          "target" : "NADH",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GAPDH",
+          "target" : "BPG",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GAPDH",
+          "target" : "GAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GAPDH",
+          "target" : "NAD",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "GAPDH",
+          "target" : "NADH",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Glycogen_Branch",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Glycogen_Branch",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Glycogen_Branch",
+          "target" : "G6P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Glycogen_Branch",
+          "target" : "Glycogen",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HK",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HK",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HK",
+          "target" : "G6P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HK",
+          "target" : "GLCi",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HXT",
+          "target" : "GLCi",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "HXT",
+          "target" : "GLCo",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PDC",
+          "target" : "AcAld",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PDC",
+          "target" : "CO2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PDC",
+          "target" : "PYR",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "AMP",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "F16bP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "F26bP",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        },
+        {
+          "source" : "PFK",
+          "target" : "F6P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGI",
+          "target" : "F6P",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGI",
+          "target" : "G6P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGK",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGK",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGK",
+          "target" : "BPG",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGK",
+          "target" : "P3G",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGM",
+          "target" : "P2G",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PGM",
+          "target" : "P3G",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PYK",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PYK",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PYK",
+          "target" : "PEP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "PYK",
+          "target" : "PYR",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Succinate_Branch",
+          "target" : "AcAld",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Succinate_Branch",
+          "target" : "NAD",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 3.0
+          }
+        },
+        {
+          "source" : "Succinate_Branch",
+          "target" : "NADH",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 3.0
+          }
+        },
+        {
+          "source" : "Succinate_Branch",
+          "target" : "Succinate",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TPI",
+          "target" : "DHAP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "TPI",
+          "target" : "GAP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Trehalose_Branch",
+          "target" : "ADP",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Trehalose_Branch",
+          "target" : "ATP",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "Trehalose_Branch",
+          "target" : "G6P",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 2.0
+          }
+        },
+        {
+          "source" : "Trehalose_Branch",
+          "target" : "Trehalose",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__all",
       "nodeCount" : 174,
       "edgeCount" : 351,
       "attributes" : {
         "label" : "Yeast glycolysis model of Pritchard and Kell",
         "metaId" : "COPASI0",
-        "name" : "All__Yeast_glycolysis_model_of_Pritchard_and_Kell",
+        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__all",
         "sbml id" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L2 V4",
@@ -5718,11 +7137,11 @@
       ]
     },
     {
-      "name" : "Kinetic__Yeast_glycolysis_model_of_Pritchard_and_Kell",
+      "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__kinetic",
       "nodeCount" : 168,
       "edgeCount" : 348,
       "attributes" : {
-        "name" : "Kinetic__Yeast_glycolysis_model_of_Pritchard_and_Kell"
+        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell__kinetic"
       },
       "nodes" : [
         {
@@ -11679,1425 +13098,6 @@
             "interaction" : "reference_kineticLaw",
             "interaction type" : "reference_kineticLaw",
             "shared interaction" : "reference_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell",
-      "nodeCount" : 44,
-      "edgeCount" : 63,
-      "attributes" : {
-        "name" : "Yeast_glycolysis_model_of_Pritchard_and_Kell"
-      },
-      "nodes" : [
-        {
-          "cyId" : "ADH",
-          "kineticLaw" : "compartment*ADH_Vmax*(EtOH*NAD/(ADH_Ketoh*ADH_Kinad)-AcAld*NADH/(ADH_Ketoh*ADH_Kinad*ADH_Keq))/(1+NAD/ADH_Kinad+EtOH*ADH_Knad/(ADH_Kinad*ADH_Ketoh)+AcAld*ADH_Knadh/(ADH_Kinadh*ADH_Kacald)+NADH/ADH_Kinadh+EtOH*NAD/(ADH_Kinad*ADH_Ketoh)+NAD*AcAld*ADH_Knadh/(ADH_Kinad*ADH_Kinadh*ADH_Kacald)+EtOH*NADH*ADH_Knad/(ADH_Kinad*ADH_Kinadh*ADH_Ketoh)+AcAld*NADH/(ADH_Kacald*ADH_Kinadh)+EtOH*NAD*AcAld/(ADH_Kinad*ADH_Kiacald*ADH_Ketoh)+EtOH*AcAld*NADH/(ADH_Kietoh*ADH_Kinadh*ADH_Kacald))",
-          "label" : "ADH",
-          "metaId" : "ADH",
-          "name" : "ADH",
-          "reversible" : true,
-          "sbml id" : "ADH",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "ADH"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "ADP",
-          "derivedUnits" : "substance",
-          "label" : "ADP",
-          "metaId" : "ADP",
-          "name" : "ADP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "ADP",
-          "sbml initial concentration" : 1.28198768169,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "ADP",
-          "value" : 1.28198768169
-        },
-        {
-          "cyId" : "AK",
-          "kineticLaw" : "compartment*(AK_k1*ADP^2-AK_k2*ATP*AMP)",
-          "label" : "AK",
-          "metaId" : "AK",
-          "name" : "AK",
-          "reversible" : true,
-          "sbml id" : "AK",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "AK"
-        },
-        {
-          "cyId" : "ALD",
-          "kineticLaw" : "compartment*ALD_Vmax*(F16bP/ALD_Kf16bp-DHAP*GAP/(ALD_Kf16bp*ALD_Keq))/(1+F16bP/ALD_Kf16bp+DHAP/ALD_Kdhap+GAP/ALD_Kgap+F16bP*GAP/(ALD_Kf16bp*ALD_Kigap)+DHAP*GAP/(ALD_Kdhap*ALD_Kgap))",
-          "label" : "ALD",
-          "metaId" : "ALD",
-          "name" : "ALD",
-          "reversible" : true,
-          "sbml id" : "ALD",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "ALD"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "AMP",
-          "derivedUnits" : "substance",
-          "label" : "AMP",
-          "metaId" : "AMP",
-          "name" : "AMP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "AMP",
-          "sbml initial concentration" : 0.29288485332,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "AMP",
-          "value" : 0.29288485332
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "ATP",
-          "derivedUnits" : "substance",
-          "label" : "ATP",
-          "metaId" : "ATP",
-          "name" : "ATP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "ATP",
-          "sbml initial concentration" : 2.52512746499,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "ATP",
-          "value" : 2.52512746499
-        },
-        {
-          "cyId" : "ATPase",
-          "kineticLaw" : "compartment*ATPase_Katpase*ATP",
-          "label" : "ATPase",
-          "metaId" : "ATPase",
-          "name" : "ATPase",
-          "reversible" : false,
-          "sbml id" : "ATPase",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "ATPase"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "AcAld",
-          "derivedUnits" : "substance",
-          "label" : "AcAld",
-          "metaId" : "AcAld",
-          "name" : "AcAld",
-          "sbml compartment" : "compartment",
-          "sbml id" : "AcAld",
-          "sbml initial concentration" : 0.178140579851,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "AcAld",
-          "value" : 0.178140579851
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "BPG",
-          "derivedUnits" : "substance",
-          "label" : "BPG",
-          "metaId" : "BPG",
-          "name" : "BPG",
-          "sbml compartment" : "compartment",
-          "sbml id" : "BPG",
-          "sbml initial concentration" : 7.36873499866E-4,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "BPG",
-          "value" : 7.36873499866E-4
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "CO2",
-          "derivedUnits" : "substance",
-          "label" : "CO2",
-          "metaId" : "CO2",
-          "name" : "CO2",
-          "sbml compartment" : "compartment",
-          "sbml id" : "CO2",
-          "sbml initial concentration" : 1.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "CO2",
-          "value" : 1.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "DHAP",
-          "derivedUnits" : "substance",
-          "label" : "DHAP",
-          "metaId" : "DHAP",
-          "name" : "DHAP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "DHAP",
-          "sbml initial concentration" : 1.004152549,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "DHAP",
-          "value" : 1.004152549
-        },
-        {
-          "cyId" : "ENO",
-          "kineticLaw" : "compartment*ENO_Vmax*(P2G/ENO_Kp2g-PEP/(ENO_Kp2g*ENO_Keq))/(1+P2G/ENO_Kp2g+PEP/ENO_Kpep)",
-          "label" : "ENO",
-          "metaId" : "ENO",
-          "name" : "ENO",
-          "reversible" : true,
-          "sbml id" : "ENO",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "ENO"
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "EtOH",
-          "derivedUnits" : "substance",
-          "label" : "EtOH",
-          "metaId" : "EtOH",
-          "name" : "EtOH",
-          "sbml compartment" : "compartment",
-          "sbml id" : "EtOH",
-          "sbml initial concentration" : 50.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "EtOH",
-          "value" : 50.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "F16bP",
-          "derivedUnits" : "substance",
-          "label" : "F16bP",
-          "metaId" : "F16bP",
-          "name" : "F16bP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "F16bP",
-          "sbml initial concentration" : 6.22132076069,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "F16bP",
-          "value" : 6.22132076069
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "F26bP",
-          "derivedUnits" : "substance",
-          "label" : "F26bP",
-          "metaId" : "F26bP",
-          "name" : "F26bP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "F26bP",
-          "sbml initial concentration" : 0.02,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "F26bP",
-          "value" : 0.02
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "F6P",
-          "derivedUnits" : "substance",
-          "label" : "F6P",
-          "metaId" : "F6P",
-          "name" : "F6P",
-          "sbml compartment" : "compartment",
-          "sbml id" : "F6P",
-          "sbml initial concentration" : 0.624976405532,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "F6P",
-          "value" : 0.624976405532
-        },
-        {
-          "cyId" : "G3PDH",
-          "kineticLaw" : "compartment*G3PDH_Vmax*(DHAP/G3PDH_Kdhap*NADH/G3PDH_Knadh-Glycerol/G3PDH_Kdhap*NAD/G3PDH_Knadh*1/G3PDH_Keq)/((1+DHAP/G3PDH_Kdhap+Glycerol/G3PDH_Kglycerol)*(1+NADH/G3PDH_Knadh+NAD/G3PDH_Knad))",
-          "label" : "G3PDH",
-          "metaId" : "G3PDH",
-          "name" : "G3PDH",
-          "reversible" : false,
-          "sbml id" : "G3PDH",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "G3PDH"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "G6P",
-          "derivedUnits" : "substance",
-          "label" : "G6P",
-          "metaId" : "G6P",
-          "name" : "G6P",
-          "sbml compartment" : "compartment",
-          "sbml id" : "G6P",
-          "sbml initial concentration" : 2.67504014045,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "G6P",
-          "value" : 2.67504014045
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "GAP",
-          "derivedUnits" : "substance",
-          "label" : "GAP",
-          "metaId" : "GAP",
-          "name" : "GAP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "GAP",
-          "sbml initial concentration" : 0.0451809175781,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "GAP",
-          "value" : 0.0451809175781
-        },
-        {
-          "cyId" : "GAPDH",
-          "kineticLaw" : "compartment*GAPDH_C*(GAPDH_Vmaxf*GAP*NAD/(GAPDH_Kgap*GAPDH_Knad)-GAPDH_Vmaxr*BPG*NADH/(GAPDH_Kbpg*GAPDH_Knadh))/((1+GAP/GAPDH_Kgap+BPG/GAPDH_Kbpg)*(1+NAD/GAPDH_Knad+NADH/GAPDH_Knadh))",
-          "label" : "GAPDH",
-          "metaId" : "GAPDH",
-          "name" : "GAPDH",
-          "reversible" : true,
-          "sbml id" : "GAPDH",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "GAPDH"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "GLCi",
-          "derivedUnits" : "substance",
-          "label" : "GLCi",
-          "metaId" : "GLCi",
-          "name" : "GLCi",
-          "sbml compartment" : "compartment",
-          "sbml id" : "GLCi",
-          "sbml initial concentration" : 0.0976522310646,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "GLCi",
-          "value" : 0.0976522310646
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "GLCo",
-          "derivedUnits" : "substance",
-          "label" : "GLCo",
-          "metaId" : "GLCo",
-          "name" : "GLCo",
-          "sbml compartment" : "compartment",
-          "sbml id" : "GLCo",
-          "sbml initial concentration" : 2.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "GLCo",
-          "value" : 2.0
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "Glycerol",
-          "derivedUnits" : "substance",
-          "label" : "Glycerol",
-          "metaId" : "Glycerol",
-          "name" : "Glycerol",
-          "sbml compartment" : "compartment",
-          "sbml id" : "Glycerol",
-          "sbml initial concentration" : 0.15,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "Glycerol",
-          "value" : 0.15
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "Glycogen",
-          "derivedUnits" : "substance",
-          "label" : "Glycogen",
-          "metaId" : "Glycogen",
-          "name" : "Glycogen",
-          "sbml compartment" : "compartment",
-          "sbml id" : "Glycogen",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "Glycogen",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "Glycogen_Branch",
-          "kineticLaw" : "compartment*Glycogen_Branch_KGLYCOGEN",
-          "label" : "Glycogen Branch",
-          "metaId" : "Glycogen_Branch",
-          "name" : "Glycogen Branch",
-          "reversible" : false,
-          "sbml id" : "Glycogen_Branch",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "Glycogen Branch"
-        },
-        {
-          "cyId" : "HK",
-          "kineticLaw" : "compartment*HK_Vmax*(GLCi*ATP/(HK_Kglc*HK_Katp)-G6P*ADP/(HK_Kglc*HK_Katp*HK_Keq))/((1+GLCi/HK_Kglc+G6P/HK_Kg6p)*(1+ATP/HK_Katp+ADP/HK_Kadp))",
-          "label" : "HK",
-          "metaId" : "HK",
-          "name" : "HK",
-          "reversible" : true,
-          "sbml id" : "HK",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "HK"
-        },
-        {
-          "cyId" : "HXT",
-          "kineticLaw" : "compartment*HXT_Vmax*(GLCo-GLCi)/HXT_Kglc/(1+(GLCo+GLCi)/HXT_Kglc+HXT_Ki*GLCo*GLCi/HXT_Kglc^2)",
-          "label" : "HXT",
-          "metaId" : "HXT",
-          "name" : "HXT",
-          "reversible" : true,
-          "sbml id" : "HXT",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "HXT"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "NAD",
-          "derivedUnits" : "substance",
-          "label" : "NAD",
-          "metaId" : "NAD",
-          "name" : "NAD",
-          "sbml compartment" : "compartment",
-          "sbml id" : "NAD",
-          "sbml initial concentration" : 1.50329030202,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "NAD",
-          "value" : 1.50329030202
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "NADH",
-          "derivedUnits" : "substance",
-          "label" : "NADH",
-          "metaId" : "NADH",
-          "name" : "NADH",
-          "sbml compartment" : "compartment",
-          "sbml id" : "NADH",
-          "sbml initial concentration" : 0.0867096979847,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "NADH",
-          "value" : 0.0867096979847
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "P2G",
-          "derivedUnits" : "substance",
-          "label" : "P2G",
-          "metaId" : "P2G",
-          "name" : "P2G",
-          "sbml compartment" : "compartment",
-          "sbml id" : "P2G",
-          "sbml initial concentration" : 0.127695817387,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P2G",
-          "value" : 0.127695817387
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "P3G",
-          "derivedUnits" : "substance",
-          "label" : "P3G",
-          "metaId" : "P3G",
-          "name" : "P3G",
-          "sbml compartment" : "compartment",
-          "sbml id" : "P3G",
-          "sbml initial concentration" : 0.885688538361,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "P3G",
-          "value" : 0.885688538361
-        },
-        {
-          "cyId" : "PDC",
-          "kineticLaw" : "compartment*PDC_Vmax*(PYR/PDC_Kpyr)^PDC_nH/(1+(PYR/PDC_Kpyr)^PDC_nH)",
-          "label" : "PDC",
-          "metaId" : "PDC",
-          "name" : "PDC",
-          "reversible" : false,
-          "sbml id" : "PDC",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "PDC"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "PEP",
-          "derivedUnits" : "substance",
-          "label" : "PEP",
-          "metaId" : "PEP",
-          "name" : "PEP",
-          "sbml compartment" : "compartment",
-          "sbml id" : "PEP",
-          "sbml initial concentration" : 0.0632352144937,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "PEP",
-          "value" : 0.0632352144937
-        },
-        {
-          "cyId" : "PFK",
-          "kineticLaw" : "compartment*PFK_Vmax*PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp*(1+F6P/PFK_Kf6p+ATP/PFK_Katp+PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp)/((1+F6P/PFK_Kf6p+ATP/PFK_Katp+PFK_gR*F6P/PFK_Kf6p*ATP/PFK_Katp)^2+PFK_L0*((1+PFK_Ciatp*ATP/PFK_Kiatp)/(1+ATP/PFK_Kiatp))^2*((1+PFK_Camp*AMP/PFK_Kamp)/(1+AMP/PFK_Kamp))^2*((1+PFK_Cf26*F26bP/PFK_Kf26+PFK_Cf16*F16bP/PFK_Kf16)/(1+F26bP/PFK_Kf26+F16bP/PFK_Kf16))^2*(1+PFK_Catp*ATP/PFK_Katp)^2)",
-          "label" : "PFK",
-          "metaId" : "PFK",
-          "name" : "PFK",
-          "reversible" : false,
-          "sbml id" : "PFK",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "PFK"
-        },
-        {
-          "cyId" : "PGI",
-          "kineticLaw" : "compartment*PGI_Vmax*(G6P/PGI_Kg6p-F6P/(PGI_Kg6p*PGI_Keq))/(1+G6P/PGI_Kg6p+F6P/PGI_Kf6p)",
-          "label" : "PGI",
-          "metaId" : "PGI",
-          "name" : "PGI",
-          "reversible" : true,
-          "sbml id" : "PGI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "PGI"
-        },
-        {
-          "cyId" : "PGK",
-          "kineticLaw" : "compartment*PGK_Vmax*(PGK_Keq*BPG*ADP-P3G*ATP)/(PGK_Kp3g*PGK_Katp)/((1+BPG/PGK_Kbpg+P3G/PGK_Kp3g)*(1+ADP/PGK_Kadp+ATP/PGK_Katp))",
-          "label" : "PGK",
-          "metaId" : "PGK",
-          "name" : "PGK",
-          "reversible" : true,
-          "sbml id" : "PGK",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "PGK"
-        },
-        {
-          "cyId" : "PGM",
-          "kineticLaw" : "compartment*PGM_Vmax*(P3G/PGM_Kp3g-P2G/(PGM_Kp3g*PGM_Keq))/(1+P3G/PGM_Kp3g+P2G/PGM_Kp2g)",
-          "label" : "PGM",
-          "metaId" : "PGM",
-          "name" : "PGM",
-          "reversible" : true,
-          "sbml id" : "PGM",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "PGM"
-        },
-        {
-          "cyId" : "PYK",
-          "kineticLaw" : "compartment*PYK_Vmax*(PEP*ADP/(PYK_Kpep*PYK_Kadp)-PYR*ATP/(PYK_Kpep*PYK_Kadp*PYK_Keq))/((1+PEP/PYK_Kpep+PYR/PYK_Kpyr)*(1+ADP/PYK_Kadp+ATP/PYK_Katp))",
-          "label" : "PYK",
-          "metaId" : "PYK",
-          "name" : "PYK",
-          "reversible" : true,
-          "sbml id" : "PYK",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "PYK"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "PYR",
-          "derivedUnits" : "substance",
-          "label" : "PYR",
-          "metaId" : "PYR",
-          "name" : "PYR",
-          "sbml compartment" : "compartment",
-          "sbml id" : "PYR",
-          "sbml initial concentration" : 1.81531251193,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "PYR",
-          "value" : 1.81531251193
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "Succinate",
-          "derivedUnits" : "substance",
-          "label" : "Succinate",
-          "metaId" : "Succinate",
-          "name" : "Succinate",
-          "sbml compartment" : "compartment",
-          "sbml id" : "Succinate",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "Succinate",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "Succinate_Branch",
-          "kineticLaw" : "compartment*Succinate_Branch_k*AcAld",
-          "label" : "Succinate Branch",
-          "metaId" : "Succinate_Branch",
-          "name" : "Succinate Branch",
-          "reversible" : false,
-          "sbml id" : "Succinate_Branch",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "Succinate Branch"
-        },
-        {
-          "cyId" : "TPI",
-          "kineticLaw" : "compartment*(TPI_k1*DHAP-TPI_k2*GAP)",
-          "label" : "TPI",
-          "metaId" : "TPI",
-          "name" : "TPI",
-          "reversible" : true,
-          "sbml id" : "TPI",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction reversible",
-          "shared name" : "TPI"
-        },
-        {
-          "boundaryCondition" : true,
-          "compartmentCode" : 1,
-          "constant" : true,
-          "cyId" : "Trehalose",
-          "derivedUnits" : "substance",
-          "label" : "Trehalose",
-          "metaId" : "Trehalose",
-          "name" : "Trehalose",
-          "sbml compartment" : "compartment",
-          "sbml id" : "Trehalose",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "Trehalose",
-          "value" : 0.0
-        },
-        {
-          "cyId" : "Trehalose_Branch",
-          "kineticLaw" : "compartment*Trehalose_Branch_Ktrehalose",
-          "label" : "Trehalose Branch",
-          "metaId" : "Trehalose_Branch",
-          "name" : "Trehalose Branch",
-          "reversible" : false,
-          "sbml id" : "Trehalose_Branch",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "Trehalose Branch"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "ADH",
-          "target" : "AcAld",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ADH",
-          "target" : "EtOH",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ADH",
-          "target" : "NAD",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ADH",
-          "target" : "NADH",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "AK",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
-          }
-        },
-        {
-          "source" : "AK",
-          "target" : "AMP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "AK",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ALD",
-          "target" : "DHAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ALD",
-          "target" : "F16bP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ALD",
-          "target" : "GAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ATPase",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ATPase",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ENO",
-          "target" : "P2G",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "ENO",
-          "target" : "PEP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "G3PDH",
-          "target" : "DHAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "G3PDH",
-          "target" : "Glycerol",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "G3PDH",
-          "target" : "NAD",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "G3PDH",
-          "target" : "NADH",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "GAPDH",
-          "target" : "BPG",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "GAPDH",
-          "target" : "GAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "GAPDH",
-          "target" : "NAD",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "GAPDH",
-          "target" : "NADH",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Glycogen_Branch",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Glycogen_Branch",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Glycogen_Branch",
-          "target" : "G6P",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Glycogen_Branch",
-          "target" : "Glycogen",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HK",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HK",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HK",
-          "target" : "G6P",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HK",
-          "target" : "GLCi",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HXT",
-          "target" : "GLCi",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "HXT",
-          "target" : "GLCo",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PDC",
-          "target" : "AcAld",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PDC",
-          "target" : "CO2",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PDC",
-          "target" : "PYR",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "AMP",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "F16bP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "F26bP",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
-          }
-        },
-        {
-          "source" : "PFK",
-          "target" : "F6P",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGI",
-          "target" : "F6P",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGI",
-          "target" : "G6P",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGK",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGK",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGK",
-          "target" : "BPG",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGK",
-          "target" : "P3G",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGM",
-          "target" : "P2G",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PGM",
-          "target" : "P3G",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PYK",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PYK",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PYK",
-          "target" : "PEP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "PYK",
-          "target" : "PYR",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Succinate_Branch",
-          "target" : "AcAld",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
-          }
-        },
-        {
-          "source" : "Succinate_Branch",
-          "target" : "NAD",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 3.0
-          }
-        },
-        {
-          "source" : "Succinate_Branch",
-          "target" : "NADH",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 3.0
-          }
-        },
-        {
-          "source" : "Succinate_Branch",
-          "target" : "Succinate",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "TPI",
-          "target" : "DHAP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "TPI",
-          "target" : "GAP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Trehalose_Branch",
-          "target" : "ADP",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Trehalose_Branch",
-          "target" : "ATP",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "Trehalose_Branch",
-          "target" : "G6P",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 2.0
-          }
-        },
-        {
-          "source" : "Trehalose_Branch",
-          "target" : "Trehalose",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

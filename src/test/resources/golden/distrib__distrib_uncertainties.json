@@ -1,12 +1,99 @@
 {
   "networks" : [
     {
-      "name" : "All__distrib_uncertainties",
+      "name" : "distrib_uncertainties",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "distrib_uncertainties"
+      },
+      "nodes" : [
+        {
+          "cyId" : "J0",
+          "derivedUnits" : "invalid",
+          "distrib_uncertainty" : "median=1.5",
+          "distrib_uncertaintyCount" : 1,
+          "kineticLaw" : "k1*J0_kl*S1",
+          "label" : "J0",
+          "metaId" : "J0",
+          "reversible" : false,
+          "sbml id" : "J0",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "distrib_uncertainty" : "u_S1_a: mean=4.2; variance=0.3 | u_S1_b: confidenceInterval=[3.5, 4.9]",
+          "distrib_uncertaintyCount" : 2,
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "C",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 4.2,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 4.2
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "sbml compartment" : "C",
+          "sbml id" : "S2",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "J0",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "distrib_uncertainty" : "standardDeviation=0.5",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "label" : "sr1",
+            "sbml id" : "sr1",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "J0",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "distrib_uncertainty" : "mean=1.0",
+            "distrib_uncertaintyCount" : 1,
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "distrib_uncertainties__all",
       "nodeCount" : 16,
       "edgeCount" : 22,
       "attributes" : {
         "label" : "distrib uncertainties",
-        "name" : "All__distrib_uncertainties",
+        "name" : "distrib_uncertainties__all",
         "sbml id" : "distrib_uncertainties",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V2",
@@ -443,11 +530,11 @@
       ]
     },
     {
-      "name" : "Kinetic__distrib_uncertainties",
+      "name" : "distrib_uncertainties__kinetic",
       "nodeCount" : 12,
       "edgeCount" : 14,
       "attributes" : {
-        "name" : "Kinetic__distrib_uncertainties"
+        "name" : "distrib_uncertainties__kinetic"
       },
       "nodes" : [
         {
@@ -771,93 +858,6 @@
             "interaction" : "variable_rule",
             "interaction type" : "variable_rule",
             "shared interaction" : "variable_rule"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "distrib_uncertainties",
-      "nodeCount" : 3,
-      "edgeCount" : 2,
-      "attributes" : {
-        "name" : "distrib_uncertainties"
-      },
-      "nodes" : [
-        {
-          "cyId" : "J0",
-          "derivedUnits" : "invalid",
-          "distrib_uncertainty" : "median=1.5",
-          "distrib_uncertaintyCount" : 1,
-          "kineticLaw" : "k1*J0_kl*S1",
-          "label" : "J0",
-          "metaId" : "J0",
-          "reversible" : false,
-          "sbml id" : "J0",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S1",
-          "distrib_uncertainty" : "u_S1_a: mean=4.2; variance=0.3 | u_S1_b: confidenceInterval=[3.5, 4.9]",
-          "distrib_uncertaintyCount" : 2,
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S1",
-          "metaId" : "S1",
-          "sbml compartment" : "C",
-          "sbml id" : "S1",
-          "sbml initial concentration" : 4.2,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 4.2
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S2",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S2",
-          "metaId" : "S2",
-          "sbml compartment" : "C",
-          "sbml id" : "S2",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "J0",
-          "target" : "S1",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "distrib_uncertainty" : "standardDeviation=0.5",
-            "distrib_uncertaintyCount" : 1,
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "label" : "sr1",
-            "sbml id" : "sr1",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "J0",
-          "target" : "S2",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "distrib_uncertainty" : "mean=1.0",
-            "distrib_uncertaintyCount" : 1,
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

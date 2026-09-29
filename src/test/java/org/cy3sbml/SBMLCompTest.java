@@ -21,7 +21,7 @@ public class SBMLCompTest {
     @Test
     public void testComp_01() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_01);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertEquals(38, network.getNodeCount());
         assertEquals(1, network.getEdgeCount());
     }
@@ -33,7 +33,7 @@ public class SBMLCompTest {
     public void testComp_02() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_02);
         // FIXME: there can be multiple subnetworks with the same prefix
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(81, network.getNodeCount());
         // 70 edges and one from each of the 46 replaced elements and the replaced by to its submodel
@@ -46,7 +46,7 @@ public class SBMLCompTest {
     @Test
     public void testComp_03() throws Exception {
         CyNetwork[] networks = TestUtils.readNetwork(TEST_MODEL_COMP_03);
-        CyNetwork network = NetworkUtil.getNetworkBySubNetworkPrefix(networks, SBML.PREFIX_SUBNETWORK_ALL);
+        CyNetwork network = NetworkUtil.getSubnetwork(networks, SBML.SUFFIX_SUBNETWORK_ALL);
         assertNotNull(network);
         assertEquals(10, network.getNodeCount());
         // 6 edges and one from each of the two replacements to its submodel

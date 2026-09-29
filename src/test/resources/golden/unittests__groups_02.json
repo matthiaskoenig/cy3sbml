@@ -1,12 +1,139 @@
 {
   "networks" : [
     {
-      "name" : "All__groups_02",
+      "name" : "groups_02",
+      "nodeCount" : 5,
+      "edgeCount" : 4,
+      "attributes" : {
+        "name" : "groups_02"
+      },
+      "nodes" : [
+        {
+          "cyId" : "R1",
+          "fast" : false,
+          "kineticLaw" : "k1*S1",
+          "label" : "R1",
+          "metaId" : "R1",
+          "reversible" : false,
+          "sbml id" : "R1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "cyId" : "R2",
+          "fast" : false,
+          "kineticLaw" : "k2*S2",
+          "label" : "R2",
+          "metaId" : "R2",
+          "reversible" : false,
+          "sbml id" : "R2",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible"
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S1",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S1",
+          "metaId" : "S1",
+          "sbml compartment" : "c",
+          "sbml id" : "S1",
+          "sbml initial concentration" : 1.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 1.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S2",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S2",
+          "metaId" : "S2",
+          "sbml compartment" : "c",
+          "sbml id" : "S2",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        },
+        {
+          "boundaryCondition" : false,
+          "compartmentCode" : 1,
+          "constant" : false,
+          "cyId" : "S3",
+          "hasOnlySubstanceUnits" : false,
+          "label" : "S3",
+          "metaId" : "S3",
+          "sbml compartment" : "c",
+          "sbml id" : "S3",
+          "sbml initial concentration" : 0.0,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "value" : 0.0
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "R1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R2",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-reactant",
+          "attributes" : {
+            "interaction" : "reaction-reactant",
+            "interaction type" : "reaction-reactant",
+            "shared interaction" : "reaction-reactant",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "R2",
+          "target" : "S3",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name" : "groups_02__all",
       "nodeCount" : 10,
       "edgeCount" : 13,
       "attributes" : {
         "label" : "groups of mixed, nested and overlapping members",
-        "name" : "All__groups_02",
+        "name" : "groups_02__all",
         "sbml id" : "groups_02",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -269,11 +396,11 @@
       ]
     },
     {
-      "name" : "Kinetic__groups_02",
+      "name" : "groups_02__kinetic",
       "nodeCount" : 10,
       "edgeCount" : 13,
       "attributes" : {
-        "name" : "Kinetic__groups_02"
+        "name" : "groups_02__kinetic"
       },
       "nodes" : [
         {
@@ -540,133 +667,6 @@
             "interaction" : "reference_kineticLaw",
             "interaction type" : "reference_kineticLaw",
             "shared interaction" : "reference_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "groups_02",
-      "nodeCount" : 5,
-      "edgeCount" : 4,
-      "attributes" : {
-        "name" : "groups_02"
-      },
-      "nodes" : [
-        {
-          "cyId" : "R1",
-          "fast" : false,
-          "kineticLaw" : "k1*S1",
-          "label" : "R1",
-          "metaId" : "R1",
-          "reversible" : false,
-          "sbml id" : "R1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "cyId" : "R2",
-          "fast" : false,
-          "kineticLaw" : "k2*S2",
-          "label" : "R2",
-          "metaId" : "R2",
-          "reversible" : false,
-          "sbml id" : "R2",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible"
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S1",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S1",
-          "metaId" : "S1",
-          "sbml compartment" : "c",
-          "sbml id" : "S1",
-          "sbml initial concentration" : 1.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 1.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S2",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S2",
-          "metaId" : "S2",
-          "sbml compartment" : "c",
-          "sbml id" : "S2",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        },
-        {
-          "boundaryCondition" : false,
-          "compartmentCode" : 1,
-          "constant" : false,
-          "cyId" : "S3",
-          "hasOnlySubstanceUnits" : false,
-          "label" : "S3",
-          "metaId" : "S3",
-          "sbml compartment" : "c",
-          "sbml id" : "S3",
-          "sbml initial concentration" : 0.0,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "value" : 0.0
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "R1",
-          "target" : "S1",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R1",
-          "target" : "S2",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R2",
-          "target" : "S2",
-          "directed" : true,
-          "interaction" : "reaction-reactant",
-          "attributes" : {
-            "interaction" : "reaction-reactant",
-            "interaction type" : "reaction-reactant",
-            "shared interaction" : "reaction-reactant",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "R2",
-          "target" : "S3",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
           }
         }
       ]

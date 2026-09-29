@@ -1,13 +1,95 @@
 {
   "networks" : [
     {
-      "name" : "All__case00039",
+      "name" : "case00039",
+      "nodeCount" : 3,
+      "edgeCount" : 2,
+      "attributes" : {
+        "name" : "case00039"
+      },
+      "nodes" : [
+        {
+          "compartmentCode" : 1,
+          "cyId" : "S1",
+          "derivedUnits" : "substance",
+          "label" : "S1",
+          "metaId" : "S1",
+          "name" : "S1",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S1",
+          "sbml initial amount" : 0.5,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S1",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.5
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "S2",
+          "derivedUnits" : "substance",
+          "label" : "S2",
+          "metaId" : "S2",
+          "name" : "S2",
+          "sbml compartment" : "compartment",
+          "sbml id" : "S2",
+          "sbml initial amount" : 0.5,
+          "sbml type" : "species",
+          "sbml type ext" : "species",
+          "shared name" : "S2",
+          "substanceUnits" : "substance",
+          "units" : "substance",
+          "value" : 0.5
+        },
+        {
+          "cyId" : "reaction1",
+          "fast" : false,
+          "kineticLaw" : "compartment*k2*S2",
+          "label" : "reaction1",
+          "metaId" : "reaction1",
+          "name" : "reaction1",
+          "reversible" : false,
+          "sbml id" : "reaction1",
+          "sbml type" : "reaction",
+          "sbml type ext" : "reaction irreversible",
+          "shared name" : "reaction1"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "reaction1",
+          "target" : "S1",
+          "directed" : true,
+          "interaction" : "reaction-product",
+          "attributes" : {
+            "interaction" : "reaction-product",
+            "interaction type" : "reaction-product",
+            "shared interaction" : "reaction-product",
+            "stoichiometry" : 1.0
+          }
+        },
+        {
+          "source" : "reaction1",
+          "target" : "S2",
+          "directed" : true,
+          "interaction" : "reaction-modifier",
+          "attributes" : {
+            "interaction" : "reaction-modifier",
+            "interaction type" : "reaction-modifier",
+            "shared interaction" : "reaction-modifier"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "case00039__all",
       "nodeCount" : 12,
       "edgeCount" : 16,
       "attributes" : {
         "label" : "case00039",
         "metaId" : "_case00039",
-        "name" : "All__case00039",
+        "name" : "case00039__all",
         "sbml id" : "case00039",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L2 V5",
@@ -326,11 +408,11 @@
       ]
     },
     {
-      "name" : "Kinetic__case00039",
+      "name" : "case00039__kinetic",
       "nodeCount" : 8,
       "edgeCount" : 11,
       "attributes" : {
-        "name" : "Kinetic__case00039"
+        "name" : "case00039__kinetic"
       },
       "nodes" : [
         {
@@ -557,88 +639,6 @@
             "interaction" : "reaction_kineticLaw",
             "interaction type" : "reaction_kineticLaw",
             "shared interaction" : "reaction_kineticLaw"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "case00039",
-      "nodeCount" : 3,
-      "edgeCount" : 2,
-      "attributes" : {
-        "name" : "case00039"
-      },
-      "nodes" : [
-        {
-          "compartmentCode" : 1,
-          "cyId" : "S1",
-          "derivedUnits" : "substance",
-          "label" : "S1",
-          "metaId" : "S1",
-          "name" : "S1",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S1",
-          "sbml initial amount" : 0.5,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S1",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 0.5
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "S2",
-          "derivedUnits" : "substance",
-          "label" : "S2",
-          "metaId" : "S2",
-          "name" : "S2",
-          "sbml compartment" : "compartment",
-          "sbml id" : "S2",
-          "sbml initial amount" : 0.5,
-          "sbml type" : "species",
-          "sbml type ext" : "species",
-          "shared name" : "S2",
-          "substanceUnits" : "substance",
-          "units" : "substance",
-          "value" : 0.5
-        },
-        {
-          "cyId" : "reaction1",
-          "fast" : false,
-          "kineticLaw" : "compartment*k2*S2",
-          "label" : "reaction1",
-          "metaId" : "reaction1",
-          "name" : "reaction1",
-          "reversible" : false,
-          "sbml id" : "reaction1",
-          "sbml type" : "reaction",
-          "sbml type ext" : "reaction irreversible",
-          "shared name" : "reaction1"
-        }
-      ],
-      "edges" : [
-        {
-          "source" : "reaction1",
-          "target" : "S1",
-          "directed" : true,
-          "interaction" : "reaction-product",
-          "attributes" : {
-            "interaction" : "reaction-product",
-            "interaction type" : "reaction-product",
-            "shared interaction" : "reaction-product",
-            "stoichiometry" : 1.0
-          }
-        },
-        {
-          "source" : "reaction1",
-          "target" : "S2",
-          "directed" : true,
-          "interaction" : "reaction-modifier",
-          "attributes" : {
-            "interaction" : "reaction-modifier",
-            "interaction type" : "reaction-modifier",
-            "shared interaction" : "reaction-modifier"
           }
         }
       ]

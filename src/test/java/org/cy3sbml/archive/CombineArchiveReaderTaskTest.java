@@ -212,7 +212,7 @@ class CombineArchiveReaderTaskTest {
             task.run(monitor);
         }
         CyNetwork top = Arrays.stream(task.getNetworks())
-                .filter(n -> "All__top".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
+                .filter(n -> "top__all".equals(n.getRow(n).get(CyNetwork.NAME, String.class)))
                 .findFirst()
                 .orElseThrow();
         task.buildCyNetworkView(top);

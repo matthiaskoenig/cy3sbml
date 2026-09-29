@@ -1,14 +1,1603 @@
 {
   "networks" : [
     {
-      "name" : "All__path_sce04070",
+      "name" : "path_sce04070",
+      "nodeCount" : 62,
+      "edgeCount" : 48,
+      "attributes" : {
+        "name" : "path_sce04070"
+      },
+      "nodes" : [
+        {
+          "3dmet" : "B00038",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Bios_I",
+          "kegg.compound" : "C00137",
+          "label" : "Bios I",
+          "metaId" : "meta_qual_Bios_I",
+          "name" : "Bios I",
+          "obo.chebi" : "CHEBI:17268",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "INS",
+          "pubchem.substance" : "3437",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Bios_I",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Bios I"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_CDPdiacylglycerol",
+          "kegg.compound" : "C00269",
+          "label" : "CDP-diacylglycerol",
+          "metaId" : "meta_qual_CDPdiacylglycerol",
+          "name" : "CDP-diacylglycerol",
+          "obo.chebi" : "CHEBI:17962",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_CDPdiacylglycerol",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "CDP-diacylglycerol"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_CDS1",
+          "ec-code" : "2.7.7.41",
+          "entrez.gene" : "852317",
+          "kegg.genes" : "sce:YBR029C",
+          "kegg.reaction" : "R01799",
+          "label" : "CDS1",
+          "metaId" : "meta_qual_CDS1",
+          "name" : "CDS1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_CDS1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "CDS1",
+          "uniprot" : "P38221"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_CMD1",
+          "entrez.gene" : "852406",
+          "kegg.genes" : "sce:YBR109C",
+          "label" : "CMD1",
+          "metaId" : "meta_qual_CMD1",
+          "name" : "CMD1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_CMD1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "CMD1",
+          "uniprot" : "P06787"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Ca2",
+          "kegg.compound" : "C00076",
+          "label" : "Ca2+",
+          "metaId" : "meta_qual_Ca2",
+          "name" : "Ca2+",
+          "obo.chebi" : "CHEBI:29108",
+          "obo.eco" : "ECO:0000313",
+          "pubchem.substance" : "3376",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Ca2",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Ca2+"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Diglyceride",
+          "kegg.compound" : "C00641",
+          "label" : "Diglyceride",
+          "metaId" : "meta_qual_Diglyceride",
+          "name" : "Diglyceride",
+          "obo.chebi" : "CHEBI:17815",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Diglyceride",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Diglyceride"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_DmyoInositol",
+          "kegg.compound" : "C11174",
+          "label" : "D-myo-Inositol",
+          "metaId" : "meta_qual_DmyoInositol",
+          "name" : "D-myo-Inositol",
+          "obo.chebi" : "CHEBI:62919",
+          "obo.eco" : "ECO:0000313",
+          "pubchem.substance" : "13356",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_DmyoInositol",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "D-myo-Inositol"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_FAB1",
+          "ec-code" : "2.7.1.150",
+          "entrez.gene" : "850574",
+          "kegg.genes" : "sce:YFR019W",
+          "kegg.reaction" : "R05802",
+          "label" : "FAB1",
+          "metaId" : "meta_qual_FAB1",
+          "name" : "FAB1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_FAB1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "FAB1",
+          "uniprot" : "P34756"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Focal_adhesion",
+          "kegg.pathway" : "map04510hsa",
+          "label" : "Focal adhesion",
+          "metaId" : "meta_qual_Focal_adhesion",
+          "name" : "Focal adhesion",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Focal_adhesion",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000552",
+          "shared name" : "Focal adhesion"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_INM",
+          "ec-code" : "3.1.3.25",
+          "entrez.gene" : "856442",
+          "kegg.genes" : "sce:YHR046C",
+          "kegg.reaction" : "R01186",
+          "label" : "INM",
+          "metaId" : "meta_qual_INM",
+          "name" : "INM",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_INM",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "INM",
+          "uniprot" : "P38710"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_INP5",
+          "ec-code" : "3.1.3.36",
+          "entrez.gene" : "854276",
+          "kegg.genes" : "sce:YOR109W",
+          "kegg.reaction" : "R03394",
+          "label" : "INP5",
+          "metaId" : "meta_qual_INP5",
+          "name" : "INP5",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_INP5",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "INP5",
+          "uniprot" : "Q12271"
+        },
+        {
+          "3dmet" : "B01433",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_13456pentakisphosphate",
+          "kegg.compound" : "C01284",
+          "label" : "Inositol 1,3,4,5,6-pentakisphosphate",
+          "metaId" : "meta_qual_Inositol_13456pentakisphosphate",
+          "name" : "Inositol 1,3,4,5,6-pentakisphosphate",
+          "obo.chebi" : "CHEBI:16322",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "5MY",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_13456pentakisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,3,4,5,6-pentakisphosphate"
+        },
+        {
+          "3dmet" : "B01430",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_1345tetrakisphosphate",
+          "kegg.compound" : "C01272",
+          "label" : "Inositol 1,3,4,5-tetrakisphosphate",
+          "metaId" : "meta_qual_Inositol_1345tetrakisphosphate",
+          "name" : "Inositol 1,3,4,5-tetrakisphosphate",
+          "obo.chebi" : "CHEBI:16783",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "4IP",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_1345tetrakisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,3,4,5-tetrakisphosphate"
+        },
+        {
+          "3dmet" : "B01746",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_1346tetrakisphosphate",
+          "kegg.compound" : "C04477",
+          "label" : "Inositol 1,3,4,6-tetrakisphosphate",
+          "metaId" : "meta_qual_Inositol_1346tetrakisphosphate",
+          "name" : "Inositol 1,3,4,6-tetrakisphosphate",
+          "obo.chebi" : "CHEBI:16155",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "I4P",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_1346tetrakisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,3,4,6-tetrakisphosphate"
+        },
+        {
+          "3dmet" : "B01421",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_134trisphosphate",
+          "kegg.compound" : "C01243",
+          "label" : "Inositol 1,3,4-trisphosphate",
+          "metaId" : "meta_qual_Inositol_134trisphosphate",
+          "name" : "Inositol 1,3,4-trisphosphate",
+          "obo.chebi" : "CHEBI:18228",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "I3S",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_134trisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,3,4-trisphosphate"
+        },
+        {
+          "3dmet" : "B01713",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_13bisphosphate",
+          "kegg.compound" : "C04062",
+          "label" : "Inositol 1,3-bisphosphate",
+          "metaId" : "meta_qual_Inositol_13bisphosphate",
+          "name" : "Inositol 1,3-bisphosphate",
+          "obo.chebi" : "CHEBI:18225",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "ITP",
+          "pubchem.substance" : "6759",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_13bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,3-bisphosphate"
+        },
+        {
+          "3dmet" : "B01411",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_14bisphosphate",
+          "kegg.compound" : "C01220",
+          "label" : "Inositol 1,4-bisphosphate",
+          "metaId" : "meta_qual_Inositol_14bisphosphate",
+          "name" : "Inositol 1,4-bisphosphate",
+          "obo.chebi" : "CHEBI:17816",
+          "obo.eco" : "ECO:0000313",
+          "pubchem.substance" : "4442",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_14bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1,4-bisphosphate"
+        },
+        {
+          "3dmet" : "B01403",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_1phosphate",
+          "kegg.compound" : "C01177",
+          "label" : "Inositol 1-phosphate",
+          "metaId" : "meta_qual_Inositol_1phosphate",
+          "name" : "Inositol 1-phosphate",
+          "obo.chebi" : "CHEBI:18297",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_1phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 1-phosphate"
+        },
+        {
+          "3dmet" : "B01714",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_34bisphosphate",
+          "kegg.compound" : "C04063",
+          "label" : "Inositol 3,4-bisphosphate",
+          "metaId" : "meta_qual_Inositol_34bisphosphate",
+          "name" : "Inositol 3,4-bisphosphate",
+          "obo.chebi" : "CHEBI:28858",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_34bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 3,4-bisphosphate"
+        },
+        {
+          "3dmet" : "B01710",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_3phosphate",
+          "kegg.compound" : "C04006",
+          "label" : "Inositol 3-phosphate",
+          "metaId" : "meta_qual_Inositol_3phosphate",
+          "name" : "Inositol 3-phosphate",
+          "obo.chebi" : "CHEBI:18169",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_3phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 3-phosphate"
+        },
+        {
+          "3dmet" : "B01669",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Inositol_4phosphate",
+          "kegg.compound" : "C03546",
+          "label" : "Inositol 4-phosphate",
+          "metaId" : "meta_qual_Inositol_4phosphate",
+          "name" : "Inositol 4-phosphate",
+          "obo.chebi" : "CHEBI:18384",
+          "obo.eco" : "ECO:0000313",
+          "pubchem.substance" : "6349",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Inositol_4phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Inositol 4-phosphate"
+        },
+        {
+          "3dmet" : "B01422",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Ins145P3",
+          "kegg.compound" : "C01245",
+          "label" : "Ins(1,4,5)P3",
+          "metaId" : "meta_qual_Ins145P3",
+          "name" : "Ins(1,4,5)P3",
+          "obo.chebi" : "CHEBI:16595",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "I3P",
+          "pubchem.substance" : "4466",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Ins145P3",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Ins(1,4,5)P3"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_MSS4",
+          "ec-code" : "2.7.1.68",
+          "entrez.gene" : "851789",
+          "kegg.genes" : "sce:YDR208W",
+          "kegg.reaction" : "R03469",
+          "label" : "MSS4",
+          "metaId" : "meta_qual_MSS4",
+          "name" : "MSS4",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_MSS4",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "MSS4",
+          "uniprot" : "P38994"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_PIK1",
+          "ec-code" : "2.7.1.67",
+          "entrez.gene" : "855454",
+          "kegg.genes" : "sce:YNL267W",
+          "kegg.reaction" : "R03361",
+          "label" : "PIK1",
+          "metaId" : "meta_qual_PIK1",
+          "name" : "PIK1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_PIK1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "PIK1",
+          "uniprot" : "P39104"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_PIS1",
+          "ec-code" : "2.7.8.11",
+          "entrez.gene" : "856229",
+          "kegg.genes" : "sce:YPR113W",
+          "kegg.reaction" : "R01802",
+          "label" : "PIS1",
+          "metaId" : "meta_qual_PIS1",
+          "name" : "PIS1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_PIS1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "PIS1",
+          "uniprot" : "P06197"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_PKC1",
+          "ec-code" : "2.7.11.13",
+          "entrez.gene" : "852169",
+          "kegg.genes" : "sce:YBL105C",
+          "label" : "PKC1",
+          "metaId" : "meta_qual_PKC1",
+          "name" : "PKC1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_PKC1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "PKC1",
+          "uniprot" : "P24583"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_PLC1",
+          "ec-code" : "3.1.4.11",
+          "entrez.gene" : "855860",
+          "kegg.genes" : "sce:YPL268W",
+          "label" : "PLC1",
+          "metaId" : "meta_qual_PLC1",
+          "name" : "PLC1",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_PLC1",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "PLC1",
+          "uniprot" : "P32383"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phosphatidate",
+          "kegg.compound" : "C00416",
+          "label" : "Phosphatidate",
+          "metaId" : "meta_qual_Phosphatidate",
+          "name" : "Phosphatidate",
+          "obo.chebi" : "CHEBI:16337",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phosphatidate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phosphatidate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phosphatidylinositol",
+          "kegg.compound" : "C01194",
+          "label" : "Phosphatidylinositol",
+          "metaId" : "meta_qual_Phosphatidylinositol",
+          "name" : "Phosphatidylinositol",
+          "obo.chebi" : "CHEBI:16749",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phosphatidylinositol",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phosphatidylinositol"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phosphatidylinositol345trisphosphate",
+          "kegg.compound" : "C05981",
+          "label" : "Phosphatidylinositol-3,4,5-trisphosphate",
+          "metaId" : "meta_qual_Phosphatidylinositol345trisphosphate",
+          "name" : "Phosphatidylinositol-3,4,5-trisphosphate",
+          "obo.chebi" : "CHEBI:16618",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phosphatidylinositol345trisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phosphatidylinositol-3,4,5-trisphosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phosphatidylinositol45bisphosphate",
+          "kegg.compound" : "C04637",
+          "label" : "Phosphatidylinositol-4,5-bisphosphate",
+          "metaId" : "meta_qual_Phosphatidylinositol45bisphosphate",
+          "name" : "Phosphatidylinositol-4,5-bisphosphate",
+          "obo.chebi" : "CHEBI:18348",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phosphatidylinositol45bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phosphatidylinositol-4,5-bisphosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phosphatidylinositol_4phosphate",
+          "kegg.compound" : "C01277",
+          "label" : "Phosphatidylinositol 4-phosphate",
+          "metaId" : "meta_qual_Phosphatidylinositol_4phosphate",
+          "name" : "Phosphatidylinositol 4-phosphate",
+          "obo.chebi" : "CHEBI:17526",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phosphatidylinositol_4phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phosphatidylinositol 4-phosphate"
+        },
+        {
+          "3dmet" : "B00260",
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_Phytate",
+          "kegg.compound" : "C01204",
+          "label" : "Phytate",
+          "metaId" : "meta_qual_Phytate",
+          "name" : "Phytate",
+          "obo.chebi" : "CHEBI:17401",
+          "obo.eco" : "ECO:0000313",
+          "pdb-ccd" : "IHP",
+          "pubchem.substance" : "4428",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_Phytate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "Phytate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
+          "kegg.compound" : "C11554",
+          "label" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate",
+          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
+          "name" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate",
+          "obo.chebi" : "CHEBI:16152",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
+          "kegg.compound" : "C11556",
+          "label" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate",
+          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
+          "name" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate",
+          "obo.chebi" : "CHEBI:16851",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
+          "kegg.compound" : "C04549",
+          "label" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate",
+          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
+          "name" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate",
+          "obo.chebi" : "CHEBI:17283",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
+          "kegg.compound" : "C11557",
+          "label" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate",
+          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
+          "name" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate",
+          "obo.chebi" : "CHEBI:16500",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000247",
+          "shared name" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate"
+        },
+        {
+          "compartmentCode" : 1,
+          "cyId" : "meta_qual_VPS34",
+          "ec-code" : "2.7.1.137",
+          "entrez.gene" : "850941",
+          "kegg.genes" : "sce:YLR240W",
+          "kegg.reaction" : "R03362",
+          "label" : "VPS34",
+          "metaId" : "meta_qual_VPS34",
+          "name" : "VPS34",
+          "obo.eco" : "ECO:0000313",
+          "sbml compartment" : "default",
+          "sbml id" : "qual_VPS34",
+          "sbml type" : "qual_species",
+          "sbml type ext" : "qual_species",
+          "sbo" : "SBO:0000354",
+          "shared name" : "VPS34",
+          "uniprot" : "P22543"
+        },
+        {
+          "cyId" : "tr",
+          "label" : "tr",
+          "metaId" : "tr",
+          "sbml id" : "tr",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_1",
+          "label" : "tr_1",
+          "metaId" : "tr_1",
+          "sbml id" : "tr_1",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_10",
+          "label" : "tr_10",
+          "metaId" : "tr_10",
+          "sbml id" : "tr_10",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_11",
+          "label" : "tr_11",
+          "metaId" : "tr_11",
+          "sbml id" : "tr_11",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_12",
+          "label" : "tr_12",
+          "metaId" : "tr_12",
+          "sbml id" : "tr_12",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_13",
+          "label" : "tr_13",
+          "metaId" : "tr_13",
+          "sbml id" : "tr_13",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_14",
+          "label" : "tr_14",
+          "metaId" : "tr_14",
+          "sbml id" : "tr_14",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_15",
+          "label" : "tr_15",
+          "metaId" : "tr_15",
+          "sbml id" : "tr_15",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_16",
+          "label" : "tr_16",
+          "metaId" : "tr_16",
+          "sbml id" : "tr_16",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_17",
+          "label" : "tr_17",
+          "metaId" : "tr_17",
+          "sbml id" : "tr_17",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_18",
+          "label" : "tr_18",
+          "metaId" : "tr_18",
+          "sbml id" : "tr_18",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_19",
+          "label" : "tr_19",
+          "metaId" : "tr_19",
+          "sbml id" : "tr_19",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_2",
+          "label" : "tr_2",
+          "metaId" : "tr_2",
+          "sbml id" : "tr_2",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_20",
+          "label" : "tr_20",
+          "metaId" : "tr_20",
+          "sbml id" : "tr_20",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_21",
+          "label" : "tr_21",
+          "metaId" : "tr_21",
+          "sbml id" : "tr_21",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_22",
+          "label" : "tr_22",
+          "metaId" : "tr_22",
+          "sbml id" : "tr_22",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_23",
+          "label" : "tr_23",
+          "metaId" : "tr_23",
+          "sbml id" : "tr_23",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_3",
+          "label" : "tr_3",
+          "metaId" : "tr_3",
+          "sbml id" : "tr_3",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_4",
+          "label" : "tr_4",
+          "metaId" : "tr_4",
+          "sbml id" : "tr_4",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_5",
+          "label" : "tr_5",
+          "metaId" : "tr_5",
+          "sbml id" : "tr_5",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_6",
+          "label" : "tr_6",
+          "metaId" : "tr_6",
+          "sbml id" : "tr_6",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_7",
+          "label" : "tr_7",
+          "metaId" : "tr_7",
+          "sbml id" : "tr_7",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_8",
+          "label" : "tr_8",
+          "metaId" : "tr_8",
+          "sbml id" : "tr_8",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        },
+        {
+          "cyId" : "tr_9",
+          "label" : "tr_9",
+          "metaId" : "tr_9",
+          "sbml id" : "tr_9",
+          "sbml type" : "qual_transition",
+          "sbml type ext" : "qual_transition"
+        }
+      ],
+      "edges" : [
+        {
+          "source" : "tr",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr",
+          "target" : "qual_VPS34",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_VPS34",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_1",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_1",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_1",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_1",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_1",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_10",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_10",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_10",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_10",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_10",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_11",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_11",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_11",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_11",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_11",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_12",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_12",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_12",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_12",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_12",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_13",
+          "target" : "qual_INP5",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INP5",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_13",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_13",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_13",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_13",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_14",
+          "target" : "qual_INP5",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_14",
+            "qual_qualitativeSpecies" : "qual_INP5",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_14",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_14",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_14",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_15",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_15",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_15",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_15",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_15",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_16",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_16",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_16",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_16",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_16",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_17",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_17",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_17",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_17",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_17",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_18",
+          "target" : "qual_CDS1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_CDS1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_18",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_18",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_18",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_18",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_19",
+          "target" : "qual_MSS4",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_MSS4",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_19",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_19",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_19",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_19",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_2",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_2",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_2",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_2",
+          "target" : "qual_VPS34",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_VPS34",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_2",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_20",
+          "target" : "qual_PIK1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PIK1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_20",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_20",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_20",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_20",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_21",
+          "target" : "qual_PIK1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_21",
+            "qual_qualitativeSpecies" : "qual_PIK1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_21",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_21",
+          "target" : "qual_VPS34",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_VPS34",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_21",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_22",
+          "target" : "qual_PIK1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PIK1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_22",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_22",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_22",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_22",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_23",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_23",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_23",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_23",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_23",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_3",
+          "target" : "qual_MSS4",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_3",
+            "qual_qualitativeSpecies" : "qual_MSS4",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_3",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_3",
+          "target" : "qual_PIK1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PIK1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_3",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_4",
+          "target" : "qual_PIK1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_4",
+            "qual_qualitativeSpecies" : "qual_PIK1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_4",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_4",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_4",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_5",
+          "target" : "qual_MSS4",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_5",
+            "qual_qualitativeSpecies" : "qual_MSS4",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_5",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_5",
+          "target" : "qual_PLC1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_PLC1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_5",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_6",
+          "target" : "qual_FAB1",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_FAB1",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_6",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_6",
+          "target" : "qual_VPS34",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_6",
+            "qual_qualitativeSpecies" : "qual_VPS34",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_6",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_7",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_7",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_7",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_7",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_7",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_8",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_8",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_8",
+            "shared interaction" : "input_transition"
+          }
+        },
+        {
+          "source" : "tr_8",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_8",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_9",
+          "target" : "qual_INM",
+          "directed" : true,
+          "interaction" : "transition_output",
+          "attributes" : {
+            "interaction" : "transition_output",
+            "interaction type" : "transition_output",
+            "qual_qualitativeSpecies" : "qual_INM",
+            "qual_transitionEffect" : "assignmentLevel",
+            "sbml id" : "out_9",
+            "shared interaction" : "transition_output"
+          }
+        },
+        {
+          "source" : "tr_9",
+          "target" : "qual_PIS1",
+          "directed" : true,
+          "interaction" : "input_transition",
+          "attributes" : {
+            "interaction" : "input_transition",
+            "interaction type" : "input_transition",
+            "metaId" : "meta_in_9",
+            "qual_qualitativeSpecies" : "qual_PIS1",
+            "qual_sign" : "unknown",
+            "qual_transitionEffect" : "none",
+            "sbml id" : "in_9",
+            "shared interaction" : "input_transition"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "path_sce04070__all",
       "nodeCount" : 63,
       "edgeCount" : 86,
       "attributes" : {
         "kegg.pathway" : "sce04070",
         "label" : "Phosphatidylinositol signaling system",
         "metaId" : "meta_path_sce04070",
-        "name" : "All__path_sce04070",
+        "name" : "path_sce04070__all",
         "sbml id" : "path_sce04070",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -1944,11 +3533,11 @@
       ]
     },
     {
-      "name" : "Kinetic__path_sce04070",
+      "name" : "path_sce04070__kinetic",
       "nodeCount" : 63,
       "edgeCount" : 86,
       "attributes" : {
-        "name" : "Kinetic__path_sce04070"
+        "name" : "path_sce04070__kinetic"
       },
       "nodes" : [
         {
@@ -3242,1595 +4831,6 @@
             "shared interaction" : "species_compartment"
           }
         },
-        {
-          "source" : "tr",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr",
-          "target" : "qual_VPS34",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_VPS34",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_1",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_1",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_1",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_1",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_1",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_10",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_10",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_10",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_10",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_11",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_11",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_11",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_11",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_11",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_12",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_12",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_12",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_12",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_12",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_13",
-          "target" : "qual_INP5",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INP5",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_13",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_13",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_13",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_13",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_14",
-          "target" : "qual_INP5",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_14",
-            "qual_qualitativeSpecies" : "qual_INP5",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_14",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_14",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_14",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_15",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_15",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_15",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_15",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_16",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_16",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_16",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_16",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_17",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_17",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_17",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_17",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_CDS1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_CDS1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_18",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_18",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_18",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_18",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_MSS4",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_MSS4",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_19",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_19",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_19",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_19",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_2",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_2",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_2",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_2",
-          "target" : "qual_VPS34",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_VPS34",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_2",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_20",
-          "target" : "qual_PIK1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PIK1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_20",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_20",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_20",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_20",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_21",
-          "target" : "qual_PIK1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_21",
-            "qual_qualitativeSpecies" : "qual_PIK1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_21",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_21",
-          "target" : "qual_VPS34",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_VPS34",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_21",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_22",
-          "target" : "qual_PIK1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PIK1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_22",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_22",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_22",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_22",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_23",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_23",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_23",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_23",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_3",
-          "target" : "qual_MSS4",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_3",
-            "qual_qualitativeSpecies" : "qual_MSS4",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_3",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_3",
-          "target" : "qual_PIK1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PIK1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_3",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_PIK1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_4",
-            "qual_qualitativeSpecies" : "qual_PIK1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_4",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_4",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_4",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_MSS4",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_5",
-            "qual_qualitativeSpecies" : "qual_MSS4",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_5",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_5",
-          "target" : "qual_PLC1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_PLC1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_5",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_6",
-          "target" : "qual_FAB1",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_FAB1",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_6",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_6",
-          "target" : "qual_VPS34",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_6",
-            "qual_qualitativeSpecies" : "qual_VPS34",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_6",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_7",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_7",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_7",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_7",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_8",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_8",
-            "shared interaction" : "input_transition"
-          }
-        },
-        {
-          "source" : "tr_8",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_8",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_9",
-          "target" : "qual_INM",
-          "directed" : true,
-          "interaction" : "transition_output",
-          "attributes" : {
-            "interaction" : "transition_output",
-            "interaction type" : "transition_output",
-            "qual_qualitativeSpecies" : "qual_INM",
-            "qual_transitionEffect" : "assignmentLevel",
-            "sbml id" : "out_9",
-            "shared interaction" : "transition_output"
-          }
-        },
-        {
-          "source" : "tr_9",
-          "target" : "qual_PIS1",
-          "directed" : true,
-          "interaction" : "input_transition",
-          "attributes" : {
-            "interaction" : "input_transition",
-            "interaction type" : "input_transition",
-            "metaId" : "meta_in_9",
-            "qual_qualitativeSpecies" : "qual_PIS1",
-            "qual_sign" : "unknown",
-            "qual_transitionEffect" : "none",
-            "sbml id" : "in_9",
-            "shared interaction" : "input_transition"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "path_sce04070",
-      "nodeCount" : 62,
-      "edgeCount" : 48,
-      "attributes" : {
-        "name" : "path_sce04070"
-      },
-      "nodes" : [
-        {
-          "3dmet" : "B00038",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Bios_I",
-          "kegg.compound" : "C00137",
-          "label" : "Bios I",
-          "metaId" : "meta_qual_Bios_I",
-          "name" : "Bios I",
-          "obo.chebi" : "CHEBI:17268",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "INS",
-          "pubchem.substance" : "3437",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Bios_I",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Bios I"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_CDPdiacylglycerol",
-          "kegg.compound" : "C00269",
-          "label" : "CDP-diacylglycerol",
-          "metaId" : "meta_qual_CDPdiacylglycerol",
-          "name" : "CDP-diacylglycerol",
-          "obo.chebi" : "CHEBI:17962",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_CDPdiacylglycerol",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "CDP-diacylglycerol"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_CDS1",
-          "ec-code" : "2.7.7.41",
-          "entrez.gene" : "852317",
-          "kegg.genes" : "sce:YBR029C",
-          "kegg.reaction" : "R01799",
-          "label" : "CDS1",
-          "metaId" : "meta_qual_CDS1",
-          "name" : "CDS1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_CDS1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "CDS1",
-          "uniprot" : "P38221"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_CMD1",
-          "entrez.gene" : "852406",
-          "kegg.genes" : "sce:YBR109C",
-          "label" : "CMD1",
-          "metaId" : "meta_qual_CMD1",
-          "name" : "CMD1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_CMD1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "CMD1",
-          "uniprot" : "P06787"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Ca2",
-          "kegg.compound" : "C00076",
-          "label" : "Ca2+",
-          "metaId" : "meta_qual_Ca2",
-          "name" : "Ca2+",
-          "obo.chebi" : "CHEBI:29108",
-          "obo.eco" : "ECO:0000313",
-          "pubchem.substance" : "3376",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Ca2",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Ca2+"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Diglyceride",
-          "kegg.compound" : "C00641",
-          "label" : "Diglyceride",
-          "metaId" : "meta_qual_Diglyceride",
-          "name" : "Diglyceride",
-          "obo.chebi" : "CHEBI:17815",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Diglyceride",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Diglyceride"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_DmyoInositol",
-          "kegg.compound" : "C11174",
-          "label" : "D-myo-Inositol",
-          "metaId" : "meta_qual_DmyoInositol",
-          "name" : "D-myo-Inositol",
-          "obo.chebi" : "CHEBI:62919",
-          "obo.eco" : "ECO:0000313",
-          "pubchem.substance" : "13356",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_DmyoInositol",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "D-myo-Inositol"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_FAB1",
-          "ec-code" : "2.7.1.150",
-          "entrez.gene" : "850574",
-          "kegg.genes" : "sce:YFR019W",
-          "kegg.reaction" : "R05802",
-          "label" : "FAB1",
-          "metaId" : "meta_qual_FAB1",
-          "name" : "FAB1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_FAB1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "FAB1",
-          "uniprot" : "P34756"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Focal_adhesion",
-          "kegg.pathway" : "map04510hsa",
-          "label" : "Focal adhesion",
-          "metaId" : "meta_qual_Focal_adhesion",
-          "name" : "Focal adhesion",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Focal_adhesion",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000552",
-          "shared name" : "Focal adhesion"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_INM",
-          "ec-code" : "3.1.3.25",
-          "entrez.gene" : "856442",
-          "kegg.genes" : "sce:YHR046C",
-          "kegg.reaction" : "R01186",
-          "label" : "INM",
-          "metaId" : "meta_qual_INM",
-          "name" : "INM",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_INM",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "INM",
-          "uniprot" : "P38710"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_INP5",
-          "ec-code" : "3.1.3.36",
-          "entrez.gene" : "854276",
-          "kegg.genes" : "sce:YOR109W",
-          "kegg.reaction" : "R03394",
-          "label" : "INP5",
-          "metaId" : "meta_qual_INP5",
-          "name" : "INP5",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_INP5",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "INP5",
-          "uniprot" : "Q12271"
-        },
-        {
-          "3dmet" : "B01433",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_13456pentakisphosphate",
-          "kegg.compound" : "C01284",
-          "label" : "Inositol 1,3,4,5,6-pentakisphosphate",
-          "metaId" : "meta_qual_Inositol_13456pentakisphosphate",
-          "name" : "Inositol 1,3,4,5,6-pentakisphosphate",
-          "obo.chebi" : "CHEBI:16322",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "5MY",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_13456pentakisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,3,4,5,6-pentakisphosphate"
-        },
-        {
-          "3dmet" : "B01430",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_1345tetrakisphosphate",
-          "kegg.compound" : "C01272",
-          "label" : "Inositol 1,3,4,5-tetrakisphosphate",
-          "metaId" : "meta_qual_Inositol_1345tetrakisphosphate",
-          "name" : "Inositol 1,3,4,5-tetrakisphosphate",
-          "obo.chebi" : "CHEBI:16783",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "4IP",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_1345tetrakisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,3,4,5-tetrakisphosphate"
-        },
-        {
-          "3dmet" : "B01746",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_1346tetrakisphosphate",
-          "kegg.compound" : "C04477",
-          "label" : "Inositol 1,3,4,6-tetrakisphosphate",
-          "metaId" : "meta_qual_Inositol_1346tetrakisphosphate",
-          "name" : "Inositol 1,3,4,6-tetrakisphosphate",
-          "obo.chebi" : "CHEBI:16155",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "I4P",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_1346tetrakisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,3,4,6-tetrakisphosphate"
-        },
-        {
-          "3dmet" : "B01421",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_134trisphosphate",
-          "kegg.compound" : "C01243",
-          "label" : "Inositol 1,3,4-trisphosphate",
-          "metaId" : "meta_qual_Inositol_134trisphosphate",
-          "name" : "Inositol 1,3,4-trisphosphate",
-          "obo.chebi" : "CHEBI:18228",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "I3S",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_134trisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,3,4-trisphosphate"
-        },
-        {
-          "3dmet" : "B01713",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_13bisphosphate",
-          "kegg.compound" : "C04062",
-          "label" : "Inositol 1,3-bisphosphate",
-          "metaId" : "meta_qual_Inositol_13bisphosphate",
-          "name" : "Inositol 1,3-bisphosphate",
-          "obo.chebi" : "CHEBI:18225",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "ITP",
-          "pubchem.substance" : "6759",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_13bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,3-bisphosphate"
-        },
-        {
-          "3dmet" : "B01411",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_14bisphosphate",
-          "kegg.compound" : "C01220",
-          "label" : "Inositol 1,4-bisphosphate",
-          "metaId" : "meta_qual_Inositol_14bisphosphate",
-          "name" : "Inositol 1,4-bisphosphate",
-          "obo.chebi" : "CHEBI:17816",
-          "obo.eco" : "ECO:0000313",
-          "pubchem.substance" : "4442",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_14bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1,4-bisphosphate"
-        },
-        {
-          "3dmet" : "B01403",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_1phosphate",
-          "kegg.compound" : "C01177",
-          "label" : "Inositol 1-phosphate",
-          "metaId" : "meta_qual_Inositol_1phosphate",
-          "name" : "Inositol 1-phosphate",
-          "obo.chebi" : "CHEBI:18297",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_1phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 1-phosphate"
-        },
-        {
-          "3dmet" : "B01714",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_34bisphosphate",
-          "kegg.compound" : "C04063",
-          "label" : "Inositol 3,4-bisphosphate",
-          "metaId" : "meta_qual_Inositol_34bisphosphate",
-          "name" : "Inositol 3,4-bisphosphate",
-          "obo.chebi" : "CHEBI:28858",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_34bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 3,4-bisphosphate"
-        },
-        {
-          "3dmet" : "B01710",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_3phosphate",
-          "kegg.compound" : "C04006",
-          "label" : "Inositol 3-phosphate",
-          "metaId" : "meta_qual_Inositol_3phosphate",
-          "name" : "Inositol 3-phosphate",
-          "obo.chebi" : "CHEBI:18169",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_3phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 3-phosphate"
-        },
-        {
-          "3dmet" : "B01669",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Inositol_4phosphate",
-          "kegg.compound" : "C03546",
-          "label" : "Inositol 4-phosphate",
-          "metaId" : "meta_qual_Inositol_4phosphate",
-          "name" : "Inositol 4-phosphate",
-          "obo.chebi" : "CHEBI:18384",
-          "obo.eco" : "ECO:0000313",
-          "pubchem.substance" : "6349",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Inositol_4phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Inositol 4-phosphate"
-        },
-        {
-          "3dmet" : "B01422",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Ins145P3",
-          "kegg.compound" : "C01245",
-          "label" : "Ins(1,4,5)P3",
-          "metaId" : "meta_qual_Ins145P3",
-          "name" : "Ins(1,4,5)P3",
-          "obo.chebi" : "CHEBI:16595",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "I3P",
-          "pubchem.substance" : "4466",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Ins145P3",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Ins(1,4,5)P3"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_MSS4",
-          "ec-code" : "2.7.1.68",
-          "entrez.gene" : "851789",
-          "kegg.genes" : "sce:YDR208W",
-          "kegg.reaction" : "R03469",
-          "label" : "MSS4",
-          "metaId" : "meta_qual_MSS4",
-          "name" : "MSS4",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_MSS4",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "MSS4",
-          "uniprot" : "P38994"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_PIK1",
-          "ec-code" : "2.7.1.67",
-          "entrez.gene" : "855454",
-          "kegg.genes" : "sce:YNL267W",
-          "kegg.reaction" : "R03361",
-          "label" : "PIK1",
-          "metaId" : "meta_qual_PIK1",
-          "name" : "PIK1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_PIK1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "PIK1",
-          "uniprot" : "P39104"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_PIS1",
-          "ec-code" : "2.7.8.11",
-          "entrez.gene" : "856229",
-          "kegg.genes" : "sce:YPR113W",
-          "kegg.reaction" : "R01802",
-          "label" : "PIS1",
-          "metaId" : "meta_qual_PIS1",
-          "name" : "PIS1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_PIS1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "PIS1",
-          "uniprot" : "P06197"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_PKC1",
-          "ec-code" : "2.7.11.13",
-          "entrez.gene" : "852169",
-          "kegg.genes" : "sce:YBL105C",
-          "label" : "PKC1",
-          "metaId" : "meta_qual_PKC1",
-          "name" : "PKC1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_PKC1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "PKC1",
-          "uniprot" : "P24583"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_PLC1",
-          "ec-code" : "3.1.4.11",
-          "entrez.gene" : "855860",
-          "kegg.genes" : "sce:YPL268W",
-          "label" : "PLC1",
-          "metaId" : "meta_qual_PLC1",
-          "name" : "PLC1",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_PLC1",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "PLC1",
-          "uniprot" : "P32383"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phosphatidate",
-          "kegg.compound" : "C00416",
-          "label" : "Phosphatidate",
-          "metaId" : "meta_qual_Phosphatidate",
-          "name" : "Phosphatidate",
-          "obo.chebi" : "CHEBI:16337",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phosphatidate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phosphatidate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phosphatidylinositol",
-          "kegg.compound" : "C01194",
-          "label" : "Phosphatidylinositol",
-          "metaId" : "meta_qual_Phosphatidylinositol",
-          "name" : "Phosphatidylinositol",
-          "obo.chebi" : "CHEBI:16749",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phosphatidylinositol",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phosphatidylinositol"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phosphatidylinositol345trisphosphate",
-          "kegg.compound" : "C05981",
-          "label" : "Phosphatidylinositol-3,4,5-trisphosphate",
-          "metaId" : "meta_qual_Phosphatidylinositol345trisphosphate",
-          "name" : "Phosphatidylinositol-3,4,5-trisphosphate",
-          "obo.chebi" : "CHEBI:16618",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phosphatidylinositol345trisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phosphatidylinositol-3,4,5-trisphosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phosphatidylinositol45bisphosphate",
-          "kegg.compound" : "C04637",
-          "label" : "Phosphatidylinositol-4,5-bisphosphate",
-          "metaId" : "meta_qual_Phosphatidylinositol45bisphosphate",
-          "name" : "Phosphatidylinositol-4,5-bisphosphate",
-          "obo.chebi" : "CHEBI:18348",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phosphatidylinositol45bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phosphatidylinositol-4,5-bisphosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phosphatidylinositol_4phosphate",
-          "kegg.compound" : "C01277",
-          "label" : "Phosphatidylinositol 4-phosphate",
-          "metaId" : "meta_qual_Phosphatidylinositol_4phosphate",
-          "name" : "Phosphatidylinositol 4-phosphate",
-          "obo.chebi" : "CHEBI:17526",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phosphatidylinositol_4phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phosphatidylinositol 4-phosphate"
-        },
-        {
-          "3dmet" : "B00260",
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_Phytate",
-          "kegg.compound" : "C01204",
-          "label" : "Phytate",
-          "metaId" : "meta_qual_Phytate",
-          "name" : "Phytate",
-          "obo.chebi" : "CHEBI:17401",
-          "obo.eco" : "ECO:0000313",
-          "pdb-ccd" : "IHP",
-          "pubchem.substance" : "4428",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_Phytate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "Phytate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
-          "kegg.compound" : "C11554",
-          "label" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate",
-          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
-          "name" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate",
-          "obo.chebi" : "CHEBI:16152",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_34bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3,4-bisphosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
-          "kegg.compound" : "C11556",
-          "label" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate",
-          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
-          "name" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate",
-          "obo.chebi" : "CHEBI:16851",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_35bisphosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3,5-bisphosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
-          "kegg.compound" : "C04549",
-          "label" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate",
-          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
-          "name" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate",
-          "obo.chebi" : "CHEBI:17283",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_3phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "1-Phosphatidyl-1D-myo-inositol 3-phosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
-          "kegg.compound" : "C11557",
-          "label" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate",
-          "metaId" : "meta_qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
-          "name" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate",
-          "obo.chebi" : "CHEBI:16500",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_SId_Phosphatidyl1Dmyoinositol_5phosphate",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000247",
-          "shared name" : "1-Phosphatidyl-1D-myo-inositol 5-phosphate"
-        },
-        {
-          "compartmentCode" : 1,
-          "cyId" : "meta_qual_VPS34",
-          "ec-code" : "2.7.1.137",
-          "entrez.gene" : "850941",
-          "kegg.genes" : "sce:YLR240W",
-          "kegg.reaction" : "R03362",
-          "label" : "VPS34",
-          "metaId" : "meta_qual_VPS34",
-          "name" : "VPS34",
-          "obo.eco" : "ECO:0000313",
-          "sbml compartment" : "default",
-          "sbml id" : "qual_VPS34",
-          "sbml type" : "qual_species",
-          "sbml type ext" : "qual_species",
-          "sbo" : "SBO:0000354",
-          "shared name" : "VPS34",
-          "uniprot" : "P22543"
-        },
-        {
-          "cyId" : "tr",
-          "label" : "tr",
-          "metaId" : "tr",
-          "sbml id" : "tr",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_1",
-          "label" : "tr_1",
-          "metaId" : "tr_1",
-          "sbml id" : "tr_1",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_10",
-          "label" : "tr_10",
-          "metaId" : "tr_10",
-          "sbml id" : "tr_10",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_11",
-          "label" : "tr_11",
-          "metaId" : "tr_11",
-          "sbml id" : "tr_11",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_12",
-          "label" : "tr_12",
-          "metaId" : "tr_12",
-          "sbml id" : "tr_12",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_13",
-          "label" : "tr_13",
-          "metaId" : "tr_13",
-          "sbml id" : "tr_13",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_14",
-          "label" : "tr_14",
-          "metaId" : "tr_14",
-          "sbml id" : "tr_14",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_15",
-          "label" : "tr_15",
-          "metaId" : "tr_15",
-          "sbml id" : "tr_15",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_16",
-          "label" : "tr_16",
-          "metaId" : "tr_16",
-          "sbml id" : "tr_16",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_17",
-          "label" : "tr_17",
-          "metaId" : "tr_17",
-          "sbml id" : "tr_17",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_18",
-          "label" : "tr_18",
-          "metaId" : "tr_18",
-          "sbml id" : "tr_18",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_19",
-          "label" : "tr_19",
-          "metaId" : "tr_19",
-          "sbml id" : "tr_19",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_2",
-          "label" : "tr_2",
-          "metaId" : "tr_2",
-          "sbml id" : "tr_2",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_20",
-          "label" : "tr_20",
-          "metaId" : "tr_20",
-          "sbml id" : "tr_20",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_21",
-          "label" : "tr_21",
-          "metaId" : "tr_21",
-          "sbml id" : "tr_21",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_22",
-          "label" : "tr_22",
-          "metaId" : "tr_22",
-          "sbml id" : "tr_22",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_23",
-          "label" : "tr_23",
-          "metaId" : "tr_23",
-          "sbml id" : "tr_23",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_3",
-          "label" : "tr_3",
-          "metaId" : "tr_3",
-          "sbml id" : "tr_3",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_4",
-          "label" : "tr_4",
-          "metaId" : "tr_4",
-          "sbml id" : "tr_4",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_5",
-          "label" : "tr_5",
-          "metaId" : "tr_5",
-          "sbml id" : "tr_5",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_6",
-          "label" : "tr_6",
-          "metaId" : "tr_6",
-          "sbml id" : "tr_6",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_7",
-          "label" : "tr_7",
-          "metaId" : "tr_7",
-          "sbml id" : "tr_7",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_8",
-          "label" : "tr_8",
-          "metaId" : "tr_8",
-          "sbml id" : "tr_8",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        },
-        {
-          "cyId" : "tr_9",
-          "label" : "tr_9",
-          "metaId" : "tr_9",
-          "sbml id" : "tr_9",
-          "sbml type" : "qual_transition",
-          "sbml type ext" : "qual_transition"
-        }
-      ],
-      "edges" : [
         {
           "source" : "tr",
           "target" : "qual_PLC1",

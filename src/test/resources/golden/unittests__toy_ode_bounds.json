@@ -1,7 +1,17 @@
 {
   "networks" : [
     {
-      "name" : "All__toy_ode_bounds",
+      "name" : "toy_ode_bounds",
+      "nodeCount" : 0,
+      "edgeCount" : 0,
+      "attributes" : {
+        "name" : "toy_ode_bounds"
+      },
+      "nodes" : [ ],
+      "edges" : [ ]
+    },
+    {
+      "name" : "toy_ode_bounds__all",
       "nodeCount" : 25,
       "edgeCount" : 18,
       "attributes" : {
@@ -10,7 +20,7 @@
         "label" : "ODE bound calculation submodel",
         "lengthUnits" : "m",
         "metaId" : "meta_b9ccc52826d147e69c637e60d986fe5c",
-        "name" : "All__toy_ode_bounds",
+        "name" : "toy_ode_bounds__all",
         "sbml id" : "toy_ode_bounds",
         "sbmlNetwork" : "sbml",
         "sbmlVersion" : "L3 V1",
@@ -463,11 +473,11 @@
       ]
     },
     {
-      "name" : "Kinetic__toy_ode_bounds",
+      "name" : "toy_ode_bounds__kinetic",
       "nodeCount" : 4,
       "edgeCount" : 4,
       "attributes" : {
-        "name" : "Kinetic__toy_ode_bounds"
+        "name" : "toy_ode_bounds__kinetic"
       },
       "nodes" : [
         {
@@ -570,16 +580,6 @@
           }
         }
       ]
-    },
-    {
-      "name" : "toy_ode_bounds",
-      "nodeCount" : 0,
-      "edgeCount" : 0,
-      "attributes" : {
-        "name" : "toy_ode_bounds"
-      },
-      "nodes" : [ ],
-      "edges" : [ ]
     }
   ],
   "groups" : [ ]

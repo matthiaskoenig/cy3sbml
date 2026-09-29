@@ -362,10 +362,10 @@ public class SBML {
     public static final String STYLE_CY3SBML = "cy3sbml";
     public static final String STYLE_CY3SBML_DARK = "cy3sbml-dark";
 
-    // Subnetworks
-    public static final String PREFIX_SUBNETWORK_ALL = "All";
-    public static final String PREFIX_SUBNETWORK_KINETIC = "Kinetic";
-    public static final String PREFIX_SUBNETWORK_BASE = "";
+    // Subnetworks: suffixes of the network names, the base network has the name of the root network
+    public static final String SUFFIX_SUBNETWORK_ALL = "__all";
+    public static final String SUFFIX_SUBNETWORK_KINETIC = "__kinetic";
+    public static final String SUFFIX_SUBNETWORK_BASE = "";
     // prefix of the network collection of the flat comp model
     public static final String PREFIX_NETWORK_FLAT = "Flat";
 
