@@ -146,7 +146,7 @@ thread.
 | Package | Content |
 |---|---|
 | `actions` | toolbar actions: panel, import, examples, BioModels, help, layouts |
-| `archive` | COMBINE archive reader, not functional and not registered yet (#116) |
+| `archive` | COMBINE archive reader: `CombineArchive` unpacks an archive and reads its manifest and metadata (`ArchiveInfo`), `CombineArchiveReaderTask` reads its SBML models with `SBMLReaderTask`; `SBMLManager` keeps the archive of every document for the info panel and the session |
 | `biomodel` | BioModels search and import dialog |
 | `cofactors` | cofactor splitting and merging |
 | `layout` | saving and loading node positions as XML |

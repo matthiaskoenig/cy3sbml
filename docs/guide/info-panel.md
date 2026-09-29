@@ -8,7 +8,9 @@ show it.
 
 The panel follows the selection in the current network:
 
-- If no node is selected, it shows the SBML document and the model.
+- If no node is selected, it shows the SBML document and the model. For a document
+  imported from a COMBINE archive, it shows the archive and its files as well, see
+  [COMBINE archives](import.md#combine-archives).
 - If nodes are selected, it shows the SBML object of the first selected node.
 - Some nodes have no SBML object, for example the `AND` and `OR` nodes of fbc gene
   associations, or base units like `mole` that are not defined in the model. The panel

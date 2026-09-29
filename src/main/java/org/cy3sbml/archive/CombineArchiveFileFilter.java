@@ -21,7 +21,7 @@ public class CombineArchiveFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(CombineArchiveFileFilter.class);
 
     /** The file extensions of COMBINE archives. */
-    static final List<String> EXTENSIONS = List.of("omex", "sedx", "sbex", "cmex", "sbox", "neux", "phex");
+    public static final List<String> EXTENSIONS = List.of("omex", "sedx", "sbex", "cmex", "sbox", "neux", "phex");
 
     private static final byte[] ZIP_SIGNATURE = {'P', 'K', 0x3, 0x4};
 

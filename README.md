@@ -12,7 +12,8 @@
 nodes, edges and styles, and provides one-click links to [BioModels](https://www.biomodels.org),
 [identifiers.org](https://identifiers.org/) and the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/index).
 Models can be imported from SBML files or searched and imported from the BioModels database.
-The SBML `layout` package and COMBINE archives (OMEX) are not supported yet.
+The SBML models of COMBINE archives (OMEX) are imported as well. The SBML `layout` package is not
+supported yet.
 
 ![cy3sbml in Cytoscape: the base network of the fbc model mini_textbook with the information of the reaction R_PFK](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshots/main-window-fbc-model.png)
 

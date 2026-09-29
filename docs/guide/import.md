@@ -8,8 +8,8 @@ Cytoscape uses it for SBML files. An import creates three networks per model, se
 
 A file is read by cy3sbml if its first 20 lines contain the SBML namespace
 `http://www.sbml.org/sbml/`, whatever its file extension. The file dialog of
-**Import SBML** lists files with the extensions `.xml` and `.sbml` and files without
-extension. All SBML levels and versions are supported.
+**Import SBML** lists files with the extensions `.xml` and `.sbml`, files without
+extension, and COMBINE archives (see below). All SBML levels and versions are supported.
 
 The file is decoded with the encoding declared in its XML declaration (UTF-8 if none is
 declared).
@@ -85,9 +85,26 @@ the file system or from a URL, next to the files it refers to. See
 
 ## COMBINE archives
 
-Importing COMBINE archives (OMEX) is not supported yet
-([issue #116](https://github.com/matthiaskoenig/cy3sbml/issues/116)). Extract the SBML
-files from the archive and import them as files.
+A COMBINE archive (OMEX) is a zip file with models, simulations, data and metadata, and a
+manifest that lists its files. cy3sbml imports the SBML models of an archive like SBML
+files: open the archive with **Import SBML**, **File → Import → Network from File...**,
+drag and drop, or CyREST.
+
+- **Which files:** archives with the extensions `.omex`, `.sedx`, `.sbex`, `.cmex`,
+  `.sbox`, `.neux` and `.phex` are read. Other zip files are not.
+- **Which models:** the SBML files the manifest marks as master. If no SBML file is master,
+  all SBML files of the archive are imported. Every imported model gets its network
+  collections as an SBML file does.
+- **Files of the archive:** SBML files the imported models reference, for example the
+  external model definitions of a comp model, are read from the archive. The other files
+  (simulations, data, images) are not imported.
+- **Info panel:** the info panel of the SBML document shows the archive: its name, title,
+  description and creators from its metadata, and its files with their format; the
+  imported file is bold. The root network has the column `archive` with the name of the
+  archive. Both are kept in saved sessions.
+
+An archive without SBML files, a damaged archive, or an SBML file of the archive that
+cannot be read is reported; the other models of the archive are still imported.
 
 ## Errors while reading
 

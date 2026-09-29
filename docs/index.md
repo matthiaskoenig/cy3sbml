@@ -23,8 +23,10 @@ information and the annotations of the selected object in a panel next to the ne
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
 - Saving and loading of node positions. See [Layouts](guide/layouts.md).
 
-Not supported yet: the SBML `layout` package, COMBINE archives (OMEX), and a built-in
-SBML validator. See [Validation](guide/validation.md) and
+- Import of the SBML models of COMBINE archives (OMEX). See
+  [Importing SBML](guide/import.md#combine-archives).
+
+Not supported yet: the SBML `layout` package and a built-in SBML validator. See [Validation](guide/validation.md) and
 [Supported SBML packages](guide/packages.md).
 
 ## Getting started
