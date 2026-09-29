@@ -76,4 +76,4 @@ The build must stay warning-free. Do not hand-edit `docs/release-notes.md` or an
 
 ## Release
 
-See `docs/development/release.md` for the full process. In short: set the version in `pom.xml` and add `release-notes/<version>.md` in a pull request to `develop`, then tag the merged commit (`v<version>`); `.github/workflows/release.yml` builds and tests the tag, creates the GitHub release with the jar and checksums, and fast-forwards `main` to it. Branch and tag protection (`develop`, `main`, tags) are GitHub rulesets under `.github/rulesets/`, applied with `.github/rulesets/apply.sh`.
+See `docs/development/release.md` for the full process. In short: set the version in `pom.xml` and add `release-notes/<version>.md` in a pull request to `develop`, then tag the merged commit (`v<version>`); `.github/workflows/release.yml` builds and tests the tag, creates the GitHub release with the app jar, the javadoc jar and the `pom.xml` (each with MD5/SHA-1 checksums), and fast-forwards `main` to it. Branch and tag protection (`develop`, `main`, tags) are GitHub rulesets under `.github/rulesets/`, applied with `.github/rulesets/apply.sh`.

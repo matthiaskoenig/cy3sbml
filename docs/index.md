@@ -10,7 +10,8 @@ information and the annotations of the selected object in a panel next to the ne
 ## Features
 
 - Import of all SBML levels and versions, including the packages `qual`, `fbc`
-  (versions 1 to 3), `comp`, `groups`, `distrib` and `layout`. See [Supported SBML packages](guide/packages.md).
+  (versions 1 to 3), `comp`, `groups`, `distrib` and `layout`. See
+  [Supported SBML packages](guide/packages.md).
 - Three networks per model: the reaction network, a kinetic network with parameters,
   rules and kinetic laws, and a network with all SBML objects, plus one network per layout
   of the `layout` package. See [Network model](guide/network.md).
@@ -22,6 +23,10 @@ information and the annotations of the selected object in a panel next to the ne
   layout networks. See [Styles](guide/styles.md).
 - Example models, and search and import of models from
   [BioModels](https://www.biomodels.org). See [Importing SBML](guide/import.md).
+- Automation from Python, R and other languages: commands for the import, the SBML of the
+  networks and the mapping of data onto the nodes, in the Cytoscape command line and the
+  REST API (CyREST), with Python examples. See
+  [Automation and REST API](guide/automation.md).
 - The layouts of the SBML `layout` package as networks with the drawn positions, and
   saving and loading of the node positions of a network. See [Layouts](guide/layouts.md).
 - Splitting of cofactor nodes into one node per edge, and merging them back.

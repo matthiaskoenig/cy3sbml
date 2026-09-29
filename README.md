@@ -14,7 +14,9 @@ network with the drawn positions. A panel next to the network shows the SBML inf
 annotations of the selected object, with links to [BioModels](https://www.biomodels.org),
 [identifiers.org](https://identifiers.org/) and the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/index).
 Models are imported from SBML files, from COMBINE archives (OMEX), or searched and imported from
-the BioModels database.
+the BioModels database. Commands in the Cytoscape REST API (CyREST) automate the import, the access
+to the SBML of the networks and the mapping of data onto the nodes, for example from Python
+([Automation and REST API](https://matthiaskoenig.github.io/cy3sbml/guide/automation/)).
 
 ![cy3sbml in Cytoscape: the base network of the fbc model mini_textbook with the information of the reaction R_PFK](https://github.com/matthiaskoenig/cy3sbml/raw/develop/docs/images/screenshots/main-window-fbc-model.png)
 
