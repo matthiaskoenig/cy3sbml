@@ -333,8 +333,8 @@ public class SBaseHTMLFactory {
 
         // Not supported
         else {
-            logger.warn(MessageFormat.format(
-                    "No object map support for {0} <{1}>", SBMLUtil.getUnqualifiedClassName(item), item));
+            // the elements without own table (lists, species references, ...) show the SBase attributes
+            logger.debug("No object map support for {} <{}>", SBMLUtil.getUnqualifiedClassName(item), item);
             if (item instanceof NamedSBase namedSBase) {
                 map = SBMLUtil.createNamedSBaseMap(namedSBase);
             } else {
