@@ -870,15 +870,20 @@ public class SBMLUtil {
     /** The name of the model, with a link to its network collection if there is one. */
     private static String modelLink(Model model, CompTargets targets) {
         String name = HtmlUtil.escape(modelName(model));
-        return networkLink(model, "", targets).map(link -> name + link).orElse(name);
+        return nodeLink(model, "", targets).map(link -> name + link).orElse(name);
     }
 
     private static String modelName(Model model) {
         return model.isSetId() ? model.getId() : "main model";
     }
 
-    /** The link to the node with the metaid in the network collection of the model. */
-    private static Optional<String> networkLink(Model model, String metaId, CompTargets targets) {
+    /**
+     * The link to the node with the metaid in the network collection of the model, empty if
+     * the model has no network collection.
+     *
+     * @param targets the network collections of the open documents, may be null
+     */
+    public static Optional<String> nodeLink(Model model, String metaId, CompTargets targets) {
         if (targets == null) {
             return Optional.empty();
         }
@@ -894,7 +899,7 @@ public class SBMLUtil {
                     target.getElementName(),
                     HtmlUtil.escape(name),
                     HtmlUtil.escape(modelName(resolved.model())),
-                    networkLink(resolved.model(), target.getMetaId(), targets).orElse(""));
+                    nodeLink(resolved.model(), target.getMetaId(), targets).orElse(""));
         }
         return String.format(
                 "<span class=\"text-danger\">%s</span>",

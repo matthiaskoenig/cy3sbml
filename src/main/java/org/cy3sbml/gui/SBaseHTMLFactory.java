@@ -158,6 +158,7 @@ public class SBaseHTMLFactory {
 
         String html = createHeader(sbase);
         html += createSBase(sbase);
+        html += UncertaintyHtml.create(sbase, compTargets);
         html += createHistory(sbase);
         html += createCVTerms(sbase);
         html += createNonRDFAnnotation(sbase);
