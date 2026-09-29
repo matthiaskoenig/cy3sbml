@@ -21,6 +21,8 @@ import org.sbml.jsbml.ext.fbc.FluxBound;
 import org.sbml.jsbml.ext.fbc.GeneProduct;
 import org.sbml.jsbml.ext.fbc.Objective;
 import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.groups.GroupsConstants;
+import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
 import org.sbml.jsbml.ext.groups.Member;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
@@ -504,6 +506,24 @@ class SBMLUtilTest {
         Map<String, String> map = SBMLUtil.createGroupMap(group);
 
         assertEquals("partonomy", map.get("kind"));
-        assertTrue(map.get("members").contains("<ul>"));
+        // r1 is not in a model
+        assertEquals("<ul><li><span class=\"text-danger\">r1</span></li></ul>", map.get("members"));
+    }
+
+    @Test
+    void createGroupMapLinksTheMembers() {
+        SBMLDocument doc = new SBMLDocument(3, 1);
+        Model model = doc.createModel("m");
+        Reaction reaction = model.createReaction("r1");
+        reaction.setMetaId("meta_r1");
+        GroupsModelPlugin groups = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
+        Group group = groups.createGroup("g1");
+        group.createMember().setIdRef("r1");
+
+        String members = SBMLUtil.createGroupMap(group).get("members");
+
+        assertTrue(members.startsWith("<ul><li>reaction r1 <a href="), members);
+        assertTrue(members.contains("meta_r1"), members);
+        assertFalse(members.contains("fast="), members);
     }
 }

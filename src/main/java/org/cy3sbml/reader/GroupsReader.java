@@ -1,9 +1,5 @@
 package org.cy3sbml.reader;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.cytoscape.group.CyGroup;
-import org.cytoscape.model.CyNode;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.ext.groups.Group;
@@ -15,20 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Reads the groups package: every group becomes a CyGroup of its member nodes.
+ * Reads the groups package: every group becomes a CyGroup of its member nodes, in the network
+ * with all nodes here and in the subnetworks by {@link SubnetworkBuilder}, see
+ * {@link GroupBuilder}.
  */
 final class GroupsReader implements PackageReader {
     private static final Logger logger = LoggerFactory.getLogger(GroupsReader.class);
 
-    /**
-     * Create groups.
-     * Groups are implemented as group nodes.
-     * <p>
-     * A CyGroup is created either as an empty group
-     * CyGroup emptyGroup = groupFactory.createGroup(network, true);
-     * or by turning an existing node into an empty group:
-     * CyGroup emptyGroup = groupFactory.createGroup(network, node, true);
-     */
     @Override
     public void read(ConversionContext context, Model model) {
         logger.debug("<groups>");
@@ -39,49 +28,33 @@ final class GroupsReader implements PackageReader {
         }
 
         for (Group group : groupsModel.getListOfGroups()) {
-            logger.debug(String.format("Reading group: <%s>", group));
+            context.addGroup(group);
+            transferListOfMembersInformation(group.getListOfMembers());
+        }
+        context.createGroups(context.network());
+    }
 
-            // empty group node & sets attributes
-            CyGroup cyGroup = context.createGroup(group);
-
-            // collect nodes from members
-            List<CyNode> nodes = new ArrayList<>();
-            ListOfMembers membersList = group.getListOfMembers();
-            for (Member member : membersList) {
-
-                // resolve object & node
-                SBase sbase = member.getSBaseInstance();
-                CyNode memberNode = context.nodeByMetaId(sbase.getMetaId()).orElse(null);
-
-                if (memberNode != null) {
-                    nodes.add(memberNode);
-                } else {
-                    logger.error(String.format("Member <%s> of group <%s> not found via metaId.", group, member));
-                }
-
-                // Information transfer to members
-
-                // Unlike most lists of objects in SBML, the sboTerm attribute and the Notes
-                // and Annotation children are taken from the ListOfMembers to apply directly to every
-                // SBML element referenced by each child Member of this ListOfMembers,
-                // if that referenced element has no such definition.
-                // Thus, if a referenced element has no defined sboTerm, child Notes, or child Annotation,
-                // that element should be considered to now have the sboTerm, child Notes, or child Annotation of the
-                // ListOfMembers.
-
-                // ! this changes the SBMLDocument
-                if (membersList.isSetSBOTerm() && !sbase.isSetSBOTerm()) {
-                    sbase.setSBOTerm(membersList.getSBOTerm());
-                }
-                if (membersList.isSetNotes() && !sbase.isSetNotes()) {
-                    sbase.setNotes(membersList.getNotes());
-                }
-                if (membersList.isSetAnnotation() && !sbase.isSetAnnotation()) {
-                    sbase.setAnnotation(membersList.getAnnotation());
-                }
+    /**
+     * Unlike most lists of objects in SBML, the sboTerm attribute and the Notes and Annotation
+     * children are taken from the ListOfMembers to apply directly to every SBML element
+     * referenced by each child Member of this ListOfMembers, if that referenced element has no
+     * such definition. This changes the SBMLDocument.
+     */
+    private static void transferListOfMembersInformation(ListOfMembers membersList) {
+        for (Member member : membersList) {
+            SBase sbase = member.getSBaseInstance();
+            if (sbase == null) {
+                continue;
             }
-            logger.debug(String.format("Adding %s nodes to cyGroup", nodes.size()));
-            cyGroup.addNodes(nodes);
+            if (membersList.isSetSBOTerm() && !sbase.isSetSBOTerm()) {
+                sbase.setSBOTerm(membersList.getSBOTerm());
+            }
+            if (membersList.isSetNotes() && !sbase.isSetNotes()) {
+                sbase.setNotes(membersList.getNotes());
+            }
+            if (membersList.isSetAnnotation() && !sbase.isSetAnnotation()) {
+                sbase.setAnnotation(membersList.getAnnotation());
+            }
         }
     }
 }

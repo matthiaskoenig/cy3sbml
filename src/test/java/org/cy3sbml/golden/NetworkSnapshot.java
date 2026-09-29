@@ -115,7 +115,7 @@ public final class NetworkSnapshot {
                 }
                 List<String> members = new ArrayList<>();
                 for (CyNode member : pointer.getNodeList()) {
-                    members.add(nodeKeys.getOrDefault(member, "<not in networks>"));
+                    members.add(memberKey(root, member, nodeKeys));
                 }
                 Collections.sort(members);
                 ObjectNode group = FACTORY.objectNode();
@@ -128,6 +128,18 @@ public final class NetworkSnapshot {
         }
         groups.sort(Comparator.comparing(NetworkSnapshot::json));
         return FACTORY.arrayNode().addAll(groups);
+    }
+
+    /** Key of a group member: the node key, or the cyId of a nested group node. */
+    private static String memberKey(CyRootNetwork root, CyNode member, Map<CyNode, String> nodeKeys) {
+        String key = nodeKeys.get(member);
+        if (key != null) {
+            return key;
+        }
+        if (member.getNetworkPointer() != null) {
+            return "group " + root.getRow(member).get(SBML.ATTR_CYID, String.class);
+        }
+        return "<not in networks>";
     }
 
     private static String networkName(CyNetwork network) {

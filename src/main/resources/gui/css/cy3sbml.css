@@ -22,6 +22,12 @@ h1, h2, h3, h4, td, th {
     width: 38%;
 }
 
+/* lists in a cell, e.g. the members of a group, without the wide default indent */
+td ul {
+    margin: 0;
+    padding-left: 1.2em;
+}
+
 .ontology{
     background-color: #5FBDCE;
     padding:2px;

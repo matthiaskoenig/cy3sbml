@@ -85,9 +85,14 @@ cy3sbml supports the comp package version 1 release 3.
 
 ## groups
 
-Every group becomes a Cytoscape group of the nodes of its members in the base and the
-kinetic network. The SBO term, notes and annotation of a list of members are applied to
-the members that do not have their own.
+Every group becomes a Cytoscape group of the nodes of its members in each network of the
+model (base, kinetic and all). Each network has its own group with the members that are
+in this network, for example a group of species and parameters has only the species in
+the base network; a group without members in a network is not created in it. A group
+that is a member of another group is a nested Cytoscape group. The groups of every network
+can be collapsed and expanded independently, also after the session is saved and opened
+again. The SBO term, notes and annotation of a list of members are applied to the members
+that do not have their own.
 
 ## distrib (distributions)
 

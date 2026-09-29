@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" groups:required="false">
+  <model id="groups_02" name="groups of mixed, nested and overlapping members">
+    <listOfCompartments>
+      <compartment id="c" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="c" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S2" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S3" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="1" constant="true"/>
+      <parameter id="k2" value="2" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="R1" reversible="false" fast="false">
+        <listOfReactants><speciesReference species="S1" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference species="S2" stoichiometry="1" constant="true"/></listOfProducts>
+        <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k1</ci><ci>S1</ci></apply></math></kineticLaw>
+      </reaction>
+      <reaction id="R2" reversible="false" fast="false">
+        <listOfReactants><speciesReference species="S2" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference species="S3" stoichiometry="1" constant="true"/></listOfProducts>
+        <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k2</ci><ci>S2</ci></apply></math></kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <groups:listOfGroups>
+      <groups:group groups:id="g_nested" groups:kind="partonomy">
+        <groups:listOfMembers>
+          <groups:member groups:idRef="g_reactions"/>
+          <groups:member groups:idRef="S3"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g_mixed" groups:kind="collection">
+        <groups:listOfMembers>
+          <groups:member groups:idRef="S1"/>
+          <groups:member groups:idRef="k1"/>
+          <groups:member groups:idRef="c"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g_params" groups:kind="classification">
+        <groups:listOfMembers>
+          <groups:member groups:idRef="k1"/>
+          <groups:member groups:idRef="k2"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g_reactions" groups:kind="partonomy">
+        <groups:listOfMembers>
+          <groups:member groups:idRef="R1"/>
+          <groups:member groups:idRef="R2"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g_overlap" groups:kind="collection">
+        <groups:listOfMembers>
+          <groups:member groups:idRef="R2"/>
+          <groups:member groups:idRef="S2"/>
+        </groups:listOfMembers>
+      </groups:group>
+    </groups:listOfGroups>
+  </model>
+</sbml>
