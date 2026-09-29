@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import java.util.List;
+import java.util.Locale;
 import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.util.DistribUtil;
 import org.cy3sbml.util.HtmlUtil;
@@ -8,6 +9,7 @@ import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBase;
+import org.sbml.jsbml.SimpleSpeciesReference;
 import org.sbml.jsbml.ext.distrib.UncertParameter;
 import org.sbml.jsbml.ext.distrib.UncertSpan;
 import org.sbml.jsbml.ext.distrib.Uncertainty;
@@ -41,7 +43,7 @@ public final class UncertaintyHtml {
         for (Uncertainty uncertainty : uncertainties) {
             html.append(header(uncertainty));
             html.append(TABLE_START);
-            for (UncertParameter parameter : uncertainty.getListOfUncertParameters()) {
+            for (UncertParameter parameter : DistribUtil.uncertParameters(uncertainty)) {
                 rows(parameter, 0, sbase.getModel(), targets, html);
             }
             html.append("</table>\n");
@@ -111,7 +113,8 @@ public final class UncertaintyHtml {
     private static String var(String id, Model model, CompTargets targets) {
         String html = HtmlUtil.escape(id);
         NamedSBase element = model == null ? null : model.findNamedSBase(id);
-        if (element == null || !element.isSetMetaId()) {
+        // a species reference is an edge, not a node
+        if (element == null || !element.isSetMetaId() || element instanceof SimpleSpeciesReference) {
             return html;
         }
         return SBMLUtil.nodeLink(model, element.getMetaId(), targets)
@@ -119,11 +122,16 @@ public final class UncertaintyHtml {
                 .orElse(html);
     }
 
+    /** The definition URL as a link named by its last part; only http and https URLs are links. */
     private static String definition(UncertParameter parameter) {
         if (!parameter.isSetDefinitionURL()) {
             return "";
         }
         String url = parameter.getDefinitionURL();
+        String scheme = url.toLowerCase(Locale.ROOT);
+        if (!scheme.startsWith("http://") && !scheme.startsWith("https://")) {
+            return HtmlUtil.escape(url);
+        }
         // the last part of the URL names the definition, e.g. "normal" or "PROB_k0000225"
         String name = url.substring(Math.max(url.lastIndexOf('/'), url.lastIndexOf('#')) + 1);
         if (name.isEmpty()) {

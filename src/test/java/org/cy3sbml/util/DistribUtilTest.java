@@ -1,6 +1,7 @@
 package org.cy3sbml.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,6 +17,7 @@ import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.ext.distrib.DistribConstants;
 import org.sbml.jsbml.ext.distrib.DistribSBasePlugin;
 import org.sbml.jsbml.ext.distrib.UncertParameter;
+import org.sbml.jsbml.ext.distrib.Uncertainty;
 
 class DistribUtilTest {
     private static Model model;
@@ -95,5 +97,17 @@ class DistribUtilTest {
         assertTrue(DistribUtil.uncertainties(p).isEmpty());
         assertEquals("", DistribUtil.summary(DistribUtil.uncertainties(p)));
         assertNull(p.getExtension(DistribConstants.shortLabel));
+    }
+
+    @Test
+    void emptyUncertaintyIsShownAndNotChanged() {
+        Parameter p = new SBMLDocument(3, 2).createModel("m").createParameter("p");
+        DistribSBasePlugin plugin = (DistribSBasePlugin) p.getPlugin(DistribConstants.shortLabel);
+        Uncertainty withoutId = plugin.createUncertainty();
+        Uncertainty withId = plugin.createUncertainty("u2");
+
+        assertEquals("uncertainty | u2", summary(p));
+        assertFalse(withoutId.isSetListOfUncertParameters());
+        assertFalse(withId.isSetListOfUncertParameters());
     }
 }

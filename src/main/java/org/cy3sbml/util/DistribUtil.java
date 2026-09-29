@@ -42,8 +42,22 @@ public final class DistribUtil {
         return uncertainties.stream().map(DistribUtil::summary).collect(Collectors.joining(" | "));
     }
 
+    /**
+     * The uncertainty parameters and spans of the uncertainty. The uncertainty is not
+     * changed: JSBML creates the list on access, this does not.
+     */
+    public static List<UncertParameter> uncertParameters(Uncertainty uncertainty) {
+        return uncertainty.isSetListOfUncertParameters()
+                ? new ArrayList<>(uncertainty.getListOfUncertParameters())
+                : List.of();
+    }
+
+    /** The parameters, prefixed by the id if set; the id or "uncertainty" if it has no parameters. */
     private static String summary(Uncertainty uncertainty) {
-        String parameters = parameters(uncertainty.getListOfUncertParameters());
+        String parameters = parameters(uncertParameters(uncertainty));
+        if (parameters.isEmpty()) {
+            return uncertainty.isSetId() ? uncertainty.getId() : uncertainty.getElementName();
+        }
         return uncertainty.isSetId() ? uncertainty.getId() + ": " + parameters : parameters;
     }
 

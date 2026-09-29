@@ -129,4 +129,45 @@ class UncertaintyHtmlTest {
         assertTrue(html.contains("<span class=\"qualifier\">uncertainty</span>"), html);
         assertTrue(html.contains("normal(1, sd_k1)"), html);
     }
+
+    @Test
+    void emptyUncertaintyIsNotChanged() {
+        Parameter p = model.createParameter("p_empty");
+        Uncertainty u = ((DistribSBasePlugin) p.getPlugin(DistribConstants.shortLabel)).createUncertainty("u_empty");
+
+        String html = UncertaintyHtml.create(p, TARGETS);
+
+        assertTrue(html.contains("<b>u_empty</b>"), html);
+        assertFalse(u.isSetListOfUncertParameters());
+    }
+
+    @Test
+    void definitionIsOnlyALinkForHttp() {
+        Parameter p = model.createParameter("p_script");
+        Uncertainty u = ((DistribSBasePlugin) p.getPlugin(DistribConstants.shortLabel)).createUncertainty();
+        UncertParameter up = u.createUncertParameter();
+        up.setType(UncertParameter.Type.externalParameter);
+        up.setDefinitionURL("javascript:alert('x')");
+
+        String html = UncertaintyHtml.create(p, TARGETS);
+
+        assertFalse(html.contains("href=\"javascript"), html);
+        assertTrue(html.contains("<td>javascript:alert('x')</td>"), html);
+    }
+
+    @Test
+    void varOfASpeciesReferenceHasNoLink() {
+        // a species reference is an edge, not a node
+        model.getReaction("J0").getReactant(0).setMetaId("meta_sr1");
+        Parameter p = model.createParameter("p_sr");
+        Uncertainty u = ((DistribSBasePlugin) p.getPlugin(DistribConstants.shortLabel)).createUncertainty();
+        UncertParameter up = u.createUncertParameter();
+        up.setType(UncertParameter.Type.mean);
+        up.setVar("sr1");
+
+        String html = UncertaintyHtml.create(p, TARGETS);
+
+        assertTrue(html.contains("<td>sr1</td>"), html);
+        assertFalse(html.contains(BrowserHyperlinkListener.URL_SELECT_TARGET), html);
+    }
 }
