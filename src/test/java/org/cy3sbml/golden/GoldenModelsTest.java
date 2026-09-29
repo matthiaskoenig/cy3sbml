@@ -29,7 +29,7 @@ import org.junit.jupiter.params.provider.FieldSource;
  * <p>
  * Models left out on purpose: {@code unittests/groups_01.xml} (snapshot above 6 MB, groups
  * are covered by {@code unittests/fbc_01.xml}) and COMBINE archives (read by
- * {@code ArchiveReaderTask}, not by {@code SBMLReaderTask}).
+ * {@code CombineArchiveReaderTask}, see {@code CombineArchiveReaderTaskTest}).
  * <p>
  * Regenerate the snapshots after an intended change of the import with
  * <pre>

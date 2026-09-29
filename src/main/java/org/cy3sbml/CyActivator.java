@@ -263,10 +263,6 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
         registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
-        // The archive reader (package org.cy3sbml.archive) is not registered: reading the
-        // content of COMBINE archives is not implemented yet (#116), and the reader would
-        // turn every zip file into an empty network.
-
         // SBML file reader. Registered here, before any optional GUI/extension/resource
         // setup runs: Cytoscape only routes .xml imports to its own bundled SBML app
         // (whose jsbml has no biojava) when this factory is not registered.

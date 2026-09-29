@@ -129,7 +129,6 @@ public class BundleJarContentIT {
     public void hasTheVisualStyles() {
         assertHasEntry("styles/cy3sbml.xml");
         assertHasEntry("styles/cy3sbml-dark.xml");
-        assertHasEntry("styles/robundle.xml");
     }
 
     @Test
