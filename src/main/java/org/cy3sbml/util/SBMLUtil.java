@@ -916,7 +916,8 @@ public class SBMLUtil {
      */
     public static Map<String, String> createGroupMap(Group group) {
         Map<String, String> map = createNamedSBaseMap(group);
-        map.put("kind", group.getKind().name());
+        // kind is required, but invalid models can miss it
+        map.put("kind", group.isSetKind() ? group.getKind().name() : UNSET);
 
         ListOfMembers members = group.getListOfMembers();
         if (members.isSetId()) {
@@ -927,12 +928,26 @@ public class SBMLUtil {
         }
         StringBuilder membersStr = new StringBuilder("<ul>");
         for (Member member : group.getListOfMembers()) {
-            membersStr.append("<li>").append(member.getSBaseInstance()).append("</li>");
+            membersStr.append("<li>").append(memberHtml(member)).append("</li>");
         }
         membersStr.append("</ul>");
         map.put("members", membersStr.toString());
 
         return map;
+    }
+
+    /**
+     * Member of a group: the element name and the reference with a link to the node of the
+     * element, or the reference in red if it does not resolve.
+     */
+    private static String memberHtml(Member member) {
+        String ref = member.isSetIdRef() ? member.getIdRef() : member.getMetaIdRef();
+        SBase sbase = member.getSBaseInstance();
+        if (sbase == null) {
+            return String.format("<span class=\"text-danger\">%s</span>", ref);
+        }
+        String link = sbase.isSetMetaId() ? String.format(LINK_METAID_TEMPLATE, sbase.getMetaId()) : "";
+        return String.format("%s %s%s", sbase.getElementName(), ref, link);
     }
 
     /**

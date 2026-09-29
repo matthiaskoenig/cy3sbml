@@ -27,7 +27,7 @@ class GroupsReaderTest {
         assertEquals(SBML.NODETYPE_GROUP, rootNetwork.getRow(groupNode).get(SBML.NODETYPE_ATTR, String.class));
         assertEquals("Methionine Salvage", rootNetwork.getRow(groupNode).get(SBML.ATTR_NAME, String.class));
 
-        CyGroup group = context.groups().stream()
+        CyGroup group = context.groups().values().stream()
                 .filter(g -> g.getGroupNode().equals(groupNode))
                 .findFirst()
                 .orElseThrow();

@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.cy3sbml.SBML;
-import org.cytoscape.group.CyGroup;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -28,15 +28,15 @@ final class SubnetworkBuilder {
 
     /**
      * Names the root network and the network with all nodes, and adds the kinetic and
-     * the base subnetwork with the groups to the root network.
+     * the base subnetwork with their groups to the root network.
      *
      * @param rootNetwork root network of the network
      * @param network     network with all nodes and edges of the model
-     * @param groups      groups to add to the subnetworks
+     * @param groups      creates the groups of the model in a subnetwork
      * @param prefix      prefix of the names, e.g. {@link SBML#PREFIX_NETWORK_FLAT}, or null
      * @return the networks in the order all, kinetic, base
      */
-    List<CyNetwork> build(CyRootNetwork rootNetwork, CyNetwork network, Set<CyGroup> groups, String prefix) {
+    List<CyNetwork> build(CyRootNetwork rootNetwork, CyNetwork network, Consumer<CyNetwork> groups, String prefix) {
         String name = prefix == null ? getNetworkName(network) : prefix + "__" + getNetworkName(network);
         rootNetwork.getRow(rootNetwork).set(CyNetwork.NAME, String.format("%s", name));
 
@@ -53,12 +53,9 @@ final class SubnetworkBuilder {
         CyNetwork baseNetwork = addSubNetwork(rootNetwork, network, SBML.coreNodeTypes, SBML.coreEdgeTypes);
         baseNetwork.getRow(baseNetwork).set(CyNetwork.NAME, name);
 
-        // add groups to networks
-        for (CyNetwork net : List.of(baseNetwork, kineticNetwork)) {
-            for (CyGroup cyGroup : groups) {
-                cyGroup.addGroupToNetwork(net);
-            }
-        }
+        // every network has its own groups (#171)
+        groups.accept(baseNetwork);
+        groups.accept(kineticNetwork);
         return List.of(network, kineticNetwork, baseNetwork);
     }
 

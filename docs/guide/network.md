@@ -11,7 +11,7 @@ networks. `<name>` is the model id, or the file name if the model has no id.
 
 | Network | Content |
 |---|---|
-| `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. SBML groups are added as Cytoscape groups. |
+| `<name>` | The base network: species, reactions, qualitative species and transitions, and the fbc gene products and gene associations, with the reactant, product, modifier, transition and association edges. SBML groups are added as Cytoscape groups, in every network with the members in the network. |
 | `Kinetic__<name>` | The kinetic network: the base network plus compartments, parameters, rules, initial assignments, kinetic laws, local parameters, function definitions and comp ports, replacements and deletions, with the edges of the math that references them. |
 | `All__<name>` | All nodes and edges: the kinetic network plus events, constraints, unit definitions and units, and comp submodels. |
 
@@ -49,7 +49,7 @@ The type of a node is in the column `sbml type`.
 | `comp_port` | Port (comp) | kinetic, all |
 | `comp_replacedElement`, `comp_replacedBy` | ReplacedElement, ReplacedBy (comp) | kinetic, all |
 | `comp_deletion` | Deletion (comp) | kinetic, all |
-| `group` | Group (groups) | as Cytoscape group in base and kinetic |
+| `group` | Group (groups) | as Cytoscape group in base, kinetic and all |
 
 The column `sbml type ext` refines the type for the visual style: reactions are
 `reaction reversible` or `reaction irreversible`.

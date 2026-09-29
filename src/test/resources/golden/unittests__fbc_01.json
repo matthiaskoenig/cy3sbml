@@ -44337,6 +44337,136 @@
     {
       "root" : "e_coli_core",
       "attributes" : {
+        "NumChildren" : 12,
+        "NumDescendents" : 12,
+        "cyId" : "g5",
+        "label" : "Glycolysis/Gluconeogenesis",
+        "metaId" : "g5",
+        "name" : "Glycolysis/Gluconeogenesis",
+        "sbml id" : "g5",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Glycolysis/Gluconeogenesis"
+      },
+      "members" : [
+        "R_ENO",
+        "R_FBA",
+        "R_FBP",
+        "R_GAPD",
+        "R_PDH",
+        "R_PFK",
+        "R_PGI",
+        "R_PGK",
+        "R_PGM",
+        "R_PPS",
+        "R_PYK",
+        "R_TPI"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 12,
+        "NumDescendents" : 12,
+        "cyId" : "g5",
+        "label" : "Glycolysis/Gluconeogenesis",
+        "metaId" : "g5",
+        "name" : "Glycolysis/Gluconeogenesis",
+        "sbml id" : "g5",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Glycolysis/Gluconeogenesis"
+      },
+      "members" : [
+        "R_ENO",
+        "R_FBA",
+        "R_FBP",
+        "R_GAPD",
+        "R_PDH",
+        "R_PFK",
+        "R_PGI",
+        "R_PGK",
+        "R_PGM",
+        "R_PPS",
+        "R_PYK",
+        "R_TPI"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 19,
+        "NumDescendents" : 19,
+        "cyId" : "g2",
+        "label" : "Transport, Extracellular",
+        "metaId" : "g2",
+        "name" : "Transport, Extracellular",
+        "sbml id" : "g2",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Transport, Extracellular"
+      },
+      "members" : [
+        "R_ACALDt",
+        "R_ACt2r",
+        "R_AKGt2r",
+        "R_CO2t",
+        "R_D_LACt2",
+        "R_ETOHt2r",
+        "R_FORt2",
+        "R_FORti",
+        "R_FRUpts2",
+        "R_FUMt2_2",
+        "R_GLCpts",
+        "R_GLNabc",
+        "R_GLUt2r",
+        "R_H2Ot",
+        "R_MALt2_2",
+        "R_O2t",
+        "R_PYRt2",
+        "R_SUCCt2_2",
+        "R_SUCCt3"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 19,
+        "NumDescendents" : 19,
+        "cyId" : "g2",
+        "label" : "Transport, Extracellular",
+        "metaId" : "g2",
+        "name" : "Transport, Extracellular",
+        "sbml id" : "g2",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Transport, Extracellular"
+      },
+      "members" : [
+        "R_ACALDt",
+        "R_ACt2r",
+        "R_AKGt2r",
+        "R_CO2t",
+        "R_D_LACt2",
+        "R_ETOHt2r",
+        "R_FORt2",
+        "R_FORti",
+        "R_FRUpts2",
+        "R_FUMt2_2",
+        "R_GLCpts",
+        "R_GLNabc",
+        "R_GLUt2r",
+        "R_H2Ot",
+        "R_MALt2_2",
+        "R_O2t",
+        "R_PYRt2",
+        "R_SUCCt2_2",
+        "R_SUCCt3"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
         "NumChildren" : 19,
         "NumDescendents" : 19,
         "cyId" : "g2",
@@ -44392,6 +44522,86 @@
     {
       "root" : "e_coli_core",
       "attributes" : {
+        "NumChildren" : 2,
+        "NumDescendents" : 2,
+        "cyId" : "g9",
+        "label" : "Inorganic Ion Transport and Metabolism",
+        "metaId" : "g9",
+        "name" : "Inorganic Ion Transport and Metabolism",
+        "sbml id" : "g9",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Inorganic Ion Transport and Metabolism"
+      },
+      "members" : [
+        "R_NH4t",
+        "R_PIt2r"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 2,
+        "NumDescendents" : 2,
+        "cyId" : "g9",
+        "label" : "Inorganic Ion Transport and Metabolism",
+        "metaId" : "g9",
+        "name" : "Inorganic Ion Transport and Metabolism",
+        "sbml id" : "g9",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Inorganic Ion Transport and Metabolism"
+      },
+      "members" : [
+        "R_NH4t",
+        "R_PIt2r"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 4,
+        "NumDescendents" : 4,
+        "cyId" : "g7",
+        "label" : "Glutamate Metabolism",
+        "metaId" : "g7",
+        "name" : "Glutamate Metabolism",
+        "sbml id" : "g7",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Glutamate Metabolism"
+      },
+      "members" : [
+        "R_GLNS",
+        "R_GLUDy",
+        "R_GLUN",
+        "R_GLUSy"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 4,
+        "NumDescendents" : 4,
+        "cyId" : "g7",
+        "label" : "Glutamate Metabolism",
+        "metaId" : "g7",
+        "name" : "Glutamate Metabolism",
+        "sbml id" : "g7",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Glutamate Metabolism"
+      },
+      "members" : [
+        "R_GLNS",
+        "R_GLUDy",
+        "R_GLUN",
+        "R_GLUSy"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
         "NumChildren" : 4,
         "NumDescendents" : 4,
         "cyId" : "g7",
@@ -44431,6 +44641,98 @@
         "R_LDH_D",
         "R_PFL",
         "R_PTAr"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 6,
+        "NumDescendents" : 6,
+        "cyId" : "g1",
+        "label" : "Pyruvate Metabolism",
+        "metaId" : "g1",
+        "name" : "Pyruvate Metabolism",
+        "sbml id" : "g1",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Pyruvate Metabolism"
+      },
+      "members" : [
+        "R_ACALD",
+        "R_ACKr",
+        "R_ALCD2x",
+        "R_LDH_D",
+        "R_PFL",
+        "R_PTAr"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 6,
+        "NumDescendents" : 6,
+        "cyId" : "g1",
+        "label" : "Pyruvate Metabolism",
+        "metaId" : "g1",
+        "name" : "Pyruvate Metabolism",
+        "sbml id" : "g1",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Pyruvate Metabolism"
+      },
+      "members" : [
+        "R_ACALD",
+        "R_ACKr",
+        "R_ALCD2x",
+        "R_LDH_D",
+        "R_PFL",
+        "R_PTAr"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 6,
+        "NumDescendents" : 6,
+        "cyId" : "g8",
+        "label" : "Anaplerotic reactions",
+        "metaId" : "g8",
+        "name" : "Anaplerotic reactions",
+        "sbml id" : "g8",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Anaplerotic reactions"
+      },
+      "members" : [
+        "R_ICL",
+        "R_MALS",
+        "R_ME1",
+        "R_ME2",
+        "R_PPC",
+        "R_PPCK"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 6,
+        "NumDescendents" : 6,
+        "cyId" : "g8",
+        "label" : "Anaplerotic reactions",
+        "metaId" : "g8",
+        "name" : "Anaplerotic reactions",
+        "sbml id" : "g8",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Anaplerotic reactions"
+      },
+      "members" : [
+        "R_ICL",
+        "R_MALS",
+        "R_ME1",
+        "R_ME2",
+        "R_PPC",
+        "R_PPCK"
       ]
     },
     {
@@ -44486,6 +44788,56 @@
       "attributes" : {
         "NumChildren" : 8,
         "NumDescendents" : 8,
+        "cyId" : "g3",
+        "label" : "Citric Acid Cycle",
+        "metaId" : "g3",
+        "name" : "Citric Acid Cycle",
+        "sbml id" : "g3",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Citric Acid Cycle"
+      },
+      "members" : [
+        "R_ACONTa",
+        "R_ACONTb",
+        "R_AKGDH",
+        "R_CS",
+        "R_FUM",
+        "R_ICDHyr",
+        "R_MDH",
+        "R_SUCOAS"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 8,
+        "NumDescendents" : 8,
+        "cyId" : "g3",
+        "label" : "Citric Acid Cycle",
+        "metaId" : "g3",
+        "name" : "Citric Acid Cycle",
+        "sbml id" : "g3",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Citric Acid Cycle"
+      },
+      "members" : [
+        "R_ACONTa",
+        "R_ACONTb",
+        "R_AKGDH",
+        "R_CS",
+        "R_FUM",
+        "R_ICDHyr",
+        "R_MDH",
+        "R_SUCOAS"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 8,
+        "NumDescendents" : 8,
         "cyId" : "g6",
         "label" : "Pentose Phosphate Pathway",
         "metaId" : "g6",
@@ -44504,6 +44856,108 @@
         "R_TALA",
         "R_TKT1",
         "R_TKT2"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 8,
+        "NumDescendents" : 8,
+        "cyId" : "g6",
+        "label" : "Pentose Phosphate Pathway",
+        "metaId" : "g6",
+        "name" : "Pentose Phosphate Pathway",
+        "sbml id" : "g6",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Pentose Phosphate Pathway"
+      },
+      "members" : [
+        "R_G6PDH2r",
+        "R_GND",
+        "R_PGL",
+        "R_RPE",
+        "R_RPI",
+        "R_TALA",
+        "R_TKT1",
+        "R_TKT2"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 8,
+        "NumDescendents" : 8,
+        "cyId" : "g6",
+        "label" : "Pentose Phosphate Pathway",
+        "metaId" : "g6",
+        "name" : "Pentose Phosphate Pathway",
+        "sbml id" : "g6",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Pentose Phosphate Pathway"
+      },
+      "members" : [
+        "R_G6PDH2r",
+        "R_GND",
+        "R_PGL",
+        "R_RPE",
+        "R_RPI",
+        "R_TALA",
+        "R_TKT1",
+        "R_TKT2"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 9,
+        "NumDescendents" : 9,
+        "cyId" : "g4",
+        "label" : "Oxidative Phosphorylation",
+        "metaId" : "g4",
+        "name" : "Oxidative Phosphorylation",
+        "sbml id" : "g4",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Oxidative Phosphorylation"
+      },
+      "members" : [
+        "R_ADK1",
+        "R_ATPM",
+        "R_ATPS4r",
+        "R_CYTBD",
+        "R_FRD7",
+        "R_NADH16",
+        "R_NADTRHD",
+        "R_SUCDi",
+        "R_THD2"
+      ]
+    },
+    {
+      "root" : "e_coli_core",
+      "attributes" : {
+        "NumChildren" : 9,
+        "NumDescendents" : 9,
+        "cyId" : "g4",
+        "label" : "Oxidative Phosphorylation",
+        "metaId" : "g4",
+        "name" : "Oxidative Phosphorylation",
+        "sbml id" : "g4",
+        "sbml type" : "group",
+        "sbo" : "SBO:0000633",
+        "shared name" : "Oxidative Phosphorylation"
+      },
+      "members" : [
+        "R_ADK1",
+        "R_ATPM",
+        "R_ATPS4r",
+        "R_CYTBD",
+        "R_FRD7",
+        "R_NADH16",
+        "R_NADTRHD",
+        "R_SUCDi",
+        "R_THD2"
       ]
     },
     {

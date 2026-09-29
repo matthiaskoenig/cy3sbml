@@ -38,7 +38,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  * described in {@link NetworkSnapshot}.
  * <p>
  * Models left out on purpose: {@code unittests/groups_01.xml} (snapshot above 6 MB, groups
- * are covered by {@code unittests/fbc_01.xml}). COMBINE archives are read with the archive
+ * are covered by {@code unittests/groups_02.xml} and {@code unittests/fbc_01.xml}). COMBINE archives are read with the archive
  * reader ({@link #importedArchivesMatchSnapshot}).
  * <p>
  * Regenerate the snapshots after an intended change of the import with
@@ -61,6 +61,7 @@ public class GoldenModelsTest {
             "unittests/core_01.xml",
             "unittests/fbc_01.xml",
             "unittests/galactose.xml",
+            "unittests/groups_02.xml",
             "unittests/layout_01.xml",
             "unittests/qual_01.xml",
             "unittests/small_population.xml",

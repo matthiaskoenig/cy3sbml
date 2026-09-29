@@ -1,12 +1,13 @@
 package org.cy3sbml.reader;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import org.cy3sbml.SBML;
 import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.util.AttributeUtil;
@@ -16,8 +17,6 @@ import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.model.subnetwork.CyRootNetwork;
-import org.cytoscape.model.subnetwork.CySubNetwork;
 import org.sbml.jsbml.NamedSBase;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
@@ -42,8 +41,9 @@ final class ConversionContext {
     private final Map<String, CyNode> id2Node = new HashMap<>();
     // edges that represent an SBase (species references), by instance
     private final IdentityHashMap<SBase, CyEdge> sbase2Edge = new IdentityHashMap<>();
-    // storage of groups to create in subnetworks
-    private final Set<CyGroup> groups = new HashSet<>();
+    // SBML groups, created as Cytoscape groups in the network and its subnetworks
+    private final List<Group> groups = new ArrayList<>();
+    private final Map<Group, CyGroup> cyGroups = new LinkedHashMap<>();
     // base UnitDefinition lookup
     private final Map<String, UnitDefinition> baseUnitDefinitions = new HashMap<>();
 
@@ -116,32 +116,37 @@ final class ConversionContext {
     }
 
     /**
-     * Creates group node for the given group.
+     * Registers the SBML group, whose Cytoscape groups {@link #createGroups(CyNetwork)} creates.
      */
-    CyGroup createGroup(Group group) {
+    void addGroup(Group group) {
         // metaId for identification
         MappingUtil.setSBaseMetaId(document, group);
+        groups.add(group);
+    }
 
-        CyGroup cyGroup = groupFactory.createGroup(network, true);
-        groups.add(cyGroup);
-
-        // set attributes
-        //  cyGroup nodes are registered in the root network, so the corresponding
-        //  attributes must be set on the root network.
-        CyNode n = cyGroup.getGroupNode();
-        String metaId = group.getMetaId();
-        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-        AttributeUtil.set(rootNetwork, n, SBML.ATTR_CYID, metaId, String.class);
-        AttributeUtil.set(rootNetwork, n, SBML.NODETYPE_ATTR, SBML.NODETYPE_GROUP, String.class);
-        AttributeUtil.set(rootNetwork, n, SBML.LABEL, metaId, String.class);
-        AttributeWriter.setNamedSBaseAttributes(rootNetwork, n, group);
-
-        // store nodes
-        metaId2Node.put(metaId, n);
-        if (group.isSetId()) {
-            id2Node.put(group.getId(), n);
+    /**
+     * Creates the Cytoscape groups of the registered SBML groups in the network, the network
+     * of the context or one of its subnetworks, see {@link GroupBuilder}. The group nodes of
+     * the network of the context are found by id and metaId.
+     *
+     * @return the created groups by SBML group
+     */
+    Map<Group, CyGroup> createGroups(CyNetwork net) {
+        boolean contextNetwork = net.equals(network);
+        Map<Group, CyGroup> created =
+                new GroupBuilder(groupFactory, this::nodeByMetaId, net, contextNetwork).build(groups);
+        if (contextNetwork) {
+            for (Map.Entry<Group, CyGroup> entry : created.entrySet()) {
+                Group group = entry.getKey();
+                CyNode n = entry.getValue().getGroupNode();
+                metaId2Node.put(group.getMetaId(), n);
+                if (group.isSetId()) {
+                    id2Node.put(group.getId(), n);
+                }
+            }
+            cyGroups.putAll(created);
         }
-        return cyGroup;
+        return created;
     }
 
     /** Resolver of the comp references of the document. */
@@ -164,10 +169,10 @@ final class ConversionContext {
     }
 
     /**
-     * Groups created in the network, which are added to the subnetworks.
+     * Cytoscape groups created in the network of the context, by SBML group.
      */
-    Set<CyGroup> groups() {
-        return Collections.unmodifiableSet(groups);
+    Map<Group, CyGroup> groups() {
+        return Collections.unmodifiableMap(cyGroups);
     }
 
     /**

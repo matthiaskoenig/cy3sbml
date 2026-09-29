@@ -100,10 +100,15 @@ flowchart TB
   computed from the whole network: `compartmentCode`, `sbml type ext` and
   `shared interaction`.
 - `ConversionContext` holds the state of one conversion: the network, the lookup from
-  SBML ids and metaids to nodes, and the created groups. It creates the nodes of SBML
+  SBML ids and metaids to nodes, and the SBML groups. It creates the nodes of SBML
   objects and the edges between them.
-- `SubnetworkBuilder` names the networks and creates the kinetic and the base network
-  from the node and edge type lists in `SBML` (`kineticNodeTypes`, `coreNodeTypes`, ...).
+- `GroupBuilder` creates the Cytoscape groups of the SBML groups in one network: every
+  network gets its own groups with its own group nodes and the members in the network.
+  Cytoscape does not support one group in several networks (a session restores it with
+  the members of all networks, #171).
+- `SubnetworkBuilder` names the networks, creates the kinetic and the base network
+  from the node and edge type lists in `SBML` (`kineticNodeTypes`, `coreNodeTypes`, ...)
+  and their groups.
 - `buildCyNetworkView` registers the document and the node mapping in `SBMLManager`,
   applies the style and the force-directed layout.
 
