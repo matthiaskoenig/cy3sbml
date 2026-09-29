@@ -25,10 +25,10 @@
         <!-- JSBML jars in lib/cy3sbml-dep, built from one sbmlteam/jsbml commit:
             <JSBML version>-<commit date>-<short sha>. Both properties are set by
             scripts/update_jsbml.py, see docs/development/dependencies.md. -->
-        <jsbml.version>1.7-20260929-f9d33e50</jsbml.version>
+        <jsbml.version>1.7-20260929-8ceccc9b</jsbml.version>
         <!-- The same JSBML version as an OSGi version, used for the exported
             org.sbml.jsbml packages. -->
-        <jsbml.osgi.version>1.7.0.20260929-f9d33e50</jsbml.osgi.version>
+        <jsbml.osgi.version>1.7.0.20260929-8ceccc9b</jsbml.osgi.version>
         <!-- biojava-ontology, embedded as a nested jar for JSBML (org.sbml.jsbml.SBO);
             also passed to BundleJarContentIT, which checks the nested jar by name -->
         <biojava.version>7.3.0</biojava.version>

@@ -45,15 +45,23 @@ on the `master` branch of JSBML. The jars are built from one JSBML commit instea
 
 ### Current pin: JSBML fork
 
-The pinned commit `f9d33e50` is on the branch
-[`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes) of the fork
-`matthiaskoenig/jsbml`, one commit on top of JSBML `master` (`8192a8a7`). It rewrites
-the flattening of hierarchical models (`CompFlatteningConverter`) and fixes the
-resolution of external model definitions, which cy3sbml needs for the comp package
-([#401](https://github.com/matthiaskoenig/cy3sbml/issues/401),
-[#220](https://github.com/matthiaskoenig/cy3sbml/issues/220)), proposed to JSBML in
-[sbmlteam/jsbml#324](https://github.com/sbmlteam/jsbml/pull/324). When it is merged, update
-to JSBML `master` again.
+The pinned commit `8ceccc9b` is on the branch
+[`cy3sbml`](https://github.com/matthiaskoenig/jsbml/tree/cy3sbml) of the fork
+`matthiaskoenig/jsbml`, two commits on top of JSBML `master` (`8192a8a7`):
+
+- the branch [`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes)
+  (`f9d33e50`) rewrites the flattening of hierarchical models (`CompFlatteningConverter`)
+  and fixes the resolution of external model definitions, which cy3sbml needs for the comp
+  package ([#401](https://github.com/matthiaskoenig/cy3sbml/issues/401),
+  [#220](https://github.com/matthiaskoenig/cy3sbml/issues/220)), proposed to JSBML in
+  [sbmlteam/jsbml#324](https://github.com/sbmlteam/jsbml/pull/324)
+- `8ceccc9b` adds the JSON resources to the core jar of JSBML's Ant build; without
+  `SBMLErrors.json`, `SBMLErrorFactory` fails with a `NullPointerException` for every error
+  it creates (branch
+  [`jar-json-resources`](https://github.com/matthiaskoenig/jsbml/tree/jar-json-resources)
+  on top of JSBML `master`)
+
+When both are merged into JSBML, update to JSBML `master` again.
 
 ## Update JSBML
 
