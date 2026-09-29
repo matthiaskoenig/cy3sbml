@@ -15,7 +15,7 @@
       "nodes" : [
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim2",
           "label" : "C1",
           "metaId" : "iBioSim2",
@@ -25,7 +25,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim11",
           "label" : "C10",
           "metaId" : "iBioSim11",
@@ -35,7 +35,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim12",
           "label" : "C11",
           "metaId" : "iBioSim12",
@@ -45,7 +45,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim13",
           "label" : "C12",
           "metaId" : "iBioSim13",
@@ -55,7 +55,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim14",
           "label" : "C13",
           "metaId" : "iBioSim14",
@@ -65,7 +65,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim15",
           "label" : "C14",
           "metaId" : "iBioSim15",
@@ -75,7 +75,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim16",
           "label" : "C15",
           "metaId" : "iBioSim16",
@@ -85,7 +85,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim17",
           "label" : "C16",
           "metaId" : "iBioSim17",
@@ -95,7 +95,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim18",
           "label" : "C17",
           "metaId" : "iBioSim18",
@@ -105,7 +105,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim19",
           "label" : "C18",
           "metaId" : "iBioSim19",
@@ -115,7 +115,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim20",
           "label" : "C19",
           "metaId" : "iBioSim20",
@@ -125,7 +125,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim3",
           "label" : "C2",
           "metaId" : "iBioSim3",
@@ -135,7 +135,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim21",
           "label" : "C20",
           "metaId" : "iBioSim21",
@@ -145,7 +145,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim22",
           "label" : "C21",
           "metaId" : "iBioSim22",
@@ -155,7 +155,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim23",
           "label" : "C22",
           "metaId" : "iBioSim23",
@@ -165,7 +165,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim24",
           "label" : "C23",
           "metaId" : "iBioSim24",
@@ -175,7 +175,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim25",
           "label" : "C24",
           "metaId" : "iBioSim25",
@@ -185,7 +185,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim26",
           "label" : "C25",
           "metaId" : "iBioSim26",
@@ -195,7 +195,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim27",
           "label" : "C26",
           "metaId" : "iBioSim27",
@@ -205,7 +205,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim28",
           "label" : "C27",
           "metaId" : "iBioSim28",
@@ -215,7 +215,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim29",
           "label" : "C28",
           "metaId" : "iBioSim29",
@@ -225,7 +225,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim30",
           "label" : "C29",
           "metaId" : "iBioSim30",
@@ -235,7 +235,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim4",
           "label" : "C3",
           "metaId" : "iBioSim4",
@@ -245,7 +245,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim31",
           "label" : "C30",
           "metaId" : "iBioSim31",
@@ -255,7 +255,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim32",
           "label" : "C31",
           "metaId" : "iBioSim32",
@@ -265,7 +265,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim33",
           "label" : "C32",
           "metaId" : "iBioSim33",
@@ -275,7 +275,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim34",
           "label" : "C33",
           "metaId" : "iBioSim34",
@@ -285,7 +285,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim35",
           "label" : "C34",
           "metaId" : "iBioSim35",
@@ -295,7 +295,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim36",
           "label" : "C35",
           "metaId" : "iBioSim36",
@@ -305,7 +305,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim37",
           "label" : "C36",
           "metaId" : "iBioSim37",
@@ -315,7 +315,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim5",
           "label" : "C4",
           "metaId" : "iBioSim5",
@@ -325,7 +325,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim6",
           "label" : "C5",
           "metaId" : "iBioSim6",
@@ -335,7 +335,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim7",
           "label" : "C6",
           "metaId" : "iBioSim7",
@@ -345,7 +345,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim8",
           "label" : "C7",
           "metaId" : "iBioSim8",
@@ -355,7 +355,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim9",
           "label" : "C8",
           "metaId" : "iBioSim9",
@@ -365,7 +365,7 @@
         },
         {
           "comp_modelRef" : "represCirc",
-          "comp_resolution" : "The file file:/home/mkoenig/git/cy3sbml/target/test-classes/models/unittests/represCirc.xml does not exist.",
+          "comp_resolution" : "The file classpath:/models/unittests/represCirc.xml does not exist.",
           "cyId" : "iBioSim10",
           "label" : "C9",
           "metaId" : "iBioSim10",
