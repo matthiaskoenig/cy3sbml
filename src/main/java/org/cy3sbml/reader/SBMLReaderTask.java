@@ -125,6 +125,7 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 new FbcReader(),
                 new CompReader(),
                 new GroupsReader(),
+                new DistribReader(),
                 new LayoutReader(),
                 // attributes derived from the complete network, must be last
                 new DerivedAttributes());
