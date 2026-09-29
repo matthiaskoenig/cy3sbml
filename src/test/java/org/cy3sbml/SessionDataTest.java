@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.cy3sbml.archive.ArchiveDirectories;
+import org.cy3sbml.archive.ArchiveImport;
+import org.cy3sbml.archive.CombineArchiveReaderTask;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
@@ -217,6 +220,43 @@ class SessionDataTest {
                 .map(node -> DistribUtil.summary(DistribUtil.uncertainties((SBase) node)))
                 .filter(summary -> !summary.isEmpty())
                 .toList();
+    }
+
+    @Test
+    void sessionRoundTripKeepsTheArchive(@TempDir Path archives) throws Exception {
+        SBMLManager originalManager = new SBMLManager(mock(CyApplicationManager.class));
+        CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();
+        CyGroupFactory groupFactory = new GroupTestSupport().getGroupFactory();
+        CyNetworkViewFactory viewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
+        CyNetwork network;
+        try (InputStream stream = TestUtils.class.getResourceAsStream("/models/omex/single.omex")) {
+            CombineArchiveReaderTask task = new CombineArchiveReaderTask(
+                    stream,
+                    "single.omex",
+                    new ArchiveDirectories(archives),
+                    (in, fileName, location) -> new SBMLReaderTask(
+                            in,
+                            fileName,
+                            location,
+                            networkFactory,
+                            groupFactory,
+                            viewFactory,
+                            null,
+                            null,
+                            null,
+                            originalManager),
+                    originalManager);
+            task.run(mock(TaskMonitor.class));
+            network = task.getNetworks()[0];
+            task.buildCyNetworkView(network);
+        }
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+        ArchiveImport original = originalManager.getArchive(rootSUID).orElseThrow();
+
+        SBMLManager restoredManager = saveAndLoad(originalManager, network);
+
+        assertEquals(Optional.of(original), restoredManager.getArchive(rootSUID));
+        assertEquals("model.xml", original.location());
     }
 
     @Test

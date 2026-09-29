@@ -1,5 +1,7 @@
 package org.cy3sbml;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,9 +12,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.stream.XMLStreamException;
+import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.cofactors.Network2CofactorMapper;
 import org.cy3sbml.mapping.Network2SBMLMapper;
@@ -44,6 +48,9 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     private static final String APP_ID = "cy3sbml";
     private static final String NETWORK2SBMLMAPPER_ID = "Network2SBMLMapper.ser";
     private static final String NETWORK2COFACTOR_ID = "Network2Cofactors.ser";
+    // the COMBINE archives of the documents, by root network SUID
+    private static final String ARCHIVES_ID = "archives.json";
+    private static final ObjectMapper JSON = new ObjectMapper();
 
     private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
@@ -137,6 +144,15 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             logger.error("Serialization of Network2CofactorMapper failed.", e);
         }
 
+        logger.debug("Writing the archives");
+        File archivesFile = new File(directory, ARCHIVES_ID);
+        try {
+            JSON.writeValue(archivesFile, sbmlManager.getArchives());
+            files.add(archivesFile);
+        } catch (IOException e) {
+            logger.error("Writing the archives failed.", e);
+        }
+
         // Write files in session file
         try {
             event.addAppFiles(APP_ID, files);
@@ -177,6 +193,21 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
                 sbmlManager.setSBML2NetworkMapper(updateSUIDsInMapper(session, mapper));
             } catch (IOException | ClassNotFoundException | ClassCastException e) {
                 logger.error("Deserialization of Network2SBMLMapper failed.", e);
+            }
+        } else if (name.equals(ARCHIVES_ID)) {
+            logger.debug("Reading the archives");
+            try {
+                Map<Long, ArchiveImport> archives = JSON.readValue(f, new TypeReference<Map<Long, ArchiveImport>>() {});
+                Map<Long, ArchiveImport> restored = new HashMap<>();
+                for (Map.Entry<Long, ArchiveImport> entry : archives.entrySet()) {
+                    Long rootSUID = newSUID(session, entry.getKey(), CyNetwork.class);
+                    if (rootSUID != null) {
+                        restored.put(rootSUID, entry.getValue());
+                    }
+                }
+                sbmlManager.setArchives(restored);
+            } catch (IOException e) {
+                logger.error("Reading the archives failed.", e);
             }
         } else if (name.equals(NETWORK2COFACTOR_ID)) {
             logger.debug("Deserialize <Network2CofactorMapper>");
