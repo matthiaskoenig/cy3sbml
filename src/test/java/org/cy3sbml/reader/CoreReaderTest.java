@@ -11,9 +11,12 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import java.util.List;
 import org.cy3sbml.SBML;
+import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.junit.jupiter.api.Test;
+import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.SBMLDocument;
 import org.slf4j.LoggerFactory;
 
 class CoreReaderTest {
@@ -134,5 +137,23 @@ class CoreReaderTest {
                         .filter(e -> e.getLevel().isGreaterOrEqual(Level.WARN))
                         .map(ILoggingEvent::getFormattedMessage)
                         .toList());
+    }
+
+    @Test
+    void registersTheEdgesOfSpeciesReferences() throws Exception {
+        SBMLDocument document = ReaderTestSupport.readDocument("/models/distrib/distrib_uncertainties.xml");
+        ConversionContext context = ReaderTestSupport.read(document, new CoreReader());
+        CyNetwork network = context.network();
+        Reaction reaction = document.getModel().getReaction("J0");
+
+        // <speciesReference id="sr1" species="S1">, <speciesReference species="S2"> (no id)
+        CyEdge reactant = context.edgeOf(reaction.getReactant(0)).orElseThrow();
+        CyEdge product = context.edgeOf(reaction.getProduct(0)).orElseThrow();
+        assertEquals(
+                SBML.INTERACTION_REACTION_REACTANT, network.getRow(reactant).get(SBML.INTERACTION_ATTR, String.class));
+        assertEquals(nodeById(context, "S1"), reactant.getTarget());
+        assertEquals(
+                SBML.INTERACTION_REACTION_PRODUCT, network.getRow(product).get(SBML.INTERACTION_ATTR, String.class));
+        assertEquals(nodeById(context, "S2"), product.getTarget());
     }
 }

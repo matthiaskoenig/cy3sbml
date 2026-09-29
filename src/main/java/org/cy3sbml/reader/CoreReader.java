@@ -247,7 +247,7 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode reactantNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, reactantNode, SBML.INTERACTION_REACTION_REACTANT);
+                    CyEdge edge = context.createEdge(n, reactantNode, SBML.INTERACTION_REACTION_REACTANT, speciesRef);
                     AttributeWriter.setSBaseAttributes(network, edge, speciesRef);
 
                     Double stoichiometry = speciesRef.isSetStoichiometry() ? speciesRef.getStoichiometry() : 1.0;
@@ -265,7 +265,7 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode productNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, productNode, SBML.INTERACTION_REACTION_PRODUCT);
+                    CyEdge edge = context.createEdge(n, productNode, SBML.INTERACTION_REACTION_PRODUCT, speciesRef);
                     AttributeWriter.setSBaseAttributes(network, edge, speciesRef);
 
                     Double stoichiometry = speciesRef.isSetStoichiometry() ? speciesRef.getStoichiometry() : 1.0;
@@ -282,7 +282,7 @@ final class CoreReader implements PackageReader {
                 if (species != null) {
                     CyNode modifierNode =
                             context.nodeByMetaId(species.getMetaId()).orElse(null);
-                    CyEdge edge = context.createEdge(n, modifierNode, SBML.INTERACTION_REACTION_MODIFIER);
+                    CyEdge edge = context.createEdge(n, modifierNode, SBML.INTERACTION_REACTION_MODIFIER, msRef);
                     AttributeWriter.setSBaseAttributes(network, edge, msRef);
                 } else {
                     logger.error(String.format(
