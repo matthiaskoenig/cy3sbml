@@ -20,7 +20,7 @@ import org.cytoscape.view.presentation.property.BasicVisualLexicon;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.FieldSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Saves the layout of every network of a model and loads it into the networks of a new
@@ -36,15 +36,17 @@ class LayoutReimportTest {
      * cyId and only the nodes with SBML id are positioned (see
      * {@link #layoutOfL1ModelIsRestoredForTheNodesWithSbmlId}).
      */
-    private static final List<String> MODELS = GoldenModelsTest.MODELS.stream()
-            .filter(model -> !model.equals(L1_MODEL))
-            .toList();
+    static List<String> models() {
+        return GoldenModelsTest.MODELS.stream()
+                .filter(model -> !model.equals(L1_MODEL))
+                .toList();
+    }
 
     @TempDir
     Path tempDir;
 
     @ParameterizedTest(name = "{0}")
-    @FieldSource("MODELS")
+    @MethodSource("models")
     void layoutOfAllNodesIsRestoredInANewImport(String model) throws Exception {
         for (Reimport reimport : reimport(model)) {
             assertEquals(reimport.saved.getModel().getNodeCount(), reimport.positioned, reimport.name());
