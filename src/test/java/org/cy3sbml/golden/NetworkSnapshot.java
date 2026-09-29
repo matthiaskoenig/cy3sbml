@@ -66,9 +66,6 @@ public final class NetworkSnapshot {
 
     private NetworkSnapshot() {}
 
-    /**
-     * Create the canonical snapshot of the given networks.
-     */
     /** The URI of the directory of the test resources, e.g. file:/home/user/cy3sbml/target/test-classes/. */
     private static final String TEST_CLASSES = testClasses();
 
@@ -80,6 +77,9 @@ public final class NetworkSnapshot {
         }
     }
 
+    /**
+     * Create the canonical snapshot of the given networks.
+     */
     public static ObjectNode of(CyNetwork[] networks) {
         List<CyNetwork> sorted = new ArrayList<>(Arrays.asList(networks));
         sorted.sort(Comparator.comparing(NetworkSnapshot::networkName));
