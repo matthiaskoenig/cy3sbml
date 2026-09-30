@@ -154,7 +154,7 @@ public class SBaseHTMLFactory {
      * Creates the HTML information for the given SBase.
      */
     public String createInfo(SBase sbase) throws IOException {
-        String title = HtmlUtil.escape(getTitle(sbase));
+        String title = escape(getTitle(sbase));
         String html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
         html += createInfoForSBase(sbase);
@@ -230,7 +230,7 @@ public class SBaseHTMLFactory {
             }
             NamedSBase nsb = (NamedSBase) sbase;
             header = MessageFormat.format(
-                    "<h2>{0}{1} <small>{2}</small></h2>\n", exportHTML, className, HtmlUtil.escape(nsb.getId()));
+                    "<h2>{0}{1} <small>{2}</small></h2>\n", exportHTML, className, escape(nsb.getId()));
         }
         return header;
     }
@@ -254,17 +254,17 @@ public class SBaseHTMLFactory {
         for (Creator c : h.getListOfCreators()) {
             List<String> parts = new ArrayList<>();
             if (c.isSetGivenName()) {
-                parts.add(HtmlUtil.escape(c.getGivenName()));
+                parts.add(escape(c.getGivenName()));
             }
             if (c.isSetFamilyName()) {
-                parts.add(HtmlUtil.escape(c.getFamilyName()));
+                parts.add(escape(c.getFamilyName()));
             }
             if (c.isSetEmail()) {
-                parts.add(EMAIL_LINK.strip().replace("{email}", HtmlUtil.escape(c.getEmail())));
+                parts.add(EMAIL_LINK.strip().replace("{email}", escape(c.getEmail())));
             }
             String creator = String.join(" ", parts);
             if (c.isSetOrganisation()) {
-                String organisation = HtmlUtil.escape(c.getOrganisation());
+                String organisation = escape(c.getOrganisation());
                 creator = creator.isEmpty() ? organisation : creator + ", " + organisation;
             }
             html += creator + "<br />\n";
@@ -471,8 +471,8 @@ public class SBaseHTMLFactory {
 
                 // identifier
                 String identifierHTML = IDENTIFIER_LINK
-                        .replace("{resourceLink}", HtmlUtil.escape(resourceLink))
-                        .replace("{identifier}", HtmlUtil.escape(identifier));
+                        .replace("{resourceLink}", escape(resourceLink))
+                        .replace("{identifier}", escape(identifier));
 
                 // not possible to resolve dataType from MIRIAM registry
                 if (dataType == null) {
@@ -482,20 +482,20 @@ public class SBaseHTMLFactory {
                             .replace("{qualifierHTML}", qualifierHTML)
                             .replace("{identifierHTML}", identifierHTML)
                             .replace("{ICON_WARNING}", ICON_WARNING)
-                            .replace("{dataCollectionURL}", HtmlUtil.escape(dataCollection))
-                            .replace("{dataCollectionID}", HtmlUtil.escape(dataCollection));
+                            .replace("{dataCollectionURL}", escape(dataCollection))
+                            .replace("{dataCollectionID}", escape(dataCollection));
 
                     text += INVISIBLE_RESOURCE_LINK
                             .replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
-                            .replace("{resourceURI}", HtmlUtil.escape(resourceURI));
+                            .replace("{resourceURI}", escape(resourceURI));
                 }
                 // dataType found
                 if (dataType != null) {
                     String dataTypeURL = primaryResource == null ? resourceURI : primaryResource.getResourceHomeUrl();
                     text += qualifierHTML
                             + MIRIAM_COLLECTION_LINK
-                                    .replace("{dataTypeURL}", HtmlUtil.escape(dataTypeURL))
-                                    .replace("{dataTypeName}", HtmlUtil.escape(dataType.getName()))
+                                    .replace("{dataTypeURL}", escape(dataTypeURL))
+                                    .replace("{dataTypeName}", escape(dataType.getName()))
                                     .replace("{identifierHTML}", identifierHTML);
 
                     // check that identifier is correct for given datatype
@@ -506,8 +506,8 @@ public class SBaseHTMLFactory {
                                 identifier, pattern, dataType.getId()));
                         text += IDENTIFIER_PATTERN_MISMATCH
                                 .replace("{ICON_WARNING}", ICON_WARNING)
-                                .replace("{identifier}", HtmlUtil.escape(identifier))
-                                .replace("{pattern}", HtmlUtil.escape(pattern));
+                                .replace("{identifier}", escape(identifier))
+                                .replace("{pattern}", escape(pattern));
                     }
 
                     // Create OLS resource for location
@@ -571,8 +571,7 @@ public class SBaseHTMLFactory {
 
         return String.format(
                 "\t<a href=\"%s\"> %s</a><br />\n",
-                HtmlUtil.escape(createURL(namespace, resource, identifier)),
-                HtmlUtil.escape(resource.getDescription()));
+                escape(createURL(namespace, resource, identifier)), escape(resource.getDescription()));
     }
 
     /**
@@ -588,13 +587,16 @@ public class SBaseHTMLFactory {
 
             String purlURL = term.iri();
             html += ONTOLOGY_TERM_LINK
-                    .replace("{ontologyURL}", HtmlUtil.escape(olsURL))
+                    .replace("{ontologyURL}", escape(olsURL))
                     .replace(
                             "{ontologyName}",
-                            HtmlUtil.escape(term.ontologyName().toUpperCase(Locale.ROOT)))
+                            escape(
+                                    term.ontologyName() == null
+                                            ? null
+                                            : term.ontologyName().toUpperCase(Locale.ROOT)))
                     .replace("{termLabel}", ontologyTextHTML(term.label()))
-                    .replace("{purlURL}", HtmlUtil.escape(purlURL))
-                    .replace("{purlDisplay}", HtmlUtil.escape(purlURL));
+                    .replace("{purlURL}", escape(purlURL))
+                    .replace("{purlDisplay}", escape(purlURL));
 
             List<String> synonyms = term.synonyms();
             if (synonyms != null && !synonyms.isEmpty()) {
@@ -613,8 +615,8 @@ public class SBaseHTMLFactory {
         } else {
             html += OLS_TERM_ERROR
                     .replace("{ICON_WARNING}", ICON_WARNING)
-                    .replace("{TERM_ID}", HtmlUtil.escape(identifier))
-                    .replace("{OLS_URL}", HtmlUtil.escape(olsURL));
+                    .replace("{TERM_ID}", escape(identifier))
+                    .replace("{OLS_URL}", escape(olsURL));
             html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;
@@ -637,7 +639,7 @@ public class SBaseHTMLFactory {
      * are kept; unbalanced or crossing tags stay escaped.
      */
     static String ontologyTextHTML(String text) {
-        String html = HtmlUtil.escape(text);
+        String html = escape(text);
         while (true) {
             String restored = ESCAPED_INLINE_PAIR.matcher(html).replaceAll("<$1>$2</$1>");
             if (restored.equals(html)) {
@@ -729,6 +731,14 @@ public class SBaseHTMLFactory {
                                  """, notes);
         }
         return "";
+    }
+
+    /**
+     * The HTML of a text of a model or a web service, empty for null (e.g. a registry
+     * field that is not set).
+     */
+    private static String escape(String text) {
+        return text == null ? "" : HtmlUtil.escape(text);
     }
 
     /**

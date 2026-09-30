@@ -201,6 +201,26 @@ class SBaseHTMLFactoryTest {
         assertTrue(html.contains("&lt;img id=&quot;iri&quot;"), html);
     }
 
+    /** An OLS term without IRI and ontology name is shown with its label. */
+    @Test
+    void termWithoutIriIsShown() throws Exception {
+        OlsClient olsClient = mock(OlsClient.class);
+        when(olsClient.termForPage(anyString()))
+                .thenReturn(Optional.of(new OlsTerm(null, "label", null, null, null, null)));
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                olsClient,
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", 3, 1);
+        species.setSBOTerm(247);
+
+        String html = htmlFactory.createInfo(species);
+
+        assertTrue(html.contains("<b>label</b>"), html);
+    }
+
     @Test
     void nonRdfAnnotationShowsNonRdfElements() throws Exception {
         Species species = new Species("s1", 3, 1);
