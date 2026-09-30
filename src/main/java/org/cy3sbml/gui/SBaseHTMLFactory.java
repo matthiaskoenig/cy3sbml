@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -435,6 +436,12 @@ public class SBaseHTMLFactory {
         return terms;
     }
 
+    /** The namespace of the data collection of the resource URI, else the URI. */
+    private static String dataCollectionName(String resourceURI) {
+        String namespace = RegistryUtil.getNamespaceFromURI(resourceURI);
+        return namespace != null ? namespace : resourceURI;
+    }
+
     /**
      * Creates HTML for single CVTerm.
      */
@@ -468,7 +475,8 @@ public class SBaseHTMLFactory {
 
                 String identifier = resolved == null ? null : resolved.identifier();
                 if (identifier == null) {
-                    identifier = substringAfter(resourceURI, "http://identifiers.org/");
+                    // every form of the URI: identifiers.org URLs and urn:miriam URNs
+                    identifier = Objects.requireNonNullElse(RegistryUtil.getIdentifierFromURI(resourceURI), "");
                 }
                 // link to primary resource via id
                 Resource primaryResource = dataType == null ? null : dataType.getPrimaryResource();
@@ -488,8 +496,7 @@ public class SBaseHTMLFactory {
                             .replace("{qualifierHTML}", qualifierHTML)
                             .replace("{identifierHTML}", identifierHTML)
                             .replace("{ICON_WARNING}", ICON_WARNING)
-                            .replace("{dataCollectionURL}", escape(dataCollection))
-                            .replace("{dataCollectionID}", escape(dataCollection));
+                            .replace("{dataCollection}", escape(dataCollectionName(resourceURI)));
 
                     text += INVISIBLE_RESOURCE_LINK
                             .replace("{ICON_INVISIBLE}", ICON_INVISIBLE)

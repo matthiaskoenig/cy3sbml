@@ -127,24 +127,15 @@ public class SBMLUtil {
                 }
                 XMLUtil.cleanEmptyTextNodes(doc);
 
-                // part of nodes which are of interest
+                // the formatting markup of the children of the notes element; a body or
+                // html element is replaced by its content
+                Element notesElement =
+                        (Element) doc.getElementsByTagName("notes").item(0);
+                HtmlSanitizer.sanitizeChildren(notesElement);
                 List<Node> nodes = new ArrayList<>();
-
-                // interested in children of notes element
-                NodeList nodeList = doc.getElementsByTagName("notes");
-                nodeList = nodeList.item(0).getChildNodes();
-
-                // filter for body
+                NodeList nodeList = notesElement.getChildNodes();
                 for (int k = 0; k < nodeList.getLength(); k++) {
-                    Node node = nodeList.item(k);
-                    if (node instanceof Element e && e.getTagName().equals("body")) {
-                        NodeList children = e.getChildNodes();
-                        for (int i = 0; i < children.getLength(); i++) {
-                            nodes.add(children.item(i));
-                        }
-                    } else {
-                        nodes.add(node);
-                    }
+                    nodes.add(nodeList.item(k));
                 }
 
                 // create xml string

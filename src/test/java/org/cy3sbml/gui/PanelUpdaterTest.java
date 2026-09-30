@@ -10,6 +10,7 @@ import org.cy3sbml.mapping.One2ManyMapping;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.view.model.CyNetworkView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Compartment;
@@ -39,6 +40,19 @@ class PanelUpdaterTest {
         htmlFactory = mock(SBaseHTMLFactory.class);
         when(htmlFactory.createHTMLText(anyString())).thenAnswer(inv -> inv.getArgument(0));
         panel = mock(InfoPanel.class);
+    }
+
+    // ---- isViewOfCurrentNetwork ----------------------------------------------------
+
+    @Test
+    void onlyTheViewOfTheCurrentNetworkIsTheViewOfTheCurrentNetwork() {
+        CyNetwork other = new NetworkTestSupport().getNetwork();
+        CyNetworkView view = mock(CyNetworkView.class);
+        when(view.getModel()).thenReturn(other);
+
+        assertTrue(PanelUpdater.isViewOfCurrentNetwork(view, other));
+        assertFalse(PanelUpdater.isViewOfCurrentNetwork(view, network));
+        assertFalse(PanelUpdater.isViewOfCurrentNetwork(view, null));
     }
 
     // ---- resolveTarget -------------------------------------------------------------

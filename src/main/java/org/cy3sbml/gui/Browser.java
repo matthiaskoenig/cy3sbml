@@ -9,6 +9,7 @@ import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.cy3sbml.util.HtmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -22,7 +23,10 @@ import org.w3c.dom.events.EventTarget;
  * <p>
  * The pages show text from the imported models (names, notes, annotations), so JavaScript
  * is disabled: no script of a model can run in the panel. The browser never follows a
- * clicked link itself; the {@link BrowserHyperlinkListener} handles every link click.
+ * clicked link itself; the {@link BrowserHyperlinkListener} handles every link click. The
+ * WebView's context menu (e.g. "Open Link") is disabled, and a navigation to any other
+ * page than the ones the panel loads (the HTML text and the bundled pages in the app
+ * directory) is stopped, e.g. of markup that loads a page without a click.
  */
 public final class Browser extends Region implements PageLoader.Target {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
@@ -38,7 +42,14 @@ public final class Browser extends Region implements PageLoader.Target {
         webView = new WebView();
         webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(false);
+        // "Open Link", "Reload Page" and "Go Back" would bypass the link handling
+        webView.setContextMenuEnabled(false);
         logger.debug("WebView version: {}", webEngine.getUserAgent());
+        webEngine.locationProperty().addListener((observable, oldLocation, location) -> {
+            if (!BrowserHyperlinkListener.isPanelLocation(location, appDirectory)) {
+                blockNavigation(location);
+            }
+        });
 
         // add WebView to scene
         getChildren().add(webView);
@@ -73,6 +84,19 @@ public final class Browser extends Region implements PageLoader.Target {
             return;
         }
         hyperlinkListener.linkActivated(url);
+    }
+
+    /** Stops the navigation and shows a notice instead of the page. */
+    private void blockNavigation(String location) {
+        logger.warn("The cy3sbml panel does not show the page {}", location);
+        // after the location change, which is part of the navigation
+        Platform.runLater(() -> {
+            webEngine.getLoadWorker().cancel();
+            webEngine.loadContent(String.format(
+                    "<html><body><h2>Page not shown</h2>"
+                            + "<p>The cy3sbml panel does not show the page <code>%s</code>.</p></body></html>",
+                    HtmlUtil.escape(location)));
+        });
     }
 
     private static boolean isLink(Node node) {

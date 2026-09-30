@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -8,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +25,37 @@ import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class BrowserHyperlinkListenerTest {
+
+    private static final File APP_DIRECTORY = new File("/opt/cy3sbml/app");
+
+    /** The panel shows its HTML text and the bundled pages in the app directory. */
+    @ParameterizedTest
+    @ValueSource(
+            strings = {"", "about:blank", "file:///opt/cy3sbml/app/gui/help.html", "file:/opt/cy3sbml/app/gui/x.html"})
+    void panelLocations(String location) {
+        assertTrue(BrowserHyperlinkListener.isPanelLocation(location, APP_DIRECTORY), location);
+    }
+
+    /** Any other page, e.g. of a meta refresh in the notes of a model, is not shown. */
+    @ParameterizedTest
+    @ValueSource(
+            strings = {
+                "https://cy3sbml-help/",
+                "https://example.org/",
+                "data:text/html,x",
+                "file:///etc/passwd",
+                "file:///opt/cy3sbml/app/../../../etc/passwd",
+                "file:///opt/cy3sbml/application/x.html",
+                "file://server/share/x.html",
+                "not a uri"
+            })
+    void otherLocations(String location) {
+        assertFalse(BrowserHyperlinkListener.isPanelLocation(location, APP_DIRECTORY), location);
+    }
 
     @Test
     void linkActionsRunOnTheDispatchExecutorNotOnTheCallingThread() throws Exception {

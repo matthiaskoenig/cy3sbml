@@ -17,6 +17,8 @@ import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sbml.jsbml.CVTerm;
 import org.sbml.jsbml.Creator;
 import org.sbml.jsbml.History;
@@ -104,6 +106,35 @@ class SBaseHTMLFactoryTest {
             String row = rows[k].substring(0, rows[k].indexOf("</tr>"));
             assertEquals(2, row.split("<td>", -1).length - 1, row);
         }
+    }
+
+    /**
+     * A resource of a data collection that is not in the registry shows its identifier and
+     * the name of the collection, as text: there is no page of the collection to link to.
+     */
+    @ParameterizedTest
+    @ValueSource(
+            strings = {
+                "urn:miriam:unknown.collection:123",
+                "http://www.identifiers.org/unknown.collection/123",
+                "https://identifiers.org/unknown.collection/123",
+                "https://identifiers.org/unknown.collection:123"
+            })
+    void unknownDataCollectionIsShownWithItsIdentifier(String uri) throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s", 3, 1);
+        species.setMetaId("meta_s");
+        species.addCVTerm(new CVTerm(CVTerm.Qualifier.BQB_IS, uri));
+
+        String html = htmlFactory.createInfo(species);
+
+        assertTrue(html.contains(">123</span>"), html);
+        assertTrue(html.contains("Unknown data collection: <code>unknown.collection</code>"), html);
     }
 
     /**
