@@ -51,6 +51,8 @@ abstract class AbstractCofactorAction extends AbstractCyAction implements SetCur
         setToolbarGravity(gravity);
         this.inToolBar = true;
         this.inMenuBar = false;
+        // Cytoscape sets the current network of a loaded session before the mapping is restored
+        sbmlManager.addSessionRestoredListener(() -> updateReady(adapter.cyApplicationManager.getCurrentNetwork()));
     }
 
     /**
@@ -76,7 +78,11 @@ abstract class AbstractCofactorAction extends AbstractCyAction implements SetCur
 
     @Override
     public void handleEvent(SetCurrentNetworkEvent event) {
-        CyNetwork network = event.getNetwork();
+        updateReady(event.getNetwork());
+    }
+
+    /** Enables the action for a network imported by cy3sbml. */
+    private void updateReady(CyNetwork network) {
         enableTaskFactory.setReady(network != null && sbmlManager.getSBMLDocument(network) != null);
         updateEnableState();
     }
