@@ -17,9 +17,7 @@ public final class ExamplesAction extends AbstractCyAction {
 
     private final WebViewPanel webViewPanel;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public ExamplesAction(WebViewPanel webViewPanel) {
         super(ExamplesAction.class.getSimpleName());
         this.webViewPanel = webViewPanel;

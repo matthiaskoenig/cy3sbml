@@ -2,19 +2,20 @@ package org.cy3sbml.gui;
 
 import java.util.Set;
 
+/** The panel that shows the SBML information, see {@link WebViewPanel}. */
 public interface InfoPanel {
     /**
-     * Set text.
+     * Shows the HTML text.
      */
     void setText(String text);
 
     /**
-     * Display SBase information
+     * Shows the information of the SBase.
      */
     void showSBaseInfo(Object obj);
 
     /**
-     * Display information for set of nodes.
+     * Shows the information of the SBases.
      */
     void showSBaseInfo(Set<Object> objSet);
 }

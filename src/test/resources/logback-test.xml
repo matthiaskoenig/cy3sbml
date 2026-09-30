@@ -7,8 +7,6 @@
         <filter class="org.cy3sbml.ExpectedMessageFilter">
             <!-- CyActivatorTest: a missing bundle resource -->
             <message>cy3sbml panel disabled: extension jar missing from the bundle</message>
-            <!-- ResourceExtractorTest: no app directory -->
-            <message>appDirectory is not set in ResourceExtractor</message>
             <!-- SBMLReaderTaskTest: a broken file, a reader that fails on the second model -->
             <message>cy3sbml could not read the SBML file '(broken|01134-sbml-l3v1)\.xml': .*</message>
             <!-- CompModelsTest: a wrong md5 checksum, a missing external file -->
@@ -51,6 +49,9 @@
     <logger name="org.cy3sbml.util.XMLUtil" level="ERROR" />
     <logger name="org.cy3sbml.util.GUIUtil" level="ERROR" />
     <logger name="org.cy3sbml.ConnectionProxy" level="ERROR" />
+    <!-- the info panel: file links, annotations of unknown data collections -->
+    <logger name="org.cy3sbml.gui.BrowserHyperlinkListener" level="ERROR" />
+    <logger name="org.cy3sbml.gui.SBaseHTMLFactory" level="ERROR" />
     <!-- web-service fixtures: error statuses, timeouts, incomplete entries -->
     <logger name="org.cy3sbml.util.HttpJson" level="ERROR" />
     <logger name="org.cy3sbml.miriam.MiriamRegistry" level="ERROR" />

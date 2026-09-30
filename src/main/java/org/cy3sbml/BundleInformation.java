@@ -4,23 +4,14 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
- * The BundleInformation provides runtime information on the bundle.
- * <p>
- * Important things like
- * - name
- * - version
- * - dependencies
- * can be accessed and used programmatically.
- * <p>
- * All String generation using names and versions should use the
- * BundleInformation directly.
+ * The symbolic name and version of the cy3sbml bundle at runtime.
  */
-public class BundleInformation {
-    private String name;
-    private String version;
+public final class BundleInformation {
+    private final String name;
+    private final String version;
 
     /**
-     * Constructor.
+     * Reads the name and version of the bundle of the context.
      */
     public BundleInformation(BundleContext bc) {
         Bundle bundle = bc.getBundle();

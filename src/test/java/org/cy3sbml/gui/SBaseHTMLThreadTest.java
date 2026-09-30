@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link SBaseHTMLThread} that do not need the OLS/UniProt/ChEBI web
- * services; see {@link SBaseHtmlThreadTest} (tagged {@code network}) for the full,
+ * services; see {@link SBaseHTMLThreadNetworkTest} (tagged {@code network}) for the full,
  * web-service-backed HTML generation tests.
  */
 class SBaseHTMLThreadTest {

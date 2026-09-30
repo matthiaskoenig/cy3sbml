@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,7 +29,7 @@ class GuiPageResourcesTest {
     private static final Pattern ACTION_LINK = Pattern.compile("href=\"(https://cy3sbml-[^\"]+)\"");
 
     @ParameterizedTest
-    @ValueSource(strings = {"help.html", "examples.html", "icons.html", "linktemplate.html"})
+    @ValueSource(strings = {"help.html", "examples.html", "linktemplate.html"})
     void localReferencesExist(String page) throws Exception {
         URL pageUrl = GuiPageResourcesTest.class.getResource("/gui/" + page);
         assertNotNull(pageUrl, page);
@@ -63,6 +64,16 @@ class GuiPageResourcesTest {
             remote.add(matcher.group());
         }
         assertEquals(List.of(), remote);
+    }
+
+    /** The pages need no scripts: JavaScript is disabled in the browser of the panel. */
+    @ParameterizedTest
+    @ValueSource(strings = {"help.html", "examples.html", "linktemplate.html"})
+    void noScripts(String page) throws Exception {
+        URL pageUrl = GuiPageResourcesTest.class.getResource("/gui/" + page);
+        assertNotNull(pageUrl, page);
+        String html = Files.readString(Path.of(pageUrl.toURI())).replaceAll("(?s)<!--.*?-->", "");
+        assertFalse(html.contains("<script"), page);
     }
 
     private static boolean isLocalFile(String reference) {
