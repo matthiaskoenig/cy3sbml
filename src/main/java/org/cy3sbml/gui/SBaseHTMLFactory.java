@@ -2,8 +2,8 @@ package org.cy3sbml.gui;
 
 import static org.cy3sbml.gui.GUIConstants.*;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
@@ -28,7 +27,6 @@ import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HtmlUtil;
-import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.SBMLUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
@@ -43,7 +41,6 @@ import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,12 +55,10 @@ import org.slf4j.LoggerFactory;
  * on selection of SBML objects in the graph.
  */
 public class SBaseHTMLFactory {
-    public static final String SBO = "SBO";
-    public static final String CY3SBML = "cy3sbml";
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
-    public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
-    public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
-    public static final String delim = "/";
+    private static final String CY3SBML = "cy3sbml";
+    /** The identifiers.org URI of an SBO term without the term id. */
+    private static final String SBO_URI_PREFIX = "https://identifiers.org/biomodels.sbo/";
 
     private final String baseDir;
     // the archive a document was imported from, null if not known
@@ -299,14 +294,18 @@ public class SBaseHTMLFactory {
      * Creates the HTML table from map.
      */
     private static String createTableFromMap(Map<String, String> map) {
-        if (map == null || map.size() == 0) {
+        if (map == null || map.isEmpty()) {
             return "";
         }
-        String html = TABLE_START;
-        for (String key : map.keySet()) {
-            html += TS + key + TM + map.get(key) + TE;
+        StringBuilder html = new StringBuilder(TABLE_START);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            html.append(TS)
+                    .append(entry.getKey())
+                    .append(TM)
+                    .append(entry.getValue())
+                    .append(TE);
         }
-        return html + TABLE_END;
+        return html.append(TABLE_END).toString();
     }
 
     /**
@@ -423,10 +422,7 @@ public class SBaseHTMLFactory {
             boolean termExists =
                     cvterms.stream().flatMap(t -> t.getResources().stream()).anyMatch(uri -> uri.endsWith(sboTermId));
             if (!termExists) {
-                String nameSpace = getPrefixValue(SBO);
-                terms.add(new CVTerm(
-                        CVTerm.Qualifier.BQB_IS,
-                        String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId))));
+                terms.add(new CVTerm(CVTerm.Qualifier.BQB_IS, SBO_URI_PREFIX + sboTermId));
             }
         }
         terms.addAll(cvterms);
@@ -740,21 +736,5 @@ public class SBaseHTMLFactory {
      */
     public static String booleanHTML(boolean b) {
         return b ? ICON_TRUE : ICON_FALSE;
-    }
-
-    public static String getPrefixValue(String keyToFind) {
-        InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
-        if (inputStream == null) {
-            logger.error("Could not find the namespace resource: {}", FILENAME_NAMESPACE);
-            return null;
-        }
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-            Properties namespaces = new Properties();
-            namespaces.load(reader);
-            return namespaces.getProperty(keyToFind);
-        } catch (IOException e) {
-            logger.error("Could not read the prefix value: {}", keyToFind, e);
-        }
-        return null;
     }
 }
