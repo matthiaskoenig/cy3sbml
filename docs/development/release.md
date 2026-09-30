@@ -55,7 +55,9 @@ of the version in development included.
    `./mvnw -Pjavadoc verify`, checks that `target/cy3sbml-<version>.jar` and
    `target/cy3sbml-<version>-javadoc.jar` exist, creates the GitHub release with the app
    jar, the javadoc jar and the `pom.xml` of the release, each with its MD5 and SHA-1
-   checksum, and fast-forwards `main` to the tag.
+   checksum, and fast-forwards `main` to the tag. The build runs without a dependency
+   cache and with read access only; the jobs that create the release and move `main` run
+   no build code.
 4. Upload the jar of the GitHub release to the
    [Cytoscape App Store](https://apps.cytoscape.org/apps/cy3sbml).
 5. Open the pull request that starts the development of the next version.

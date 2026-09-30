@@ -23,19 +23,17 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  build:
+    # The Ant build of JSBML runs code from the JSBML repository, so this job has
+    # read access only; it hands the update to the pull-request job as a patch,
+    # which runs no code of the build on a runner with write access.
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      contents: write       # push the update branch
-      pull-requests: write  # open the pull request
-      actions: write        # start the checks of the pull request, see below
+    outputs:
+      changed: ${{ steps.patch.outputs.changed }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # the Ant build of JSBML runs code from the JSBML repository, so the
-          # token with write access is not stored in the checkout; only the
-          # last step, after the build, uses it
           persist-credentials: false
       - name: Set up JDK 17
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
@@ -50,24 +48,64 @@ jobs:
         env:
           REF: ${{ inputs.ref }}
           REPOSITORY: ${{ inputs.repository }}
-        run: >-
-          uv run --no-project --python 3.14 python scripts/update_jsbml.py "$REF"
-          --repository "$REPOSITORY" --summary "$RUNNER_TEMP/summary.md"
+        run: |
+          mkdir -p "$RUNNER_TEMP/update"
+          uv run --no-project --python 3.14 python scripts/update_jsbml.py "$REF" \
+            --repository "$REPOSITORY" --summary "$RUNNER_TEMP/update/summary.md"
+      - name: Create the patch
+        id: patch
+        run: |
+          git add --all lib/cy3sbml-dep pom.xml
+          if git diff --cached --quiet; then
+            echo "JSBML is up to date, nothing to do." >> "$GITHUB_STEP_SUMMARY"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --binary > "$RUNNER_TEMP/update/jsbml.patch"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Upload the patch
+        if: steps.patch.outputs.changed == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: jsbml-update
+          path: ${{ runner.temp }}/update
+          retention-days: 1
+
+  pull-request:
+    needs: build
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write       # push the update branch
+      pull-requests: write  # open the pull request
+      actions: write        # start the checks of the pull request, see below
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Download the patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: jsbml-update
+          path: ${{ runner.temp }}/update
       - name: Open the pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "JSBML is up to date, nothing to do." >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
+          # the patch may only change the JSBML jars and pom.xml
+          git apply --index --include='lib/cy3sbml-dep/*' --include=pom.xml \
+            "$RUNNER_TEMP/update/jsbml.patch"
           version="$(sed -n 's|.*<jsbml.version>\(.*\)</jsbml.version>.*|\1|p' pom.xml)"
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+-[0-9]{8}-[0-9a-f]+$ ]]; then
+            echo "::error::unexpected JSBML version: $version"
+            exit 1
+          fi
           branch="update-jsbml-$version"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add --all lib/cy3sbml-dep pom.xml
-          { echo "Update JSBML to $version"; echo; cat "$RUNNER_TEMP/summary.md"; } \
+          { echo "Update JSBML to $version"; echo; cat "$RUNNER_TEMP/update/summary.md"; } \
             > "$RUNNER_TEMP/message.txt"
           git commit --quiet --file "$RUNNER_TEMP/message.txt"
           git push --force \
@@ -75,11 +113,11 @@ jobs:
             "$branch"
           if ! gh pr view "$branch" > /dev/null 2>&1; then
             gh pr create --base develop --head "$branch" \
-              --title "Update JSBML to $version" --body-file "$RUNNER_TEMP/summary.md"
+              --title "Update JSBML to $version" --body-file "$RUNNER_TEMP/update/summary.md"
           fi
           # A pull request opened with the workflow token starts no workflows, so
           # the checks the branch protection requires are started here; they run
           # on the head commit of the pull request and report to it.
           gh workflow run ci.yml --ref "$branch"
           gh workflow run docs.yml --ref "$branch"
-          cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/update/summary.md" >> "$GITHUB_STEP_SUMMARY"
