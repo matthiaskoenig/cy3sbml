@@ -29,6 +29,7 @@ final class BiomodelsSearchCommand extends AbstractTaskFactory {
         return new TaskIterator(new BiomodelsSearchTask(services));
     }
 
+    /** Searches BioModels and returns the number of matches and the models found. */
     public static final class BiomodelsSearchTask extends JsonTask {
         @Tunable(
                 description = "Query",

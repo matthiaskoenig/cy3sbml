@@ -41,6 +41,7 @@ final class LayoutCommand extends AbstractTaskFactory {
         return new TaskIterator(new LayoutTask(services, save));
     }
 
+    /** Saves the node positions of the view of the network in the file, or loads them from it. */
     public static final class LayoutTask extends JsonTask {
         @Tunable(
                 description = "Network",

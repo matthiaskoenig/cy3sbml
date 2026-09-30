@@ -2,7 +2,11 @@ package org.cy3sbml.biomodel;
 
 import org.cy3sbml.gui.GUIConstants;
 
-public class BioModelDialogText {
+/** The HTML texts of the BioModels dialog, each with the BioModels logo as header. */
+public final class BioModelDialogText {
+    private BioModelDialogText() {}
+
+    /** The BioModels logo, linked to BioModels. */
     public static String getHeaderString() {
         String imgsrc = BioModelDialogText.class
                 .getResource(GUIConstants.LOGO_BIOMODELS)
@@ -12,6 +16,7 @@ public class BioModelDialogText {
         return info;
     }
 
+    /** The help of the dialog, shown when it opens. */
     public static String getInfo() {
         String info = getHeaderString();
         info += "<h2>Import of BioModels</h2>"
@@ -34,6 +39,7 @@ public class BioModelDialogText {
         return info;
     }
 
+    /** The message that BioModels could not be reached. */
     public static String getWebserviceError() {
         String info = getHeaderString();
         info += "<p>The BioModels web service could not be accessed.</p>"
@@ -46,22 +52,17 @@ public class BioModelDialogText {
         return info;
     }
 
+    /** The message of a running search. */
     public static String performBioModelSearch() {
         String info = getHeaderString();
         info += "<p>Searching BioModels ...</p>" + "<p>... the request can take a few seconds.</p>";
         return info;
     }
 
+    /** The given HTML below the header. */
     public static String getString(String msg) {
         String info = getHeaderString();
         info += msg;
-        return info;
-    }
-
-    public static String getWebserviceSBMLRequest() {
-        String info = getHeaderString();
-        info += "<p>Getting the BioModels from the BioModels web service ...</p>"
-                + "<p>... the request can take a few seconds.</p>";
         return info;
     }
 }

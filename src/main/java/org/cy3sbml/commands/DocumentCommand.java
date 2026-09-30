@@ -31,6 +31,7 @@ final class DocumentCommand extends AbstractTaskFactory {
         return new TaskIterator(new DocumentTask(services));
     }
 
+    /** Returns the SBML of the document of the network, or writes it to the file. */
     public static final class DocumentTask extends JsonTask {
         @Tunable(
                 description = "Network",

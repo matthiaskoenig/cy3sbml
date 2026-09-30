@@ -34,6 +34,7 @@ final class NodesCommand extends AbstractTaskFactory {
         return new TaskIterator(new NodesTask(services));
     }
 
+    /** Returns the SUIDs of the nodes of the given SBML ids, or of all SBML ids. */
     public static final class NodesTask extends JsonTask {
         @Tunable(
                 description = "Network",
@@ -66,7 +67,7 @@ final class NodesCommand extends AbstractTaskFactory {
                         .filter(id -> !id.isEmpty())
                         .forEach(ids::add);
             }
-            // all ids of the network in their order, or the given ids in the given order
+            // all ids of the network in alphabetical order, or the given ids in the given order
             Map<String, List<Long>> nodes = ids.isEmpty() ? new TreeMap<>() : new LinkedHashMap<>();
             ids.forEach(id -> nodes.put(id, new ArrayList<>()));
             for (CyNode node : target.getNodeList()) {

@@ -21,6 +21,9 @@ public class CombineArchiveReaderTaskFactory extends AbstractInputStreamTaskFact
     private final SBMLManager sbmlManager;
     private final ArchiveDirectories directories;
 
+    /**
+     * @param directories the directories the archives are unpacked into
+     */
     public CombineArchiveReaderTaskFactory(
             CombineArchiveFileFilter filter,
             ServiceAdapter adapter,

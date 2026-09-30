@@ -112,13 +112,16 @@ imports its SBML models.
 | Argument | Description |
 |---|---|
 | `file` | path of an SBML file or a COMBINE archive |
-| `url` | URL of an SBML file or a COMBINE archive |
+| `url` | http or https URL of an SBML file or a COMBINE archive |
 | `sbml` | the SBML as a string |
 | `biomodelsId` | id of a BioModels model, which is downloaded and imported |
 
 Give exactly one of the arguments. The result has the imported models, each with its root
 network SUID, model id and name, and its networks (SUID, name, type), as in the example
 above. The command fails if nothing is imported, for example for a file that is no SBML.
+Other URLs than http and https (for example `file:` URLs) are rejected, give a local file
+with `file`. A COMBINE archive is imported only if it has at most 100000 entries and its
+unpacked files have at most 4 GiB in total.
 
 ### `cy3sbml biomodels search`
 
