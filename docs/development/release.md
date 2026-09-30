@@ -12,7 +12,7 @@ The branch and tag rules are GitHub rulesets, stored as JSON in `.github/ruleset
 
 - `develop.json`: no deletion and no force push, linear history, changes only by pull
   request with resolved review threads, merge by squash or rebase, and the required
-  status checks `tests`, `format`, `lint` and `docs`.
+  status checks `tests`, `format`, `lint`, `python` and `docs`.
 - `main.json`: no deletion, no force push, linear history.
 - `tags.json`: tags cannot be deleted or moved.
 

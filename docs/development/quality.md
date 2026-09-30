@@ -1,8 +1,8 @@
 # Code quality
 
 Four checks keep the code consistent. The CI (`.github/workflows/ci.yml`) runs them on
-every pull request. `format`, `lint` and `tests`, together with the documentation check
-`docs`, are required for merging into `develop`.
+every pull request. All four, together with the documentation check `docs`, are required
+for merging into `develop`.
 
 | Check | Tool | Command |
 |---|---|---|
