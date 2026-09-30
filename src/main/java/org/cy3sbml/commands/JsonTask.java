@@ -27,7 +27,7 @@ abstract class JsonTask extends AbstractTask implements ObservableTask {
         return json;
     }
 
-    static String toJson(Object result) {
+    private static String toJson(Object result) {
         try {
             return JSON.writeValueAsString(result);
         } catch (JsonProcessingException e) {

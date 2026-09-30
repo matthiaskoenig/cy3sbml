@@ -108,7 +108,7 @@ final class ImportCommand extends AbstractTaskFactory {
                 throw new IllegalArgumentException(
                         "Give exactly one of the arguments file, url, sbml and biomodelsId.");
             }
-            Set<Long> before = networkSuids(services);
+            Set<Long> before = networkSuids();
             Path temporaryDirectory = null;
             try {
                 TaskIterator loader;
@@ -156,6 +156,15 @@ final class ImportCommand extends AbstractTaskFactory {
             if (finished.getType() == FinishStatus.Type.CANCELLED) {
                 cancel();
             }
+        }
+
+        /** The SUIDs of all networks. */
+        private Set<Long> networkSuids() {
+            Set<Long> suids = new HashSet<>();
+            for (CyNetwork network : services.networkManager().getNetworkSet()) {
+                suids.add(network.getSUID());
+            }
+            return suids;
         }
 
         /** The models of the networks created since {@code before}, grouped by root network. */
@@ -222,14 +231,5 @@ final class ImportCommand extends AbstractTaskFactory {
                 logger.warn("The temporary directory {} could not be deleted: {}", directory, e.getMessage());
             }
         }
-    }
-
-    /** The SUIDs of all networks. */
-    static Set<Long> networkSuids(CommandServices services) {
-        Set<Long> suids = new HashSet<>();
-        for (CyNetwork network : services.networkManager().getNetworkSet()) {
-            suids.add(network.getSUID());
-        }
-        return suids;
     }
 }
