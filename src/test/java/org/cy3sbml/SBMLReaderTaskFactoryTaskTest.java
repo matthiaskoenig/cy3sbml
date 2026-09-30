@@ -95,15 +95,16 @@ public class SBMLReaderTaskFactoryTaskTest {
         readerTask.run(taskMonitor);
     }
 
-    /**
-     * Cytoscape passes the reader only the stream and the file name: the location
-     * of the file comes from the file filter, which accepted it just before.
-     */
     /** A stream that fails while it is read, e.g. of a URL whose connection drops. */
-    static InputStream failingStream() {
+    public static InputStream failingStream() {
         return new InputStream() {
             @Override
             public int read() throws IOException {
+                throw new IOException("Connection reset");
+            }
+
+            @Override
+            public int read(byte[] buffer, int offset, int length) throws IOException {
                 throw new IOException("Connection reset");
             }
         };
@@ -123,6 +124,10 @@ public class SBMLReaderTaskFactoryTaskTest {
         assertEquals(0, reader.getNetworks().length);
     }
 
+    /**
+     * Cytoscape passes the reader only the stream and the file name: the location
+     * of the file comes from the file filter, which accepted it just before.
+     */
     @Test
     public void taskGetsTheLocationAcceptedByTheFilter() throws Exception {
         URI uri = URI.create("file:/models/comp/toy_top_level.xml");

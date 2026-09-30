@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.SBMLReaderTaskFactoryTaskTest;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.io.read.CyNetworkReader;
@@ -57,12 +57,7 @@ class CombineArchiveReaderTaskFactoryTest {
     void unreadableArchiveGivesAReaderThatReportsTheError() {
         CombineArchiveReaderTaskFactory factory = new CombineArchiveReaderTaskFactory(
                 new CombineArchiveFileFilter(null), null, null, new ArchiveDirectories(temp));
-        InputStream failing = new InputStream() {
-            @Override
-            public int read() throws IOException {
-                throw new IOException("Connection reset");
-            }
-        };
+        InputStream failing = SBMLReaderTaskFactoryTaskTest.failingStream();
 
         CyNetworkReader reader = (CyNetworkReader)
                 factory.createTaskIterator(failing, "model.omex").next();
