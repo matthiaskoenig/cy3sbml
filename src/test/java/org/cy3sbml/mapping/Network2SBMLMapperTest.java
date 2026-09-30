@@ -139,4 +139,28 @@ public class Network2SBMLMapperTest {
         // every put was matched by a remove for the same (unique) SUID
         assertEquals(0, mapper.keySet().size());
     }
+
+    /** A session is saved with a consistent snapshot: the serialization holds the mapper lock. */
+    @Test
+    public void serializationWaitsForAConcurrentWriter() throws Exception {
+        mapper.putDocument(SUID, DOC, new One2ManyMapping<>());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<?> serialization;
+            synchronized (mapper) {
+                serialization = executor.submit(() -> {
+                    try (java.io.ObjectOutputStream out =
+                            new java.io.ObjectOutputStream(new java.io.ByteArrayOutputStream())) {
+                        out.writeObject(mapper);
+                    }
+                    return null;
+                });
+                Thread.sleep(300);
+                assertFalse(serialization.isDone());
+            }
+            serialization.get();
+        } finally {
+            executor.shutdownNow();
+        }
+    }
 }
