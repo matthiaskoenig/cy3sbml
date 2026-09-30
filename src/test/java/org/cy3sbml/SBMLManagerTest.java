@@ -15,9 +15,12 @@ import org.cy3sbml.comp.SBaseRefResolver;
 import org.cy3sbml.mapping.Network2SBMLMapper;
 import org.cy3sbml.mapping.One2ManyMapping;
 import org.cy3sbml.util.NetworkUtil;
+import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNode;
 import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -264,6 +267,30 @@ public class SBMLManagerTest {
         manager.removeSBMLForNetwork(network);
 
         assertEquals(Optional.empty(), manager.getArchive(rootSUID));
+    }
+
+    /** The network of a group node (groups package) is a subnetwork too, but no network of the collection. */
+    @Test
+    public void documentIsRemovedWithTheLastNetworkOfACollectionWithGroups() {
+        NetworkTestSupport support = new NetworkTestSupport();
+        CyNetwork network = support.getNetworkFactory().createNetwork();
+        support.getNetworkManager().addNetwork(network);
+        CyNode a = network.addNode();
+        CyNode b = network.addNode();
+        new GroupTestSupport().getGroupFactory().createGroup(network, List.of(a, b), null, true);
+        Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
+        manager.addSBMLForNetwork(DOC, rootSUID, MAPPING);
+
+        manager.handleEvent(new NetworkAboutToBeDestroyedEvent(support.getNetworkManager(), network));
+
+        assertNull(manager.getSBMLDocument(rootSUID));
+    }
+
+    @Test
+    public void lookupsWithoutADocument() {
+        assertNull(manager.getSBaseByCyId("c1_meta"));
+        assertNull(manager.getSBaseByCyId("c1_meta", 456L));
+        assertEquals(List.of(), manager.getCyIdsFromSUIDs(List.of(1L, 2L)));
     }
 
     @Test
