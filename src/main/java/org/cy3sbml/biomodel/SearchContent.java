@@ -1,8 +1,8 @@
 package org.cy3sbml.biomodel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.cy3sbml.util.HtmlUtil;
 
 /**
@@ -26,6 +26,9 @@ public final class SearchContent {
 
     /** The mode of model ids parsed from text, not searched. */
     public static final String PARSED_IDS = "PARSED IDS";
+
+    /** The separators of the search terms. */
+    private static final Pattern TERM_SEPARATOR = Pattern.compile("[\\s.,;:]+");
 
     private final List<String> names;
     private final String searchMode;
@@ -64,13 +67,10 @@ public final class SearchContent {
 
     /** The search terms of the text, split at whitespace and {@code .,;:}. */
     private static List<String> tokens(String text) {
-        List<String> tokens = new ArrayList<>();
-        for (String token : text.split("[\\s.,;:]+")) {
-            if (!token.isEmpty()) {
-                tokens.add(token);
-            }
-        }
-        return List.copyOf(tokens);
+        return TERM_SEPARATOR
+                .splitAsStream(text)
+                .filter(token -> !token.isEmpty())
+                .toList();
     }
 
     /** The search terms and the search mode as an HTML table. */
