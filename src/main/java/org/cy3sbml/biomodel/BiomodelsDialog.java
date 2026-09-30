@@ -51,6 +51,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
+import org.cy3sbml.util.HtmlSanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,7 +185,12 @@ public final class BiomodelsDialog extends JDialog {
         infoPane.addHyperlinkListener(evt -> {
             URL url = evt.getURL();
             if (url != null && evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                openUrl.accept(url.toString());
+                // like the info panel, only web and mailto links open in the system browser
+                if (HtmlSanitizer.isExternalLink(url.toString())) {
+                    openUrl.accept(url.toString());
+                } else {
+                    logger.warn("Link not opened: {}", url);
+                }
             }
         });
         infoScrollPane.setViewportView(infoPane);

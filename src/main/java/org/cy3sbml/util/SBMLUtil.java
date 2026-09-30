@@ -47,9 +47,6 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 /**
  * Some utils to work with SBML and SBML naming.
@@ -121,38 +118,11 @@ public class SBMLUtil {
             return null;
         }
         try {
-            return sanitizedXhtml(sbase.getNotesString());
+            return HtmlSanitizer.sanitizeXhtml(sbase.getNotesString());
         } catch (XMLStreamException e) {
             logger.error("Error parsing notes xml.", e);
             return null;
         }
-    }
-
-    /**
-     * The XHTML content of the root element of the XML, e.g. {@code <notes>} or the
-     * {@code <message>} of a constraint, sanitized with {@link HtmlSanitizer}: the
-     * formatting markup, without an enclosing {@code <html>} or {@code <body>} element,
-     * one top level element per line.
-     *
-     * @return the XHTML, null if the XML cannot be read
-     */
-    static String sanitizedXhtml(String xml) {
-        Document doc = XMLUtil.readXMLString(xml);
-        if (doc == null) {
-            return null;
-        }
-        XMLUtil.cleanEmptyTextNodes(doc);
-        Element root = doc.getDocumentElement();
-        HtmlSanitizer.sanitizeChildren(root);
-        StringBuilder text = new StringBuilder();
-        NodeList nodes = root.getChildNodes();
-        for (int k = 0; k < nodes.getLength(); k++) {
-            String nodeText = XMLUtil.writeNodeToTidyString(nodes.item(k));
-            if (nodeText != null && !nodeText.isBlank()) {
-                text.append(nodeText.trim()).append('\n');
-            }
-        }
-        return text.toString();
     }
 
     /**
@@ -668,7 +638,7 @@ public class SBMLUtil {
         if (constraint.isSetMessage()) {
             try {
                 // XHTML of the model, reduced to formatting markup like the notes
-                message = sanitizedXhtml(constraint.getMessageString());
+                message = HtmlSanitizer.sanitizeXhtml(constraint.getMessageString());
             } catch (XMLStreamException e) {
                 logger.error("Constraint message could not be created.", e);
             }

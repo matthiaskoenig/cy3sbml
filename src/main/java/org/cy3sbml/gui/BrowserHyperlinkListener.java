@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +22,7 @@ import org.cy3sbml.actions.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.util.GUIUtil;
+import org.cy3sbml.util.HtmlSanitizer;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.CyNetwork;
@@ -61,9 +61,6 @@ public class BrowserHyperlinkListener {
     public static final String URL_SELECT_ID = "http://select-id/";
     // the node of a comp reference in the network of its model: <model id>/<metaid>
     public static final String URL_SELECT_TARGET = "http://select-target/";
-
-    /** The URL schemes of the links opened in the system browser. */
-    static final Set<String> EXTERNAL_SCHEMES = Set.of("http", "https", "ftp", "mailto");
 
     public static final Map<String, String> EXAMPLE_SBML;
     public static final Set<String> URLS_ACTION;
@@ -251,7 +248,7 @@ public class BrowserHyperlinkListener {
         }
 
         // web links
-        else if (isExternalLink(s)) {
+        else if (HtmlSanitizer.isExternalLink(s)) {
             externalBrowser.accept(s);
         } else {
             logger.warn("Link not opened, only web and mailto links open in the browser: {}", s);
@@ -272,12 +269,6 @@ public class BrowserHyperlinkListener {
             case URL_LOADLAYOUT -> new LoadLayoutAction(adapter);
             default -> throw new IllegalArgumentException("No action for " + url);
         };
-    }
-
-    /** Whether the link opens in the system browser: a web or mailto link. */
-    static boolean isExternalLink(String url) {
-        int colon = url.indexOf(':');
-        return colon > 0 && EXTERNAL_SCHEMES.contains(url.substring(0, colon).toLowerCase(Locale.ROOT));
     }
 
     /**

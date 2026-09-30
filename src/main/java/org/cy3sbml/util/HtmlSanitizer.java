@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -150,6 +151,41 @@ public final class HtmlSanitizer {
 
     private HtmlSanitizer() {}
 
+    /**
+     * The XHTML content of the root element of the XML, e.g. {@code <notes>} or the
+     * {@code <message>} of a constraint, sanitized: the formatting markup, without an
+     * enclosing {@code <html>} or {@code <body>} element, one top level element per line.
+     *
+     * @return the XHTML, null if the XML cannot be read
+     */
+    public static String sanitizeXhtml(String xml) {
+        Document doc = XMLUtil.readXMLString(xml);
+        if (doc == null) {
+            return null;
+        }
+        XMLUtil.cleanEmptyTextNodes(doc);
+        Element root = doc.getDocumentElement();
+        sanitizeChildren(root);
+        StringBuilder text = new StringBuilder();
+        NodeList nodes = root.getChildNodes();
+        for (int k = 0; k < nodes.getLength(); k++) {
+            String nodeText = XMLUtil.writeNodeToTidyString(nodes.item(k));
+            if (nodeText != null && !nodeText.isBlank()) {
+                text.append(nodeText.trim()).append('\n');
+            }
+        }
+        return text.toString();
+    }
+
+    /**
+     * A text of a web service that is either XHTML (e.g. SBML notes) or plain text, as
+     * HTML: sanitized XHTML, the escaped text if it is no well-formed XML.
+     */
+    public static String sanitizeMarkup(String text) {
+        String xhtml = sanitizeXhtml("<div>" + text + "</div>");
+        return xhtml != null ? xhtml : HtmlUtil.escape(text);
+    }
+
     /** Sanitizes the children of the element, the element itself is kept. */
     public static void sanitizeChildren(Element parent) {
         // a copy, the children change while they are sanitized
@@ -220,6 +256,12 @@ public final class HtmlSanitizer {
             case "style" -> !loadsResource(value);
             default -> ALLOWED_ATTRIBUTES.contains(name);
         };
+    }
+
+    /** Whether the link opens in the system browser: a web, ftp or mailto link. */
+    public static boolean isExternalLink(String url) {
+        int colon = url.indexOf(':');
+        return colon > 0 && LINK_SCHEMES.contains(url.substring(0, colon).toLowerCase(Locale.ROOT));
     }
 
     private static boolean hasScheme(String value, Set<String> schemes) {

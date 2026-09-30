@@ -112,8 +112,25 @@ public class BiomodelsQuery {
      * @throws IOException if the download failed, e.g. for an unknown id
      */
     public void downloadSBML(String biomodelId, Path file) throws IOException {
-        String id = encode(biomodelId);
-        http.download(base.resolve("model/download/" + id + "?filename=" + id + "_url.xml"), file);
+        http.download(
+                base.resolve("model/download/" + encode(biomodelId) + "?filename=" + encode(mainFile(biomodelId))),
+                file);
+    }
+
+    /**
+     * The name of the main (SBML) file of the model, from the information of the model:
+     * newer models name it after the model (e.g. {@code Zhang2007_M3_low_DD.xml} of
+     * BIOMD0000001010). {@code <id>_url.xml}, the name of most models, if the information
+     * has none, e.g. for an unknown id, whose download then fails with its status.
+     */
+    private String mainFile(String biomodelId) {
+        URI uri = base.resolve(encode(biomodelId) + "?format=json");
+        return http.fetch(uri)
+                .value()
+                .map(model ->
+                        model.path("files").path("main").path(0).path("name").asText(""))
+                .filter(name -> !name.isBlank())
+                .orElse(biomodelId + "_url.xml");
     }
 
     private static String encode(String value) {

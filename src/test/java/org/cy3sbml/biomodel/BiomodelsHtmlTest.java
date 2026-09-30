@@ -111,4 +111,32 @@ class BiomodelsHtmlTest {
         assertEquals("arXiv &lt;1&gt;", BiomodelsHtml.publication("arXiv <1>"));
         assertEquals("", BiomodelsHtml.publication(""));
     }
+
+    private static String description(String description) {
+        Biomodel details = new Biomodel("BIOMD1", "MODEL1", "", "name", description, "");
+        return BiomodelsHtml.model("BIOMD1", SUMMARY, details, false, false, true);
+    }
+
+    /** The description, the notes of the model, is reduced to formatting markup. */
+    @Test
+    void descriptionIsSanitized() {
+        String html = description("<notes xmlns=\"http://www.sbml.org/sbml/level2/version3\">"
+                + "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p>A <b>model</b>"
+                + "<a href=\"file:///etc/passwd\">file</a><a href=\"https://example.org/\">web</a>"
+                + "<img src=\"jar:file:///x.jar!/a.png\"/><object data=\"https://example.org/x\">o</object></p>"
+                + "</body></notes>");
+
+        assertTrue(html.contains("<b>model</b>"), html);
+        assertTrue(html.contains("href=\"https://example.org/\""), html);
+        assertFalse(html.contains("file:///etc/passwd") || html.contains("jar:") || html.contains("<object"), html);
+        assertFalse(html.contains("<notes") || html.contains("<body"), html);
+    }
+
+    /** A description that is text, and no well-formed XML, is escaped. */
+    @Test
+    void textDescriptionIsEscaped() {
+        String html = description("It's a model of x < y & <img src=file:///x.png>");
+
+        assertTrue(html.contains("It's a model of x &lt; y &amp; &lt;img"), html);
+    }
 }
