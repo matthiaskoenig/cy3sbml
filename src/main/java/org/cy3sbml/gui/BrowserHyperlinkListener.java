@@ -1,8 +1,11 @@
 package org.cy3sbml.gui;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -166,6 +169,25 @@ public class BrowserHyperlinkListener {
         logger.debug("Link activated: {}", url);
         String s = url.toString();
         dispatch.execute(() -> processURL(s));
+    }
+
+    /**
+     * True for the locations of the pages the panel loads: the HTML text (an empty
+     * location) and the bundled pages in the app directory.
+     */
+    static boolean isPanelLocation(String location, File appDirectory) {
+        if (location == null || location.isEmpty() || location.equals("about:blank")) {
+            return true;
+        }
+        try {
+            URI uri = new URI(location);
+            return "file".equalsIgnoreCase(uri.getScheme())
+                    && Path.of(uri)
+                            .normalize()
+                            .startsWith(appDirectory.toPath().toAbsolutePath().normalize());
+        } catch (URISyntaxException | IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**

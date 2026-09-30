@@ -6,6 +6,7 @@ import org.cy3sbml.SBMLManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.view.model.CyNetworkView;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
@@ -78,6 +79,11 @@ public class PanelUpdater implements Runnable {
         }
         SBase sbase = sbmlManager.getSBaseByCyId(cyIds.get(0));
         return sbase != null ? sbase : TEXT_NO_SBML_NODE;
+    }
+
+    /** True if the view is a view of the current network, which may be null. */
+    static boolean isViewOfCurrentNetwork(CyNetworkView view, CyNetwork currentNetwork) {
+        return currentNetwork != null && currentNetwork.equals(view.getModel());
     }
 
     /**

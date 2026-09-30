@@ -1,6 +1,7 @@
 package org.cy3sbml.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -8,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +25,50 @@ import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class BrowserHyperlinkListenerTest {
+
+    @TempDir
+    static File appDirectory;
+
+    /** The location of a file relative to the app directory, as {@link File#toURI()} gives it ({@code file:/}). */
+    private static String fileUri(String path) {
+        return new File(appDirectory, path).toURI().toString();
+    }
+
+    /** The location in the form WebKit reports ({@code file:///}). */
+    private static String webKitUri(String path) {
+        return fileUri(path).replaceFirst("^file:/+", "file:///");
+    }
+
+    /** The panel shows its HTML text and the bundled pages in the app directory. */
+    @Test
+    void panelLocations() {
+        for (String location : List.of(
+                "", "about:blank", fileUri("gui/help.html"), webKitUri("gui/help.html"), webKitUri("gui/x.html"))) {
+            assertTrue(BrowserHyperlinkListener.isPanelLocation(location, appDirectory), location);
+        }
+    }
+
+    /** Any other page, e.g. of a meta refresh in the notes of a model, is not shown. */
+    @Test
+    void otherLocations() {
+        String sibling = new File(appDirectory.getParentFile(), appDirectory.getName() + "-other/x.html")
+                .toURI()
+                .toString();
+        for (String location : List.of(
+                "https://cy3sbml-help/",
+                "https://example.org/",
+                "data:text/html,x",
+                webKitUri("../outside.html"),
+                webKitUri("gui/../../outside.html"),
+                sibling,
+                "file://server/share/x.html",
+                "not a uri")) {
+            assertFalse(BrowserHyperlinkListener.isPanelLocation(location, appDirectory), location);
+        }
+    }
 
     @Test
     void linkActionsRunOnTheDispatchExecutorNotOnTheCallingThread() throws Exception {

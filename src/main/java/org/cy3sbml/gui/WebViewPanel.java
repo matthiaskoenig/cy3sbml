@@ -288,10 +288,16 @@ public final class WebViewPanel extends JFXPanel
         updateInformation();
     }
 
-    /** Shows the help page when a network view is closed. */
+    /**
+     * Shows the help page when the view of the current network is closed; the view of
+     * another network leaves the information of the current network.
+     */
     @Override
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
-        setHelp();
+        if (PanelUpdater.isViewOfCurrentNetwork(
+                event.getNetworkView(), adapter.cyApplicationManager.getCurrentNetwork())) {
+            setHelp();
+        }
     }
 
     /**
