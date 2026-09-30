@@ -2,10 +2,11 @@ package org.cy3sbml.archive;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -49,6 +50,17 @@ public final class CombineArchive {
     /** The metadata of the archive itself. */
     private record Metadata(String title, String description, List<ArchiveInfo.Creator> creators) {}
 
+    /**
+     * The limits of an archive to unpack, against zip bombs.
+     *
+     * @param maxBytes   the maximum total size of the unpacked files in bytes
+     * @param maxEntries the maximum number of zip entries
+     */
+    record Limits(long maxBytes, int maxEntries) {}
+
+    /** The limits of the unpacked archives: 4 GiB and 100000 entries. */
+    static final Limits LIMITS = new Limits(4L * 1024 * 1024 * 1024, 100_000);
+
     private CombineArchive() {}
 
     /**
@@ -60,13 +72,20 @@ public final class CombineArchive {
      * @return the content of the archive; the file of an entry is
      *     {@code directory.resolve(entry.location())}
      * @throws CombineArchiveException if the file is no COMBINE archive, has an entry outside
-     *     the archive, lacks a file to import, or has no SBML file
+     *     the archive, is larger than 4 GiB or has more than 100000 entries unpacked, lacks a
+     *     file to import, or has no SBML file
      */
     public static ArchiveInfo extract(InputStream stream, String name, Path directory)
             throws CombineArchiveException, IOException {
+        return extract(stream, name, directory, LIMITS);
+    }
+
+    /** Unpacks the archive into the directory within the limits and reads its content. */
+    static ArchiveInfo extract(InputStream stream, String name, Path directory, Limits limits)
+            throws CombineArchiveException, IOException {
         Path root = directory.toAbsolutePath().normalize();
         Files.createDirectories(root);
-        unzip(stream, name, root);
+        unzip(stream, name, root, limits);
 
         Path manifest = root.resolve(MANIFEST);
         if (!Files.isRegularFile(manifest)) {
@@ -93,30 +112,68 @@ public final class CombineArchive {
         return info;
     }
 
-    /** Unpacks the zip into the directory; every entry must stay inside the directory. */
-    private static void unzip(InputStream stream, String name, Path root) throws CombineArchiveException, IOException {
-        boolean zip = false;
+    /**
+     * Unpacks the zip into the directory; every entry must stay inside the directory, and
+     * the entries and their total size within the limits.
+     */
+    private static void unzip(InputStream stream, String name, Path root, Limits limits)
+            throws CombineArchiveException, IOException {
+        int entries = 0;
+        long bytes = 0;
+        byte[] buffer = new byte[64 * 1024];
         try (ZipInputStream zipStream = new ZipInputStream(stream)) {
             ZipEntry zipEntry;
             while ((zipEntry = zipStream.getNextEntry()) != null) {
-                zip = true;
-                Path target = root.resolve(zipEntry.getName()).normalize();
-                if (!target.startsWith(root) || target.equals(root)) {
+                if (++entries > limits.maxEntries()) {
                     throw new CombineArchiveException(String.format(
-                            "The archive %s has the entry '%s' outside the archive.", name, zipEntry.getName()));
+                            "The archive %s is too large to unpack: it has more than %d entries.",
+                            name, limits.maxEntries()));
                 }
+                Path target = resolveInside(root, zipEntry.getName(), name);
                 if (zipEntry.isDirectory()) {
                     Files.createDirectories(target);
-                } else {
-                    Files.createDirectories(target.getParent());
-                    Files.copy(zipStream, target, StandardCopyOption.REPLACE_EXISTING);
+                    continue;
+                }
+                Files.createDirectories(target.getParent());
+                try (OutputStream out = Files.newOutputStream(target)) {
+                    int read;
+                    while ((read = zipStream.read(buffer)) > 0) {
+                        bytes += read;
+                        if (bytes > limits.maxBytes()) {
+                            throw new CombineArchiveException(String.format(
+                                    "The archive %s is too large to unpack: its files have more than %d bytes.",
+                                    name, limits.maxBytes()));
+                        }
+                        out.write(buffer, 0, read);
+                    }
                 }
             }
         }
-        if (!zip) {
+        if (entries == 0) {
             throw new CombineArchiveException(
                     String.format("The file %s is not a COMBINE archive: it is no zip file.", name));
         }
+    }
+
+    /**
+     * The file of a location in the archive (a zip entry or a manifest location).
+     *
+     * @throws CombineArchiveException if the location is outside the archive (absolute or
+     *     with {@code ..}), the archive itself, or no valid path
+     */
+    private static Path resolveInside(Path root, String location, String name) throws CombineArchiveException {
+        Path target;
+        try {
+            target = root.resolve(location).normalize();
+        } catch (InvalidPathException e) {
+            throw new CombineArchiveException(
+                    String.format("The archive %s has the invalid entry '%s': %s", name, location, e.getMessage()));
+        }
+        if (!target.startsWith(root) || target.equals(root)) {
+            throw new CombineArchiveException(
+                    String.format("The archive %s has the entry '%s' outside the archive.", name, location));
+        }
+        return target;
     }
 
     /** The entries of the manifest, without the archive itself and the manifest. */
@@ -141,11 +198,7 @@ public final class CombineArchive {
                     || format.endsWith(ARCHIVE_FORMAT)) {
                 continue;
             }
-            Path target = root.resolve(location).normalize();
-            if (!target.startsWith(root) || target.equals(root)) {
-                throw new CombineArchiveException(
-                        String.format("The archive %s has the entry '%s' outside the archive.", name, location));
-            }
+            resolveInside(root, location, name);
             entries.add(new ArchiveInfo.Entry(
                     location,
                     format,
