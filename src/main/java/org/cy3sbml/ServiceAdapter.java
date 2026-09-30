@@ -5,7 +5,6 @@ import java.util.Properties;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.group.CyGroupFactory;
-import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.property.CyProperty;
@@ -16,20 +15,14 @@ import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
-import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Adapter for working with services.
- * <p>
- * Avoids to have to pass around the services to everywhere, but provides
- * a one-stop shop for getting the necessary things.
+ * The Cytoscape services and app settings that the actions, readers and the info panel need,
+ * so that they do not each take a long list of constructor arguments. {@link CyActivator}
+ * creates the one instance.
  */
 public class ServiceAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(ServiceAdapter.class);
-
     public final CySwingApplication cySwingApplication;
     public final CyApplicationManager cyApplicationManager;
     public final CyNetworkManager cyNetworkManager;
@@ -38,22 +31,38 @@ public class ServiceAdapter {
     public final CyLayoutAlgorithmManager cyLayoutAlgorithmManager;
     public final DialogTaskManager dialogTaskManager;
 
-    @SuppressWarnings("rawtypes")
-    public final TaskManager taskManager;
-
     public final CyNetworkFactory cyNetworkFactory;
     public final CyGroupFactory cyGroupFactory;
     public final CyNetworkViewFactory cyNetworkViewFactory;
 
+    /** The cy3sbml properties ({@code cy3sbml.props}). */
     public final CyProperty<Properties> cy3sbmlProperties;
+    /** The app directory in the Cytoscape configuration directory. */
     public final File cy3sbmlDirectory;
-    public final StreamUtil streamUtil;
+
     public final OpenBrowser openBrowser;
-    public final ConnectionProxy connectionProxy;
     public final LoadNetworkFileTaskFactory loadNetworkFileTaskFactory;
     public final FileUtil fileUtil;
 
-    @SuppressWarnings("rawtypes")
+    /**
+     * Creates the adapter; a service a test does not need may be null.
+     *
+     * @param cySwingApplication the Swing application
+     * @param cyApplicationManager the application manager
+     * @param cyNetworkManager the network manager
+     * @param cyNetworkViewManager the network view manager
+     * @param visualMappingManager the visual mapping manager
+     * @param cyLayoutAlgorithmManager the layout algorithm manager
+     * @param dialogTaskManager the task manager with a progress dialog
+     * @param cyNetworkFactory the network factory
+     * @param cyGroupFactory the group factory
+     * @param cyNetworkViewFactory the network view factory
+     * @param cy3sbmlProperties the cy3sbml properties
+     * @param cy3sbmlDirectory the app directory
+     * @param openBrowser the browser service of Cytoscape
+     * @param loadNetworkFileTaskFactory the task factory to load network files
+     * @param fileUtil the file dialogs of Cytoscape
+     */
     public ServiceAdapter(
             CySwingApplication cySwingApplication,
             CyApplicationManager cyApplicationManager,
@@ -62,18 +71,14 @@ public class ServiceAdapter {
             VisualMappingManager visualMappingManager,
             CyLayoutAlgorithmManager cyLayoutAlgorithmManager,
             DialogTaskManager dialogTaskManager,
-            TaskManager taskManager,
             CyNetworkFactory cyNetworkFactory,
             CyGroupFactory cyGroupFactory,
             CyNetworkViewFactory cyNetworkViewFactory,
             CyProperty<Properties> cy3sbmlProperties,
             File cy3sbmlDirectory,
-            StreamUtil streamUtil,
             OpenBrowser openBrowser,
-            ConnectionProxy connectionProxy,
             LoadNetworkFileTaskFactory loadNetworkFileTaskFactory,
             FileUtil fileUtil) {
-        logger.debug("ServiceAdapter created");
         this.cySwingApplication = cySwingApplication;
         this.cyApplicationManager = cyApplicationManager;
         this.cyNetworkManager = cyNetworkManager;
@@ -81,15 +86,12 @@ public class ServiceAdapter {
         this.visualMappingManager = visualMappingManager;
         this.cyLayoutAlgorithmManager = cyLayoutAlgorithmManager;
         this.dialogTaskManager = dialogTaskManager;
-        this.taskManager = taskManager;
         this.cyNetworkFactory = cyNetworkFactory;
         this.cyGroupFactory = cyGroupFactory;
         this.cyNetworkViewFactory = cyNetworkViewFactory;
         this.cy3sbmlProperties = cy3sbmlProperties;
         this.cy3sbmlDirectory = cy3sbmlDirectory;
-        this.streamUtil = streamUtil;
         this.openBrowser = openBrowser;
-        this.connectionProxy = connectionProxy;
         this.loadNetworkFileTaskFactory = loadNetworkFileTaskFactory;
         this.fileUtil = fileUtil;
     }

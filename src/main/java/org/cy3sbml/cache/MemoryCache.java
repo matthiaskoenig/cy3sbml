@@ -34,11 +34,22 @@ public final class MemoryCache<K, V> {
     private final Clock clock;
     private final ConcurrentHashMap<K, CompletableFuture<Optional<V>>> inFlight = new ConcurrentHashMap<>();
 
+    /**
+     * Creates a cache with the default TTL of a "not found" result.
+     *
+     * @param maxEntries the maximum number of found values (and of "not found" results)
+     */
     public MemoryCache(int maxEntries) {
         this(maxEntries, DEFAULT_NOT_FOUND_TTL, Clock.systemUTC());
     }
 
-    /** For tests: an injectable TTL and clock for the "not found" entries. */
+    /**
+     * Creates a cache with the TTL and clock of the "not found" results, for tests.
+     *
+     * @param maxEntries the maximum number of found values (and of "not found" results)
+     * @param notFoundTtl how long a "not found" result is cached
+     * @param clock the clock of the TTL
+     */
     public MemoryCache(int maxEntries, Duration notFoundTtl, Clock clock) {
         this.notFoundTtl = notFoundTtl;
         this.clock = clock;
@@ -134,12 +145,14 @@ public final class MemoryCache<K, V> {
         }
     }
 
+    /** The number of cached found values. */
     public int size() {
         synchronized (values) {
             return values.size();
         }
     }
 
+    /** Removes all cached results. */
     public void clear() {
         synchronized (values) {
             values.clear();

@@ -41,7 +41,6 @@ import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.property.CyProperty;
-import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
@@ -60,7 +59,6 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskFactory;
-import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -120,6 +118,8 @@ public class CyActivator extends AbstractCyActivator {
     private WebViewPanel webViewPanel;
     // the directories the COMBINE archives are unpacked into, deleted in shutDown
     private volatile ArchiveDirectories archiveDirectories;
+    // the temporary files of the last saved session, deleted in shutDown
+    private volatile SessionData sessionData;
 
     public CyActivator() {
         super();
@@ -225,8 +225,6 @@ public class CyActivator extends AbstractCyActivator {
         CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 
         DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
-        @SuppressWarnings("rawtypes")
-        TaskManager taskManager = getService(bc, TaskManager.class);
 
         CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
         CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
@@ -244,9 +242,7 @@ public class CyActivator extends AbstractCyActivator {
         LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 
         // Use Cytoscape properties to set proxy for webservices
-        ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
-        connectionProxy.setSystemProxyFromCyProperties();
-        registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
+        new ConnectionProxy(cyProperties).setSystemProxyFromCyProperties();
 
         /* Create ServiceAdapter */
         ServiceAdapter adapter = new ServiceAdapter(
@@ -257,15 +253,12 @@ public class CyActivator extends AbstractCyActivator {
                 visualMappingManager,
                 cyLayoutAlgorithmManager,
                 dialogTaskManager,
-                taskManager,
                 cyNetworkFactory,
                 cyGroupFactory,
                 cyNetworkViewFactory,
                 appProperties,
                 appDirectory,
-                streamUtil,
                 openBrowser,
-                connectionProxy,
                 loadNetworkFileTaskFactory,
                 fileUtil);
 
@@ -280,7 +273,7 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, cofactorManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
         // Session loading & saving
-        SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
+        sessionData = new SessionData(sbmlManager, cofactorManager);
         registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
         registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
@@ -517,7 +510,8 @@ public class CyActivator extends AbstractCyActivator {
 
     /**
      * Stops the WebViewPanel's render executor (its daemon thread and any in-flight
-     * web-service call) before AbstractCyActivator unregisters the OSGi services.
+     * web-service call) and deletes the temporary directories of the COMBINE archives and
+     * of the last saved session, before AbstractCyActivator unregisters the OSGi services.
      */
     @Override
     public void shutDown() {
@@ -526,6 +520,9 @@ public class CyActivator extends AbstractCyActivator {
         }
         if (archiveDirectories != null) {
             archiveDirectories.deleteAll();
+        }
+        if (sessionData != null) {
+            sessionData.dispose();
         }
         super.shutDown();
     }

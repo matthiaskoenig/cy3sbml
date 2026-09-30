@@ -38,10 +38,22 @@ public record FetchResult<T>(FetchStatus status, Optional<T> value) {
         return new FetchResult<>(FetchStatus.FOUND, Optional.of(value));
     }
 
+    /**
+     * A deterministic "not found", e.g. an HTTP 404, which may be cached for a short time.
+     *
+     * @param <T> the value type
+     * @return the result
+     */
     public static <T> FetchResult<T> notFound() {
         return new FetchResult<>(FetchStatus.NOT_FOUND, Optional.empty());
     }
 
+    /**
+     * A transient error, e.g. a timeout, which is not cached.
+     *
+     * @param <T> the value type
+     * @return the result
+     */
     public static <T> FetchResult<T> error() {
         return new FetchResult<>(FetchStatus.ERROR, Optional.empty());
     }

@@ -1,6 +1,9 @@
 package org.cy3sbml.util;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -9,40 +12,46 @@ import java.nio.charset.StandardCharsets;
 public class IOUtil {
 
     /**
-     * Read resource to InputStream
+     * The classpath resource of the app.
+     *
+     * @param resource the absolute resource path
+     * @return the stream, null if there is no such resource
      */
     public static InputStream readResource(String resource) {
         return IOUtil.class.getResourceAsStream(resource);
     }
 
     /**
-     * Create InputStream from String.
+     * The UTF-8 bytes of the string as stream.
+     *
+     * @param s the string
+     * @return the stream
      */
     public static InputStream string2InputStream(String s) {
         return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
-     * Copy InputStream.
+     * Reads the stream into memory and closes it, e.g. to read a stream twice.
+     *
+     * @param is the stream, closed afterwards
+     * @return a stream of the bytes read
+     * @throws IOException if the stream cannot be read
      */
     public static InputStream copyInputStream(InputStream is) throws IOException {
-        ByteArrayOutputStream copy = new ByteArrayOutputStream();
-        int chunk = 0;
-        byte[] data = new byte[1024 * 1024];
-        while ((-1 != (chunk = is.read(data)))) {
-            copy.write(data, 0, chunk);
+        try (is) {
+            return new ByteArrayInputStream(is.readAllBytes());
         }
-        is.close();
-        return new ByteArrayInputStream(copy.toByteArray());
     }
 
     /**
-     * Creates a unique file with a given filename and a given extension in a given directory.
-     * If the file already exists, suffixes will be added.
+     * A file in the directory with the name and extension that does not exist yet: the name
+     * with a suffix {@code _0}, {@code _1}, ... if the file exists.
      *
-     * @param fileName  - Filename of the Temporary file
-     * @param extension - File extension of the temporary file (with dot).
-     * @return The unique File Object.
+     * @param directory the directory
+     * @param fileName the file name without extension
+     * @param extension the file extension, with the dot
+     * @return the file, not created
      */
     public static File createUniqueFile(File directory, String fileName, String extension) {
         File target = new File(directory, fileName + extension);

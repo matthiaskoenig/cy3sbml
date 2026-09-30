@@ -1,5 +1,7 @@
 package org.cy3sbml.mapping;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * mapping and can access it via the rootNetwork SUID.
  * <p>
  * The rootNetwork SUID is accessible via
- * NetworkUtil.getRootNetworkSUID(CyNetwork network);
+ * {@code NetworkUtil.getRootNetworkSUID(CyNetwork network)}.
  * <p>
  * The SBMLReaderTaskFactory creates multiple networks with the mapping between networks
  * and SBMLDocuments managed by the SBMLManager which updates this mapper.
@@ -42,6 +44,7 @@ public class Network2SBMLMapper implements Serializable {
     // the model of each root network; null in sessions of older versions
     private Map<Long, Model> modelMap;
 
+    /** Creates an empty mapper. */
     public Network2SBMLMapper() {
         logger.debug("Network2SBMLMapper created");
         initMaps();
@@ -144,21 +147,14 @@ public class Network2SBMLMapper implements Serializable {
      * @return SBMLDocument or null
      */
     public synchronized SBMLDocument getDocument(Long rootSUID) {
-        SBMLDocument doc = null;
-        if (rootSUID == null) {
-            logger.debug("No SUID set. No SBMLDocument can be retrieved !");
-            return null;
-        }
-        if (documentMap.containsKey(rootSUID)) {
-            doc = documentMap.get(rootSUID);
-        }
-        return doc;
+        return rootSUID == null ? null : documentMap.get(rootSUID);
     }
 
     /**
-     * Exists a SBMLDocument for the given rootNetwork.
+     * Whether a SBMLDocument is stored for the root network.
      *
      * @param rootSUID root network SUID
+     * @return true if the root network has a document
      */
     public synchronized boolean containsDocument(Long rootSUID) {
         return documentMap.containsKey(rootSUID);
@@ -176,7 +172,7 @@ public class Network2SBMLMapper implements Serializable {
     }
 
     /**
-     * Get DocumentMap.
+     * The documents by root network SUID.
      * <p>
      * Returns a defensive copy so the caller can iterate it without racing a concurrent writer.
      */
@@ -185,42 +181,40 @@ public class Network2SBMLMapper implements Serializable {
     }
 
     /**
-     * Mapping
+     * The mapping of node SUIDs to the cyIds (metaIds) of their SBases.
      *
      * @param rootSUID root network SUID
+     * @return the live mapping, null if the root network has none or the SUID is null
      */
     public synchronized One2ManyMapping<Long, String> getCyNode2SBaseMapping(Long rootSUID) {
-        if (rootSUID == null) {
-            logger.warn("No current SUID set. Mapping can not be retrieved !");
-            return null;
-        }
-        return node2sbaseMappingMap.get(rootSUID);
+        return rootSUID == null ? null : node2sbaseMappingMap.get(rootSUID);
     }
 
     /**
-     * Mapping
+     * The mapping of the cyIds (metaIds) of the SBases to their node SUIDs.
      *
      * @param rootSUID root network SUID
+     * @return the live mapping, null if the root network has none or the SUID is null
      */
     public synchronized One2ManyMapping<String, Long> getSBase2CyNodeMapping(Long rootSUID) {
-        if (rootSUID == null) {
-            logger.warn("No current SUID set. Mapping can not be retrieved !");
-            return null;
-        }
-        return sbase2nodeMappingMap.get(rootSUID);
+        return rootSUID == null ? null : sbase2nodeMappingMap.get(rootSUID);
     }
 
     /**
-     * Creates information string.
+     * Serializes the mapper under its lock, so that a session is saved with a consistent
+     * snapshot while an import or a cofactor split changes the mapper.
      */
+    private synchronized void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    /** The root network SUIDs with their documents, one per line. */
     @Override
     public synchronized String toString() {
-        String info = "\n--- SBML2NetworkMapping ---\n";
-        for (Long key : documentMap.keySet()) {
-            info += String.format(
-                    "%s -> %s\n", key.toString(), documentMap.get(key).toString());
+        StringBuilder info = new StringBuilder("\n--- SBML2NetworkMapping ---\n");
+        for (Map.Entry<Long, SBMLDocument> entry : documentMap.entrySet()) {
+            info.append(entry.getKey()).append(" -> ").append(entry.getValue()).append('\n');
         }
-        info += "-------------------------------";
-        return info;
+        return info.append("-------------------------------").toString();
     }
 }

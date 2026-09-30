@@ -7,14 +7,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
+import java.io.ObjectInputFilter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.archive.ArchiveImport;
 import org.cy3sbml.cofactors.CofactorManager;
@@ -27,7 +29,10 @@ import org.cytoscape.model.CyIdentifiable;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CySession;
-import org.cytoscape.session.events.*;
+import org.cytoscape.session.events.SessionAboutToBeSavedEvent;
+import org.cytoscape.session.events.SessionAboutToBeSavedListener;
+import org.cytoscape.session.events.SessionLoadedEvent;
+import org.cytoscape.session.events.SessionLoadedListener;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLException;
@@ -36,13 +41,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class implements the saving of cy3sbml session data and
- * the restoring of the saved data.
- * The internal data structures are serialized on session saving
- * and deserialized on session loading.
+ * Saves the cy3sbml data of a Cytoscape session and restores it when the session is loaded.
  * <p>
- * In addition to the saved data structures the SBML files are written in
- * the session file. These are not used for deserialization.
+ * The {@link Network2SBMLMapper} (with the SBML documents) and the {@link Network2CofactorMapper}
+ * are written with Java serialization, the COMBINE archives of the documents as JSON. SUIDs are
+ * not stable across sessions, so the restored mappings are translated to the SUIDs of the loaded
+ * session. The SBML files of the documents are also written into the session, for the user;
+ * they are not read on restore.
+ * <p>
+ * A session file can come from anywhere, so the deserialization only accepts the classes the
+ * mappers consist of.
  */
 public class SessionData implements SessionAboutToBeSavedListener, SessionLoadedListener {
     private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
@@ -53,43 +61,68 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     private static final String ARCHIVES_ID = "archives.json";
     private static final ObjectMapper JSON = new ObjectMapper();
 
+    /**
+     * The classes the serialized mappers consist of: the cy3sbml mappers, the JSBML documents
+     * and the JDK values and collections they hold. Any other class in a session file is
+     * rejected before it is instantiated, so a crafted session file cannot run code through
+     * the deserialization of a class that is on the classpath of the bundle (a gadget chain).
+     */
+    static final ObjectInputFilter SESSION_FILTER = ObjectInputFilter.Config.createFilter(String.join(
+            ";",
+            "java.lang.*",
+            "java.util.*",
+            "java.math.*",
+            "java.net.URI",
+            "javax.xml.namespace.QName",
+            "org.sbml.jsbml.**",
+            "org.cy3sbml.mapping.*",
+            "org.cy3sbml.cofactors.Network2CofactorMapper",
+            "!*"));
+
     private final SBMLManager sbmlManager;
     private final CofactorManager cofactorManager;
+    // the temporary directory of the last saved session, deleted on the next save and in dispose
+    private Path savedDirectory;
 
     /**
      * Saves the mappers of the SBMLManager and the CofactorManager and
      * restores the loaded mappers in them.
+     *
+     * @param sbmlManager the manager of the SBML documents and their mappings
+     * @param cofactorManager the manager of the cofactor clones
      */
     public SessionData(SBMLManager sbmlManager, CofactorManager cofactorManager) {
         this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
     }
 
-    /**
-     * Save session.
-     */
+    /** Adds the cy3sbml files to the session that is about to be saved. */
     @Override
     public void handleEvent(SessionAboutToBeSavedEvent event) {
         saveSessionData(event);
     }
 
-    /**
-     * Load Session.
-     */
+    /** Restores the cy3sbml data of the loaded session. */
     @Override
     public void handleEvent(SessionLoadedEvent event) {
         loadSessionData(event);
     }
 
     /**
-     * Save the session data from cy3sbml.
+     * Writes the cy3sbml data into a temporary directory and adds the files to the session.
+     * Cytoscape copies them into the session file after the event, so the directory is kept
+     * until the next save or {@link #dispose()}.
+     *
+     * @param event the event of the session that is about to be saved
      */
-    public void saveSessionData(SessionAboutToBeSavedEvent event) {
+    public synchronized void saveSessionData(SessionAboutToBeSavedEvent event) {
         logger.info("SessionAboutToBeSaved: save cy3sbml session state");
+        deleteSavedDirectory();
 
         File directory;
         try {
-            directory = Files.createTempDirectory(APP_ID).toFile();
+            savedDirectory = Files.createTempDirectory(APP_ID);
+            directory = savedDirectory.toFile();
         } catch (IOException e) {
             logger.error("Could not create temporary directory for session data", e);
             return;
@@ -103,19 +136,11 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         Map<Long, SBMLDocument> documentMap = mapper.getDocumentMap();
 
         logger.debug("Save SBMLDocuments");
-        for (Long rootSUID : documentMap.keySet()) {
-            SBMLDocument doc = documentMap.get(rootSUID);
-            SBMLWriter writer = new SBMLWriter();
-
-            // use SUID if no model id is set
-            String sbmlId = rootSUID.toString();
-            Model model = doc.getModel();
-            if ((model != null) && model.isSetId()) {
-                sbmlId = model.getId();
-            }
-
-            // unique file (SBMLDocuments can have identical sbmlId)
-            File sbmlFile = IOUtil.createUniqueFile(directory, sbmlId, ".xml");
+        SBMLWriter writer = new SBMLWriter();
+        for (Map.Entry<Long, SBMLDocument> entry : documentMap.entrySet()) {
+            SBMLDocument doc = entry.getValue();
+            // unique file (SBMLDocuments can have identical model ids)
+            File sbmlFile = IOUtil.createUniqueFile(directory, sbmlFileName(entry.getKey(), doc), ".xml");
             try {
                 writer.write(doc, sbmlFile);
                 files.add(sbmlFile);
@@ -163,6 +188,48 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
     }
 
     /**
+     * The name of the SBML file of a document: the model id, or the root network SUID if the
+     * model has no id. Characters other than letters, digits, {@code _}, {@code -} and
+     * {@code .} are replaced, so that an invalid model id cannot name a file outside the
+     * directory.
+     */
+    static String sbmlFileName(Long rootSUID, SBMLDocument doc) {
+        Model model = doc.getModel();
+        String name = model != null && model.isSetId() ? model.getId() : rootSUID.toString();
+        name = name.replaceAll("[^A-Za-z0-9_.-]", "_");
+        // no hidden file and no "." or ".."
+        return name.startsWith(".") ? "_" + name : name;
+    }
+
+    /** Deletes the temporary files of the last saved session, called when the app stops. */
+    public synchronized void dispose() {
+        deleteSavedDirectory();
+    }
+
+    private void deleteSavedDirectory() {
+        if (savedDirectory == null) {
+            return;
+        }
+        try (Stream<Path> files = Files.list(savedDirectory)) {
+            for (Path file : files.toList()) {
+                Files.deleteIfExists(file);
+            }
+            Files.deleteIfExists(savedDirectory);
+        } catch (IOException e) {
+            logger.warn("The session files in {} could not be deleted: {}", savedDirectory, e.getMessage());
+        }
+        savedDirectory = null;
+    }
+
+    /** Reads the serialized object of the file, accepting only the classes of {@code SESSION_FILTER}. */
+    private static Object deserialize(File file) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+            input.setObjectInputFilter(SESSION_FILTER);
+            return input.readObject();
+        }
+    }
+
+    /**
      * Load Session data for cy3sbml.
      * <p>
      * The listener is a boundary: a failure in one app file is logged and the
@@ -190,8 +257,8 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
         String name = f.getName();
         if (name.equals(NETWORK2SBMLMAPPER_ID)) {
             logger.debug("Deserialize <Network2SBMLMapper>");
-            try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
-                Network2SBMLMapper mapper = (Network2SBMLMapper) input.readObject();
+            try {
+                Network2SBMLMapper mapper = (Network2SBMLMapper) deserialize(f);
                 sbmlManager.setSBML2NetworkMapper(updateSUIDsInMapper(session, mapper));
             } catch (IOException | ClassNotFoundException | ClassCastException e) {
                 logger.error("Deserialization of Network2SBMLMapper failed.", e);
@@ -213,8 +280,8 @@ public class SessionData implements SessionAboutToBeSavedListener, SessionLoaded
             }
         } else if (name.equals(NETWORK2COFACTOR_ID)) {
             logger.debug("Deserialize <Network2CofactorMapper>");
-            try (ObjectInput input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)))) {
-                Network2CofactorMapper mapper = (Network2CofactorMapper) input.readObject();
+            try {
+                Network2CofactorMapper mapper = (Network2CofactorMapper) deserialize(f);
                 cofactorManager.setNetwork2CofactorMapper(updateSUIDsInCofactorMapper(session, mapper));
             } catch (IOException | ClassNotFoundException | ClassCastException e) {
                 logger.error("Deserialization of Network2CofactorMapper failed.", e);

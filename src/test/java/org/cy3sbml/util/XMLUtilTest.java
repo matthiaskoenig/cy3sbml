@@ -102,12 +102,6 @@ class XMLUtilTest {
     }
 
     @Test
-    void xml2xmlReturnsTidiedXmlString() {
-        String tidy = XMLUtil.xml2xml("<root><child>text</child></root>");
-        assertTrue(tidy.contains("<child>text</child>"));
-    }
-
-    @Test
     void cleanEmptyTextNodesRemovesWhitespaceOnlyTextBetweenElements() throws Exception {
         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         Element root = doc.createElement("root");

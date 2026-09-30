@@ -22,6 +22,7 @@ import org.cy3sbml.util.AttributeUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedEvent;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
@@ -65,9 +66,6 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     private volatile Long currentSUID;
     private volatile Network2SBMLMapper network2sbml;
 
-    /**
-     * Constructor.
-     */
     // notified when a session is restored, e.g. the info panel, which rendered before
     private final List<Runnable> sessionRestoredListeners = new CopyOnWriteArrayList<>();
     // the COMBINE archives the documents were imported from, by root network SUID
@@ -77,71 +75,91 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     // documents read; not part of the session
     private final List<SBaseRefResolver> sBaseRefResolvers = new CopyOnWriteArrayList<>();
 
-    public SBMLManager(CyApplicationManager cyApplicationManager) {
-        logger.debug("SBMLManager created");
-        this.cyApplicationManager = cyApplicationManager;
-        reset();
-    }
-
     /**
-     * Reset SBMLManager to empty state.
+     * Creates an empty manager.
+     *
+     * @param cyApplicationManager the application manager, for the current network after a
+     *     session is restored
      */
-    private void reset() {
-        currentSUID = null;
-        network2sbml = new Network2SBMLMapper();
+    public SBMLManager(CyApplicationManager cyApplicationManager) {
+        this.cyApplicationManager = cyApplicationManager;
+        this.network2sbml = new Network2SBMLMapper();
     }
 
     /**
-     * Access to the SBML to network mapper.
-     * The mapper should not be modified.
+     * The mapper of the root networks to their documents and node mappings.
+     * The mapper must not be modified, use the methods of the manager.
+     *
+     * @return the current mapper
      */
     public Network2SBMLMapper getNetwork2SBMLMapper() {
         return network2sbml;
     }
 
     /**
-     * Adds an SBMLDocument - network entry to the SBMLManager.
+     * Adds the document of a network with the mapping of the cyIds of its SBases to the
+     * node SUIDs.
      * <p>
-     * For all networks the root network is associated with the SBMLDocument
-     * so that all subnetworks can be looked up via the root network and
-     * the mapping.
+     * The document is stored for the root network of the network, so that all subnetworks
+     * of the collection find it.
+     *
+     * @param doc the document
+     * @param network a network of the collection
+     * @param mapping the mapping of the cyIds (metaIds) of the SBases to the node SUIDs
      */
     public void addSBMLForNetwork(SBMLDocument doc, CyNetwork network, One2ManyMapping<String, Long> mapping) {
         addSBMLForNetwork(doc, NetworkUtil.getRootNetworkSUID(network), mapping);
     }
 
     /**
-     * Adds an SBMLDocument - network entry to the SBMLManager.
+     * Adds the document of a root network with the mapping of the cyIds of its SBases to
+     * the node SUIDs.
+     *
+     * @param doc the document
+     * @param rootNetworkSUID the root network SUID
+     * @param mapping the mapping of the cyIds (metaIds) of the SBases to the node SUIDs
      */
     public void addSBMLForNetwork(SBMLDocument doc, Long rootNetworkSUID, One2ManyMapping<String, Long> mapping) {
-        // document & mapping
         network2sbml.putDocument(rootNetworkSUID, doc, mapping);
     }
 
     /**
-     * Remove the SBMLDocument for network.
-     * The SBMLDocument is only removed if no other subnetworks reference the SBMLDocument.
+     * Removes the document of the network if it is the last network of its collection:
+     * the root network has no other subnetwork.
+     *
+     * @param network the network that is destroyed
+     * @return true if the document was removed, false if other networks of the collection
+     *     still use it
      */
     public Boolean removeSBMLForNetwork(CyNetwork network) {
+        return removeSBMLForNetwork(network, null);
+    }
 
-        // necessary to check if there are other SubNetworks for the root network.
-        // If yes the SBMLDocument is not removed
-
+    /**
+     * Removes the document of the network if it is the last registered network of its
+     * collection. Other subnetworks of the root network that are not registered, such as the
+     * networks of group nodes, do not keep the document.
+     *
+     * @param network the network that is destroyed
+     * @param networkManager the network manager, null to count all subnetworks
+     * @return true if the document was removed
+     */
+    private boolean removeSBMLForNetwork(CyNetwork network, CyNetworkManager networkManager) {
         Long rootSUID = NetworkUtil.getRootNetworkSUID(network);
         CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-        List<CySubNetwork> subnetworks = rootNetwork.getSubNetworkList();
-        if (subnetworks.size() == 1) {
+        long others = rootNetwork.getSubNetworkList().stream()
+                .filter(subnetwork -> !subnetwork.equals(network))
+                .filter(subnetwork -> networkManager == null || networkManager.networkExists(subnetwork.getSUID()))
+                .count();
+        if (others == 0) {
             network2sbml.removeDocument(rootSUID);
             archives.remove(rootSUID);
             removeUnusedResolvers();
-            logger.info(String.format("SBMLDocument removed for rootSUID: %s", rootSUID));
+            logger.info("SBMLDocument removed for rootSUID: {}", rootSUID);
             return true;
-        } else {
-            logger.info(String.format(
-                    "SBMLDocument not removed for rootSUID: %s. Number of associated networks: %s",
-                    rootSUID, subnetworks.size()));
-            return false;
         }
+        logger.info("SBMLDocument not removed for rootSUID: {}, {} other networks use it", rootSUID, others);
+        return false;
     }
 
     /**
@@ -164,7 +182,12 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         }
     }
 
-    /** Registers the COMBINE archive the document of the root network was imported from. */
+    /**
+     * Registers the COMBINE archive the document of the root network was imported from.
+     *
+     * @param rootNetworkSUID the root network SUID
+     * @param archive the archive import
+     */
     public void addArchive(Long rootNetworkSUID, ArchiveImport archive) {
         archives.put(rootNetworkSUID, archive);
     }
@@ -269,15 +292,21 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     }
 
     /**
-     * Returns mapping or null if no mapping exists.
+     * The mapping of the cyIds (metaIds) of the SBases to the node SUIDs of the collection
+     * of the network.
+     *
+     * @param network a network of the collection
+     * @return the mapping, null if the network has no document
      */
     public One2ManyMapping<String, Long> getMapping(CyNetwork network) {
-        Long suid = NetworkUtil.getRootNetworkSUID(network);
-        return getMapping(suid);
+        return getMapping(NetworkUtil.getRootNetworkSUID(network));
     }
 
     /**
-     * Returns mapping or null if no mapping exists.
+     * The mapping of the cyIds (metaIds) of the SBases to the node SUIDs of the root network.
+     *
+     * @param rootNetworkSUID the root network SUID
+     * @return the mapping, null if the root network has no document
      */
     public One2ManyMapping<String, Long> getMapping(Long rootNetworkSUID) {
         return network2sbml.getSBase2CyNodeMapping(rootNetworkSUID);
@@ -300,120 +329,129 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
     }
 
     /**
-     * Update current SBML for network.
+     * Sets the current document to the one of the collection of the network.
+     *
+     * @param network the current network, may be null
      */
     public void updateCurrent(CyNetwork network) {
-        Long suid = NetworkUtil.getRootNetworkSUID(network);
-        updateCurrent(suid);
+        updateCurrent(NetworkUtil.getRootNetworkSUID(network));
     }
 
     /**
-     * Update current SBML via rootNetworkSUID.
+     * Sets the current document to the one of the root network; no current document if the
+     * root network has none.
+     *
+     * @param rootNetworkSUID the root network SUID, may be null
      */
     public void updateCurrent(Long rootNetworkSUID) {
-        logger.debug("Set current network to root SUID: {}", rootNetworkSUID);
-        setCurrentSUID(rootNetworkSUID);
-    }
-
-    /**
-     * Set the current network SUID.
-     */
-    private void setCurrentSUID(Long SUID) {
-        currentSUID = null;
-        if (SUID != null && network2sbml.containsDocument(SUID)) {
-            currentSUID = SUID;
-        }
+        currentSUID =
+                rootNetworkSUID != null && network2sbml.containsDocument(rootNetworkSUID) ? rootNetworkSUID : null;
         logger.debug("Current network set to: {}", currentSUID);
     }
 
     /**
-     * Get current network SUID.
+     * The root network SUID of the current document.
+     *
+     * @return the SUID, null if there is no current document
      */
     public Long getCurrentSUID() {
         return currentSUID;
     }
 
     /**
-     * Get current SBMLDocument.
-     * Returns null if no current SBMLDocument exists.
+     * The current document, of the collection of the current network.
+     *
+     * @return the document, null if there is no current document
      */
     public SBMLDocument getCurrentSBMLDocument() {
         return getSBMLDocument(currentSUID);
     }
 
     /**
-     * Get SBMLDocument for given network.
-     * Returns null if no SBMLDocument exist for the network.
+     * The document of the collection of the network.
+     *
+     * @param network a network, may be null
+     * @return the document, null if the network has none
      */
     public SBMLDocument getSBMLDocument(CyNetwork network) {
-        Long suid = NetworkUtil.getRootNetworkSUID(network);
-        return getSBMLDocument(suid);
+        return getSBMLDocument(NetworkUtil.getRootNetworkSUID(network));
     }
 
     /**
-     * Get SBMLDocument.
+     * The document of the root network.
      *
-     * @param rootNetworkSUID root network SUID
-     * @return SBMLDocument or null
+     * @param rootNetworkSUID root network SUID, may be null
+     * @return the document, null if the root network has none
      */
     public SBMLDocument getSBMLDocument(Long rootNetworkSUID) {
         return network2sbml.getDocument(rootNetworkSUID);
     }
 
+    /**
+     * The mapping of the node SUIDs to the cyIds (metaIds) of the current document.
+     *
+     * @return the mapping, null if there is no current document
+     */
     public One2ManyMapping<Long, String> getCurrentCyNode2SBaseMapping() {
         return network2sbml.getCyNode2SBaseMapping(currentSUID);
     }
 
+    /**
+     * The mapping of the cyIds (metaIds) to the node SUIDs of the current document.
+     *
+     * @return the mapping, null if there is no current document
+     */
     public One2ManyMapping<String, Long> getCurrentSBase2CyNodeMapping() {
         return network2sbml.getSBase2CyNodeMapping(currentSUID);
     }
 
     /**
-     * Lookup a SBase object via id.
-     * <p>
-     * The SBases are stored so that their information can be used for display
-     * in the results panel. The lookup gets the dictionary for the current network
-     * and searches for the key.
-     * <p>
-     * The object maps are created when the SBMLDocument is stored.
+     * The SBase of the current document with the cyId (the metaId the reader sets on every
+     * SBase).
+     *
+     * @param cyId the cyId of a node
+     * @return the SBase, null if there is no current document or it has no such SBase
      */
     public SBase getSBaseByCyId(String cyId) {
         return getSBaseByCyId(cyId, currentSUID);
     }
 
-    public SBase getSBaseByCyId(String cyId, Long SUID) {
-        SBMLDocument doc = network2sbml.getDocument(SUID);
-        return doc.getElementByMetaId(cyId);
+    /**
+     * The SBase of the document of the root network with the cyId (metaId).
+     *
+     * @param cyId the cyId of a node
+     * @param rootNetworkSUID the root network SUID
+     * @return the SBase, null if the root network has no document or it has no such SBase
+     */
+    public SBase getSBaseByCyId(String cyId, Long rootNetworkSUID) {
+        SBMLDocument doc = network2sbml.getDocument(rootNetworkSUID);
+        return doc == null ? null : doc.getElementByMetaId(cyId);
     }
 
     /**
-     * Lookup the list of cyIds of SBase objects for the given suids.
+     * The cyIds (metaIds) of the SBases of the nodes in the current document.
      *
-     * @param suids list of node suids.
+     * @param suids the node SUIDs
+     * @return the cyIds, empty if there is no current document
      */
     public List<String> getCyIdsFromSUIDs(List<Long> suids) {
         One2ManyMapping<Long, String> mapping = getCurrentCyNode2SBaseMapping();
-        return new ArrayList<>(mapping.getValues(suids));
+        return mapping == null ? new ArrayList<>() : new ArrayList<>(mapping.getValues(suids));
     }
 
-    /**
-     * String information.
-     */
+    /** The documents by root network SUID. */
     @Override
     public String toString() {
         return network2sbml.toString();
     }
 
-    // ------------------------------------------------------------
-
     /**
-     * Set all information in SBMLManager from given Network2SBMLMapper.
-     * This function is used to set the Network2SBMLMapper from a stored state.
-     * For instance during session reloading.
+     * Replaces the documents and mappings with the ones of the mapper, when a session is
+     * restored, and updates the current document for the current network.
+     *
+     * @param mapper the restored mapper, with the SUIDs of the loaded session
      */
     public void setSBML2NetworkMapper(Network2SBMLMapper mapper) {
-        logger.debug("SBMLManager from given mapper");
-
         network2sbml = mapper;
         // the documents of a session are new documents
         sBaseRefResolvers.clear();
@@ -423,15 +461,12 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         updateCurrent(currentNetwork);
     }
 
-    // ------------------------------------------------------------
-
     /**
-     * Remove the mappings if networks are destroyed.
-     * This handles also the new Session (all networks are destroyed).
+     * Removes the document when the last network of its collection is destroyed, also when
+     * a session is closed (all networks are destroyed).
      */
     @Override
     public void handleEvent(NetworkAboutToBeDestroyedEvent e) {
-        CyNetwork network = e.getNetwork();
-        removeSBMLForNetwork(network);
+        removeSBMLForNetwork(e.getNetwork(), e.getSource());
     }
 }
