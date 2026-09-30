@@ -55,11 +55,14 @@ public class OpenBrowser {
     }
 
     private static boolean openURLWithDesktop(final URI uri) {
-        if (!Desktop.isDesktopSupported()) return false;
+        // a desktop can lack the browse action, e.g. without a registered browser
+        if (!Desktop.isDesktopSupported() || !Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            return false;
+        }
         try {
             Desktop.getDesktop().browse(uri);
             return true;
-        } catch (IOException e) {
+        } catch (IOException | UnsupportedOperationException | SecurityException e) {
             logger.warn("Failed to launch browser through java.awt.Desktop.browse(): {}", e.getMessage());
             return false;
         }
