@@ -71,6 +71,31 @@ public class SBMLFileFilterTest {
         assertEquals(DataCategory.NETWORK, category);
     }
 
+    private static boolean accepts(String content) {
+        return new SBMLFileFilter(mock(StreamUtil.class))
+                .accepts(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)), DataCategory.NETWORK);
+    }
+
+    @Test
+    public void acceptsSbmlAfterALongHeader() {
+        String comment = "<!--\n" + "license header line\n".repeat(100) + "-->\n";
+        assertTrue(accepts(
+                comment + "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\"/>"));
+    }
+
+    @Test
+    public void acceptsTheFirstKilobyteEndingInTheRootElement() {
+        // Cytoscape passes a stream filter a copy of the first kilobyte
+        String sbml = "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" "
+                + "xmlns:p=\"http://example.org/package\" ".repeat(40) + "level=\"3\" version=\"1\"/>";
+        assertTrue(accepts(sbml.substring(0, 1024)));
+    }
+
+    @Test
+    public void rejectsAnXmlFileMentioningTheSbmlNamespace() {
+        assertFalse(accepts("<html><body>http://www.sbml.org/sbml/level3/version1/core</body></html>"));
+    }
+
     private static final URI MODEL_URI = URI.create("file:/models/comp/toy_top_level.xml");
 
     /** A filter whose stream util returns the content for every URL. */

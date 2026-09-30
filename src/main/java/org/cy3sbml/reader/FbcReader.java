@@ -87,7 +87,16 @@ final class FbcReader implements PackageReader {
             String variableTypeKey = String.format(SBML.ATTR_FBC_OBJECTIVE_VARIABLE_TYPE_TEMPLATE, objective.getId());
             for (FluxObjective fluxObjective : objective.getListOfFluxObjectives()) {
                 Reaction reaction = fluxObjective.getReactionInstance();
-                CyNode node = context.nodeByMetaId(reaction.getMetaId()).orElse(null);
+                CyNode node = reaction == null
+                        ? null
+                        : context.nodeByMetaId(reaction.getMetaId()).orElse(null);
+                if (node == null) {
+                    logger.error(
+                            "Reaction does not exist for FluxObjective: {} for {}",
+                            fluxObjective.getReaction(),
+                            objective.getId());
+                    continue;
+                }
                 AttributeUtil.set(network, node, key, fluxObjective.getCoefficient(), Double.class);
                 if (fluxObjective.isSetVariableType()) {
                     AttributeUtil.set(
@@ -115,7 +124,14 @@ final class FbcReader implements PackageReader {
                 // id lookup
                 CyNode speciesNode =
                         context.nodeById(geneProduct.getAssociatedSpecies()).orElse(null);
-                context.createEdge(speciesNode, n, SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES);
+                if (speciesNode != null) {
+                    context.createEdge(speciesNode, n, SBML.INTERACTION_FBC_GENEPRODUCT_SPECIES);
+                } else {
+                    logger.error(
+                            "Species does not exist for GeneProduct: {} for {}",
+                            geneProduct.getAssociatedSpecies(),
+                            geneProduct.getId());
+                }
             }
         }
 
@@ -324,8 +340,10 @@ final class FbcReader implements PackageReader {
                 : SBML.INTERACTION_FBC_ASSOCIATION_ASSOCIATION;
 
         if (association instanceof GeneProductRef gpRef) {
-            CyNode gpNode = context.nodeByMetaId(gpRef.getGeneProductInstance().getMetaId())
-                    .orElse(null);
+            GeneProduct geneProduct = gpRef.getGeneProductInstance();
+            CyNode gpNode = geneProduct == null
+                    ? null
+                    : context.nodeByMetaId(geneProduct.getMetaId()).orElse(null);
             if (gpNode != null) {
                 context.createEdge(gpNode, parentNode, interaction);
             } else {

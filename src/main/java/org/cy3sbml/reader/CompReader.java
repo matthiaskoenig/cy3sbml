@@ -22,6 +22,7 @@ import org.sbml.jsbml.ext.comp.ReplacedBy;
 import org.sbml.jsbml.ext.comp.ReplacedElement;
 import org.sbml.jsbml.ext.comp.SBaseRef;
 import org.sbml.jsbml.ext.comp.Submodel;
+import org.sbml.jsbml.ext.groups.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +92,8 @@ final class CompReader implements PackageReader {
 
     /**
      * Replaced elements and replaced by elements of all elements of the model, with an edge
-     * from the element to them and from them to their submodel.
+     * from the element to them (none from a group, whose Cytoscape group node has no edges)
+     * and from them to their submodel.
      */
     private static void readReplacements(ConversionContext context, Model model) {
         for (TreeNode treeNode : model.filter(new SBaseFilter())) {
@@ -103,7 +105,12 @@ final class CompReader implements PackageReader {
                     ? context.nodeByMetaId(sbase.getMetaId()).orElse(null)
                     : null;
             if (source == null && (plugin.isSetListOfReplacedElements() || plugin.isSetReplacedBy())) {
-                logger.warn("The replacements of '{}' have no node to start from.", sbase);
+                if (sbase instanceof Group) {
+                    // a group is a Cytoscape group, whose node has no edges
+                    logger.debug("The replacements of the group '{}' have no edge from the group.", sbase);
+                } else {
+                    logger.warn("The replacements of '{}' have no node to start from.", sbase);
+                }
             }
             if (plugin.isSetListOfReplacedElements()) {
                 for (ReplacedElement replacedElement : plugin.getListOfReplacedElements()) {

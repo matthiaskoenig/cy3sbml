@@ -9,6 +9,8 @@
             <message>cy3sbml panel disabled: extension jar missing from the bundle</message>
             <!-- SBMLReaderTaskTest: a broken file, a reader that fails on the second model -->
             <message>cy3sbml could not read the SBML file '(broken|01134-sbml-l3v1)\.xml': .*</message>
+            <!-- MissingReferencesTest: references to missing elements -->
+            <message>\w+ does not exist for \w+: missing_\w+( .*)?</message>
             <!-- CompModelsTest: a wrong md5 checksum, a missing external file -->
             <message>The md5 checksum of .*/models/comp/unit/ext\.xml is .* The file may have changed\.</message>
             <message>The file .*/models/comp/unit/missing\.xml does not exist\.</message>

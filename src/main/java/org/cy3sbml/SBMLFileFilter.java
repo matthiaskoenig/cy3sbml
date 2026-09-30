@@ -1,12 +1,13 @@
 package org.cy3sbml;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import javax.xml.stream.XMLStreamException;
+import org.cy3sbml.util.SBMLUtil;
 import org.cytoscape.io.BasicCyFileFilter;
 import org.cytoscape.io.DataCategory;
 import org.cytoscape.io.util.StreamUtil;
@@ -19,8 +20,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SBMLFileFilter extends BasicCyFileFilter {
     private static final Logger logger = LoggerFactory.getLogger(SBMLFileFilter.class);
-    private static final String SBML_XML_NAMESPACE = "http://www.sbml.org/sbml/";
-    private static final int DEFAULT_LINES_TO_CHECK = 20;
+    /** The start of the namespaces of all SBML levels and versions. */
+    private static final String SBML_NAMESPACE = "http://www.sbml.org/sbml/";
+    /** The bytes of a stream that are checked, enough for a long header before the root element. */
+    private static final int HEADER_BYTES = 64 * 1024;
 
     /**
      * The URI this filter accepted last on the thread. Cytoscape passes a reader
@@ -96,28 +99,19 @@ public class SBMLFileFilter extends BasicCyFileFilter {
         if (!category.equals(DataCategory.NETWORK)) {
             return false;
         }
+        byte[] header;
         try {
-            return checkHeader(stream);
+            header = stream.readNBytes(HEADER_BYTES);
         } catch (IOException e) {
             logger.error("Error while checking header", e);
             return false;
         }
-    }
-
-    /**
-     * Checks if the header contains the SBML namespace definition.
-     */
-    private boolean checkHeader(InputStream stream) throws IOException {
-        // the stream belongs to the caller, so the reader is not closed
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-        int linesToCheck = DEFAULT_LINES_TO_CHECK;
-        while (linesToCheck > 0) {
-            String line = reader.readLine();
-            if (line != null && line.contains(SBML_XML_NAMESPACE)) {
-                return true;
-            }
-            linesToCheck--;
+        try {
+            return SBMLUtil.isSBML(new ByteArrayInputStream(header));
+        } catch (XMLStreamException e) {
+            // Cytoscape passes a stream filter a copy of the first kilobyte only, which can
+            // end inside the root element: then the SBML namespace in the text decides
+            return new String(header, StandardCharsets.UTF_8).contains(SBML_NAMESPACE);
         }
-        return false;
     }
 }
