@@ -15,8 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalLong;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.CompletionStage;
@@ -28,22 +28,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Small JSON-over-HTTP helper for the REST web services (OLS, ...).
+ * Small JSON-over-HTTP helper for the REST web services (OLS, ChEBI, UniProt, BioModels).
  * <p>
- * {@link #get} and {@link #getText} return an empty {@link Optional} on any
- * non-2xx response, IO error, timeout or malformed JSON body, logging the
- * reason at warn level. {@link #fetch} and {@link #fetchText} return the
- * same information plus a {@link FetchStatus}, distinguishing a deterministic
- * failure for the given URI (a 404 or other non-transient 4xx status) from a
- * transient transport error (a timeout, connection failure, a malformed body -
- * e.g. a captive portal or proxy answering with an HTML page instead of JSON -
- * or a 5xx/407/408/429 status), so callers can cache the former without
- * caching the latter: retrying the deterministic ones would only get the same
- * result again, while the transient ones may well succeed on the next attempt
- * (e.g. once back online). A well-formed JSON body that is missing the fields
- * a specific client needs is deterministic too, but that is for the client
- * (which knows what "required" means for its own response shape) to decide,
- * not this generic helper.
+ * {@link #fetch} and {@link #fetchText} return the body together with a {@link FetchStatus},
+ * distinguishing a deterministic failure for the given URI (a 404 or other non-transient 4xx
+ * status) from a transient transport error (a timeout, connection failure, a malformed body -
+ * e.g. a captive portal or proxy answering with an HTML page instead of JSON - or a
+ * 5xx/407/408/429 status), so callers can cache the former without caching the latter:
+ * retrying the deterministic ones would only get the same result again, while the transient
+ * ones may well succeed on the next attempt (e.g. once back online). A well-formed JSON body
+ * that is missing the fields a specific client needs is deterministic too, but that is for the
+ * client (which knows what "required" means for its own response shape) to decide, not this
+ * generic helper. The reason of a failure is logged at warn level.
+ * <p>
+ * Every request has a timeout for the connection and the response headers, and a whole
+ * response (including its body) must arrive within {@value #RESPONSE_TIMEOUT_SECONDS} s and
+ * be at most {@value #MAX_RESPONSE_BYTES} bytes, otherwise it is a transient error; so a slow
+ * or endless response neither blocks the caller nor exhausts memory.
  * <p>
  * {@link #fetchAsync} is the asynchronous variant of {@link #fetch}, {@link #download}
  * streams a (possibly large) body into a file and throws an {@link IOException} with a
@@ -51,7 +52,12 @@ import org.slf4j.LoggerFactory;
  */
 public class HttpJson {
     private static final Logger logger = LoggerFactory.getLogger(HttpJson.class);
+    /** Timeout of the connection and of the response headers. */
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
+    /** Timeout of a whole JSON or text response, including its body. */
+    static final long RESPONSE_TIMEOUT_SECONDS = 30;
+    /** Maximum size of a JSON or text response. */
+    static final long MAX_RESPONSE_BYTES = 20L * 1024 * 1024;
     /** Timeout of a whole file download, which may be large. */
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
     /** Maximum size of a file download. */
@@ -59,15 +65,30 @@ public class HttpJson {
 
     private final HttpClient client;
     private final ObjectMapper mapper;
+    private final Duration responseTimeout;
+    private final long maxResponseBytes;
 
+    /**
+     * Creates the helper for the given client, with the default response timeout and size
+     * limit; see {@link #createDefault()} for the client the app uses.
+     */
     public HttpJson(HttpClient client, ObjectMapper mapper) {
+        this(client, mapper, Duration.ofSeconds(RESPONSE_TIMEOUT_SECONDS), MAX_RESPONSE_BYTES);
+    }
+
+    /** For tests: an injectable timeout and size limit of a JSON or text response. */
+    HttpJson(HttpClient client, ObjectMapper mapper, Duration responseTimeout, long maxResponseBytes) {
         this.client = client;
         this.mapper = mapper;
+        this.responseTimeout = responseTimeout;
+        this.maxResponseBytes = maxResponseBytes;
     }
 
     /**
      * Creates a default instance that honors the Cytoscape system proxy settings
-     * (set as system properties by {@code ConnectionProxy}).
+     * (set as system properties by {@code ConnectionProxy}). The client verifies TLS
+     * certificates with the default trust store and follows redirects, except from
+     * https to http.
      */
     public static HttpJson createDefault() {
         HttpClient client = HttpClient.newBuilder()
@@ -83,45 +104,28 @@ public class HttpJson {
     }
 
     /**
-     * Fetches and parses the JSON body at the given URI.
-     * Empty on a non-2xx response, an IO error, a timeout or malformed JSON.
-     */
-    public Optional<JsonNode> get(URI uri) {
-        return fetch(uri).value();
-    }
-
-    /**
-     * Fetches the raw text body at the given URI (e.g. an SVG image response).
-     * Empty on a non-2xx response, an IO error or a timeout.
-     */
-    public Optional<String> getText(URI uri) {
-        return fetchText(uri).value();
-    }
-
-    /**
-     * Fetches and parses the JSON body at the given URI, distinguishing "not
-     * found" (HTTP 404) from a transport or parse error.
+     * Fetches and parses the JSON body at the given URI, distinguishing a deterministic
+     * failure (e.g. HTTP 404) from a transient transport or parse error.
      */
     public FetchResult<JsonNode> fetch(URI uri) {
-        FetchResult<String> text = fetchText(uri);
-        return switch (text.status()) {
-            case FOUND -> parse(uri, text.value().orElseThrow());
-            case NOT_FOUND -> FetchResult.notFound();
-            case ERROR -> FetchResult.error();
-        };
+        return parse(uri, fetchText(uri));
     }
 
     /**
-     * Fetches the raw text body at the given URI, distinguishing "not found"
-     * (HTTP 404) from a transport error.
+     * Fetches the raw text body at the given URI (e.g. an SVG image), distinguishing a
+     * deterministic failure (e.g. HTTP 404) from a transient transport error.
      */
     public FetchResult<String> fetchText(URI uri) {
+        CompletableFuture<HttpResponse<String>> response = send(uri);
         try {
-            return textResult(uri, client.send(jsonRequest(uri), HttpResponse.BodyHandlers.ofString()));
-        } catch (IOException e) {
-            logger.warn("Error retrieving {}: {}", uri, e.getMessage());
+            return textResult(uri, response.get());
+        } catch (ExecutionException e) {
+            return transportError(uri, e.getCause());
+        } catch (CancellationException e) {
+            // timed out, logged when the response timeout cancelled it
             return FetchResult.error();
         } catch (InterruptedException e) {
+            response.cancel(true);
             Thread.currentThread().interrupt();
             // a cancelled render interrupts its lookups, this is not an error
             logger.debug("Interrupted while retrieving {}", uri);
@@ -134,20 +138,40 @@ public class HttpJson {
      * The future always completes normally.
      */
     public CompletableFuture<FetchResult<JsonNode>> fetchAsync(URI uri) {
-        return client.sendAsync(jsonRequest(uri), HttpResponse.BodyHandlers.ofString())
-                .handle((response, error) -> {
-                    if (error != null) {
-                        Throwable cause = error instanceof CompletionException ? error.getCause() : error;
-                        logger.warn("Error retrieving {}: {}", uri, describe(cause));
-                        return FetchResult.<String>error();
+        return send(uri)
+                .handle((response, error) -> error == null
+                        ? textResult(uri, response)
+                        : HttpJson.<String>transportError(
+                                uri, error instanceof CompletionException ? error.getCause() : error))
+                .thenApply(text -> parse(uri, text));
+    }
+
+    /**
+     * Sends a GET request for JSON, reading at most {@link #maxResponseBytes} of the body.
+     * The response is cancelled if it has not arrived completely within {@link #responseTimeout}.
+     */
+    private CompletableFuture<HttpResponse<String>> send(URI uri) {
+        CompletableFuture<HttpResponse<String>> response = client.sendAsync(
+                jsonRequest(uri),
+                info -> new LimitedBodySubscriber<>(
+                        HttpResponse.BodyHandlers.ofString().apply(info),
+                        info.headers().firstValueAsLong("Content-Length"),
+                        maxResponseBytes));
+        CompletableFuture.delayedExecutor(responseTimeout.toMillis(), TimeUnit.MILLISECONDS)
+                .execute(() -> {
+                    if (response.cancel(true)) {
+                        logger.warn("Timed out after {} s retrieving {}", responseTimeout.toSeconds(), uri);
                     }
-                    return textResult(uri, response);
-                })
-                .thenApply(text -> switch (text.status()) {
-                    case FOUND -> parse(uri, text.value().orElseThrow());
-                    case NOT_FOUND -> FetchResult.<JsonNode>notFound();
-                    case ERROR -> FetchResult.<JsonNode>error();
                 });
+        return response;
+    }
+
+    private static <T> FetchResult<T> transportError(URI uri, Throwable error) {
+        if (!(error instanceof CancellationException)) {
+            // a cancellation is a timeout, logged when the response timeout cancelled it
+            logger.warn("Error retrieving {}: {}", uri, describe(error));
+        }
+        return FetchResult.error();
     }
 
     /**
@@ -185,7 +209,7 @@ public class HttpJson {
         CompletableFuture<HttpResponse<Path>> future = client.sendAsync(
                 request,
                 info -> isSuccess(info.statusCode())
-                        ? new LimitedBodySubscriber(
+                        ? new LimitedBodySubscriber<>(
                                 HttpResponse.BodySubscribers.ofFile(file),
                                 info.headers().firstValueAsLong("Content-Length"),
                                 maxBytes)
@@ -212,24 +236,24 @@ public class HttpJson {
     /**
      * Passes the body on to the delegate as long as it is not larger than the maximum,
      * judged by the declared Content-Length and by counting the received bytes, and
-     * cancels the download with an {@link IOException} otherwise.
+     * cancels the response with an {@link IOException} otherwise.
      */
-    private static final class LimitedBodySubscriber implements HttpResponse.BodySubscriber<Path> {
-        private final HttpResponse.BodySubscriber<Path> delegate;
+    private static final class LimitedBodySubscriber<T> implements HttpResponse.BodySubscriber<T> {
+        private final HttpResponse.BodySubscriber<T> delegate;
         private final OptionalLong declaredLength;
         private final long maxBytes;
         private Flow.Subscription subscription;
         private long received;
         private boolean failed;
 
-        LimitedBodySubscriber(HttpResponse.BodySubscriber<Path> delegate, OptionalLong declaredLength, long maxBytes) {
+        LimitedBodySubscriber(HttpResponse.BodySubscriber<T> delegate, OptionalLong declaredLength, long maxBytes) {
             this.delegate = delegate;
             this.declaredLength = declaredLength;
             this.maxBytes = maxBytes;
         }
 
         @Override
-        public CompletionStage<Path> getBody() {
+        public CompletionStage<T> getBody() {
             return delegate.getBody();
         }
 
@@ -274,7 +298,7 @@ public class HttpJson {
         private void fail() {
             failed = true;
             subscription.cancel();
-            delegate.onError(new IOException("the file is larger than the maximum of " + maxBytes + " bytes"));
+            delegate.onError(new IOException("the response is larger than the maximum of " + maxBytes + " bytes"));
         }
     }
 
@@ -330,6 +354,14 @@ public class HttpJson {
      */
     private static boolean isDeterministicClientError(int status) {
         return status >= 400 && status < 500 && status != 407 && status != 408 && status != 429;
+    }
+
+    private FetchResult<JsonNode> parse(URI uri, FetchResult<String> text) {
+        return switch (text.status()) {
+            case FOUND -> parse(uri, text.value().orElseThrow());
+            case NOT_FOUND -> FetchResult.notFound();
+            case ERROR -> FetchResult.error();
+        };
     }
 
     private FetchResult<JsonNode> parse(URI uri, String body) {
