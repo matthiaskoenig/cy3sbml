@@ -225,14 +225,20 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
      * that the info panel finds the same targets, with the same metaids.
      */
     public void addSBaseRefResolver(SBaseRefResolver resolver) {
-        if (sBaseRefResolvers.stream().noneMatch(r -> r == resolver)) {
-            sBaseRefResolvers.add(resolver);
+        synchronized (sBaseRefResolvers) {
+            if (sBaseRefResolvers.stream().noneMatch(r -> r == resolver)) {
+                sBaseRefResolvers.add(resolver);
+            }
         }
     }
 
     /**
      * The resolver of the comp references of the document of the element: the one of the
      * reader that read the document, else a new one (e.g. for a document of a session).
+     *
+     * The resolver is kept only for a document of a network (the render thread can ask for
+     * the document of a network that is destroyed at the same time), so it does not keep a
+     * document that is no longer open.
      *
      * @return the resolver, null if the element is not part of a document
      */
@@ -241,15 +247,27 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         if (document == null) {
             return null;
         }
-        for (SBaseRefResolver resolver : sBaseRefResolvers) {
-            if (resolver.models().owns(document)) {
-                return resolver;
+        // with the check of the documents, atomic with the replacement of the mapper
+        synchronized (sBaseRefResolvers) {
+            for (SBaseRefResolver resolver : sBaseRefResolvers) {
+                if (resolver.models().owns(document)) {
+                    return resolver;
+                }
             }
+            // a document of a session: a resolver that uses the open documents, created once
+            SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document, openDocuments()));
+            if (isOpen(document)) {
+                sBaseRefResolvers.add(resolver);
+            }
+            return resolver;
         }
-        // a document of a session: a resolver that uses the open documents, created once
-        SBaseRefResolver resolver = new SBaseRefResolver(new CompModels(document, openDocuments()));
-        sBaseRefResolvers.add(resolver);
-        return resolver;
+    }
+
+    /** Whether the document is the document of a network, by identity. */
+    // reason: by identity, JSBML's equals compares the content
+    @SuppressWarnings("ReferenceEquality")
+    private boolean isOpen(SBMLDocument document) {
+        return network2sbml.getDocumentMap().values().stream().anyMatch(open -> open == document);
     }
 
     /** The open documents with a location, by location. */
@@ -287,8 +305,10 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         // by identity, JSBML's equals compares the content
         Set<SBMLDocument> documents = Collections.newSetFromMap(new IdentityHashMap<>());
         documents.addAll(network2sbml.getDocumentMap().values());
-        sBaseRefResolvers.removeIf(
-                resolver -> !documents.contains(resolver.models().document()));
+        synchronized (sBaseRefResolvers) {
+            sBaseRefResolvers.removeIf(
+                    resolver -> !documents.contains(resolver.models().document()));
+        }
     }
 
     /**
@@ -475,9 +495,11 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
      * @param mapper the restored mapper, with the SUIDs of the loaded session
      */
     public void setSBML2NetworkMapper(Network2SBMLMapper mapper) {
-        network2sbml = mapper;
-        // the documents of a session are new documents
-        sBaseRefResolvers.clear();
+        synchronized (sBaseRefResolvers) {
+            network2sbml = mapper;
+            // the documents of a session are new documents
+            sBaseRefResolvers.clear();
+        }
 
         // Set current network and tree
         CyNetwork currentNetwork = cyApplicationManager.getCurrentNetwork();

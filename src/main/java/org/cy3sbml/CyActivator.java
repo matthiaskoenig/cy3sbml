@@ -3,6 +3,8 @@ package org.cy3sbml;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Supplier;
 import org.cy3sbml.actions.*;
@@ -407,11 +409,14 @@ public class CyActivator extends AbstractCyActivator {
     /**
      * Builds and registers the cy3sbml WebView panel, its actions, and the visual styles.
      * Guarded as a whole: if any part of this fails (e.g. a template or image the panel
-     * needs is missing from the bundle), the panel and its actions are disabled, but the
-     * SBML reader registered by {@link #startCore} keeps working.
+     * needs is missing from the bundle), none of the panel and its actions is registered,
+     * but the SBML reader registered by {@link #startCore} keeps working.
      */
     private void startGui(BundleContext bc, CoreServices core) {
         try {
+            // registered once all of the panel and the actions are built, so that a failure
+            // (e.g. a missing resource) leaves none of them registered
+            List<Runnable> registrations = new ArrayList<>();
             ServiceAdapter adapter = core.adapter();
             SBMLManager sbmlManager = core.sbmlManager();
             CofactorManager cofactorManager = core.cofactorManager();
@@ -446,7 +451,7 @@ public class CyActivator extends AbstractCyActivator {
             StyleManager styleManager = new StyleManager(
                     loadVizmapFileTaskFactory, adapter.visualMappingManager, styles, layoutStyleFactory);
             styleManager.loadStyles();
-            registerService(bc, styleManager, SessionLoadedListener.class, new Properties());
+            registrations.add(() -> registerService(bc, styleManager, SessionLoadedListener.class, new Properties()));
 
             // BioModels search and import dialog
             BiomodelsQuery biomodelsQuery = core.biomodelsQuery();
@@ -459,49 +464,55 @@ public class CyActivator extends AbstractCyActivator {
 
             // panels
             webViewPanel = new WebViewPanel(adapter, sbmlManager, htmlFactory, cofactorManager, biomodelsDialog);
-            registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties());
-            registerService(bc, webViewPanel, RowsSetListener.class, new Properties());
-            registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties());
-            registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties());
-            // the panel renders the network events of a loaded session before the mapping is restored
-            sbmlManager.addSessionRestoredListener(webViewPanel::updateInformation);
+            registrations.add(() -> registerService(bc, webViewPanel, CytoPanelComponent.class, new Properties()));
+            registrations.add(() -> registerService(bc, webViewPanel, RowsSetListener.class, new Properties()));
+            registrations.add(
+                    () -> registerService(bc, webViewPanel, SetCurrentNetworkListener.class, new Properties()));
+            registrations.add(
+                    () -> registerService(bc, webViewPanel, NetworkViewAddedListener.class, new Properties()));
+            registrations.add(() ->
+                    registerService(bc, webViewPanel, NetworkViewAboutToBeDestroyedListener.class, new Properties()));
 
             // GUI frames
 
             // init actions [100 - 120]
             ChangeStateAction changeStateAction = new ChangeStateAction(webViewPanel);
-            registerService(bc, changeStateAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, changeStateAction, CyAction.class, new Properties()));
 
             ImportAction importAction = new ImportAction(adapter);
-            registerService(bc, importAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, importAction, CyAction.class, new Properties()));
 
             ExamplesAction examplesAction = new ExamplesAction(webViewPanel);
-            registerService(bc, examplesAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, examplesAction, CyAction.class, new Properties()));
 
             SplitCofactorsAction splitCofactorsAction = new SplitCofactorsAction(adapter, sbmlManager, cofactorManager);
-            registerService(bc, splitCofactorsAction, CyAction.class, new Properties());
-            registerService(bc, splitCofactorsAction, SetCurrentNetworkListener.class, new Properties());
+            registrations.add(() -> registerService(bc, splitCofactorsAction, CyAction.class, new Properties()));
+            registrations.add(
+                    () -> registerService(bc, splitCofactorsAction, SetCurrentNetworkListener.class, new Properties()));
 
             MergeCofactorsAction mergeCofactorsAction = new MergeCofactorsAction(adapter, sbmlManager, cofactorManager);
-            registerService(bc, mergeCofactorsAction, CyAction.class, new Properties());
-            registerService(bc, mergeCofactorsAction, SetCurrentNetworkListener.class, new Properties());
+            registrations.add(() -> registerService(bc, mergeCofactorsAction, CyAction.class, new Properties()));
+            registrations.add(
+                    () -> registerService(bc, mergeCofactorsAction, SetCurrentNetworkListener.class, new Properties()));
 
             BiomodelsAction biomodelsAction = new BiomodelsAction(biomodelsDialog);
-            registerService(bc, biomodelsAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, biomodelsAction, CyAction.class, new Properties()));
 
             // init actions
 
             HelpAction helpAction = new HelpAction(webViewPanel);
-            registerService(bc, helpAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, helpAction, CyAction.class, new Properties()));
 
             SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter, core.layoutTools());
-            registerService(bc, saveLayoutAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, saveLayoutAction, CyAction.class, new Properties()));
 
             LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter, core.layoutTools());
-            registerService(bc, loadLayoutAction, CyAction.class, new Properties());
+            registrations.add(() -> registerService(bc, loadLayoutAction, CyAction.class, new Properties()));
 
             // cy3sbml panels
+            registrations.forEach(Runnable::run);
+            // the panel renders the network events of a loaded session before the mapping is restored
+            sbmlManager.addSessionRestoredListener(webViewPanel::updateInformation);
             webViewPanel.activate();
 
             Log.logger.info("----------------------------");

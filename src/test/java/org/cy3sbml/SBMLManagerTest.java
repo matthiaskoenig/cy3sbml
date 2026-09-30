@@ -29,6 +29,7 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.SBase;
+import org.sbml.jsbml.Species;
 
 public class SBMLManagerTest {
 
@@ -77,6 +78,22 @@ public class SBMLManagerTest {
         assertSame(definition, manager.getModel(NetworkUtil.getRootNetworkSUID(network)));
 
         assertNull(manager.getModel(Long.valueOf(-1)));
+    }
+
+    /**
+     * The resolver of a document the manager tracks is created once; the one of a document
+     * it no longer tracks (e.g. rendered while its network is destroyed) is not kept.
+     */
+    @Test
+    public void resolversAreOnlyKeptForTrackedDocuments() throws Exception {
+        SBMLDocument tracked = new SBMLDocument(3, 1);
+        Species inTracked = tracked.createModel("m").createSpecies("s");
+        manager.addSBMLForNetwork(tracked, SUID, MAPPING);
+        SBMLDocument untracked = new SBMLDocument(3, 1);
+        Species inUntracked = untracked.createModel("m").createSpecies("s");
+
+        assertSame(manager.getSBaseRefResolver(inTracked), manager.getSBaseRefResolver(inTracked));
+        assertNotSame(manager.getSBaseRefResolver(inUntracked), manager.getSBaseRefResolver(inUntracked));
     }
 
     @Test
