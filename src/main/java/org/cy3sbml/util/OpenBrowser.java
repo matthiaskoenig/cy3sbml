@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Static OpenBrower helper class.
+ * Opens URLs in the system browser: with {@link Desktop#browse}, else with the first
+ * browser command that starts, else it shows the URL in a dialog to copy.
  */
 public class OpenBrowser {
     private static final Logger logger = LoggerFactory.getLogger(OpenBrowser.class);
@@ -18,31 +19,36 @@ public class OpenBrowser {
     };
 
     /**
-     * Opens the specified URL in the system default web browser.
+     * Opens the URL in the system default web browser.
      *
-     * @return true if the URL opens successfully.
+     * @param url an absolute URL, e.g. of a link in the info panel
+     * @return true if the URL opens successfully, false if it is no absolute URL or no
+     *     browser could be started
      */
     public static boolean openURL(final String url) {
-        URI uri = null;
+        URI uri;
         try {
             uri = new URI(url);
         } catch (URISyntaxException e) {
-            throw new IllegalArgumentException("URL has an incorrect format: " + url);
+            logger.warn("Not opened in the browser, no valid URL: {}", url);
+            return false;
         }
-
+        // an absolute URL starts with its scheme, so a browser command cannot take it as an option
+        if (!uri.isAbsolute()) {
+            logger.warn("Not opened in the browser, no absolute URL: {}", url);
+            return false;
+        }
         if (openURLWithDesktop(uri)) {
             return true;
-        } else {
-            for (final String browser : BROWSERS) {
-                if (openURLWithBrowser(url, browser)) {
-                    return true;
-                }
+        }
+        for (final String browser : BROWSERS) {
+            if (openURLWithBrowser(url, browser)) {
+                return true;
             }
         }
-
         JOptionPane.showInputDialog(
                 null,
-                "Cytoscape was unable to open your web browser.. "
+                "Cytoscape was unable to open your web browser."
                         + "\nPlease copy the following URL and paste it into your browser:",
                 url);
         return false;
@@ -65,7 +71,7 @@ public class OpenBrowser {
             builder.start();
             return true;
         } catch (IOException e) {
-            logger.info(String.format("Failed to launch browser process %s: %s", browser, e.getMessage()));
+            logger.debug("Failed to launch browser process {}: {}", browser, e.getMessage());
             return false;
         }
     }

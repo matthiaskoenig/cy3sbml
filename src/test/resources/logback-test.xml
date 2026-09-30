@@ -50,6 +50,7 @@
     <logger name="org.cy3sbml.layout.XMLInterface" level="ERROR" />
     <logger name="org.cy3sbml.util.XMLUtil" level="ERROR" />
     <logger name="org.cy3sbml.util.GUIUtil" level="ERROR" />
+    <logger name="org.cy3sbml.util.OpenBrowser" level="ERROR" />
     <logger name="org.cy3sbml.ConnectionProxy" level="ERROR" />
     <!-- web-service fixtures: error statuses, timeouts, incomplete entries -->
     <logger name="org.cy3sbml.util.HttpJson" level="ERROR" />

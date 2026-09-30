@@ -2,11 +2,13 @@ package org.cy3sbml.util;
 
 import static org.cy3sbml.gui.GUIConstants.EXPORT_HTML;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
@@ -17,6 +19,10 @@ import org.sbml.jsbml.TidySBMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Actions of the info panel links: loading the examples and opening the SBML, the panel HTML
+ * or a URL in the system browser.
+ */
 public class GUIUtil {
     private static final Logger logger = LoggerFactory.getLogger(GUIUtil.class);
 
@@ -50,30 +56,31 @@ public class GUIUtil {
     }
 
     /**
-     * Open current SBML in browser.
-     * Writes a temporary file of the SBML which can be loaded.
+     * Opens the SBML of the current document in the browser: writes it to a temporary file,
+     * deleted on exit. Does nothing if there is no current document.
+     *
+     * @param sbmlManager the manager with the current document
      */
     public static void openCurrentSBMLInBrowser(SBMLManager sbmlManager) {
         SBMLDocument doc = sbmlManager.getCurrentSBMLDocument();
-
+        if (doc == null) {
+            logger.warn("No current SBML document, nothing to open in the browser.");
+            return;
+        }
         try {
-            // write to tmp file
             File temp = File.createTempFile("cy3sbml", ".xml");
-            logger.debug("Temp file : {}", temp.getAbsolutePath());
-
-            try {
-                TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
-                openFileInBrowser(temp);
-            } catch (SBMLException | FileNotFoundException | XMLStreamException e) {
-                logger.error("SBML opening failed.", e);
-            }
-        } catch (IOException e) {
-            logger.error("SBML could not be opened in browser.", e);
+            temp.deleteOnExit();
+            TidySBMLWriter.write(doc, temp.getAbsolutePath(), ' ', (short) 2);
+            openFileInBrowser(temp);
+        } catch (SBMLException | XMLStreamException | IOException e) {
+            logger.error("SBML could not be opened in the browser.", e);
         }
     }
 
     /**
-     * Open url in external webView.
+     * Opens the URL in the system browser, on the Swing event dispatch thread.
+     *
+     * @param url the URL
      */
     public static void openURLinExternalBrowser(String url) {
         logger.debug("Open in external webView <{}>", url);
@@ -81,7 +88,9 @@ public class GUIUtil {
     }
 
     /**
-     * Open the given SBase HTML information in external Browser.
+     * Opens the HTML of the info panel in the system browser, without its export button.
+     *
+     * @param html the HTML of the panel, null if the panel shows none yet
      */
     public static void openSBaseHTMLInBrowser(String html) {
         if (html == null) {
@@ -94,14 +103,14 @@ public class GUIUtil {
     }
 
     /**
-     * Open validation HTML in external Browser.
+     * Opens the HTML in the system browser: writes it to a temporary file, deleted on exit.
+     *
+     * @param html the HTML page
      */
     public static void openHTMLInBrowser(String html) {
-        // write temp file
         try {
             File temp = File.createTempFile("cy3sbml", ".html");
-            logger.debug("Temp file : {}", temp.getAbsolutePath());
-
+            temp.deleteOnExit();
             Files.writeString(temp.toPath(), html, StandardCharsets.UTF_8);
             GUIUtil.openFileInBrowser(temp);
         } catch (IOException e) {
@@ -110,9 +119,20 @@ public class GUIUtil {
     }
 
     /**
-     * Open a given file in browser.
+     * Opens the file in the system browser, on the Swing event dispatch thread.
+     *
+     * @param temp the file
      */
     public static void openFileInBrowser(File temp) {
-        SwingUtilities.invokeLater(() -> OpenBrowser.openURL("file://" + temp.getAbsolutePath()));
+        String url = fileUrl(temp);
+        SwingUtilities.invokeLater(() -> OpenBrowser.openURL(url));
+    }
+
+    /**
+     * The file URL of the file. {@code "file://" + path} is no valid URL for a path with a
+     * space or a Windows path.
+     */
+    static String fileUrl(File file) {
+        return file.getAbsoluteFile().toURI().toString();
     }
 }
